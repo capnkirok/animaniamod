@@ -1,0 +1,262 @@
+item.animania_hamster_food.name=Comida de hamster
+item.animania_truffle.name=Trufas
+item.animania_brown_egg.name=Ovo
+item.animania_bucket_slop.name=Balde de lama
+item.animania_carving_knife.name=Faca de escultura
+item.animania_cheese_mold.name=Molde de queijo
+
+item.animania_carving_knife.desc=Usado para esculpir carnes e queijos
+item.animania_cheese_mold.desc=Usado para fazer queijo
+item.animania_entity_egg.desc1=Desovar
+item.animania_entity_egg.desc2=[Clique direito]
+
+item.animania_raw_angus_beef.name=Carne crua (Raça: Angus)
+item.animania_cooked_angus_roast.name=Carne assada (Raça: Angus)
+item.animania_raw_angus_steak.name=Bife cru (Raça: Angus)
+item.animania_cooked_angus_steak.name=Bife cozido (Raça: Angus)
+item.animania_raw_hereford_beef.name=Bife cru (Raça: Hereford)
+item.animania_cooked_hereford_roast.name=Carne assada (Raça: Hereford)
+item.animania_raw_hereford_steak.name=Bife cru (Raça: Hereford)
+item.animania_cooked_hereford_steak.name=Bife cozido (Raça: Hereford)
+item.animania_raw_longhorn_beef.name=Bife cru (Raça: Longhorn)
+item.animania_cooked_longhorn_roast.name=Carne assada (Raça: Longhorn)
+item.animania_raw_longhorn_steak.name=Bife cru (Raça: Longhorn)
+item.animania_cooked_longhorn_steak.name=Bife cozido (Raça: Longhorn)
+
+item.animania_raw_large_black_pork.name=Carne de porco crua (Raça: Large Black)
+item.animania_cooked_large_black_roast.name=Carne de porco assada (Raça: Large Black)
+item.animania_raw_large_black_bacon.name=Bacon cru (Raça: Large Black)
+item.animania_cooked_large_black_bacon.name=Bacon (Raça: Large Black)
+item.animania_raw_duroc_pork.name=Carne de porco crua (Raça: Duroc)
+item.animania_cooked_duroc_roast.name=Carne de porco assada (Raça: Duroc)
+item.animania_raw_duroc_bacon.name=Bacon cru (Raça: Duroc)
+item.animania_cooked_duroc_bacon.name=Bacon (Raça: Duroc)
+item.animania_raw_old_spot_pork.name=Carne de porco crua (Raça: Old Spot)
+item.animania_cooked_old_spot_roast.name=Carne de porco assada (Raça: Old Spot)
+item.animania_raw_old_spot_bacon.name=Bacon cru (Raça: Old Spot)
+item.animania_cooked_old_spot_bacon.name=Bacon (Raça: Old Spot)
+item.animania_raw_hampshire_pork.name=Carne de porco crua (Raça: Hampshire)
+item.animania_cooked_hampshire_roast.name=Carne de porco assada (Raça: Hampshire)
+item.animania_raw_hampshire_bacon.name=Bacon cru (Raça: Hampshire)
+item.animania_cooked_hampshire_bacon.name=Bacon (Raça: Hampshire)
+
+item.animania_raw_orpington_chicken.name=Frango cru (Raça: Orpington)
+item.animania_cooked_orpington_chicken.name=Frango assado (Raça: Orpington)
+item.animania_raw_plymouth_rock_chicken.name=Frango cru (Raça: Plymouth Rock)
+item.animania_cooked_plymouth_rock_chicken.name=Frango assado (Raça: Plymouth Rock)
+item.animania_raw_rhode_island_red_chicken.name=Frango cru (Raça: Rhode Island Red)
+item.animania_cooked_rhode_island_red_chicken.name=Frango assado (Raça: Rhode Island Red)
+item.animania_raw_wyandotte_chicken.name=Frango cru (Raça: Wyandotte)
+item.animania_cooked_wyandotte_chicken.name=Frango assado (Raça: Wyandotte)
+
+item.animania_friesian_cheese_wheel.name=Roda de queijo (Raça: Friesian)
+item.animania_friesian_cheese_wedge.name=Fatia de queijo (Raça: Friesian)
+item.animania_holstein_cheese_wheel.name=Roda de queijo (Raça: Holstein)
+item.animania_holstein_cheese_wedge.name=Fatia de queio (Raça: Holstein)
+item.animania_holstein_bucket_milk.name=Balde de leite (Raça: Holstein)
+item.animania_friesian_bucket_milk.name=Balde de leite (Raça: Friesian)
+item.animania_truffle_soup.name=Sopa de trufas
+item.animania_chocolate_truffle.name=Trufa de chocolate
+
+item.animania_plain_omelette.name=Omelete
+item.animania_bacon_omelette.name=Omelete de bacon
+item.animania_cheese_omelette.name=Omelete de queijo
+item.animania_truffle_omelette.name=Omelete de trufa
+item.animania_super_omelette.name=Super Omelete
+
+item.animania_entity_egg_cow_holstein.name=Vaca Holandesa
+item.animania_entity_egg_bull_holstein.name=Touro Holstein
+item.animania_entity_egg_calf_holstein.name=Bezerro Holstein
+item.animania_entity_egg_cow_friesian.name=Vaca Friesian
+item.animania_entity_egg_bull_friesian.name=Touro Friesian
+item.animania_entity_egg_calf_friesian.name=Bezerro Friesian
+item.animania_entity_egg_cow_angus.name=Vaca Angus
+item.animania_entity_egg_bull_angus.name=Touro Angus
+item.animania_entity_egg_calf_angus.name=Bezerro Angus
+item.animania_entity_egg_cow_longhorn.name=Vaca Longhorn
+item.animania_entity_egg_bull_longhorn.name=Touro Longhorn
+item.animania_entity_egg_calf_longhorn.name=Bezerro Longhorn
+item.animania_entity_egg_cow_hereford.name=Vaca Hereford
+item.animania_entity_egg_bull_hereford.name=Touro Hereford
+item.animania_entity_egg_calf_hereford.name=Bezerro Hereford
+
+item.animania_entity_egg_chick_plymouth.name=Pinto Plymouth Rock
+item.animania_entity_egg_hen_plymouth.name=Galinha Plymouth Rock
+item.animania_entity_egg_rooster_plymouth.name=Galo Plymouth Rock
+item.animania_entity_egg_chick_red.name=Pinto Island Red
+item.animania_entity_egg_hen_red.name=Galinha Island Red
+item.animania_entity_egg_rooster_red.name=Galo Island Red
+item.animania_entity_egg_chick_leghorn.name=Pinto Leghorn
+item.animania_entity_egg_hen_leghorn.name=Galinha Leghorn
+item.animania_entity_egg_rooster_leghorn.name=Galo Leghorn
+item.animania_entity_egg_chick_orpington.name=Pinto Orpington
+item.animania_entity_egg_hen_orpington.name=Galinha Orpington
+item.animania_entity_egg_rooster_orpington.name=Galo Orpington
+item.animania_entity_egg_chick_wyandotte.name=Pinto Wyandotte
+item.animania_entity_egg_hen_wyandotte.name=Galinha Wyandotte
+item.animania_entity_egg_rooster_wyandotte.name=Galo Wyandotte
+
+item.animania_entity_egg_piglet_yorkshire.name=Leitão Yorkshire
+item.animania_entity_egg_sow_yorkshire.name=Porca Yorkshire
+item.animania_entity_egg_hog_yorkshire.name=Porco Yorkshire
+item.animania_entity_egg_piglet_oldspot.name=Leitão Old Spot
+item.animania_entity_egg_sow_oldspot.name=Porca Old Spot
+item.animania_entity_egg_hog_oldspot.name=Porco Old Spot
+item.animania_entity_egg_piglet_duroc.name=Leitão Duroc
+item.animania_entity_egg_sow_duroc.name=Porca Duroc
+item.animania_entity_egg_hog_duroc.name=Porco Duroc
+item.animania_entity_egg_piglet_largeblack.name=Leitão Large Black
+item.animania_entity_egg_sow_largeblack.name=Porca Large Black
+item.animania_entity_egg_hog_largeblack.name=Porco Large Black
+item.animania_entity_egg_piglet_largewhite.name=Leitão Large White
+item.animania_entity_egg_sow_largewhite.name=Porca Large White
+item.animania_entity_egg_hog_largewhite.name=Porco Large White
+item.animania_entity_egg_piglet_hampshire.name=Leitão Hampshire
+item.animania_entity_egg_sow_hampshire.name=Porca Hampshire
+item.animania_entity_egg_hog_hampshire.name=Porco Hampshire
+
+item.animania_entity_egg_hamster.name=Hamster
+item.animania_entity_egg_ferret_white.name=Furão albino
+item.animania_entity_egg_ferret_grey.name=Furão cinza
+
+item.animania_entity_egg_peacock_blue.name=Pavão Indiano azul
+item.animania_entity_egg_peafowl_blue.name=Pavoa Indiano azul
+item.animania_entity_egg_peachick_blue.name=Pavão filhote Indiano azul
+item.animania_entity_egg_peacock_white.name=Pavão Albino
+item.animania_entity_egg_peafowl_white.name=Pavoa Albina
+item.animania_entity_egg_peachick_white.name=Pavão filhote Albino
+
+entity.animania.ChickRhodeIslandRed.name=Pinto Island Red
+entity.animania.HenRhodeIslandRed.name=Galinha Island Red
+entity.animania.RoosterRhodeIslandRed.name=Galo Island Red
+entity.animania.ChickPlymouthRock.name=Pinto Plymouth Rock
+entity.animania.HenPlymouthRock.name=Galinha Plymouth Rock
+entity.animania.RoosterPlymouthRock.name=Galo Plymouth Rock
+entity.animania.ChickLeghorn.name=Pinto Leghorn
+entity.animania.HenLeghorn.name=Galinha Leghorn
+entity.animania.RoosterLeghorn.name=Galo Leghorn
+entity.animania.ChickOrpington.name=Pinto Orpington
+entity.animania.HenOrpington.name=Galinha Orpington
+entity.animania.RoosterOrpington.name=Galo Orpington
+entity.animania.ChickWyandotte.name=Pinto Wyandotte
+entity.animania.HenWyandotte.name=Galinha Wyandotte
+entity.animania.RoosterWyandotte.name=Galo Wyandotte
+
+entity.animania.BullAngus.name=Touro Angus
+entity.animania.CowAngus.name=Vaca Angus
+entity.animania.CalfAngus.name=Bezerro Angus
+entity.animania.BullHolstein.name=Touro Holstein
+entity.animania.CowHolstein.name=Vaca Holstein
+entity.animania.CalfHolstein.name=Bezerro Holstein
+entity.animania.BullFriesian.name=Touro Friesian
+entity.animania.CowFriesian.name=Vaca Friesian
+entity.animania.CalfFriesian.name=Bezerro Friesian
+entity.animania.BullHereford.name=Touro Hereford
+entity.animania.CowHereford.name=Vaca Hereford
+entity.animania.CalfHereford.name=Bezerro Hereford
+entity.animania.BullLonghorn.name=Touro Longhorn
+entity.animania.CowLonghorn.name=Vaca Longhorn
+entity.animania.CalfLonghorn.name=Bezerro Longhorn
+
+entity.animania.HogYorkshire.name=Porco Yorkshire
+entity.animania.SowYorkshire.name=Porca Yorkshire
+entity.animania.PigletYorkshire.name=Leitão Yorkshire
+entity.animania.HogOldSpot.name=Porco Old Spot
+entity.animania.SowOldSpot.name=Porca Old Spot
+entity.animania.PigletOldSpot.name=Leitão Old Spot
+entity.animania.HogLargeBlack.name=Porco Large Black
+entity.animania.SowLargeBlack.name=Porca Large Black
+entity.animania.PigletLargeBlack.name=Leitão Large Black
+entity.animania.HogLargeWhite.name=Porco Large White
+entity.animania.SowLargeWhite.name=Porca Large White
+entity.animania.PigletLargeWhite.name=Leitão Large White
+entity.animania.HogDuroc.name=Porco Duroc
+entity.animania.SowDuroc.name=Porca Duroc
+entity.animania.PigletDuroc.name=Leitão Duroc
+entity.animania.HogHampshire.name=Porco Hampshire
+entity.animania.SowHampshire.name=Porca Hampshire
+entity.animania.PigletHampshire.name=Leitão Hampshire
+
+entity.animania.Hamster.name=Hamster
+entity.animania.FerretGrey.name=Furão cinza
+entity.animania.FerretWhite.name=Furão branco
+
+entity.animania.PeacockBlue.name=Pavão Indiano Azul
+entity.animania.PeafowlBlue.name=Pavoa Indiano Azul
+entity.animania.PeachickBlue.name=Pavoa Indiano Azul
+
+entity.animania.PeacockWhite.name=Pavão
+entity.animania.PeafowlWhite.name=Pavoa
+entity.animania.PeachickWhite.name=Pavoa
+
+tile.animania_block_mud.name=Lama
+tile.animania_block_seeds.name=Sementes
+tile.animania_block_trough.name=Cocho
+tile.animania_block_nest.name=Ninho
+tile.animania_invisiblock.name=Cocho
+
+tab.animania_entities.label=Mobs Animania
+tab.animania_resources.label=Recursos Animania
+
+achievement.an.leghorn=Leghorn.
+achievement.an.leghorn.desc=Seja amigo de uma Galinha Leghorn!
+achievement.an.orpington=Orpington.
+achievement.an.orpington.desc=Seja amigo de uma Galinha Orpington!
+achievement.an.plymouthrock=Plymouth Rock.
+achievement.an.plymouthrock.desc=Seja amigo de uma Galinha Plymouth Rock!
+achievement.an.rhodeislandred=Rhode Island Red.
+achievement.an.rhodeislandred.desc=Seja amigo de uma Galinha Island Red!
+achievement.an.wyandotte=Wyandotte.
+achievement.an.wyandotte.desc=Seja amigo de uma Galinha Wyandotte!
+achievement.an.chickens=Família de Frangos.
+achievement.an.chickens.desc=Seja amigo de TODAS AS RAÇAS de Galinhas!
+
+achievement.an.angus=Angus.
+achievement.an.angus.desc=Seja amigo de uma Vaca Angus!
+achievement.an.friesian=Friesian.
+achievement.an.friesian.desc=Seja amigo de uma Vaca Friesian!
+achievement.an.hereford=Hereford.
+achievement.an.hereford.desc=Seja amigo de uma Vaca Hereford!
+achievement.an.holstein=Holstein.
+achievement.an.holstein.desc=Seja amigo de uma Vaca Holstein!
+achievement.an.longhorn=Longhorn.
+achievement.an.longhorn.desc=Seja amigo de uma Vaca Longhorn!
+achievement.an.cows=Família de Bovinos.
+achievement.an.cows.desc=Seja amigo de TODAS AS RAÇAS de Vacas!
+
+achievement.an.duroc=Duroc.
+achievement.an.duroc.desc=Seja amigo de um Porco Duroc!
+achievement.an.hampshire=Hampshire.
+achievement.an.hampshire.desc=Seja amigo de um Porco Hampshire!
+achievement.an.largeblack=Large Black.
+achievement.an.largeblack.desc=Seja amigo de um Porco Large Black!
+achievement.an.largewhite=Large White.
+achievement.an.largewhite.desc=Seja amigo de um Porco Large White!
+achievement.an.oldspot=Old Spot.
+achievement.an.oldspot.desc=Seja amigo de um Porco Old Spot!
+achievement.an.yorkshire=Yorkshire.
+achievement.an.yorkshire.desc=Seja amigo de um Porco Yorkshire!
+achievement.an.pigs=Família de Suínos.
+achievement.an.pigs.desc=Seja amigo de TODAS AS RAÇAS de Porcos!
+
+achievement.an.indiablue=Indiano Azul.
+achievement.an.indiablue.desc=Seja amigo de um Pavão Indiano Azul!
+achievement.an.white=White Pavão.
+achievement.an.white.desc=Seja amigo de um Pavão!
+achievement.an.peacocks=Peacock Família de Aves Exóticas.
+achievement.an.peacocks.desc=Seja amigo de TODAS AS RAÇAS de Pavões!
+
+achievement.an.greyferret=Furão Cinza.
+achievement.an.greyferret.desc=Seja amigo de um Furão Cinza!
+achievement.an.whiteferret=Furão Branco.
+achievement.an.whiteferret.desc=Seja amigo de um Furão Branco!
+achievement.an.ferrets=Família de Mustelídeos.
+achievement.an.ferrets.desc=Seja amigo de TODAS AS RAÇAS de Furões!
+
+achievement.an.hamsters=Bolinha de Algodão.
+achievement.an.hamsters.desc=Seja amigo de um Hamster!
+
+animania.updatetext.1=Versão Animania
+animania.updatetext.2=Está Disponível!
+animania.updatetext.3=Falha ao conectar para ver se á uma atualização disponível para o Animania
+animania.update.download=["Clique para: [",{"text":"Download","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Clique para ver os últimos arquivos do 1.11 disponíveis para download","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]

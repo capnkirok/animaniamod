@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "normal": { "model": "animania:block_nest" },
+        "facing=north": { "model": "animania:block_nest" },
+        "facing=west": { "model": "animania:block_nest" },
+        "facing=east": { "model": "animania:block_nest" },
+        "facing=up": { "model": "animania:block_nest" },
+        "facing=down": { "model": "animania:block_nest" },
+        "facing=south": { "model": "animania:block_nest" }
+    }
+}

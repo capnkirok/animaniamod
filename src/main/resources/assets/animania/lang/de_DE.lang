@@ -1,0 +1,262 @@
+item.animania_hamster_food.name=Hamster Futter
+item.animania_truffle.name=Trüffel
+item.animania_brown_egg.name=Ei
+item.animania_bucket_slop.name=Eimer mit Schmutzwasser
+item.animania_carving_knife.name=Tranchiermesser
+item.animania_cheese_mold.name=Schimmelkäse
+
+item.animania_carving_knife.desc=Wird verwendet um Fleisch und Käse zu schneiden
+item.animania_cheese_mold.desc=Wird benutzt um Käse herzustellen
+item.animania_entity_egg.desc1=Spawnen
+item.animania_entity_egg.desc2=[Rechtsklick]
+
+item.animania_raw_angus_beef.name=Rohes Rindfleisch (Angus Kuh)
+item.animania_cooked_angus_roast.name=Roastbeef (Angus Kuh)
+item.animania_raw_angus_steak.name=Rohes Steak (Angus Kuh)
+item.animania_cooked_angus_steak.name=Gebratenes Steak (Angus Kuh)
+item.animania_raw_hereford_beef.name=Rohes Rindfleisch (Hereford Kuh)
+item.animania_cooked_hereford_roast.name=Roastbeef (Hereford Kuh)
+item.animania_raw_hereford_steak.name=Rohes Steak (Hereford Kuh)
+item.animania_cooked_hereford_steak.name=Gebratenes Steak (Hereford Kuh)
+item.animania_raw_longhorn_beef.name=Rohes Rindfleisch (Longhorn Kuh)
+item.animania_cooked_longhorn_roast.name=Roastbeef (Longhorn Kuh)
+item.animania_raw_longhorn_steak.name=Rohes Steak (Longhorn Kuh)
+item.animania_cooked_longhorn_steak.name=Gebratenes Steak (Longhorn Kuh)
+
+item.animania_raw_large_black_pork.name=Rohes Schweinefleisch (Cornwall Schwein)
+item.animania_cooked_large_black_roast.name=Schweinebraten (Cornwall Schwein)
+item.animania_raw_large_black_bacon.name=Rohspeck (Cornwall Schwein)
+item.animania_cooked_large_black_bacon.name=Speck (Cornwall Schwein)
+item.animania_raw_duroc_pork.name=Rohes Schweinefleisch (Duroc Schwein)
+item.animania_cooked_duroc_roast.name=Schweinebraten (Duroc Schwein)
+item.animania_raw_duroc_bacon.name=Rohspeck (Duroc Schwein)
+item.animania_cooked_duroc_bacon.name=Speck (Duroc Schwein)
+item.animania_raw_old_spot_pork.name=Rohes Schweinefleisch (Old Spot Schwein)
+item.animania_cooked_old_spot_roast.name=Schweinebraten (Old Spot Schwein)
+item.animania_raw_old_spot_bacon.name=Rohspeck (Old Spot Schwein)
+item.animania_cooked_old_spot_bacon.name=Speck (Old Spot Schwein)
+item.animania_raw_hampshire_pork.name=Rohes Schweinefleisch (Hampshire Schwein)
+item.animania_cooked_hampshire_roast.name=Schweinebraten (Hampshire Schwein)
+item.animania_raw_hampshire_bacon.name=Rohspeck (Hampshire Schwein)
+item.animania_cooked_hampshire_bacon.name=Speck (Hampshire Schwein)
+
+item.animania_raw_orpington_chicken.name=Rohes Hühnerfleisch (Orpington Huhn)
+item.animania_cooked_orpington_chicken.name=Brathähnchen (Orpington Huhn)
+item.animania_raw_plymouth_rock_chicken.name=Rohes Hühnerfleisch (Plymouth Rock Huhn)
+item.animania_cooked_plymouth_rock_chicken.name=Brathähnchen (Plymouth Rock Huhn)
+item.animania_raw_rhode_island_red_chicken.name=Rohes Hühnerfleisch (Rhodeländer Huhn)
+item.animania_cooked_rhode_island_red_chicken.name=Brathähnchen (Rhodeländer Huhn)
+item.animania_raw_wyandotte_chicken.name=Rohes Hühnerfleisch (Wyandotte Huhn)
+item.animania_cooked_wyandotte_chicken.name=Brathähnchen (Wyandotte Huhn)
+
+item.animania_friesian_cheese_wheel.name=Käserlaib (Friesisch)
+item.animania_friesian_cheese_wedge.name=Käsestück (Friesisch)
+item.animania_holstein_cheese_wheel.name=Käserlaib (Holstein)
+item.animania_holstein_cheese_wedge.name=Käsestück (Holstein)
+item.animania_holstein_bucket_milk.name=Eimer Milch (Holstein)
+item.animania_friesian_bucket_milk.name=Eimer Milch (Friesisch)
+item.animania_truffle_soup.name=Trüffelsuppe
+item.animania_chocolate_truffle.name=Schokoladentrüffel
+
+item.animania_plain_omelette.name=Omelette
+item.animania_bacon_omelette.name=Omelette mit Speck
+item.animania_cheese_omelette.name=Käseomelette
+item.animania_truffle_omelette.name=Trüffelomelette
+item.animania_super_omelette.name=Superomelette
+
+item.animania_entity_egg_cow_holstein.name=Holstein Kuh (Kuh)
+item.animania_entity_egg_bull_holstein.name=Holstein Kuh (Stier)
+item.animania_entity_egg_calf_holstein.name=Holstein Kuh (Kalb)
+item.animania_entity_egg_cow_friesian.name=Friesische Kuh
+item.animania_entity_egg_bull_friesian.name=Friesischer Stier
+item.animania_entity_egg_calf_friesian.name=Friesisches Kalb
+item.animania_entity_egg_cow_angus.name=Angus Kuh (Kuh)
+item.animania_entity_egg_bull_angus.name=Angus Kuh (Stier)
+item.animania_entity_egg_calf_angus.name=Angus Kuh (Kalb)
+item.animania_entity_egg_cow_longhorn.name=Longhorn Kuh (Kuh)
+item.animania_entity_egg_bull_longhorn.name=Longhorn Kuh (Stier)
+item.animania_entity_egg_calf_longhorn.name=Longhorn Kuh (Kalb)
+item.animania_entity_egg_cow_hereford.name=Hereford Kuh (Kuh)
+item.animania_entity_egg_bull_hereford.name=Hereford Kuh (Stier)
+item.animania_entity_egg_calf_hereford.name=Hereford Kuh (Kalb)
+
+item.animania_entity_egg_chick_plymouth.name=Plymouth Rock Huhn (Küken)
+item.animania_entity_egg_hen_plymouth.name=Plymouth Rock Huhn (Henne)
+item.animania_entity_egg_rooster_plymouth.name=Plymouth Rock Huhn (Hahn)
+item.animania_entity_egg_chick_red.name=Rhodeländer Hunh (Küken)
+item.animania_entity_egg_hen_red.name=Rhodeländer Hunh (Henne)
+item.animania_entity_egg_rooster_red.name=Rhodeländer Hunh (Hahn)
+item.animania_entity_egg_chick_leghorn.name=Leghorn Huhn (Küken)
+item.animania_entity_egg_hen_leghorn.name=Leghorn Huhn (Henne)
+item.animania_entity_egg_rooster_leghorn.name=Leghorn Huhn (Hahn)
+item.animania_entity_egg_chick_orpington.name=Orpington Huhn (Küken)
+item.animania_entity_egg_hen_orpington.name=Orpington Huhn (Henne)
+item.animania_entity_egg_rooster_orpington.name=Orpington Huhn (Hahn)
+item.animania_entity_egg_chick_wyandotte.name=Wyandotte Huhn (Küken)
+item.animania_entity_egg_hen_wyandotte.name=Wyandotte Huhn (Henne)
+item.animania_entity_egg_rooster_wyandotte.name=Wyandotte Huhn (Hahn)
+
+item.animania_entity_egg_piglet_yorkshire.name=Yorkshire Schwein (Ferkel)
+item.animania_entity_egg_sow_yorkshire.name=Yorkshire Schwein (Sau)
+item.animania_entity_egg_hog_yorkshire.name=Yorkshire Schwein (Eber)
+item.animania_entity_egg_piglet_oldspot.name=Old Spot Schwein (Ferkel)
+item.animania_entity_egg_sow_oldspot.name=Old Spot Schwein (Sau)
+item.animania_entity_egg_hog_oldspot.name=Old Spot Schwein (Eber)
+item.animania_entity_egg_piglet_duroc.name=Duroc Schwein (Ferkel)
+item.animania_entity_egg_sow_duroc.name=Duroc Schwein (Sau)
+item.animania_entity_egg_hog_duroc.name=Duroc Schwein (Eber)
+item.animania_entity_egg_piglet_largeblack.name=Cornwallschwein (Ferkel)
+item.animania_entity_egg_sow_largeblack.name=Cornwallschwein (Sau)
+item.animania_entity_egg_hog_largeblack.name=Cornwallschwein (Eber)
+item.animania_entity_egg_piglet_largewhite.name=Large White Schwein (Ferkel)
+item.animania_entity_egg_sow_largewhite.name=Large White Schwein (Sau)
+item.animania_entity_egg_hog_largewhite.name=Large White Schwein (Eber)
+item.animania_entity_egg_piglet_hampshire.name=Hampshire Schwein (Ferkel)
+item.animania_entity_egg_sow_hampshire.name=Hampshire Schwein (Sau)
+item.animania_entity_egg_hog_hampshire.name=Hampshire Schwein (Eber)
+
+item.animania_entity_egg_hamster.name=Hamster
+item.animania_entity_egg_ferret_white.name=Weißes Frettchen
+item.animania_entity_egg_ferret_grey.name=Graues Frettchen
+
+item.animania_entity_egg_peacock_blue.name=Indischer Pfau (männlich)
+item.animania_entity_egg_peafowl_blue.name=Indischer Pfau (weiblich)
+item.animania_entity_egg_peachick_blue.name=Indischer Pfau (Küken)
+item.animania_entity_egg_peacock_white.name=Weißer Pfau (männlich)
+item.animania_entity_egg_peafowl_white.name=Weißer Pfau (weiblich)
+item.animania_entity_egg_peachick_white.name=Weißer Pfau (Küken)
+
+entity.animania.ChickRhodeIslandRed.name=Rhodeländer Huhn (Küken)
+entity.animania.HenRhodeIslandRed.name=Rhodeländer Huhn (Henne)
+entity.animania.RoosterRhodeIslandRed.name=Rhodeländer Huhn (Hahn)
+entity.animania.ChickPlymouthRock.name=Plymouth Rock Huhn (Küken)
+entity.animania.HenPlymouthRock.name=Plymouth Rock Huhn (Henne)
+entity.animania.RoosterPlymouthRock.name=Plymouth Rock Huhn (Hahn)
+entity.animania.ChickLeghorn.name=Leghorn Huhn (Küken)
+entity.animania.HenLeghorn.name=Leghorn Huhn (Henne)
+entity.animania.RoosterLeghorn.name=Leghorn Huhn (Hahn)
+entity.animania.ChickOrpington.name=Orpington Huhn (Küken)
+entity.animania.HenOrpington.name=Orpington Huhn (Henne)
+entity.animania.RoosterOrpington.name=Orpington Huhn (Hahn)
+entity.animania.ChickWyandotte.name=Wyandotte Huhn (Küken)
+entity.animania.HenWyandotte.name=Wyandotte Huhn (Henne)
+entity.animania.RoosterWyandotte.name=Wyandotte Huhn (Hahn)
+
+entity.animania.BullAngus.name=Angus Kuh (Stier)
+entity.animania.CowAngus.name=Angus Kuh (Kuh)
+entity.animania.CalfAngus.name=Angus Kuh (Kalb)
+entity.animania.BullHolstein.name=Holstein Kuh (Stier)
+entity.animania.CowHolstein.name=Holstein Kuh (Kuh)
+entity.animania.CalfHolstein.name=Holstein Kuh (Kalb)
+entity.animania.BullFriesian.name=Friesian Kuh (Stier)
+entity.animania.CowFriesian.name=Friesian Kuh (Kuh)
+entity.animania.CalfFriesian.name=Friesian Kuh (Kalb)
+entity.animania.BullHereford.name=Hereford Kuh (Stier)
+entity.animania.CowHereford.name=Hereford Kuh (Kuh)
+entity.animania.CalfHereford.name=Hereford Kuh (Kalb)
+entity.animania.BullLonghorn.name=Longhorn Kuh (Stier)
+entity.animania.CowLonghorn.name=Longhorn Kuh (Kuh)
+entity.animania.CalfLonghorn.name=Longhorn Kuh (Kalb)
+
+entity.animania.HogYorkshire.name=Yorkshire Schwein (Eber)
+entity.animania.SowYorkshire.name=Yorkshire Schwein (Sau)
+entity.animania.PigletYorkshire.name=Yorkshire Schwein (Ferkel)
+entity.animania.HogOldSpot.name=Old Spot Schwein (Eber)
+entity.animania.SowOldSpot.name=Old Spot Schwein (Sau)
+entity.animania.PigletOldSpot.name=Old Spot Schwein (Ferkel)
+entity.animania.HogLargeBlack.name=Cornwall Schwein (Eber)
+entity.animania.SowLargeBlack.name=Cornwall Schwein (Sau)
+entity.animania.PigletLargeBlack.name=Cornwall Schwein (Ferkel)
+entity.animania.HogLargeWhite.name=Large White Schwein (Eber)
+entity.animania.SowLargeWhite.name=Large White Schwein (Sau)
+entity.animania.PigletLargeWhite.name=Large White Schwein (Ferkel)
+entity.animania.HogDuroc.name=Duroc Schwein (Eber)
+entity.animania.SowDuroc.name=Duroc Schwein (Sau)
+entity.animania.PigletDuroc.name=Duroc Schwein (Ferkel)
+entity.animania.HogHampshire.name=Hampshire Schwein (Eber)
+entity.animania.SowHampshire.name=Hampshire Schwein (Sau)
+entity.animania.PigletHampshire.name=Hampshire Schwein (Ferkel)
+
+entity.animania.Hamster.name=Hamster
+entity.animania.FerretGrey.name=Graues Frettchen
+entity.animania.FerretWhite.name=Weißes Frettchen
+
+entity.animania.PeacockBlue.name=Pfau (männlich)
+entity.animania.PeafowlBlue.name=Pfau (weiblich)
+entity.animania.PeachickBlue.name=Pfau
+
+entity.animania.PeacockWhite.name=Pfau (männlich)
+entity.animania.PeafowlWhite.name=Pfau (weiblich)
+entity.animania.PeachickWhite.name=Pfau
+
+tile.animania_block_mud.name=Schlamm
+tile.animania_block_seeds.name=Samen
+tile.animania_block_trough.name=Trog
+tile.animania_block_nest.name=Nest
+tile.animania_invisiblock.name=Trog
+
+tab.animania_entities.label=Animania Entities
+tab.animania_resources.label=Animania Resourcen
+
+achievement.an.leghorn=Leghorn
+achievement.an.leghorn.desc=Befreunde dich mit einem Leghorn Huhn
+achievement.an.orpington=Orpington
+achievement.an.orpington.desc=Befreunde dich mit einem Orpington Huhn
+achievement.an.plymouthrock=Plymouth Rock
+achievement.an.plymouthrock.desc=Befreunde dich mit einem Plymouth Rock Huhn
+achievement.an.rhodeislandred=Rhodeländer
+achievement.an.rhodeislandred.desc=Befreunde dich mit einem Rhodeländer Huhn
+achievement.an.wyandotte=Wyandotte
+achievement.an.wyandotte.desc=Befreunde dich mit einem Wyandotte Huhn
+achievement.an.chickens=Hühnchenflüsterer
+achievement.an.chickens.desc=Befreunde dich mit allen Hühnerrassen
+
+achievement.an.angus=Angus
+achievement.an.angus.desc=Befreunde dich mit einer Angus Kuh
+achievement.an.friesian=Friesian
+achievement.an.friesian.desc=Befreunde dich mit einer friesischen Kuh
+achievement.an.hereford=Hereford
+achievement.an.hereford.desc=Befreunde dich mit einer Hereford Kuh
+achievement.an.holstein=Holstein
+achievement.an.holstein.desc=Befreunde dich mit einer Holstein Kuh
+achievement.an.longhorn=Longhorn
+achievement.an.longhorn.desc=Befreunde dich mit einer Longhorn Kuh
+achievement.an.cows=Kuhflüsterer
+achievement.an.cows.desc=Befreunde dich mit allen Kuhrassen
+
+achievement.an.duroc=Duroc Schwein
+achievement.an.duroc.desc=Befreunde dich mit einem Duroc Schwein
+achievement.an.hampshire=Hampshire Schwein
+achievement.an.hampshire.desc=Befreunde dich mit einem Hampshire Schwein
+achievement.an.largeblack=Cornwallschwein
+achievement.an.largeblack.desc=Befreunde dich mit einem Cornwall Schwein
+achievement.an.largewhite=Large White Schwein
+achievement.an.largewhite.desc=Befreunde dich mit einem Large White Schwein
+achievement.an.oldspot=Old Spot Schwein
+achievement.an.oldspot.desc=Befreunde dich mit einem Old Spot Schwein
+achievement.an.yorkshire=Yorkshire Schwein
+achievement.an.yorkshire.desc=Befreunde dich mit einem Yorkshire Schwein
+achievement.an.pigs=Schweineflüsterer
+achievement.an.pigs.desc=Befreunde dich mit allen Schweinerassen
+
+achievement.an.indiablue=Indischer Pfau
+achievement.an.indiablue.desc=Befreunde dich mit einem indischen Pfau
+achievement.an.white=Weißer Pfau
+achievement.an.white.desc=Befreunde dich mit einem weißen Pfau
+achievement.an.peacocks=Pfauflüsterer
+achievement.an.peacocks.desc=Befreunde dich mit allen Pfauarten
+
+achievement.an.greyferret=Graues Frettchen
+achievement.an.greyferret.desc=Befreunde dich mit einem grauen Frettchen
+achievement.an.whiteferret=Weißes Frettchen
+achievement.an.whiteferret.desc=Befreunde dich mit einem weißen Frettchen
+achievement.an.ferrets=Frettchenflüsterer
+achievement.an.ferrets.desc=Befreunde dich mit allen Frettchenarten
+
+achievement.an.hamsters=Hamsterflüsterer
+achievement.an.hamsters.desc=Befreunde dich mit einem Hamster
+
+animania.updatetext.1=Version 
+animania.updatetext.2=für Animania ist jetzt verfügbar
+animania.updatetext.3=Es konnte keine Verbindung hergestellt werden, um nach einem Update für Animania zu suchen
+animania.update.download=["Hier downloaden: [",{"text":"Download","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Hier klicken um die neuesten Dateien für 1.11 zu sehen","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]

@@ -1,0 +1,262 @@
+item.animania_hamster_food.name=Comida de Hamster
+item.animania_truffle.name=Trufa
+item.animania_brown_egg.name=Huevo
+item.animania_bucket_slop.name=Cubo de heces
+item.animania_carving_knife.name=Cuchillo de trinchar
+item.animania_cheese_mold.name=Molde para queso
+
+item.animania_carving_knife.desc=Utilizado para trinchar carnes y quesos
+item.animania_cheese_mold.desc=Utilizado para hacer queso
+item.animania_entity_egg.desc1=Generar
+item.animania_entity_egg.desc2=[Botón derecho]
+
+item.animania_raw_angus_beef.name=Carne de vaca cruda (Angus)
+item.animania_cooked_angus_roast.name=Carne de vaca cocinada (Angus)
+item.animania_raw_angus_steak.name=Filete crudo (Angus)
+item.animania_cooked_angus_steak.name=Filete cocinado (Angus)
+item.animania_raw_hereford_beef.name=Carne de vaca cruda (Hereford)
+item.animania_cooked_hereford_roast.name=Carne de vaca cocinada (Hereford)
+item.animania_raw_hereford_steak.name=Filete crudo (Hereford)
+item.animania_cooked_hereford_steak.name=Filete cocinado (Hereford)
+item.animania_raw_longhorn_beef.name=Carne de vaca cruda (Longhorn)
+item.animania_cooked_longhorn_roast.name=Carne de vaca cocinada (Longhorn)
+item.animania_raw_longhorn_steak.name=Filete crudo (Longhorn)
+item.animania_cooked_longhorn_steak.name=Filete cocinado (Longhorn)
+
+item.animania_raw_large_black_pork.name=Chuleta de cerdo cruda (Large Black)
+item.animania_cooked_large_black_roast.name=Chuleta de cerdo cocinada (Large Black)
+item.animania_raw_large_black_bacon.name=Beicon crudo (Large Black)
+item.animania_cooked_large_black_bacon.name=Beicon (Large Black)
+item.animania_raw_duroc_pork.name=Chuleta de cerdo cruda (Duroc)
+item.animania_cooked_duroc_roast.name=Chuleta de cerdo cocinada (Duroc)
+item.animania_raw_duroc_bacon.name=Beicon crudo (Duroc)
+item.animania_cooked_duroc_bacon.name=Beicon (Duroc)
+item.animania_raw_old_spot_pork.name=Chuleta de cerdo cruda (Old Spot)
+item.animania_cooked_old_spot_roast.name=Chuleta de cerdo cocinada (Old Spot)
+item.animania_raw_old_spot_bacon.name=Beicon crudo (Old Spot)
+item.animania_cooked_old_spot_bacon.name=Beicon (Old Spot)
+item.animania_raw_hampshire_pork.name=Chuleta de cerdo cruda (Hampshire)
+item.animania_cooked_hampshire_roast.name=Chuleta de cerdo cocinada (Hampshire)
+item.animania_raw_hampshire_bacon.name=Beicon crudo (Hampshire)
+item.animania_cooked_hampshire_bacon.name=Beicon (Hampshire)
+
+item.animania_raw_orpington_chicken.name=Pollo crudo (Orpington)
+item.animania_cooked_orpington_chicken.name=Pollo cocinado (Orpington)
+item.animania_raw_plymouth_rock_chicken.name=Pollo crudo (Plymouth Rock)
+item.animania_cooked_plymouth_rock_chicken.name=Pollo cocinado (Plymouth Rock)
+item.animania_raw_rhode_island_red_chicken.name=Pollo crudo (Rhode Island Red)
+item.animania_cooked_rhode_island_red_chicken.name=Pollo cocinado (Rhode Island Red)
+item.animania_raw_wyandotte_chicken.name=Pollo crudo (Wyandotte)
+item.animania_cooked_wyandotte_chicken.name=Pollo cocinado (Wyandotte)
+
+item.animania_friesian_cheese_wheel.name=Queso entero (Friesian)
+item.animania_friesian_cheese_wedge.name=Porción de queso (Friesian)
+item.animania_holstein_cheese_wheel.name=Queso entero (Holstein)
+item.animania_holstein_cheese_wedge.name=Porción de queso (Holstein)
+item.animania_holstein_bucket_milk.name=Cubo de leche (Holstein)
+item.animania_friesian_bucket_milk.name=Cubo de leche (Friesian)
+item.animania_truffle_soup.name=Sopa de trufa
+item.animania_chocolate_truffle.name=Trufa de chocolate
+
+item.animania_plain_omelette.name=Tortilla francesa
+item.animania_bacon_omelette.name=Tortilla de beicon
+item.animania_cheese_omelette.name=Tortilla de queso
+item.animania_truffle_omelette.name=Tortilla de trufa
+item.animania_super_omelette.name=Super tortilla
+
+item.animania_entity_egg_cow_holstein.name=Vaca Holstein
+item.animania_entity_egg_bull_holstein.name=Toro Holstein
+item.animania_entity_egg_calf_holstein.name=Ternero Holstein
+item.animania_entity_egg_cow_friesian.name=Vaca Friesian
+item.animania_entity_egg_bull_friesian.name=Toro Friesian
+item.animania_entity_egg_calf_friesian.name=Ternero Friesian
+item.animania_entity_egg_cow_angus.name=Vaca Angus
+item.animania_entity_egg_bull_angus.name=Toro Angus
+item.animania_entity_egg_calf_angus.name=Ternero Angus
+item.animania_entity_egg_cow_longhorn.name=Vaca Longhorn
+item.animania_entity_egg_bull_longhorn.name=Toro Longhorn
+item.animania_entity_egg_calf_longhorn.name=Ternero Longhorn
+item.animania_entity_egg_cow_hereford.name=Vaca Hereford
+item.animania_entity_egg_bull_hereford.name=Toro Hereford
+item.animania_entity_egg_calf_hereford.name=Ternero Hereford
+
+item.animania_entity_egg_chick_plymouth.name=Pollo Plymouth Rock
+item.animania_entity_egg_hen_plymouth.name=Gallina Plymouth Rock
+item.animania_entity_egg_rooster_plymouth.name=Gallo Plymouth Rock
+item.animania_entity_egg_chick_red.name=Pollo Rhode Island Red
+item.animania_entity_egg_hen_red.name=Gallina Rhode Island Red
+item.animania_entity_egg_rooster_red.name=Gallo Rhode Island Red
+item.animania_entity_egg_chick_leghorn.name=Pollo Leghorn
+item.animania_entity_egg_hen_leghorn.name=Gallina Leghorn
+item.animania_entity_egg_rooster_leghorn.name=Gallo Leghorn
+item.animania_entity_egg_chick_orpington.name=Pollo Orpington
+item.animania_entity_egg_hen_orpington.name=Gallina Orpington
+item.animania_entity_egg_rooster_orpington.name=Gallo Orpington
+item.animania_entity_egg_chick_wyandotte.name=Pollo Wyandotte
+item.animania_entity_egg_hen_wyandotte.name=Gallina Wyandotte
+item.animania_entity_egg_rooster_wyandotte.name=Gallo Wyandotte
+
+item.animania_entity_egg_piglet_yorkshire.name=Cerdito Yorkshire
+item.animania_entity_egg_sow_yorkshire.name=Cerda Yorkshire
+item.animania_entity_egg_hog_yorkshire.name=Cerdo Yorkshire
+item.animania_entity_egg_piglet_oldspot.name=Cerdito Old Spot
+item.animania_entity_egg_sow_oldspot.name=Cerda Old Spot
+item.animania_entity_egg_hog_oldspot.name=Cerdo Old Spot
+item.animania_entity_egg_piglet_duroc.name=Cerdito Duroc
+item.animania_entity_egg_sow_duroc.name=Cerda Duroc
+item.animania_entity_egg_hog_duroc.name=Cerdo Duroc
+item.animania_entity_egg_piglet_largeblack.name=Cerdito Large Black
+item.animania_entity_egg_sow_largeblack.name=Cerda Large Black
+item.animania_entity_egg_hog_largeblack.name=Cerdo Large Black
+item.animania_entity_egg_piglet_largewhite.name=Cerdito Large White
+item.animania_entity_egg_sow_largewhite.name=Cerda Large White
+item.animania_entity_egg_hog_largewhite.name=Cerdo Large White
+item.animania_entity_egg_piglet_hampshire.name=Cerdito Hampshire
+item.animania_entity_egg_sow_hampshire.name=Cerda Hampshire
+item.animania_entity_egg_hog_hampshire.name=Cerdo Hampshire
+
+item.animania_entity_egg_hamster.name=Hamster
+item.animania_entity_egg_ferret_white.name=Hurón blanco
+item.animania_entity_egg_ferret_grey.name=Hurón gris
+
+item.animania_entity_egg_peacock_blue.name=Pavo real azul de la India macho
+item.animania_entity_egg_peafowl_blue.name=Pavo real azul de la India hembra
+item.animania_entity_egg_peachick_blue.name=Cria de pavo real azul de la India
+item.animania_entity_egg_peacock_white.name=Pavo real blanco macho
+item.animania_entity_egg_peafowl_white.name=Pavo real blanco hembra
+item.animania_entity_egg_peachick_white.name=Cria de pavo real blanco
+
+entity.animania.ChickRhodeIslandRed.name=Pollo Rhode Island Red
+entity.animania.HenRhodeIslandRed.name=Gallina Rhode Island Red
+entity.animania.RoosterRhodeIslandRed.name=Gallo Rhode Island Red
+entity.animania.ChickPlymouthRock.name=Pollo Plymouth Rock
+entity.animania.HenPlymouthRock.name=Gallina Plymouth Rock
+entity.animania.RoosterPlymouthRock.name=Gallo Plymouth Rock
+entity.animania.ChickLeghorn.name=Pollo Leghorn
+entity.animania.HenLeghorn.name=Gallina Leghorn
+entity.animania.RoosterLeghorn.name=Gallo Leghorn
+entity.animania.ChickOrpington.name=Pollo Orpington
+entity.animania.HenOrpington.name=Gallina Orpington
+entity.animania.RoosterOrpington.name=Gallo Orpington
+entity.animania.ChickWyandotte.name=Pollo Wyandotte
+entity.animania.HenWyandotte.name=Gallina Wyandotte
+entity.animania.RoosterWyandotte.name=Gallo Wyandotte
+
+entity.animania.BullAngus.name=Toro Angus
+entity.animania.CowAngus.name=Vaca Angus
+entity.animania.CalfAngus.name=Ternero Angus
+entity.animania.BullHolstein.name=Toro Holstein
+entity.animania.CowHolstein.name=Vaca Holstein
+entity.animania.CalfHolstein.name=Ternero Holstein
+entity.animania.BullFriesian.name=Toro Friesian
+entity.animania.CowFriesian.name=Vaca Friesian
+entity.animania.CalfFriesian.name=Ternero Friesian
+entity.animania.BullHereford.name=Toro Hereford
+entity.animania.CowHereford.name=Vaca Hereford
+entity.animania.CalfHereford.name=Ternero Hereford
+entity.animania.BullLonghorn.name=Toro Longhorn
+entity.animania.CowLonghorn.name=Vaca Longhorn
+entity.animania.CalfLonghorn.name=Ternero Longhorn
+
+entity.animania.HogYorkshire.name=Cerdo Yorkshire
+entity.animania.SowYorkshire.name=Cerda Yorkshire
+entity.animania.PigletYorkshire.name=Cerdito Yorkshire
+entity.animania.HogOldSpot.name=Cerdo Old Spot
+entity.animania.SowOldSpot.name=Cerda Old Spot
+entity.animania.PigletOldSpot.name=Cerdito Old Spot
+entity.animania.HogLargeBlack.name=Cerdo Large Black
+entity.animania.SowLargeBlack.name=Cerda Large Black
+entity.animania.PigletLargeBlack.name=Cerdito Large Black
+entity.animania.HogLargeWhite.name=Cerdo Large White
+entity.animania.SowLargeWhite.name=Cerda Large White
+entity.animania.PigletLargeWhite.name=Cerdito Large White
+entity.animania.HogDuroc.name=Cerdo Duroc
+entity.animania.SowDuroc.name=Cerda Duroc
+entity.animania.PigletDuroc.name=Cerdito Duroc
+entity.animania.HogHampshire.name=Cerdo Hampshire
+entity.animania.SowHampshire.name=Cerda Hampshire
+entity.animania.PigletHampshire.name=Cerdito Hampshire
+
+entity.animania.Hamster.name=Hamster
+entity.animania.FerretGrey.name=Hurón gris
+entity.animania.FerretWhite.name=Hurón blanco
+
+entity.animania.PeacockWhite.name=Pavo real macho
+entity.animania.PeafowlWhite.name=Pavo real hembra
+entity.animania.PeachickWhite.name=Pavo real
+
+entity.animania.PeacockBlue.name=Pavo real macho
+entity.animania.PeafowlBlue.name=Pavo real hembra
+entity.animania.PeachickBlue.name=Pavo real
+
+tile.animania_block_mud.name=Barro
+tile.animania_block_seeds.name=Semillas
+tile.animania_block_trough.name=Comedero
+tile.animania_block_nest.name=Nido
+tile.animania_invisiblock.name=Comedero
+
+tab.animania_entities.label=Entidades de Animania
+tab.animania_resources.label=Recursos de Animania
+
+achievement.an.leghorn=Leghorn
+achievement.an.leghorn.desc=Traba amistad con una gallina Leghorn
+achievement.an.orpington=Orpington
+achievement.an.orpington.desc=Traba amistad con una gallina Orpington
+achievement.an.plymouthrock=Plymouth Rock
+achievement.an.plymouthrock.desc=Traba amistad con una gallina Plymouth Rock
+achievement.an.rhodeislandred=Rhode Island Red
+achievement.an.rhodeislandred.desc=Traba amistad con una gallina Rhode Island Red
+achievement.an.wyandotte=Wyandotte
+achievement.an.wyandotte.desc=Traba amistad con una gallina Wyandotte
+achievement.an.chickens=Encantador de gallinas
+achievement.an.chickens.desc=Traba amistad con todas las razas de gallina
+
+achievement.an.angus=Angus
+achievement.an.angus.desc=Traba amistad con una vaca Angus
+achievement.an.friesian=Friesian
+achievement.an.friesian.desc=Traba amistad con una vaca Friesian
+achievement.an.hereford=Hereford
+achievement.an.hereford.desc=Traba amistad con una vaca Hereford
+achievement.an.holstein=Holstein
+achievement.an.holstein.desc=Traba amistad con una vaca vaca Holstein
+achievement.an.longhorn=Longhorn
+achievement.an.longhorn.desc=Traba amistad con una vaca Longhorn
+achievement.an.cows=Encantador de vacas
+achievement.an.cows.desc=Traba amistad con todas las razas de vaca
+
+achievement.an.duroc=Duroc
+achievement.an.duroc.desc=Traba amistad con un cerdo Duroc
+achievement.an.hampshire=Hampshire
+achievement.an.hampshire.desc=Traba amistad con un cerdo Hampshire
+achievement.an.largeblack=Large Black
+achievement.an.largeblack.desc=Traba amistad con un cerdo Large Black
+achievement.an.largewhite=Large White
+achievement.an.largewhite.desc=Traba amistad con un cerdo Large White
+achievement.an.oldspot=Old Spot
+achievement.an.oldspot.desc=Traba amistad con un cerdo Old Spot
+achievement.an.yorkshire=Yorkshire
+achievement.an.yorkshire.desc=Traba amistad con un cerdo Yorkshire
+achievement.an.pigs=Encantador de cerdos
+achievement.an.pigs.desc=Traba amistad con todas las razas de cerdo
+
+achievement.an.indiablue=Pavo real azul de la India
+achievement.an.indiablue.desc=Traba amistad con un pavo real azul de la India
+achievement.an.white=Pavo real blanco
+achievement.an.white.desc=Traba amistad con un pavo real blanco
+achievement.an.peacocks=Encantador de pavos reales
+achievement.an.peacocks.desc=Traba amistad con todas las razas de pavo real
+
+achievement.an.greyferret=Hurón gris
+achievement.an.greyferret.desc=Traba amistad con un hurón gris
+achievement.an.whiteferret=Hurón blanco
+achievement.an.whiteferret.desc=Traba amistad con un hurón blanco
+achievement.an.ferrets=Encantador de hurones
+achievement.an.ferrets.desc=Traba amistad con todas las razas de hurón
+
+achievement.an.hamsters=Encantador de hamsters
+achievement.an.hamsters.desc=Traba amistad con un hamster
+
+animania.updatetext.1=La versión de Animania
+animania.updatetext.2=está ahora disponible
+animania.updatetext.3=Fallo al conectarse para ver si hay una actualización de Animania disponible
+animania.update.download=["Clicar para: [",{"text":"Descargar","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Clicar para ver los últimos archivos para 1.11 disponibles para descargar","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]

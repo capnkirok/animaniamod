@@ -1,0 +1,19 @@
+[
+{
+  "modid" : "animania",
+  "name" : "Animania",
+  "version" : "1.0.4.7", "mcversion" : "1.11.2",
+  "url" : "",
+  "credits" : "Game concept, creative direction, models, textures, and development by RazzleberryFox, Purplicious_Cow, and cy4n",
+  "authorList" : ["RazzleberryFox, Purplicious_Cow, cy4n"],
+  "description": "Immersive and realistic animals in Minecraft, with improved models, textures, animation, behaviors, and drops.",
+  "logoFile" : "assets/animania/textures/animania_logo.png",
+  "updateUrl" : "",
+  "parent" : "",
+  "dependencies": [
+     "mod_MinecraftForge"
+  ],
+  "screenshots": [
+  ]
+}
+]

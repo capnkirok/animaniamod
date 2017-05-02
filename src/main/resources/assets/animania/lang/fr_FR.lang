@@ -1,0 +1,257 @@
+item.animania_hamster_food.name=Nourriture pour hamster
+item.animania_truffle.name=Truffe
+item.animania_brown_egg.name=Oeuf
+item.animania_bucket_slop.name=Seau de pâtée
+item.animania_carving_knife.name=Couteau 
+item.animania_cheese_mold.name=Moule à fromage
+
+item.animania_carving_knife.desc=Utilisé pour couper la viande et le fromage
+item.animania_cheese_mold.desc=Utilisé pour faire du fromage
+item.animania_entity_egg.desc1=Oeuf d’ (de)
+item.animania_entity_egg.desc2=[Clic Droit]
+
+item.animania_raw_angus_beef.name=Boeuf cru (Angus)
+item.animania_cooked_angus_roast.name=Boeuf grillé (Angus)
+item.animania_raw_angus_steak.name=Steak cru (Angus)
+item.animania_cooked_angus_steak.name=Steak grillé (Angus)
+item.animania_raw_hereford_beef.name=Boeuf cru (Hereford)
+item.animania_cooked_hereford_roast.name=Boeuf grillé (Hereford)
+item.animania_raw_hereford_steak.name=Steak cru (Hereford)
+item.animania_cooked_hereford_steak.name=Steak grillé (Hereford)
+item.animania_raw_longhorn_beef.name=Boeuf cru (Longhorn)
+item.animania_cooked_longhorn_roast.name=Boeur grillé (Longhorn)
+item.animania_raw_longhorn_steak.name=Steak cru (Longhorn)
+item.animania_cooked_longhorn_steak.name=Steak grillé (Longhorn)
+
+item.animania_raw_large_black_pork.name=Porc cru (Large Black)
+item.animania_cooked_large_black_roast.name=Porc grillé (Large Black)
+item.animania_raw_large_black_bacon.name=Bacon cru (Large Black)
+item.animania_cooked_large_black_bacon.name=Bacon (Large Black)
+item.animania_raw_duroc_pork.name=Porc cru (Duroc)
+item.animania_cooked_duroc_roast.name=Porc grillé (Duroc)
+item.animania_raw_duroc_bacon.name=Bacon cru (Duroc)
+item.animania_cooked_duroc_bacon.name=Bacon (Duroc)
+item.animania_raw_old_spot_pork.name=Pork cru (Old Spot)
+item.animania_cooked_old_spot_roast.name=Porc grillé (Old Spot)
+item.animania_raw_old_spot_bacon.name=Bacon cru (Old Spot)
+item.animania_cooked_old_spot_bacon.name=Bacon (Old Spot)
+item.animania_raw_hampshire_pork.name=Porc cru (Hampshire)
+item.animania_cooked_hampshire_roast.name=Porc grillé (Hampshire)
+item.animania_raw_hampshire_bacon.name=Bacon cru (Hampshire)
+item.animania_cooked_hampshire_bacon.name=Bacon (Hampshire)
+
+item.animania_raw_orpington_chicken.name=Poulet cru (Orpington)
+item.animania_cooked_orpington_chicken.name=Poulet grillé (Orpington)
+item.animania_raw_plymouth_rock_chicken.name=Poulet cru (Plymouth Rock)
+item.animania_cooked_plymouth_rock_chicken.name=Poulet grillé (Plymouth Rock)
+item.animania_raw_rhode_island_red_chicken.name=Poulet cru (Rhode Island Red)
+item.animania_cooked_rhode_island_red_chicken.name=Poulet grillé (Rhode Island Red)
+item.animania_raw_wyandotte_chicken.name=Poulet cru (Wyandotte)
+item.animania_cooked_wyandotte_chicken.name=Poulet grillé (Wyandotte)
+
+item.animania_friesian_cheese_wheel.name=Meule de fromage (Frison)
+item.animania_friesian_cheese_wedge.name=Tranche de fromage (Frison)
+item.animania_holstein_cheese_wheel.name=Meule de fromage (Holstein)
+item.animania_holstein_cheese_wedge.name=Tranche de fromage (Holstein)
+item.animania_holstein_bucket_milk.name=Seau de lait (Holstein)
+item.animania_friesian_bucket_milk.name=Seau de lait (Friesian)
+item.animania_truffle_soup.name=Soupe de truffes
+item.animania_chocolate_truffle.name=Truffe en chocolat
+
+item.animania_plain_omelette.name=Omelette
+item.animania_bacon_omelette.name=Omelette au bacon
+item.animania_cheese_omelette.name=Omelette du fromage
+item.animania_truffle_omelette.name=Omelette à la truffe
+item.animania_super_omelette.name=Super Omelette
+
+item.animania_entity_egg_cow_holstein.name=Vache (Holstein)
+item.animania_entity_egg_bull_holstein.name=Taureau (Holstein)
+item.animania_entity_egg_calf_holstein.name=Veau (Holstein)
+item.animania_entity_egg_cow_friesian.name=Vache (Friesian)
+item.animania_entity_egg_bull_friesian.name=Taureau (Friesian)
+item.animania_entity_egg_calf_friesian.name=Veau (Friesian)
+item.animania_entity_egg_cow_angus.name=Vache (Angus)
+item.animania_entity_egg_bull_angus.name=Taureau (Angus)
+item.animania_entity_egg_calf_angus.name=Veau (Angus)
+item.animania_entity_egg_cow_longhorn.name=Vache (Longhorn)
+item.animania_entity_egg_bull_longhorn.name=Taureau (Longhorn)
+item.animania_entity_egg_calf_longhorn.name=Veau (Longhorn)
+item.animania_entity_egg_cow_hereford.name=Vache (Hereford)
+item.animania_entity_egg_bull_hereford.name=Taureau (Hereford)
+item.animania_entity_egg_calf_hereford.name=Veau (Hereford)
+
+item.animania_entity_egg_chick_plymouth.name=Poussin (Plymouth Rock)
+item.animania_entity_egg_hen_plymouth.name=Poule (Plymouth Rock)
+item.animania_entity_egg_rooster_plymouth.name=Coq (Plymouth Rock)
+item.animania_entity_egg_chick_red.name=Poussin (Rhode Island Red)
+item.animania_entity_egg_hen_red.name=Poule (Rhode Island Red)
+item.animania_entity_egg_rooster_red.name=Coq (Rhode Island Red)
+item.animania_entity_egg_chick_leghorn.name=Poussin (Leghorn)
+item.animania_entity_egg_hen_leghorn.name=Poule (Leghorn)
+item.animania_entity_egg_rooster_leghorn.name=Coq (Leghorn)
+item.animania_entity_egg_chick_orpington.name=Poussin (Orpington)
+item.animania_entity_egg_hen_orpington.name=Poule (Orpington)
+item.animania_entity_egg_rooster_orpington.name=Coq (Orpington)
+item.animania_entity_egg_chick_wyandotte.name=Poussin (Wyandotte)
+item.animania_entity_egg_hen_wyandotte.name=Poule (Wyandotte)
+item.animania_entity_egg_rooster_wyandotte.name=Coq (Wyandotte)
+
+item.animania_entity_egg_piglet_yorkshire.name=Porcelet (Yorkshire)
+item.animania_entity_egg_sow_yorkshire.name=Truie (Yorkshire)
+item.animania_entity_egg_hog_yorkshire.name=Porc (Yorkshire)
+item.animania_entity_egg_piglet_oldspot.name=Porcelet (Old Spot)
+item.animania_entity_egg_sow_oldspot.name=Truie (Old Spot)
+item.animania_entity_egg_hog_oldspot.name=Porc (Old Spot)
+item.animania_entity_egg_piglet_duroc.name=Porcelet (Duroc)
+item.animania_entity_egg_sow_duroc.name=Truie (Duroc)
+item.animania_entity_egg_hog_duroc.name=Porc (Duroc)
+item.animania_entity_egg_piglet_largeblack.name=Porcelet (Large Black)
+item.animania_entity_egg_sow_largeblack.name=Truie (Large Black)
+item.animania_entity_egg_hog_largeblack.name=Porc (Large Black)
+item.animania_entity_egg_piglet_largewhite.name=Porcelet (Large White)
+item.animania_entity_egg_sow_largewhite.name=Truie (Large White)
+item.animania_entity_egg_hog_largewhite.name=Porc (Large White)
+item.animania_entity_egg_piglet_hampshire.name=Porcelet (Hampshire)
+item.animania_entity_egg_sow_hampshire.name=Truie (Hampshire)
+item.animania_entity_egg_hog_hampshire.name=Porc (Hampshire)
+
+item.animania_entity_egg_hamster.name=Hamster
+item.animania_entity_egg_ferret_white.name=Furet Blanc
+item.animania_entity_egg_ferret_grey.name=Furret Gris
+
+item.animania_entity_egg_peacock_blue.name=Paon indien bleu
+item.animania_entity_egg_peafowl_blue.name=Paonne indien bleu
+item.animania_entity_egg_peachick_blue.name=Paonneau indien bleu
+item.animania_entity_egg_peacock_white.name=Paon blanc
+item.animania_entity_egg_peafowl_white.name=Paonne blanc
+item.animania_entity_egg_peachick_white.name=Paonneau blanc
+
+entity.animania.ChickRhodeIslandRed.name=Rhode Island Red Chick
+entity.animania.HenRhodeIslandRed.name=Rhode Island Red Hen
+entity.animania.RoosterRhodeIslandRed.name=Rhode Island Red Rooster
+entity.animania.ChickPlymouthRock.name=Plymouth Rock Chick
+entity.animania.HenPlymouthRock.name=Plymouth Rock Hen
+entity.animania.RoosterPlymouthRock.name=Plymouth Rock Rooster
+entity.animania.ChickLeghorn.name=Leghorn Chick
+entity.animania.HenLeghorn.name=Leghorn Hen
+entity.animania.RoosterLeghorn.name=Leghorn Rooster
+entity.animania.ChickOrpington.name=Orpington Chick
+entity.animania.HenOrpington.name=Orpington Hen
+entity.animania.RoosterOrpington.name=Orpington Rooster
+entity.animania.ChickWyandotte.name=Wyandotte Chick
+entity.animania.HenWyandotte.name=Wyandotte Hen
+entity.animania.RoosterWyandotte.name=Wyandotte Rooster
+
+entity.animania.BullAngus.name=Angus Bull
+entity.animania.CowAngus.name=Angus Cow
+entity.animania.CalfAngus.name=Angus Calf
+entity.animania.BullHolstein.name=Holstein Bull
+entity.animania.CowHolstein.name=Holstein Cow
+entity.animania.CalfHolstein.name=Holstein Calf
+entity.animania.BullFriesian.name=Friesian Bull
+entity.animania.CowFriesian.name=Friesian Cow
+entity.animania.CalfFriesian.name=Friesian Calf
+entity.animania.BullHereford.name=Hereford Bull
+entity.animania.CowHereford.name=Hereford Cow
+entity.animania.CalfHereford.name=Hereford Calf
+entity.animania.BullLonghorn.name=Longhorn Bull
+entity.animania.CowLonghorn.name=Longhorn Cow
+entity.animania.CalfLonghorn.name=Longhorn Calf
+
+entity.animania.HogYorkshire.name=Yorkshire Hog
+entity.animania.SowYorkshire.name=Yorkshire Sow
+entity.animania.PigletYorkshire.name=Yorkshire Piglet
+entity.animania.HogOldSpot.name=Old Spot Hog
+entity.animania.SowOldSpot.name=Old Spot Sow
+entity.animania.PigletOldSpot.name=Old Spot Piglet
+entity.animania.HogLargeBlack.name=Large Black Hog
+entity.animania.SowLargeBlack.name=Large Black Sow
+entity.animania.PigletLargeBlack.name=Large Black Piglet
+entity.animania.HogLargeWhite.name=Large White Hog
+entity.animania.SowLargeWhite.name=Large White Sow
+entity.animania.PigletLargeWhite.name=Large White Piglet
+entity.animania.HogDuroc.name=Duroc Hog
+entity.animania.SowDuroc.name=Duroc Sow
+entity.animania.PigletDuroc.name=Duroc Piglet
+entity.animania.HogHampshire.name=Hampshire Hog
+entity.animania.SowHampshire.name=Hampshire Sow
+entity.animania.PigletHampshire.name=Hampshire Piglet
+
+entity.animania.Hamster.name=Hamster
+entity.animania.GreyFerret.name=Grey Ferret
+entity.animania.WhiteFerret.name=White Ferret
+
+entity.animania.Peacock.name=Peacock
+entity.animania.Peafowl.name=Peafowl
+
+tile.animania_block_mud.name=Boue
+tile.animania_block_seeds.name=Graine
+tile.animania_block_trough.name=Abreuvoir
+tile.animania_block_nest.name=Nid
+tile.animania_invisiblock.name=Abreuvoir
+
+tab.animania_entities.label=Entitées de Animania
+tab.animania_resources.label=Ressources de Animania
+
+achievement.an.leghorn=Leghorn
+achievement.an.leghorn.desc=Adopter un Leghorn
+achievement.an.orpington=Orpington
+achievement.an.orpington.desc=Adopter un Orpington
+achievement.an.plymouthrock=Plymouth Rock
+achievement.an.plymouthrock.desc=Adopter un Plymouth Rock
+achievement.an.rhodeislandred=Rhode Island Red
+achievement.an.rhodeislandred.desc=Adopter un Rhode Island Red
+achievement.an.wyandotte=Wyandotte
+achievement.an.wyandotte.desc=Adopter un Wyandotte 
+achievement.an.chickens=L’homme qui murmurait à l’oreille des coqs
+achievement.an.chickens.desc=Adopte toutes les races de coqs
+
+achievement.an.angus=Angus
+achievement.an.angus.desc=Adopte un Angus
+achievement.an.friesian=Friesian
+achievement.an.friesian.desc=Adopte un Friesian
+achievement.an.hereford=Hereford
+achievement.an.hereford.desc=Adopte un Hereford
+achievement.an.holstein=Holstein
+achievement.an.holstein.desc=Adopte un Holstein
+achievement.an.longhorn=Longhorn
+achievement.an.longhorn.desc=Adopte un Longhorn
+achievement.an.cows=Murmurer à l’oreille des vaches
+achievement.an.cows.desc=Adopte toute les races de vaches
+
+achievement.an.duroc=Duroc
+achievement.an.duroc.desc=Adopte un Duroc
+achievement.an.hampshire=Hampshire
+achievement.an.hampshire.desc=Adopte un Hampshire
+achievement.an.largeblack=Large Black
+achievement.an.largeblack.desc=Adopte un Large Black
+achievement.an.largewhite=Large White
+achievement.an.largewhite.desc=Adopte un Large White
+achievement.an.oldspot=Old Spot
+achievement.an.oldspot.desc=Adopter un Old Spot 
+achievement.an.yorkshire=Yorkshire
+achievement.an.yorkshire.desc=Adopter un Yorkshire
+achievement.an.pigs=Murmurer à l’oreille des cochons
+achievement.an.pigs.desc=Adopter toutes les races de cochon
+
+achievement.an.indiablue=Bleu indien
+achievement.an.indiablue.desc=Adopter un paon bleu indien
+achievement.an.white=Paon blanc
+achievement.an.white.desc=Adopter un paon blanc
+achievement.an.peacocks=Murmure coloré
+achievement.an.peacocks.desc=Adopter toutes les races de paons
+
+achievement.an.greyferret=Furret gris
+achievement.an.greyferret.desc=Adopter un furret gris
+achievement.an.whiteferret=Furret blanc
+achievement.an.whiteferret.desc=Adopter un furret blanc
+achievement.an.ferrets=Murmure à l’oreille des furrets 
+achievement.an.ferrets.desc=Adopter toutes les races de furrets
+
+achievement.an.hamsters=Murmure kawai
+achievement.an.hamsters.desc=Adopter un hamster
+
+animania.updatetext.1=Une version d’animania
+animania.updatetext.2=est désormais disponible
+animania.updatetext.3=Echec de connexion pour vérifier la disponibilité d’une nouvelle version d’animania
+animania.update.download=["Cliquer pour: [",{"text":"télécharger","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Cliquer pour voir les dernières versions d’Animania en 1.11 disponibles","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]

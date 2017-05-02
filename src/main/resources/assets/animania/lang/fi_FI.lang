@@ -1,0 +1,262 @@
+item.animania_hamster_food.name=Hamsterin ruokaa
+item.animania_truffle.name=Tryffeli
+item.animania_brown_egg.name=Muna
+item.animania_bucket_slop.name=Ämpärillinen Tähteitä
+item.animania_carving_knife.name=Paloittelu Puukko
+item.animania_cheese_mold.name=Juusto Muotti
+
+item.animania_carving_knife.desc=Käytetään lihan ja juuston paloittelemiseen.
+item.animania_cheese_mold.desc=Käytetään juuston tekemiseen
+item.animania_entity_egg.desc1=Luo
+item.animania_entity_egg.desc2=[Klikkaa oikealla]
+
+item.animania_raw_angus_beef.name=Raaka Liha (Angus)
+item.animania_cooked_angus_roast.name=Paistettu Liha (Angus)
+item.animania_raw_angus_steak.name=Raaka Pihvi (Angus)
+item.animania_cooked_angus_steak.name=Paistettu Pihvi (Angus)
+item.animania_raw_hereford_beef.name=Raaka Liha (Hereford)
+item.animania_cooked_hereford_roast.name=Paistettu Liha (Hereford)
+item.animania_raw_hereford_steak.name=Raaka Pihvi (Hereford)
+item.animania_cooked_hereford_steak.name=Paistettu Pihvi (Hereford)
+item.animania_raw_longhorn_beef.name=Raaka Liha (Longhorn)
+item.animania_cooked_longhorn_roast.name=Paistettu Liha (Longhorn)
+item.animania_raw_longhorn_steak.name=Raaka Pihvi (Longhorn)
+item.animania_cooked_longhorn_steak.name=Paistettu Pihvi (Longhorn)
+
+item.animania_raw_large_black_pork.name=Raaka Pork (Suuri Musta)
+item.animania_cooked_large_black_roast.name=Paistettu Pork (Suuri Musta)
+item.animania_raw_large_black_bacon.name=Raaka Bacon (Suuri Musta)
+item.animania_cooked_large_black_bacon.name=Bacon (Suuri Musta)
+item.animania_raw_duroc_pork.name=Raaka Pork (Duroc)
+item.animania_cooked_duroc_roast.name=Paistettu Pork (Duroc)
+item.animania_raw_duroc_bacon.name=Raaka Bacon (Duroc)
+item.animania_cooked_duroc_bacon.name=Bacon (Duroc)
+item.animania_raw_old_spot_pork.name=Raaka Pork (Old Spot)
+item.animania_cooked_old_spot_roast.name=Paistettu Pork (Old Spot)
+item.animania_raw_old_spot_bacon.name=Raaka Bacon (Old Spot)
+item.animania_cooked_old_spot_bacon.name=Bacon (Old Spot)
+item.animania_raw_hampshire_pork.name=Raaka Pork (Hampshire)
+item.animania_cooked_hampshire_roast.name=Paistettu Pork (Hampshire)
+item.animania_raw_hampshire_bacon.name=Raaka Bacon (Hampshire)
+item.animania_cooked_hampshire_bacon.name=Bacon (Hampshire)
+
+item.animania_raw_orpington_chicken.name=Raaka Chicken (Orpington)
+item.animania_cooked_orpington_chicken.name=Paistettu Chicken (Orpington)
+item.animania_raw_plymouth_rock_chicken.name=Raaka Chicken (Plymouth Rock)
+item.animania_cooked_plymouth_rock_chicken.name=Paistettu Chicken (Plymouth Rock)
+item.animania_raw_rhode_island_red_chicken.name=Raaka Chicken (Rhode Saaren Punainen)
+item.animania_cooked_rhode_island_red_chicken.name=Paistettu Chicken (Rhode Saaren Punainen)
+item.animania_raw_wyandotte_chicken.name=Raaka Kana (Wyandotte)
+item.animania_cooked_wyandotte_chicken.name=Paistettu Kana (Wyandotte)
+
+item.animania_friesian_cheese_wheel.name=Juusto Rengas (Friesian)
+item.animania_friesian_cheese_wedge.name=Juusto Viipale (Friesian)
+item.animania_holstein_cheese_wheel.name=Juusto Rengas (Holstein)
+item.animania_holstein_cheese_wedge.name=Juusto Viipale (Holstein)
+item.animania_holstein_bucket_milk.name=Ämpäri Maito (Holstein)
+item.animania_friesian_bucket_milk.name=Ämpäri Maito (Friesian)
+item.animania_truffle_soup.name=Tryffeli Saippua
+item.animania_chocolate_truffle.name=Suklaa Tryffeli
+
+item.animania_plain_omelette.name=Tavallinen Omeletti
+item.animania_bacon_omelette.name=Pekoni Omeletti
+item.animania_cheese_omelette.name=Juusto Omeletti
+item.animania_truffle_omelette.name=Tryffeli Omeletti
+item.animania_super_omelette.name=Super Omeletti
+
+item.animania_entity_egg_cow_holstein.name=Holstein Lehmä
+item.animania_entity_egg_bull_holstein.name=Holstein Sonni
+item.animania_entity_egg_calf_holstein.name=Holstein Vasikka
+item.animania_entity_egg_cow_friesian.name=Friesian Lehmä
+item.animania_entity_egg_bull_friesian.name=Friesian Sonni
+item.animania_entity_egg_calf_friesian.name=Friesian Vasikka
+item.animania_entity_egg_cow_angus.name=Angus Lehmä
+item.animania_entity_egg_bull_angus.name=Angus Sonni
+item.animania_entity_egg_calf_angus.name=Angus Vasikka
+item.animania_entity_egg_cow_longhorn.name=Longhorn Lehmä
+item.animania_entity_egg_bull_longhorn.name=Longhorn Sonni
+item.animania_entity_egg_calf_longhorn.name=Longhorn Vasikka
+item.animania_entity_egg_cow_hereford.name=Hereford Lehmä
+item.animania_entity_egg_bull_hereford.name=Hereford Sonni
+item.animania_entity_egg_calf_hereford.name=Hereford Vasikka
+
+item.animania_entity_egg_chick_plymouth.name=Plymouth Rock Tipu
+item.animania_entity_egg_hen_plymouth.name=Plymouth Rock Kana
+item.animania_entity_egg_rooster_plymouth.name=Plymouth Rock Kukko
+item.animania_entity_egg_chick_red.name=Rhode Saaren Punainen Tipu
+item.animania_entity_egg_hen_red.name=Rhode Saaren Punainen Kana
+item.animania_entity_egg_rooster_red.name=Rhode Saaren Punainen Kukko
+item.animania_entity_egg_chick_leghorn.name=Leghorn Tipu
+item.animania_entity_egg_hen_leghorn.name=Leghorn Kana
+item.animania_entity_egg_rooster_leghorn.name=Leghorn Kukko
+item.animania_entity_egg_chick_orpington.name=Orpington Tipu
+item.animania_entity_egg_hen_orpington.name=Orpington Kana
+item.animania_entity_egg_rooster_orpington.name=Orpington Kukko
+item.animania_entity_egg_chick_wyandotte.name=Wyandotte Tipu
+item.animania_entity_egg_hen_wyandotte.name=Wyandotte Kana
+item.animania_entity_egg_rooster_wyandotte.name=Wyandotte Kukko
+
+item.animania_entity_egg_piglet_yorkshire.name=Yorkshire Porsas
+item.animania_entity_egg_sow_yorkshire.name=Yorkshire Emakko
+item.animania_entity_egg_hog_yorkshire.name=Yorkshire Sika
+item.animania_entity_egg_piglet_oldspot.name=Old Spot Porsas
+item.animania_entity_egg_sow_oldspot.name=Old Spot Emakko
+item.animania_entity_egg_hog_oldspot.name=Old Spot Sika
+item.animania_entity_egg_piglet_duroc.name=Duroc Porsas
+item.animania_entity_egg_sow_duroc.name=Duroc Emakko
+item.animania_entity_egg_hog_duroc.name=Duroc Sika
+item.animania_entity_egg_piglet_largeblack.name=Suuri Musta Porsas
+item.animania_entity_egg_sow_largeblack.name=Suuri Musta Emakko
+item.animania_entity_egg_hog_largeblack.name=Suuri Musta Sika
+item.animania_entity_egg_piglet_largewhite.name=Suuri Valkoinen Porsas
+item.animania_entity_egg_sow_largewhite.name=Suuri Valkoinen Emakko
+item.animania_entity_egg_hog_largewhite.name=Suuri Valkoinen Sika
+item.animania_entity_egg_piglet_hampshire.name=Hampshire Porsas
+item.animania_entity_egg_sow_hampshire.name=Hampshire Emakko
+item.animania_entity_egg_hog_hampshire.name=Hampshire Sika
+
+item.animania_entity_egg_hamster.name=Hamsteri
+item.animania_entity_egg_ferret_white.name=Valkoinen Fretti
+item.animania_entity_egg_ferret_grey.name=Harmaa Fretti
+
+item.animania_entity_egg_peacock_blue.name=Intian Sininen Riikinkukko 
+item.animania_entity_egg_peafowl_blue.name=Intian Sininen Riikinkukko
+item.animania_entity_egg_peachick_blue.name=Intian Sininen Riikinkukko
+item.animania_entity_egg_peacock_white.name=Valkoinen Riikinkukko 
+item.animania_entity_egg_peafowl_white.name=Valkoinen Riikinkukko
+item.animania_entity_egg_peachick_white.name=Valkoinen Riikinkukko
+
+entity.animania.ChickRhodeIslandRed.name=Rhode Saaren Punainen Tipu
+entity.animania.HenRhodeIslandRed.name=Rhode Saaren Punainen Kana
+entity.animania.RoosterRhodeIslandRed.name=Rhode Saaren Punainen Kukko
+entity.animania.ChickPlymouthRock.name=Plymouth Rock Tipu
+entity.animania.HenPlymouthRock.name=Plymouth Rock Kana
+entity.animania.RoosterPlymouthRock.name=Plymouth Rock Kukko
+entity.animania.ChickLeghorn.name=Leghorn Tipu
+entity.animania.HenLeghorn.name=Leghorn Kana
+entity.animania.RoosterLeghorn.name=Leghorn Kukko
+entity.animania.ChickOrpington.name=Orpington Tipu
+entity.animania.HenOrpington.name=Orpington Kana
+entity.animania.RoosterOrpington.name=Orpington Kukko
+entity.animania.ChickWyandotte.name=Wyandotte Tipu
+entity.animania.HenWyandotte.name=Wyandotte Kana
+entity.animania.RoosterWyandotte.name=Wyandotte Kukko
+
+entity.animania.BullAngus.name=Angus Sonni
+entity.animania.CowAngus.name=Angus Lehmä
+entity.animania.CalfAngus.name=Angus Vasikka
+entity.animania.BullHolstein.name=Holstein Sonni
+entity.animania.CowHolstein.name=Holstein Lehmä
+entity.animania.CalfHolstein.name=Holstein Vasikka
+entity.animania.BullFriesian.name=Friesian Sonni
+entity.animania.CowFriesian.name=Friesian Lehmä
+entity.animania.CalfFriesian.name=Friesian Vasikka
+entity.animania.BullHereford.name=Hereford Sonni
+entity.animania.CowHereford.name=Hereford Lehmä
+entity.animania.CalfHereford.name=Hereford Vasikka
+entity.animania.BullLonghorn.name=Longhorn Sonni
+entity.animania.CowLonghorn.name=Longhorn Lehmä
+entity.animania.CalfLonghorn.name=Longhorn Vasikka
+
+entity.animania.HogYorkshire.name=Yorkshire Sika
+entity.animania.SowYorkshire.name=Yorkshire Emakko
+entity.animania.PigletYorkshire.name=Yorkshire Porsas
+entity.animania.HogOldSpot.name=Old Spot Sika
+entity.animania.SowOldSpot.name=Old Spot Emakko
+entity.animania.PigletOldSpot.name=Old Spot Porsas
+entity.animania.HogLargeBlack.name=Suuri Musta Sika
+entity.animania.SowLargeBlack.name=Suuri Musta Emakko
+entity.animania.PigletLargeBlack.name=Suuri Musta Porsas
+entity.animania.HogLargeWhite.name=Suuri Valkoinen Sika
+entity.animania.SowLargeWhite.name=Suuri Valkoinen Emakko
+entity.animania.PigletLargeWhite.name=Suuri Valkoinen Porsas
+entity.animania.HogDuroc.name=Duroc Sika
+entity.animania.SowDuroc.name=Duroc Emakko
+entity.animania.PigletDuroc.name=Duroc Porsas
+entity.animania.HogHampshire.name=Hampshire Sika
+entity.animania.SowHampshire.name=Hampshire Emakko
+entity.animania.PigletHampshire.name=Hampshire Porsas
+
+entity.animania.Hamster.name=Hamsteri
+entity.animania.FerretGrey.name=Harmaa Fretti
+entity.animania.FerretWhite.name=Valkoinen Fretti
+
+entity.animania.PeacockBlue.name=Riikinkukko
+entity.animania.PeafowlBlue.name=Riikinkukko
+entity.animania.PeafowlBlue.name=Riikinkukko
+
+entity.animania.PeacockWhite.name=Riikinkukko
+entity.animania.PeafowlWhite.name=Riikinkukko
+entity.animania.PeafowlWhite.name=Riikinkukko
+
+tile.animania_block_mud.name=Muta
+tile.animania_block_seeds.name=Siemeniä
+tile.animania_block_trough.name=Kaukalo
+tile.animania_block_nest.name=Pesä
+tile.animania_invisiblock.name=Kaukalo
+
+tab.animania_entities.label=Animania Entityt
+tab.animania_resources.label=Animania Resurssit
+
+achievement.an.leghorn=Leghorn
+achievement.an.leghorn.desc=Ystävysty Leghorn Kanan kanssa
+achievement.an.orpington=Orpington
+achievement.an.orpington.desc=Ystävysty Orpington Kanan kanssa
+achievement.an.plymouthrock=Plymouth Rock
+achievement.an.plymouthrock.desc=Ystävysty Plymouth Rock Kanan kanssa
+achievement.an.rhodeislandred=Rhode Saaren Punainen
+achievement.an.rhodeislandred.desc=Ystävysty Rhode Saaren Punaisen Kanan kanssa
+achievement.an.wyandotte=Wyandotte
+achievement.an.wyandotte.desc=Ystävysty Wyandotte Kanan kanssa
+achievement.an.chickens=Kana Kuiskaaja
+achievement.an.chickens.desc=Ystävysty kaikkien Kana lajien kanssa
+
+achievement.an.angus=Angus
+achievement.an.angus.desc=Ystävysty Angus Lehmän kanssa
+achievement.an.friesian=Friesian
+achievement.an.friesian.desc=Ystävysty Friesian Lehmän kanssa
+achievement.an.hereford=Hereford
+achievement.an.hereford.desc=Ystävysty Hereford Lehmän kanssa
+achievement.an.holstein=Holstein
+achievement.an.holstein.desc=Ystävysty Holstein Lehmän kanssa
+achievement.an.longhorn=Longhorn
+achievement.an.longhorn.desc=Ystävysty Longhorn Lehmän kanssa
+achievement.an.cows=Lehmä Kuiskaaja
+achievement.an.cows.desc=Ystävysty kaikkien Lehmä lajien kanssa
+
+achievement.an.duroc=Duroc
+achievement.an.duroc.desc=Ystävysty Duroc Possun kanssa
+achievement.an.hampshire=Hampshire
+achievement.an.hampshire.desc=Ystävysty Hampshire Possun kanssa
+achievement.an.largeblack=Suuri Musta
+achievement.an.largeblack.desc=Ystävysty Suuren Mustan Possun kanssa
+achievement.an.largewhite=Suuri Valkoinen
+achievement.an.largewhite.desc=Ystävysty Suuren Valkoisen Possun kanssa
+achievement.an.oldspot=Old Spot
+achievement.an.oldspot.desc=Ystävysty Old Spot Possun kanssa
+achievement.an.yorkshire=Yorkshire
+achievement.an.yorkshire.desc=Ystävysty Yorkshire Possun kanssa
+achievement.an.pigs=Possu Kuiskaaja
+achievement.an.pigs.desc=Ystävysty kaikkien Possu lajien kanssa
+
+achievement.an.indiablue=Intian sininen
+achievement.an.indiablue.desc=Ystävysty Intian sinisen Riikinkukon kanssa
+achievement.an.white=Valkoinen Riikinkukko
+achievement.an.white.desc=Ystävysty valkoisen Riikinkukon kanssa
+achievement.an.peacocks=Riikinkukko Kuiskaaja
+achievement.an.peacocks.desc=Ystävysty kaikkien Riikinkukko lajien kanssa
+
+achievement.an.greyferret=Harmaa Fretti
+achievement.an.greyferret.desc=Ystävysty harmaan Fretin kanssa
+achievement.an.whiteferret=Valkoinen Fretti
+achievement.an.whiteferret.desc=Ystävysty valkoisen Fretin kanssa
+achievement.an.ferrets=Fretti Kuiskaaja
+achievement.an.ferrets.desc=Ystävysty kaikkien Fretti lajien kanssa
+
+achievement.an.hamsters=Hamsteri Kuiskaaja
+achievement.an.hamsters.desc=Ystävysty hamsterin kanssa
+
+animania.updatetext.1=Animania Versio 
+animania.updatetext.2=on nyt saatavilla
+animania.updatetext.3=Yhdistäminen epäonnistui! Päivityksen tarkistamista ei voitu tehdä!
+animania.update.download=["Paina : [",{"text":"Ladataksesi","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Paina tästä nähdäksesi viimeisimmät ladattavat tiedostot 1.11 versiolle","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]

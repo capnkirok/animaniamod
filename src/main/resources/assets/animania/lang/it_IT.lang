@@ -1,0 +1,262 @@
+item.animania_hamster_food.name=Cibo per Criceti
+item.animania_truffle.name=Tartufo
+item.animania_brown_egg.name=Uovo
+item.animania_bucket_slop.name=Secchio di Sbobba
+item.animania_carving_knife.name=Coltello da Scalco
+item.animania_cheese_mold.name=Stampo per Formaggio
+ 
+item.animania_carving_knife.desc=Usato per scolpire carni e formaggi
+item.animania_cheese_mold.desc=Usato per fare il formaggio
+item.animania_entity_egg.desc1=Spawn
+item.animania_entity_egg.desc2=[Tasto Destro]
+ 
+item.animania_raw_angus_beef.name=Manzo Crudo (Angus)
+item.animania_cooked_angus_roast.name=Arrosto di Manzo (Angus)
+item.animania_raw_angus_steak.name=Bistecca Cruda (Angus)
+item.animania_cooked_angus_steak.name=Bistecca Cotta (Angus)
+item.animania_raw_hereford_beef.name=Manzo Crudo (Hereford)
+item.animania_cooked_hereford_roast.name=Arrosto di Manzo (Hereford)
+item.animania_raw_hereford_steak.name=Bistecca Cruda (Hereford)
+item.animania_cooked_hereford_steak.name=Bistecca Cotta (Hereford)
+item.animania_raw_longhorn_beef.name=Manzo Crudo (Longhorn)
+item.animania_cooked_longhorn_roast.name=Arrosto di Manzo (Longhorn)
+item.animania_raw_longhorn_steak.name=Bistecca Cruda (Longhorn)
+item.animania_cooked_longhorn_steak.name=Bistecca Cotta (Longhorn)
+ 
+item.animania_raw_large_black_pork.name=Maiale Crudo (Large Black)
+item.animania_cooked_large_black_roast.name=Maiale Arrosto (Large Black)
+item.animania_raw_large_black_bacon.name=Pancetta Cruda (Large Black)
+item.animania_cooked_large_black_bacon.name=Pancetta (Large Black)
+item.animania_raw_duroc_pork.name=Maiale Crudo (Duroc)
+item.animania_cooked_duroc_roast.name=Maiale Arrosto (Duroc)
+item.animania_raw_duroc_bacon.name=Pancetta Cruda (Duroc)
+item.animania_cooked_duroc_bacon.name=Pancetta (Duroc)
+item.animania_raw_old_spot_pork.name=Maiale Crudo (Old Spot)
+item.animania_cooked_old_spot_roast.name=Maiale Arrosto (Old Spot)
+item.animania_raw_old_spot_bacon.name=Pancetta Cruda (Old Spot)
+item.animania_cooked_old_spot_bacon.name=Pancetta (Old Spot)
+item.animania_raw_hampshire_pork.name=Maiale Crudo (Hampshire)
+item.animania_cooked_hampshire_roast.name=Maiale Arrosto (Hampshire)
+item.animania_raw_hampshire_bacon.name=Pancetta Cruda (Hampshire)
+item.animania_cooked_hampshire_bacon.name=Pancetta (Hampshire)
+ 
+item.animania_raw_orpington_chicken.name=Pollo Crudo (Orpington)
+item.animania_cooked_orpington_chicken.name=Pollo Arroso (Orpington)
+item.animania_raw_plymouth_rock_chicken.name=Pollo Crudo (Plymouth Rock)
+item.animania_cooked_plymouth_rock_chicken.name=Pollo Arroso (Plymouth Rock)
+item.animania_raw_rhode_island_red_chicken.name=Pollo Crudo (Rhode Island Red)
+item.animania_cooked_rhode_island_red_chicken.name=Pollo Arroso (Rhode Island Red)
+item.animania_raw_wyandotte_chicken.name=Pollo Crudo (Wyandotte)
+item.animania_cooked_wyandotte_chicken.name=Pollo Arroso (Wyandotte)
+ 
+item.animania_friesian_cheese_wheel.name=Forma di Formaggio (Friesian)
+item.animania_friesian_cheese_wedge.name=Fetta di Formaggio (Friesian)
+item.animania_holstein_cheese_wheel.name=Forma di Formaggio (Holstein)
+item.animania_holstein_cheese_wedge.name=Fetta di Formaggio (Holstein)
+item.animania_holstein_bucket_milk.name=Secchio di Latte (Holstein)
+item.animania_friesian_bucket_milk.name=Secchio di Latte (Friesian)
+item.animania_truffle_soup.name=Zuppa al Tartufo
+item.animania_chocolate_truffle.name=Cioccolato al Tartufo
+ 
+item.animania_plain_omelette.name=Frittata
+item.animania_bacon_omelette.name=Frittata con Pancetta
+item.animania_cheese_omelette.name=Frittata con Formaggio
+item.animania_truffle_omelette.name=Frittata con Tartufo
+item.animania_super_omelette.name=Super Frittata
+ 
+item.animania_entity_egg_cow_holstein.name=Mucca Holstein
+item.animania_entity_egg_bull_holstein.name=Toro Holstein
+item.animania_entity_egg_calf_holstein.name=Vitello Holstein
+item.animania_entity_egg_cow_friesian.name=Mucca Friesian
+item.animania_entity_egg_bull_friesian.name=Toro Friesian
+item.animania_entity_egg_calf_friesian.name=Vitello Friesian
+item.animania_entity_egg_cow_angus.name=Mucca Angus
+item.animania_entity_egg_bull_angus.name=Toro Angus
+item.animania_entity_egg_calf_angus.name=Vitello Angus
+item.animania_entity_egg_cow_longhorn.name=Mucca Longhorn
+item.animania_entity_egg_bull_longhorn.name=Toro Longhorn
+item.animania_entity_egg_calf_longhorn.name=Vitello Longhorn
+item.animania_entity_egg_cow_hereford.name=Mucca Hereford
+item.animania_entity_egg_bull_hereford.name=Toro Hereford
+item.animania_entity_egg_calf_hereford.name=Vitello Hereford
+ 
+item.animania_entity_egg_chick_plymouth.name=Pulcino Plymouth Rock
+item.animania_entity_egg_hen_plymouth.name=Gallina Plymouth Rock
+item.animania_entity_egg_rooster_plymouth.name=Gallo Plymouth Rock
+item.animania_entity_egg_chick_red.name=Pulcino Rhode Island Red
+item.animania_entity_egg_hen_red.name=Gallina Rhode Island Red
+item.animania_entity_egg_rooster_red.name=Gallo Rhode Island Red
+item.animania_entity_egg_chick_leghorn.name=Pulcino Leghorn
+item.animania_entity_egg_hen_leghorn.name=Gallina Leghorn
+item.animania_entity_egg_rooster_leghorn.name=Gallo Leghorn
+item.animania_entity_egg_chick_orpington.name=Pulcino Orpington
+item.animania_entity_egg_hen_orpington.name=Gallina Orpington
+item.animania_entity_egg_rooster_orpington.name=Gallo Orpington
+item.animania_entity_egg_chick_wyandotte.name=Pulcino Wyandotte
+item.animania_entity_egg_hen_wyandotte.name=Gallina Wyandotte
+item.animania_entity_egg_rooster_wyandotte.name=Gallo Wyandotte
+ 
+item.animania_entity_egg_piglet_yorkshire.name=Porcellino Yorkshire
+item.animania_entity_egg_sow_yorkshire.name=Maiale Yorkshire (Femmina)
+item.animania_entity_egg_hog_yorkshire.name=Maiale Yorkshire (Maschio)
+item.animania_entity_egg_piglet_oldspot.name=Porcellino Old Spot
+item.animania_entity_egg_sow_oldspot.name=Maiale Old Spot (Femmina)
+item.animania_entity_egg_hog_oldspot.name=Maiale Old Spot (Maschio)
+item.animania_entity_egg_piglet_duroc.name=Porcellino Duroc
+item.animania_entity_egg_sow_duroc.name=Maiale Duroc (Femmina)
+item.animania_entity_egg_hog_duroc.name=Maiale Duroc (Maschio)
+item.animania_entity_egg_piglet_largeblack.name=Porcellino Large Black
+item.animania_entity_egg_sow_largeblack.name=Maiale Large Black (Femmina)
+item.animania_entity_egg_hog_largeblack.name=Maiale Large Black (Maschio)
+item.animania_entity_egg_piglet_largewhite.name=Porcellino Large White
+item.animania_entity_egg_sow_largewhite.name=Maiale Large White (Femmina)
+item.animania_entity_egg_hog_largewhite.name=Maiale Large White (Maschio)
+item.animania_entity_egg_piglet_hampshire.name=Porcellino  Hampshire
+item.animania_entity_egg_sow_hampshire.name=Maiale Hampshire (Femmina)
+item.animania_entity_egg_hog_hampshire.name=Maiale Hampshire (Maschio)
+ 
+item.animania_entity_egg_hamster.name=Criceto
+item.animania_entity_egg_ferret_white.name=Furetto Bianco
+item.animania_entity_egg_ferret_grey.name=Furetto Grigio
+ 
+item.animania_entity_egg_peacock_blue.name=Pavone Indiano Blu (Maschio)
+item.animania_entity_egg_peafowl_blue.name=Pavone Indiano Blu (Femmina)
+item.animania_entity_egg_peachick_blue.name=Pavone Indiano Blu (Pulcino)
+item.animania_entity_egg_peacock_white.name=Pavone Bianco (Maschio)
+item.animania_entity_egg_peafowl_white.name=Pavone Bianco (Femmina)
+item.animania_entity_egg_peachick_white.name=Pavone Bianco (Pulcino)
+ 
+entity.animania.ChickRhodeIslandRed.name=Pulcino Rhode Island Red
+entity.animania.HenRhodeIslandRed.name=Gallina Rhode Island Red
+entity.animania.RoosterRhodeIslandRed.name=Gallo Rhode Island Red
+entity.animania.ChickPlymouthRock.name=Pulcino Plymouth Rock
+entity.animania.HenPlymouthRock.name=Gallina Plymouth Rock
+entity.animania.RoosterPlymouthRock.name=Gallo Plymouth Rock
+entity.animania.ChickLeghorn.name=Pulcino Leghorn
+entity.animania.HenLeghorn.name=Gallina Leghorn
+entity.animania.RoosterLeghorn.name=Gallo Leghorn
+entity.animania.ChickOrpington.name=Pulcino Orpington
+entity.animania.HenOrpington.name=Gallina Orpington
+entity.animania.RoosterOrpington.name=Gallo Orpington
+entity.animania.ChickWyandotte.name=Pulcino Wyandotte
+entity.animania.HenWyandotte.name=Gallina Wyandotte
+entity.animania.RoosterWyandotte.name=Gallo Wyandotte
+ 
+entity.animania.BullAngus.name=Toro Angus
+entity.animania.CowAngus.name=Mucca Angus
+entity.animania.CalfAngus.name=Vitello Angus
+entity.animania.BullHolstein.name=Toro Holstein
+entity.animania.CowHolstein.name=Mucca Holstein
+entity.animania.CalfHolstein.name=Vitello Holstein
+entity.animania.BullFriesian.name=Toro Friesian
+entity.animania.CowFriesian.name=Mucca Friesian
+entity.animania.CalfFriesian.name=Vitello Friesian
+entity.animania.BullHereford.name=Toro Hereford
+entity.animania.CowHereford.name=Mucca Hereford
+entity.animania.CalfHereford.name=Vitello Hereford
+entity.animania.BullLonghorn.name=Toro Longhorn
+entity.animania.CowLonghorn.name=Mucca Longhorn
+entity.animania.CalfLonghorn.name=Vitello Longhorn
+ 
+entity.animania.HogYorkshire.name=Maiale Yorkshire (Maschio)
+entity.animania.SowYorkshire.name=Maiale Yorkshire (Femmina)
+entity.animania.PigletYorkshire.name=Porcellino Yorkshire
+entity.animania.HogOldSpot.name=Maiale Old Spot (Maschio)
+entity.animania.SowOldSpot.name=Maiale Old Spot (Femmina)
+entity.animania.PigletOldSpot.name=Porcellino Old Spot
+entity.animania.HogLargeBlack.name=Maiale Large Black (Maschio)
+entity.animania.SowLargeBlack.name=Maiale Large Black (Femmina)
+entity.animania.PigletLargeBlack.name=Porcellino Large Black
+entity.animania.HogLargeWhite.name=Maiale Large White (Maschio)
+entity.animania.SowLargeWhite.name=Maiale Large White (Femmina)
+entity.animania.PigletLargeWhite.name=Porcellino Large White
+entity.animania.HogDuroc.name=Maiale Duroc (Maschio)
+entity.animania.SowDuroc.name=Maiale Duroc (Femmina)
+entity.animania.PigletDuroc.name=Porcellino Duroc
+entity.animania.HogHampshire.name=Maiale Hampshire (Maschio)
+entity.animania.SowHampshire.name=Maiale Hampshire (Femmina)
+entity.animania.PigletHampshire.name=Porcellino Hampshire
+ 
+entity.animania.Hamster.name=Criceto
+entity.animania.FerretGrey.name=Furetto Grigio
+entity.animania.FerretWhite.name=Furetto Bianco
+ 
+entity.animania.PeacockBlue.name=Pavone (Maschio)
+entity.animania.PeafowlBlue.name=Pavone (Femmina)
+entity.animania.PeachickBlue.name=Pavone
+
+entity.animania.PeacockWhite.name=Pavone (Maschio)
+entity.animania.PeafowlWhite.name=Pavone (Femmina)
+entity.animania.PeachickWhite.name=Pavone
+ 
+tile.animania_block_mud.name=Fango
+tile.animania_block_seeds.name=Semi
+tile.animania_block_trough.name=Abbeveratoio
+tile.animania_block_nest.name=Nido
+tile.animania_invisiblock.name=Abbeveratoio
+ 
+tab.animania_entities.label=Animania Entities
+tab.animania_resources.label=Animania Resources
+ 
+achievement.an.leghorn=Leghorn
+achievement.an.leghorn.desc=Fai amiciza con una Gallina Leghorn
+achievement.an.orpington=Orpington
+achievement.an.orpington.desc=Fai amiciza con una Gallina Orpington
+achievement.an.plymouthrock=Plymouth Rock
+achievement.an.plymouthrock.desc=Fai amiciza con una Gallina Plymouth Rock
+achievement.an.rhodeislandred=Rhode Island Red
+achievement.an.rhodeislandred.desc=Fai amiciza con una Gallina Rhode Island Red
+achievement.an.wyandotte=Wyandotte
+achievement.an.wyandotte.desc=Fai amiciza con una Gallina Wyandotte
+achievement.an.chickens=Sussurratore di Galline
+achievement.an.chickens.desc=Fai amicizia con tutte le spece di Galline
+ 
+achievement.an.angus=Angus
+achievement.an.angus.desc=Fai amicizia con una Mucca Angus
+achievement.an.friesian=Friesian
+achievement.an.friesian.desc=Fai amicizia con una Mucca Friesian
+achievement.an.hereford=Hereford
+achievement.an.hereford.desc=Fai amicizia con una Mucca Hereford
+achievement.an.holstein=Holstein
+achievement.an.holstein.desc=Fai amicizia con una Mucca Holstein
+achievement.an.longhorn=Longhorn
+achievement.an.longhorn.desc=Fai amicizia con una Mucca Longhorn
+achievement.an.cows=Sussurratore di Mucce
+achievement.an.cows.desc=Fai amicizia con tutte le spece di Mucce
+ 
+achievement.an.duroc=Duroc
+achievement.an.duroc.desc=Fai amicizia con un Maiale Duroc
+achievement.an.hampshire=Hampshire
+achievement.an.hampshire.desc=Fai amicizia con un Maiale Hampshire
+achievement.an.largeblack=Large Black
+achievement.an.largeblack.desc=Fai amicizia con un Maiale Large Black
+achievement.an.largewhite=Large White
+achievement.an.largewhite.desc=Fai amicizia con un Maiale Large White
+achievement.an.oldspot=Old Spot
+achievement.an.oldspot.desc=Fai amicizia con un Maiale Old Spot
+achievement.an.yorkshire=Yorkshire
+achievement.an.yorkshire.desc=Fai amicizia con un Maiale Yorkshire
+achievement.an.pigs=Sussurratore di Maiali
+achievement.an.pigs.desc=Fai amicizia con tutte le specie di Maiali
+ 
+achievement.an.indiablue=Pavone Indiano Blu
+achievement.an.indiablue.desc=Fai amicizia con un Pavone Indiano Blu
+achievement.an.white=Pavone Bianco
+achievement.an.white.desc=Fai amicizia con un Pavone Bianco
+achievement.an.peacocks=Sussurratore di Pavoni
+achievement.an.peacocks.desc=Fai amicizia con tutte le specie di Pavoni
+ 
+achievement.an.greyferret=Furetto Grigio
+achievement.an.greyferret.desc=Fai amicizia con un Furetto Grigio
+achievement.an.whiteferret=Furetto Bianco
+achievement.an.whiteferret.desc=Fai amicizia con un Furetto Bianco
+achievement.an.ferrets=Sussurratore di Furetti
+achievement.an.ferrets.desc=Fai amicizia con tutte le specie di Furetti
+ 
+achievement.an.hamsters=Sussurratore di Criceti
+achievement.an.hamsters.desc=Fai amicizia con un Criceto
+ 
+animania.updatetext.1=Versione di Animania
+animania.updatetext.2=è ora disponibile
+animania.updatetext.3=Impossibile connettersi per controllare se è disponibile un aggiornamento di Animania
+animania.update.download=["Clicca per: [",{"text":"Scaricare","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Clicca per vedere gli ultimi file della 1.11 disponibili per il download","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]

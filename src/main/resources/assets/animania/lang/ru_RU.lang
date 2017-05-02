@@ -1,0 +1,266 @@
+item.animania_hamster_food.name=Еда для хомяков
+item.animania_truffle.name=Трюфель
+item.animania_brown_egg.name=Яйцо
+item.animania_bucket_slop.name=Ведро комбикорма
+item.animania_carving_knife.name=Разделочный нож
+item.animania_cheese_mold.name=Форма для сыра
+
+item.animania_carving_knife.desc=Используется для разделки мяса и сыров
+item.animania_cheese_mold.desc=Используется для изготовления сыров
+item.animania_entity_egg.desc1=Спавн
+item.animania_entity_egg.desc2=[Правый клик]
+
+item.animania_raw_angus_beef.name=Сырая говядина (Ангус)
+item.animania_cooked_angus_roast.name=Жареная говядина (Ангус)
+item.animania_raw_angus_steak.name=Сырой стейк (Ангус)
+item.animania_cooked_angus_steak.name=Готовый стейк (Ангус)
+item.animania_raw_hereford_beef.name=Сырая говядина (Херефорд)
+item.animania_cooked_hereford_roast.name=Жареная говядина (Херефорд)
+item.animania_raw_hereford_steak.name=Сырой стейк (Херефорд)
+item.animania_cooked_hereford_steak.name=Готовый стейк (Херефорд)
+item.animania_raw_longhorn_beef.name=Сырая говядина (Лонгхорн)
+item.animania_cooked_longhorn_roast.name=Жареная говядина (Лонгхорн)
+item.animania_raw_longhorn_steak.name=Сырой стейк (Лонгхорн)
+item.animania_cooked_longhorn_steak.name=Готовый стейк (Лонгхорн)
+
+item.animania_raw_large_black_pork.name=Сырая свинина (Крупная чёрная)
+item.animania_cooked_large_black_roast.name=Жареная свинина (Крупная чёрная)
+item.animania_raw_large_black_bacon.name=Сырой бекон (Крупная чёрная)
+item.animania_cooked_large_black_bacon.name=Бекон (Крупная чёрная)
+item.animania_raw_duroc_pork.name=Сырая свинина (Дюрок)
+item.animania_cooked_duroc_roast.name=Жареная свинина (Дюрок)
+item.animania_raw_duroc_bacon.name=Сырой бекон (Дюрок)
+item.animania_cooked_duroc_bacon.name=Бекон (Дюрок)
+item.animania_raw_old_spot_pork.name=Сырая свинина (Пятнистая)
+item.animania_cooked_old_spot_roast.name=Жареная свинина (Пятнистая)
+item.animania_raw_old_spot_bacon.name=Сырой бекон (Пятнистая)
+item.animania_cooked_old_spot_bacon.name=Бекон (Пятнистая)
+item.animania_raw_hampshire_pork.name=Сырая свинина (Гемпширская)
+item.animania_cooked_hampshire_roast.name=Жареная свинина (Гемпширская)
+item.animania_raw_hampshire_bacon.name=Сырой бекон (Гемпширская)
+item.animania_cooked_hampshire_bacon.name=Бекон (Гемпширская)
+
+item.animania_raw_orpington_chicken.name=Сырая курятина (Орпингтон)
+item.animania_cooked_orpington_chicken.name=Жареная курятина (Орпингтон)
+item.animania_raw_plymouth_rock_chicken.name=Сырая курятина (Плимутрок)
+item.animania_cooked_plymouth_rock_chicken.name=Жареная курятина (Плимутрок)
+item.animania_raw_rhode_island_red_chicken.name=Сырая курятина (Род-айланд)
+item.animania_cooked_rhode_island_red_chicken.name=Жареная курятина (Род-айланд)
+item.animania_raw_wyandotte_chicken.name=Сырая курятина (Уайандотт)
+item.animania_cooked_wyandotte_chicken.name=Жареная курятина (Уайандотт)
+
+item.animania_friesian_cheese_wheel.name=Головка сыра (Фризская)
+item.animania_friesian_cheese_wedge.name=Ломоть сыра (Фризская)
+item.animania_holstein_cheese_wheel.name=Головка сыра (Гольштейн)
+item.animania_holstein_cheese_wedge.name=Ломоть сыра (Гольштейн)
+item.animania_holstein_bucket_milk.name=Ведро с молоком (Гольштейн)
+item.animania_friesian_bucket_milk.name=Ведро с молоком (Фризская)
+item.animania_truffle_soup.name=Трюфельный суп
+item.animania_chocolate_truffle.name=Шоколадный трюфель
+
+item.animania_plain_omelette.name=Омлет
+item.animania_bacon_omelette.name=Омлет с беконом
+item.animania_cheese_omelette.name=Омлет с сыром
+item.animania_truffle_omelette.name=Омлет с трюфелями
+item.animania_super_omelette.name=Супер омлет
+
+item.animania_entity_egg_cow_holstein.name=Гольштейнская Корова
+item.animania_entity_egg_bull_holstein.name=Гольштейнский Бык
+item.animania_entity_egg_calf_holstein.name=Гольштейнский Телёнок
+item.animania_entity_egg_cow_friesian.name=Фризская Корова
+item.animania_entity_egg_bull_friesian.name=Фризский Бык
+item.animania_entity_egg_calf_friesian.name=Фризский Телёнок
+item.animania_entity_egg_cow_angus.name=Ангус Корова
+item.animania_entity_egg_bull_angus.name=Ангус Бык
+item.animania_entity_egg_calf_angus.name=Ангус Телёнок
+item.animania_entity_egg_cow_longhorn.name=Лонгхорн Корова
+item.animania_entity_egg_bull_longhorn.name=Лонгхорн Бык
+item.animania_entity_egg_calf_longhorn.name=Лонгхорн Телёнок
+item.animania_entity_egg_cow_hereford.name=Херефорд Корова
+item.animania_entity_egg_bull_hereford.name=Херефорд Бык
+item.animania_entity_egg_calf_hereford.name=Херефорд Телёнок
+
+item.animania_entity_egg_chick_plymouth.name=Плимутрок Цыплёнок
+item.animania_entity_egg_hen_plymouth.name=Плимутрок Курица
+item.animania_entity_egg_rooster_plymouth.name=Плимутрок Петух
+item.animania_entity_egg_chick_red.name=Род-айланд Цыплёнок
+item.animania_entity_egg_hen_red.name=Род-айланд Курица
+item.animania_entity_egg_rooster_red.name=Род-айланд Петух
+item.animania_entity_egg_chick_leghorn.name=Леггорн Цыплёнок
+item.animania_entity_egg_hen_leghorn.name=Леггорн Курица
+item.animania_entity_egg_rooster_leghorn.name=Леггорн Петух
+item.animania_entity_egg_chick_orpington.name=Орпингтон Цыплёнок
+item.animania_entity_egg_hen_orpington.name=Орпингтон Курица
+item.animania_entity_egg_rooster_orpington.name=Орпингтон Петух
+item.animania_entity_egg_chick_wyandotte.name=Уайандотт Цыплёнок
+item.animania_entity_egg_hen_wyandotte.name=Уайандотт Курица
+item.animania_entity_egg_rooster_wyandotte.name=Уайандотт Петух
+
+item.animania_entity_egg_piglet_yorkshire.name=Йоркширский Поросёнок
+item.animania_entity_egg_sow_yorkshire.name=Йоркширская Свиноматка
+item.animania_entity_egg_hog_yorkshire.name=Йоркширский Боров
+item.animania_entity_egg_piglet_oldspot.name=Пятнистый Поросёнок
+item.animania_entity_egg_sow_oldspot.name=Пятнистая Свиноматка
+item.animania_entity_egg_hog_oldspot.name=Пятнистый Боров
+item.animania_entity_egg_piglet_duroc.name=Дюрок Поросёнок
+item.animania_entity_egg_sow_duroc.name=Дюрок Свиноматка
+item.animania_entity_egg_hog_duroc.name=Дюрок Боров
+item.animania_entity_egg_piglet_largeblack.name=Крупный чёрный Поросёнок
+item.animania_entity_egg_sow_largeblack.name=Крупная чёрная Свиноматка
+item.animania_entity_egg_hog_largeblack.name=Крупный чёрный Боров
+item.animania_entity_egg_piglet_largewhite.name=Крупный белый Поросёнок
+item.animania_entity_egg_sow_largewhite.name=Крупная белая Свиноматка
+item.animania_entity_egg_hog_largewhite.name=Крупный белый Боров
+item.animania_entity_egg_piglet_hampshire.name=Гемпширский Поросёнок
+item.animania_entity_egg_sow_hampshire.name=Гемпширская Свиноматка
+item.animania_entity_egg_hog_hampshire.name=Гемпширский Боров
+
+item.animania_entity_egg_hamster.name=Хомяк
+item.animania_entity_egg_ferret_white.name=Белый хорёк
+item.animania_entity_egg_ferret_grey.name=Серый хорёк
+
+item.animania_entity_egg_peacock_blue.name=Индийский синий Павлин
+item.animania_entity_egg_peafowl_blue.name=Индийская синяя Пава
+item.animania_entity_egg_peachick_blue.name=Индийский синий Павча
+item.animania_entity_egg_peacock_white.name=Белый Павлин
+item.animania_entity_egg_peafowl_white.name=Белая Пава
+item.animania_entity_egg_peachick_white.name=Белый Павча
+
+entity.animania.ChickRhodeIslandRed.name=Род-айланд Цыплёнок
+entity.animania.HenRhodeIslandRed.name=Род-айланд Курица
+entity.animania.RoosterRhodeIslandRed.name=Род-айланд Петух
+entity.animania.ChickPlymouthRock.name=Плимутрок Цыплёнок
+entity.animania.HenPlymouthRock.name=Плимутрок Курица
+entity.animania.RoosterPlymouthRock.name=Плимутрок Петух
+entity.animania.ChickLeghorn.name=Леггорн Цыплёнок
+entity.animania.HenLeghorn.name=Леггорн Курица
+entity.animania.RoosterLeghorn.name=Леггорн Петух
+entity.animania.ChickOrpington.name=Орпингтон Цыплёнок
+entity.animania.HenOrpington.name=Орпингтон Курица
+entity.animania.RoosterOrpington.name=Орпингтон Петух
+entity.animania.ChickWyandotte.name=Уайандотт Цыплёнок
+entity.animania.HenWyandotte.name=Уайандотт Курица
+entity.animania.RoosterWyandotte.name=Уайандотт Петух
+
+entity.animania.BullAngus.name=Ангус Бык
+entity.animania.CowAngus.name=Ангус Корова
+entity.animania.CalfAngus.name=Ангус Телёнок
+entity.animania.BullHolstein.name=Гольштейнский Бык
+entity.animania.CowHolstein.name=Гольштейнская Корова
+entity.animania.CalfHolstein.name=Гольштейнский Телёнок
+entity.animania.BullFriesian.name=Фризская Бык
+entity.animania.CowFriesian.name=Фризская Корова
+entity.animania.CalfFriesian.name=Фризская Телёнок
+entity.animania.BullHereford.name=Херефорд Бык
+entity.animania.CowHereford.name=Херефорд Корова
+entity.animania.CalfHereford.name=Херефорд Телёнок
+entity.animania.BullLonghorn.name=Лонгхорн Бык
+entity.animania.CowLonghorn.name=Лонгхорн Корова
+entity.animania.CalfLonghorn.name=Лонгхорн Телёнок
+
+entity.animania.HogYorkshire.name=Йоркширский Боров
+entity.animania.SowYorkshire.name=Йоркширская Свиноматка
+entity.animania.PigletYorkshire.name=Йоркширский Поросёнок
+entity.animania.HogOldSpot.name=Пятнистый Боров
+entity.animania.SowOldSpot.name=Пятнистая Свиноматка
+entity.animania.PigletOldSpot.name=Пятнистый Поросёнок
+entity.animania.HogLargeBlack.name=Крупный чёрный Боров
+entity.animania.SowLargeBlack.name=Крупная чёрная Свиноматка
+entity.animania.PigletLargeBlack.name=Крупный чёрный Поросёнок
+entity.animania.HogLargeWhite.name=Крупный белый Боров
+entity.animania.SowLargeWhite.name=Крупная белая Свиноматка
+entity.animania.PigletLargeWhite.name=Крупный белый Поросёнок
+entity.animania.HogDuroc.name=Дюрок Боров
+entity.animania.SowDuroc.name=Дюрок Свиноматка
+entity.animania.PigletDuroc.name=Дюрок Поросёнок
+entity.animania.HogHampshire.name=Гемпширский Боров
+entity.animania.SowHampshire.name=Гемпширская Свиноматка
+entity.animania.PigletHampshire.name=Гемпширский Поросёнок
+
+entity.animania.Hamster.name=Хомяк
+entity.animania.FerretGrey.name=Серый хорёк
+entity.animania.FerretWhite.name=Белый хорёк
+
+entity.animania.PeacockBlue.name=Индийский синий Павлин
+entity.animania.PeafowlBlue.name=Индийская синяя Пава
+entity.animania.PeachickBlue.name=Индийская синяя Павча
+
+entity.animania.PeacockWhite.name=Белый Павлин
+entity.animania.PeafowlWhite.name=Белая Пава
+entity.animania.PeachickWhite.name=Белая Павча
+
+death.attack.bull=%1$s был(а) забодан(а) до смерти
+
+tile.animania_block_mud.name=Грязь
+tile.animania_block_seeds.name=Семена
+tile.animania_block_trough.name=Корыто
+tile.animania_block_nest.name=Гнездо
+tile.animania_invisiblock.name=Корыто
+
+tab.animania_entities.label=Animania Объекты
+tab.animania_resources.label=Animania Ресурсы
+
+achievement.an.leghorn=Леггорн
+achievement.an.leghorn.desc=Подружиться с курицами породы Леггорн
+achievement.an.orpington=Орпингтон
+achievement.an.orpington.desc=Подружиться с курицами породы Орпингтон
+achievement.an.plymouthrock=Плимутрок
+achievement.an.plymouthrock.desc=Подружиться с курицами породы Плимутрок
+achievement.an.rhodeislandred=Род-айланд
+achievement.an.rhodeislandred.desc=Подружиться с курицами породы Род-айланд
+achievement.an.wyandotte=Уайандотт
+achievement.an.wyandotte.desc=Подружиться с курицами породы Уайандотт
+achievement.an.chickens=Знаток куриц
+achievement.an.chickens.desc=Подружиться со всеми породами куриц
+
+achievement.an.angus=Ангус
+achievement.an.angus.desc=Подружиться с коровами породы Ангус
+achievement.an.friesian=Фризская
+achievement.an.friesian.desc=Подружиться с коровами породы Фризская
+achievement.an.hereford=Херефорд
+achievement.an.hereford.desc=Подружиться с коровами породы Херефорд
+achievement.an.holstein=Гольштейн
+achievement.an.holstein.desc=Подружиться с коровами породы Гольштейн
+achievement.an.longhorn=Лонгхорн
+achievement.an.longhorn.desc=Подружиться с коровами породы Лонгхорн
+achievement.an.cows=Знаток коров
+achievement.an.cows.desc=Подружиться со всеми породами коров
+
+achievement.an.duroc=Дюрок
+achievement.an.duroc.desc=Подружиться со свиньями породы Дюрок
+achievement.an.hampshire=Гемпширская
+achievement.an.hampshire.desc=Подружиться со свиньями породы Гемпширская
+achievement.an.largeblack=Крупная чёрная
+achievement.an.largeblack.desc=Подружиться со свиньями породы Крупная чёрная
+achievement.an.largewhite=Крупная белая
+achievement.an.largewhite.desc=Подружиться со свиньями породы Крупная белая
+achievement.an.oldspot=Пятнистая
+achievement.an.oldspot.desc=Подружиться со свиньями породы Пятнистая
+achievement.an.yorkshire=Йоркширская
+achievement.an.yorkshire.desc=Подружиться со свиньями породы Йоркширская
+achievement.an.pigs=Знаток свиней
+achievement.an.pigs.desc=Подружиться со всеми породами свиней
+
+achievement.an.indiablue=Индийский синий
+achievement.an.indiablue.desc=Подружиться с Индийским синим Павлином
+achievement.an.white=Белый Павлин
+achievement.an.white.desc=Подружиться с Белым Павлином
+achievement.an.peacocks=Знаток павлинов
+achievement.an.peacocks.desc=Подружиться со всеми видами павлинов
+
+achievement.an.greyferret=Серый хорёк
+achievement.an.greyferret.desc=Подружиться с Серым хорьком
+achievement.an.whiteferret=Белый хорёк
+achievement.an.whiteferret.desc=Подружиться с Белым хорьком
+achievement.an.ferrets=Знаток хорьков
+achievement.an.ferrets.desc=Подружиться со всеми видами хорьков
+
+achievement.an.hamsters=Знаток хомяков
+achievement.an.hamsters.desc=Подружиться с хомяками
+
+
+
+animania.updatetext.1=Animania версии 
+animania.updatetext.2=теперь доступна
+animania.updatetext.3=Не удалось подключиться для проверки доступных обновлений для Animania
+animania.update.download=["Нажмите на: [",{"text":"Скачать","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Нажмите чтобы увидеть последние файлы обновлений, доступные для 1.11","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]

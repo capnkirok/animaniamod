@@ -1,0 +1,262 @@
+item.animania_hamster_food.name=Храна За Хамстери
+item.animania_truffle.name=Трюфел
+item.animania_brown_egg.name=Кафяво Яйце
+item.animania_bucket_slop.name=Разлята Кофа
+item.animania_carving_knife.name=Нож
+item.animania_cheese_mold.name=Форма За Кашкавал
+ 
+item.animania_carving_knife.desc=Използва се за рязането на меса и сирена
+item.animania_cheese_mold.desc=Използва се за правене на кашкавал
+item.animania_entity_egg.desc1=Създание
+item.animania_entity_egg.desc2=[Десен Бутон]
+ 
+item.animania_raw_angus_beef.name=Сурово Говеждо (Абърдийн-Ангъс)
+item.animania_cooked_angus_roast.name=Печено Говеждо (Абърдийн-Ангъс)
+item.animania_raw_angus_steak.name=Сурова Пържола (Абърдийн-Ангъс)
+item.animania_cooked_angus_steak.name=Сготвена Пържола (Абърдийн-Ангъс)
+item.animania_raw_hereford_beef.name=Сурово Говеждо (Херефорд)
+item.animania_cooked_hereford_roast.name=Печено Говеждо (Херефорд)
+item.animania_raw_hereford_steak.name=Сурова Пържола (Херефорд)
+item.animania_cooked_hereford_steak.name=Сготвена Пържола (Херефорд)
+item.animania_raw_longhorn_beef.name=Сурово Говеждо (Лонгхорн)
+item.animania_cooked_longhorn_roast.name=Печено Говеждо (Лонгхорн)
+item.animania_raw_longhorn_steak.name=Сурова Пържола (Лонгхорн)
+item.animania_cooked_longhorn_steak.name=Сготвена Пържола (Лонгхорн)
+ 
+item.animania_raw_large_black_pork.name=Сурово Свинско (Голямо Черно)
+item.animania_cooked_large_black_roast.name=Печено Свинско (Голямо Черно)
+item.animania_raw_large_black_bacon.name=Суров Бекон (Голямо Черно)
+item.animania_cooked_large_black_bacon.name=Бекон (Голямо Черно)
+item.animania_raw_duroc_pork.name=Сурово Свинско (Дурок)
+item.animania_cooked_duroc_roast.name=Печено Свинско (Дурок)
+item.animania_raw_duroc_bacon.name=Суров Бекон (Дурок)
+item.animania_cooked_duroc_bacon.name=Бекон (Дурок)
+item.animania_raw_old_spot_pork.name=Сурово Свинско (Старо Петно)
+item.animania_cooked_old_spot_roast.name=Печено Свинско (Старо Петно)
+item.animania_raw_old_spot_bacon.name=Суров Бекон (Старо Петно)
+item.animania_cooked_old_spot_bacon.name=Бекон (Старо Петно)
+item.animania_raw_hampshire_pork.name=Сурово Свинско (Хампшайър)
+item.animania_cooked_hampshire_roast.name=Печено Свинско (Хампшайър)
+item.animania_raw_hampshire_bacon.name=Суров Бекон (Хампшайър)
+item.animania_cooked_hampshire_bacon.name=Бекон (Хампшайър)
+ 
+item.animania_raw_orpington_chicken.name=Сурово Пиле (Орпингтон)
+item.animania_cooked_orpington_chicken.name=Печено Пиле (Орпингтон)
+item.animania_raw_plymouth_rock_chicken.name=Сурово Пиле (Плимутрок)
+item.animania_cooked_plymouth_rock_chicken.name=Печено Пиле (Плимутрок)
+item.animania_raw_rhode_island_red_chicken.name=Сурово Пиле (Червен Роуд Айлънд)
+item.animania_cooked_rhode_island_red_chicken.name=Печено Пиле (Червен Роуд Айлънд)
+item.animania_raw_wyandotte_chicken.name=Сурово Пиле (Уайандот)
+item.animania_cooked_wyandotte_chicken.name=Печено Пиле (Уайандот)
+ 
+item.animania_friesian_cheese_wheel.name=Колело Кашкавал (Фрийжан)
+item.animania_friesian_cheese_wedge.name=Клин Сирене (Фрийжан)
+item.animania_holstein_cheese_wheel.name=Колело Кашкавал (Холщайн)
+item.animania_holstein_cheese_wedge.name=Клин Сирене (Холщайн)
+item.animania_holstein_bucket_milk.name=Кофа Мляко (Холщайн)
+item.animania_friesian_bucket_milk.name=Кофа Мляко (Фрийжан)
+item.animania_truffle_soup.name=Супа С Трюфели
+item.animania_chocolate_truffle.name=Шоколадов Трюфел
+ 
+item.animania_plain_omelette.name=Обикновен Омлет
+item.animania_bacon_omelette.name=Омлет С Бекон
+item.animania_cheese_omelette.name=Омлет С Кашкавал
+item.animania_truffle_omelette.name=Омлет С Трюфел
+item.animania_super_omelette.name=Супер Омлет
+ 
+item.animania_entity_egg_cow_holstein.name=Холщайн Крава
+item.animania_entity_egg_bull_holstein.name=Холщайн Бик
+item.animania_entity_egg_calf_holstein.name=Холщайн Теле
+item.animania_entity_egg_cow_friesian.name=Фрийжън Крава
+item.animania_entity_egg_bull_friesian.name=Фрийжън Бик
+item.animania_entity_egg_calf_friesian.name=Фрийжън Теле
+item.animania_entity_egg_cow_angus.name=Абърдийн-Ангъс Крава
+item.animania_entity_egg_bull_angus.name=Абърдийн-Ангъс Бик
+item.animania_entity_egg_calf_angus.name=Абърдийн-Ангъс Теле
+item.animania_entity_egg_cow_longhorn.name=Лонгхорн Крава
+item.animania_entity_egg_bull_longhorn.name=Лонгхорн Бик
+item.animania_entity_egg_calf_longhorn.name=Лонгхорн Теле
+item.animania_entity_egg_cow_hereford.name=Херефорд Крава
+item.animania_entity_egg_bull_hereford.name=Херефорд Бик
+item.animania_entity_egg_calf_hereford.name=Херефорд Теле
+ 
+item.animania_entity_egg_chick_plymouth.name=Плимутрок Пиле
+item.animania_entity_egg_hen_plymouth.name=Плимутрок Кокошка
+item.animania_entity_egg_rooster_plymouth.name=Плимутрок Петел
+item.animania_entity_egg_chick_red.name=Червен Роуд Айлънд Пиле
+item.animania_entity_egg_hen_red.name=Червен Роуд Айлънд Кокошка
+item.animania_entity_egg_rooster_red.name=Червен Роуд Айлънд Петел
+item.animania_entity_egg_chick_leghorn.name=Ливорно Пиле
+item.animania_entity_egg_hen_leghorn.name=Ливорна Кокошка
+item.animania_entity_egg_rooster_leghorn.name=Ливорен Петел
+item.animania_entity_egg_chick_orpington.name=Орпингтон Пиле
+item.animania_entity_egg_hen_orpington.name=Орпингтон Кокошка
+item.animania_entity_egg_rooster_orpington.name=Орпингтон Петел
+item.animania_entity_egg_chick_wyandotte.name=Уайандот Пиле
+item.animania_entity_egg_hen_wyandotte.name=Уайандот Кокошка
+item.animania_entity_egg_rooster_wyandotte.name=Уайандот Петел
+ 
+item.animania_entity_egg_piglet_yorkshire.name=Йоркшир Прасенце
+item.animania_entity_egg_sow_yorkshire.name=Йоркшир Свиня
+item.animania_entity_egg_hog_yorkshire.name=Йоркшир Глиган
+item.animania_entity_egg_piglet_oldspot.name=Старо Петнисто Прасенце
+item.animania_entity_egg_sow_oldspot.name=Стара Петниста Свиня
+item.animania_entity_egg_hog_oldspot.name=Стар Петнист Глиган
+item.animania_entity_egg_piglet_duroc.name=Дурок Прасенце
+item.animania_entity_egg_sow_duroc.name=Дурок Свиня
+item.animania_entity_egg_hog_duroc.name=Дурок Глиган
+item.animania_entity_egg_piglet_largeblack.name=Голямо Черно Прасенце
+item.animania_entity_egg_sow_largeblack.name=Голяма Черна Свиня
+item.animania_entity_egg_hog_largeblack.name=Голям Черен Глиган
+item.animania_entity_egg_piglet_largewhite.name=Голямо Бяло Прасенце
+item.animania_entity_egg_sow_largewhite.name=Голяма Бяла Свиня
+item.animania_entity_egg_hog_largewhite.name=Голям Бял Глиган
+item.animania_entity_egg_piglet_hampshire.name=Хампшайър Прасенце
+item.animania_entity_egg_sow_hampshire.name=Хампшайър Свиня
+item.animania_entity_egg_hog_hampshire.name=Хампшайър Глиган
+ 
+item.animania_entity_egg_hamster.name=Хамстер
+item.animania_entity_egg_ferret_white.name=Бяла Невестулка
+item.animania_entity_egg_ferret_grey.name=Сива Невестулка
+ 
+item.animania_entity_egg_peacock_blue.name=Син Индийски Мъжки Паун
+item.animania_entity_egg_peafowl_blue.name=Син Индийски Женски Паун
+item.animania_entity_egg_peachick_blue.name=Синьо Индийско Паунче
+item.animania_entity_egg_peacock_white.name=Бял Мъжки Паун
+item.animania_entity_egg_peafowl_white.name=Бял Женски Паун
+item.animania_entity_egg_peachick_white.name=Бяло Паунче
+ 
+entity.animania.ChickRhodeIslandRed.name=Червен Роуд Айлънд Пиле
+entity.animania.HenRhodeIslandRed.name=Червен Роуд Айлънд Кокошка
+entity.animania.RoosterRhodeIslandRed.name=Червен Роуд Айлънд Петел
+entity.animania.ChickPlymouthRock.name=Плимутрок Пиле
+entity.animania.HenPlymouthRock.name=Плимутрок Кокошка
+entity.animania.RoosterPlymouthRock.name=Плимутрок Петел
+entity.animania.ChickLeghorn.name=Ливорно Пиле
+entity.animania.HenLeghorn.name=Ливорна Кокошка
+entity.animania.RoosterLeghorn.name=Ливорен Петел
+entity.animania.ChickOrpington.name=Орпингтон Пиле
+entity.animania.HenOrpington.name=Орпингтон Кокошка
+entity.animania.RoosterOrpington.name=Орпингтон Петел
+entity.animania.ChickWyandotte.name=Уайандот Пиле
+entity.animania.HenWyandotte.name=Уайандот Кокошка
+entity.animania.RoosterWyandotte.name=Уайандот Петел
+ 
+entity.animania.BullAngus.name=Абърдийн-Ангъс Бик
+entity.animania.CowAngus.name=Абърдийн-Ангъс Крава
+entity.animania.CalfAngus.name=Абърдийн-Ангъс Теле
+entity.animania.BullHolstein.name=Холщайн Бик
+entity.animania.CowHolstein.name=Холщайн Крава
+entity.animania.CalfHolstein.name=Холщайн Теле
+entity.animania.BullFriesian.name=Фрийжън Бик
+еntity.animania.CowFriesian.name=Фрийжън Крава
+entity.animania.CalfFriesian.name=Фрийжън Теле
+entity.animania.BullHereford.name=Херефорд Бик
+entity.animania.CowHereford.name=Херефорд Крава
+entity.animania.CalfHereford.name=Херефорд Теле
+entity.animania.BullLonghorn.name=Лонгхорн Бик
+entity.animania.CowLonghorn.name=Лонгхорн Крава
+entity.animania.CalfLonghorn.name=Лонгхорн Теле
+ 
+entity.animania.HogYorkshire.name=Йоркшир Глиган
+entity.animania.SowYorkshire.name=Йоркшир Свиня
+entity.animania.PigletYorkshire.name=Йоркшир Прасенце
+entity.animania.HogOldSpot.name=Стар Петнист Глиган
+entity.animania.SowOldSpot.name=Стара Петниста Свиня
+entity.animania.PigletOldSpot.name=Старо Петнисто Прасенце
+entity.animania.HogLargeBlack.name=Голям Черeн Глиган
+entity.animania.SowLargeBlack.name=Голяма Чернa Свиня
+entity.animania.PigletLargeBlack.name=Голямo Чернo Прасенце
+entity.animania.HogLargeWhite.name=Голям Бял Глиган
+entity.animania.SowLargeWhite.name=Голяма Бяла Свиня
+entity.animania.PigletLargeWhite.name=Голямо Бяло Прасенце
+entity.animania.HogDuroc.name=Дурок Глиган
+entity.animania.SowDuroc.name=Дурок Свиня
+entity.animania.PigletDuroc.name=Дурок Прасенце
+entity.animania.HogHampshire.name=Хампшайър Глиган
+entity.animania.SowHampshire.name=Хампшайър Свиня
+entity.animania.PigletHampshire.name=Хампшайър Прасенце
+ 
+entity.animania.Hamster.name=Хамстер
+entity.animania.FerretGrey.name=Сива Невестулка
+entity.animania.FerretWhite.name=Бяла Невестулка
+ 
+entity.animania.PeacockWhite.name=Мъжки Паун
+entity.animania.PeafowlWhite.name=Женски Паун
+entity.animania.PeachickWhite.name=Паун
+
+entity.animania.PeacockBlue.name=Мъжки Паун
+entity.animania.PeafowlBlue.name=Женски Паун
+entity.animania.PeachickBlue.name=Паун
+ 
+tile.animania_block_mud.name=Кал
+tile.animania_block_seeds.name=Семена
+tile.animania_block_trough.name=Хранилка
+tile.animania_block_nest.name=Гнездо
+tile.animania_invisiblock.name=Хранилка
+ 
+tab.animania_entities.label=Animania Създания
+tab.animania_resources.label=Animania Ресурси
+ 
+achievement.an.leghorn=Ливорно
+achievement.an.leghorn.desc=Сприятели се с Ливорно пиле
+achievement.an.orpington=Орпингтон
+achievement.an.orpington.desc=Сприятели се с Орпингтон пиле
+achievement.an.plymouthrock=Плимутрок
+achievement.an.plymouthrock.desc=Сприятели се с Плимутрок пиле
+achievement.an.rhodeislandred=Червен Роуд Айлънд
+achievement.an.rhodeislandred.desc=Сприятели се с Червено Роуд Айлънд пиле
+achievement.an.wyandotte=Уайандот
+achievement.an.wyandotte.desc=Сприятели се с Уайандот пиле
+achievement.an.chickens=Говорещ с пилета
+achievement.an.chickens.desc=Сприятели се с всичките Пилешки породи
+ 
+achievement.an.angus=Абърдийн-Ангъс
+achievement.an.angus.desc=Сприятели се с Абърдийн-Ангъс крава
+achievement.an.friesian=Фрийжън
+achievement.an.friesian.desc=Сприятели се с Фрийжън крава
+achievement.an.hereford=Херефорд
+achievement.an.hereford.desc=Сприятели се с Херефорд крава
+achievement.an.holstein=Холщайн
+achievement.an.holstein.desc=Сприятели се с Холщайн крава
+achievement.an.longhorn=Лонгхорн
+achievement.an.longhorn.desc=Сприятели се с Лонгхорн крава
+achievement.an.cows=Говорещ с крави
+achievement.an.cows.desc=Сприятели се с всичките Кравешки породи
+ 
+achievement.an.duroc=Дурок
+achievement.an.duroc.desc=Сприятели се с Дурок прасе
+achievement.an.hampshire=Хампшайър
+achievement.an.hampshire.desc=Сприятели се с Хампшайър прасе
+achievement.an.largeblack=Голямо Черно
+achievement.an.largeblack.desc=Сприятели се с Голямо Черно прасе
+achievement.an.largewhite=Голямо Бяло
+achievement.an.largewhite.desc=Сприятели се с Голямо Бяло прасе
+achievement.an.oldspot=Старо Петнисто
+achievement.an.oldspot.desc=Сприятели се със Старо Петнисто прасе
+achievement.an.yorkshire=Йоркшир
+achievement.an.yorkshire.desc=Сприятели се с Йоркшир прасе
+achievement.an.pigs=Говорещ с прасета
+achievement.an.pigs.desc=Сприятели се с всичките Прасешки породи
+ 
+achievement.an.indiablue=Син Индийски
+achievement.an.indiablue.desc=Сприятели се със Син Индийски паун
+achievement.an.white=Бял
+achievement.an.white.desc=Сприятели се с Бял паун
+achievement.an.peacocks=Говорещ с пауни
+achievement.an.peacocks.desc=Сприятели се с всичките Паунски породи
+ 
+achievement.an.greyferret=Сива Невестулка
+achievement.an.greyferret.desc=Сприятели се със Сива Невестулка
+achievement.an.whiteferret=Бяла Невестулка
+achievement.an.whiteferret.desc=Сприятели се с Бяла Невестулка
+achievement.an.ferrets=Говорещ с невестулки
+achievement.an.ferrets.desc=Сприятели се с всичките Невестулка породи
+ 
+achievement.an.hamsters=Говорещ с хамстери
+achievement.an.hamsters.desc=Сприятели се с Хамстер
+ 
+animania.updatetext.1=Animania Версия
+animania.updatetext.2=е вече на разположение
+animania.updatetext.3=Не може да се свърже, за да видите, ако актуализация на Animania е достъпна
+animania.update.download=["Click to: [",{"text":"Download","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click to see the latest files available for download","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]

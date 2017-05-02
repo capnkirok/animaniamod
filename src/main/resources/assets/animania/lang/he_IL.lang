@@ -1,0 +1,262 @@
+item.animania_hamster_food.name=אוכל לאוגרים
+item.animania_truffle.name=כמהין
+item.animania_brown_egg.name=ביצה חומה
+item.animania_bucket_slop.name=דלי מזון רטוב
+item.animania_carving_knife.name=סכין חיתוך
+item.animania_cheese_mold.name=תבנית לייצור גבינה
+ 
+item.animania_carving_knife.desc=משמש כדי לחתוך גבינה ובשר
+item.animania_cheese_mold.desc=משמשת להכנת גבינה
+item.animania_entity_egg.desc1=מזמן
+item.animania_entity_egg.desc2=[לחצן ימני]
+ 
+item.animania_raw_angus_beef.name= בשר אנגוס נא
+item.animania_cooked_angus_roast.name=בשר אנגוס צלוי
+item.animania_raw_angus_steak.name=סטייק אנגוס נא
+item.animania_cooked_angus_steak.name=סטייק אנגוס מבושל
+item.animania_raw_hereford_beef.name= בשר הרפורד נא
+item.animania_cooked_hereford_roast.name=בשר הרפורד צלוי
+item.animania_raw_hereford_steak.name=סטייק הרטפורד נא
+item.animania_cooked_hereford_steak.name=  סטייק הרטפורד מבושל
+item.animania_raw_longhorn_beef.name= בשר לונגהורן נא
+item.animania_cooked_longhorn_roast.name= בשר לונגהורן צלוי
+item.animania_raw_longhorn_steak.name=סטייק לונגהורן נא
+item.animania_cooked_longhorn_steak.name=סטייק לונגהורן מבושל
+ 
+item.animania_raw_large_black_pork.name=  בשר חזיר נא (לארג' בלק)
+item.animania_cooked_large_black_roast.name=  בשר חזיר צלוי (לארג' בלק)
+item.animania_raw_large_black_bacon.name= בייקון נא (לארג' בלק)
+item.animania_cooked_large_black_bacon.name=בייקון צלוי (לארג' בלק)
+item.animania_raw_duroc_pork.name=בשר חזיר נא (דורוק)
+item.animania_cooked_duroc_roast.name= בשר חזיר צלוי (דורוק)
+item.animania_raw_duroc_bacon.name=בייקון נא (דורוק)
+item.animania_cooked_duroc_bacon.name= בייקון דורוק
+item.animania_raw_old_spot_pork.name= בשר חזיר נא (אולד ספוט)
+item.animania_cooked_old_spot_roast.name=בשר חזיר צלוי (אולד ספוט)
+item.animania_raw_old_spot_bacon.name=בייקון נא (אולד ספוט)
+item.animania_cooked_old_spot_bacon.name=בייקון צלוי (אולד ספוט)
+item.animania_raw_hampshire_pork.name= בשר חזיר נא (המפשייר)
+item.animania_cooked_hampshire_roast.name= בשר חזיר צלוי (המפשייר)
+item.animania_raw_hampshire_bacon.name=בייקון נא (המפשייר)
+item.animania_cooked_hampshire_bacon.name=בייקון צלוי (המפשייר)
+ 
+item.animania_raw_orpington_chicken.name=עוף נא (אורפינגטון)
+item.animania_cooked_orpington_chicken.name=עוף צלוי (אופרינגטון)
+item.animania_raw_plymouth_rock_chicken.name= עוף נא (פליימות' רוק)
+item.animania_cooked_plymouth_rock_chicken.name=עוף צלוי (פליימות' רוק)
+item.animania_raw_rhode_island_red_chicken.name= עוף נא (רוד איילנד רד)
+item.animania_cooked_rhode_island_red_chicken.name=עוף צלוי (רוד איילנד רד)
+item.animania_raw_wyandotte_chicken.name=עוף נא (ווינדוט)
+item.animania_cooked_wyandotte_chicken.name=עוף צלוי (ווינדוט)
+ 
+item.animania_friesian_cheese_wheel.name=כיכר גבינה (פריזיאן)
+item.animania_friesian_cheese_wedge.name=חריץ גבינה (פריזיאן)
+item.animania_holstein_cheese_wheel.name=כיכר גבינה (הולשטיין)
+item.animania_holstein_cheese_wedge.name=חריץ גבינה (הולשטיין)
+item.animania_holstein_bucket_milk.name=דלי חלב (הולשטיין)
+item.animania_friesian_bucket_milk.name=דלי חלב(פריזיאן)
+item.animania_truffle_soup.name=מרק כמהין
+item.animania_chocolate_truffle.name=שוקולד כמהין
+ 
+item.animania_plain_omelette.name=חביתה
+item.animania_bacon_omelette.name=חביתה עם בייקון
+item.animania_cheese_omelette.name=חביתה עם גבינה
+item.animania_truffle_omelette.name=חביתה עם כמהין
+item.animania_super_omelette.name=*חביתת העל*
+ 
+item.animania_entity_egg_cow_holstein.name=פרת הולשטיין
+item.animania_entity_egg_bull_holstein.name=שור הולשטיין
+item.animania_entity_egg_calf_holstein.name=עגל הולשטיין
+item.animania_entity_egg_cow_friesian.name=פרת פריזיאן
+item.animania_entity_egg_bull_friesian.name=שור פריזיאן
+item.animania_entity_egg_calf_friesian.name=עגל פריזיאן
+item.animania_entity_egg_cow_angus.name=פרת אנגוס
+item.animania_entity_egg_bull_angus.name=שור אנגוס
+item.animania_entity_egg_calf_angus.name=עגל אנגוס
+item.animania_entity_egg_cow_longhorn.name=פרת לונגהורן
+item.animania_entity_egg_bull_longhorn.name=שור לונגהורן
+item.animania_entity_egg_calf_longhorn.name=עגל לונגהורן
+item.animania_entity_egg_cow_hereford.name=פרת הרפורד
+item.animania_entity_egg_bull_hereford.name=שור הרפורד
+item.animania_entity_egg_calf_hereford.name=עגל הרפורד
+ 
+item.animania_entity_egg_chick_plymouth.name=אפרוח פליימות' רוק
+item.animania_entity_egg_hen_plymouth.name=תרנגולת פליימות' רוק
+item.animania_entity_egg_rooster_plymouth.name=תרנגול פליימות' רוק
+item.animania_entity_egg_chick_red.name=אפרוח רוד איילנד אדום
+item.animania_entity_egg_hen_red.name=תרנגולת רוד איילנד אדום
+item.animania_entity_egg_rooster_red.name=תרנגול רוד איילנד אדום
+item.animania_entity_egg_chick_leghorn.name=אפרוח לגהורן
+item.animania_entity_egg_hen_leghorn.name=תרנגולת לגהורן
+item.animania_entity_egg_rooster_leghorn.name=תרנגול לגהורן
+item.animania_entity_egg_chick_orpington.name=אפרות אורפינגטון
+item.animania_entity_egg_hen_orpington.name=תרנגולת אורפינגטון
+item.animania_entity_egg_rooster_orpington.name=תרנגול אורפינגטון
+item.animania_entity_egg_chick_wyandotte.name=אפרוח ווינדוט
+item.animania_entity_egg_hen_wyandotte.name=תרנגולת ווינדוט
+item.animania_entity_egg_rooster_wyandotte.name=תרנגול ווינדוט
+ 
+item.animania_entity_egg_piglet_yorkshire.name=חזרזיר יורקשייר
+item.animania_entity_egg_sow_yorkshire.name=חזירת יורקשייר
+item.animania_entity_egg_hog_yorkshire.name=חזיר יורקשייר
+item.animania_entity_egg_piglet_oldspot.name=חזרזיר אולד ספוט
+item.animania_entity_egg_sow_oldspot.name=חזירת אולד ספוט
+item.animania_entity_egg_hog_oldspot.name=חזיר אולד ספוט
+item.animania_entity_egg_piglet_duroc.name=חזרזיר דורוק
+item.animania_entity_egg_sow_duroc.name=חזירת דורוק
+item.animania_entity_egg_hog_duroc.name=חזיר דורוק
+item.animania_entity_egg_piglet_largeblack.name=חזרזיר לארג' בלק
+item.animania_entity_egg_sow_largeblack.name=חזירת לארג' בלק
+item.animania_entity_egg_hog_largeblack.name=חזיר לארג' בלק
+item.animania_entity_egg_piglet_largewhite.name=חזרזיר לארג' וויט
+item.animania_entity_egg_sow_largewhite.name=חזירת לארג' וויט
+item.animania_entity_egg_hog_largewhite.name=חזיר לארג' וויט
+item.animania_entity_egg_piglet_hampshire.name=חזרזיר המפשייר
+item.animania_entity_egg_sow_hampshire.name=חזירת המפשייר
+item.animania_entity_egg_hog_hampshire.name=חזיר המפשייר
+ 
+item.animania_entity_egg_hamster.name=אוגר
+item.animania_entity_egg_ferret_white.name=חמוס לבן
+item.animania_entity_egg_ferret_grey.name=חמוס אפור
+ 
+item.animania_entity_egg_peacock_blue.name=טווס כחול
+item.animania_entity_egg_peafowl_blue.name=טווסית כחולה
+item.animania_entity_egg_peachick_blue.name=אפרוח טווס כחול
+item.animania_entity_egg_peacock_white.name=טווס לבן
+item.animania_entity_egg_peafowl_white.name=טווסית לבנה
+item.animania_entity_egg_peachick_white.name=אפרוח טווס לבן
+ 
+entity.animania.ChickRhodeIslandRed.name=אפרוח רוד איילנד אדום
+entity.animania.HenRhodeIslandRed.name=תרנגולת רוד איילנד אדום
+entity.animania.RoosterRhodeIslandRed.name=תרנגול רוד איילנג אדום
+entity.animania.ChickPlymouthRock.name=אפרוח פלימות' רוק
+entity.animania.HenPlymouthRock.name=תרנגולת פלימות' רוק
+entity.animania.RoosterPlymouthRock.name=תרנגול פלימות' רוק
+entity.animania.ChickLeghorn.name=אפרוח לגהורן
+entity.animania.HenLeghorn.name=תרנגול לגהורן
+entity.animania.RoosterLeghorn.name=תרנגול לגהורן
+entity.animania.ChickOrpington.name=אפרוח אורפינגטון
+entity.animania.HenOrpington.name=תרנגולת אורפינגטון
+entity.animania.RoosterOrpington.name=תרנגול אורפינגטון
+entity.animania.ChickWyandotte.name=אפרות ווינדוט
+entity.animania.HenWyandotte.name=תרנגולת ווינדוט
+entity.animania.RoosterWyandotte.name=תרנגול ווינדוט
+ 
+entity.animania.BullAngus.name=שור אנגוס
+entity.animania.CowAngus.name=פרת אנגוס
+entity.animania.CalfAngus.name=עגל אנגוס
+entity.animania.BullHolstein.name=שור הולשטיין
+entity.animania.CowHolstein.name=פרת הולשטיין
+entity.animania.CalfHolstein.name=עגל הולשטיין
+entity.animania.BullFriesian.name=שור פריזיאן
+entity.animania.CowFriesian.name=פרת פריזיאן
+entity.animania.CalfFriesian.name=עגל פריזיאן
+entity.animania.BullHereford.name=שור הרפורד
+entity.animania.CowHereford.name=פרת הרפורד
+entity.animania.CalfHereford.name=עגל הרפורד
+entity.animania.BullLonghorn.name=שור לונגהורן
+entity.animania.CowLonghorn.name=פרת לונגהורן
+entity.animania.CalfLonghorn.name=עגל לונגהורן
+ 
+entity.animania.HogYorkshire.name=חזיר יורקשייר
+entity.animania.SowYorkshire.name=חזירת יורקשייר
+entity.animania.PigletYorkshire.name=חזרזיר יורקשייר
+entity.animania.HogOldSpot.name=חזיר אולד ספוט
+entity.animania.SowOldSpot.name=חזירת אולד ספוט
+entity.animania.PigletOldSpot.name=חזרזיר אולד ספוט
+entity.animania.HogLargeBlack.name=חזיר לארג' בלק
+entity.animania.SowLargeBlack.name=חזירת לארג' בלק
+entity.animania.PigletLargeBlack.name=חזרזיר לארג' בלק
+entity.animania.HogLargeWhite.name=חזיר לארג' וויט
+entity.animania.SowLargeWhite.name=חזירת לארג' וויט
+entity.animania.PigletLargeWhite.name=חזרזיר לארג' וויט
+entity.animania.HogDuroc.name=חזיר דורוק
+entity.animania.SowDuroc.name=חזירת דורוק
+entity.animania.PigletDuroc.name=חזרזיר דורוק
+entity.animania.HogHampshire.name=חזיר המפשייר
+entity.animania.SowHampshire.name=חזירת המפשייר
+entity.animania.PigletHampshire.name=חזרזיר המפשייר
+ 
+entity.animania.Hamster.name=אוגר
+entity.animania.FerretGrey.name=חמוס אפור
+entity.animania.FerretWhite.name=חמוס לבן
+ 
+entity.animania.PeacockBlue.name=טווס
+entity.animania.PeafowlBlue.name=טווסית
+entity.animania.PeachickBlue.name=טווסית
+
+entity.animania.PeacockWhite.name=טווס
+entity.animania.PeafowlWhite.name=טווסית
+entity.animania.PeachickWhite.name=טווסית
+ 
+tile.animania_block_mud.name=בוץ
+tile.animania_block_seeds.name=זרעים
+tile.animania_block_trough.name=אבוס
+tile.animania_block_nest.name=קן
+tile.animania_invisiblock.name=בלוק בלתי נראה
+ 
+tab.animania_entities.label=חיות אנימניה
+tab.animania_resources.label=משאבי אנימניה
+ 
+achievement.an.leghorn=לגהורן
+achievement.an.leghorn.desc=התיידד עם תרנגולת לגהורן
+achievement.an.orpington=אורפינגטון
+achievement.an.orpington.desc=התיידד עם תרנגולת אופינגטון
+achievement.an.plymouthrock=פליימות' רוק
+achievement.an.plymouthrock.desc=התיידד עם תרנגולת פליימות' רוק
+achievement.an.rhodeislandred=רוד איילנד רד
+achievement.an.rhodeislandred.desc=התיידד עם תרנגולת רוד איילנד רד
+achievement.an.wyandotte=וןינדוט
+achievement.an.wyandotte.desc=התיידד עם תרנגולת ווינדוט
+achievement.an.chickens=הלוחש לתרנגולות
+achievement.an.chickens.desc=התיידד עם כל זני התרנגולות
+ 
+achievement.an.angus=אנגוס
+achievement.an.angus.desc=התיידד עם פרת אנגוס
+achievement.an.friesian=פריזיאן
+achievement.an.friesian.desc=התיידד עם פרת פריזיאן
+achievement.an.hereford=הרפורד
+achievement.an.hereford.desc=התיידד עם פרת הרפורד
+achievement.an.holstein=הולשטיין
+achievement.an.holstein.desc=התיידד עם פרת הולשטיין
+achievement.an.longhorn=לונגהורן
+achievement.an.longhorn.desc=התיידד עם פרת לונגהורן
+achievement.an.cows=הלוחש לפרות
+achievement.an.cows.desc=התיידד עם כל זני הפרות
+ 
+achievement.an.duroc=דורוק
+achievement.an.duroc.desc=התיידד עם חזיר דורוק
+achievement.an.hampshire=המפשייר
+achievement.an.hampshire.desc=התיידד עם חזיר המפשייר
+achievement.an.largeblack=לארג' בלק
+achievement.an.largeblack.desc=התיידד עם חזיר לארג' בלק
+achievement.an.largewhite=לארג' וויט
+achievement.an.largewhite.desc=התיידד עם חזיר לארג' וויט
+achievement.an.oldspot=אולד ספוט
+achievement.an.oldspot.desc=התיידד עם חזיר אולד ספוט
+achievement.an.yorkshire=יורקשייר
+achievement.an.yorkshire.desc=התיידד עם חזיר יורקשייר
+achievement.an.pigs=הלוחש לחזירים
+achievement.an.pigs.desc=התיידד עם כל זני החזירים
+ 
+achievement.an.indiablue=הודי כחול
+achievement.an.indiablue.desc=התיידד עם טווס הודי כחול
+achievement.an.white=טווס לבן
+achievement.an.white.desc=התיידד עם טווס לבן
+achievement.an.peacocks=הלוחש לטווסים
+achievement.an.peacocks.desc=התיידד עם כל זני הטווסים
+ 
+achievement.an.greyferret=חמוס אפור
+achievement.an.greyferret.desc=התיידד עם חמוס אפור
+achievement.an.whiteferret=חמוס לבן
+achievement.an.whiteferret.desc=התיידד עם חמוס לבן
+achievement.an.ferrets=הלוחש לחמוסים
+achievement.an.ferrets.desc=התיידד עם כל סוגי החמוסים
+ 
+achievement.an.hamsters=הלוחש לאוגרים
+achievement.an.hamsters.desc=התיידד עם אוגר
+ 
+animania.updatetext.1=גרסת אינמניה
+animania.updatetext.2=זמינה כעת
+animania.updatetext.3=נכשל בהתחברות על מנת לראות האם עדכון אנימניה זמין
+animania.update.download=["Click to: [",{"text":"Download","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click to see the latest files for 1.11 available for download","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]

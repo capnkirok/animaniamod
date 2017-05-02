@@ -1,0 +1,266 @@
+item.animania_hamster_food.name=Hamsterfoder
+item.animania_truffle.name=Trøffel
+item.animania_brown_egg.name=Æg
+item.animania_bucket_slop.name=Spand med svinefoder
+item.animania_carving_knife.name=Skærekniv
+item.animania_cheese_mold.name=Osteform
+
+item.animania_carving_knife.desc=Bruges til at skære kød og ost
+item.animania_cheese_mold.desc=Bruges til at lave ost
+item.animania_entity_egg.desc1=Spawn
+item.animania_entity_egg.desc2=[Højreklik]
+
+item.animania_raw_angus_beef.name=Rå Bøf (Angus)
+item.animania_cooked_angus_roast.name=Stegt Bøf (Angus)
+item.animania_raw_angus_steak.name=Rå Steg (Angus)
+item.animania_cooked_angus_steak.name=Stegt Steg (Angus)
+item.animania_raw_hereford_beef.name=Rå Bøf (Hereford)
+item.animania_cooked_hereford_roast.name=Stegt Bøf (Hereford)
+item.animania_raw_hereford_steak.name=Rå Steg (Hereford)
+item.animania_cooked_hereford_steak.name=Stegt Steg (Hereford)
+item.animania_raw_longhorn_beef.name=Rå Bøf (Longhorn)
+item.animania_cooked_longhorn_roast.name=Stegt Bøf (Longhorn)
+item.animania_raw_longhorn_steak.name=Rå Steg (Longhorn)
+item.animania_cooked_longhorn_steak.name=Stegt Steg (Longhorn)
+
+item.animania_raw_large_black_pork.name=Rå Flæsk (Large Black)
+item.animania_cooked_large_black_roast.name=Stegt Flæsk (Large Black)
+item.animania_raw_large_black_bacon.name=Rå Bacon (Large Black)
+item.animania_cooked_large_black_bacon.name=Bacon (Large Black)
+item.animania_raw_duroc_pork.name=Rå Flæsk (Duroc)
+item.animania_cooked_duroc_roast.name=Stegt Flæsk (Duroc)
+item.animania_raw_duroc_bacon.name=Rå Bacon (Duroc)
+item.animania_cooked_duroc_bacon.name=Bacon (Duroc)
+item.animania_raw_old_spot_pork.name=Rå Flæsk (Old Spot)
+item.animania_cooked_old_spot_roast.name=Stegt Flæsk (Old Spot)
+item.animania_raw_old_spot_bacon.name=Rå Bacon (Old Spot)
+item.animania_cooked_old_spot_bacon.name=Bacon (Old Spot)
+item.animania_raw_hampshire_pork.name=Rå Flæsk (Hampshire)
+item.animania_cooked_hampshire_roast.name=Stegt Flæsk (Hampshire)
+item.animania_raw_hampshire_bacon.name=Rå Bacon (Hampshire)
+item.animania_cooked_hampshire_bacon.name=Bacon (Hampshire)
+
+item.animania_raw_orpington_chicken.name=Rå Kylling (Orpington)
+item.animania_cooked_orpington_chicken.name=Stegt Kylling (Orpington)
+item.animania_raw_plymouth_rock_chicken.name=Rå Kylling (Plymouth Rock)
+item.animania_cooked_plymouth_rock_chicken.name=Rå Kylling (Plymouth Rock)
+item.animania_raw_rhode_island_red_chicken.name=Rå Kylling (Rhode Island Red)
+item.animania_cooked_rhode_island_red_chicken.name=Rå Kylling (Rhode Island Red)
+item.animania_raw_wyandotte_chicken.name=Rå Kylling (Wyandotte)
+item.animania_cooked_wyandotte_chicken.name=Rå Kylling (Wyandotte)
+
+item.animania_friesian_cheese_wheel.name=Ostehjul (Frisisk)
+item.animania_friesian_cheese_wedge.name=Ostestykke (Frisisk)
+item.animania_holstein_cheese_wheel.name=Ostehjul (Holstein)
+item.animania_holstein_cheese_wedge.name=Ostestykke (Holstein)
+item.animania_holstein_bucket_milk.name=Spand Mælk (Holstein)
+item.animania_friesian_bucket_milk.name=Spand Mælk (Frisisk)
+item.animania_truffle_soup.name=Trøffelsuppe
+item.animania_chocolate_truffle.name=Chokoladetrøffel
+
+item.animania_plain_omelette.name=Enkel Omelet
+item.animania_bacon_omelette.name=Baconomelet
+item.animania_cheese_omelette.name=Osteomelet
+item.animania_truffle_omelette.name=Trøffelomelet
+item.animania_super_omelette.name=Superomelet
+
+item.animania_entity_egg_cow_holstein.name=Holstein-Ko
+item.animania_entity_egg_bull_holstein.name=Holstein-Tyr
+item.animania_entity_egg_calf_holstein.name=Holstein-Kalv
+item.animania_entity_egg_cow_friesian.name=Frisisk-Ko
+item.animania_entity_egg_bull_friesian.name=Frisisk-Tyr
+item.animania_entity_egg_calf_friesian.name=Frisisk-Kalv
+item.animania_entity_egg_cow_angus.name=Angus-Ko
+item.animania_entity_egg_bull_angus.name=Angus-Tyr
+item.animania_entity_egg_calf_angus.name=Angus-Kalv
+item.animania_entity_egg_cow_longhorn.name=Longhorn-Ko
+item.animania_entity_egg_bull_longhorn.name=Longhorn-Tyr
+item.animania_entity_egg_calf_longhorn.name=Longhorn-Kalv
+item.animania_entity_egg_cow_hereford.name=Hereford-Ko
+item.animania_entity_egg_bull_hereford.name=Hereford-Tyr
+item.animania_entity_egg_calf_hereford.name=Hereford-Kalv
+
+item.animania_entity_egg_chick_plymouth.name=Plymouth Rock-Kylling
+item.animania_entity_egg_hen_plymouth.name=Plymouth Rock-Høne
+item.animania_entity_egg_rooster_plymouth.name=Plymouth Rock-Hane
+item.animania_entity_egg_chick_red.name=Rhode Island Red-Kylling
+item.animania_entity_egg_hen_red.name=Rhode Island Red-Høne
+item.animania_entity_egg_rooster_red.name=Rhode Island Red-Hane
+item.animania_entity_egg_chick_leghorn.name=Leghorn-Kylling
+item.animania_entity_egg_hen_leghorn.name=Leghorn-Høne
+item.animania_entity_egg_rooster_leghorn.name=Leghorn-Hane
+item.animania_entity_egg_chick_orpington.name=Orpington-Kylling
+item.animania_entity_egg_hen_orpington.name=Orpington-Høne
+item.animania_entity_egg_rooster_orpington.name=Orpington-Hane
+item.animania_entity_egg_chick_wyandotte.name=Wyandotte-Kylling
+item.animania_entity_egg_hen_wyandotte.name=Wyandotte-Høne
+item.animania_entity_egg_rooster_wyandotte.name=Wyandotte-Hane
+
+item.animania_entity_egg_piglet_yorkshire.name=Yorkshire-Pattegris
+item.animania_entity_egg_sow_yorkshire.name=Yorkshire-So
+item.animania_entity_egg_hog_yorkshire.name=Yorkshire-Orne
+item.animania_entity_egg_piglet_oldspot.name=Old Spot-Pattegris
+item.animania_entity_egg_sow_oldspot.name=Old Spot-So
+item.animania_entity_egg_hog_oldspot.name=Old Spot-Orne
+item.animania_entity_egg_piglet_duroc.name=Duroc-Pattegris
+item.animania_entity_egg_sow_duroc.name=Duroc-So
+item.animania_entity_egg_hog_duroc.name=Duroc-Orne
+item.animania_entity_egg_piglet_largeblack.name=Large Black-Pattegris
+item.animania_entity_egg_sow_largeblack.name=Large Black-So
+item.animania_entity_egg_hog_largeblack.name=Large Black-Orne
+item.animania_entity_egg_piglet_largewhite.name=Large White-Pattegris
+item.animania_entity_egg_sow_largewhite.name=Large White-So
+item.animania_entity_egg_hog_largewhite.name=Large White-Orne
+item.animania_entity_egg_piglet_hampshire.name=Hampshire-Pattegris
+item.animania_entity_egg_sow_hampshire.name=Hampshire-So
+item.animania_entity_egg_hog_hampshire.name=Hampshire-Orne
+
+item.animania_entity_egg_hamster.name=Hamster
+item.animania_entity_egg_ferret_white.name=Hvid Fritte
+item.animania_entity_egg_ferret_grey.name=Grå Fritte
+
+item.animania_entity_egg_peacock_blue.name=Blå Hanpåfugl 
+item.animania_entity_egg_peafowl_blue.name=Blå Hunpåfugl
+item.animania_entity_egg_peachick_blue.name=Blå Påfugleunge
+item.animania_entity_egg_peacock_white.name=Hvid Hanpåfugl
+item.animania_entity_egg_peafowl_white.name=Hvid Hunpåfugl
+item.animania_entity_egg_peachick_white.name=Hvid Påfugleunge
+
+entity.animania.ChickRhodeIslandRed.name=Rhode Island Red-Kylling
+entity.animania.HenRhodeIslandRed.name=Rhode Island Red-Høne
+entity.animania.RoosterRhodeIslandRed.name=Rhode Island Red-Hane
+entity.animania.ChickPlymouthRock.name=Plymouth Rock-Kylling
+entity.animania.HenPlymouthRock.name=Plymouth Rock-Høne
+entity.animania.RoosterPlymouthRock.name=Plymouth Rock-Hane
+entity.animania.ChickLeghorn.name=Leghorn-Kylling
+entity.animania.HenLeghorn.name=Leghorn-Høne
+entity.animania.RoosterLeghorn.name=Leghorn-Hane
+entity.animania.ChickOrpington.name=Orpington-Kylling
+entity.animania.HenOrpington.name=Orpington-Høne
+entity.animania.RoosterOrpington.name=Orpington-Hane
+entity.animania.ChickWyandotte.name=Wyandotte-Kylling
+entity.animania.HenWyandotte.name=Wyandotte-Høne
+entity.animania.RoosterWyandotte.name=Wyandotte-Hane
+
+entity.animania.BullAngus.name=Angus-Tyr
+entity.animania.CowAngus.name=Angus-Ko
+entity.animania.CalfAngus.name=Angus-Kalv
+entity.animania.BullHolstein.name=Holstein-Tyr
+entity.animania.CowHolstein.name=Holstein-Ko
+entity.animania.CalfHolstein.name=Holstein-Kalv
+entity.animania.BullFriesian.name=Friesian-Tyr
+entity.animania.CowFriesian.name=Friesian-Ko
+entity.animania.CalfFriesian.name=Friesian-Kalv
+entity.animania.BullHereford.name=Hereford-Tyr
+entity.animania.CowHereford.name=Hereford-Ko
+entity.animania.CalfHereford.name=Hereford-Kalv
+entity.animania.BullLonghorn.name Longhorn-Tyr
+entity.animania.CowLonghorn.name Longhorn-Ko
+entity.animania.CalfLonghorn.name Longhorn-Kalv
+
+entity.animania.HogYorkshire.name=Yorkshire-Orne
+entity.animania.SowYorkshire.name=Yorkshire-So
+entity.animania.PigletYorkshire.name=Yorkshire-Pattegris
+entity.animania.HogOldSpot.name=Old Spot-Orne
+entity.animania.SowOldSpot.name=Old Spot-So
+entity.animania.PigletOldSpot.name=Old Spot-Pattegris
+entity.animania.HogLargeBlack.name=Big Black-Orne
+entity.animania.SowLargeBlack.name=Big Black-So
+entity.animania.PigletLargeBlack.name=Big Black-Pattegris
+entity.animania.HogLargeWhite.name=Big White-Orne
+entity.animania.SowLargeWhite.name=Big White-So
+entity.animania.PigletLargeWhite.name=Big White-Pattegris
+entity.animania.HogDuroc.name=Duroc-Orne
+entity.animania.SowDuroc.name=Duroc-So
+entity.animania.PigletDuroc.name=Duroc-Pattegris
+entity.animania.HogHampshire.name=Hampshire-Orne
+entity.animania.SowHampshire.name=Hampshire-So
+entity.animania.PigletHampshire.name=Hampshire-Pattegris
+
+entity.animania.Hamster.name=Hamster
+entity.animania.GreyFerret.name=Grå Fritte
+entity.animania.WhiteFerret.name=Hvid Fritte
+
+entity.animania.PeacockBlue.name=Blå Hanpåfugl 
+entity.animania.PeafowlBlue.name=Blå Hunpåfugl
+entity.animania.PeachickBlue.name=Blå Påfugleunge
+
+entity.animania.PeacockWhite.name=Hvid Hanpåfugl 
+entity.animania.PeafowlWhite.name=Hvid Hunpåfugl
+entity.animania.PeachickWhite.name=Hvid Påfugleunge
+
+death.attack.bull=%1$s blev stanget ihjel
+
+tile.animania_block_mud.name=Mudder
+tile.animania_block_seeds.name=Frø
+tile.animania_block_trough.name=Trug
+tile.animania_block_nest.name=Rede
+tile.animania_invisiblock.name=Trug
+
+tab.animania_entities.label=Animania Enheder
+tab.animania_resources.label=Animania Ressourcer
+
+achievement.an.leghorn=Leghorn
+achievement.an.leghorn.desc=Bliv ven med en Leghorn-kylling
+achievement.an.orpington=Orpington
+achievement.an.orpington.desc=Bliv ven med en Orpington-kylling
+achievement.an.plymouthrock=Plymouth Rock
+achievement.an.plymouthrock.desc=Bliv ven med en Plymouth Rock-kylling
+achievement.an.rhodeislandred=Rhode Island Red
+achievement.an.rhodeislandred.desc=Bliv ven med en Rhode Island Red-kylling
+achievement.an.wyandotte=Wyandotte
+achievement.an.wyandotte.desc=Bliv ven med en Wyandotte-kylling
+achievement.an.chickens=Kyllingehvisker
+achievement.an.chickens.desc=Bliv ven med alle kyllingeracerne
+
+achievement.an.angus=Angus
+achievement.an.angus.desc=Bliv ven med en Angus-ko
+achievement.an.friesian=Frisisk
+achievement.an.friesian.desc=Bliv ven med en Frisisk-ko
+achievement.an.hereford=Hereford
+achievement.an.hereford.desc=Bliv ven med en Hereford-ko
+achievement.an.holstein=Holstein
+achievement.an.holstein.desc=Bliv ven med en Holstein-ko
+achievement.an.longhorn Langhorn
+achievement.an.longhorn.desc=Bliv ven med en Langhorn-ko
+achievement.an.cows=Kohvisker
+achievement.an.cows.desc=Bliv ven med alle koracerne
+
+achievement.an.duroc=Duroc
+achievement.an.duroc.desc=Bliv ven med et Duroc-svin
+achievement.an.hampshire=Hampshire
+achievement.an.hampshire.desc=Bliv ven med et Hampshire-svin
+achievement.an.largeblack=Large Black
+achievement.an.largeblack.desc=Bliv ven med et Stort Sort-svin
+achievement.an.largewhite=Large White
+achievement.an.largewhite.desc=Bliv ven med et Stort Hvid-svin
+achievement.an.oldspot=Old Spot
+achievement.an.oldspot.desc=Bliv ven med et Old Spot-svin
+achievement.an.yorkshire=Yorkshire
+achievement.an.yorkshire.desc=Bliv ven med et Yorkshire-svin
+achievement.an.pigs=Svinehvisker
+achievement.an.pigs.desc=Bliv ven med alle svineracerne
+
+achievement.an.indiablue=Blå
+achievement.an.indiablue.desc=Bliv ven med an blå påfugl
+achievement.an.white=Hvid Påfugl
+achievement.an.white.desc=Bliv ven med a hvid påfugl
+achievement.an.peacocks=Påfuglehvisker
+achievement.an.peacocks.desc=Bliv ven med alle påfugleracerne
+
+achievement.an.greyferret=Grå fritte
+achievement.an.greyferret.desc=Bliv ven med en grå fritte
+achievement.an.whiteferret=Hvid fritte
+achievement.an.whiteferret.desc=Bliv ven med en hvid fritte
+achievement.an.ferrets=Ferret Whisperer
+achievement.an.ferrets.desc=Bliv ven med alle fritteracerne
+
+achievement.an.hamsters=Hamsterhvisker
+achievement.an.hamsters.desc=Bliv ven med en hamster
+
+
+
+animania.updatetext.1=Animania Version 
+animania.updatetext.2=er nu tilgængelig
+animania.updatetext.3=Forbindelse til at tjekke efter ny opdatering til Animania kunne ikke opnås
+animania.update.download=["Klik for at: [",{"text":"Downloade","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Klik for at se de seneste 1.11 filer, der er tilgængelige for download","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]

@@ -1,0 +1,261 @@
+item.animania_hamster_food.name=Jedzenie dla chomików
+item.animania_truffle.name=Trufla
+item.animania_brown_egg.name=Jajko
+item.animania_bucket_slop.name=Kubeł pomyj
+item.animania_carving_knife.name=Nóż do krojenia mięsa
+item.animania_cheese_mold.name=Forma do sera
+
+item.animania_carving_knife.desc=Używany do krojenia mięs i serów
+item.animania_cheese_mold.desc=Używana do robienia serów
+item.animania_entity_egg.desc1=Stwórz
+item.animania_entity_egg.desc2=[Prawy przycisk]
+
+item.animania_raw_angus_beef.name=Surowa wołowina (Angus)
+item.animania_cooked_angus_roast.name=Pieczona wołowina (Angus)
+item.animania_raw_angus_steak.name=Surowy stek (Angus)
+item.animania_cooked_angus_steak.name=Pieczony stek (Angus)
+item.animania_raw_hereford_beef.name=Surowa wołowina (Hereford)
+item.animania_cooked_hereford_roast.name=Pieczona wołowina (Hereford)
+item.animania_raw_hereford_steak.name=Surowy stek (Hereford)
+item.animania_cooked_hereford_steak.name=Pieczony stek (Hereford)
+item.animania_raw_longhorn_beef.name=Surowa wołowina(Longhorn)
+item.animania_cooked_longhorn_roast.name=Pieczona wołowina (Longhorn)
+item.animania_raw_longhorn_steak.name=Surowy stek (Longhorn)
+item.animania_cooked_longhorn_steak.name=Pieczony stek (Longhorn)
+
+item.animania_raw_large_black_pork.name=Surowa wieprzowina (Large Black)
+item.animania_cooked_large_black_roast.name=Pieczona wieprzowina(Large Black)
+item.animania_raw_large_black_bacon.name=Surowy bekon (Large Black)
+item.animania_cooked_large_black_bacon.name=Bekon (Large Black)
+item.animania_raw_duroc_pork.name=Surowa wieprzowina (Duroc)
+item.animania_cooked_duroc_roast.name=Pieczona wieprzowina(Duroc)
+item.animania_raw_duroc_bacon.name=Surowy bekon (Duroc)
+item.animania_cooked_duroc_bacon.name=bekon (Duroc)
+item.animania_raw_old_spot_pork.name=Surowa wieprzowina (Old Spot)
+item.animania_cooked_old_spot_roast.name=Pieczona wieprzowina (Old Spot)
+item.animania_raw_old_spot_bacon.name=Surowy bekon (Old Spot)
+item.animania_cooked_old_spot_bacon.name=bekon (Old Spot)
+item.animania_raw_hampshire_pork.name=Surowa wieprzowina(Hampshire)
+item.animania_cooked_hampshire_roast.name=Pieczona wieprzowina (Hampshire)
+item.animania_raw_hampshire_bacon.name=Surowy bekon (Hampshire)
+item.animania_cooked_hampshire_bacon.name=Bekon (Hampshire)
+
+item.animania_raw_orpington_chicken.name=Surowy kurczak (Orpington)
+item.animania_cooked_orpington_chicken.name=Pieczony kurczak (Orpington)
+item.animania_raw_plymouth_rock_chicken.name=Surowy kurczak (Plymouth Rock)
+item.animania_cooked_plymouth_rock_chicken.name=Pieczony kurczak (Plymouth Rock)
+item.animania_raw_rhode_island_red_chicken.name=Surowy kurczak (Rhode Island Red)
+item.animania_cooked_rhode_island_red_chicken.name=Pieczony kurczak (Rhode Island Red)
+item.animania_raw_wyandotte_chicken.name=Surowy kurczak (Wyandotte)
+item.animania_cooked_wyandotte_chicken.name=Pieczony kurczak (Wyandotte)
+
+item.animania_friesian_cheese_wheel.name=Koło sera (Friesian)
+item.animania_friesian_cheese_wedge.name=Kawałek sera (Friesian)
+item.animania_holstein_cheese_wheel.name=Koło sera (Holstein)
+item.animania_holstein_cheese_wedge.name=Kawałek sera (Holstein)
+item.animania_holstein_bucket_milk.name=Kubeł mleka (Holstein)
+item.animania_friesian_bucket_milk.name=Kubeł mleka (Friesian)
+item.animania_truffle_soup.name=Zupa Truflowa
+item.animania_chocolate_truffle.name=Czekolada z truflą
+
+item.animania_plain_omelette.name=Zwykły omlet
+item.animania_bacon_omelette.name=Omlet z bekonem
+item.animania_cheese_omelette.name=Omlet z serem
+item.animania_truffle_omelette.name=Omlet z truflami
+item.animania_super_omelette.name=Super omlet
+
+item.animania_entity_egg_cow_holstein.name=Krowa Holstein
+item.animania_entity_egg_bull_holstein.name=Byk Holstein
+item.animania_entity_egg_calf_holstein.name=Cielak Holstein
+item.animania_entity_egg_cow_friesian.name=Krowa Friesian
+item.animania_entity_egg_bull_friesian.name=Byk Friesian
+item.animania_entity_egg_calf_friesian.name=Cielak Friesian
+item.animania_entity_egg_cow_angus.name=Krowa Angus
+item.animania_entity_egg_bull_angus.name=Byk Angus
+item.animania_entity_egg_calf_angus.name=Cielak Angus
+item.animania_entity_egg_cow_longhorn.name=Krowa Długoroga
+item.animania_entity_egg_bull_longhorn.name=Byk Długorogi
+item.animania_entity_egg_calf_longhorn.name=Cielak Długorogi
+item.animania_entity_egg_cow_hereford.name=Krowa Hereford
+item.animania_entity_egg_bull_hereford.name=Byk Hereford
+item.animania_entity_egg_calf_hereford.name=Cielak Hereford
+
+item.animania_entity_egg_chick_plymouth.name=Kurczak Plymouth Rock
+item.animania_entity_egg_hen_plymouth.name=Kura Plymouth Rock
+item.animania_entity_egg_rooster_plymouth.name=Kogut Plymouth Rock
+item.animania_entity_egg_chick_red.name=Czerwony Kurczak Rhode Island
+item.animania_entity_egg_hen_red.name=Czerwona Kura Rhode Island
+item.animania_entity_egg_rooster_red.name=Czerwony Kogut Rhode Island
+item.animania_entity_egg_chick_leghorn.name=Kurczak Leghorn
+item.animania_entity_egg_hen_leghorn.name=Kura Leghorn
+item.animania_entity_egg_rooster_leghorn.name=Kogut Leghorn
+item.animania_entity_egg_chick_orpington.name=Kurczak Orpington
+item.animania_entity_egg_hen_orpington.name=Kura Orpington
+item.animania_entity_egg_rooster_orpington.name=Kogut Orpington
+item.animania_entity_egg_chick_wyandotte.name=Kurczak Wyandotte
+item.animania_entity_egg_hen_wyandotte.name=Kura Wyandotte
+item.animania_entity_egg_rooster_wyandotte.name=Kogut Wyandotte
+
+item.animania_entity_egg_piglet_yorkshire.name=Prosiak Yorkshire
+item.animania_entity_egg_sow_yorkshire.name=Locha Yorkshire
+item.animania_entity_egg_hog_yorkshire.name=Wieprz Yorkshire
+item.animania_entity_egg_piglet_oldspot.name=Prosiak Old Spot
+item.animania_entity_egg_sow_oldspot.name=Locha Old Spot
+item.animania_entity_egg_hog_oldspot.name=Wieprz Old Spot
+item.animania_entity_egg_piglet_duroc.name=Prosiak Duroc
+item.animania_entity_egg_sow_duroc.name=Locha Duroc
+item.animania_entity_egg_hog_duroc.name=Wieprz Duroc
+item.animania_entity_egg_piglet_largeblack.name=Wielki Czarny Prosiak
+item.animania_entity_egg_sow_largeblack.name=Wielka Czarna Locha
+item.animania_entity_egg_hog_largeblack.name=Wielki Czarny Wieprz
+item.animania_entity_egg_piglet_largewhite.name=Wielki Biały Prosiak
+item.animania_entity_egg_sow_largewhite.name=Wielka Biała Locha
+item.animania_entity_egg_hog_largewhite.name=Wielki Biały Wieprz
+item.animania_entity_egg_piglet_hampshire.name=Prosiak Hampshire
+item.animania_entity_egg_sow_hampshire.name=Locha Hampshire
+item.animania_entity_egg_hog_hampshire.name=Wieprz Hampshire
+
+item.animania_entity_egg_hamster.name=Chomik
+item.animania_entity_egg_ferret_white.name=Biała Fretka
+item.animania_entity_egg_ferret_grey.name=Szara Fretka
+
+item.animania_entity_egg_peacock_blue.name=Niebieski Paw Indyjski
+item.animania_entity_egg_peafowl_blue.name=Niebieski Paw Indyjski (samica)
+item.animania_entity_egg_peachick_blue.name=Niebieski Paw Indyjski (młode)
+item.animania_entity_egg_peacock_white.name=Biały Paw
+item.animania_entity_egg_peafowl_white.name=Biały Paw (samica)
+item.animania_entity_egg_peachick_white.name=Biały Paw (młode)
+
+entity.animania.ChickRhodeIslandRed.name=Czerwony Kurczak Rhode Island
+entity.animania.HenRhodeIslandRed.name=Czerwona Kura Rhode Island
+entity.animania.RoosterRhodeIslandRed.name=Czerwony Kogut Rhode Island
+entity.animania.ChickPlymouthRock.name=Kurczak Plymouth Rock
+entity.animania.HenPlymouthRock.name=Kura Plymouth Rock
+entity.animania.RoosterPlymouthRock.name=Kogut Plymouth Rock
+entity.animania.ChickLeghorn.name=Kurczak Leghorn
+entity.animania.HenLeghorn.name=Kura Leghorn
+entity.animania.RoosterLeghorn.name=Kogut Leghorn
+entity.animania.ChickOrpington.name=Kurczak Orpington
+entity.animania.HenOrpington.name=Kura Orpington
+entity.animania.RoosterOrpington.name=Kogut Orpington
+entity.animania.ChickWyandotte.name=Kurczak Wyandotte
+entity.animania.HenWyandotte.name=Kura Wyandotte
+entity.animania.RoosterWyandotte.name=Kogut Wyandotte
+
+entity.animania.BullAngus.name=Byk Angus
+entity.animania.CowAngus.name=Krowa Angus
+entity.animania.CalfAngus.name=Cielak Angus
+entity.animania.BullHolstein.name=Byk Holstein
+entity.animania.CowHolstein.name=Krowa Holstein
+entity.animania.CalfHolstein.name=Cielak Holstein
+entity.animania.BullFriesian.name=Byk Friesian
+entity.animania.CowFriesian.name=Krowa Friesian
+entity.animania.CalfFriesian.name=Cielak Friesian
+entity.animania.BullHereford.name=Byk Hereford
+entity.animania.CowHereford.name=Krowa Hereford
+entity.animania.CalfHereford.name=Cielak Hereford
+entity.animania.BullLonghorn.name=Byk Długorogi
+entity.animania.CowLonghorn.name=Krowa Długoroga
+entity.animania.CalfLonghorn.name=Cielak Długorogi
+
+entity.animania.HogYorkshire.name=Wieprz Yorkshire
+entity.animania.SowYorkshire.name=Locha Yorkshire
+entity.animania.PigletYorkshire.name=Prosiak Yorkshire
+entity.animania.HogOldSpot.name=Wieprz Old Spot
+entity.animania.SowOldSpot.name=Locha Old Spot
+entity.animania.PigletOldSpot.name=Prosiak Old Spot
+entity.animania.HogLargeBlack.name=Wielki Czarny Wieprz
+entity.animania.SowLargeBlack.name=Wielka Czarna Locha
+entity.animania.PigletLargeBlack.name=Wielki Czarny Prosiak
+entity.animania.HogLargeWhite.name=Wielki Biały Wieprz
+entity.animania.SowLargeWhite.name=Wielka Biała Locha
+entity.animania.PigletLargeWhite.name=Wielki Biały Prosiak
+entity.animania.HogDuroc.name=Wieprz Duroc
+entity.animania.SowDuroc.name=Locha Duroc
+entity.animania.PigletDuroc.name=Prosiak Duroc
+entity.animania.HogHampshire.name=Wieprz Hampshire
+entity.animania.SowHampshire.name=Locha Hampshire
+entity.animania.PigletHampshire.name=Prosiak Hampshire
+
+entity.animania.Hamster.name=Chomik
+entity.animania.GreyFerret.name=Szara Fretka
+entity.animania.WhiteFerret.name=Biała Fretka
+
+entity.animania.Peacock.name=Paw
+entity.animania.Peafowl.name=Paw (samica)
+
+tile.animania_block_mud.name=Błoto
+tile.animania_block_seeds.name=Nasiona
+tile.animania_block_trough.name=Koryto
+tile.animania_block_nest.name=Gniazdo
+tile.animania_invisiblock.name=Koryto
+
+tab.animania_entities.label=Animania Zwierzęta
+tab.animania_resources.label=Animania Surowce
+
+achievement.an.leghorn=Leghorn
+achievement.an.leghorn.desc=Zaprzyjaźnij się z kurczakiem Leghorn
+achievement.an.orpington=Orpington
+achievement.an.orpington.desc=Zaprzyjaźnij się z kurczakiem Orpington
+achievement.an.plymouthrock=Plymouth Rock
+achievement.an.plymouthrock.desc=Zaprzyjaźnij się z kurczakiem Plymouth Rock
+achievement.an.rhodeislandred=Rhode Island Red
+achievement.an.rhodeislandred.desc=Zaprzyjaźnij się z czerwonym kurczakiem Rhode Island
+achievement.an.wyandotte=Wyandotte
+achievement.an.wyandotte.desc=Zaprzyjaźnij się z kurczakiem Wyandotte
+achievement.an.chickens=Zaklinacz Kurczaków
+achievement.an.chickens.desc=Zaprzyjaźnij się ze wszystkimi odmianami kurczaków
+
+achievement.an.angus=Angus
+achievement.an.angus.desc=Zaprzyjaźnij się z krową Angus
+achievement.an.friesian=Friesian
+achievement.an.friesian.desc=Zaprzyjaźnij się z krową Friesian
+achievement.an.hereford=Hereford
+achievement.an.hereford.desc=Zaprzyjaźnij się z krową Hereford
+achievement.an.holstein=Holstein
+achievement.an.holstein.desc=Zaprzyjaźnij się z krową Holstein
+achievement.an.longhorn=Długoroga
+achievement.an.longhorn.desc=Zaprzyjaźnij się z krową Długorogą
+achievement.an.cows=Zaklinacz Krów
+achievement.an.cows.desc=Zaprzyjaźnij się ze wszystkimi gatunkami krów
+
+achievement.an.duroc=Duroc
+achievement.an.duroc.desc=Zaprzyjaźnij się ze świnią Duroc
+achievement.an.hampshire=Hampshire
+achievement.an.hampshire.desc=Zaprzyjaźnij się ze świnią Hampshire
+achievement.an.largeblack=Wielka Czarna
+achievement.an.largeblack.desc=Zaprzyjaźnij się z Wielką Czarną Świnią
+achievement.an.largewhite=Wielka Biała
+achievement.an.largewhite.desc=Zaprzyjaźnij się z Wielką Białą Świnią
+achievement.an.oldspot=Old Spot
+achievement.an.oldspot.desc=Zaprzyjaźnij się ze świnią Old Spot
+achievement.an.yorkshire=Yorkshire
+achievement.an.yorkshire.desc=Zaprzyjaźnij się ze świnią Yorkshire
+achievement.an.pigs=Zaklinacz Świń
+achievement.an.pigs.desc=Zaprzyjaźnij się ze wszystkimi odmianami świń
+
+achievement.an.indiablue=Indyjski Niebieski
+achievement.an.indiablue.desc=Zaprzyjaźnij się z Indyjskim Niebieskim Pawiem
+achievement.an.white=Biały Paw
+achievement.an.white.desc=Zaprzyjaźnij się z Białym Pawiem
+achievement.an.peacocks=Zaklinacz Pawi
+achievement.an.peacocks.desc=Zaprzyjaźnij się ze wszystkimi odmianami Pawia
+
+achievement.an.greyferret=Szara Fretka
+achievement.an.greyferret.desc=Zaprzyjaźnij się z szarą fretką
+achievement.an.whiteferret=Biała Fretka
+achievement.an.whiteferret.desc=Zaprzyjaźnij się z białą fretką
+achievement.an.ferrets=Zaklinacz Fretek
+achievement.an.ferrets.desc=Zaprzyjaźnij się z wszystkimi odmianami fretek
+
+achievement.an.hamsters=Zaklinacz Chomików
+achievement.an.hamsters.desc=Zaprzyjaźnij się z chomikiem
+
+
+
+animania.updatetext.1=Animania Wersja
+animania.updatetext.2=jest dostępna
+animania.updatetext.3=Nieudało się połączyć i sprawdzić czy nowa wersja Animanii jest dostępna
+animania.update.download=["Kliknij: [",{"text":"Download","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Kliknij by zobaczyć najnowsze pliki dla wersji 1.11 są gotowe do ściąnięcia","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help
