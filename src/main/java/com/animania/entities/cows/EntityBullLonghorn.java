@@ -59,6 +59,7 @@ public class EntityBullLonghorn extends EntityAnimal
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] {Items.WHEAT});
 	private int happyTimer;
 	public int blinkTimer;
+	private int damageTimer;
 
 	public EntityBullLonghorn(World world)
 	{
@@ -141,10 +142,12 @@ public class EntityBullLonghorn extends EntityAnimal
 			if (this.getMateUniqueId() != null) {
 				compound.setString("MateUUID", this.getMateUniqueId().toString());
 			}
-			compound.setBoolean("Fighting", this.getFighting());
-			compound.setBoolean("Fed", this.getFed());
-			compound.setBoolean("Watered", this.getWatered());
+			
 		}
+		
+		compound.setBoolean("Fighting", this.getFighting());
+		compound.setBoolean("Fed", this.getFed());
+		compound.setBoolean("Watered", this.getWatered());
 
 	}
 
@@ -482,12 +485,21 @@ public class EntityBullLonghorn extends EntityAnimal
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-		if (!fed || !watered) {
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-			//this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, true, true));
-		} else if (!fed && !watered) {
+		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			//this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, false, false));
+			if(Animania.animalsStarve)
+			{
+				if(this.damageTimer == Animania.starvationTimer)
+				{
+					this.attackEntityFrom(DamageSource.STARVE, 4f);
+					this.damageTimer = 0;
+				}
+				this.damageTimer++;
+			}
+
+		}
+		else if (!fed || !watered) {
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		}
 
 		if (this.happyTimer > -1) {

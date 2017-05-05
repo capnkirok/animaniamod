@@ -87,14 +87,15 @@ public class EntityBullAngus extends EntityAnimal
 	public int eatTimer;
 	private int fedTimer;
 	private int wateredTimer;
+	private int damageTimer;
 	public EntityCowEatGrass entityAIEatGrass;
 
 
 
 	public static void registerFixesCow(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityBullAngus.class);
-    }
+	{
+		EntityLiving.registerFixesMob(fixer, EntityBullAngus.class);
+	}
 
 	@Override
 	protected boolean canDespawn()
@@ -120,7 +121,11 @@ public class EntityBullAngus extends EntityAnimal
 		eatTimer = 80;
 		player.addStat(AnimaniaAchievements.Angus, 1);
 
-		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn)) {
+		if (player.hasAchievement(AnimaniaAchievements.Angus) && 
+				player.hasAchievement(AnimaniaAchievements.Friesian) && 
+				player.hasAchievement(AnimaniaAchievements.Hereford) && 
+				player.hasAchievement(AnimaniaAchievements.Holstein) && 
+				player.hasAchievement(AnimaniaAchievements.Longhorn)) {
 			player.addStat(AnimaniaAchievements.Cows, 1);
 		}
 
@@ -155,10 +160,12 @@ public class EntityBullAngus extends EntityAnimal
 			if (this.getMateUniqueId() != null) {
 				compound.setString("MateUUID", this.getMateUniqueId().toString());
 			}
-			compound.setBoolean("Fighting", this.getFighting());
-			compound.setBoolean("Fed", this.getFed());
-			compound.setBoolean("Watered", this.getWatered());
+
 		}
+
+		compound.setBoolean("Fighting", this.getFighting());
+		compound.setBoolean("Fed", this.getFed());
+		compound.setBoolean("Watered", this.getWatered());
 
 	}
 
@@ -290,7 +297,8 @@ public class EntityBullAngus extends EntityAnimal
 
 		//Custom Knockback		
 		if (entityIn instanceof EntityPlayer) {
-			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - 
+					entityIn.posZ);
 		}
 
 
@@ -423,7 +431,7 @@ public class EntityBullAngus extends EntityAnimal
 			}
 		}
 
-		
+
 		if (happyDrops == 2) {
 			this.dropItem(dropItem, 1 + lootlevel);
 			this.dropItem(Items.LEATHER, 1);
@@ -451,7 +459,7 @@ public class EntityBullAngus extends EntityAnimal
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 		}
-		
+
 		if (this.blinkTimer > -1) {
 			this.blinkTimer--;
 			if (blinkTimer == 0) {
@@ -478,12 +486,21 @@ public class EntityBullAngus extends EntityAnimal
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-		if (!fed || !watered) {
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-			//this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, true, true));
-		} else if (!fed && !watered) {
+		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			//this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, false, false));
+			if(Animania.animalsStarve)
+			{
+				if(this.damageTimer == Animania.starvationTimer)
+				{
+					this.attackEntityFrom(DamageSource.STARVE, 4f);
+					this.damageTimer = 0;
+				}
+				this.damageTimer++;
+			}
+
+		}
+		else if (!fed || !watered) {
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		}
 
 		if (this.happyTimer > -1) {
@@ -495,7 +512,9 @@ public class EntityBullAngus extends EntityAnimal
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() 
+							* width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + 
+									(double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
 				}
 			}
 		}
@@ -516,7 +535,8 @@ public class EntityBullAngus extends EntityAnimal
 				{
 					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
 				}
-				else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
+				else if (!player.capabilities.isCreativeMode && 
+						!player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
 				{
 					player.dropItem(new ItemStack(Items.BUCKET), false);
 				}
@@ -550,7 +570,9 @@ public class EntityBullAngus extends EntityAnimal
 	{
 
 		if (!this.getFighting()) { 
-			return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 160) - p_70894_1_) / 4.0F));
+			return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : 
+				(this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 
+						160) - p_70894_1_) / 4.0F));
 		} else {
 			return 0.0F;
 		}
@@ -578,7 +600,8 @@ public class EntityBullAngus extends EntityAnimal
 
 	private boolean isCowBreedingItem(Item itemIn)
 	{
-		return itemIn == Items.WHEAT || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
+		return itemIn == Items.WHEAT || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == 
+				Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 

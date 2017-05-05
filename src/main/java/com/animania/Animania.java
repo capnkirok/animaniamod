@@ -274,6 +274,7 @@ public class Animania {
 	public static boolean enableVanillaMeatRecipes;
 	public static boolean allowEggThrowing;
 	public static boolean shiftSeedPlacement;
+	public static boolean animalsStarve;
 
 	public static boolean customMobDrops;
 	public static String pigDrop;
@@ -320,6 +321,7 @@ public class Animania {
 	public static int playTimer;
 	public static int laidTimer;
 	public static int gestationTimer;
+	public static int starvationTimer;
 	public static int eggHatchChance;
 
 	//Items
@@ -1524,7 +1526,8 @@ public class Animania {
 		replaceVanillaChickens = config.get("Game Rules", "Remove vanilla Chickens", true).getBoolean();
 		allowEggThrowing = config.get("Game Rules", "Allow eggs to be thrown", false).getBoolean();
 		shiftSeedPlacement = config.get("Game Rules", "Shift-Right-Click for Seed Placement", false).getBoolean();
-
+		animalsStarve = config.get("Game Rules", "Animals starve to death when not fed and watered", false).getBoolean();
+		
 		//CARE & FEEDING
 		childGrowthTick = config.get("Care and Feeding", "Ticks before next incremental growth", 200).getInt();
 		feedTimer = config.get("Care and Feeding", "Ticks between feedings", 12000).getInt();
@@ -1532,6 +1535,7 @@ public class Animania {
 		playTimer = config.get("Care and Feeding", "Ticks between playing", 4000).getInt();
 		laidTimer = config.get("Care and Feeding", "Ticks between laying eggs", 2000).getInt();
 		gestationTimer = config.get("Care and Feeding", "Ticks between birthings", 20000).getInt();
+		starvationTimer = config.get("Care and Feeding", "Ticks between animals taking starvation damage", 200).getInt();
 		eggHatchChance = config.get("Care and Feeding", "Egg hatch chance (1/x)", 2).getInt();
 
 		//SPAWN
