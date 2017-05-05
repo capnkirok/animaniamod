@@ -490,7 +490,7 @@ public class EntityBullAngus extends EntityAnimal
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 			if(Animania.animalsStarve)
 			{
-				if(this.damageTimer == Animania.starvationTimer)
+				if(this.damageTimer >= Animania.starvationTimer)
 				{
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
