@@ -30,6 +30,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.stats.AchievementList;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
@@ -155,6 +156,7 @@ public class EntityPigletLargeBlack extends EntityAnimal
 
 	public int eatTimer;
 	public EntityPigSnuffle entityAIEatGrass;
+	private int damageTimer;
 
 	protected void updateAITasks()
 	{
@@ -691,12 +693,21 @@ public class EntityPigletLargeBlack extends EntityAnimal
 		boolean watered = this.getWatered();
 		boolean played = this.getPlayed();
 		
-		if (!fed && !watered && played) {
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-			//this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, true, true));
-		} else if (!fed && !watered && !played) {
+		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			//this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, false, false));
+			if(Animania.animalsStarve)
+			{
+				if(this.damageTimer >= Animania.starvationTimer)
+				{
+					this.attackEntityFrom(DamageSource.STARVE, 4f);
+					this.damageTimer = 0;
+				}
+				this.damageTimer++;
+			}
+
+		}
+		else if (!fed || !watered) {
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		}
 
 		BlockPos currentpos = new BlockPos(this.posX, this.posY, this.posZ);

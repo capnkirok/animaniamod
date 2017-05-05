@@ -1535,7 +1535,7 @@ public class Animania {
 		playTimer = config.get("Care and Feeding", "Ticks between playing", 4000).getInt();
 		laidTimer = config.get("Care and Feeding", "Ticks between laying eggs", 2000).getInt();
 		gestationTimer = config.get("Care and Feeding", "Ticks between birthings", 20000).getInt();
-		starvationTimer = config.get("Care and Feeding", "Ticks between animals taking starvation damage", 200).getInt();
+		starvationTimer = config.get("Care and Feeding", "Ticks between animals taking starvation damage", 400).getInt();
 		eggHatchChance = config.get("Care and Feeding", "Egg hatch chance (1/x)", 2).getInt();
 
 		//SPAWN

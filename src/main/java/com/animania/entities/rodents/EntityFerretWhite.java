@@ -153,6 +153,7 @@ public class EntityFerretWhite extends EntityTameable
 
 	public int eatTimer;
 	public EntityAIRodentEat entityAIEatGrass;
+	private int damageTimer;
 
 	protected void updateAITasks()
 	{
@@ -423,12 +424,21 @@ public class EntityFerretWhite extends EntityTameable
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-		if (!fed || !watered) {
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-			//this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, true, true));
-		} else if (!fed && !watered) {
+		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			//this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 0, false, false));
+			if(Animania.animalsStarve)
+			{
+				if(this.damageTimer >= Animania.starvationTimer)
+				{
+					this.attackEntityFrom(DamageSource.STARVE, 4f);
+					this.damageTimer = 0;
+				}
+				this.damageTimer++;
+			}
+
+		}
+		else if (!fed || !watered) {
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		}
 
 		if (this.happyTimer > -1) {
