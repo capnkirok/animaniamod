@@ -72,8 +72,10 @@ public class ItemOmelette extends ItemFood {
 				list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.truffleomelette"));
 			}
 
-			list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 		}
+		
+		list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+
 	}
 
 

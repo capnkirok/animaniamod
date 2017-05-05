@@ -53,9 +53,9 @@ public class ItemCookedPrimePork extends ItemFood {
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
 	{
-		if (Animania.foodsGiveBonusEffects) {
+		if (Animania.foodsGiveBonusEffects) 
 			list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.absorption"));
 			list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
-		}
+		
 	}
 }
