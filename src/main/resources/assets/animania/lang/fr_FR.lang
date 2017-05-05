@@ -1,9 +1,13 @@
 item.animania_hamster_food.name=Nourriture pour hamster
+item.animania_chicken_feed.name=Nourriture pour poulet
 item.animania_truffle.name=Truffe
 item.animania_brown_egg.name=Oeuf
 item.animania_bucket_slop.name=Seau de pâtée
-item.animania_carving_knife.name=Couteau 
+item.animania_carving_knife.name=Couteau
 item.animania_cheese_mold.name=Moule à fromage
+
+item.animania_blue_peacock_feather.name=Plume bleue de Paon
+item.animania_white_peacock_feather.name=Plume blanche de Paon
 
 item.animania_carving_knife.desc=Utilisé pour couper la viande et le fromage
 item.animania_cheese_mold.desc=Utilisé pour faire du fromage
@@ -11,15 +15,15 @@ item.animania_entity_egg.desc1=Oeuf d’ (de)
 item.animania_entity_egg.desc2=[Clic Droit]
 
 item.animania_raw_angus_beef.name=Boeuf cru (Angus)
-item.animania_cooked_angus_roast.name=Boeuf grillé (Angus)
+item.animania_cooked_angus_roast.name=Boeuf Grillé (Angus)
 item.animania_raw_angus_steak.name=Steak cru (Angus)
 item.animania_cooked_angus_steak.name=Steak grillé (Angus)
 item.animania_raw_hereford_beef.name=Boeuf cru (Hereford)
-item.animania_cooked_hereford_roast.name=Boeuf grillé (Hereford)
+item.animania_cooked_hereford_roast.name=Boeuf Grillé (Hereford)
 item.animania_raw_hereford_steak.name=Steak cru (Hereford)
 item.animania_cooked_hereford_steak.name=Steak grillé (Hereford)
 item.animania_raw_longhorn_beef.name=Boeuf cru (Longhorn)
-item.animania_cooked_longhorn_roast.name=Boeur grillé (Longhorn)
+item.animania_cooked_longhorn_roast.name=Boeuf Grillé (Longhorn)
 item.animania_raw_longhorn_steak.name=Steak cru (Longhorn)
 item.animania_cooked_longhorn_steak.name=Steak grillé (Longhorn)
 
@@ -31,7 +35,7 @@ item.animania_raw_duroc_pork.name=Porc cru (Duroc)
 item.animania_cooked_duroc_roast.name=Porc grillé (Duroc)
 item.animania_raw_duroc_bacon.name=Bacon cru (Duroc)
 item.animania_cooked_duroc_bacon.name=Bacon (Duroc)
-item.animania_raw_old_spot_pork.name=Pork cru (Old Spot)
+item.animania_raw_old_spot_pork.name=Porc cru (Old Spot)
 item.animania_cooked_old_spot_roast.name=Porc grillé (Old Spot)
 item.animania_raw_old_spot_bacon.name=Bacon cru (Old Spot)
 item.animania_cooked_old_spot_bacon.name=Bacon (Old Spot)
@@ -49,24 +53,24 @@ item.animania_cooked_rhode_island_red_chicken.name=Poulet grillé (Rhode Island 
 item.animania_raw_wyandotte_chicken.name=Poulet cru (Wyandotte)
 item.animania_cooked_wyandotte_chicken.name=Poulet grillé (Wyandotte)
 
-item.animania_friesian_cheese_wheel.name=Meule de fromage (Frison)
-item.animania_friesian_cheese_wedge.name=Tranche de fromage (Frison)
+item.animania_friesian_cheese_wheel.name=Meule de fromage (Friesian)
+item.animania_friesian_cheese_wedge.name=Tranche de fromage (Friesian)
 item.animania_holstein_cheese_wheel.name=Meule de fromage (Holstein)
 item.animania_holstein_cheese_wedge.name=Tranche de fromage (Holstein)
 item.animania_holstein_bucket_milk.name=Seau de lait (Holstein)
 item.animania_friesian_bucket_milk.name=Seau de lait (Friesian)
-item.animania_truffle_soup.name=Soupe de truffes
+item.animania_truffle_soup.name=Soupe aux truffes
 item.animania_chocolate_truffle.name=Truffe en chocolat
 
 item.animania_plain_omelette.name=Omelette
 item.animania_bacon_omelette.name=Omelette au bacon
-item.animania_cheese_omelette.name=Omelette du fromage
-item.animania_truffle_omelette.name=Omelette à la truffe
+item.animania_cheese_omelette.name=Omelette au fromage
+item.animania_truffle_omelette.name=Omelette aux truffes
 item.animania_super_omelette.name=Super Omelette
 
-item.animania_entity_egg_cow_holstein.name=Vache (Holstein)
-item.animania_entity_egg_bull_holstein.name=Taureau (Holstein)
-item.animania_entity_egg_calf_holstein.name=Veau (Holstein)
+item.animania_entity_egg_cow_holstein.name=Vache (Prim'Holstein)
+item.animania_entity_egg_bull_holstein.name=Taureau (Prim'Holstein)
+item.animania_entity_egg_calf_holstein.name=Veau (Prim'Holstein)
 item.animania_entity_egg_cow_friesian.name=Vache (Friesian)
 item.animania_entity_egg_bull_friesian.name=Taureau (Friesian)
 item.animania_entity_egg_calf_friesian.name=Veau (Friesian)
@@ -80,12 +84,12 @@ item.animania_entity_egg_cow_hereford.name=Vache (Hereford)
 item.animania_entity_egg_bull_hereford.name=Taureau (Hereford)
 item.animania_entity_egg_calf_hereford.name=Veau (Hereford)
 
-item.animania_entity_egg_chick_plymouth.name=Poussin (Plymouth Rock)
-item.animania_entity_egg_hen_plymouth.name=Poule (Plymouth Rock)
-item.animania_entity_egg_rooster_plymouth.name=Coq (Plymouth Rock)
-item.animania_entity_egg_chick_red.name=Poussin (Rhode Island Red)
-item.animania_entity_egg_hen_red.name=Poule (Rhode Island Red)
-item.animania_entity_egg_rooster_red.name=Coq (Rhode Island Red)
+item.animania_entity_egg_chick_plymouth.name=Poussin (Plymouth)
+item.animania_entity_egg_hen_plymouth.name=Poule (Plymouth)
+item.animania_entity_egg_rooster_plymouth.name=Coq (Plymouth)
+item.animania_entity_egg_chick_red.name=Poussin (Rhode-Island)
+item.animania_entity_egg_hen_red.name=Poule (Rhode-Island)
+item.animania_entity_egg_rooster_red.name=Coq (Rhode-Island)
 item.animania_entity_egg_chick_leghorn.name=Poussin (Leghorn)
 item.animania_entity_egg_hen_leghorn.name=Poule (Leghorn)
 item.animania_entity_egg_rooster_leghorn.name=Coq (Leghorn)
@@ -118,6 +122,8 @@ item.animania_entity_egg_hog_hampshire.name=Porc (Hampshire)
 item.animania_entity_egg_hamster.name=Hamster
 item.animania_entity_egg_ferret_white.name=Furet Blanc
 item.animania_entity_egg_ferret_grey.name=Furret Gris
+item.animania_entity_egg_hedgehog.name=Hérisson
+item.animania_entity_egg_hedgehog_albino.name=Hérisson albinos
 
 item.animania_entity_egg_peacock_blue.name=Paon indien bleu
 item.animania_entity_egg_peafowl_blue.name=Paonne indien bleu
@@ -125,6 +131,10 @@ item.animania_entity_egg_peachick_blue.name=Paonneau indien bleu
 item.animania_entity_egg_peacock_white.name=Paon blanc
 item.animania_entity_egg_peafowl_white.name=Paonne blanc
 item.animania_entity_egg_peachick_white.name=Paonneau blanc
+
+item.animania_entity_egg_cow_random.name=Random Cow
+item.animania_entity_egg_pig_random.name=Random Pig
+item.animania_entity_egg_chicken_random.name=Random Chicken
 
 entity.animania.ChickRhodeIslandRed.name=Rhode Island Red Chick
 entity.animania.HenRhodeIslandRed.name=Rhode Island Red Hen
@@ -178,11 +188,20 @@ entity.animania.SowHampshire.name=Hampshire Sow
 entity.animania.PigletHampshire.name=Hampshire Piglet
 
 entity.animania.Hamster.name=Hamster
-entity.animania.GreyFerret.name=Grey Ferret
-entity.animania.WhiteFerret.name=White Ferret
+entity.animania.FerretGrey.name=Grey Ferret
+entity.animania.FerretWhite.name=White Ferret
+entity.animania.Hedgehog.name=Hedgehog
+entity.animania.HedgehogAlbino.name=Albino Hedgehog
 
-entity.animania.Peacock.name=Peacock
-entity.animania.Peafowl.name=Peafowl
+entity.animania.PeacockBlue.name=India Blue Peacock
+entity.animania.PeafowlBlue.name=India Blue Peafowl
+entity.animania.PeachickBlue.name=India Blue Peafowl
+
+entity.animania.PeacockWhite.name=White Peacock
+entity.animania.PeafowlWhite.name=White Peafowl
+entity.animania.PeachickWhite.name=White Peachick
+
+death.attack.bull=%1$s was gored to death
 
 tile.animania_block_mud.name=Boue
 tile.animania_block_seeds.name=Graine
@@ -248,6 +267,18 @@ achievement.an.whiteferret.desc=Adopter un furret blanc
 achievement.an.ferrets=Murmure à l’oreille des furrets 
 achievement.an.ferrets.desc=Adopter toutes les races de furrets
 
+achievement.an.hedgehog=Hérisson
+achievement.an.hedgehog.desc=Adopter un hérisson
+achievement.an.albinohedgehog=Hérisson albinos
+achievement.an.albinohedgehog.desc=Adopter un hérisson albinos
+achievement.an.hedgehogs=Mumure à l'oreille des hérissons
+achievement.an.hedgehogs.desc=Adopter toutes les races de hérissons
+
+achievement.an.hedgehogsonic=Dois aller vite!
+achievement.an.hedgehogsonic.desc=Décrouvrir Sonic
+achievement.an.hedgehogsanic=Pas plus vite!!!
+achievement.an.hedgehogsanic.desc=Cumon Step it Up!!
+
 achievement.an.hamsters=Murmure kawai
 achievement.an.hamsters.desc=Adopter un hamster
 
@@ -255,3 +286,14 @@ animania.updatetext.1=Une version d’animania
 animania.updatetext.2=est désormais disponible
 animania.updatetext.3=Echec de connexion pour vérifier la disponibilité d’une nouvelle version d’animania
 animania.update.download=["Cliquer pour: [",{"text":"télécharger","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Cliquer pour voir les dernières versions d’Animania en 1.11 disponibles","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]
+
+tooltip.an.cheeseomelette=Soin
+tooltip.an.baconomelette=Force (30 seconds)
+tooltip.an.truffleomelette=Régénération (30 seconds)
+tooltip.an.instanthealth=Soin
+tooltip.an.chocolatetruffle=Rapidité (1 minute)
+tooltip.an.absorption=Absorption
+tooltip.an.regeneration=Régénération
+tooltip.an.haste=Hâte
+tooltip.an.healthboost=Boost de santé
+tooltip.an.edibleanytime=Mangeable à tout moment
