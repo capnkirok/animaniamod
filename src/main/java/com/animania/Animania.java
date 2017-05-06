@@ -1,5 +1,155 @@
 package com.animania;
 
+import com.animania.common.AnimaniaAchievements;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.blocks.BlockInvisiblock;
+import com.animania.common.blocks.BlockMud;
+import com.animania.common.blocks.BlockNest;
+import com.animania.common.blocks.BlockSeeds;
+import com.animania.common.blocks.BlockTrough;
+import com.animania.common.creativeTab.TabAnimaniaEntities;
+import com.animania.common.creativeTab.TabAnimaniaResources;
+import com.animania.common.entities.chickens.EntityChickLeghorn;
+import com.animania.common.entities.chickens.EntityChickOrpington;
+import com.animania.common.entities.chickens.EntityChickPlymouthRock;
+import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
+import com.animania.common.entities.chickens.EntityChickWyandotte;
+import com.animania.common.entities.chickens.EntityHenLeghorn;
+import com.animania.common.entities.chickens.EntityHenOrpington;
+import com.animania.common.entities.chickens.EntityHenPlymouthRock;
+import com.animania.common.entities.chickens.EntityHenRhodeIslandRed;
+import com.animania.common.entities.chickens.EntityHenWyandotte;
+import com.animania.common.entities.chickens.EntityRoosterLeghorn;
+import com.animania.common.entities.chickens.EntityRoosterOrpington;
+import com.animania.common.entities.chickens.EntityRoosterPlymouthRock;
+import com.animania.common.entities.chickens.EntityRoosterRhodeIslandRed;
+import com.animania.common.entities.chickens.EntityRoosterWyandotte;
+import com.animania.common.entities.cows.EntityBullAngus;
+import com.animania.common.entities.cows.EntityBullFriesian;
+import com.animania.common.entities.cows.EntityBullHereford;
+import com.animania.common.entities.cows.EntityBullHolstein;
+import com.animania.common.entities.cows.EntityBullLonghorn;
+import com.animania.common.entities.cows.EntityCalfAngus;
+import com.animania.common.entities.cows.EntityCalfFriesian;
+import com.animania.common.entities.cows.EntityCalfHereford;
+import com.animania.common.entities.cows.EntityCalfHolstein;
+import com.animania.common.entities.cows.EntityCalfLonghorn;
+import com.animania.common.entities.cows.EntityCowAngus;
+import com.animania.common.entities.cows.EntityCowFriesian;
+import com.animania.common.entities.cows.EntityCowHereford;
+import com.animania.common.entities.cows.EntityCowHolstein;
+import com.animania.common.entities.cows.EntityCowLonghorn;
+import com.animania.common.entities.peacocks.EntityPeachickBlue;
+import com.animania.common.entities.peacocks.EntityPeachickWhite;
+import com.animania.common.entities.peacocks.EntityPeacockBlue;
+import com.animania.common.entities.peacocks.EntityPeacockWhite;
+import com.animania.common.entities.peacocks.EntityPeafowlBlue;
+import com.animania.common.entities.peacocks.EntityPeafowlWhite;
+import com.animania.common.entities.pigs.EntityHogDuroc;
+import com.animania.common.entities.pigs.EntityHogHampshire;
+import com.animania.common.entities.pigs.EntityHogLargeBlack;
+import com.animania.common.entities.pigs.EntityHogLargeWhite;
+import com.animania.common.entities.pigs.EntityHogOldSpot;
+import com.animania.common.entities.pigs.EntityHogYorkshire;
+import com.animania.common.entities.pigs.EntityPigletDuroc;
+import com.animania.common.entities.pigs.EntityPigletHampshire;
+import com.animania.common.entities.pigs.EntityPigletLargeBlack;
+import com.animania.common.entities.pigs.EntityPigletLargeWhite;
+import com.animania.common.entities.pigs.EntityPigletOldSpot;
+import com.animania.common.entities.pigs.EntityPigletYorkshire;
+import com.animania.common.entities.pigs.EntitySowDuroc;
+import com.animania.common.entities.pigs.EntitySowHampshire;
+import com.animania.common.entities.pigs.EntitySowLargeBlack;
+import com.animania.common.entities.pigs.EntitySowLargeWhite;
+import com.animania.common.entities.pigs.EntitySowOldSpot;
+import com.animania.common.entities.pigs.EntitySowYorkshire;
+import com.animania.common.entities.rodents.EntityFerretGrey;
+import com.animania.common.entities.rodents.EntityFerretWhite;
+import com.animania.common.entities.rodents.EntityHamster;
+import com.animania.common.entities.rodents.EntityHedgehog;
+import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.common.events.ConfigChangeEventHandler;
+import com.animania.common.events.EggThrowHandler;
+import com.animania.common.events.EventMudDamageCanceller;
+import com.animania.common.events.EventReplaceSpawnAnimals;
+import com.animania.common.events.ItemSeedHandler;
+import com.animania.common.events.LoginEventHandler;
+import com.animania.common.events.RemoveVanillaSpawns;
+import com.animania.common.events.UpdateHandler;
+import com.animania.common.items.ItemBrownEgg;
+import com.animania.common.items.ItemBucketMilk;
+import com.animania.common.items.ItemBucketSlop;
+import com.animania.common.items.ItemCarvingKnife;
+import com.animania.common.items.ItemCheeseMold;
+import com.animania.common.items.ItemCheeseWedge;
+import com.animania.common.items.ItemCheeseWheel;
+import com.animania.common.items.ItemChocolateTruffle;
+import com.animania.common.items.ItemCookedAngusRoast;
+import com.animania.common.items.ItemCookedAngusSteak;
+import com.animania.common.items.ItemCookedDurocBacon;
+import com.animania.common.items.ItemCookedDurocRoast;
+import com.animania.common.items.ItemCookedHampshireBacon;
+import com.animania.common.items.ItemCookedHampshireRoast;
+import com.animania.common.items.ItemCookedHerefordRoast;
+import com.animania.common.items.ItemCookedHerefordSteak;
+import com.animania.common.items.ItemCookedLargeBlackBacon;
+import com.animania.common.items.ItemCookedLargeBlackRoast;
+import com.animania.common.items.ItemCookedLonghornRoast;
+import com.animania.common.items.ItemCookedLonghornSteak;
+import com.animania.common.items.ItemCookedOldSpotBacon;
+import com.animania.common.items.ItemCookedOldSpotRoast;
+import com.animania.common.items.ItemCookedOrpingtonChicken;
+import com.animania.common.items.ItemCookedPlymouthRockChicken;
+import com.animania.common.items.ItemCookedPrimeBacon;
+import com.animania.common.items.ItemCookedPrimeBeef;
+import com.animania.common.items.ItemCookedPrimeChicken;
+import com.animania.common.items.ItemCookedPrimePork;
+import com.animania.common.items.ItemCookedPrimeSteak;
+import com.animania.common.items.ItemCookedRhodeIslandRedChicken;
+import com.animania.common.items.ItemCookedWyandotteChicken;
+import com.animania.common.items.ItemEntityEgg;
+import com.animania.common.items.ItemHamsterFood;
+import com.animania.common.items.ItemOmelette;
+import com.animania.common.items.ItemPeacockFeather;
+import com.animania.common.items.ItemRawAngusBeef;
+import com.animania.common.items.ItemRawAngusSteak;
+import com.animania.common.items.ItemRawDurocBacon;
+import com.animania.common.items.ItemRawDurocPork;
+import com.animania.common.items.ItemRawHampshireBacon;
+import com.animania.common.items.ItemRawHampshirePork;
+import com.animania.common.items.ItemRawHerefordBeef;
+import com.animania.common.items.ItemRawHerefordSteak;
+import com.animania.common.items.ItemRawLargeBlackBacon;
+import com.animania.common.items.ItemRawLargeBlackPork;
+import com.animania.common.items.ItemRawLonghornBeef;
+import com.animania.common.items.ItemRawLonghornSteak;
+import com.animania.common.items.ItemRawOldSpotBacon;
+import com.animania.common.items.ItemRawOldSpotPork;
+import com.animania.common.items.ItemRawOrpingtonChicken;
+import com.animania.common.items.ItemRawPlymouthRockChicken;
+import com.animania.common.items.ItemRawPrimeBacon;
+import com.animania.common.items.ItemRawPrimeBeef;
+import com.animania.common.items.ItemRawPrimeChicken;
+import com.animania.common.items.ItemRawPrimePork;
+import com.animania.common.items.ItemRawPrimeSteak;
+import com.animania.common.items.ItemRawRhodeIslandRedChicken;
+import com.animania.common.items.ItemRawWyandotteChicken;
+import com.animania.common.items.ItemTruffle;
+import com.animania.common.items.ItemTruffleSoup;
+import com.animania.common.recipes.CheeseRecipe1;
+import com.animania.common.recipes.CheeseRecipe2;
+import com.animania.common.recipes.CheeseRecipe3;
+import com.animania.common.recipes.CheeseRecipe4;
+import com.animania.common.recipes.SlopBucketRecipe1;
+import com.animania.common.recipes.SlopBucketRecipe2;
+import com.animania.common.recipes.SlopBucketRecipe3;
+import com.animania.common.recipes.SlopBucketRecipe4;
+import com.animania.common.recipes.SlopBucketRecipe5;
+import com.animania.common.recipes.SlopBucketRecipe6;
+import com.animania.common.tileentities.TileEntityNest;
+import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.proxy.CommonProxy;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
@@ -29,154 +179,8 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import com.animania.blocks.BlockInvisiblock;
-import com.animania.blocks.BlockMud;
-import com.animania.blocks.BlockNest;
-import com.animania.blocks.BlockSeeds;
-import com.animania.blocks.BlockTrough;
-import com.animania.entities.chickens.EntityChickLeghorn;
-import com.animania.entities.chickens.EntityChickOrpington;
-import com.animania.entities.chickens.EntityChickPlymouthRock;
-import com.animania.entities.chickens.EntityChickRhodeIslandRed;
-import com.animania.entities.chickens.EntityChickWyandotte;
-import com.animania.entities.chickens.EntityHenLeghorn;
-import com.animania.entities.chickens.EntityHenOrpington;
-import com.animania.entities.chickens.EntityHenPlymouthRock;
-import com.animania.entities.chickens.EntityHenRhodeIslandRed;
-import com.animania.entities.chickens.EntityHenWyandotte;
-import com.animania.entities.chickens.EntityRoosterLeghorn;
-import com.animania.entities.chickens.EntityRoosterOrpington;
-import com.animania.entities.chickens.EntityRoosterPlymouthRock;
-import com.animania.entities.chickens.EntityRoosterRhodeIslandRed;
-import com.animania.entities.chickens.EntityRoosterWyandotte;
-import com.animania.entities.cows.EntityBullAngus;
-import com.animania.entities.cows.EntityBullFriesian;
-import com.animania.entities.cows.EntityBullHereford;
-import com.animania.entities.cows.EntityBullHolstein;
-import com.animania.entities.cows.EntityBullLonghorn;
-import com.animania.entities.cows.EntityCalfAngus;
-import com.animania.entities.cows.EntityCalfFriesian;
-import com.animania.entities.cows.EntityCalfHereford;
-import com.animania.entities.cows.EntityCalfHolstein;
-import com.animania.entities.cows.EntityCalfLonghorn;
-import com.animania.entities.cows.EntityCowAngus;
-import com.animania.entities.cows.EntityCowFriesian;
-import com.animania.entities.cows.EntityCowHereford;
-import com.animania.entities.cows.EntityCowHolstein;
-import com.animania.entities.cows.EntityCowLonghorn;
-import com.animania.entities.peacocks.EntityPeachickBlue;
-import com.animania.entities.peacocks.EntityPeachickWhite;
-import com.animania.entities.peacocks.EntityPeacockBlue;
-import com.animania.entities.peacocks.EntityPeacockWhite;
-import com.animania.entities.peacocks.EntityPeafowlBlue;
-import com.animania.entities.peacocks.EntityPeafowlWhite;
-import com.animania.entities.pigs.EntityHogDuroc;
-import com.animania.entities.pigs.EntityHogHampshire;
-import com.animania.entities.pigs.EntityHogLargeBlack;
-import com.animania.entities.pigs.EntityHogLargeWhite;
-import com.animania.entities.pigs.EntityHogOldSpot;
-import com.animania.entities.pigs.EntityHogYorkshire;
-import com.animania.entities.pigs.EntityPigletDuroc;
-import com.animania.entities.pigs.EntityPigletHampshire;
-import com.animania.entities.pigs.EntityPigletLargeBlack;
-import com.animania.entities.pigs.EntityPigletLargeWhite;
-import com.animania.entities.pigs.EntityPigletOldSpot;
-import com.animania.entities.pigs.EntityPigletYorkshire;
-import com.animania.entities.pigs.EntitySowDuroc;
-import com.animania.entities.pigs.EntitySowHampshire;
-import com.animania.entities.pigs.EntitySowLargeBlack;
-import com.animania.entities.pigs.EntitySowLargeWhite;
-import com.animania.entities.pigs.EntitySowOldSpot;
-import com.animania.entities.pigs.EntitySowYorkshire;
-import com.animania.entities.rodents.EntityFerretGrey;
-import com.animania.entities.rodents.EntityFerretWhite;
-import com.animania.entities.rodents.EntityHamster;
-import com.animania.entities.rodents.EntityHedgehog;
-import com.animania.entities.rodents.EntityHedgehogAlbino;
-import com.animania.events.ConfigChangeEventHandler;
-import com.animania.events.EggThrowHandler;
-import com.animania.events.EventMudDamageCanceller;
-import com.animania.events.EventReplaceSpawnAnimals;
-import com.animania.events.ItemSeedHandler;
-import com.animania.events.LoginEventHandler;
-import com.animania.events.RemoveVanillaSpawns;
-import com.animania.events.UpdateHandler;
-import com.animania.items.ItemBrownEgg;
-import com.animania.items.ItemBucketMilk;
-import com.animania.items.ItemBucketSlop;
-import com.animania.items.ItemCarvingKnife;
-import com.animania.items.ItemCheeseMold;
-import com.animania.items.ItemCheeseWedge;
-import com.animania.items.ItemCheeseWheel;
-import com.animania.items.ItemChocolateTruffle;
-import com.animania.items.ItemCookedAngusRoast;
-import com.animania.items.ItemCookedAngusSteak;
-import com.animania.items.ItemCookedDurocBacon;
-import com.animania.items.ItemCookedDurocRoast;
-import com.animania.items.ItemCookedHampshireBacon;
-import com.animania.items.ItemCookedHampshireRoast;
-import com.animania.items.ItemCookedHerefordRoast;
-import com.animania.items.ItemCookedHerefordSteak;
-import com.animania.items.ItemCookedLargeBlackBacon;
-import com.animania.items.ItemCookedLargeBlackRoast;
-import com.animania.items.ItemCookedLonghornRoast;
-import com.animania.items.ItemCookedLonghornSteak;
-import com.animania.items.ItemCookedOldSpotBacon;
-import com.animania.items.ItemCookedOldSpotRoast;
-import com.animania.items.ItemCookedOrpingtonChicken;
-import com.animania.items.ItemCookedPlymouthRockChicken;
-import com.animania.items.ItemCookedPrimeBacon;
-import com.animania.items.ItemCookedPrimeBeef;
-import com.animania.items.ItemCookedPrimeChicken;
-import com.animania.items.ItemCookedPrimePork;
-import com.animania.items.ItemCookedPrimeSteak;
-import com.animania.items.ItemCookedRhodeIslandRedChicken;
-import com.animania.items.ItemCookedWyandotteChicken;
-import com.animania.items.ItemEntityEgg;
-import com.animania.items.ItemHamsterFood;
-import com.animania.items.ItemOmelette;
-import com.animania.items.ItemPeacockFeather;
-import com.animania.items.ItemRawAngusBeef;
-import com.animania.items.ItemRawAngusSteak;
-import com.animania.items.ItemRawDurocBacon;
-import com.animania.items.ItemRawDurocPork;
-import com.animania.items.ItemRawHampshireBacon;
-import com.animania.items.ItemRawHampshirePork;
-import com.animania.items.ItemRawHerefordBeef;
-import com.animania.items.ItemRawHerefordSteak;
-import com.animania.items.ItemRawLargeBlackBacon;
-import com.animania.items.ItemRawLargeBlackPork;
-import com.animania.items.ItemRawLonghornBeef;
-import com.animania.items.ItemRawLonghornSteak;
-import com.animania.items.ItemRawOldSpotBacon;
-import com.animania.items.ItemRawOldSpotPork;
-import com.animania.items.ItemRawOrpingtonChicken;
-import com.animania.items.ItemRawPlymouthRockChicken;
-import com.animania.items.ItemRawPrimeBacon;
-import com.animania.items.ItemRawPrimeBeef;
-import com.animania.items.ItemRawPrimeChicken;
-import com.animania.items.ItemRawPrimePork;
-import com.animania.items.ItemRawPrimeSteak;
-import com.animania.items.ItemRawRhodeIslandRedChicken;
-import com.animania.items.ItemRawWyandotteChicken;
-import com.animania.items.ItemTruffle;
-import com.animania.items.ItemTruffleSoup;
-import com.animania.recipes.CheeseRecipe1;
-import com.animania.recipes.CheeseRecipe2;
-import com.animania.recipes.CheeseRecipe3;
-import com.animania.recipes.CheeseRecipe4;
-import com.animania.recipes.SlopBucketRecipe1;
-import com.animania.recipes.SlopBucketRecipe2;
-import com.animania.recipes.SlopBucketRecipe3;
-import com.animania.recipes.SlopBucketRecipe4;
-import com.animania.recipes.SlopBucketRecipe5;
-import com.animania.recipes.SlopBucketRecipe6;
-import com.animania.tileentities.TileEntityNest;
-import com.animania.tileentities.TileEntityTrough;
-
-
 //Forge loads
-@Mod(modid = "animania", name = "Animania", version="1.0.4.7",  guiFactory = "com.animania.gui.GuiFactoryAnimania")
+@Mod(modid = "animania", name = "Animania", version = "1.0.4.7", guiFactory = "com.animania.gui.GuiFactoryAnimania")
 
 public class Animania {
 
@@ -185,12 +189,12 @@ public class Animania {
 	public static final String name = "Animania";
 	public static Configuration config;
 
-	@SidedProxy(clientSide="com.animania.ClientProxy", serverSide="com.animania.CommonProxy")
+	@SidedProxy(clientSide = "com.animania.proxy.ClientProxy", serverSide = "com.animania.proxy.ServerProxy")
 	public static CommonProxy proxy;
 
-	//Configs
+	// Configs
 
-	//COWS
+	// COWS
 	public static int CowHolsteinID;
 	public static int BullHolsteinID;
 	public static int CalfHolsteinID;
@@ -207,14 +211,14 @@ public class Animania {
 	public static int BullHerefordID;
 	public static int CalfHerefordID;
 
-	//RODENTS
+	// RODENTS
 	public static int HamsterMaleID;
 	public static int FerretMaleGreyID;
 	public static int FerretMaleWhiteID;
 	public static int HedgehogMaleID;
 	public static int HedgehogMaleAlbinoID;
 
-	//CHICKENS
+	// CHICKENS
 	public static int HenPlymouthRockID;
 	public static int RoosterPlymouthRockID;
 	public static int ChickPlymouthRockID;
@@ -231,7 +235,7 @@ public class Animania {
 	public static int RoosterWyandotteID;
 	public static int ChickWyandotteID;
 
-	//PEAFOWL
+	// PEAFOWL
 	public static int PeacockBlueID;
 	public static int PeafowlBlueID;
 	public static int PeachickBlueID;
@@ -239,7 +243,7 @@ public class Animania {
 	public static int PeafowlWhiteID;
 	public static int PeachickWhiteID;
 
-	//PIGS
+	// PIGS
 	public static int SowYorkshireID;
 	public static int HogYorkshireID;
 	public static int PigletYorkshireID;
@@ -259,12 +263,12 @@ public class Animania {
 	public static int HogHampshireID;
 	public static int PigletHampshireID;
 
-	//HORSES
-	//public static int StallionDraftHorseID;
-	//public static int MareDraftHorseID;
-	//public static int FoalDraftHorseID;
+	// HORSES
+	// public static int StallionDraftHorseID;
+	// public static int MareDraftHorseID;
+	// public static int FoalDraftHorseID;
 
-	//GAME RULES
+	// GAME RULES
 	public static boolean foodsGiveBonusEffects;
 	public static boolean showModUpdateNotification;
 	public static boolean showParts;
@@ -324,7 +328,7 @@ public class Animania {
 	public static int starvationTimer;
 	public static int eggHatchChance;
 
-	//Items
+	// Items
 	public static Item hamsterBall;
 	public static Item hamsterFood;
 	public static Item truffle;
@@ -336,7 +340,7 @@ public class Animania {
 	public static Item peacockFeatherBlue;
 	public static Item peacockFeatherWhite;
 
-	//Beef
+	// Beef
 	public static Item rawHerefordBeef;
 	public static Item rawLonghornBeef;
 	public static Item rawAngusBeef;
@@ -355,7 +359,7 @@ public class Animania {
 	public static Item cookedPrimeSteak;
 	public static Item cookedPrimeBeef;
 
-	//Pork
+	// Pork
 	public static Item rawLargeBlackPork;
 	public static Item rawDurocPork;
 	public static Item rawOldSpotPork;
@@ -378,7 +382,7 @@ public class Animania {
 	public static Item cookedPrimePork;
 	public static Item cookedPrimeBacon;
 
-	//Chicken
+	// Chicken
 	public static Item rawOrpingtonChicken;
 	public static Item rawPlymouthRockChicken;
 	public static Item rawWyandotteChicken;
@@ -391,7 +395,7 @@ public class Animania {
 	public static Item rawPrimeChicken;
 	public static Item cookedPrimeChicken;
 
-	//Other Foods
+	// Other Foods
 	public static Item plainOmelette;
 	public static Item cheeseOmelette;
 	public static Item baconOmelette;
@@ -406,7 +410,7 @@ public class Animania {
 	public static Item milkBucketHolstein;
 	public static Item milkBucketFriesian;
 
-	//Eggs - Cows
+	// Eggs - Cows
 
 	public static Item entityeggcalfholstein;
 	public static Item entityeggcowholstein;
@@ -430,7 +434,7 @@ public class Animania {
 
 	public static Item entityeggrandomcow;
 
-	//Eggs - Chickens
+	// Eggs - Chickens
 	public static Item entityeggchickplymouth;
 	public static Item entityegghenplymouth;
 	public static Item entityeggroosterplymouth;
@@ -453,8 +457,7 @@ public class Animania {
 
 	public static Item entityeggrandomchicken;
 
-
-	//Eggs - Peacocks
+	// Eggs - Peacocks
 	public static Item entityeggpeachickblue;
 	public static Item entityeggpeafowlblue;
 	public static Item entityeggpeacockblue;
@@ -463,7 +466,7 @@ public class Animania {
 	public static Item entityeggpeafowlwhite;
 	public static Item entityeggpeacockwhite;
 
-	//Eggs - Pigs
+	// Eggs - Pigs
 	public static Item entityeggpigletyorkshire;
 	public static Item entityeggsowyorkshire;
 	public static Item entityegghogyorkshire;
@@ -490,62 +493,61 @@ public class Animania {
 
 	public static Item entityeggrandompig;
 
-	//Eggs - Rodents
+	// Eggs - Rodents
 	public static Item entityegghamster;
 	public static Item entityeggferretgrey;
 	public static Item entityeggferretwhite;
 	public static Item entityegghedgehog;
 	public static Item entityegghedgehogalbino;
 
-	//Eggs - Horses
-	//public static Item entityeggdrafthorsestallion;
-	//public static Item entityeggdrafthorsemare;
-	//public static Item entityeggdrafthorsefoal;
+	// Eggs - Horses
+	// public static Item entityeggdrafthorsestallion;
+	// public static Item entityeggdrafthorsemare;
+	// public static Item entityeggdrafthorsefoal;
 
-
-	//Blocks
+	// Blocks
 	public static Block blockMud;
 	public static Block blockInvisiblock;
 	public static Block blockSeeds;
 
-	//Tile Entities
+	// Tile Entities
 	public static Block blockTrough;
 	public static Block blockNest;
 
-	//Item Blocks
+	// Item Blocks
 	public static ItemBlock itemBlockMud;
 	public static ItemBlock itemBlockSeeds;
 	public static ItemBlock itemBlockTrough;
 	public static ItemBlock itemBlockNest;
 	public static ItemBlock itemInvisiblock;
 
-	//DamageSource
+	// DamageSource
 	public static DamageSource bullDamage;
 
-	//Tabs
-	public static CreativeTabs TabAnimaniaEggs = new TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania"); 
-	public static CreativeTabs TabAnimaniaResources = new TabAnimaniaResources(CreativeTabs.getNextID(), "Animania"); 
+	// Tabs
+	public static CreativeTabs TabAnimaniaEggs = new TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania");
+	public static CreativeTabs TabAnimaniaResources = new TabAnimaniaResources(CreativeTabs.getNextID(), "Animania");
 
-	//Instance
+	// Instance
 	@Instance("Animania")
 	public static Animania instance;
 
-	//Network
-	@Mod.EventHandler
-	public void preload(FMLPreInitializationEvent event)
-	{
+	// Network
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
 
 		config = new Configuration(event.getSuggestedConfigurationFile());
 		syncConfig();
 
-		//hamsterBall = new ItemHamsterBall().setUnlocalizedName("hamsterBall");
-		//GameRegistry.registerItem(hamsterBall, "hamsterBall");
+		// hamsterBall = new
+		// ItemHamsterBall().setUnlocalizedName("hamsterBall");
+		// GameRegistry.registerItem(hamsterBall, "hamsterBall");
 
-		//DAMAGE
+		// DAMAGE
 		bullDamage = new DamageSource("bull").setDamageBypassesArmor();
 
-		//ITEMS 
-		//Items for Animals
+		// ITEMS
+		// Items for Animals
 		hamsterFood = new ItemHamsterFood();
 		truffle = new ItemTruffle();
 		bucketSlop = new ItemBucketSlop();
@@ -556,7 +558,7 @@ public class Animania {
 		peacockFeatherBlue = new ItemPeacockFeather("blue");
 		peacockFeatherWhite = new ItemPeacockFeather("white");
 
-		//Other foods
+		// Other foods
 		ultimateOmelette = new ItemOmelette("super");
 		truffleOmelette = new ItemOmelette("truffle");
 		baconOmelette = new ItemOmelette("bacon");
@@ -565,8 +567,8 @@ public class Animania {
 		truffleSoup = new ItemTruffleSoup();
 		chocolateTruffle = new ItemChocolateTruffle();
 
-		//ITEMS produced by Animals
-		//COW ITEMS
+		// ITEMS produced by Animals
+		// COW ITEMS
 		rawHerefordBeef = new ItemRawHerefordBeef();
 		rawLonghornBeef = new ItemRawLonghornBeef();
 		rawAngusBeef = new ItemRawAngusBeef();
@@ -588,7 +590,7 @@ public class Animania {
 		rawPrimeSteak = new ItemRawPrimeSteak();
 		cookedPrimeSteak = new ItemCookedPrimeSteak();
 
-		//PIG ITEMS
+		// PIG ITEMS
 		rawLargeBlackPork = new ItemRawLargeBlackPork();
 		rawDurocPork = new ItemRawDurocPork();
 		rawOldSpotPork = new ItemRawOldSpotPork();
@@ -614,7 +616,7 @@ public class Animania {
 		rawPrimeBacon = new ItemRawPrimeBacon();
 		cookedPrimeBacon = new ItemCookedPrimeBacon();
 
-		//CHICKEN ITEMS
+		// CHICKEN ITEMS
 		rawOrpingtonChicken = new ItemRawOrpingtonChicken();
 		rawPlymouthRockChicken = new ItemRawPlymouthRockChicken();
 		rawWyandotteChicken = new ItemRawWyandotteChicken();
@@ -627,14 +629,14 @@ public class Animania {
 		cookedPrimeChicken = new ItemCookedPrimeChicken();
 		brownEgg = new ItemBrownEgg();
 
-		//CHEESE
+		// CHEESE
 		cheeseWheelFriesian = new ItemCheeseWheel("friesian");
 		cheeseWheelHolstein = new ItemCheeseWheel("holstein");
 		cheeseWedgeFriesian = new ItemCheeseWedge("friesian");
 		cheeseWedgeHolstein = new ItemCheeseWedge("holstein");
 
-		//Item Entity Eggs
-		//COWS
+		// Item Entity Eggs
+		// COWS
 		entityeggcalfholstein = new ItemEntityEgg("calf_holstein");
 		entityeggcowholstein = new ItemEntityEgg("cow_holstein");
 		entityeggbullholstein = new ItemEntityEgg("bull_holstein");
@@ -657,7 +659,7 @@ public class Animania {
 
 		entityeggrandomcow = new ItemEntityEgg("cow_random");
 
-		//CHICKENS
+		// CHICKENS
 		entityeggchickplymouth = new ItemEntityEgg("chick_plymouth");
 		entityegghenplymouth = new ItemEntityEgg("hen_plymouth");
 		entityeggroosterplymouth = new ItemEntityEgg("rooster_plymouth");
@@ -680,7 +682,7 @@ public class Animania {
 
 		entityeggrandomchicken = new ItemEntityEgg("chicken_random");
 
-		//PEAFOWL
+		// PEAFOWL
 		entityeggpeachickblue = new ItemEntityEgg("peachick_blue");
 		entityeggpeafowlblue = new ItemEntityEgg("peafowl_blue");
 		entityeggpeacockblue = new ItemEntityEgg("peacock_blue");
@@ -689,7 +691,7 @@ public class Animania {
 		entityeggpeafowlwhite = new ItemEntityEgg("peafowl_white");
 		entityeggpeacockwhite = new ItemEntityEgg("peacock_white");
 
-		//PIGS
+		// PIGS
 		entityeggpigletyorkshire = new ItemEntityEgg("piglet_yorkshire");
 		entityeggsowyorkshire = new ItemEntityEgg("sow_yorkshire");
 		entityegghogyorkshire = new ItemEntityEgg("hog_yorkshire");
@@ -716,26 +718,27 @@ public class Animania {
 
 		entityeggrandompig = new ItemEntityEgg("pig_random");
 
-		//RODENTS
+		// RODENTS
 		entityegghamster = new ItemEntityEgg("hamster");
 		entityeggferretgrey = new ItemEntityEgg("ferret_grey");
 		entityeggferretwhite = new ItemEntityEgg("ferret_white");
 		entityegghedgehog = new ItemEntityEgg("hedgehog");
 		entityegghedgehogalbino = new ItemEntityEgg("hedgehog_albino");
 
-		//HORSES
-		//entityeggdrafthorsestallion = new ItemEntityEgg("draft_horse_stallion");
-		//entityeggdrafthorsemare = new ItemEntityEgg("draft_horse_mare");
-		//entityeggdrafthorsefoal = new ItemEntityEgg("draft_horse_foal");
+		// HORSES
+		// entityeggdrafthorsestallion = new
+		// ItemEntityEgg("draft_horse_stallion");
+		// entityeggdrafthorsemare = new ItemEntityEgg("draft_horse_mare");
+		// entityeggdrafthorsefoal = new ItemEntityEgg("draft_horse_foal");
 
-		//BLOCKS
+		// BLOCKS
 		blockMud = new BlockMud().setHardness(1.0F).setResistance(1.0F);
 		blockTrough = new BlockTrough().setHardness(1.0F).setResistance(1.0F);
 		blockInvisiblock = new BlockInvisiblock().setHardness(1.0F).setResistance(1.0F);
 		blockNest = new BlockNest().setHardness(1.0F).setResistance(1.0F);
 		blockSeeds = new BlockSeeds();
 
-		//ITEMBLOCKS
+		// ITEMBLOCKS
 		itemBlockMud = new ItemBlock(blockMud);
 		GameRegistry.register(itemBlockMud.setRegistryName(blockMud.getRegistryName()));
 
@@ -745,10 +748,10 @@ public class Animania {
 		itemBlockNest = new ItemBlock(blockNest);
 		GameRegistry.register(itemBlockNest.setRegistryName(blockNest.getRegistryName()));
 
-		//itemInvisiblock = new ItemBlock(blockInvisiblock);
-		//GameRegistry.register(itemInvisiblock.setRegistryName(blockInvisiblock.getRegistryName()));
+		// itemInvisiblock = new ItemBlock(blockInvisiblock);
+		// GameRegistry.register(itemInvisiblock.setRegistryName(blockInvisiblock.getRegistryName()));
 
-		//EVENTS
+		// EVENTS
 		ModSoundEvents.registerSounds();
 		FMLCommonHandler.instance().bus().register(new LoginEventHandler());
 		FMLCommonHandler.instance().bus().register(new ItemSeedHandler());
@@ -760,628 +763,635 @@ public class Animania {
 
 	}
 
-	//Defining Variables
+	// Defining Variables
 	@EventHandler
-	public void load(FMLInitializationEvent event){
+	public void load(FMLInitializationEvent event) {
 
-		proxy.registerRenderers();
-		proxy.registerTextures();
+		proxy.init();
 
-		//Forge Events
+		// Forge Events
 		MinecraftForge.EVENT_BUS.register(new EventMudDamageCanceller());
 		MinecraftForge.EVENT_BUS.register(new RemoveVanillaSpawns());
 
-		//COWS
+		// COWS
 		if (Animania.spawnAnimaniaCows) {
 			ResourceLocation ch1 = new ResourceLocation("animania:textures/entity/cows/cow_holstein.png");
-			EntityRegistry.registerModEntity(ch1, EntityCowHolstein.class, "animania.CowHolstein", Animania.CowHolsteinID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(ch1, EntityCowHolstein.class, "animania.CowHolstein",
+					Animania.CowHolsteinID, this, 64, 3, true);
 
 			ResourceLocation ch2 = new ResourceLocation("animania:textures/entity/cows/bull_holstein.png");
-			EntityRegistry.registerModEntity(ch2, EntityBullHolstein.class, "animania.BullHolstein", Animania.BullHolsteinID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(ch2, EntityBullHolstein.class, "animania.BullHolstein",
+					Animania.BullHolsteinID, this, 64, 3, true);
 
 			ResourceLocation ch3 = new ResourceLocation("animania:textures/entity/cows/calf_holstein.png");
-			EntityRegistry.registerModEntity(ch3, EntityCalfHolstein.class, "animania.CalfHolstein", Animania.CalfHolsteinID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityCowHolstein.class, Animania.spawnProbabilityCows, 1, Animania.numberCowFamilies, EnumCreatureType.CREATURE, Biomes.FOREST); 
+			EntityRegistry.registerModEntity(ch3, EntityCalfHolstein.class, "animania.CalfHolstein",
+					Animania.CalfHolsteinID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityCowHolstein.class, Animania.spawnProbabilityCows, 1,
+					Animania.numberCowFamilies, EnumCreatureType.CREATURE, Biomes.FOREST);
 
 			ResourceLocation cf1 = new ResourceLocation("animania:textures/entity/cows/cow_friesian.png");
-			EntityRegistry.registerModEntity(cf1, EntityCowFriesian.class, "animania.CowFriesian", Animania.CowFriesianID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(cf1, EntityCowFriesian.class, "animania.CowFriesian",
+					Animania.CowFriesianID, this, 64, 3, true);
 
 			ResourceLocation cf2 = new ResourceLocation("animania:textures/entity/cows/bull_friesian.png");
-			EntityRegistry.registerModEntity(cf2, EntityBullFriesian.class, "animania.BullFriesian", Animania.BullFriesianID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(cf2, EntityBullFriesian.class, "animania.BullFriesian",
+					Animania.BullFriesianID, this, 64, 3, true);
 
 			ResourceLocation cf3 = new ResourceLocation("animania:textures/entity/cows/calf_friesian.png");
-			EntityRegistry.registerModEntity(cf3, EntityCalfFriesian.class, "animania.CalfFriesian", Animania.CalfFriesianID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityCowFriesian.class, Animania.spawnProbabilityCows, 1, Animania.numberCowFamilies, EnumCreatureType.CREATURE, Biomes.PLAINS); 
+			EntityRegistry.registerModEntity(cf3, EntityCalfFriesian.class, "animania.CalfFriesian",
+					Animania.CalfFriesianID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityCowFriesian.class, Animania.spawnProbabilityCows, 1,
+					Animania.numberCowFamilies, EnumCreatureType.CREATURE, Biomes.PLAINS);
 
 			ResourceLocation ca1 = new ResourceLocation("animania:textures/entity/cows/cow_angus.png");
-			EntityRegistry.registerModEntity(ca1, EntityCowAngus.class, "animania.CowAngus", Animania.CowAngusID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(ca1, EntityCowAngus.class, "animania.CowAngus", Animania.CowAngusID, this,
+					64, 3, true);
 
 			ResourceLocation ca2 = new ResourceLocation("animania:textures/entity/cows/bull_angus.png");
-			EntityRegistry.registerModEntity(ca2, EntityBullAngus.class, "animania.BullAngus", Animania.BullAngusID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(ca2, EntityBullAngus.class, "animania.BullAngus", Animania.BullAngusID,
+					this, 64, 3, true);
 
 			ResourceLocation ca3 = new ResourceLocation("animania:textures/entity/cows/calf_angus.png");
-			EntityRegistry.registerModEntity(ca3, EntityCalfAngus.class, "animania.CalfAngus", Animania.CalfAngusID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityCowAngus.class, Animania.spawnProbabilityCows, 1, Animania.numberCowFamilies, EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.MESA, Biomes.MUSHROOM_ISLAND); 
+			EntityRegistry.registerModEntity(ca3, EntityCalfAngus.class, "animania.CalfAngus", Animania.CalfAngusID,
+					this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityCowAngus.class, Animania.spawnProbabilityCows, 1, Animania.numberCowFamilies,
+					EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.MESA, Biomes.MUSHROOM_ISLAND);
 
 			ResourceLocation cl1 = new ResourceLocation("animania:textures/entity/cows/cow_longhorn.png");
-			EntityRegistry.registerModEntity(cl1, EntityCowLonghorn.class, "animania.CowLonghorn", Animania.CowLonghornID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(cl1, EntityCowLonghorn.class, "animania.CowLonghorn",
+					Animania.CowLonghornID, this, 64, 3, true);
 
 			ResourceLocation cl2 = new ResourceLocation("animania:textures/entity/cows/bull_longhorn.png");
-			EntityRegistry.registerModEntity(cl2, EntityBullLonghorn.class, "animania.BullLonghorn", Animania.BullLonghornID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(cl2, EntityBullLonghorn.class, "animania.BullLonghorn",
+					Animania.BullLonghornID, this, 64, 3, true);
 
 			ResourceLocation cl3 = new ResourceLocation("animania:textures/entity/cows/calf_longhorn.png");
-			EntityRegistry.registerModEntity(cl3, EntityCalfLonghorn.class, "animania.CalfLonghorn", Animania.CalfLonghornID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityCowLonghorn.class, Animania.spawnProbabilityCows, 1, Animania.numberCowFamilies, EnumCreatureType.CREATURE, Biomes.SAVANNA); 
+			EntityRegistry.registerModEntity(cl3, EntityCalfLonghorn.class, "animania.CalfLonghorn",
+					Animania.CalfLonghornID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityCowLonghorn.class, Animania.spawnProbabilityCows, 1,
+					Animania.numberCowFamilies, EnumCreatureType.CREATURE, Biomes.SAVANNA);
 
 			ResourceLocation che1 = new ResourceLocation("animania:textures/entity/cows/cow_hereford.png");
-			EntityRegistry.registerModEntity(che1, EntityCowHereford.class, "animania.CowHereford", Animania.CowHerefordID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(che1, EntityCowHereford.class, "animania.CowHereford",
+					Animania.CowHerefordID, this, 64, 3, true);
 
 			ResourceLocation che2 = new ResourceLocation("animania:textures/entity/cows/bull_hereford.png");
-			EntityRegistry.registerModEntity(che2, EntityBullHereford.class, "animania.BullHereford", Animania.BullHerefordID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(che2, EntityBullHereford.class, "animania.BullHereford",
+					Animania.BullHerefordID, this, 64, 3, true);
 
 			ResourceLocation che3 = new ResourceLocation("animania:textures/entity/cows/calf_hereford.png");
-			EntityRegistry.registerModEntity(che3, EntityCalfHereford.class, "animania.CalfHereford", Animania.CalfHerefordID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityCowHereford.class, Animania.spawnProbabilityCows, 1, Animania.numberCowFamilies, EnumCreatureType.CREATURE, Biomes.FOREST_HILLS); 
+			EntityRegistry.registerModEntity(che3, EntityCalfHereford.class, "animania.CalfHereford",
+					Animania.CalfHerefordID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityCowHereford.class, Animania.spawnProbabilityCows, 1,
+					Animania.numberCowFamilies, EnumCreatureType.CREATURE, Biomes.FOREST_HILLS);
 		}
 
-
-
-		//CHICKENS
+		// CHICKENS
 		if (Animania.spawnAnimaniaChickens) {
 			ResourceLocation chp1 = new ResourceLocation("animania:textures/entity/chickens/hen_specked.png");
-			EntityRegistry.registerModEntity(chp1, EntityHenPlymouthRock.class, "animania.HenPlymouthRock", Animania.HenPlymouthRockID, this, 64, 3, true);
-			EntityRegistry.addSpawn(EntityHenPlymouthRock.class, Animania.spawnProbabilityHens, 1, Animania.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.EXTREME_HILLS_WITH_TREES, Biomes.EXTREME_HILLS, Biomes.EXTREME_HILLS_EDGE, Biomes.FOREST_HILLS); 
+			EntityRegistry.registerModEntity(chp1, EntityHenPlymouthRock.class, "animania.HenPlymouthRock",
+					Animania.HenPlymouthRockID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityHenPlymouthRock.class, Animania.spawnProbabilityHens, 1,
+					Animania.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.EXTREME_HILLS_WITH_TREES,
+					Biomes.EXTREME_HILLS, Biomes.EXTREME_HILLS_EDGE, Biomes.FOREST_HILLS);
 
 			ResourceLocation chp2 = new ResourceLocation("animania:textures/entity/chickens/rooster_specked.png");
-			EntityRegistry.registerModEntity(chp2, EntityRoosterPlymouthRock.class, "animania.RoosterPlymouthRock", Animania.RoosterPlymouthRockID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(chp2, EntityRoosterPlymouthRock.class, "animania.RoosterPlymouthRock",
+					Animania.RoosterPlymouthRockID, this, 64, 3, true);
 
 			ResourceLocation chp3 = new ResourceLocation("animania:textures/entity/chickens/chick_specked.png");
-			EntityRegistry.registerModEntity(chp3, EntityChickPlymouthRock.class, "animania.ChickPlymouthRock", Animania.ChickPlymouthRockID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(chp3, EntityChickPlymouthRock.class, "animania.ChickPlymouthRock",
+					Animania.ChickPlymouthRockID, this, 64, 3, true);
 
 			ResourceLocation chl1 = new ResourceLocation("animania:textures/entity/chickens/hen_white.png");
-			EntityRegistry.registerModEntity(chl1, EntityHenLeghorn.class, "animania.HenLeghorn", Animania.HenLeghornID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityHenLeghorn.class, Animania.spawnProbabilityHens, 1, Animania.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.PLAINS); 
+			EntityRegistry.registerModEntity(chl1, EntityHenLeghorn.class, "animania.HenLeghorn", Animania.HenLeghornID,
+					this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityHenLeghorn.class, Animania.spawnProbabilityHens, 1,
+					Animania.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.PLAINS);
 
 			ResourceLocation chl2 = new ResourceLocation("animania:textures/entity/chickens/rooster_white.png");
-			EntityRegistry.registerModEntity(chl2, EntityRoosterLeghorn.class, "animania.RoosterLeghorn", Animania.RoosterLeghornID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(chl2, EntityRoosterLeghorn.class, "animania.RoosterLeghorn",
+					Animania.RoosterLeghornID, this, 64, 3, true);
 
 			ResourceLocation chl3 = new ResourceLocation("animania:textures/entity/chickens/chick_white.png");
-			EntityRegistry.registerModEntity(chl3, EntityChickLeghorn.class, "animania.ChickLeghorn", Animania.ChickLeghornID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(chl3, EntityChickLeghorn.class, "animania.ChickLeghorn",
+					Animania.ChickLeghornID, this, 64, 3, true);
 
 			ResourceLocation cho1 = new ResourceLocation("animania:textures/entity/chickens/hen_golden.png");
-			EntityRegistry.registerModEntity(cho1, EntityHenOrpington.class, "animania.HenOrpington", Animania.HenOrpingtonID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityHenOrpington.class, Animania.spawnProbabilityHens, 1, Animania.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND); 
+			EntityRegistry.registerModEntity(cho1, EntityHenOrpington.class, "animania.HenOrpington",
+					Animania.HenOrpingtonID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityHenOrpington.class, Animania.spawnProbabilityHens, 1,
+					Animania.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND);
 
 			ResourceLocation cho2 = new ResourceLocation("animania:textures/entity/chickens/rooster_golden.png");
-			EntityRegistry.registerModEntity(cho2, EntityRoosterOrpington.class, "animania.RoosterOrpington", Animania.RoosterOrpingtonID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(cho2, EntityRoosterOrpington.class, "animania.RoosterOrpington",
+					Animania.RoosterOrpingtonID, this, 64, 3, true);
 
 			ResourceLocation cho3 = new ResourceLocation("animania:textures/entity/chickens/chick_golden.png");
-			EntityRegistry.registerModEntity(cho3, EntityChickOrpington.class, "animania.ChickOrpington", Animania.ChickOrpingtonID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(cho3, EntityChickOrpington.class, "animania.ChickOrpington",
+					Animania.ChickOrpingtonID, this, 64, 3, true);
 
 			ResourceLocation chw1 = new ResourceLocation("animania:textures/entity/chickens/hen_brown.png");
-			EntityRegistry.registerModEntity(chw1, EntityHenWyandotte.class, "animania.HenWyandotte", Animania.HenWyandotteID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityHenWyandotte.class, Animania.spawnProbabilityHens, 1, Animania.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.FOREST); 
+			EntityRegistry.registerModEntity(chw1, EntityHenWyandotte.class, "animania.HenWyandotte",
+					Animania.HenWyandotteID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityHenWyandotte.class, Animania.spawnProbabilityHens, 1,
+					Animania.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.FOREST);
 
 			ResourceLocation chw2 = new ResourceLocation("animania:textures/entity/chickens/rooster_brown.png");
-			EntityRegistry.registerModEntity(chw2, EntityRoosterWyandotte.class, "animania.RoosterWyandotte", Animania.RoosterWyandotteID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(chw2, EntityRoosterWyandotte.class, "animania.RoosterWyandotte",
+					Animania.RoosterWyandotteID, this, 64, 3, true);
 
 			ResourceLocation chw3 = new ResourceLocation("animania:textures/entity/chickens/chick_brown.png");
-			EntityRegistry.registerModEntity(chw3, EntityChickWyandotte.class, "animania.ChickWyandotte", Animania.ChickWyandotteID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(chw3, EntityChickWyandotte.class, "animania.ChickWyandotte",
+					Animania.ChickWyandotteID, this, 64, 3, true);
 
 			ResourceLocation chr1 = new ResourceLocation("animania:textures/entity/chickens/hen_red.png");
-			EntityRegistry.registerModEntity(chr1, EntityHenRhodeIslandRed.class, "animania.HenRhodeIslandRed", Animania.HenRhodeIslandRedID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityHenRhodeIslandRed.class, Animania.spawnProbabilityHens, 1, Animania.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.FOREST); 
+			EntityRegistry.registerModEntity(chr1, EntityHenRhodeIslandRed.class, "animania.HenRhodeIslandRed",
+					Animania.HenRhodeIslandRedID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityHenRhodeIslandRed.class, Animania.spawnProbabilityHens, 1,
+					Animania.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.FOREST);
 
 			ResourceLocation chr2 = new ResourceLocation("animania:textures/entity/chickens/rooster_red.png");
-			EntityRegistry.registerModEntity(chr2, EntityRoosterRhodeIslandRed.class, "animania.RoosterRhodeIslandRed", Animania.RoosterRhodeIslandRedID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(chr2, EntityRoosterRhodeIslandRed.class, "animania.RoosterRhodeIslandRed",
+					Animania.RoosterRhodeIslandRedID, this, 64, 3, true);
 
 			ResourceLocation chr3 = new ResourceLocation("animania:textures/entity/chickens/chick_red.png");
-			EntityRegistry.registerModEntity(chr3, EntityChickRhodeIslandRed.class, "animania.ChickRhodeIslandRed", Animania.ChickRhodeIslandRedID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(chr3, EntityChickRhodeIslandRed.class, "animania.ChickRhodeIslandRed",
+					Animania.ChickRhodeIslandRedID, this, 64, 3, true);
 
 		}
 
-
-		//PIGS
+		// PIGS
 		if (Animania.spawnAnimaniaPigs) {
 			ResourceLocation py1 = new ResourceLocation("animania:textures/entity/pigs/sow_yorkshire.png");
-			EntityRegistry.registerModEntity(py1, EntitySowYorkshire.class, "animania.SowYorkshire", Animania.SowYorkshireID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(py1, EntitySowYorkshire.class, "animania.SowYorkshire",
+					Animania.SowYorkshireID, this, 64, 3, true);
 
 			ResourceLocation py2 = new ResourceLocation("animania:textures/entity/chickens/hog_yorkshire.png");
-			EntityRegistry.registerModEntity(py2, EntityHogYorkshire.class, "animania.HogYorkshire", Animania.HogYorkshireID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(py2, EntityHogYorkshire.class, "animania.HogYorkshire",
+					Animania.HogYorkshireID, this, 64, 3, true);
 
 			ResourceLocation py3 = new ResourceLocation("animania:textures/entity/chickens/piglet_yorkshire.png");
-			EntityRegistry.registerModEntity(py3, EntityPigletYorkshire.class, "animania.PigletYorkshire", Animania.PigletYorkshireID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntitySowYorkshire.class, Animania.spawnProbabilitySows, 1, Animania.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.PLAINS); 
+			EntityRegistry.registerModEntity(py3, EntityPigletYorkshire.class, "animania.PigletYorkshire",
+					Animania.PigletYorkshireID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntitySowYorkshire.class, Animania.spawnProbabilitySows, 1,
+					Animania.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.PLAINS);
 
 			ResourceLocation pos1 = new ResourceLocation("animania:textures/entity/pigs/sow_old_spot.png");
-			EntityRegistry.registerModEntity(pos1, EntitySowOldSpot.class, "animania.SowOldSpot", Animania.SowOldSpotID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(pos1, EntitySowOldSpot.class, "animania.SowOldSpot", Animania.SowOldSpotID,
+					this, 64, 3, true);
 
 			ResourceLocation pos2 = new ResourceLocation("animania:textures/entity/pigs/hog_old_spot.png");
-			EntityRegistry.registerModEntity(pos2, EntityHogOldSpot.class, "animania.HogOldSpot", Animania.HogOldSpotID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(pos2, EntityHogOldSpot.class, "animania.HogOldSpot", Animania.HogOldSpotID,
+					this, 64, 3, true);
 
 			ResourceLocation pos3 = new ResourceLocation("animania:textures/entity/pigs/piglet_old_spot.png");
-			EntityRegistry.registerModEntity(pos3, EntityPigletOldSpot.class, "animania.PigletOldSpot", Animania.PigletOldSpotID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntitySowOldSpot.class, Animania.spawnProbabilitySows, 1, Animania.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.FOREST); 
+			EntityRegistry.registerModEntity(pos3, EntityPigletOldSpot.class, "animania.PigletOldSpot",
+					Animania.PigletOldSpotID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntitySowOldSpot.class, Animania.spawnProbabilitySows, 1,
+					Animania.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.FOREST);
 
 			ResourceLocation plb1 = new ResourceLocation("animania:textures/entity/pigs/sow_large_black.png");
-			EntityRegistry.registerModEntity(plb1, EntitySowLargeBlack.class, "animania.SowLargeBlack", Animania.SowLargeBlackID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(plb1, EntitySowLargeBlack.class, "animania.SowLargeBlack",
+					Animania.SowLargeBlackID, this, 64, 3, true);
 
 			ResourceLocation plb2 = new ResourceLocation("animania:textures/entity/pigs/hog_large_black.png");
-			EntityRegistry.registerModEntity(plb2, EntityHogLargeBlack.class, "animania.HogLargeBlack", Animania.HogLargeBlackID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(plb2, EntityHogLargeBlack.class, "animania.HogLargeBlack",
+					Animania.HogLargeBlackID, this, 64, 3, true);
 
 			ResourceLocation plb3 = new ResourceLocation("animania:textures/entity/pigs/piglet_large_black.png");
-			EntityRegistry.registerModEntity(plb3, EntityPigletLargeBlack.class, "animania.PigletLargeBlack", Animania.PigletLargeBlackID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntitySowLargeBlack.class, Animania.spawnProbabilitySows, 1, Animania.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.SWAMPLAND, Biomes.BIRCH_FOREST); 
+			EntityRegistry.registerModEntity(plb3, EntityPigletLargeBlack.class, "animania.PigletLargeBlack",
+					Animania.PigletLargeBlackID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntitySowLargeBlack.class, Animania.spawnProbabilitySows, 1,
+					Animania.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.SWAMPLAND, Biomes.BIRCH_FOREST);
 
 			ResourceLocation plw1 = new ResourceLocation("animania:textures/entity/pigs/sow_large_white.png");
-			EntityRegistry.registerModEntity(plw1, EntitySowLargeWhite.class, "animania.SowLargeWhite", Animania.SowLargeWhiteID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(plw1, EntitySowLargeWhite.class, "animania.SowLargeWhite",
+					Animania.SowLargeWhiteID, this, 64, 3, true);
 
 			ResourceLocation plw2 = new ResourceLocation("animania:textures/entity/pigs/hog_large_white.png");
-			EntityRegistry.registerModEntity(plw2, EntityHogLargeWhite.class, "animania.HogLargeWhite", Animania.HogLargeWhiteID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(plw2, EntityHogLargeWhite.class, "animania.HogLargeWhite",
+					Animania.HogLargeWhiteID, this, 64, 3, true);
 
 			ResourceLocation plw3 = new ResourceLocation("animania:textures/entity/pigs/piglet_large_white.png");
-			EntityRegistry.registerModEntity(plw3, EntityPigletLargeWhite.class, "animania.PigletLargeWhite", Animania.PigletLargeWhiteID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntitySowLargeWhite.class, Animania.spawnProbabilitySows, 1, Animania.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.FOREST_HILLS, Biomes.BIRCH_FOREST_HILLS); 
+			EntityRegistry.registerModEntity(plw3, EntityPigletLargeWhite.class, "animania.PigletLargeWhite",
+					Animania.PigletLargeWhiteID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntitySowLargeWhite.class, Animania.spawnProbabilitySows, 1,
+					Animania.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.FOREST_HILLS,
+					Biomes.BIRCH_FOREST_HILLS);
 
 			ResourceLocation pd1 = new ResourceLocation("animania:textures/entity/pigs/sow_duroc.png");
-			EntityRegistry.registerModEntity(pd1, EntitySowDuroc.class, "animania.SowDuroc", Animania.SowDurocID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(pd1, EntitySowDuroc.class, "animania.SowDuroc", Animania.SowDurocID, this,
+					64, 3, true);
 
 			ResourceLocation pd2 = new ResourceLocation("animania:textures/entity/pigs/hog_duroc.png");
-			EntityRegistry.registerModEntity(pd2, EntityHogDuroc.class, "animania.HogDuroc", Animania.HogDurocID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(pd2, EntityHogDuroc.class, "animania.HogDuroc", Animania.HogDurocID, this,
+					64, 3, true);
 
 			ResourceLocation pd3 = new ResourceLocation("animania:textures/entity/pigs/piglet_duroc.png");
-			EntityRegistry.registerModEntity(pd3, EntityPigletDuroc.class, "animania.PigletDuroc", Animania.PigletDurocID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntitySowDuroc.class, Animania.spawnProbabilitySows, 1, Animania.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.JUNGLE); 
+			EntityRegistry.registerModEntity(pd3, EntityPigletDuroc.class, "animania.PigletDuroc",
+					Animania.PigletDurocID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntitySowDuroc.class, Animania.spawnProbabilitySows, 1, Animania.numberPigFamilies,
+					EnumCreatureType.CREATURE, Biomes.JUNGLE);
 
 			ResourceLocation ph1 = new ResourceLocation("animania:textures/entity/pigs/sow_hampshire.png");
-			EntityRegistry.registerModEntity(ph1, EntitySowHampshire.class, "animania.SowHampshire", Animania.SowHampshireID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(ph1, EntitySowHampshire.class, "animania.SowHampshire",
+					Animania.SowHampshireID, this, 64, 3, true);
 
 			ResourceLocation ph2 = new ResourceLocation("animania:textures/entity/pigs/hog_hampshire.png");
-			EntityRegistry.registerModEntity(ph2, EntityHogHampshire.class, "animania.HogHampshire", Animania.HogHampshireID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(ph2, EntityHogHampshire.class, "animania.HogHampshire",
+					Animania.HogHampshireID, this, 64, 3, true);
 
 			ResourceLocation ph3 = new ResourceLocation("animania:textures/entity/pigs/piglet_hampshire.png");
-			EntityRegistry.registerModEntity(ph3, EntityPigletHampshire.class, "animania.PigletHampshire", Animania.PigletHampshireID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntitySowHampshire.class, Animania.spawnProbabilitySows, 1, Animania.numberPigFamilies, EnumCreatureType.CREATURE,  Biomes.EXTREME_HILLS, Biomes.EXTREME_HILLS_WITH_TREES); 
+			EntityRegistry.registerModEntity(ph3, EntityPigletHampshire.class, "animania.PigletHampshire",
+					Animania.PigletHampshireID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntitySowHampshire.class, Animania.spawnProbabilitySows, 1,
+					Animania.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.EXTREME_HILLS,
+					Biomes.EXTREME_HILLS_WITH_TREES);
 		}
 
-
-		//RODENTS
+		// RODENTS
 		if (Animania.spawnAnimaniaRodents) {
 
 			ResourceLocation ha1 = new ResourceLocation("animania:textures/entity/pigs/hamster_tarou.png");
-			EntityRegistry.registerModEntity(ha1, EntityHamster.class, "animania.Hamster", Animania.HamsterMaleID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityHamster.class, Animania.spawnProbabilityHamsters, 1, 2, EnumCreatureType.CREATURE, Biomes.BEACH, Biomes.DESERT, Biomes.DESERT_HILLS); 
+			EntityRegistry.registerModEntity(ha1, EntityHamster.class, "animania.Hamster", Animania.HamsterMaleID, this,
+					64, 3, true);
+			EntityRegistry.addSpawn(EntityHamster.class, Animania.spawnProbabilityHamsters, 1, 2,
+					EnumCreatureType.CREATURE, Biomes.BEACH, Biomes.DESERT, Biomes.DESERT_HILLS);
 
 			ResourceLocation fe1 = new ResourceLocation("animania:textures/entity/pigs/ferret_grey.png");
-			EntityRegistry.registerModEntity(fe1, EntityFerretGrey.class, "animania.FerretGrey", Animania.FerretMaleGreyID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(fe1, EntityFerretGrey.class, "animania.FerretGrey",
+					Animania.FerretMaleGreyID, this, 64, 3, true);
 
 			ResourceLocation fe2 = new ResourceLocation("animania:textures/entity/pigs/ferret_white.png");
-			EntityRegistry.registerModEntity(fe2, EntityFerretWhite.class, "animania.FerretWhite", Animania.FerretMaleWhiteID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(fe2, EntityFerretWhite.class, "animania.FerretWhite",
+					Animania.FerretMaleWhiteID, this, 64, 3, true);
 
-			EntityRegistry.addSpawn(EntityFerretGrey.class, Animania.spawnProbabilityFerrets, 1, 2, EnumCreatureType.CREATURE, Biomes.SAVANNA);
-			EntityRegistry.addSpawn(EntityFerretWhite.class, Animania.spawnProbabilityFerrets, 1, 2, EnumCreatureType.CREATURE, Biomes.SAVANNA);
-
+			EntityRegistry.addSpawn(EntityFerretGrey.class, Animania.spawnProbabilityFerrets, 1, 2,
+					EnumCreatureType.CREATURE, Biomes.SAVANNA);
+			EntityRegistry.addSpawn(EntityFerretWhite.class, Animania.spawnProbabilityFerrets, 1, 2,
+					EnumCreatureType.CREATURE, Biomes.SAVANNA);
 
 			ResourceLocation he1 = new ResourceLocation("animania:textures/entity/pigs/hedgehog.png");
-			EntityRegistry.registerModEntity(he1, EntityHedgehog.class, "animania.Hedgehog", Animania.HedgehogMaleID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityHedgehog.class, Animania.spawnProbabilityHedgehogs, 1, 2, EnumCreatureType.CREATURE, Biomes.FOREST);
+			EntityRegistry.registerModEntity(he1, EntityHedgehog.class, "animania.Hedgehog", Animania.HedgehogMaleID,
+					this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityHedgehog.class, Animania.spawnProbabilityHedgehogs, 1, 2,
+					EnumCreatureType.CREATURE, Biomes.FOREST);
 
 			ResourceLocation he2 = new ResourceLocation("animania:textures/entity/pigs/hedgehog_white.png");
-			EntityRegistry.registerModEntity(he2, EntityHedgehogAlbino.class, "animania.HedgehogAlbino", Animania.HedgehogMaleAlbinoID, this, 64, 3, true); 
-			EntityRegistry.addSpawn(EntityHedgehogAlbino.class, Animania.spawnProbabilityHedgehogs, 1, 2, EnumCreatureType.CREATURE, Biomes.SWAMPLAND);
+			EntityRegistry.registerModEntity(he2, EntityHedgehogAlbino.class, "animania.HedgehogAlbino",
+					Animania.HedgehogMaleAlbinoID, this, 64, 3, true);
+			EntityRegistry.addSpawn(EntityHedgehogAlbino.class, Animania.spawnProbabilityHedgehogs, 1, 2,
+					EnumCreatureType.CREATURE, Biomes.SWAMPLAND);
 		}
 
-
-		//PEACOCKS
+		// PEACOCKS
 		if (Animania.spawnAnimaniaPeacocks) {
 			ResourceLocation pb1 = new ResourceLocation("animania:textures/entity/pigs/peacock_blue.png");
-			EntityRegistry.registerModEntity(pb1, EntityPeacockBlue.class, "animania.PeacockBlue", Animania.PeacockBlueID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(pb1, EntityPeacockBlue.class, "animania.PeacockBlue",
+					Animania.PeacockBlueID, this, 64, 3, true);
 
 			ResourceLocation pb2 = new ResourceLocation("animania:textures/entity/pigs/peafowl_blue.png");
-			EntityRegistry.registerModEntity(pb2, EntityPeafowlBlue.class, "animania.PeafowlBlue", Animania.PeafowlBlueID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(pb2, EntityPeafowlBlue.class, "animania.PeafowlBlue",
+					Animania.PeafowlBlueID, this, 64, 3, true);
 
 			ResourceLocation pb3 = new ResourceLocation("animania:textures/entity/pigs/peachick_blue.png");
-			EntityRegistry.registerModEntity(pb3, EntityPeachickBlue.class, "animania.PeachickBlue", Animania.PeachickBlueID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(pb3, EntityPeachickBlue.class, "animania.PeachickBlue",
+					Animania.PeachickBlueID, this, 64, 3, true);
 
-			EntityRegistry.addSpawn(EntityPeacockBlue.class, Animania.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND); 
-			EntityRegistry.addSpawn(EntityPeafowlBlue.class, Animania.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND);   
-			EntityRegistry.addSpawn(EntityPeachickBlue.class, Animania.spawnProbabilityPeacocks/2, 1, 1, EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND);   
+			EntityRegistry.addSpawn(EntityPeacockBlue.class, Animania.spawnProbabilityPeacocks, 1, 1,
+					EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND);
+			EntityRegistry.addSpawn(EntityPeafowlBlue.class, Animania.spawnProbabilityPeacocks, 1, 1,
+					EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND);
+			EntityRegistry.addSpawn(EntityPeachickBlue.class, Animania.spawnProbabilityPeacocks / 2, 1, 1,
+					EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND);
 
 			ResourceLocation pw1 = new ResourceLocation("animania:textures/entity/pigs/peacock_white.png");
-			EntityRegistry.registerModEntity(pw1, EntityPeacockWhite.class, "animania.PeacockWhite", Animania.PeacockWhiteID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(pw1, EntityPeacockWhite.class, "animania.PeacockWhite",
+					Animania.PeacockWhiteID, this, 64, 3, true);
 
 			ResourceLocation pw2 = new ResourceLocation("animania:textures/entity/pigs/peacock_white.png");
-			EntityRegistry.registerModEntity(pw2, EntityPeafowlWhite.class, "animania.PeafowlWhite", Animania.PeafowlWhiteID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(pw2, EntityPeafowlWhite.class, "animania.PeafowlWhite",
+					Animania.PeafowlWhiteID, this, 64, 3, true);
 
 			ResourceLocation pw3 = new ResourceLocation("animania:textures/entity/pigs/peacock_white.png");
-			EntityRegistry.registerModEntity(pw3, EntityPeachickWhite.class, "animania.PeachickWhite", Animania.PeachickWhiteID, this, 64, 3, true); 
+			EntityRegistry.registerModEntity(pw3, EntityPeachickWhite.class, "animania.PeachickWhite",
+					Animania.PeachickWhiteID, this, 64, 3, true);
 
-			EntityRegistry.addSpawn(EntityPeacockWhite.class, Animania.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND); 
-			EntityRegistry.addSpawn(EntityPeafowlWhite.class, Animania.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND); 
-			EntityRegistry.addSpawn(EntityPeachickWhite.class, Animania.spawnProbabilityPeacocks/2, 1, 1, EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND); 
+			EntityRegistry.addSpawn(EntityPeacockWhite.class, Animania.spawnProbabilityPeacocks, 1, 1,
+					EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND);
+			EntityRegistry.addSpawn(EntityPeafowlWhite.class, Animania.spawnProbabilityPeacocks, 1, 1,
+					EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND);
+			EntityRegistry.addSpawn(EntityPeachickWhite.class, Animania.spawnProbabilityPeacocks / 2, 1, 1,
+					EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND);
 		}
-
-
 
 		/*
-		//HORSES
-		if (Animania.spawnAnimaniaHorses) {
-			EntityRegistry.registerModEntity(EntityStallionDraftHorse.class, "animania.StallionDraftHorse", Animania.StallionDraftHorseID, this, 64, 3, true); 
-		}
+		 * //HORSES if (Animania.spawnAnimaniaHorses) {
+		 * EntityRegistry.registerModEntity(EntityStallionDraftHorse.class,
+		 * "animania.StallionDraftHorse", Animania.StallionDraftHorseID, this,
+		 * 64, 3, true); }
 		 */
-
 
 		GameRegistry.registerTileEntity(TileEntityTrough.class, "TileEntityTrough");
 		GameRegistry.registerTileEntity(TileEntityNest.class, "TileEntityNest");
 
-		proxy.registerRenderers();
+		// Recipes
 
-		//Recipes
-
-		//HAMSTERS
-
+		// HAMSTERS
 
 		/*
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,0), new Object[]{
-			"xxx","x x","xxx",'x', Blocks.GLASS,
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,1), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 14)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,2), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 13)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,3), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 12)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,4), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 11)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,5), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 10)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,6), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 9)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,7), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 8)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,8), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 7)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,9), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 6)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,10), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 5)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,11), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 4)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,12), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 3)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,13), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 2)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,14), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 1)
-		});
-		GameRegistry.addRecipe(new ItemStack(hamsterBall,1,15), new Object[]{
-			"xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 0)
-		});
-		/*
-		GameRegistry.addRecipe(new ItemStack(WaterBottle,1,0), new Object[]{
-			"x","w","i",'x', Blocks.glass, 'w', new ItemStack(Items.potionitem, 1, 0), 'i', Items.iron_ingot
-		});
+		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,0), new Object[]{
+		 * "xxx","x x","xxx",'x', Blocks.GLASS, }); GameRegistry.addRecipe(new
+		 * ItemStack(hamsterBall,1,1), new Object[]{ "xxx","xdx","xxx",'x',
+		 * Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 14) });
+		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,2), new Object[]{
+		 * "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1,
+		 * 13) }); GameRegistry.addRecipe(new ItemStack(hamsterBall,1,3), new
+		 * Object[]{ "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new
+		 * ItemStack(Items.DYE, 1, 12) }); GameRegistry.addRecipe(new
+		 * ItemStack(hamsterBall,1,4), new Object[]{ "xxx","xdx","xxx",'x',
+		 * Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 11) });
+		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,5), new Object[]{
+		 * "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1,
+		 * 10) }); GameRegistry.addRecipe(new ItemStack(hamsterBall,1,6), new
+		 * Object[]{ "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new
+		 * ItemStack(Items.DYE, 1, 9) }); GameRegistry.addRecipe(new
+		 * ItemStack(hamsterBall,1,7), new Object[]{ "xxx","xdx","xxx",'x',
+		 * Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 8) });
+		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,8), new Object[]{
+		 * "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1,
+		 * 7) }); GameRegistry.addRecipe(new ItemStack(hamsterBall,1,9), new
+		 * Object[]{ "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new
+		 * ItemStack(Items.DYE, 1, 6) }); GameRegistry.addRecipe(new
+		 * ItemStack(hamsterBall,1,10), new Object[]{ "xxx","xdx","xxx",'x',
+		 * Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 5) });
+		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,11), new Object[]{
+		 * "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1,
+		 * 4) }); GameRegistry.addRecipe(new ItemStack(hamsterBall,1,12), new
+		 * Object[]{ "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new
+		 * ItemStack(Items.DYE, 1, 3) }); GameRegistry.addRecipe(new
+		 * ItemStack(hamsterBall,1,13), new Object[]{ "xxx","xdx","xxx",'x',
+		 * Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 2) });
+		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,14), new Object[]{
+		 * "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1,
+		 * 1) }); GameRegistry.addRecipe(new ItemStack(hamsterBall,1,15), new
+		 * Object[]{ "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new
+		 * ItemStack(Items.DYE, 1, 0) }); /* GameRegistry.addRecipe(new
+		 * ItemStack(WaterBottle,1,0), new Object[]{ "x","w","i",'x',
+		 * Blocks.glass, 'w', new ItemStack(Items.potionitem, 1, 0), 'i',
+		 * Items.iron_ingot });
 		 */
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(hamsterFood, 3), new Object[] {
-			Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, Items.MELON_SEEDS
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(hamsterFood, 3),
+				new Object[] { Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, Items.MELON_SEEDS }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(hamsterFood, 3), new Object[] {
-			"listAllseed", Items.PUMPKIN_SEEDS, Items.MELON_SEEDS
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(hamsterFood, 3),
+				new Object[] { "listAllseed", Items.PUMPKIN_SEEDS, Items.MELON_SEEDS }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(hamsterFood, 3), new Object[] {
-			Items.WHEAT_SEEDS, "listAllseed", Items.MELON_SEEDS
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(hamsterFood, 3),
+				new Object[] { Items.WHEAT_SEEDS, "listAllseed", Items.MELON_SEEDS }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(hamsterFood, 3), new Object[] {
-			Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, "listAllseed"
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(hamsterFood, 3),
+				new Object[] { Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, "listAllseed" }));
 
-		//CARVING KNIFE
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Animania.carvingKnife, 1), new Object[] {
-			"   ","ii ","s  ",'i', "ingotIron", 's', Items.STICK
-		}));
+		// CARVING KNIFE
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Animania.carvingKnife, 1),
+				new Object[] { "   ", "ii ", "s  ", 'i', "ingotIron", 's', Items.STICK }));
 
-		//BEEF Recipes
+		// BEEF Recipes
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.rawAngusSteak, 5), new Object[] {
-			Animania.rawAngusBeef, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+				Animania.rawAngusBeef, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.rawHerefordSteak, 4), new Object[] {
-			Animania.rawHerefordBeef, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+				Animania.rawHerefordBeef, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.rawLonghornSteak, 4), new Object[] {
-			Animania.rawLonghornBeef, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+				Animania.rawLonghornBeef, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
-		//PORK Recipes
+		// PORK Recipes
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.rawLargeBlackBacon, 5), new Object[] {
-			Animania.rawLargeBlackPork, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+				Animania.rawLargeBlackPork, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.rawDurocBacon, 4), new Object[] {
-			Animania.rawDurocPork, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+				Animania.rawDurocPork, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.rawOldSpotBacon, 4), new Object[] {
-			Animania.rawOldSpotPork, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+				Animania.rawOldSpotPork, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.rawHampshireBacon, 4), new Object[] {
-			Animania.rawHampshirePork, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+				Animania.rawHampshirePork, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.LEAD, 1), new Object[] {
-			"leather", "leather", "string", "string"
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.LEAD, 1),
+				new Object[] { "leather", "leather", "string", "string" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.NAME_TAG, 1), new Object[] {
-			"string", "nuggetGold"
-		}));
+		GameRegistry.addRecipe(
+				new ShapelessOreRecipe(new ItemStack(Items.NAME_TAG, 1), new Object[] { "string", "nuggetGold" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.truffleSoup, 1), new Object[] {
-			Animania.truffle, Animania.truffle, Items.BOWL
-		}));
-
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.truffleSoup, 1),
+				new Object[] { Animania.truffle, Animania.truffle, Items.BOWL }));
 
 		/*
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.cheeseWheelHolstein, 1), new Object[] {
-			Animania.milkBucketHolstein, new ItemStack(Animania.cheeseMold, 1, OreDictionary.WILDCARD_VALUE)
-		}));
-
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.cheeseWheelFriesian, 1), new Object[] {
-			Animania.milkBucketFriesian, new ItemStack(Animania.cheeseMold, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+		 * GameRegistry.addRecipe(new ShapelessOreRecipe(new
+		 * ItemStack(Animania.cheeseWheelHolstein, 1), new Object[] {
+		 * Animania.milkBucketHolstein, new ItemStack(Animania.cheeseMold, 1,
+		 * OreDictionary.WILDCARD_VALUE) }));
+		 * 
+		 * GameRegistry.addRecipe(new ShapelessOreRecipe(new
+		 * ItemStack(Animania.cheeseWheelFriesian, 1), new Object[] {
+		 * Animania.milkBucketFriesian, new ItemStack(Animania.cheeseMold, 1,
+		 * OreDictionary.WILDCARD_VALUE) }));
 		 */
 
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.cheeseOmelette, 1),
+				new Object[] { Animania.plainOmelette, "foodCheese" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.cheeseOmelette, 1), new Object[] {
-			Animania.plainOmelette, "foodCheese"
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.baconOmelette, 1),
+				new Object[] { Animania.plainOmelette, Animania.cookedDurocBacon }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.baconOmelette, 1),
+				new Object[] { Animania.plainOmelette, Animania.cookedHampshireBacon }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.baconOmelette, 1),
+				new Object[] { Animania.plainOmelette, Animania.cookedLargeBlackBacon }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.baconOmelette, 1),
+				new Object[] { Animania.plainOmelette, Animania.cookedOldSpotBacon }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.baconOmelette, 1), new Object[] {
-			Animania.plainOmelette, Animania.cookedDurocBacon
-		}));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.baconOmelette, 1), new Object[] {
-			Animania.plainOmelette, Animania.cookedHampshireBacon
-		}));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.baconOmelette, 1), new Object[] {
-			Animania.plainOmelette, Animania.cookedLargeBlackBacon
-		}));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.baconOmelette, 1), new Object[] {
-			Animania.plainOmelette, Animania.cookedOldSpotBacon
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.truffleOmelette, 1),
+				new Object[] { Animania.plainOmelette, Animania.truffle }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.truffleOmelette, 1), new Object[] {
-			Animania.plainOmelette, Animania.truffle
-		}));
-
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.ultimateOmelette, 1),
+				new Object[] { Animania.plainOmelette, Animania.cookedDurocBacon, Animania.truffle, "foodCheese" }));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.ultimateOmelette, 1), new Object[] {
-			Animania.plainOmelette, Animania.cookedDurocBacon, Animania.truffle, "foodCheese"
-		}));
+				Animania.plainOmelette, Animania.cookedHampshireBacon, Animania.truffle, "foodCheese" }));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.ultimateOmelette, 1), new Object[] {
-			Animania.plainOmelette, Animania.cookedHampshireBacon, Animania.truffle, "foodCheese"
-		}));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.ultimateOmelette, 1), new Object[] {
-			Animania.plainOmelette, Animania.cookedLargeBlackBacon, Animania.truffle, "foodCheese"
-		}));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.ultimateOmelette, 1), new Object[] {
-			Animania.plainOmelette, Animania.cookedOldSpotBacon, Animania.truffle, "foodCheese"
-		}));
+				Animania.plainOmelette, Animania.cookedLargeBlackBacon, Animania.truffle, "foodCheese" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.ultimateOmelette, 1),
+				new Object[] { Animania.plainOmelette, Animania.cookedOldSpotBacon, Animania.truffle, "foodCheese" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.chocolateTruffle, 1), new Object[] {
-			Animania.truffle, new ItemStack(Items.DYE, 1, 3), "listAllsugar"
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.chocolateTruffle, 1),
+				new Object[] { Animania.truffle, new ItemStack(Items.DYE, 1, 3), "listAllsugar" }));
 
-		//BLOCKS
-		//Nest
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.blockNest, 1), new Object[] {
-			"wool", "stickWood", "treeLeaves" 
-		}));
+		// BLOCKS
+		// Nest
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.blockNest, 1),
+				new Object[] { "wool", "stickWood", "treeLeaves" }));
 
-		//Trough
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Animania.blockTrough, 1), new Object[] {
-			"p p","pip","s s",'p', "plankWood", 'i', "ingotIron", 's', "stickWood"
-		}));
+		// Trough
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Animania.blockTrough, 1),
+				new Object[] { "p p", "pip", "s s", 'p', "plankWood", 'i', "ingotIron", 's', "stickWood" }));
 
-		//Cheese Mold
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Animania.cheeseMold, 1), new Object[] {
-			"   ","pip"," p ",'p', "plankWood", 'i', "ingotIron"
-		}));
+		// Cheese Mold
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Animania.cheeseMold, 1),
+				new Object[] { "   ", "pip", " p ", 'p', "plankWood", 'i', "ingotIron" }));
 
-		//Slop Normal
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listBucketmilk", "cropCarrot", "cropPotato" 
-		}));
+		// Slop Normal
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1),
+				new Object[] { "listBucketmilk", "cropCarrot", "cropPotato" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listBucketmilk", "cropCarrot", "cropBeet"
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1),
+				new Object[] { "listBucketmilk", "cropCarrot", "cropBeet" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listBucketmilk", "cropCarrot", "bread"
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1),
+				new Object[] { "listBucketmilk", "cropCarrot", "bread" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listBucketmilk", "cropBeet", "cropPotato"
-		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1),
+				new Object[] { "listBucketmilk", "cropBeet", "cropPotato" }));
+
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1),
+				new Object[] { "listBucketmilk", "cropBeet", "bread" }));
+
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1),
+				new Object[] { "listBucketmilk", "cropPotato", "bread" }));
+
+		// Slop OreDict
+		GameRegistry
+				.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] { "listAllmilk",
+						"listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropPotato", Items.BUCKET }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listBucketmilk", "cropBeet", "bread"
-		}));
+				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "bread", Items.BUCKET }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listBucketmilk", "cropPotato", "bread"
-		}));
-
-		//Slop OreDict
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropPotato", Items.BUCKET 
-		}));
-
+				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "cropPotato", Items.BUCKET }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "bread", Items.BUCKET
-		}));
+				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "bread", Items.BUCKET }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "cropPotato", Items.BUCKET
-		}));
+				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropPotato", "bread", Items.BUCKET }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "bread", Items.BUCKET
-		}));
-
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropPotato", "bread", Items.BUCKET
-		}));
-
-		//Cheese Mold Recipes
+		// Cheese Mold Recipes
 		GameRegistry.addRecipe(new CheeseRecipe1());
-		RecipeSorter.register("animania:cheesewheelholstein", CheeseRecipe1.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:cheesewheelholstein", CheeseRecipe1.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
 
 		GameRegistry.addRecipe(new CheeseRecipe2());
-		RecipeSorter.register("animania:cheesewheelfriesian", CheeseRecipe2.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:cheesewheelfriesian", CheeseRecipe2.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
 
 		/*
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.cheeseWheelHolstein, 1), new Object[] {
-			Animania.milkBucketHolstein, new ItemStack(Animania.cheeseMold, 1, OreDictionary.WILDCARD_VALUE)
-		}));
-
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.cheeseWheelFriesian, 1), new Object[] {
-			Animania.milkBucketFriesian, new ItemStack(Animania.cheeseMold, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+		 * GameRegistry.addRecipe(new ShapelessOreRecipe(new
+		 * ItemStack(Animania.cheeseWheelHolstein, 1), new Object[] {
+		 * Animania.milkBucketHolstein, new ItemStack(Animania.cheeseMold, 1,
+		 * OreDictionary.WILDCARD_VALUE) }));
+		 * 
+		 * GameRegistry.addRecipe(new ShapelessOreRecipe(new
+		 * ItemStack(Animania.cheeseWheelFriesian, 1), new Object[] {
+		 * Animania.milkBucketFriesian, new ItemStack(Animania.cheeseMold, 1,
+		 * OreDictionary.WILDCARD_VALUE) }));
 		 */
 
-
-		//Carving Knife Recipes
+		// Carving Knife Recipes
 		GameRegistry.addRecipe(new CheeseRecipe3());
-		RecipeSorter.register("animania:cheeseWheelHolstein", CheeseRecipe3.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:cheeseWheelHolstein", CheeseRecipe3.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
 
 		GameRegistry.addRecipe(new CheeseRecipe4());
-		RecipeSorter.register("animania:cheeseWheelFriesian", CheeseRecipe4.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:cheeseWheelFriesian", CheeseRecipe4.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.cheeseWedgeHolstein, 4), new Object[] {
-			Animania.cheeseWheelHolstein, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+				Animania.cheeseWheelHolstein, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.cheeseWedgeFriesian, 4), new Object[] {
-			Animania.cheeseWheelFriesian, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE)
-		}));
+				Animania.cheeseWheelFriesian, new ItemStack(Animania.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
-
-		//Slop Bucket Special Recipe
+		// Slop Bucket Special Recipe
 		GameRegistry.addRecipe(new SlopBucketRecipe1());
 		GameRegistry.addRecipe(new SlopBucketRecipe2());
 		GameRegistry.addRecipe(new SlopBucketRecipe3());
 		GameRegistry.addRecipe(new SlopBucketRecipe4());
 		GameRegistry.addRecipe(new SlopBucketRecipe5());
 		GameRegistry.addRecipe(new SlopBucketRecipe6());
-		RecipeSorter.register("animania:bucketslop1", SlopBucketRecipe1.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		RecipeSorter.register("animania:bucketslop2", SlopBucketRecipe2.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		RecipeSorter.register("animania:bucketslop3", SlopBucketRecipe3.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		RecipeSorter.register("animania:bucketslop4", SlopBucketRecipe4.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		RecipeSorter.register("animania:bucketslop5", SlopBucketRecipe5.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		RecipeSorter.register("animania:bucketslop6", SlopBucketRecipe6.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop1", SlopBucketRecipe1.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop2", SlopBucketRecipe2.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop3", SlopBucketRecipe3.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop4", SlopBucketRecipe4.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop5", SlopBucketRecipe5.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop6", SlopBucketRecipe6.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Animania.bucketSlop, 1), new Object[] {
-			"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropBeet", Items.BUCKET
-		}));
+				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropBeet", Items.BUCKET }));
 
+		// Blocks
+		GameRegistry.addShapelessRecipe(new ItemStack(Animania.blockMud, 2),
+				new Object[] { Items.WATER_BUCKET, Blocks.DIRT });
 
-		//Blocks
-		GameRegistry.addShapelessRecipe(new ItemStack(Animania.blockMud, 2), new Object[]{
-			Items.WATER_BUCKET, Blocks.DIRT});
-
-
-		//Vanilla transfer meats recipes
+		// Vanilla transfer meats recipes
 		if (Animania.enableVanillaMeatRecipes) {
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] {
-				Animania.rawAngusBeef
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] {
-				Animania.rawLonghornBeef
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] {
-				Animania.rawHerefordBeef
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] {
-				Animania.rawAngusSteak
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] {
-				Animania.rawLonghornSteak
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] {
-				Animania.rawHerefordSteak
-			}));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { Animania.rawAngusBeef }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { Animania.rawLonghornBeef }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { Animania.rawHerefordBeef }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { Animania.rawAngusSteak }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { Animania.rawLonghornSteak }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { Animania.rawHerefordSteak }));
 
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { Animania.rawLargeBlackPork }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP),
+					new Object[] { Animania.rawLargeBlackBacon }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { Animania.rawDurocPork }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { Animania.rawDurocBacon }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { Animania.rawHampshirePork }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { Animania.rawHampshireBacon }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { Animania.rawOldSpotPork }));
+			GameRegistry.addRecipe(
+					new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { Animania.rawOldSpotBacon }));
 
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] {
-				Animania.rawLargeBlackPork
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] {
-				Animania.rawLargeBlackBacon
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] {
-				Animania.rawDurocPork
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] {
-				Animania.rawDurocBacon
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] {
-				Animania.rawHampshirePork
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] {
-				Animania.rawHampshireBacon
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] {
-				Animania.rawOldSpotPork
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] {
-				Animania.rawOldSpotBacon
-			}));
-
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN), new Object[] {
-				Animania.rawOrpingtonChicken
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN), new Object[] {
-				Animania.rawPlymouthRockChicken
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN), new Object[] {
-				Animania.rawWyandotteChicken
-			}));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN), new Object[] {
-				Animania.rawRhodeIslandRedChicken
-			}));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN),
+					new Object[] { Animania.rawOrpingtonChicken }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN),
+					new Object[] { Animania.rawPlymouthRockChicken }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN),
+					new Object[] { Animania.rawWyandotteChicken }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN),
+					new Object[] { Animania.rawRhodeIslandRedChicken }));
 
 		}
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] {
-			Animania.milkBucketFriesian
-		}));
+		GameRegistry.addRecipe(
+				new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { Animania.milkBucketFriesian }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] {
-			Animania.milkBucketHolstein
-		}));
+		GameRegistry.addRecipe(
+				new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { Animania.milkBucketHolstein }));
 
-
-		//Smelting Recipes
+		// Smelting Recipes
 		GameRegistry.addSmelting(Animania.rawAngusBeef, new ItemStack(Animania.cookedAngusRoast, 1), .3F);
 		GameRegistry.addSmelting(Animania.rawLonghornBeef, new ItemStack(Animania.cookedLonghornRoast, 1), .3F);
 		GameRegistry.addSmelting(Animania.rawHerefordBeef, new ItemStack(Animania.cookedHerefordRoast, 1), .3F);
@@ -1399,9 +1409,11 @@ public class Animania {
 		GameRegistry.addSmelting(Animania.rawOldSpotBacon, new ItemStack(Animania.cookedOldSpotBacon, 1), .2F);
 
 		GameRegistry.addSmelting(Animania.rawOrpingtonChicken, new ItemStack(Animania.cookedOrpingtonChicken, 1), .3F);
-		GameRegistry.addSmelting(Animania.rawPlymouthRockChicken, new ItemStack(Animania.cookedPlymouthRockChicken, 1), .3F);
+		GameRegistry.addSmelting(Animania.rawPlymouthRockChicken, new ItemStack(Animania.cookedPlymouthRockChicken, 1),
+				.3F);
 		GameRegistry.addSmelting(Animania.rawWyandotteChicken, new ItemStack(Animania.cookedWyandotteChicken, 1), .3F);
-		GameRegistry.addSmelting(Animania.rawRhodeIslandRedChicken, new ItemStack(Animania.cookedRhodeIslandRedChicken, 1), .3F);
+		GameRegistry.addSmelting(Animania.rawRhodeIslandRedChicken,
+				new ItemStack(Animania.cookedRhodeIslandRedChicken, 1), .3F);
 
 		GameRegistry.addSmelting(Animania.rawPrimeBeef, new ItemStack(Animania.cookedPrimeBeef, 1), .3F);
 		GameRegistry.addSmelting(Animania.rawPrimeSteak, new ItemStack(Animania.cookedPrimeSteak, 1), .3F);
@@ -1412,22 +1424,22 @@ public class Animania {
 		GameRegistry.addSmelting(Items.EGG, new ItemStack(Animania.plainOmelette, 1), .3F);
 		GameRegistry.addSmelting(Animania.brownEgg, new ItemStack(Animania.plainOmelette, 1), .3F);
 
-		//OreDictionary
+		// OreDictionary
 		oreRegistration();
 
 	}
 
-	//Event Handler
+	// Event Handler
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent e){
+	public void postInit(FMLPostInitializationEvent e) {
 
 	}
 
 	public static void syncConfig() {
 
-		//CONFIG
+		// CONFIG
 
-		//Cows
+		// Cows
 		CowHolsteinID = config.get("Entities", "Holstein Cow Entity ID", 500).getInt();
 		BullHolsteinID = config.get("Entities", "Holstein Bull Entity ID", 501).getInt();
 		CalfHolsteinID = config.get("Entities", "Holstein Calf Entity ID", 502).getInt();
@@ -1448,7 +1460,7 @@ public class Animania {
 		BullHerefordID = config.get("Entities", "Hereford Bull Entity ID", 513).getInt();
 		CalfHerefordID = config.get("Entities", "Hereford Calf Entity ID", 514).getInt();
 
-		//Chickens
+		// Chickens
 		HenPlymouthRockID = config.get("Entities", "Plymouth Rock Hen Entity ID", 530).getInt();
 		RoosterPlymouthRockID = config.get("Entities", "Plymouth Rock Rooster Entity ID", 531).getInt();
 		ChickPlymouthRockID = config.get("Entities", "Plymouth Rock Chick Entity ID", 532).getInt();
@@ -1469,7 +1481,7 @@ public class Animania {
 		RoosterRhodeIslandRedID = config.get("Entities", "Rhode Island Red Entity ID", 543).getInt();
 		ChickRhodeIslandRedID = config.get("Entities", "Rhode Island Red Chick Entity ID", 544).getInt();
 
-		//Peacocks
+		// Peacocks
 		PeacockBlueID = config.get("Entities", "India Blue Peacock Entity ID", 580).getInt();
 		PeafowlBlueID = config.get("Entities", "India Blue Peafowl Entity ID", 581).getInt();
 		PeachickBlueID = config.get("Entities", "India Blue Peachick Entity ID", 582).getInt();
@@ -1478,14 +1490,14 @@ public class Animania {
 		PeafowlWhiteID = config.get("Entities", "India White Peafowl Entity ID", 584).getInt();
 		PeachickWhiteID = config.get("Entities", "India White Peachick Entity ID", 585).getInt();
 
-		//Rodents
+		// Rodents
 		HamsterMaleID = config.get("Entities", "Hamster Male Entity ID", 520).getInt();
 		FerretMaleGreyID = config.get("Entities", "Grey Ferret Male Entity ID", 523).getInt();
 		FerretMaleWhiteID = config.get("Entities", "White Ferret Male Entity ID", 526).getInt();
 		HedgehogMaleID = config.get("Entities", "Hedgehog Male Entity ID", 529).getInt();
 		HedgehogMaleAlbinoID = config.get("Entities", "Albino Hedgehog Male Entity ID", 550).getInt();
 
-		//Pigs
+		// Pigs
 		SowYorkshireID = config.get("Entities", "Yorkshire Sow Entity ID", 600).getInt();
 		HogYorkshireID = config.get("Entities", "Yorkshire Hog Entity ID", 601).getInt();
 		PigletYorkshireID = config.get("Entities", "Yorkshire Piglet Entity ID", 602).getInt();
@@ -1510,35 +1522,42 @@ public class Animania {
 		HogHampshireID = config.get("Entities", "Hampshire Hog Entity ID", 616).getInt();
 		PigletHampshireID = config.get("Entities", "Hampshire Piglet Entity ID", 617).getInt();
 
-		//Horses
-		//MareDraftHorseID = config.get("Entities", "Draft Horse Mare Entity ID", 701).getInt();
-		//StallionDraftHorseID = config.get("Entities", "Draft Horse Stallion Entity ID", 702).getInt();
-		//FoalDraftHorseID = config.get("Entities", "Draft Horse Foal Entity ID", 703).getInt();
+		// Horses
+		// MareDraftHorseID = config.get("Entities", "Draft Horse Mare Entity
+		// ID", 701).getInt();
+		// StallionDraftHorseID = config.get("Entities", "Draft Horse Stallion
+		// Entity ID", 702).getInt();
+		// FoalDraftHorseID = config.get("Entities", "Draft Horse Foal Entity
+		// ID", 703).getInt();
 
-		//GAME RULES
+		// GAME RULES
 		foodsGiveBonusEffects = config.get("Game Rules", "Foods give bonus effects", true).getBoolean();
-		showModUpdateNotification = config.get("Game Rules", "Show mod update notification at startup", true).getBoolean();
+		showModUpdateNotification = config.get("Game Rules", "Show mod update notification at startup", true)
+				.getBoolean();
 		showParts = config.get("Game Rules", "Show male parts (modesty flag)", true).getBoolean();
 		showUnhappyParticles = config.get("Game Rules", "Show particles when animals are unhappy", true).getBoolean();
-		enableVanillaMeatRecipes = config.get("Game Rules", "Enable recipes to exchange special meats for vanilla", false).getBoolean();
+		enableVanillaMeatRecipes = config
+				.get("Game Rules", "Enable recipes to exchange special meats for vanilla", false).getBoolean();
 		replaceVanillaCows = config.get("Game Rules", "Remove vanilla Cows", true).getBoolean();
 		replaceVanillaPigs = config.get("Game Rules", "Remove vanilla Pigs", true).getBoolean();
 		replaceVanillaChickens = config.get("Game Rules", "Remove vanilla Chickens", true).getBoolean();
 		allowEggThrowing = config.get("Game Rules", "Allow eggs to be thrown", false).getBoolean();
 		shiftSeedPlacement = config.get("Game Rules", "Shift-Right-Click for Seed Placement", false).getBoolean();
-		animalsStarve = config.get("Game Rules", "Animals starve to death when not fed and watered", false).getBoolean();
-		
-		//CARE & FEEDING
+		animalsStarve = config.get("Game Rules", "Animals starve to death when not fed and watered", false)
+				.getBoolean();
+
+		// CARE & FEEDING
 		childGrowthTick = config.get("Care and Feeding", "Ticks before next incremental growth", 200).getInt();
 		feedTimer = config.get("Care and Feeding", "Ticks between feedings", 12000).getInt();
 		waterTimer = config.get("Care and Feeding", "Ticks between drinking water", 8000).getInt();
 		playTimer = config.get("Care and Feeding", "Ticks between playing", 4000).getInt();
 		laidTimer = config.get("Care and Feeding", "Ticks between laying eggs", 2000).getInt();
 		gestationTimer = config.get("Care and Feeding", "Ticks between birthings", 20000).getInt();
-		starvationTimer = config.get("Care and Feeding", "Ticks between animals taking starvation damage", 400).getInt();
+		starvationTimer = config.get("Care and Feeding", "Ticks between animals taking starvation damage", 400)
+				.getInt();
 		eggHatchChance = config.get("Care and Feeding", "Egg hatch chance (1/x)", 2).getInt();
 
-		//SPAWN
+		// SPAWN
 		spawnAnimaniaCows = config.get("Spawn", "Spawn Animania Cows in world", true).getBoolean();
 		spawnAnimaniaPigs = config.get("Spawn", "Spawn Animania Pigs in world", true).getBoolean();
 		spawnAnimaniaChickens = config.get("Spawn", "Spawn Animania Chickens in world", true).getBoolean();
@@ -1563,30 +1582,32 @@ public class Animania {
 		spawnProbabilityPeacocks = config.get("Spawn", "Spawn probability Peacocks", 20).getInt();
 
 		numberCowFamilies = config.get("Spawn", "Number of potential Cow families per chunk", 2).getInt();
-		numberPigFamilies  = config.get("Spawn", "Number of potential Pig families per chunk", 1).getInt();
-		numberChickenFamilies  = config.get("Spawn", "Number of potential Chicken families per chunk", 1).getInt();
+		numberPigFamilies = config.get("Spawn", "Number of potential Pig families per chunk", 1).getInt();
+		numberChickenFamilies = config.get("Spawn", "Number of potential Chicken families per chunk", 1).getInt();
 
-		//DROPS
+		// DROPS
 		customMobDrops = config.get("Drops", "Enable Animal Drops from Config", true).getBoolean();
-		chickenDrop = config.get("Drops", "Set Custom Chicken Drop (if enabled)", "animania:raw_prime_chicken").getString();
+		chickenDrop = config.get("Drops", "Set Custom Chicken Drop (if enabled)", "animania:raw_prime_chicken")
+				.getString();
 		pigDrop = config.get("Drops", "Set Custom Pig Drop (if enabled)", "animania:raw_prime_pork").getString();
 		cowDrop = config.get("Drops", "Set Custom Cow Drop (if enabled)", "animania:raw_prime_beef").getString();
 		horseDrop = config.get("Drops", "Set Custom Horse Drop (if enabled)", "").getString();
-		peacockBlueDrop = config.get("Drops", "Set Custom Blue Peacock Drop (if enabled)", "animania:blue_peacock_feather").getString();
-		peacockWhiteDrop = config.get("Drops", "Set Custom White Peacock Drop (if enabled)", "animania:white_peacock_feather").getString();
+		peacockBlueDrop = config
+				.get("Drops", "Set Custom Blue Peacock Drop (if enabled)", "animania:blue_peacock_feather").getString();
+		peacockWhiteDrop = config
+				.get("Drops", "Set Custom White Peacock Drop (if enabled)", "animania:white_peacock_feather")
+				.getString();
 		ferretDrop = config.get("Drops", "Set Custom Ferret Drop (if enabled)", "").getString();
 		hamsterDrop = config.get("Drops", "Set Custom Hamster Drop (if enabled)", "animania:hamster_food").getString();
 		hedgehogDrop = config.get("Drops", "Set Custom Hedgehog Drop (if enabled)", "").getString();
 
-		if (config.hasChanged())
-		{
+		if (config.hasChanged()) {
 			config.save();
 		}
 
 	}
 
-	public static void oreRegistration()
-	{
+	public static void oreRegistration() {
 		OreDictionary.registerOre("egg", Animania.brownEgg);
 		OreDictionary.registerOre("listAllegg", Animania.brownEgg);
 
@@ -1664,7 +1685,7 @@ public class Animania {
 		OreDictionary.registerOre("listAllchickencooked", Animania.cookedPlymouthRockChicken);
 		OreDictionary.registerOre("listAllchickencooked", Animania.cookedWyandotteChicken);
 
-		//Cooked Prime Meats
+		// Cooked Prime Meats
 		OreDictionary.registerOre("listAllmeatcooked", Animania.cookedPrimeChicken);
 		OreDictionary.registerOre("listAllmeatcooked", Animania.cookedPrimePork);
 		OreDictionary.registerOre("listAllmeatcooked", Animania.cookedPrimeBeef);
@@ -1687,7 +1708,7 @@ public class Animania {
 		OreDictionary.registerOre("listAllsugar", Items.SUGAR);
 		OreDictionary.registerOre("listAllseed", Items.WHEAT_SEEDS);
 
-		//Additions 1.0.4.8
+		// Additions 1.0.4.8
 		OreDictionary.registerOre("foodMeats", Animania.rawAngusBeef);
 		OreDictionary.registerOre("foodMeats", Animania.rawAngusSteak);
 		OreDictionary.registerOre("foodMeats", Animania.rawDurocBacon);
@@ -1741,11 +1762,9 @@ public class Animania {
 
 		OreDictionary.registerOre("wool", new ItemStack(Blocks.WOOL, 1, Short.MAX_VALUE));
 
-		//TODO
-		//add ferret eating meats ore dict
-
+		// TODO
+		// add ferret eating meats ore dict
 
 	}
-
 
 }
