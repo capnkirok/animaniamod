@@ -1,0 +1,300 @@
+item.animania_hamster_food.name=Hamper Cheezburgers
+item.animania_chicken_feed.name=Bawk Bawk! Cheezburgers!
+item.animania_truffle.name=TEH ULTEHMIT MUSHRUUM
+item.animania_brown_egg.name=Eg
+item.animania_bucket_slop.name=bukkit wif ur Tresh
+item.animania_carving_knife.name=Carfing Stebber
+item.animania_cheese_mold.name=Chez Moeld
+ 
+item.animania_blue_peacock_feather.name=bloo Taelboi Dether
+item.animania_white_peacock_feather.name=blenk Taelster Dether
+ 
+item.animania_carving_knife.desc=Oozed teh carf burgz and cheezez
+item.animania_cheese_mold.desc=Oozed teh mak chez
+item.animania_entity_egg.desc1=Spahn
+item.animania_entity_egg.desc2=[uposite teh left cleck]
+ 
+item.animania_raw_angus_beef.name=Spotty meet (Agnert)
+item.animania_cooked_angus_roast.name=Rhoast meet (Agnert)
+item.animania_raw_angus_steak.name=rawh Spotty meet (Agnert)
+item.animania_cooked_angus_steak.name=Bad Spotty meet (Agnert)
+item.animania_raw_hereford_beef.name=Spotty meet (Whersasnord)
+item.animania_cooked_hereford_roast.name=Rhoast meet (Whersasnord)
+item.animania_raw_hereford_steak.name=rawh Spotty meet (Whersasnord)
+item.animania_cooked_hereford_steak.name=Bad Spotty meet (Whersasnord)
+item.animania_raw_longhorn_beef.name=Spotty meet (greghorn)
+item.animania_cooked_longhorn_roast.name=Rhoast meet (greghorn)
+item.animania_raw_longhorn_steak.name=rawh Spotty meet (greghorn)
+item.animania_cooked_longhorn_steak.name=Bad Spotty meet (greghorn)
+ 
+item.animania_raw_large_black_pork.name=rawr pig (bigly BLAck)
+item.animania_cooked_large_black_roast.name=rhoast pig (bigly BLAck)
+item.animania_raw_large_black_bacon.name=rawr BAEcon (bigly BLAck)
+item.animania_cooked_large_black_bacon.name=BAEcon (bigly BLAck)
+item.animania_raw_duroc_pork.name=rawr pig (Dooflock)
+item.animania_cooked_duroc_roast.name=rhoast pig (Dooflock)
+item.animania_raw_duroc_bacon.name=rawr BAEcon (Dooflock)
+item.animania_cooked_duroc_bacon.name=BAEcon (Dooflock)
+item.animania_raw_old_spot_pork.name=rawr pig (Mold Spot)
+item.animania_cooked_old_spot_roast.name=rhoast pig (Mold Spot)
+item.animania_raw_old_spot_bacon.name=rawr BAEcon (Mold Spot)
+item.animania_cooked_old_spot_bacon.name=BAEcon (Mold Spot)
+item.animania_raw_hampshire_pork.name=rawr pig (Hampork)
+item.animania_cooked_hampshire_roast.name=rhoast pig (Hampork)
+item.animania_raw_hampshire_bacon.name=rawr BAEcon (Hampork)
+item.animania_cooked_hampshire_bacon.name=BAEcon (Hampork)
+ 
+item.animania_raw_orpington_chicken.name=raw cluck (Derpington)
+item.animania_cooked_orpington_chicken.name=rhoast cluck (Derpington)
+item.animania_raw_plymouth_rock_chicken.name=raw cluck (Orly Rock)
+item.animania_cooked_plymouth_rock_chicken.name=rhoast cluck (Orly Rock)
+item.animania_raw_rhode_island_red_chicken.name=raw cluck (Rhode Eyelind Red)
+item.animania_cooked_rhode_island_red_chicken.name=rhoast cluck (Rhode Eyelind Red)
+item.animania_raw_wyandotte_chicken.name=raw cluck (diddlydott)
+item.animania_cooked_wyandotte_chicken.name=rhoast cluck (diddlydott)
+ 
+item.animania_friesian_cheese_wheel.name=Chez Wheel (Frystain)
+item.animania_friesian_cheese_wedge.name=Chez Gredge (Frystain)
+item.animania_holstein_cheese_wheel.name=Chez Wheel (Wholesomememe)
+item.animania_holstein_cheese_wedge.name=Chez Gredge (Wholesomememe)
+item.animania_holstein_bucket_milk.name=Bukkit Milk (Wholesomememe)
+item.animania_friesian_bucket_milk.name=Bukkit Milk (Frystain)
+item.animania_truffle_soup.name=TEH ULTIMET SOOP
+item.animania_chocolate_truffle.name=TEH ULTEHMIT SUPRMEGA MUSHRUUM
+ 
+item.animania_plain_omelette.name=Plain Omelette
+item.animania_bacon_omelette.name=BAEon Omelette
+item.animania_cheese_omelette.name=Chez Omelette
+item.animania_truffle_omelette.name=TEH ULTIMUT OMELETTE
+item.animania_super_omelette.name=Supr Omelette
+ 
+item.animania_entity_egg_cow_holstein.name=Wholesomememe Milk-Maeker
+item.animania_entity_egg_bull_holstein.name=Wholesomememe Nu-Milk
+item.animania_entity_egg_calf_holstein.name=Wholesomememe Blaf
+item.animania_entity_egg_cow_friesian.name=Frystain Milk-Maeker
+item.animania_entity_egg_bull_friesian.name=Frystain Nu-Milk
+item.animania_entity_egg_calf_friesian.name=Frystain Blaf
+item.animania_entity_egg_cow_angus.name=Agnert Milk-Maeker
+item.animania_entity_egg_bull_angus.name=Agnert Nu-Milk
+item.animania_entity_egg_calf_angus.name=Agnert Blaf
+item.animania_entity_egg_cow_longhorn.name=Longhorn Milk-Maeker
+item.animania_entity_egg_bull_longhorn.name=Longhorn Nu-Milk
+item.animania_entity_egg_calf_longhorn.name=Longhorn Blaf
+item.animania_entity_egg_cow_hereford.name=Hereford Milk-Maeker
+item.animania_entity_egg_bull_hereford.name=Hereford Nu-Milk
+item.animania_entity_egg_calf_hereford.name=Hereford Blaf
+ 
+item.animania_entity_egg_chick_plymouth.name=Orly Rock Bawk
+item.animania_entity_egg_hen_plymouth.name=Orly Rock Bawk Bawk!
+item.animania_entity_egg_rooster_plymouth.name=Orly Rock nu Bawk
+item.animania_entity_egg_chick_red.name=Rhode Eyelind Red Bawk
+item.animania_entity_egg_hen_red.name=Rhode Eyelind Red Bawk Bawk!
+item.animania_entity_egg_rooster_red.name=Rhode Eyelind Red nu Bawk
+item.animania_entity_egg_chick_leghorn.name=greghorn Bawk
+item.animania_entity_egg_hen_leghorn.name=greghorn Bawk Bawk!
+item.animania_entity_egg_rooster_leghorn.name=greghorn nu Bawk
+item.animania_entity_egg_chick_orpington.name=Derpington Bawk
+item.animania_entity_egg_hen_orpington.name=Derpington Bawk Bawk!
+item.animania_entity_egg_rooster_orpington.name=Derpington nu Bawk
+item.animania_entity_egg_chick_wyandotte.name=diddlydott Bawk
+item.animania_entity_egg_hen_wyandotte.name=diddlydott Bawk Bawk!
+item.animania_entity_egg_rooster_wyandotte.name=diddlydot nu Bawk
+ 
+item.animania_entity_egg_piglet_yorkshire.name=New York Choir Snortey
+item.animania_entity_egg_sow_yorkshire.name=New York Choir Oinkey
+item.animania_entity_egg_hog_yorkshire.name=New York Choir Oinkster
+item.animania_entity_egg_piglet_oldspot.name=Mold Spot Snortey
+item.animania_entity_egg_sow_oldspot.name=Mold Spot Oinkey
+item.animania_entity_egg_hog_oldspot.name=Mold Spot Oinkster
+item.animania_entity_egg_piglet_duroc.name=Dooflock Snortey
+item.animania_entity_egg_sow_duroc.name=Dooflock Oinkey
+item.animania_entity_egg_hog_duroc.name=Dooflock Oinkster
+item.animania_entity_egg_piglet_largeblack.name=bigly BLAck Snortey
+item.animania_entity_egg_sow_largeblack.name=bigly BLAck Oinkey
+item.animania_entity_egg_hog_largeblack.name=bigly BLAck Oinkster
+item.animania_entity_egg_piglet_largewhite.name=bigly blenk Snortey
+item.animania_entity_egg_sow_largewhite.name=bigly blenk Oinkey
+item.animania_entity_egg_hog_largewhite.name=bigly blenk Oinkster
+item.animania_entity_egg_piglet_hampshire.name=Hampork Snortey
+item.animania_entity_egg_sow_hampshire.name=Hampork Oinkey
+item.animania_entity_egg_hog_hampshire.name=Hampork Oinkster
+ 
+item.animania_entity_egg_hamster.name=Hamper
+item.animania_entity_egg_ferret_white.name=Blenk Furrbit
+item.animania_entity_egg_ferret_grey.name=Grey Furrbit
+item.animania_entity_egg_hedgehog.name=Hogpog
+item.animania_entity_egg_hedgehog_albino.name=blenk Hogpog
+ 
+item.animania_entity_egg_peacock_blue.name=Indea bloo Peacock
+item.animania_entity_egg_peafowl_blue.name=Indea bloo Peafowl
+item.animania_entity_egg_peachick_blue.name=Indea bloo Peachick
+item.animania_entity_egg_peacock_white.name=blenk Peacock
+item.animania_entity_egg_peafowl_white.name=BlEnk Peafowl
+item.animania_entity_egg_peachick_white.name=blenK Peachick
+ 
+item.animania_entity_egg_cow_random.name=Random Moo
+item.animania_entity_egg_pig_random.name=Random Oinker
+item.animania_entity_egg_chicken_random.name=Random Chickr
+ 
+entity.animania.ChickRhodeIslandRed.name=Rhode Eyelind Red Bawk
+entity.animania.HenRhodeIslandRed.name=Rhode Eyelind Red Bawk Bawk!
+entity.animania.RoosterRhodeIslandRed.name=Rhode Eyelind Red nu bawk
+entity.animania.ChickPlymouthRock.name=Orly Rock Bawk
+entity.animania.HenPlymouthRock.name=Orly Rock Bawk Bawk!
+entity.animania.RoosterPlymouthRock.name=Orly Rock nu bawk
+entity.animania.ChickLeghorn.name=greghorn Bawk
+entity.animania.HenLeghorn.name=greghorn Bawk Bawk!
+entity.animania.RoosterLeghorn.name=greghorn nu bawk
+entity.animania.ChickOrpington.name=Derpington Bawk
+entity.animania.HenOrpington.name=Derpington Bawk Bawk!
+entity.animania.RoosterOrpington.name=Derpington nu bawk
+entity.animania.ChickWyandotte.name=diddlydott Bawk
+entity.animania.HenWyandotte.name=diddlydott Bawk Bawk!
+entity.animania.RoosterWyandotte.name=diddlydott nu bawk
+ 
+entity.animania.BullAngus.name=Agnert Nu-Milk
+entity.animania.CowAngus.name=Agnert Milk-Maeker
+entity.animania.CalfAngus.name=Agnert Blaf
+entity.animania.BullHolstein.name=Wholesomememe Nu-Milk
+entity.animania.CowHolstein.name=Wholesomememe Milk-Maeker
+entity.animania.CalfHolstein.name=Wholesomememe Blaf
+ 
+entity.animania.BullFriesian.name=Frystain Nu-Milk
+entity.animania.CowFriesian.name=Frystain Milk-Maeker
+entity.animania.CalfFriesian.name=Frystain Blaf
+entity.animania.BullHereford.name=Whersasnord Nu-Milk
+entity.animania.CowHereford.name=Whersasnord Milk-Maeker
+entity.animania.CalfHereford.name=Whersasnord Blaf
+entity.animania.BullLonghorn.name=greghorn Nu-Milk
+entity.animania.CowLonghorn.name=greghorn Milk-Maeker
+entity.animania.CalfLonghorn.name=greghorn Blaf
+ 
+entity.animania.HogYorkshire.name=New York Choir Oinkster
+entity.animania.SowYorkshire.name=New York Choir Oinkey
+entity.animania.PigletYorkshire.name=New York Choir Snortey
+entity.animania.HogOldSpot.name=Mold Spot Oinkster
+entity.animania.SowOldSpot.name=Mold Spot Oinkey
+entity.animania.PigletOldSpot.name=Mold Spot Snortey
+entity.animania.HogLargeBlack.name=bigly BLAck Oinkster
+entity.animania.SowLargeBlack.name=bigly BLAck Oinkey
+entity.animania.PigletLargeBlack.name=bigly BLAck Snortey
+entity.animania.HogLargeWhite.name=bigly blenk Oinkster
+entity.animania.SowLargeWhite.name=bigly blenk Oinkey
+entity.animania.PigletLargeWhite.name=bigly blenk Snortey
+entity.animania.HogDuroc.name=Dooflock Oinkster
+entity.animania.SowDuroc.name=Dooflock Oinkey
+entity.animania.PigletDuroc.name=Dooflock Snortey
+entity.animania.HogHampshire.name=Hampork Oinkster
+entity.animania.SowHampshire.name=Hampork Oinkey
+entity.animania.PigletHampshire.name=Hampork Snortey
+ 
+entity.animania.Hamster.name=Hamper
+entity.animania.FerretGrey.name=grai Furbitt
+entity.animania.FerretWhite.name=blenk Furbitt
+entity.animania.Hedgehog.name=Hogpog
+entity.animania.HedgehogAlbino.name=blenk Hogpog
+ 
+entity.animania.PeacockBlue.name=Indea bloo Peacock
+entity.animania.PeafowlBlue.name=Indea bloo Peafowl
+entity.animania.PeachickBlue.name=Indea bloo Peachick
+ 
+entity.animania.PeacockWhite.name=Blenk Peacock
+entity.animania.PeafowlWhite.name=Blenk Peafowl
+entity.animania.PeachickWhite.name=Blenk Peachick
+ 
+death.attack.bull=%1$s was shanked 'n dankd
+ 
+tile.animania_block_mud.name=Mudd
+tile.animania_block_seeds.name=grows
+tile.animania_block_trough.name=Trought
+tile.animania_block_nest.name=Nest
+tile.animania_invisiblock.name=Trough
+ 
+tab.animania_entities.label=Animania Animolz
+tab.animania_resources.label=Animania Resurces
+ 
+achievement.an.leghorn=greghorn
+achievement.an.leghorn.desc=Befriend a greghorn chickr
+achievement.an.orpington=Orpington
+achievement.an.orpington.desc=Befriend an Derpington chickr
+achievement.an.plymouthrock=Orly Rock
+achievement.an.plymouthrock.desc=Befriend an Orly Rock chickr
+achievement.an.rhodeislandred=Rhode Eyelind Red
+achievement.an.rhodeislandred.desc=Befriend a Rhode Eyelind Red chickr
+achievement.an.wyandotte=diddlydott
+achievement.an.wyandotte.desc=Befriend a diddlydott chickr
+achievement.an.chickens=Chickr Whippersnapper
+achievement.an.chickens.desc=Befriend all the Chickr breeds
+ 
+achievement.an.angus=Agnert
+achievement.an.angus.desc=Befriend an Angnert moo
+achievement.an.friesian=Frystain
+achievement.an.friesian.desc=Befriend a Frystain moo
+achievement.an.hereford=Hereford
+achievement.an.hereford.desc=Befriend a Hereford moo
+achievement.an.holstein=Wholesomememe
+achievement.an.holstein.desc=Befriend a Wholesomememe moo
+achievement.an.longhorn=Longhorn
+achievement.an.longhorn.desc=Befriend a Longhorn moo
+achievement.an.cows=moo Whippersnapper
+achievement.an.cows.desc=Befriend all the moo tipes
+ 
+achievement.an.duroc=Dooflock
+achievement.an.duroc.desc=Befriend a Dooflock oink
+achievement.an.hampshire=Hampork
+achievement.an.hampshire.desc=Befriend a Hampork oink
+achievement.an.largeblack=bigly BLack
+achievement.an.largeblack.desc=Befriend a bigly BLack oink
+achievement.an.largewhite=bigly Blenk
+achievement.an.largewhite.desc=Befriend a bigly Blenk oink
+achievement.an.oldspot=Mold Spot
+achievement.an.oldspot.desc=Befriend an Mold Spot oink
+achievement.an.yorkshire=New York Choir
+achievement.an.yorkshire.desc=Befriend a New York Choir oink
+achievement.an.pigs=TEH ULTEMET OINKMASTER
+achievement.an.pigs.desc=Befriend all the oink tipes
+ 
+achievement.an.indiablue=Indea bloo
+achievement.an.indiablue.desc=Befriend an Indea bloo peacock
+achievement.an.white=blenk Peacock
+achievement.an.white.desc=Befriend a Blenk peacock
+achievement.an.peacocks=Peacock Whippersnapper
+achievement.an.peacocks.desc=Befriend all the Peacock tipes
+ 
+achievement.an.greyferret=Grei Furrbit
+achievement.an.greyferret.desc=Befriend a Grei Furrbit
+achievement.an.whiteferret=blenk Ferret
+achievement.an.whiteferret.desc=Befriend a blenk Ferret
+achievement.an.ferrets=Furrbit Whipersnapeper
+achievement.an.ferrets.desc=Befriend all the Furrbit tipes
+ 
+achievement.an.hedgehog=Hogpog
+achievement.an.hedgehog.desc=Befriend a Hogpog
+achievement.an.albinohedgehog=Blenk hogpog
+achievement.an.albinohedgehog.desc=Befriend a blenk Hogpog
+achievement.an.hedgehogs=hogpog Whispersnappler
+achievement.an.hedgehogs.desc=Befriend all the hogpog tipes
+ 
+achievement.an.hedgehogsonic=Gottah Goh Fast!
+achievement.an.hedgehogsonic.desc=Diskuuver Sankik
+achievement.an.hedgehogsanic=Nu Goh Fastr!!!
+achievement.an.hedgehogsanic.desc=Cumon Step it Up!!
+ 
+achievement.an.hamsters=Ham wisperder
+achievement.an.hamsters.desc=be a frend a/n hamstor
+ 
+animania.updatetext.1=Animania Vershun
+animania.updatetext.2=is now anviluble
+animania.updatetext.3=Failed to connect to see if an update to Animania is anvil-able
+animania.update.download=["Click to: [",{"text":"Downlode","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click to see the latest files for 1.10 available for downlode","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]
+ 
+tooltip.an.cheeseomelette=Instant Wealth
+tooltip.an.baconomelette=Strongly (30 seconds)
+tooltip.an.truffleomelette=GG yes re (30 seconds)
+tooltip.an.instanthealth=Instant re
+tooltip.an.chocolatetruffle=Speed Boost (1 minute)
+tooltip.an.absorption=Absorpy
+tooltip.an.regeneration=GG yes re
+tooltip.an.haste=Hayste
+tooltip.an.healthboost=Instant Re
+tooltip.an.edibleanytime=Eatable Anytem
