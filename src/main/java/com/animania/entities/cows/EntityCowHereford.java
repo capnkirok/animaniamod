@@ -39,6 +39,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -492,6 +494,8 @@ public class EntityCowHereford extends EntityAnimal
 						this.setInLove(null);
 
 						if (!this.world.isRemote) {
+							
+							BabyEntitySpawnEvent event = null;
 
 							if (entity instanceof EntityBullHereford) {
 								EntityCalfHereford entityCalf = new EntityCalfHereford(this.world);
@@ -499,6 +503,8 @@ public class EntityCowHereford extends EntityAnimal
 								this.world.spawnEntity(entityCalf);
 								entityCalf.setParentUniqueId(this.getPersistentID());
 								this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+								event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 							} else if (entity instanceof EntityBullFriesian) {
 								if (rand.nextInt(2) == 0) {
 									EntityCalfHereford entityCalf = new EntityCalfHereford(this.world);
@@ -506,12 +512,16 @@ public class EntityCowHereford extends EntityAnimal
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								} else {
 									EntityCalfFriesian entityCalf = new EntityCalfFriesian(this.world);
 									entityCalf.setPosition(this.posX,  this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								}
 							} else if (entity instanceof EntityBullAngus) {
 								if (rand.nextInt(2) == 0) {
@@ -520,12 +530,16 @@ public class EntityCowHereford extends EntityAnimal
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								} else {
 									EntityCalfAngus entityCalf = new EntityCalfAngus(this.world);
 									entityCalf.setPosition(this.posX,  this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);	
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								}
 							} else if (entity instanceof EntityBullHolstein) {
 								if (rand.nextInt(2) == 0) {
@@ -534,12 +548,16 @@ public class EntityCowHereford extends EntityAnimal
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								} else {
 									EntityCalfHolstein entityCalf = new EntityCalfHolstein(this.world);
 									entityCalf.setPosition(this.posX,  this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								}
 							} else if (entity instanceof EntityBullLonghorn) {
 								if (rand.nextInt(2) == 0) {
@@ -548,14 +566,20 @@ public class EntityCowHereford extends EntityAnimal
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								} else {
 									EntityCalfLonghorn entityCalf = new EntityCalfLonghorn(this.world);
 									entityCalf.setPosition(this.posX,  this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								}
 							}
+							
+							MinecraftForge.EVENT_BUS.post(event);
 
 						}
 					}
