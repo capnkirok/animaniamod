@@ -757,6 +757,9 @@ public class Animania {
 		FMLCommonHandler.instance().bus().register(new ConfigChangeEventHandler());
 		UpdateHandler.init();
 		AnimaniaAchievements.init();
+		
+		proxy.registerTextures();
+
 
 	}
 
@@ -765,7 +768,6 @@ public class Animania {
 	public void load(FMLInitializationEvent event){
 
 		proxy.registerRenderers();
-		proxy.registerTextures();
 
 		//Forge Events
 		MinecraftForge.EVENT_BUS.register(new EventMudDamageCanceller());
