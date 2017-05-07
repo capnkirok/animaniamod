@@ -2,6 +2,9 @@ package com.animania.common.items;
 
 import java.util.List;
 
+import com.animania.Animania;
+import com.animania.config.AnimaniaConfig;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumAction;
@@ -14,20 +17,17 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import com.animania.Animania;
-
 public class ItemChocolateTruffle extends ItemFood {
 	private final String name = "chocolate_truffle";
 
 	public ItemChocolateTruffle() {
-		super (6, 6F, true); 
+		super(6, 6F, true);
 		this.setAlwaysEdible();
 		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
 		setUnlocalizedName(Animania.MODID + "_" + name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 	}
-
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack) {
@@ -36,21 +36,18 @@ public class ItemChocolateTruffle extends ItemFood {
 
 	@Override
 	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
-		if (!worldObj.isRemote && Animania.foodsGiveBonusEffects)
-		{
+		if (!worldObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects) {
 			entityplayer.addPotionEffect(new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
 		}
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
 	@Override
-	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
-	{
-		if (Animania.foodsGiveBonusEffects) 
+	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4) {
+		if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 			list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.chocolatetruffle"));
 		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 

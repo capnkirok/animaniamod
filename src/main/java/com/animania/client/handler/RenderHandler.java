@@ -134,10 +134,16 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class RenderHandler {
 
-	@SideOnly(Side.CLIENT)
+	// TODO Need to convert all deprecated uses of
+	// 'registerEntityRenderingHandler' to use Factory system
 	public static void preInit() {
+		renderEntitiesFactory();
+	}
+
+	public static void init() {
 		renderTileEntity();
 		renderEntities();
 	}
@@ -237,6 +243,9 @@ public class RenderHandler {
 		RenderingRegistry.registerEntityRenderingHandler(EntityStallionDraftHorse.class,
 				new RenderStallionDraftHorse(rm));
 
+	}
+
+	static void renderEntitiesFactory() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityFrogs.class, RenderFrogs.FACTORY);
 	}
 

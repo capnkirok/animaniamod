@@ -661,7 +661,7 @@ public class BlockNest extends BlockContainer {
 		if (te != null && (te.getNestType() == 0)) {
 
 			// System.out.println(te.getNestType());
-			worldIn.removeTileEntity(te.getPos()); // ;)
+			worldIn.removeTileEntity(te.getPos()); // by Ze' ;)
 		}
 
 		super.breakBlock(worldIn, pos, state);

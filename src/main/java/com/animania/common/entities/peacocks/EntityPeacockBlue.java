@@ -1,24 +1,29 @@
 package com.animania.common.entities.peacocks;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
+
+import com.animania.common.AnimaniaAchievements;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.peacocks.ai.EntityAIFindFood;
+import com.animania.common.entities.peacocks.ai.EntityAIFindWater;
+import com.animania.common.entities.peacocks.ai.EntityAIPanicPeacocks;
+import com.animania.common.entities.peacocks.ai.EntityAISwimmingPeacocks;
+import com.animania.common.entities.peacocks.ai.EntityAIWanderPeacock;
+import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
+import com.animania.common.handler.ItemHandler;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -36,32 +41,21 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import com.animania.Animania;
-import com.animania.common.AnimaniaAchievements;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.peacocks.ai.EntityAIFindFood;
-import com.animania.common.entities.peacocks.ai.EntityAIFindWater;
-import com.animania.common.entities.peacocks.ai.EntityAIPanicPeacocks;
-import com.animania.common.entities.peacocks.ai.EntityAISwimmingPeacocks;
-import com.animania.common.entities.peacocks.ai.EntityAIWanderPeacock;
-import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
-import com.google.common.collect.Sets;
-import com.google.common.reflect.ClassPath;
-import com.google.common.reflect.ClassPath.ResourceInfo;
-
-public class EntityPeacockBlue extends EntityAnimal
-{
-	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityPeacockBlue.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityPeacockBlue.class, DataSerializers.BOOLEAN);
-	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] {Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS});
-	private ResourceLocation resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue.png");
-	private ResourceLocation resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue_blink.png");
+public class EntityPeacockBlue extends EntityAnimal {
+	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityPeacockBlue.class,
+			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityPeacockBlue.class,
+			DataSerializers.BOOLEAN);
+	private static final Set<Item> TEMPTATION_ITEMS = Sets
+			.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
+	private ResourceLocation resourceLocation = new ResourceLocation(
+			"animania:textures/entity/peacocks/peacock_blue.png");
+	private ResourceLocation resourceLocationBlink = new ResourceLocation(
+			"animania:textures/entity/peacocks/peacock_blue_blink.png");
 	public float wingRotation;
 	public float destPos;
 	public float oFlapSpeed;
@@ -73,9 +67,7 @@ public class EntityPeacockBlue extends EntityAnimal
 	public int blinkTimer;
 	private int damageTimer;
 
-
-	public EntityPeacockBlue(World world)
-	{
+	public EntityPeacockBlue(World world) {
 		super(world);
 		this.setSize(0.8F, 1.6F);
 
@@ -87,42 +79,37 @@ public class EntityPeacockBlue extends EntityAnimal
 		this.tasks.addTask(5, new EntityAIWanderPeacock(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(7, new EntityAILookIdle(this));
-		this.fedTimer = Animania.feedTimer * 2 + rand.nextInt(100);
-		this.wateredTimer = Animania.waterTimer * 2 + rand.nextInt(100);
+		this.fedTimer = AnimaniaConfig.entity.feedTimer * 2 + rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.entity.waterTimer * 2 + rand.nextInt(100);
 		this.blinkTimer = 80 + rand.nextInt(80);
 		this.happyTimer = 60;
 	}
 
 	@Override
-	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
-	{
+	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack) {
 		this.setFed(true);
 		player.addStat(AnimaniaAchievements.IndiaBlue, 1);
-		if (player.hasAchievement(AnimaniaAchievements.IndiaBlue) && player.hasAchievement(AnimaniaAchievements.White)) {
+		if (player.hasAchievement(AnimaniaAchievements.IndiaBlue)
+				&& player.hasAchievement(AnimaniaAchievements.White)) {
 			player.addStat(AnimaniaAchievements.Peacocks, 1);
 		}
 
-		if (!player.capabilities.isCreativeMode)
-		{
-			stack.setCount(stack.getCount()-1);
+		if (!player.capabilities.isCreativeMode) {
+			stack.setCount(stack.getCount() - 1);
 		}
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
-	{
-		this.world.setEntityState(this, (byte)18);
+	public void setInLove(EntityPlayer player) {
+		this.world.setEntityState(this, (byte) 18);
 	}
 
-
-	public boolean isAIEnabled()
-	{
+	public boolean isAIEnabled() {
 		return true;
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
-	{
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
@@ -137,44 +124,37 @@ public class EntityPeacockBlue extends EntityAnimal
 		}
 	}
 
-	public ResourceLocation getResourceLocation()
-	{
+	public ResourceLocation getResourceLocation() {
 		return resourceLocation;
 	}
-	
-	public ResourceLocation getResourceLocationBlink()
-	{
+
+	public ResourceLocation getResourceLocationBlink() {
 		return resourceLocationBlink;
 	}
 
-
 	@Override
-	protected void applyEntityAttributes()
-	{
+	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 	}
 
 	@Override
-	protected void entityInit()
-	{
+	protected void entityInit() {
 		super.entityInit();
 		this.dataManager.register(FED, Boolean.valueOf(true));
 		this.dataManager.register(WATERED, Boolean.valueOf(true));
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
-	{
+	public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
 		super.writeEntityToNBT(nbttagcompound);
 		nbttagcompound.setBoolean("Fed", this.getFed());
 		nbttagcompound.setBoolean("Watered", this.getWatered());
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
-	{
+	public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
 		super.readEntityFromNBT(nbttagcompound);
 		this.setFed(nbttagcompound.getBoolean("Fed"));
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
@@ -182,23 +162,20 @@ public class EntityPeacockBlue extends EntityAnimal
 	}
 
 	@Override
-	public void onLivingUpdate()
-	{
+	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
-		this.destPos = (float)(this.destPos + (this.onGround ? -1 : 4) * 0.3D);
+		this.destPos = (float) (this.destPos + (this.onGround ? -1 : 4) * 0.3D);
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
-		if (!this.onGround && this.wingRotDelta < 1.0F)
-		{
+		if (!this.onGround && this.wingRotDelta < 1.0F) {
 			this.wingRotDelta = 1.0F;
 		}
 
-		this.wingRotDelta = (float)(this.wingRotDelta * 0.9D);
+		this.wingRotDelta = (float) (this.wingRotDelta * 0.9D);
 
-		if (!this.onGround && this.motionY < 0.0D)
-		{
+		if (!this.onGround && this.motionY < 0.0D) {
 			this.motionY *= 0.6D;
 		}
 
@@ -210,7 +187,7 @@ public class EntityPeacockBlue extends EntityAnimal
 				this.blinkTimer = 100 + rand.nextInt(100);
 			}
 		}
-		
+
 		if (this.fedTimer > -1) {
 			this.fedTimer--;
 
@@ -232,18 +209,15 @@ public class EntityPeacockBlue extends EntityAnimal
 
 		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			if(Animania.animalsStarve)
-			{
-				if(this.damageTimer >= Animania.starvationTimer)
-				{
+			if (AnimaniaConfig.gameRules.animalsStarve) {
+				if (this.damageTimer >= AnimaniaConfig.entity.starvationTimer) {
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
 				}
 				this.damageTimer++;
 			}
 
-		}
-		else if (!fed || !watered) {
+		} else if (!fed || !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		}
 
@@ -252,71 +226,63 @@ public class EntityPeacockBlue extends EntityAnimal
 			if (happyTimer == 0) {
 				happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && Animania.showUnhappyParticles) {
+				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles) {
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width,
+							posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1,
+							d2);
 				}
 			}
 		}
 	}
 
-	public boolean getFed()
-	{
+	public boolean getFed() {
 		return this.dataManager.get(FED).booleanValue();
 	}
 
-	public void setFed(boolean fed)
-	{
-		if (fed)
-		{
+	public void setFed(boolean fed) {
+		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = Animania.feedTimer + rand.nextInt(100);
-			this.setHealth(this.getHealth()+1.0F);
-		}
-		else
-		{
+			this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
+			this.setHealth(this.getHealth() + 1.0F);
+		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
 		}
 	}
 
-	public boolean getWatered()
-	{
+	public boolean getWatered() {
 		return this.dataManager.get(WATERED).booleanValue();
 	}
 
-	public void setWatered(boolean watered)
-	{
-		if (watered)
-		{
+	public void setWatered(boolean watered) {
+		if (watered) {
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = Animania.waterTimer + rand.nextInt(100);
-		}
-		else
-		{
+			this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+		} else {
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
 	}
 
-	protected void fall(float p_70069_1_) {}
+	protected void fall(float p_70069_1_) {
+	}
 
 	/**
 	 * Returns the sound this mob makes while it's alive.
 	 */
 	@Override
-	protected SoundEvent getAmbientSound()
-	{
+	protected SoundEvent getAmbientSound() {
 
 		int happy = 0;
 		int num = 0;
 
 		if (this.getWatered()) {
 			happy++;
-		} 
+		}
 		if (this.getFed()) {
 			happy++;
-		} 
+		}
 
 		if (happy == 2) {
 			num = 20;
@@ -331,23 +297,23 @@ public class EntityPeacockBlue extends EntityAnimal
 
 		if (chooser == 0) {
 			return ModSoundEvents.peacock1;
-		} else if (chooser == 1){
+		} else if (chooser == 1) {
 			return ModSoundEvents.peacock2;
-		} else if (chooser == 2){
+		} else if (chooser == 2) {
 			return ModSoundEvents.peacock3;
-		} else if (chooser == 3){
+		} else if (chooser == 3) {
 			return ModSoundEvents.peacock4;
-		} else if (chooser == 4){
+		} else if (chooser == 4) {
 			return ModSoundEvents.peacock5;
-		} else if (chooser == 5){
+		} else if (chooser == 5) {
 			return null;
-		} else if (chooser == 6){
+		} else if (chooser == 6) {
 			return ModSoundEvents.peacock7;
-		} else if (chooser == 7){
+		} else if (chooser == 7) {
 			return ModSoundEvents.peacock8;
-		} else if (chooser == 8){
+		} else if (chooser == 8) {
 			return ModSoundEvents.peacock9;
-		} else if (chooser == 9){
+		} else if (chooser == 9) {
 			return ModSoundEvents.peacock10;
 		} else {
 			return null;
@@ -355,8 +321,7 @@ public class EntityPeacockBlue extends EntityAnimal
 	}
 
 	@Override
-	protected SoundEvent getHurtSound()
-	{
+	protected SoundEvent getHurtSound() {
 		Random rand = new Random();
 		int chooser = rand.nextInt(2);
 
@@ -368,8 +333,7 @@ public class EntityPeacockBlue extends EntityAnimal
 	}
 
 	@Override
-	protected SoundEvent getDeathSound()
-	{
+	protected SoundEvent getDeathSound() {
 		Random rand = new Random();
 		int chooser = rand.nextInt(2);
 
@@ -380,43 +344,37 @@ public class EntityPeacockBlue extends EntityAnimal
 		}
 	}
 
-
 	@Override
-	public void playLivingSound()
-	{
+	public void playLivingSound() {
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
-		{
+		if (soundevent != null) {
 			this.playSound(soundevent, this.getSoundVolume() - .8F, this.getSoundPitch());
 		}
 	}
 
 	@Override
-	protected Item getDropItem()
-	{
-		return Animania.peacockFeatherBlue;
+	protected Item getDropItem() {
+		return ItemHandler.peacockFeatherBlue;
 	}
 
-
 	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
+	protected void dropFewItems(boolean hit, int lootlevel) {
 		int happyDrops = 0;
 
 		if (this.getWatered()) {
 			happyDrops++;
-		} 
+		}
 		if (this.getFed()) {
 			happyDrops++;
-		} 
+		}
 
 		Item dropItem;
-		if (Animania.customMobDrops) {
-			String drop = Animania.peacockBlueDrop;
+		if (AnimaniaConfig.entity.customMobDrops) {
+			String drop = AnimaniaConfig.entity.peacockBlueDrop;
 			dropItem = getItem(drop);
 		} else {
-			dropItem = Animania.peacockFeatherBlue;
+			dropItem = ItemHandler.peacockFeatherBlue;
 		}
 
 		if (happyDrops == 2) {
@@ -432,50 +390,42 @@ public class EntityPeacockBlue extends EntityAnimal
 		return bob;
 	}
 
-
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn)
-	{
+	protected void playStepSound(BlockPos pos, Block blockIn) {
 		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.05F, 1.0F);
 	}
 
-
 	/**
-	 * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
-	 * the animal type)
+	 * Checks if the parameter is an item which this animal can be fed to breed
+	 * it (wheat, carrots or seeds depending on the animal type)
 	 */
 	@Override
-	public boolean isBreedingItem(@Nullable ItemStack stack)
-	{
+	public boolean isBreedingItem(@Nullable ItemStack stack) {
 		return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());
 	}
 
 	/*
-	public static void func_189789_b(DataFixer p_189789_0_)
-	{
-		EntityLiving.func_189752_a(p_189789_0_, "Peacock Blue");
-	}
-	*/
+	 * public static void func_189789_b(DataFixer p_189789_0_) {
+	 * EntityLiving.func_189752_a(p_189789_0_, "Peacock Blue"); }
+	 */
 
 	@Override
-	protected boolean canDespawn()
-	{
+	protected boolean canDespawn() {
 		return false;
 	}
 
 	@Override
-	public void updatePassenger(Entity passenger)
-	{
+	public void updatePassenger(Entity passenger) {
 		super.updatePassenger(passenger);
 		float f = MathHelper.sin(this.renderYawOffset * 0.017453292F);
 		float f1 = MathHelper.cos(this.renderYawOffset * 0.017453292F);
 		float f2 = 0.1F;
 		float f3 = 0.0F;
-		passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.posZ - 0.1F * f1);
+		passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D,
+				this.posZ - 0.1F * f1);
 
-		if (passenger instanceof EntityLivingBase)
-		{
-			((EntityLivingBase)passenger).renderYawOffset = this.renderYawOffset;
+		if (passenger instanceof EntityLivingBase) {
+			((EntityLivingBase) passenger).renderYawOffset = this.renderYawOffset;
 		}
 	}
 

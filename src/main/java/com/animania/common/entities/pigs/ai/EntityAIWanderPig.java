@@ -1,19 +1,15 @@
 package com.animania.common.entities.pigs.ai;
 
-import java.util.Random;
+import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-import com.animania.Animania;
-
-public class EntityAIWanderPig extends EntityAIBase
-{
+public class EntityAIWanderPig extends EntityAIBase {
 	private final EntityCreature entity;
 	private double xPosition;
 	private double yPosition;
@@ -22,13 +18,11 @@ public class EntityAIWanderPig extends EntityAIBase
 	private int executionChance;
 	private boolean mustUpdate;
 
-	public EntityAIWanderPig(EntityCreature creatureIn, double speedIn)
-	{
+	public EntityAIWanderPig(EntityCreature creatureIn, double speedIn) {
 		this(creatureIn, speedIn, 120);
 	}
 
-	public EntityAIWanderPig(EntityCreature creatureIn, double speedIn, int chance)
-	{
+	public EntityAIWanderPig(EntityCreature creatureIn, double speedIn, int chance) {
 		this.entity = creatureIn;
 		this.speed = speedIn;
 		this.executionChance = chance;
@@ -39,24 +33,18 @@ public class EntityAIWanderPig extends EntityAIBase
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	@Override
-	public boolean shouldExecute()
-	{
-		if (!this.mustUpdate)
-		{
-			if (this.entity.getRNG().nextInt(this.executionChance) != 0)
-			{
+	public boolean shouldExecute() {
+		if (!this.mustUpdate) {
+			if (this.entity.getRNG().nextInt(this.executionChance) != 0) {
 				return false;
 			}
 		}
 
 		Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
 
-		if (vec3d == null)
-		{
+		if (vec3d == null) {
 			return false;
-		}
-		else
-		{
+		} else {
 			this.xPosition = vec3d.xCoord;
 			this.yPosition = vec3d.yCoord;
 			this.zPosition = vec3d.zCoord;
@@ -69,8 +57,7 @@ public class EntityAIWanderPig extends EntityAIBase
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	@Override
-	public boolean continueExecuting()
-	{
+	public boolean continueExecuting() {
 		return !this.entity.getNavigator().noPath();
 	}
 
@@ -78,8 +65,7 @@ public class EntityAIWanderPig extends EntityAIBase
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	@Override
-	public void startExecuting()
-	{
+	public void startExecuting() {
 
 		double x = entity.posX;
 		double y = entity.posY - 1;
@@ -88,9 +74,9 @@ public class EntityAIWanderPig extends EntityAIBase
 		BlockPos pos = new BlockPos(x, y, z);
 
 		Block blockchk = entity.world.getBlockState(pos).getBlock();
-		
-		if (blockchk == Animania.blockMud ) {
-			this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed/1.1);
+
+		if (blockchk == BlockHandler.blockMud) {
+			this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed / 1.1);
 		} else {
 			this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
 		}
@@ -99,16 +85,14 @@ public class EntityAIWanderPig extends EntityAIBase
 	/**
 	 * Makes task to bypass chance
 	 */
-	public void makeUpdate()
-	{
+	public void makeUpdate() {
 		this.mustUpdate = true;
 	}
 
 	/**
 	 * Changes task random possibility for execution
 	 */
-	public void setExecutionChance(int newchance)
-	{
+	public void setExecutionChance(int newchance) {
 		this.executionChance = newchance;
 	}
 }

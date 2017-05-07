@@ -66,7 +66,8 @@ public class SlopBucketRecipe2 implements IRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 		NonNullList<ItemStack> bob = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-		bob.set((bucketSlotJ + (bucketSlotI * (int) (Math.sqrt(inv.getSizeInventory())))), new ItemStack(Items.BUCKET));
+		// bob.set((bucketSlotJ + (bucketSlotI * (int)
+		// (Math.sqrt(inv.getSizeInventory())))), new ItemStack(Items.BUCKET));
 		return bob;
 	}
 

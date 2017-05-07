@@ -2,6 +2,9 @@ package com.animania.common.items;
 
 import java.util.List;
 
+import com.animania.Animania;
+import com.animania.config.AnimaniaConfig;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumAction;
@@ -14,24 +17,21 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import com.animania.Animania;
-
 public class ItemCookedAngusRoast extends ItemFood {
 	private final String name = "cooked_angus_roast";
 
 	public ItemCookedAngusRoast() {
-		super (20, 20F, true); 
+		super(20, 20F, true);
 		this.setAlwaysEdible();
 		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
 		setUnlocalizedName(Animania.MODID + "_" + name);
-		if (Animania.customMobDrops) {
+		if (AnimaniaConfig.entity.customMobDrops) {
 			this.setCreativeTab(null);
 		} else {
 			this.setCreativeTab(Animania.TabAnimaniaResources);
 		}
 	}
-
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack) {
@@ -40,21 +40,18 @@ public class ItemCookedAngusRoast extends ItemFood {
 
 	@Override
 	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
-		if (!worldObj.isRemote && Animania.foodsGiveBonusEffects)
-		{
+		if (!worldObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects) {
 			entityplayer.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 1, false, false));
 		}
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
 	@Override
-	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
-	{
-		if (Animania.foodsGiveBonusEffects) 
+	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4) {
+		if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 			list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.instanthealth"));
 		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 

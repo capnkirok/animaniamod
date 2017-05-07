@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
-import com.animania.Animania;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.chickens.ai.EntityAIFindFood;
@@ -395,10 +394,9 @@ public class EntityHenLeghorn extends EntityAnimal {
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
-							(posX + rand.nextFloat() * width) - width,
-							posY + 1.5D + rand.nextFloat() * height,
-							(posZ + rand.nextFloat() * width) - width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width,
+							posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1,
+							d2);
 				}
 			}
 		}
@@ -412,7 +410,7 @@ public class EntityHenLeghorn extends EntityAnimal {
 	public void setFed(boolean fed) {
 		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = Animania.feedTimer + rand.nextInt(100);
+			this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
@@ -426,7 +424,7 @@ public class EntityHenLeghorn extends EntityAnimal {
 	public void setLaid(boolean laid) {
 		if (laid) {
 			this.dataManager.set(LAID, Boolean.valueOf(true));
-			this.laidTimer = Animania.laidTimer + rand.nextInt(100);
+			this.laidTimer = AnimaniaConfig.entity.laidTimer + rand.nextInt(100);
 		} else {
 			this.dataManager.set(LAID, Boolean.valueOf(false));
 		}
@@ -439,7 +437,7 @@ public class EntityHenLeghorn extends EntityAnimal {
 	public void setWatered(boolean watered) {
 		if (watered) {
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = Animania.waterTimer + rand.nextInt(100);
+			this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
 		} else {
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
@@ -597,8 +595,7 @@ public class EntityHenLeghorn extends EntityAnimal {
 		float f1 = MathHelper.cos(this.renderYawOffset * 0.017453292F);
 		float f2 = 0.1F;
 		float f3 = 0.0F;
-		passenger.setPosition(this.posX + 0.1F * f,
-				this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D,
+		passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D,
 				this.posZ - 0.1F * f1);
 
 		if (passenger instanceof EntityLivingBase) {

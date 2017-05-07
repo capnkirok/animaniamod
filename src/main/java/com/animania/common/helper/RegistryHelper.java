@@ -2,17 +2,33 @@ package com.animania.common.helper;
 
 import com.animania.Animania;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class RegistryHelper {
 
-	public static class Entity {
+	public static class Item {
+
+		// TODO Fix actual bug on this way to load textures
+		/**
+		 * Registers Render for an Item
+		 * 
+		 * @param item
+		 */
+		public static void register(net.minecraft.item.Item item) {
+			ModelLoader.setCustomModelResourceLocation(item, 0,
+					new ModelResourceLocation(Animania.MODID + ":" + item.getUnlocalizedName(), "inventory"));
+		}
+	}
+
+	public static class Entities {
 		/**
 		 * Register an entity with the specified tracking values.
 		 *
@@ -27,7 +43,7 @@ public class RegistryHelper {
 		 * @param sendsVelocityUpdates
 		 *            Whether to send velocity information packets as well
 		 */
-		public static void registerEntity(Class<? extends net.minecraft.entity.Entity> entityClass, String entityName,
+		public static void register(Class<? extends net.minecraft.entity.Entity> entityClass, String entityName,
 				int entityID, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates) {
 			ResourceLocation registryName = new ResourceLocation(Animania.MODID, entityName);
 			EntityRegistry.registerModEntity(registryName, entityClass, registryName.toString(), entityID,

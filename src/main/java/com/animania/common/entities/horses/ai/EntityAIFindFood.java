@@ -2,21 +2,18 @@ package com.animania.common.entities.horses.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.horses.EntityStallionDraftHorse;
+import com.animania.common.handler.BlockHandler;
+import com.animania.common.tileentities.TileEntityTrough;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 
-import com.animania.Animania;
-import com.animania.common.entities.horses.EntityStallionDraftHorse;
-import com.animania.common.tileentities.TileEntityTrough;
-
-public class EntityAIFindFood extends EntityAIBase 
-{
+public class EntityAIFindFood extends EntityAIBase {
 	private final EntityCreature temptedEntity;
 	private final double speed;
 	private double targetX;
@@ -28,8 +25,7 @@ public class EntityAIFindFood extends EntityAIBase
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIFindFood(EntityCreature temptedEntityIn, double speedIn)
-	{
+	public EntityAIFindFood(EntityCreature temptedEntityIn, double speedIn) {
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
 		this.setMutexBits(3);
@@ -40,13 +36,12 @@ public class EntityAIFindFood extends EntityAIBase
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	@Override
-	public boolean shouldExecute()
-	{
+	public boolean shouldExecute() {
 
 		delayTemptCounter++;
 		if (delayTemptCounter > 20) {
 			if (temptedEntity instanceof EntityStallionDraftHorse) {
-				EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+				EntityStallionDraftHorse ech = (EntityStallionDraftHorse) temptedEntity;
 				if (ech.getFed()) {
 					return false;
 				}
@@ -71,82 +66,82 @@ public class EntityAIFindFood extends EntityAIBase
 			Block poschk7 = temptedEntity.world.getBlockState(trypos7).getBlock();
 			Block poschk8 = temptedEntity.world.getBlockState(trypos8).getBlock();
 
-			if (poschk == Animania.blockTrough) {
-				//do nothing
-			} else if (poschk1 == Animania.blockTrough) {
+			if (poschk == BlockHandler.blockTrough) {
+				// do nothing
+			} else if (poschk1 == BlockHandler.blockTrough) {
 				currentpos = trypos1;
-			} else if (poschk2 == Animania.blockTrough) {
+			} else if (poschk2 == BlockHandler.blockTrough) {
 				currentpos = trypos2;
-			} else if (poschk3 == Animania.blockTrough) {
+			} else if (poschk3 == BlockHandler.blockTrough) {
 				currentpos = trypos3;
-			} else if (poschk4 == Animania.blockTrough) {
+			} else if (poschk4 == BlockHandler.blockTrough) {
 				currentpos = trypos4;
-			} else if (poschk5 == Animania.blockTrough) {
+			} else if (poschk5 == BlockHandler.blockTrough) {
 				currentpos = trypos5;
-			} else if (poschk6 == Animania.blockTrough) {
+			} else if (poschk6 == BlockHandler.blockTrough) {
 				currentpos = trypos6;
-			} else if (poschk7 == Animania.blockTrough) {
+			} else if (poschk7 == BlockHandler.blockTrough) {
 				currentpos = trypos7;
-			} else if (poschk8 == Animania.blockTrough) {
+			} else if (poschk8 == BlockHandler.blockTrough) {
 				currentpos = trypos8;
 			}
 
-			if (poschk == Animania.blockTrough) {
+			if (poschk == BlockHandler.blockTrough) {
 				TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(currentpos);
-				if (te !=null && te.getTroughType() == 4) {
+				if (te != null && te.getTroughType() == 4) {
 					te.setType(0);
 					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
+					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(),
+							poschk.getDefaultState(), 0);
 					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 
-
 					if (temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+						EntityStallionDraftHorse ech = (EntityStallionDraftHorse) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 						return false;
 					}
 
-				} else if (te !=null && te.getTroughType() == 5) {
+				} else if (te != null && te.getTroughType() == 5) {
 					te.setType(4);
 					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 4);
+					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(),
+							poschk.getDefaultState(), 4);
 					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 					if (temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+						EntityStallionDraftHorse ech = (EntityStallionDraftHorse) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
-					} 
+					}
 					return false;
-				} else if (te !=null && te.getTroughType() == 6) {
+				} else if (te != null && te.getTroughType() == 6) {
 					te.setType(5);
 					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 5);
+					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(),
+							poschk.getDefaultState(), 5);
 					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 					if (temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+						EntityStallionDraftHorse ech = (EntityStallionDraftHorse) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
-					} 
+					}
 					return false;
 				}
 
+			}
 
-			} 
-
-			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT || poschk == Blocks.YELLOW_FLOWER) {
+			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT
+					|| poschk == Blocks.YELLOW_FLOWER) {
 
 				if (temptedEntity instanceof EntityStallionDraftHorse) {
-					EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+					EntityStallionDraftHorse ech = (EntityStallionDraftHorse) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} 
-
-				if (temptedEntity.world.getGameRules().getBoolean("mobGriefing"))
-				{
-					temptedEntity.world.destroyBlock(currentpos, false);
 				}
 
+				if (temptedEntity.world.getGameRules().getBoolean("mobGriefing")) {
+					temptedEntity.world.destroyBlock(currentpos, false);
+				}
 
 				return false;
 			}
@@ -168,15 +163,17 @@ public class EntityAIFindFood extends EntityAIBase
 
 						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
-						if (blockchk == Animania.blockTrough) {
+						if (blockchk == BlockHandler.blockTrough) {
 							TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
-							if (te !=null && (te.getTroughType() == 4 || te.getTroughType() == 5 || te.getTroughType() == 6)) {
+							if (te != null && (te.getTroughType() == 4 || te.getTroughType() == 5
+									|| te.getTroughType() == 6)) {
 								foodFound = true;
 								if (rand.nextInt(20) == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
-								} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
+								} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
+										&& this.temptedEntity.motionZ == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
@@ -186,14 +183,16 @@ public class EntityAIFindFood extends EntityAIBase
 							}
 						}
 
-						if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER) {
+						if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT
+								|| blockchk == Blocks.YELLOW_FLOWER) {
 
 							foodFound = true;
 							if (rand.nextInt(20) == 0) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
-							} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
+							} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
+									&& this.temptedEntity.motionZ == 0) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
@@ -215,11 +214,8 @@ public class EntityAIFindFood extends EntityAIBase
 		return false;
 	}
 
-
-
 	@Override
-	public boolean continueExecuting()
-	{
+	public boolean continueExecuting() {
 
 		return this.shouldExecute();
 	}
@@ -228,8 +224,7 @@ public class EntityAIFindFood extends EntityAIBase
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	@Override
-	public void startExecuting()
-	{	
+	public void startExecuting() {
 		this.isRunning = true;
 	}
 
@@ -237,17 +232,14 @@ public class EntityAIFindFood extends EntityAIBase
 	 * Resets the task
 	 */
 	@Override
-	public void resetTask()
-	{
+	public void resetTask() {
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigator().clearPathEntity();
 		this.isRunning = false;
 	}
 
-
 	@Override
-	public void updateTask()
-	{
+	public void updateTask() {
 
 		double x = this.temptedEntity.posX;
 		double y = this.temptedEntity.posY;
@@ -266,16 +258,15 @@ public class EntityAIFindFood extends EntityAIBase
 					pos = new BlockPos(x + i, y + j, z + k);
 					Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
-
-					if (blockchk == Animania.blockTrough) {
-
+					if (blockchk == BlockHandler.blockTrough) {
 
 						TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
 
-						if (te !=null && (te.getTroughType() == 4 || te.getTroughType() == 5 || te.getTroughType() == 6)) {
+						if (te != null
+								&& (te.getTroughType() == 4 || te.getTroughType() == 5 || te.getTroughType() == 6)) {
 
 							foodFound = true;
-							newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
+							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
 							if (newloc < loc) {
 
@@ -285,7 +276,7 @@ public class EntityAIFindFood extends EntityAIBase
 									BlockPos mudPoschk = new BlockPos(x + i + 1, y + j, z + k);
 									Block mudBlockchk = temptedEntity.world.getBlockState(mudPoschk).getBlock();
 									i = i + 1;
-								} 
+								}
 
 								if (temptedEntity.posZ < mudPos.getZ()) {
 									BlockPos mudPoschk = new BlockPos(x + i, y + j, z + k + 1);
@@ -297,9 +288,10 @@ public class EntityAIFindFood extends EntityAIBase
 
 							}
 						}
-					} else if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER) {
+					} else if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT
+							|| blockchk == Blocks.YELLOW_FLOWER) {
 						foodFound = true;
-						newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
+						newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
 						if (newloc < loc) {
 
@@ -308,17 +300,19 @@ public class EntityAIFindFood extends EntityAIBase
 							if (temptedEntity.posX < mudPos.getX()) {
 								BlockPos mudPoschk = new BlockPos(x + i + 1, y + j, z + k);
 								Block mudBlockchk = temptedEntity.world.getBlockState(mudPoschk).getBlock();
-								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
+								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS
+										|| mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
 									i = i + 1;
 								}
-							} 
+							}
 
 							if (temptedEntity.posZ < mudPos.getZ()) {
 								BlockPos mudPoschk = new BlockPos(x + i, y + j, z + k + 1);
 								Block mudBlockchk = temptedEntity.world.getBlockState(mudPoschk).getBlock();
-								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
+								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS
+										|| mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
 									k = k + 1;
-								} 
+								}
 							}
 
 							mudPos = new BlockPos(x + i, y + j, z + k);
@@ -331,13 +325,13 @@ public class EntityAIFindFood extends EntityAIBase
 
 			}
 
-
 		}
 
 		if (foodFound) {
 
 			Block mudBlockchk = temptedEntity.world.getBlockState(mudPos).getBlock();
-			if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || (mudBlockchk == Animania.blockTrough)) {
+			if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT
+					|| mudBlockchk == Blocks.YELLOW_FLOWER || (mudBlockchk == BlockHandler.blockTrough)) {
 
 				this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
 
@@ -346,10 +340,7 @@ public class EntityAIFindFood extends EntityAIBase
 
 	}
 
-
-
-	public boolean isRunning()
-	{
+	public boolean isRunning() {
 		return this.isRunning;
 	}
 }

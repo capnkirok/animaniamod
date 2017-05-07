@@ -6,10 +6,25 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.AnimaniaAchievements;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.pigs.ai.EntityAIFindFood;
+import com.animania.common.entities.pigs.ai.EntityAIFindMud;
+import com.animania.common.entities.pigs.ai.EntityAIFindWater;
+import com.animania.common.entities.pigs.ai.EntityAIFollowMatePigs;
+import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
+import com.animania.common.entities.pigs.ai.EntityAIPanicPigs;
+import com.animania.common.entities.pigs.ai.EntityAISwimmingPigs;
+import com.animania.common.entities.pigs.ai.EntityAIWanderPig;
+import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.ItemHandler;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
@@ -36,38 +51,31 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.animania.Animania;
-import com.animania.common.AnimaniaAchievements;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.pigs.ai.EntityAIFindFood;
-import com.animania.common.entities.pigs.ai.EntityAIFindMud;
-import com.animania.common.entities.pigs.ai.EntityAIFindWater;
-import com.animania.common.entities.pigs.ai.EntityAIFollowMatePigs;
-import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
-import com.animania.common.entities.pigs.ai.EntityAIPanicPigs;
-import com.animania.common.entities.pigs.ai.EntityAISwimmingPigs;
-import com.animania.common.entities.pigs.ai.EntityAIWanderPig;
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
-
-public class EntityHogLargeBlack extends EntityAnimal
-{
-	private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityHogLargeBlack.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	private static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityHogLargeBlack.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> MUDDY = EntityDataManager.<Boolean>createKey(EntityHogLargeBlack.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Float> SPLASHTIMER = EntityDataManager.<Float>createKey(EntityHogLargeBlack.class, DataSerializers.FLOAT);
-	private static final DataParameter<Float> MUDTIMER = EntityDataManager.<Float>createKey(EntityHogLargeBlack.class, DataSerializers.FLOAT);
-	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHogLargeBlack.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHogLargeBlack.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> PLAYED = EntityDataManager.<Boolean>createKey(EntityHogLargeBlack.class, DataSerializers.BOOLEAN);
-	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] {Items.CARROT, Items.POTATO, Items.BEETROOT, Items.POISONOUS_POTATO, Animania.bucketSlop});
+public class EntityHogLargeBlack extends EntityAnimal {
+	private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager
+			.<Optional<UUID>>createKey(EntityHogLargeBlack.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	private static final DataParameter<Boolean> SADDLED = EntityDataManager
+			.<Boolean>createKey(EntityHogLargeBlack.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> MUDDY = EntityDataManager.<Boolean>createKey(EntityHogLargeBlack.class,
+			DataSerializers.BOOLEAN);
+	private static final DataParameter<Float> SPLASHTIMER = EntityDataManager
+			.<Float>createKey(EntityHogLargeBlack.class, DataSerializers.FLOAT);
+	private static final DataParameter<Float> MUDTIMER = EntityDataManager.<Float>createKey(EntityHogLargeBlack.class,
+			DataSerializers.FLOAT);
+	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHogLargeBlack.class,
+			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED = EntityDataManager
+			.<Boolean>createKey(EntityHogLargeBlack.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> PLAYED = EntityDataManager.<Boolean>createKey(EntityHogLargeBlack.class,
+			DataSerializers.BOOLEAN);
+	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(
+			new Item[] { Items.CARROT, Items.POTATO, Items.BEETROOT, Items.POISONOUS_POTATO, ItemHandler.bucketSlop });
 	private boolean boosting;
 	private int boostTime;
 	private int totalBoostTime;
@@ -77,21 +85,19 @@ public class EntityHogLargeBlack extends EntityAnimal
 	private int happyTimer;
 	public int blinkTimer;
 
-	public EntityHogLargeBlack(World worldIn)
-	{
+	public EntityHogLargeBlack(World worldIn) {
 		super(worldIn);
 		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
-		this.fedTimer = Animania.feedTimer + rand.nextInt(100);
-		this.wateredTimer = Animania.waterTimer + rand.nextInt(100);
-		this.playedTimer = Animania.playTimer + rand.nextInt(100);
+		this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+		this.playedTimer = AnimaniaConfig.entity.playTimer + rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + rand.nextInt(80);
 	}
 
 	@Override
-	protected void initEntityAI()
-	{
+	protected void initEntityAI() {
 		this.entityAIEatGrass = new EntityPigSnuffle(this);
 		this.tasks.addTask(0, new EntityAISwimmingPigs(this));
 		this.tasks.addTask(1, new EntityAIFindMud(this, 1.2D));
@@ -106,103 +112,96 @@ public class EntityHogLargeBlack extends EntityAnimal
 		this.tasks.addTask(11, this.entityAIEatGrass);
 		this.tasks.addTask(13, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new EntityAILookIdle(this));
-		
+
 	}
 
 	@Override
-	protected void applyEntityAttributes()
-	{
+	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.27D);
 	}
-	
+
 	@Override
-	protected boolean canDespawn()
-	{
+	protected boolean canDespawn() {
 		return false;
 	}
 
 	@Override
-	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
-	{
+	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack) {
 		this.setFed(true);
-		
+
 		if (this.entityAIEatGrass != null) {
 			this.entityAIEatGrass.startExecuting();
 			eatTimer = 80;
 		}
 		player.addStat(AnimaniaAchievements.LargeBlack, 1);
-		if (player.hasAchievement(AnimaniaAchievements.Duroc) && player.hasAchievement(AnimaniaAchievements.Hampshire) && player.hasAchievement(AnimaniaAchievements.LargeBlack) && player.hasAchievement(AnimaniaAchievements.LargeWhite) && player.hasAchievement(AnimaniaAchievements.OldSpot) && player.hasAchievement(AnimaniaAchievements.Yorkshire)) {
+		if (player.hasAchievement(AnimaniaAchievements.Duroc) && player.hasAchievement(AnimaniaAchievements.Hampshire)
+				&& player.hasAchievement(AnimaniaAchievements.LargeBlack)
+				&& player.hasAchievement(AnimaniaAchievements.LargeWhite)
+				&& player.hasAchievement(AnimaniaAchievements.OldSpot)
+				&& player.hasAchievement(AnimaniaAchievements.Yorkshire)) {
 			player.addStat(AnimaniaAchievements.Pigs, 1);
 		}
-		if (!player.capabilities.isCreativeMode)
-		{
-			if (stack != ItemStack.EMPTY && stack.getItem() != Animania.bucketSlop) {
-				stack.setCount(stack.getCount()-1); 
-			} else if (stack != ItemStack.EMPTY && stack.getItem() == Animania.bucketSlop) {
-				stack.setCount(stack.getCount()-1); 
+		if (!player.capabilities.isCreativeMode) {
+			if (stack != ItemStack.EMPTY && stack.getItem() != ItemHandler.bucketSlop) {
+				stack.setCount(stack.getCount() - 1);
+			} else if (stack != ItemStack.EMPTY && stack.getItem() == ItemHandler.bucketSlop) {
+				stack.setCount(stack.getCount() - 1);
 				if (!player.world.isRemote) {
 					ItemStack itemstack = new ItemStack(Items.BUCKET, 1);
-					EntityItem entityitem = new EntityItem(player.world, player.posX + 0.5D, player.posY, player.posZ + 0.5D, itemstack);
+					EntityItem entityitem = new EntityItem(player.world, player.posX + 0.5D, player.posY,
+							player.posZ + 0.5D, itemstack);
 					player.world.spawnEntity(entityitem);
 				}
 			}
 		}
 	}
-	
+
 	@Override
-	public void setInLove(EntityPlayer player)
-    {
-        this.world.setEntityState(this, (byte)18);
-    }
+	public void setInLove(EntityPlayer player) {
+		this.world.setEntityState(this, (byte) 18);
+	}
 
 	public int eatTimer;
 	public EntityPigSnuffle entityAIEatGrass;
 	private int damageTimer;
 
 	@Override
-	protected void updateAITasks()
-	{
+	protected void updateAITasks() {
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
 		super.updateAITasks();
 	}
 
 	/**
-	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
-	 * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
+	 * For vehicles, the first passenger is generally considered the controller
+	 * and "drives" the vehicle. For example, Pigs, Horses, and Boats are
+	 * generally "steered" by the controlling passenger.
 	 */
 	@Override
 	@Nullable
-	public Entity getControllingPassenger()
-	{
-		return this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
+	public Entity getControllingPassenger() {
+		return this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
 	}
 
 	/**
-	 * returns true if all the conditions for steering the entity are met. For pigs, this is true if it is being ridden
-	 * by a player and the player is holding a carrot-on-a-stick
+	 * returns true if all the conditions for steering the entity are met. For
+	 * pigs, this is true if it is being ridden by a player and the player is
+	 * holding a carrot-on-a-stick
 	 */
 	@Override
-	public boolean canBeSteered()
-	{
+	public boolean canBeSteered() {
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof EntityPlayer))
-		{
+		if (!(entity instanceof EntityPlayer)) {
 			return false;
-		}
-		else
-		{
-			EntityPlayer entityplayer = (EntityPlayer)entity;
+		} else {
+			EntityPlayer entityplayer = (EntityPlayer) entity;
 			ItemStack itemstack = entityplayer.getHeldItemMainhand();
 
-			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK)
-			{
+			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK) {
 				return true;
-			}
-			else
-			{
+			} else {
 				itemstack = entityplayer.getHeldItemOffhand();
 				return itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK;
 			}
@@ -210,8 +209,7 @@ public class EntityHogLargeBlack extends EntityAnimal
 	}
 
 	@Override
-	protected void entityInit()
-	{
+	protected void entityInit() {
 		super.entityInit();
 		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(SADDLED, Boolean.valueOf(false));
@@ -224,8 +222,7 @@ public class EntityHogLargeBlack extends EntityAnimal
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
+	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		if (this.getMateUniqueId() != null) {
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
@@ -240,10 +237,8 @@ public class EntityHogLargeBlack extends EntityAnimal
 
 	}
 
-	
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
+	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
 		this.setSaddled(compound.getBoolean("Saddle"));
 		this.setMuddy(compound.getBoolean("Muddy"));
@@ -252,46 +247,39 @@ public class EntityHogLargeBlack extends EntityAnimal
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setPlayed(compound.getBoolean("Played"));
-		
+
 		String s;
 
-		if (compound.hasKey("MateUUID", 8))
-		{
+		if (compound.hasKey("MateUUID", 8)) {
 			s = compound.getString("MateUUID");
-		}
-		else
-		{
+		} else {
 			String s1 = compound.getString("Mate");
 			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
 		}
 
 	}
-	
+
 	@Nullable
-	public UUID getMateUniqueId()
-	{
-		return (UUID)((Optional)this.dataManager.get(MATE_UNIQUE_ID)).orNull();
+	public UUID getMateUniqueId() {
+		return (UUID) ((Optional) this.dataManager.get(MATE_UNIQUE_ID)).orNull();
 	}
 
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
+	public void setMateUniqueId(@Nullable UUID uniqueId) {
 		this.dataManager.set(MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
-
 	@Override
-	protected SoundEvent getAmbientSound()
-	{
+	protected SoundEvent getAmbientSound() {
 		int happy = 0;
 		int num = 0;
-		
+
 		if (this.getWatered()) {
 			happy++;
-		} 
+		}
 		if (this.getFed()) {
 			happy++;
-		} 
-		
+		}
+
 		if (happy == 2) {
 			num = 10;
 		} else if (happy == 1) {
@@ -299,23 +287,23 @@ public class EntityHogLargeBlack extends EntityAnimal
 		} else {
 			num = 40;
 		}
-		
+
 		Random rand = new Random();
 		int chooser = rand.nextInt(num);
 
 		if (chooser == 0) {
 			return ModSoundEvents.hog1;
-		} else if (chooser == 1){
+		} else if (chooser == 1) {
 			return ModSoundEvents.hog2;
-		} else if (chooser == 2){
+		} else if (chooser == 2) {
 			return ModSoundEvents.hog3;
-		} else if (chooser == 3){
+		} else if (chooser == 3) {
 			return ModSoundEvents.hog4;
-		} else if (chooser == 4){
+		} else if (chooser == 4) {
 			return ModSoundEvents.hog5;
-		} else if (chooser == 5){
+		} else if (chooser == 5) {
 			return ModSoundEvents.pig1;
-		} else if (chooser == 6){
+		} else if (chooser == 6) {
 			return ModSoundEvents.pig2;
 		} else if (chooser == 7) {
 			return ModSoundEvents.pig4;
@@ -325,10 +313,8 @@ public class EntityHogLargeBlack extends EntityAnimal
 
 	}
 
-
 	@Override
-	protected SoundEvent getHurtSound()
-	{
+	protected SoundEvent getHurtSound() {
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);
 
@@ -342,8 +328,7 @@ public class EntityHogLargeBlack extends EntityAnimal
 	}
 
 	@Override
-	protected SoundEvent getDeathSound()
-	{
+	protected SoundEvent getDeathSound() {
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);
 
@@ -356,40 +341,31 @@ public class EntityHogLargeBlack extends EntityAnimal
 		}
 	}
 
-
 	@Override
-	public void playLivingSound()
-	{
+	public void playLivingSound() {
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
-		{
+		if (soundevent != null) {
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .2F);
 		}
 	}
 
-
-
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn)
-	{
+	protected void playStepSound(BlockPos pos, Block blockIn) {
 		this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.10F, 0.8F);
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
-	{
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
 			{
-				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				{
+				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode) {
 					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-				}
-				else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				{
+				} else if (!player.capabilities.isCreativeMode
+						&& !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET))) {
 					player.dropItem(new ItemStack(Items.BUCKET), false);
 				}
 
@@ -410,44 +386,40 @@ public class EntityHogLargeBlack extends EntityAnimal
 	 * Drop the equipment for this entity.
 	 */
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
-	{
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
 
-		if (this.getSaddled())
-		{
+		if (this.getSaddled()) {
 			this.dropItem(Items.SADDLE, 1);
 		}
 	}
 
 	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
+	protected void dropFewItems(boolean hit, int lootlevel) {
 		int happyDrops = 0;
 
 		if (this.getPlayed()) {
 			happyDrops++;
-		} 
+		}
 		if (this.getWatered()) {
 			happyDrops++;
-		} 
+		}
 		if (this.getFed()) {
 			happyDrops++;
-		} 
-
+		}
 
 		Item dropItem;
-		if (Animania.customMobDrops) {
-			String drop = Animania.pigDrop;
+		if (AnimaniaConfig.entity.customMobDrops) {
+			String drop = AnimaniaConfig.entity.pigDrop;
 			dropItem = Item.getByNameOrId(drop);
 			if (this.isBurning() && drop.equals("animania:raw_prime_pork")) {
 				drop = "animania:cooked_prime_pork";
 				dropItem = Item.getByNameOrId(drop);
 			}
 		} else {
-			dropItem = Animania.rawLargeBlackPork;
+			dropItem = ItemHandler.rawLargeBlackPork;
 			if (this.isBurning()) {
-				dropItem = Animania.cookedLargeBlackRoast;
+				dropItem = ItemHandler.cookedLargeBlackRoast;
 			}
 		}
 
@@ -456,143 +428,103 @@ public class EntityHogLargeBlack extends EntityAnimal
 		} else if (happyDrops == 2) {
 			this.dropItem(dropItem, 1 + lootlevel);
 		} else if (happyDrops == 1) {
-			if (this.isBurning())
-			{
+			if (this.isBurning()) {
 				this.dropItem(Items.COOKED_PORKCHOP, 1 + lootlevel);
-			}
-			else
-			{
+			} else {
 				this.dropItem(Items.PORKCHOP, 1 + lootlevel);
 			}
 		}
 	}
 
-
-
-
-	public boolean getSaddled()
-	{
+	public boolean getSaddled() {
 		return this.dataManager.get(SADDLED).booleanValue();
 	}
 
 	/**
 	 * Set or remove the saddle of the pig.
 	 */
-	public void setSaddled(boolean saddled)
-	{
-		if (saddled)
-		{
+	public void setSaddled(boolean saddled) {
+		if (saddled) {
 			this.dataManager.set(SADDLED, Boolean.valueOf(true));
-		}
-		else
-		{
+		} else {
 			this.dataManager.set(SADDLED, Boolean.valueOf(false));
 		}
 	}
 
-	public boolean getFed()
-	{
+	public boolean getFed() {
 		return this.dataManager.get(FED).booleanValue();
 	}
 
-	public void setFed(boolean fed)
-	{
-		if (fed)
-		{
+	public void setFed(boolean fed) {
+		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = Animania.feedTimer + rand.nextInt(100);
-			this.setHealth(this.getHealth()+1.0F);
-		}
-		else
-		{
+			this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
+			this.setHealth(this.getHealth() + 1.0F);
+		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
 		}
 	}
 
-	public void setSlopFed(boolean fed)
-	{
-		if (fed)
-		{
+	public void setSlopFed(boolean fed) {
+		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = (Animania.feedTimer * 2) + rand.nextInt(100);
-		}
-		else
-		{
+			this.fedTimer = (AnimaniaConfig.entity.feedTimer * 2) + rand.nextInt(100);
+		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
 		}
 	}
-	
-	public boolean getPlayed()
-	{
+
+	public boolean getPlayed() {
 		return this.dataManager.get(PLAYED).booleanValue();
 	}
 
-	public void setPlayed(boolean played)
-	{
-		if (played)
-		{
+	public void setPlayed(boolean played) {
+		if (played) {
 			this.dataManager.set(PLAYED, Boolean.valueOf(true));
-			this.playedTimer = Animania.playTimer + rand.nextInt(100);
-		}
-		else
-		{
+			this.playedTimer = AnimaniaConfig.entity.playTimer + rand.nextInt(100);
+		} else {
 			this.dataManager.set(PLAYED, Boolean.valueOf(false));
 		}
 	}
 
-	public boolean getWatered()
-	{
+	public boolean getWatered() {
 		return this.dataManager.get(WATERED).booleanValue();
 	}
 
-	public void setWatered(boolean watered)
-	{
-		if (watered)
-		{
+	public void setWatered(boolean watered) {
+		if (watered) {
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = Animania.waterTimer + rand.nextInt(100);
-		}
-		else
-		{
+			this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+		} else {
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
 	}
-	
-	
-	public boolean getMuddy()
-	{
+
+	public boolean getMuddy() {
 		return this.dataManager.get(MUDDY).booleanValue();
 	}
 
-	public void setMuddy(boolean muddy)
-	{
-		if (muddy)
-		{
+	public void setMuddy(boolean muddy) {
+		if (muddy) {
 			this.dataManager.set(MUDDY, Boolean.valueOf(true));
-		}
-		else
-		{
+		} else {
 			this.dataManager.set(MUDDY, Boolean.valueOf(false));
 		}
 	}
 
-	public Float getMudTimer()
-	{
+	public Float getMudTimer() {
 		return this.dataManager.get(MUDTIMER).floatValue();
 	}
 
-	public void setMudTimer(Float timer)
-	{
+	public void setMudTimer(Float timer) {
 		this.dataManager.set(MUDTIMER, Float.valueOf(timer));
 	}
 
-	public Float getSplashTimer()
-	{
+	public Float getSplashTimer() {
 		return this.dataManager.get(SPLASHTIMER).floatValue();
 	}
 
-	public void setSplashTimer(Float timer)
-	{
+	public void setSplashTimer(Float timer) {
 		this.dataManager.set(SPLASHTIMER, Float.valueOf(timer));
 	}
 
@@ -600,17 +532,14 @@ public class EntityHogLargeBlack extends EntityAnimal
 	 * Called when a lightning bolt hits the entity.
 	 */
 	@Override
-	public void onStruckByLightning(EntityLightningBolt lightningBolt)
-	{
-		if (!this.world.isRemote && !this.isDead)
-		{
+	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
+		if (!this.world.isRemote && !this.isDead) {
 			EntityPigZombie entitypigzombie = new EntityPigZombie(this.world);
 			entitypigzombie.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 			entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
 			entitypigzombie.setNoAI(this.isAIDisabled());
 
-			if (this.hasCustomName())
-			{
+			if (this.hasCustomName()) {
 				entitypigzombie.setCustomNameTag(this.getCustomNameTag());
 				entitypigzombie.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
 			}
@@ -621,14 +550,11 @@ public class EntityHogLargeBlack extends EntityAnimal
 	}
 
 	@Override
-	public void fall(float distance, float damageMultiplier)
-	{
+	public void fall(float distance, float damageMultiplier) {
 		super.fall(distance, damageMultiplier);
 
-		if (distance > 5.0F)
-		{
-			for (EntityPlayer entityplayer : this.getRecursivePassengersByType(EntityPlayer.class))
-			{
+		if (distance > 5.0F) {
+			for (EntityPlayer entityplayer : this.getRecursivePassengersByType(EntityPlayer.class)) {
 				entityplayer.addStat(AchievementList.FLY_PIG);
 			}
 		}
@@ -638,12 +564,10 @@ public class EntityHogLargeBlack extends EntityAnimal
 	 * Moves the entity based on the specified heading.
 	 */
 	@Override
-	public void moveEntityWithHeading(float strafe, float forward)
-	{
-		Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
+	public void moveEntityWithHeading(float strafe, float forward) {
+		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
 
-		if (this.isBeingRidden() && this.canBeSteered())
-		{
+		if (this.isBeingRidden() && this.canBeSteered()) {
 			this.rotationYaw = entity.rotationYaw;
 			this.prevRotationYaw = this.rotationYaw;
 			this.rotationPitch = entity.rotationPitch * 0.5F;
@@ -653,25 +577,22 @@ public class EntityHogLargeBlack extends EntityAnimal
 			this.stepHeight = 1.0F;
 			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
 
-			if (this.canPassengerSteer())
-			{
-				float f = (float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
+			if (this.canPassengerSteer()) {
+				float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()
+						* 0.225F;
 
-				if (this.boosting)
-				{
-					if (this.boostTime++ > this.totalBoostTime)
-					{
+				if (this.boosting) {
+					if (this.boostTime++ > this.totalBoostTime) {
 						this.boosting = false;
 					}
 
-					f += f * 1.15F * MathHelper.sin((float)this.boostTime / (float)this.totalBoostTime * (float)Math.PI);
+					f += f * 1.15F
+							* MathHelper.sin((float) this.boostTime / (float) this.totalBoostTime * (float) Math.PI);
 				}
 
 				this.setAIMoveSpeed(f);
 				super.moveEntityWithHeading(0.0F, 1.0F);
-			}
-			else
-			{
+			} else {
 				this.motionX = 0.0D;
 				this.motionY = 0.0D;
 				this.motionZ = 0.0D;
@@ -682,16 +603,13 @@ public class EntityHogLargeBlack extends EntityAnimal
 			double d0 = this.posZ - this.prevPosZ;
 			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
-			if (f1 > 1.0F)
-			{
+			if (f1 > 1.0F) {
 				f1 = 1.0F;
 			}
 
 			this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
 			this.limbSwing += this.limbSwingAmount;
-		}
-		else
-		{
+		} else {
 			this.stepHeight = 0.5F;
 			this.jumpMovementFactor = 0.02F;
 			super.moveEntityWithHeading(strafe, forward);
@@ -699,14 +617,12 @@ public class EntityHogLargeBlack extends EntityAnimal
 	}
 
 	@Override
-	public void onLivingUpdate()
-	{
-	
-		if (this.world.isRemote)
-		{
+	public void onLivingUpdate() {
+
+		if (this.world.isRemote) {
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 		}
-		
+
 		if (this.fedTimer > -1) {
 			this.fedTimer--;
 
@@ -714,14 +630,13 @@ public class EntityHogLargeBlack extends EntityAnimal
 				this.setFed(false);
 			}
 		}
-		
+
 		if (this.blinkTimer > -1) {
 			this.blinkTimer--;
 			if (blinkTimer == 0) {
 				this.blinkTimer = 100 + rand.nextInt(100);
 			}
 		}
-
 
 		if (this.wateredTimer > -1) {
 			this.wateredTimer--;
@@ -730,7 +645,6 @@ public class EntityHogLargeBlack extends EntityAnimal
 				this.setWatered(false);
 			}
 		}
-
 
 		if (this.playedTimer > -1) {
 			this.playedTimer--;
@@ -742,64 +656,58 @@ public class EntityHogLargeBlack extends EntityAnimal
 
 		if (this.getMudTimer() > 0.0) {
 			this.setPlayed(true);
-			this.playedTimer = Animania.playTimer + rand.nextInt(100);
+			this.playedTimer = AnimaniaConfig.entity.playTimer + rand.nextInt(100);
 		}
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 		boolean played = this.getPlayed();
-		
+
 		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			if(Animania.animalsStarve)
-			{
-				if(this.damageTimer >= Animania.starvationTimer)
-				{
+			if (AnimaniaConfig.gameRules.animalsStarve) {
+				if (this.damageTimer >= AnimaniaConfig.entity.starvationTimer) {
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
 				}
 				this.damageTimer++;
 			}
 
-		}
-		else if (!fed || !watered) {
+		} else if (!fed || !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		}
 
 		BlockPos currentpos = new BlockPos(this.posX, this.posY, this.posZ);
 		Block poschk = this.world.getBlockState(currentpos).getBlock();
-		
-		
-		if (poschk != null && poschk == Animania.blockMud) {
+
+		if (poschk != null && poschk == BlockHandler.blockMud) {
 			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 4, false, false));
 		}
-		
+
 		if (this.happyTimer > -1) {
 			this.happyTimer--;
 			if (happyTimer == 0) {
 				happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && !this.getPlayed() && Animania.showUnhappyParticles) {
+				if (!this.getFed() && !this.getWatered() && !this.getPlayed()
+						&& AnimaniaConfig.gameRules.showUnhappyParticles) {
 					double d = rand.nextGaussian() * 0.02D;
 					double d1 = rand.nextGaussian() * 0.02D;
 					double d2 = rand.nextGaussian() * 0.02D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width,
+							posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1,
+							d2);
 				}
 			}
 		}
-		
+
 		super.onLivingUpdate();
 	}
 
-
-	public boolean boost()
-	{
-		if (this.boosting)
-		{
+	public boolean boost() {
+		if (this.boosting) {
 			return false;
-		}
-		else
-		{
+		} else {
 			this.boosting = true;
 			this.boostTime = 0;
 			this.totalBoostTime = this.getRNG().nextInt(841) + 140;
@@ -809,53 +717,43 @@ public class EntityHogLargeBlack extends EntityAnimal
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id)
-	{
-		if (id == 10)
-		{
+	public void handleStatusUpdate(byte id) {
+		if (id == 10) {
 			this.eatTimer = 80;
-		}
-		else
-		{
+		} else {
 			super.handleStatusUpdate(id);
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
-	public float getHeadRotationPointY(float p_70894_1_)
-	{
-		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F : (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 80 - p_70894_1_) / 4.0F));
+	public float getHeadRotationPointY(float p_70894_1_) {
+		return this.eatTimer <= 0 ? 0.0F
+				: (this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F
+						: (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F
+								: -(this.eatTimer - 80 - p_70894_1_) / 4.0F));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_)
-	{
-		if (this.eatTimer > 4 && this.eatTimer <= 76)
-		{
+	public float getHeadRotationAngleX(float p_70890_1_) {
+		if (this.eatTimer > 4 && this.eatTimer <= 76) {
 			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
-			return ((float)Math.PI / 5F) + ((float)Math.PI * 7F / 150F) * MathHelper.sin(f * 28.7F); 
-		}
-		else
-		{
-			return this.eatTimer > 0 ? ((float)Math.PI / 5F) : this.rotationPitch * 0.017453292F; 
+			return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 150F) * MathHelper.sin(f * 28.7F);
+		} else {
+			return this.eatTimer > 0 ? ((float) Math.PI / 5F) : this.rotationPitch * 0.017453292F;
 		}
 	}
 
-
-
 	@Override
-	public EntityHogLargeBlack createChild(EntityAgeable ageable)
-	{
+	public EntityHogLargeBlack createChild(EntityAgeable ageable) {
 		return null;
 	}
 
 	/**
-	 * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
-	 * the animal type)
+	 * Checks if the parameter is an item which this animal can be fed to breed
+	 * it (wheat, carrots or seeds depending on the animal type)
 	 */
 	@Override
-	public boolean isBreedingItem(@Nullable ItemStack stack)
-	{
+	public boolean isBreedingItem(@Nullable ItemStack stack) {
 		return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());
 	}
 }

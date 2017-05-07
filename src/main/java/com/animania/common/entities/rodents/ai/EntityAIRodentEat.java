@@ -1,5 +1,10 @@
 package com.animania.common.entities.rodents.ai;
 
+import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.ItemHandler;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
@@ -13,13 +18,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-import com.animania.Animania;
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-
-public class EntityAIRodentEat extends EntityAIBase
-{
-	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+public class EntityAIRodentEat extends EntityAIBase {
+	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS)
+			.where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	/** The entity owner of this AITask */
 	private final EntityLiving grassEaterEntity;
 	/** The world the grass eater entity is eating from */
@@ -27,8 +28,7 @@ public class EntityAIRodentEat extends EntityAIBase
 	/** Number of ticks since the entity started to eat grass */
 	int eatingGrassTimer;
 
-	public EntityAIRodentEat(EntityLiving grassEaterEntityIn)
-	{
+	public EntityAIRodentEat(EntityLiving grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);
@@ -38,16 +38,15 @@ public class EntityAIRodentEat extends EntityAIBase
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	@Override
-	public boolean shouldExecute()
-	{
-		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
-		{
+	public boolean shouldExecute() {
+		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0) {
 			return false;
-		}
-		else
-		{
-			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
-			return IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true : (this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS || this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.DIRT);
+		} else {
+			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY,
+					this.grassEaterEntity.posZ);
+			return IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true
+					: (this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS
+							|| this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.DIRT);
 		}
 	}
 
@@ -55,10 +54,9 @@ public class EntityAIRodentEat extends EntityAIBase
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	@Override
-	public void startExecuting()
-	{
+	public void startExecuting() {
 		this.eatingGrassTimer = 80;
-		this.entityWorld.setEntityState(this.grassEaterEntity, (byte)10);
+		this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
 		this.grassEaterEntity.getNavigator().clearPathEntity();
 	}
 
@@ -66,8 +64,7 @@ public class EntityAIRodentEat extends EntityAIBase
 	 * Resets the task
 	 */
 	@Override
-	public void resetTask()
-	{
+	public void resetTask() {
 		this.eatingGrassTimer = 0;
 	}
 
@@ -75,16 +72,14 @@ public class EntityAIRodentEat extends EntityAIBase
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	@Override
-	public boolean continueExecuting()
-	{
+	public boolean continueExecuting() {
 		return this.eatingGrassTimer > 0;
 	}
 
 	/**
 	 * Number of ticks since the entity started to eat grass
 	 */
-	public int getEatingGrassTimer()
-	{
+	public int getEatingGrassTimer() {
 		return this.eatingGrassTimer;
 	}
 
@@ -92,46 +87,40 @@ public class EntityAIRodentEat extends EntityAIBase
 	 * Updates the task
 	 */
 	@Override
-	public void updateTask()
-	{
+	public void updateTask() {
 		this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);
 
-		if (this.eatingGrassTimer == 4)
-		{
-			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
+		if (this.eatingGrassTimer == 4) {
+			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY,
+					this.grassEaterEntity.posZ);
 
-			if (IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)))
-			{
-				if (this.entityWorld.getGameRules().getBoolean("mobGriefing"))
-				{
+			if (IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos))) {
+				if (this.entityWorld.getGameRules().getBoolean("mobGriefing")) {
 					this.entityWorld.destroyBlock(blockpos, false);
 				}
 
 				this.grassEaterEntity.eatGrassBonus();
-			}
-			else
-			{
+			} else {
 				BlockPos blockpos1 = blockpos.down();
 				Block chkblock = this.entityWorld.getBlockState(blockpos1).getBlock();
-				
-				Biome biomegenbase = this.entityWorld.getBiome(blockpos1); 
-				
 
-				if (chkblock == Blocks.GRASS || chkblock == Blocks.DIRT || chkblock == Animania.blockMud || chkblock == Blocks.MYCELIUM || chkblock == Blocks.SAND)
-				{
-					if (this.entityWorld.getGameRules().getBoolean("mobGriefing"))
-					{
+				Biome biomegenbase = this.entityWorld.getBiome(blockpos1);
+
+				if (chkblock == Blocks.GRASS || chkblock == Blocks.DIRT || chkblock == BlockHandler.blockMud
+						|| chkblock == Blocks.MYCELIUM || chkblock == Blocks.SAND) {
+					if (this.entityWorld.getGameRules().getBoolean("mobGriefing")) {
 
 						if (chkblock == Blocks.WATER) {
 							this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
 							this.entityWorld.setBlockState(blockpos1, Blocks.AIR.getDefaultState(), 2);
 
-							//TODO remove truffles
+							// TODO remove truffles
 						} else if (chkblock == Blocks.GRASS && biomegenbase.getBiomeName().contains("Forest")) {
 							this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
-							ItemStack bob2 = new ItemStack(Animania.truffle, 1);
-							EntityItem entityitem = new EntityItem(this.entityWorld, blockpos1.getX() + 0.5D, blockpos1.getY(), blockpos.getZ() + 0.5D, bob2);
-							//entityitem.height = 1;
+							ItemStack bob2 = new ItemStack(ItemHandler.truffle, 1);
+							EntityItem entityitem = new EntityItem(this.entityWorld, blockpos1.getX() + 0.5D,
+									blockpos1.getY(), blockpos.getZ() + 0.5D, bob2);
+							// entityitem.height = 1;
 							this.entityWorld.spawnEntity(entityitem);
 						}
 
