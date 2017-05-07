@@ -760,9 +760,10 @@ public class EntitySowLargeBlack extends EntityAnimal {
 					double d = rand.nextGaussian() * 0.02D;
 					double d1 = rand.nextGaussian() * 0.02D;
 					double d2 = rand.nextGaussian() * 0.02D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width,
-							posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1,
-							d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
+							(posX + rand.nextFloat() * width) - width,
+							posY + 1.5D + rand.nextFloat() * height,
+							(posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -795,7 +796,7 @@ public class EntitySowLargeBlack extends EntityAnimal {
 						this.setInLove(null);
 
 						if (!this.world.isRemote) {
-							
+
 							BabyEntitySpawnEvent event = null;
 
 							if (entity instanceof EntityHogLargeBlack) {
@@ -886,7 +887,7 @@ public class EntitySowLargeBlack extends EntityAnimal {
 
 								}
 							}
-							
+
 							MinecraftForge.EVENT_BUS.post(event);
 
 						}

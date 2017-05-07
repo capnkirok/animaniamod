@@ -25,6 +25,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -56,6 +57,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -741,9 +744,10 @@ public class EntitySowLargeWhite extends EntityAnimal {
 					double d = rand.nextGaussian() * 0.02D;
 					double d1 = rand.nextGaussian() * 0.02D;
 					double d2 = rand.nextGaussian() * 0.02D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width,
-							posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1,
-							d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
+							(posX + rand.nextFloat() * width) - width,
+							posY + 1.5D + rand.nextFloat() * height,
+							(posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -777,22 +781,30 @@ public class EntitySowLargeWhite extends EntityAnimal {
 
 						if (!this.world.isRemote) {
 
+							BabyEntitySpawnEvent event = null;
+
 							if (entity instanceof EntityHogLargeWhite) {
 								EntityPigletLargeWhite entityPig = new EntityPigletLargeWhite(this.world);
 								entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 								this.world.spawnEntity(entityPig);
 								this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+								event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 							} else if (entity instanceof EntityHogHampshire) {
 								if (rand.nextInt(2) == 0) {
 									EntityPigletLargeWhite entityPig = new EntityPigletLargeWhite(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 								} else {
 									EntityPigletHampshire entityPig = new EntityPigletHampshire(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 								}
 							} else if (entity instanceof EntityHogLargeBlack) {
 								if (rand.nextInt(2) == 0) {
@@ -800,11 +812,15 @@ public class EntitySowLargeWhite extends EntityAnimal {
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 								} else {
 									EntityPigletLargeBlack entityPig = new EntityPigletLargeBlack(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 								}
 							} else if (entity instanceof EntityHogDuroc) {
 								if (rand.nextInt(2) == 0) {
@@ -812,11 +828,15 @@ public class EntitySowLargeWhite extends EntityAnimal {
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 								} else {
 									EntityPigletLargeWhite entityPig = new EntityPigletLargeWhite(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 								}
 							} else if (entity instanceof EntityHogOldSpot) {
 								if (rand.nextInt(2) == 0) {
@@ -824,11 +844,15 @@ public class EntitySowLargeWhite extends EntityAnimal {
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 								} else {
 									EntityPigletOldSpot entityPig = new EntityPigletOldSpot(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 								}
 							} else if (entity instanceof EntityHogYorkshire) {
 								if (rand.nextInt(2) == 0) {
@@ -836,13 +860,19 @@ public class EntitySowLargeWhite extends EntityAnimal {
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 								} else {
 									EntityPigletYorkshire entityPig = new EntityPigletYorkshire(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
+
 								}
 							}
+
+							MinecraftForge.EVENT_BUS.post(event);
 
 						}
 					}

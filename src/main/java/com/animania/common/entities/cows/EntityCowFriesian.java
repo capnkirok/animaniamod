@@ -53,6 +53,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -442,9 +444,10 @@ public class EntityCowFriesian extends EntityAnimal {
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width,
-							posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1,
-							d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
+							(posX + rand.nextFloat() * width) - width,
+							posY + 1.5D + rand.nextFloat() * height,
+							(posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -478,12 +481,16 @@ public class EntityCowFriesian extends EntityAnimal {
 
 						if (!this.world.isRemote) {
 
+							BabyEntitySpawnEvent event = null;
+
 							if (entity instanceof EntityBullFriesian) {
 								EntityCalfFriesian entityCalf = new EntityCalfFriesian(this.world);
 								entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 								this.world.spawnEntity(entityCalf);
 								entityCalf.setParentUniqueId(this.getPersistentID());
 								this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+								event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 							} else if (entity instanceof EntityBullAngus) {
 								if (rand.nextInt(2) == 0) {
 									EntityCalfFriesian entityCalf = new EntityCalfFriesian(this.world);
@@ -491,12 +498,16 @@ public class EntityCowFriesian extends EntityAnimal {
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								} else {
 									EntityCalfAngus entityCalf = new EntityCalfAngus(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								}
 							} else if (entity instanceof EntityBullHereford) {
 								if (rand.nextInt(2) == 0) {
@@ -505,12 +516,16 @@ public class EntityCowFriesian extends EntityAnimal {
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								} else {
 									EntityCalfHereford entityCalf = new EntityCalfHereford(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								}
 							} else if (entity instanceof EntityBullHolstein) {
 								if (rand.nextInt(2) == 0) {
@@ -519,12 +534,16 @@ public class EntityCowFriesian extends EntityAnimal {
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								} else {
 									EntityCalfHolstein entityCalf = new EntityCalfHolstein(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								}
 							} else if (entity instanceof EntityBullLonghorn) {
 								if (rand.nextInt(2) == 0) {
@@ -533,14 +552,20 @@ public class EntityCowFriesian extends EntityAnimal {
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								} else {
 									EntityCalfLonghorn entityCalf = new EntityCalfLonghorn(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+
 								}
 							}
+
+							MinecraftForge.EVENT_BUS.post(event);
 
 						}
 					}
