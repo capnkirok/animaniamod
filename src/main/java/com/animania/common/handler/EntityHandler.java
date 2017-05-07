@@ -1,6 +1,7 @@
 package com.animania.common.handler;
 
 import com.animania.common.entities.amphibians.EntityFrogs;
+import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -95,8 +96,8 @@ public class EntityHandler {
 			EntityRegistry.addSpawn(EntityCowFriesian.class, AnimaniaConfig.entity.spawnProbabilityCows, 1,
 					AnimaniaConfig.entity.numberCowFamilies, EnumCreatureType.CREATURE, Biomes.PLAINS);
 
-			RegistryHelper.Entities.register(EntityCowAngus.class, "animania.CowAngus", AnimaniaConfig.entity.CowAngusID,
-					64, 3, true);
+			RegistryHelper.Entities.register(EntityCowAngus.class, "animania.CowAngus",
+					AnimaniaConfig.entity.CowAngusID, 64, 3, true);
 
 			RegistryHelper.Entities.register(EntityBullAngus.class, "animania.BullAngus",
 					AnimaniaConfig.entity.BullAngusID, 64, 3, true);
@@ -239,11 +240,11 @@ public class EntityHandler {
 					AnimaniaConfig.entity.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.FOREST_HILLS,
 					Biomes.BIRCH_FOREST_HILLS);
 
-			RegistryHelper.Entities.register(EntitySowDuroc.class, "animania.SowDuroc", AnimaniaConfig.entity.SowDurocID,
-					64, 3, true);
+			RegistryHelper.Entities.register(EntitySowDuroc.class, "animania.SowDuroc",
+					AnimaniaConfig.entity.SowDurocID, 64, 3, true);
 
-			RegistryHelper.Entities.register(EntityHogDuroc.class, "animania.HogDuroc", AnimaniaConfig.entity.HogDurocID,
-					64, 3, true);
+			RegistryHelper.Entities.register(EntityHogDuroc.class, "animania.HogDuroc",
+					AnimaniaConfig.entity.HogDurocID, 64, 3, true);
 
 			RegistryHelper.Entities.register(EntityPigletDuroc.class, "animania.PigletDuroc",
 					AnimaniaConfig.entity.PigletDurocID, 64, 3, true);
@@ -266,8 +267,8 @@ public class EntityHandler {
 		// RODENTS
 		if (AnimaniaConfig.entity.spawnAnimaniaRodents) {
 
-			RegistryHelper.Entities.register(EntityHamster.class, "animania.Hamster", AnimaniaConfig.entity.HamsterMaleID,
-					64, 3, true);
+			RegistryHelper.Entities.register(EntityHamster.class, "animania.Hamster",
+					AnimaniaConfig.entity.HamsterMaleID, 64, 3, true);
 			EntityRegistry.addSpawn(EntityHamster.class, AnimaniaConfig.entity.spawnProbabilityHamsters, 1, 2,
 					EnumCreatureType.CREATURE, Biomes.BEACH, Biomes.DESERT, Biomes.DESERT_HILLS);
 
@@ -338,6 +339,10 @@ public class EntityHandler {
 		int entityID = 0;
 		RegistryHelper.Entities.registerEntity(EntityFrogs.class, "animania.frog", entityID++, 64, 3, true, 0, 0);
 		RegistryHelper.Entities.addSpawn(EntityFrogs.class, 20, 1, 3, EnumCreatureType.AMBIENT,
+				RegistryHelper.Entities.getBiomes(BiomeDictionary.Type.JUNGLE));
+
+		RegistryHelper.Entities.registerEntity(EntityToad.class, "animania.toad", entityID++, 64, 3, true, 0, 0);
+		RegistryHelper.Entities.addSpawn(EntityToad.class, 20, 1, 3, EnumCreatureType.AMBIENT,
 				RegistryHelper.Entities.getBiomes(BiomeDictionary.Type.SWAMP));
 	}
 

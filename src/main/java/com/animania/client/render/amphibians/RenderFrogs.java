@@ -3,7 +3,6 @@ package com.animania.client.render.amphibians;
 import com.animania.client.models.ModelFrog;
 import com.animania.common.entities.amphibians.EntityFrogs;
 
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -19,7 +18,7 @@ public class RenderFrogs<T extends EntityFrogs> extends RenderLiving<T> {// Rend
 
 	// Need to move in main class
 	private static final String modid = "animania", frogsBaseDir = "textures/entity/amphibians/frogs/";
-	private static final ResourceLocation[] FROGS_TEXTURE = new ResourceLocation[] {
+	private static final ResourceLocation[] FROGS_TEXTURES = new ResourceLocation[] {
 			new ResourceLocation(modid, frogsBaseDir + "default_frog.png"),
 			new ResourceLocation(modid, frogsBaseDir + "green_frog.png"),
 			new ResourceLocation(modid, frogsBaseDir + "red_tree_frog.png"),
@@ -27,14 +26,15 @@ public class RenderFrogs<T extends EntityFrogs> extends RenderLiving<T> {// Rend
 			new ResourceLocation(modid, frogsBaseDir + "yellow_tree_frog.png") };
 
 	public RenderFrogs(RenderManager rendermanagerIn) {
-		super(rendermanagerIn, new ModelFrog(), 0.2F);
+		super(rendermanagerIn, new ModelFrog(), 0.05F);
 	}
 
 	/**
 	 * Allows the render to do state modifications necessary before the model is
 	 * rendered.
 	 */
-	protected void preRenderCallback(AbstractClientPlayer entitylivingbaseIn, float partialTickTime) {
+	@Override
+	protected void preRenderCallback(T entityIn, float partialTickTime) {
 		GlStateManager.scale(0.5D, 0.5D, 0.5D);
 	}
 
@@ -43,23 +43,23 @@ public class RenderFrogs<T extends EntityFrogs> extends RenderLiving<T> {// Rend
 		switch (entity.getFrogsType()) {
 		case 0:
 		default:
-			return FROGS_TEXTURE[0];
+			return FROGS_TEXTURES[0];
 		case 1:
-			return FROGS_TEXTURE[1];
+			return FROGS_TEXTURES[1];
 		case 2:
-			return FROGS_TEXTURE[2];
+			return FROGS_TEXTURES[2];
 		case 3:
-			return FROGS_TEXTURE[3];
+			return FROGS_TEXTURES[3];
 		case 4:
-			return FROGS_TEXTURE[4];
+			return FROGS_TEXTURES[4];
 		case 5:
-			return FROGS_TEXTURE[5];
+			return FROGS_TEXTURES[5];
 		}
 	}
 
-	public static class Factory implements IRenderFactory<EntityFrogs> {
+	public static class Factory<T extends EntityFrogs> implements IRenderFactory<T> {
 		@Override
-		public Render<? super EntityFrogs> createRenderFor(RenderManager manager) {
+		public Render<? super T> createRenderFor(RenderManager manager) {
 			return new RenderFrogs(manager);
 		}
 	}
