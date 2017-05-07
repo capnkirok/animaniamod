@@ -4,16 +4,13 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.client.models.ModelChick;
-import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
-import com.animania.common.entities.chickens.EntityHenOrpington;
 
 @SideOnly(Side.CLIENT)
 public class RenderChickOrpington extends RenderLiving<EntityChickOrpington>
@@ -23,6 +20,7 @@ public class RenderChickOrpington extends RenderLiving<EntityChickOrpington>
 		super(rm, new ModelChick(), 0.2F);
 	}
 
+	@Override
 	protected float handleRotationFloat(EntityChickOrpington livingBase, float partialTicks)
 	{
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
@@ -33,7 +31,7 @@ public class RenderChickOrpington extends RenderLiving<EntityChickOrpington>
 	@Override
 	protected void preRenderCallback(EntityChickOrpington entityliving, float f)
 	{
-		preRenderScale((EntityChickOrpington)entityliving, f);
+		preRenderScale(entityliving, f);
 	}
 
 	protected void preRenderScale(EntityChickOrpington entity, float f)

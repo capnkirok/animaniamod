@@ -20,6 +20,7 @@ public class RenderChickWyandotte extends RenderLiving<EntityChickWyandotte>
 		super(rm, new ModelChick(), 0.2F);
 	}
 
+	@Override
 	protected float handleRotationFloat(EntityChickWyandotte livingBase, float partialTicks)
 	{
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
@@ -30,7 +31,7 @@ public class RenderChickWyandotte extends RenderLiving<EntityChickWyandotte>
 	@Override
 	protected void preRenderCallback(EntityChickWyandotte entityliving, float f)
 	{
-		preRenderScale((EntityChickWyandotte)entityliving, f);
+		preRenderScale(entityliving, f);
 	}
 
 	protected void preRenderScale(EntityChickWyandotte entity, float f)

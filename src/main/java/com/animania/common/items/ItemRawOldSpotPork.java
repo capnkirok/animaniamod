@@ -18,10 +18,10 @@ public class ItemRawOldSpotPork extends ItemFood {
 	public ItemRawOldSpotPork() {
 		super (1, 1F, true); 
 		this.setAlwaysEdible();
-		this.setRegistryName(new ResourceLocation(Animania.modid, name));
+		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		//this.setMaxStackSize(1);
 		GameRegistry.register(this);
-		setUnlocalizedName(Animania.modid + "_" + name);
+		setUnlocalizedName(Animania.MODID + "_" + name);
 		if (Animania.customMobDrops) {
 			this.setCreativeTab(null);
 		} else {
@@ -30,10 +30,12 @@ public class ItemRawOldSpotPork extends ItemFood {
 	}
 	
 
+	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack) {
 		return EnumAction.EAT;
 	}
 
+	@Override
 	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
 		if (!worldObj.isRemote && Animania.foodsGiveBonusEffects)
 		{

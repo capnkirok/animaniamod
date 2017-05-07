@@ -22,6 +22,7 @@ public class RenderRoosterWyandotte extends RenderLiving<EntityRoosterWyandotte>
 		super(rm, new ModelRooster(), 0.32F);
 	}
 
+	@Override
 	protected float handleRotationFloat(EntityRoosterWyandotte livingBase, float partialTicks)
 	{
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
@@ -32,7 +33,7 @@ public class RenderRoosterWyandotte extends RenderLiving<EntityRoosterWyandotte>
 	@Override
     protected void preRenderCallback(EntityRoosterWyandotte entityliving, float f)
     {
-        preRenderScale((EntityRoosterWyandotte)entityliving, f);
+        preRenderScale(entityliving, f);
     }
 
 	protected void preRenderScale(EntityRoosterWyandotte entity, float f)

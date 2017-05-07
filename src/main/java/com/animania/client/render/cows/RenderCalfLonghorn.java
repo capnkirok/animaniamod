@@ -6,15 +6,12 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.client.models.ModelCalfLonghorn;
-import com.animania.common.entities.cows.EntityCalfHolstein;
 import com.animania.common.entities.cows.EntityCalfLonghorn;
-import com.animania.common.entities.cows.EntityCowHereford;
 
 @SideOnly(Side.CLIENT)
 public class RenderCalfLonghorn extends RenderLiving<EntityCalfLonghorn>
@@ -41,7 +38,7 @@ public class RenderCalfLonghorn extends RenderLiving<EntityCalfLonghorn>
     @Override
 	protected void preRenderCallback(EntityCalfLonghorn entityliving, float f)
 	{
-		preRenderScale((EntityCalfLonghorn)entityliving, f);
+		preRenderScale(entityliving, f);
 	}
 
 	protected void preRenderScale(EntityCalfLonghorn entity, float f)
@@ -53,9 +50,10 @@ public class RenderCalfLonghorn extends RenderLiving<EntityCalfLonghorn>
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
+	@Override
 	protected ResourceLocation getEntityTexture(EntityCalfLonghorn par1Entity)
 	{
-		EntityCalfLonghorn entity = (EntityCalfLonghorn)par1Entity;
+		EntityCalfLonghorn entity = par1Entity;
 
 		int blinkTimer = entity.blinkTimer;
 

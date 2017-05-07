@@ -10,7 +10,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelPeafowl;
-import com.animania.common.entities.cows.EntityBullAngus;
 import com.animania.common.entities.peacocks.EntityPeafowlWhite;
 
 
@@ -23,6 +22,7 @@ public class RenderPeafowlWhite extends RenderLiving<EntityPeafowlWhite>
 		super(rm, new ModelPeafowl(), 0.3F);
 	}
 
+	@Override
 	protected float handleRotationFloat(EntityPeafowlWhite livingBase, float partialTicks)
 	{
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
@@ -34,7 +34,7 @@ public class RenderPeafowlWhite extends RenderLiving<EntityPeafowlWhite>
 	@Override
     protected void preRenderCallback(EntityPeafowlWhite entityliving, float f)
     {
-        preRenderScale((EntityPeafowlWhite)entityliving, f);
+        preRenderScale(entityliving, f);
     }
 
 	protected void preRenderScale(EntityPeafowlWhite entity, float f)

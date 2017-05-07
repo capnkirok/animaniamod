@@ -44,6 +44,12 @@ import net.minecraft.world.World;
 import com.animania.Animania;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.peacocks.ai.EntityAIFindFood;
+import com.animania.common.entities.peacocks.ai.EntityAIFindWater;
+import com.animania.common.entities.peacocks.ai.EntityAIPanicPeacocks;
+import com.animania.common.entities.peacocks.ai.EntityAISwimmingPeacocks;
+import com.animania.common.entities.peacocks.ai.EntityAIWanderPeacock;
+import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
 import com.google.common.collect.Sets;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ResourceInfo;
@@ -142,6 +148,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 	}
 	
 
+	@Override
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -175,12 +182,13 @@ public class EntityPeafowlBlue extends EntityAnimal
 
 	}
 
+	@Override
 	public void onLivingUpdate()
 	{
 		super.onLivingUpdate();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
-		this.destPos = (float)((double)this.destPos + (double)(this.onGround ? -1 : 4) * 0.3D);
+		this.destPos = (float)(this.destPos + (this.onGround ? -1 : 4) * 0.3D);
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
 		if (!this.onGround && this.wingRotDelta < 1.0F)
@@ -188,7 +196,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 			this.wingRotDelta = 1.0F;
 		}
 
-		this.wingRotDelta = (float)((double)this.wingRotDelta * 0.9D);
+		this.wingRotDelta = (float)(this.wingRotDelta * 0.9D);
 
 		if (!this.onGround && this.motionY < 0.0D)
 		{
@@ -249,7 +257,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -258,7 +266,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 	
 	public boolean getFed()
 	{
-		return ((Boolean)this.dataManager.get(FED)).booleanValue();
+		return this.dataManager.get(FED).booleanValue();
 	}
 
 	public void setFed(boolean fed)
@@ -277,7 +285,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 	
 	public boolean getWatered()
 	{
-		return ((Boolean)this.dataManager.get(WATERED)).booleanValue();
+		return this.dataManager.get(WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered)
@@ -298,6 +306,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 	/**
 	 * Returns the sound this mob makes while it's alive.
 	 */
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
@@ -348,6 +357,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 	}
 
 
+	@Override
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
@@ -360,6 +370,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 		}
 	}
 
+	@Override
 	protected SoundEvent getDeathSound()
 	{
 		Random rand = new Random();
@@ -383,6 +394,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 			this.playSound(soundevent, this.getSoundVolume() - .8F, this.getSoundPitch() + .2F);
 		}
 	}
+	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.03F, 1.2F);
@@ -392,6 +404,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 	 * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
 	 * the animal type)
 	 */
+	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());
@@ -405,11 +418,13 @@ public class EntityPeafowlBlue extends EntityAnimal
 	*/
 
 	
+	@Override
 	protected boolean canDespawn()
 	{
 		return false;
 	}
 
+	@Override
 	public void updatePassenger(Entity passenger)
 	{
 		super.updatePassenger(passenger);
@@ -417,7 +432,7 @@ public class EntityPeafowlBlue extends EntityAnimal
 		float f1 = MathHelper.cos(this.renderYawOffset * 0.017453292F);
 		float f2 = 0.1F;
 		float f3 = 0.0F;
-		passenger.setPosition(this.posX + (double)(0.1F * f), this.posY + (double)(this.height * 0.5F) + passenger.getYOffset() + 0.0D, this.posZ - (double)(0.1F * f1));
+		passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.posZ - 0.1F * f1);
 
 		if (passenger instanceof EntityLivingBase)
 		{

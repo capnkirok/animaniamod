@@ -23,6 +23,7 @@ public class LayerMudHogDuroc implements LayerRenderer<EntityHogDuroc>
 		this.pigRenderer = pigRendererIn;
 	}
 
+	@Override
 	public void doRenderLayer(EntityHogDuroc entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
@@ -51,6 +52,7 @@ public class LayerMudHogDuroc implements LayerRenderer<EntityHogDuroc>
 		}
 	}
 
+	@Override
 	public boolean shouldCombineTextures()
 	{
 		return true;

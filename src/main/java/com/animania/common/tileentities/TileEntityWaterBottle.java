@@ -1,8 +1,6 @@
 package com.animania.common.tileentities;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityWaterBottle extends TileEntity {

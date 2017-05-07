@@ -13,7 +13,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCowLonghorn;
-import com.animania.common.entities.cows.EntityCowHereford;
 import com.animania.common.entities.cows.EntityCowLonghorn;
 
 @SideOnly(Side.CLIENT)
@@ -49,7 +48,8 @@ public class RenderCowLonghorn extends RenderLiving
         return cowTexturesBlink;
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity)
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity)
 	{
 		EntityCowLonghorn entity = (EntityCowLonghorn)par1Entity;
 

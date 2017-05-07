@@ -4,7 +4,6 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -12,7 +11,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.client.models.ModelChick;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
-import com.animania.common.entities.chickens.EntityHenPlymouthRock;
 
 @SideOnly(Side.CLIENT)
 public class RenderChickPlymouthRock extends RenderLiving<EntityChickPlymouthRock>
@@ -22,6 +20,7 @@ public class RenderChickPlymouthRock extends RenderLiving<EntityChickPlymouthRoc
 		super(rm, new ModelChick(), 0.2F);
 	}
 
+	@Override
 	protected float handleRotationFloat(EntityChickPlymouthRock livingBase, float partialTicks)
 	{
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
@@ -32,7 +31,7 @@ public class RenderChickPlymouthRock extends RenderLiving<EntityChickPlymouthRoc
 	@Override
 	protected void preRenderCallback(EntityChickPlymouthRock entityliving, float f)
 	{
-		preRenderScale((EntityChickPlymouthRock)entityliving, f);
+		preRenderScale(entityliving, f);
 	}
 
 	protected void preRenderScale(EntityChickPlymouthRock entity, float f)

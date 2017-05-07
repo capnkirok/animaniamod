@@ -574,6 +574,7 @@ public class ModelPeacock extends ModelBase
 
 	}
 
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
@@ -608,6 +609,7 @@ public class ModelPeacock extends ModelBase
 
 	}
 
+	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
 	{
 

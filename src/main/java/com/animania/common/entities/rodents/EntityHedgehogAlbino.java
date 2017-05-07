@@ -42,6 +42,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.animania.Animania;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.rodents.ai.EntityAIFindWater;
+import com.animania.common.entities.rodents.ai.EntityAIHedgehogFindFood;
+import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
+import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
+import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
+import com.animania.common.entities.rodents.ai.EntityAIWanderHedgehog;
+import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.google.common.collect.Sets;
 
 public class EntityHedgehogAlbino extends EntityTameable
@@ -69,11 +76,13 @@ public class EntityHedgehogAlbino extends EntityTameable
 
 	}
 
+	@Override
 	public float getEyeHeight()
 	{
 		return this.height - .4F;
 	}
 
+	@Override
 	protected void initEntityAI()
 	{
 		this.aiSit = new EntityAISit(this);
@@ -93,6 +102,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 	}
 
+	@Override
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -131,6 +141,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 	public EntityAIRodentEat entityAIEatGrass;
 	private int damageTimer;
 
+	@Override
 	protected void updateAITasks()
 	{
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
@@ -176,6 +187,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 		return bob;
 	}
 
+	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
@@ -185,6 +197,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 
 	}
 
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
@@ -194,6 +207,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 
 	}
 
+	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
@@ -204,6 +218,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 	}
 
 
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
@@ -243,6 +258,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 	}
 
 
+	@Override
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
@@ -257,6 +273,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 		}
 	}
 
+	@Override
 	protected SoundEvent getDeathSound()
 	{
 		return ModSoundEvents.hedgehogHurt1;	
@@ -276,6 +293,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 
 
 
+	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.5F);
@@ -299,7 +317,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 			}
 			else 
 			{
-				EntityLiving entityliving = (EntityLiving)this;
+				EntityLiving entityliving = this;
 				entityliving.setCustomNameTag(stack.getDisplayName());
 				entityliving.enablePersistence();
 				stack.setCount(stack.getCount()-1);
@@ -419,7 +437,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -436,7 +454,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 					double d = rand.nextGaussian() * 0.02D;
 					double d1 = rand.nextGaussian() * 0.02D;
 					double d2 = rand.nextGaussian() * 0.02D;
-					world.spawnParticle(EnumParticleTypes.HEART, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.HEART, (posX + rand.nextFloat() * width) - width, posY + 1D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -446,6 +464,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 
 
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
@@ -461,7 +480,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 
 	public boolean getFed()
 	{
-		return ((Boolean)this.dataManager.get(FED)).booleanValue();
+		return this.dataManager.get(FED).booleanValue();
 	}
 
 	public void setFed(boolean fed)
@@ -480,7 +499,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 
 	public boolean getWatered()
 	{
-		return ((Boolean)this.dataManager.get(WATERED)).booleanValue();
+		return this.dataManager.get(WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered)
@@ -498,7 +517,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 
 	public boolean getIsTamed()
 	{
-		return ((Boolean)this.dataManager.get(TAMED)).booleanValue();
+		return this.dataManager.get(TAMED).booleanValue();
 	}
 
 	public void setIsTamed(boolean fed)
@@ -516,7 +535,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
-		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 160) - p_70894_1_) / 4.0F));
+		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -524,7 +543,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 	{
 		if (this.eatTimer > 4 && this.eatTimer <= 156)
 		{
-			float f = ((float)(this.eatTimer - 4) - p_70890_1_) / 24.0F;
+			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
 			return ((float)Math.PI / 5F) + ((float)Math.PI * 7F / 150F) * MathHelper.sin(f * 28.7F); 
 		}
 		else
@@ -534,6 +553,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 	}
 
 
+	@Override
 	public EntityHedgehogAlbino createChild(EntityAgeable ageable)
 	{
 		return null;
@@ -543,6 +563,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 	 * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
 	 * the animal type)
 	 */
+	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());

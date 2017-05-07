@@ -10,8 +10,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHedgehog;
-import com.animania.common.entities.cows.EntityCalfHereford;
-import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 
 
@@ -42,9 +40,10 @@ public class RenderHedgehogAlbino extends RenderLiving<EntityHedgehogAlbino>
 	@Override
 	protected void preRenderCallback(EntityHedgehogAlbino entityliving, float f)
 	{
-		preRenderScale((EntityHedgehogAlbino)entityliving, f);
+		preRenderScale(entityliving, f);
 	}
 
+	@Override
 	protected ResourceLocation getEntityTexture(EntityHedgehogAlbino entity)
 	{
 		
@@ -62,6 +61,7 @@ public class RenderHedgehogAlbino extends RenderLiving<EntityHedgehogAlbino>
 		}
 	}
 
+	@Override
 	public ModelHedgehog getMainModel()
 	{
 		return (ModelHedgehog)super.getMainModel();

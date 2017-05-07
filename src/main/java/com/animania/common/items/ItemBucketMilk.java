@@ -7,12 +7,10 @@ import javax.annotation.Nullable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -30,19 +28,21 @@ public class ItemBucketMilk extends ItemFood {
 		super (5, 5F, true); 
 		this.setAlwaysEdible();
 		name = type + "_" + name;
-		this.setRegistryName(new ResourceLocation(Animania.modid, name));
+		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
-		setUnlocalizedName(Animania.modid + "_" + name);
+		setUnlocalizedName(Animania.MODID + "_" + name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setMaxStackSize(1);
 	}
 	
 
+	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack) {
 		return EnumAction.DRINK;
 	}
 	
 	
+	@Override
 	@Nullable
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
     {
@@ -76,7 +76,7 @@ public class ItemBucketMilk extends ItemFood {
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
 	{
-		list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
 	}
 	

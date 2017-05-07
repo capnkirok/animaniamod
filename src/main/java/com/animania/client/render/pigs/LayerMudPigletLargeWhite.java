@@ -23,6 +23,7 @@ public class LayerMudPigletLargeWhite implements LayerRenderer<EntityPigletLarge
 		this.pigRenderer = pigRendererIn;
 	}
 
+	@Override
 	public void doRenderLayer(EntityPigletLargeWhite entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
@@ -51,6 +52,7 @@ public class LayerMudPigletLargeWhite implements LayerRenderer<EntityPigletLarge
 		}
 	}
 
+	@Override
 	public boolean shouldCombineTextures()
 	{
 		return true;

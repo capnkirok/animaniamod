@@ -34,9 +34,10 @@ public class RenderFerretWhite extends RenderLiving<EntityFerretWhite>
 	@Override
 	protected void preRenderCallback(EntityFerretWhite entityliving, float f)
 	{
-		preRenderScale((EntityFerretWhite)entityliving, f);
+		preRenderScale(entityliving, f);
 	}
 
+	@Override
 	protected ResourceLocation getEntityTexture(EntityFerretWhite entity)
 	{
 		int blinkTimer = entity.blinkTimer;
@@ -48,6 +49,7 @@ public class RenderFerretWhite extends RenderLiving<EntityFerretWhite>
 
 	}
 
+	@Override
 	public ModelFerret getMainModel()
 	{
 		return (ModelFerret)super.getMainModel();

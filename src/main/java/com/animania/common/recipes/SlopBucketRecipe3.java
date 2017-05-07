@@ -3,7 +3,7 @@ package com.animania.common.recipes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.animania.Animania;
+import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
@@ -13,90 +13,75 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 public class SlopBucketRecipe3 implements IRecipe {
-	
+
 	private final ItemStack recipeOutput;
 	public final ArrayList recipeItems = new ArrayList();
 	private int bucketSlotJ;
 	private int bucketSlotI;
-	
-	
-	public SlopBucketRecipe3()
-    {
-        this.recipeOutput = new ItemStack(Animania.bucketSlop);
-        this.recipeItems.add(new ItemStack(Items.CARROT));
-        this.recipeItems.add(new ItemStack(Items.POTATO));
-        this.recipeItems.add(new ItemStack(Items.MILK_BUCKET));
-    }
+
+	public SlopBucketRecipe3() {
+		this.recipeOutput = new ItemStack(ItemHandler.bucketSlop);
+		this.recipeItems.add(new ItemStack(Items.CARROT));
+		this.recipeItems.add(new ItemStack(Items.POTATO));
+		this.recipeItems.add(new ItemStack(Items.MILK_BUCKET));
+	}
 
 	@Override
 	public boolean matches(InventoryCrafting inv, World world) {
-		
-        ArrayList arraylist = new ArrayList(this.recipeItems);
 
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 3; ++j)
-            {
-                ItemStack itemstack = inv.getStackInRowAndColumn(j, i);
+		ArrayList arraylist = new ArrayList(this.recipeItems);
 
-                if (itemstack != ItemStack.EMPTY)
-                {
-                    boolean flag = false;
-                    Iterator iterator = arraylist.iterator();
+		for (int i = 0; i < 3; ++i) {
+			for (int j = 0; j < 3; ++j) {
+				ItemStack itemstack = inv.getStackInRowAndColumn(j, i);
 
-                    while (iterator.hasNext())
-                    {
-                        ItemStack itemstack1 = (ItemStack)iterator.next();
+				if (itemstack != ItemStack.EMPTY) {
+					boolean flag = false;
+					Iterator iterator = arraylist.iterator();
 
-                        if (itemstack.getItem() == itemstack1.getItem())
-                        {
-                            flag = true;
-                            if (itemstack.getItem() == Items.BUCKET) {
+					while (iterator.hasNext()) {
+						ItemStack itemstack1 = (ItemStack) iterator.next();
+
+						if (itemstack.getItem() == itemstack1.getItem()) {
+							flag = true;
+							if (itemstack.getItem() == Items.BUCKET) {
 								bucketSlotJ = j;
 								bucketSlotI = i;
 							}
-                            arraylist.remove(itemstack1);
-                            break;
-                        }
-                    }
+							arraylist.remove(itemstack1);
+							break;
+						}
+					}
 
-                    if (!flag)
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
+					if (!flag) {
+						return false;
+					}
+				}
+			}
+		}
 
-        return arraylist.isEmpty();
+		return arraylist.isEmpty();
 	}
-	
+
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
-	{
+	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 		NonNullList<ItemStack> bob = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-		bob.set((bucketSlotJ + (bucketSlotI* (int)(Math.sqrt(inv.getSizeInventory())))), new ItemStack(Items.BUCKET));
+		bob.set((bucketSlotJ + (bucketSlotI * (int) (Math.sqrt(inv.getSizeInventory())))), new ItemStack(Items.BUCKET));
 		return bob;
 	}
-	
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting inv)
-	{
+	public ItemStack getCraftingResult(InventoryCrafting inv) {
 		return this.recipeOutput.copy();
 	}
 
 	@Override
-	public int getRecipeSize()
-	{
+	public int getRecipeSize() {
 		return this.recipeItems.size();
 	}
 
 	@Override
-	public ItemStack getRecipeOutput()
-	{		
+	public ItemStack getRecipeOutput() {
 		return ItemStack.EMPTY;
 	}
 }
-
-

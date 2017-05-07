@@ -13,7 +13,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCow;
-import com.animania.common.entities.cows.EntityCowHereford;
 import com.animania.common.entities.cows.EntityCowHolstein;
 
 @SideOnly(Side.CLIENT)
@@ -49,6 +48,7 @@ public class RenderCowHolstein extends RenderLiving
         preRenderScale((EntityCowHolstein)entityliving, f);
     }  
   
+	@Override
 	protected ResourceLocation getEntityTexture(Entity par1Entity)
 	{
 		EntityCowHolstein entity = (EntityCowHolstein)par1Entity;

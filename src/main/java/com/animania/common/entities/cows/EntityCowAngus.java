@@ -46,6 +46,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.animania.Animania;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.ai.EntityAIFindFood;
+import com.animania.common.entities.cows.ai.EntityAIFindWater;
+import com.animania.common.entities.cows.ai.EntityAIMateCows;
+import com.animania.common.entities.cows.ai.EntityAIPanicCows;
+import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
+import com.animania.common.entities.cows.ai.EntityAIWanderCow;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
@@ -104,6 +110,7 @@ public class EntityCowAngus extends EntityAnimal
 	public EntityCowEatGrass entityAIEatGrass;
 	private int damageTimer;
 
+	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
@@ -112,6 +119,7 @@ public class EntityCowAngus extends EntityAnimal
 		this.dataManager.register(WATERED, Boolean.valueOf(true));
 	}
 
+	@Override
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{
@@ -122,7 +130,7 @@ public class EntityCowAngus extends EntityAnimal
 		int cowCount = 0;
 		int esize = this.world.loadedEntityList.size();
 		for (int k = 0; k <= esize - 1; k++) {
-			Entity entity = (Entity) this.world.loadedEntityList.get(k);
+			Entity entity = this.world.loadedEntityList.get(k);
 			if (entity.getName().contains("Holstein") || entity.getName().contains("Friesian") || entity.getName().contains("Angus") || entity.getName().contains("Longhorn") || entity.getName().contains("Hereford")) {
 				EntityAnimal ea = (EntityAnimal) entity;
 				if (ea.hasCustomName() || ea.isInLove()) {
@@ -209,6 +217,7 @@ public class EntityCowAngus extends EntityAnimal
 		this.dataManager.set(MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
@@ -227,6 +236,7 @@ public class EntityCowAngus extends EntityAnimal
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
+	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
@@ -253,6 +263,7 @@ public class EntityCowAngus extends EntityAnimal
 	}
 
 
+	@Override
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -260,6 +271,7 @@ public class EntityCowAngus extends EntityAnimal
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 	}
 
+	@Override
 	protected void updateAITasks()
 	{
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
@@ -268,7 +280,7 @@ public class EntityCowAngus extends EntityAnimal
 
 	public boolean getFed()
 	{
-		return ((Boolean)this.dataManager.get(FED)).booleanValue();
+		return this.dataManager.get(FED).booleanValue();
 	}
 
 	public void setFed(boolean fed)
@@ -287,7 +299,7 @@ public class EntityCowAngus extends EntityAnimal
 
 	public boolean getWatered()
 	{
-		return ((Boolean)this.dataManager.get(WATERED)).booleanValue();
+		return this.dataManager.get(WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered)
@@ -304,6 +316,7 @@ public class EntityCowAngus extends EntityAnimal
 	}
 
 
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
@@ -351,6 +364,7 @@ public class EntityCowAngus extends EntityAnimal
 	}
 
 
+	@Override
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
@@ -363,6 +377,7 @@ public class EntityCowAngus extends EntityAnimal
 		}
 	}
 
+	@Override
 	protected SoundEvent getDeathSound()
 	{
 		Random rand = new Random();
@@ -388,6 +403,7 @@ public class EntityCowAngus extends EntityAnimal
 	}
 
 
+	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_COW_STEP, 0.10F, 1.0F);
@@ -395,16 +411,19 @@ public class EntityCowAngus extends EntityAnimal
 	/**
 	 * Returns the volume for the sounds this mob makes.
 	 */
+	@Override
 	protected float getSoundVolume()
 	{
 		return 0.4F;
 	}
 
+	@Override
 	protected Item getDropItem()
 	{
 		return Items.LEATHER;
 	}
 
+	@Override
 	public void onLivingUpdate()
 	{
 
@@ -467,7 +486,7 @@ public class EntityCowAngus extends EntityAnimal
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -482,7 +501,7 @@ public class EntityCowAngus extends EntityAnimal
 
 				int esize = this.world.loadedEntityList.size();
 				for (int k = 0; k <= esize - 1; k++) {
-					Entity entity = (Entity) this.world.loadedEntityList.get(k);
+					Entity entity = this.world.loadedEntityList.get(k);
 
 					double xt = entity.posX;
 					double yt = entity.posY;
@@ -668,6 +687,7 @@ public class EntityCowAngus extends EntityAnimal
 		}
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
@@ -686,7 +706,7 @@ public class EntityCowAngus extends EntityAnimal
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
-		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 160) - p_70894_1_) / 4.0F));
+		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -694,7 +714,7 @@ public class EntityCowAngus extends EntityAnimal
 	{
 		if (this.eatTimer > 4 && this.eatTimer <= 156)
 		{
-			float f = ((float)(this.eatTimer - 4) - p_70890_1_) / 64.0F;
+			float f = (this.eatTimer - 4 - p_70890_1_) / 64.0F;
 			return ((float)Math.PI / 5F) + ((float)Math.PI * 7F / 100F) * MathHelper.sin(f * 28.7F);
 		}
 		else
@@ -703,6 +723,7 @@ public class EntityCowAngus extends EntityAnimal
 		}
 	}
 
+	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && this.isCowBreedingItem(stack.getItem());

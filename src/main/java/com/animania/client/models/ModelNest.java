@@ -1,7 +1,5 @@
 package com.animania.client.models;
 
-import com.animania.common.tileentities.TileEntityTrough;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -214,6 +212,7 @@ public class ModelNest extends ModelBase
 		
 	}
 
+	@Override
 	public void render(Entity entityIn, float nestType, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
@@ -302,6 +301,7 @@ public class ModelNest extends ModelBase
 		this.setRotationAngles(0.0F, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 	}
 
+	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
 	{
 

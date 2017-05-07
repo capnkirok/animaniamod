@@ -2,7 +2,6 @@ package com.animania.client.render.cows;
 
 import java.util.Random;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -15,7 +14,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelBull;
 import com.animania.common.entities.cows.EntityBullFriesian;
-import com.animania.common.entities.cows.EntityCowHereford;
 
 @SideOnly(Side.CLIENT)
 public class RenderBullFriesian extends RenderLiving
@@ -50,7 +48,8 @@ public class RenderBullFriesian extends RenderLiving
 		return cowTexturesBlink;
 	}
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity)
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity)
 	{
 		EntityBullFriesian entity = (EntityBullFriesian)par1Entity;
 

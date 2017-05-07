@@ -1,19 +1,17 @@
 package com.animania.client.models;
 
+import org.lwjgl.opengl.GL11;
+
+import com.animania.common.entities.cows.EntityBullHereford;
+import com.animania.config.AnimaniaConfig;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
 
-import org.lwjgl.opengl.GL11;
-
-import com.animania.Animania;
-import com.animania.common.entities.cows.EntityBullHereford;
-import com.animania.common.entities.cows.EntityBullLonghorn;
-
-public class ModelBullHereford extends ModelBase
-{
+public class ModelBullHereford extends ModelBase {
 	private float headRotationAngleX;
 	public ModelRenderer Head = new ModelRenderer(this, 0, 0);
 	ModelRenderer Body;
@@ -48,8 +46,7 @@ public class ModelBullHereford extends ModelBase
 	protected float field_78145_g = 8.0F;
 	protected float field_78151_h = 4.0F;
 
-	public ModelBullHereford()
-	{
+	public ModelBullHereford() {
 		Body = new ModelRenderer(this, 18, 4);
 		Body.setTextureSize(128, 64);
 		Body.addBox(-6F, -5F, -5F, 12, 10, 10);
@@ -85,14 +82,14 @@ public class ModelBullHereford extends ModelBase
 		TailHair1 = new ModelRenderer(this, 23, 52);
 		TailHair1.setTextureSize(128, 64);
 		TailHair1.addBox(-1F, 0F, -4F, 2, 0, 3);
-		//TailHair1.setRotationPoint(0F, 8.189776F, 10.64188F);
+		// TailHair1.setRotationPoint(0F, 8.189776F, 10.64188F);
 		TailHair1.setRotationPoint(0F, -.1F, -4.64188F);
 
 		TailHair2 = new ModelRenderer(this, 23, 52);
 		TailHair2.setTextureSize(128, 64);
 		TailHair2.addBox(-1F, 0F, -4F, 2, 0, 3);
 		TailHair2.setRotationPoint(2.010928E-07F, -.1F, -4.64188F);
-		//TailHair2.setRotationPoint(2.010928E-07F, 8.189775F, 10.64188F);
+		// TailHair2.setRotationPoint(2.010928E-07F, 8.189775F, 10.64188F);
 
 		Leg0 = new ModelRenderer(this, 0, 32);
 		Leg0.setTextureSize(128, 64);
@@ -119,7 +116,8 @@ public class ModelBullHereford extends ModelBase
 		Snout = new ModelRenderer(this, 49, 50);
 		Snout.setTextureSize(128, 64);
 		Snout.addBox(-2F, -2F, -1.5F, 4, 4, 3);
-		Snout.setRotationPoint(0F, 3F, -2.5F); // Snout.setRotationPoint( 0F, 8F, -15.5F );
+		Snout.setRotationPoint(0F, 3F, -2.5F); // Snout.setRotationPoint( 0F,
+												// 8F, -15.5F );
 
 		EarL = new ModelRenderer(this, 39, 53);
 		EarL.setTextureSize(128, 64);
@@ -129,74 +127,79 @@ public class ModelBullHereford extends ModelBase
 		EarLa = new ModelRenderer(this, 45, 50);
 		EarLa.setTextureSize(128, 64);
 		EarLa.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
-		EarLa.setRotationPoint(-4.5F, -.04F, 0.69718F); // EarLa.setRotationPoint( -4.5F, 4.969114F, -13.69718F );
+		EarLa.setRotationPoint(-4.5F, -.04F, 0.69718F); // EarLa.setRotationPoint(
+														// -4.5F, 4.969114F,
+														// -13.69718F );
 
 		EarR = new ModelRenderer(this, 39, 53);
 		EarR.setTextureSize(128, 64);
 		EarR.addBox(-1.5F, -1F, -0.5F, 3, 2, 1);
-		EarR.setRotationPoint(5.5F, -1.5F, 1F); // EarR.setRotationPoint( 5.5F, 3.5F, -14F );
+		EarR.setRotationPoint(5.5F, -1.5F, 1F); // EarR.setRotationPoint( 5.5F,
+												// 3.5F, -14F );
 
 		EarRa = new ModelRenderer(this, 41, 50);
 		EarRa.setTextureSize(128, 64);
 		EarRa.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
-		EarRa.setRotationPoint(4.5F, -.04F, 0.69718F); // EarRa.setRotationPoint( 4.5F, 4.969114F, -13.69718F );
+		EarRa.setRotationPoint(4.5F, -.04F, 0.69718F); // EarRa.setRotationPoint(
+														// 4.5F, 4.969114F,
+														// -13.69718F );
 
 		Ring = new ModelRenderer(this, 65, 53);
 		Ring.setTextureSize(128, 64);
 		Ring.addBox(-2F, -2F, -.1F, 4, 4, 0);
 		Ring.setRotationPoint(0.0F, 3F, -4.1F);
 
-		HeadTop = new ModelRenderer( this, 3, 3 ); //ALL NEW
-		HeadTop.setTextureSize( 128, 64 );
-		HeadTop.addBox( -3F, -1.5F, -1.5F, 6, 3, 3);
-		HeadTop.setRotationPoint( 0F, -4F, 0F ); //was -13
+		HeadTop = new ModelRenderer(this, 3, 3); // ALL NEW
+		HeadTop.setTextureSize(128, 64);
+		HeadTop.addBox(-3F, -1.5F, -1.5F, 6, 3, 3);
+		HeadTop.setRotationPoint(0F, -4F, 0F); // was -13
 
-		Horn1 = new ModelRenderer( this, 22, 0 );
-		Horn1.setTextureSize( 128, 64 );
-		Horn1.addBox( -2.5F, -1F, -1F, 5, 2, 2);
-		Horn1.setRotationPoint( 4.5F, -4F, -0F ); //Left Horn
+		Horn1 = new ModelRenderer(this, 22, 0);
+		Horn1.setTextureSize(128, 64);
+		Horn1.addBox(-2.5F, -1F, -1F, 5, 2, 2);
+		Horn1.setRotationPoint(4.5F, -4F, -0F); // Left Horn
 
-		Horn1A = new ModelRenderer( this, 22, 0 );
-		Horn1A.setTextureSize( 128, 64 );
-		Horn1A.addBox( -0.5F, -1F, -1F, 3, 2, 2);
-		Horn1A.setRotationPoint( 6.4F, -4F, 0F );
+		Horn1A = new ModelRenderer(this, 22, 0);
+		Horn1A.setTextureSize(128, 64);
+		Horn1A.addBox(-0.5F, -1F, -1F, 3, 2, 2);
+		Horn1A.setRotationPoint(6.4F, -4F, 0F);
 
-		Horn1B = new ModelRenderer( this, 46, 0 );
-		Horn1B.setTextureSize( 128, 64 );
-		Horn1B.addBox( -0.5F, -1F, -1F, 1, 2, 2);
-		Horn1B.setRotationPoint( 7.536851F, -2.98F, -2.04005F );
+		Horn1B = new ModelRenderer(this, 46, 0);
+		Horn1B.setTextureSize(128, 64);
+		Horn1B.addBox(-0.5F, -1F, -1F, 1, 2, 2);
+		Horn1B.setRotationPoint(7.536851F, -2.98F, -2.04005F);
 
-		Horn1C = new ModelRenderer( this, 52, 1 );
-		Horn1C.setTextureSize( 128, 64 );
-		Horn1C.addBox( -0.5F, -1F, -0.5F, 1, 2, 1);
-		Horn1C.setRotationPoint( 7.121497F, -2.96F, -3.41473F );
+		Horn1C = new ModelRenderer(this, 52, 1);
+		Horn1C.setTextureSize(128, 64);
+		Horn1C.addBox(-0.5F, -1F, -0.5F, 1, 2, 1);
+		Horn1C.setRotationPoint(7.121497F, -2.96F, -3.41473F);
 
-		Horn2 = new ModelRenderer( this, 22, 0 );
-		Horn2.setTextureSize( 128, 64 );
-		Horn2.addBox( -2.5F, -1F, -1F, 5, 2, 2);
-		Horn2.setRotationPoint( -4.5F, -4F, -0F );
+		Horn2 = new ModelRenderer(this, 22, 0);
+		Horn2.setTextureSize(128, 64);
+		Horn2.addBox(-2.5F, -1F, -1F, 5, 2, 2);
+		Horn2.setRotationPoint(-4.5F, -4F, -0F);
 
-		Horn1A1 = new ModelRenderer( this, 36, 0 );
-		Horn1A1.setTextureSize( 128, 64 );
-		Horn1A1.addBox( -0.5F, -1F, -1F, 3, 2, 2);
-		Horn1A1.setRotationPoint( -6.4F, -4F, 0F );
+		Horn1A1 = new ModelRenderer(this, 36, 0);
+		Horn1A1.setTextureSize(128, 64);
+		Horn1A1.addBox(-0.5F, -1F, -1F, 3, 2, 2);
+		Horn1A1.setRotationPoint(-6.4F, -4F, 0F);
 
-		Horn1B1 = new ModelRenderer( this, 46, 0 );
-		Horn1B1.setTextureSize( 128, 64 );
-		Horn1B1.addBox( -0.5F, -1F, -1F, 1, 2, 2);
-		Horn1B1.setRotationPoint( -7.406949F, -2.92F, -2.09309F );
+		Horn1B1 = new ModelRenderer(this, 46, 0);
+		Horn1B1.setTextureSize(128, 64);
+		Horn1B1.addBox(-0.5F, -1F, -1F, 1, 2, 2);
+		Horn1B1.setRotationPoint(-7.406949F, -2.92F, -2.09309F);
 
-		Horn1C1 = new ModelRenderer( this, 52, 1 );
-		Horn1C1.setTextureSize( 128, 64 );
-		Horn1C1.addBox( -0.5F, -1F, -0.5F, 1, 2, 1);
-		Horn1C1.setRotationPoint( -7.079102F, -2.93F, -3.48323F );
+		Horn1C1 = new ModelRenderer(this, 52, 1);
+		Horn1C1.setTextureSize(128, 64);
+		Horn1C1.addBox(-0.5F, -1F, -0.5F, 1, 2, 1);
+		Horn1C1.setRotationPoint(-7.079102F, -2.93F, -3.48323F);
 
 		this.Head.addChild(this.Snout);
 		this.Head.addChild(this.EarL);
 		this.Head.addChild(this.EarLa);
 		this.Head.addChild(this.EarR);
 		this.Head.addChild(this.EarRa);
-		//this.Head.addChild(this.Ring);
+		// this.Head.addChild(this.Ring);
 		this.Head.addChild(this.HeadTop);
 		this.Head.addChild(this.Horn1);
 		this.Head.addChild(this.Horn1A);
@@ -212,11 +215,11 @@ public class ModelBullHereford extends ModelBase
 
 	}
 
+	@Override
+	public void render(Entity p_78088_1_, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_,
+			float p_78088_6_, float p_78088_7_) {
 
-	public void render(Entity p_78088_1_, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_, float p_78088_7_)
-	{
-
-		//Body
+		// Body
 		Body.rotateAngleX = 1.570796F;
 		BodyHump.rotateAngleX = 1.570796F;
 		BodyHump2.rotateAngleX = 1.308997F;
@@ -231,7 +234,7 @@ public class ModelBullHereford extends ModelBase
 		EarR.rotateAngleX = 0.2032792F;
 		EarRa.rotateAngleX = 0.2032792F;
 
-		//Tail
+		// Tail
 		Tail.rotateAngleX = -2F;
 		Tail.rotateAngleY = -3.141593F;
 		Tail.rotateAngleZ = -3.141593F;
@@ -267,8 +270,7 @@ public class ModelBullHereford extends ModelBase
 
 		this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, p_78088_7_, p_78088_1_);
 
-		if (this.isChild)
-		{
+		if (this.isChild) {
 			float f6 = 2.0F;
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0.0F, this.field_78145_g * p_78088_7_, this.field_78151_h * p_78088_7_);
@@ -283,16 +285,14 @@ public class ModelBullHereford extends ModelBase
 			this.Leg2.render(p_78088_7_);
 			this.Leg3.render(p_78088_7_);
 			GL11.glPopMatrix();
-			//TODO add other child stuff
-		}
-		else
-		{
+			// TODO add other child stuff
+		} else {
 			this.Head.render(p_78088_7_);
 			this.Body.render(p_78088_7_);
 			this.BodyHump.render(p_78088_7_);
 			this.BodyHump2.render(p_78088_7_);
 
-			if (Animania.showParts) {
+			if (AnimaniaConfig.gameRules.showParts) {
 				this.sac.render(p_78088_7_);
 				this.penis.render(p_78088_7_);
 			}
@@ -307,45 +307,46 @@ public class ModelBullHereford extends ModelBase
 		}
 	}
 
-
 	@Override
-	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
-	{
+	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_,
+			float partialTickTime) {
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.Head.rotationPointY = 6.0F + ((EntityBullHereford)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-		this.headRotationAngleX = ((EntityBullHereford)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		this.Head.rotationPointY = 6.0F
+				+ ((EntityBullHereford) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
+		this.headRotationAngleX = ((EntityBullHereford) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
 
 	}
 
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7)
-	{
-		float f6 = (180F / (float)Math.PI);
+	@Override
+	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7) {
+		float f6 = (180F / (float) Math.PI);
 
 		if (par7 instanceof EntityBullHereford) {
 
-			EntityBullHereford eb = (EntityBullHereford)par7;
+			EntityBullHereford eb = (EntityBullHereford) par7;
 			if (eb.getFighting()) {
-				this.Head.rotationPointY = 14.0F + ((EntityBullHereford)par7).getHeadRotationPointY(1) * 9.0F;
-				this.headRotationAngleX = ((EntityBullHereford)par7).getHeadRotationAngleX(-3);
+				this.Head.rotationPointY = 14.0F + ((EntityBullHereford) par7).getHeadRotationPointY(1) * 9.0F;
+				this.headRotationAngleX = ((EntityBullHereford) par7).getHeadRotationAngleX(-3);
 			} else {
-				this.Head.rotateAngleX = par5 / (180F / (float)Math.PI);
-				this.Head.rotateAngleY = par4 / (180F / (float)Math.PI);
+				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
+				this.Head.rotateAngleY = par4 / (180F / (float) Math.PI);
 				this.Head.rotateAngleX = this.headRotationAngleX;
 			}
 
 		} else {
-			this.Head.rotateAngleX = par5 / (180F / (float)Math.PI);
-			this.Head.rotateAngleY = par4 / (180F / (float)Math.PI);
+			this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
+			this.Head.rotateAngleY = par4 / (180F / (float) Math.PI);
 			this.Head.rotateAngleX = this.headRotationAngleX;
 		}
 
-		this.TailTop.rotateAngleX = ((float)Math.PI / 2F);
-		this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		this.TailTop.rotateAngleX = ((float) Math.PI / 2F);
+		this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F)
+				* MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 
 		this.Leg0.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
-		this.Leg1.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.4F * par2;
-		this.Leg2.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.4F * par2;
+		this.Leg1.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
+		this.Leg2.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
 		this.Leg3.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
 	}
 }

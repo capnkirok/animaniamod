@@ -50,6 +50,10 @@ import net.minecraft.world.World;
 import com.animania.Animania;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
+import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
+import com.animania.common.entities.rodents.ai.EntityAITemptHamster;
+import com.animania.common.entities.rodents.ai.EntityAIWanderRodent;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 import com.google.common.reflect.ClassPath;
@@ -114,6 +118,7 @@ public class EntityHamster extends EntityTameable
 		this.blinkTimer = 70 + rand.nextInt(70);
 	}
 
+	@Override
 	protected void initEntityAI()
 	{
 
@@ -129,11 +134,13 @@ public class EntityHamster extends EntityTameable
 
 	}
 
+	@Override
 	protected void updateAITasks()
 	{
 		super.updateAITasks();
 	}
 
+	@Override
 	public int getVerticalFaceSpeed()
 	{
 		return this.isSitting() ? 20 : super.getVerticalFaceSpeed();
@@ -164,11 +171,13 @@ public class EntityHamster extends EntityTameable
 		this.world.setEntityState(this, (byte)18);
 	}
 
+	@Override
 	public void setPosition(double x, double y, double z){
 		super.setPosition(x, y, z);
 		//System.out.println(x + "-" + y + "-" + z);
 	}
 
+	@Override
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -249,7 +258,7 @@ public class EntityHamster extends EntityTameable
 	@Override
 	public double getYOffset()
 	{
-		return (double)yOffset;
+		return yOffset;
 	}
 
 
@@ -268,7 +277,7 @@ public class EntityHamster extends EntityTameable
 			}
 			else 
 			{
-				EntityLiving entityliving = (EntityLiving)this;
+				EntityLiving entityliving = this;
 				entityliving.setCustomNameTag(stack.getDisplayName());
 				entityliving.enablePersistence();
 				stack.setCount(stack.getCount()-1);
@@ -555,7 +564,7 @@ public class EntityHamster extends EntityTameable
 				this.limbSwingAmount = 1.5F;
 				boolean var3 = true;
 
-				if ((float)this.hurtResistantTime > (float)this.maxHurtResistantTime / 2.0F)
+				if (this.hurtResistantTime > this.maxHurtResistantTime / 2.0F)
 				{
 					if (par2 <= this.lastDamage)
 					{
@@ -626,7 +635,7 @@ public class EntityHamster extends EntityTameable
 					}
 					else
 					{
-						this.attackedAtYaw = (float)((int)(Math.random() * 2.0D) * 180);
+						this.attackedAtYaw = (int)(Math.random() * 2.0D) * 180;
 					}
 				}
 
@@ -673,11 +682,11 @@ public class EntityHamster extends EntityTameable
 			Random rand = new Random();
 			int bob2 = rand.nextInt(8) + 1;
 			this.setColorNumber(bob2);
-			resourceLocation = new ResourceLocation("animania:textures/entity/rodents/hamster_" + this.HAMSTER_TEXTURES[bob2-1] + ".png");
-			resourceLocationBlink = new ResourceLocation("animania:textures/entity/rodents/hamster_" + this.HAMSTER_TEXTURES[bob2-1] + "_blink.png");
+			resourceLocation = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2-1] + ".png");
+			resourceLocationBlink = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2-1] + "_blink.png");
 		} else if (resourceLocation == null) {
-			resourceLocation = new ResourceLocation("animania:textures/entity/rodents/hamster_" + this.HAMSTER_TEXTURES[this.getColorNumber()-1] + ".png");
-			resourceLocationBlink = new ResourceLocation("animania:textures/entity/rodents/hamster_" + this.HAMSTER_TEXTURES[this.getColorNumber()-1] + "_blink.png");
+			resourceLocation = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber()-1] + ".png");
+			resourceLocationBlink = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber()-1] + "_blink.png");
 		}
 
 
@@ -780,7 +789,7 @@ public class EntityHamster extends EntityTameable
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -794,7 +803,7 @@ public class EntityHamster extends EntityTameable
 					double d = rand.nextGaussian() * 0.02D;
 					double d1 = rand.nextGaussian() * 0.02D;
 					double d2 = rand.nextGaussian() * 0.02D;
-					world.spawnParticle(EnumParticleTypes.HEART, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.HEART, (posX + rand.nextFloat() * width) - width, posY + 1D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -803,7 +812,7 @@ public class EntityHamster extends EntityTameable
 
 	public boolean getFed()
 	{
-		return ((Boolean)this.dataManager.get(FED)).booleanValue();
+		return this.dataManager.get(FED).booleanValue();
 	}
 
 	public void setFed(boolean fed)
@@ -822,7 +831,7 @@ public class EntityHamster extends EntityTameable
 
 	public boolean getWatered()
 	{
-		return ((Boolean)this.dataManager.get(WATERED)).booleanValue();
+		return this.dataManager.get(WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered)
@@ -889,7 +898,7 @@ public class EntityHamster extends EntityTameable
 
 	public boolean isInBall()
 	{
-		return ((Boolean)this.dataManager.get(IN_BALL)).booleanValue();
+		return this.dataManager.get(IN_BALL).booleanValue();
 	}
 
 	public void setInBall(boolean ball)
@@ -906,7 +915,7 @@ public class EntityHamster extends EntityTameable
 
 	public int getBallColor()
 	{
-		return ((Integer)this.dataManager.get(BALL_COLOR)).intValue();
+		return this.dataManager.get(BALL_COLOR).intValue();
 	}
 
 	public void setBallColor(int color)
@@ -917,7 +926,7 @@ public class EntityHamster extends EntityTameable
 
 	public boolean isHamsterSitting()
 	{
-		return ((Boolean)this.dataManager.get(SITTING)).booleanValue();
+		return this.dataManager.get(SITTING).booleanValue();
 	}
 
 	public void setHamsterSitting(boolean flag)
@@ -954,7 +963,7 @@ public class EntityHamster extends EntityTameable
 
 	public boolean getIsTamed()
 	{
-		return ((Boolean)this.dataManager.get(TAMED)).booleanValue();
+		return this.dataManager.get(TAMED).booleanValue();
 	}
 
 	public void setIsTamed(boolean fed)
@@ -1026,7 +1035,7 @@ public class EntityHamster extends EntityTameable
 
 	public int getColorNumber()
 	{
-		return ((Integer)this.dataManager.get(COLOR_NUM)).intValue();
+		return this.dataManager.get(COLOR_NUM).intValue();
 	}
 
 	public void setColorNumber(int color)
@@ -1133,9 +1142,10 @@ public class EntityHamster extends EntityTameable
 	public double getMountedYOffset()
 	{
 
-		return (double)height;
+		return height;
 	}
 
+	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());
@@ -1169,6 +1179,7 @@ public class EntityHamster extends EntityTameable
 	}
 
 
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
@@ -1204,11 +1215,13 @@ public class EntityHamster extends EntityTameable
 
 	}
 
+	@Override
 	protected SoundEvent getHurtSound()
 	{
 		return ModSoundEvents.hamsterHurt1;
 	}
 
+	@Override
 	protected SoundEvent getDeathSound()
 	{
 		return null;
@@ -1226,6 +1239,7 @@ public class EntityHamster extends EntityTameable
 		}
 	}
 
+	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.8F);

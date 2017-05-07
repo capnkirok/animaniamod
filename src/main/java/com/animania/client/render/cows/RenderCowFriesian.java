@@ -14,7 +14,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.client.models.ModelCow;
 import com.animania.common.entities.cows.EntityCowFriesian;
-import com.animania.common.entities.cows.EntityCowHereford;
 
 @SideOnly(Side.CLIENT)
 public class RenderCowFriesian extends RenderLiving
@@ -49,6 +48,7 @@ public class RenderCowFriesian extends RenderLiving
         preRenderScale((EntityCowFriesian)entityliving, f);
     }  
     
+	@Override
 	protected ResourceLocation getEntityTexture(Entity par1Entity)
 	{
 		EntityCowFriesian entity = (EntityCowFriesian)par1Entity;

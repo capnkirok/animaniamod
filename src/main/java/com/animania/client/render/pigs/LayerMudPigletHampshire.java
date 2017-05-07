@@ -23,6 +23,7 @@ public class LayerMudPigletHampshire implements LayerRenderer<EntityPigletHampsh
 		this.pigRenderer = renderPigletHampshire;
 	}
 
+	@Override
 	public void doRenderLayer(EntityPigletHampshire entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
@@ -51,6 +52,7 @@ public class LayerMudPigletHampshire implements LayerRenderer<EntityPigletHampsh
 		}
 	}
 
+	@Override
 	public boolean shouldCombineTextures()
 	{
 		return true;

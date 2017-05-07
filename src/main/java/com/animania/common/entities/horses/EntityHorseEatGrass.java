@@ -33,6 +33,7 @@ public class EntityHorseEatGrass extends EntityAIBase
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
+	@Override
 	public boolean shouldExecute()
 	{
 
@@ -51,6 +52,7 @@ public class EntityHorseEatGrass extends EntityAIBase
 	/**
 	 * Execute a one shot task or start executing a continuous task
 	 */
+	@Override
 	public void startExecuting()
 	{
 		this.eatingGrassTimer = 100;
@@ -61,6 +63,7 @@ public class EntityHorseEatGrass extends EntityAIBase
 	/**
 	 * Resets the task
 	 */
+	@Override
 	public void resetTask()
 	{
 		this.eatingGrassTimer = 0;
@@ -69,6 +72,7 @@ public class EntityHorseEatGrass extends EntityAIBase
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
+	@Override
 	public boolean continueExecuting()
 	{
 
@@ -86,6 +90,7 @@ public class EntityHorseEatGrass extends EntityAIBase
 	/**
 	 * Updates the task
 	 */
+	@Override
 	public void updateTask()
 	{
 		this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);

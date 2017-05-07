@@ -1,16 +1,10 @@
 package com.animania.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
-
-import com.animania.Animania;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;
-import net.minecraftforge.fml.client.config.GuiConfig;
-import net.minecraftforge.fml.client.config.IConfigElement;
 
 public class GuiFactoryAnimania implements IModGuiFactory 
 {

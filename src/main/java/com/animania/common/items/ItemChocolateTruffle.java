@@ -22,17 +22,19 @@ public class ItemChocolateTruffle extends ItemFood {
 	public ItemChocolateTruffle() {
 		super (6, 6F, true); 
 		this.setAlwaysEdible();
-		this.setRegistryName(new ResourceLocation(Animania.modid, name));
+		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
-		setUnlocalizedName(Animania.modid + "_" + name);
+		setUnlocalizedName(Animania.MODID + "_" + name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 	}
 
 
+	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack) {
 		return EnumAction.EAT;
 	}
 
+	@Override
 	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
 		if (!worldObj.isRemote && Animania.foodsGiveBonusEffects)
 		{
@@ -50,7 +52,7 @@ public class ItemChocolateTruffle extends ItemFood {
 	{
 		if (Animania.foodsGiveBonusEffects) 
 			list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.chocolatetruffle"));
-		list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
 	}
 

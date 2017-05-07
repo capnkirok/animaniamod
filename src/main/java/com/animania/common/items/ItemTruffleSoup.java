@@ -29,18 +29,20 @@ public class ItemTruffleSoup extends ItemFood {
 	public ItemTruffleSoup() {
 		super (10, 10F, true); 
 		this.setAlwaysEdible();
-		this.setRegistryName(new ResourceLocation(Animania.modid, name));
+		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
-		setUnlocalizedName(Animania.modid + "_" + name);
+		setUnlocalizedName(Animania.MODID + "_" + name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setMaxStackSize(1);
 	}
 
 
+	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack) {
 		return EnumAction.EAT;
 	}
 
+	@Override
 	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
 		if (!worldObj.isRemote && Animania.foodsGiveBonusEffects)
 		{
@@ -48,6 +50,7 @@ public class ItemTruffleSoup extends ItemFood {
 		}
 	}
 
+	@Override
 	@Nullable
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
 	{
@@ -77,7 +80,7 @@ public class ItemTruffleSoup extends ItemFood {
 	{
 		if (Animania.foodsGiveBonusEffects) 
 			list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.regeneration"));
-			list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+			list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 		
 	}
 

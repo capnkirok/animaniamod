@@ -22,6 +22,7 @@ public class RenderPeafowlBlue extends RenderLiving<EntityPeafowlBlue>
 		super(rm, new ModelPeafowl(), 0.3F);
 	}
 
+	@Override
 	protected float handleRotationFloat(EntityPeafowlBlue livingBase, float partialTicks)
 	{
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
@@ -33,7 +34,7 @@ public class RenderPeafowlBlue extends RenderLiving<EntityPeafowlBlue>
 	@Override
     protected void preRenderCallback(EntityPeafowlBlue entityliving, float f)
     {
-        preRenderScale((EntityPeafowlBlue)entityliving, f);
+        preRenderScale(entityliving, f);
     }
 
 	protected void preRenderScale(EntityPeafowlBlue entity, float f)

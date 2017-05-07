@@ -1,9 +1,12 @@
 package com.animania.client.render.pigs;
 
-
 import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
+
+import com.animania.client.models.ModelPiglet;
+import com.animania.common.entities.pigs.EntityPigletLargeBlack;
+import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;
@@ -11,36 +14,28 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.animania.Animania;
-import com.animania.client.models.ModelPiglet;
-import com.animania.common.entities.pigs.EntityPigletLargeBlack;
-import com.animania.common.entities.pigs.EntityPigletYorkshire;
-
 @SideOnly(Side.CLIENT)
-public class RenderPigletLargeBlack extends RenderLiving
-{
-	private static final ResourceLocation PIG_TEXTURES = new ResourceLocation("animania:textures/entity/pigs/piglet_large_black.png");
-	private static final ResourceLocation PIG_TEXTURES_BLINK = new ResourceLocation("animania:textures/entity/pigs/piglet_large_black_blink.png");
-	
-	
-	public RenderPigletLargeBlack(RenderManager rm)
-	{
+public class RenderPigletLargeBlack extends RenderLiving {
+	private static final ResourceLocation PIG_TEXTURES = new ResourceLocation(
+			"animania:textures/entity/pigs/piglet_large_black.png");
+	private static final ResourceLocation PIG_TEXTURES_BLINK = new ResourceLocation(
+			"animania:textures/entity/pigs/piglet_large_black_blink.png");
+
+	public RenderPigletLargeBlack(RenderManager rm) {
 		super(rm, new ModelPiglet(), 0.3F);
 		this.addLayer(new LayerMudPigletLargeBlack(this));
 	}
 
-	protected void preRenderScale(EntityPigletLargeBlack entity, float f)
-	{
+	protected void preRenderScale(EntityPigletLargeBlack entity, float f) {
 
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.20F + age, 1.20F + age, 1.20F + age); 
-		
+		GL11.glScalef(1.20F + age, 1.20F + age, 1.20F + age);
+
 		double x = entity.posX;
 		double y = entity.posY;
 		double z = entity.posZ;
@@ -50,17 +45,17 @@ public class RenderPigletLargeBlack extends RenderLiving
 
 		Block blockchk = entity.world.getBlockState(pos).getBlock();
 
-		if (blockchk == Animania.blockMud  && !entity.getMuddy()) {
+		if (blockchk == BlockHandler.blockMud && !entity.getMuddy()) {
 			GlStateManager.translate(0.0F, entity.height - .50F + (age * .1F), 0.0F);
 			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
 			entity.setMuddy(true);
 			entity.setMudTimer(1.0F);
-			entity.setSplashTimer(1.0F); 
+			entity.setSplashTimer(1.0F);
 		} else if (entity.isWet() && entity.getMuddy()) {
 			entity.setMuddy(false);
 			entity.setMudTimer(0.0F);
 			entity.setSplashTimer(0.0F);
-		} else if (blockchk == Animania.blockMud)  {
+		} else if (blockchk == BlockHandler.blockMud) {
 			Float splashTimer = entity.getSplashTimer();
 			GlStateManager.translate(0.0F, entity.height - .50F + (age * .1F), 0.0F);
 			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
@@ -70,7 +65,7 @@ public class RenderPigletLargeBlack extends RenderLiving
 			if (splashTimer <= 0.0F) {
 				entity.setMuddy(true);
 				entity.setMudTimer(1.0F);
-			} 
+			}
 
 		} else if (entity.getMudTimer() > 0) {
 			entity.setMuddy(false);
@@ -81,18 +76,16 @@ public class RenderPigletLargeBlack extends RenderLiving
 			}
 		}
 
-
 	}
 
 	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f)
-	{
-		preRenderScale((EntityPigletLargeBlack)entityliving, f);
+	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
+		preRenderScale((EntityPigletLargeBlack) entityliving, f);
 	}
 
-	protected ResourceLocation getEntityTexture(Entity par1Entity)
-	{
-		EntityPigletLargeBlack entity = (EntityPigletLargeBlack)par1Entity; 
+	@Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
+		EntityPigletLargeBlack entity = (EntityPigletLargeBlack) par1Entity;
 
 		int blinkTimer = entity.blinkTimer;
 

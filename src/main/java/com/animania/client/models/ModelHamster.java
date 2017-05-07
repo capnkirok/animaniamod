@@ -47,7 +47,7 @@ public class ModelHamster extends ModelBase
         for(int i = 0; i < hamsterCheekRight.length; i++)
         {
             hamsterCheekRight[i] = new ModelRenderer(this, 10, 21);
-            hamsterCheekRight[i].addBox(-3.5F, 1.5F, -2.5F, 1, 1, 1, (float)i * 0.4F);
+            hamsterCheekRight[i].addBox(-3.5F, 1.5F, -2.5F, 1, 1, 1, i * 0.4F);
             hamsterCheekRight[i].setRotationPoint(0.0F, 16F, -2F);
         }
 
@@ -55,7 +55,7 @@ public class ModelHamster extends ModelBase
         for(int j = 0; j < hamsterCheekLeft.length; j++)
         {
             hamsterCheekLeft[j] = new ModelRenderer(this, 10, 24);
-            hamsterCheekLeft[j].addBox(2.5F, 1.5F, -2.5F, 1, 1, 1, (float)j * 0.4F);
+            hamsterCheekLeft[j].addBox(2.5F, 1.5F, -2.5F, 1, 1, 1, j * 0.4F);
             hamsterCheekLeft[j].setRotationPoint(0.0F, 16F, -2F);
         }
 
@@ -253,7 +253,7 @@ public class ModelHamster extends ModelBase
         }
         if(entityhamster.getIsTamed())
         {
-            float f3 = (float)entityhamster.ticksExisted + f2;
+            float f3 = entityhamster.ticksExisted + f2;
             hamsterTail.rotateAngleZ = MathHelper.sin(f3 * 3.141593F * 0.05F) * MathHelper.sin(f3 * 3.141593F * 11F * 0.05F) * 0.15F * 3.141593F;
         } else
         {

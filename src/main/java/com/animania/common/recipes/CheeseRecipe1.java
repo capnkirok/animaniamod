@@ -3,14 +3,14 @@ package com.animania.common.recipes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.animania.common.handler.ItemHandler;
+
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-
-import com.animania.Animania;
 
 public class CheeseRecipe1 implements IRecipe {
 
@@ -21,13 +21,12 @@ public class CheeseRecipe1 implements IRecipe {
 	private int moldSlotJ;
 	private int moldSlotI;
 	private ItemStack moldStack;
-	
-	public CheeseRecipe1()
-	{
-		this.recipeOutput = new ItemStack(Animania.cheeseWheelHolstein);
-		this.recipeItems.add(new ItemStack(Animania.cheeseMold));
-		this.recipeItems.add(new ItemStack(Animania.milkBucketHolstein));
-		
+
+	public CheeseRecipe1() {
+		this.recipeOutput = new ItemStack(ItemHandler.cheeseWheelHolstein);
+		this.recipeItems.add(new ItemStack(ItemHandler.cheeseMold));
+		this.recipeItems.add(new ItemStack(ItemHandler.milkBucketHolstein));
+
 	}
 
 	@Override
@@ -35,43 +34,37 @@ public class CheeseRecipe1 implements IRecipe {
 
 		ArrayList arraylist = new ArrayList(this.recipeItems);
 
-		for (int i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 3; ++j)
-			{
+		for (int i = 0; i < 3; ++i) {
+			for (int j = 0; j < 3; ++j) {
 				ItemStack itemstack = inv.getStackInRowAndColumn(j, i);
 
-				if (itemstack != ItemStack.EMPTY)
-				{
+				if (itemstack != ItemStack.EMPTY) {
 					boolean flag = false;
 					Iterator iterator = arraylist.iterator();
 
-					while (iterator.hasNext())
-					{
-						ItemStack itemstack1 = (ItemStack)iterator.next();
+					while (iterator.hasNext()) {
+						ItemStack itemstack1 = (ItemStack) iterator.next();
 
-						if (itemstack.getItem() == itemstack1.getItem())
-						{
+						if (itemstack.getItem() == itemstack1.getItem()) {
 							flag = true;
-							
-							if (itemstack.getItem() == Animania.milkBucketHolstein) {
+
+							if (itemstack.getItem() == ItemHandler.milkBucketHolstein) {
 								bucketSlotJ = j;
 								bucketSlotI = i;
 							}
-							
-							if (itemstack.getItem() == Animania.cheeseMold) {
+
+							if (itemstack.getItem() == ItemHandler.cheeseMold) {
 								moldSlotJ = j;
 								moldSlotI = i;
 								moldStack = itemstack.copy();
 							}
-							
+
 							arraylist.remove(itemstack1);
 							break;
 						}
 					}
 
-					if (!flag)
-					{
+					if (!flag) {
 						return false;
 					}
 				}
@@ -81,42 +74,34 @@ public class CheeseRecipe1 implements IRecipe {
 		return arraylist.isEmpty();
 	}
 
-	
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
-	{
-	   
+	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+
 		NonNullList<ItemStack> bob = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-		bob.set((bucketSlotJ + (bucketSlotI* (int)(Math.sqrt(inv.getSizeInventory())))), new ItemStack(Items.BUCKET));
+		bob.set((bucketSlotJ + (bucketSlotI * (int) (Math.sqrt(inv.getSizeInventory())))), new ItemStack(Items.BUCKET));
 		moldStack.setItemDamage(moldStack.getItemDamage() + 1);
-		
+
 		if (moldStack.getItemDamage() >= moldStack.getMaxDamage()) {
 			moldStack = ItemStack.EMPTY;
 		}
-		
-		bob.set((moldSlotJ + (moldSlotI* (int)(Math.sqrt(inv.getSizeInventory())))), moldStack);
-		
+
+		bob.set((moldSlotJ + (moldSlotI * (int) (Math.sqrt(inv.getSizeInventory())))), moldStack);
+
 		return bob;
 	}
-	
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting inv)
-	{
+	public ItemStack getCraftingResult(InventoryCrafting inv) {
 		return this.recipeOutput.copy();
 	}
 
 	@Override
-	public int getRecipeSize()
-	{
+	public int getRecipeSize() {
 		return this.recipeItems.size();
 	}
 
 	@Override
-	public ItemStack getRecipeOutput()
-	{		
+	public ItemStack getRecipeOutput() {
 		return ItemStack.EMPTY;
 	}
 }
-
-

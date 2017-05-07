@@ -6,15 +6,12 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.client.models.ModelCalf;
-import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.cows.EntityCalfAngus;
-import com.animania.common.entities.cows.EntityCowHereford;
 
 @SideOnly(Side.CLIENT)
 public class RenderCalfAngus extends RenderLiving<EntityCalfAngus>
@@ -41,7 +38,7 @@ public class RenderCalfAngus extends RenderLiving<EntityCalfAngus>
     @Override
 	protected void preRenderCallback(EntityCalfAngus entityliving, float f)
 	{
-		preRenderScale((EntityCalfAngus)entityliving, f);
+		preRenderScale(entityliving, f);
 	}
 
 	protected void preRenderScale(EntityCalfAngus entity, float f)
@@ -57,9 +54,10 @@ public class RenderCalfAngus extends RenderLiving<EntityCalfAngus>
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
+	@Override
 	protected ResourceLocation getEntityTexture(EntityCalfAngus par1Entity)
 	{
-		EntityCalfAngus entity = (EntityCalfAngus)par1Entity;
+		EntityCalfAngus entity = par1Entity;
 
 		int blinkTimer = entity.blinkTimer;
 

@@ -1,29 +1,24 @@
 package com.animania.common.creativeTab;
 
-import java.util.Random;
-
-import com.animania.Animania;
+import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 
-public final class TabAnimaniaEntities extends CreativeTabs
-{
-	public TabAnimaniaEntities(int par1, String par2Str)
-	{
+public final class TabAnimaniaEntities extends CreativeTabs {
+	public TabAnimaniaEntities(int par1, String par2Str) {
 		super(par1, par2Str);
 	}
 
-	public String getTranslatedTabLabel()
-	{
+	@Override
+	public String getTranslatedTabLabel() {
 		return I18n.translateToLocal("tab.animania_entities.label");
 	}
-	
-	
+
 	@Override
 	public ItemStack getTabIconItem() {
-		return new ItemStack(Animania.entityeggrandomchicken,1);
-	}	
+		return new ItemStack(ItemHandler.entityeggrandomchicken, 1);
+	}
 
 }

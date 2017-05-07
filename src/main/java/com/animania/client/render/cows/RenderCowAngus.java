@@ -14,7 +14,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCowAngus;
 import com.animania.common.entities.cows.EntityCowAngus;
-import com.animania.common.entities.cows.EntityCowHereford;
 
 @SideOnly(Side.CLIENT)
 public class RenderCowAngus extends RenderLiving
@@ -49,7 +48,8 @@ public class RenderCowAngus extends RenderLiving
         return cowTexturesBlink;
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity)
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity)
 	{
 		EntityCowAngus entity = (EntityCowAngus)par1Entity;
 

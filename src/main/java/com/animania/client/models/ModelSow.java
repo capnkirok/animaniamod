@@ -184,6 +184,7 @@ public class ModelSow extends ModelBase
 
 	}
 
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
@@ -229,6 +230,7 @@ public class ModelSow extends ModelBase
 
 	}
 
+	@Override
 	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity)
 	{
 

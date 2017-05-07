@@ -4,7 +4,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.tileentity.TileEntity;
@@ -38,6 +37,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 		sessionService = sessionServiceIn;
 	}
 
+	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		super.writeToNBT(compound);
@@ -45,6 +45,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 		return compound;
 	}
 
+	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
@@ -59,6 +60,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 		
 	}
 	
+	@Override
 	@Nullable
     public SPacketUpdateTileEntity getUpdatePacket()
     {
@@ -67,11 +69,13 @@ public class TileEntityNest extends TileEntity implements ITickable
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
     }
 
-    public NBTTagCompound getUpdateTag()
+    @Override
+	public NBTTagCompound getUpdateTag()
     {
         return this.writeToNBT(new NBTTagCompound());
     }
 	
+	@Override
 	public void update()
 	{
 
@@ -80,7 +84,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 	@SideOnly(Side.CLIENT)
 	public float getAnimationProgress(float p_184295_1_)
 	{
-		return this.dragonAnimated ? (float)this.dragonAnimatedTicks + p_184295_1_ : (float)this.dragonAnimatedTicks;
+		return this.dragonAnimated ? this.dragonAnimatedTicks + p_184295_1_ : (float)this.dragonAnimatedTicks;
 	}
 
 	@Nullable
@@ -114,7 +118,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 				}
 				else
 				{
-					Property property = (Property)Iterables.getFirst(gameprofile.getProperties().get("textures"), null);
+					Property property = Iterables.getFirst(gameprofile.getProperties().get("textures"), null);
 
 					if (property == null)
 					{

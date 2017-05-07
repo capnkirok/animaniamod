@@ -97,12 +97,13 @@ public class ItemEntityEgg extends Item {
 		this.maxStackSize = 64;
 		this.animalType = atype;
 		this.name = name + "_" + animalType;
-		this.setRegistryName(new ResourceLocation(Animania.modid, name));
+		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
-		setUnlocalizedName(Animania.modid + "_" + name);
+		setUnlocalizedName(Animania.MODID + "_" + name);
 	}
 
 
+	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
 		pos = pos.offset(facing);

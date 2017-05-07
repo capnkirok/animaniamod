@@ -22,6 +22,7 @@ public class RenderPeacockWhite extends RenderLiving<EntityPeacockWhite>
 		super(rm, new ModelPeacock(), 0.32F);
 	}
 
+	@Override
 	protected float handleRotationFloat(EntityPeacockWhite livingBase, float partialTicks)
 	{
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
@@ -32,7 +33,7 @@ public class RenderPeacockWhite extends RenderLiving<EntityPeacockWhite>
 	@Override
     protected void preRenderCallback(EntityPeacockWhite entityliving, float f)
     {
-        preRenderScale((EntityPeacockWhite)entityliving, f);
+        preRenderScale(entityliving, f);
     }
 
 	protected void preRenderScale(EntityPeacockWhite entity, float f)

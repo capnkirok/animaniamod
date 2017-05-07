@@ -23,18 +23,20 @@ public class ItemOmelette extends ItemFood {
 		super (5, 5F, true); 
 		this.setAlwaysEdible();
 		name = type + "_" + name;
-		this.setRegistryName(new ResourceLocation(Animania.modid, name));
+		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
-		setUnlocalizedName(Animania.modid + "_" + name);
+		setUnlocalizedName(Animania.MODID + "_" + name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setMaxStackSize(64);
 	}
 
 
+	@Override
 	public EnumAction getItemUseAction(ItemStack itemstack) {
 		return EnumAction.EAT;
 	}
 
+	@Override
 	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
 		if (!worldObj.isRemote && Animania.foodsGiveBonusEffects)
 		{
@@ -74,7 +76,7 @@ public class ItemOmelette extends ItemFood {
 
 		}
 		
-		list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
 	}
 

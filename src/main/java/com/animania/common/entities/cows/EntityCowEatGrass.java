@@ -1,5 +1,8 @@
 package com.animania.common.entities.cows;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
@@ -10,21 +13,17 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
-
-public class EntityCowEatGrass extends EntityAIBase
-{
-	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+public class EntityCowEatGrass extends EntityAIBase {
+	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS)
+			.where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	/** The entity owner of this AITask */
 	private final EntityLiving grassEaterEntity;
 	/** The world the grass eater entity is eating from */
 	private final World entityWorld;
 	/** Number of ticks since the entity started to eat grass */
-	int eatingGrassTimer;
+	public int eatingGrassTimer;
 
-	public EntityCowEatGrass(EntityLiving grassEaterEntityIn)
-	{
+	public EntityCowEatGrass(EntityLiving grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);
@@ -33,44 +32,42 @@ public class EntityCowEatGrass extends EntityAIBase
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
-	public boolean shouldExecute()
-	{
+	@Override
+	public boolean shouldExecute() {
 
-
-		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
-		{
+		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0) {
 			return false;
-		}
-		else
-		{
-			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
-			return IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true : (this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS);
+		} else {
+			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY,
+					this.grassEaterEntity.posZ);
+			return IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true
+					: (this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS);
 		}
 	}
 
 	/**
 	 * Execute a one shot task or start executing a continuous task
 	 */
-	public void startExecuting()
-	{
+	@Override
+	public void startExecuting() {
 		this.eatingGrassTimer = 100;
-		this.entityWorld.setEntityState(this.grassEaterEntity, (byte)10);
+		this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
 		this.grassEaterEntity.getNavigator().clearPathEntity();
 	}
 
 	/**
 	 * Resets the task
 	 */
-	public void resetTask()
-	{
+	@Override
+	public void resetTask() {
 		this.eatingGrassTimer = 0;
 	}
 
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
-	public boolean continueExecuting()
-	{
+	@Override
+	public boolean continueExecuting() {
 
 		return this.eatingGrassTimer > 0;
 	}
@@ -78,84 +75,81 @@ public class EntityCowEatGrass extends EntityAIBase
 	/**
 	 * Number of ticks since the entity started to eat grass
 	 */
-	public int getEatingGrassTimer()
-	{
+	public int getEatingGrassTimer() {
 		return this.eatingGrassTimer;
 	}
 
 	/**
 	 * Updates the task
 	 */
-	public void updateTask()
-	{
+	@Override
+	public void updateTask() {
 		this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);
 
-		if (this.eatingGrassTimer == 4)
-		{
-			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
+		if (this.eatingGrassTimer == 4) {
+			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY,
+					this.grassEaterEntity.posZ);
 
-			if (IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)))
-			{
-
+			if (IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos))) {
 
 				if (grassEaterEntity instanceof EntityCowHolstein) {
-					EntityCowHolstein ech = (EntityCowHolstein)grassEaterEntity;
+					EntityCowHolstein ech = (EntityCowHolstein) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityCowFriesian) {
-					EntityCowFriesian ech = (EntityCowFriesian)grassEaterEntity;
+					EntityCowFriesian ech = (EntityCowFriesian) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityCowHereford) {
-					EntityCowHereford ech = (EntityCowHereford)grassEaterEntity;
+					EntityCowHereford ech = (EntityCowHereford) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityCowLonghorn) {
-					EntityCowLonghorn ech = (EntityCowLonghorn)grassEaterEntity;
+					EntityCowLonghorn ech = (EntityCowLonghorn) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityCowAngus) {
-					EntityCowAngus ech = (EntityCowAngus)grassEaterEntity;
+					EntityCowAngus ech = (EntityCowAngus) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityBullHolstein) {
-					EntityBullHolstein ech = (EntityBullHolstein)grassEaterEntity;
+					EntityBullHolstein ech = (EntityBullHolstein) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityBullFriesian) {
-					EntityBullFriesian ech = (EntityBullFriesian)grassEaterEntity;
+					EntityBullFriesian ech = (EntityBullFriesian) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityBullHereford) {
-					EntityBullHereford ech = (EntityBullHereford)grassEaterEntity;
+					EntityBullHereford ech = (EntityBullHereford) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityBullLonghorn) {
-					EntityBullLonghorn ech = (EntityBullLonghorn)grassEaterEntity;
+					EntityBullLonghorn ech = (EntityBullLonghorn) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityBullAngus) {
-					EntityBullAngus ech = (EntityBullAngus)grassEaterEntity;
+					EntityBullAngus ech = (EntityBullAngus) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityCalfHolstein) {
-					EntityCalfHolstein ech = (EntityCalfHolstein)grassEaterEntity;
+					EntityCalfHolstein ech = (EntityCalfHolstein) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityCalfFriesian) {
-					EntityCalfFriesian ech = (EntityCalfFriesian)grassEaterEntity;
+					EntityCalfFriesian ech = (EntityCalfFriesian) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityCalfHereford) {
-					EntityCalfHereford ech = (EntityCalfHereford)grassEaterEntity;
+					EntityCalfHereford ech = (EntityCalfHereford) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityCalfLonghorn) {
-					EntityCalfLonghorn ech = (EntityCalfLonghorn)grassEaterEntity;
+					EntityCalfLonghorn ech = (EntityCalfLonghorn) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} else if (grassEaterEntity instanceof EntityCalfAngus) {
-					EntityCalfAngus ech = (EntityCalfAngus)grassEaterEntity;
+					EntityCalfAngus ech = (EntityCalfAngus) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				}
@@ -168,71 +162,69 @@ public class EntityCowEatGrass extends EntityAIBase
 			{
 				BlockPos blockpos1 = blockpos.down();
 
-				if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.GRASS)
-				{
+				if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.GRASS) {
 
 					this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
 					this.entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
 
-
 					if (grassEaterEntity instanceof EntityCowHolstein) {
-						EntityCowHolstein ech = (EntityCowHolstein)grassEaterEntity;
+						EntityCowHolstein ech = (EntityCowHolstein) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityCowFriesian) {
-						EntityCowFriesian ech = (EntityCowFriesian)grassEaterEntity;
+						EntityCowFriesian ech = (EntityCowFriesian) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityCowHereford) {
-						EntityCowHereford ech = (EntityCowHereford)grassEaterEntity;
+						EntityCowHereford ech = (EntityCowHereford) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityCowLonghorn) {
-						EntityCowLonghorn ech = (EntityCowLonghorn)grassEaterEntity;
+						EntityCowLonghorn ech = (EntityCowLonghorn) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityCowAngus) {
-						EntityCowAngus ech = (EntityCowAngus)grassEaterEntity;
+						EntityCowAngus ech = (EntityCowAngus) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityBullHolstein) {
-						EntityBullHolstein ech = (EntityBullHolstein)grassEaterEntity;
+						EntityBullHolstein ech = (EntityBullHolstein) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityBullFriesian) {
-						EntityBullFriesian ech = (EntityBullFriesian)grassEaterEntity;
+						EntityBullFriesian ech = (EntityBullFriesian) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityBullHereford) {
-						EntityBullHereford ech = (EntityBullHereford)grassEaterEntity;
+						EntityBullHereford ech = (EntityBullHereford) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityBullLonghorn) {
-						EntityBullLonghorn ech = (EntityBullLonghorn)grassEaterEntity;
+						EntityBullLonghorn ech = (EntityBullLonghorn) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityBullAngus) {
-						EntityBullAngus ech = (EntityBullAngus)grassEaterEntity;
+						EntityBullAngus ech = (EntityBullAngus) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityCalfHolstein) {
-						EntityCalfHolstein ech = (EntityCalfHolstein)grassEaterEntity;
+						EntityCalfHolstein ech = (EntityCalfHolstein) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityCalfFriesian) {
-						EntityCalfFriesian ech = (EntityCalfFriesian)grassEaterEntity;
+						EntityCalfFriesian ech = (EntityCalfFriesian) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityCalfHereford) {
-						EntityCalfHereford ech = (EntityCalfHereford)grassEaterEntity;
+						EntityCalfHereford ech = (EntityCalfHereford) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityCalfLonghorn) {
-						EntityCalfLonghorn ech = (EntityCalfLonghorn)grassEaterEntity;
+						EntityCalfLonghorn ech = (EntityCalfLonghorn) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} else if (grassEaterEntity instanceof EntityCalfAngus) {
-						EntityCalfAngus ech = (EntityCalfAngus)grassEaterEntity;
+						EntityCalfAngus ech = (EntityCalfAngus) grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					}

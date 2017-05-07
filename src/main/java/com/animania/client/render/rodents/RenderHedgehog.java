@@ -1,7 +1,6 @@
 package com.animania.client.render.rodents;
 
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
@@ -42,9 +41,10 @@ public class RenderHedgehog extends RenderLiving<EntityHedgehog>
 	@Override
 	protected void preRenderCallback(EntityHedgehog entityliving, float f)
 	{
-		preRenderScale((EntityHedgehog)entityliving, f);
+		preRenderScale(entityliving, f);
 	}
 
+	@Override
 	protected ResourceLocation getEntityTexture(EntityHedgehog entity)
 	{
 		if (entity.getCustomNameTag().equals("Sonic")) {
@@ -61,6 +61,7 @@ public class RenderHedgehog extends RenderLiving<EntityHedgehog>
 		}
 	}
 
+	@Override
 	public ModelHedgehog getMainModel()
 	{
 		return (ModelHedgehog)super.getMainModel();

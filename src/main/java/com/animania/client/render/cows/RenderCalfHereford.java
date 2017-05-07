@@ -6,16 +6,12 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.client.models.ModelCalf;
-import com.animania.common.entities.cows.EntityCalfFriesian;
 import com.animania.common.entities.cows.EntityCalfHereford;
-import com.animania.common.entities.cows.EntityCalfHolstein;
-import com.animania.common.entities.cows.EntityCowHereford;
 
 @SideOnly(Side.CLIENT)
 public class RenderCalfHereford extends RenderLiving<EntityCalfHereford>
@@ -42,7 +38,7 @@ public class RenderCalfHereford extends RenderLiving<EntityCalfHereford>
     @Override
 	protected void preRenderCallback(EntityCalfHereford entityliving, float f)
 	{
-		preRenderScale((EntityCalfHereford)entityliving, f);
+		preRenderScale(entityliving, f);
 	}
 
 	protected void preRenderScale(EntityCalfHereford entity, float f)
@@ -58,9 +54,10 @@ public class RenderCalfHereford extends RenderLiving<EntityCalfHereford>
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
+	@Override
 	protected ResourceLocation getEntityTexture(EntityCalfHereford par1Entity)
 	{
-		EntityCalfHereford entity = (EntityCalfHereford)par1Entity;
+		EntityCalfHereford entity = par1Entity;
 
 		int blinkTimer = entity.blinkTimer;
 

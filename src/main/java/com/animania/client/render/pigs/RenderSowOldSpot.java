@@ -1,7 +1,12 @@
 package com.animania.client.render.pigs;
 
-
 import java.util.Random;
+
+import org.lwjgl.opengl.GL11;
+
+import com.animania.client.models.ModelSow;
+import com.animania.common.entities.pigs.EntitySowOldSpot;
+import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;
@@ -9,35 +14,26 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import org.lwjgl.opengl.GL11;
-
-import com.animania.Animania;
-import com.animania.client.models.ModelSow;
-import com.animania.common.entities.pigs.EntityPigletDuroc;
-import com.animania.common.entities.pigs.EntitySowOldSpot;
-
 @SideOnly(Side.CLIENT)
-public class RenderSowOldSpot extends RenderLiving
-{
-	private static final ResourceLocation PIG_TEXTURES = new ResourceLocation("animania:textures/entity/pigs/sow_old_spot.png");
-	private static final ResourceLocation PIG_TEXTURES_BLINK = new ResourceLocation("animania:textures/entity/pigs/sow_old_spot_blink.png");
-	
-	public RenderSowOldSpot(RenderManager rm)
-	{
+public class RenderSowOldSpot extends RenderLiving {
+	private static final ResourceLocation PIG_TEXTURES = new ResourceLocation(
+			"animania:textures/entity/pigs/sow_old_spot.png");
+	private static final ResourceLocation PIG_TEXTURES_BLINK = new ResourceLocation(
+			"animania:textures/entity/pigs/sow_old_spot_blink.png");
+
+	public RenderSowOldSpot(RenderManager rm) {
 		super(rm, new ModelSow(), 0.5F);
 		this.addLayer(new LayerMudSowOldSpot(this));
 	}
 
-	protected void preRenderScale(EntitySowOldSpot entity, float f)
-	{
+	protected void preRenderScale(EntitySowOldSpot entity, float f) {
 
-		GL11.glScalef(1.12F, 1.12F, 1.12F); 
+		GL11.glScalef(1.12F, 1.12F, 1.12F);
 
 		double x = entity.posX;
 		double y = entity.posY;
@@ -48,17 +44,17 @@ public class RenderSowOldSpot extends RenderLiving
 
 		Block blockchk = entity.world.getBlockState(pos).getBlock();
 
-		if (blockchk == Animania.blockMud  && !entity.getMuddy()) {
+		if (blockchk == BlockHandler.blockMud && !entity.getMuddy()) {
 			GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
 			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
 			entity.setMuddy(true);
 			entity.setMudTimer(1.0F);
-			entity.setSplashTimer(1.0F); 
+			entity.setSplashTimer(1.0F);
 		} else if (entity.isWet() && entity.getMuddy()) {
 			entity.setMuddy(false);
 			entity.setMudTimer(0.0F);
 			entity.setSplashTimer(0.0F);
-		} else if (blockchk == Animania.blockMud)  {
+		} else if (blockchk == BlockHandler.blockMud) {
 			Float splashTimer = entity.getSplashTimer();
 			GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
 			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
@@ -68,7 +64,7 @@ public class RenderSowOldSpot extends RenderLiving
 			if (splashTimer <= 0.0F) {
 				entity.setMuddy(true);
 				entity.setMudTimer(1.0F);
-			} 
+			}
 
 		} else if (entity.getMudTimer() > 0) {
 			entity.setMuddy(false);
@@ -81,14 +77,13 @@ public class RenderSowOldSpot extends RenderLiving
 	}
 
 	@Override
-	protected void preRenderCallback(EntityLivingBase entityliving, float f)
-	{
-		preRenderScale((EntitySowOldSpot)entityliving, f);
+	protected void preRenderCallback(EntityLivingBase entityliving, float f) {
+		preRenderScale((EntitySowOldSpot) entityliving, f);
 	}
 
-	protected ResourceLocation getEntityTexture(Entity par1Entity)
-	{
-		EntitySowOldSpot entity = (EntitySowOldSpot)par1Entity; 
+	@Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity) {
+		EntitySowOldSpot entity = (EntitySowOldSpot) par1Entity;
 
 		int blinkTimer = entity.blinkTimer;
 

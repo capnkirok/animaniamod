@@ -23,6 +23,7 @@ public class LayerMudHogOldSpot implements LayerRenderer<EntityHogOldSpot>
 		this.pigRenderer = pigRendererIn;
 	}
 
+	@Override
 	public void doRenderLayer(EntityHogOldSpot entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
@@ -51,6 +52,7 @@ public class LayerMudHogOldSpot implements LayerRenderer<EntityHogOldSpot>
 		}
 	}
 
+	@Override
 	public boolean shouldCombineTextures()
 	{
 		return true;

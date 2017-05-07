@@ -49,6 +49,7 @@ public class RenderCowHereford extends RenderLiving
 		return cowTexturesBlink;
 	}
 
+	@Override
 	protected ResourceLocation getEntityTexture(Entity par1Entity)
 	{
 		EntityCowHereford entity = (EntityCowHereford)par1Entity;

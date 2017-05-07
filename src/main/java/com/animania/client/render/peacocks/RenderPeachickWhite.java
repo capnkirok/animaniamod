@@ -22,6 +22,7 @@ public class RenderPeachickWhite extends RenderLiving<EntityPeachickWhite>
 		super(rm, new ModelPeachick(), 0.15F);
 	}
 
+	@Override
 	protected float handleRotationFloat(EntityPeachickWhite livingBase, float partialTicks)
 	{
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
@@ -33,7 +34,7 @@ public class RenderPeachickWhite extends RenderLiving<EntityPeachickWhite>
 	@Override
     protected void preRenderCallback(EntityPeachickWhite entityliving, float f)
     {
-        preRenderScale((EntityPeachickWhite)entityliving, f);
+        preRenderScale(entityliving, f);
     }
 
 	protected void preRenderScale(EntityPeachickWhite entity, float f)

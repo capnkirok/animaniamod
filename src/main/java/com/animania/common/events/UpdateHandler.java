@@ -16,7 +16,7 @@ import com.animania.Animania;
 
 public class UpdateHandler {
 
-	private static String currentVersion = Animania.version;
+	private static String currentVersion = Animania.VERSION;
 	private static String newestVersion;
 	public static String updateStatus = "NULL";
 	public static boolean show = false;

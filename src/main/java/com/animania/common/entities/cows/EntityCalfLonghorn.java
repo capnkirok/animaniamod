@@ -41,6 +41,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.animania.Animania;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.ai.EntityAIFindFood;
+import com.animania.common.entities.cows.ai.EntityAIFindWater;
+import com.animania.common.entities.cows.ai.EntityAIFollowParentCows;
+import com.animania.common.entities.cows.ai.EntityAIPanicCows;
+import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
+import com.animania.common.entities.cows.ai.EntityAIWanderCow;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
@@ -105,6 +111,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 	public EntityCowEatGrass entityAIEatGrass;
 	private int damageTimer;
 
+	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
@@ -114,6 +121,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 		this.dataManager.register(PARENT_UNIQUE_ID, Optional.<UUID>absent());
 	}
 	
+	@Override
 	protected void applyEntityAttributes()
 	{
 		
@@ -144,12 +152,14 @@ public class EntityCalfLonghorn extends EntityAnimal
         this.world.setEntityState(this, (byte)18);
     }
 
+	@Override
 	protected void updateAITasks()
 	{
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
 		super.updateAITasks();
 	}
 	
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
@@ -165,6 +175,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 	}
 
 
+	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
@@ -202,7 +213,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 
 	public boolean getFed()
 	{
-		return ((Boolean)this.dataManager.get(FED)).booleanValue();
+		return this.dataManager.get(FED).booleanValue();
 	}
 
 	public void setFed(boolean fed)
@@ -221,7 +232,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 
 	public boolean getWatered()
 	{
-		return ((Boolean)this.dataManager.get(WATERED)).booleanValue();
+		return this.dataManager.get(WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered)
@@ -239,7 +250,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 	
 	public float getEntityAge()
 	{
-		return ((Float)this.dataManager.get(AGE)).floatValue();
+		return this.dataManager.get(AGE).floatValue();
 	}
 
 	public void setEntityAge(float age)
@@ -247,6 +258,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 		this.dataManager.set(AGE, Float.valueOf(age));
 	}
 	
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
@@ -281,6 +293,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 		}
 	}
 
+	@Override
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
@@ -295,6 +308,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 		}
 	}
 
+	@Override
 	protected SoundEvent getDeathSound()
 	{
 		Random rand = new Random();
@@ -321,6 +335,7 @@ public class EntityCalfLonghorn extends EntityAnimal
     }
 
 
+	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_COW_STEP, 0.5F, 1.2F);
@@ -329,16 +344,19 @@ public class EntityCalfLonghorn extends EntityAnimal
 	/**
 	 * Returns the volume for the sounds this mob makes.
 	 */
+	@Override
 	protected float getSoundVolume()
 	{
 		return 0.4F;
 	}
 
+	@Override
 	protected Item getDropItem()
 	{
 		return null;
 	}
 
+	@Override
 	public void onLivingUpdate()
     {
         if (this.world.isRemote)
@@ -435,7 +453,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -476,6 +494,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 		}
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
     public void handleStatusUpdate(byte id)
     {
@@ -492,7 +511,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
-		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 160) - p_70894_1_) / 4.0F));
+		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -500,7 +519,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 	{
 		if (this.eatTimer > 4 && this.eatTimer <= 156)
 		{
-			float f = ((float)(this.eatTimer - 4) - p_70890_1_) / 64.0F;
+			float f = (this.eatTimer - 4 - p_70890_1_) / 64.0F;
 			return ((float)Math.PI / 5F) + ((float)Math.PI * 7F / 100F) * MathHelper.sin(f * 28.7F);
 		}
 		else
@@ -509,6 +528,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 		}
 	}
 
+	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && this.isCowBreedingItem(stack.getItem());
@@ -520,6 +540,7 @@ public class EntityCalfLonghorn extends EntityAnimal
 	}
 
 	
+	@Override
 	public EntityCalfLonghorn createChild(EntityAgeable p_90011_1_)
 	{
 		return null;

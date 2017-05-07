@@ -1,7 +1,5 @@
 package com.animania.client.models;
 
-import java.util.Random;
-
 import com.animania.common.entities.chickens.EntityRoosterLeghorn;
 import com.animania.common.entities.chickens.EntityRoosterOrpington;
 import com.animania.common.entities.chickens.EntityRoosterPlymouthRock;
@@ -217,6 +215,7 @@ public class ModelRooster extends ModelBase
 
 	}
 
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
@@ -249,6 +248,7 @@ public class ModelRooster extends ModelBase
 
 	}
 
+	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
 	{
 

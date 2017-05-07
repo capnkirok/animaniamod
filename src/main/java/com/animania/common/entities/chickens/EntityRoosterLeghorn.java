@@ -46,6 +46,12 @@ import net.minecraft.world.World;
 import com.animania.Animania;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.chickens.ai.EntityAIFindFood;
+import com.animania.common.entities.chickens.ai.EntityAIFindWater;
+import com.animania.common.entities.chickens.ai.EntityAIPanicChickens;
+import com.animania.common.entities.chickens.ai.EntityAISwimmingChickens;
+import com.animania.common.entities.chickens.ai.EntityAIWanderChickens;
+import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.entities.rodents.EntityFerretGrey;
 import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHedgehog;
@@ -181,7 +187,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 	
 	public String getColor()
 	{
-		return ((String)this.dataManager.get(COLOR));
+		return (this.dataManager.get(COLOR));
 	}
 	public void setColor(String color)
 	{
@@ -228,6 +234,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 		}
 	}
 
+	@Override
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -289,12 +296,13 @@ public class EntityRoosterLeghorn extends EntityAnimal
 
 	}
 
+	@Override
 	public void onLivingUpdate()
 	{
 		super.onLivingUpdate();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
-		this.destPos = (float)((double)this.destPos + (double)(this.onGround ? -1 : 4) * 0.3D);
+		this.destPos = (float)(this.destPos + (this.onGround ? -1 : 4) * 0.3D);
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 		
 		this.fallDistance = 0;
@@ -304,7 +312,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 			this.wingRotDelta = 1.0F;
 		}
 
-		this.wingRotDelta = (float)((double)this.wingRotDelta * 0.9D);
+		this.wingRotDelta = (float)(this.wingRotDelta * 0.9D);
 
 		if (!this.onGround && this.motionY < 0.0D)
 		{
@@ -400,7 +408,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -410,7 +418,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 	
 	public boolean getFed()
 	{
-		return ((Boolean)this.dataManager.get(FED)).booleanValue();
+		return this.dataManager.get(FED).booleanValue();
 	}
 
 	public void setFed(boolean fed)
@@ -429,7 +437,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 	
 	public boolean getWatered()
 	{
-		return ((Boolean)this.dataManager.get(WATERED)).booleanValue();
+		return this.dataManager.get(WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered)
@@ -447,7 +455,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 
 	public int getCrowDuration()
 	{
-		return ((int)this.dataManager.get(CROWDURATION).intValue());
+		return (this.dataManager.get(CROWDURATION).intValue());
 	}
 
 	public void setCrowDuration(int duration)
@@ -457,7 +465,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 
 	public int getTimeUntilNextCrow()
 	{
-		return ((int)this.dataManager.get(CROWTIMER).intValue());
+		return (this.dataManager.get(CROWTIMER).intValue());
 	}
 
 	public void setTimeUntilNextCrow(int timer)
@@ -474,6 +482,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 	/**
 	 * Returns the sound this mob makes while it's alive.
 	 */
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
@@ -512,6 +521,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 		}
 	}
 
+	@Override
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
@@ -524,6 +534,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
 		}
 	}
 
+	@Override
 	protected SoundEvent getDeathSound()
 	{
 		Random rand = new Random();
@@ -547,11 +558,13 @@ public class EntityRoosterLeghorn extends EntityAnimal
         }
     }
 
+	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
 	}
 
+	@Override
 	protected Item getDropItem()
 	{
 		return Items.FEATHER;
@@ -591,7 +604,8 @@ public class EntityRoosterLeghorn extends EntityAnimal
 		}
 	}
 
-	 public boolean isBreedingItem(@Nullable ItemStack stack)
+	 @Override
+	public boolean isBreedingItem(@Nullable ItemStack stack)
 	 {
 		 return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());
 	 }
@@ -599,24 +613,27 @@ public class EntityRoosterLeghorn extends EntityAnimal
 	 /**
 	  * Get the experience points the entity currently has.
 	  */
-	 protected int getExperiencePoints(EntityPlayer player)
+	 @Override
+	protected int getExperiencePoints(EntityPlayer player)
 	 {
 		 return this.isChickenJockey() ? 10 : super.getExperiencePoints(player);
 	 }
 
-	 protected boolean canDespawn()
+	 @Override
+	protected boolean canDespawn()
 	 {
 		 return false;
 	 }
 
-	 public void updatePassenger(Entity passenger)
+	 @Override
+	public void updatePassenger(Entity passenger)
 	 {
 		 super.updatePassenger(passenger);
 		 float f = MathHelper.sin(this.renderYawOffset * 0.017453292F);
 		 float f1 = MathHelper.cos(this.renderYawOffset * 0.017453292F);
 		 float f2 = 0.1F;
 		 float f3 = 0.0F;
-		 passenger.setPosition(this.posX + (double)(0.1F * f), this.posY + (double)(this.height * 0.5F) + passenger.getYOffset() + 0.0D, this.posZ - (double)(0.1F * f1));
+		 passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.posZ - 0.1F * f1);
 
 		 if (passenger instanceof EntityLivingBase)
 		 {

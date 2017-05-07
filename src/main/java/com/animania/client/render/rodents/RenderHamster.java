@@ -2,14 +2,11 @@ package com.animania.client.render.rodents;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHamster;
-import com.animania.common.entities.cows.EntityBullHereford;
-import com.animania.common.entities.pigs.EntityHogOldSpot;
 import com.animania.common.entities.rodents.EntityHamster;
 
 public class RenderHamster extends RenderLiving<EntityHamster>
@@ -34,13 +31,13 @@ public class RenderHamster extends RenderLiving<EntityHamster>
 	@Override
 	protected void preRenderCallback(EntityHamster entityliving, float f)
 	{
-		preRenderScale((EntityHamster)entityliving, f);
+		preRenderScale(entityliving, f);
 	}
 	
 	@Override
     protected ResourceLocation getEntityTexture(EntityHamster entity) {
   	
-		EntityHamster entityHamster = (EntityHamster) entity;
+		EntityHamster entityHamster = entity;
     	
 		int blinkTimer = entity.blinkTimer;
 

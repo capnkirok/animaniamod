@@ -1,19 +1,12 @@
 package com.animania.client.render.tileEntity;
 
-import java.util.Map;
-import java.util.UUID;
-
 import javax.annotation.Nullable;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelDragonHead;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -22,8 +15,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.animania.client.models.ModelTrough;
 import com.animania.common.tileentities.TileEntityTrough;
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEntityTrough>
@@ -32,13 +23,15 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 	public static TileEntityTroughRenderer instance;
 	private final ModelTrough trough = new ModelTrough();
 
+	@Override
 	public void renderTileEntityAt(TileEntityTrough te, double x, double y, double z, float partialTicks, int destroyStage)
 	{
 		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
 		float f = te.getAnimationProgress(partialTicks);
-		this.renderTrough((float)x, (float)y, (float)z, enumfacing, (float)(te.getTroughRotation() * 360) / 16.0F, te.getTroughType(), te.getPlayerProfile(), destroyStage, f);
+		this.renderTrough((float)x, (float)y, (float)z, enumfacing, te.getTroughRotation() * 360 / 16.0F, te.getTroughType(), te.getPlayerProfile(), destroyStage, f);
 	}
 
+	@Override
 	public void setRendererDispatcher(TileEntityRendererDispatcher rendererDispatcherIn)
 	{
 		super.setRendererDispatcher(rendererDispatcherIn);

@@ -44,6 +44,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.animania.Animania;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.pigs.ai.EntityAIFindFood;
+import com.animania.common.entities.pigs.ai.EntityAIFindMud;
+import com.animania.common.entities.pigs.ai.EntityAIFindWater;
+import com.animania.common.entities.pigs.ai.EntityAIFollowMatePigs;
+import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
+import com.animania.common.entities.pigs.ai.EntityAIPanicPigs;
+import com.animania.common.entities.pigs.ai.EntityAISwimmingPigs;
+import com.animania.common.entities.pigs.ai.EntityAIWanderPig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
@@ -79,7 +87,8 @@ public class EntityHogLargeWhite extends EntityAnimal
 		this.blinkTimer = 80 + rand.nextInt(80);
     }
 
-    protected void initEntityAI()
+    @Override
+	protected void initEntityAI()
     {
     	this.entityAIEatGrass = new EntityPigSnuffle(this);
 		this.tasks.addTask(0, new EntityAISwimmingPigs(this));
@@ -98,7 +107,8 @@ public class EntityHogLargeWhite extends EntityAnimal
 		
     }
 
-    protected void applyEntityAttributes()
+    @Override
+	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
@@ -149,6 +159,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 	public EntityPigSnuffle entityAIEatGrass;
 	private int damageTimer;
 	
+	@Override
 	protected void updateAITasks()
 	{
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
@@ -159,7 +170,8 @@ public class EntityHogLargeWhite extends EntityAnimal
      * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
      * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
      */
-    @Nullable
+    @Override
+	@Nullable
     public Entity getControllingPassenger()
     {
         return this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
@@ -169,7 +181,8 @@ public class EntityHogLargeWhite extends EntityAnimal
      * returns true if all the conditions for steering the entity are met. For pigs, this is true if it is being ridden
      * by a player and the player is holding a carrot-on-a-stick
      */
-    public boolean canBeSteered()
+    @Override
+	public boolean canBeSteered()
     {
         Entity entity = this.getControllingPassenger();
 
@@ -194,7 +207,8 @@ public class EntityHogLargeWhite extends EntityAnimal
         }
     }
 
-    protected void entityInit()
+    @Override
+	protected void entityInit()
 	{
 		super.entityInit();
 		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
@@ -207,6 +221,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 		this.dataManager.register(PLAYED, Boolean.valueOf(true));
 	}
 
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
@@ -224,6 +239,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 	}
 
 	
+	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
@@ -261,6 +277,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 	}
 
 
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
@@ -307,6 +324,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 	}
 
 
+	@Override
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
@@ -321,6 +339,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 		}
 	}
 
+	@Override
 	protected SoundEvent getDeathSound()
 	{
 		Random rand = new Random();
@@ -349,6 +368,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 
 
 
+	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.10F, 0.8F);
@@ -385,7 +405,8 @@ public class EntityHogLargeWhite extends EntityAnimal
 	}
 
     
-    protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
+    @Override
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
     {
         super.dropEquipment(wasRecentlyHit, lootingModifier);
 
@@ -442,7 +463,7 @@ public class EntityHogLargeWhite extends EntityAnimal
    
     public boolean getSaddled()
     {
-        return ((Boolean)this.dataManager.get(SADDLED)).booleanValue();
+        return this.dataManager.get(SADDLED).booleanValue();
     }
 
     /**
@@ -462,7 +483,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 
     public boolean getFed()
 	{
-		return ((Boolean)this.dataManager.get(FED)).booleanValue();
+		return this.dataManager.get(FED).booleanValue();
 	}
 
 	public void setFed(boolean fed)
@@ -494,7 +515,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 
 	public boolean getPlayed()
 	{
-		return ((Boolean)this.dataManager.get(PLAYED)).booleanValue();
+		return this.dataManager.get(PLAYED).booleanValue();
 	}
 
 	public void setPlayed(boolean played)
@@ -512,7 +533,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 
 	public boolean getWatered()
 	{
-		return ((Boolean)this.dataManager.get(WATERED)).booleanValue();
+		return this.dataManager.get(WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered)
@@ -531,7 +552,7 @@ public class EntityHogLargeWhite extends EntityAnimal
     
     public boolean getMuddy()
 	 {
-		 return ((Boolean)this.dataManager.get(MUDDY)).booleanValue();
+		 return this.dataManager.get(MUDDY).booleanValue();
 	 }
 
 	 public void setMuddy(boolean muddy)
@@ -548,7 +569,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 
 	 public Float getMudTimer()
 	 {
-		 return ((Float)this.dataManager.get(MUDTIMER)).floatValue();
+		 return this.dataManager.get(MUDTIMER).floatValue();
 	 }
 
 	 public void setMudTimer(Float timer)
@@ -558,7 +579,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 
 	 public Float getSplashTimer()
 	 {
-		 return ((Float)this.dataManager.get(SPLASHTIMER)).floatValue();
+		 return this.dataManager.get(SPLASHTIMER).floatValue();
 	 }
 
 	 public void setSplashTimer(Float timer)
@@ -569,7 +590,8 @@ public class EntityHogLargeWhite extends EntityAnimal
     /**
      * Called when a lightning bolt hits the entity.
      */
-    public void onStruckByLightning(EntityLightningBolt lightningBolt)
+    @Override
+	public void onStruckByLightning(EntityLightningBolt lightningBolt)
     {
         if (!this.world.isRemote && !this.isDead)
         {
@@ -589,7 +611,8 @@ public class EntityHogLargeWhite extends EntityAnimal
         }
     }
 
-    public void fall(float distance, float damageMultiplier)
+    @Override
+	public void fall(float distance, float damageMultiplier)
     {
         super.fall(distance, damageMultiplier);
 
@@ -605,7 +628,8 @@ public class EntityHogLargeWhite extends EntityAnimal
     /**
      * Moves the entity based on the specified heading.
      */
-    public void moveEntityWithHeading(float strafe, float forward)
+    @Override
+	public void moveEntityWithHeading(float strafe, float forward)
     {
         Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
 
@@ -749,7 +773,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 					double d = rand.nextGaussian() * 0.02D;
 					double d1 = rand.nextGaussian() * 0.02D;
 					double d2 = rand.nextGaussian() * 0.02D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -773,7 +797,8 @@ public class EntityHogLargeWhite extends EntityAnimal
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
 		if (id == 10)
@@ -789,7 +814,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
-		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F : (this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 80) - p_70894_1_) / 4.0F));
+		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F : (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 80 - p_70894_1_) / 4.0F));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -797,7 +822,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 	{
 		if (this.eatTimer > 4 && this.eatTimer <= 76)
 		{
-			float f = ((float)(this.eatTimer - 4) - p_70890_1_) / 24.0F;
+			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
 			return ((float)Math.PI / 5F) + ((float)Math.PI * 7F / 150F) * MathHelper.sin(f * 28.7F); 
 		}
 		else
@@ -808,7 +833,8 @@ public class EntityHogLargeWhite extends EntityAnimal
 	
 
     
-    public EntityHogLargeWhite createChild(EntityAgeable ageable)
+    @Override
+	public EntityHogLargeWhite createChild(EntityAgeable ageable)
     {
         return null;
     }
@@ -817,7 +843,8 @@ public class EntityHogLargeWhite extends EntityAnimal
      * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
      * the animal type)
      */
-    public boolean isBreedingItem(@Nullable ItemStack stack)
+    @Override
+	public boolean isBreedingItem(@Nullable ItemStack stack)
     {
         return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());
     }

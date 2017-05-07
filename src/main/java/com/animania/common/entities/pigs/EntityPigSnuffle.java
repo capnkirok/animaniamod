@@ -39,6 +39,7 @@ public class EntityPigSnuffle extends EntityAIBase
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
+	@Override
 	public boolean shouldExecute()
 	{
 		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
@@ -55,6 +56,7 @@ public class EntityPigSnuffle extends EntityAIBase
 	/**
 	 * Execute a one shot task or start executing a continuous task
 	 */
+	@Override
 	public void startExecuting()
 	{
 		this.eatingGrassTimer = 160;
@@ -65,6 +67,7 @@ public class EntityPigSnuffle extends EntityAIBase
 	/**
 	 * Resets the task
 	 */
+	@Override
 	public void resetTask()
 	{
 		this.eatingGrassTimer = 0;
@@ -73,6 +76,7 @@ public class EntityPigSnuffle extends EntityAIBase
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
+	@Override
 	public boolean continueExecuting()
 	{
 		return this.eatingGrassTimer > 0;
@@ -89,6 +93,7 @@ public class EntityPigSnuffle extends EntityAIBase
 	/**
 	 * Updates the task
 	 */
+	@Override
 	public void updateTask()
 	{
 		this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);

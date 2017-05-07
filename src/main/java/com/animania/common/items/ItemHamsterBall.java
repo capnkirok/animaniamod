@@ -1,11 +1,6 @@
 package com.animania.common.items;
 
-import java.awt.Color;
-
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
 import com.animania.Animania;
 
 public class ItemHamsterBall extends Item {

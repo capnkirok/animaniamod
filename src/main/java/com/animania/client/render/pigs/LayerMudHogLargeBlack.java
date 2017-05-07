@@ -23,6 +23,7 @@ public class LayerMudHogLargeBlack implements LayerRenderer<EntityHogLargeBlack>
 		this.pigRenderer = pigRendererIn;
 	}
 
+	@Override
 	public void doRenderLayer(EntityHogLargeBlack entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
@@ -51,6 +52,7 @@ public class LayerMudHogLargeBlack implements LayerRenderer<EntityHogLargeBlack>
 		}
 	}
 
+	@Override
 	public boolean shouldCombineTextures()
 	{
 		return true;

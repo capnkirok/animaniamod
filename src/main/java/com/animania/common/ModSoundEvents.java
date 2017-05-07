@@ -239,7 +239,7 @@ public class ModSoundEvents {
 	}
 
 	private static SoundEvent registerSound(String soundName) {
-		final ResourceLocation soundID = new ResourceLocation(Animania.modid, soundName);
+		final ResourceLocation soundID = new ResourceLocation(Animania.MODID, soundName);
 		return GameRegistry.register(new SoundEvent(soundID).setRegistryName(soundID));
 	}
 

@@ -40,7 +40,8 @@ public class RenderStallionDraftHorse extends RenderLiving
         return horseTextures;
     }
    
-    protected ResourceLocation getEntityTexture(Entity par1Entity)
+    @Override
+	protected ResourceLocation getEntityTexture(Entity par1Entity)
     {
         return this.getHorseTextures((EntityStallionDraftHorse)par1Entity);
     }

@@ -8,7 +8,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.client.models.ModelHog;
 import com.animania.client.models.ModelHogHampshire;
 import com.animania.common.entities.pigs.EntityHogHampshire;
 
@@ -24,6 +23,7 @@ public class LayerMudHogHampshire implements LayerRenderer<EntityHogHampshire>
 		this.pigRenderer = pigRendererIn;
 	}
 
+	@Override
 	public void doRenderLayer(EntityHogHampshire entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
@@ -52,6 +52,7 @@ public class LayerMudHogHampshire implements LayerRenderer<EntityHogHampshire>
 		}
 	}
 
+	@Override
 	public boolean shouldCombineTextures()
 	{
 		return true;

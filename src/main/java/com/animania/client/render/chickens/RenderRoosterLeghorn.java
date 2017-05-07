@@ -22,6 +22,7 @@ public class RenderRoosterLeghorn extends RenderLiving<EntityRoosterLeghorn>
 		super(rm, new ModelRooster(), 0.32F);
 	}
 
+	@Override
 	protected float handleRotationFloat(EntityRoosterLeghorn livingBase, float partialTicks)
 	{
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
@@ -32,7 +33,7 @@ public class RenderRoosterLeghorn extends RenderLiving<EntityRoosterLeghorn>
 	@Override
     protected void preRenderCallback(EntityRoosterLeghorn entityliving, float f)
     {
-        preRenderScale((EntityRoosterLeghorn)entityliving, f);
+        preRenderScale(entityliving, f);
     }
 
 	protected void preRenderScale(EntityRoosterLeghorn entity, float f)

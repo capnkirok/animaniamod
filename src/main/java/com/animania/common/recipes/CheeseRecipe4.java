@@ -3,14 +3,13 @@ package com.animania.common.recipes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import net.minecraft.init.Items;
+import com.animania.common.handler.ItemHandler;
+
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-
-import com.animania.Animania;
 
 public class CheeseRecipe4 implements IRecipe {
 
@@ -19,13 +18,12 @@ public class CheeseRecipe4 implements IRecipe {
 	private int knifeSlotJ;
 	private int knifeSlotI;
 	private ItemStack knifeStack;
-	
-	public CheeseRecipe4()
-	{
-		this.recipeOutput = new ItemStack(Animania.cheeseWedgeFriesian, 4);
-		this.recipeItems.add(new ItemStack(Animania.carvingKnife));
-		this.recipeItems.add(new ItemStack(Animania.cheeseWheelFriesian));
-		
+
+	public CheeseRecipe4() {
+		this.recipeOutput = new ItemStack(ItemHandler.cheeseWedgeFriesian, 4);
+		this.recipeItems.add(new ItemStack(ItemHandler.carvingKnife));
+		this.recipeItems.add(new ItemStack(ItemHandler.cheeseWheelFriesian));
+
 	}
 
 	@Override
@@ -33,38 +31,32 @@ public class CheeseRecipe4 implements IRecipe {
 
 		ArrayList arraylist = new ArrayList(this.recipeItems);
 
-		for (int i = 0; i < 3; ++i)
-		{
-			for (int j = 0; j < 3; ++j)
-			{
+		for (int i = 0; i < 3; ++i) {
+			for (int j = 0; j < 3; ++j) {
 				ItemStack itemstack = inv.getStackInRowAndColumn(j, i);
 
-				if (itemstack != ItemStack.EMPTY)
-				{
+				if (itemstack != ItemStack.EMPTY) {
 					boolean flag = false;
 					Iterator iterator = arraylist.iterator();
 
-					while (iterator.hasNext())
-					{
-						ItemStack itemstack1 = (ItemStack)iterator.next();
+					while (iterator.hasNext()) {
+						ItemStack itemstack1 = (ItemStack) iterator.next();
 
-						if (itemstack.getItem() == itemstack1.getItem())
-						{
+						if (itemstack.getItem() == itemstack1.getItem()) {
 							flag = true;
-							
-							if (itemstack.getItem() == Animania.carvingKnife) {
+
+							if (itemstack.getItem() == ItemHandler.carvingKnife) {
 								knifeSlotJ = j;
 								knifeSlotI = i;
 								knifeStack = itemstack.copy();
 							}
-							
+
 							arraylist.remove(itemstack1);
 							break;
 						}
 					}
 
-					if (!flag)
-					{
+					if (!flag) {
 						return false;
 					}
 				}
@@ -74,41 +66,33 @@ public class CheeseRecipe4 implements IRecipe {
 		return arraylist.isEmpty();
 	}
 
-	
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv)
-	{
-	   
+	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+
 		NonNullList<ItemStack> bob = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 		knifeStack.setItemDamage(knifeStack.getItemDamage() + 1);
-		
+
 		if (knifeStack.getItemDamage() >= knifeStack.getMaxDamage()) {
 			knifeStack = ItemStack.EMPTY;
 		}
-		
-		bob.set((knifeSlotJ + (knifeSlotI* (int)(Math.sqrt(inv.getSizeInventory())))), knifeStack);
-		
+
+		bob.set((knifeSlotJ + (knifeSlotI * (int) (Math.sqrt(inv.getSizeInventory())))), knifeStack);
+
 		return bob;
 	}
-	
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting inv)
-	{
+	public ItemStack getCraftingResult(InventoryCrafting inv) {
 		return this.recipeOutput.copy();
 	}
 
 	@Override
-	public int getRecipeSize()
-	{
+	public int getRecipeSize() {
 		return this.recipeItems.size();
 	}
 
 	@Override
-	public ItemStack getRecipeOutput()
-	{		
+	public ItemStack getRecipeOutput() {
 		return ItemStack.EMPTY;
 	}
 }
-
-

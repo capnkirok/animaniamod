@@ -1,47 +1,39 @@
 package com.animania.client.render.pigs;
 
-
 import java.util.Random;
 
-import javax.annotation.Nullable;
+import org.lwjgl.opengl.GL11;
+
+import com.animania.client.models.ModelPiglet;
+import com.animania.common.entities.pigs.EntityPigletYorkshire;
+import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import org.lwjgl.opengl.GL11;
-
-import com.animania.Animania;
-import com.animania.client.models.ModelPiglet;
-import com.animania.common.entities.pigs.EntityHogDuroc;
-import com.animania.common.entities.pigs.EntityPigletYorkshire;
-
 @SideOnly(Side.CLIENT)
-public class RenderPigletYorkshire extends RenderLiving<EntityPigletYorkshire>
-{
-	private static final ResourceLocation PIG_TEXTURES = new ResourceLocation("animania:textures/entity/pigs/piglet_yorkshire.png");
-	private static final ResourceLocation PIG_TEXTURES_BLINK = new ResourceLocation("animania:textures/entity/pigs/piglet_yorkshire_blink.png");
+public class RenderPigletYorkshire extends RenderLiving<EntityPigletYorkshire> {
+	private static final ResourceLocation PIG_TEXTURES = new ResourceLocation(
+			"animania:textures/entity/pigs/piglet_yorkshire.png");
+	private static final ResourceLocation PIG_TEXTURES_BLINK = new ResourceLocation(
+			"animania:textures/entity/pigs/piglet_yorkshire_blink.png");
 	private boolean flipped = false;
 
-	public RenderPigletYorkshire(RenderManager rm)
-	{
+	public RenderPigletYorkshire(RenderManager rm) {
 		super(rm, new ModelPiglet(), 0.3F);
 		this.addLayer(new LayerMudPigletYorkshire(this));
 	}
 
-	protected void preRenderScale(EntityPigletYorkshire entity, float f)
-	{
+	protected void preRenderScale(EntityPigletYorkshire entity, float f) {
 
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age); 
+		GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age);
 
 		double x = entity.posX;
 		double y = entity.posY;
@@ -49,10 +41,10 @@ public class RenderPigletYorkshire extends RenderLiving<EntityPigletYorkshire>
 
 		BlockPos pos = new BlockPos(x, y, z);
 		Random rand = new Random();
-	
+
 		Block blockchk = entity.world.getBlockState(pos).getBlock();
 
-		if (blockchk == Animania.blockMud  && !entity.getMuddy()) {
+		if (blockchk == BlockHandler.blockMud && !entity.getMuddy()) {
 			GlStateManager.translate(0.0F, entity.height - 0.5F + (age * .1F), 0.0F);
 			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
 			entity.setMuddy(true);
@@ -62,7 +54,7 @@ public class RenderPigletYorkshire extends RenderLiving<EntityPigletYorkshire>
 			entity.setMuddy(false);
 			entity.setMudTimer(0.0F);
 			entity.setSplashTimer(0.0F);
-		} else if (blockchk == Animania.blockMud)  {
+		} else if (blockchk == BlockHandler.blockMud) {
 			Float splashTimer = entity.getSplashTimer();
 			if (!entity.hasPath()) {
 				GlStateManager.translate(0.0F, entity.height - 0.5F + (age * .1F), 0.0F);
@@ -73,7 +65,7 @@ public class RenderPigletYorkshire extends RenderLiving<EntityPigletYorkshire>
 			if (splashTimer <= 0.0F) {
 				entity.setMuddy(true);
 				entity.setMudTimer(1.0F);
-			} 
+			}
 		} else if (entity.getMudTimer() > 0) {
 			entity.setMuddy(false);
 			float mudTimer = entity.getMudTimer();
@@ -82,18 +74,17 @@ public class RenderPigletYorkshire extends RenderLiving<EntityPigletYorkshire>
 				entity.setMudTimer(mudTimer);
 			}
 		}
-	
+
 	}
 
 	@Override
-	protected void preRenderCallback(EntityPigletYorkshire entityliving, float f)
-	{
-		preRenderScale((EntityPigletYorkshire)entityliving, f);
+	protected void preRenderCallback(EntityPigletYorkshire entityliving, float f) {
+		preRenderScale(entityliving, f);
 	}
 
-	protected ResourceLocation getEntityTexture(EntityPigletYorkshire par1Entity)
-	{
-		EntityPigletYorkshire entity = (EntityPigletYorkshire)par1Entity; 
+	@Override
+	protected ResourceLocation getEntityTexture(EntityPigletYorkshire par1Entity) {
+		EntityPigletYorkshire entity = par1Entity;
 
 		int blinkTimer = entity.blinkTimer;
 
@@ -104,5 +95,4 @@ public class RenderPigletYorkshire extends RenderLiving<EntityPigletYorkshire>
 		}
 	}
 
-	
 }

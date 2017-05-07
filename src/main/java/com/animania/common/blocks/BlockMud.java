@@ -49,9 +49,9 @@ public class BlockMud extends Block {
 	public BlockMud() {
 		super(Material.SAND, MapColor.BROWN);
 		setCreativeTab(Animania.TabAnimaniaResources); 
-		this.setRegistryName(new ResourceLocation(Animania.modid, name));
+		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
-		setUnlocalizedName(Animania.modid + "_" + name);
+		setUnlocalizedName(Animania.MODID + "_" + name);
 		this.slipperiness = 0.6F;
 		setSoundType(SoundType.SLIME);
 		this.setTickRandomly(true);
@@ -74,12 +74,14 @@ public class BlockMud extends Block {
 		return par1;
 	}
 
+	@Override
 	@Nullable
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
 	{
 		return MUD_AABB;
 	}
 
+	@Override
 	public int quantityDropped(Random random)
 	{
 		return 1;
@@ -105,6 +107,7 @@ public class BlockMud extends Block {
 	}
 
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
 	{
@@ -113,7 +116,7 @@ public class BlockMud extends Block {
 
 		for (int k = 0; k <= esize - 1; k++) {
 
-			Entity entity = (Entity) worldIn.loadedEntityList.get(k);
+			Entity entity = worldIn.loadedEntityList.get(k);
 
 			if (entity !=null && (entity instanceof EntitySowYorkshire || entity instanceof EntitySowDuroc || entity instanceof EntitySowLargeBlack || entity instanceof EntitySowLargeWhite || entity instanceof EntitySowOldSpot || entity instanceof EntityPigletYorkshire || entity instanceof EntityPigletDuroc || entity instanceof EntityPigletLargeBlack || entity instanceof EntityPigletLargeWhite || entity instanceof EntityPigletOldSpot || entity instanceof EntityHogYorkshire || entity instanceof EntityHogDuroc || entity instanceof EntityHogLargeBlack || entity instanceof EntityHogLargeWhite || entity instanceof EntityHogOldSpot)) {
 				//Add Hogs and Piglets	
@@ -198,7 +201,7 @@ public class BlockMud extends Block {
 					if (MathHelper.abs((int)x2) < 1 && MathHelper.abs((int)z2) < 1 && MathHelper.abs((int)y2) < 1) {
 
 						for (int kk = 0; kk < 8; kk++) {
-							worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, entity.posX + ((double)rand.nextFloat() - 0.5D) * (double)entity.width, entity.getEntityBoundingBox().minY + 0.5D, entity.posZ + ((double)rand.nextFloat() - 0.5D) * (double)entity.width, 4.0D * ((double)rand.nextFloat() - 0.5D), 0.5D, ((double)rand.nextFloat() - 0.5D) * 4.0D, new int[] {Block.getStateId(stateIn)});
+							worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, entity.posX + (rand.nextFloat() - 0.5D) * entity.width, entity.getEntityBoundingBox().minY + 0.5D, entity.posZ + (rand.nextFloat() - 0.5D) * entity.width, 4.0D * (rand.nextFloat() - 0.5D), 0.5D, (rand.nextFloat() - 0.5D) * 4.0D, new int[] {Block.getStateId(stateIn)});
 						}
 
 					}

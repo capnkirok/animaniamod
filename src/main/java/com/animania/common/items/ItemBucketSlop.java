@@ -1,6 +1,5 @@
 package com.animania.common.items;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -13,9 +12,9 @@ public class ItemBucketSlop extends Item {
 	public ItemBucketSlop() {
 		super();
 		setCreativeTab(Animania.TabAnimaniaResources);
-		this.setRegistryName(new ResourceLocation(Animania.modid, name));
+		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
-		setUnlocalizedName(Animania.modid + "_" + name);
+		setUnlocalizedName(Animania.MODID + "_" + name);
 		this.setMaxStackSize(1);
 	}
 

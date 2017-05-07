@@ -46,6 +46,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.animania.Animania;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.pigs.ai.EntityAIFindFood;
+import com.animania.common.entities.pigs.ai.EntityAIFindMud;
+import com.animania.common.entities.pigs.ai.EntityAIFindWater;
+import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
+import com.animania.common.entities.pigs.ai.EntityAIPanicPigs;
+import com.animania.common.entities.pigs.ai.EntityAISwimmingPigs;
+import com.animania.common.entities.pigs.ai.EntityAIWanderPig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
@@ -84,6 +91,7 @@ public class EntitySowDuroc extends EntityAnimal
 
 	}
 
+	@Override
 	protected void initEntityAI()
 	{
 		this.entityAIEatGrass = new EntityPigSnuffle(this);
@@ -102,6 +110,7 @@ public class EntitySowDuroc extends EntityAnimal
 		this.tasks.addTask(14, new EntityAILookIdle(this));
 	}
 
+	@Override
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{
@@ -113,7 +122,7 @@ public class EntitySowDuroc extends EntityAnimal
 		int pigCount = 0;
 		int esize = this.world.loadedEntityList.size();
 		for (int k = 0; k <= esize - 1; k++) {
-			Entity entity = (Entity) this.world.loadedEntityList.get(k);
+			Entity entity = this.world.loadedEntityList.get(k);
 			if (entity.getName().contains("Duroc") || entity.getName().contains("Hampshire") || entity.getName().contains("LargeBlack") || entity.getName().contains("OldSpot") || entity.getName().contains("LargeWhite") || entity.getName().contains("Yorkshire")) {
 				EntityAnimal ea = (EntityAnimal) entity;
 				if (ea.hasCustomName() || ea.isInLove()) {
@@ -165,6 +174,7 @@ public class EntitySowDuroc extends EntityAnimal
 		return livingdata;
 	}
 
+	@Override
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -217,6 +227,7 @@ public class EntitySowDuroc extends EntityAnimal
 	public EntityPigSnuffle entityAIEatGrass;
 	private int damageTimer;
 
+	@Override
 	protected void updateAITasks()
 	{
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
@@ -227,6 +238,7 @@ public class EntitySowDuroc extends EntityAnimal
 	 * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
 	 * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
 	 */
+	@Override
 	@Nullable
 	public Entity getControllingPassenger()
 	{
@@ -237,6 +249,7 @@ public class EntitySowDuroc extends EntityAnimal
 	 * returns true if all the conditions for steering the entity are met. For pigs, this is true if it is being ridden
 	 * by a player and the player is holding a carrot-on-a-stick
 	 */
+	@Override
 	public boolean canBeSteered()
 	{
 		Entity entity = this.getControllingPassenger();
@@ -262,6 +275,7 @@ public class EntitySowDuroc extends EntityAnimal
 		}
 	}
 
+	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
@@ -279,6 +293,7 @@ public class EntitySowDuroc extends EntityAnimal
 	}
 
 
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
@@ -296,6 +311,7 @@ public class EntitySowDuroc extends EntityAnimal
 	}
 
 
+	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
@@ -333,6 +349,7 @@ public class EntitySowDuroc extends EntityAnimal
 	}
 
 
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
@@ -375,6 +392,7 @@ public class EntitySowDuroc extends EntityAnimal
 
 	}
 
+	@Override
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
@@ -389,6 +407,7 @@ public class EntitySowDuroc extends EntityAnimal
 		}
 	}
 
+	@Override
 	protected SoundEvent getDeathSound()
 	{
 		Random rand = new Random();
@@ -448,6 +467,7 @@ public class EntitySowDuroc extends EntityAnimal
 	/**
 	 * Drop the equipment for this entity.
 	 */
+	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
 	{
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
@@ -514,7 +534,7 @@ public class EntitySowDuroc extends EntityAnimal
 
 	public boolean getSaddled()
 	{
-		return ((Boolean)this.dataManager.get(SADDLED)).booleanValue();
+		return this.dataManager.get(SADDLED).booleanValue();
 	}
 
 	/**
@@ -534,7 +554,7 @@ public class EntitySowDuroc extends EntityAnimal
 
 	public boolean getFed()
 	{
-		return ((Boolean)this.dataManager.get(FED)).booleanValue();
+		return this.dataManager.get(FED).booleanValue();
 	}
 
 	public void setFed(boolean fed)
@@ -566,7 +586,7 @@ public class EntitySowDuroc extends EntityAnimal
 
 	public boolean getPlayed()
 	{
-		return ((Boolean)this.dataManager.get(PLAYED)).booleanValue();
+		return this.dataManager.get(PLAYED).booleanValue();
 	}
 
 	public void setPlayed(boolean played)
@@ -584,7 +604,7 @@ public class EntitySowDuroc extends EntityAnimal
 
 	public boolean getWatered()
 	{
-		return ((Boolean)this.dataManager.get(WATERED)).booleanValue();
+		return this.dataManager.get(WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered)
@@ -602,7 +622,7 @@ public class EntitySowDuroc extends EntityAnimal
 
 	public boolean getMuddy()
 	{
-		return ((Boolean)this.dataManager.get(MUDDY)).booleanValue();
+		return this.dataManager.get(MUDDY).booleanValue();
 	}
 
 	public void setMuddy(boolean muddy)
@@ -619,7 +639,7 @@ public class EntitySowDuroc extends EntityAnimal
 
 	public Float getMudTimer()
 	{
-		return ((Float)this.dataManager.get(MUDTIMER)).floatValue();
+		return this.dataManager.get(MUDTIMER).floatValue();
 	}
 
 	public void setMudTimer(Float timer)
@@ -629,7 +649,7 @@ public class EntitySowDuroc extends EntityAnimal
 
 	public Float getSplashTimer()
 	{
-		return ((Float)this.dataManager.get(SPLASHTIMER)).floatValue();
+		return this.dataManager.get(SPLASHTIMER).floatValue();
 	}
 
 	public void setSplashTimer(Float timer)
@@ -641,6 +661,7 @@ public class EntitySowDuroc extends EntityAnimal
 	/**
 	 * Called when a lightning bolt hits the entity.
 	 */
+	@Override
 	public void onStruckByLightning(EntityLightningBolt lightningBolt)
 	{
 		if (!this.world.isRemote && !this.isDead)
@@ -661,6 +682,7 @@ public class EntitySowDuroc extends EntityAnimal
 		}
 	}
 
+	@Override
 	public void fall(float distance, float damageMultiplier)
 	{
 		super.fall(distance, damageMultiplier);
@@ -677,6 +699,7 @@ public class EntitySowDuroc extends EntityAnimal
 	/**
 	 * Moves the entity based on the specified heading.
 	 */
+	@Override
 	public void moveEntityWithHeading(float strafe, float forward)
 	{
 		Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
@@ -821,7 +844,7 @@ public class EntitySowDuroc extends EntityAnimal
 					double d = rand.nextGaussian() * 0.02D;
 					double d1 = rand.nextGaussian() * 0.02D;
 					double d2 = rand.nextGaussian() * 0.02D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
@@ -836,7 +859,7 @@ public class EntitySowDuroc extends EntityAnimal
 
 				int esize = this.world.loadedEntityList.size();
 				for (int k = 0; k <= esize - 1; k++) {
-					Entity entity = (Entity) this.world.loadedEntityList.get(k);
+					Entity entity = this.world.loadedEntityList.get(k);
 
 					double xt = entity.posX;
 					double yt = entity.posY;
@@ -946,6 +969,7 @@ public class EntitySowDuroc extends EntityAnimal
 		}
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
@@ -962,7 +986,7 @@ public class EntitySowDuroc extends EntityAnimal
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
-		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F : (this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 80) - p_70894_1_) / 4.0F));
+		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F : (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 80 - p_70894_1_) / 4.0F));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -970,7 +994,7 @@ public class EntitySowDuroc extends EntityAnimal
 	{
 		if (this.eatTimer > 4 && this.eatTimer <= 76)
 		{
-			float f = ((float)(this.eatTimer - 4) - p_70890_1_) / 24.0F;
+			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
 			return ((float)Math.PI / 5F) + ((float)Math.PI * 7F / 150F) * MathHelper.sin(f * 28.7F); 
 		}
 		else
@@ -980,6 +1004,7 @@ public class EntitySowDuroc extends EntityAnimal
 	}
 
 
+	@Override
 	public EntitySowDuroc createChild(EntityAgeable ageable)
 	{
 		return null;
@@ -989,6 +1014,7 @@ public class EntitySowDuroc extends EntityAnimal
 	 * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
 	 * the animal type)
 	 */
+	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());

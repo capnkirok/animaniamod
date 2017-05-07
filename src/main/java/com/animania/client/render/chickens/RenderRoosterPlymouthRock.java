@@ -4,17 +4,12 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.client.models.ModelRooster;
-import com.animania.common.entities.chickens.EntityHenPlymouthRock;
 import com.animania.common.entities.chickens.EntityRoosterPlymouthRock;
 
 
@@ -27,6 +22,7 @@ public class RenderRoosterPlymouthRock extends RenderLiving<EntityRoosterPlymout
 		super(rm, new ModelRooster(), 0.32F);
 	}
 
+	@Override
 	protected float handleRotationFloat(EntityRoosterPlymouthRock livingBase, float partialTicks)
 	{
 		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
@@ -37,7 +33,7 @@ public class RenderRoosterPlymouthRock extends RenderLiving<EntityRoosterPlymout
 	@Override
     protected void preRenderCallback(EntityRoosterPlymouthRock entityliving, float f)
     {
-        preRenderScale((EntityRoosterPlymouthRock)entityliving, f);
+        preRenderScale(entityliving, f);
     }
 
 	protected void preRenderScale(EntityRoosterPlymouthRock entity, float f)

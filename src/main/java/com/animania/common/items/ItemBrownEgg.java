@@ -22,9 +22,9 @@ public class ItemBrownEgg extends Item{
 	public ItemBrownEgg() {
 		super();
 		setCreativeTab(Animania.TabAnimaniaResources);
-		this.setRegistryName(new ResourceLocation(Animania.modid, name));
+		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
-		setUnlocalizedName(Animania.modid + "_" + name);
+		setUnlocalizedName(Animania.MODID + "_" + name);
 		this.maxStackSize = 16;
 	}
 

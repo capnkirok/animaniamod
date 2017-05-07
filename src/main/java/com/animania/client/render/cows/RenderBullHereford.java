@@ -14,7 +14,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelBullHereford;
 import com.animania.common.entities.cows.EntityBullHereford;
-import com.animania.common.entities.cows.EntityCowHereford;
 
 @SideOnly(Side.CLIENT)
 public class RenderBullHereford extends RenderLiving
@@ -52,6 +51,7 @@ public class RenderBullHereford extends RenderLiving
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
+	@Override
 	protected ResourceLocation getEntityTexture(Entity par1Entity)
 	{
 		EntityBullHereford entity = (EntityBullHereford)par1Entity;
