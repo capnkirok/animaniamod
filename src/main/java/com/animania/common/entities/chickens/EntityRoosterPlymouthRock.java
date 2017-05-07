@@ -107,8 +107,8 @@ public class EntityRoosterPlymouthRock extends EntityAnimal {
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, false));
 		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityFerretWhite.class, false));
 		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityFerretGrey.class, false));
-		this.fedTimer = AnimaniaConfig.entity.feedTimer / 2 + rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.entity.waterTimer / 2 + rand.nextInt(100);
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer / 2 + rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer / 2 + rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + rand.nextInt(80);
 		String texture = null;
@@ -366,7 +366,7 @@ public class EntityRoosterPlymouthRock extends EntityAnimal {
 		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 			if (AnimaniaConfig.gameRules.animalsStarve) {
-				if (this.damageTimer >= AnimaniaConfig.entity.starvationTimer) {
+				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer) {
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
 				}
@@ -402,7 +402,7 @@ public class EntityRoosterPlymouthRock extends EntityAnimal {
 	public void setFed(boolean fed) {
 		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
+			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
@@ -416,7 +416,7 @@ public class EntityRoosterPlymouthRock extends EntityAnimal {
 	public void setWatered(boolean watered) {
 		if (watered) {
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		} else {
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
@@ -540,8 +540,8 @@ public class EntityRoosterPlymouthRock extends EntityAnimal {
 		}
 
 		Item dropItem;
-		if (AnimaniaConfig.entity.customMobDrops) {
-			String drop = AnimaniaConfig.entity.chickenDrop;
+		if (AnimaniaConfig.drops.customMobDrops) {
+			String drop = AnimaniaConfig.drops.chickenDrop;
 			dropItem = Item.getByNameOrId(drop);
 			if (this.isBurning() && drop.equals("animania:raw_prime_chicken")) {
 				drop = "animania:cooked_prime_chicken";

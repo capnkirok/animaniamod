@@ -14,6 +14,7 @@ import com.animania.common.entities.cows.ai.EntityAIFollowParentCows;
 import com.animania.common.entities.cows.ai.EntityAIPanicCows;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
 import com.animania.common.entities.cows.ai.EntityAIWanderCow;
+import com.animania.common.entities.cows.ai.EntityAICowEatGrass;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
@@ -70,7 +71,7 @@ public class EntityCalfLonghorn extends EntityAnimal {
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.2D));
-		this.entityAIEatGrass = new EntityCowEatGrass(this);
+		this.entityAIEatGrass = new EntityAICowEatGrass(this);
 		this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderCow(this, 1.0D));
 		this.tasks.addTask(1, new EntityAISwimmingCows(this));
@@ -81,8 +82,8 @@ public class EntityCalfLonghorn extends EntityAnimal {
 		this.tasks.addTask(0, this.entityAIEatGrass);
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(7, new EntityAILookIdle(this));
-		this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 100 + rand.nextInt(100);
 		this.ageTimer = 0;
@@ -105,7 +106,7 @@ public class EntityCalfLonghorn extends EntityAnimal {
 	public int eatTimer;
 	private int fedTimer;
 	private int wateredTimer;
-	public EntityCowEatGrass entityAIEatGrass;
+	public EntityAICowEatGrass entityAIEatGrass;
 	private int damageTimer;
 
 	@Override
@@ -202,7 +203,7 @@ public class EntityCalfLonghorn extends EntityAnimal {
 	public void setFed(boolean fed) {
 		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
+			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
@@ -216,7 +217,7 @@ public class EntityCalfLonghorn extends EntityAnimal {
 	public void setWatered(boolean watered) {
 		if (watered) {
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		} else {
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
@@ -354,7 +355,7 @@ public class EntityCalfLonghorn extends EntityAnimal {
 		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 			if (AnimaniaConfig.gameRules.animalsStarve) {
-				if (this.damageTimer >= AnimaniaConfig.entity.starvationTimer) {
+				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer) {
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
 				}
@@ -366,7 +367,7 @@ public class EntityCalfLonghorn extends EntityAnimal {
 		}
 
 		ageTimer++;
-		if (ageTimer >= AnimaniaConfig.entity.childGrowthTick) {
+		if (ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick) {
 
 			if (fed && watered) {
 				ageTimer = 0;

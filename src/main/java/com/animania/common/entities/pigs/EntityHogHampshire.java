@@ -14,6 +14,7 @@ import com.animania.common.entities.pigs.ai.EntityAIFindWater;
 import com.animania.common.entities.pigs.ai.EntityAIFollowMatePigs;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
 import com.animania.common.entities.pigs.ai.EntityAIPanicPigs;
+import com.animania.common.entities.pigs.ai.EntityAIPigSnuffle;
 import com.animania.common.entities.pigs.ai.EntityAISwimmingPigs;
 import com.animania.common.entities.pigs.ai.EntityAIWanderPig;
 import com.animania.common.handler.BlockHandler;
@@ -89,16 +90,16 @@ public class EntityHogHampshire extends EntityAnimal {
 		super(worldIn);
 		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
-		this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
-		this.playedTimer = AnimaniaConfig.entity.playTimer + rand.nextInt(100);
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
+		this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + rand.nextInt(80);
 	}
 
 	@Override
 	protected void initEntityAI() {
-		this.entityAIEatGrass = new EntityPigSnuffle(this);
+		this.entityAIEatGrass = new EntityAIPigSnuffle(this);
 		this.tasks.addTask(0, new EntityAISwimmingPigs(this));
 		this.tasks.addTask(1, new EntityAIFindMud(this, 1.2D));
 		this.tasks.addTask(2, new EntityAIWanderPig(this, 1.0D));
@@ -164,7 +165,7 @@ public class EntityHogHampshire extends EntityAnimal {
 	}
 
 	public int eatTimer;
-	public EntityPigSnuffle entityAIEatGrass;
+	public EntityAIPigSnuffle entityAIEatGrass;
 	private int damageTimer;
 
 	@Override
@@ -409,8 +410,8 @@ public class EntityHogHampshire extends EntityAnimal {
 		}
 
 		Item dropItem;
-		if (AnimaniaConfig.entity.customMobDrops) {
-			String drop = AnimaniaConfig.entity.pigDrop;
+		if (AnimaniaConfig.drops.customMobDrops) {
+			String drop = AnimaniaConfig.drops.pigDrop;
 			dropItem = Item.getByNameOrId(drop);
 			if (this.isBurning() && drop.equals("animania:raw_prime_pork")) {
 				drop = "animania:cooked_prime_pork";
@@ -462,7 +463,7 @@ public class EntityHogHampshire extends EntityAnimal {
 	public void setFed(boolean fed) {
 		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
+			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
@@ -472,7 +473,7 @@ public class EntityHogHampshire extends EntityAnimal {
 	public void setSlopFed(boolean fed) {
 		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = (AnimaniaConfig.entity.feedTimer * 2) + rand.nextInt(100);
+			this.fedTimer = (AnimaniaConfig.careAndFeeding.feedTimer * 2) + rand.nextInt(100);
 		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
 		}
@@ -485,7 +486,7 @@ public class EntityHogHampshire extends EntityAnimal {
 	public void setPlayed(boolean played) {
 		if (played) {
 			this.dataManager.set(PLAYED, Boolean.valueOf(true));
-			this.playedTimer = AnimaniaConfig.entity.playTimer + rand.nextInt(100);
+			this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + rand.nextInt(100);
 		} else {
 			this.dataManager.set(PLAYED, Boolean.valueOf(false));
 		}
@@ -498,7 +499,7 @@ public class EntityHogHampshire extends EntityAnimal {
 	public void setWatered(boolean watered) {
 		if (watered) {
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		} else {
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
@@ -660,7 +661,7 @@ public class EntityHogHampshire extends EntityAnimal {
 
 		if (this.getMudTimer() > 0.0) {
 			this.setPlayed(true);
-			this.playedTimer = AnimaniaConfig.entity.playTimer + rand.nextInt(100);
+			this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + rand.nextInt(100);
 		}
 
 		boolean fed = this.getFed();
@@ -670,7 +671,7 @@ public class EntityHogHampshire extends EntityAnimal {
 		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 			if (AnimaniaConfig.gameRules.animalsStarve) {
-				if (this.damageTimer >= AnimaniaConfig.entity.starvationTimer) {
+				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer) {
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
 				}

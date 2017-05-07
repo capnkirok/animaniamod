@@ -1,5 +1,20 @@
-package com.animania.common.entities.cows;
+package com.animania.common.entities.cows.ai;
 
+import com.animania.common.entities.cows.EntityBullAngus;
+import com.animania.common.entities.cows.EntityBullFriesian;
+import com.animania.common.entities.cows.EntityBullHereford;
+import com.animania.common.entities.cows.EntityBullHolstein;
+import com.animania.common.entities.cows.EntityBullLonghorn;
+import com.animania.common.entities.cows.EntityCalfAngus;
+import com.animania.common.entities.cows.EntityCalfFriesian;
+import com.animania.common.entities.cows.EntityCalfHereford;
+import com.animania.common.entities.cows.EntityCalfHolstein;
+import com.animania.common.entities.cows.EntityCalfLonghorn;
+import com.animania.common.entities.cows.EntityCowAngus;
+import com.animania.common.entities.cows.EntityCowFriesian;
+import com.animania.common.entities.cows.EntityCowHereford;
+import com.animania.common.entities.cows.EntityCowHolstein;
+import com.animania.common.entities.cows.EntityCowLonghorn;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
@@ -13,7 +28,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityCowEatGrass extends EntityAIBase {
+public class EntityAICowEatGrass extends EntityAIBase {
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS)
 			.where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	/** The entity owner of this AITask */
@@ -23,7 +38,7 @@ public class EntityCowEatGrass extends EntityAIBase {
 	/** Number of ticks since the entity started to eat grass */
 	public int eatingGrassTimer;
 
-	public EntityCowEatGrass(EntityLiving grassEaterEntityIn) {
+	public EntityAICowEatGrass(EntityLiving grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);

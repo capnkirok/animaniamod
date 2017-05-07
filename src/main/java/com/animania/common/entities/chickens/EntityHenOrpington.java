@@ -97,9 +97,9 @@ public class EntityHenOrpington extends EntityAnimal {
 		this.tasks.addTask(7, new EntityAITempt(this, 1.2D, false, TEMPTATION_ITEMS));
 		this.tasks.addTask(8, new EntityAIPanicChickens(this, 1.7D));
 		this.tasks.addTask(11, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
-		this.laidTimer = AnimaniaConfig.entity.laidTimer / 2 + 1500 + rand.nextInt(100);
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
+		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 1500 + rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + rand.nextInt(80);
 		String texture = null;
@@ -151,7 +151,7 @@ public class EntityHenOrpington extends EntityAnimal {
 			}
 		}
 
-		if (chickenCount <= AnimaniaConfig.entity.spawnLimitChickens) {
+		if (chickenCount <= AnimaniaConfig.spawn.spawnLimitChickens) {
 
 			int chooser = rand.nextInt(5);
 
@@ -374,7 +374,7 @@ public class EntityHenOrpington extends EntityAnimal {
 		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 			if (AnimaniaConfig.gameRules.animalsStarve) {
-				if (this.damageTimer >= AnimaniaConfig.entity.starvationTimer) {
+				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer) {
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
 				}
@@ -409,7 +409,7 @@ public class EntityHenOrpington extends EntityAnimal {
 	public void setFed(boolean fed) {
 		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
+			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
@@ -423,7 +423,7 @@ public class EntityHenOrpington extends EntityAnimal {
 	public void setLaid(boolean laid) {
 		if (laid) {
 			this.dataManager.set(LAID, Boolean.valueOf(true));
-			this.laidTimer = AnimaniaConfig.entity.laidTimer + rand.nextInt(100);
+			this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer + rand.nextInt(100);
 		} else {
 			this.dataManager.set(LAID, Boolean.valueOf(false));
 		}
@@ -436,7 +436,7 @@ public class EntityHenOrpington extends EntityAnimal {
 	public void setWatered(boolean watered) {
 		if (watered) {
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		} else {
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
@@ -544,8 +544,8 @@ public class EntityHenOrpington extends EntityAnimal {
 		}
 
 		Item dropItem;
-		if (AnimaniaConfig.entity.customMobDrops) {
-			String drop = AnimaniaConfig.entity.chickenDrop;
+		if (AnimaniaConfig.drops.customMobDrops) {
+			String drop = AnimaniaConfig.drops.chickenDrop;
 			dropItem = Item.getByNameOrId(drop);
 			if (this.isBurning() && drop.equals("animania:raw_prime_chicken")) {
 				drop = "animania:cooked_prime_chicken";

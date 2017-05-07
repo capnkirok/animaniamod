@@ -22,6 +22,9 @@ public class AnimaniaConfig {
 
 	public static CommonConfig.Entity entity = new CommonConfig.Entity();
 	public static CommonConfig.GameRules gameRules = new CommonConfig.GameRules();
+	public static CommonConfig.Drops drops = new CommonConfig.Drops();
+	public static CommonConfig.Spawn spawn = new CommonConfig.Spawn();
+	public static CommonConfig.CareAndFeeding careAndFeeding = new CommonConfig.CareAndFeeding();
 
 	@Mod.EventBusSubscriber
 	public static class EventHandler {

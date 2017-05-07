@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.ai.EntityAICowEatGrass;
 import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
@@ -71,7 +72,7 @@ public class EntityCowFriesian extends EntityAnimal {
 		super(world);
 		this.setSize(1.4F, 1.8F);
 		this.stepHeight = 1.1F;
-		this.entityAIEatGrass = new EntityCowEatGrass(this);
+		this.entityAIEatGrass = new EntityAICowEatGrass(this);
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderCow(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.1D));
@@ -84,9 +85,9 @@ public class EntityCowFriesian extends EntityAnimal {
 		this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(10, new EntityAILookIdle(this));
 		this.tasks.addTask(11, new EntityAISwimmingCows(this));
-		this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
-		this.gestationTimer = AnimaniaConfig.entity.gestationTimer + rand.nextInt(200);
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
+		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200);
 		this.happyTimer = 60;
 		this.blinkTimer = 100 + rand.nextInt(100);
 	}
@@ -119,7 +120,7 @@ public class EntityCowFriesian extends EntityAnimal {
 			}
 		}
 
-		if (cowCount <= AnimaniaConfig.entity.spawnLimitCows) {
+		if (cowCount <= AnimaniaConfig.spawn.spawnLimitCows) {
 
 			int chooser = rand.nextInt(5);
 
@@ -168,7 +169,7 @@ public class EntityCowFriesian extends EntityAnimal {
 	public int eatTimer;
 	private int fedTimer;
 	private int wateredTimer;
-	public EntityCowEatGrass entityAIEatGrass;
+	public EntityAICowEatGrass entityAIEatGrass;
 	private int damageTimer;
 
 	@Override
@@ -269,7 +270,7 @@ public class EntityCowFriesian extends EntityAnimal {
 	public void setFed(boolean fed) {
 		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
+			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
@@ -283,7 +284,7 @@ public class EntityCowFriesian extends EntityAnimal {
 	public void setWatered(boolean watered) {
 		if (watered) {
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		} else {
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
@@ -421,7 +422,7 @@ public class EntityCowFriesian extends EntityAnimal {
 		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 			if (AnimaniaConfig.gameRules.animalsStarve) {
-				if (this.damageTimer >= AnimaniaConfig.entity.starvationTimer) {
+				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer) {
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
 				}
@@ -452,7 +453,7 @@ public class EntityCowFriesian extends EntityAnimal {
 			this.gestationTimer--;
 			if (gestationTimer == 0) {
 
-				gestationTimer = AnimaniaConfig.entity.gestationTimer + rand.nextInt(2000);
+				gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(2000);
 
 				String MateID = this.getMateUniqueId().toString();
 

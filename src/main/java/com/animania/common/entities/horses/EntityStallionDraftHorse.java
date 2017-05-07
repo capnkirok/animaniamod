@@ -79,8 +79,8 @@ public class EntityStallionDraftHorse extends EntityAnimal {
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
-		this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		this.happyTimer = 60;
 	}
 
@@ -201,7 +201,7 @@ public class EntityStallionDraftHorse extends EntityAnimal {
 	public void setFed(boolean fed) {
 		if (fed) {
 			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = AnimaniaConfig.entity.feedTimer + rand.nextInt(100);
+			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		} else {
 			this.dataManager.set(FED, Boolean.valueOf(false));
@@ -215,7 +215,7 @@ public class EntityStallionDraftHorse extends EntityAnimal {
 	public void setWatered(boolean watered) {
 		if (watered) {
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = AnimaniaConfig.entity.waterTimer + rand.nextInt(100);
+			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		} else {
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
@@ -376,8 +376,8 @@ public class EntityStallionDraftHorse extends EntityAnimal {
 		}
 
 		Item dropItem;
-		if (AnimaniaConfig.entity.customMobDrops) {
-			String drop = AnimaniaConfig.entity.horseDrop;
+		if (AnimaniaConfig.drops.customMobDrops) {
+			String drop = AnimaniaConfig.drops.horseDrop;
 			dropItem = Item.getByNameOrId(drop);
 		} else {
 			dropItem = null;
@@ -426,7 +426,7 @@ public class EntityStallionDraftHorse extends EntityAnimal {
 		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 			if (AnimaniaConfig.gameRules.animalsStarve) {
-				if (this.damageTimer >= AnimaniaConfig.entity.starvationTimer) {
+				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer) {
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
 				}

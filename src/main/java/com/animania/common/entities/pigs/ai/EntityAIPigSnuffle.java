@@ -1,4 +1,4 @@
-package com.animania.common.entities.pigs;
+package com.animania.common.entities.pigs.ai;
 
 import com.animania.common.handler.ItemHandler;
 import com.google.common.base.Predicate;
@@ -19,7 +19,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
-public class EntityPigSnuffle extends EntityAIBase {
+public class EntityAIPigSnuffle extends EntityAIBase {
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS)
 			.where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	/** The entity owner of this AITask */
@@ -29,7 +29,7 @@ public class EntityPigSnuffle extends EntityAIBase {
 	/** Number of ticks since the entity started to eat grass */
 	int eatingGrassTimer;
 
-	public EntityPigSnuffle(EntityLiving grassEaterEntityIn) {
+	public EntityAIPigSnuffle(EntityLiving grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);

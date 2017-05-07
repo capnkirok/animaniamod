@@ -114,7 +114,7 @@ public class EventReplaceSpawnAnimals {
 
 			// System.out.println("Cow count: " + cowCount);
 
-			if (AnimaniaConfig.entity.spawnAnimaniaCows && cowCount < AnimaniaConfig.entity.spawnLimitCows) {
+			if (AnimaniaConfig.spawn.spawnAnimaniaCows && cowCount < AnimaniaConfig.spawn.spawnLimitCows) {
 
 				int chooser = 0;
 				if (worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
@@ -241,7 +241,7 @@ public class EventReplaceSpawnAnimals {
 
 			// System.out.println("Pig count: " + pigCount);
 
-			if (AnimaniaConfig.entity.spawnAnimaniaPigs && pigCount < AnimaniaConfig.entity.spawnLimitPigs) {
+			if (AnimaniaConfig.spawn.spawnAnimaniaPigs && pigCount < AnimaniaConfig.spawn.spawnLimitPigs) {
 				if (biome.equals(Type.FOREST)) {
 					if (chooser <= 2) {
 						EntitySowOldSpot entity = new EntitySowOldSpot(worldIn);
@@ -354,8 +354,7 @@ public class EventReplaceSpawnAnimals {
 
 			// System.out.println("Chicken count: " + chickenCount);
 
-			if (AnimaniaConfig.entity.spawnAnimaniaChickens
-					&& chickenCount < AnimaniaConfig.entity.spawnLimitChickens) {
+			if (AnimaniaConfig.spawn.spawnAnimaniaChickens && chickenCount < AnimaniaConfig.spawn.spawnLimitChickens) {
 				if (biome.equals(Type.JUNGLE)) {
 					if (chooser <= 2) {
 						EntityHenOrpington entity = new EntityHenOrpington(worldIn);
@@ -445,7 +444,7 @@ public class EventReplaceSpawnAnimals {
 
 			// System.out.println("Hedgehog count: " + hedgehogCount);
 
-			if (hedgehogCount >= AnimaniaConfig.entity.spawnLimitHedgehogs
+			if (hedgehogCount >= AnimaniaConfig.spawn.spawnLimitHedgehogs
 					&& worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null
 					&& !event.getEntity().hasCustomName()) {
 				event.getEntity().setDead();
@@ -466,7 +465,7 @@ public class EventReplaceSpawnAnimals {
 
 			// System.out.println("Hamster count: " + hamsterCount);
 
-			if (hamsterCount >= AnimaniaConfig.entity.spawnLimitHamsters
+			if (hamsterCount >= AnimaniaConfig.spawn.spawnLimitHamsters
 					&& worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
 				event.getEntity().setDead();
 				event.setCanceled(true);
@@ -487,7 +486,7 @@ public class EventReplaceSpawnAnimals {
 
 			// System.out.println("Ferret count: " + ferretCount);
 
-			if (ferretCount >= AnimaniaConfig.entity.spawnLimitFerrets
+			if (ferretCount >= AnimaniaConfig.spawn.spawnLimitFerrets
 					&& worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null
 					&& !event.getEntity().hasCustomName()) {
 				event.getEntity().setDead();
@@ -519,7 +518,7 @@ public class EventReplaceSpawnAnimals {
 
 			// System.out.println("Peacock count: " + peacockCount);
 
-			if (peacockCount >= AnimaniaConfig.entity.spawnLimitPeacocks
+			if (peacockCount >= AnimaniaConfig.spawn.spawnLimitPeacocks
 					&& worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null
 					&& !event.getEntity().hasCustomName()) {
 				event.getEntity().setDead();

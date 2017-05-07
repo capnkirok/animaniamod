@@ -114,7 +114,7 @@ public class BlockNest extends BlockContainer {
 
 					if (MathHelper.abs((int) x2) < 6 && MathHelper.abs((int) z2) < 3 && MathHelper.abs((int) y2) < 6) {
 
-						if (rand.nextInt(AnimaniaConfig.entity.eggHatchChance) < 1) {
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1) {
 							if (nestType == 1 || nestType == 2 || nestType == 3) {
 
 								if (rand.nextInt(2) < 1) {
@@ -221,7 +221,7 @@ public class BlockNest extends BlockContainer {
 
 					if (MathHelper.abs((int) x2) < 6 && MathHelper.abs((int) z2) < 3 && MathHelper.abs((int) y2) < 6) {
 
-						if (rand.nextInt(AnimaniaConfig.entity.eggHatchChance) < 1) {
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1) {
 							if (nestType == 1 || nestType == 2 || nestType == 3) {
 								if (rand.nextInt(2) < 1) {
 									EntityChickLeghorn entityChick = new EntityChickLeghorn(worldIn);
@@ -324,7 +324,7 @@ public class BlockNest extends BlockContainer {
 
 					if (MathHelper.abs((int) x2) < 6 && MathHelper.abs((int) z2) < 3 && MathHelper.abs((int) y2) < 6) {
 
-						if (rand.nextInt(AnimaniaConfig.entity.eggHatchChance) < 1) {
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1) {
 							if (nestType == 1 || nestType == 2 || nestType == 3) {
 								if (rand.nextInt(2) < 1) {
 									EntityChickLeghorn entityChick = new EntityChickLeghorn(worldIn);
@@ -429,7 +429,7 @@ public class BlockNest extends BlockContainer {
 
 					if (MathHelper.abs((int) x2) < 6 && MathHelper.abs((int) z2) < 3 && MathHelper.abs((int) y2) < 6) {
 
-						if (rand.nextInt(AnimaniaConfig.entity.eggHatchChance) < 1) {
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1) {
 							if (nestType == 1 || nestType == 2 || nestType == 3) {
 								if (rand.nextInt(2) < 1) {
 									EntityChickLeghorn entityChick = new EntityChickLeghorn(worldIn);
@@ -534,7 +534,7 @@ public class BlockNest extends BlockContainer {
 
 					if (MathHelper.abs((int) x2) < 6 && MathHelper.abs((int) z2) < 3 && MathHelper.abs((int) y2) < 6) {
 
-						if (rand.nextInt(AnimaniaConfig.entity.eggHatchChance) < 1) {
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1) {
 							if (nestType == 1 || nestType == 2 || nestType == 3) {
 								if (rand.nextInt(2) < 1) {
 									EntityChickLeghorn entityChick = new EntityChickLeghorn(worldIn);

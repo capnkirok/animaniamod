@@ -26,7 +26,7 @@ public class ItemCookedPrimeSteak extends ItemFood {
 		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
 		setUnlocalizedName(Animania.MODID + "_" + name);
-		if (!AnimaniaConfig.entity.customMobDrops) {
+		if (!AnimaniaConfig.drops.customMobDrops) {
 			this.setCreativeTab(null);
 		} else {
 			this.setCreativeTab(Animania.TabAnimaniaResources);

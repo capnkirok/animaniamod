@@ -84,6 +84,24 @@ public class CommonConfig {
 		// public int StallionDraftHorseID = 702;
 		// public int FoalDraftHorseID = 703;
 
+	}
+
+	public static class GameRules {
+
+		public boolean foodsGiveBonusEffects = true;
+		public boolean showModUpdateNotification = true;
+		public boolean showParts = true;
+		public boolean showUnhappyParticles = true;
+		public boolean enableVanillaMeatRecipes = false;
+		public boolean replaceVanillaCows = true;
+		public boolean replaceVanillaPigs = true;
+		public boolean replaceVanillaChickens = true;
+		public boolean allowEggThrowing = false;
+		public boolean shiftSeedPlacement = false;
+		public boolean animalsStarve = false;
+	}
+
+	public static class Spawn {
 		public boolean spawnAnimaniaChickens = true;
 		public boolean spawnAnimaniaCows = true;
 		public boolean spawnAnimaniaPigs = true;
@@ -110,18 +128,9 @@ public class CommonConfig {
 		public int numberCowFamilies = 2;
 		public int numberPigFamilies = 1;
 		public int numberChickenFamilies = 1;
+	}
 
-		public boolean customMobDrops = true;
-		public String chickenDrop = "animania:raw_prime_chicken";
-		public String pigDrop = "animania:raw_prime_pork";
-		public String cowDrop = "animania:raw_prime_beef";
-		public String horseDrop = "";
-		public String peacockBlueDrop = "animania:blue_peacock_feather";
-		public String peacockWhiteDrop = "animania:white_peacock_feather";
-		public String ferretDrop = "";
-		public String hamsterDrop = "animania:hamster_food";
-		public String hedgehogDrop = "";
-
+	public static class CareAndFeeding {
 		public int childGrowthTick = 200;
 		public int feedTimer = 12000;
 		public int waterTimer = 8000;
@@ -132,18 +141,16 @@ public class CommonConfig {
 		public int eggHatchChance = 2;
 	}
 
-	public static class GameRules {
-
-		public boolean foodsGiveBonusEffects = true;
-		public boolean showModUpdateNotification = true;
-		public boolean showParts = true;
-		public boolean showUnhappyParticles = true;
-		public boolean enableVanillaMeatRecipes = false;
-		public boolean replaceVanillaCows = true;
-		public boolean replaceVanillaPigs = true;
-		public boolean replaceVanillaChickens = true;
-		public boolean allowEggThrowing = false;
-		public boolean shiftSeedPlacement = false;
-		public boolean animalsStarve = false;
+	public static class Drops {
+		public boolean customMobDrops = true;
+		public String chickenDrop = "animania:raw_prime_chicken";
+		public String pigDrop = "animania:raw_prime_pork";
+		public String cowDrop = "animania:raw_prime_beef";
+		public String horseDrop = "";
+		public String peacockBlueDrop = "animania:blue_peacock_feather";
+		public String peacockWhiteDrop = "animania:white_peacock_feather";
+		public String ferretDrop = "";
+		public String hamsterDrop = "animania:hamster_food";
+		public String hedgehogDrop = "";
 	}
 }
