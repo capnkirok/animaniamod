@@ -9,13 +9,14 @@ public class ClientProxy extends CommonProxy {
 	public void preInit() {
 		super.preInit();
 		RenderHandler.preInit();
+		AnimaniaTextures.registerTextures();
+
 	}
 
 	@Override
 	public void init() {
 		super.init();
 		RenderHandler.init();
-		AnimaniaTextures.registerTextures();
 	}
 
 }
