@@ -70,7 +70,7 @@ public class ItemHandler {
 	public static Item hamsterFood;
 	public static Item truffle;
 	public static Item brownEgg;
-	public static Item bucketSlop;
+	//public static Item bucketSlop;
 	public static Item carvingKnife;
 	public static Item cheeseMold;
 
@@ -247,7 +247,7 @@ public class ItemHandler {
 		// Items for Animals
 		hamsterFood = new ItemHamsterFood();
 		truffle = new ItemTruffle();
-		bucketSlop = new ItemBucketSlop();
+		//bucketSlop = new ItemBucketSlop();
 		carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
 		cheeseMold = new ItemCheeseMold();
 		milkBucketFriesian = new ItemBucketMilk("friesian");

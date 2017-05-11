@@ -7,12 +7,14 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.tileentities.TileEntityInvisiblock;
 import com.animania.common.tileentities.TileEntityTrough;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -33,6 +35,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 public class BlockInvisiblock extends BlockContainer {
 
@@ -49,6 +52,73 @@ public class BlockInvisiblock extends BlockContainer {
 		this.setCreativeTab(null);
 	}
 
+	
+	@Override
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+		if (entityIn != null && entityIn instanceof EntityItem) 
+		{
+			
+			BlockPos pos1 = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
+			BlockPos pos2 = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
+			BlockPos pos3 = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
+			BlockPos pos4 = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
+
+			Block chk1 = worldIn.getBlockState(pos1).getBlock();
+			Block chk2 = worldIn.getBlockState(pos2).getBlock();
+			Block chk3 = worldIn.getBlockState(pos3).getBlock();
+			Block chk4 = worldIn.getBlockState(pos4).getBlock();
+
+			if (chk1 != null && chk1 == BlockHandler.blockTrough) {
+				String state1 = worldIn.getBlockState(pos1).toString().substring(29);
+				state1 = state1.substring(0, state1.length() - 1);
+				if (state1.contains("south")) {
+					worldIn.updateComparatorOutputLevel(pos, chk1);
+					pos = pos1;
+					state = worldIn.getBlockState(pos1);
+					chk1.onEntityCollidedWithBlock(worldIn, pos1, state, entityIn);
+				}
+			}
+
+			if (chk2 != null && chk2 == BlockHandler.blockTrough) {
+				String state2 = worldIn.getBlockState(pos2).toString().substring(29);
+				state2 = state2.substring(0, state2.length() - 1);
+				if (state2.contains("north")) {
+					worldIn.updateComparatorOutputLevel(pos, chk2);
+					pos = pos2;
+					state = worldIn.getBlockState(pos2);
+					chk2.onEntityCollidedWithBlock(worldIn, pos2, state, entityIn);
+
+				}
+			}
+
+			if (chk3 != null && chk3 == BlockHandler.blockTrough) {
+				String state3 = worldIn.getBlockState(pos3).toString().substring(29);
+				state3 = state3.substring(0, state3.length() - 1);
+				if (state3.contains("west")) {
+					worldIn.updateComparatorOutputLevel(pos, chk3);
+					pos = pos3;
+					state = worldIn.getBlockState(pos3);
+					chk3.onEntityCollidedWithBlock(worldIn, pos3, state, entityIn);
+
+				}
+			}
+
+			if (chk4 != null && chk4 == BlockHandler.blockTrough) {
+				String state4 = worldIn.getBlockState(pos4).toString().substring(29);
+				state4 = state4.substring(0, state4.length() - 1);
+				if (state4.contains("east")) {
+					worldIn.updateComparatorOutputLevel(pos, chk4);
+					pos = pos4;
+					state = worldIn.getBlockState(pos4);
+					chk4.onEntityCollidedWithBlock(worldIn, pos4, state, entityIn);
+				}
+			}
+			
+		}
+		
+		
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getBlockLayer() {
@@ -145,10 +215,7 @@ public class BlockInvisiblock extends BlockContainer {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-
-		ItemStack heldItem = playerIn.getHeldItem(hand);
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
 		BlockPos pos1 = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
 		BlockPos pos2 = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
@@ -164,8 +231,11 @@ public class BlockInvisiblock extends BlockContainer {
 			String state1 = worldIn.getBlockState(pos1).toString().substring(29);
 			state1 = state1.substring(0, state1.length() - 1);
 			if (state1.contains("south")) {
+				worldIn.updateComparatorOutputLevel(pos, chk1);
 				pos = pos1;
 				state = worldIn.getBlockState(pos1);
+				return chk1.onBlockActivated(worldIn, pos1, state, playerIn, hand, facing, hitX, hitY, hitZ);
+
 			}
 		}
 
@@ -173,18 +243,23 @@ public class BlockInvisiblock extends BlockContainer {
 			String state2 = worldIn.getBlockState(pos2).toString().substring(29);
 			state2 = state2.substring(0, state2.length() - 1);
 			if (state2.contains("north")) {
+				worldIn.updateComparatorOutputLevel(pos, chk2);
 				pos = pos2;
 				state = worldIn.getBlockState(pos2);
+				return chk2.onBlockActivated(worldIn, pos2, state, playerIn, hand, facing, hitX, hitY, hitZ);
+
 			}
 		}
 
 		if (chk3 != null && chk3 == BlockHandler.blockTrough) {
 			String state3 = worldIn.getBlockState(pos3).toString().substring(29);
 			state3 = state3.substring(0, state3.length() - 1);
-
 			if (state3.contains("west")) {
+				worldIn.updateComparatorOutputLevel(pos, chk3);
 				pos = pos3;
 				state = worldIn.getBlockState(pos3);
+				return chk3.onBlockActivated(worldIn, pos3, state, playerIn, hand, facing, hitX, hitY, hitZ);
+
 			}
 		}
 
@@ -192,115 +267,14 @@ public class BlockInvisiblock extends BlockContainer {
 			String state4 = worldIn.getBlockState(pos4).toString().substring(29);
 			state4 = state4.substring(0, state4.length() - 1);
 			if (state4.contains("east")) {
+				worldIn.updateComparatorOutputLevel(pos, chk4);
 				pos = pos4;
 				state = worldIn.getBlockState(pos4);
+				return chk4.onBlockActivated(worldIn, pos4, state, playerIn, hand, facing, hitX, hitY, hitZ);
 			}
 		}
 
-		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
-
-		if (worldIn.isRemote) {
-			return true;
-
-		} else if (heldItem != ItemStack.EMPTY && heldItem.getItem() == Items.WATER_BUCKET && te.getTroughType() == 0) {
-			playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			te.setType(1);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 1);
-			worldIn.updateComparatorOutputLevel(pos, this);
-			return true;
-		} else if (heldItem != ItemStack.EMPTY && heldItem.getItem() == Items.WHEAT && te.getTroughType() == 0) {
-			if (heldItem.getCount() == 1) {
-				playerIn.setHeldItem(hand, ItemStack.EMPTY);
-			} else {
-				heldItem.shrink(1);
-				;
-			}
-			te.setType(4);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 4);
-			worldIn.updateComparatorOutputLevel(pos, this);
-			return true;
-		} else if (heldItem != ItemStack.EMPTY && heldItem.getItem() == Items.WHEAT && te.getTroughType() == 4) {
-			if (heldItem.getCount() == 1) {
-				playerIn.setHeldItem(hand, ItemStack.EMPTY);
-			} else {
-				heldItem.shrink(1);
-			}
-			te.setType(5);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 5);
-			worldIn.updateComparatorOutputLevel(pos, this);
-			return true;
-		} else if (heldItem != ItemStack.EMPTY && heldItem.getItem() == Items.WHEAT && te.getTroughType() == 5) {
-			if (heldItem.getCount() == 1) {
-				playerIn.setHeldItem(hand, ItemStack.EMPTY);
-			} else {
-				heldItem.shrink(1);
-			}
-			te.setType(6);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 6);
-			worldIn.updateComparatorOutputLevel(pos, this);
-			return true;
-		} else if (heldItem != ItemStack.EMPTY && heldItem.getItem() == ItemHandler.bucketSlop
-				&& te.getTroughType() == 0) {
-			playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			te.setType(7);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 7);
-			worldIn.updateComparatorOutputLevel(pos, this);
-			worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.BLOCK_SLIME_PLACE,
-					SoundCategory.PLAYERS, 0.6F, 0.8F);
-			return true;
-		} else if (heldItem != ItemStack.EMPTY && heldItem.getItem() == Items.BUCKET && te.getTroughType() == 1) {
-			playerIn.setHeldItem(hand, new ItemStack(Items.WATER_BUCKET));
-			te.setType(0);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 0);
-			worldIn.updateComparatorOutputLevel(pos, this);
-			return true;
-		} else if (heldItem != ItemStack.EMPTY && heldItem.getItem() == Items.BUCKET && te.getTroughType() == 7) {
-			playerIn.setHeldItem(hand, new ItemStack(ItemHandler.bucketSlop));
-			te.setType(0);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 0);
-			worldIn.updateComparatorOutputLevel(pos, this);
-			return true;
-		} else if (heldItem == ItemStack.EMPTY && te.getTroughType() == 4) {
-			ItemStack bob = new ItemStack(Items.WHEAT, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D,
-					playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
-			te.setType(0);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 0);
-			worldIn.updateComparatorOutputLevel(pos, this);
-			return true;
-		} else if (heldItem == ItemStack.EMPTY && te.getTroughType() == 5) {
-			ItemStack bob = new ItemStack(Items.WHEAT, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D,
-					playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
-			te.setType(4);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 4);
-			worldIn.updateComparatorOutputLevel(pos, this);
-			return true;
-		} else if (heldItem == ItemStack.EMPTY && te.getTroughType() == 6) {
-			ItemStack bob = new ItemStack(Items.WHEAT, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D,
-					playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
-			te.setType(5);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 5);
-			worldIn.updateComparatorOutputLevel(pos, this);
-			return true;
-		} else {
-			return false;
-		}
-
+		return false;
 	}
 
 	@Override
@@ -321,6 +295,37 @@ public class BlockInvisiblock extends BlockContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return null;
+		return new TileEntityInvisiblock();
 	}
+
+
+	//DELAYED, gonna fix later
+	/*@Override
+	public boolean hasComparatorInputOverride(IBlockState state) {
+		return true;
+	}
+
+
+	@Override
+	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+
+		TileEntityInvisiblock te = (TileEntityInvisiblock) worldIn.getTileEntity(pos);
+		if(te.getTrough() != null)
+		{
+			if(!te.getTrough().itemHandler.getStackInSlot(0).isEmpty())
+				return ItemHandlerHelper.calcRedstoneFromInventory(te.getTrough().itemHandler);
+
+			if(te.getTrough().fluidHandler.getFluid() != null)
+			{
+				int fluid = te.getTrough().fluidHandler.getFluidAmount();
+				return fluid/66;
+			}
+		}
+		return 0;
+	} */
+
+
+
+
+
 }
