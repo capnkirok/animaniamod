@@ -15,6 +15,8 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -22,8 +24,13 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RecipeHandler {
+	
+	
+	
 
 	public static void init() {
+		ItemStack slopBucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
+
 		// Recipes
 
 		// HAMSTERS
@@ -176,40 +183,41 @@ public class RecipeHandler {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.cheeseMold, 1),
 				new Object[] { "   ", "pip", " p ", 'p', "plankWood", 'i', "ingotIron" }));
 
+		
 		// Slop Normal
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1),
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
 				new Object[] { "listBucketmilk", "cropCarrot", "cropPotato" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1),
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
 				new Object[] { "listBucketmilk", "cropCarrot", "cropBeet" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1),
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
 				new Object[] { "listBucketmilk", "cropCarrot", "bread" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1),
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
 				new Object[] { "listBucketmilk", "cropBeet", "cropPotato" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1),
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
 				new Object[] { "listBucketmilk", "cropBeet", "bread" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1),
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
 				new Object[] { "listBucketmilk", "cropPotato", "bread" }));
 
 		// Slop OreDict
 		GameRegistry.addRecipe(
-				new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1), new Object[] { "listAllmilk",
+				new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk",
 						"listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropPotato", Items.BUCKET }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1), new Object[] {
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] {
 				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "bread", Items.BUCKET }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1), new Object[] {
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] {
 				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "cropPotato", Items.BUCKET }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1), new Object[] {
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] {
 				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "bread", Items.BUCKET }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1), new Object[] {
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] {
 				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropPotato", "bread", Items.BUCKET }));
 
 		// Cheese Mold Recipes
@@ -270,7 +278,7 @@ public class RecipeHandler {
 		RecipeSorter.register("animania:bucketslop6", SlopBucketRecipe6.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.bucketSlop, 1), new Object[] {
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] {
 				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropBeet", Items.BUCKET }));
 
 		// Blocks

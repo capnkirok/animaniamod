@@ -29,8 +29,10 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fluids.FluidRegistry;
 
-public class EntityAIFindFood extends EntityAIBase {
+public class EntityAIFindFood extends EntityAIBase
+{
 	private final EntityCreature temptedEntity;
 	private final double speed;
 	private double targetX;
@@ -42,7 +44,8 @@ public class EntityAIFindFood extends EntityAIBase {
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIFindFood(EntityCreature temptedEntityIn, double speedIn) {
+	public EntityAIFindFood(EntityCreature temptedEntityIn, double speedIn)
+	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
 		this.setMutexBits(3);
@@ -53,104 +56,144 @@ public class EntityAIFindFood extends EntityAIBase {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	@Override
-	public boolean shouldExecute() {
+	public boolean shouldExecute()
+	{
 		delayTemptCounter++;
-		if (delayTemptCounter > 20) {
+		if (delayTemptCounter > 20)
+		{
 
-			if (this.temptedEntity instanceof EntitySowYorkshire) {
+			if (this.temptedEntity instanceof EntitySowYorkshire)
+			{
 				EntitySowYorkshire sow = (EntitySowYorkshire) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntitySowDuroc) {
+			} else if (temptedEntity instanceof EntitySowDuroc)
+			{
 				EntitySowDuroc sow = (EntitySowDuroc) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntitySowHampshire) {
+			} else if (temptedEntity instanceof EntitySowHampshire)
+			{
 				EntitySowHampshire sow = (EntitySowHampshire) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntitySowYorkshire) {
+			} else if (temptedEntity instanceof EntitySowYorkshire)
+			{
 				EntitySowYorkshire sow = (EntitySowYorkshire) temptedEntity;
 				sow.entityAIEatGrass.startExecuting();
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntitySowLargeBlack) {
+			} else if (temptedEntity instanceof EntitySowLargeBlack)
+			{
 				EntitySowLargeBlack sow = (EntitySowLargeBlack) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntitySowLargeWhite) {
+			} else if (temptedEntity instanceof EntitySowLargeWhite)
+			{
 				EntitySowLargeWhite sow = (EntitySowLargeWhite) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntitySowOldSpot) {
+			} else if (temptedEntity instanceof EntitySowOldSpot)
+			{
 				EntitySowOldSpot sow = (EntitySowOldSpot) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityHogOldSpot) {
+			} else if (temptedEntity instanceof EntityHogOldSpot)
+			{
 				EntityHogOldSpot sow = (EntityHogOldSpot) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityHogDuroc) {
+			} else if (temptedEntity instanceof EntityHogDuroc)
+			{
 				EntityHogDuroc sow = (EntityHogDuroc) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityHogHampshire) {
+			} else if (temptedEntity instanceof EntityHogHampshire)
+			{
 				EntityHogHampshire sow = (EntityHogHampshire) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityHogYorkshire) {
+			} else if (temptedEntity instanceof EntityHogYorkshire)
+			{
 				EntityHogYorkshire sow = (EntityHogYorkshire) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityHogLargeBlack) {
+			} else if (temptedEntity instanceof EntityHogLargeBlack)
+			{
 				EntityHogLargeBlack sow = (EntityHogLargeBlack) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityHogLargeWhite) {
+			} else if (temptedEntity instanceof EntityHogLargeWhite)
+			{
 				EntityHogLargeWhite sow = (EntityHogLargeWhite) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityPigletOldSpot) {
+			} else if (temptedEntity instanceof EntityPigletOldSpot)
+			{
 				EntityPigletOldSpot sow = (EntityPigletOldSpot) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityPigletDuroc) {
+			} else if (temptedEntity instanceof EntityPigletDuroc)
+			{
 				EntityPigletDuroc sow = (EntityPigletDuroc) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityPigletHampshire) {
+			} else if (temptedEntity instanceof EntityPigletHampshire)
+			{
 				EntityPigletHampshire sow = (EntityPigletHampshire) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityPigletYorkshire) {
+			} else if (temptedEntity instanceof EntityPigletYorkshire)
+			{
 				EntityPigletYorkshire sow = (EntityPigletYorkshire) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityPigletLargeBlack) {
+			} else if (temptedEntity instanceof EntityPigletLargeBlack)
+			{
 				EntityPigletLargeBlack sow = (EntityPigletLargeBlack) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityPigletLargeWhite) {
+			} else if (temptedEntity instanceof EntityPigletLargeWhite)
+			{
 				EntityPigletLargeWhite sow = (EntityPigletLargeWhite) temptedEntity;
-				if (sow.getFed()) {
+				if (sow.getFed())
+				{
 					return false;
 				}
 			}
@@ -174,375 +217,253 @@ public class EntityAIFindFood extends EntityAIBase {
 			Block poschk7 = temptedEntity.world.getBlockState(trypos7).getBlock();
 			Block poschk8 = temptedEntity.world.getBlockState(trypos8).getBlock();
 
-			if (poschk == BlockHandler.blockTrough) {
+			if (poschk == BlockHandler.blockTrough)
+			{
 				// do nothing
-			} else if (poschk1 == BlockHandler.blockTrough) {
+			} else if (poschk1 == BlockHandler.blockTrough)
+			{
 				currentpos = trypos1;
-			} else if (poschk2 == BlockHandler.blockTrough) {
+			} else if (poschk2 == BlockHandler.blockTrough)
+			{
 				currentpos = trypos2;
-			} else if (poschk3 == BlockHandler.blockTrough) {
+			} else if (poschk3 == BlockHandler.blockTrough)
+			{
 				currentpos = trypos3;
-			} else if (poschk4 == BlockHandler.blockTrough) {
+			} else if (poschk4 == BlockHandler.blockTrough)
+			{
 				currentpos = trypos4;
-			} else if (poschk5 == BlockHandler.blockTrough) {
+			} else if (poschk5 == BlockHandler.blockTrough)
+			{
 				currentpos = trypos5;
-			} else if (poschk6 == BlockHandler.blockTrough) {
+			} else if (poschk6 == BlockHandler.blockTrough)
+			{
 				currentpos = trypos6;
-			} else if (poschk7 == BlockHandler.blockTrough) {
+			} else if (poschk7 == BlockHandler.blockTrough)
+			{
 				currentpos = trypos7;
-			} else if (poschk8 == BlockHandler.blockTrough) {
+			} else if (poschk8 == BlockHandler.blockTrough)
+			{
 				currentpos = trypos8;
 			}
 
-			if (poschk1 == BlockHandler.blockTrough || poschk2 == BlockHandler.blockTrough
-					|| poschk3 == BlockHandler.blockTrough || poschk4 == BlockHandler.blockTrough
-					|| poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough
-					|| poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
+			if (poschk1 == BlockHandler.blockTrough || poschk2 == BlockHandler.blockTrough || poschk3 == BlockHandler.blockTrough || poschk4 == BlockHandler.blockTrough || poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough || poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough)
+			{
 				TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(currentpos);
-				if (te != null && te.getTroughType() == 9) {
-					te.setType(0);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(),
-							poschk.getDefaultState(), 0);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+				if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == BlockHandler.fluidSlop)
+				{
+					te.fluidHandler.drain(335, true);
 
-					if (temptedEntity instanceof EntitySowDuroc) {
+					if (temptedEntity instanceof EntitySowDuroc)
+					{
 						EntitySowDuroc ech = (EntitySowDuroc) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntitySowHampshire) {
+					} else if (temptedEntity instanceof EntitySowHampshire)
+					{
 						EntitySowHampshire ech = (EntitySowHampshire) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntitySowLargeBlack) {
+					} else if (temptedEntity instanceof EntitySowLargeBlack)
+					{
 						EntitySowLargeBlack ech = (EntitySowLargeBlack) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntitySowLargeWhite) {
+					} else if (temptedEntity instanceof EntitySowLargeWhite)
+					{
 						EntitySowLargeWhite ech = (EntitySowLargeWhite) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntitySowOldSpot) {
+					} else if (temptedEntity instanceof EntitySowOldSpot)
+					{
 						EntitySowOldSpot ech = (EntitySowOldSpot) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntitySowYorkshire) {
+					} else if (temptedEntity instanceof EntitySowYorkshire)
+					{
 						EntitySowYorkshire ech = (EntitySowYorkshire) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogDuroc) {
+					} else if (temptedEntity instanceof EntityHogDuroc)
+					{
 						EntityHogDuroc ech = (EntityHogDuroc) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogHampshire) {
+					} else if (temptedEntity instanceof EntityHogHampshire)
+					{
 						EntityHogHampshire ech = (EntityHogHampshire) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogLargeBlack) {
+					} else if (temptedEntity instanceof EntityHogLargeBlack)
+					{
 						EntityHogLargeBlack ech = (EntityHogLargeBlack) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogLargeWhite) {
+					} else if (temptedEntity instanceof EntityHogLargeWhite)
+					{
 						EntityHogLargeWhite ech = (EntityHogLargeWhite) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogOldSpot) {
+					} else if (temptedEntity instanceof EntityHogOldSpot)
+					{
 						EntityHogOldSpot ech = (EntityHogOldSpot) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogYorkshire) {
+					} else if (temptedEntity instanceof EntityHogYorkshire)
+					{
 						EntityHogYorkshire ech = (EntityHogYorkshire) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
-					} else if (temptedEntity instanceof EntityPigletDuroc) {
+					} else if (temptedEntity instanceof EntityPigletDuroc)
+					{
 						EntityPigletDuroc ech = (EntityPigletDuroc) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletHampshire) {
+					} else if (temptedEntity instanceof EntityPigletHampshire)
+					{
 						EntityPigletHampshire ech = (EntityPigletHampshire) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletLargeBlack) {
+					} else if (temptedEntity instanceof EntityPigletLargeBlack)
+					{
 						EntityPigletLargeBlack ech = (EntityPigletLargeBlack) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletLargeWhite) {
+					} else if (temptedEntity instanceof EntityPigletLargeWhite)
+					{
 						EntityPigletLargeWhite ech = (EntityPigletLargeWhite) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletOldSpot) {
+					} else if (temptedEntity instanceof EntityPigletOldSpot)
+					{
 						EntityPigletOldSpot ech = (EntityPigletOldSpot) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletOldSpot) {
+					} else if (temptedEntity instanceof EntityPigletOldSpot)
+					{
 						EntityPigletYorkshire ech = (EntityPigletYorkshire) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
 					}
 
-					// TODO ech.world.playSound(ech.posX, ech.posY, ech.posZ,
-					// SoundEvents.ENTITY_HORSE_EAT, SoundCategory.AMBIENT, .2F,
-					// .7F, false);
-
 					return false;
 
-				} else if (te != null && te.getTroughType() == 8) {
-					te.setType(9);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(),
-							poschk.getDefaultState(), 9);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (temptedEntity instanceof EntitySowDuroc) {
-						EntitySowDuroc ech = (EntitySowDuroc) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntitySowHampshire) {
-						EntitySowHampshire ech = (EntitySowHampshire) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntitySowLargeBlack) {
-						EntitySowLargeBlack ech = (EntitySowLargeBlack) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntitySowLargeWhite) {
-						EntitySowLargeWhite ech = (EntitySowLargeWhite) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntitySowOldSpot) {
-						EntitySowOldSpot ech = (EntitySowOldSpot) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntitySowYorkshire) {
-						EntitySowYorkshire ech = (EntitySowYorkshire) temptedEntity;
-						ech.setFed(true);
-						ech.entityAIEatGrass.startExecuting();
-					} else if (temptedEntity instanceof EntityHogDuroc) {
-						EntityHogDuroc ech = (EntityHogDuroc) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityHogHampshire) {
-						EntityHogHampshire ech = (EntityHogHampshire) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityHogLargeBlack) {
-						EntityHogLargeBlack ech = (EntityHogLargeBlack) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityHogLargeWhite) {
-						EntityHogLargeWhite ech = (EntityHogLargeWhite) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityHogOldSpot) {
-						EntityHogOldSpot ech = (EntityHogOldSpot) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityHogYorkshire) {
-						EntityHogYorkshire ech = (EntityHogYorkshire) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletDuroc) {
-						EntityPigletDuroc ech = (EntityPigletDuroc) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletHampshire) {
-						EntityPigletHampshire ech = (EntityPigletHampshire) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletLargeBlack) {
-						EntityPigletLargeBlack ech = (EntityPigletLargeBlack) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletLargeWhite) {
-						EntityPigletLargeWhite ech = (EntityPigletLargeWhite) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletOldSpot) {
-						EntityPigletOldSpot ech = (EntityPigletOldSpot) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletYorkshire) {
-						EntityPigletYorkshire ech = (EntityPigletYorkshire) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					}
-					return false;
-				} else if (te != null && te.getTroughType() == 7) {
-					te.setType(8);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(),
-							poschk.getDefaultState(), 8);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (temptedEntity instanceof EntitySowDuroc) {
-						EntitySowDuroc ech = (EntitySowDuroc) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntitySowHampshire) {
-						EntitySowHampshire ech = (EntitySowHampshire) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntitySowLargeBlack) {
-						EntitySowLargeBlack ech = (EntitySowLargeBlack) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntitySowLargeWhite) {
-						EntitySowLargeWhite ech = (EntitySowLargeWhite) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntitySowOldSpot) {
-						EntitySowOldSpot ech = (EntitySowOldSpot) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntitySowYorkshire) {
-						EntitySowYorkshire ech = (EntitySowYorkshire) temptedEntity;
-						ech.setFed(true);
-						ech.entityAIEatGrass.startExecuting();
-					} else if (temptedEntity instanceof EntityHogDuroc) {
-						EntityHogDuroc ech = (EntityHogDuroc) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityHogHampshire) {
-						EntityHogHampshire ech = (EntityHogHampshire) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityHogLargeBlack) {
-						EntityHogLargeBlack ech = (EntityHogLargeBlack) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityHogLargeWhite) {
-						EntityHogLargeWhite ech = (EntityHogLargeWhite) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityHogOldSpot) {
-						EntityHogOldSpot ech = (EntityHogOldSpot) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-					} else if (temptedEntity instanceof EntityHogYorkshire) {
-						EntityHogYorkshire ech = (EntityHogYorkshire) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletDuroc) {
-						EntityPigletDuroc ech = (EntityPigletDuroc) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletHampshire) {
-						EntityPigletHampshire ech = (EntityPigletHampshire) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletLargeBlack) {
-						EntityPigletLargeBlack ech = (EntityPigletLargeBlack) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletLargeWhite) {
-						EntityPigletLargeWhite ech = (EntityPigletLargeWhite) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletOldSpot) {
-						EntityPigletOldSpot ech = (EntityPigletOldSpot) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityPigletYorkshire) {
-						EntityPigletYorkshire ech = (EntityPigletYorkshire) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					}
-					return false;
 				}
 			}
 
-			if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES
-					|| poschk == Blocks.WHEAT) {
+			if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES || poschk == Blocks.WHEAT)
+			{
 
-				if (temptedEntity instanceof EntitySowDuroc) {
+				if (temptedEntity instanceof EntitySowDuroc)
+				{
 					EntitySowDuroc ech = (EntitySowDuroc) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntitySowHampshire) {
+				} else if (temptedEntity instanceof EntitySowHampshire)
+				{
 					EntitySowHampshire ech = (EntitySowHampshire) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntitySowLargeBlack) {
+				} else if (temptedEntity instanceof EntitySowLargeBlack)
+				{
 					EntitySowLargeBlack ech = (EntitySowLargeBlack) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntitySowLargeWhite) {
+				} else if (temptedEntity instanceof EntitySowLargeWhite)
+				{
 					EntitySowLargeWhite ech = (EntitySowLargeWhite) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntitySowOldSpot) {
+				} else if (temptedEntity instanceof EntitySowOldSpot)
+				{
 					EntitySowOldSpot ech = (EntitySowOldSpot) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntitySowYorkshire) {
+				} else if (temptedEntity instanceof EntitySowYorkshire)
+				{
 					EntitySowYorkshire ech = (EntitySowYorkshire) temptedEntity;
 					ech.setFed(true);
 					ech.entityAIEatGrass.startExecuting();
-				} else if (temptedEntity instanceof EntityHogDuroc) {
+				} else if (temptedEntity instanceof EntityHogDuroc)
+				{
 					EntityHogDuroc ech = (EntityHogDuroc) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityHogHampshire) {
+				} else if (temptedEntity instanceof EntityHogHampshire)
+				{
 					EntityHogHampshire ech = (EntityHogHampshire) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityHogLargeBlack) {
+				} else if (temptedEntity instanceof EntityHogLargeBlack)
+				{
 					EntityHogLargeBlack ech = (EntityHogLargeBlack) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityHogLargeWhite) {
+				} else if (temptedEntity instanceof EntityHogLargeWhite)
+				{
 					EntityHogLargeWhite ech = (EntityHogLargeWhite) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityHogOldSpot) {
+				} else if (temptedEntity instanceof EntityHogOldSpot)
+				{
 					EntityHogOldSpot ech = (EntityHogOldSpot) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityHogYorkshire) {
+				} else if (temptedEntity instanceof EntityHogYorkshire)
+				{
 					EntityHogYorkshire ech = (EntityHogYorkshire) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityPigletDuroc) {
+				} else if (temptedEntity instanceof EntityPigletDuroc)
+				{
 					EntityPigletDuroc ech = (EntityPigletDuroc) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityPigletHampshire) {
+				} else if (temptedEntity instanceof EntityPigletHampshire)
+				{
 					EntityPigletHampshire ech = (EntityPigletHampshire) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityPigletLargeBlack) {
+				} else if (temptedEntity instanceof EntityPigletLargeBlack)
+				{
 					EntityPigletLargeBlack ech = (EntityPigletLargeBlack) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityPigletLargeWhite) {
+				} else if (temptedEntity instanceof EntityPigletLargeWhite)
+				{
 					EntityPigletLargeWhite ech = (EntityPigletLargeWhite) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityPigletOldSpot) {
+				} else if (temptedEntity instanceof EntityPigletOldSpot)
+				{
 					EntityPigletOldSpot ech = (EntityPigletOldSpot) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityPigletYorkshire) {
+				} else if (temptedEntity instanceof EntityPigletYorkshire)
+				{
 					EntityPigletYorkshire ech = (EntityPigletYorkshire) temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				}
 
-				if (temptedEntity.world.getGameRules().getBoolean("mobGriefing")) {
+				if (temptedEntity.world.getGameRules().getBoolean("mobGriefing"))
+				{
 					temptedEntity.world.destroyBlock(currentpos, false);
 				}
 
@@ -558,49 +479,57 @@ public class EntityAIFindFood extends EntityAIBase {
 
 			BlockPos pos = new BlockPos(x, y, z);
 
-			for (int i = -16; i < 16; i++) {
-				for (int j = -3; j < 3; j++) {
-					for (int k = -16; k < 16; k++) {
+			for (int i = -16; i < 16; i++)
+			{
+				for (int j = -3; j < 3; j++)
+				{
+					for (int k = -16; k < 16; k++)
+					{
 
 						pos = new BlockPos(x + i, y + j, z + k);
 
 						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
-						if (blockchk == BlockHandler.blockTrough) {
+						if (blockchk == BlockHandler.blockTrough)
+						{
 							TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
 
-							if (te != null && (te.getTroughType() == 7 || te.getTroughType() == 8
-									|| te.getTroughType() == 9)) {
+							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == BlockHandler.fluidSlop)
+							{
 								foodFound = true;
-								if (rand.nextInt(50) == 0) {
+								if (rand.nextInt(50) == 0)
+								{
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
-								} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
-										&& this.temptedEntity.motionZ == 0) {
+								} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
+								{
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
-								} else {
+								} else
+								{
 									return true;
 								}
 							}
 						}
 
-						if (blockchk == Blocks.CARROTS || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES
-								|| blockchk == Blocks.WHEAT) {
+						if (blockchk == Blocks.CARROTS || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES || blockchk == Blocks.WHEAT)
+						{
 
 							foodFound = true;
-							if (rand.nextInt(20) == 0) {
+							if (rand.nextInt(20) == 0)
+							{
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
-							} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
-									&& this.temptedEntity.motionZ == 0) {
+							} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
+							{
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
-							} else {
+							} else
+							{
 								return true;
 							}
 						}
@@ -610,7 +539,8 @@ public class EntityAIFindFood extends EntityAIBase {
 				}
 			}
 
-			if (!foodFound) {
+			if (!foodFound)
+			{
 				return false;
 			}
 		}
@@ -620,7 +550,8 @@ public class EntityAIFindFood extends EntityAIBase {
 	}
 
 	@Override
-	public boolean continueExecuting() {
+	public boolean continueExecuting()
+	{
 
 		return this.shouldExecute();
 	}
@@ -629,7 +560,8 @@ public class EntityAIFindFood extends EntityAIBase {
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	@Override
-	public void startExecuting() {
+	public void startExecuting()
+	{
 		this.isRunning = true;
 	}
 
@@ -637,7 +569,8 @@ public class EntityAIFindFood extends EntityAIBase {
 	 * Resets the task
 	 */
 	@Override
-	public void resetTask() {
+	public void resetTask()
+	{
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigator().clearPathEntity();
 		this.isRunning = false;
@@ -645,7 +578,8 @@ public class EntityAIFindFood extends EntityAIBase {
 	}
 
 	@Override
-	public void updateTask() {
+	public void updateTask()
+	{
 
 		double x = this.temptedEntity.posX;
 		double y = this.temptedEntity.posY;
@@ -657,34 +591,41 @@ public class EntityAIFindFood extends EntityAIBase {
 		BlockPos pos = new BlockPos(x, y, z);
 		BlockPos foodPos = new BlockPos(x, y, z);
 
-		for (int i = -16; i < 16; i++) {
-			for (int j = -3; j < 3; j++) {
-				for (int k = -16; k < 16; k++) {
+		for (int i = -16; i < 16; i++)
+		{
+			for (int j = -3; j < 3; j++)
+			{
+				for (int k = -16; k < 16; k++)
+				{
 
 					pos = new BlockPos(x + i, y + j, z + k);
 					Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
-					if (blockchk == BlockHandler.blockTrough) {
+					if (blockchk == BlockHandler.blockTrough)
+					{
 
 						TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
 
-						if (te != null
-								&& (te.getTroughType() == 7 || te.getTroughType() == 8 || te.getTroughType() == 9)) {
+						if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == BlockHandler.fluidSlop)
+						{
 
 							foodFound = true;
 							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
-							if (newloc < loc) {
+							if (newloc < loc)
+							{
 
 								loc = newloc;
 
-								if (temptedEntity.posX < foodPos.getX()) {
+								if (temptedEntity.posX < foodPos.getX())
+								{
 									BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
 									Block foodBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
 									i = i + 1;
 								}
 
-								if (temptedEntity.posZ < foodPos.getZ()) {
+								if (temptedEntity.posZ < foodPos.getZ())
+								{
 									BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
 									Block foodBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
 									k = k + 1;
@@ -694,29 +635,32 @@ public class EntityAIFindFood extends EntityAIBase {
 
 							}
 						}
-					} else if (blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.BEETROOTS
-							|| blockchk == Blocks.POTATOES) {
+					} else if (blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES)
+					{
 						foodFound = true;
 						newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
-						if (newloc < loc) {
+						if (newloc < loc)
+						{
 
 							loc = newloc;
 
-							if (temptedEntity.posX < foodPos.getX()) {
+							if (temptedEntity.posX < foodPos.getX())
+							{
 								BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
 								Block foodBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
-								if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.WHEAT
-										|| foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES) {
+								if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.WHEAT || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
+								{
 									i = i + 1;
 								}
 							}
 
-							if (temptedEntity.posZ < foodPos.getZ()) {
+							if (temptedEntity.posZ < foodPos.getZ())
+							{
 								BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
 								Block foodBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
-								if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.WHEAT
-										|| foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES) {
+								if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.WHEAT || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
+								{
 									k = k + 1;
 								}
 							}
@@ -729,39 +673,43 @@ public class EntityAIFindFood extends EntityAIBase {
 			}
 		}
 
-		if (foodFound) {
+		if (foodFound)
+		{
 
 			Block foodBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
 
-			if (foodBlockchk == BlockHandler.blockTrough) {
+			if (foodBlockchk == BlockHandler.blockTrough)
+			{
 				TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(foodPos);
 
-				if (te.getTroughType() == 7 || te.getTroughType() == 8 || te.getTroughType() == 9) {
-					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(),
-							foodPos.getZ(), this.speed) == false) {
+				if (te.getTroughType() == 7 || te.getTroughType() == 8 || te.getTroughType() == 9)
+				{
+					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
+					{
 						this.resetTask();
-					} else {
-						this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(),
-								foodPos.getZ(), this.speed);
+					} else
+					{
+						this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
 					}
 
 				}
 
-			} else if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.WHEAT
-					|| foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES) {
-				if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(),
-						this.speed) == false) {
+			} else if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.WHEAT || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
+			{
+				if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed) == false)
+				{
 					this.resetTask();
-				} else {
-					this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(),
-							this.speed);
+				} else
+				{
+					this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
 				}
 			}
 		}
 
 	}
 
-	public boolean isRunning() {
+	public boolean isRunning()
+	{
 		return this.isRunning;
 	}
 }

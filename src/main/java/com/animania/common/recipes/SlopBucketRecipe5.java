@@ -3,6 +3,7 @@ package com.animania.common.recipes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.init.Items;
@@ -11,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.UniversalBucket;
 
 public class SlopBucketRecipe5 implements IRecipe {
 
@@ -18,9 +21,10 @@ public class SlopBucketRecipe5 implements IRecipe {
 	public final ArrayList recipeItems = new ArrayList();
 	private int bucketSlotJ;
 	private int bucketSlotI;
+	private ItemStack bucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
 
 	public SlopBucketRecipe5() {
-		this.recipeOutput = new ItemStack(ItemHandler.bucketSlop);
+		this.recipeOutput = bucket;
 		this.recipeItems.add(new ItemStack(Items.BEETROOT));
 		this.recipeItems.add(new ItemStack(Items.POTATO));
 		this.recipeItems.add(new ItemStack(Items.MILK_BUCKET));

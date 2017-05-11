@@ -15,6 +15,7 @@ import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
 import com.animania.common.entities.pigs.ai.EntityAIPanicPigs;
 import com.animania.common.entities.pigs.ai.EntityAIPigSnuffle;
 import com.animania.common.entities.pigs.ai.EntityAISwimmingPigs;
+import com.animania.common.entities.pigs.ai.EntityAITemptItemStack;
 import com.animania.common.entities.pigs.ai.EntityAIWanderPig;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
@@ -59,30 +60,24 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntitySowYorkshire extends EntityAnimal {
-	private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager
-			.<Optional<UUID>>createKey(EntitySowYorkshire.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	private static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntitySowYorkshire.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> MUDDY = EntityDataManager.<Boolean>createKey(EntitySowYorkshire.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Float> SPLASHTIMER = EntityDataManager.<Float>createKey(EntitySowYorkshire.class,
-			DataSerializers.FLOAT);
-	private static final DataParameter<Float> MUDTIMER = EntityDataManager.<Float>createKey(EntitySowYorkshire.class,
-			DataSerializers.FLOAT);
-	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntitySowYorkshire.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntitySowYorkshire.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> PLAYED = EntityDataManager.<Boolean>createKey(EntitySowYorkshire.class,
-			DataSerializers.BOOLEAN);
-	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(
-			new Item[] { Items.CARROT, Items.POTATO, Items.BEETROOT, Items.POISONOUS_POTATO, ItemHandler.bucketSlop });
+public class EntitySowYorkshire extends EntityAnimal
+{
+	private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntitySowYorkshire.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	private static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntitySowYorkshire.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> MUDDY = EntityDataManager.<Boolean>createKey(EntitySowYorkshire.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Float> SPLASHTIMER = EntityDataManager.<Float>createKey(EntitySowYorkshire.class, DataSerializers.FLOAT);
+	private static final DataParameter<Float> MUDTIMER = EntityDataManager.<Float>createKey(EntitySowYorkshire.class, DataSerializers.FLOAT);
+	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntitySowYorkshire.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntitySowYorkshire.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> PLAYED = EntityDataManager.<Boolean>createKey(EntitySowYorkshire.class, DataSerializers.BOOLEAN);
+	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.CARROT, Items.POTATO, Items.BEETROOT, Items.POISONOUS_POTATO});
 
 	private boolean boosting;
 	private int boostTime;
@@ -93,8 +88,10 @@ public class EntitySowYorkshire extends EntityAnimal {
 	private int happyTimer;
 	private int gestationTimer;
 	public int blinkTimer;
+	private ItemStack slop;
 
-	public EntitySowYorkshire(World worldIn) {
+	public EntitySowYorkshire(World worldIn)
+	{
 		super(worldIn);
 		this.setSize(1.05F, 1.1F);
 		this.stepHeight = 1.1F;
@@ -104,10 +101,13 @@ public class EntitySowYorkshire extends EntityAnimal {
 		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + rand.nextInt(80);
+		this.slop = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
+
 	}
 
 	@Override
-	protected void initEntityAI() {
+	protected void initEntityAI()
+	{
 		this.entityAIEatGrass = new EntityAIPigSnuffle(this);
 		this.tasks.addTask(0, new EntityAIMoveTowardsRestriction(this, 1.0D));
 		this.tasks.addTask(1, new EntityAISwimmingPigs(this));
@@ -120,49 +120,58 @@ public class EntitySowYorkshire extends EntityAnimal {
 		this.tasks.addTask(9, new EntityAIMatePigs(this, 1.0D));
 		this.tasks.addTask(10, new EntityAITempt(this, 1.2D, Items.CARROT_ON_A_STICK, false));
 		this.tasks.addTask(11, new EntityAITempt(this, 1.2D, false, TEMPTATION_ITEMS));
+		this.tasks.addTask(10, new EntityAITemptItemStack(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
 		this.tasks.addTask(12, this.entityAIEatGrass);
 		this.tasks.addTask(13, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 	}
 
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	{
 
-		if (this.world.isRemote) {
+		if (this.world.isRemote)
+		{
 			return null;
 		}
 
 		int pigCount = 0;
 		int esize = this.world.loadedEntityList.size();
-		for (int k = 0; k <= esize - 1; k++) {
+		for (int k = 0; k <= esize - 1; k++)
+		{
 			Entity entity = this.world.loadedEntityList.get(k);
-			if (entity.getName().contains("Duroc") || entity.getName().contains("Hampshire")
-					|| entity.getName().contains("LargeBlack") || entity.getName().contains("OldSpot")
-					|| entity.getName().contains("LargeWhite") || entity.getName().contains("Yorkshire")) {
+			if (entity.getName().contains("Duroc") || entity.getName().contains("Hampshire") || entity.getName().contains("LargeBlack") || entity.getName().contains("OldSpot") || entity.getName().contains("LargeWhite") || entity.getName().contains("Yorkshire"))
+			{
 				EntityAnimal ea = (EntityAnimal) entity;
-				if (ea.hasCustomName() || ea.isInLove()) {
+				if (ea.hasCustomName() || ea.isInLove())
+				{
 					// pigCount = pigCount - 1;
-				} else {
+				} else
+				{
 					pigCount = pigCount + 1;
 				}
 			}
 		}
 
-		if (pigCount <= AnimaniaConfig.spawn.spawnLimitPigs) {
+		if (pigCount <= AnimaniaConfig.spawn.spawnLimitPigs)
+		{
 			int chooser = rand.nextInt(5);
 
-			if (chooser == 0) {
+			if (chooser == 0)
+			{
 				EntityHogYorkshire entityPig = new EntityHogYorkshire(this.world);
 				entityPig.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityPig);
 				entityPig.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entityPig.getUniqueID());
-			} else if (chooser == 1) {
+			} else if (chooser == 1)
+			{
 				EntityPigletYorkshire entityPig = new EntityPigletYorkshire(this.world);
 				entityPig.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityPig);
 				entityPig.setParentUniqueId(this.entityUniqueID);
-			} else if (chooser > 2) {
+			} else if (chooser > 2)
+			{
 				EntityHogYorkshire entityPig = new EntityHogYorkshire(this.world);
 				entityPig.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityPig);
@@ -174,12 +183,13 @@ public class EntitySowYorkshire extends EntityAnimal {
 				entityPiglet.setParentUniqueId(this.entityUniqueID);
 			}
 
-			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-					.applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
+			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
-			if (this.rand.nextFloat() < 0.05F) {
+			if (this.rand.nextFloat() < 0.05F)
+			{
 				this.setLeftHanded(true);
-			} else {
+			} else
+			{
 				this.setLeftHanded(false);
 			}
 		}
@@ -188,14 +198,16 @@ public class EntitySowYorkshire extends EntityAnimal {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
+	protected void applyEntityAttributes()
+	{
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 	}
 
 	@Override
-	protected boolean canDespawn() {
+	protected boolean canDespawn()
+	{
 		return false;
 	}
 
@@ -204,38 +216,41 @@ public class EntitySowYorkshire extends EntityAnimal {
 	private int damageTimer;
 
 	@Override
-	protected void updateAITasks() {
+	protected void updateAITasks()
+	{
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
 		super.updateAITasks();
 	}
 
 	@Override
-	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack) {
+	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
+	{
 
 		this.setFed(true);
 
-		if (this.entityAIEatGrass != null) {
+		if (this.entityAIEatGrass != null)
+		{
 			this.entityAIEatGrass.startExecuting();
 			eatTimer = 80;
 		}
 
 		player.addStat(AnimaniaAchievements.Yorkshire, 1);
-		if (player.hasAchievement(AnimaniaAchievements.Duroc) && player.hasAchievement(AnimaniaAchievements.Hampshire)
-				&& player.hasAchievement(AnimaniaAchievements.LargeBlack)
-				&& player.hasAchievement(AnimaniaAchievements.LargeWhite)
-				&& player.hasAchievement(AnimaniaAchievements.OldSpot)
-				&& player.hasAchievement(AnimaniaAchievements.Yorkshire)) {
+		if (player.hasAchievement(AnimaniaAchievements.Duroc) && player.hasAchievement(AnimaniaAchievements.Hampshire) && player.hasAchievement(AnimaniaAchievements.LargeBlack) && player.hasAchievement(AnimaniaAchievements.LargeWhite) && player.hasAchievement(AnimaniaAchievements.OldSpot) && player.hasAchievement(AnimaniaAchievements.Yorkshire))
+		{
 			player.addStat(AnimaniaAchievements.Pigs, 1);
 		}
-		if (!player.capabilities.isCreativeMode) {
-			if (stack != ItemStack.EMPTY && stack.getItem() != ItemHandler.bucketSlop) {
+		if (!player.capabilities.isCreativeMode)
+		{
+			if (stack != ItemStack.EMPTY && !stack.areItemStacksEqual(stack, slop))
+			{
 				stack.setCount(stack.getCount() - 1);
-			} else if (stack != ItemStack.EMPTY && stack.getItem() == ItemHandler.bucketSlop) {
+			} else if (stack != ItemStack.EMPTY && stack.areItemStacksEqual(stack, slop))
+			{
 				stack.setCount(stack.getCount() - 1);
-				if (!player.world.isRemote) {
+				if (!player.world.isRemote)
+				{
 					ItemStack itemstack = new ItemStack(Items.BUCKET, 1);
-					EntityItem entityitem = new EntityItem(player.world, player.posX + 0.5D, player.posY,
-							player.posZ + 0.5D, itemstack);
+					EntityItem entityitem = new EntityItem(player.world, player.posX + 0.5D, player.posY, player.posZ + 0.5D, itemstack);
 					player.world.spawnEntity(entityitem);
 				}
 			}
@@ -243,7 +258,8 @@ public class EntitySowYorkshire extends EntityAnimal {
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player) {
+	public void setInLove(EntityPlayer player)
+	{
 		this.world.setEntityState(this, (byte) 18);
 	}
 
@@ -254,7 +270,8 @@ public class EntitySowYorkshire extends EntityAnimal {
 	 */
 	@Override
 	@Nullable
-	public Entity getControllingPassenger() {
+	public Entity getControllingPassenger()
+	{
 		return this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
 	}
 
@@ -264,18 +281,23 @@ public class EntitySowYorkshire extends EntityAnimal {
 	 * holding a carrot-on-a-stick
 	 */
 	@Override
-	public boolean canBeSteered() {
+	public boolean canBeSteered()
+	{
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof EntityPlayer)) {
+		if (!(entity instanceof EntityPlayer))
+		{
 			return false;
-		} else {
+		} else
+		{
 			EntityPlayer entityplayer = (EntityPlayer) entity;
 			ItemStack itemstack = entityplayer.getHeldItemMainhand();
 
-			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK) {
+			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK)
+			{
 				return true;
-			} else {
+			} else
+			{
 				itemstack = entityplayer.getHeldItemOffhand();
 				return itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK;
 			}
@@ -283,7 +305,8 @@ public class EntitySowYorkshire extends EntityAnimal {
 	}
 
 	@Override
-	protected void entityInit() {
+	protected void entityInit()
+	{
 		super.entityInit();
 		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(SADDLED, Boolean.valueOf(false));
@@ -296,9 +319,11 @@ public class EntitySowYorkshire extends EntityAnimal {
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
+	public void writeEntityToNBT(NBTTagCompound compound)
+	{
 		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null) {
+		if (this.getMateUniqueId() != null)
+		{
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
 		}
 		compound.setBoolean("Saddle", this.getSaddled());
@@ -312,7 +337,8 @@ public class EntitySowYorkshire extends EntityAnimal {
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
+	public void readEntityFromNBT(NBTTagCompound compound)
+	{
 		super.readEntityFromNBT(compound);
 		this.setSaddled(compound.getBoolean("Saddle"));
 		this.setMuddy(compound.getBoolean("Muddy"));
@@ -324,9 +350,11 @@ public class EntitySowYorkshire extends EntityAnimal {
 
 		String s;
 
-		if (compound.hasKey("MateUUID", 8)) {
+		if (compound.hasKey("MateUUID", 8))
+		{
 			s = compound.getString("MateUUID");
-		} else {
+		} else
+		{
 			String s1 = compound.getString("Mate");
 			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
 		}
@@ -334,112 +362,142 @@ public class EntitySowYorkshire extends EntityAnimal {
 	}
 
 	@Nullable
-	public UUID getMateUniqueId() {
+	public UUID getMateUniqueId()
+	{
 		return (UUID) ((Optional) this.dataManager.get(MATE_UNIQUE_ID)).orNull();
 	}
 
-	public void setMateUniqueId(@Nullable UUID uniqueId) {
+	public void setMateUniqueId(@Nullable UUID uniqueId)
+	{
 		this.dataManager.set(MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound() {
+	protected SoundEvent getAmbientSound()
+	{
 		int happy = 0;
 		int num = 0;
 
-		if (this.getWatered()) {
+		if (this.getWatered())
+		{
 			happy++;
 		}
-		if (this.getFed()) {
+		if (this.getFed())
+		{
 			happy++;
 		}
 
-		if (happy == 2) {
+		if (happy == 2)
+		{
 			num = 10;
-		} else if (happy == 1) {
+		} else if (happy == 1)
+		{
 			num = 20;
-		} else {
+		} else
+		{
 			num = 40;
 		}
 
 		Random rand = new Random();
 		int chooser = rand.nextInt(num);
 
-		if (chooser == 0) {
+		if (chooser == 0)
+		{
 			return ModSoundEvents.pig1;
-		} else if (chooser == 1) {
+		} else if (chooser == 1)
+		{
 			return ModSoundEvents.pig2;
-		} else if (chooser == 2) {
+		} else if (chooser == 2)
+		{
 			return ModSoundEvents.pig4;
-		} else if (chooser == 3) {
+		} else if (chooser == 3)
+		{
 			return ModSoundEvents.pig5;
-		} else if (chooser == 4) {
+		} else if (chooser == 4)
+		{
 			return ModSoundEvents.pig6;
-		} else if (chooser == 5) {
+		} else if (chooser == 5)
+		{
 			return ModSoundEvents.pig7;
-		} else {
+		} else
+		{
 			return null;
 		}
 
 	}
 
 	@Override
-	protected SoundEvent getHurtSound() {
+	protected SoundEvent getHurtSound()
+	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);
 
-		if (chooser == 0) {
+		if (chooser == 0)
+		{
 			return ModSoundEvents.pigHurt1;
-		} else if (chooser == 1) {
+		} else if (chooser == 1)
+		{
 			return ModSoundEvents.pigHurt2;
-		} else {
+		} else
+		{
 			return ModSoundEvents.pig3;
 		}
 	}
 
 	@Override
-	protected SoundEvent getDeathSound() {
+	protected SoundEvent getDeathSound()
+	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);
 
-		if (chooser == 0) {
+		if (chooser == 0)
+		{
 			return ModSoundEvents.pigHurt1;
-		} else if (chooser == 1) {
+		} else if (chooser == 1)
+		{
 			return ModSoundEvents.pigHurt2;
-		} else {
+		} else
+		{
 			return ModSoundEvents.pig3;
 		}
 	}
 
 	@Override
-	public void playLivingSound() {
+	public void playLivingSound()
+	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null) {
+		if (soundevent != null)
+		{
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
 		}
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
+	protected void playStepSound(BlockPos pos, Block blockIn)
+	{
 		this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.10F, 0.8F);
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	{
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		{
 			{
-				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode) {
+				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
+				{
 					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-				} else if (!player.capabilities.isCreativeMode
-						&& !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET))) {
+				} else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
+				{
 					player.dropItem(new ItemStack(Items.BUCKET), false);
 				}
 
-				if (this.entityAIEatGrass != null) {
+				if (this.entityAIEatGrass != null)
+				{
 					this.entityAIEatGrass.startExecuting();
 					eatTimer = 40;
 				}
@@ -447,7 +505,21 @@ public class EntitySowYorkshire extends EntityAnimal {
 				this.setInLove(player);
 				return true;
 			}
-		} else {
+		} 
+		else if (stack != ItemStack.EMPTY && stack.areItemStacksEqual(stack, slop))
+		{
+			player.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.BUCKET));
+			if (this.entityAIEatGrass != null)
+			{
+				this.entityAIEatGrass.startExecuting();
+				eatTimer = 40;
+			}
+			this.setFed(true);
+			this.setInLove(player);
+			return true;
+		}
+		else
+		{
 			return super.processInteract(player, hand);
 		}
 	}
@@ -456,30 +528,37 @@ public class EntitySowYorkshire extends EntityAnimal {
 	 * Drop the equipment for this entity.
 	 */
 	@Override
-	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier) {
+	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
+	{
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
 
-		if (this.getSaddled()) {
+		if (this.getSaddled())
+		{
 			this.dropItem(Items.SADDLE, 1);
 		}
 	}
 
 	@Override
-	protected void dropFewItems(boolean hit, int lootlevel) {
+	protected void dropFewItems(boolean hit, int lootlevel)
+	{
 
 		int happyDrops = 0;
 
-		if (this.getPlayed()) {
+		if (this.getPlayed())
+		{
 			happyDrops++;
 		}
-		if (this.getWatered()) {
+		if (this.getWatered())
+		{
 			happyDrops++;
 		}
-		if (this.getFed()) {
+		if (this.getFed())
+		{
 			happyDrops++;
 		}
 
-		if (happyDrops >= 3) {
+		if (happyDrops >= 3)
+		{
 			happyDrops = 2;
 		}
 
@@ -488,104 +567,134 @@ public class EntitySowYorkshire extends EntityAnimal {
 
 		j = happyDrops + lootlevel;
 
-		for (k = 0; k < j; ++k) {
-			if (this.isBurning()) {
+		for (k = 0; k < j; ++k)
+		{
+			if (this.isBurning())
+			{
 				this.dropItem(Items.COOKED_PORKCHOP, 1);
-			} else {
+			} else
+			{
 				this.dropItem(Items.PORKCHOP, 1);
 			}
 		}
 	}
 
-	public boolean getSaddled() {
+	public boolean getSaddled()
+	{
 		return this.dataManager.get(SADDLED).booleanValue();
 	}
 
 	/**
 	 * Set or remove the saddle of the pig.
 	 */
-	public void setSaddled(boolean saddled) {
-		if (saddled) {
+	public void setSaddled(boolean saddled)
+	{
+		if (saddled)
+		{
 			this.dataManager.set(SADDLED, Boolean.valueOf(true));
-		} else {
+		} else
+		{
 			this.dataManager.set(SADDLED, Boolean.valueOf(false));
 		}
 	}
 
-	public boolean getFed() {
+	public boolean getFed()
+	{
 		return this.dataManager.get(FED).booleanValue();
 	}
 
-	public void setFed(boolean fed) {
-		if (fed) {
+	public void setFed(boolean fed)
+	{
+		if (fed)
+		{
 			this.dataManager.set(FED, Boolean.valueOf(true));
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
-		} else {
+		} else
+		{
 			this.dataManager.set(FED, Boolean.valueOf(false));
 		}
 	}
 
-	public void setSlopFed(boolean fed) {
-		if (fed) {
+	public void setSlopFed(boolean fed)
+	{
+		if (fed)
+		{
 			this.dataManager.set(FED, Boolean.valueOf(true));
 			this.fedTimer = (AnimaniaConfig.careAndFeeding.feedTimer * 2) + rand.nextInt(100);
-		} else {
+		} else
+		{
 			this.dataManager.set(FED, Boolean.valueOf(false));
 		}
 	}
 
-	public boolean getPlayed() {
+	public boolean getPlayed()
+	{
 		return this.dataManager.get(PLAYED).booleanValue();
 	}
 
-	public void setPlayed(boolean played) {
-		if (played) {
+	public void setPlayed(boolean played)
+	{
+		if (played)
+		{
 			this.dataManager.set(PLAYED, Boolean.valueOf(true));
 			this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + rand.nextInt(100);
-		} else {
+		} else
+		{
 			this.dataManager.set(PLAYED, Boolean.valueOf(false));
 		}
 	}
 
-	public boolean getWatered() {
+	public boolean getWatered()
+	{
 		return this.dataManager.get(WATERED).booleanValue();
 	}
 
-	public void setWatered(boolean watered) {
-		if (watered) {
+	public void setWatered(boolean watered)
+	{
+		if (watered)
+		{
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
-		} else {
+		} else
+		{
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
 	}
 
-	public boolean getMuddy() {
+	public boolean getMuddy()
+	{
 		return (this.dataManager.get(MUDDY).booleanValue());
 	}
 
-	public void setMuddy(boolean muddy) {
-		if (muddy) {
+	public void setMuddy(boolean muddy)
+	{
+		if (muddy)
+		{
 			this.dataManager.set(MUDDY, Boolean.valueOf(true));
-		} else {
+		} else
+		{
 			this.dataManager.set(MUDDY, Boolean.valueOf(false));
 		}
 	}
 
-	public Float getMudTimer() {
+	public Float getMudTimer()
+	{
 		return this.dataManager.get(MUDTIMER).floatValue();
 	}
 
-	public void setMudTimer(Float timer) {
+	public void setMudTimer(Float timer)
+	{
 		this.dataManager.set(MUDTIMER, Float.valueOf(timer));
 	}
 
-	public Float getSplashTimer() {
+	public Float getSplashTimer()
+	{
 		return this.dataManager.get(SPLASHTIMER).floatValue();
 	}
 
-	public void setSplashTimer(Float timer) {
+	public void setSplashTimer(Float timer)
+	{
 		this.dataManager.set(SPLASHTIMER, Float.valueOf(timer));
 	}
 
@@ -593,14 +702,17 @@ public class EntitySowYorkshire extends EntityAnimal {
 	 * Called when a lightning bolt hits the entity.
 	 */
 	@Override
-	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
-		if (!this.world.isRemote && !this.isDead) {
+	public void onStruckByLightning(EntityLightningBolt lightningBolt)
+	{
+		if (!this.world.isRemote && !this.isDead)
+		{
 			EntityPigZombie entitypigzombie = new EntityPigZombie(this.world);
 			entitypigzombie.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 			entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
 			entitypigzombie.setNoAI(this.isAIDisabled());
 
-			if (this.hasCustomName()) {
+			if (this.hasCustomName())
+			{
 				entitypigzombie.setCustomNameTag(this.getCustomNameTag());
 				entitypigzombie.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
 			}
@@ -611,11 +723,14 @@ public class EntitySowYorkshire extends EntityAnimal {
 	}
 
 	@Override
-	public void fall(float distance, float damageMultiplier) {
+	public void fall(float distance, float damageMultiplier)
+	{
 		super.fall(distance, damageMultiplier);
 
-		if (distance > 5.0F) {
-			for (EntityPlayer entityplayer : this.getRecursivePassengersByType(EntityPlayer.class)) {
+		if (distance > 5.0F)
+		{
+			for (EntityPlayer entityplayer : this.getRecursivePassengersByType(EntityPlayer.class))
+			{
 				entityplayer.addStat(AchievementList.FLY_PIG);
 			}
 		}
@@ -625,10 +740,12 @@ public class EntitySowYorkshire extends EntityAnimal {
 	 * Moves the entity based on the specified heading.
 	 */
 	@Override
-	public void moveEntityWithHeading(float strafe, float forward) {
+	public void moveEntityWithHeading(float strafe, float forward)
+	{
 		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
 
-		if (this.isBeingRidden() && this.canBeSteered()) {
+		if (this.isBeingRidden() && this.canBeSteered())
+		{
 			this.rotationYaw = entity.rotationYaw;
 			this.prevRotationYaw = this.rotationYaw;
 			this.rotationPitch = entity.rotationPitch * 0.5F;
@@ -638,22 +755,24 @@ public class EntitySowYorkshire extends EntityAnimal {
 			this.stepHeight = 1.0F;
 			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
 
-			if (this.canPassengerSteer()) {
-				float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()
-						* 0.225F;
+			if (this.canPassengerSteer())
+			{
+				float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
 
-				if (this.boosting) {
-					if (this.boostTime++ > this.totalBoostTime) {
+				if (this.boosting)
+				{
+					if (this.boostTime++ > this.totalBoostTime)
+					{
 						this.boosting = false;
 					}
 
-					f += f * 1.15F
-							* MathHelper.sin((float) this.boostTime / (float) this.totalBoostTime * (float) Math.PI);
+					f += f * 1.15F * MathHelper.sin((float) this.boostTime / (float) this.totalBoostTime * (float) Math.PI);
 				}
 
 				this.setAIMoveSpeed(f);
 				super.moveEntityWithHeading(0.0F, 1.0F);
-			} else {
+			} else
+			{
 				this.motionX = 0.0D;
 				this.motionY = 0.0D;
 				this.motionZ = 0.0D;
@@ -664,13 +783,15 @@ public class EntitySowYorkshire extends EntityAnimal {
 			double d0 = this.posZ - this.prevPosZ;
 			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
-			if (f1 > 1.0F) {
+			if (f1 > 1.0F)
+			{
 				f1 = 1.0F;
 			}
 
 			this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
 			this.limbSwing += this.limbSwingAmount;
-		} else {
+		} else
+		{
 			this.stepHeight = 1.0F;
 			this.jumpMovementFactor = 0.02F;
 			super.moveEntityWithHeading(strafe, forward);
@@ -678,62 +799,72 @@ public class EntitySowYorkshire extends EntityAnimal {
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void onLivingUpdate()
+	{
 
-		if (this.world.isRemote) {
+		if (this.world.isRemote)
+		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 		}
 
-		if (this.fedTimer > -1) {
+		if (this.fedTimer > -1)
+		{
 			this.fedTimer--;
 
-			if (fedTimer == 0) {
+			if (fedTimer == 0)
+			{
 				this.setFed(false);
 			}
 		}
 
-		if (this.blinkTimer > -1) {
+		if (this.blinkTimer > -1)
+		{
 			this.blinkTimer--;
-			if (blinkTimer == 0) {
+			if (blinkTimer == 0)
+			{
 				this.blinkTimer = 100 + rand.nextInt(100);
 			}
 		}
 
-		if (this.wateredTimer > -1) {
+		if (this.wateredTimer > -1)
+		{
 			this.wateredTimer--;
 
-			if (wateredTimer == 0) {
+			if (wateredTimer == 0)
+			{
 				this.setWatered(false);
 			}
 		}
 
-		if (this.playedTimer > -1) {
+		if (this.playedTimer > -1)
+		{
 			this.playedTimer--;
 
-			if (playedTimer == 0) {
+			if (playedTimer == 0)
+			{
 				this.setPlayed(false);
 			}
 		}
 
-		if (this.happyTimer > -1) {
+		if (this.happyTimer > -1)
+		{
 			this.happyTimer--;
-			if (happyTimer == 0) {
+			if (happyTimer == 0)
+			{
 				happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && !this.getPlayed()
-						&& AnimaniaConfig.gameRules.showUnhappyParticles) {
+				if (!this.getFed() && !this.getWatered() && !this.getPlayed() && AnimaniaConfig.gameRules.showUnhappyParticles)
+				{
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
-							(posX + rand.nextFloat() * width) - width,
-							posY + 1.5D + rand.nextFloat() * height,
-							(posZ + rand.nextFloat() * width) - width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
 
-		if (this.getMudTimer() > 0.0) {
+		if (this.getMudTimer() > 0.0)
+		{
 			this.setPlayed(true);
 			this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + rand.nextInt(100);
 		}
@@ -745,37 +876,45 @@ public class EntitySowYorkshire extends EntityAnimal {
 		// System.out.println("F: " + fed + ", W: " + watered + ", " + "P: " +
 		// played);
 
-		if (!fed && !watered) {
+		if (!fed && !watered)
+		{
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			if (AnimaniaConfig.gameRules.animalsStarve) {
-				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer) {
+			if (AnimaniaConfig.gameRules.animalsStarve)
+			{
+				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer)
+				{
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
 				}
 				this.damageTimer++;
 			}
 
-		} else if (!fed || !watered) {
+		} else if (!fed || !watered)
+		{
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		}
 
 		BlockPos currentpos = new BlockPos(this.posX, this.posY, this.posZ);
 		Block poschk = this.world.getBlockState(currentpos).getBlock();
 
-		if (poschk != null && poschk == BlockHandler.blockMud) {
+		if (poschk != null && poschk == BlockHandler.blockMud)
+		{
 			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 4, false, false));
 		}
 
-		if (this.gestationTimer > -1 && this.getMateUniqueId() != null) {
+		if (this.gestationTimer > -1 && this.getMateUniqueId() != null)
+		{
 			this.gestationTimer--;
-			if (gestationTimer == 0) {
+			if (gestationTimer == 0)
+			{
 
 				gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(2000);
 
 				String MateID = this.getMateUniqueId().toString();
 
 				int esize = this.world.loadedEntityList.size();
-				for (int k = 0; k <= esize - 1; k++) {
+				for (int k = 0; k <= esize - 1; k++)
+				{
 					Entity entity = this.world.loadedEntityList.get(k);
 
 					double xt = entity.posX;
@@ -788,31 +927,36 @@ public class EntitySowYorkshire extends EntityAnimal {
 					double y2 = yt - y1;
 					double z2 = zt - z1;
 
-					if (entity != null && this.getFed() && this.getWatered()
-							&& entity.getPersistentID().toString().equals(MateID) && x2 <= 20 && y2 <= 20 && z2 <= 20) {
+					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().toString().equals(MateID) && x2 <= 20 && y2 <= 20 && z2 <= 20)
+					{
 
 						this.setInLove(null);
 
-						if (!this.world.isRemote) {
+						if (!this.world.isRemote)
+						{
 
 							BabyEntitySpawnEvent event = null;
 
-							if (entity instanceof EntityHogYorkshire) {
+							if (entity instanceof EntityHogYorkshire)
+							{
 								EntityPigletYorkshire entityPig = new EntityPigletYorkshire(this.world);
 								entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 								this.world.spawnEntity(entityPig);
 								this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
 								event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
 
-							} else if (entity instanceof EntityHogHampshire) {
-								if (rand.nextInt(2) == 0) {
+							} else if (entity instanceof EntityHogHampshire)
+							{
+								if (rand.nextInt(2) == 0)
+								{
 									EntityPigletYorkshire entityPig = new EntityPigletYorkshire(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
 
-								} else {
+								} else
+								{
 									EntityPigletHampshire entityPig = new EntityPigletHampshire(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
@@ -820,15 +964,18 @@ public class EntitySowYorkshire extends EntityAnimal {
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
 
 								}
-							} else if (entity instanceof EntityHogLargeBlack) {
-								if (rand.nextInt(2) == 0) {
+							} else if (entity instanceof EntityHogLargeBlack)
+							{
+								if (rand.nextInt(2) == 0)
+								{
 									EntityPigletYorkshire entityPig = new EntityPigletYorkshire(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
 
-								} else {
+								} else
+								{
 									EntityPigletLargeBlack entityPig = new EntityPigletLargeBlack(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
@@ -836,15 +983,18 @@ public class EntitySowYorkshire extends EntityAnimal {
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
 
 								}
-							} else if (entity instanceof EntityHogLargeWhite) {
-								if (rand.nextInt(2) == 0) {
+							} else if (entity instanceof EntityHogLargeWhite)
+							{
+								if (rand.nextInt(2) == 0)
+								{
 									EntityPigletYorkshire entityPig = new EntityPigletYorkshire(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
 
-								} else {
+								} else
+								{
 									EntityPigletLargeWhite entityPig = new EntityPigletLargeWhite(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
@@ -852,15 +1002,18 @@ public class EntitySowYorkshire extends EntityAnimal {
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
 
 								}
-							} else if (entity instanceof EntityHogOldSpot) {
-								if (rand.nextInt(2) == 0) {
+							} else if (entity instanceof EntityHogOldSpot)
+							{
+								if (rand.nextInt(2) == 0)
+								{
 									EntityPigletYorkshire entityPig = new EntityPigletYorkshire(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
 
-								} else {
+								} else
+								{
 									EntityPigletOldSpot entityPig = new EntityPigletOldSpot(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
@@ -868,15 +1021,18 @@ public class EntitySowYorkshire extends EntityAnimal {
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
 
 								}
-							} else if (entity instanceof EntityHogDuroc) {
-								if (rand.nextInt(2) == 0) {
+							} else if (entity instanceof EntityHogDuroc)
+							{
+								if (rand.nextInt(2) == 0)
+								{
 									EntityPigletDuroc entityPig = new EntityPigletDuroc(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
 									this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPig);
 
-								} else {
+								} else
+								{
 									EntityPigletYorkshire entityPig = new EntityPigletYorkshire(this.world);
 									entityPig.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityPig);
@@ -897,10 +1053,13 @@ public class EntitySowYorkshire extends EntityAnimal {
 		super.onLivingUpdate();
 	}
 
-	public boolean boost() {
-		if (this.boosting) {
+	public boolean boost()
+	{
+		if (this.boosting)
+		{
 			return false;
-		} else {
+		} else
+		{
 			this.boosting = true;
 			this.boostTime = 0;
 			this.totalBoostTime = this.getRNG().nextInt(841) + 140;
@@ -910,34 +1069,39 @@ public class EntitySowYorkshire extends EntityAnimal {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 10) {
+	public void handleStatusUpdate(byte id)
+	{
+		if (id == 10)
+		{
 			this.eatTimer = 80;
-		} else {
+		} else
+		{
 			super.handleStatusUpdate(id);
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
-	public float getHeadRotationPointY(float p_70894_1_) {
-		return this.eatTimer <= 0 ? 0.0F
-				: (this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F
-						: (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F
-								: -(this.eatTimer - 80 - p_70894_1_) / 4.0F));
+	public float getHeadRotationPointY(float p_70894_1_)
+	{
+		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F : (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 80 - p_70894_1_) / 4.0F));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_) {
-		if (this.eatTimer > 4 && this.eatTimer <= 76) {
+	public float getHeadRotationAngleX(float p_70890_1_)
+	{
+		if (this.eatTimer > 4 && this.eatTimer <= 76)
+		{
 			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
 			return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 150F) * MathHelper.sin(f * 28.7F);
-		} else {
+		} else
+		{
 			return this.eatTimer > 0 ? ((float) Math.PI / 5F) : this.rotationPitch * 0.017453292F;
 		}
 	}
 
 	@Override
-	public EntitySowYorkshire createChild(EntityAgeable ageable) {
+	public EntitySowYorkshire createChild(EntityAgeable ageable)
+	{
 		return null;
 	}
 
@@ -946,7 +1110,8 @@ public class EntitySowYorkshire extends EntityAnimal {
 	 * it (wheat, carrots or seeds depending on the animal type)
 	 */
 	@Override
-	public boolean isBreedingItem(@Nullable ItemStack stack) {
-		return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());
+	public boolean isBreedingItem(@Nullable ItemStack stack)
+	{
+		return stack != ItemStack.EMPTY && (TEMPTATION_ITEMS.contains(stack.getItem()) || stack.areItemStacksEqual(stack, slop));
 	}
 }

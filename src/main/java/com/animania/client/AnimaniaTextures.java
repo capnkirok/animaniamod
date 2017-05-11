@@ -1,5 +1,6 @@
 package com.animania.client;
 
+import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 
@@ -16,7 +17,7 @@ public class AnimaniaTextures {
 		register(ItemHandler.hamsterFood);
 		register(ItemHandler.truffle);
 		register(ItemHandler.brownEgg);
-		register(ItemHandler.bucketSlop);
+		//register(ItemHandler.bucketSlop);
 		register(ItemHandler.carvingKnife);
 		register(ItemHandler.cheeseMold);
 		register(ItemHandler.cheeseWheelFriesian);
@@ -199,6 +200,8 @@ public class AnimaniaTextures {
 		register(Item.getItemFromBlock(BlockHandler.blockTrough));
 		register(Item.getItemFromBlock(BlockHandler.blockNest));
 
+		
+		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
 
 	}
 	
