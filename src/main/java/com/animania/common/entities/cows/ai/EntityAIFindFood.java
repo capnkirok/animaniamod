@@ -172,13 +172,9 @@ public class EntityAIFindFood extends EntityAIBase {
 
 			if (poschk == BlockHandler.blockTrough) {
 				TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(currentpos);
-				if (te != null && te.getTroughType() == 4) {
-					te.setType(0);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(),
-							poschk.getDefaultState(), 0);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-
+				if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty()) {
+					te.itemHandler.extractItem(0, 1, false);
+					
 					if (temptedEntity instanceof EntityCowHolstein) {
 						EntityCowHolstein ech = (EntityCowHolstein) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
@@ -243,142 +239,6 @@ public class EntityAIFindFood extends EntityAIBase {
 
 					return false;
 
-				} else if (te != null && te.getTroughType() == 5) {
-					te.setType(4);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(),
-							poschk.getDefaultState(), 4);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (temptedEntity instanceof EntityCowHolstein) {
-						EntityCowHolstein ech = (EntityCowHolstein) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCowFriesian) {
-						EntityCowFriesian ech = (EntityCowFriesian) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCowHereford) {
-						EntityCowHereford ech = (EntityCowHereford) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCowLonghorn) {
-						EntityCowLonghorn ech = (EntityCowLonghorn) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCowAngus) {
-						EntityCowAngus ech = (EntityCowAngus) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityBullHolstein) {
-						EntityBullHolstein ech = (EntityBullHolstein) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityBullFriesian) {
-						EntityBullFriesian ech = (EntityBullFriesian) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityBullHereford) {
-						EntityBullHereford ech = (EntityBullHereford) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityBullLonghorn) {
-						EntityBullLonghorn ech = (EntityBullLonghorn) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityBullAngus) {
-						EntityBullAngus ech = (EntityBullAngus) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCalfHolstein) {
-						EntityCalfHolstein ech = (EntityCalfHolstein) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCalfFriesian) {
-						EntityCalfFriesian ech = (EntityCalfFriesian) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCalfHereford) {
-						EntityCalfHereford ech = (EntityCalfHereford) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCalfLonghorn) {
-						EntityCalfLonghorn ech = (EntityCalfLonghorn) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCalfAngus) {
-						EntityCalfAngus ech = (EntityCalfAngus) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					}
-					return false;
-				} else if (te != null && te.getTroughType() == 6) {
-					te.setType(5);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(),
-							poschk.getDefaultState(), 5);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (temptedEntity instanceof EntityCowHolstein) {
-						EntityCowHolstein ech = (EntityCowHolstein) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCowFriesian) {
-						EntityCowFriesian ech = (EntityCowFriesian) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCowHereford) {
-						EntityCowHereford ech = (EntityCowHereford) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCowLonghorn) {
-						EntityCowLonghorn ech = (EntityCowLonghorn) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCowAngus) {
-						EntityCowAngus ech = (EntityCowAngus) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityBullHolstein) {
-						EntityBullHolstein ech = (EntityBullHolstein) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityBullFriesian) {
-						EntityBullFriesian ech = (EntityBullFriesian) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityBullHereford) {
-						EntityBullHereford ech = (EntityBullHereford) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityBullLonghorn) {
-						EntityBullLonghorn ech = (EntityBullLonghorn) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityBullAngus) {
-						EntityBullAngus ech = (EntityBullAngus) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCalfHolstein) {
-						EntityCalfHolstein ech = (EntityCalfHolstein) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCalfFriesian) {
-						EntityCalfFriesian ech = (EntityCalfFriesian) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCalfHereford) {
-						EntityCalfHereford ech = (EntityCalfHereford) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCalfLonghorn) {
-						EntityCalfLonghorn ech = (EntityCalfLonghorn) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityCalfAngus) {
-						EntityCalfAngus ech = (EntityCalfAngus) temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					}
-					return false;
 				}
 
 			}
@@ -470,8 +330,7 @@ public class EntityAIFindFood extends EntityAIBase {
 
 						if (blockchk == BlockHandler.blockTrough) {
 							TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
-							if (te != null && (te.getTroughType() == 4 || te.getTroughType() == 5
-									|| te.getTroughType() == 6)) {
+							if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty()) {
 								foodFound = true;
 								if (rand.nextInt(20) == 0) {
 									this.delayTemptCounter = 0;
@@ -567,8 +426,7 @@ public class EntityAIFindFood extends EntityAIBase {
 
 						TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
 
-						if (te != null
-								&& (te.getTroughType() == 4 || te.getTroughType() == 5 || te.getTroughType() == 6)) {
+						if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty()) {
 
 							foodFound = true;
 							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);

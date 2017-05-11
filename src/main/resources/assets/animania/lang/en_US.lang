@@ -220,6 +220,10 @@ tile.animania_block_trough.name=Trough
 tile.animania_block_nest.name=Nest
 tile.animania_invisiblock.name=Trough
 
+
+fluid.slop=Slop
+
+
 tab.animania_entities.label=Animania Entities
 tab.animania_resources.label=Animania Resources
 

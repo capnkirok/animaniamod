@@ -5,21 +5,36 @@ import com.animania.common.blocks.BlockMud;
 import com.animania.common.blocks.BlockNest;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.blocks.BlockTrough;
+import com.animania.common.blocks.fluids.BlockFluidBase;
+import com.animania.common.blocks.fluids.BlockFluidSlop;
+import com.animania.common.blocks.fluids.FluidBase;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialLiquid;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockHandler {
 
+	//Blocks
 	public static Block blockMud;
 	public static Block blockInvisiblock;
 	public static Block blockSeeds;
+	public static BlockFluidBase blockSlop;
 
 	// TileEntity blocks
 	public static Block blockTrough;
 	public static Block blockNest;
 
+	
+	
+	//Fluids
+	public static Fluid fluidSlop;
+	
 	// Item Blocks
 	public static ItemBlock itemBlockMud;
 	public static ItemBlock itemBlockSeeds;
@@ -35,7 +50,13 @@ public class BlockHandler {
 		blockInvisiblock = new BlockInvisiblock().setHardness(1.0F).setResistance(1.0F);
 		blockNest = new BlockNest().setHardness(1.0F).setResistance(1.0F);
 		blockSeeds = new BlockSeeds();
-
+		
+		//Fluids
+		fluidSlop = new FluidBase("slop").setViscosity(7000).setDensity(3000).setEmptySound(SoundEvents.BLOCK_SLIME_PLACE).setFillSound(SoundEvents.BLOCK_SLIME_FALL);
+		FluidRegistry.addBucketForFluid(fluidSlop);
+		blockSlop = new BlockFluidSlop();
+		
+		//Itemblocks
 		itemBlockMud = new ItemBlock(blockMud);
 		GameRegistry.register(itemBlockMud.setRegistryName(blockMud.getRegistryName()));
 

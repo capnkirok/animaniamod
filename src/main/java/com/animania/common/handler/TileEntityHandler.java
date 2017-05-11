@@ -1,5 +1,6 @@
 package com.animania.common.handler;
 
+import com.animania.common.tileentities.TileEntityInvisiblock;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityTrough;
 
@@ -10,5 +11,6 @@ public class TileEntityHandler {
 	public static void preInit() {
 		GameRegistry.registerTileEntity(TileEntityTrough.class, "TileEntityTrough");
 		GameRegistry.registerTileEntity(TileEntityNest.class, "TileEntityNest");
+		GameRegistry.registerTileEntity(TileEntityInvisiblock.class, "TileEntityInvisiblock");
 	}
 }

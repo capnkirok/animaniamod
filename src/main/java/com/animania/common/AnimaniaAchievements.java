@@ -90,7 +90,7 @@ public class AnimaniaAchievements {
 				ItemHandler.entityeggpigletoldspot, (Achievement) null).registerStat();
 		AnimaniaAchievements.Yorkshire = new Achievement("yorkshire", "an.yorkshire", 8, 2,
 				ItemHandler.entityeggpigletyorkshire, (Achievement) null).registerStat();
-		AnimaniaAchievements.Pigs = new Achievement("pigs", "an.pigs", 10, 2, ItemHandler.bucketSlop,
+		AnimaniaAchievements.Pigs = new Achievement("pigs", "an.pigs", 10, 2, Items.CARROT,
 				AnimaniaAchievements.Yorkshire).registerStat();
 
 		AnimaniaAchievements.IndiaBlue = new Achievement("indiablue", "an.indiablue", -2, 4,

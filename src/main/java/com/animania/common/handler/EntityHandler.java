@@ -66,10 +66,16 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class EntityHandler {
+	
+	
 
 	public static void preInit() {
 		// COWS

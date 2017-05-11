@@ -11,6 +11,8 @@ import com.animania.common.handler.ItemHandler;
 import com.animania.common.handler.RecipeHandler;
 import com.animania.common.handler.TileEntityHandler;
 
+import net.minecraft.block.Block;
+
 public class CommonProxy {
 
 	public void preInit() {
@@ -29,6 +31,10 @@ public class CommonProxy {
 	public void init() {
 		DictionaryHandler.init();
 		RecipeHandler.init();
+	}
+
+	public void registerFluidBlockRendering(Block block, String name) {
+		
 	}
 
 }

@@ -11,7 +11,7 @@ public class ItemBucketSlop extends Item {
 	
 	public ItemBucketSlop() {
 		super();
-		setCreativeTab(Animania.TabAnimaniaResources);
+		//setCreativeTab(Animania.TabAnimaniaResources);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
 		setUnlocalizedName(Animania.MODID + "_" + name);
