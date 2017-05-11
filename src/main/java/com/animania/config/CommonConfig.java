@@ -235,6 +235,9 @@ public class CommonConfig {
 		
 		@Comment("Allow the trough to be automated with hoppers/pipes")
 		public boolean allowTroughAutomation = true;
+		
+		@Comment("Multiplier for reducing fall damage when animals are leashed")
+		public float fallDamageReduceMultiplier = 0.45f;
 	}
 
 	public static class Spawn {
