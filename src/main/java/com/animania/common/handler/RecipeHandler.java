@@ -23,12 +23,11 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-public class RecipeHandler {
-	
-	
-	
+public class RecipeHandler
+{
 
-	public static void init() {
+	public static void init()
+	{
 		ItemStack slopBucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
 
 		// Recipes
@@ -78,58 +77,38 @@ public class RecipeHandler {
 		 * Items.iron_ingot });
 		 */
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.hamsterFood, 3),
-				new Object[] { Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, Items.MELON_SEEDS }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.hamsterFood, 3), new Object[] { Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, Items.MELON_SEEDS }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.hamsterFood, 3),
-				new Object[] { "listAllseed", Items.PUMPKIN_SEEDS, Items.MELON_SEEDS }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.hamsterFood, 3), new Object[] { "listAllseed", Items.PUMPKIN_SEEDS, Items.MELON_SEEDS }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.hamsterFood, 3),
-				new Object[] { Items.WHEAT_SEEDS, "listAllseed", Items.MELON_SEEDS }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.hamsterFood, 3), new Object[] { Items.WHEAT_SEEDS, "listAllseed", Items.MELON_SEEDS }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.hamsterFood, 3),
-				new Object[] { Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, "listAllseed" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.hamsterFood, 3), new Object[] { Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, "listAllseed" }));
 
 		// CARVING KNIFE
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.carvingKnife, 1),
-				new Object[] { "   ", "ii ", "s  ", 'i', "ingotIron", 's', Items.STICK }));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.carvingKnife, 1), new Object[] { "   ", "ii ", "s  ", 'i', "ingotIron", 's', Items.STICK }));
 
 		// BEEF Recipes
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawAngusSteak, 5), new Object[] {
-				ItemHandler.rawAngusBeef, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawAngusSteak, 5), new Object[] { ItemHandler.rawAngusBeef, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawHerefordSteak, 4),
-				new Object[] { ItemHandler.rawHerefordBeef,
-						new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawHerefordSteak, 4), new Object[] { ItemHandler.rawHerefordBeef, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawLonghornSteak, 4),
-				new Object[] { ItemHandler.rawLonghornBeef,
-						new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawLonghornSteak, 4), new Object[] { ItemHandler.rawLonghornBeef, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		// PORK Recipes
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawLargeBlackBacon, 5),
-				new Object[] { ItemHandler.rawLargeBlackPork,
-						new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawLargeBlackBacon, 5), new Object[] { ItemHandler.rawLargeBlackPork, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawDurocBacon, 4), new Object[] {
-				ItemHandler.rawDurocPork, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawDurocBacon, 4), new Object[] { ItemHandler.rawDurocPork, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawOldSpotBacon, 4),
-				new Object[] { ItemHandler.rawOldSpotPork,
-						new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawOldSpotBacon, 4), new Object[] { ItemHandler.rawOldSpotPork, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawHampshireBacon, 4),
-				new Object[] { ItemHandler.rawHampshirePork,
-						new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawHampshireBacon, 4), new Object[] { ItemHandler.rawHampshirePork, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.LEAD, 1),
-				new Object[] { "leather", "leather", "string", "string" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.LEAD, 1), new Object[] { "leather", "leather", "string", "string" }));
 
-		GameRegistry.addRecipe(
-				new ShapelessOreRecipe(new ItemStack(Items.NAME_TAG, 1), new Object[] { "string", "nuggetGold" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.NAME_TAG, 1), new Object[] { "string", "nuggetGold" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.truffleSoup, 1),
-				new Object[] { ItemHandler.truffle, ItemHandler.truffle, Items.BOWL }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.truffleSoup, 1), new Object[] { ItemHandler.truffle, ItemHandler.truffle, Items.BOWL }));
 
 		/*
 		 * GameRegistry.addRecipe(new ShapelessOreRecipe(new
@@ -143,91 +122,62 @@ public class RecipeHandler {
 		 * 1, OreDictionary.WILDCARD_VALUE) }));
 		 */
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseOmelette, 1),
-				new Object[] { ItemHandler.plainOmelette, "foodCheese" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseOmelette, 1), new Object[] { ItemHandler.plainOmelette, "foodCheese" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1),
-				new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedDurocBacon }));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1),
-				new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedHampshireBacon }));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1),
-				new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedLargeBlackBacon }));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1),
-				new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedOldSpotBacon }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedDurocBacon }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedHampshireBacon }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedLargeBlackBacon }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedOldSpotBacon }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.truffleOmelette, 1),
-				new Object[] { ItemHandler.plainOmelette, ItemHandler.truffle }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.truffleOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.truffle }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] {
-				ItemHandler.plainOmelette, ItemHandler.cookedDurocBacon, ItemHandler.truffle, "foodCheese" }));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] {
-				ItemHandler.plainOmelette, ItemHandler.cookedHampshireBacon, ItemHandler.truffle, "foodCheese" }));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] {
-				ItemHandler.plainOmelette, ItemHandler.cookedLargeBlackBacon, ItemHandler.truffle, "foodCheese" }));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] {
-				ItemHandler.plainOmelette, ItemHandler.cookedOldSpotBacon, ItemHandler.truffle, "foodCheese" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedDurocBacon, ItemHandler.truffle, "foodCheese" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedHampshireBacon, ItemHandler.truffle, "foodCheese" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedLargeBlackBacon, ItemHandler.truffle, "foodCheese" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedOldSpotBacon, ItemHandler.truffle, "foodCheese" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.chocolateTruffle, 1),
-				new Object[] { ItemHandler.truffle, new ItemStack(Items.DYE, 1, 3), "listAllsugar" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.chocolateTruffle, 1), new Object[] { ItemHandler.truffle, new ItemStack(Items.DYE, 1, 3), "listAllsugar" }));
 
 		// BLOCKS
 		// Nest
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BlockHandler.blockNest, 1),
-				new Object[] { "wool", "stickWood", "treeLeaves" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BlockHandler.blockNest, 1), new Object[] { "wool", "stickWood", "treeLeaves" }));
 
 		// Trough
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BlockHandler.blockTrough, 1),
-				new Object[] { "p p", "pip", "s s", 'p', "plankWood", 'i', "ingotIron", 's', "stickWood" }));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BlockHandler.blockTrough, 1), new Object[] { "p p", "pip", "s s", 'p', "plankWood", 'i', "ingotIron", 's', "stickWood" }));
 
 		// Cheese Mold
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.cheeseMold, 1),
-				new Object[] { "   ", "pip", " p ", 'p', "plankWood", 'i', "ingotIron" }));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.cheeseMold, 1), new Object[] { "   ", "pip", " p ", 'p', "plankWood", 'i', "ingotIron" }));
 
-		
 		// Slop Normal
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
-				new Object[] { "listBucketmilk", "cropCarrot", "cropPotato" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listBucketmilk", "cropCarrot", "cropPotato" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
-				new Object[] { "listBucketmilk", "cropCarrot", "cropBeet" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listBucketmilk", "cropCarrot", "cropBeet" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
-				new Object[] { "listBucketmilk", "cropCarrot", "bread" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listBucketmilk", "cropCarrot", "bread" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
-				new Object[] { "listBucketmilk", "cropBeet", "cropPotato" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listBucketmilk", "cropBeet", "cropPotato" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
-				new Object[] { "listBucketmilk", "cropBeet", "bread" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listBucketmilk", "cropBeet", "bread" }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
-				new Object[] { "listBucketmilk", "cropPotato", "bread" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listBucketmilk", "cropPotato", "bread" }));
 
 		// Slop OreDict
-		GameRegistry.addRecipe(
-				new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk",
-						"listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropPotato", Items.BUCKET }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropPotato", Items.BUCKET }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] {
-				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "bread", Items.BUCKET }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "bread", Items.BUCKET }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] {
-				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "cropPotato", Items.BUCKET }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "cropPotato", Items.BUCKET }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] {
-				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "bread", Items.BUCKET }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "bread", Items.BUCKET }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] {
-				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropPotato", "bread", Items.BUCKET }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropPotato", "bread", Items.BUCKET }));
 
 		// Cheese Mold Recipes
 		GameRegistry.addRecipe(new CheeseRecipe1());
-		RecipeSorter.register("animania:cheesewheelholstein", CheeseRecipe1.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
+		RecipeSorter.register("animania:cheesewheelholstein", CheeseRecipe1.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
 		GameRegistry.addRecipe(new CheeseRecipe2());
-		RecipeSorter.register("animania:cheesewheelfriesian", CheeseRecipe2.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
+		RecipeSorter.register("animania:cheesewheelfriesian", CheeseRecipe2.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
 		/*
 		 * GameRegistry.addRecipe(new ShapelessOreRecipe(new
@@ -243,20 +193,14 @@ public class RecipeHandler {
 
 		// Carving Knife Recipes
 		GameRegistry.addRecipe(new CheeseRecipe3());
-		RecipeSorter.register("animania:cheeseWheelHolstein", CheeseRecipe3.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
+		RecipeSorter.register("animania:cheeseWheelHolstein", CheeseRecipe3.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
 		GameRegistry.addRecipe(new CheeseRecipe4());
-		RecipeSorter.register("animania:cheeseWheelFriesian", CheeseRecipe4.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
+		RecipeSorter.register("animania:cheeseWheelFriesian", CheeseRecipe4.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseWedgeHolstein, 4),
-				new Object[] { ItemHandler.cheeseWheelHolstein,
-						new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseWedgeHolstein, 4), new Object[] { ItemHandler.cheeseWheelHolstein, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseWedgeFriesian, 4),
-				new Object[] { ItemHandler.cheeseWheelFriesian,
-						new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseWedgeFriesian, 4), new Object[] { ItemHandler.cheeseWheelFriesian, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		// Slop Bucket Special Recipe
 		GameRegistry.addRecipe(new SlopBucketRecipe1());
@@ -265,74 +209,47 @@ public class RecipeHandler {
 		GameRegistry.addRecipe(new SlopBucketRecipe4());
 		GameRegistry.addRecipe(new SlopBucketRecipe5());
 		GameRegistry.addRecipe(new SlopBucketRecipe6());
-		RecipeSorter.register("animania:bucketslop1", SlopBucketRecipe1.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
-		RecipeSorter.register("animania:bucketslop2", SlopBucketRecipe2.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
-		RecipeSorter.register("animania:bucketslop3", SlopBucketRecipe3.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
-		RecipeSorter.register("animania:bucketslop4", SlopBucketRecipe4.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
-		RecipeSorter.register("animania:bucketslop5", SlopBucketRecipe5.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
-		RecipeSorter.register("animania:bucketslop6", SlopBucketRecipe6.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop1", SlopBucketRecipe1.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop2", SlopBucketRecipe2.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop3", SlopBucketRecipe3.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop4", SlopBucketRecipe4.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop5", SlopBucketRecipe5.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:bucketslop6", SlopBucketRecipe6.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] {
-				"listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropBeet", Items.BUCKET }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropBeet", Items.BUCKET }));
 
 		// Blocks
-		GameRegistry.addShapelessRecipe(new ItemStack(BlockHandler.blockMud, 2),
-				new Object[] { Items.WATER_BUCKET, Blocks.DIRT });
+		GameRegistry.addShapelessRecipe(new ItemStack(BlockHandler.blockMud, 2), new Object[] { Items.WATER_BUCKET, Blocks.DIRT });
 
 		// Vanilla transfer meats recipes
-		if (AnimaniaConfig.gameRules.enableVanillaMeatRecipes) {
-			GameRegistry.addRecipe(
-					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawAngusBeef }));
-			GameRegistry.addRecipe(
-					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawLonghornBeef }));
-			GameRegistry.addRecipe(
-					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawHerefordBeef }));
-			GameRegistry.addRecipe(
-					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawAngusSteak }));
-			GameRegistry.addRecipe(
-					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawLonghornSteak }));
-			GameRegistry.addRecipe(
-					new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawHerefordSteak }));
+		if (AnimaniaConfig.gameRules.enableVanillaMeatRecipes)
+		{
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawAngusBeef }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawLonghornBeef }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawHerefordBeef }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawAngusSteak }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawLonghornSteak }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.BEEF), new Object[] { ItemHandler.rawHerefordSteak }));
 
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP),
-					new Object[] { ItemHandler.rawLargeBlackPork }));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP),
-					new Object[] { ItemHandler.rawLargeBlackBacon }));
-			GameRegistry.addRecipe(
-					new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawDurocPork }));
-			GameRegistry.addRecipe(
-					new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawDurocBacon }));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP),
-					new Object[] { ItemHandler.rawHampshirePork }));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP),
-					new Object[] { ItemHandler.rawHampshireBacon }));
-			GameRegistry.addRecipe(
-					new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawOldSpotPork }));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP),
-					new Object[] { ItemHandler.rawOldSpotBacon }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawLargeBlackPork }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawLargeBlackBacon }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawDurocPork }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawDurocBacon }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawHampshirePork }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawHampshireBacon }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawOldSpotPork }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.PORKCHOP), new Object[] { ItemHandler.rawOldSpotBacon }));
 
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN),
-					new Object[] { ItemHandler.rawOrpingtonChicken }));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN),
-					new Object[] { ItemHandler.rawPlymouthRockChicken }));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN),
-					new Object[] { ItemHandler.rawWyandotteChicken }));
-			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN),
-					new Object[] { ItemHandler.rawRhodeIslandRedChicken }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN), new Object[] { ItemHandler.rawOrpingtonChicken }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN), new Object[] { ItemHandler.rawPlymouthRockChicken }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN), new Object[] { ItemHandler.rawWyandotteChicken }));
+			GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.CHICKEN), new Object[] { ItemHandler.rawRhodeIslandRedChicken }));
 
 		}
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET),
-				new Object[] { ItemHandler.milkBucketFriesian }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { ItemHandler.milkBucketFriesian }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET),
-				new Object[] { ItemHandler.milkBucketHolstein }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { ItemHandler.milkBucketHolstein }));
 
 		// Smelting Recipes
 		GameRegistry.addSmelting(ItemHandler.rawAngusBeef, new ItemStack(ItemHandler.cookedAngusRoast, 1), .3F);
@@ -342,26 +259,19 @@ public class RecipeHandler {
 		GameRegistry.addSmelting(ItemHandler.rawLonghornSteak, new ItemStack(ItemHandler.cookedLonghornSteak, 1), .2F);
 		GameRegistry.addSmelting(ItemHandler.rawHerefordSteak, new ItemStack(ItemHandler.cookedHerefordSteak, 1), .2F);
 
-		GameRegistry.addSmelting(ItemHandler.rawLargeBlackPork, new ItemStack(ItemHandler.cookedLargeBlackRoast, 1),
-				.3F);
+		GameRegistry.addSmelting(ItemHandler.rawLargeBlackPork, new ItemStack(ItemHandler.cookedLargeBlackRoast, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawDurocPork, new ItemStack(ItemHandler.cookedDurocRoast, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawOldSpotPork, new ItemStack(ItemHandler.cookedOldSpotRoast, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawHampshirePork, new ItemStack(ItemHandler.cookedHampshireRoast, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.rawLargeBlackBacon, new ItemStack(ItemHandler.cookedLargeBlackBacon, 1),
-				.2F);
+		GameRegistry.addSmelting(ItemHandler.rawLargeBlackBacon, new ItemStack(ItemHandler.cookedLargeBlackBacon, 1), .2F);
 		GameRegistry.addSmelting(ItemHandler.rawDurocBacon, new ItemStack(ItemHandler.cookedDurocBacon, 1), .2F);
-		GameRegistry.addSmelting(ItemHandler.rawHampshireBacon, new ItemStack(ItemHandler.cookedHampshireBacon, 1),
-				.2F);
+		GameRegistry.addSmelting(ItemHandler.rawHampshireBacon, new ItemStack(ItemHandler.cookedHampshireBacon, 1), .2F);
 		GameRegistry.addSmelting(ItemHandler.rawOldSpotBacon, new ItemStack(ItemHandler.cookedOldSpotBacon, 1), .2F);
 
-		GameRegistry.addSmelting(ItemHandler.rawOrpingtonChicken, new ItemStack(ItemHandler.cookedOrpingtonChicken, 1),
-				.3F);
-		GameRegistry.addSmelting(ItemHandler.rawPlymouthRockChicken,
-				new ItemStack(ItemHandler.cookedPlymouthRockChicken, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.rawWyandotteChicken, new ItemStack(ItemHandler.cookedWyandotteChicken, 1),
-				.3F);
-		GameRegistry.addSmelting(ItemHandler.rawRhodeIslandRedChicken,
-				new ItemStack(ItemHandler.cookedRhodeIslandRedChicken, 1), .3F);
+		GameRegistry.addSmelting(ItemHandler.rawOrpingtonChicken, new ItemStack(ItemHandler.cookedOrpingtonChicken, 1), .3F);
+		GameRegistry.addSmelting(ItemHandler.rawPlymouthRockChicken, new ItemStack(ItemHandler.cookedPlymouthRockChicken, 1), .3F);
+		GameRegistry.addSmelting(ItemHandler.rawWyandotteChicken, new ItemStack(ItemHandler.cookedWyandotteChicken, 1), .3F);
+		GameRegistry.addSmelting(ItemHandler.rawRhodeIslandRedChicken, new ItemStack(ItemHandler.cookedRhodeIslandRedChicken, 1), .3F);
 
 		GameRegistry.addSmelting(ItemHandler.rawPrimeBeef, new ItemStack(ItemHandler.cookedPrimeBeef, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawPrimeSteak, new ItemStack(ItemHandler.cookedPrimeSteak, 1), .3F);
