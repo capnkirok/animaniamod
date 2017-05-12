@@ -26,10 +26,11 @@ public class CommonProxy {
 		EventsHandler.preInit();
 		UpdateHandler.init();
 		AnimaniaAchievements.init();
+
 	}
 
 	public void init() {
-		DictionaryHandler.init();
+		DictionaryHandler.init();		
 		RecipeHandler.init();
 	}
 

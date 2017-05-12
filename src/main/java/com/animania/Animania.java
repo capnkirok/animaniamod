@@ -26,7 +26,7 @@ public class Animania {
 	public static Animania instance;
 
 	public static final String MODID = "animania";
-	public static final String VERSION = "1.0.4.7";
+	public static final String VERSION = "1.0.4.8";
 	public static final String NAME = "Animania";
 
 	// Tabs
