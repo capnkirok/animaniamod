@@ -56,6 +56,8 @@ public class EntityHamster extends EntityTameable {
 			DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHamster.class,
 			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHamster.class,
+			DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityHamster.class,
 			DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityHamster.class,
@@ -196,6 +198,7 @@ public class EntityHamster extends EntityTameable {
 		this.dataManager.register(BALL_COLOR, Integer.valueOf(0));
 		this.dataManager.register(FED, Boolean.valueOf(true));
 		this.dataManager.register(WATERED, Boolean.valueOf(true));
+		this.dataManager.register(RIDING, Boolean.valueOf(false));
 
 	}
 
@@ -210,6 +213,7 @@ public class EntityHamster extends EntityTameable {
 		nbttagcompound.setBoolean("Fed", this.getFed());
 		nbttagcompound.setBoolean("Watered", this.getWatered());
 		nbttagcompound.setBoolean("IsTamed", this.getIsTamed());
+		nbttagcompound.setBoolean("IsRiding", this.getIsRiding());
 	}
 
 	@Override
@@ -224,6 +228,7 @@ public class EntityHamster extends EntityTameable {
 		this.setFed(nbttagcompound.getBoolean("Fed"));
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
 		this.setIsTamed(nbttagcompound.getBoolean("IsTamed"));
+		this.setIsRiding(nbttagcompound.getBoolean("IsRiding"));
 	}
 
 	@Override
@@ -286,25 +291,18 @@ public class EntityHamster extends EntityTameable {
 				this.setInLove(player);
 				return true;
 			}
-
-		} else if (!this.world.isRemote && !this.isBreedingItem(stack) && !this.isHamsterSitting()
-				&& !player.isSneaking()) {
-			// System.out.println("sit");
+		} else if (itemstack == null && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking()) {
 			this.setHamsterSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
-			this.setAttackTarget((EntityLivingBase) null);
-			return super.processInteract(player, hand);
-		} else if (!this.world.isRemote && !this.isBreedingItem(stack) && this.isHamsterSitting()
-				&& !player.isSneaking()) {
-			// System.out.println("stand");
+			return true;
+		} else if (itemstack == null && this.isTamed() && this.isHamsterSitting() && !player.isSneaking()) {
 			this.setHamsterSitting(false);
 			this.setSitting(false);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
-			this.setAttackTarget((EntityLivingBase) null);
-			return super.processInteract(player, hand);
+			return true;
 		} else if (!this.world.isRemote && !this.isBreedingItem(stack) && player.isSneaking()) {
 			// System.out.println("free");
 			this.setHamsterSitting(false);
@@ -402,23 +400,19 @@ public class EntityHamster extends EntityTameable {
 		return true;
 	}
 
-	/*
-	 * private boolean interactPaperTamed(EntityPlayer entityplayer) {
-	 * isRemoteMountEntity(entityplayer); return true; }
-	 * 
-	 * 
-	 * private void isRemoteMountEntity(Entity par1Entity) { if (ridingEntity ==
-	 * par1Entity) { setLocationAndAngles(ridingEntity.posX,
-	 * ridingEntity.boundingBox.minY + (double)ridingEntity.height,
-	 * ridingEntity.posZ, rotationYaw, rotationPitch);
-	 * //Animania.mDebug("isRemoteMountEntity x="+ridingEntity.posX+" y="+(
-	 * ridingEntity.boundingBox.minY +
-	 * (double)ridingEntity.height)+" z="+ridingEntity.posZ); ridingEntity =
-	 * null; } else if (ridingEntity == null) { mountEntity(par1Entity); posX =
-	 * par1Entity.posX; posY = par1Entity.boundingBox.minY + (double)height;
-	 * posZ = par1Entity.posZ; setLocationAndAngles(posX, posY, posZ,
-	 * rotationYaw, rotationPitch); } }
-	 */
+	private void isRemoteMountEntity(Entity par1Entity)
+	{
+
+		if (this.getIsRiding())
+		{
+			this.setIsRiding(true);
+			this.startRiding(par1Entity);
+		} else if (!this.getIsRiding()) {
+			this.dismountRidingEntity();
+		}
+		
+	}
+
 
 	private boolean interactOthersTamed() {
 		if (isHamsterStanding() || !isHamsterSitting()) {
@@ -831,6 +825,23 @@ public class EntityHamster extends EntityTameable {
 		}
 	}
 
+	public boolean getIsRiding()
+	{
+		return (Boolean)this.dataManager.get(RIDING).booleanValue();
+	}
+
+	public void setIsRiding(boolean riding)
+	{
+		if (riding)
+		{
+			this.dataManager.set(RIDING, Boolean.valueOf(true));
+		}
+		else
+		{
+			this.dataManager.set(RIDING, Boolean.valueOf(false));
+		}
+	}
+	
 	public boolean isHamsterStanding() {
 		return isStanding;
 	}

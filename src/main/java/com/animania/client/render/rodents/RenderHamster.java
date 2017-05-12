@@ -1,13 +1,16 @@
 package com.animania.client.render.rodents;
 
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHamster;
 import com.animania.common.entities.rodents.EntityHamster;
+
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 
 public class RenderHamster extends RenderLiving<EntityHamster>
 {
@@ -23,9 +26,21 @@ public class RenderHamster extends RenderLiving<EntityHamster>
 		shadowSize = 0.15F;
 	}
 
-	protected void preRenderScale(EntityHamster entityhamster, float f)
+	protected void preRenderScale(EntityHamster entity, float f)
 	{
-		GL11.glScalef(scale, scale, scale);
+		GL11.glScalef(scale * .8F, scale * .8F, scale * .8F);
+
+		if (entity.isRiding()) {
+
+			if (entity.getRidingEntity() instanceof EntityPlayerSP) {
+			
+				EntityPlayer player = (EntityPlayer)entity.getRidingEntity();
+				entity.rotationYaw = player.rotationYaw;
+				GlStateManager.translate(-0.85F, entity.height - .17F, -0.3F);
+			
+			}
+			
+		}
 	}
 
 	@Override
