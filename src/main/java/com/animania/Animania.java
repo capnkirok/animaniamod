@@ -5,10 +5,12 @@ import com.animania.common.creativeTab.TabAnimaniaResources;
 import com.animania.proxy.CommonProxy;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -31,6 +33,12 @@ public class Animania {
 	public static CreativeTabs TabAnimaniaEggs = new TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania");
 	public static CreativeTabs TabAnimaniaResources = new TabAnimaniaResources(CreativeTabs.getNextID(), "Animania");
 
+	
+	@EventHandler
+    public void construction(FMLConstructionEvent event){
+		FluidRegistry.enableUniversalBucket();
+    }
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		proxy.preInit();
