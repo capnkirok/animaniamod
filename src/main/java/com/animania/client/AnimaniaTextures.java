@@ -202,6 +202,8 @@ public class AnimaniaTextures {
 
 		
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
+		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkFriesian, "milk_friesian");
+		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkHolstein, "milk_holstein");
 
 	}
 	
