@@ -29,6 +29,10 @@ public class EntityEventHandler
 					event.setAmount(amount * AnimaniaConfig.gameRules.fallDamageReduceMultiplier);
 				}
 			}
+			
+			if (animal.isRiding()) {
+				event.setCanceled(true);
+			}
 		}
 
 	}
