@@ -2,6 +2,8 @@ package com.animania.common.entities.rodents.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.rodents.EntityHamster;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -43,6 +45,15 @@ public class EntityAIWanderRodent extends EntityAIBase
 
 			if (this.entity.getRNG().nextInt(this.executionChance) != 0)
 			{
+				return false;
+			}
+		}
+		
+		boolean isRiding = false;
+		if (this.entity instanceof EntityHamster) {
+			EntityHamster eh = (EntityHamster)this.entity;
+			isRiding = eh.getIsRiding();
+			if (isRiding) {
 				return false;
 			}
 		}

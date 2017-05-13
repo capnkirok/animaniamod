@@ -274,10 +274,10 @@ public class EntityHamster extends EntityTameable {
 				itemstack.shrink(1);
 
 				if (itemstack.getCount() <= 0) {
-					player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 				}
 			}
-			setAttackTarget(null);
+			
 			player.addStat(AnimaniaAchievements.Hamsters, 1);
 			this.setInLove(player);
 			this.setIsTamed(true);
@@ -291,29 +291,29 @@ public class EntityHamster extends EntityTameable {
 				this.setInLove(player);
 				return true;
 			}
-		} else if (itemstack == null && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking()) {
+		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking()) {
 			this.setHamsterSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
 			return true;
-		} else if (itemstack == null && this.isTamed() && this.isHamsterSitting() && !player.isSneaking()) {
+		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isHamsterSitting() && !player.isSneaking()) {
 			this.setHamsterSitting(false);
 			this.setSitting(false);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
 			return true;
-		} else if (!this.world.isRemote && !this.isBreedingItem(stack) && player.isSneaking()) {
-			// System.out.println("free");
-			this.setHamsterSitting(false);
-			this.setSitting(false);
-			this.isJumping = false;
-			this.navigator.clearPathEntity();
-			this.setAttackTarget((EntityLivingBase) null);
-			this.setOwnerId(null);
-			this.setIsTamed(false);
-			this.setTamed(false);
-			return super.processInteract(player, hand);
+		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking()) {
+			if (!this.getIsRiding()) {
+				this.setIsRiding(true);
+			}
+			return interactPaperTamed(player);
+		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking()) {
+			if (this.getIsRiding()) {
+				this.setIsRiding(false);
+			}
+			return interactPaperTamed(player);
+
 		}
 
 		if (!getIsTamed()) {
@@ -397,6 +397,12 @@ public class EntityHamster extends EntityTameable {
 		// showHeartsOrSmokeFX("note", 1, false);
 
 		heal(1);
+		return true;
+	}
+
+	private boolean interactPaperTamed(EntityPlayer entityplayer)
+	{
+		isRemoteMountEntity(entityplayer);
 		return true;
 	}
 
