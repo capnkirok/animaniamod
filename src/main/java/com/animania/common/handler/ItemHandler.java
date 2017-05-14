@@ -144,8 +144,8 @@ public class ItemHandler {
 	public static Item cheeseWedgeHolstein;
 	public static Item truffleSoup;
 	public static Item chocolateTruffle;
-	public static Item milkBucketHolstein;
-	public static Item milkBucketFriesian;
+	//public static Item milkBucketHolstein;
+	//public static Item milkBucketFriesian;
 
 	// Eggs - Cows
 
@@ -250,8 +250,8 @@ public class ItemHandler {
 		//bucketSlop = new ItemBucketSlop();
 		carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
 		cheeseMold = new ItemCheeseMold();
-		milkBucketFriesian = new ItemBucketMilk("friesian");
-		milkBucketHolstein = new ItemBucketMilk("holstein");
+		//milkBucketFriesian = new ItemBucketMilk("friesian");
+		//milkBucketHolstein = new ItemBucketMilk("holstein");
 		peacockFeatherBlue = new ItemPeacockFeather("blue");
 		peacockFeatherWhite = new ItemPeacockFeather("white");
 

@@ -32,12 +32,12 @@ public class BlockHandler {
 	public static Block blockNest;
 
 	
-	
 	//Fluids
 	public static Fluid fluidSlop;
 	public static Fluid fluidMilkHolstein;
 	public static Fluid fluidMilkFriesian;
 
+	
 	// Item Blocks
 	public static ItemBlock itemBlockMud;
 	public static ItemBlock itemBlockSeeds;

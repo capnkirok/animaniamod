@@ -3,6 +3,7 @@ package com.animania.common.recipes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.init.Items;
@@ -11,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.UniversalBucket;
 
 public class CheeseRecipe2 implements IRecipe {
 
@@ -21,11 +24,12 @@ public class CheeseRecipe2 implements IRecipe {
 	private int moldSlotJ;
 	private int moldSlotI;
 	private ItemStack moldStack;
+	private ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
 
 	public CheeseRecipe2() {
 		this.recipeOutput = new ItemStack(ItemHandler.cheeseWheelFriesian);
 		this.recipeItems.add(new ItemStack(ItemHandler.cheeseMold));
-		this.recipeItems.add(new ItemStack(ItemHandler.milkBucketFriesian));
+		this.recipeItems.add(milk);
 
 	}
 
@@ -48,7 +52,7 @@ public class CheeseRecipe2 implements IRecipe {
 						if (itemstack.getItem() == itemstack1.getItem()) {
 							flag = true;
 
-							if (itemstack.getItem() == ItemHandler.milkBucketFriesian) {
+							if (ItemStack.areItemStackTagsEqual(itemstack, milk)) {
 								bucketSlotJ = j;
 								bucketSlotI = i;
 							}

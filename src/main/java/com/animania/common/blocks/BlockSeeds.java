@@ -43,8 +43,9 @@ public class BlockSeeds extends Block {
 		setUnlocalizedName(Animania.MODID + "_" + name);
 		setSoundType(SoundType.PLANT);
 		this.setTickRandomly(true);
+		
 	}
-
+	
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
@@ -142,6 +143,9 @@ public class BlockSeeds extends Block {
 	{
 		return new ItemStack(Items.WHEAT_SEEDS);
 	}
+	
+	
+	
 	
 	
 }

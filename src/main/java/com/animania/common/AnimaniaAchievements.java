@@ -62,7 +62,7 @@ public class AnimaniaAchievements {
 				ItemHandler.entityeggcalfholstein, (Achievement) null).registerStat();
 		AnimaniaAchievements.Longhorn = new Achievement("longhorn", "an.longhorn", 6, -2,
 				ItemHandler.entityeggcalflonghorn, (Achievement) null).registerStat();
-		AnimaniaAchievements.Cows = new Achievement("cows", "an.cows", 8, -2, ItemHandler.milkBucketHolstein,
+		AnimaniaAchievements.Cows = new Achievement("cows", "an.cows", 8, -2, Items.LEATHER,
 				AnimaniaAchievements.Longhorn).registerStat();
 
 		AnimaniaAchievements.Leghorn = new Achievement("leghorn", "an.leghorn", -2, 0,

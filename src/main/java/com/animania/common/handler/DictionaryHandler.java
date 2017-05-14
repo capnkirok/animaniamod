@@ -3,12 +3,19 @@ package com.animania.common.handler;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class DictionaryHandler {
 
 	public static void init() {
 
+		ItemStack milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
+		ItemStack milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
+
+		
+		
 		OreDictionary.registerOre("egg", ItemHandler.brownEgg);
 		OreDictionary.registerOre("listAllegg", ItemHandler.brownEgg);
 
@@ -96,8 +103,8 @@ public class DictionaryHandler {
 		OreDictionary.registerOre("listAllporkcooked", ItemHandler.cookedPrimeBacon);
 		OreDictionary.registerOre("listAllchickencooked", ItemHandler.cookedPrimeChicken);
 
-		OreDictionary.registerOre("listBucketmilk", ItemHandler.milkBucketFriesian);
-		OreDictionary.registerOre("listBucketmilk", ItemHandler.milkBucketHolstein);
+		//OreDictionary.registerOre("listBucketmilk", milkHolstein);
+		//OreDictionary.registerOre("listBucketmilk", milkFriesian);
 
 		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeFriesian);
 		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeHolstein);

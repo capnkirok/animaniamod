@@ -31,8 +31,8 @@ public class AnimaniaTextures {
 		register(ItemHandler.baconOmelette);
 		register(ItemHandler.truffleOmelette);
 		register(ItemHandler.ultimateOmelette);
-		register(ItemHandler.milkBucketFriesian);
-		register(ItemHandler.milkBucketHolstein);
+		//register(ItemHandler.milkBucketFriesian);
+		//register(ItemHandler.milkBucketHolstein);
 		register(ItemHandler.peacockFeatherBlue);
 		register(ItemHandler.peacockFeatherWhite);
 
