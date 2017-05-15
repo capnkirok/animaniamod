@@ -222,6 +222,8 @@ tile.animania_invisiblock.name=Trough
 
 
 fluid.slop=Slop
+fluid.milk_holstein=Holstein Milk
+fluid.milk_friesian=Friesian Milk
 
 
 tab.animania_entities.label=Animania Entities

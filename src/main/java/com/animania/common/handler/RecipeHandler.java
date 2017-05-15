@@ -29,7 +29,9 @@ public class RecipeHandler
 	public static void init()
 	{
 		ItemStack slopBucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
-
+		ItemStack milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
+		ItemStack milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
+		boolean equal = ItemStack.areItemStacksEqual(milkHolstein, milkFriesian);
 		// Recipes
 
 		// HAMSTERS
@@ -175,9 +177,11 @@ public class RecipeHandler
 		// Cheese Mold Recipes
 		GameRegistry.addRecipe(new CheeseRecipe1());
 		RecipeSorter.register("animania:cheesewheelholstein", CheeseRecipe1.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemHandler.cheeseWheelHolstein), new Object[]{ItemHandler.cheeseMold, milkHolstein});
 
 		GameRegistry.addRecipe(new CheeseRecipe2());
 		RecipeSorter.register("animania:cheesewheelfriesian", CheeseRecipe2.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		GameRegistry.addShapelessRecipe(new ItemStack(ItemHandler.cheeseWheelFriesian), new Object[]{milkFriesian, ItemHandler.cheeseMold});
 
 		/*
 		 * GameRegistry.addRecipe(new ShapelessOreRecipe(new
@@ -193,13 +197,12 @@ public class RecipeHandler
 
 		// Carving Knife Recipes
 		GameRegistry.addRecipe(new CheeseRecipe3());
-		RecipeSorter.register("animania:cheeseWheelHolstein", CheeseRecipe3.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:cheesewedgeholstein", CheeseRecipe3.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
 		GameRegistry.addRecipe(new CheeseRecipe4());
-		RecipeSorter.register("animania:cheeseWheelFriesian", CheeseRecipe4.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:cheesewedgefriesian", CheeseRecipe4.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseWedgeHolstein, 4), new Object[] { ItemHandler.cheeseWheelHolstein, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
-
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseWedgeFriesian, 4), new Object[] { ItemHandler.cheeseWheelFriesian, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		// Slop Bucket Special Recipe
@@ -247,9 +250,9 @@ public class RecipeHandler
 
 		}
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { ItemHandler.milkBucketFriesian }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkFriesian }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { ItemHandler.milkBucketHolstein }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkHolstein }));
 
 		// Smelting Recipes
 		GameRegistry.addSmelting(ItemHandler.rawAngusBeef, new ItemStack(ItemHandler.cookedAngusRoast, 1), .3F);

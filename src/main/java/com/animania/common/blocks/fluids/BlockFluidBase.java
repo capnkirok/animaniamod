@@ -23,10 +23,6 @@ public class BlockFluidBase extends BlockFluidClassic {
 	}
 	
 	
-	@Override
-	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
-	{
-		return true;
-	}
+	
 
 }

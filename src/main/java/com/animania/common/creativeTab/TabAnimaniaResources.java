@@ -30,7 +30,9 @@ public final class TabAnimaniaResources extends CreativeTabs {
 	public void displayAllRelevantItems(NonNullList<ItemStack> list) {
 		
 		list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop));
-		
+		list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian));
+		list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein));
+
 		super.displayAllRelevantItems(list);
 	}
 	

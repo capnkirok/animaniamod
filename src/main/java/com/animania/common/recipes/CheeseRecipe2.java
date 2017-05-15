@@ -3,6 +3,7 @@ package com.animania.common.recipes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.init.Items;
@@ -11,81 +12,74 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.UniversalBucket;
 
 public class CheeseRecipe2 implements IRecipe {
 
 	private final ItemStack recipeOutput;
 	public final ArrayList recipeItems = new ArrayList();
-	private int bucketSlotJ;
-	private int bucketSlotI;
-	private int moldSlotJ;
-	private int moldSlotI;
+	private int bucketSlot;
+	private int moldSlot;
 	private ItemStack moldStack;
+	private ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
 
 	public CheeseRecipe2() {
 		this.recipeOutput = new ItemStack(ItemHandler.cheeseWheelFriesian);
 		this.recipeItems.add(new ItemStack(ItemHandler.cheeseMold));
-		this.recipeItems.add(new ItemStack(ItemHandler.milkBucketFriesian));
+		this.recipeItems.add(milk);
 
 	}
 
 	@Override
 	public boolean matches(InventoryCrafting inv, World world) {
 
-		ArrayList arraylist = new ArrayList(this.recipeItems);
+		ItemStack mold = ItemStack.EMPTY;
+		ItemStack milk = ItemStack.EMPTY;
+		ItemStack extra = ItemStack.EMPTY;
 
-		for (int i = 0; i < 3; ++i) {
-			for (int j = 0; j < 3; ++j) {
-				ItemStack itemstack = inv.getStackInRowAndColumn(j, i);
+		for(int i = 0; i < inv.getSizeInventory(); i++)
+		{
+			ItemStack current = inv.getStackInSlot(i);
 
-				if (itemstack != ItemStack.EMPTY) {
-					boolean flag = false;
-					Iterator iterator = arraylist.iterator();
+			if(!current.isEmpty())
 
-					while (iterator.hasNext()) {
-						ItemStack itemstack1 = (ItemStack) iterator.next();
-
-						if (itemstack.getItem() == itemstack1.getItem()) {
-							flag = true;
-
-							if (itemstack.getItem() == ItemHandler.milkBucketFriesian) {
-								bucketSlotJ = j;
-								bucketSlotI = i;
-							}
-
-							if (itemstack.getItem() == ItemHandler.cheeseMold) {
-								moldSlotJ = j;
-								moldSlotI = i;
-								moldStack = itemstack.copy();
-							}
-
-							arraylist.remove(itemstack1);
-							break;
-						}
-					}
-
-					if (!flag) {
-						return false;
-					}
+			{
+				if(ItemStack.areItemsEqualIgnoreDurability(current, new ItemStack(ItemHandler.cheeseMold)) && mold.isEmpty())
+				{
+					mold = current.copy();
+					this.moldSlot = i;
+					this.moldStack = current.copy();
 				}
+				else if(ItemStack.areItemStacksEqual(current, this.milk) && milk.isEmpty())
+				{
+					milk = current.copy();
+					this.bucketSlot = i;
+				}
+				else
+				{
+					extra = current.copy();
+				}
+
 			}
+
 		}
 
-		return arraylist.isEmpty();
+		return !milk.isEmpty() && !mold.isEmpty() && extra.isEmpty();
 	}
 
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 
 		NonNullList<ItemStack> bob = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-		bob.set((bucketSlotJ + (bucketSlotI * (int) (Math.sqrt(inv.getSizeInventory())))), new ItemStack(Items.BUCKET));
+		bob.set(bucketSlot, new ItemStack(Items.BUCKET));
 		moldStack.setItemDamage(moldStack.getItemDamage() + 1);
 
 		if (moldStack.getItemDamage() >= moldStack.getMaxDamage()) {
 			moldStack = ItemStack.EMPTY;
 		}
 
-		bob.set((moldSlotJ + (moldSlotI * (int) (Math.sqrt(inv.getSizeInventory())))), moldStack);
+		bob.set(moldSlot, moldStack);
 
 		return bob;
 	}

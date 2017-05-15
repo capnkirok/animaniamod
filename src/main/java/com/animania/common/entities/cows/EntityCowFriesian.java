@@ -15,6 +15,7 @@ import com.animania.common.entities.cows.ai.EntityAIMateCows;
 import com.animania.common.entities.cows.ai.EntityAIPanicCows;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
 import com.animania.common.entities.cows.ai.EntityAIWanderCow;
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -53,24 +54,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityCowFriesian extends EntityAnimal {
-	private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager
-			.<Optional<UUID>>createKey(EntityCowFriesian.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityCowFriesian.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityCowFriesian.class,
-			DataSerializers.BOOLEAN);
+public class EntityCowFriesian extends EntityAnimal
+{
+	private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityCowFriesian.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityCowFriesian.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityCowFriesian.class, DataSerializers.BOOLEAN);
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
 	private int happyTimer;
 	private int gestationTimer;
 	public int blinkTimer;
-
-	public EntityCowFriesian(World world) {
+	private ItemStack milkFriesian;
+	
+	public EntityCowFriesian(World world)
+	{
 		super(world);
 		this.setSize(1.4F, 1.8F);
 		this.stepHeight = 1.1F;
@@ -92,52 +95,63 @@ public class EntityCowFriesian extends EntityAnimal {
 		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200);
 		this.happyTimer = 60;
 		this.blinkTimer = 100 + rand.nextInt(100);
+		this.milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
+
 	}
 
-	public static void registerFixesCow(DataFixer fixer) {
+	public static void registerFixesCow(DataFixer fixer)
+	{
 		EntityLiving.registerFixesMob(fixer, EntityCowFriesian.class);
 	}
 
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	{
 
-		if (this.world.isRemote) {
+		if (this.world.isRemote)
+		{
 			return null;
 		}
 
 		int cowCount = 0;
 		int esize = this.world.loadedEntityList.size();
-		for (int k = 0; k <= esize - 1; k++) {
+		for (int k = 0; k <= esize - 1; k++)
+		{
 			Entity entity = this.world.loadedEntityList.get(k);
-			if (entity.getName().contains("Holstein") || entity.getName().contains("Friesian")
-					|| entity.getName().contains("Angus") || entity.getName().contains("Longhorn")
-					|| entity.getName().contains("Hereford")) {
+			if (entity.getName().contains("Holstein") || entity.getName().contains("Friesian") || entity.getName().contains("Angus") || entity.getName().contains("Longhorn") || entity.getName().contains("Hereford"))
+			{
 				EntityAnimal ea = (EntityAnimal) entity;
-				if (ea.hasCustomName() || ea.isInLove()) {
+				if (ea.hasCustomName() || ea.isInLove())
+				{
 					// cowCount = cowCount - 1;
-				} else {
+				} else
+				{
 					cowCount = cowCount + 1;
 				}
 			}
 		}
 
-		if (cowCount <= AnimaniaConfig.spawn.spawnLimitCows) {
+		if (cowCount <= AnimaniaConfig.spawn.spawnLimitCows)
+		{
 
 			int chooser = rand.nextInt(5);
 
-			if (chooser == 0) {
+			if (chooser == 0)
+			{
 				EntityBullFriesian entityCow = new EntityBullFriesian(this.world);
 				entityCow.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityCow);
 				entityCow.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entityCow.getUniqueID());
-			} else if (chooser == 1) {
+			} else if (chooser == 1)
+			{
 				EntityCalfFriesian entityCow = new EntityCalfFriesian(this.world);
 				entityCow.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityCow);
 				entityCow.setParentUniqueId(this.entityUniqueID);
-			} else if (chooser > 2) {
+			} else if (chooser > 2)
+			{
 				EntityBullFriesian entityCow = new EntityBullFriesian(this.world);
 				entityCow.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityCow);
@@ -149,12 +163,13 @@ public class EntityCowFriesian extends EntityAnimal {
 				entityCalf.setParentUniqueId(this.entityUniqueID);
 			}
 
-			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-					.applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
+			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
-			if (this.rand.nextFloat() < 0.05F) {
+			if (this.rand.nextFloat() < 0.05F)
+			{
 				this.setLeftHanded(true);
-			} else {
+			} else
+			{
 				this.setLeftHanded(false);
 			}
 
@@ -164,7 +179,8 @@ public class EntityCowFriesian extends EntityAnimal {
 	}
 
 	@Override
-	protected boolean canDespawn() {
+	protected boolean canDespawn()
+	{
 		return false;
 	}
 
@@ -175,7 +191,8 @@ public class EntityCowFriesian extends EntityAnimal {
 	private int damageTimer;
 
 	@Override
-	protected void entityInit() {
+	protected void entityInit()
+	{
 
 		super.entityInit();
 		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
@@ -184,45 +201,51 @@ public class EntityCowFriesian extends EntityAnimal {
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
+	protected void applyEntityAttributes()
+	{
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.21000000298023224D);
 	}
 
 	@Override
-	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack) {
+	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
+	{
 		this.setFed(true);
 		this.entityAIEatGrass.startExecuting();
 		eatTimer = 80;
 		player.addStat(AnimaniaAchievements.Friesian, 1);
-		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian)
-				&& player.hasAchievement(AnimaniaAchievements.Hereford)
-				&& player.hasAchievement(AnimaniaAchievements.Holstein)
-				&& player.hasAchievement(AnimaniaAchievements.Longhorn)) {
+		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
+		{
 			player.addStat(AnimaniaAchievements.Cows, 1);
 		}
-		if (!player.capabilities.isCreativeMode) {
+		if (!player.capabilities.isCreativeMode)
+		{
 			stack.setCount(stack.getCount() - 1);
 		}
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player) {
+	public void setInLove(EntityPlayer player)
+	{
 		this.world.setEntityState(this, (byte) 18);
 	}
 
 	@Override
-	protected void updateAITasks() {
+	protected void updateAITasks()
+	{
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
 		super.updateAITasks();
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
+	public void writeEntityToNBT(NBTTagCompound compound)
+	{
 		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null) {
-			if (this.getMateUniqueId() != null) {
+		if (this.getMateUniqueId() != null)
+		{
+			if (this.getMateUniqueId() != null)
+			{
 				compound.setString("MateUUID", this.getMateUniqueId().toString());
 			}
 		}
@@ -236,19 +259,23 @@ public class EntityCowFriesian extends EntityAnimal {
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
+	public void readEntityFromNBT(NBTTagCompound compound)
+	{
 		super.readEntityFromNBT(compound);
 
 		String s;
 
-		if (compound.hasKey("MateUUID", 8)) {
+		if (compound.hasKey("MateUUID", 8))
+		{
 			s = compound.getString("MateUUID");
-		} else {
+		} else
+		{
 			String s1 = compound.getString("Mate");
 			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
 		}
 
-		if (!s.isEmpty()) {
+		if (!s.isEmpty())
+		{
 			this.setMateUniqueId(UUID.fromString(s));
 		}
 		this.setFed(compound.getBoolean("Fed"));
@@ -257,121 +284,155 @@ public class EntityCowFriesian extends EntityAnimal {
 	}
 
 	@Nullable
-	public UUID getMateUniqueId() {
+	public UUID getMateUniqueId()
+	{
 		return (UUID) ((Optional) this.dataManager.get(MATE_UNIQUE_ID)).orNull();
 	}
 
-	public void setMateUniqueId(@Nullable UUID uniqueId) {
+	public void setMateUniqueId(@Nullable UUID uniqueId)
+	{
 		this.dataManager.set(MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
-	public boolean getFed() {
+	public boolean getFed()
+	{
 		return this.dataManager.get(FED).booleanValue();
 	}
 
-	public void setFed(boolean fed) {
-		if (fed) {
+	public void setFed(boolean fed)
+	{
+		if (fed)
+		{
 			this.dataManager.set(FED, Boolean.valueOf(true));
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
-		} else {
+		} else
+		{
 			this.dataManager.set(FED, Boolean.valueOf(false));
 		}
 	}
 
-	public boolean getWatered() {
+	public boolean getWatered()
+	{
 		return this.dataManager.get(WATERED).booleanValue();
 	}
 
-	public void setWatered(boolean watered) {
-		if (watered) {
+	public void setWatered(boolean watered)
+	{
+		if (watered)
+		{
 			this.dataManager.set(WATERED, Boolean.valueOf(true));
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
-		} else {
+		} else
+		{
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 		}
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound() {
+	protected SoundEvent getAmbientSound()
+	{
 		int happy = 0;
 		int num = 0;
 
-		if (this.getWatered()) {
+		if (this.getWatered())
+		{
 			happy++;
 		}
-		if (this.getFed()) {
+		if (this.getFed())
+		{
 			happy++;
 		}
 
-		if (happy == 2) {
+		if (happy == 2)
+		{
 			num = 16;
-		} else if (happy == 1) {
+		} else if (happy == 1)
+		{
 			num = 32;
-		} else {
+		} else
+		{
 			num = 60;
 		}
 
 		Random rand = new Random();
 		int chooser = rand.nextInt(num);
 
-		if (chooser == 0) {
+		if (chooser == 0)
+		{
 			return ModSoundEvents.moo1;
-		} else if (chooser == 1) {
+		} else if (chooser == 1)
+		{
 			return ModSoundEvents.moo3;
-		} else if (chooser == 2) {
+		} else if (chooser == 2)
+		{
 			return ModSoundEvents.moo4;
-		} else if (chooser == 3) {
+		} else if (chooser == 3)
+		{
 			return ModSoundEvents.moo4;
-		} else if (chooser == 4) {
+		} else if (chooser == 4)
+		{
 			return ModSoundEvents.moo5;
-		} else if (chooser == 5) {
+		} else if (chooser == 5)
+		{
 			return ModSoundEvents.moo6;
-		} else if (chooser == 6) {
+		} else if (chooser == 6)
+		{
 			return ModSoundEvents.moo7;
-		} else if (chooser == 7) {
+		} else if (chooser == 7)
+		{
 			return ModSoundEvents.moo8;
-		} else {
+		} else
+		{
 			return null;
 		}
 
 	}
 
 	@Override
-	protected SoundEvent getHurtSound() {
+	protected SoundEvent getHurtSound()
+	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(2);
 
-		if (chooser == 0) {
+		if (chooser == 0)
+		{
 			return ModSoundEvents.cowHurt1;
-		} else {
+		} else
+		{
 			return ModSoundEvents.cowHurt2;
 		}
 	}
 
 	@Override
-	protected SoundEvent getDeathSound() {
+	protected SoundEvent getDeathSound()
+	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(2);
 
-		if (chooser == 0) {
+		if (chooser == 0)
+		{
 			return ModSoundEvents.cowDeath1;
-		} else {
+		} else
+		{
 			return ModSoundEvents.cowDeath2;
 		}
 	}
 
 	@Override
-	public void playLivingSound() {
+	public void playLivingSound()
+	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null) {
+		if (soundevent != null)
+		{
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
 		}
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
+	protected void playStepSound(BlockPos pos, Block blockIn)
+	{
 		this.playSound(SoundEvents.ENTITY_COW_STEP, 0.10F, 1.0F);
 	}
 
@@ -379,41 +440,51 @@ public class EntityCowFriesian extends EntityAnimal {
 	 * Returns the volume for the sounds this mob makes.
 	 */
 	@Override
-	protected float getSoundVolume() {
+	protected float getSoundVolume()
+	{
 		return 0.4F;
 	}
 
 	@Override
-	protected Item getDropItem() {
+	protected Item getDropItem()
+	{
 		return Items.LEATHER;
 	}
 
 	@Override
-	public void onLivingUpdate() {
+	public void onLivingUpdate()
+	{
 
-		if (this.blinkTimer > -1) {
+		if (this.blinkTimer > -1)
+		{
 			this.blinkTimer--;
-			if (blinkTimer == 0) {
+			if (blinkTimer == 0)
+			{
 				this.blinkTimer = 100 + rand.nextInt(100);
 			}
 		}
 
-		if (this.world.isRemote) {
+		if (this.world.isRemote)
+		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 		}
 
-		if (this.fedTimer > -1) {
+		if (this.fedTimer > -1)
+		{
 			this.fedTimer--;
 
-			if (fedTimer == 0) {
+			if (fedTimer == 0)
+			{
 				this.setFed(false);
 			}
 		}
 
-		if (this.wateredTimer > -1) {
+		if (this.wateredTimer > -1)
+		{
 			this.wateredTimer--;
 
-			if (wateredTimer == 0) {
+			if (wateredTimer == 0)
+			{
 				this.setWatered(false);
 			}
 		}
@@ -421,47 +492,54 @@ public class EntityCowFriesian extends EntityAnimal {
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-		if (!fed && !watered) {
+		if (!fed && !watered)
+		{
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			if (AnimaniaConfig.gameRules.animalsStarve) {
-				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer) {
+			if (AnimaniaConfig.gameRules.animalsStarve)
+			{
+				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer)
+				{
 					this.attackEntityFrom(DamageSource.STARVE, 4f);
 					this.damageTimer = 0;
 				}
 				this.damageTimer++;
 			}
 
-		} else if (!fed || !watered) {
+		} else if (!fed || !watered)
+		{
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		}
 
-		if (this.happyTimer > -1) {
+		if (this.happyTimer > -1)
+		{
 			this.happyTimer--;
-			if (happyTimer == 0) {
+			if (happyTimer == 0)
+			{
 				happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles) {
+				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles)
+				{
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
-							(posX + rand.nextFloat() * width) - width,
-							posY + 1.5D + rand.nextFloat() * height,
-							(posZ + rand.nextFloat() * width) - width, d, d1, d2);
+					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width, posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1, d2);
 				}
 			}
 		}
 
-		if (this.gestationTimer > -1 && this.getMateUniqueId() != null) {
+		if (this.gestationTimer > -1 && this.getMateUniqueId() != null)
+		{
 			this.gestationTimer--;
-			if (gestationTimer == 0) {
+			if (gestationTimer == 0)
+			{
 
 				gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(2000);
 
 				String MateID = this.getMateUniqueId().toString();
 
 				int esize = this.world.loadedEntityList.size();
-				for (int k = 0; k <= esize - 1; k++) {
+				for (int k = 0; k <= esize - 1; k++)
+				{
 					Entity entity = this.world.loadedEntityList.get(k);
 
 					double xt = entity.posX;
@@ -474,16 +552,18 @@ public class EntityCowFriesian extends EntityAnimal {
 					double y2 = yt - y1;
 					double z2 = zt - z1;
 
-					if (entity != null && this.getFed() && this.getWatered()
-							&& entity.getPersistentID().toString().equals(MateID) && x2 <= 10 && y2 <= 10 && z2 <= 10) {
+					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().toString().equals(MateID) && x2 <= 10 && y2 <= 10 && z2 <= 10)
+					{
 
 						this.setInLove(null);
 
-						if (!this.world.isRemote) {
+						if (!this.world.isRemote)
+						{
 
 							BabyEntitySpawnEvent event = null;
 
-							if (entity instanceof EntityBullFriesian) {
+							if (entity instanceof EntityBullFriesian)
+							{
 								EntityCalfFriesian entityCalf = new EntityCalfFriesian(this.world);
 								entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 								this.world.spawnEntity(entityCalf);
@@ -491,8 +571,10 @@ public class EntityCowFriesian extends EntityAnimal {
 								this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
 								event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
 
-							} else if (entity instanceof EntityBullAngus) {
-								if (rand.nextInt(2) == 0) {
+							} else if (entity instanceof EntityBullAngus)
+							{
+								if (rand.nextInt(2) == 0)
+								{
 									EntityCalfFriesian entityCalf = new EntityCalfFriesian(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
@@ -500,7 +582,8 @@ public class EntityCowFriesian extends EntityAnimal {
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
 
-								} else {
+								} else
+								{
 									EntityCalfAngus entityCalf = new EntityCalfAngus(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
@@ -509,8 +592,10 @@ public class EntityCowFriesian extends EntityAnimal {
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
 
 								}
-							} else if (entity instanceof EntityBullHereford) {
-								if (rand.nextInt(2) == 0) {
+							} else if (entity instanceof EntityBullHereford)
+							{
+								if (rand.nextInt(2) == 0)
+								{
 									EntityCalfFriesian entityCalf = new EntityCalfFriesian(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
@@ -518,7 +603,8 @@ public class EntityCowFriesian extends EntityAnimal {
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
 
-								} else {
+								} else
+								{
 									EntityCalfHereford entityCalf = new EntityCalfHereford(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
@@ -527,8 +613,10 @@ public class EntityCowFriesian extends EntityAnimal {
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
 
 								}
-							} else if (entity instanceof EntityBullHolstein) {
-								if (rand.nextInt(2) == 0) {
+							} else if (entity instanceof EntityBullHolstein)
+							{
+								if (rand.nextInt(2) == 0)
+								{
 									EntityCalfFriesian entityCalf = new EntityCalfFriesian(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
@@ -536,7 +624,8 @@ public class EntityCowFriesian extends EntityAnimal {
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
 
-								} else {
+								} else
+								{
 									EntityCalfHolstein entityCalf = new EntityCalfHolstein(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
@@ -545,8 +634,10 @@ public class EntityCowFriesian extends EntityAnimal {
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
 
 								}
-							} else if (entity instanceof EntityBullLonghorn) {
-								if (rand.nextInt(2) == 0) {
+							} else if (entity instanceof EntityBullLonghorn)
+							{
+								if (rand.nextInt(2) == 0)
+								{
 									EntityCalfFriesian entityCalf = new EntityCalfFriesian(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
@@ -554,7 +645,8 @@ public class EntityCowFriesian extends EntityAnimal {
 									this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
 									event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
 
-								} else {
+								} else
+								{
 									EntityCalfLonghorn entityCalf = new EntityCalfLonghorn(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
@@ -576,14 +668,17 @@ public class EntityCowFriesian extends EntityAnimal {
 	}
 
 	@Override
-	protected void dropFewItems(boolean hit, int lootlevel) {
+	protected void dropFewItems(boolean hit, int lootlevel)
+	{
 
 		int happyDrops = 0;
 
-		if (this.getWatered()) {
+		if (this.getWatered())
+		{
 			happyDrops++;
 		}
-		if (this.getFed()) {
+		if (this.getFed())
+		{
 			happyDrops++;
 		}
 
@@ -592,11 +687,14 @@ public class EntityCowFriesian extends EntityAnimal {
 
 		j = happyDrops + lootlevel;
 
-		for (k = 0; k < j; ++k) {
-			if (this.isBurning()) {
+		for (k = 0; k < j; ++k)
+		{
+			if (this.isBurning())
+			{
 				this.dropItem(Items.COOKED_BEEF, 1);
 				this.dropItem(Items.LEATHER, 1);
-			} else {
+			} else
+			{
 				this.dropItem(Items.BEEF, 1);
 				this.dropItem(Items.LEATHER, 1);
 			}
@@ -604,27 +702,33 @@ public class EntityCowFriesian extends EntityAnimal {
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	{
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
-		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET) {
+		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
+		{
 			player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 0.8F);
 			stack.shrink(1);
-			if (stack.getCount() == 0) {
-				player.setHeldItem(hand, new ItemStack(ItemHandler.milkBucketFriesian));
-			} else if (!player.inventory.addItemStackToInventory(new ItemStack(ItemHandler.milkBucketFriesian))) {
-				player.dropItem(new ItemStack(ItemHandler.milkBucketFriesian), false);
+			if (stack.getCount() == 0)
+			{
+				player.setHeldItem(hand, milkFriesian);
+			} else if (!player.inventory.addItemStackToInventory(milkFriesian))
+			{
+				player.dropItem(milkFriesian, false);
 			}
 
 			this.setWatered(false);
 
 			return true;
-		} else if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
+		} else if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		{
 			{
-				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode) {
+				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
+				{
 					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-				} else if (!player.capabilities.isCreativeMode
-						&& !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET))) {
+				} else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
+				{
 					player.dropItem(new ItemStack(Items.BUCKET), false);
 				}
 
@@ -634,51 +738,58 @@ public class EntityCowFriesian extends EntityAnimal {
 				this.setInLove(player);
 				return true;
 			}
-		} else {
+		} else
+		{
 			return super.processInteract(player, hand);
 		}
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id) {
-		if (id == 10) {
+	public void handleStatusUpdate(byte id)
+	{
+		if (id == 10)
+		{
 			this.eatTimer = 160;
-		} else {
+		} else
+		{
 			super.handleStatusUpdate(id);
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
-	public float getHeadRotationPointY(float p_70894_1_) {
-		return this.eatTimer <= 0 ? 0.0F
-				: (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F
-						: (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F
-								: -(this.eatTimer - 160 - p_70894_1_) / 4.0F));
+	public float getHeadRotationPointY(float p_70894_1_)
+	{
+		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F));
 	}
 
 	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_) {
-		if (this.eatTimer > 4 && this.eatTimer <= 156) {
+	public float getHeadRotationAngleX(float p_70890_1_)
+	{
+		if (this.eatTimer > 4 && this.eatTimer <= 156)
+		{
 			float f = (this.eatTimer - 4 - p_70890_1_) / 64.0F;
 			return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 100F) * MathHelper.sin(f * 28.7F);
-		} else {
+		} else
+		{
 			return this.eatTimer > 0 ? ((float) Math.PI / 5F) : this.rotationPitch * 0.017453292F;
 		}
 	}
 
 	@Override
-	public boolean isBreedingItem(@Nullable ItemStack stack) {
+	public boolean isBreedingItem(@Nullable ItemStack stack)
+	{
 		return stack != ItemStack.EMPTY && this.isCowBreedingItem(stack.getItem());
 	}
 
-	private boolean isCowBreedingItem(Item itemIn) {
-		return itemIn == Items.WHEAT || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER)
-				|| itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
+	private boolean isCowBreedingItem(Item itemIn)
+	{
+		return itemIn == Items.WHEAT || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	@Override
-	public EntityCowFriesian createChild(EntityAgeable p_90011_1_) {
+	public EntityCowFriesian createChild(EntityAgeable p_90011_1_)
+	{
 		return null;
 	}
 }
