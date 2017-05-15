@@ -1,8 +1,8 @@
 package com.animania.common.handler;
 
 import com.animania.common.ModSoundEvents;
-import com.animania.common.events.EntityEventHandler;
 import com.animania.common.events.EggThrowHandler;
+import com.animania.common.events.EntityEventHandler;
 import com.animania.common.events.EventMudDamageCanceller;
 import com.animania.common.events.EventReplaceSpawnAnimals;
 import com.animania.common.events.ItemSeedHandler;
@@ -22,6 +22,5 @@ public class EventsHandler {
 		MinecraftForge.EVENT_BUS.register(new EventMudDamageCanceller());
 		MinecraftForge.EVENT_BUS.register(new RemoveVanillaSpawns());
 		MinecraftForge.EVENT_BUS.register(new EntityEventHandler());
-
 	}
 }

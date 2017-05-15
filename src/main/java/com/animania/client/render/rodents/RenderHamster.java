@@ -38,9 +38,9 @@ public class RenderHamster extends RenderLiving<EntityHamster>
 				entity.rotationYaw = player.rotationYaw;
 				
 				if (player.isSneaking()) {
-					GlStateManager.translate(-0.85F, entity.height - .07F, -0.3F);
+					GlStateManager.translate(-0.85F, entity.height - .07F, -0.1F);
 				} else {
-					GlStateManager.translate(-0.85F, entity.height - .17F, -0.3F);
+					GlStateManager.translate(-0.85F, entity.height - .17F, -0.1F);
 				}
 			
 			}

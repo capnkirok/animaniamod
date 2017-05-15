@@ -70,6 +70,7 @@ public class EntityHamster extends EntityTameable {
 	private int happyTimer;
 	private int tamedTimer;
 	public int blinkTimer;
+	private long rideCount;
 
 	private int stackCount;
 	private int eatCount;
@@ -235,15 +236,13 @@ public class EntityHamster extends EntityTameable {
 		return yOffset;
 	}
 
+
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
-		
+
 		ItemStack itemstack = player.getHeldItem(hand);
-		System.out.println(itemstack);
-		System.out.println("t: " + this.isTamed());
-		System.out.println("t2: " + this.getIsTamed());
-		System.out.println("r: " + this.isRiding());
-		
+
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.NAME_TAG) {
 
 			if (!itemstack.hasDisplayName()) {
@@ -298,15 +297,13 @@ public class EntityHamster extends EntityTameable {
 			this.navigator.clearPathEntity();
 			return true;
 		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking()) {
-			
-			System.out.println(1);
+
 			if (!this.getIsRiding()) {
 				this.setIsRiding(true);
 			}
 			return interactRide(player);
-		} else if ((itemstack == ItemStack.EMPTY || itemstack.getItem() == Items.AIR) && this.isTamed() && this.isRiding() && player.isSneaking()) {
-			
-			System.out.println(2);
+		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking()) {
+
 			if (this.getIsRiding()) {
 				this.setIsRiding(false);
 			}
@@ -337,10 +334,10 @@ public class EntityHamster extends EntityTameable {
 			return interactSeedsTamed(itemstack, player);
 		}
 
-		
+
 
 		return super.processInteract(player, hand);
-		
+
 
 	}
 
@@ -399,17 +396,19 @@ public class EntityHamster extends EntityTameable {
 		{
 			this.setIsRiding(true);
 			this.startRiding(par1Entity);
+			this.rideCount = 0;
 		} else if (!this.getIsRiding()) {
 			this.dismountRidingEntity();
+
 		}
 
 	}
 
 	@Override
 	public boolean canRiderInteract()
-    {
-        return true;
-    }
+	{
+		return true;
+	}
 
 	private boolean interactOthersTamed() {
 		if (isHamsterStanding() || !isHamsterSitting()) {
@@ -432,7 +431,7 @@ public class EntityHamster extends EntityTameable {
 
 	@Override
 	public boolean canBeCollidedWith() {
-		
+
 		if(this.getRidingEntity() != null && this.getRidingEntity() instanceof EntityPlayer)
 		{
 			EntityPlayer player = (EntityPlayer) this.getRidingEntity();
@@ -458,7 +457,7 @@ public class EntityHamster extends EntityTameable {
 		}
 
 	}
-	
+
 	@Override
 	protected void jump() {
 		motionY = 0.29999999999999999D;
@@ -470,9 +469,22 @@ public class EntityHamster extends EntityTameable {
 		return false;
 	}
 
-	
+
 	@Override
 	public void onLivingUpdate() {
+
+
+		if (this.isRiding()) {
+			rideCount++;
+		}
+
+		if (this.isRiding() && this.getRidingEntity() instanceof EntityPlayer && rideCount > 30) {
+			EntityPlayer player = (EntityPlayer)this.getRidingEntity();
+			if (player.isSneaking()) {
+				player.removePassengers();
+				this.setIsRiding(false);
+			}
+		}
 
 		if (this.blinkTimer > -1) {
 			this.blinkTimer--;
@@ -481,10 +493,6 @@ public class EntityHamster extends EntityTameable {
 			}
 		}
 
-	
-		
-		
-		
 		if (getColorNumber() == 0) {
 			Random rand = new Random();
 			int bob2 = rand.nextInt(8) + 1;
@@ -501,7 +509,7 @@ public class EntityHamster extends EntityTameable {
 		}
 
 		super.onLivingUpdate();
-		
+
 		if ((this.getIsRiding() && this.getRidingEntity() != null) || this.isHamsterSitting()) {
 
 			if (this.getRidingEntity() != null) {
@@ -510,7 +518,7 @@ public class EntityHamster extends EntityTameable {
 			this.navigator.clearPathEntity();
 			this.navigator.setSpeed(0);
 		}
-		
+
 		if (getHealth() < 10) {
 			eatFood();
 			eatCount = 5000;
@@ -547,8 +555,9 @@ public class EntityHamster extends EntityTameable {
 			}
 		}
 
-		if (isHamsterSitting() | isHamsterStanding() && getNavigator() != null)
+		if (isHamsterSitting() | isHamsterStanding() && getNavigator() != null) {
 			getNavigator().clearPathEntity();
+		}
 
 		if (this.fedTimer > -1) {
 			this.fedTimer--;
@@ -714,7 +723,7 @@ public class EntityHamster extends EntityTameable {
 			double d = rand.nextGaussian() * 0.02D;
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
-			
+
 			if (rand.nextInt(2) > 0) {
 				world.playSound(null, this.posX, this.posY + 1, this.posZ, ModSoundEvents.hamsterEat1,
 						SoundCategory.PLAYERS, 0.6F, 0.8F);
