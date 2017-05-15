@@ -38,6 +38,12 @@ public class EntityAIWanderHedgehog extends EntityAIBase
 	@Override
 	public boolean shouldExecute()
 	{
+		
+		if (this.entity.isRiding()) {
+			return false;
+		}
+	
+		
 		if (!this.mustUpdate)
 		{
 			if (this.entity.getRNG().nextInt(this.executionChance) != 0)

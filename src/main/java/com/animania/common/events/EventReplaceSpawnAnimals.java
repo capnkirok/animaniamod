@@ -94,20 +94,21 @@ public class EventReplaceSpawnAnimals {
 			int esize = worldIn.loadedEntityList.size();
 			for (int k = 0; k <= esize - 1; k++) {
 				Entity entity = worldIn.loadedEntityList.get(k);
-				if (entity.getClass().equals(EntityCowAngus.class) || entity.getClass().equals(EntityBullAngus.class)
+				if (entity.getClass().equals(EntityCowAngus.class) 
+						|| entity.getClass().equals(EntityBullAngus.class)
 						|| entity.getClass().equals(EntityCalfAngus.class)
 						|| entity.getClass().equals(EntityCowFriesian.class)
 						|| entity.getClass().equals(EntityBullFriesian.class)
 						|| entity.getClass().equals(EntityCalfFriesian.class)
 						|| entity.getClass().equals(EntityCowHereford.class)
-						|| entity.getClass().equals(EntityCowHereford.class)
-						|| entity.getClass().equals(EntityCowHereford.class)
+						|| entity.getClass().equals(EntityBullHereford.class)
+						|| entity.getClass().equals(EntityCalfHereford.class)
 						|| entity.getClass().equals(EntityCowHolstein.class)
-						|| entity.getClass().equals(EntityCowHolstein.class)
-						|| entity.getClass().equals(EntityCowHolstein.class)
+						|| entity.getClass().equals(EntityBullHolstein.class)
+						|| entity.getClass().equals(EntityCalfHolstein.class)
 						|| entity.getClass().equals(EntityCowLonghorn.class)
-						|| entity.getClass().equals(EntityCowLonghorn.class)
-						|| entity.getClass().equals(EntityCowLonghorn.class)) {
+						|| entity.getClass().equals(EntityBullLonghorn.class)
+						|| entity.getClass().equals(EntityCalfLonghorn.class)) {
 					cowCount = cowCount + 1;
 				}
 			}
