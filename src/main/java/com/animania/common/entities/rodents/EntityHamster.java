@@ -458,6 +458,8 @@ public class EntityHamster extends EntityTameable {
 
 	}
 
+	}
+	
 	@Override
 	protected void jump() {
 		motionY = 0.29999999999999999D;
@@ -493,6 +495,10 @@ public class EntityHamster extends EntityTameable {
 			}
 		}
 
+	
+		
+		
+		
 		if (getColorNumber() == 0) {
 			Random rand = new Random();
 			int bob2 = rand.nextInt(8) + 1;
