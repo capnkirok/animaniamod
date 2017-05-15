@@ -36,9 +36,9 @@ public class RenderFerretGrey extends RenderLiving<EntityFerretGrey>
 				EntityPlayer player = (EntityPlayer)entity.getRidingEntity();
 				entity.rotationYaw = player.rotationYaw;
 				if (player.isSneaking()) {
-					GlStateManager.translate(-1.2F, entity.height + .5F, .5F);
+					GlStateManager.translate(-1.2F, entity.height + .0F, .5F);
 				} else {
-					GlStateManager.translate(-1.2F, entity.height + .4F, .5F);
+					GlStateManager.translate(-1.2F, entity.height - .1F, .5F);
 				}
 			}
 

@@ -38,9 +38,9 @@ public class RenderHedgehogAlbino extends RenderLiving<EntityHedgehogAlbino>
 				EntityPlayer player = (EntityPlayer)entity.getRidingEntity();
 				entity.rotationYaw = player.rotationYaw;
 				if (player.isSneaking()) {
-					GlStateManager.translate(-1.0F, entity.height + .2F, .1F);
+					GlStateManager.translate(-1.0F, entity.height - .1F, .1F);
 				} else {
-					GlStateManager.translate(-1.0F, entity.height + .1F, .1F);
+					GlStateManager.translate(-1.0F, entity.height - .2F, .1F);
 				}
 			}
 

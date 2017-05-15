@@ -339,24 +339,24 @@ public class EntityHedgehogAlbino extends EntityTameable {
 				return true;
 			}
 
-		} else if (stack == null && this.isTamed() && !this.isHedgehogSitting() && !player.isSneaking()) {
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isHedgehogSitting() && !player.isSneaking()) {
 			this.setHedgehogSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
 			return true;
-		} else if (stack == null && this.isTamed() && this.isHedgehogSitting() && !player.isSneaking()) {
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && this.isHedgehogSitting() && !player.isSneaking()) {
 			this.setHedgehogSitting(false);
 			this.setSitting(false);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
 			return true;
-		} else if (stack == null && this.isTamed() && !this.isRiding() && player.isSneaking()) {
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking()) {
 			if (!this.isHedgehogRiding()) {
 				this.setHedgehogRiding(true);
 			}
 			return interactRide(player);
-		} else if (stack == null && this.isTamed() && this.isRiding() && player.isSneaking()) {
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking()) {
 			if (this.isHedgehogRiding()) {
 				this.setHedgehogRiding(false);
 			}

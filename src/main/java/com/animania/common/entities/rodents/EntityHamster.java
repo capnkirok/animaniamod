@@ -458,7 +458,7 @@ public class EntityHamster extends EntityTameable {
 
 	}
 
-	}
+
 	
 	@Override
 	protected void jump() {

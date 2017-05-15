@@ -240,24 +240,24 @@ public class EntityFerretWhite extends EntityTameable {
 				return true;
 			}
 
-		} else if (stack == null && this.isTamed() && !this.isFerretSitting() && !player.isSneaking()) {
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isFerretSitting() && !player.isSneaking()) {
 			this.setFerretSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
 			return true;
-		} else if (stack == null && this.isTamed() && this.isFerretSitting() && !player.isSneaking()) {
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && this.isFerretSitting() && !player.isSneaking()) {
 			this.setFerretSitting(false);
 			this.setSitting(false);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
 			return true;
-		} else if (stack == null && this.isTamed() && !this.isRiding() && player.isSneaking()) {
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking()) {
 			if (!this.isFerretRiding()) {
 				this.setFerretRiding(true);
 			}
 			return interactRide(player);
-		} else if (stack == null && this.isTamed() && this.isRiding() && player.isSneaking()) {
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking()) {
 			if (this.isFerretRiding()) {
 				this.setFerretRiding(false);
 			}
