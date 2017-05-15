@@ -40,6 +40,11 @@ public class EntityAIWanderRodent extends EntityAIBase
 	@Override
 	public boolean shouldExecute()
 	{
+		
+		if (this.entity.isRiding()) {
+			return false;
+		}
+		
 		if (!this.mustUpdate)
 		{
 
@@ -49,15 +54,6 @@ public class EntityAIWanderRodent extends EntityAIBase
 			}
 		}
 		
-		boolean isRiding = false;
-		if (this.entity instanceof EntityHamster) {
-			EntityHamster eh = (EntityHamster)this.entity;
-			isRiding = eh.getIsRiding();
-			if (isRiding) {
-				return false;
-			}
-		}
-
 		Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
 
 		if (vec3d == null)

@@ -114,14 +114,6 @@ public class EntityAIRodentEat extends EntityAIBase {
 							this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
 							this.entityWorld.setBlockState(blockpos1, Blocks.AIR.getDefaultState(), 2);
 
-							// TODO remove truffles
-						} else if (chkblock == Blocks.GRASS && biomegenbase.getBiomeName().contains("Forest")) {
-							this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
-							ItemStack bob2 = new ItemStack(ItemHandler.truffle, 1);
-							EntityItem entityitem = new EntityItem(this.entityWorld, blockpos1.getX() + 0.5D,
-									blockpos1.getY(), blockpos.getZ() + 0.5D, bob2);
-							// entityitem.height = 1;
-							this.entityWorld.spawnEntity(entityitem);
 						}
 
 						this.grassEaterEntity.eatGrassBonus();

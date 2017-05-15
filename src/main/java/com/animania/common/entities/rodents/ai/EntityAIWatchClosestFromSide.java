@@ -41,7 +41,13 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
     @Override
 	public boolean shouldExecute()
     {
-        if (this.theWatcher.getRNG().nextFloat() >= this.chance)
+        
+    	if (this.theWatcher.isRiding()) {
+			return false;
+		}
+    	
+    	
+    	if (this.theWatcher.getRNG().nextFloat() >= this.chance)
         {
             return false;
         }

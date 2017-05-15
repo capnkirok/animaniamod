@@ -45,7 +45,7 @@ public class EntityAIFindWater extends EntityAIBase
 	{
 
 		delayTemptCounter++;
-		if (delayTemptCounter > 20) {
+		if (delayTemptCounter > 60) {
 
 			if (this.temptedEntity instanceof EntityFerretGrey) {
 				EntityFerretGrey entity = (EntityFerretGrey) temptedEntity;

@@ -157,12 +157,8 @@ public class EntityAIFindFood extends EntityAIBase {
 
 				Random rand = new Random();
 
-				if (temptedEntity.world.getGameRules().getBoolean("mobGriefing")) {
-
-					temptedEntity.world.destroyBlock(currentpos, false);
-
-					temptedEntity.limbSwingAmount = 50.0f;
-				}
+				temptedEntity.world.destroyBlock(currentpos, false);
+				temptedEntity.limbSwingAmount = 50.0f;
 
 				if (this.temptedEntity instanceof EntityChickLeghorn) {
 					EntityChickLeghorn entity = (EntityChickLeghorn) temptedEntity;
