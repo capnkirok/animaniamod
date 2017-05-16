@@ -1,5 +1,13 @@
 {
     "variants": {
-        "normal": { "model": "animania:block_seeds" }
+        "normal": 
+		[
+					{ "model": "animania:block_seeds" },
+		          { "model": "animania:block_seeds", "y": 90 },
+		          { "model": "animania:block_seeds", "y": 180 },
+		          { "model": "animania:block_seeds", "y": 270 }
+				  
+		]
+
     }
 }
