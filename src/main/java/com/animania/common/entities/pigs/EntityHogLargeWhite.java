@@ -92,6 +92,7 @@ public class EntityHogLargeWhite extends EntityAnimal
 		this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + rand.nextInt(80);
+		this.enablePersistence();
 		this.slop = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
 	}
 

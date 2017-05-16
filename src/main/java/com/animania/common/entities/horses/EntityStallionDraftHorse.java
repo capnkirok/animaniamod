@@ -82,6 +82,7 @@ public class EntityStallionDraftHorse extends EntityAnimal {
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		this.happyTimer = 60;
+		this.enablePersistence();
 	}
 
 	public int eatTimer;

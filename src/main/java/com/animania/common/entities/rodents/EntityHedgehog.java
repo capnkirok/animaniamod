@@ -78,6 +78,7 @@ public class EntityHedgehog extends EntityTameable {
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 80 + rand.nextInt(80);
+		this.enablePersistence();
 
 	}
 

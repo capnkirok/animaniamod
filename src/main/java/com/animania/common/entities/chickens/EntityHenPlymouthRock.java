@@ -102,6 +102,7 @@ public class EntityHenPlymouthRock extends EntityAnimal {
 		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 1250 + rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + rand.nextInt(80);
+		this.enablePersistence();
 		String texture = null;
 		if (getColor() == "") {
 			setColor(getRandomColor());

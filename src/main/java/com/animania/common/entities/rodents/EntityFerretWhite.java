@@ -84,6 +84,7 @@ public class EntityFerretWhite extends EntityTameable {
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + rand.nextInt(70);
+		this.enablePersistence();
 	}
 
 	@Override

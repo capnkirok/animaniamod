@@ -91,6 +91,7 @@ public class EntityBullFriesian extends EntityAnimal {
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 100 + rand.nextInt(100);
+		this.enablePersistence();
 	}
 
 	public int eatTimer;

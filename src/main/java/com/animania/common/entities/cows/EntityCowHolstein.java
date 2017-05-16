@@ -95,6 +95,7 @@ public class EntityCowHolstein extends EntityAnimal
 		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200);
 		this.happyTimer = 60;
 		this.blinkTimer = 100 + rand.nextInt(100);
+		this.enablePersistence();
 		this.milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
 
 	}

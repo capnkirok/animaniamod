@@ -100,6 +100,7 @@ public class EntityHenLeghorn extends EntityAnimal {
 		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + rand.nextInt(80);
+		this.enablePersistence();
 		this.chickenJockey = true;
 		String texture = null;
 		if (getColor() == "") {

@@ -112,6 +112,7 @@ public class EntityRoosterLeghorn extends EntityAnimal {
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer / 2 + rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + rand.nextInt(80);
+		this.enablePersistence();
 		String texture = null;
 		if (getColor() == "") {
 			setColor(getRandomColor());
