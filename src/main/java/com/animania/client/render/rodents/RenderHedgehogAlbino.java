@@ -1,16 +1,19 @@
 package com.animania.client.render.rodents;
 
 
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 @SideOnly(Side.CLIENT)
@@ -28,11 +31,26 @@ public class RenderHedgehogAlbino extends RenderLiving<EntityHedgehogAlbino>
 
 	protected void preRenderScale(EntityHedgehogAlbino entity, float f)
 	{
-		GL11.glScalef(0.7F, 0.7F, 0.7F); 
+		if (entity.isRiding()) {
 
-		if (entity.getCustomNameTag().equals("Sanic")) {
-			GL11.glRotatef(20, -1, 0, 1);
-			GL11.glScalef(1.2F, 1.7F, 1.6F); 
+			if (entity.getRidingEntity() instanceof EntityPlayerSP) {
+				GL11.glScalef(0.4F, 0.4F, 0.4F); 
+				EntityPlayer player = (EntityPlayer)entity.getRidingEntity();
+				entity.rotationYaw = player.rotationYaw;
+				if (player.isSneaking()) {
+					GlStateManager.translate(-1.0F, entity.height - .1F, .1F);
+				} else {
+					GlStateManager.translate(-1.0F, entity.height - .2F, .1F);
+				}
+			}
+
+		} else {
+			GL11.glScalef(0.6F, 0.6F, 0.6F); 
+
+			if (entity.getCustomNameTag().equals("Sanic")) {
+				GL11.glRotatef(20, -1, 0, 1);
+				GL11.glScalef(1.2F, 1.7F, 1.6F); 
+			}
 		}
 
 	}

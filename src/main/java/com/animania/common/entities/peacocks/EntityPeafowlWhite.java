@@ -80,6 +80,7 @@ public class EntityPeafowlWhite extends EntityAnimal {
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + rand.nextInt(100);
 		this.blinkTimer = 80 + rand.nextInt(80);
+		this.enablePersistence();
 		this.happyTimer = 60;
 
 	}

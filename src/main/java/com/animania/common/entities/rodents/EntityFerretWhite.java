@@ -14,6 +14,7 @@ import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
 import com.animania.common.entities.chickens.EntityChickWyandotte;
 import com.animania.common.entities.rodents.ai.EntityAIFerretFindFood;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
+import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
 import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
 import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
 import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
@@ -32,10 +33,10 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISit;
 import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -59,12 +60,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityFerretWhite extends EntityTameable {
-	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityFerretWhite.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityFerretWhite.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityFerretWhite.class,
-			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityFerretWhite.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityFerretWhite.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityFerretWhite.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityFerretWhite.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityFerretWhite.class, DataSerializers.BOOLEAN);
+	
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.MUTTON, Items.EGG,
 			ItemHandler.brownEgg, Items.CHICKEN, ItemHandler.rawWyandotteChicken, ItemHandler.rawRhodeIslandRedChicken,
 			ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken });
@@ -83,6 +84,7 @@ public class EntityFerretWhite extends EntityTameable {
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + rand.nextInt(70);
+		this.enablePersistence();
 	}
 
 	@Override
@@ -102,12 +104,13 @@ public class EntityFerretWhite extends EntityTameable {
 		this.tasks.addTask(6, this.entityAIEatGrass);
 		this.tasks.addTask(7, new EntityAIWanderRodent(this, 1.2D));
 		this.tasks.addTask(8, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(9, new EntityAILookIdle(this));
+		this.tasks.addTask(9, new EntityAILookIdleRodent(this));
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityChickLeghorn.class, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityChickOrpington.class, false));
 		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityChickPlymouthRock.class, false));
 		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityChickRhodeIslandRed.class, false));
 		this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntityChickWyandotte.class, false));
+		this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
 
 	}
 
@@ -139,7 +142,9 @@ public class EntityFerretWhite extends EntityTameable {
 		this.setFed(true);
 		this.setOwnerId(player.getUniqueID());
 		this.setIsTamed(true);
-		// this.setTamed(true);
+		this.setTamed(true);
+		this.setSitting(false);
+		this.setFerretSitting(false);
 		player.addStat(AnimaniaAchievements.WhiteFerret, 1);
 		this.entityAIEatGrass.startExecuting();
 		if (player.hasAchievement(AnimaniaAchievements.WhiteFerret)
@@ -174,6 +179,8 @@ public class EntityFerretWhite extends EntityTameable {
 		this.dataManager.register(FED, Boolean.valueOf(true));
 		this.dataManager.register(WATERED, Boolean.valueOf(true));
 		this.dataManager.register(TAMED, Boolean.valueOf(false));
+		this.dataManager.register(SITTING, Boolean.valueOf(false)); 
+		this.dataManager.register(RIDING, Boolean.valueOf(false)); 
 
 	}
 
@@ -225,36 +232,37 @@ public class EntityFerretWhite extends EntityTameable {
 				EntityLiving entityliving = this;
 				entityliving.setCustomNameTag(stack.getDisplayName());
 				entityliving.enablePersistence();
-				stack.setCount(stack.getCount() - 1);
+				if (!player.capabilities.isCreativeMode) {
+					stack.setCount(stack.getCount() - 1);
+				}
 				this.setIsTamed(true);
 				this.setTamed(true);
 				this.setOwnerId(player.getUniqueID());
 				return true;
 			}
 
-		} else if (this.isOwner(player) && !this.world.isRemote && !this.isBreedingItem(stack) && !this.isSitting()
-				&& !player.isSneaking()) {
-			this.aiSit.setSitting(true);
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isFerretSitting() && !player.isSneaking()) {
+			this.setFerretSitting(true);
+			this.setSitting(true);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
-			this.setAttackTarget((EntityLivingBase) null);
 			return true;
-		} else if (this.isOwner(player) && !this.world.isRemote && !this.isBreedingItem(stack) && this.isSitting()
-				&& !player.isSneaking()) {
-			this.aiSit.setSitting(false);
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && this.isFerretSitting() && !player.isSneaking()) {
+			this.setFerretSitting(false);
+			this.setSitting(false);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
-			this.setAttackTarget((EntityLivingBase) null);
 			return true;
-		} else if (this.isOwner(player) && !this.world.isRemote && !this.isBreedingItem(stack) && player.isSneaking()) {
-			this.aiSit.setSitting(false);
-			this.isJumping = false;
-			this.navigator.clearPathEntity();
-			this.setAttackTarget((EntityLivingBase) null);
-			this.setOwnerId(null);
-			this.setIsTamed(false);
-			this.setTamed(false);
-			return true;
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking()) {
+			if (!this.isFerretRiding()) {
+				this.setFerretRiding(true);
+			}
+			return interactRide(player);
+		} else if (stack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking()) {
+			if (this.isFerretRiding()) {
+				this.setFerretRiding(false);
+			}
+			return interactRide(player);
 		} else {
 			return super.processInteract(player, hand);
 		}
@@ -277,20 +285,15 @@ public class EntityFerretWhite extends EntityTameable {
 		return flag;
 	}
 
-	/*
-	 * public static void func_189792_b(DataFixer p_189792_0_) {
-	 * EntityLiving.func_189752_a(p_189792_0_, "White Ferret"); }
-	 */
-
-	/**
-	 * (abstract) Protected helper method to write subclass entity data to NBT.
-	 */
+	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("IsTamed", this.getIsTamed());
+		compound.setBoolean("IsSitting", this.isFerretSitting());
+		compound.setBoolean("Riding", this.isFerretRiding());
 
 	}
 
@@ -303,6 +306,9 @@ public class EntityFerretWhite extends EntityTameable {
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setIsTamed(compound.getBoolean("IsTamed"));
+		this.setFerretSitting(compound.getBoolean("IsSitting"));
+		this.setFerretRiding(compound.getBoolean("Riding"));
+
 
 	}
 
@@ -379,8 +385,37 @@ public class EntityFerretWhite extends EntityTameable {
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.5F);
 	}
 
+	private boolean interactRide(EntityPlayer entityplayer)
+	{
+		isRemoteMountEntity(entityplayer);
+		return true;
+	}
+
+	private void isRemoteMountEntity(Entity par1Entity)
+	{
+
+		if (this.isFerretRiding())
+		{
+			this.setFerretRiding(true);
+			this.startRiding(par1Entity);
+		} else if (!this.isFerretRiding()) {
+			this.dismountRidingEntity();
+		}
+
+	}
+
+	
 	@Override
 	public void onLivingUpdate() {
+		
+		if (this.isFerretSitting() || this.isRiding()) { 
+			if (this.getRidingEntity() != null) {
+				this.rotationYaw = this.getRidingEntity().rotationYaw;
+			}
+			this.navigator.clearPathEntity();
+			this.navigator.setSpeed(0);
+		}
+		
 		if (this.world.isRemote) {
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -472,6 +507,40 @@ public class EntityFerretWhite extends EntityTameable {
 		}
 	}
 
+	public boolean isFerretSitting()
+	{
+		return ((Boolean)this.dataManager.get(SITTING)).booleanValue();
+	}
+
+	public void setFerretSitting(boolean flag)
+	{
+		if (flag)
+		{
+			this.dataManager.set(SITTING, Boolean.valueOf(true));
+		}
+		else
+		{
+			this.dataManager.set(SITTING, Boolean.valueOf(false));
+		}
+	}
+
+	public boolean isFerretRiding()
+	{
+		return ((Boolean)this.dataManager.get(RIDING)).booleanValue();
+	}
+
+	public void setFerretRiding(boolean flag)
+	{
+		if (flag)
+		{
+			this.dataManager.set(RIDING, Boolean.valueOf(true));
+		}
+		else
+		{
+			this.dataManager.set(RIDING, Boolean.valueOf(false));
+		}
+	}
+	
 	public boolean getFed() {
 		return this.dataManager.get(FED).booleanValue();
 	}

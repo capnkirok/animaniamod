@@ -5,13 +5,9 @@ import java.util.Random;
 import com.animania.common.handler.BlockHandler;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -55,7 +51,7 @@ public class ItemSeedHandler
 				}
 			}
 
-		}
+		} 
 	}
-
+	
 }

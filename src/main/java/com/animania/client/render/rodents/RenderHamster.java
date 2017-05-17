@@ -21,7 +21,7 @@ public class RenderHamster extends RenderLiving<EntityHamster>
 	public RenderHamster(RenderManager rm)
 	{
 		super(rm, new ModelHamster(), 0.25F);
-		modelHamsterMain = new ModelHamster(); //TODO Check
+		modelHamsterMain = new ModelHamster(); 
 		scale = 0.5F;
 		shadowSize = 0.15F;
 	}
@@ -36,9 +36,16 @@ public class RenderHamster extends RenderLiving<EntityHamster>
 			
 				EntityPlayer player = (EntityPlayer)entity.getRidingEntity();
 				entity.rotationYaw = player.rotationYaw;
-				GlStateManager.translate(-0.85F, entity.height - .17F, -0.3F);
+				
+				if (player.isSneaking()) {
+					GlStateManager.translate(-0.85F, entity.height - .07F, -0.1F);
+				} else {
+					GlStateManager.translate(-0.85F, entity.height - .17F, -0.1F);
+				}
 			
 			}
+
+
 			
 		}
 	}

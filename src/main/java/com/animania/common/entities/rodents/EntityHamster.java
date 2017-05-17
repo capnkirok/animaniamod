@@ -9,10 +9,13 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.rodents.ai.EntityAIFindWater;
+import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
 import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
 import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
 import com.animania.common.entities.rodents.ai.EntityAITemptHamster;
 import com.animania.common.entities.rodents.ai.EntityAIWanderRodent;
+import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -22,15 +25,11 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
-import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityTameable;
-import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -52,27 +51,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityHamster extends EntityTameable {
-	private static final DataParameter<Boolean> IN_BALL = EntityDataManager.<Boolean>createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityHamster.class,
-			DataSerializers.VARINT);
-	private static final DataParameter<Integer> FOOD_STACK_COUNT = EntityDataManager
-			.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> IN_LOVE = EntityDataManager.<Integer>createKey(EntityHamster.class,
-			DataSerializers.VARINT);
-	private static final DataParameter<Integer> BALL_COLOR = EntityDataManager.<Integer>createKey(EntityHamster.class,
-			DataSerializers.VARINT);
+	private static final DataParameter<Boolean> IN_BALL = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> FOOD_STACK_COUNT = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> IN_LOVE = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> BALL_COLOR = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { ItemHandler.hamsterFood });
-	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final String[] HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray",
 			"plum", "tarou", "white" };
 
@@ -81,6 +70,7 @@ public class EntityHamster extends EntityTameable {
 	private int happyTimer;
 	private int tamedTimer;
 	public int blinkTimer;
+	private long rideCount;
 
 	private int stackCount;
 	private int eatCount;
@@ -117,6 +107,7 @@ public class EntityHamster extends EntityTameable {
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + rand.nextInt(70);
+		this.enablePersistence();
 	}
 
 	@Override
@@ -124,13 +115,13 @@ public class EntityHamster extends EntityTameable {
 
 		this.tasks.addTask(1, new EntityAIPanicRodents(this, 1.4D));
 		this.tasks.addTask(2, new EntityAISwimmingRodents(this));
-		// this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderRodent(this, 1.2D));
 		this.tasks.addTask(5, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(6, new EntityAITemptHamster(this, 1.2D, false, TEMPTATION_ITEMS));
 		this.tasks.addTask(2, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(9, new EntityAILookIdle(this));
+		this.tasks.addTask(8, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(9, new EntityAILookIdleRodent(this));
 
 	}
 
@@ -246,21 +237,24 @@ public class EntityHamster extends EntityTameable {
 		return yOffset;
 	}
 
+
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
-		ItemStack itemstack = player.inventory.getCurrentItem();
+
+		ItemStack itemstack = player.getHeldItem(hand);
 
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.NAME_TAG) {
 
-			if (!stack.hasDisplayName()) {
+			if (!itemstack.hasDisplayName()) {
 				return false;
 			} else {
 				EntityLiving entityliving = this;
-				entityliving.setCustomNameTag(stack.getDisplayName());
+				entityliving.setCustomNameTag(itemstack.getDisplayName());
 				entityliving.enablePersistence();
-				stack.setCount(stack.getCount() - 1);
+				if (!player.capabilities.isCreativeMode) {
+					itemstack.setCount(itemstack.getCount() - 1);
+				}
 				this.setIsTamed(true);
 				this.setTamed(true);
 				this.setOwnerId(player.getUniqueID());
@@ -277,7 +271,7 @@ public class EntityHamster extends EntityTameable {
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 				}
 			}
-			
+
 			player.addStat(AnimaniaAchievements.Hamsters, 1);
 			this.setInLove(player);
 			this.setIsTamed(true);
@@ -285,7 +279,7 @@ public class EntityHamster extends EntityTameable {
 			this.setOwnerId(player.getUniqueID());
 
 			return true;
-		} else if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.WATER_BUCKET) {
 			{
 				this.setWatered(true);
 				this.setInLove(player);
@@ -304,15 +298,17 @@ public class EntityHamster extends EntityTameable {
 			this.navigator.clearPathEntity();
 			return true;
 		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking()) {
+
 			if (!this.getIsRiding()) {
 				this.setIsRiding(true);
 			}
-			return interactPaperTamed(player);
+			return interactRide(player);
 		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking()) {
+
 			if (this.getIsRiding()) {
 				this.setIsRiding(false);
 			}
-			return interactPaperTamed(player);
+			return interactRide(player);
 
 		}
 
@@ -324,6 +320,8 @@ public class EntityHamster extends EntityTameable {
 			} else {
 				return super.processInteract(player, hand);
 			}
+		} else if (!getIsTamed() && itemstack.getItem() == Items.LEAD) {
+			return super.processInteract(player, hand);
 		}
 
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBall && !isInBall()) {
@@ -337,24 +335,10 @@ public class EntityHamster extends EntityTameable {
 			return interactSeedsTamed(itemstack, player);
 		}
 
-		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.PAPER) {
-			if (isInBall()) {
-				setInBall(false);
-				return true;
-			}
-			// return interactPaperTamed(player);
 
-			return super.processInteract(player, hand);
 
-		} else {
+		return super.processInteract(player, hand);
 
-			/*
-			 * //TODO if(itemstack != ItemStack.EMPTY && itemstack.getItem() >
-			 * 400) { itemstack.func_111282_a(player, this); }
-			 */
-
-			return interactOthersTamed();
-		}
 
 	}
 
@@ -400,7 +384,7 @@ public class EntityHamster extends EntityTameable {
 		return true;
 	}
 
-	private boolean interactPaperTamed(EntityPlayer entityplayer)
+	private boolean interactRide(EntityPlayer entityplayer)
 	{
 		isRemoteMountEntity(entityplayer);
 		return true;
@@ -413,12 +397,19 @@ public class EntityHamster extends EntityTameable {
 		{
 			this.setIsRiding(true);
 			this.startRiding(par1Entity);
+			this.rideCount = 0;
 		} else if (!this.getIsRiding()) {
 			this.dismountRidingEntity();
+
 		}
-		
+
 	}
 
+	@Override
+	public boolean canRiderInteract()
+	{
+		return true;
+	}
 
 	private boolean interactOthersTamed() {
 		if (isHamsterStanding() || !isHamsterSitting()) {
@@ -441,134 +432,62 @@ public class EntityHamster extends EntityTameable {
 
 	@Override
 	public boolean canBeCollidedWith() {
-		/*
-		 * if(ridingEntity != null && ridingEntity instanceof EntityPlayer) {
-		 * ItemStack itemstack =
-		 * ((EntityPlayer)ridingEntity).inventory.getCurrentItem(); if(itemstack
-		 * == null || itemstack != ItemStack.EMPTY && itemstack.getItem() !=
-		 * Items.paper) { return false; } } return super.canBeCollidedWith();
-		 */
-		return true;
+
+		if(this.getRidingEntity() != null && this.getRidingEntity() instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) this.getRidingEntity();
+			ItemStack itemstack = player.inventory.getCurrentItem();
+			if(itemstack != null)
+			{
+				return false;
+			}
+		}
+
+		return super.canBeCollidedWith();
 	}
 
 	@Override
 	public boolean isEntityInsideOpaqueBlock() {
-		/*
-		 * if(ridingEntity != null) { return false; } else { return
-		 * super.isEntityInsideOpaqueBlock(); }
-		 */
-		return super.isEntityInsideOpaqueBlock();
 
-	}
-
-	public boolean entityLivingBaseAttackEntityFrom(DamageSource par1DamageSource, float par2) {
-		if (this.isEntityInvulnerable(par1DamageSource)) {
+		if(this.getRidingEntity() != null)
+		{
 			return false;
-		} else if (this.world.isRemote) {
-			return false;
-		} else {
-			this.entityAge = 0;
-
-			if (this.getHealth() <= 0.0F) {
-				return false;
-			} else if (par1DamageSource.isFireDamage() && this.isPotionActive(MobEffects.FIRE_RESISTANCE)) {
-				return false;
-			} else {
-				/*
-				 * //TODO if ((par1DamageSource == DamageSource.anvil ||
-				 * par1DamageSource == DamageSource.fallingBlock) &&
-				 * this.getArmorItemForSlot(4, 4) != null) {
-				 * this.getCurrentItemOrArmor(4).damageItem((int)(par2 * 4.0F +
-				 * this.rand.nextFloat() * par2 * 2.0F), this); par2 *= 0.75F; }
-				 */
-
-				this.limbSwingAmount = 1.5F;
-				boolean var3 = true;
-
-				if (this.hurtResistantTime > this.maxHurtResistantTime / 2.0F) {
-					if (par2 <= this.lastDamage) {
-						return false;
-					}
-
-					this.damageEntity(par1DamageSource, par2 - this.lastDamage);
-					this.lastDamage = par2;
-					var3 = false;
-				} else {
-					this.lastDamage = par2;
-					// TODO this.get = this.getHealth();
-					this.hurtResistantTime = this.maxHurtResistantTime;
-					this.damageEntity(par1DamageSource, par2);
-					this.hurtTime = this.maxHurtTime = 10;
-				}
-
-				this.attackedAtYaw = 0.0F;
-				Entity var4 = par1DamageSource.getEntity();
-
-				if (var4 != null) {
-					if (var4 instanceof EntityLivingBase) {
-						this.setRevengeTarget((EntityLivingBase) var4);
-					}
-
-					if (var4 instanceof EntityPlayer) {
-						this.recentlyHit = 100;
-						this.attackingPlayer = (EntityPlayer) var4;
-					} else if (var4 instanceof EntityWolf) {
-						EntityWolf var5 = (EntityWolf) var4;
-
-						if (var5.isTamed()) {
-							this.recentlyHit = 100;
-							this.attackingPlayer = null;
-						}
-					}
-				}
-
-				if (var3) {
-					this.world.setEntityState(this, (byte) 2);
-
-					if (par1DamageSource != DamageSource.DROWN) {
-						this.setBeenAttacked();
-					}
-
-					if (var4 != null) {
-						double var9 = var4.posX - this.posX;
-						double var7;
-
-						for (var7 = var4.posZ - this.posZ; var9 * var9
-								+ var7 * var7 < 1.0E-4D; var7 = (Math.random() - Math.random()) * 0.01D) {
-							var9 = (Math.random() - Math.random()) * 0.01D;
-						}
-
-						this.attackedAtYaw = (float) (Math.atan2(var7, var9) * 180.0D / Math.PI) - this.rotationYaw;
-						this.knockBack(var4, par2, var9, var7);
-					} else {
-						this.attackedAtYaw = (int) (Math.random() * 2.0D) * 180;
-					}
-				}
-
-				if (this.getHealth() <= 0.0F) {
-					if (var3) {
-						// TODO this.playSound(this.getDeathSound(),
-						// this.getSoundVolume(), this.getSoundPitch());
-					}
-
-					this.onDeath(par1DamageSource);
-				} else if (var3) {
-					// TODO this.playSound(this.getHurtSound(),
-					// this.getSoundVolume(), this.getSoundPitch());
-				}
-
-				return true;
-			}
+		} else
+		{
+			return super.isEntityInsideOpaqueBlock();
 		}
+
 	}
 
+
+	
 	@Override
 	protected void jump() {
 		motionY = 0.29999999999999999D;
 	}
 
 	@Override
+	public boolean canPassengerSteer()
+	{
+		return false;
+	}
+
+
+	@Override
 	public void onLivingUpdate() {
+
+
+		if (this.isRiding()) {
+			rideCount++;
+		}
+
+		if (this.isRiding() && this.getRidingEntity() instanceof EntityPlayer && rideCount > 30) {
+			EntityPlayer player = (EntityPlayer)this.getRidingEntity();
+			if (player.isSneaking()) {
+				player.removePassengers();
+				this.setIsRiding(false);
+			}
+		}
 
 		if (this.blinkTimer > -1) {
 			this.blinkTimer--;
@@ -577,6 +496,10 @@ public class EntityHamster extends EntityTameable {
 			}
 		}
 
+	
+		
+		
+		
 		if (getColorNumber() == 0) {
 			Random rand = new Random();
 			int bob2 = rand.nextInt(8) + 1;
@@ -593,6 +516,16 @@ public class EntityHamster extends EntityTameable {
 		}
 
 		super.onLivingUpdate();
+
+		if ((this.getIsRiding() && this.getRidingEntity() != null) || this.isHamsterSitting()) {
+
+			if (this.getRidingEntity() != null) {
+				this.rotationYaw = this.getRidingEntity().rotationYaw;
+			}
+			this.navigator.clearPathEntity();
+			this.navigator.setSpeed(0);
+		}
+
 		if (getHealth() < 10) {
 			eatFood();
 			eatCount = 5000;
@@ -629,8 +562,9 @@ public class EntityHamster extends EntityTameable {
 			}
 		}
 
-		if (isHamsterSitting() | isHamsterStanding() && getNavigator() != null)
+		if (isHamsterSitting() | isHamsterStanding() && getNavigator() != null) {
 			getNavigator().clearPathEntity();
+		}
 
 		if (this.fedTimer > -1) {
 			this.fedTimer--;
@@ -686,7 +620,7 @@ public class EntityHamster extends EntityTameable {
 			if (tamedTimer == 0) {
 				tamedTimer = 120;
 
-				if (this.getIsTamed() && AnimaniaConfig.gameRules.showUnhappyParticles) {
+				if (this.getIsTamed() && AnimaniaConfig.gameRules.showUnhappyParticles && !this.isRiding()) {
 					double d = rand.nextGaussian() * 0.02D;
 					double d1 = rand.nextGaussian() * 0.02D;
 					double d2 = rand.nextGaussian() * 0.02D;
@@ -750,11 +684,6 @@ public class EntityHamster extends EntityTameable {
 		return (field_25054_c + (field_25048_b - field_25054_c) * f) * 0.15F * 3.141593F;
 	}
 
-	/*
-	 * @Override protected boolean isMovementCeased() { return
-	 * isHamsterSitting() || isHamsterStanding(); }
-	 */
-
 	@Nullable
 	public UUID getHamsterOwner() {
 		return (UUID) ((Optional) this.dataManager.get(OWNER_UNIQUE_ID)).orNull();
@@ -802,12 +731,6 @@ public class EntityHamster extends EntityTameable {
 			double d1 = rand.nextGaussian() * 0.02D;
 			double d2 = rand.nextGaussian() * 0.02D;
 
-			// world.spawnParticle(EnumParticleTypes.HEART, (posX +
-			// (double)(rand.nextFloat() * width * 2.0F)) - (double)width, posY
-			// + 0.5D + (double)(rand.nextFloat() * height), (posZ +
-			// (double)(rand.nextFloat() * width * 2.0F)) - (double)width, d,
-			// d1, d2);
-
 			if (rand.nextInt(2) > 0) {
 				world.playSound(null, this.posX, this.posY + 1, this.posZ, ModSoundEvents.hamsterEat1,
 						SoundCategory.PLAYERS, 0.6F, 0.8F);
@@ -823,8 +746,8 @@ public class EntityHamster extends EntityTameable {
 		return this.dataManager.get(TAMED).booleanValue();
 	}
 
-	public void setIsTamed(boolean fed) {
-		if (fed) {
+	public void setIsTamed(boolean tamed) {
+		if (tamed) {
 			this.dataManager.set(TAMED, Boolean.valueOf(true));
 		} else {
 			this.dataManager.set(TAMED, Boolean.valueOf(false));
@@ -847,7 +770,7 @@ public class EntityHamster extends EntityTameable {
 			this.dataManager.set(RIDING, Boolean.valueOf(false));
 		}
 	}
-	
+
 	public boolean isHamsterStanding() {
 		return isStanding;
 	}
@@ -969,34 +892,6 @@ public class EntityHamster extends EntityTameable {
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack) {
 		return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());
-	}
-
-	private void procreate(EntityHamster par1EntityAnimal) {
-		EntityHamster entityhamster = (EntityHamster) createChild(par1EntityAnimal);
-
-		if (entityhamster != null) {
-			setGrowingAge(6000);
-			par1EntityAnimal.setGrowingAge(6000);
-			breeding = 0;
-			// entityToAttack = null;
-			// par1EntityAnimal.entityToAttack = null;
-			par1EntityAnimal.breeding = 0;
-			entityhamster.setGrowingAge(-24000);
-			entityhamster.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
-
-			for (int i = 0; i < 7; i++) {
-				double d = rand.nextGaussian() * 0.02D;
-				double d1 = rand.nextGaussian() * 0.02D;
-				double d2 = rand.nextGaussian() * 0.02D;
-				// world.spawnParticle(EnumParticleTypes.HEART, (posX +
-				// (double)(rand.nextFloat() * width * 2.0F)) - (double)width,
-				// posY + 0.5D + (double)(rand.nextFloat() * height), (posZ +
-				// (double)(rand.nextFloat() * width * 2.0F)) - (double)width,
-				// d, d1, d2);
-			}
-
-			world.spawnEntity(entityhamster);
-		}
 	}
 
 	@Override

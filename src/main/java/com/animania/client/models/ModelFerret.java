@@ -120,12 +120,37 @@ public class ModelFerret extends ModelBase
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
 		if (entitylivingbaseIn instanceof EntityFerretGrey) {
+			
+			EntityFerretGrey ef = (EntityFerretGrey)entitylivingbaseIn;
+			
 			this.Head.rotationPointY = 14.3F + ((EntityFerretGrey)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 0F; //number should match model Y point
 			this.headRotationAngleX = ((EntityFerretGrey)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+			
+			if (ef.isFerretSitting()) {
+				this.Body2.setRotationPoint(0.0F, 18.0F, -1.0F);
+	            this.Body2.rotateAngleX = -0.326944F;
+	            this.Tail.setRotationPoint( 0F, 20.0F, 8.5F );
+			} else {
+				this.Body2.setRotationPoint(0.0F, 18.0F, 0.0F);
+	            this.Body2.rotateAngleX = ((float)Math.PI * 0F);
+	            this.Tail.setRotationPoint( 0F, 17.5F, 9.5F );
+			}
+			
 		} else if (entitylivingbaseIn instanceof EntityFerretWhite) {
 			this.Head.rotationPointY = 14.3F + ((EntityFerretWhite)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 0F; //number should match model Y point
 			this.headRotationAngleX = ((EntityFerretWhite)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
 
+			EntityFerretWhite ef = (EntityFerretWhite)entitylivingbaseIn;
+			
+			if (ef.isFerretSitting()) {
+				this.Body2.setRotationPoint(0.0F, 18.0F, -1.0F);
+	            this.Body2.rotateAngleX = -0.326944F;
+	            this.Tail.setRotationPoint( 0F, 20.5F, 9.5F );
+			} else {
+				this.Body2.setRotationPoint(0.0F, 18.0F, 0.0F);
+	            this.Body2.rotateAngleX = ((float)Math.PI * 0F);
+	            this.Tail.setRotationPoint( 0F, 17.5F, 9.5F );
+			}
 		}
 
 	}
