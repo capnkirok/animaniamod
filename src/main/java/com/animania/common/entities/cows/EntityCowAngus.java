@@ -393,8 +393,29 @@ public class EntityCowAngus extends EntityAnimal {
 			this.blinkTimer--;
 			if (blinkTimer == 0) {
 				this.blinkTimer = 100 + rand.nextInt(100);
+
+				//Check for Mate
+				if (this.getMateUniqueId() != null) {
+
+					String mate = this.getMateUniqueId().toString();
+					boolean mateReset = true;
+					
+					for (Entity e : world.getLoadedEntityList())
+					{
+						UUID id = e.getPersistentID();
+						if (id.toString().equals(this.getMateUniqueId()) && !e.isDead) {
+							mateReset = false;
+							break;
+						}
+					}
+					
+					if (mateReset) {
+						this.setMateUniqueId(null);
+					}
+				}
 			}
 		}
+
 
 		if (this.world.isRemote) {
 			this.eatTimer = Math.max(0, this.eatTimer - 1);

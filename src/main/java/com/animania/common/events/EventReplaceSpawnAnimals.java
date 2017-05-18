@@ -86,9 +86,12 @@ public class EventReplaceSpawnAnimals {
 
 		if (AnimaniaConfig.gameRules.replaceVanillaCows && event.getEntity().getClass().equals(EntityCow.class)
 				&& !worldIn.isRemote) {
-			event.getEntity().setDead();
-			event.setCanceled(true);
-			event.isCanceled();
+			if (!event.getEntity().hasCustomName()) {
+				event.getEntity().setDead();
+				event.setCanceled(true);
+				event.isCanceled();
+			}
+
 
 			int cowCount = 0;
 			int esize = worldIn.loadedEntityList.size();
@@ -202,9 +205,12 @@ public class EventReplaceSpawnAnimals {
 		} else if (AnimaniaConfig.gameRules.replaceVanillaPigs && event.getEntity().getClass().equals(EntityPig.class)
 				&& !worldIn.isRemote) {
 
-			event.getEntity().setDead();
-			event.setCanceled(true);
-			event.isCanceled();
+			if (!event.getEntity().hasCustomName()) {
+				event.getEntity().setDead();
+				event.setCanceled(true);
+				event.isCanceled();
+			}
+
 
 			int pigCount = 0;
 			int esize = worldIn.loadedEntityList.size();
@@ -318,9 +324,12 @@ public class EventReplaceSpawnAnimals {
 
 		} else if (AnimaniaConfig.gameRules.replaceVanillaChickens
 				&& event.getEntity().getClass().equals(EntityChicken.class) && !worldIn.isRemote) {
-			event.getEntity().setDead();
-			event.setCanceled(true);
-			event.isCanceled();
+			if (!event.getEntity().hasCustomName()) {
+				event.getEntity().setDead();
+				event.setCanceled(true);
+				event.isCanceled();
+			}
+
 
 			int chickenCount = 0;
 			int esize = worldIn.loadedEntityList.size();
@@ -468,9 +477,12 @@ public class EventReplaceSpawnAnimals {
 
 			if (hamsterCount >= AnimaniaConfig.spawn.spawnLimitHamsters
 					&& worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
-				event.getEntity().setDead();
-				event.setCanceled(true);
-				event.isCanceled();
+				if (!event.getEntity().hasCustomName()) {
+					event.getEntity().setDead();
+					event.setCanceled(true);
+					event.isCanceled();
+				}
+
 			}
 		} else if ((event.getEntity().getClass().equals(EntityFerretGrey.class)
 				|| event.getEntity().getClass().equals(EntityFerretWhite.class)) && !worldIn.isRemote) {
@@ -490,9 +502,12 @@ public class EventReplaceSpawnAnimals {
 			if (ferretCount >= AnimaniaConfig.spawn.spawnLimitFerrets
 					&& worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null
 					&& !event.getEntity().hasCustomName()) {
-				event.getEntity().setDead();
-				event.setCanceled(true);
-				event.isCanceled();
+				if (!event.getEntity().hasCustomName()) {
+					event.getEntity().setDead();
+					event.setCanceled(true);
+					event.isCanceled();
+				}
+
 			}
 
 		} else if ((event.getEntity().getClass().equals(EntityPeacockBlue.class)
@@ -522,9 +537,12 @@ public class EventReplaceSpawnAnimals {
 			if (peacockCount >= AnimaniaConfig.spawn.spawnLimitPeacocks
 					&& worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null
 					&& !event.getEntity().hasCustomName()) {
-				event.getEntity().setDead();
-				event.setCanceled(true);
-				event.isCanceled();
+				if (!event.getEntity().hasCustomName()) {
+					event.getEntity().setDead();
+					event.setCanceled(true);
+					event.isCanceled();
+				}
+
 			}
 
 		}
