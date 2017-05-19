@@ -175,21 +175,11 @@ public class BlockTrough extends BlockContainer
 			EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3).getOpposite();
 			state = state.withProperty(FACING, enumfacing);
 			BlockPos blockpos = pos.north();
-			boolean flag = this == worldIn.getBlockState(blockpos).getBlock();
+			boolean flag = this.blockState == worldIn.getBlockState(blockpos);
 
 			if (!flag)
 			{
 				worldIn.setBlockState(pos, state, 3);
-			}
-
-			if (stack.hasDisplayName())
-			{
-				TileEntity tileentity = worldIn.getTileEntity(pos);
-
-				if (tileentity instanceof TileEntityChest)
-				{
-					((TileEntityChest) tileentity).setCustomName(stack.getDisplayName());
-				}
 			}
 
 			// System.out.println(placer.getHorizontalFacing().toString());

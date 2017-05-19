@@ -33,9 +33,17 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable {
 
 		if(AnimaniaConfig.gameRules.allowTroughAutomation)
 		{
-			if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+			if(this.world.isRemote)
+			{
+				if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+					return true;
+				if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+					return true;
+			}
+				
+			if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && trough != null)
 				return true;
-			if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+			if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && trough != null)
 				return true;
 		}
 
