@@ -18,54 +18,58 @@ import net.minecraftforge.fluids.UniversalBucket;
 public class SlopBucketRecipe3 implements IRecipe {
 
 	private final ItemStack recipeOutput;
-	public final ArrayList recipeItems = new ArrayList();
+	public final ArrayList<ItemStack> recipeItems = new ArrayList();
 	private int bucketSlotJ;
 	private int bucketSlotI;
 	private ItemStack bucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
+	private ItemStack milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
+	private ItemStack milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
 
 	
 	public SlopBucketRecipe3() {
 		this.recipeOutput = bucket;
 		this.recipeItems.add(new ItemStack(Items.CARROT));
 		this.recipeItems.add(new ItemStack(Items.POTATO));
-		this.recipeItems.add(new ItemStack(Items.MILK_BUCKET));
 	}
 
 	@Override
 	public boolean matches(InventoryCrafting inv, World world) {
 
-		ArrayList arraylist = new ArrayList(this.recipeItems);
 
-		for (int i = 0; i < 3; ++i) {
-			for (int j = 0; j < 3; ++j) {
-				ItemStack itemstack = inv.getStackInRowAndColumn(j, i);
+		ItemStack milk = ItemStack.EMPTY;
+		ItemStack veggie1 = ItemStack.EMPTY;
+		ItemStack veggie2 = ItemStack.EMPTY;
+		ItemStack extra = ItemStack.EMPTY;
 
-				if (itemstack != ItemStack.EMPTY) {
-					boolean flag = false;
-					Iterator iterator = arraylist.iterator();
+		for(int i = 0; i < inv.getSizeInventory(); i++)
+		{
+			ItemStack current = inv.getStackInSlot(i);
 
-					while (iterator.hasNext()) {
-						ItemStack itemstack1 = (ItemStack) iterator.next();
+			if(!current.isEmpty())
 
-						if (itemstack.getItem() == itemstack1.getItem()) {
-							flag = true;
-							if (itemstack.getItem() == Items.BUCKET) {
-								bucketSlotJ = j;
-								bucketSlotI = i;
-							}
-							arraylist.remove(itemstack1);
-							break;
-						}
-					}
-
-					if (!flag) {
-						return false;
-					}
+			{
+				if(recipeItems.get(0).getItem() == current.getItem() && veggie1.isEmpty())
+				{
+					veggie1 = current.copy();
 				}
+				else if (recipeItems.get(1).getItem() == current.getItem() && veggie2.isEmpty())
+				{
+					veggie2 = current.copy();
+				}
+				else if((ItemStack.areItemStacksEqual(current, this.milkFriesian) || ItemStack.areItemStacksEqual(current, this.milkHolstein) || current.getItem() == Items.MILK_BUCKET) && milk.isEmpty())
+				{
+					milk = current.copy();
+				}
+				else
+				{
+					extra = current.copy();
+				}
+
 			}
+
 		}
 
-		return arraylist.isEmpty();
+		return !milk.isEmpty() && !veggie1.isEmpty() && !veggie2.isEmpty() && extra.isEmpty();
 	}
 
 	@Override

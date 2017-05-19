@@ -3,6 +3,7 @@ package com.animania.proxy;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.events.UpdateHandler;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.CompatHandler;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.handler.DictionaryHandler;
 import com.animania.common.handler.EntityHandler;
@@ -21,12 +22,13 @@ public class CommonProxy {
 		BlockHandler.preInit();
 		TileEntityHandler.preInit();
 		DamageSourceHandler.preInit();
-
+		CompatHandler.preInit();
+		
 		// EVENTS
 		EventsHandler.preInit();
 		UpdateHandler.init();
 		AnimaniaAchievements.init();
-
+		
 	}
 
 	public void init() {

@@ -196,7 +196,7 @@ public class EntityHamster extends EntityTameable {
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
 		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setBoolean("Sitting", isHamsterSitting());
+		nbttagcompound.setBoolean("IsSitting", isHamsterSitting());
 		nbttagcompound.setBoolean("InBall", isInBall());
 		nbttagcompound.setInteger("ColorNumber", getColorNumber());
 		nbttagcompound.setInteger("foodStackCount", getFoodStackCount());
@@ -211,7 +211,7 @@ public class EntityHamster extends EntityTameable {
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
 		super.readEntityFromNBT(nbttagcompound);
 
-		setHamsterSitting(nbttagcompound.getBoolean("Sitting"));
+		setHamsterSitting(nbttagcompound.getBoolean("IsSitting"));
 		setInBall(nbttagcompound.getBoolean("InBall"));
 		this.setColorNumber(nbttagcompound.getInteger("ColorNumber"));
 		setFoodStackCount(nbttagcompound.getInteger("foodStackCount"));
