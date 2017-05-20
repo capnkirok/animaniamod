@@ -1,5 +1,7 @@
 package com.animania.client.render.amphibians;
 
+import org.lwjgl.opengl.GL11;
+
 import com.animania.client.models.ModelToad;
 import com.animania.common.entities.amphibians.EntityToad;
 
@@ -30,7 +32,11 @@ public class RenderToad<T extends EntityToad> extends RenderLiving<T> {
 	 */
 	@Override
 	protected void preRenderCallback(T entityIn, float partialTickTime) {
-		GlStateManager.scale(0.5D, 0.5D, 0.5D);
+		GlStateManager.scale(0.32D, 0.32D, 0.32D);
+		float f1 = 1.2F;
+		float f2 = (entityIn.prevSquishFactor + (entityIn.squishFactor -entityIn.prevSquishFactor) * partialTickTime) / (f1 * 0.5F + 1.0F);
+		float f3 = 1.0F / (f2 + 1.0F);
+		GL11.glScalef(f3 * f1, 1.0F / f3 * f1, f3 * f1);
 	}
 
 	@Override

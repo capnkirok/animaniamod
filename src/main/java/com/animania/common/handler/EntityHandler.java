@@ -78,6 +78,8 @@ public class EntityHandler {
 	
 
 	public static void preInit() {
+		
+		/*
 		// COWS
 		if (AnimaniaConfig.spawn.spawnAnimaniaCows) {
 			RegistryHelper.Entities.register(EntityCowHolstein.class, "animania.CowHolstein",
@@ -335,6 +337,8 @@ public class EntityHandler {
 					EnumCreatureType.CREATURE, Biomes.JUNGLE, Biomes.SWAMPLAND);
 		}
 
+		*/
+		
 		/*
 		 * //HORSES if (AnimaniaConfig.spawn.spawnAnimaniaHorses) {
 		 * EntityRegistry.registerModEntity(EntityStallionDraftHorse.class,

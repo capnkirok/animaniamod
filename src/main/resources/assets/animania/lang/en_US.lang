@@ -212,6 +212,9 @@ entity.animania.PeacockWhite.name=White Peacock
 entity.animania.PeafowlWhite.name=White Peafowl
 entity.animania.PeachickWhite.name=White Peachick
 
+entity.animania:animania.frog.name=Frog
+entity.animania:animania.toad.name=Toad
+
 death.attack.bull=%1$s was gored to death
 
 tile.animania_block_mud.name=Mud

@@ -1,5 +1,7 @@
 package com.animania.common.entities.amphibians;
 
+import java.util.Random;
+
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -28,6 +30,9 @@ public class EntityAmphibian extends EntityAnimal {
 	private int jumpDuration;
 	private boolean wasOnGround, canEntityJump;
 	private int currentMoveTypeDuration;
+	public float squishAmount;
+	public float squishFactor;
+	public float prevSquishFactor;
 
 	/**
 	 * Default constructor
@@ -136,12 +141,13 @@ public class EntityAmphibian extends EntityAnimal {
 					this.setJumping(false);
 					this.checkLandingDelay();
 				}
-
+				
 				EntityAmphibian.FrogJumpHelper jumphelper = (EntityAmphibian.FrogJumpHelper) this.jumpHelper;
 
 				if (!jumphelper.getIsJumping()) {
 					if (this.moveHelper.isUpdating() && this.currentMoveTypeDuration == 0) {
 						Path path = this.navigator.getPath();
+						
 						Vec3d vec3d = new Vec3d(this.moveHelper.getX(), this.moveHelper.getY(), this.moveHelper.getZ());
 
 						if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength()) {
@@ -155,8 +161,8 @@ public class EntityAmphibian extends EntityAnimal {
 					this.enableJumpControl();
 				}
 			}
-
 			this.wasOnGround = this.onGround;
+			
 		}
 	}
 
@@ -192,7 +198,7 @@ public class EntityAmphibian extends EntityAnimal {
 	 */
 	@Override
 	public void onLivingUpdate() {
-		super.onLivingUpdate();
+		
 
 		if (this.canEntityJump)
 			if (this.jumpTicks != this.jumpDuration) {
@@ -202,7 +208,26 @@ public class EntityAmphibian extends EntityAnimal {
 				this.jumpDuration = 0;
 				this.setJumping(false);
 			}
+		
+		this.squishFactor += (this.squishAmount - this.squishFactor) * 0.5F;
+		this.prevSquishFactor = this.squishFactor;
+		super.onLivingUpdate();
+		
+		if(this.onGround) {
+			this.squishAmount = -0.5F;
+		} else if (!this.onGround) {
+			this.squishAmount = 0.5F;
+		}
+	
+		this.alterSquishAmount();
+		
 	}
+	
+	protected void alterSquishAmount()
+	{
+		this.squishAmount *= 0.6F;
+	}
+
 
 	@Override
 	protected void applyEntityAttributes() {
@@ -252,8 +277,8 @@ public class EntityAmphibian extends EntityAnimal {
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 1) {
-			this.createRunningParticles();
-			this.jumpDuration = 10;
+			//this.createRunningParticles();
+			this.jumpDuration = 3;
 			this.jumpTicks = 0;
 		} else {
 			super.handleStatusUpdate(id);
@@ -322,8 +347,7 @@ public class EntityAmphibian extends EntityAnimal {
 
 		@Override
 		public void onUpdateMoveHelper() {
-			if (this.theEntity.onGround && !this.theEntity.isJumping
-					&& !((EntityAmphibian.FrogJumpHelper) this.theEntity.jumpHelper).getIsJumping()) {
+			if (this.theEntity.onGround && !this.theEntity.isJumping && !((EntityAmphibian.FrogJumpHelper) this.theEntity.jumpHelper).getIsJumping()) {
 				this.theEntity.setMovementSpeed(0.0D);
 			} else if (this.isUpdating()) {
 				this.theEntity.setMovementSpeed(this.nextJumpSpeed);
@@ -340,11 +364,13 @@ public class EntityAmphibian extends EntityAnimal {
 			if (this.theEntity.isInWater()) {
 				speedIn = 1.5D;
 			}
-
+			
 			super.setMoveTo(x, y, z, speedIn);
 
 			if (speedIn > 0.0D) {
-				this.nextJumpSpeed = speedIn;
+				Random rand = new Random();
+				float distance = rand.nextFloat()/25;
+				this.nextJumpSpeed = speedIn + distance;
 			}
 		}
 	}
