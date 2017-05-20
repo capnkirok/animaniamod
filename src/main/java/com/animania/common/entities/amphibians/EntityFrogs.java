@@ -12,8 +12,8 @@ import net.minecraft.world.World;
 
 public class EntityFrogs extends EntityAmphibian {
 
-	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer>createKey(EntityFrogs.class,
-			DataSerializers.VARINT);
+	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer>createKey(EntityFrogs.class, DataSerializers.VARINT);
+	
 
 	public EntityFrogs(World worldIn) {
 		super(worldIn, true);

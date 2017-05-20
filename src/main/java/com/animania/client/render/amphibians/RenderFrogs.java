@@ -1,5 +1,7 @@
 package com.animania.client.render.amphibians;
 
+import org.lwjgl.opengl.GL11;
+
 import com.animania.client.models.ModelFrog;
 import com.animania.common.entities.amphibians.EntityFrogs;
 
@@ -35,7 +37,13 @@ public class RenderFrogs<T extends EntityFrogs> extends RenderLiving<T> {// Rend
 	 */
 	@Override
 	protected void preRenderCallback(T entityIn, float partialTickTime) {
-		GlStateManager.scale(0.5D, 0.5D, 0.5D);
+		
+		GlStateManager.scale(0.3D, 0.3D, 0.3D);
+		float f1 = 1.2F;
+		float f2 = (entityIn.prevSquishFactor + (entityIn.squishFactor -entityIn.prevSquishFactor) * partialTickTime) / (f1 * 0.5F + 1.0F);
+		float f3 = 1.0F / (f2 + 1.0F);
+		GL11.glScalef(f3 * f1, 1.0F / f3 * f1, f3 * f1);
+
 	}
 
 	@Override

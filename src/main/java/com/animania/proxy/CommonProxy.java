@@ -9,6 +9,7 @@ import com.animania.common.handler.DictionaryHandler;
 import com.animania.common.handler.EntityHandler;
 import com.animania.common.handler.EventsHandler;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.handler.OldEntityHandler;
 import com.animania.common.handler.RecipeHandler;
 import com.animania.common.handler.TileEntityHandler;
 
@@ -17,6 +18,7 @@ import net.minecraft.block.Block;
 public class CommonProxy {
 
 	public void preInit() {
+		OldEntityHandler.preInit();
 		EntityHandler.preInit();
 		ItemHandler.preInit();
 		BlockHandler.preInit();
