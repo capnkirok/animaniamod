@@ -36,7 +36,7 @@ public class BlockSeeds extends Block {
 	private String name = "block_seeds";
 
 	public BlockSeeds() {
-		super(Material.LEAVES);
+		super(Material.CIRCUITS);
 		setCreativeTab(null);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		GameRegistry.register(this);
