@@ -27,7 +27,10 @@ minecraft {
     makeObfSourceJar = false
 }
 
-dependencies {}
+dependencies {
+	compile files("lib/jei_1.11.2-4.3.5.277-api.jar")
+	compile files("lib/Waila-1.7.1_1.11.2-dev.jar")
+}
 
 processResources {
     inputs.property "version", project.version

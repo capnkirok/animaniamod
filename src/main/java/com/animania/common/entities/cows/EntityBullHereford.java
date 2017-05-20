@@ -426,22 +426,22 @@ public class EntityBullHereford extends EntityAnimal {
 
 				//Check for Mate
 				if (this.getMateUniqueId() != null) {
-
 					String mate = this.getMateUniqueId().toString();
 					boolean mateReset = true;
-					
+
 					for (Entity e : world.getLoadedEntityList())
 					{
 						UUID id = e.getPersistentID();
-						if (id.toString().equals(this.getMateUniqueId()) && !e.isDead) {
+						if (id.toString().equals(this.getMateUniqueId().toString()) && !e.isDead) {
 							mateReset = false;
 							break;
 						}
 					}
-					
+
 					if (mateReset) {
 						this.setMateUniqueId(null);
 					}
+
 				}
 			}
 		}
