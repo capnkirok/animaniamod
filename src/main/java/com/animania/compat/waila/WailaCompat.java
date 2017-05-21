@@ -85,6 +85,7 @@ public class WailaCompat
 		r.registerBodyProvider(new WailaBlockTroughProvider(), BlockTrough.class);
 		r.registerBodyProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
 		r.registerNBTProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
+		r.registerStackProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
 
 		// COWS
 		regEntityInfoBull(r, EntityBullAngus.class);
