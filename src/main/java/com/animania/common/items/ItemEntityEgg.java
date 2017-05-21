@@ -7,7 +7,7 @@ import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
-import com.animania.common.entities.amphibians.EntityTreeFrogs;
+import com.animania.common.entities.amphibians.EntityDartFrogs;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -1941,8 +1941,8 @@ public class ItemEntityEgg extends Item {
 									stack.setCount(stack.getCount()-1);
 								}
 							}
-						} else if (animalType.equals("tree_frog")) {
-							EntityTreeFrogs entityB1 = new EntityTreeFrogs(worldIn);
+						} else if (animalType.equals("dart_frog")) {
+							EntityDartFrogs entityB1 = new EntityDartFrogs(worldIn);
 							entityB1.setPosition(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5);
 							worldIn.spawnEntity(entityB1);
 							if (entityB1 != null)

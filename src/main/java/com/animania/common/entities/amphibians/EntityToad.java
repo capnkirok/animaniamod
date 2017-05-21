@@ -3,9 +3,11 @@ package com.animania.common.entities.amphibians;
 import java.util.Random;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -64,6 +66,20 @@ public class EntityToad extends EntityAmphibian {
 	protected float getSoundVolume()
 	{
 		return 0.4F;
+	}
+	
+	@Override
+	protected void dropFewItems(boolean hit, int lootlevel)
+	{
+
+		Item dropItem;
+
+		String drop = AnimaniaConfig.drops.toadDrop;
+		dropItem = Item.getByNameOrId(drop);
+		if (rand.nextInt(3) < 1) {
+			this.dropItem(dropItem, 1 + lootlevel);
+		}
+
 	}
 
 }

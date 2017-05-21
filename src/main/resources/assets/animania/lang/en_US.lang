@@ -64,6 +64,9 @@ item.animania_cooked_prime_bacon.name=Roast Prime Bacon
 item.animania_raw_prime_chicken.name=Raw Prime Chicken
 item.animania_cooked_prime_chicken.name=Roast Prime Chicken
 
+item.animania_raw_frog_legs.name=Raw Frog Legs
+item.animania_cooked_frog_legs.name=Cooked Frog Legs
+
 item.animania_friesian_cheese_wheel.name=Cheese Wheel (Friesian)
 item.animania_friesian_cheese_wedge.name=Cheese Wedge (Friesian)
 item.animania_holstein_cheese_wheel.name=Cheese Wheel (Holstein)
@@ -147,6 +150,10 @@ item.animania_entity_egg_cow_random.name=Random Cow
 item.animania_entity_egg_pig_random.name=Random Pig
 item.animania_entity_egg_chicken_random.name=Random Chicken
 
+item.animania_entity_egg_frog.name=Frog
+item.animania_entity_egg_toad.name=Toad
+item.animania_entity_egg_dart_frog.name=Dart Frog
+
 entity.animania.ChickRhodeIslandRed.name=Rhode Island Red Chick
 entity.animania.HenRhodeIslandRed.name=Rhode Island Red Hen
 entity.animania.RoosterRhodeIslandRed.name=Rhode Island Red Rooster
@@ -214,7 +221,7 @@ entity.animania.PeachickWhite.name=White Peachick
 
 entity.animania:frog.name=Frog
 entity.animania:toad.name=Toad
-entity.animania:treefrog.name=Tree Frog
+entity.animania:dartfrog.name=Tree Frog
 
 death.attack.bull=%1$s was gored to death
 
@@ -317,6 +324,7 @@ tooltip.an.absorption=Absorption
 tooltip.an.regeneration=Regeneration
 tooltip.an.haste=Haste
 tooltip.an.healthboost=Health Boost
+tooltip.an.jumping=Jump Boost
 
 tooltip.an.edibleanytime=Edible Anytime
 

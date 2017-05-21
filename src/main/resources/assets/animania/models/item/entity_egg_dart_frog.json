@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "animania:items/egg_hamster"
+        "layer0": "animania:items/egg_frog_dart"
     },
     "display": {
         "ground": {

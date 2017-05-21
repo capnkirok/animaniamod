@@ -46,10 +46,10 @@ public class ModSoundEvents {
 	public static SoundEvent toadLiving2;;
 	public static SoundEvent toadLiving3;
 	public static SoundEvent toadLiving4;
-	public static SoundEvent treefrogLiving1;
-	public static SoundEvent treefrogLiving2;
-	public static SoundEvent treefrogLiving3;
-	public static SoundEvent treefrogLiving4;
+	public static SoundEvent dartfrogLiving1;
+	public static SoundEvent dartfrogLiving2;
+	public static SoundEvent dartfrogLiving3;
+	public static SoundEvent dartfrogLiving4;
 
 	//Chickens
 	public static SoundEvent chickenCrow1;
@@ -173,10 +173,10 @@ public class ModSoundEvents {
 		toadLiving2 = registerSound("toadLiving2");
 		toadLiving3 = registerSound("toadLiving3");
 		toadLiving4 = registerSound("toadLiving4");
-		treefrogLiving1 = registerSound("treefrogLiving1");
-		treefrogLiving2 = registerSound("treefrogLiving2");
-		treefrogLiving3 = registerSound("treefrogLiving3");
-		treefrogLiving4 = registerSound("treefrogLiving4");
+		dartfrogLiving1 = registerSound("dartfrogLiving1");
+		dartfrogLiving2 = registerSound("dartfrogLiving2");
+		dartfrogLiving3 = registerSound("dartfrogLiving3");
+		dartfrogLiving4 = registerSound("dartfrogLiving4");
 
 		//Chickens
 		chickenCrow1 = registerSound("crow1");
