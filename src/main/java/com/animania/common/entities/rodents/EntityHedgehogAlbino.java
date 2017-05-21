@@ -7,6 +7,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.amphibians.EntityFrogs;
+import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAIHedgehogFindFood;
 import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
@@ -42,7 +44,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.server.SPacketSetPassengers;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
@@ -104,7 +105,9 @@ public class EntityHedgehogAlbino extends EntityTameable {
 		this.tasks.addTask(9, new EntityAIWanderHedgehog(this, 1.0D));
 		this.tasks.addTask(10, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
-		this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
+		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
 	}
 
 	@Override

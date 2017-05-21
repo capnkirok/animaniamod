@@ -7,6 +7,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.amphibians.EntityFrogs;
+import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -110,7 +112,9 @@ public class EntityFerretWhite extends EntityTameable {
 		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityChickPlymouthRock.class, false));
 		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityChickRhodeIslandRed.class, false));
 		this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntityChickWyandotte.class, false));
-		this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
+		this.targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
+		this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
+		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
 
 	}
 

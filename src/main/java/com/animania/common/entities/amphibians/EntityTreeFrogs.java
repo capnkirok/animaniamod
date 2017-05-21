@@ -18,12 +18,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityFrogs extends EntityAmphibian {
+public class EntityTreeFrogs extends EntityAmphibian {
 
-	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer>createKey(EntityFrogs.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer>createKey(EntityTreeFrogs.class, DataSerializers.VARINT);
 
 
-	public EntityFrogs(World worldIn) {
+	public EntityTreeFrogs(World worldIn) {
 		super(worldIn, true);
 	}
 
@@ -69,7 +69,7 @@ public class EntityFrogs extends EntityAmphibian {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 
-		this.setFrogsType(this.rand.nextInt(2));
+		this.setFrogsType(this.rand.nextInt(3));
 
 		return livingdata;
 	}
@@ -78,14 +78,16 @@ public class EntityFrogs extends EntityAmphibian {
 	{
 
 		Random rand = new Random();
-		int chooser = rand.nextInt(4);
+		int chooser = rand.nextInt(5);
 
 		if (chooser == 0) {
-			return ModSoundEvents.frogLiving1;
+			return ModSoundEvents.treefrogLiving1;
 		} else if (chooser == 1){
-			return ModSoundEvents.frogLiving2;
+			return ModSoundEvents.treefrogLiving2;
 		} else if (chooser == 2){
-			return ModSoundEvents.frogLiving3;
+			return ModSoundEvents.treefrogLiving3;
+		} else if (chooser == 3){
+			return ModSoundEvents.treefrogLiving4;
 		} else {
 			return null;
 		}

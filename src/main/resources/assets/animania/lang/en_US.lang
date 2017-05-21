@@ -212,8 +212,9 @@ entity.animania.PeacockWhite.name=White Peacock
 entity.animania.PeafowlWhite.name=White Peafowl
 entity.animania.PeachickWhite.name=White Peachick
 
-entity.animania:animania.frog.name=Frog
-entity.animania:animania.toad.name=Toad
+entity.animania:frog.name=Frog
+entity.animania:toad.name=Toad
+entity.animania:treefrog.name=Tree Frog
 
 death.attack.bull=%1$s was gored to death
 

@@ -242,6 +242,11 @@ public class ItemHandler {
 	// public static Item entityeggdrafthorsemare;
 	// public static Item entityeggdrafthorsefoal;
 
+	// Eggs - Rodents
+	public static Item entityeggfrog;
+	public static Item entityeggtoad;
+	public static Item entityeggtreefrog;
+
 	public static void preInit() {
 		// ITEMS
 		// Items for Animals
@@ -421,6 +426,11 @@ public class ItemHandler {
 		entityeggferretwhite = new ItemEntityEgg("ferret_white");
 		entityegghedgehog = new ItemEntityEgg("hedgehog");
 		entityegghedgehogalbino = new ItemEntityEgg("hedgehog_albino");
+
+		// AMPHIBIANS
+		entityeggfrog = new ItemEntityEgg("frog");
+		entityeggtoad = new ItemEntityEgg("toad");
+		entityeggtreefrog = new ItemEntityEgg("tree_frog");
 
 		// HORSES
 		// entityeggdrafthorsestallion = new
