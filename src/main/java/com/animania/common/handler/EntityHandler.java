@@ -2,6 +2,7 @@ package com.animania.common.handler;
 
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
+import com.animania.common.entities.amphibians.EntityTreeFrogs;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -347,13 +348,17 @@ public class EntityHandler {
 		 */
 
 		int entityID = 0;
-		RegistryHelper.Entities.registerEntity(EntityFrogs.class, "animania.frog", entityID++, 64, 3, true, 0, 0);
-		RegistryHelper.Entities.addSpawn(EntityFrogs.class, 20, 1, 3, EnumCreatureType.AMBIENT,
-				RegistryHelper.Entities.getBiomes(BiomeDictionary.Type.JUNGLE));
+		RegistryHelper.Entities.register(EntityFrogs.class, "frog", entityID++, 64, 3, true);
+		RegistryHelper.Entities.addSpawn(EntityFrogs.class, 20, 1, 3, EnumCreatureType.AMBIENT, RegistryHelper.Entities.getBiomes(BiomeDictionary.Type.SWAMP));
+		RegistryHelper.Entities.addSpawn(EntityFrogs.class, 20, 1, 3, EnumCreatureType.AMBIENT, Biomes.RIVER);
 
-		RegistryHelper.Entities.registerEntity(EntityToad.class, "animania.toad", entityID++, 64, 3, true, 0, 0);
-		RegistryHelper.Entities.addSpawn(EntityToad.class, 20, 1, 3, EnumCreatureType.AMBIENT,
-				RegistryHelper.Entities.getBiomes(BiomeDictionary.Type.SWAMP));
+		RegistryHelper.Entities.register(EntityToad.class, "toad", entityID++, 64, 3, true);
+		RegistryHelper.Entities.addSpawn(EntityToad.class, 20, 1, 3, EnumCreatureType.AMBIENT, RegistryHelper.Entities.getBiomes(BiomeDictionary.Type.SWAMP));
+		RegistryHelper.Entities.addSpawn(EntityToad.class, 20, 1, 3, EnumCreatureType.AMBIENT, Biomes.SWAMPLAND, Biomes.MUSHROOM_ISLAND);
+
+		RegistryHelper.Entities.register(EntityTreeFrogs.class, "treefrog", entityID++, 64, 3, true);
+		RegistryHelper.Entities.addSpawn(EntityToad.class, 20, 1, 3, EnumCreatureType.AMBIENT, RegistryHelper.Entities.getBiomes(BiomeDictionary.Type.JUNGLE));
+		RegistryHelper.Entities.addSpawn(EntityToad.class, 20, 1, 3, EnumCreatureType.AMBIENT, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS);
 	}
 
 }

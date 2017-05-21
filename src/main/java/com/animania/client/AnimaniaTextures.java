@@ -195,19 +195,24 @@ public class AnimaniaTextures {
 		register(ItemHandler.entityegghedgehog);
 		register(ItemHandler.entityegghedgehogalbino);
 
+		//Amphibians
+		register(ItemHandler.entityeggfrog);
+		register(ItemHandler.entityeggtoad);
+		register(ItemHandler.entityeggtreefrog);
+
 		//Blocks
 		register(Item.getItemFromBlock(BlockHandler.blockMud));
 		register(Item.getItemFromBlock(BlockHandler.blockTrough));
 		register(Item.getItemFromBlock(BlockHandler.blockNest));
 
-		
+
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkFriesian, "milk_friesian");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkHolstein, "milk_holstein");
 
 	}
-	
-	
+
+
 	/**
 	 * Registers Render for an Item
 	 * @param item
@@ -217,5 +222,5 @@ public class AnimaniaTextures {
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));		
 	}
 
-	
+
 }

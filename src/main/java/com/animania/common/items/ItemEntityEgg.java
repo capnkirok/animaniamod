@@ -3,29 +3,11 @@ package com.animania.common.items;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
 import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.amphibians.EntityFrogs;
+import com.animania.common.entities.amphibians.EntityToad;
+import com.animania.common.entities.amphibians.EntityTreeFrogs;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -86,6 +68,27 @@ import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ItemEntityEgg extends Item {
 
 	private String name = "entity_egg";
@@ -1892,6 +1895,54 @@ public class ItemEntityEgg extends Item {
 							}
 						} else if (animalType.equals("draft_horse_stallion")) {
 							EntityStallionDraftHorse entityB1 = new EntityStallionDraftHorse(worldIn);
+							entityB1.setPosition(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5);
+							worldIn.spawnEntity(entityB1);
+							if (entityB1 != null)
+							{
+								if (entityB1 instanceof EntityLivingBase && stack.hasDisplayName())
+								{
+									((EntityLiving)entityB1).setCustomNameTag(stack.getDisplayName());
+								}
+
+								if (!playerIn.capabilities.isCreativeMode)
+								{
+									stack.setCount(stack.getCount()-1);
+								}
+							}
+						} else if (animalType.equals("frog")) {
+							EntityFrogs entityB1 = new EntityFrogs(worldIn);
+							entityB1.setPosition(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5);
+							worldIn.spawnEntity(entityB1);
+							if (entityB1 != null)
+							{
+								if (entityB1 instanceof EntityLivingBase && stack.hasDisplayName())
+								{
+									((EntityLiving)entityB1).setCustomNameTag(stack.getDisplayName());
+								}
+
+								if (!playerIn.capabilities.isCreativeMode)
+								{
+									stack.setCount(stack.getCount()-1);
+								}
+							}
+						} else if (animalType.equals("toad")) {
+							EntityToad entityB1 = new EntityToad(worldIn);
+							entityB1.setPosition(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5);
+							worldIn.spawnEntity(entityB1);
+							if (entityB1 != null)
+							{
+								if (entityB1 instanceof EntityLivingBase && stack.hasDisplayName())
+								{
+									((EntityLiving)entityB1).setCustomNameTag(stack.getDisplayName());
+								}
+
+								if (!playerIn.capabilities.isCreativeMode)
+								{
+									stack.setCount(stack.getCount()-1);
+								}
+							}
+						} else if (animalType.equals("tree_frog")) {
+							EntityTreeFrogs entityB1 = new EntityTreeFrogs(worldIn);
 							entityB1.setPosition(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5);
 							worldIn.spawnEntity(entityB1);
 							if (entityB1 != null)
