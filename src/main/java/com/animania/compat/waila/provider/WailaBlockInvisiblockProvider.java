@@ -2,6 +2,7 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityInvisiblock;
 import com.animania.common.tileentities.TileEntityTrough;
 
@@ -22,7 +23,7 @@ public class WailaBlockInvisiblockProvider implements IWailaDataProvider
 	@Override
 	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config)
 	{
-		return null;
+		return new ItemStack(BlockHandler.blockTrough);
 	}
 
 	@Override

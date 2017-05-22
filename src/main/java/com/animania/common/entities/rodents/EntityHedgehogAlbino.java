@@ -52,6 +52,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -61,7 +62,7 @@ public class EntityHedgehogAlbino extends EntityTameable {
 	private static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
-	
+
 	private int fedTimer;
 	private int wateredTimer;
 	private int happyTimer;
@@ -297,7 +298,7 @@ public class EntityHedgehogAlbino extends EntityTameable {
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.5F);
 	}
-	
+
 	private boolean interactRide(EntityPlayer entityplayer)
 	{
 		isRemoteMountEntity(entityplayer);
@@ -311,7 +312,7 @@ public class EntityHedgehogAlbino extends EntityTameable {
 		{
 			this.setHedgehogRiding(true);
 			this.startRiding(par1Entity, true);
-			
+
 		} else if (!this.isHedgehogRiding()) {
 			this.dismountRidingEntity();
 		}
@@ -331,6 +332,16 @@ public class EntityHedgehogAlbino extends EntityTameable {
 			if (!stack.hasDisplayName()) {
 				return false;
 			} else {
+				if (stack.getDisplayName().equals("Sonic")) {
+					player.addStat(AnimaniaAchievements.Sonic, 1);
+					AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sonic);
+					return super.processInteract(player, hand);
+				} else if (stack.getDisplayName().equals("Sanic")) {
+					player.addStat(AnimaniaAchievements.Sanic, 1);
+					AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sanic);
+					return super.processInteract(player, hand);
+				}
+
 				EntityLiving entityliving = this;
 				entityliving.setCustomNameTag(stack.getDisplayName());
 				entityliving.enablePersistence();
@@ -365,26 +376,15 @@ public class EntityHedgehogAlbino extends EntityTameable {
 				this.setHedgehogRiding(false);
 			}
 			return interactRide(player);
-		} else if (stack != null && stack.getItem() == Items.NAME_TAG) {
-			if (stack.getDisplayName().equals("Sonic")) {
-				player.addStat(AnimaniaAchievements.Sonic, 1);
-				this.attackEntityFrom(DamageSource.GENERIC, 0.1F);
-				return super.processInteract(player, hand);
-			} else if (stack.getDisplayName().equals("Sanic")) {
-				player.addStat(AnimaniaAchievements.Sanic, 1);
-				return super.processInteract(player, hand);
-			} else {
-				return super.processInteract(player, hand);
-			}
-
-		} else {
+		} 
+		else {
 			return super.processInteract(player, hand);
 		}
 	}
 
 	@Override
 	public void onLivingUpdate() {
-		
+
 		if (this.isSitting() || this.isHedgehogSitting() || this.isRiding()) { 
 			if (this.getRidingEntity() != null) {
 				this.rotationYaw = this.getRidingEntity().rotationYaw;
@@ -392,7 +392,7 @@ public class EntityHedgehogAlbino extends EntityTameable {
 			this.navigator.clearPathEntity();
 			this.navigator.setSpeed(0);
 		}
-		
+
 		if (this.world.isRemote) {
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -524,7 +524,7 @@ public class EntityHedgehogAlbino extends EntityTameable {
 			this.dataManager.set(RIDING, Boolean.valueOf(false));
 		}
 	}
-	
+
 	public boolean getFed() {
 		return this.dataManager.get(FED).booleanValue();
 	}

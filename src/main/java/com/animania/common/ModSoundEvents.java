@@ -50,6 +50,7 @@ public class ModSoundEvents {
 	public static SoundEvent dartfrogLiving2;
 	public static SoundEvent dartfrogLiving3;
 	public static SoundEvent dartfrogLiving4;
+	public static SoundEvent reeee;
 
 	//Chickens
 	public static SoundEvent chickenCrow1;
@@ -177,6 +178,7 @@ public class ModSoundEvents {
 		dartfrogLiving2 = registerSound("dartfrogLiving2");
 		dartfrogLiving3 = registerSound("dartfrogLiving3");
 		dartfrogLiving4 = registerSound("dartfrogLiving4");
+		reeee = registerSound("reeee");
 
 		//Chickens
 		chickenCrow1 = registerSound("crow1");

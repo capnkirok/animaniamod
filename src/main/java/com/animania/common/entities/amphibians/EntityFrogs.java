@@ -4,23 +4,29 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.animania.Animania;
+import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.StatList;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.common.AchievementPage;
 
 public class EntityFrogs extends EntityAmphibian {
 
@@ -83,6 +89,12 @@ public class EntityFrogs extends EntityAmphibian {
 
 		Random rand = new Random();
 		int chooser = rand.nextInt(4);
+		if(this.getCustomNameTag().equals("Pepe") && 0.1 > Math.random())
+		{
+			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 5, 4, true, false));
+			return ModSoundEvents.reeee;
+			
+		}
 
 		if (chooser == 0) {
 			return ModSoundEvents.frogLiving1;
@@ -115,7 +127,24 @@ public class EntityFrogs extends EntityAmphibian {
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - (this.getAge() * 2));
 		}
 	}
-
+	
+	
+	
+	@Override
+	public void onDeath(DamageSource cause)
+	{
+		if(this.getCustomNameTag().equals("Pepe"))
+		{
+			if(cause.getEntity() != null && cause.getEntity() instanceof EntityPlayer)
+			{
+				((EntityPlayer)cause.getEntity()).addStat(AnimaniaAchievements.FeelsBadMan, 1);
+				AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.FeelsBadMan);
+			}
+		}
+		
+		super.onDeath(cause);
+	}
+	
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.04F, 1.1F);
