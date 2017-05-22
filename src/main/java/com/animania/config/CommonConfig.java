@@ -253,13 +253,15 @@ public class CommonConfig {
 		public boolean spawnAnimaniaPeacocks = true;
 		@Comment("Spawn Animania Horses in world")
 		public boolean spawnAnimaniaHorses = true;
+		@Comment("Spawn Animania Amphibians in world")
+		public boolean spawnAnimaniaAmphibians = true;
 
 		@Comment("Spawn limit for Cows in loaded chunks")
-		public int spawnLimitCows = 36;
+		public int spawnLimitCows = 40;
 		@Comment("Spawn limit for Pigs in loaded chunks")
-		public int spawnLimitPigs = 32;
+		public int spawnLimitPigs = 40;
 		@Comment("Spawn limit for Chickens in loaded chunks")
-		public int spawnLimitChickens = 32;
+		public int spawnLimitChickens = 40;
 		@Comment("Spawn limit for Hedgehogs in loaded chunks")
 		public int spawnLimitHedgehogs = 50;
 		@Comment("Spawn limit for Ferrets in loaded chunks")
@@ -268,6 +270,8 @@ public class CommonConfig {
 		public int spawnLimitHamsters = 50;
 		@Comment("Spawn limit for Peacocks in loaded chunks")
 		public int spawnLimitPeacocks = 50;
+		@Comment("Spawn limit for Amphibians in loaded chunks")
+		public int spawnLimitAmphibians = 60;
 
 		@Comment("Spawn probability Cows")
 		public int spawnProbabilityCows = 12;
@@ -283,6 +287,8 @@ public class CommonConfig {
 		public int spawnProbabilityHamsters = 12;
 		@Comment("Spawn probability Peacocks")
 		public int spawnProbabilityPeacocks = 20;
+		@Comment("Spawn probability Amphibians")
+		public int spawnProbabilityAmphibians = 20;
 
 		@Comment("Number of potential Cow families per chunk")
 		public int numberCowFamilies = 2;

@@ -2,6 +2,7 @@ package com.animania.common.events;
 
 import java.util.Random;
 
+import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -509,6 +510,29 @@ public class EventReplaceSpawnAnimals {
 				}
 
 			}
+			
+		}  else if((event.getEntity().getClass().equals(EntityAmphibian.class) || event.getEntity().getClass().equals(EntityAmphibian.class)) && !worldIn.isRemote) {
+
+			int animalCount = 0;
+			int esize = worldIn.loadedEntityList.size();
+			for (int k = 0; k <= esize - 1; k++) {
+				Entity entity = (Entity) worldIn.loadedEntityList.get(k);
+				if(entity.getClass().equals(EntityFerretGrey.class) || entity.getClass().equals(EntityAmphibian.class)) {
+					animalCount = animalCount + 1;
+				}
+			}
+
+			//System.out.println("Ferret count: " + ferretCount);
+
+			if (animalCount >= AnimaniaConfig.spawn.spawnLimitAmphibians && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
+				if (!event.getEntity().hasCustomName()) {
+					event.getEntity().setDead();
+					event.setCanceled(true);
+					event.isCanceled();
+				}
+
+			}
+
 
 		} else if ((event.getEntity().getClass().equals(EntityPeacockBlue.class)
 				|| event.getEntity().getClass().equals(EntityPeacockWhite.class)
