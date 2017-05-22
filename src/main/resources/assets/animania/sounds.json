@@ -7,6 +7,7 @@
 "hamsterLiving2": {"animania": "master","sounds": [{"name": "animania:hamsters/livingsound2","stream": false}]},
 "hamsterLiving3": {"animania": "master","sounds": [{"name": "animania:hamsters/livingsound3","stream": false}]},
 "frogliving1": {"animania": "master","sounds": [{"name": "animania:amphibians/frogliving1","stream": false}]},
+"reeee": {"animania": "master","sounds": [{"name": "animania:amphibians/reeee","stream": false}]},
 "frogliving2": {"animania": "master","sounds": [{"name": "animania:amphibians/frogliving2","stream": false}]},
 "frogliving3": {"animania": "master","sounds": [{"name": "animania:amphibians/frogliving3","stream": false}]},
 "toadliving1": {"animania": "master","sounds": [{"name": "animania:amphibians/toadliving1","stream": false}]},
