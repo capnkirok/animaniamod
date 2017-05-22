@@ -755,12 +755,16 @@ public class EntityHogDuroc extends EntityAnimal
 					String mate = this.getMateUniqueId().toString();
 					boolean mateReset = true;
 
-					for (Entity e : world.getLoadedEntityList())
+					int esize = this.world.loadedEntityList.size();
+					for (int k = 0; k <= esize - 1; k++)
 					{
-						UUID id = e.getPersistentID();
-						if (id.toString().equals(this.getMateUniqueId().toString()) && !e.isDead) {
-							mateReset = false;
-							break;
+						Entity entity = this.world.loadedEntityList.get(k);
+						if (entity != null) {
+							UUID id = entity.getPersistentID();
+							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead) {
+								mateReset = false;
+								break;
+							}
 						}
 					}
 
@@ -771,7 +775,6 @@ public class EntityHogDuroc extends EntityAnimal
 				}
 			}
 		}
-
 
 		if (this.fedTimer > -1)
 		{

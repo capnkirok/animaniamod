@@ -1,8 +1,6 @@
 package com.animania.common.handler;
 
 import com.animania.common.items.ItemBrownEgg;
-import com.animania.common.items.ItemBucketMilk;
-import com.animania.common.items.ItemBucketSlop;
 import com.animania.common.items.ItemCarvingKnife;
 import com.animania.common.items.ItemCheeseMold;
 import com.animania.common.items.ItemCheeseWedge;
@@ -12,6 +10,7 @@ import com.animania.common.items.ItemCookedAngusRoast;
 import com.animania.common.items.ItemCookedAngusSteak;
 import com.animania.common.items.ItemCookedDurocBacon;
 import com.animania.common.items.ItemCookedDurocRoast;
+import com.animania.common.items.ItemCookedFrogLegs;
 import com.animania.common.items.ItemCookedHampshireBacon;
 import com.animania.common.items.ItemCookedHampshireRoast;
 import com.animania.common.items.ItemCookedHerefordRoast;
@@ -39,6 +38,7 @@ import com.animania.common.items.ItemRawAngusBeef;
 import com.animania.common.items.ItemRawAngusSteak;
 import com.animania.common.items.ItemRawDurocBacon;
 import com.animania.common.items.ItemRawDurocPork;
+import com.animania.common.items.ItemRawFrogLegs;
 import com.animania.common.items.ItemRawHampshireBacon;
 import com.animania.common.items.ItemRawHampshirePork;
 import com.animania.common.items.ItemRawHerefordBeef;
@@ -132,6 +132,10 @@ public class ItemHandler {
 	public static Item rawPrimeChicken;
 	public static Item cookedPrimeChicken;
 
+	// Frogs
+	public static Item rawFrogLegs;
+	public static Item cookedFrogLegs;
+	
 	// Other Foods
 	public static Item plainOmelette;
 	public static Item cheeseOmelette;
@@ -245,7 +249,7 @@ public class ItemHandler {
 	// Eggs - Rodents
 	public static Item entityeggfrog;
 	public static Item entityeggtoad;
-	public static Item entityeggtreefrog;
+	public static Item entityeggdartfrog;
 
 	public static void preInit() {
 		// ITEMS
@@ -330,6 +334,10 @@ public class ItemHandler {
 		rawPrimeChicken = new ItemRawPrimeChicken();
 		cookedPrimeChicken = new ItemCookedPrimeChicken();
 		brownEgg = new ItemBrownEgg();
+		
+		// FROG ITEMS
+		rawFrogLegs = new ItemRawFrogLegs();
+		cookedFrogLegs = new ItemCookedFrogLegs();
 
 		// CHEESE
 		cheeseWheelFriesian = new ItemCheeseWheel("friesian");
@@ -430,7 +438,7 @@ public class ItemHandler {
 		// AMPHIBIANS
 		entityeggfrog = new ItemEntityEgg("frog");
 		entityeggtoad = new ItemEntityEgg("toad");
-		entityeggtreefrog = new ItemEntityEgg("tree_frog");
+		entityeggdartfrog = new ItemEntityEgg("dart_frog");
 
 		// HORSES
 		// entityeggdrafthorsestallion = new

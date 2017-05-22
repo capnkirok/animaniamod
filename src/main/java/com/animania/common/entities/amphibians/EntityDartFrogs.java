@@ -4,37 +4,48 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class EntityFrogs extends EntityAmphibian {
+public class EntityDartFrogs extends EntityAmphibian {
 
-	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer>createKey(EntityFrogs.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer>createKey(EntityDartFrogs.class, DataSerializers.VARINT);
+	public int poisonTimer;
+	private int jumpTicks;
+	private int jumpDuration;
+	private boolean canEntityJump;
 
-
-	public EntityFrogs(World worldIn) {
+	public EntityDartFrogs(World worldIn) {
 		super(worldIn, true);
+		this.poisonTimer = 2;
 	}
 
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		this.dataManager.register(FROGS_TYPE, Integer.valueOf(this.rand.nextInt(2)));
+		this.dataManager.register(FROGS_TYPE, Integer.valueOf(this.rand.nextInt(3)));
 	}
 
 	/**
@@ -63,6 +74,81 @@ public class EntityFrogs extends EntityAmphibian {
 		this.dataManager.set(FROGS_TYPE, Integer.valueOf(frogsId));
 	}
 
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	{
+
+		ItemStack stack = player.getHeldItem(hand);
+		EntityPlayer entityplayer = player;
+		
+		if (!stack.isEmpty() && stack.getItem() == Items.ARROW && this.poisonTimer <= 1) {
+			this.poisonTimer = 800;
+		    player.playSound(SoundEvents.ENTITY_MAGMACUBE_SQUISH, 0.2F, 1.8F);
+			ItemStack bob = new ItemStack(Items.TIPPED_ARROW);
+			PotionUtils.addPotionToItemStack(bob, PotionTypes.POISON);
+			stack.shrink(1);
+		
+			if (stack.getCount() == 0)
+			{
+				player.setHeldItem(hand, bob);
+				return true;
+			} else if (!player.inventory.addItemStackToInventory(bob)) {
+				player.dropItem(bob, false);
+				return true;
+			} else {
+
+				return super.processInteract(player, hand);
+			}
+		} else {
+
+			return super.processInteract(player, hand);
+		}
+
+
+	}
+
+	@Override
+	protected void collideWithEntity(Entity entityIn)
+	{
+
+		if (entityIn instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)entityIn;
+			player.addPotionEffect(new PotionEffect(MobEffects.POISON, 200, 1, false, false));
+		}
+		entityIn.applyEntityCollision(this);
+	}
+	
+	@Override
+	public void onLivingUpdate() {
+
+		if (poisonTimer > 1) {
+			this.poisonTimer--;
+		}
+		
+		if (this.canEntityJump)
+			if (this.jumpTicks != this.jumpDuration) {
+				++this.jumpTicks;
+			} else if (this.jumpDuration != 0) {
+				this.jumpTicks = 0;
+				this.jumpDuration = 0;
+				this.setJumping(false);
+			}
+
+		this.squishFactor += (this.squishAmount - this.squishFactor) * 0.5F;
+		this.prevSquishFactor = this.squishFactor;
+		super.onLivingUpdate();
+
+		if(this.onGround) {
+			this.squishAmount = -0.5F;
+		} else if (!this.onGround) {
+			this.squishAmount = 0.5F;
+		}
+
+		this.alterSquishAmount();
+
+	}
+
+	
 	/**
 	 * Called only once on an entity when first time spawned, via egg, mob
 	 * spawner, natural spawning etc, but not called when entity is reloaded
@@ -73,7 +159,7 @@ public class EntityFrogs extends EntityAmphibian {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 
-		this.setFrogsType(this.rand.nextInt(2));
+		this.setFrogsType(this.rand.nextInt(3));
 
 		return livingdata;
 	}
@@ -82,14 +168,16 @@ public class EntityFrogs extends EntityAmphibian {
 	{
 
 		Random rand = new Random();
-		int chooser = rand.nextInt(4);
+		int chooser = rand.nextInt(5);
 
 		if (chooser == 0) {
-			return ModSoundEvents.frogLiving1;
+			return ModSoundEvents.dartfrogLiving1;
 		} else if (chooser == 1){
-			return ModSoundEvents.frogLiving2;
+			return ModSoundEvents.dartfrogLiving2;
 		} else if (chooser == 2){
-			return ModSoundEvents.frogLiving3;
+			return ModSoundEvents.dartfrogLiving3;
+		} else if (chooser == 3){
+			return ModSoundEvents.dartfrogLiving4;
 		} else {
 			return null;
 		}
@@ -125,26 +213,19 @@ public class EntityFrogs extends EntityAmphibian {
 	{
 		return 0.4F;
 	}
-
+	
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
 
 		Item dropItem;
 
-		String drop = AnimaniaConfig.drops.frogDrop;
+		String drop = AnimaniaConfig.drops.dartFrogDrop;
 		dropItem = Item.getByNameOrId(drop);
-		if (this.isBurning() && drop.equals("animania:raw_frog_legs")) {
-			drop = "animania:cooked_frog_legs";
-			dropItem = Item.getByNameOrId(drop);
-		}
-
 		if (rand.nextInt(3) < 1) {
 			this.dropItem(dropItem, 1 + lootlevel);
 		}
 
 	}
 
-	
-	
 }

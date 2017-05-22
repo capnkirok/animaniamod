@@ -283,6 +283,8 @@ public class RecipeHandler
 		GameRegistry.addSmelting(ItemHandler.rawPrimePork, new ItemStack(ItemHandler.cookedPrimePork, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawPrimeBacon, new ItemStack(ItemHandler.cookedPrimeBacon, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawPrimeChicken, new ItemStack(ItemHandler.cookedPrimeChicken, 1), .3F);
+		
+		GameRegistry.addSmelting(ItemHandler.rawFrogLegs, new ItemStack(ItemHandler.cookedFrogLegs, 1), .3F);
 
 		GameRegistry.addSmelting(Items.EGG, new ItemStack(ItemHandler.plainOmelette, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.brownEgg, new ItemStack(ItemHandler.plainOmelette, 1), .3F);

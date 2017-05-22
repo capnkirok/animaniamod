@@ -333,5 +333,11 @@ public class CommonConfig {
 		public String hamsterDrop = "animania:hamster_food";
 		@Comment("Set Custom Hedgehog Drop (if enabled)")
 		public String hedgehogDrop = "";
+		@Comment("Set Custom Frog Drop")
+		public String frogDrop = "animania:raw_frog_legs";
+		@Comment("Set Custom Toad Drop")
+		public String toadDrop = "";
+		@Comment("Set Custom Dart Frog Drop")
+		public String dartFrogDrop = "";
 	}
 }

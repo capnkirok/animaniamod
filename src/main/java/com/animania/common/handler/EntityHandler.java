@@ -2,7 +2,7 @@ package com.animania.common.handler;
 
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
-import com.animania.common.entities.amphibians.EntityTreeFrogs;
+import com.animania.common.entities.amphibians.EntityDartFrogs;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -356,7 +356,7 @@ public class EntityHandler {
 		RegistryHelper.Entities.addSpawn(EntityToad.class, 20, 1, 3, EnumCreatureType.AMBIENT, RegistryHelper.Entities.getBiomes(BiomeDictionary.Type.SWAMP));
 		RegistryHelper.Entities.addSpawn(EntityToad.class, 20, 1, 3, EnumCreatureType.AMBIENT, Biomes.SWAMPLAND, Biomes.MUSHROOM_ISLAND);
 
-		RegistryHelper.Entities.register(EntityTreeFrogs.class, "treefrog", entityID++, 64, 3, true);
+		RegistryHelper.Entities.register(EntityDartFrogs.class, "dartfrog", entityID++, 64, 3, true);
 		RegistryHelper.Entities.addSpawn(EntityToad.class, 20, 1, 3, EnumCreatureType.AMBIENT, RegistryHelper.Entities.getBiomes(BiomeDictionary.Type.JUNGLE));
 		RegistryHelper.Entities.addSpawn(EntityToad.class, 20, 1, 3, EnumCreatureType.AMBIENT, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS);
 	}

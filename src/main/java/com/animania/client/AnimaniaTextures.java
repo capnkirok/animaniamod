@@ -105,6 +105,10 @@ public class AnimaniaTextures {
 		register(ItemHandler.cookedPrimeChicken);
 
 
+		//Frogs
+		register(ItemHandler.rawFrogLegs);
+		register(ItemHandler.cookedFrogLegs);
+		
 		//Cows
 		register(ItemHandler.entityeggbullholstein);
 		register(ItemHandler.entityeggcowholstein);
@@ -198,7 +202,7 @@ public class AnimaniaTextures {
 		//Amphibians
 		register(ItemHandler.entityeggfrog);
 		register(ItemHandler.entityeggtoad);
-		register(ItemHandler.entityeggtreefrog);
+		register(ItemHandler.entityeggdartfrog);
 
 		//Blocks
 		register(Item.getItemFromBlock(BlockHandler.blockMud));

@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelFrog;
 import com.animania.common.entities.amphibians.EntityFrogs;
-import com.animania.common.entities.amphibians.EntityTreeFrogs;
+import com.animania.common.entities.amphibians.EntityDartFrogs;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
@@ -16,17 +16,17 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderTreeFrogs<T extends EntityTreeFrogs> extends RenderLiving<T> {// RenderPlayer
+public class RenderDartFrogs<T extends EntityDartFrogs> extends RenderLiving<T> {// RenderPlayer
 	public static final Factory FACTORY = new Factory();
 
 	// Need to move in main class
-	private static final String modid = "animania", frogsBaseDir = "textures/entity/amphibians/treefrogs/";
+	private static final String modid = "animania", frogsBaseDir = "textures/entity/amphibians/dartfrogs/";
 	private static final ResourceLocation[] FROGS_TEXTURES = new ResourceLocation[] {
-			new ResourceLocation(modid, frogsBaseDir + "red_tree_frog.png"),
-			new ResourceLocation(modid, frogsBaseDir + "blue_tree_frog.png"),
-			new ResourceLocation(modid, frogsBaseDir + "yellow_tree_frog.png") };
+			new ResourceLocation(modid, frogsBaseDir + "red_dart_frog.png"),
+			new ResourceLocation(modid, frogsBaseDir + "blue_dart_frog.png"),
+			new ResourceLocation(modid, frogsBaseDir + "yellow_dart_frog.png") };
 
-	public RenderTreeFrogs(RenderManager rendermanagerIn) {
+	public RenderDartFrogs(RenderManager rendermanagerIn) {
 		super(rendermanagerIn, new ModelFrog(), 0.05F);
 	}
 
@@ -59,10 +59,10 @@ public class RenderTreeFrogs<T extends EntityTreeFrogs> extends RenderLiving<T> 
 		}
 	}
 
-	public static class Factory<T extends EntityTreeFrogs> implements IRenderFactory<T> {
+	public static class Factory<T extends EntityDartFrogs> implements IRenderFactory<T> {
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager) {
-			return new RenderTreeFrogs(manager);
+			return new RenderDartFrogs(manager);
 		}
 	}
 }

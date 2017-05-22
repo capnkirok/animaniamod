@@ -2,7 +2,7 @@ package com.animania.client.handler;
 
 import com.animania.client.render.amphibians.RenderFrogs;
 import com.animania.client.render.amphibians.RenderToad;
-import com.animania.client.render.amphibians.RenderTreeFrogs;
+import com.animania.client.render.amphibians.RenderDartFrogs;
 import com.animania.client.render.chickens.RenderChickLeghorn;
 import com.animania.client.render.chickens.RenderChickOrpington;
 import com.animania.client.render.chickens.RenderChickPlymouthRock;
@@ -67,7 +67,7 @@ import com.animania.client.render.tileEntity.TileEntityNestRenderer;
 import com.animania.client.render.tileEntity.TileEntityTroughRenderer;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
-import com.animania.common.entities.amphibians.EntityTreeFrogs;
+import com.animania.common.entities.amphibians.EntityDartFrogs;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -251,7 +251,7 @@ public class RenderHandler {
 
 	static void renderEntitiesFactory() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityFrogs.class, RenderFrogs.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityTreeFrogs.class, RenderTreeFrogs.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDartFrogs.class, RenderDartFrogs.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityToad.class, RenderToad.FACTORY);
 	}
 
