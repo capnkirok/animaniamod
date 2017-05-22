@@ -230,9 +230,6 @@ public class TileEntityTrough extends TileEntity implements ITickable
 	}
 
 
-
-
-	@SideOnly(Side.CLIENT)
 	public int getTroughRotation()
 	{
 		return this.troughRotation;

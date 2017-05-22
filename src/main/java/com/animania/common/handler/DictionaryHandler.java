@@ -93,10 +93,21 @@ public class DictionaryHandler {
 		OreDictionary.registerOre("listAllchickencooked", ItemHandler.cookedPlymouthRockChicken);
 		OreDictionary.registerOre("listAllchickencooked", ItemHandler.cookedWyandotteChicken);
 
+		
+		// Raw Prime Meats
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawPrimeChicken);
+		OreDictionary.registerOre("listAllchickenraw", ItemHandler.rawPrimeChicken);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawPrimePork);
+		OreDictionary.registerOre("listAllporkraw", ItemHandler.rawPrimePork);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawPrimeBeef);
+		OreDictionary.registerOre("listAllbeefraw", ItemHandler.rawPrimeBeef);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawFrogLegs);
+		
 		// Cooked Prime Meats
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedPrimeChicken);
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedPrimePork);
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedPrimeBeef);
+		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedFrogLegs);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedPrimeBeef);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedPrimeSteak);
 		OreDictionary.registerOre("listAllporkcooked", ItemHandler.cookedPrimePork);
@@ -159,6 +170,7 @@ public class DictionaryHandler {
 		OreDictionary.registerOre("foodMeats", ItemHandler.cookedPrimeChicken);
 		OreDictionary.registerOre("foodMeats", ItemHandler.cookedPrimePork);
 		OreDictionary.registerOre("foodMeats", ItemHandler.cookedPrimeBeef);
+		OreDictionary.registerOre("foodMeats", ItemHandler.cookedFrogLegs);
 		OreDictionary.registerOre("listAllchickenraw", Items.CHICKEN);
 		OreDictionary.registerOre("listAllbeefraw", Items.BEEF);
 		OreDictionary.registerOre("listAllporkraw", Items.PORKCHOP);
