@@ -299,8 +299,7 @@ public class BlockInvisiblock extends BlockContainer {
 	}
 
 
-	//DELAYED, gonna fix later
-	/*@Override
+	@Override
 	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
@@ -322,7 +321,9 @@ public class BlockInvisiblock extends BlockContainer {
 			}
 		}
 		return 0;
-	} */
+	} 
+	
+	
 
 
 

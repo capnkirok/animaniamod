@@ -6,10 +6,9 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.handler.ItemHandler;
-import com.animania.common.tileentities.TileEntityInvisiblock;
 import com.animania.common.tileentities.TileEntityTrough;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
@@ -28,8 +27,8 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
@@ -136,6 +135,8 @@ public class BlockTrough extends BlockContainer
 				entityitem.setEntityItemStack(newStack);
 
 			}
+			
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 
 		}
 	}
@@ -334,19 +335,21 @@ public class BlockTrough extends BlockContainer
 		ItemStack heldItem = playerIn.getHeldItem(hand);
 		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 
-		if (worldIn.isRemote)
+	/*	if (worldIn.isRemote)
 		{
 			return true;
 
-		}
+		}*/
 		// SOLIDS
-		else if (!heldItem.isEmpty() && heldItem.getItem() == Items.WHEAT)
+		 if (!heldItem.isEmpty() && heldItem.getItem() == Items.WHEAT)
 		{
 			if ((!te.itemHandler.getStackInSlot(0).isEmpty() && te.itemHandler.getStackInSlot(0).getCount() < 3) || te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
 				te.itemHandler.insertItem(0, new ItemStack(Items.WHEAT), false);
 				if (!playerIn.isCreative())
 					heldItem.shrink(1);
+				
+				worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 				return true;
 			}
 
@@ -363,6 +366,7 @@ public class BlockTrough extends BlockContainer
 				ItemStack newStack = handler.getContainer();
 				playerIn.setHeldItem(hand, newStack);
 			}
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 			return true;
 
 		} else if (hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
@@ -376,6 +380,7 @@ public class BlockTrough extends BlockContainer
 				ItemStack newStack = handler.getContainer();
 				playerIn.setHeldItem(hand, newStack);
 			}
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 			return true;
 
 		}
@@ -384,6 +389,7 @@ public class BlockTrough extends BlockContainer
 		{
 			ItemStack extract = te.itemHandler.extractItem(0, 1, false);
 			playerIn.inventory.addItemStackToInventory(extract);
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 			return true;
 		}
 		// EMPTY LIQUIDS
@@ -416,6 +422,7 @@ public class BlockTrough extends BlockContainer
 
 			}
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 			return true;
 		}
 		return false;
@@ -472,5 +479,25 @@ public class BlockTrough extends BlockContainer
 	{
 		return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000 && FluidUtil.getFluidContained(stack).getFluid() == fluid;
 	}
+	
+	public BlockPos findInvisiblock(World world, BlockPos pos)
+	{
+		EnumFacing facing = world.getBlockState(pos).getValue(FACING);
+		facing = facing.rotateAround(Axis.Y);
+		
+		return pos.offset(facing);	
+	}
+	
+	
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+	{
+		BlockPos invisi = findInvisiblock(worldIn, pos);
+		worldIn.updateComparatorOutputLevel(invisi, BlockHandler.blockInvisiblock);
+		
+		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+	}
+	
+	
 
 }
