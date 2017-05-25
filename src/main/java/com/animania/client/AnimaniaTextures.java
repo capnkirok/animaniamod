@@ -8,223 +8,216 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 
-public class AnimaniaTextures {
+public class AnimaniaTextures
+{
 
-	public static void registerTextures() { 
+    public static void registerTextures() {
 
+        // Items
+        register(ItemHandler.hamsterFood);
+        register(ItemHandler.truffle);
+        register(ItemHandler.brownEgg);
+        // register(ItemHandler.bucketSlop);
+        register(ItemHandler.carvingKnife);
+        register(ItemHandler.cheeseMold);
+        register(ItemHandler.cheeseWheelFriesian);
+        register(ItemHandler.cheeseWedgeFriesian);
+        register(ItemHandler.cheeseWheelHolstein);
+        register(ItemHandler.cheeseWedgeHolstein);
+        register(ItemHandler.truffleSoup);
+        register(ItemHandler.chocolateTruffle);
+        register(ItemHandler.plainOmelette);
+        register(ItemHandler.cheeseOmelette);
+        register(ItemHandler.baconOmelette);
+        register(ItemHandler.truffleOmelette);
+        register(ItemHandler.ultimateOmelette);
+        // register(ItemHandler.milkBucketFriesian);
+        // register(ItemHandler.milkBucketHolstein);
+        register(ItemHandler.peacockFeatherBlue);
+        register(ItemHandler.peacockFeatherWhite);
 
-		//Items
-		register(ItemHandler.hamsterFood);
-		register(ItemHandler.truffle);
-		register(ItemHandler.brownEgg);
-		//register(ItemHandler.bucketSlop);
-		register(ItemHandler.carvingKnife);
-		register(ItemHandler.cheeseMold);
-		register(ItemHandler.cheeseWheelFriesian);
-		register(ItemHandler.cheeseWedgeFriesian);
-		register(ItemHandler.cheeseWheelHolstein);
-		register(ItemHandler.cheeseWedgeHolstein);
-		register(ItemHandler.truffleSoup);
-		register(ItemHandler.chocolateTruffle);
-		register(ItemHandler.plainOmelette);
-		register(ItemHandler.cheeseOmelette);
-		register(ItemHandler.baconOmelette);
-		register(ItemHandler.truffleOmelette);
-		register(ItemHandler.ultimateOmelette);
-		//register(ItemHandler.milkBucketFriesian);
-		//register(ItemHandler.milkBucketHolstein);
-		register(ItemHandler.peacockFeatherBlue);
-		register(ItemHandler.peacockFeatherWhite);
+        // Beef
+        register(ItemHandler.rawAngusBeef);
+        register(ItemHandler.rawHerefordBeef);
+        register(ItemHandler.rawLonghornBeef);
 
+        register(ItemHandler.cookedAngusRoast);
+        register(ItemHandler.cookedHerefordRoast);
+        register(ItemHandler.cookedLonghornRoast);
 
-		//Beef
-		register(ItemHandler.rawAngusBeef);
-		register(ItemHandler.rawHerefordBeef);
-		register(ItemHandler.rawLonghornBeef);
+        register(ItemHandler.rawAngusSteak);
+        register(ItemHandler.rawHerefordSteak);
+        register(ItemHandler.rawLonghornSteak);
 
-		register(ItemHandler.cookedAngusRoast);
-		register(ItemHandler.cookedHerefordRoast);
-		register(ItemHandler.cookedLonghornRoast);
+        register(ItemHandler.cookedAngusSteak);
+        register(ItemHandler.cookedHerefordSteak);
+        register(ItemHandler.cookedLonghornSteak);
 
-		register(ItemHandler.rawAngusSteak);
-		register(ItemHandler.rawHerefordSteak);
-		register(ItemHandler.rawLonghornSteak);
+        // Beef Generics
+        register(ItemHandler.rawPrimeBeef);
+        register(ItemHandler.cookedPrimeBeef);
+        register(ItemHandler.rawPrimeSteak);
+        register(ItemHandler.cookedPrimeSteak);
 
-		register(ItemHandler.cookedAngusSteak);
-		register(ItemHandler.cookedHerefordSteak);
-		register(ItemHandler.cookedLonghornSteak);
+        // Pork
+        register(ItemHandler.rawLargeBlackPork);
+        register(ItemHandler.rawDurocPork);
+        register(ItemHandler.rawOldSpotPork);
+        register(ItemHandler.rawHampshirePork);
 
-		//Beef Generics
-		register(ItemHandler.rawPrimeBeef);
-		register(ItemHandler.cookedPrimeBeef);
-		register(ItemHandler.rawPrimeSteak);
-		register(ItemHandler.cookedPrimeSteak);
+        register(ItemHandler.rawLargeBlackBacon);
+        register(ItemHandler.rawDurocBacon);
+        register(ItemHandler.rawOldSpotBacon);
+        register(ItemHandler.rawHampshireBacon);
 
+        register(ItemHandler.cookedLargeBlackRoast);
+        register(ItemHandler.cookedDurocRoast);
+        register(ItemHandler.cookedOldSpotRoast);
+        register(ItemHandler.cookedHampshireRoast);
 
-		//Pork
-		register(ItemHandler.rawLargeBlackPork);
-		register(ItemHandler.rawDurocPork);
-		register(ItemHandler.rawOldSpotPork);
-		register(ItemHandler.rawHampshirePork);
+        register(ItemHandler.cookedLargeBlackBacon);
+        register(ItemHandler.cookedDurocBacon);
+        register(ItemHandler.cookedOldSpotBacon);
+        register(ItemHandler.cookedHampshireBacon);
 
-		register(ItemHandler.rawLargeBlackBacon);
-		register(ItemHandler.rawDurocBacon);
-		register(ItemHandler.rawOldSpotBacon);
-		register(ItemHandler.rawHampshireBacon);
+        // Pork Generics
+        register(ItemHandler.rawPrimePork);
+        register(ItemHandler.cookedPrimePork);
+        register(ItemHandler.rawPrimeBacon);
+        register(ItemHandler.cookedPrimeBacon);
 
-		register(ItemHandler.cookedLargeBlackRoast);
-		register(ItemHandler.cookedDurocRoast);
-		register(ItemHandler.cookedOldSpotRoast);
-		register(ItemHandler.cookedHampshireRoast);
+        // Chicken
+        register(ItemHandler.rawOrpingtonChicken);
+        register(ItemHandler.rawPlymouthRockChicken);
+        register(ItemHandler.rawWyandotteChicken);
+        register(ItemHandler.rawRhodeIslandRedChicken);
 
-		register(ItemHandler.cookedLargeBlackBacon);
-		register(ItemHandler.cookedDurocBacon);
-		register(ItemHandler.cookedOldSpotBacon);
-		register(ItemHandler.cookedHampshireBacon);
+        register(ItemHandler.cookedOrpingtonChicken);
+        register(ItemHandler.cookedPlymouthRockChicken);
+        register(ItemHandler.cookedWyandotteChicken);
+        register(ItemHandler.cookedRhodeIslandRedChicken);
 
-		//Pork Generics
-		register(ItemHandler.rawPrimePork);
-		register(ItemHandler.cookedPrimePork);
-		register(ItemHandler.rawPrimeBacon);
-		register(ItemHandler.cookedPrimeBacon);
+        // Chicken Generics
+        register(ItemHandler.rawPrimeChicken);
+        register(ItemHandler.cookedPrimeChicken);
 
+        // Frogs
+        register(ItemHandler.rawFrogLegs);
+        register(ItemHandler.cookedFrogLegs);
 
-		//Chicken
-		register(ItemHandler.rawOrpingtonChicken);
-		register(ItemHandler.rawPlymouthRockChicken);
-		register(ItemHandler.rawWyandotteChicken);
-		register(ItemHandler.rawRhodeIslandRedChicken);
+        // Cows
+        register(ItemHandler.entityeggbullholstein);
+        register(ItemHandler.entityeggcowholstein);
+        register(ItemHandler.entityeggcalfholstein);
 
-		register(ItemHandler.cookedOrpingtonChicken);
-		register(ItemHandler.cookedPlymouthRockChicken);
-		register(ItemHandler.cookedWyandotteChicken);
-		register(ItemHandler.cookedRhodeIslandRedChicken);
+        register(ItemHandler.entityeggbullfriesian);
+        register(ItemHandler.entityeggcowfriesian);
+        register(ItemHandler.entityeggcalffriesian);
 
-		//Chicken Generics
-		register(ItemHandler.rawPrimeChicken);
-		register(ItemHandler.cookedPrimeChicken);
+        register(ItemHandler.entityeggbullangus);
+        register(ItemHandler.entityeggcowangus);
+        register(ItemHandler.entityeggcalfangus);
 
+        register(ItemHandler.entityeggbulllonghorn);
+        register(ItemHandler.entityeggcowlonghorn);
+        register(ItemHandler.entityeggcalflonghorn);
 
-		//Frogs
-		register(ItemHandler.rawFrogLegs);
-		register(ItemHandler.cookedFrogLegs);
-		
-		//Cows
-		register(ItemHandler.entityeggbullholstein);
-		register(ItemHandler.entityeggcowholstein);
-		register(ItemHandler.entityeggcalfholstein);
+        register(ItemHandler.entityeggbullhereford);
+        register(ItemHandler.entityeggcowhereford);
+        register(ItemHandler.entityeggcalfhereford);
 
-		register(ItemHandler.entityeggbullfriesian);
-		register(ItemHandler.entityeggcowfriesian);
-		register(ItemHandler.entityeggcalffriesian);
+        register(ItemHandler.entityeggrandomcow);
 
-		register(ItemHandler.entityeggbullangus);
-		register(ItemHandler.entityeggcowangus);
-		register(ItemHandler.entityeggcalfangus);
+        // Chickens
+        register(ItemHandler.entityeggchickplymouth);
+        register(ItemHandler.entityegghenplymouth);
+        register(ItemHandler.entityeggroosterplymouth);
 
-		register(ItemHandler.entityeggbulllonghorn);
-		register(ItemHandler.entityeggcowlonghorn);
-		register(ItemHandler.entityeggcalflonghorn);
+        register(ItemHandler.entityeggchickleghorn);
+        register(ItemHandler.entityegghenleghorn);
+        register(ItemHandler.entityeggroosterleghorn);
 
-		register(ItemHandler.entityeggbullhereford);
-		register(ItemHandler.entityeggcowhereford);
-		register(ItemHandler.entityeggcalfhereford);
+        register(ItemHandler.entityeggchickred);
+        register(ItemHandler.entityegghenred);
+        register(ItemHandler.entityeggroosterred);
 
-		register(ItemHandler.entityeggrandomcow);
+        register(ItemHandler.entityeggchickorpington);
+        register(ItemHandler.entityegghenorpington);
+        register(ItemHandler.entityeggroosterorpington);
 
-		//Chickens
-		register(ItemHandler.entityeggchickplymouth);
-		register(ItemHandler.entityegghenplymouth);
-		register(ItemHandler.entityeggroosterplymouth);
+        register(ItemHandler.entityeggchickwyandotte);
+        register(ItemHandler.entityegghenwyandotte);
+        register(ItemHandler.entityeggroosterwyandotte);
 
-		register(ItemHandler.entityeggchickleghorn);
-		register(ItemHandler.entityegghenleghorn);
-		register(ItemHandler.entityeggroosterleghorn);
+        register(ItemHandler.entityeggrandomchicken);
 
-		register(ItemHandler.entityeggchickred);
-		register(ItemHandler.entityegghenred);
-		register(ItemHandler.entityeggroosterred);
+        // Peacocks
+        register(ItemHandler.entityeggpeacockblue);
+        register(ItemHandler.entityeggpeafowlblue);
+        register(ItemHandler.entityeggpeachickblue);
 
-		register(ItemHandler.entityeggchickorpington);
-		register(ItemHandler.entityegghenorpington);
-		register(ItemHandler.entityeggroosterorpington);
+        register(ItemHandler.entityeggpeacockwhite);
+        register(ItemHandler.entityeggpeafowlwhite);
+        register(ItemHandler.entityeggpeachickwhite);
 
-		register(ItemHandler.entityeggchickwyandotte);
-		register(ItemHandler.entityegghenwyandotte);
-		register(ItemHandler.entityeggroosterwyandotte);
+        // Pigs
+        register(ItemHandler.entityeggsowyorkshire);
+        register(ItemHandler.entityegghogyorkshire);
+        register(ItemHandler.entityeggpigletyorkshire);
 
-		register(ItemHandler.entityeggrandomchicken);
+        register(ItemHandler.entityeggsowoldspot);
+        register(ItemHandler.entityegghogoldspot);
+        register(ItemHandler.entityeggpigletoldspot);
 
-		//Peacocks
-		register(ItemHandler.entityeggpeacockblue);
-		register(ItemHandler.entityeggpeafowlblue);
-		register(ItemHandler.entityeggpeachickblue);
+        register(ItemHandler.entityeggsowlargeblack);
+        register(ItemHandler.entityegghoglargeblack);
+        register(ItemHandler.entityeggpigletlargeblack);
 
-		register(ItemHandler.entityeggpeacockwhite);
-		register(ItemHandler.entityeggpeafowlwhite);
-		register(ItemHandler.entityeggpeachickwhite);
+        register(ItemHandler.entityeggsowlargewhite);
+        register(ItemHandler.entityegghoglargewhite);
+        register(ItemHandler.entityeggpigletlargewhite);
 
-		//Pigs
-		register(ItemHandler.entityeggsowyorkshire);
-		register(ItemHandler.entityegghogyorkshire);
-		register(ItemHandler.entityeggpigletyorkshire);
+        register(ItemHandler.entityeggsowduroc);
+        register(ItemHandler.entityegghogduroc);
+        register(ItemHandler.entityeggpigletduroc);
 
-		register(ItemHandler.entityeggsowoldspot);
-		register(ItemHandler.entityegghogoldspot);
-		register(ItemHandler.entityeggpigletoldspot);
+        register(ItemHandler.entityeggsowhampshire);
+        register(ItemHandler.entityegghoghampshire);
+        register(ItemHandler.entityeggpiglethampshire);
 
-		register(ItemHandler.entityeggsowlargeblack);
-		register(ItemHandler.entityegghoglargeblack);
-		register(ItemHandler.entityeggpigletlargeblack);
+        register(ItemHandler.entityeggrandompig);
 
-		register(ItemHandler.entityeggsowlargewhite);
-		register(ItemHandler.entityegghoglargewhite);
-		register(ItemHandler.entityeggpigletlargewhite);
+        // Rodents
+        register(ItemHandler.entityegghamster);
+        register(ItemHandler.entityeggferretgrey);
+        register(ItemHandler.entityeggferretwhite);
 
-		register(ItemHandler.entityeggsowduroc);
-		register(ItemHandler.entityegghogduroc);
-		register(ItemHandler.entityeggpigletduroc);
+        register(ItemHandler.entityegghedgehog);
+        register(ItemHandler.entityegghedgehogalbino);
 
-		register(ItemHandler.entityeggsowhampshire);
-		register(ItemHandler.entityegghoghampshire);
-		register(ItemHandler.entityeggpiglethampshire);
+        // Amphibians
+        register(ItemHandler.entityeggfrog);
+        register(ItemHandler.entityeggtoad);
+        register(ItemHandler.entityeggdartfrog);
 
-		register(ItemHandler.entityeggrandompig);
+        // Blocks
+        register(Item.getItemFromBlock(BlockHandler.blockMud));
+        register(Item.getItemFromBlock(BlockHandler.blockTrough));
+        register(Item.getItemFromBlock(BlockHandler.blockNest));
 
-		//Rodents
-		register(ItemHandler.entityegghamster);
-		register(ItemHandler.entityeggferretgrey);
-		register(ItemHandler.entityeggferretwhite);
+        Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
+        Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkFriesian, "milk_friesian");
+        Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkHolstein, "milk_holstein");
 
-		register(ItemHandler.entityegghedgehog);
-		register(ItemHandler.entityegghedgehogalbino);
+    }
 
-		//Amphibians
-		register(ItemHandler.entityeggfrog);
-		register(ItemHandler.entityeggtoad);
-		register(ItemHandler.entityeggdartfrog);
-
-		//Blocks
-		register(Item.getItemFromBlock(BlockHandler.blockMud));
-		register(Item.getItemFromBlock(BlockHandler.blockTrough));
-		register(Item.getItemFromBlock(BlockHandler.blockNest));
-
-
-		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
-		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkFriesian, "milk_friesian");
-		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkHolstein, "milk_holstein");
-
-	}
-
-
-	/**
-	 * Registers Render for an Item
-	 * @param item
-	 */
-	public static void register(Item item)
-	{
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));		
-	}
-
+    /**
+     * Registers Render for an Item
+     *
+     * @param item
+     */
+    public static void register(Item item) {
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+    }
 
 }

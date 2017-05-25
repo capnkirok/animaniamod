@@ -12,46 +12,38 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class EntityEventHandler
 {
 
-	@SubscribeEvent
-	public void onEntityTakeDamage(LivingHurtEvent event)
-	{
-		float amount = event.getAmount();
-		EntityLivingBase entity = event.getEntityLiving();
-		DamageSource source = event.getSource();
+    @SubscribeEvent
+    public void onEntityTakeDamage(LivingHurtEvent event) {
+        float amount = event.getAmount();
+        EntityLivingBase entity = event.getEntityLiving();
+        DamageSource source = event.getSource();
 
-		if (entity instanceof EntityAnimal)
-		{
-			EntityAnimal animal = (EntityAnimal) entity;
-			
-			if (source == DamageSource.FALL)
-			{
-				if(animal.getLeashed())
-				{
-					event.setAmount(amount * AnimaniaConfig.gameRules.fallDamageReduceMultiplier);
-					animal.fallDistance = 0;
-				}
-			}
-			
-		}
+        if (entity instanceof EntityAnimal) {
+            EntityAnimal animal = (EntityAnimal) entity;
 
-	}
-	
-	@SubscribeEvent
-	public void onEntityHit(LivingAttackEvent event)
-	{
-		float amount = event.getAmount();
-		EntityLivingBase entity = event.getEntityLiving();
-		DamageSource source = event.getSource();
+            if (source == DamageSource.FALL)
+                if (animal.getLeashed()) {
+                    event.setAmount(amount * AnimaniaConfig.gameRules.fallDamageReduceMultiplier);
+                    animal.fallDistance = 0;
+                }
 
-		if (entity instanceof EntityAnimal)
-		{
-			EntityAnimal animal = (EntityAnimal) entity;
-			
-			if (animal.isRiding()) {
-				event.setCanceled(true);
-			}
-		}
+        }
 
-	}
+    }
+
+    @SubscribeEvent
+    public void onEntityHit(LivingAttackEvent event) {
+        float amount = event.getAmount();
+        EntityLivingBase entity = event.getEntityLiving();
+        DamageSource source = event.getSource();
+
+        if (entity instanceof EntityAnimal) {
+            EntityAnimal animal = (EntityAnimal) entity;
+
+            if (animal.isRiding())
+                event.setCanceled(true);
+        }
+
+    }
 
 }

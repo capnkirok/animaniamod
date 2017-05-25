@@ -15,31 +15,32 @@ import com.animania.common.handler.TileEntityHandler;
 
 import net.minecraft.block.Block;
 
-public class CommonProxy {
+public class CommonProxy
+{
 
-	public void preInit() {
-		OldEntityHandler.preInit();
-		EntityHandler.preInit();
-		ItemHandler.preInit();
-		BlockHandler.preInit();
-		TileEntityHandler.preInit();
-		DamageSourceHandler.preInit();
-		CompatHandler.preInit();
-		
-		// EVENTS
-		EventsHandler.preInit();
-		UpdateHandler.init();
-		AnimaniaAchievements.init();
-		
-	}
+    public void preInit() {
+        OldEntityHandler.preInit();
+        EntityHandler.preInit();
+        ItemHandler.preInit();
+        BlockHandler.preInit();
+        TileEntityHandler.preInit();
+        DamageSourceHandler.preInit();
+        CompatHandler.preInit();
 
-	public void init() {
-		DictionaryHandler.init();		
-		RecipeHandler.init();
-	}
+        // EVENTS
+        EventsHandler.preInit();
+        UpdateHandler.init();
+        AnimaniaAchievements.init();
 
-	public void registerFluidBlockRendering(Block block, String name) {
-		
-	}
+    }
+
+    public void init() {
+        DictionaryHandler.init();
+        RecipeHandler.init();
+    }
+
+    public void registerFluidBlockRendering(Block block, String name) {
+
+    }
 
 }

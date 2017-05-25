@@ -15,50 +15,41 @@ import net.minecraft.world.World;
 public class WailaEntityRodentProvider extends WailaEntityAnimalProviderBase
 {
 
-	@Override
-	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
-	{
-		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
-		boolean tamed = accessor.getNBTData().getBoolean("IsTamed");
-		boolean sitting = accessor.getNBTData().getBoolean("IsSitting");
+    @Override
+    public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
+        currenttip = super.getWailaBody(entity, currenttip, accessor, config);
+        boolean tamed = accessor.getNBTData().getBoolean("IsTamed");
+        boolean sitting = accessor.getNBTData().getBoolean("IsSitting");
 
-		if(sitting)
-			currenttip.add(I18n.translateToLocal("text.waila.sitting"));
+        if (sitting)
+            currenttip.add(I18n.translateToLocal("text.waila.sitting"));
 
-		if(accessor.getPlayer().isSneaking())
-		{
-			if(tamed)
-			{
-				EntityLivingBase owner = ((EntityTameable)accessor.getEntity()).getOwner();
-				if(owner != null)
-				{
-					String name = owner.getName();
-					if(!name.equals(""))
-						currenttip.add(I18n.translateToLocal("text.waila.tamed") + " (" + name + ")");
-					else
-						currenttip.add(I18n.translateToLocal("text.waila.tamed"));
-				}
-				else
-					currenttip.add(I18n.translateToLocal("text.waila.ownermissing"));
+        if (accessor.getPlayer().isSneaking())
+            if (tamed) {
+                EntityLivingBase owner = ((EntityTameable) accessor.getEntity()).getOwner();
+                if (owner != null) {
+                    String name = owner.getName();
+                    if (!name.equals(""))
+                        currenttip.add(I18n.translateToLocal("text.waila.tamed") + " (" + name + ")");
+                    else
+                        currenttip.add(I18n.translateToLocal("text.waila.tamed"));
+                }
+                else
+                    currenttip.add(I18n.translateToLocal("text.waila.ownermissing"));
 
-			}
-		}
+            }
 
-		return currenttip;
-	}
+        return currenttip;
+    }
 
+    @Override
+    public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world) {
+        NBTTagCompound comp = ent.getEntityData();
 
-	@Override
-	public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world)
-	{
-		NBTTagCompound comp = ent.getEntityData();
+        tag.setBoolean("IsSitting", comp.getBoolean("IsSitting"));
+        tag.setBoolean("IsTamed", comp.getBoolean("IsTamed"));
 
-		tag.setBoolean("IsSitting", comp.getBoolean("IsSitting"));
-		tag.setBoolean("IsTamed", comp.getBoolean("IsTamed"));
-
-		return super.getNBTData(player, ent, tag, world);
-	}
-
-
+        return super.getNBTData(player, ent, tag, world);
+    }
 
 }

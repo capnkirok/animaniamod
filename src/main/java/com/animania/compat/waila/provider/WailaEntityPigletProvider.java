@@ -12,27 +12,25 @@ import net.minecraft.world.World;
 
 public class WailaEntityPigletProvider extends WailaEntityAnimalProviderChild
 {
-	@Override
-	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
-	{
-		boolean played = accessor.getNBTData().getBoolean("Played");
+    @Override
+    public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
+        boolean played = accessor.getNBTData().getBoolean("Played");
 
-		if (played)
-			currenttip.add(I18n.translateToLocal("text.waila.played"));
-		else
-			currenttip.add(I18n.translateToLocal("text.waila.bored"));
+        if (played)
+            currenttip.add(I18n.translateToLocal("text.waila.played"));
+        else
+            currenttip.add(I18n.translateToLocal("text.waila.bored"));
 
-		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
+        currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 
-		return currenttip;
-	}
+        return currenttip;
+    }
 
-	@Override
-	public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world)
-	{
+    @Override
+    public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world) {
 
-		tag.setBoolean("Played", ent.getEntityData().getBoolean("Played"));
+        tag.setBoolean("Played", ent.getEntityData().getBoolean("Played"));
 
-		return super.getNBTData(player, ent, tag, world);
-	}
+        return super.getNBTData(player, ent, tag, world);
+    }
 }

@@ -14,53 +14,44 @@ import net.minecraft.world.World;
 public class WailaEntityAnimalProviderChild extends WailaEntityAnimalProviderBase
 {
 
-	@Override
-	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
-	{
-		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
-		
-		if(accessor.getPlayer().isSneaking())
-		{
-			String parent = accessor.getNBTData().getString("ParentUUID");
-			World world = entity.world;
+    @Override
+    public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
+        currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 
-			if(!parent.equals(""))
-			{
-				for(Entity e : world.getLoadedEntityList())
-				{
-					UUID id = e.getPersistentID(); 
-					if(id.toString().equals(parent))
-					{
-						String name = e.getCustomNameTag();
-						if(!name.equals(""))
-							currenttip.add(I18n.translateToLocal("text.waila.parent") + " (" + name + ")");
-						
-						return currenttip;
-					}
-				}
+        if (accessor.getPlayer().isSneaking()) {
+            String parent = accessor.getNBTData().getString("ParentUUID");
+            World world = entity.world;
 
-				currenttip.add(I18n.translateToLocal("text.waila.parentmissing"));
+            if (!parent.equals("")) {
+                for (Entity e : world.getLoadedEntityList()) {
+                    UUID id = e.getPersistentID();
+                    if (id.toString().equals(parent)) {
+                        String name = e.getCustomNameTag();
+                        if (!name.equals(""))
+                            currenttip.add(I18n.translateToLocal("text.waila.parent") + " (" + name + ")");
 
-			}
+                        return currenttip;
+                    }
+                }
 
-		}
-		
-		return currenttip;
-	}
-	
-	
-	
-	@Override
-	public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world)
-	{
-		NBTTagCompound comp = ent.getEntityData();
+                currenttip.add(I18n.translateToLocal("text.waila.parentmissing"));
 
+            }
 
-		String parent = comp.getString("ParentUUID");
-		if(!parent.equals(""))
-			tag.setString("ParentUUID", parent);
+        }
 
-		return super.getNBTData(player, ent, tag, world);
-	}
-	
+        return currenttip;
+    }
+
+    @Override
+    public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world) {
+        NBTTagCompound comp = ent.getEntityData();
+
+        String parent = comp.getString("ParentUUID");
+        if (!parent.equals(""))
+            tag.setString("ParentUUID", parent);
+
+        return super.getNBTData(player, ent, tag, world);
+    }
+
 }

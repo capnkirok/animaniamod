@@ -16,34 +16,29 @@ import net.minecraft.world.World;
 public class WailaBlockSeedProvider implements IWailaDataProvider
 {
 
-	@Override
-	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config)
-	{
-		return new ItemStack(Items.WHEAT_SEEDS);
-	}
+    @Override
+    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        return new ItemStack(Items.WHEAT_SEEDS);
+    }
 
-	@Override
-	public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
-	{
-		return currenttip;
-	}
+    @Override
+    public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        return currenttip;
+    }
 
-	@Override
-	public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
-	{
-		return currenttip;
-	}
+    @Override
+    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        return currenttip;
+    }
 
-	@Override
-	public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
-	{
-		return currenttip;
-	}
+    @Override
+    public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+        return currenttip;
+    }
 
-	@Override
-	public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos)
-	{
-		return tag;
-	}
+    @Override
+    public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
+        return tag;
+    }
 
 }

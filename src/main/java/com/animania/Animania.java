@@ -16,41 +16,40 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = Animania.MODID, name = Animania.NAME, version = Animania.VERSION, guiFactory = "com.animania.client.gui.GuiFactoryAnimania")
-public class Animania {
+public class Animania
+{
 
-	@SidedProxy(clientSide = "com.animania.proxy.ClientProxy", serverSide = "com.animania.proxy.ServerProxy")
-	public static CommonProxy proxy;
+    @SidedProxy(clientSide = "com.animania.proxy.ClientProxy", serverSide = "com.animania.proxy.ServerProxy")
+    public static CommonProxy  proxy;
 
-	// Instance
-	@Instance(Animania.MODID)
-	public static Animania instance;
+    // Instance
+    @Instance(Animania.MODID)
+    public static Animania     instance;
 
-	public static final String MODID = "animania";
-	public static final String VERSION = "1.0.4.8";
-	public static final String NAME = "Animania";
+    public static final String MODID                = "animania";
+    public static final String VERSION              = "1.0.4.8";
+    public static final String NAME                 = "Animania";
 
-	// Tabs
-	public static CreativeTabs TabAnimaniaEggs = new TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania");
-	public static CreativeTabs TabAnimaniaResources = new TabAnimaniaResources(CreativeTabs.getNextID(), "Animania");
+    // Tabs
+    public static CreativeTabs TabAnimaniaEggs      = new TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania");
+    public static CreativeTabs TabAnimaniaResources = new TabAnimaniaResources(CreativeTabs.getNextID(), "Animania");
 
-	
-	@EventHandler
-    public void construction(FMLConstructionEvent event){
-		FluidRegistry.enableUniversalBucket();
+    @EventHandler
+    public void construction(FMLConstructionEvent event) {
+        FluidRegistry.enableUniversalBucket();
     }
-	
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		proxy.preInit();
-	}
 
-	@EventHandler
-	public void init(FMLInitializationEvent event) {
-		proxy.init();
-	}
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        Animania.proxy.preInit();
+    }
 
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent e) {
-	}
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
+        Animania.proxy.init();
+    }
+
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent e) {}
 
 }

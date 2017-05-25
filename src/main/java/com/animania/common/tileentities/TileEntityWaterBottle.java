@@ -3,35 +3,27 @@ package com.animania.common.tileentities;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileEntityWaterBottle extends TileEntity {
-	public int rotation;
+public class TileEntityWaterBottle extends TileEntity
+{
+    public int rotation;
 
     @Override
-    public void readFromNBT(NBTTagCompound compound)
-    {
-    	super.readFromNBT(compound);
-    	rotation = compound.getInteger("BlockRotation");
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        this.rotation = compound.getInteger("BlockRotation");
     }
 
     /*
-    @Override
-    public void writeToNBT(NBTTagCompound compound)
-    {
-    	super.writeToNBT(compound);
-    	compound.setInteger("BlockRotation", rotation);
-    }
-    @Override
-    public Packet getDescriptionPacket()
-    {
-        NBTTagCompound nbttagcompound = new NBTTagCompound();
-        this.writeToNBT(nbttagcompound);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, -1, nbttagcompound);
-    }
-    
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
-    {
-    	readFromNBT(pkt.func_148857_g());
-    }
-    */
+     * @Override public void writeToNBT(NBTTagCompound compound) {
+     * super.writeToNBT(compound); compound.setInteger("BlockRotation",
+     * rotation); }
+     *
+     * @Override public Packet getDescriptionPacket() { NBTTagCompound
+     * nbttagcompound = new NBTTagCompound(); this.writeToNBT(nbttagcompound);
+     * return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
+     * this.zCoord, -1, nbttagcompound); }
+     *
+     * @Override public void onDataPacket(NetworkManager net,
+     * S35PacketUpdateTileEntity pkt) { readFromNBT(pkt.func_148857_g()); }
+     */
 }
