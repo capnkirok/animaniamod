@@ -2,6 +2,7 @@ package com.animania.common.events;
 
 import java.util.Random;
 
+import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -63,6 +64,9 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
@@ -510,6 +514,29 @@ public class EventReplaceSpawnAnimals {
 
 			}
 
+		}  else if((event.getEntity().getClass().equals(EntityAmphibian.class) || event.getEntity().getClass().equals(EntityAmphibian.class)) && !worldIn.isRemote) {
+
+			int animalCount = 0;
+			int esize = worldIn.loadedEntityList.size();
+			for (int k = 0; k <= esize - 1; k++) {
+				Entity entity = (Entity) worldIn.loadedEntityList.get(k);
+				if(entity.getClass().equals(EntityFerretGrey.class) || entity.getClass().equals(EntityAmphibian.class)) {
+					animalCount = animalCount + 1;
+				}
+			}
+
+			//System.out.println("Ferret count: " + ferretCount);
+
+			if (animalCount >= AnimaniaConfig.spawn.spawnLimitAmphibians && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
+				if (!event.getEntity().hasCustomName()) {
+					event.getEntity().setDead();
+					event.setCanceled(true);
+					event.isCanceled();
+				}
+
+			}
+
+
 		} else if ((event.getEntity().getClass().equals(EntityPeacockBlue.class)
 				|| event.getEntity().getClass().equals(EntityPeacockWhite.class)
 				|| event.getEntity().getClass().equals(EntityPeafowlBlue.class)
@@ -539,10 +566,35 @@ public class EventReplaceSpawnAnimals {
 					&& !event.getEntity().hasCustomName()) {
 				if (!event.getEntity().hasCustomName()) {
 					event.getEntity().setDead();
-					event.setCanceled(true);
+					event.setCanceled(true);           
 					event.isCanceled();
 				}
 
+			}
+
+		} else if (event.getEntity().getClass().equals(EntityZombie.class) ) {
+
+
+			if ((double)worldIn.rand.nextFloat() < 0.08D) {
+				EntityZombie ez = (EntityZombie) event.getEntity();
+				EntityHenLeghorn entitychicken1 = new EntityHenLeghorn(worldIn);
+				entitychicken1.setLocationAndAngles(ez.posX, ez.posY, ez.posZ, ez.rotationYaw, 0.0F);
+				entitychicken1.setChickenJockey(true);
+				worldIn.spawnEntity(entitychicken1);
+				ez.setChild(true);
+				ez.startRiding(entitychicken1);
+			}
+
+
+		} else if (event.getEntity().getClass().equals(EntitySkeleton.class) ) {
+
+
+			if ((double)worldIn.rand.nextFloat() < 0.08D) {
+				EntitySkeleton ez = (EntitySkeleton) event.getEntity();
+				EntityBullFriesian ef = new EntityBullFriesian(worldIn);
+				ef.setLocationAndAngles(ez.posX, ez.posY, ez.posZ, ez.rotationYaw, 0.0F);
+				worldIn.spawnEntity(ef);
+				ez.startRiding(ef);
 			}
 
 		}

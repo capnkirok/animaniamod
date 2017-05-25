@@ -260,7 +260,7 @@ public class EntityBullAngus extends EntityAnimal {
 
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
-		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 4.0F);
+		boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 4.0F);
 		entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 4.0F);
 
 		if (flag) {
