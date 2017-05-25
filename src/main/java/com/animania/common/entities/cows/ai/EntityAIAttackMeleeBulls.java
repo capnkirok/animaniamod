@@ -9,6 +9,7 @@ import com.animania.common.entities.cows.EntityBullLonghorn;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.EnumHand;
@@ -56,7 +57,7 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 		{
 			return false;
 		}
-		else if (!entitylivingbase.isEntityAlive())
+		else if (!entitylivingbase.isEntityAlive() || entitylivingbase instanceof EntitySkeleton)
 		{
 			return false;
 		}

@@ -130,6 +130,14 @@ public class EntityBullFriesian extends EntityAnimal {
 		this.world.setEntityState(this, (byte) 18);
 	}
 
+	@Override
+	public double getMountedYOffset()
+    {
+        return (double)this.height * 1.0D;
+    }
+	
+	
+	
 	public static void registerFixesCow(DataFixer fixer) {
 		EntityLiving.registerFixesMob(fixer, EntityBullFriesian.class);
 	}
@@ -255,7 +263,7 @@ public class EntityBullFriesian extends EntityAnimal {
 
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
-		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 4.0F);
+		boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 4.0F);
 		entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 4.0F);
 
 		if (flag) {

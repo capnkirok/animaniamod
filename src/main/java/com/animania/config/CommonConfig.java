@@ -288,7 +288,7 @@ public class CommonConfig {
 		@Comment("Spawn probability Peacocks")
 		public int spawnProbabilityPeacocks = 20;
 		@Comment("Spawn probability Amphibians")
-		public int spawnProbabilityAmphibians = 20;
+		public int spawnProbabilityAmphibians = 10;
 
 		@Comment("Number of potential Cow families per chunk")
 		public int numberCowFamilies = 2;

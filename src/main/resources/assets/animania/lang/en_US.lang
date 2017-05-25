@@ -358,5 +358,5 @@ text.jei.truffle=Truffles are found by wandering around forests with a tamed, le
 text.jei.nest=Nests are used by hens, because they need a place to lay their eggs.
 text.jei.slop=Slop is the favourite food of pigs.
 text.jei.slop.craft=To craft it, combine any bucket of milk with two different veggies. Veggies include Carrots, Potatoes, Beetroots and Bread.
-text.jei.milkholstein=Holstein Milk is obtained by Holstein Cows.
-text.jei.milkfriesian=Friesian Milk is obtained by Friesian Cows.
+text.jei.milkholstein=Holstein Milk is obtained from Holstein Cows.
+text.jei.milkfriesian=Friesian Milk is obtained from Friesian Cows.
