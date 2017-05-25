@@ -8,14 +8,16 @@ public class EntityAILookIdleRodent extends EntityAIBase
     /** The entity that is looking idle. */
     private final EntityAnimal idleEntity;
     /** X offset to look at */
-    private double lookX;
+    private double             lookX;
     /** Z offset to look at */
-    private double lookZ;
-    /** A decrementing tick that stops the entity from being idle once it reaches 0. */
-    private int idleTime;
+    private double             lookZ;
+    /**
+     * A decrementing tick that stops the entity from being idle once it reaches
+     * 0.
+     */
+    private int                idleTime;
 
-    public EntityAILookIdleRodent(EntityAnimal entitylivingIn)
-    {
+    public EntityAILookIdleRodent(EntityAnimal entitylivingIn) {
         this.idleEntity = entitylivingIn;
         this.setMutexBits(3);
     }
@@ -23,25 +25,25 @@ public class EntityAILookIdleRodent extends EntityAIBase
     /**
      * Returns whether the EntityAIBase should begin execution.
      */
-    public boolean shouldExecute()
-    {
+    @Override
+    public boolean shouldExecute() {
         return this.idleEntity.getRNG().nextFloat() < 0.02F && !this.idleEntity.isRiding();
     }
 
     /**
      * Returns whether an in-progress EntityAIBase should continue executing
      */
-    public boolean continueExecuting()
-    {
+    @Override
+    public boolean continueExecuting() {
         return this.idleTime >= 0;
     }
 
     /**
      * Execute a one shot task or start executing a continuous task
      */
-    public void startExecuting()
-    {
-        double d0 = (Math.PI * 2D) * this.idleEntity.getRNG().nextDouble();
+    @Override
+    public void startExecuting() {
+        double d0 = Math.PI * 2D * this.idleEntity.getRNG().nextDouble();
         this.lookX = Math.cos(d0);
         this.lookZ = Math.sin(d0);
         this.idleTime = 20 + this.idleEntity.getRNG().nextInt(20);
@@ -50,9 +52,10 @@ public class EntityAILookIdleRodent extends EntityAIBase
     /**
      * Updates the task
      */
-    public void updateTask()
-    {
+    @Override
+    public void updateTask() {
         --this.idleTime;
-        this.idleEntity.getLookHelper().setLookPosition(this.idleEntity.posX + this.lookX, this.idleEntity.posY + (double)this.idleEntity.getEyeHeight(), this.idleEntity.posZ + this.lookZ, (float)this.idleEntity.getHorizontalFaceSpeed(), (float)this.idleEntity.getVerticalFaceSpeed());
+        this.idleEntity.getLookHelper().setLookPosition(this.idleEntity.posX + this.lookX, this.idleEntity.posY + this.idleEntity.getEyeHeight(),
+                this.idleEntity.posZ + this.lookZ, this.idleEntity.getHorizontalFaceSpeed(), this.idleEntity.getVerticalFaceSpeed());
     }
 }

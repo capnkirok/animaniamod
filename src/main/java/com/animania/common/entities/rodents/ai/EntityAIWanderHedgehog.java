@@ -11,105 +11,89 @@ import net.minecraft.util.math.Vec3d;
 
 public class EntityAIWanderHedgehog extends EntityAIBase
 {
-	private final EntityCreature entity;
-	private double xPosition;
-	private double yPosition;
-	private double zPosition;
-	private final double speed;
-	private int executionChance;
-	private boolean mustUpdate;
+    private final EntityCreature entity;
+    private double               xPosition;
+    private double               yPosition;
+    private double               zPosition;
+    private final double         speed;
+    private int                  executionChance;
+    private boolean              mustUpdate;
 
-	public EntityAIWanderHedgehog(EntityCreature creatureIn, double speedIn)
-	{
-		this(creatureIn, speedIn, 120);
-	}
+    public EntityAIWanderHedgehog(EntityCreature creatureIn, double speedIn) {
+        this(creatureIn, speedIn, 120);
+    }
 
-	public EntityAIWanderHedgehog(EntityCreature creatureIn, double speedIn, int chance)
-	{
-		this.entity = creatureIn;
-		this.speed = speedIn;
-		this.executionChance = chance;
-		this.setMutexBits(1);
-	}
+    public EntityAIWanderHedgehog(EntityCreature creatureIn, double speedIn, int chance) {
+        this.entity = creatureIn;
+        this.speed = speedIn;
+        this.executionChance = chance;
+        this.setMutexBits(1);
+    }
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
-	@Override
-	public boolean shouldExecute()
-	{
-		
-		if (this.entity.isRiding()) {
-			return false;
-		}
-	
-		
-		if (!this.mustUpdate)
-		{
-			if (this.entity.getRNG().nextInt(this.executionChance) != 0)
-			{
-				return false;
-			}
-		}
+    /**
+     * Returns whether the EntityAIBase should begin execution.
+     */
+    @Override
+    public boolean shouldExecute() {
 
-		Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
+        if (this.entity.isRiding())
+            return false;
 
-		if (vec3d == null)
-		{
-			return false;
-		}
-		else
-		{
-			this.xPosition = vec3d.xCoord;
-			this.yPosition = vec3d.yCoord;
-			this.zPosition = vec3d.zCoord;
-			this.mustUpdate = false;
-			return true;
-		}
-	}
+        if (!this.mustUpdate)
+            if (this.entity.getRNG().nextInt(this.executionChance) != 0)
+                return false;
 
-	/**
-	 * Returns whether an in-progress EntityAIBase should continue executing
-	 */
-	@Override
-	public boolean continueExecuting()
-	{
-		return !this.entity.getNavigator().noPath();
-	}
+        Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entity, 10, 7);
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
-	@Override
-	public void startExecuting()
-	{
+        if (vec3d == null)
+            return false;
+        else {
+            this.xPosition = vec3d.xCoord;
+            this.yPosition = vec3d.yCoord;
+            this.zPosition = vec3d.zCoord;
+            this.mustUpdate = false;
+            return true;
+        }
+    }
 
-		double x = entity.posX;
-		double y = entity.posY;
-		double z = entity.posZ;
+    /**
+     * Returns whether an in-progress EntityAIBase should continue executing
+     */
+    @Override
+    public boolean continueExecuting() {
+        return !this.entity.getNavigator().noPath();
+    }
 
-		BlockPos pos = new BlockPos(x, y, z);
+    /**
+     * Execute a one shot task or start executing a continuous task
+     */
+    @Override
+    public void startExecuting() {
 
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
+        double x = this.entity.posX;
+        double y = this.entity.posY;
+        double z = this.entity.posZ;
 
-		Random rand = new Random();
-		this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
+        BlockPos pos = new BlockPos(x, y, z);
 
-	}
+        Block blockchk = this.entity.world.getBlockState(pos).getBlock();
 
-	/**
-	 * Makes task to bypass chance
-	 */
-	public void makeUpdate()
-	{
-		this.mustUpdate = true;
-	}
+        Random rand = new Random();
+        this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
 
-	/**
-	 * Changes task random possibility for execution
-	 */
-	public void setExecutionChance(int newchance)
-	{
-		this.executionChance = newchance;
-	}
+    }
+
+    /**
+     * Makes task to bypass chance
+     */
+    public void makeUpdate() {
+        this.mustUpdate = true;
+    }
+
+    /**
+     * Changes task random possibility for execution
+     */
+    public void setExecutionChance(int newchance) {
+        this.executionChance = newchance;
+    }
 }

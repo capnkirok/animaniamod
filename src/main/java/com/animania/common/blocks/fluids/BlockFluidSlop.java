@@ -15,30 +15,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockFluidSlop extends BlockFluidBase {
+public class BlockFluidSlop extends BlockFluidBase
+{
 
-	public BlockFluidSlop() {
-		super(BlockHandler.fluidSlop, new MaterialLiquid(MapColor.BROWN), "slop");
-		
-		this.quantaPerBlock = 3;
-		this.renderLayer = BlockRenderLayer.TRANSLUCENT;
-		
-	}
+    public BlockFluidSlop() {
+        super(BlockHandler.fluidSlop, new MaterialLiquid(MapColor.BROWN), "slop");
 
-	
-	@Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity)
-    {
-        if(entity instanceof EntityLivingBase)
-        	((EntityLivingBase)entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 3));
+        this.quantaPerBlock = 3;
+        this.renderLayer = BlockRenderLayer.TRANSLUCENT;
+
     }
-	
-	
-	@Override
-	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
-	{
-		return true;
-	}
-	
+
+    @Override
+    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+        if (entity instanceof EntityLivingBase)
+            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 3));
+    }
+
+    @Override
+    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+        return true;
+    }
 
 }

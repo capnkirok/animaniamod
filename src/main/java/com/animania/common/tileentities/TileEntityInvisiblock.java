@@ -1,141 +1,111 @@
 package com.animania.common.tileentities;
 
-import javax.annotation.Nullable;
-
 import com.animania.common.handler.BlockHandler;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityInvisiblock extends TileEntity implements ITickable {
-	
-	private TileEntityTrough trough;
+public class TileEntityInvisiblock extends TileEntity implements ITickable
+{
 
-	public TileEntityInvisiblock() {
-	
-	
-	}
-	
-	
-	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    private TileEntityTrough trough;
 
-		if(AnimaniaConfig.gameRules.allowTroughAutomation)
-		{
-			if(this.world.isRemote)
-			{
-				if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-					return true;
-				if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-					return true;
-			}
-				
-			if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && trough != null)
-				return true;
-			if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && trough != null)
-				return true;
-		}
+    public TileEntityInvisiblock() {
 
-		return super.hasCapability(capability, facing);
-	}
+    }
 
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 
-	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(AnimaniaConfig.gameRules.allowTroughAutomation)
-		{
+        if (AnimaniaConfig.gameRules.allowTroughAutomation) {
+            if (this.world.isRemote) {
+                if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+                    return true;
+                if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+                    return true;
+            }
 
-			if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && trough.fluidHandler.getFluid() == null)		
-				return (T) trough.itemHandler;
+            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.trough != null)
+                return true;
+            if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.trough != null)
+                return true;
+        }
 
-			if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && trough.itemHandler.getStackInSlot(0).isEmpty())
-				return (T) trough.fluidHandler;
+        return super.hasCapability(capability, facing);
+    }
 
-		}
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if (AnimaniaConfig.gameRules.allowTroughAutomation) {
 
-		return super.getCapability(capability, facing);
+            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.trough.fluidHandler.getFluid() == null)
+                return (T) this.trough.itemHandler;
 
-	}
-	
-	
-	private TileEntityTrough getPlacedTrough()
-	{
-		BlockPos pos1 = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
-		BlockPos pos2 = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
-		BlockPos pos3 = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
-		BlockPos pos4 = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
+            if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.trough.itemHandler.getStackInSlot(0).isEmpty())
+                return (T) this.trough.fluidHandler;
 
-		Block block1 = world.getBlockState(pos1).getBlock();
-		Block block2 = world.getBlockState(pos2).getBlock();
-		Block block3 = world.getBlockState(pos3).getBlock();
-		Block block4 = world.getBlockState(pos4).getBlock();
+        }
 
-		if (block1 == BlockHandler.blockTrough) {
-			TileEntityTrough te = (TileEntityTrough) world.getTileEntity(pos1);
-			if (te != null && te.getTroughRotation() == 1 && !world.isRemote) {
-				
-				return te;
+        return super.getCapability(capability, facing);
 
-			}
-		}
+    }
 
-		if (block2 == BlockHandler.blockTrough) {
-			TileEntityTrough te = (TileEntityTrough) world.getTileEntity(pos2);
-			if (te != null && te.getTroughRotation() == 0 && !world.isRemote) {
-				
-				return te;
-			}
-		}
+    private TileEntityTrough getPlacedTrough() {
+        BlockPos pos1 = new BlockPos(this.pos.getX() + 1, this.pos.getY(), this.pos.getZ());
+        BlockPos pos2 = new BlockPos(this.pos.getX() - 1, this.pos.getY(), this.pos.getZ());
+        BlockPos pos3 = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ() + 1);
+        BlockPos pos4 = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ() - 1);
 
-		if (block3 == BlockHandler.blockTrough) {
-			TileEntityTrough te = (TileEntityTrough) world.getTileEntity(pos3);
-			if (te != null && te.getTroughRotation() == 2 && !world.isRemote) {
-				
-				return te;
+        Block block1 = this.world.getBlockState(pos1).getBlock();
+        Block block2 = this.world.getBlockState(pos2).getBlock();
+        Block block3 = this.world.getBlockState(pos3).getBlock();
+        Block block4 = this.world.getBlockState(pos4).getBlock();
 
-			}
+        if (block1 == BlockHandler.blockTrough) {
+            TileEntityTrough te = (TileEntityTrough) this.world.getTileEntity(pos1);
+            if (te != null && te.getTroughRotation() == 1 && !this.world.isRemote)
+                return te;
+        }
 
-		}
+        if (block2 == BlockHandler.blockTrough) {
+            TileEntityTrough te = (TileEntityTrough) this.world.getTileEntity(pos2);
+            if (te != null && te.getTroughRotation() == 0 && !this.world.isRemote)
+                return te;
+        }
 
-		if (block4 == BlockHandler.blockTrough) {
-			TileEntityTrough te = (TileEntityTrough) world.getTileEntity(pos4);
-			if (te != null && te.getTroughRotation() == 3 && !world.isRemote) {
+        if (block3 == BlockHandler.blockTrough) {
+            TileEntityTrough te = (TileEntityTrough) this.world.getTileEntity(pos3);
+            if (te != null && te.getTroughRotation() == 2 && !this.world.isRemote)
+                return te;
 
-				return te;
+        }
 
-			}
+        if (block4 == BlockHandler.blockTrough) {
+            TileEntityTrough te = (TileEntityTrough) this.world.getTileEntity(pos4);
+            if (te != null && te.getTroughRotation() == 3 && !this.world.isRemote)
+                return te;
 
-		}
-		return null;
-	}
+        }
+        return null;
+    }
 
+    @Override
+    public void update() {
 
-	@Override
-	public void update() {
+        if (this.trough == null)
+            this.trough = this.getPlacedTrough();
 
-		if(trough == null)
-			this.trough = getPlacedTrough();
+    }
 
-		
-	}
-	
-	
-	public TileEntityTrough getTrough()
-	{
-		return trough;
-	}
-	
-	
-	
+    public TileEntityTrough getTrough() {
+        return this.trough;
+    }
+
 }

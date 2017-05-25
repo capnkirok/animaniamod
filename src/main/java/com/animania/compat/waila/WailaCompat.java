@@ -78,135 +78,125 @@ import mcp.mobius.waila.api.IWailaRegistrar;
 public class WailaCompat
 {
 
-	public static void registerWaila(IWailaRegistrar r)
-	{
-		// BLOCKS
-		r.registerStackProvider(new WailaBlockSeedProvider(), BlockSeeds.class);
-		r.registerBodyProvider(new WailaBlockTroughProvider(), BlockTrough.class);
-		r.registerBodyProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
-		r.registerNBTProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
-		r.registerStackProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
+    public static void registerWaila(IWailaRegistrar r) {
+        // BLOCKS
+        r.registerStackProvider(new WailaBlockSeedProvider(), BlockSeeds.class);
+        r.registerBodyProvider(new WailaBlockTroughProvider(), BlockTrough.class);
+        r.registerBodyProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
+        r.registerNBTProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
+        r.registerStackProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
 
-		// COWS
-		regEntityInfoBull(r, EntityBullAngus.class);
-		regEntityInfoBull(r, EntityBullFriesian.class);
-		regEntityInfoBull(r, EntityBullHereford.class);
-		regEntityInfoBull(r, EntityBullHolstein.class);
-		regEntityInfoBull(r, EntityBullLonghorn.class);
-		regEntityInfoCow(r, EntityCowAngus.class);
-		regEntityInfoCow(r, EntityCowFriesian.class);
-		regEntityInfoCow(r, EntityCowHereford.class);
-		regEntityInfoCow(r, EntityCowHolstein.class);
-		regEntityInfoCow(r, EntityCowLonghorn.class);
-		regEntityInfoCalf(r, EntityCalfAngus.class);
-		regEntityInfoCalf(r, EntityCalfFriesian.class);
-		regEntityInfoCalf(r, EntityCalfHereford.class);
-		regEntityInfoCalf(r, EntityCalfHolstein.class);
-		regEntityInfoCalf(r, EntityCalfLonghorn.class);
+        // COWS
+        regEntityInfoBull(r, EntityBullAngus.class);
+        regEntityInfoBull(r, EntityBullFriesian.class);
+        regEntityInfoBull(r, EntityBullHereford.class);
+        regEntityInfoBull(r, EntityBullHolstein.class);
+        regEntityInfoBull(r, EntityBullLonghorn.class);
+        regEntityInfoCow(r, EntityCowAngus.class);
+        regEntityInfoCow(r, EntityCowFriesian.class);
+        regEntityInfoCow(r, EntityCowHereford.class);
+        regEntityInfoCow(r, EntityCowHolstein.class);
+        regEntityInfoCow(r, EntityCowLonghorn.class);
+        regEntityInfoCalf(r, EntityCalfAngus.class);
+        regEntityInfoCalf(r, EntityCalfFriesian.class);
+        regEntityInfoCalf(r, EntityCalfHereford.class);
+        regEntityInfoCalf(r, EntityCalfHolstein.class);
+        regEntityInfoCalf(r, EntityCalfLonghorn.class);
 
-		// PIGS
-		regEntityInfoPig(r, EntityHogDuroc.class);
-		regEntityInfoPig(r, EntityHogHampshire.class);
-		regEntityInfoPig(r, EntityHogLargeBlack.class);
-		regEntityInfoPig(r, EntityHogLargeWhite.class);
-		regEntityInfoPig(r, EntityHogOldSpot.class);
-		regEntityInfoPig(r, EntityHogYorkshire.class);
-		regEntityInfoPig(r, EntitySowDuroc.class);
-		regEntityInfoPig(r, EntitySowHampshire.class);
-		regEntityInfoPig(r, EntitySowLargeBlack.class);
-		regEntityInfoPig(r, EntitySowLargeWhite.class);
-		regEntityInfoPig(r, EntitySowOldSpot.class);
-		regEntityInfoPig(r, EntitySowYorkshire.class);
-		regEntityInfoPiglet(r, EntityPigletDuroc.class);
-		regEntityInfoPiglet(r, EntityPigletHampshire.class);
-		regEntityInfoPiglet(r, EntityPigletLargeBlack.class);
-		regEntityInfoPiglet(r, EntityPigletLargeWhite.class);
-		regEntityInfoPiglet(r, EntityPigletOldSpot.class);
-		regEntityInfoPiglet(r, EntityPigletYorkshire.class);
-		
-		//CHICKENS
-		regEntityInfoBase(r, EntityRoosterLeghorn.class);
-		regEntityInfoBase(r, EntityRoosterOrpington.class);
-		regEntityInfoBase(r, EntityRoosterPlymouthRock.class);
-		regEntityInfoBase(r, EntityRoosterRhodeIslandRed.class);
-		regEntityInfoBase(r, EntityRoosterWyandotte.class);
-		regEntityInfoBase(r, EntityChickLeghorn.class);
-		regEntityInfoBase(r, EntityChickOrpington.class);
-		regEntityInfoBase(r, EntityChickPlymouthRock.class);
-		regEntityInfoBase(r, EntityChickRhodeIslandRed.class);
-		regEntityInfoBase(r, EntityChickWyandotte.class);
-		regEntityInfoHen(r, EntityHenLeghorn.class);
-		regEntityInfoHen(r, EntityHenOrpington.class);
-		regEntityInfoHen(r, EntityHenPlymouthRock.class);
-		regEntityInfoHen(r, EntityHenRhodeIslandRed.class);
-		regEntityInfoHen(r, EntityHenWyandotte.class);
-		
-		//PEACOCKS
-		regEntityInfoBase(r, EntityPeacockBlue.class);
-		regEntityInfoBase(r, EntityPeacockWhite.class);
-		regEntityInfoBase(r, EntityPeafowlBlue.class);
-		regEntityInfoBase(r, EntityPeafowlWhite.class);
-		regEntityInfoBase(r, EntityPeachickBlue.class);
-		regEntityInfoBase(r, EntityPeachickWhite.class);
-		
-		//RODENTS
-		regEntityInfoRodent(r, EntityFerretGrey.class);
-		regEntityInfoRodent(r, EntityFerretWhite.class);
-		regEntityInfoRodent(r, EntityHamster.class);
-		regEntityInfoRodent(r, EntityHedgehog.class);
-		regEntityInfoRodent(r, EntityHedgehogAlbino.class);
+        // PIGS
+        regEntityInfoPig(r, EntityHogDuroc.class);
+        regEntityInfoPig(r, EntityHogHampshire.class);
+        regEntityInfoPig(r, EntityHogLargeBlack.class);
+        regEntityInfoPig(r, EntityHogLargeWhite.class);
+        regEntityInfoPig(r, EntityHogOldSpot.class);
+        regEntityInfoPig(r, EntityHogYorkshire.class);
+        regEntityInfoPig(r, EntitySowDuroc.class);
+        regEntityInfoPig(r, EntitySowHampshire.class);
+        regEntityInfoPig(r, EntitySowLargeBlack.class);
+        regEntityInfoPig(r, EntitySowLargeWhite.class);
+        regEntityInfoPig(r, EntitySowOldSpot.class);
+        regEntityInfoPig(r, EntitySowYorkshire.class);
+        regEntityInfoPiglet(r, EntityPigletDuroc.class);
+        regEntityInfoPiglet(r, EntityPigletHampshire.class);
+        regEntityInfoPiglet(r, EntityPigletLargeBlack.class);
+        regEntityInfoPiglet(r, EntityPigletLargeWhite.class);
+        regEntityInfoPiglet(r, EntityPigletOldSpot.class);
+        regEntityInfoPiglet(r, EntityPigletYorkshire.class);
 
-	}
+        // CHICKENS
+        regEntityInfoBase(r, EntityRoosterLeghorn.class);
+        regEntityInfoBase(r, EntityRoosterOrpington.class);
+        regEntityInfoBase(r, EntityRoosterPlymouthRock.class);
+        regEntityInfoBase(r, EntityRoosterRhodeIslandRed.class);
+        regEntityInfoBase(r, EntityRoosterWyandotte.class);
+        regEntityInfoBase(r, EntityChickLeghorn.class);
+        regEntityInfoBase(r, EntityChickOrpington.class);
+        regEntityInfoBase(r, EntityChickPlymouthRock.class);
+        regEntityInfoBase(r, EntityChickRhodeIslandRed.class);
+        regEntityInfoBase(r, EntityChickWyandotte.class);
+        regEntityInfoHen(r, EntityHenLeghorn.class);
+        regEntityInfoHen(r, EntityHenOrpington.class);
+        regEntityInfoHen(r, EntityHenPlymouthRock.class);
+        regEntityInfoHen(r, EntityHenRhodeIslandRed.class);
+        regEntityInfoHen(r, EntityHenWyandotte.class);
 
-	private static void regEntityInfoBull(IWailaRegistrar r, Class clazz)
-	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderMateable(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderMateable(), clazz);
-	}
+        // PEACOCKS
+        regEntityInfoBase(r, EntityPeacockBlue.class);
+        regEntityInfoBase(r, EntityPeacockWhite.class);
+        regEntityInfoBase(r, EntityPeafowlBlue.class);
+        regEntityInfoBase(r, EntityPeafowlWhite.class);
+        regEntityInfoBase(r, EntityPeachickBlue.class);
+        regEntityInfoBase(r, EntityPeachickWhite.class);
 
-	private static void regEntityInfoCow(IWailaRegistrar r, Class clazz)
-	{
-		r.registerBodyProvider(new WailaEntityCowProvider(), clazz);
-		r.registerNBTProvider(new WailaEntityCowProvider(), clazz);
-	}
+        // RODENTS
+        regEntityInfoRodent(r, EntityFerretGrey.class);
+        regEntityInfoRodent(r, EntityFerretWhite.class);
+        regEntityInfoRodent(r, EntityHamster.class);
+        regEntityInfoRodent(r, EntityHedgehog.class);
+        regEntityInfoRodent(r, EntityHedgehogAlbino.class);
 
-	private static void regEntityInfoCalf(IWailaRegistrar r, Class clazz)
-	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderChild(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderChild(), clazz);
-	}
+    }
 
-	private static void regEntityInfoPig(IWailaRegistrar r, Class clazz)
-	{
-		r.registerBodyProvider(new WailaEntityPigProvider(), clazz);
-		r.registerNBTProvider(new WailaEntityPigProvider(), clazz);
-	}
+    private static void regEntityInfoBull(IWailaRegistrar r, Class clazz) {
+        r.registerBodyProvider(new WailaEntityAnimalProviderMateable(), clazz);
+        r.registerNBTProvider(new WailaEntityAnimalProviderMateable(), clazz);
+    }
 
-	private static void regEntityInfoPiglet(IWailaRegistrar r, Class clazz)
-	{
-		r.registerBodyProvider(new WailaEntityPigletProvider(), clazz);
-		r.registerNBTProvider(new WailaEntityPigletProvider(), clazz);
-	}
-	
-	private static void regEntityInfoBase(IWailaRegistrar r, Class clazz)
-	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderBase(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderBase(), clazz);
-	}
-	
-	private static void regEntityInfoHen(IWailaRegistrar r, Class clazz)
-	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderBase(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderBase(), clazz);
-		//r.registerBodyProvider(new WailaEntityHenProvider(), clazz);
-		//r.registerNBTProvider(new WailaEntityHenProvider(), clazz);
-	}
-	
-	private static void regEntityInfoRodent(IWailaRegistrar r, Class clazz)
-	{
-		r.registerBodyProvider(new WailaEntityRodentProvider(), clazz);
-		r.registerNBTProvider(new WailaEntityRodentProvider(), clazz);
-	}
-	
-	
+    private static void regEntityInfoCow(IWailaRegistrar r, Class clazz) {
+        r.registerBodyProvider(new WailaEntityCowProvider(), clazz);
+        r.registerNBTProvider(new WailaEntityCowProvider(), clazz);
+    }
+
+    private static void regEntityInfoCalf(IWailaRegistrar r, Class clazz) {
+        r.registerBodyProvider(new WailaEntityAnimalProviderChild(), clazz);
+        r.registerNBTProvider(new WailaEntityAnimalProviderChild(), clazz);
+    }
+
+    private static void regEntityInfoPig(IWailaRegistrar r, Class clazz) {
+        r.registerBodyProvider(new WailaEntityPigProvider(), clazz);
+        r.registerNBTProvider(new WailaEntityPigProvider(), clazz);
+    }
+
+    private static void regEntityInfoPiglet(IWailaRegistrar r, Class clazz) {
+        r.registerBodyProvider(new WailaEntityPigletProvider(), clazz);
+        r.registerNBTProvider(new WailaEntityPigletProvider(), clazz);
+    }
+
+    private static void regEntityInfoBase(IWailaRegistrar r, Class clazz) {
+        r.registerBodyProvider(new WailaEntityAnimalProviderBase(), clazz);
+        r.registerNBTProvider(new WailaEntityAnimalProviderBase(), clazz);
+    }
+
+    private static void regEntityInfoHen(IWailaRegistrar r, Class clazz) {
+        r.registerBodyProvider(new WailaEntityAnimalProviderBase(), clazz);
+        r.registerNBTProvider(new WailaEntityAnimalProviderBase(), clazz);
+        // r.registerBodyProvider(new WailaEntityHenProvider(), clazz);
+        // r.registerNBTProvider(new WailaEntityHenProvider(), clazz);
+    }
+
+    private static void regEntityInfoRodent(IWailaRegistrar r, Class clazz) {
+        r.registerBodyProvider(new WailaEntityRodentProvider(), clazz);
+        r.registerNBTProvider(new WailaEntityRodentProvider(), clazz);
+    }
+
 }

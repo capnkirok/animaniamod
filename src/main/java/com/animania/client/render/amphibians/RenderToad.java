@@ -15,39 +15,41 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderToad<T extends EntityToad> extends RenderLiving<T> {
-	public static final Factory FACTORY = new Factory();
+public class RenderToad<T extends EntityToad> extends RenderLiving<T>
+{
+    public static final Factory           FACTORY      = new Factory();
 
-	// Need to move in main class
-	private static final String modid = "animania", toadBaseDir = "textures/entity/amphibians/toads/";
-	private static final ResourceLocation TOAD_TEXTURE = new ResourceLocation(modid, toadBaseDir + "toad.png");
+    // Need to move in main class
+    private static final String           modid        = "animania", toadBaseDir = "textures/entity/amphibians/toads/";
+    private static final ResourceLocation TOAD_TEXTURE = new ResourceLocation(RenderToad.modid, RenderToad.toadBaseDir + "toad.png");
 
-	public RenderToad(RenderManager rendermanagerIn) {
-		super(rendermanagerIn, new ModelToad(), 0.05F);
-	}
+    public RenderToad(RenderManager rendermanagerIn) {
+        super(rendermanagerIn, new ModelToad(), 0.05F);
+    }
 
-	/**
-	 * Allows the render to do state modifications necessary before the model is
-	 * rendered.
-	 */
-	@Override
-	protected void preRenderCallback(T entityIn, float partialTickTime) {
-		GlStateManager.scale(0.32D, 0.32D, 0.32D);
-		float f1 = 1.2F;
-		float f2 = (entityIn.prevSquishFactor + (entityIn.squishFactor -entityIn.prevSquishFactor) * partialTickTime) / (f1 * 0.5F + 1.0F);
-		float f3 = 1.0F / (f2 + 1.0F);
-		GL11.glScalef(f3 * f1, 1.0F / f3 * f1, f3 * f1);
-	}
+    /**
+     * Allows the render to do state modifications necessary before the model is
+     * rendered.
+     */
+    @Override
+    protected void preRenderCallback(T entityIn, float partialTickTime) {
+        GlStateManager.scale(0.32D, 0.32D, 0.32D);
+        float f1 = 1.2F;
+        float f2 = (entityIn.prevSquishFactor + (entityIn.squishFactor - entityIn.prevSquishFactor) * partialTickTime) / (f1 * 0.5F + 1.0F);
+        float f3 = 1.0F / (f2 + 1.0F);
+        GL11.glScalef(f3 * f1, 1.0F / f3 * f1, f3 * f1);
+    }
 
-	@Override
-	protected ResourceLocation getEntityTexture(T entity) {
-		return TOAD_TEXTURE;
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(T entity) {
+        return RenderToad.TOAD_TEXTURE;
+    }
 
-	public static class Factory<T extends EntityToad> implements IRenderFactory<T> {
-		@Override
-		public Render<? super T> createRenderFor(RenderManager manager) {
-			return new RenderToad(manager);
-		}
-	}
+    public static class Factory<T extends EntityToad> implements IRenderFactory<T>
+    {
+        @Override
+        public Render<? super T> createRenderFor(RenderManager manager) {
+            return new RenderToad(manager);
+        }
+    }
 }

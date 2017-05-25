@@ -64,387 +64,388 @@ import com.animania.common.items.ItemTruffleSoup;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 
-public class ItemHandler {
-	// Items
-	public static Item hamsterBall;
-	public static Item hamsterFood;
-	public static Item truffle;
-	public static Item brownEgg;
-	//public static Item bucketSlop;
-	public static Item carvingKnife;
-	public static Item cheeseMold;
-
-	public static Item peacockFeatherBlue;
-	public static Item peacockFeatherWhite;
-
-	// Beef
-	public static Item rawHerefordBeef;
-	public static Item rawLonghornBeef;
-	public static Item rawAngusBeef;
-	public static Item rawHerefordSteak;
-	public static Item rawLonghornSteak;
-	public static Item rawAngusSteak;
-	public static Item cookedHerefordRoast;
-	public static Item cookedLonghornRoast;
-	public static Item cookedAngusRoast;
-	public static Item cookedHerefordSteak;
-	public static Item cookedLonghornSteak;
-	public static Item cookedAngusSteak;
-
-	public static Item rawPrimeSteak;
-	public static Item rawPrimeBeef;
-	public static Item cookedPrimeSteak;
-	public static Item cookedPrimeBeef;
-
-	// Pork
-	public static Item rawLargeBlackPork;
-	public static Item rawDurocPork;
-	public static Item rawOldSpotPork;
-	public static Item rawHampshirePork;
-	public static Item rawLargeBlackBacon;
-	public static Item rawDurocBacon;
-	public static Item rawOldSpotBacon;
-	public static Item rawHampshireBacon;
-	public static Item cookedLargeBlackRoast;
-	public static Item cookedDurocRoast;
-	public static Item cookedOldSpotRoast;
-	public static Item cookedHampshireRoast;
-	public static Item cookedLargeBlackBacon;
-	public static Item cookedDurocBacon;
-	public static Item cookedOldSpotBacon;
-	public static Item cookedHampshireBacon;
-
-	public static Item rawPrimePork;
-	public static Item rawPrimeBacon;
-	public static Item cookedPrimePork;
-	public static Item cookedPrimeBacon;
-
-	// Chicken
-	public static Item rawOrpingtonChicken;
-	public static Item rawPlymouthRockChicken;
-	public static Item rawWyandotteChicken;
-	public static Item rawRhodeIslandRedChicken;
-	public static Item cookedOrpingtonChicken;
-	public static Item cookedPlymouthRockChicken;
-	public static Item cookedWyandotteChicken;
-	public static Item cookedRhodeIslandRedChicken;
-
-	public static Item rawPrimeChicken;
-	public static Item cookedPrimeChicken;
-
-	// Frogs
-	public static Item rawFrogLegs;
-	public static Item cookedFrogLegs;
-	
-	// Other Foods
-	public static Item plainOmelette;
-	public static Item cheeseOmelette;
-	public static Item baconOmelette;
-	public static Item truffleOmelette;
-	public static Item ultimateOmelette;
-	public static Item cheeseWheelFriesian;
-	public static Item cheeseWedgeFriesian;
-	public static Item cheeseWheelHolstein;
-	public static Item cheeseWedgeHolstein;
-	public static Item truffleSoup;
-	public static Item chocolateTruffle;
-	//public static Item milkBucketHolstein;
-	//public static Item milkBucketFriesian;
-
-	// Eggs - Cows
-
-	public static Item entityeggcalfholstein;
-	public static Item entityeggcowholstein;
-	public static Item entityeggbullholstein;
-
-	public static Item entityeggcalffriesian;
-	public static Item entityeggcowfriesian;
-	public static Item entityeggbullfriesian;
-
-	public static Item entityeggcalfangus;
-	public static Item entityeggcowangus;
-	public static Item entityeggbullangus;
-
-	public static Item entityeggcalflonghorn;
-	public static Item entityeggcowlonghorn;
-	public static Item entityeggbulllonghorn;
-
-	public static Item entityeggcalfhereford;
-	public static Item entityeggcowhereford;
-	public static Item entityeggbullhereford;
-
-	public static Item entityeggrandomcow;
-
-	// Eggs - Chickens
-	public static Item entityeggchickplymouth;
-	public static Item entityegghenplymouth;
-	public static Item entityeggroosterplymouth;
-
-	public static Item entityeggchickleghorn;
-	public static Item entityegghenleghorn;
-	public static Item entityeggroosterleghorn;
-
-	public static Item entityeggchickorpington;
-	public static Item entityegghenorpington;
-	public static Item entityeggroosterorpington;
-
-	public static Item entityeggchickred;
-	public static Item entityegghenred;
-	public static Item entityeggroosterred;
-
-	public static Item entityeggchickwyandotte;
-	public static Item entityegghenwyandotte;
-	public static Item entityeggroosterwyandotte;
-
-	public static Item entityeggrandomchicken;
-
-	// Eggs - Peacocks
-	public static Item entityeggpeachickblue;
-	public static Item entityeggpeafowlblue;
-	public static Item entityeggpeacockblue;
-
-	public static Item entityeggpeachickwhite;
-	public static Item entityeggpeafowlwhite;
-	public static Item entityeggpeacockwhite;
-
-	// Eggs - Pigs
-	public static Item entityeggpigletyorkshire;
-	public static Item entityeggsowyorkshire;
-	public static Item entityegghogyorkshire;
-
-	public static Item entityeggpigletoldspot;
-	public static Item entityeggsowoldspot;
-	public static Item entityegghogoldspot;
-
-	public static Item entityeggpigletlargeblack;
-	public static Item entityeggsowlargeblack;
-	public static Item entityegghoglargeblack;
-
-	public static Item entityeggpigletlargewhite;
-	public static Item entityeggsowlargewhite;
-	public static Item entityegghoglargewhite;
-
-	public static Item entityeggpigletduroc;
-	public static Item entityeggsowduroc;
-	public static Item entityegghogduroc;
-
-	public static Item entityeggpiglethampshire;
-	public static Item entityeggsowhampshire;
-	public static Item entityegghoghampshire;
-
-	public static Item entityeggrandompig;
-
-	// Eggs - Rodents
-	public static Item entityegghamster;
-	public static Item entityeggferretgrey;
-	public static Item entityeggferretwhite;
-	public static Item entityegghedgehog;
-	public static Item entityegghedgehogalbino;
-
-	// Eggs - Horses
-	// public static Item entityeggdrafthorsestallion;
-	// public static Item entityeggdrafthorsemare;
-	// public static Item entityeggdrafthorsefoal;
-
-	// Eggs - Rodents
-	public static Item entityeggfrog;
-	public static Item entityeggtoad;
-	public static Item entityeggdartfrog;
-
-	public static void preInit() {
-		// ITEMS
-		// Items for Animals
-		hamsterFood = new ItemHamsterFood();
-		truffle = new ItemTruffle();
-		//bucketSlop = new ItemBucketSlop();
-		carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
-		cheeseMold = new ItemCheeseMold();
-		//milkBucketFriesian = new ItemBucketMilk("friesian");
-		//milkBucketHolstein = new ItemBucketMilk("holstein");
-		peacockFeatherBlue = new ItemPeacockFeather("blue");
-		peacockFeatherWhite = new ItemPeacockFeather("white");
-
-		// Other foods
-		ultimateOmelette = new ItemOmelette("super");
-		truffleOmelette = new ItemOmelette("truffle");
-		baconOmelette = new ItemOmelette("bacon");
-		cheeseOmelette = new ItemOmelette("cheese");
-		plainOmelette = new ItemOmelette("plain");
-		truffleSoup = new ItemTruffleSoup();
-		chocolateTruffle = new ItemChocolateTruffle();
-
-		// ITEMS produced by Animals
-		// COW ITEMS
-		rawHerefordBeef = new ItemRawHerefordBeef();
-		rawLonghornBeef = new ItemRawLonghornBeef();
-		rawAngusBeef = new ItemRawAngusBeef();
-
-		rawLonghornSteak = new ItemRawLonghornSteak();
-		rawHerefordSteak = new ItemRawHerefordSteak();
-		rawAngusSteak = new ItemRawAngusSteak();
-
-		cookedLonghornRoast = new ItemCookedLonghornRoast();
-		cookedHerefordRoast = new ItemCookedHerefordRoast();
-		cookedAngusRoast = new ItemCookedAngusRoast();
-
-		cookedLonghornSteak = new ItemCookedLonghornSteak();
-		cookedHerefordSteak = new ItemCookedHerefordSteak();
-		cookedAngusSteak = new ItemCookedAngusSteak();
-
-		rawPrimeBeef = new ItemRawPrimeBeef();
-		cookedPrimeBeef = new ItemCookedPrimeBeef();
-		rawPrimeSteak = new ItemRawPrimeSteak();
-		cookedPrimeSteak = new ItemCookedPrimeSteak();
-
-		// PIG ITEMS
-		rawLargeBlackPork = new ItemRawLargeBlackPork();
-		rawDurocPork = new ItemRawDurocPork();
-		rawOldSpotPork = new ItemRawOldSpotPork();
-		rawHampshirePork = new ItemRawHampshirePork();
-
-		rawLargeBlackBacon = new ItemRawLargeBlackBacon();
-		rawDurocBacon = new ItemRawDurocBacon();
-		rawOldSpotBacon = new ItemRawOldSpotBacon();
-		rawHampshireBacon = new ItemRawHampshireBacon();
-
-		cookedLargeBlackRoast = new ItemCookedLargeBlackRoast();
-		cookedDurocRoast = new ItemCookedDurocRoast();
-		cookedOldSpotRoast = new ItemCookedOldSpotRoast();
-		cookedHampshireRoast = new ItemCookedHampshireRoast();
-
-		cookedLargeBlackBacon = new ItemCookedLargeBlackBacon();
-		cookedDurocBacon = new ItemCookedDurocBacon();
-		cookedOldSpotBacon = new ItemCookedOldSpotBacon();
-		cookedHampshireBacon = new ItemCookedHampshireBacon();
-
-		rawPrimePork = new ItemRawPrimePork();
-		cookedPrimePork = new ItemCookedPrimePork();
-		rawPrimeBacon = new ItemRawPrimeBacon();
-		cookedPrimeBacon = new ItemCookedPrimeBacon();
-
-		// CHICKEN ITEMS
-		rawOrpingtonChicken = new ItemRawOrpingtonChicken();
-		rawPlymouthRockChicken = new ItemRawPlymouthRockChicken();
-		rawWyandotteChicken = new ItemRawWyandotteChicken();
-		rawRhodeIslandRedChicken = new ItemRawRhodeIslandRedChicken();
-		cookedOrpingtonChicken = new ItemCookedOrpingtonChicken();
-		cookedPlymouthRockChicken = new ItemCookedPlymouthRockChicken();
-		cookedWyandotteChicken = new ItemCookedWyandotteChicken();
-		cookedRhodeIslandRedChicken = new ItemCookedRhodeIslandRedChicken();
-		rawPrimeChicken = new ItemRawPrimeChicken();
-		cookedPrimeChicken = new ItemCookedPrimeChicken();
-		brownEgg = new ItemBrownEgg();
-		
-		// FROG ITEMS
-		rawFrogLegs = new ItemRawFrogLegs();
-		cookedFrogLegs = new ItemCookedFrogLegs();
-
-		// CHEESE
-		cheeseWheelFriesian = new ItemCheeseWheel("friesian");
-		cheeseWheelHolstein = new ItemCheeseWheel("holstein");
-		cheeseWedgeFriesian = new ItemCheeseWedge("friesian");
-		cheeseWedgeHolstein = new ItemCheeseWedge("holstein");
-
-		// Item Entity Eggs
-		// COWS
-		entityeggcalfholstein = new ItemEntityEgg("calf_holstein");
-		entityeggcowholstein = new ItemEntityEgg("cow_holstein");
-		entityeggbullholstein = new ItemEntityEgg("bull_holstein");
-
-		entityeggcalffriesian = new ItemEntityEgg("calf_friesian");
-		entityeggcowfriesian = new ItemEntityEgg("cow_friesian");
-		entityeggbullfriesian = new ItemEntityEgg("bull_friesian");
-
-		entityeggcalfangus = new ItemEntityEgg("calf_angus");
-		entityeggcowangus = new ItemEntityEgg("cow_angus");
-		entityeggbullangus = new ItemEntityEgg("bull_angus");
-
-		entityeggcalflonghorn = new ItemEntityEgg("calf_longhorn");
-		entityeggcowlonghorn = new ItemEntityEgg("cow_longhorn");
-		entityeggbulllonghorn = new ItemEntityEgg("bull_longhorn");
-
-		entityeggcalfhereford = new ItemEntityEgg("calf_hereford");
-		entityeggcowhereford = new ItemEntityEgg("cow_hereford");
-		entityeggbullhereford = new ItemEntityEgg("bull_hereford");
-
-		entityeggrandomcow = new ItemEntityEgg("cow_random");
-
-		// CHICKENS
-		entityeggchickplymouth = new ItemEntityEgg("chick_plymouth");
-		entityegghenplymouth = new ItemEntityEgg("hen_plymouth");
-		entityeggroosterplymouth = new ItemEntityEgg("rooster_plymouth");
-
-		entityeggchickleghorn = new ItemEntityEgg("chick_leghorn");
-		entityegghenleghorn = new ItemEntityEgg("hen_leghorn");
-		entityeggroosterleghorn = new ItemEntityEgg("rooster_leghorn");
-
-		entityeggchickorpington = new ItemEntityEgg("chick_orpington");
-		entityegghenorpington = new ItemEntityEgg("hen_orpington");
-		entityeggroosterorpington = new ItemEntityEgg("rooster_orpington");
-
-		entityeggchickred = new ItemEntityEgg("chick_red");
-		entityegghenred = new ItemEntityEgg("hen_red");
-		entityeggroosterred = new ItemEntityEgg("rooster_red");
-
-		entityeggchickwyandotte = new ItemEntityEgg("chick_wyandotte");
-		entityegghenwyandotte = new ItemEntityEgg("hen_wyandotte");
-		entityeggroosterwyandotte = new ItemEntityEgg("rooster_wyandotte");
-
-		entityeggrandomchicken = new ItemEntityEgg("chicken_random");
-
-		// PEAFOWL
-		entityeggpeachickblue = new ItemEntityEgg("peachick_blue");
-		entityeggpeafowlblue = new ItemEntityEgg("peafowl_blue");
-		entityeggpeacockblue = new ItemEntityEgg("peacock_blue");
-
-		entityeggpeachickwhite = new ItemEntityEgg("peachick_white");
-		entityeggpeafowlwhite = new ItemEntityEgg("peafowl_white");
-		entityeggpeacockwhite = new ItemEntityEgg("peacock_white");
-
-		// PIGS
-		entityeggpigletyorkshire = new ItemEntityEgg("piglet_yorkshire");
-		entityeggsowyorkshire = new ItemEntityEgg("sow_yorkshire");
-		entityegghogyorkshire = new ItemEntityEgg("hog_yorkshire");
-
-		entityeggpigletoldspot = new ItemEntityEgg("piglet_oldspot");
-		entityeggsowoldspot = new ItemEntityEgg("sow_oldspot");
-		entityegghogoldspot = new ItemEntityEgg("hog_oldspot");
-
-		entityeggpigletlargeblack = new ItemEntityEgg("piglet_largeblack");
-		entityeggsowlargeblack = new ItemEntityEgg("sow_largeblack");
-		entityegghoglargeblack = new ItemEntityEgg("hog_largeblack");
-
-		entityeggpigletlargewhite = new ItemEntityEgg("piglet_largewhite");
-		entityeggsowlargewhite = new ItemEntityEgg("sow_largewhite");
-		entityegghoglargewhite = new ItemEntityEgg("hog_largewhite");
-
-		entityeggpigletduroc = new ItemEntityEgg("piglet_duroc");
-		entityeggsowduroc = new ItemEntityEgg("sow_duroc");
-		entityegghogduroc = new ItemEntityEgg("hog_duroc");
-
-		entityeggpiglethampshire = new ItemEntityEgg("piglet_hampshire");
-		entityeggsowhampshire = new ItemEntityEgg("sow_hampshire");
-		entityegghoghampshire = new ItemEntityEgg("hog_hampshire");
-
-		entityeggrandompig = new ItemEntityEgg("pig_random");
-
-		// RODENTS
-		entityegghamster = new ItemEntityEgg("hamster");
-		entityeggferretgrey = new ItemEntityEgg("ferret_grey");
-		entityeggferretwhite = new ItemEntityEgg("ferret_white");
-		entityegghedgehog = new ItemEntityEgg("hedgehog");
-		entityegghedgehogalbino = new ItemEntityEgg("hedgehog_albino");
-
-		// AMPHIBIANS
-		entityeggfrog = new ItemEntityEgg("frog");
-		entityeggtoad = new ItemEntityEgg("toad");
-		entityeggdartfrog = new ItemEntityEgg("dart_frog");
-
-		// HORSES
-		// entityeggdrafthorsestallion = new
-		// ItemEntityEgg("draft_horse_stallion");
-		// entityeggdrafthorsemare = new ItemEntityEgg("draft_horse_mare");
-		// entityeggdrafthorsefoal = new ItemEntityEgg("draft_horse_foal");
-
-	}
+public class ItemHandler
+{
+    // Items
+    public static Item hamsterBall;
+    public static Item hamsterFood;
+    public static Item truffle;
+    public static Item brownEgg;
+    // public static Item bucketSlop;
+    public static Item carvingKnife;
+    public static Item cheeseMold;
+
+    public static Item peacockFeatherBlue;
+    public static Item peacockFeatherWhite;
+
+    // Beef
+    public static Item rawHerefordBeef;
+    public static Item rawLonghornBeef;
+    public static Item rawAngusBeef;
+    public static Item rawHerefordSteak;
+    public static Item rawLonghornSteak;
+    public static Item rawAngusSteak;
+    public static Item cookedHerefordRoast;
+    public static Item cookedLonghornRoast;
+    public static Item cookedAngusRoast;
+    public static Item cookedHerefordSteak;
+    public static Item cookedLonghornSteak;
+    public static Item cookedAngusSteak;
+
+    public static Item rawPrimeSteak;
+    public static Item rawPrimeBeef;
+    public static Item cookedPrimeSteak;
+    public static Item cookedPrimeBeef;
+
+    // Pork
+    public static Item rawLargeBlackPork;
+    public static Item rawDurocPork;
+    public static Item rawOldSpotPork;
+    public static Item rawHampshirePork;
+    public static Item rawLargeBlackBacon;
+    public static Item rawDurocBacon;
+    public static Item rawOldSpotBacon;
+    public static Item rawHampshireBacon;
+    public static Item cookedLargeBlackRoast;
+    public static Item cookedDurocRoast;
+    public static Item cookedOldSpotRoast;
+    public static Item cookedHampshireRoast;
+    public static Item cookedLargeBlackBacon;
+    public static Item cookedDurocBacon;
+    public static Item cookedOldSpotBacon;
+    public static Item cookedHampshireBacon;
+
+    public static Item rawPrimePork;
+    public static Item rawPrimeBacon;
+    public static Item cookedPrimePork;
+    public static Item cookedPrimeBacon;
+
+    // Chicken
+    public static Item rawOrpingtonChicken;
+    public static Item rawPlymouthRockChicken;
+    public static Item rawWyandotteChicken;
+    public static Item rawRhodeIslandRedChicken;
+    public static Item cookedOrpingtonChicken;
+    public static Item cookedPlymouthRockChicken;
+    public static Item cookedWyandotteChicken;
+    public static Item cookedRhodeIslandRedChicken;
+
+    public static Item rawPrimeChicken;
+    public static Item cookedPrimeChicken;
+
+    // Frogs
+    public static Item rawFrogLegs;
+    public static Item cookedFrogLegs;
+
+    // Other Foods
+    public static Item plainOmelette;
+    public static Item cheeseOmelette;
+    public static Item baconOmelette;
+    public static Item truffleOmelette;
+    public static Item ultimateOmelette;
+    public static Item cheeseWheelFriesian;
+    public static Item cheeseWedgeFriesian;
+    public static Item cheeseWheelHolstein;
+    public static Item cheeseWedgeHolstein;
+    public static Item truffleSoup;
+    public static Item chocolateTruffle;
+    // public static Item milkBucketHolstein;
+    // public static Item milkBucketFriesian;
+
+    // Eggs - Cows
+
+    public static Item entityeggcalfholstein;
+    public static Item entityeggcowholstein;
+    public static Item entityeggbullholstein;
+
+    public static Item entityeggcalffriesian;
+    public static Item entityeggcowfriesian;
+    public static Item entityeggbullfriesian;
+
+    public static Item entityeggcalfangus;
+    public static Item entityeggcowangus;
+    public static Item entityeggbullangus;
+
+    public static Item entityeggcalflonghorn;
+    public static Item entityeggcowlonghorn;
+    public static Item entityeggbulllonghorn;
+
+    public static Item entityeggcalfhereford;
+    public static Item entityeggcowhereford;
+    public static Item entityeggbullhereford;
+
+    public static Item entityeggrandomcow;
+
+    // Eggs - Chickens
+    public static Item entityeggchickplymouth;
+    public static Item entityegghenplymouth;
+    public static Item entityeggroosterplymouth;
+
+    public static Item entityeggchickleghorn;
+    public static Item entityegghenleghorn;
+    public static Item entityeggroosterleghorn;
+
+    public static Item entityeggchickorpington;
+    public static Item entityegghenorpington;
+    public static Item entityeggroosterorpington;
+
+    public static Item entityeggchickred;
+    public static Item entityegghenred;
+    public static Item entityeggroosterred;
+
+    public static Item entityeggchickwyandotte;
+    public static Item entityegghenwyandotte;
+    public static Item entityeggroosterwyandotte;
+
+    public static Item entityeggrandomchicken;
+
+    // Eggs - Peacocks
+    public static Item entityeggpeachickblue;
+    public static Item entityeggpeafowlblue;
+    public static Item entityeggpeacockblue;
+
+    public static Item entityeggpeachickwhite;
+    public static Item entityeggpeafowlwhite;
+    public static Item entityeggpeacockwhite;
+
+    // Eggs - Pigs
+    public static Item entityeggpigletyorkshire;
+    public static Item entityeggsowyorkshire;
+    public static Item entityegghogyorkshire;
+
+    public static Item entityeggpigletoldspot;
+    public static Item entityeggsowoldspot;
+    public static Item entityegghogoldspot;
+
+    public static Item entityeggpigletlargeblack;
+    public static Item entityeggsowlargeblack;
+    public static Item entityegghoglargeblack;
+
+    public static Item entityeggpigletlargewhite;
+    public static Item entityeggsowlargewhite;
+    public static Item entityegghoglargewhite;
+
+    public static Item entityeggpigletduroc;
+    public static Item entityeggsowduroc;
+    public static Item entityegghogduroc;
+
+    public static Item entityeggpiglethampshire;
+    public static Item entityeggsowhampshire;
+    public static Item entityegghoghampshire;
+
+    public static Item entityeggrandompig;
+
+    // Eggs - Rodents
+    public static Item entityegghamster;
+    public static Item entityeggferretgrey;
+    public static Item entityeggferretwhite;
+    public static Item entityegghedgehog;
+    public static Item entityegghedgehogalbino;
+
+    // Eggs - Horses
+    // public static Item entityeggdrafthorsestallion;
+    // public static Item entityeggdrafthorsemare;
+    // public static Item entityeggdrafthorsefoal;
+
+    // Eggs - Rodents
+    public static Item entityeggfrog;
+    public static Item entityeggtoad;
+    public static Item entityeggdartfrog;
+
+    public static void preInit() {
+        // ITEMS
+        // Items for Animals
+        ItemHandler.hamsterFood = new ItemHamsterFood();
+        ItemHandler.truffle = new ItemTruffle();
+        // bucketSlop = new ItemBucketSlop();
+        ItemHandler.carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
+        ItemHandler.cheeseMold = new ItemCheeseMold();
+        // milkBucketFriesian = new ItemBucketMilk("friesian");
+        // milkBucketHolstein = new ItemBucketMilk("holstein");
+        ItemHandler.peacockFeatherBlue = new ItemPeacockFeather("blue");
+        ItemHandler.peacockFeatherWhite = new ItemPeacockFeather("white");
+
+        // Other foods
+        ItemHandler.ultimateOmelette = new ItemOmelette("super");
+        ItemHandler.truffleOmelette = new ItemOmelette("truffle");
+        ItemHandler.baconOmelette = new ItemOmelette("bacon");
+        ItemHandler.cheeseOmelette = new ItemOmelette("cheese");
+        ItemHandler.plainOmelette = new ItemOmelette("plain");
+        ItemHandler.truffleSoup = new ItemTruffleSoup();
+        ItemHandler.chocolateTruffle = new ItemChocolateTruffle();
+
+        // ITEMS produced by Animals
+        // COW ITEMS
+        ItemHandler.rawHerefordBeef = new ItemRawHerefordBeef();
+        ItemHandler.rawLonghornBeef = new ItemRawLonghornBeef();
+        ItemHandler.rawAngusBeef = new ItemRawAngusBeef();
+
+        ItemHandler.rawLonghornSteak = new ItemRawLonghornSteak();
+        ItemHandler.rawHerefordSteak = new ItemRawHerefordSteak();
+        ItemHandler.rawAngusSteak = new ItemRawAngusSteak();
+
+        ItemHandler.cookedLonghornRoast = new ItemCookedLonghornRoast();
+        ItemHandler.cookedHerefordRoast = new ItemCookedHerefordRoast();
+        ItemHandler.cookedAngusRoast = new ItemCookedAngusRoast();
+
+        ItemHandler.cookedLonghornSteak = new ItemCookedLonghornSteak();
+        ItemHandler.cookedHerefordSteak = new ItemCookedHerefordSteak();
+        ItemHandler.cookedAngusSteak = new ItemCookedAngusSteak();
+
+        ItemHandler.rawPrimeBeef = new ItemRawPrimeBeef();
+        ItemHandler.cookedPrimeBeef = new ItemCookedPrimeBeef();
+        ItemHandler.rawPrimeSteak = new ItemRawPrimeSteak();
+        ItemHandler.cookedPrimeSteak = new ItemCookedPrimeSteak();
+
+        // PIG ITEMS
+        ItemHandler.rawLargeBlackPork = new ItemRawLargeBlackPork();
+        ItemHandler.rawDurocPork = new ItemRawDurocPork();
+        ItemHandler.rawOldSpotPork = new ItemRawOldSpotPork();
+        ItemHandler.rawHampshirePork = new ItemRawHampshirePork();
+
+        ItemHandler.rawLargeBlackBacon = new ItemRawLargeBlackBacon();
+        ItemHandler.rawDurocBacon = new ItemRawDurocBacon();
+        ItemHandler.rawOldSpotBacon = new ItemRawOldSpotBacon();
+        ItemHandler.rawHampshireBacon = new ItemRawHampshireBacon();
+
+        ItemHandler.cookedLargeBlackRoast = new ItemCookedLargeBlackRoast();
+        ItemHandler.cookedDurocRoast = new ItemCookedDurocRoast();
+        ItemHandler.cookedOldSpotRoast = new ItemCookedOldSpotRoast();
+        ItemHandler.cookedHampshireRoast = new ItemCookedHampshireRoast();
+
+        ItemHandler.cookedLargeBlackBacon = new ItemCookedLargeBlackBacon();
+        ItemHandler.cookedDurocBacon = new ItemCookedDurocBacon();
+        ItemHandler.cookedOldSpotBacon = new ItemCookedOldSpotBacon();
+        ItemHandler.cookedHampshireBacon = new ItemCookedHampshireBacon();
+
+        ItemHandler.rawPrimePork = new ItemRawPrimePork();
+        ItemHandler.cookedPrimePork = new ItemCookedPrimePork();
+        ItemHandler.rawPrimeBacon = new ItemRawPrimeBacon();
+        ItemHandler.cookedPrimeBacon = new ItemCookedPrimeBacon();
+
+        // CHICKEN ITEMS
+        ItemHandler.rawOrpingtonChicken = new ItemRawOrpingtonChicken();
+        ItemHandler.rawPlymouthRockChicken = new ItemRawPlymouthRockChicken();
+        ItemHandler.rawWyandotteChicken = new ItemRawWyandotteChicken();
+        ItemHandler.rawRhodeIslandRedChicken = new ItemRawRhodeIslandRedChicken();
+        ItemHandler.cookedOrpingtonChicken = new ItemCookedOrpingtonChicken();
+        ItemHandler.cookedPlymouthRockChicken = new ItemCookedPlymouthRockChicken();
+        ItemHandler.cookedWyandotteChicken = new ItemCookedWyandotteChicken();
+        ItemHandler.cookedRhodeIslandRedChicken = new ItemCookedRhodeIslandRedChicken();
+        ItemHandler.rawPrimeChicken = new ItemRawPrimeChicken();
+        ItemHandler.cookedPrimeChicken = new ItemCookedPrimeChicken();
+        ItemHandler.brownEgg = new ItemBrownEgg();
+
+        // FROG ITEMS
+        ItemHandler.rawFrogLegs = new ItemRawFrogLegs();
+        ItemHandler.cookedFrogLegs = new ItemCookedFrogLegs();
+
+        // CHEESE
+        ItemHandler.cheeseWheelFriesian = new ItemCheeseWheel("friesian");
+        ItemHandler.cheeseWheelHolstein = new ItemCheeseWheel("holstein");
+        ItemHandler.cheeseWedgeFriesian = new ItemCheeseWedge("friesian");
+        ItemHandler.cheeseWedgeHolstein = new ItemCheeseWedge("holstein");
+
+        // Item Entity Eggs
+        // COWS
+        ItemHandler.entityeggcalfholstein = new ItemEntityEgg("calf_holstein");
+        ItemHandler.entityeggcowholstein = new ItemEntityEgg("cow_holstein");
+        ItemHandler.entityeggbullholstein = new ItemEntityEgg("bull_holstein");
+
+        ItemHandler.entityeggcalffriesian = new ItemEntityEgg("calf_friesian");
+        ItemHandler.entityeggcowfriesian = new ItemEntityEgg("cow_friesian");
+        ItemHandler.entityeggbullfriesian = new ItemEntityEgg("bull_friesian");
+
+        ItemHandler.entityeggcalfangus = new ItemEntityEgg("calf_angus");
+        ItemHandler.entityeggcowangus = new ItemEntityEgg("cow_angus");
+        ItemHandler.entityeggbullangus = new ItemEntityEgg("bull_angus");
+
+        ItemHandler.entityeggcalflonghorn = new ItemEntityEgg("calf_longhorn");
+        ItemHandler.entityeggcowlonghorn = new ItemEntityEgg("cow_longhorn");
+        ItemHandler.entityeggbulllonghorn = new ItemEntityEgg("bull_longhorn");
+
+        ItemHandler.entityeggcalfhereford = new ItemEntityEgg("calf_hereford");
+        ItemHandler.entityeggcowhereford = new ItemEntityEgg("cow_hereford");
+        ItemHandler.entityeggbullhereford = new ItemEntityEgg("bull_hereford");
+
+        ItemHandler.entityeggrandomcow = new ItemEntityEgg("cow_random");
+
+        // CHICKENS
+        ItemHandler.entityeggchickplymouth = new ItemEntityEgg("chick_plymouth");
+        ItemHandler.entityegghenplymouth = new ItemEntityEgg("hen_plymouth");
+        ItemHandler.entityeggroosterplymouth = new ItemEntityEgg("rooster_plymouth");
+
+        ItemHandler.entityeggchickleghorn = new ItemEntityEgg("chick_leghorn");
+        ItemHandler.entityegghenleghorn = new ItemEntityEgg("hen_leghorn");
+        ItemHandler.entityeggroosterleghorn = new ItemEntityEgg("rooster_leghorn");
+
+        ItemHandler.entityeggchickorpington = new ItemEntityEgg("chick_orpington");
+        ItemHandler.entityegghenorpington = new ItemEntityEgg("hen_orpington");
+        ItemHandler.entityeggroosterorpington = new ItemEntityEgg("rooster_orpington");
+
+        ItemHandler.entityeggchickred = new ItemEntityEgg("chick_red");
+        ItemHandler.entityegghenred = new ItemEntityEgg("hen_red");
+        ItemHandler.entityeggroosterred = new ItemEntityEgg("rooster_red");
+
+        ItemHandler.entityeggchickwyandotte = new ItemEntityEgg("chick_wyandotte");
+        ItemHandler.entityegghenwyandotte = new ItemEntityEgg("hen_wyandotte");
+        ItemHandler.entityeggroosterwyandotte = new ItemEntityEgg("rooster_wyandotte");
+
+        ItemHandler.entityeggrandomchicken = new ItemEntityEgg("chicken_random");
+
+        // PEAFOWL
+        ItemHandler.entityeggpeachickblue = new ItemEntityEgg("peachick_blue");
+        ItemHandler.entityeggpeafowlblue = new ItemEntityEgg("peafowl_blue");
+        ItemHandler.entityeggpeacockblue = new ItemEntityEgg("peacock_blue");
+
+        ItemHandler.entityeggpeachickwhite = new ItemEntityEgg("peachick_white");
+        ItemHandler.entityeggpeafowlwhite = new ItemEntityEgg("peafowl_white");
+        ItemHandler.entityeggpeacockwhite = new ItemEntityEgg("peacock_white");
+
+        // PIGS
+        ItemHandler.entityeggpigletyorkshire = new ItemEntityEgg("piglet_yorkshire");
+        ItemHandler.entityeggsowyorkshire = new ItemEntityEgg("sow_yorkshire");
+        ItemHandler.entityegghogyorkshire = new ItemEntityEgg("hog_yorkshire");
+
+        ItemHandler.entityeggpigletoldspot = new ItemEntityEgg("piglet_oldspot");
+        ItemHandler.entityeggsowoldspot = new ItemEntityEgg("sow_oldspot");
+        ItemHandler.entityegghogoldspot = new ItemEntityEgg("hog_oldspot");
+
+        ItemHandler.entityeggpigletlargeblack = new ItemEntityEgg("piglet_largeblack");
+        ItemHandler.entityeggsowlargeblack = new ItemEntityEgg("sow_largeblack");
+        ItemHandler.entityegghoglargeblack = new ItemEntityEgg("hog_largeblack");
+
+        ItemHandler.entityeggpigletlargewhite = new ItemEntityEgg("piglet_largewhite");
+        ItemHandler.entityeggsowlargewhite = new ItemEntityEgg("sow_largewhite");
+        ItemHandler.entityegghoglargewhite = new ItemEntityEgg("hog_largewhite");
+
+        ItemHandler.entityeggpigletduroc = new ItemEntityEgg("piglet_duroc");
+        ItemHandler.entityeggsowduroc = new ItemEntityEgg("sow_duroc");
+        ItemHandler.entityegghogduroc = new ItemEntityEgg("hog_duroc");
+
+        ItemHandler.entityeggpiglethampshire = new ItemEntityEgg("piglet_hampshire");
+        ItemHandler.entityeggsowhampshire = new ItemEntityEgg("sow_hampshire");
+        ItemHandler.entityegghoghampshire = new ItemEntityEgg("hog_hampshire");
+
+        ItemHandler.entityeggrandompig = new ItemEntityEgg("pig_random");
+
+        // RODENTS
+        ItemHandler.entityegghamster = new ItemEntityEgg("hamster");
+        ItemHandler.entityeggferretgrey = new ItemEntityEgg("ferret_grey");
+        ItemHandler.entityeggferretwhite = new ItemEntityEgg("ferret_white");
+        ItemHandler.entityegghedgehog = new ItemEntityEgg("hedgehog");
+        ItemHandler.entityegghedgehogalbino = new ItemEntityEgg("hedgehog_albino");
+
+        // AMPHIBIANS
+        ItemHandler.entityeggfrog = new ItemEntityEgg("frog");
+        ItemHandler.entityeggtoad = new ItemEntityEgg("toad");
+        ItemHandler.entityeggdartfrog = new ItemEntityEgg("dart_frog");
+
+        // HORSES
+        // entityeggdrafthorsestallion = new
+        // ItemEntityEgg("draft_horse_stallion");
+        // entityeggdrafthorsemare = new ItemEntityEgg("draft_horse_mare");
+        // entityeggdrafthorsefoal = new ItemEntityEgg("draft_horse_foal");
+
+    }
 }

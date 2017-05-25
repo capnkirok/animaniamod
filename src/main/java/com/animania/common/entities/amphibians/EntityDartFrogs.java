@@ -29,203 +29,190 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityDartFrogs extends EntityAmphibian {
+public class EntityDartFrogs extends EntityAmphibian
+{
 
-	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer>createKey(EntityDartFrogs.class, DataSerializers.VARINT);
-	public int poisonTimer;
-	private int jumpTicks;
-	private int jumpDuration;
-	private boolean canEntityJump;
+    private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer> createKey(EntityDartFrogs.class, DataSerializers.VARINT);
+    public int                                  poisonTimer;
+    private int                                 jumpTicks;
+    private int                                 jumpDuration;
+    private boolean                             canEntityJump;
 
-	public EntityDartFrogs(World worldIn) {
-		super(worldIn, true);
-		this.poisonTimer = 2;
-	}
+    public EntityDartFrogs(World worldIn) {
+        super(worldIn, true);
+        this.poisonTimer = 2;
+    }
 
-	@Override
-	protected void entityInit() {
-		super.entityInit();
-		this.dataManager.register(FROGS_TYPE, Integer.valueOf(this.rand.nextInt(3)));
-	}
+    @Override
+    protected void entityInit() {
+        super.entityInit();
+        this.dataManager.register(EntityDartFrogs.FROGS_TYPE, Integer.valueOf(this.rand.nextInt(3)));
+    }
 
-	/**
-	 * (abstract) Protected helper method to write subclass entity data to NBT.
-	 */
-	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
-		compound.setInteger("FrogsType", this.getFrogsType());
-	}
+    /**
+     * (abstract) Protected helper method to write subclass entity data to NBT.
+     */
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound) {
+        super.writeEntityToNBT(compound);
+        compound.setInteger("FrogsType", this.getFrogsType());
+    }
 
-	/**
-	 * (abstract) Protected helper method to read subclass entity data from NBT.
-	 */
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
-		this.setFrogsType(compound.getInteger("FrogsType"));
-	}
+    /**
+     * (abstract) Protected helper method to read subclass entity data from NBT.
+     */
+    @Override
+    public void readEntityFromNBT(NBTTagCompound compound) {
+        super.readEntityFromNBT(compound);
+        this.setFrogsType(compound.getInteger("FrogsType"));
+    }
 
-	public int getFrogsType() {
-		return this.dataManager.get(FROGS_TYPE).intValue();
-	}
+    public int getFrogsType() {
+        return this.dataManager.get(EntityDartFrogs.FROGS_TYPE).intValue();
+    }
 
-	public void setFrogsType(int frogsId) {
-		this.dataManager.set(FROGS_TYPE, Integer.valueOf(frogsId));
-	}
+    public void setFrogsType(int frogsId) {
+        this.dataManager.set(EntityDartFrogs.FROGS_TYPE, Integer.valueOf(frogsId));
+    }
 
-	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
-	{
+    @Override
+    public boolean processInteract(EntityPlayer player, EnumHand hand) {
 
-		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
-		
-		if (!stack.isEmpty() && stack.getItem() == Items.ARROW && this.poisonTimer <= 1) {
-			this.poisonTimer = 800;
-		    player.playSound(SoundEvents.ENTITY_MAGMACUBE_SQUISH, 0.2F, 1.8F);
-			ItemStack bob = new ItemStack(Items.TIPPED_ARROW);
-			PotionUtils.addPotionToItemStack(bob, PotionTypes.POISON);
-			stack.shrink(1);
-		
-			if (stack.getCount() == 0)
-			{
-				player.setHeldItem(hand, bob);
-				return true;
-			} else if (!player.inventory.addItemStackToInventory(bob)) {
-				player.dropItem(bob, false);
-				return true;
-			} else {
+        ItemStack stack = player.getHeldItem(hand);
+        EntityPlayer entityplayer = player;
 
-				return super.processInteract(player, hand);
-			}
-		} else {
+        if (!stack.isEmpty() && stack.getItem() == Items.ARROW && this.poisonTimer <= 1) {
+            this.poisonTimer = 800;
+            player.playSound(SoundEvents.ENTITY_MAGMACUBE_SQUISH, 0.2F, 1.8F);
+            ItemStack bob = new ItemStack(Items.TIPPED_ARROW);
+            PotionUtils.addPotionToItemStack(bob, PotionTypes.POISON);
+            stack.shrink(1);
 
-			return super.processInteract(player, hand);
-		}
+            if (stack.getCount() == 0) {
+                player.setHeldItem(hand, bob);
+                return true;
+            }
+            else if (!player.inventory.addItemStackToInventory(bob)) {
+                player.dropItem(bob, false);
+                return true;
+            }
+            else
+                return super.processInteract(player, hand);
+        }
+        else
+            return super.processInteract(player, hand);
 
+    }
 
-	}
+    @Override
+    protected void collideWithEntity(Entity entityIn) {
 
-	@Override
-	protected void collideWithEntity(Entity entityIn)
-	{
+        if (entityIn instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) entityIn;
+            player.addPotionEffect(new PotionEffect(MobEffects.POISON, 200, 1, false, false));
+        }
+        entityIn.applyEntityCollision(this);
+    }
 
-		if (entityIn instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer)entityIn;
-			player.addPotionEffect(new PotionEffect(MobEffects.POISON, 200, 1, false, false));
-		}
-		entityIn.applyEntityCollision(this);
-	}
-	
-	@Override
-	public void onLivingUpdate() {
+    @Override
+    public void onLivingUpdate() {
 
-		if (poisonTimer > 1) {
-			this.poisonTimer--;
-		}
-		
-		if (this.canEntityJump)
-			if (this.jumpTicks != this.jumpDuration) {
-				++this.jumpTicks;
-			} else if (this.jumpDuration != 0) {
-				this.jumpTicks = 0;
-				this.jumpDuration = 0;
-				this.setJumping(false);
-			}
+        if (this.poisonTimer > 1)
+            this.poisonTimer--;
 
-		this.squishFactor += (this.squishAmount - this.squishFactor) * 0.5F;
-		this.prevSquishFactor = this.squishFactor;
-		super.onLivingUpdate();
+        if (this.canEntityJump)
+            if (this.jumpTicks != this.jumpDuration)
+                ++this.jumpTicks;
+            else if (this.jumpDuration != 0) {
+                this.jumpTicks = 0;
+                this.jumpDuration = 0;
+                this.setJumping(false);
+            }
 
-		if(this.onGround) {
-			this.squishAmount = -0.5F;
-		} else if (!this.onGround) {
-			this.squishAmount = 0.5F;
-		}
+        this.squishFactor += (this.squishAmount - this.squishFactor) * 0.5F;
+        this.prevSquishFactor = this.squishFactor;
+        super.onLivingUpdate();
 
-		this.alterSquishAmount();
+        if (this.onGround)
+            this.squishAmount = -0.5F;
+        else if (!this.onGround)
+            this.squishAmount = 0.5F;
 
-	}
+        this.alterSquishAmount();
 
-	
-	/**
-	 * Called only once on an entity when first time spawned, via egg, mob
-	 * spawner, natural spawning etc, but not called when entity is reloaded
-	 * from nbt. Mainly used for initializing attributes and inventory
-	 */
-	@Override
-	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		livingdata = super.onInitialSpawn(difficulty, livingdata);
+    }
 
-		this.setFrogsType(this.rand.nextInt(3));
+    /**
+     * Called only once on an entity when first time spawned, via egg, mob
+     * spawner, natural spawning etc, but not called when entity is reloaded
+     * from nbt. Mainly used for initializing attributes and inventory
+     */
+    @Override
+    @Nullable
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+        livingdata = super.onInitialSpawn(difficulty, livingdata);
 
-		return livingdata;
-	}
+        this.setFrogsType(this.rand.nextInt(3));
 
-	protected SoundEvent getAmbientSound()
-	{
+        return livingdata;
+    }
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(5);
+    @Override
+    protected SoundEvent getAmbientSound() {
 
-		if (chooser == 0) {
-			return ModSoundEvents.dartfrogLiving1;
-		} else if (chooser == 1){
-			return ModSoundEvents.dartfrogLiving2;
-		} else if (chooser == 2){
-			return ModSoundEvents.dartfrogLiving3;
-		} else if (chooser == 3){
-			return ModSoundEvents.dartfrogLiving4;
-		} else {
-			return null;
-		}
-	}
+        Random rand = new Random();
+        int chooser = rand.nextInt(5);
 
-	protected SoundEvent getHurtSound()
-	{
-		return null;
-	}
+        if (chooser == 0)
+            return ModSoundEvents.dartfrogLiving1;
+        else if (chooser == 1)
+            return ModSoundEvents.dartfrogLiving2;
+        else if (chooser == 2)
+            return ModSoundEvents.dartfrogLiving3;
+        else if (chooser == 3)
+            return ModSoundEvents.dartfrogLiving4;
+        else
+            return null;
+    }
 
-	protected SoundEvent getDeathSound()
-	{
-		return null;
-	}
+    @Override
+    protected SoundEvent getHurtSound() {
+        return null;
+    }
 
-	@Override
-	public void playLivingSound()
-	{
-		SoundEvent soundevent = this.getAmbientSound();
+    @Override
+    protected SoundEvent getDeathSound() {
+        return null;
+    }
 
-		if (soundevent != null)
-		{
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - (this.getAge() * 2));
-		}
-	}
+    @Override
+    public void playLivingSound() {
+        SoundEvent soundevent = this.getAmbientSound();
 
-	protected void playStepSound(BlockPos pos, Block blockIn)
-	{
-		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.04F, 1.1F);
-	}
+        if (soundevent != null)
+            this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getAge() * 2);
+    }
 
-	protected float getSoundVolume()
-	{
-		return 0.4F;
-	}
-	
-	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
+    @Override
+    protected void playStepSound(BlockPos pos, Block blockIn) {
+        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.04F, 1.1F);
+    }
 
-		Item dropItem;
+    @Override
+    protected float getSoundVolume() {
+        return 0.4F;
+    }
 
-		String drop = AnimaniaConfig.drops.dartFrogDrop;
-		dropItem = Item.getByNameOrId(drop);
-		if (rand.nextInt(3) < 1) {
-			this.dropItem(dropItem, 1 + lootlevel);
-		}
+    @Override
+    protected void dropFewItems(boolean hit, int lootlevel) {
 
-	}
+        Item dropItem;
+
+        String drop = AnimaniaConfig.drops.dartFrogDrop;
+        dropItem = Item.getByNameOrId(drop);
+        if (this.rand.nextInt(3) < 1)
+            this.dropItem(dropItem, 1 + lootlevel);
+
+    }
 
 }

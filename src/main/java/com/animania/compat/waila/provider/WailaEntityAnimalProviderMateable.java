@@ -14,56 +14,46 @@ import net.minecraft.world.World;
 public class WailaEntityAnimalProviderMateable extends WailaEntityAnimalProviderBase
 {
 
-	@Override
-	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
-	{
-		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
+    @Override
+    public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
+        currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 
-		if(accessor.getPlayer().isSneaking())
-		{
-			String mate = accessor.getNBTData().getString("MateUUID");
-			World world = entity.world;
+        if (accessor.getPlayer().isSneaking()) {
+            String mate = accessor.getNBTData().getString("MateUUID");
+            World world = entity.world;
 
-			if(!mate.equals(""))
-			{
-				for(Entity e : world.getLoadedEntityList())
-				{
-					UUID id =e.getPersistentID(); 
-					if(id.toString().equals(mate))
-					{
-						String name = e.getCustomNameTag();
-						if(!name.equals(""))
-							currenttip.add(I18n.translateToLocal("text.waila.mated") + " (" + name + ")");
-						else
-							currenttip.add(I18n.translateToLocal("text.waila.mated"));
+            if (!mate.equals("")) {
+                for (Entity e : world.getLoadedEntityList()) {
+                    UUID id = e.getPersistentID();
+                    if (id.toString().equals(mate)) {
+                        String name = e.getCustomNameTag();
+                        if (!name.equals(""))
+                            currenttip.add(I18n.translateToLocal("text.waila.mated") + " (" + name + ")");
+                        else
+                            currenttip.add(I18n.translateToLocal("text.waila.mated"));
 
-						return currenttip;
-					}
-				}
+                        return currenttip;
+                    }
+                }
 
-				currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
+                currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
 
-			}
+            }
 
-		}
-		return currenttip;
+        }
+        return currenttip;
 
-	}
+    }
 
+    @Override
+    public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world) {
+        NBTTagCompound comp = ent.getEntityData();
 
+        String mate = comp.getString("MateUUID");
+        if (!mate.equals(""))
+            tag.setString("MateUUID", mate);
 
-	@Override
-	public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world)
-	{
-		NBTTagCompound comp = ent.getEntityData();
-
-
-		String mate = comp.getString("MateUUID");
-		if(!mate.equals(""))
-			tag.setString("MateUUID", mate);
-
-		return super.getNBTData(player, ent, tag, world);
-	}
-
+        return super.getNBTData(player, ent, tag, world);
+    }
 
 }

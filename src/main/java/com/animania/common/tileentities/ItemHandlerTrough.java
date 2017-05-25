@@ -7,19 +7,14 @@ import net.minecraftforge.items.ItemStackHandler;
 public class ItemHandlerTrough extends ItemStackHandler
 {
 
-	@Override
-	public int getSlotLimit(int slot) {
-		return 3;
-	}
-	
-	
-	@Override
-	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-		return (!stack.isEmpty() && stack.getItem() != Items.WHEAT) ? stack : super.insertItem(slot, stack, simulate);
-	}
-	
-	
-	
-	
-	
+    @Override
+    public int getSlotLimit(int slot) {
+        return 3;
+    }
+
+    @Override
+    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+        return !stack.isEmpty() && stack.getItem() != Items.WHEAT ? stack : super.insertItem(slot, stack, simulate);
+    }
+
 }

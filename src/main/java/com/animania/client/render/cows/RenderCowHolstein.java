@@ -2,64 +2,64 @@ package com.animania.client.render.cows;
 
 import java.util.Random;
 
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCow;
 import com.animania.common.entities.cows.EntityCowHolstein;
 
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 @SideOnly(Side.CLIENT)
-public class RenderCowHolstein extends RenderLiving
+public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving<T>
 {
-    private static final ResourceLocation cowTextures = new ResourceLocation("animania:textures/entity/cows/cow_holstein.png");
+    public static final Factory           FACTORY          = new Factory();
+
+    private static final ResourceLocation cowTextures      = new ResourceLocation("animania:textures/entity/cows/cow_holstein.png");
     private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/cow_holstein_blink.png");
-    Random rand = new Random();
-    
-    public RenderCowHolstein(RenderManager rm)
-   	{
-   		super(rm, new ModelCow(), 0.5F);
-   	}
+    Random                                rand             = new Random();
 
-    protected ResourceLocation getCowTextures(EntityCowHolstein par1EntityCow)
-    {
-        return cowTextures;
-    }
-    
-    protected ResourceLocation getCowTexturesBlink(EntityCowHolstein par1EntityCow)
-    {
-        return cowTexturesBlink;
+    public RenderCowHolstein(RenderManager rm) {
+        super(rm, new ModelCow(), 0.5F);
     }
 
-    protected void preRenderScale(EntityCowHolstein entity, float f)
-    {
-        GL11.glScalef(1.24F, 1.24F, 1.24F); 
+    protected ResourceLocation getCowTextures(EntityCowHolstein par1EntityCow) {
+        return RenderCowHolstein.cowTextures;
     }
 
-	@Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f)
+    protected ResourceLocation getCowTexturesBlink(EntityCowHolstein par1EntityCow) {
+        return RenderCowHolstein.cowTexturesBlink;
+    }
+
+    protected void preRenderScale(EntityCowHolstein entity, float f) {
+        GL11.glScalef(1.24F, 1.24F, 1.24F);
+    }
+
+    @Override
+    protected void preRenderCallback(T entityliving, float f) {
+        this.preRenderScale(entityliving, f);
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(T entity) {
+        int blinkTimer = entity.blinkTimer;
+
+        if (blinkTimer < 7 && blinkTimer >= 0)
+            return this.getCowTexturesBlink(entity);
+        else
+            return this.getCowTextures(entity);
+    }
+
+    static class Factory<T extends EntityCowHolstein> implements IRenderFactory<T>
     {
-        preRenderScale((EntityCowHolstein)entityliving, f);
-    }  
-  
-	@Override
-	protected ResourceLocation getEntityTexture(Entity par1Entity)
-	{
-		EntityCowHolstein entity = (EntityCowHolstein)par1Entity;
-
-		int blinkTimer = entity.blinkTimer;
-
-		if (blinkTimer < 7 && blinkTimer >= 0) {
-			return this.getCowTexturesBlink(entity);
-		} else {
-			return this.getCowTextures(entity);
-		}
-
-	}
+        @Override
+        public Render<? super T> createRenderFor(RenderManager manager) {
+            return new RenderCowHolstein(manager);
+        }
+    }
 }
