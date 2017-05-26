@@ -356,7 +356,7 @@ public class EntityHandler
         RegistryHelper.Entities.register(EntityFrogs.class, "frog", entityID++, 64, 3, true);
         RegistryHelper.Entities.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.AMBIENT,
                 RegistryHelper.Entities.getBiomes(BiomeDictionary.Type.SWAMP));
-        RegistryHelper.Entities.addSpawn(EntityFrogs.class, 20, 1, 2, EnumCreatureType.AMBIENT, Biomes.RIVER);
+        RegistryHelper.Entities.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.AMBIENT, Biomes.RIVER);
 
         RegistryHelper.Entities.register(EntityToad.class, "toad", entityID++, 64, 3, true);
         RegistryHelper.Entities.addSpawn(EntityToad.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.AMBIENT,
