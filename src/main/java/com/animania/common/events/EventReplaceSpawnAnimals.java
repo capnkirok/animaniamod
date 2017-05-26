@@ -2,6 +2,7 @@ package com.animania.common.events;
 
 import java.util.Random;
 
+import com.animania.Animania;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.amphibians.EntityAmphibian;
@@ -64,6 +65,7 @@ import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -72,6 +74,7 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.play.server.SPacketSetPassengers;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -557,26 +560,32 @@ public class EventReplaceSpawnAnimals
 		}
 		else if (event.getEntity().getClass().equals(EntityZombie.class)) {
 
-			if (worldIn.rand.nextFloat() < 0.08D) {
-				EntityZombie ez = (EntityZombie) event.getEntity();
-				EntityHenLeghorn entitychicken1 = new EntityHenLeghorn(worldIn);
-				entitychicken1.setLocationAndAngles(ez.posX, ez.posY, ez.posZ, ez.rotationYaw, 0.0F);
-				entitychicken1.setChickenJockey(true);
-				worldIn.spawnEntity(entitychicken1);
-				ez.setChild(true);
-				ez.startRiding(entitychicken1);
+			if (worldIn.rand.nextFloat() < 0.8D) {
+				if (worldIn.getClosestPlayerToEntity(event.getEntity(), 10) != null && !worldIn.isRemote) {
+					EntityZombie ez = (EntityZombie) event.getEntity();
+					EntityHenLeghorn entitychicken1 = new EntityHenLeghorn(worldIn);
+					entitychicken1.setLocationAndAngles(ez.posX, ez.posY, ez.posZ, ez.rotationYaw, 0.0F);
+					entitychicken1.setChickenJockey(true);
+					worldIn.spawnEntity(entitychicken1);
+					ez.setChild(true);
+					ez.startRiding(entitychicken1);
+				}
+
 			}
 
 		}
 		else if (event.getEntity().getClass().equals(EntitySkeleton.class)) {
-			if (worldIn.rand.nextFloat() < 0.08D) {
-				EntitySkeleton ez = (EntitySkeleton) event.getEntity();
-				EntityBullFriesian ef = new EntityBullFriesian(worldIn);
-				ef.setLocationAndAngles(ez.posX, ez.posY, ez.posZ, ez.rotationYaw, 0.0F);
-				worldIn.spawnEntity(ef);
-				ez.startRiding(ef);
-			}
 
+			if (worldIn.rand.nextFloat() < 0.8D) {
+				if (worldIn.getClosestPlayerToEntity(event.getEntity(), 10) != null && !worldIn.isRemote) {
+					EntitySkeleton ez = (EntitySkeleton) event.getEntity();
+					EntityBullFriesian ef = new EntityBullFriesian(worldIn);
+					ef.setLocationAndAngles(ez.posX, ez.posY, ez.posZ, ez.rotationYaw, 0.0F);
+					worldIn.spawnEntity(ef);
+					ez.startRiding(ef);
+					ef.updatePassenger(ez);
+				}
+			}
 		} 
 		else if (event.getEntity() instanceof EntityPlayer) {
 
