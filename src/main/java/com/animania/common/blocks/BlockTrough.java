@@ -8,6 +8,7 @@ import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
@@ -27,6 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
@@ -125,7 +127,9 @@ public class BlockTrough extends BlockContainer
                 ItemStack newStack = handler.getContainer();
                 entityitem.setEntityItemStack(newStack);
 
-            }
+			}
+			
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 
         }
     }
@@ -298,64 +302,75 @@ public class BlockTrough extends BlockContainer
         ItemStack heldItem = playerIn.getHeldItem(hand);
         TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 
-        if (worldIn.isRemote)
-            return true;
-        else if (!heldItem.isEmpty() && heldItem.getItem() == Items.WHEAT) {
-            if (!te.itemHandler.getStackInSlot(0).isEmpty() && te.itemHandler.getStackInSlot(0).getCount() < 3
-                    || te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null) {
-                te.itemHandler.insertItem(0, new ItemStack(Items.WHEAT), false);
-                if (!playerIn.isCreative())
-                    heldItem.shrink(1);
-                return true;
-            }
+	/*	if (worldIn.isRemote)
+		{
+			return true;
 
-        }
-        // LIQUIDS
-        else if (this.hasFluid(heldItem, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null) {
-            te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-            worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
-            if (!playerIn.isCreative()) {
-                IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
-                handler.drain(1000, true);
-                ItemStack newStack = handler.getContainer();
-                playerIn.setHeldItem(hand, newStack);
-            }
-            return true;
+		}*/
+		// SOLIDS
+		 if (!heldItem.isEmpty() && heldItem.getItem() == Items.WHEAT)
+		{
+			if ((!te.itemHandler.getStackInSlot(0).isEmpty() && te.itemHandler.getStackInSlot(0).getCount() < 3) || te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+			{
+				te.itemHandler.insertItem(0, new ItemStack(Items.WHEAT), false);
+				if (!playerIn.isCreative())
+					heldItem.shrink(1);
+				
+				worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+				return true;
+			}
 
-        }
-        else if (this.hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty()
-                && te.fluidHandler.getFluid() == null) {
-            te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
-            worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
-            if (!playerIn.isCreative()) {
-                IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
-                handler.drain(1000, true);
-                ItemStack newStack = handler.getContainer();
-                playerIn.setHeldItem(hand, newStack);
-            }
-            return true;
+		}
+		// LIQUIDS
+		else if (hasFluid(heldItem, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+		{
+			te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
+			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			if (!playerIn.isCreative())
+			{
+				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
+				handler.drain(1000, true);
+				ItemStack newStack = handler.getContainer();
+				playerIn.setHeldItem(hand, newStack);
+			}
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			return true;
 
-        }
-        // EMPTY SOLIDS
-        else if (heldItem.isEmpty() && !te.itemHandler.getStackInSlot(0).isEmpty()) {
-            ItemStack extract = te.itemHandler.extractItem(0, 1, false);
-            playerIn.inventory.addItemStackToInventory(extract);
-            return true;
-        }
-        // EMPTY LIQUIDS
-        else if (!heldItem.isEmpty() && FluidUtil.getFluidHandler(heldItem) != null && FluidUtil.getFluidContained(heldItem) == null
-                && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().amount >= 1000) {
-            FluidStack fluidStack = te.fluidHandler.drain(1000, true);
-            if (!playerIn.isCreative()) {
-                IFluidHandlerItem handler;
-                if (heldItem.getCount() > 1) {
-                    ItemStack heldItem1 = heldItem.copy();
-                    heldItem1.setCount(1);
-                    handler = FluidUtil.getFluidHandler(heldItem1);
+		} else if (hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+		{
+			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
+			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			if (!playerIn.isCreative())
+			{
+				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
+				handler.drain(1000, true);
+				ItemStack newStack = handler.getContainer();
+				playerIn.setHeldItem(hand, newStack);
+			}
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			return true;
 
-                }
-                else
-                    handler = FluidUtil.getFluidHandler(heldItem);
+		}
+		// EMPTY SOLIDS
+		else if (heldItem.isEmpty() && !te.itemHandler.getStackInSlot(0).isEmpty())
+		{
+			ItemStack extract = te.itemHandler.extractItem(0, 1, false);
+			playerIn.inventory.addItemStackToInventory(extract);
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			return true;
+		}
+		// EMPTY LIQUIDS
+		else if (!heldItem.isEmpty() && FluidUtil.getFluidHandler(heldItem) != null && FluidUtil.getFluidContained(heldItem) == null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().amount >= 1000)
+		{
+			FluidStack fluidStack = te.fluidHandler.drain(1000, true);
+			if (!playerIn.isCreative())
+			{
+				IFluidHandlerItem handler;
+				if (heldItem.getCount() > 1)
+				{
+					ItemStack heldItem1 = heldItem.copy();
+					heldItem1.setCount(1);
+					handler = FluidUtil.getFluidHandler(heldItem1);
 
                 handler.fill(fluidStack, true);
                 ItemStack newstack = handler.getContainer();
@@ -373,7 +388,12 @@ public class BlockTrough extends BlockContainer
         }
         return false;
 
-    }
+			}
+			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			return true;
+		}
+		return false;
 
     @Override
     public IBlockState withRotation(IBlockState state, Rotation rot) {
@@ -418,5 +438,30 @@ public class BlockTrough extends BlockContainer
         return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000
                 && FluidUtil.getFluidContained(stack).getFluid() == fluid;
     }
+
+	private boolean hasFluid(ItemStack stack, Fluid fluid)
+	{
+		return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000 && FluidUtil.getFluidContained(stack).getFluid() == fluid;
+	}
+	
+	public BlockPos findInvisiblock(World world, BlockPos pos)
+	{
+		EnumFacing facing = world.getBlockState(pos).getValue(FACING);
+		facing = facing.rotateAround(Axis.Y);
+		
+		return pos.offset(facing);	
+	}
+	
+	
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+	{
+		BlockPos invisi = findInvisiblock(worldIn, pos);
+		worldIn.updateComparatorOutputLevel(invisi, BlockHandler.blockInvisiblock);
+		
+		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+	}
+	
+	
 
 }

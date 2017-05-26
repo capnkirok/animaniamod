@@ -276,9 +276,10 @@ public class BlockInvisiblock extends BlockContainer
         return Item.getItemFromBlock(BlockHandler.blockTrough);
     }
 
-    public String getName() {
-        return this.name;
-    }
+	@Override
+	public boolean hasComparatorInputOverride(IBlockState state) {
+		return true;
+	}
 
     @Override
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
@@ -308,5 +309,20 @@ public class BlockInvisiblock extends BlockContainer
      * te.getTrough().fluidHandler.getFluidAmount(); return fluid/66; } } return
      * 0; }
      */
+
+			if(te.getTrough().fluidHandler.getFluid() != null)
+			{
+				int fluid = te.getTrough().fluidHandler.getFluidAmount();
+				return fluid/66;
+			}
+		}
+		return 0;
+	} 
+	
+	
+
+
+
+
 
 }
