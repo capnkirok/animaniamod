@@ -7,6 +7,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.capabilities.CapabilityRefs;
+import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
@@ -56,30 +58,36 @@ import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityHedgehogAlbino extends EntityTameable {
-	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
+public class EntityHedgehogAlbino extends EntityTameable
+{
+	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class,
+			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class,
+			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class,
+			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class,
+			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class,
+			DataSerializers.BOOLEAN);
 
-	private int fedTimer;
-	private int wateredTimer;
-	private int happyTimer;
-	private int tamedTimer;
-	public int blinkTimer;
-	private static final Set<Item> TEMPTATION_ITEMS = Sets
+	private int                                 fedTimer;
+	private int                                 wateredTimer;
+	private int                                 happyTimer;
+	private int                                 tamedTimer;
+	public int                                  blinkTimer;
+	private static final Set<Item>              TEMPTATION_ITEMS = Sets
 			.newHashSet(new Item[] { Items.CARROT, Items.BEETROOT, ItemHandler.brownEgg, Items.EGG });
 
 	public EntityHedgehogAlbino(World worldIn) {
 		super(worldIn);
 		this.setSize(0.5F, 0.5F);
 		this.stepHeight = 1.1F;
-		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
-		this.blinkTimer = 80 + rand.nextInt(80);
+		this.blinkTimer = 80 + this.rand.nextInt(80);
 		this.enablePersistence();
 
 	}
@@ -99,7 +107,7 @@ public class EntityHedgehogAlbino extends EntityTameable {
 		this.entityAIEatGrass = new EntityAIRodentEat(this);
 		this.tasks.addTask(3, new EntityAIPanic(this, 1.25D));
 		this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
-		this.tasks.addTask(5, new EntityAITempt(this, 1.2D, false, TEMPTATION_ITEMS));
+		this.tasks.addTask(5, new EntityAITempt(this, 1.2D, false, EntityHedgehogAlbino.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new EntityAIPanicRodents(this, 1.5D));
 		this.tasks.addTask(7, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
 		this.tasks.addTask(8, this.entityAIEatGrass);
@@ -135,21 +143,17 @@ public class EntityHedgehogAlbino extends EntityTameable {
 
 		player.addStat(AnimaniaAchievements.AlbinoHedgehog, 1);
 		this.entityAIEatGrass.startExecuting();
-		if (player.hasAchievement(AnimaniaAchievements.Hedgehog)
-				&& player.hasAchievement(AnimaniaAchievements.AlbinoHedgehog)) {
+		if (player.hasAchievement(AnimaniaAchievements.Hedgehog) && player.hasAchievement(AnimaniaAchievements.AlbinoHedgehog))
 			player.addStat(AnimaniaAchievements.Hedgehogs, 1);
-		}
 
-		if (!player.capabilities.isCreativeMode) {
-			if (stack != ItemStack.EMPTY) {
+		if (!player.capabilities.isCreativeMode)
+			if (stack != ItemStack.EMPTY)
 				stack.setCount(stack.getCount() - 1);
-			}
-		}
 	}
 
-	public int eatTimer;
+	public int               eatTimer;
 	public EntityAIRodentEat entityAIEatGrass;
-	private int damageTimer;
+	private int              damageTimer;
 
 	@Override
 	protected void updateAITasks() {
@@ -166,26 +170,23 @@ public class EntityHedgehogAlbino extends EntityTameable {
 	protected void dropFewItems(boolean hit, int lootlevel) {
 		int happyDrops = 0;
 
-		if (this.getWatered()) {
+		if (this.getWatered())
 			happyDrops++;
-		}
-		if (this.getFed()) {
+		if (this.getFed())
 			happyDrops++;
-		}
 
 		Item dropItem;
 		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.hedgehogDrop;
-			dropItem = getItem(drop);
-		} else {
+			dropItem = this.getItem(drop);
+		}
+		else
 			dropItem = null;
-		}
 
-		if (happyDrops == 2) {
+		if (happyDrops == 2)
 			this.dropItem(dropItem, 1 + lootlevel);
-		} else if (happyDrops == 1) {
+		else if (happyDrops == 1)
 			this.dropItem(dropItem, 1 + lootlevel);
-		}
 
 	}
 
@@ -197,11 +198,11 @@ public class EntityHedgehogAlbino extends EntityTameable {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		this.dataManager.register(FED, Boolean.valueOf(true));
-		this.dataManager.register(WATERED, Boolean.valueOf(true));
-		this.dataManager.register(TAMED, Boolean.valueOf(false));
-		this.dataManager.register(SITTING, Boolean.valueOf(false)); 
-		this.dataManager.register(RIDING, Boolean.valueOf(false)); 
+		this.dataManager.register(EntityHedgehogAlbino.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityHedgehogAlbino.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityHedgehogAlbino.TAMED, Boolean.valueOf(false));
+		this.dataManager.register(EntityHedgehogAlbino.SITTING, Boolean.valueOf(false));
+		this.dataManager.register(EntityHedgehogAlbino.RIDING, Boolean.valueOf(false));
 
 	}
 
@@ -225,7 +226,6 @@ public class EntityHedgehogAlbino extends EntityTameable {
 		this.setHedgehogSitting(compound.getBoolean("IsSitting"));
 		this.setHedgehogRiding(compound.getBoolean("Riding"));
 
-
 	}
 
 	@Override
@@ -233,36 +233,32 @@ public class EntityHedgehogAlbino extends EntityTameable {
 		int happy = 0;
 		int num = 0;
 
-		if (this.getWatered()) {
+		if (this.getWatered())
 			happy++;
-		}
-		if (this.getFed()) {
+		if (this.getFed())
 			happy++;
-		}
 
-		if (happy == 2) {
+		if (happy == 2)
 			num = 10;
-		} else if (happy == 1) {
+		else if (happy == 1)
 			num = 20;
-		} else {
+		else
 			num = 40;
-		}
 
 		Random rand = new Random();
 		int chooser = rand.nextInt(num);
-		if (chooser == 0) {
+		if (chooser == 0)
 			return ModSoundEvents.hedgehogLiving1;
-		} else if (chooser == 1) {
+		else if (chooser == 1)
 			return ModSoundEvents.hedgehogLiving2;
-		} else if (chooser == 2) {
+		else if (chooser == 2)
 			return ModSoundEvents.hedgehogLiving3;
-		} else if (chooser == 3) {
+		else if (chooser == 3)
 			return ModSoundEvents.hedgehogLiving4;
-		} else if (chooser == 4) {
+		else if (chooser == 4)
 			return ModSoundEvents.hedgehogLiving5;
-		} else {
+		else
 			return null;
-		}
 
 	}
 
@@ -271,13 +267,12 @@ public class EntityHedgehogAlbino extends EntityTameable {
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);
 
-		if (chooser == 0) {
+		if (chooser == 0)
 			return ModSoundEvents.hedgehogHurt1;
-		} else if (chooser == 1) {
+		else if (chooser == 1)
 			return ModSoundEvents.hedgehogHurt2;
-		} else {
+		else
 			return null;
-		}
 	}
 
 	@Override
@@ -289,9 +284,8 @@ public class EntityHedgehogAlbino extends EntityTameable {
 	public void playLivingSound() {
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null) {
+		if (soundevent != null)
 			this.playSound(soundevent, this.getSoundVolume() - .5F, this.getSoundPitch());
-		}
 	}
 
 	@Override
@@ -299,23 +293,20 @@ public class EntityHedgehogAlbino extends EntityTameable {
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.5F);
 	}
 
-	private boolean interactRide(EntityPlayer entityplayer)
-	{
-		isRemoteMountEntity(entityplayer);
+	private boolean interactRide(EntityPlayer entityplayer) {
+		this.isRemoteMountEntity(entityplayer);
 		return true;
 	}
 
-	private void isRemoteMountEntity(Entity par1Entity)
-	{
+	private void isRemoteMountEntity(Entity par1Entity) {
 
-		if (this.isHedgehogRiding())
-		{
+		if (this.isHedgehogRiding()) {
 			this.setHedgehogRiding(true);
 			this.startRiding(par1Entity, true);
 
-		} else if (!this.isHedgehogRiding()) {
-			this.dismountRidingEntity();
 		}
+		else if (!this.isHedgehogRiding())
+			this.dismountRidingEntity();
 
 	}
 
@@ -328,15 +319,17 @@ public class EntityHedgehogAlbino extends EntityTameable {
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
-		} else if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG) {
-			if (!stack.hasDisplayName()) {
+		}
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG) {
+			if (!stack.hasDisplayName())
 				return false;
-			} else {
+			else {
 				if (stack.getDisplayName().equals("Sonic")) {
 					player.addStat(AnimaniaAchievements.Sonic, 1);
 					AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sonic);
 					return super.processInteract(player, hand);
-				} else if (stack.getDisplayName().equals("Sanic")) {
+				}
+				else if (stack.getDisplayName().equals("Sanic")) {
 					player.addStat(AnimaniaAchievements.Sanic, 1);
 					AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sanic);
 					return super.processInteract(player, hand);
@@ -345,88 +338,90 @@ public class EntityHedgehogAlbino extends EntityTameable {
 				EntityLiving entityliving = this;
 				entityliving.setCustomNameTag(stack.getDisplayName());
 				entityliving.enablePersistence();
-				if (!player.capabilities.isCreativeMode) {
+				if (!player.capabilities.isCreativeMode)
 					stack.setCount(stack.getCount() - 1);
-				}
 				this.setIsTamed(true);
 				this.setTamed(true);
 				this.setOwnerId(player.getUniqueID());
 				return true;
 			}
 
-		} else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isHedgehogSitting() && !player.isSneaking()) {
+		}
+		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isHedgehogSitting() && !player.isSneaking()) {
 			this.setHedgehogSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
 			return true;
-		} else if (stack == ItemStack.EMPTY && this.isTamed() && this.isHedgehogSitting() && !player.isSneaking()) {
+		}
+		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isHedgehogSitting() && !player.isSneaking()) {
 			this.setHedgehogSitting(false);
 			this.setSitting(false);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
 			return true;
-		} else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking()) {
+		}
+		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking()) {
 			if (!this.isHedgehogRiding()) {
+				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
+				props.setMounted(true);
+				props.setPetName(this.getCustomNameTag());
+				props.setPetType("HedgehogAlbino");
 				this.setHedgehogRiding(true);
 			}
-			return interactRide(player);
-		} else if (stack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking()) {
+			return this.interactRide(player);
+		}
+		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking()) {
 			if (this.isHedgehogRiding()) {
+				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
+				props.setMounted(true);
 				this.setHedgehogRiding(false);
 			}
-			return interactRide(player);
-		} 
-		else {
-			return super.processInteract(player, hand);
+			return this.interactRide(player);
 		}
+		else
+			return super.processInteract(player, hand);
 	}
 
 	@Override
 	public void onLivingUpdate() {
 
-		if (this.isSitting() || this.isHedgehogSitting() || this.isRiding()) { 
-			if (this.getRidingEntity() != null) {
+		if (this.isSitting() || this.isHedgehogSitting() || this.isRiding()) {
+			if (this.getRidingEntity() != null)
 				this.rotationYaw = this.getRidingEntity().rotationYaw;
-			}
 			this.navigator.clearPathEntity();
 			this.navigator.setSpeed(0);
 		}
 
-		if (this.world.isRemote) {
+		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
-
-		}
 
 		if (this.blinkTimer > -1) {
 			this.blinkTimer--;
-			if (blinkTimer == 0) {
-				this.blinkTimer = 100 + rand.nextInt(100);
-			}
+			if (this.blinkTimer == 0)
+				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
 		if (this.fedTimer > -1) {
 			this.fedTimer--;
 
-			if (fedTimer == 0) {
+			if (this.fedTimer == 0)
 				this.setFed(false);
-			}
 		}
 
 		if (this.wateredTimer > -1) {
 			this.wateredTimer--;
 
-			if (wateredTimer == 0) {
+			if (this.wateredTimer == 0)
 				this.setWatered(false);
-			}
 		}
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-		if (this.getCustomNameTag().equals("Sonic")) {
+		if (this.getCustomNameTag().equals("Sonic"))
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 2, 4, false, false));
-		} else if (this.getCustomNameTag().equals("Sanic")) {
+		else if (this.getCustomNameTag().equals("Sanic")) {
 			this.addPotionEffect(new PotionEffect(MobEffects.GLOWING, 2, 3, false, false));
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 2, 6, false, false));
 		}
@@ -441,38 +436,38 @@ public class EntityHedgehogAlbino extends EntityTameable {
 				this.damageTimer++;
 			}
 
-		} else if (!fed || !watered) {
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		}
+		else if (!fed || !watered)
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 
 		if (this.happyTimer > -1) {
 			this.happyTimer--;
-			if (happyTimer == 0) {
-				happyTimer = 60;
+			if (this.happyTimer == 0) {
+				this.happyTimer = 60;
 
 				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles) {
-					double d = rand.nextGaussian() * 0.001D;
-					double d1 = rand.nextGaussian() * 0.001D;
-					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width,
-							posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1,
-							d2);
+					double d = this.rand.nextGaussian() * 0.001D;
+					double d1 = this.rand.nextGaussian() * 0.001D;
+					double d2 = this.rand.nextGaussian() * 0.001D;
+					this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + this.rand.nextFloat() * this.width - this.width,
+							this.posY + 1.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d,
+							d1, d2);
 				}
 			}
 		}
 
 		if (this.tamedTimer > -1) {
 			this.tamedTimer--;
-			if (tamedTimer == 0) {
-				tamedTimer = 120;
+			if (this.tamedTimer == 0) {
+				this.tamedTimer = 120;
 
 				if (this.getIsTamed() && AnimaniaConfig.gameRules.showUnhappyParticles) {
 
-					double d = rand.nextGaussian() * 0.02D;
-					double d1 = rand.nextGaussian() * 0.02D;
-					double d2 = rand.nextGaussian() * 0.02D;
-					world.spawnParticle(EnumParticleTypes.HEART, (posX + rand.nextFloat() * width) - width,
-							posY + 1D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1,
+					double d = this.rand.nextGaussian() * 0.02D;
+					double d1 = this.rand.nextGaussian() * 0.02D;
+					double d2 = this.rand.nextGaussian() * 0.02D;
+					this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + this.rand.nextFloat() * this.width - this.width,
+							this.posY + 1D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1,
 							d2);
 				}
 			}
@@ -484,102 +479,87 @@ public class EntityHedgehogAlbino extends EntityTameable {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id) {
-		if (id == 10) {
+		if (id == 10)
 			this.eatTimer = 160;
-		} else {
+		else
 			super.handleStatusUpdate(id);
-		}
 	}
 
-	public boolean isHedgehogSitting()
-	{
-		return ((Boolean)this.dataManager.get(SITTING)).booleanValue();
+	public boolean isHedgehogSitting() {
+		return this.dataManager.get(EntityHedgehogAlbino.SITTING).booleanValue();
 	}
 
-	public void setHedgehogSitting(boolean flag)
-	{
+	public void setHedgehogSitting(boolean flag) {
 		if (flag)
-		{
-			this.dataManager.set(SITTING, Boolean.valueOf(true));
-		}
+			this.dataManager.set(EntityHedgehogAlbino.SITTING, Boolean.valueOf(true));
 		else
-		{
-			this.dataManager.set(SITTING, Boolean.valueOf(false));
-		}
+			this.dataManager.set(EntityHedgehogAlbino.SITTING, Boolean.valueOf(false));
 	}
 
-	public boolean isHedgehogRiding()
-	{
-		return ((Boolean)this.dataManager.get(RIDING)).booleanValue();
+	public boolean isHedgehogRiding() {
+		return this.dataManager.get(EntityHedgehogAlbino.RIDING).booleanValue();
 	}
 
-	public void setHedgehogRiding(boolean flag)
-	{
+	public void setHedgehogRiding(boolean flag) {
 		if (flag)
-		{
-			this.dataManager.set(RIDING, Boolean.valueOf(true));
-		}
+			this.dataManager.set(EntityHedgehogAlbino.RIDING, Boolean.valueOf(true));
 		else
-		{
-			this.dataManager.set(RIDING, Boolean.valueOf(false));
-		}
+			this.dataManager.set(EntityHedgehogAlbino.RIDING, Boolean.valueOf(false));
 	}
 
 	public boolean getFed() {
-		return this.dataManager.get(FED).booleanValue();
+		return this.dataManager.get(EntityHedgehogAlbino.FED).booleanValue();
 	}
 
 	public void setFed(boolean fed) {
 		if (fed) {
-			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
+			this.dataManager.set(EntityHedgehogAlbino.FED, Boolean.valueOf(true));
+			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
-		} else {
-			this.dataManager.set(FED, Boolean.valueOf(false));
 		}
+		else
+			this.dataManager.set(EntityHedgehogAlbino.FED, Boolean.valueOf(false));
 	}
 
 	public boolean getWatered() {
-		return this.dataManager.get(WATERED).booleanValue();
+		return this.dataManager.get(EntityHedgehogAlbino.WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered) {
 		if (watered) {
-			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
-		} else {
-			this.dataManager.set(WATERED, Boolean.valueOf(false));
+			this.dataManager.set(EntityHedgehogAlbino.WATERED, Boolean.valueOf(true));
+			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		}
+		else
+			this.dataManager.set(EntityHedgehogAlbino.WATERED, Boolean.valueOf(false));
 	}
 
 	public boolean getIsTamed() {
-		return this.dataManager.get(TAMED).booleanValue();
+		return this.dataManager.get(EntityHedgehogAlbino.TAMED).booleanValue();
 	}
 
 	public void setIsTamed(boolean fed) {
-		if (fed) {
-			this.dataManager.set(TAMED, Boolean.valueOf(true));
-		} else {
-			this.dataManager.set(TAMED, Boolean.valueOf(false));
-		}
+		if (fed)
+			this.dataManager.set(EntityHedgehogAlbino.TAMED, Boolean.valueOf(true));
+		else
+			this.dataManager.set(EntityHedgehogAlbino.TAMED, Boolean.valueOf(false));
 	}
 
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_) {
 		return this.eatTimer <= 0 ? 0.0F
-				: (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F
-						: (this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F
-								: -(this.eatTimer - 160 - p_70894_1_) / 4.0F));
+				: this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F
+						: this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F;
 	}
 
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationAngleX(float p_70890_1_) {
 		if (this.eatTimer > 4 && this.eatTimer <= 156) {
 			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
-			return ((float) Math.PI / 5F) + ((float) Math.PI * 7F / 150F) * MathHelper.sin(f * 28.7F);
-		} else {
-			return this.eatTimer > 0 ? ((float) Math.PI / 5F) : this.rotationPitch * 0.017453292F;
+			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
 		}
+		else
+			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
 
 	@Override
@@ -593,6 +573,6 @@ public class EntityHedgehogAlbino extends EntityTameable {
 	 */
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack) {
-		return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());
+		return stack != ItemStack.EMPTY && EntityHedgehogAlbino.TEMPTATION_ITEMS.contains(stack.getItem());
 	}
 }

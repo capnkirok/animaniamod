@@ -8,16 +8,16 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
-public class LoginEventHandler {
+public class LoginEventHandler
+{
 
-	@SubscribeEvent
-	public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-		if (UpdateHandler.show && AnimaniaConfig.gameRules.showModUpdateNotification == true) {
-			event.player.sendMessage(new TextComponentString(UpdateHandler.updateStatus));
+    @SubscribeEvent
+    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (UpdateHandler.show && AnimaniaConfig.gameRules.showModUpdateNotification == true) {
+            event.player.sendMessage(new TextComponentString(UpdateHandler.updateStatus));
 
-			ITextComponent component = ITextComponent.Serializer
-					.jsonToComponent(I18n.translateToLocal("animania.update.download"));
-			event.player.sendMessage(component);
-		}
-	}
+            ITextComponent component = ITextComponent.Serializer.jsonToComponent(I18n.translateToLocal("animania.update.download"));
+            event.player.sendMessage(component);
+        }
+    }
 }

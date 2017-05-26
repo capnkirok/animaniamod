@@ -6,19 +6,20 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 
-public final class TabAnimaniaEntities extends CreativeTabs {
-	public TabAnimaniaEntities(int par1, String par2Str) {
-		super(par1, par2Str);
-	}
+public final class TabAnimaniaEntities extends CreativeTabs
+{
+    public TabAnimaniaEntities(int par1, String par2Str) {
+        super(par1, par2Str);
+    }
 
-	@Override
-	public String getTranslatedTabLabel() {
-		return I18n.translateToLocal("tab.animania_entities.label");
-	}
+    @Override
+    public String getTranslatedTabLabel() {
+        return I18n.translateToLocal("tab.animania_entities.label");
+    }
 
-	@Override
-	public ItemStack getTabIconItem() {
-		return new ItemStack(ItemHandler.entityeggrandomchicken, 1);
-	}
+    @Override
+    public ItemStack getTabIconItem() {
+        return new ItemStack(ItemHandler.entityeggrandomchicken, 1);
+    }
 
 }

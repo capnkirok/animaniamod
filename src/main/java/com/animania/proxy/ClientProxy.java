@@ -13,53 +13,54 @@ import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
-import scala.tools.nsc.Global;
 
-public class ClientProxy extends CommonProxy {
+public class ClientProxy extends CommonProxy
+{
 
-	@Override
-	public void preInit() {
-		super.preInit();
-		RenderHandler.preInit();
-		AnimaniaTextures.registerTextures();
+    @Override
+    public void preInit() {
+        super.preInit();
+        RenderHandler.preInit();
+        AnimaniaTextures.registerTextures();
 
-	}
+    }
 
-	@Override
-	public void init() {
-		super.init();
-		RenderHandler.init();
-	}
-	
-	
-	@Override
-	public void registerFluidBlockRendering(Block block, String name) {
-		name = name.toLowerCase();
-		super.registerFluidBlockRendering(block, name);
-		FluidStateMapper mapper = new FluidStateMapper(name);
-		
-		Item item = Item.getItemFromBlock(block);
-		ModelBakery.registerItemVariants(item);
-		ModelLoader.setCustomMeshDefinition(item, mapper);
+    @Override
+    public void init() {
+        super.init();
+        RenderHandler.init();
+    }
 
-		ModelLoader.setCustomStateMapper(block, mapper);
-	}
-	
-	
-	public static class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition {
-		public final ModelResourceLocation location;
+    @Override
+    public void registerFluidBlockRendering(Block block, String name) {
+        name = name.toLowerCase();
+        super.registerFluidBlockRendering(block, name);
+        FluidStateMapper mapper = new FluidStateMapper(name);
 
-		public FluidStateMapper(String name) {
-			location = new ModelResourceLocation(Animania.MODID + ":fluids", name);
-		}
+        Item item = Item.getItemFromBlock(block);
+        ModelBakery.registerItemVariants(item);
+        ModelLoader.setCustomMeshDefinition(item, mapper);
 
-		protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-			return location;
-		}
+        ModelLoader.setCustomStateMapper(block, mapper);
+    }
 
-		public ModelResourceLocation getModelLocation(ItemStack stack) {
-			return location;
-		}
-	}
+    public static class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition
+    {
+        public final ModelResourceLocation location;
+
+        public FluidStateMapper(String name) {
+            this.location = new ModelResourceLocation(Animania.MODID + ":fluids", name);
+        }
+
+        @Override
+        protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+            return this.location;
+        }
+
+        @Override
+        public ModelResourceLocation getModelLocation(ItemStack stack) {
+            return this.location;
+        }
+    }
 
 }

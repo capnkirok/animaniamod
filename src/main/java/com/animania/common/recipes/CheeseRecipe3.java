@@ -11,88 +11,86 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
-public class CheeseRecipe3 implements IRecipe {
+public class CheeseRecipe3 implements IRecipe
+{
 
-	private final ItemStack recipeOutput;
-	public final ArrayList recipeItems = new ArrayList();
-	private int knifeSlotJ;
-	private int knifeSlotI;
-	private ItemStack knifeStack;
+    private final ItemStack recipeOutput;
+    public final ArrayList  recipeItems = new ArrayList();
+    private int             knifeSlotJ;
+    private int             knifeSlotI;
+    private ItemStack       knifeStack;
 
-	public CheeseRecipe3() {
-		this.recipeOutput = new ItemStack(ItemHandler.cheeseWedgeHolstein, 4);
-		this.recipeItems.add(new ItemStack(ItemHandler.carvingKnife));
-		this.recipeItems.add(new ItemStack(ItemHandler.cheeseWheelHolstein));
+    public CheeseRecipe3() {
+        this.recipeOutput = new ItemStack(ItemHandler.cheeseWedgeHolstein, 4);
+        this.recipeItems.add(new ItemStack(ItemHandler.carvingKnife));
+        this.recipeItems.add(new ItemStack(ItemHandler.cheeseWheelHolstein));
 
-	}
+    }
 
-	@Override
-	public boolean matches(InventoryCrafting inv, World world) {
+    @Override
+    public boolean matches(InventoryCrafting inv, World world) {
 
-		ArrayList arraylist = new ArrayList(this.recipeItems);
+        ArrayList arraylist = new ArrayList(this.recipeItems);
 
-		for (int i = 0; i < 3; ++i) {
-			for (int j = 0; j < 3; ++j) {
-				ItemStack itemstack = inv.getStackInRowAndColumn(j, i);
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < 3; ++j) {
+                ItemStack itemstack = inv.getStackInRowAndColumn(j, i);
 
-				if (itemstack != ItemStack.EMPTY) {
-					boolean flag = false;
-					Iterator iterator = arraylist.iterator();
+                if (itemstack != ItemStack.EMPTY) {
+                    boolean flag = false;
+                    Iterator iterator = arraylist.iterator();
 
-					while (iterator.hasNext()) {
-						ItemStack itemstack1 = (ItemStack) iterator.next();
+                    while (iterator.hasNext()) {
+                        ItemStack itemstack1 = (ItemStack) iterator.next();
 
-						if (itemstack.getItem() == itemstack1.getItem()) {
-							flag = true;
+                        if (itemstack.getItem() == itemstack1.getItem()) {
+                            flag = true;
 
-							if (itemstack.getItem() == ItemHandler.carvingKnife) {
-								knifeSlotJ = j;
-								knifeSlotI = i;
-								knifeStack = itemstack.copy();
-							}
+                            if (itemstack.getItem() == ItemHandler.carvingKnife) {
+                                this.knifeSlotJ = j;
+                                this.knifeSlotI = i;
+                                this.knifeStack = itemstack.copy();
+                            }
 
-							arraylist.remove(itemstack1);
-							break;
-						}
-					}
+                            arraylist.remove(itemstack1);
+                            break;
+                        }
+                    }
 
-					if (!flag) {
-						return false;
-					}
-				}
-			}
-		}
+                    if (!flag)
+                        return false;
+                }
+            }
 
-		return arraylist.isEmpty();
-	}
+        return arraylist.isEmpty();
+    }
 
-	@Override
-	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
+    @Override
+    public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 
-		NonNullList<ItemStack> bob = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-		knifeStack.setItemDamage(knifeStack.getItemDamage() + 1);
+        NonNullList<ItemStack> bob = NonNullList.<ItemStack> withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+        this.knifeStack.setItemDamage(this.knifeStack.getItemDamage() + 1);
 
-		if (knifeStack.getItemDamage() >= knifeStack.getMaxDamage()) {
-			knifeStack = ItemStack.EMPTY;
-		}
+        if (this.knifeStack.getItemDamage() >= this.knifeStack.getMaxDamage())
+            this.knifeStack = ItemStack.EMPTY;
 
-		bob.set((knifeSlotJ + (knifeSlotI * (int) (Math.sqrt(inv.getSizeInventory())))), knifeStack);
+        bob.set(this.knifeSlotJ + this.knifeSlotI * (int) Math.sqrt(inv.getSizeInventory()), this.knifeStack);
 
-		return bob;
-	}
+        return bob;
+    }
 
-	@Override
-	public ItemStack getCraftingResult(InventoryCrafting inv) {
-		return this.recipeOutput.copy();
-	}
+    @Override
+    public ItemStack getCraftingResult(InventoryCrafting inv) {
+        return this.recipeOutput.copy();
+    }
 
-	@Override
-	public int getRecipeSize() {
-		return this.recipeItems.size();
-	}
+    @Override
+    public int getRecipeSize() {
+        return this.recipeItems.size();
+    }
 
-	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
-	}
+    @Override
+    public ItemStack getRecipeOutput() {
+        return ItemStack.EMPTY;
+    }
 }

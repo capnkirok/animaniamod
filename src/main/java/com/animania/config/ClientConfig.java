@@ -1,5 +1,6 @@
 package com.animania.config;
 
-public class ClientConfig {
+public class ClientConfig
+{
 
 }

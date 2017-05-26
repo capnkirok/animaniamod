@@ -17,44 +17,43 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemCookedLargeBlackBacon extends ItemFood {
-	private final String name = "cooked_large_black_bacon";
+public class ItemCookedLargeBlackBacon extends ItemFood
+{
+    private final String name = "cooked_large_black_bacon";
 
-	public ItemCookedLargeBlackBacon() {
-		super(8, 16F, true);
-		this.setAlwaysEdible();
-		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
-		GameRegistry.register(this);
-		setUnlocalizedName(Animania.MODID + "_" + name);
-		if (AnimaniaConfig.drops.customMobDrops) {
-			this.setCreativeTab(null);
-		} else {
-			this.setCreativeTab(Animania.TabAnimaniaResources);
-		}
-	}
+    public ItemCookedLargeBlackBacon() {
+        super(8, 16F, true);
+        this.setAlwaysEdible();
+        this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
+        GameRegistry.register(this);
+        this.setUnlocalizedName(Animania.MODID + "_" + this.name);
+        if (AnimaniaConfig.drops.customMobDrops)
+            this.setCreativeTab(null);
+        else
+            this.setCreativeTab(Animania.TabAnimaniaResources);
+    }
 
-	@Override
-	public EnumAction getItemUseAction(ItemStack itemstack) {
-		return EnumAction.EAT;
-	}
+    @Override
+    public EnumAction getItemUseAction(ItemStack itemstack) {
+        return EnumAction.EAT;
+    }
 
-	@Override
-	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
-		if (!worldObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects) {
-			entityplayer.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 1200, 2, false, false));
-		}
-	}
+    @Override
+    protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
+        if (!worldObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
+            entityplayer.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 1200, 2, false, false));
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	@Override
-	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4) {
-		if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
-			list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.absorption"));
-		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+    @Override
+    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4) {
+        if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
+            list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.absorption"));
+        list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
-	}
+    }
 
 }

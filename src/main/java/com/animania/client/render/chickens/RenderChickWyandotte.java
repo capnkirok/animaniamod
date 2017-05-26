@@ -2,61 +2,65 @@ package com.animania.client.render.chickens;
 
 import org.lwjgl.opengl.GL11;
 
+import com.animania.client.models.ModelChick;
+import com.animania.common.entities.chickens.EntityChickWyandotte;
+
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.animania.client.models.ModelChick;
-import com.animania.common.entities.chickens.EntityChickWyandotte;
-
 @SideOnly(Side.CLIENT)
-public class RenderChickWyandotte extends RenderLiving<EntityChickWyandotte>
+public class RenderChickWyandotte<T extends EntityChickWyandotte> extends RenderLiving<T>
 {
-	public RenderChickWyandotte(RenderManager rm)
-	{
-		super(rm, new ModelChick(), 0.2F);
-	}
+    public static final Factory FACTORY = new Factory();
 
-	@Override
-	protected float handleRotationFloat(EntityChickWyandotte livingBase, float partialTicks)
-	{
-		float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
-		float f1 = livingBase.oFlapSpeed + (livingBase.destPos - livingBase.oFlapSpeed) * partialTicks;
-		return (MathHelper.sin(f) + 1.0F) * f1;
-	}
-	
-	@Override
-	protected void preRenderCallback(EntityChickWyandotte entityliving, float f)
-	{
-		preRenderScale(entityliving, f);
-	}
+    public RenderChickWyandotte(RenderManager rm) {
+        super(rm, new ModelChick(), 0.2F);
+    }
 
-	protected void preRenderScale(EntityChickWyandotte entity, float f)
-	{
-		
-		float age = entity.getEntityAge();
-		
-		GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age); 
-		
+    @Override
+    protected float handleRotationFloat(T livingBase, float partialTicks) {
+        float f = livingBase.oFlap + (livingBase.wingRotation - livingBase.oFlap) * partialTicks;
+        float f1 = livingBase.oFlapSpeed + (livingBase.destPos - livingBase.oFlapSpeed) * partialTicks;
+        return (MathHelper.sin(f) + 1.0F) * f1;
+    }
 
-	}
+    @Override
+    protected void preRenderCallback(T entityliving, float f) {
+        this.preRenderScale(entityliving, f);
+    }
 
-	@Override
-	protected ResourceLocation getEntityTexture(EntityChickWyandotte entity) {
-		
-		int blinkTimer = entity.blinkTimer;
+    protected void preRenderScale(T entity, float f) {
 
-		if (blinkTimer < 5 && blinkTimer >= 0) {
-			return entity.getResourceLocationBlink();
-		} else {
-			return entity.getResourceLocation();
-		}
-		
-	}
-	
-	
+        float age = entity.getEntityAge();
+
+        GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age);
+
+    }
+
+    @Override
+    protected ResourceLocation getEntityTexture(T entity) {
+
+        int blinkTimer = entity.blinkTimer;
+
+        if (blinkTimer < 5 && blinkTimer >= 0)
+            return entity.getResourceLocationBlink();
+        else
+            return entity.getResourceLocation();
+
+    }
+
+    static class Factory<T extends EntityChickWyandotte> implements IRenderFactory<T>
+    {
+        @Override
+        public Render<? super T> createRenderFor(RenderManager manager) {
+            return new RenderChickWyandotte(manager);
+        }
+    }
 
 }

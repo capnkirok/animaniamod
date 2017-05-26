@@ -12,74 +12,69 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityToad extends EntityAmphibian {
+public class EntityToad extends EntityAmphibian
+{
 
-	public EntityToad(World worldIn) {
-		super(worldIn, true);
-	}
+    public EntityToad(World worldIn) {
+        super(worldIn, true);
+    }
 
-	protected SoundEvent getAmbientSound()
-	{
+    @Override
+    protected SoundEvent getAmbientSound() {
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(5);
+        Random rand = new Random();
+        int chooser = rand.nextInt(5);
 
-		if (chooser == 0) {
-			return ModSoundEvents.toadLiving1;
-		} else if (chooser == 1){
-			return ModSoundEvents.toadLiving2;
-		} else if (chooser == 2){
-			return ModSoundEvents.toadLiving3;
-		} else if (chooser == 3){
-			return ModSoundEvents.toadLiving4;
-		} else {
-			return null;
-		}
-	}
+        if (chooser == 0)
+            return ModSoundEvents.toadLiving1;
+        else if (chooser == 1)
+            return ModSoundEvents.toadLiving2;
+        else if (chooser == 2)
+            return ModSoundEvents.toadLiving3;
+        else if (chooser == 3)
+            return ModSoundEvents.toadLiving4;
+        else
+            return null;
+    }
 
-	protected SoundEvent getHurtSound()
-	{
-		return null;
-	}
+    @Override
+    protected SoundEvent getHurtSound() {
+        return null;
+    }
 
-	protected SoundEvent getDeathSound()
-	{
-		return null;
-	}
+    @Override
+    protected SoundEvent getDeathSound() {
+        return null;
+    }
 
-	@Override
-	public void playLivingSound()
-	{
-		SoundEvent soundevent = this.getAmbientSound();
+    @Override
+    public void playLivingSound() {
+        SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
-		{
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - (this.getAge() * 2));
-		}
-	}
+        if (soundevent != null)
+            this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getAge() * 2);
+    }
 
-	protected void playStepSound(BlockPos pos, Block blockIn)
-	{
-		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.05F, 1.1F);
-	}
+    @Override
+    protected void playStepSound(BlockPos pos, Block blockIn) {
+        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.05F, 1.1F);
+    }
 
-	protected float getSoundVolume()
-	{
-		return 0.4F;
-	}
-	
-	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
+    @Override
+    protected float getSoundVolume() {
+        return 0.4F;
+    }
 
-		Item dropItem;
+    @Override
+    protected void dropFewItems(boolean hit, int lootlevel) {
 
-		String drop = AnimaniaConfig.drops.toadDrop;
-		dropItem = Item.getByNameOrId(drop);
-		if (rand.nextInt(3) < 1) {
-			this.dropItem(dropItem, 1 + lootlevel);
-		}
+        Item dropItem;
 
-	}
+        String drop = AnimaniaConfig.drops.toadDrop;
+        dropItem = Item.getByNameOrId(drop);
+        if (this.rand.nextInt(3) < 1)
+            this.dropItem(dropItem, 1 + lootlevel);
+
+    }
 
 }

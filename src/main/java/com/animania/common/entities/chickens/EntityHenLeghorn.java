@@ -32,6 +32,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -54,33 +55,34 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityHenLeghorn extends EntityAnimal {
-	private static final DataParameter<String> COLOR = EntityDataManager.<String>createKey(EntityHenLeghorn.class,
+public class EntityHenLeghorn extends EntityAnimal
+{
+	private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityHenLeghorn.class,
 			DataSerializers.STRING);
-	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHenLeghorn.class,
+	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHenLeghorn.class,
 			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHenLeghorn.class,
+	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHenLeghorn.class,
 			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> LAID = EntityDataManager.<Boolean>createKey(EntityHenLeghorn.class,
+	private static final DataParameter<Boolean> LAID             = EntityDataManager.<Boolean> createKey(EntityHenLeghorn.class,
 			DataSerializers.BOOLEAN);
-	private static final Set<Item> TEMPTATION_ITEMS = Sets
+	private static final Set<Item>              TEMPTATION_ITEMS = Sets
 			.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
-	public int timeUntilNextEgg;
-	public boolean chickenJockey;
-	private static List ColorList;
-	private ResourceLocation resourceLocation;
-	private ResourceLocation resourceLocationBlink;
-	public float wingRotation;
-	public float destPos;
-	public float oFlapSpeed;
-	public float oFlap;
-	public float wingRotDelta = 1.0F;
-	private int fedTimer;
-	private int wateredTimer;
-	private int laidTimer;
-	private int happyTimer;
-	public int blinkTimer;
-	private int damageTimer;
+	public int                                  timeUntilNextEgg;
+	public boolean                              chickenJockey;
+	private static List                         ColorList;
+	private ResourceLocation                    resourceLocation;
+	private ResourceLocation                    resourceLocationBlink;
+	public float                                wingRotation;
+	public float                                destPos;
+	public float                                oFlapSpeed;
+	public float                                oFlap;
+	public float                                wingRotDelta     = 1.0F;
+	private int                                 fedTimer;
+	private int                                 wateredTimer;
+	private int                                 laidTimer;
+	private int                                 happyTimer;
+	public int                                  blinkTimer;
+	private int                                 damageTimer;
 
 	public EntityHenLeghorn(World world) {
 		super(world);
@@ -92,22 +94,22 @@ public class EntityHenLeghorn extends EntityAnimal {
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderChickens(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIFindNest(this, 1.0D));
-		this.tasks.addTask(7, new EntityAITempt(this, 1.2D, false, TEMPTATION_ITEMS));
+		this.tasks.addTask(7, new EntityAITempt(this, 1.2D, false, EntityHenLeghorn.TEMPTATION_ITEMS));
 		this.tasks.addTask(8, new EntityAIPanicChickens(this, 1.7D));
 		this.tasks.addTask(11, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
-		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + rand.nextInt(100);
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
+		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100);
 		this.happyTimer = 60;
-		this.blinkTimer = 80 + rand.nextInt(80);
+		this.blinkTimer = 80 + this.rand.nextInt(80);
 		this.enablePersistence();
-		this.chickenJockey = true;
+		this.chickenJockey = false;
 		String texture = null;
-		if (getColor() == "") {
-			setColor(getRandomColor());
-			texture = getColor();
-			resourceLocation = new ResourceLocation(texture);
-			resourceLocationBlink = new ResourceLocation(getTextureBlink());
+		if (this.getColor() == "") {
+			this.setColor(this.getRandomColor());
+			texture = this.getColor();
+			this.resourceLocation = new ResourceLocation(texture);
+			this.resourceLocationBlink = new ResourceLocation(this.getTextureBlink());
 		}
 	}
 
@@ -121,53 +123,50 @@ public class EntityHenLeghorn extends EntityAnimal {
 
 		player.addStat(AnimaniaAchievements.Leghorn, 1);
 		if (player.hasAchievement(AnimaniaAchievements.Leghorn) && player.hasAchievement(AnimaniaAchievements.Orpington)
-				&& player.hasAchievement(AnimaniaAchievements.PlymouthRock)
-				&& player.hasAchievement(AnimaniaAchievements.RhodeIslandRed)
-				&& player.hasAchievement(AnimaniaAchievements.Wyandotte)) {
+				&& player.hasAchievement(AnimaniaAchievements.PlymouthRock) && player.hasAchievement(AnimaniaAchievements.RhodeIslandRed)
+				&& player.hasAchievement(AnimaniaAchievements.Wyandotte))
 			player.addStat(AnimaniaAchievements.Chickens, 1);
-		}
-		if (!player.capabilities.isCreativeMode) {
+		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
-		}
 	}
 
 	@Override
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 
-		if (this.world.isRemote) {
+		if (this.world.isRemote)
 			return null;
-		}
 
 		int chickenCount = 0;
 		int esize = this.world.loadedEntityList.size();
 		for (int k = 0; k <= esize - 1; k++) {
 			Entity entity = this.world.loadedEntityList.get(k);
-			if (entity.getName().contains("Leghorn") || entity.getName().contains("Orpington")
-					|| entity.getName().contains("PlymouthRock") || entity.getName().contains("RhodeIsland")
-					|| entity.getName().contains("Wyandotte")) {
+			if (entity.getName().contains("Leghorn") || entity.getName().contains("Orpington") || entity.getName().contains("PlymouthRock")
+					|| entity.getName().contains("RhodeIsland") || entity.getName().contains("Wyandotte")) {
 				EntityAnimal ea = (EntityAnimal) entity;
 				if (ea.hasCustomName() || ea.isInLove()) {
 					// chickenCount = chickenCount - 1;
-				} else {
-					chickenCount = chickenCount + 1;
 				}
+				else
+					chickenCount = chickenCount + 1;
 			}
 		}
 
 		if (chickenCount <= AnimaniaConfig.spawn.spawnLimitChickens) {
 
-			int chooser = rand.nextInt(5);
+			int chooser = this.rand.nextInt(5);
 
 			if (chooser == 0) {
 				EntityRoosterLeghorn entityChicken = new EntityRoosterLeghorn(this.world);
 				entityChicken.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityChicken);
-			} else if (chooser == 1) {
+			}
+			else if (chooser == 1) {
 				EntityChickLeghorn entityChicken = new EntityChickLeghorn(this.world);
 				entityChicken.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityChicken);
-			} else if (chooser > 2) {
+			}
+			else if (chooser > 2) {
 				EntityRoosterLeghorn entityChicken = new EntityRoosterLeghorn(this.world);
 				entityChicken.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityChicken);
@@ -177,13 +176,12 @@ public class EntityHenLeghorn extends EntityAnimal {
 			}
 
 			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE)
-					.applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
+			.applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
-			if (this.rand.nextFloat() < 0.05F) {
+			if (this.rand.nextFloat() < 0.05F)
 				this.setLeftHanded(true);
-			} else {
+			else
 				this.setLeftHanded(false);
-			}
 
 		}
 
@@ -201,30 +199,28 @@ public class EntityHenLeghorn extends EntityAnimal {
 		EntityPlayer entityplayer = player;
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
-			{
-				this.setWatered(true);
-				this.setInLove(player);
-				return true;
-			}
-		} else {
-			return super.processInteract(player, hand);
+			this.setWatered(true);
+			this.setInLove(player);
+			return true;
 		}
+		else
+			return super.processInteract(player, hand);
 	}
 
 	public String getColor() {
-		return (this.dataManager.get(COLOR));
+		return this.dataManager.get(EntityHenLeghorn.COLOR);
 	}
 
 	public void setColor(String color) {
-		this.dataManager.set(COLOR, String.valueOf(color));
+		this.dataManager.set(EntityHenLeghorn.COLOR, String.valueOf(color));
 	}
 
 	public ResourceLocation getResourceLocation() {
-		return resourceLocation;
+		return this.resourceLocation;
 	}
 
 	public ResourceLocation getResourceLocationBlink() {
-		return resourceLocationBlink;
+		return this.resourceLocationBlink;
 	}
 
 	private String getRandomColor() {
@@ -237,16 +233,16 @@ public class EntityHenLeghorn extends EntityAnimal {
 	}
 
 	private void ColorInitialize() {
-		if (ColorList == null) {
-			ColorList = new ArrayList();
+		if (EntityHenLeghorn.ColorList == null) {
+			EntityHenLeghorn.ColorList = new ArrayList();
 			try {
 				Pattern p = Pattern.compile("assets/animania/textures/(entity/chickens/hen_.*)");
 
-				for (ResourceInfo i : ClassPath.from(getClass().getClassLoader()).getResources()) {
+				for (ResourceInfo i : ClassPath.from(this.getClass().getClassLoader()).getResources()) {
 					Matcher m = p.matcher(i.getResourceName());
 					if (m.matches()) {
 						String s = m.group(1);
-						ColorList.add(s);
+						EntityHenLeghorn.ColorList.add(s);
 					}
 				}
 			} catch (Exception e) {
@@ -265,16 +261,16 @@ public class EntityHenLeghorn extends EntityAnimal {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataManager.register(COLOR, "");
-		this.dataManager.register(FED, Boolean.valueOf(true));
-		this.dataManager.register(WATERED, Boolean.valueOf(true));
-		this.dataManager.register(LAID, Boolean.valueOf(true));
+		this.dataManager.register(EntityHenLeghorn.COLOR, "");
+		this.dataManager.register(EntityHenLeghorn.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityHenLeghorn.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityHenLeghorn.LAID, Boolean.valueOf(true));
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
 		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setString("Color", getColor());
+		nbttagcompound.setString("Color", this.getColor());
 		nbttagcompound.setBoolean("IsChickenJockey", this.chickenJockey);
 		nbttagcompound.setInteger("EggLayTime", this.timeUntilNextEgg);
 		nbttagcompound.setBoolean("Fed", this.getFed());
@@ -287,23 +283,21 @@ public class EntityHenLeghorn extends EntityAnimal {
 		super.readEntityFromNBT(nbttagcompound);
 		String s1 = nbttagcompound.getString("Color");
 
-		ColorInitialize();
-		if (s1.length() > 0) {
+		this.ColorInitialize();
+		if (s1.length() > 0)
+			if (EntityHenLeghorn.ColorList.contains(s1)) {
 
-			if (ColorList.contains(s1)) {
-
-				setColor(s1);
-				resourceLocation = new ResourceLocation(s1);
-			} else {
+				this.setColor(s1);
+				this.resourceLocation = new ResourceLocation(s1);
+			}
+			else {
 				// setDead();
 			}
-		}
 
 		this.chickenJockey = nbttagcompound.getBoolean("IsChickenJockey");
 
-		if (nbttagcompound.hasKey("EggLayTime")) {
+		if (nbttagcompound.hasKey("EggLayTime"))
 			this.timeUntilNextEgg = nbttagcompound.getInteger("EggLayTime");
-		}
 
 		this.setFed(nbttagcompound.getBoolean("Fed"));
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
@@ -313,6 +307,7 @@ public class EntityHenLeghorn extends EntityAnimal {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
+
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
 		this.destPos = (float) (this.destPos + (this.onGround ? -1 : 4) * 0.3D);
@@ -320,53 +315,46 @@ public class EntityHenLeghorn extends EntityAnimal {
 
 		this.fallDistance = 0;
 
-		if (!this.onGround && this.wingRotDelta < 1.0F) {
+		if (!this.onGround && this.wingRotDelta < 1.0F)
 			this.wingRotDelta = 1.0F;
-		}
 
 		this.wingRotDelta = (float) (this.wingRotDelta * 0.9D);
 
-		if (!this.onGround && this.motionY < 0.0D) {
+		if (!this.onGround && this.motionY < 0.0D)
 			this.motionY *= 0.6D;
-		}
 
 		this.wingRotation += this.wingRotDelta * 2.0F;
 
-		if (!this.world.isRemote && !this.isChild() && !this.isChickenJockey() && --this.timeUntilNextEgg <= 0) {
+		if (!this.world.isRemote && !this.isChild() && !this.isChickenJockey() && --this.timeUntilNextEgg <= 0)
 			// this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F,
 			// (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
 			// this.dropItem(Items.EGG, 1);
 			this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
-		}
 
 		if (this.blinkTimer > -1) {
 			this.blinkTimer--;
-			if (blinkTimer == 0) {
-				this.blinkTimer = 100 + rand.nextInt(100);
-			}
+			if (this.blinkTimer == 0)
+				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
 		if (this.fedTimer > -1) {
 			this.fedTimer--;
 
-			if (fedTimer == 0) {
+			if (this.fedTimer == 0)
 				this.setFed(false);
-			}
 		}
 
 		if (this.wateredTimer > -1) {
 			this.wateredTimer--;
 
-			if (wateredTimer == 0) {
+			if (this.wateredTimer == 0)
 				this.setWatered(false);
-			}
 		}
 
-		if (this.laidTimer > -1) {
+		if (this.laidTimer > -1)
 			this.laidTimer--;
-		} else {
+		else
 			this.setLaid(false);
-		}
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
@@ -382,22 +370,22 @@ public class EntityHenLeghorn extends EntityAnimal {
 				this.damageTimer++;
 			}
 
-		} else if (!fed || !watered) {
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		}
+		else if (!fed || !watered)
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 
 		if (this.happyTimer > -1) {
 			this.happyTimer--;
-			if (happyTimer == 0) {
-				happyTimer = 60;
+			if (this.happyTimer == 0) {
+				this.happyTimer = 60;
 
 				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles) {
-					double d = rand.nextGaussian() * 0.001D;
-					double d1 = rand.nextGaussian() * 0.001D;
-					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + rand.nextFloat() * width) - width,
-							posY + 1.5D + rand.nextFloat() * height, (posZ + rand.nextFloat() * width) - width, d, d1,
-							d2);
+					double d = this.rand.nextGaussian() * 0.001D;
+					double d1 = this.rand.nextGaussian() * 0.001D;
+					double d2 = this.rand.nextGaussian() * 0.001D;
+					this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + this.rand.nextFloat() * this.width - this.width,
+							this.posY + 1.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d,
+							d1, d2);
 				}
 			}
 		}
@@ -405,50 +393,49 @@ public class EntityHenLeghorn extends EntityAnimal {
 	}
 
 	public boolean getFed() {
-		return this.dataManager.get(FED).booleanValue();
+		return this.dataManager.get(EntityHenLeghorn.FED).booleanValue();
 	}
 
 	public void setFed(boolean fed) {
 		if (fed) {
-			this.dataManager.set(FED, Boolean.valueOf(true));
-			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
+			this.dataManager.set(EntityHenLeghorn.FED, Boolean.valueOf(true));
+			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
-		} else {
-			this.dataManager.set(FED, Boolean.valueOf(false));
 		}
+		else
+			this.dataManager.set(EntityHenLeghorn.FED, Boolean.valueOf(false));
 	}
 
 	public boolean getLaid() {
-		return this.dataManager.get(LAID).booleanValue();
+		return this.dataManager.get(EntityHenLeghorn.LAID).booleanValue();
 	}
 
 	public void setLaid(boolean laid) {
 		if (laid) {
-			this.dataManager.set(LAID, Boolean.valueOf(true));
-			this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer + rand.nextInt(100);
-		} else {
-			this.dataManager.set(LAID, Boolean.valueOf(false));
+			this.dataManager.set(EntityHenLeghorn.LAID, Boolean.valueOf(true));
+			this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer + this.rand.nextInt(100);
 		}
+		else
+			this.dataManager.set(EntityHenLeghorn.LAID, Boolean.valueOf(false));
 	}
 
 	public boolean getWatered() {
-		return this.dataManager.get(WATERED).booleanValue();
+		return this.dataManager.get(EntityHenLeghorn.WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered) {
 		if (watered) {
-			this.dataManager.set(WATERED, Boolean.valueOf(true));
-			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
-		} else {
-			this.dataManager.set(WATERED, Boolean.valueOf(false));
+			this.dataManager.set(EntityHenLeghorn.WATERED, Boolean.valueOf(true));
+			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		}
+		else
+			this.dataManager.set(EntityHenLeghorn.WATERED, Boolean.valueOf(false));
 	}
 
 	/**
 	 * Called when the mob is falling. Calculates and applies fall damage.
 	 */
-	protected void fall(float p_70069_1_) {
-	}
+	protected void fall(float p_70069_1_) {}
 
 	/**
 	 * Returns the sound this mob makes while it's alive.
@@ -458,37 +445,33 @@ public class EntityHenLeghorn extends EntityAnimal {
 		int happy = 0;
 		int num = 0;
 
-		if (this.getWatered()) {
+		if (this.getWatered())
 			happy++;
-		}
-		if (this.getFed()) {
+		if (this.getFed())
 			happy++;
-		}
 
-		if (happy == 2) {
+		if (happy == 2)
 			num = 6;
-		} else if (happy == 1) {
+		else if (happy == 1)
 			num = 12;
-		} else {
+		else
 			num = 24;
-		}
 
 		Random rand = new Random();
 		int chooser = rand.nextInt(num);
 
-		if (chooser == 0) {
+		if (chooser == 0)
 			return ModSoundEvents.chickenCluck1;
-		} else if (chooser == 1) {
+		else if (chooser == 1)
 			return ModSoundEvents.chickenCluck2;
-		} else if (chooser == 2) {
+		else if (chooser == 2)
 			return ModSoundEvents.chickenCluck3;
-		} else if (chooser == 3) {
+		else if (chooser == 3)
 			return ModSoundEvents.chickenCluck4;
-		} else if (chooser == 4) {
+		else if (chooser == 4)
 			return ModSoundEvents.chickenCluck5;
-		} else {
+		else
 			return ModSoundEvents.chickenCluck6;
-		}
 	}
 
 	@Override
@@ -496,11 +479,10 @@ public class EntityHenLeghorn extends EntityAnimal {
 		Random rand = new Random();
 		int chooser = rand.nextInt(2);
 
-		if (chooser == 0) {
+		if (chooser == 0)
 			return ModSoundEvents.chickenHurt1;
-		} else {
+		else
 			return ModSoundEvents.chickenHurt2;
-		}
 	}
 
 	@Override
@@ -508,20 +490,18 @@ public class EntityHenLeghorn extends EntityAnimal {
 		Random rand = new Random();
 		int chooser = rand.nextInt(2);
 
-		if (chooser == 0) {
+		if (chooser == 0)
 			return ModSoundEvents.chickenDeath1;
-		} else {
+		else
 			return ModSoundEvents.chickenDeath2;
-		}
 	}
 
 	@Override
 	public void playLivingSound() {
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null) {
+		if (soundevent != null)
 			this.playSound(soundevent, this.getSoundVolume() - .3F, this.getSoundPitch());
-		}
 	}
 
 	@Override
@@ -539,27 +519,25 @@ public class EntityHenLeghorn extends EntityAnimal {
 
 		int happyDrops = 0;
 
-		if (this.getWatered()) {
+		if (this.getWatered())
 			happyDrops++;
-		}
-		if (this.getFed()) {
+		if (this.getFed())
 			happyDrops++;
-		}
 
 		int j;
 		int k;
 
 		j = happyDrops + lootlevel;
 
-		for (k = 0; k < j; ++k) {
+		for (k = 0; k < j; ++k)
 			if (this.isBurning()) {
 				this.dropItem(Items.COOKED_CHICKEN, 1);
 				this.dropItem(Items.FEATHER, 1);
-			} else {
+			}
+			else {
 				this.dropItem(Items.CHICKEN, 1);
 				this.dropItem(Items.FEATHER, 1);
 			}
-		}
 	}
 
 	/**
@@ -568,7 +546,7 @@ public class EntityHenLeghorn extends EntityAnimal {
 	 */
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack) {
-		return stack != ItemStack.EMPTY && TEMPTATION_ITEMS.contains(stack.getItem());
+		return stack != ItemStack.EMPTY && EntityHenLeghorn.TEMPTATION_ITEMS.contains(stack.getItem());
 	}
 
 	/**
@@ -596,12 +574,10 @@ public class EntityHenLeghorn extends EntityAnimal {
 		float f1 = MathHelper.cos(this.renderYawOffset * 0.017453292F);
 		float f2 = 0.1F;
 		float f3 = 0.0F;
-		passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D,
-				this.posZ - 0.1F * f1);
+		passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.posZ - 0.1F * f1);
 
-		if (passenger instanceof EntityLivingBase) {
+		if (passenger instanceof EntityLivingBase)
 			((EntityLivingBase) passenger).renderYawOffset = this.renderYawOffset;
-		}
 	}
 
 	public boolean isChickenJockey() {
