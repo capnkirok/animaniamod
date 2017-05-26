@@ -51,271 +51,287 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 public class BlockTrough extends BlockContainer
 {
-    private String                        name       = "block_trough";
-    public static final PropertyDirection FACING     = BlockDirectional.FACING;
-    public static final PropertyInteger   TYPE       = PropertyInteger.create("type", 0, 3);
-    protected static final AxisAlignedBB  NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.25D, 2.0D, 0.3D, 0.75D);
-    protected static final AxisAlignedBB  SOUTH_AABB = new AxisAlignedBB(-1.0D, 0.0D, 0.25D, 1.0D, 0.3D, 0.75D);
-    protected static final AxisAlignedBB  WEST_AABB  = new AxisAlignedBB(0.25D, 0.0D, -1.0D, 0.75D, 0.3D, 1.0D);
-    protected static final AxisAlignedBB  EAST_AABB  = new AxisAlignedBB(0.25D, 0.0D, 0.0D, 0.75D, 0.3D, 2.0D);
+	private String name = "block_trough";
+	public static final PropertyDirection FACING = BlockDirectional.FACING;
+	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 3);
+	protected static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.25D, 2.0D, 0.3D, 0.75D);
+	protected static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(-1.0D, 0.0D, 0.25D, 1.0D, 0.3D, 0.75D);
+	protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.25D, 0.0D, -1.0D, 0.75D, 0.3D, 1.0D);
+	protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.0D, 0.75D, 0.3D, 2.0D);
 
-    public BlockTrough() {
-        super(Material.WOOD);
-        this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-        this.setDefaultState(this.blockState.getBaseState().withProperty(BlockTrough.FACING, EnumFacing.NORTH));
-        GameRegistry.register(this);
-        this.setUnlocalizedName(Animania.MODID + "_" + this.name);
-        this.setCreativeTab(Animania.TabAnimaniaResources);
-    }
+	public BlockTrough()
+	{
+		super(Material.WOOD);
+		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(BlockTrough.FACING, EnumFacing.NORTH));
+		GameRegistry.register(this);
+		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
+		this.setCreativeTab(Animania.TabAnimaniaResources);
+	}
 
-    @Override
-    public String getLocalizedName() {
-        return I18n.translateToLocal("tile.animania_block_trough.name");
-    }
+	@Override
+	public String getLocalizedName()
+	{
+		return I18n.translateToLocal("tile.animania_block_trough.name");
+	}
 
-    /**
-     * Used to determine ambient occlusion and culling when rebuilding chunks
-     * for render
-     */
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
+	/**
+	 * Used to determine ambient occlusion and culling when rebuilding chunks
+	 * for render
+	 */
+	@Override
+	public boolean isOpaqueCube(IBlockState state)
+	{
+		return false;
+	}
 
-    @Override
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
+	@Override
+	public boolean isFullCube(IBlockState state)
+	{
+		return false;
+	}
 
-    @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+	@Override
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+	{
 
-        TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 
-        if (entityIn != null && entityIn instanceof EntityItem) {
+		if (entityIn != null && entityIn instanceof EntityItem)
+		{
 
-            EntityItem entityitem = (EntityItem) entityIn;
-            ItemStack stack = entityitem.getEntityItem();
+			EntityItem entityitem = (EntityItem) entityIn;
+			ItemStack stack = entityitem.getEntityItem();
 
-            // SOLIDS
-            if (!stack.isEmpty() && stack.getItem() == Items.WHEAT) {
-                if (!te.itemHandler.getStackInSlot(0).isEmpty() && te.itemHandler.getStackInSlot(0).getCount() < 3
-                        || te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null) {
-                    te.itemHandler.insertItem(0, new ItemStack(Items.WHEAT), false);
-                    stack.shrink(1);
+			// SOLIDS
+			if (!stack.isEmpty() && stack.getItem() == Items.WHEAT)
+			{
+				if (!te.itemHandler.getStackInSlot(0).isEmpty() && te.itemHandler.getStackInSlot(0).getCount() < 3 || te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+				{
+					te.itemHandler.insertItem(0, new ItemStack(Items.WHEAT), false);
+					stack.shrink(1);
 
-                }
-
-            }
-            // LIQUIDS
-            else if (this.hasFluid(stack, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null) {
-                te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-                worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.6F, 0.8F);
-                IFluidHandlerItem handler = FluidUtil.getFluidHandler(stack);
-                handler.drain(1000, true);
-                ItemStack newStack = handler.getContainer();
-                entityitem.setEntityItemStack(newStack);
-
-            }
-            else if (this.hasFluid(stack, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty()
-                    && te.fluidHandler.getFluid() == null) {
-                te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
-                worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.BLOCKS, 0.6F, 0.8F);
-
-                IFluidHandlerItem handler = FluidUtil.getFluidHandler(stack);
-                handler.drain(1000, true);
-                ItemStack newStack = handler.getContainer();
-                entityitem.setEntityItemStack(newStack);
+				}
 
 			}
-			
+			// LIQUIDS
+			else if (this.hasFluid(stack, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+			{
+				te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
+				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.6F, 0.8F);
+				IFluidHandlerItem handler = FluidUtil.getFluidHandler(stack);
+				handler.drain(1000, true);
+				ItemStack newStack = handler.getContainer();
+				entityitem.setEntityItemStack(newStack);
+
+			} else if (this.hasFluid(stack, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+			{
+				te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
+				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.BLOCKS, 0.6F, 0.8F);
+
+				IFluidHandlerItem handler = FluidUtil.getFluidHandler(stack);
+				handler.drain(1000, true);
+				ItemStack newStack = handler.getContainer();
+				entityitem.setEntityItemStack(newStack);
+
+			}
+
 			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 
-        }
-    }
+		}
+	}
 
-    @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	{
 
-        switch (state.getValue(BlockTrough.FACING)) {
-            case NORTH:
-            default:
-                return BlockTrough.NORTH_AABB;
-            case SOUTH:
-                return BlockTrough.SOUTH_AABB;
-            case WEST:
-                return BlockTrough.WEST_AABB;
-            case EAST:
-                return BlockTrough.EAST_AABB;
-        }
-    }
-
-    /**
-     * Called by ItemBlocks just before a block is actually set in the world, to
-     * allow for adjustments to the IBlockstate
-     */
-
-    @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-
-        TileEntityTrough teChk = (TileEntityTrough) worldIn.getTileEntity(pos);
-
-        if (teChk == null || teChk.getTroughType() == 0.0F) {
-
-            EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3).getOpposite();
-            state = state.withProperty(BlockTrough.FACING, enumfacing);
-            BlockPos blockpos = pos.north();
-            boolean flag = this.blockState == worldIn.getBlockState(blockpos);
-
-            if (!flag)
-                worldIn.setBlockState(pos, state, 3);
-
-            // System.out.println(placer.getHorizontalFacing().toString());
-
-            if (placer.getHorizontalFacing().toString() == "south") {
-                BlockPos invisipos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
-                worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
-                TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
-                te.setTroughRotation(0);
-            }
-            else if (placer.getHorizontalFacing().toString() == "north") {
-                BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
-                worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
-                TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
-                te.setTroughRotation(1);
-            }
-            else if (placer.getHorizontalFacing().toString() == "east") {
-                BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
-                worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
-                TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
-                te.setTroughRotation(2);
-            }
-            else if (placer.getHorizontalFacing().toString() == "west") {
-                BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
-                worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
-                TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
-                te.setTroughRotation(3);
-            }
-        }
-
-    }
-
-    @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        EntityPlayer entityplayer = worldIn.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false);
-
-        String dir = "";
-
-        if (entityplayer != null)
-            dir = entityplayer.getHorizontalFacing().toString().trim();
-
-        BlockPos blockpos = pos.west();
-        BlockPos blockpos1 = pos.east();
-        BlockPos blockpos2 = pos.north();
-        BlockPos blockpos3 = pos.south();
-
-        if (dir.equals("north") && !worldIn.getBlockState(blockpos).getBlock().isReplaceable(worldIn, blockpos))
-            return false;
-
-        if (dir.equals("east") && !worldIn.getBlockState(blockpos2).getBlock().isReplaceable(worldIn, blockpos2))
-            return false;
-
-        if (dir.equals("south") && !worldIn.getBlockState(blockpos1).getBlock().isReplaceable(worldIn, blockpos1))
-            return false;
-
-        if (dir.equals("west") && !worldIn.getBlockState(blockpos3).getBlock().isReplaceable(worldIn, blockpos3))
-            return false;
-
-        return true;
-
-    }
-
-    /**
-     * Returns a new instance of a block's tile entity class. Called on placing
-     * the block.
-     */
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityTrough();
-    }
-
-    @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-        return new ItemStack(BlockHandler.blockTrough, 1);
-    }
-
-    @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
-        String dir = state.getValue(BlockTrough.FACING).toString();
-
-        if (dir == "south") {
-            BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
-            worldIn.setBlockToAir(invisipos);
-        }
-        else if (dir == "north") {
-            BlockPos invisipos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
-            worldIn.setBlockToAir(invisipos);
-        }
-        else if (dir == "east") {
-            BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
-            worldIn.setBlockToAir(invisipos);
-        }
-        else if (dir == "west") {
-            BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
-            worldIn.setBlockToAir(invisipos);
-        }
-
-        TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
-        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
-        Random rand = new Random();
-
-        super.breakBlock(worldIn, pos, state);
-    }
-
-    @Override
-    @Nullable
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(BlockHandler.blockTrough);
-    }
-
-    public boolean canDispenserPlace(World worldIn, BlockPos pos, ItemStack stack) {
-        return stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL;
-    }
-
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(BlockTrough.FACING, EnumFacing.getHorizontal(meta & 3));
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        int i = 0;
-        i = i | state.getValue(BlockTrough.FACING).getIndex();
-        return i;
-    }
-
-    @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-            float hitX, float hitY, float hitZ) {
-
-        ItemStack heldItem = playerIn.getHeldItem(hand);
-        TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
-
-	/*	if (worldIn.isRemote)
+		switch (state.getValue(BlockTrough.FACING))
 		{
-			return true;
+		case NORTH:
+		default:
+			return BlockTrough.NORTH_AABB;
+		case SOUTH:
+			return BlockTrough.SOUTH_AABB;
+		case WEST:
+			return BlockTrough.WEST_AABB;
+		case EAST:
+			return BlockTrough.EAST_AABB;
+		}
+	}
 
-		}*/
+	/**
+	 * Called by ItemBlocks just before a block is actually set in the world, to
+	 * allow for adjustments to the IBlockstate
+	 */
+
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+	{
+
+		TileEntityTrough teChk = (TileEntityTrough) worldIn.getTileEntity(pos);
+
+		if (teChk == null || teChk.getTroughType() == 0.0F)
+		{
+
+			EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3).getOpposite();
+			state = state.withProperty(BlockTrough.FACING, enumfacing);
+			BlockPos blockpos = pos.north();
+			boolean flag = this.blockState == worldIn.getBlockState(blockpos);
+
+			if (!flag)
+				worldIn.setBlockState(pos, state, 3);
+
+			// System.out.println(placer.getHorizontalFacing().toString());
+
+			if (placer.getHorizontalFacing().toString() == "south")
+			{
+				BlockPos invisipos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
+				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
+				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+				te.setTroughRotation(0);
+			} else if (placer.getHorizontalFacing().toString() == "north")
+			{
+				BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
+				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
+				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+				te.setTroughRotation(1);
+			} else if (placer.getHorizontalFacing().toString() == "east")
+			{
+				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
+				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
+				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+				te.setTroughRotation(2);
+			} else if (placer.getHorizontalFacing().toString() == "west")
+			{
+				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
+				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
+				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+				te.setTroughRotation(3);
+			}
+		}
+
+	}
+
+	@Override
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+	{
+		EntityPlayer entityplayer = worldIn.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false);
+
+		String dir = "";
+
+		if (entityplayer != null)
+			dir = entityplayer.getHorizontalFacing().toString().trim();
+
+		BlockPos blockpos = pos.west();
+		BlockPos blockpos1 = pos.east();
+		BlockPos blockpos2 = pos.north();
+		BlockPos blockpos3 = pos.south();
+
+		if (dir.equals("north") && !worldIn.getBlockState(blockpos).getBlock().isReplaceable(worldIn, blockpos))
+			return false;
+
+		if (dir.equals("east") && !worldIn.getBlockState(blockpos2).getBlock().isReplaceable(worldIn, blockpos2))
+			return false;
+
+		if (dir.equals("south") && !worldIn.getBlockState(blockpos1).getBlock().isReplaceable(worldIn, blockpos1))
+			return false;
+
+		if (dir.equals("west") && !worldIn.getBlockState(blockpos3).getBlock().isReplaceable(worldIn, blockpos3))
+			return false;
+
+		return true;
+
+	}
+
+	/**
+	 * Returns a new instance of a block's tile entity class. Called on placing
+	 * the block.
+	 */
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta)
+	{
+		return new TileEntityTrough();
+	}
+
+	@Override
+	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
+	{
+		return new ItemStack(BlockHandler.blockTrough, 1);
+	}
+
+	@Override
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+	{
+
+		String dir = state.getValue(BlockTrough.FACING).toString();
+
+		if (dir == "south")
+		{
+			BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
+			worldIn.setBlockToAir(invisipos);
+		} else if (dir == "north")
+		{
+			BlockPos invisipos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
+			worldIn.setBlockToAir(invisipos);
+		} else if (dir == "east")
+		{
+			BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
+			worldIn.setBlockToAir(invisipos);
+		} else if (dir == "west")
+		{
+			BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
+			worldIn.setBlockToAir(invisipos);
+		}
+
+		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+		InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
+		Random rand = new Random();
+
+		super.breakBlock(worldIn, pos, state);
+	}
+
+	@Override
+	@Nullable
+	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	{
+		return Item.getItemFromBlock(BlockHandler.blockTrough);
+	}
+
+	public boolean canDispenserPlace(World worldIn, BlockPos pos, ItemStack stack)
+	{
+		return stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL;
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta)
+	{
+		return this.getDefaultState().withProperty(BlockTrough.FACING, EnumFacing.getHorizontal(meta & 3));
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state)
+	{
+		int i = 0;
+		i = i | state.getValue(BlockTrough.FACING).getIndex();
+		return i;
+	}
+
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
+			float hitX, float hitY, float hitZ) {
+
+		ItemStack heldItem = playerIn.getHeldItem(hand);
+		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+
 		// SOLIDS
-		 if (!heldItem.isEmpty() && heldItem.getItem() == Items.WHEAT)
+		if (!heldItem.isEmpty() && heldItem.getItem() == Items.WHEAT)
 		{
 			if ((!te.itemHandler.getStackInSlot(0).isEmpty() && te.itemHandler.getStackInSlot(0).getCount() < 3) || te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
 				te.itemHandler.insertItem(0, new ItemStack(Items.WHEAT), false);
 				if (!playerIn.isCreative())
 					heldItem.shrink(1);
-				
+
 				worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 				return true;
 			}
@@ -372,96 +388,94 @@ public class BlockTrough extends BlockContainer
 					heldItem1.setCount(1);
 					handler = FluidUtil.getFluidHandler(heldItem1);
 
-                handler.fill(fluidStack, true);
-                ItemStack newstack = handler.getContainer();
+					handler.fill(fluidStack, true);
+					ItemStack newstack = handler.getContainer();
 
-                if (heldItem.getCount() > 1) {
-                    heldItem.shrink(1);
-                    playerIn.inventory.addItemStackToInventory(newstack);
-                }
-                else
-                    playerIn.setHeldItem(hand, newstack);
+					if (heldItem.getCount() > 1) {
+						heldItem.shrink(1);
+						playerIn.inventory.addItemStackToInventory(newstack);
+					}
+					else
+						playerIn.setHeldItem(hand, newstack);
 
-            }
-            worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
-            return true;
-        }
-        return false;
-
+				}
+				
 			}
+			
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
 			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+
 			return true;
+
 		}
 		return false;
+	}
+	
+	
+	@Override
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
+		return state.withProperty(BlockTrough.FACING, rot.rotate(state.getValue(BlockTrough.FACING)));
+	}
 
-    @Override
-    public IBlockState withRotation(IBlockState state, Rotation rot) {
-        return state.withProperty(BlockTrough.FACING, rot.rotate(state.getValue(BlockTrough.FACING)));
-    }
+	@Override
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+		return state.withRotation(mirrorIn.toRotation(state.getValue(BlockTrough.FACING)));
+	}
 
-    @Override
-    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-        return state.withRotation(mirrorIn.toRotation(state.getValue(BlockTrough.FACING)));
-    }
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { BlockTrough.FACING });
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] { BlockTrough.FACING });
-    }
+	@Override
+	public boolean hasComparatorInputOverride(IBlockState state)
+	{
+		return true;
+	}
 
-    @Override
-    public boolean hasComparatorInputOverride(IBlockState state) {
-        return true;
-    }
+	@Override
+	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
+	{
 
-    @Override
-    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+		if (!te.itemHandler.getStackInSlot(0).isEmpty())
+			return ItemHandlerHelper.calcRedstoneFromInventory(te.itemHandler);
 
-        TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
-        if (!te.itemHandler.getStackInSlot(0).isEmpty())
-            return ItemHandlerHelper.calcRedstoneFromInventory(te.itemHandler);
+		if (te.fluidHandler.getFluid() != null)
+		{
+			int fluid = te.fluidHandler.getFluidAmount();
+			return fluid / 66;
+		}
 
-        if (te.fluidHandler.getFluid() != null) {
-            int fluid = te.fluidHandler.getFluidAmount();
-            return fluid / 66;
-        }
+		return 0;
+	}
 
-        return 0;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    private boolean hasFluid(ItemStack stack, Fluid fluid) {
-        return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000
-                && FluidUtil.getFluidContained(stack).getFluid() == fluid;
-    }
+	public String getName()
+	{
+		return this.name;
+	}
 
 	private boolean hasFluid(ItemStack stack, Fluid fluid)
 	{
 		return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000 && FluidUtil.getFluidContained(stack).getFluid() == fluid;
 	}
-	
+
+
 	public BlockPos findInvisiblock(World world, BlockPos pos)
 	{
 		EnumFacing facing = world.getBlockState(pos).getValue(FACING);
 		facing = facing.rotateAround(Axis.Y);
-		
-		return pos.offset(facing);	
+
+		return pos.offset(facing);
 	}
-	
-	
+
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
 	{
 		BlockPos invisi = findInvisiblock(worldIn, pos);
 		worldIn.updateComparatorOutputLevel(invisi, BlockHandler.blockInvisiblock);
-		
+
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
 	}
-	
-	
 
 }
