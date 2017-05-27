@@ -7,6 +7,9 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.amphibians.EntityAmphibian;
+import com.animania.common.entities.amphibians.EntityFrogs;
+import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.peacocks.ai.EntityAIFindFood;
 import com.animania.common.entities.peacocks.ai.EntityAIFindWater;
 import com.animania.common.entities.peacocks.ai.EntityAIPanicPeacocks;
@@ -22,7 +25,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -78,6 +84,11 @@ public class EntityPeacockWhite extends EntityAnimal
         this.tasks.addTask(5, new EntityAIWanderPeacock(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
+        this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
+		this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
+		this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
+		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+        
         this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
         this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(100);
         this.blinkTimer = 80 + this.rand.nextInt(80);
@@ -119,6 +130,30 @@ public class EntityPeacockWhite extends EntityAnimal
         else
             return super.processInteract(player, hand);
     }
+    
+    @Override
+	public boolean attackEntityAsMob(Entity entityIn)
+	{
+		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 1.0F);
+		entityIn.attackEntityFrom(DamageSource.GENERIC, 1.0F);
+
+		if (flag)
+		{
+			this.applyEnchantments(this, entityIn);
+		}
+		
+		if (entityIn instanceof EntityAmphibian) {
+			this.setFed(true);
+		}
+
+		//Custom Knockback		
+		if (entityIn instanceof EntityPlayer) {
+			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+		}
+
+
+		return flag;
+	}
 
     public ResourceLocation getResourceLocation() {
         return this.resourceLocation;
@@ -133,6 +168,7 @@ public class EntityPeacockWhite extends EntityAnimal
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.5D);
     }
 
     @Override

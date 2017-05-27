@@ -9,6 +9,7 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
+import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
@@ -26,8 +27,11 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
+import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -104,16 +108,18 @@ public class EntityHedgehog extends EntityTameable
 		this.tasks.addTask(1, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(2, this.aiSit);
 		this.tasks.addTask(3, new EntityAIHedgehogFindFood(this, 1.0D));
+		this.tasks.addTask(4, new EntityAILeapAtTarget(this, 0.2F));
+		this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, true));
 		this.entityAIEatGrass = new EntityAIRodentEat(this);
-		this.tasks.addTask(3, new EntityAIPanic(this, 1.25D));
-		this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
-		this.tasks.addTask(5, new EntityAITempt(this, 1.2D, false, EntityHedgehog.TEMPTATION_ITEMS));
-		this.tasks.addTask(6, new EntityAIPanicRodents(this, 1.5D));
-		this.tasks.addTask(7, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new EntityAIWanderHedgehog(this, 1.0D));
-		this.tasks.addTask(10, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new EntityAILookIdle(this));
+		this.tasks.addTask(6, new EntityAIPanic(this, 1.25D));
+		this.tasks.addTask(7, new EntityAIMate(this, 1.0D));
+		this.tasks.addTask(8, new EntityAITempt(this, 1.2D, false, EntityHedgehog.TEMPTATION_ITEMS));
+		this.tasks.addTask(9, new EntityAIPanicRodents(this, 1.5D));
+		this.tasks.addTask(10, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(11, this.entityAIEatGrass);
+		this.tasks.addTask(12, new EntityAIWanderHedgehog(this, 1.0D));
+		this.tasks.addTask(13, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(14, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
 		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
@@ -385,6 +391,25 @@ public class EntityHedgehog extends EntityTameable
 			return super.processInteract(player, hand);
 	}
 
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 1.0F);
+		entityIn.attackEntityFrom(DamageSource.GENERIC, 1.0F);
+
+		if (flag)
+			this.applyEnchantments(this, entityIn);
+		
+		if (entityIn instanceof EntityAmphibian) {
+			this.setFed(true);
+		}
+
+		// Custom Knockback
+		if (entityIn instanceof EntityPlayer)
+			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+
+		return flag;
+	}
+	
 	@Override
 	public void onLivingUpdate() {
 

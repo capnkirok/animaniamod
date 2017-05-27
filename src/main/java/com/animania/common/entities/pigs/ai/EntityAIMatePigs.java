@@ -47,7 +47,7 @@ public class EntityAIMatePigs extends EntityAIBase
     public boolean shouldExecute() {
 
         this.delayCounter++;
-        if (this.delayCounter > 40) {
+        if (this.delayCounter > 100) {
 
             if (this.theAnimal instanceof EntitySowDuroc) {
                 EntitySowDuroc ec = (EntitySowDuroc) this.theAnimal;

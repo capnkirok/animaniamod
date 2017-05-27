@@ -58,7 +58,7 @@ public class EntityAmphibian extends EntityAnimal
     protected void initEntityAI() {
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
-        this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 8.0F, 2.2D, 2.2D));
+        this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 6.0F, 1.5D, 1.5D));
         this.tasks.addTask(3, new EntityAIWanderAvoidWater(this, 0.6D));
         this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
     }
