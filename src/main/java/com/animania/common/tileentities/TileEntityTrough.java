@@ -28,225 +28,246 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 public class TileEntityTrough extends TileEntity implements ITickable
 {
-    private int                            troughType;
-    private int                            troughRotation;
-    private GameProfile                    playerProfile;
-    private int                            dragonAnimatedTicks;
-    private boolean                        dragonAnimated;
-    private static PlayerProfileCache      profileCache;
-    private static MinecraftSessionService sessionService;
+	private int troughType;
+	private int troughRotation;
+	private GameProfile playerProfile;
+	private int dragonAnimatedTicks;
+	private boolean dragonAnimated;
+	private static PlayerProfileCache profileCache;
+	private static MinecraftSessionService sessionService;
 
-    public ItemHandlerTrough               itemHandler;
-    public FluidHandlerTrough              fluidHandler;
+	public ItemHandlerTrough itemHandler;
+	public FluidHandlerTrough fluidHandler;
 
-    public TileEntityTrough() {
+	public TileEntityTrough()
+	{
 
-        this.itemHandler = new ItemHandlerTrough();
-        this.fluidHandler = new FluidHandlerTrough(1000);
-    }
+		this.itemHandler = new ItemHandlerTrough();
+		this.fluidHandler = new FluidHandlerTrough(1000);
+	}
 
-    public static void setProfileCache(PlayerProfileCache profileCacheIn) {
-        TileEntityTrough.profileCache = profileCacheIn;
-    }
+	public static void setProfileCache(PlayerProfileCache profileCacheIn)
+	{
+		TileEntityTrough.profileCache = profileCacheIn;
+	}
 
-    public static void setSessionService(MinecraftSessionService sessionServiceIn) {
-        TileEntityTrough.sessionService = sessionServiceIn;
-    }
+	public static void setSessionService(MinecraftSessionService sessionServiceIn)
+	{
+		TileEntityTrough.sessionService = sessionServiceIn;
+	}
 
-    @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-        this.readFromNBT(pkt.getNbtCompound());
-        if (this.blockType != null && this.pos != null)
-            this.world.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+	{
+		this.readFromNBT(pkt.getNbtCompound());
+		if (this.blockType != null && this.pos != null)
+			this.world.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
 
-    }
+	}
 
-    @Override
-    @Nullable
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound tagCompound = new NBTTagCompound();
-        this.writeToNBT(tagCompound);
-        return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
-    }
+	@Override
+	@Nullable
+	public SPacketUpdateTileEntity getUpdatePacket()
+	{
+		NBTTagCompound tagCompound = new NBTTagCompound();
+		this.writeToNBT(tagCompound);
+		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
+	}
 
-    @Override
-    public NBTTagCompound getUpdateTag() {
-        return this.writeToNBT(new NBTTagCompound());
-    }
+	@Override
+	public NBTTagCompound getUpdateTag()
+	{
+		return this.writeToNBT(new NBTTagCompound());
+	}
 
-    @Override
-    public void update() {
+	@Override
+	public void update()
+	{
 
-        ItemStack stack = this.itemHandler.getStackInSlot(0);
-        FluidStack fluid = this.fluidHandler.getFluid();
+		ItemStack stack = this.itemHandler.getStackInSlot(0);
+		FluidStack fluid = this.fluidHandler.getFluid();
 
-        if (!stack.isEmpty()) {
-            int count = stack.getCount();
-            if (count == 0 && fluid == null && this.troughType != 0)
-                this.setType(0);
-            else if (count == 1 && this.troughType != 4)
-                this.setType(4);
-            else if (count == 2 && this.troughType != 5)
-                this.setType(5);
-            else if (count == 3 && this.troughType != 6)
-                this.setType(6);
-        }
-        else if (fluid != null) {
-            if (fluid.getFluid() == FluidRegistry.WATER && fluid.amount >= 666 && this.troughType != 1)
-                this.setType(1);
-            else if (fluid.getFluid() == FluidRegistry.WATER && fluid.amount >= 333 && fluid.amount < 666 && this.troughType != 2)
-                this.setType(2);
-            else if (fluid.getFluid() == FluidRegistry.WATER && fluid.amount > 0 && fluid.amount < 333 && this.troughType != 3)
-                this.setType(3);
-            else if (fluid.getFluid() == BlockHandler.fluidSlop && fluid.amount >= 666 && this.troughType != 7)
-                this.setType(7);
-            else if (fluid.getFluid() == BlockHandler.fluidSlop && fluid.amount >= 333 && fluid.amount < 666 && this.troughType != 8)
-                this.setType(8);
-            else if (fluid.getFluid() == BlockHandler.fluidSlop && fluid.amount > 0 && fluid.amount < 333 && this.troughType != 9)
-                this.setType(9);
-        }
-        else if (this.troughType != 0)
-            this.setType(0);
+		if (!stack.isEmpty())
+		{
+			int count = stack.getCount();
+			if (count == 0 && fluid == null && this.troughType != 0)
+				this.setType(0);
+			else if (count == 1 && this.troughType != 4)
+				this.setType(4);
+			else if (count == 2 && this.troughType != 5)
+				this.setType(5);
+			else if (count == 3 && this.troughType != 6)
+				this.setType(6);
+		} else if (fluid != null)
+		{
+			if (fluid.getFluid() == FluidRegistry.WATER && fluid.amount >= 666 && this.troughType != 1)
+				this.setType(1);
+			else if (fluid.getFluid() == FluidRegistry.WATER && fluid.amount >= 333 && fluid.amount < 666 && this.troughType != 2)
+				this.setType(2);
+			else if (fluid.getFluid() == FluidRegistry.WATER && fluid.amount > 0 && fluid.amount < 333 && this.troughType != 3)
+				this.setType(3);
+			else if (fluid.getFluid() == BlockHandler.fluidSlop && fluid.amount >= 666 && this.troughType != 7)
+				this.setType(7);
+			else if (fluid.getFluid() == BlockHandler.fluidSlop && fluid.amount >= 333 && fluid.amount < 666 && this.troughType != 8)
+				this.setType(8);
+			else if (fluid.getFluid() == BlockHandler.fluidSlop && fluid.amount > 0 && fluid.amount < 333 && this.troughType != 9)
+				this.setType(9);
+		} else if (this.troughType != 0)
+			this.setType(0);
 
-    }
+	}
 
-    @SideOnly(Side.CLIENT)
-    public float getAnimationProgress(float p_184295_1_) {
-        return this.dragonAnimated ? this.dragonAnimatedTicks + p_184295_1_ : (float) this.dragonAnimatedTicks;
-    }
+	@SideOnly(Side.CLIENT)
+	public float getAnimationProgress(float p_184295_1_)
+	{
+		return this.dragonAnimated ? this.dragonAnimatedTicks + p_184295_1_ : (float) this.dragonAnimatedTicks;
+	}
 
-    @Nullable
-    public GameProfile getPlayerProfile() {
-        return this.playerProfile;
-    }
+	@Nullable
+	public GameProfile getPlayerProfile()
+	{
+		return this.playerProfile;
+	}
 
-    /**
-     * TROUGH TYPES
-     *
-     * <pre>
-     * 0 = Empty
-     * 1 = Water, full
-     * 2 = Water, 2/3
-     * 3 = Water, 1/3
-     * 4 = Wheat, 1 layer
-     * 5 = Wheat, 2 layers
-     * 6 = Wheat, 3 layers
-     * 7 = Slop, full
-     * 8 = Slop, 2/3
-     * 9 = Slop, 1/3
-     * </pre>
-     */
-    public void setType(int type) {
-        this.troughType = type;
-        this.playerProfile = null;
-        this.markDirty();
-        this.world.notifyBlockUpdate(this.pos, this.world.getBlockState(this.pos), this.world.getBlockState(this.pos), 2);
-    }
+	/**
+	 * TROUGH TYPES
+	 *
+	 * <pre>
+	 * 0 = Empty
+	 * 1 = Water, full
+	 * 2 = Water, 2/3
+	 * 3 = Water, 1/3
+	 * 4 = Wheat, 1 layer
+	 * 5 = Wheat, 2 layers
+	 * 6 = Wheat, 3 layers
+	 * 7 = Slop, full
+	 * 8 = Slop, 2/3
+	 * 9 = Slop, 1/3
+	 * </pre>
+	 */
+	public void setType(int type)
+	{
+		this.troughType = type;
+		this.playerProfile = null;
+		this.markDirty();
+		this.world.notifyBlockUpdate(this.pos, this.world.getBlockState(this.pos), this.world.getBlockState(this.pos), 2);
+	}
 
-    public static GameProfile updateGameprofile(GameProfile input) {
-        if (input != null && !StringUtils.isNullOrEmpty(input.getName())) {
-            if (input.isComplete() && input.getProperties().containsKey("textures"))
-                return input;
-            else if (TileEntityTrough.profileCache != null && TileEntityTrough.sessionService != null) {
-                GameProfile gameprofile = TileEntityTrough.profileCache.getGameProfileForUsername(input.getName());
+	public static GameProfile updateGameprofile(GameProfile input)
+	{
+		if (input != null && !StringUtils.isNullOrEmpty(input.getName()))
+		{
+			if (input.isComplete() && input.getProperties().containsKey("textures"))
+				return input;
+			else if (TileEntityTrough.profileCache != null && TileEntityTrough.sessionService != null)
+			{
+				GameProfile gameprofile = TileEntityTrough.profileCache.getGameProfileForUsername(input.getName());
 
-                if (gameprofile == null)
-                    return input;
-                else {
-                    Property property = Iterables.getFirst(gameprofile.getProperties().get("textures"), null);
+				if (gameprofile == null)
+					return input;
+				else
+				{
+					Property property = Iterables.getFirst(gameprofile.getProperties().get("textures"), null);
 
-                    if (property == null)
-                        gameprofile = TileEntityTrough.sessionService.fillProfileProperties(gameprofile, true);
+					if (property == null)
+						gameprofile = TileEntityTrough.sessionService.fillProfileProperties(gameprofile, true);
 
-                    return gameprofile;
-                }
-            }
-            else
-                return input;
-        }
-        else
-            return input;
-    }
+					return gameprofile;
+				}
+			} else
+				return input;
+		} else
+			return input;
+	}
 
-    /**
-     * TROUGH TYPES
-     *
-     * <pre>
-     * 0 = Empty
-     * 1 = Water, full
-     * 2 = Water, 2/3
-     * 3 = Water, 1/3
-     * 4 = Wheat, 1 layer
-     * 5 = Wheat, 2 layers
-     * 6 = Wheat, 3 layers
-     * 7 = Slop, full
-     * 8 = Slop, 2/3
-     * 9 = Slop, 1/3
-     * </pre>
-     */
-    public int getTroughType() {
-        return this.troughType;
-    }
+	/**
+	 * TROUGH TYPES
+	 *
+	 * <pre>
+	 * 0 = Empty
+	 * 1 = Water, full
+	 * 2 = Water, 2/3
+	 * 3 = Water, 1/3
+	 * 4 = Wheat, 1 layer
+	 * 5 = Wheat, 2 layers
+	 * 6 = Wheat, 3 layers
+	 * 7 = Slop, full
+	 * 8 = Slop, 2/3
+	 * 9 = Slop, 1/3
+	 * </pre>
+	 */
+	public int getTroughType()
+	{
+		return this.troughType;
+	}
 
-    public int getTroughRotation() {
-        return this.troughRotation;
-    }
+	public int getTroughRotation()
+	{
+		return this.troughRotation;
+	}
 
-    public void setTroughRotation(int rotation) {
-        this.troughRotation = rotation;
-    }
+	public void setTroughRotation(int rotation)
+	{
+		this.troughRotation = rotation;
+	}
 
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        NBTTagCompound tag = super.writeToNBT(compound);
-        NBTTagCompound items = this.itemHandler.serializeNBT();
-        NBTTagCompound fluid = new NBTTagCompound();
-        fluid = this.fluidHandler.writeToNBT(fluid);
-        tag.setTag("items", items);
-        tag.setTag("fluid", fluid);
-        tag.setByte("Rot", (byte) (this.troughRotation & 255));
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	{
+		NBTTagCompound tag = super.writeToNBT(compound);
+		NBTTagCompound items = this.itemHandler.serializeNBT();
+		NBTTagCompound fluid = new NBTTagCompound();
+		fluid = this.fluidHandler.writeToNBT(fluid);
+		tag.setTag("items", items);
+		tag.setTag("fluid", fluid);
+		tag.setByte("Rot", (byte) (this.troughRotation & 255));
 
-        return tag;
+		return tag;
 
-    }
+	}
 
-    @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        this.troughRotation = compound.getByte("Rot");
-        this.itemHandler = new ItemHandlerTrough();
-        this.fluidHandler = new FluidHandlerTrough(1000);
-        this.fluidHandler.readFromNBT(compound.getCompoundTag("fluid"));
-        this.itemHandler.deserializeNBT(compound.getCompoundTag("items"));
-    }
+	@Override
+	public void readFromNBT(NBTTagCompound compound)
+	{
+		super.readFromNBT(compound);
+		this.troughRotation = compound.getByte("Rot");
+		this.itemHandler = new ItemHandlerTrough();
+		this.fluidHandler = new FluidHandlerTrough(1000);
+		this.fluidHandler.readFromNBT(compound.getCompoundTag("fluid"));
+		this.itemHandler.deserializeNBT(compound.getCompoundTag("items"));
+	}
 
-    @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
+	{
 
-        if (AnimaniaConfig.gameRules.allowTroughAutomation) {
-            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-                return true;
-            if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-                return true;
-        }
+		if (AnimaniaConfig.gameRules.allowTroughAutomation)
+		{
+			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.fluidHandler.getFluid() == null)
+				return true;
+			if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.itemHandler.getStackInSlot(0).isEmpty())
+				return true;
+		}
 
-        return super.hasCapability(capability, facing);
-    }
+		return super.hasCapability(capability, facing);
+	}
 
-    @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (AnimaniaConfig.gameRules.allowTroughAutomation) {
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
+	{
+		if (AnimaniaConfig.gameRules.allowTroughAutomation)
+		{
 
-            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.fluidHandler.getFluid() == null)
-                return (T) this.itemHandler;
+			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.fluidHandler.getFluid() == null)
+				return (T) this.itemHandler;
 
-            if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.itemHandler.getStackInSlot(0).isEmpty())
-                return (T) this.fluidHandler;
+			if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.itemHandler.getStackInSlot(0).isEmpty())
+				return (T) this.fluidHandler;
 
-        }
+		}
 
-        return super.getCapability(capability, facing);
+		return super.getCapability(capability, facing);
 
-    }
+	}
 
 }
