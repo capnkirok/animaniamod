@@ -9,6 +9,7 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
+import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
@@ -65,19 +66,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityFerretGrey extends EntityTameable
 {
-	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class,
-			DataSerializers.BOOLEAN);
-
-	private static final Set<Item>              TEMPTATION_ITEMS = Sets
-			.newHashSet(new Item[] { Items.MUTTON, Items.EGG, ItemHandler.brownEgg, Items.CHICKEN, ItemHandler.rawWyandotteChicken,
+	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class, DataSerializers.BOOLEAN);
+	private static final Set<Item>              TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.MUTTON, Items.EGG, ItemHandler.brownEgg, Items.CHICKEN, ItemHandler.rawWyandotteChicken,
 					ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken });
 	private int                                 fedTimer;
 	private int                                 wateredTimer;
@@ -106,16 +100,16 @@ public class EntityFerretGrey extends EntityTameable
 		this.tasks.addTask(2, this.aiSit);
 		this.entityAIEatGrass = new EntityAIRodentEat(this);
 		this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.2F));
-		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));
-		this.tasks.addTask(3, new EntityAIFerretFindFood(this, 1.0D));
-		this.tasks.addTask(2, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(2, new EntityAIPanic(this, 1.5D));
-		this.tasks.addTask(3, new EntityAIRodentEat(this));
-		this.tasks.addTask(5, new EntityAITempt(this, 1.2D, false, EntityFerretGrey.TEMPTATION_ITEMS));
-		this.tasks.addTask(6, this.entityAIEatGrass);
-		this.tasks.addTask(7, new EntityAIWanderRodent(this, 1.2D));
-		this.tasks.addTask(8, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(9, new EntityAILookIdleRodent(this));
+		this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
+		this.tasks.addTask(5, new EntityAIFerretFindFood(this, 1.0D));
+		this.tasks.addTask(6, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(7, new EntityAIPanic(this, 1.5D));
+		this.tasks.addTask(8, new EntityAIRodentEat(this));
+		this.tasks.addTask(9, new EntityAITempt(this, 1.2D, false, EntityFerretGrey.TEMPTATION_ITEMS));
+		this.tasks.addTask(10, this.entityAIEatGrass);
+		this.tasks.addTask(11, new EntityAIWanderRodent(this, 1.2D));
+		this.tasks.addTask(12, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(13, new EntityAILookIdleRodent(this));
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityChickLeghorn.class, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityChickOrpington.class, false));
 		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityChickPlymouthRock.class, false));
@@ -274,6 +268,10 @@ public class EntityFerretGrey extends EntityTameable
 
 		if (flag)
 			this.applyEnchantments(this, entityIn);
+		
+		if (entityIn instanceof EntityAmphibian) {
+			this.setFed(true);
+		}
 
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)

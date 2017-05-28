@@ -11,6 +11,9 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.amphibians.EntityAmphibian;
+import com.animania.common.entities.amphibians.EntityFrogs;
+import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.ai.EntityAIFindFood;
 import com.animania.common.entities.chickens.ai.EntityAIFindWater;
 import com.animania.common.entities.chickens.ai.EntityAIPanicChickens;
@@ -61,18 +64,12 @@ import net.minecraft.world.World;
 
 public class EntityRoosterLeghorn extends EntityAnimal
 {
-    private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityRoosterLeghorn.class,
-            DataSerializers.STRING);
-    private static final DataParameter<Integer> CROWTIMER        = EntityDataManager.<Integer> createKey(EntityRoosterLeghorn.class,
-            DataSerializers.VARINT);
-    private static final DataParameter<Integer> CROWDURATION     = EntityDataManager.<Integer> createKey(EntityRoosterLeghorn.class,
-            DataSerializers.VARINT);
-    private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityRoosterLeghorn.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityRoosterLeghorn.class,
-            DataSerializers.BOOLEAN);
-    private static final Set<Item>              TEMPTATION_ITEMS = Sets
-            .newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
+    private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityRoosterLeghorn.class, DataSerializers.STRING);
+    private static final DataParameter<Integer> CROWTIMER        = EntityDataManager.<Integer> createKey(EntityRoosterLeghorn.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> CROWDURATION     = EntityDataManager.<Integer> createKey(EntityRoosterLeghorn.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityRoosterLeghorn.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityRoosterLeghorn.class, DataSerializers.BOOLEAN);
+    private static final Set<Item>              TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
 
     public boolean                              chickenJockey;
     private static List                         ColorList;
@@ -108,6 +105,9 @@ public class EntityRoosterLeghorn extends EntityAnimal
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, false));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityFerretWhite.class, false));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityFerretGrey.class, false));
+        this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
+		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+		
 
         this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer / 2 + this.rand.nextInt(100);
         this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer / 2 + this.rand.nextInt(100);
@@ -166,7 +166,11 @@ public class EntityRoosterLeghorn extends EntityAnimal
 
         if (flag)
             this.applyEnchantments(this, entityIn);
-
+        
+        if (entityIn instanceof EntityAmphibian) {
+			this.setFed(true);
+		}
+        
         // Custom Knockback
         if (entityIn instanceof EntityPlayer)
             ((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);

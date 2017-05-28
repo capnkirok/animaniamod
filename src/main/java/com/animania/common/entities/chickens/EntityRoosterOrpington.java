@@ -11,6 +11,9 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.amphibians.EntityAmphibian;
+import com.animania.common.entities.amphibians.EntityFrogs;
+import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.ai.EntityAIFindFood;
 import com.animania.common.entities.chickens.ai.EntityAIFindWater;
 import com.animania.common.entities.chickens.ai.EntityAIPanicChickens;
@@ -108,6 +111,8 @@ public class EntityRoosterOrpington extends EntityAnimal
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, false));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityFerretWhite.class, false));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityFerretGrey.class, false));
+        this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
+		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
         this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer / 2 + this.rand.nextInt(100);
         this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer / 2 + this.rand.nextInt(100);
         this.happyTimer = 60;
@@ -166,6 +171,10 @@ public class EntityRoosterOrpington extends EntityAnimal
         if (flag)
             this.applyEnchantments(this, entityIn);
 
+        if (entityIn instanceof EntityAmphibian) {
+			this.setFed(true);
+		}
+        
         // Custom Knockback
         if (entityIn instanceof EntityPlayer)
             ((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);

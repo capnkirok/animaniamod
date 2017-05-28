@@ -36,7 +36,7 @@ public class EntityAIFollowParentPigs extends EntityAIBase
     public boolean shouldExecute() {
 
         this.delayCounter++;
-        if (this.delayCounter > 40)
+        if (this.delayCounter > 60)
             if (this.childAnimal instanceof EntityPigletDuroc && this.rand.nextInt(20) != 0) {
                 EntityPigletDuroc ec = (EntityPigletDuroc) this.childAnimal;
                 if (ec.getParentUniqueId() == null)

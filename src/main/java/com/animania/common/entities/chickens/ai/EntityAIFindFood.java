@@ -50,83 +50,101 @@ public class EntityAIFindFood extends EntityAIBase
     @Override
     public boolean shouldExecute() {
 
-        this.delayTemptCounter++;
-        if (this.delayTemptCounter > 20) {
-            if (this.temptedEntity instanceof EntityChickLeghorn) {
-                EntityChickLeghorn entity = (EntityChickLeghorn) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityChickOrpington) {
-                EntityChickOrpington entity = (EntityChickOrpington) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityChickPlymouthRock) {
-                EntityChickPlymouthRock entity = (EntityChickPlymouthRock) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityChickRhodeIslandRed) {
-                EntityChickRhodeIslandRed entity = (EntityChickRhodeIslandRed) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityChickWyandotte) {
-                EntityChickWyandotte entity = (EntityChickWyandotte) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHenLeghorn) {
-                EntityHenLeghorn entity = (EntityHenLeghorn) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHenOrpington) {
-                EntityHenOrpington entity = (EntityHenOrpington) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHenPlymouthRock) {
-                EntityHenPlymouthRock entity = (EntityHenPlymouthRock) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHenRhodeIslandRed) {
-                EntityHenRhodeIslandRed entity = (EntityHenRhodeIslandRed) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHenWyandotte) {
-                EntityHenWyandotte entity = (EntityHenWyandotte) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityRoosterLeghorn) {
-                EntityRoosterLeghorn entity = (EntityRoosterLeghorn) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityRoosterOrpington) {
-                EntityRoosterOrpington entity = (EntityRoosterOrpington) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityRoosterPlymouthRock) {
-                EntityRoosterPlymouthRock entity = (EntityRoosterPlymouthRock) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityRoosterRhodeIslandRed) {
-                EntityRoosterRhodeIslandRed entity = (EntityRoosterRhodeIslandRed) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityRoosterWyandotte) {
-                EntityRoosterWyandotte entity = (EntityRoosterWyandotte) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
+    	delayTemptCounter++;
+		if (this.delayTemptCounter < 40) {
+			return false;
+		} else if (delayTemptCounter > 40) {
+			if (this.temptedEntity instanceof EntityChickLeghorn) {
+				EntityChickLeghorn entity = (EntityChickLeghorn) temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityChickOrpington) {
+				EntityChickOrpington entity = (EntityChickOrpington)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityChickPlymouthRock) {
+				EntityChickPlymouthRock entity = (EntityChickPlymouthRock)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityChickRhodeIslandRed) {
+				EntityChickRhodeIslandRed entity = (EntityChickRhodeIslandRed)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityChickWyandotte) {
+				EntityChickWyandotte entity = (EntityChickWyandotte)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHenLeghorn) {
+				EntityHenLeghorn entity = (EntityHenLeghorn)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHenOrpington) {
+				EntityHenOrpington entity = (EntityHenOrpington)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHenPlymouthRock) {
+				EntityHenPlymouthRock entity = (EntityHenPlymouthRock)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHenRhodeIslandRed) {
+				EntityHenRhodeIslandRed entity = (EntityHenRhodeIslandRed)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHenWyandotte) {
+				EntityHenWyandotte entity = (EntityHenWyandotte)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityRoosterLeghorn) {
+				EntityRoosterLeghorn entity = (EntityRoosterLeghorn)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityRoosterOrpington) {
+				EntityRoosterOrpington entity = (EntityRoosterOrpington)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityRoosterPlymouthRock) {
+				EntityRoosterPlymouthRock entity = (EntityRoosterPlymouthRock)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityRoosterRhodeIslandRed) {
+				EntityRoosterRhodeIslandRed entity = (EntityRoosterRhodeIslandRed)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityRoosterWyandotte) {
+				EntityRoosterWyandotte entity = (EntityRoosterWyandotte)temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			}
 
             BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
             BlockPos trypos1 = new BlockPos(this.temptedEntity.posX + 1, this.temptedEntity.posY, this.temptedEntity.posZ);
@@ -261,8 +279,7 @@ public class EntityAIFindFood extends EntityAIBase
                     }
 
             if (!foodFound) {
-                this.delayTemptCounter = 0;
-                this.resetTask();
+            	this.delayTemptCounter = 0;
                 return false;
             }
         }

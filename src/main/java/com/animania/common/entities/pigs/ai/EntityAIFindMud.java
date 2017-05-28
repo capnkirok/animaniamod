@@ -54,202 +54,205 @@ public class EntityAIFindMud extends EntityAIBase
     @Override
     public boolean shouldExecute() {
 
-        this.delayTemptCounter++;
-        if (this.delayTemptCounter > 20) {
-            this.delayTemptCounter = 0;
-            if (this.temptedEntity instanceof EntitySowYorkshire) {
-                EntitySowYorkshire sow = (EntitySowYorkshire) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntitySowDuroc) {
-                EntitySowDuroc sow = (EntitySowDuroc) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntitySowHampshire) {
-                EntitySowHampshire sow = (EntitySowHampshire) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntitySowYorkshire) {
-                EntitySowYorkshire sow = (EntitySowYorkshire) this.temptedEntity;
-                sow.entityAIEatGrass.startExecuting();
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntitySowLargeBlack) {
-                EntitySowLargeBlack sow = (EntitySowLargeBlack) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntitySowLargeWhite) {
-                EntitySowLargeWhite sow = (EntitySowLargeWhite) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntitySowOldSpot) {
-                EntitySowOldSpot sow = (EntitySowOldSpot) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHogOldSpot) {
-                EntityHogOldSpot sow = (EntityHogOldSpot) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHogDuroc) {
-                EntityHogDuroc sow = (EntityHogDuroc) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHogHampshire) {
-                EntityHogHampshire sow = (EntityHogHampshire) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHogYorkshire) {
-                EntityHogYorkshire sow = (EntityHogYorkshire) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHogLargeBlack) {
-                EntityHogLargeBlack sow = (EntityHogLargeBlack) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHogLargeWhite) {
-                EntityHogLargeWhite sow = (EntityHogLargeWhite) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityPigletOldSpot) {
-                EntityPigletOldSpot sow = (EntityPigletOldSpot) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityPigletDuroc) {
-                EntityPigletDuroc sow = (EntityPigletDuroc) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityPigletHampshire) {
-                EntityPigletHampshire sow = (EntityPigletHampshire) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityPigletYorkshire) {
-                EntityPigletYorkshire sow = (EntityPigletYorkshire) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityPigletLargeBlack) {
-                EntityPigletLargeBlack sow = (EntityPigletLargeBlack) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityPigletLargeWhite) {
-                EntityPigletLargeWhite sow = (EntityPigletLargeWhite) this.temptedEntity;
-                if (sow.getPlayed())
-                    return false;
-            }
+    	delayTemptCounter++;
+		if (this.delayTemptCounter < 100) {
+			return false;
+		} else if (delayTemptCounter > 100) {
+			if (this.temptedEntity instanceof EntitySowYorkshire) {
+				EntitySowYorkshire sow = (EntitySowYorkshire) temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntitySowDuroc) {
+				EntitySowDuroc sow = (EntitySowDuroc)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntitySowHampshire) {
+				EntitySowHampshire sow = (EntitySowHampshire)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntitySowYorkshire) {
+				EntitySowYorkshire sow = (EntitySowYorkshire)temptedEntity;
+				sow.entityAIEatGrass.startExecuting();
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntitySowLargeBlack) {
+				EntitySowLargeBlack sow = (EntitySowLargeBlack)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntitySowLargeWhite) {
+				EntitySowLargeWhite sow = (EntitySowLargeWhite)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntitySowOldSpot) {
+				EntitySowOldSpot sow = (EntitySowOldSpot)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHogOldSpot) {
+				EntityHogOldSpot sow = (EntityHogOldSpot)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHogDuroc) {
+				EntityHogDuroc sow = (EntityHogDuroc)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHogHampshire) {
+				EntityHogHampshire sow = (EntityHogHampshire)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHogYorkshire) {
+				EntityHogYorkshire sow = (EntityHogYorkshire)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHogLargeBlack) {
+				EntityHogLargeBlack sow = (EntityHogLargeBlack)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityHogLargeWhite) {
+				EntityHogLargeWhite sow = (EntityHogLargeWhite)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityPigletOldSpot) {
+				EntityPigletOldSpot sow = (EntityPigletOldSpot)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityPigletDuroc) {
+				EntityPigletDuroc sow = (EntityPigletDuroc)temptedEntity;
+				if (sow.getPlayed()) {
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityPigletHampshire) {
+				EntityPigletHampshire sow = (EntityPigletHampshire)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityPigletYorkshire) {
+				EntityPigletYorkshire sow = (EntityPigletYorkshire)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityPigletLargeBlack) {
+				EntityPigletLargeBlack sow = (EntityPigletLargeBlack)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (temptedEntity instanceof EntityPigletLargeWhite) {
+				EntityPigletLargeWhite sow = (EntityPigletLargeWhite)temptedEntity;
+				if (sow.getPlayed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			}
 
             Random rand = new Random();
             BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
             Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
             if (poschk == BlockHandler.blockMud) {
-                if (this.temptedEntity instanceof EntitySowOldSpot) {
-                    EntitySowOldSpot ech = (EntitySowOldSpot) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntitySowDuroc) {
-                    EntitySowDuroc ech = (EntitySowDuroc) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntitySowHampshire) {
-                    EntitySowHampshire ech = (EntitySowHampshire) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntitySowYorkshire) {
-                    EntitySowYorkshire ech = (EntitySowYorkshire) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntitySowLargeBlack) {
-                    EntitySowLargeBlack ech = (EntitySowLargeBlack) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntitySowLargeWhite) {
-                    EntitySowLargeWhite ech = (EntitySowLargeWhite) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityHogOldSpot) {
-                    EntityHogOldSpot ech = (EntityHogOldSpot) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityHogDuroc) {
-                    EntityHogDuroc ech = (EntityHogDuroc) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityHogHampshire) {
-                    EntityHogHampshire ech = (EntityHogHampshire) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityHogYorkshire) {
-                    EntityHogYorkshire ech = (EntityHogYorkshire) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityHogLargeBlack) {
-                    EntityHogLargeBlack ech = (EntityHogLargeBlack) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityHogLargeWhite) {
-                    EntityHogLargeWhite ech = (EntityHogLargeWhite) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityPigletOldSpot) {
-                    EntityPigletOldSpot ech = (EntityPigletOldSpot) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityPigletDuroc) {
-                    EntityPigletDuroc ech = (EntityPigletDuroc) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityPigletHampshire) {
-                    EntityPigletHampshire ech = (EntityPigletHampshire) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityPigletYorkshire) {
-                    EntityPigletYorkshire ech = (EntityPigletYorkshire) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityPigletLargeBlack) {
-                    EntityPigletLargeBlack ech = (EntityPigletLargeBlack) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                else if (this.temptedEntity instanceof EntityPigletLargeWhite) {
-                    EntityPigletLargeWhite ech = (EntityPigletLargeWhite) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setPlayed(true);
-                }
-                return false;
-            }
+            	if (temptedEntity instanceof EntitySowOldSpot) {
+					EntitySowOldSpot ech = (EntitySowOldSpot)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntitySowDuroc) {
+					EntitySowDuroc ech = (EntitySowDuroc)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntitySowHampshire) {
+					EntitySowHampshire ech = (EntitySowHampshire)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntitySowYorkshire) {
+					EntitySowYorkshire ech = (EntitySowYorkshire)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntitySowLargeBlack) {
+					EntitySowLargeBlack ech = (EntitySowLargeBlack)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntitySowLargeWhite) {
+					EntitySowLargeWhite ech = (EntitySowLargeWhite)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityHogOldSpot) {
+					EntityHogOldSpot ech = (EntityHogOldSpot)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityHogDuroc) {
+					EntityHogDuroc ech = (EntityHogDuroc)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityHogHampshire) {
+					EntityHogHampshire ech = (EntityHogHampshire)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityHogYorkshire) {
+					EntityHogYorkshire ech = (EntityHogYorkshire)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityHogLargeBlack) {
+					EntityHogLargeBlack ech = (EntityHogLargeBlack)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityHogLargeWhite) {
+					EntityHogLargeWhite ech = (EntityHogLargeWhite)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityPigletOldSpot) {
+					EntityPigletOldSpot ech = (EntityPigletOldSpot)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityPigletDuroc) {
+					EntityPigletDuroc ech = (EntityPigletDuroc)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityPigletHampshire) {
+					EntityPigletHampshire ech = (EntityPigletHampshire)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityPigletYorkshire) {
+					EntityPigletYorkshire ech = (EntityPigletYorkshire)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityPigletLargeBlack) {
+					EntityPigletLargeBlack ech = (EntityPigletLargeBlack)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				} else if (temptedEntity instanceof EntityPigletLargeWhite) {
+					EntityPigletLargeWhite ech = (EntityPigletLargeWhite)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setPlayed(true);
+				}
+				return false;
+			}
 
             double x = this.temptedEntity.posX;
             double y = this.temptedEntity.posY;
@@ -286,6 +289,7 @@ public class EntityAIFindMud extends EntityAIBase
                     }
 
             if (!mudFound)
+            	this.delayTemptCounter = 0;
                 return false;
         }
 
@@ -313,7 +317,6 @@ public class EntityAIFindMud extends EntityAIBase
     public void resetTask() {
         this.temptingPlayer = null;
         this.temptedEntity.getNavigator().clearPathEntity();
-        this.delayTemptCounter = 200;
         this.isRunning = false;
     }
 

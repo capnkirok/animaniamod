@@ -42,11 +42,14 @@ public class EntityAIFindWater extends EntityAIBase
     @Override
     public boolean shouldExecute() {
 
-        this.delayTemptCounter++;
-        if (this.delayTemptCounter > 20) {
+    	delayTemptCounter++;
+		if (this.delayTemptCounter < 40) {
+			return false;
+		} else if (delayTemptCounter > 40) {
             if (this.temptedEntity instanceof EntityStallionDraftHorse) {
                 EntityStallionDraftHorse ech = (EntityStallionDraftHorse) this.temptedEntity;
                 if (ech.getWatered())
+                	this.delayTemptCounter = 0;
                     return false;
             }
 
@@ -114,8 +117,7 @@ public class EntityAIFindWater extends EntityAIBase
                     ech.setWatered(true);
                 }
 
-                if (this.temptedEntity.world.getGameRules().getBoolean("mobGriefing"))
-                    this.temptedEntity.world.setBlockToAir(currentposlower);
+                this.temptedEntity.world.setBlockToAir(currentposlower);
 
                 return false;
             }
@@ -174,6 +176,7 @@ public class EntityAIFindWater extends EntityAIBase
                     }
 
             if (!waterFound)
+            	this.delayTemptCounter = 0;
                 return false;
         }
 

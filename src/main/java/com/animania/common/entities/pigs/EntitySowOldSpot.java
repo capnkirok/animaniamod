@@ -429,6 +429,10 @@ public class EntitySowOldSpot extends EntityAnimal
             this.setInLove(player);
             return true;
         }
+        else if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
+			player.startRiding(this);
+			return true;
+		}
         else if (stack != ItemStack.EMPTY && ItemStack.areItemStacksEqual(stack, this.slop)) {
             player.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.BUCKET));
             if (this.entityAIEatGrass != null) {
@@ -629,7 +633,7 @@ public class EntitySowOldSpot extends EntityAnimal
             this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
 
             if (this.canPassengerSteer()) {
-                float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
+            	float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.5F;
 
                 if (this.boosting) {
                     if (this.boostTime++ > this.totalBoostTime)

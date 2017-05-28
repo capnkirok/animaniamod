@@ -15,112 +15,111 @@ import net.minecraft.world.World;
 
 public class EntityHorseEatGrass extends EntityAIBase
 {
-    private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE,
-            Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-    /** The entity owner of this AITask */
-    private final EntityLiving                  grassEaterEntity;
-    /** The world the grass eater entity is eating from */
-    private final World                         entityWorld;
-    /** Number of ticks since the entity started to eat grass */
-    int                                         eatingGrassTimer;
+	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE,
+			Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+	/** The entity owner of this AITask */
+	private final EntityLiving                  grassEaterEntity;
+	/** The world the grass eater entity is eating from */
+	private final World                         entityWorld;
+	/** Number of ticks since the entity started to eat grass */
+	int                                         eatingGrassTimer;
 
-    public EntityHorseEatGrass(EntityLiving grassEaterEntityIn) {
-        this.grassEaterEntity = grassEaterEntityIn;
-        this.entityWorld = grassEaterEntityIn.world;
-        this.setMutexBits(7);
-    }
+	public EntityHorseEatGrass(EntityLiving grassEaterEntityIn) {
+		this.grassEaterEntity = grassEaterEntityIn;
+		this.entityWorld = grassEaterEntityIn.world;
+		this.setMutexBits(7);
+	}
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    @Override
-    public boolean shouldExecute() {
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	@Override
+	public boolean shouldExecute() {
 
-        if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
-            return false;
-        else {
-            BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
-            return EntityHorseEatGrass.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true
-                    : this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS;
-        }
-    }
+		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
+			return false;
+		else {
+			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
+			return EntityHorseEatGrass.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true
+					: this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS;
+		}
+	}
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    @Override
-    public void startExecuting() {
-        this.eatingGrassTimer = 100;
-        this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
-        this.grassEaterEntity.getNavigator().clearPathEntity();
-    }
+	/**
+	 * Execute a one shot task or start executing a continuous task
+	 */
+	@Override
+	public void startExecuting() {
+		this.eatingGrassTimer = 100;
+		this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
+		this.grassEaterEntity.getNavigator().clearPathEntity();
+	}
 
-    /**
-     * Resets the task
-     */
-    @Override
-    public void resetTask() {
-        this.eatingGrassTimer = 0;
-    }
+	/**
+	 * Resets the task
+	 */
+	@Override
+	public void resetTask() {
+		this.eatingGrassTimer = 0;
+	}
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    @Override
-    public boolean continueExecuting() {
+	/**
+	 * Returns whether an in-progress EntityAIBase should continue executing
+	 */
+	@Override
+	public boolean continueExecuting() {
 
-        return this.eatingGrassTimer > 0;
-    }
+		return this.eatingGrassTimer > 0;
+	}
 
-    /**
-     * Number of ticks since the entity started to eat grass
-     */
-    public int getEatingGrassTimer() {
-        return this.eatingGrassTimer;
-    }
+	/**
+	 * Number of ticks since the entity started to eat grass
+	 */
+	public int getEatingGrassTimer() {
+		return this.eatingGrassTimer;
+	}
 
-    /**
-     * Updates the task
-     */
-    @Override
-    public void updateTask() {
-        this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);
+	/**
+	 * Updates the task
+	 */
+	@Override
+	public void updateTask() {
+		this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);
 
-        if (this.eatingGrassTimer == 4) {
-            BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
+		if (this.eatingGrassTimer == 4) {
+			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
 
-            if (EntityHorseEatGrass.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos))) {
-                if (this.entityWorld.getGameRules().getBoolean("mobGriefing"))
-                    this.entityWorld.destroyBlock(blockpos, false);
+			if (EntityHorseEatGrass.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos))) {
 
-                if (this.grassEaterEntity instanceof EntityStallionDraftHorse) {
-                    EntityStallionDraftHorse ech = (EntityStallionDraftHorse) this.grassEaterEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setFed(true);
-                }
-                this.grassEaterEntity.eatGrassBonus();
-            }
+				this.entityWorld.destroyBlock(blockpos, false);
 
-            else
+				if (this.grassEaterEntity instanceof EntityStallionDraftHorse) {
+					EntityStallionDraftHorse ech = (EntityStallionDraftHorse) this.grassEaterEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setFed(true);
+				}
+				this.grassEaterEntity.eatGrassBonus();
+			}
 
-            {
-                BlockPos blockpos1 = blockpos.down();
+			else
 
-                if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.GRASS) {
-                    if (this.entityWorld.getGameRules().getBoolean("mobGriefing")) {
-                        this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
-                        this.entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
-                    }
+			{
+				BlockPos blockpos1 = blockpos.down();
 
-                    if (this.grassEaterEntity instanceof EntityStallionDraftHorse) {
-                        EntityStallionDraftHorse ech = (EntityStallionDraftHorse) this.grassEaterEntity;
-                        ech.entityAIEatGrass.startExecuting();
-                        ech.setFed(true);
-                    }
+				if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.GRASS) {
 
-                    this.grassEaterEntity.eatGrassBonus();
-                }
-            }
-        }
-    }
+					this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
+					this.entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
+
+					if (this.grassEaterEntity instanceof EntityStallionDraftHorse) {
+						EntityStallionDraftHorse ech = (EntityStallionDraftHorse) this.grassEaterEntity;
+						ech.entityAIEatGrass.startExecuting();
+						ech.setFed(true);
+					}
+
+					this.grassEaterEntity.eatGrassBonus();
+				}
+			}
+		}
+	}
 }

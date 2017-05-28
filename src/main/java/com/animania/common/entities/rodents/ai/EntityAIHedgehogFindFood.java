@@ -2,6 +2,8 @@ package com.animania.common.entities.rodents.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.rodents.EntityFerretGrey;
+import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.handler.BlockHandler;
@@ -39,20 +41,24 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
      */
     @Override
     public boolean shouldExecute() {
-        this.delayTemptCounter++;
-        if (this.delayTemptCounter > 20) {
+    	delayTemptCounter++;
+		if (this.delayTemptCounter < 40) {
+			return false;
+		} else if (delayTemptCounter > 40) {
 
-            if (this.temptedEntity instanceof EntityHedgehog) {
-                EntityHedgehog entity = (EntityHedgehog) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-            }
-            else if (this.temptedEntity instanceof EntityHedgehogAlbino) {
-                EntityHedgehogAlbino entity = (EntityHedgehogAlbino) this.temptedEntity;
-                if (entity.getFed())
-                    return false;
-
-            }
+			if (this.temptedEntity instanceof EntityHedgehog) {
+				EntityHedgehog entity = (EntityHedgehog) this.temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			} else if (this.temptedEntity instanceof EntityHedgehogAlbino) {
+				EntityHedgehogAlbino entity = (EntityHedgehogAlbino) this.temptedEntity;
+				if (entity.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
+			}
 
             BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
             Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
@@ -119,8 +125,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
                     ech.setFed(true);
                 }
 
-                if (this.temptedEntity.world.getGameRules().getBoolean("mobGriefing"))
-                    this.temptedEntity.world.destroyBlock(currentpos, false);
+                this.temptedEntity.world.destroyBlock(currentpos, false);
 
                 return false;
             }
@@ -184,6 +189,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
                     }
 
             if (!foodFound)
+            	this.delayTemptCounter = 0;
                 return false;
         }
 

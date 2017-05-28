@@ -64,6 +64,9 @@ item.animania_cheese_omelette.name=Omelete de queijo
 item.animania_truffle_omelette.name=Omelete de trufa
 item.animania_super_omelette.name=Super Omelete
 
+item.animania_raw_frog_legs.name=Pernas de sapo cru
+item.animania_cooked_frog_legs.name=Pernas de sapo cozidas
+
 item.animania_entity_egg_cow_holstein.name=Vaca Holandesa
 item.animania_entity_egg_bull_holstein.name=Touro Holstein
 item.animania_entity_egg_calf_holstein.name=Bezerro Holstein
@@ -125,6 +128,10 @@ item.animania_entity_egg_peachick_blue.name=Pavão filhote Indiano azul
 item.animania_entity_egg_peacock_white.name=Pavão Albino
 item.animania_entity_egg_peafowl_white.name=Pavoa Albina
 item.animania_entity_egg_peachick_white.name=Pavão filhote Albino
+
+item.animania_entity_egg_frog.name=Rг
+item.animania_entity_egg_toad.name=Sapo
+item.animania_entity_egg_dart_frog.name=Rг Dendrobatidae
 
 entity.animania.ChickRhodeIslandRed.name=Pinto Island Red
 entity.animania.HenRhodeIslandRed.name=Galinha Island Red
@@ -189,11 +196,19 @@ entity.animania.PeacockWhite.name=Pavão
 entity.animania.PeafowlWhite.name=Pavoa
 entity.animania.PeachickWhite.name=Pavoa
 
+entity.animania:frog.name=Rг
+entity.animania:toad.name=Sapo
+entity.animania:dartfrog.name=Rг arborнcola
+
 tile.animania_block_mud.name=Lama
 tile.animania_block_seeds.name=Sementes
 tile.animania_block_trough.name=Cocho
 tile.animania_block_nest.name=Ninho
 tile.animania_invisiblock.name=Cocho
+
+fluid.slop=Lavagem
+fluid.milk_holstein=Leite de Holstein
+fluid.milk_friesian=Leite De Friesian
 
 tab.animania_entities.label=Mobs Animania
 tab.animania_resources.label=Recursos Animania
@@ -256,7 +271,43 @@ achievement.an.ferrets.desc=Seja amigo de TODAS AS RAÇAS de Furões!
 achievement.an.hamsters=Bolinha de Algodão.
 achievement.an.hamsters.desc=Seja amigo de um Hamster!
 
+achievement.an.feelsbadman=Mate o Rei dos Memes
+achievement.an.feelsbadman.desc=P q vocк fez isso
+
 animania.updatetext.1=Versão Animania
 animania.updatetext.2=Está Disponível!
 animania.updatetext.3=Falha ao conectar para ver se á uma atualização disponível para o Animania
 animania.update.download=["Clique para: [",{"text":"Download","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Clique para ver os últimos arquivos do 1.11 disponíveis para download","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]
+
+tooltip.an.jumping=Super Pulo
+
+animania.category.gamerules=Regras do Jogo
+animania.category.spawn=Desovas
+animania.category.entity=Entidades
+animania.category.careandfeeding=Cuidados e Alimentaзгo
+animania.category.drops=Drops
+
+text.waila.fed=Bem Alimentado
+text.waila.thirsty=Com Sede
+text.waila.hungry=Com Fome
+text.waila.mated=Acasalado
+text.waila.matemissing=Querendo Acasalar
+text.waila.milkable=Pronto Para o Leite
+text.waila.parent=Parentes
+text.waila.parentmissing=Parentes Desaparecidos
+text.waila.played=Alegre
+text.waila.bored=Entediado
+text.waila.egglay=Tempo atй o prуximo ovo
+text.waila.sitting=Sentado
+text.waila.tamed=Domesticado
+text.waila.ownermissing=Dono Desaparecido
+
+text.jei.trough=A calha pode ser usada para alimentar seus animais. Clique com o botгo direito do mouse com Trigo, um balde de бgua ou um balde de Lavagem para preenchк-lo.
+text.jei.mud=Blocos de lama sгo essenciais para os porcos, eles gostam de ficar deitados sobre ela.
+text.jei.seeds=As sementes podem ser colocadas no chгo clicando com o botгo direito, e sгo usadas como alimento para galinhas.
+text.jei.truffle=Trufas sгo encontradas vagando em torno de florestas com um porco domesticad.
+text.jei.nest=Ninhos sгo usados por galinhas, elas precisam de um lugar para colocar seus ovos.
+text.jei.slop=Lavagem й o alimento favorito dos porcos.
+text.jei.slop.craft=Para criara lavagem, basta combinar dois balde de leite com dois legumes diferentes. Incluem cenouras, batatas, beterrabas e pгo.
+text.jei.milkholstein=O leite de Holstein й obtido pelas vacas Holstein.
+text.jei.milkfriesian=O leite de Friesian й obtido pelas vacas Friesian.

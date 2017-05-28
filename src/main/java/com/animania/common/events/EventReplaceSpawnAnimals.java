@@ -560,7 +560,7 @@ public class EventReplaceSpawnAnimals
 		}
 		else if (event.getEntity().getClass().equals(EntityZombie.class)) {
 
-			if (worldIn.rand.nextFloat() < 0.8D) {
+			if (worldIn.rand.nextFloat() < 0.08D) {
 				if (worldIn.getClosestPlayerToEntity(event.getEntity(), 10) != null && !worldIn.isRemote) {
 					EntityZombie ez = (EntityZombie) event.getEntity();
 					EntityHenLeghorn entitychicken1 = new EntityHenLeghorn(worldIn);
@@ -576,7 +576,7 @@ public class EventReplaceSpawnAnimals
 		}
 		else if (event.getEntity().getClass().equals(EntitySkeleton.class)) {
 
-			if (worldIn.rand.nextFloat() < 0.8D) {
+			if (worldIn.rand.nextFloat() < 0.08D) {
 				if (worldIn.getClosestPlayerToEntity(event.getEntity(), 10) != null && !worldIn.isRemote) {
 					EntitySkeleton ez = (EntitySkeleton) event.getEntity();
 					EntityBullFriesian ef = new EntityBullFriesian(worldIn);
