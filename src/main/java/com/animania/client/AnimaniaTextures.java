@@ -204,6 +204,7 @@ public class AnimaniaTextures
         register(Item.getItemFromBlock(BlockHandler.blockMud));
         register(Item.getItemFromBlock(BlockHandler.blockTrough));
         register(Item.getItemFromBlock(BlockHandler.blockNest));
+        register(Item.getItemFromBlock(BlockHandler.blockHamsterWheel));
 
         Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
         Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkFriesian, "milk_friesian");

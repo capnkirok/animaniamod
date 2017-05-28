@@ -332,23 +332,23 @@ public class BlockInvisiblock extends BlockContainer
 		return new TileEntityInvisiblock();
 	}
 
+	@Override
+	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
+	{
 
-	@Override public int getComparatorInputOverride(IBlockState blockState,
-      World worldIn, BlockPos pos) {
-     
-      TileEntityInvisiblock te = (TileEntityInvisiblock)
-      worldIn.getTileEntity(pos); 
-      if(te.getTrough() != null) {   	  
-      if(!te.getTrough().itemHandler.getStackInSlot(0).isEmpty()) 
-    	  return ItemHandlerHelper.calcRedstoneFromInventory(te.getTrough().itemHandler);
-     
-      if(te.getTrough().fluidHandler.getFluid() != null) { 
-    	  int fluid = te.getTrough().fluidHandler.getFluidAmount(); 
-    	  return fluid/66; 
-    	  } 
-      } 
-      return 0; 
-      }
+		TileEntityInvisiblock te = (TileEntityInvisiblock) worldIn.getTileEntity(pos);
+		if (te.getTrough() != null)
+		{
+			if (!te.getTrough().itemHandler.getStackInSlot(0).isEmpty())
+				return ItemHandlerHelper.calcRedstoneFromInventory(te.getTrough().itemHandler);
 
+			if (te.getTrough().fluidHandler.getFluid() != null)
+			{
+				int fluid = te.getTrough().fluidHandler.getFluidAmount();
+				return fluid / 66;
+			}
+		}
+		return 0;
+	}
 
 }

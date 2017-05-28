@@ -241,6 +241,15 @@ public class CommonConfig
 
         @Comment("Multiplier for reducing fall damage when animals are leashed")
         public float   fallDamageReduceMultiplier = 0.45f;
+        
+        @Comment("Capacity of RF that the Hamster Wheel has")
+        public int hamsterWheelCapacity = 200000;
+        
+        @Comment("RF/tick that the Hamster wheel generates while in use")
+        public int hamsterWheelRFGeneration = 20;
+        
+        @Comment("RF/tick that the Hamster wheel generates while in use")
+        public int hamsterWheelUseTime = 2700;
     }
 
     public static class Spawn
