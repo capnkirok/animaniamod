@@ -9,17 +9,31 @@ import com.animania.common.ModSoundEvents;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILeapAtTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -67,11 +81,55 @@ public class EntityFrogs extends EntityAmphibian
         this.dataManager.set(EntityFrogs.FROGS_TYPE, Integer.valueOf(frogsId));
     }
 
-    /**
-     * Called only once on an entity when first time spawned, via egg, mob
-     * spawner, natural spawning etc, but not called when entity is reloaded
-     * from nbt. Mainly used for initializing attributes and inventory
-     */
+    @Override
+	protected void initEntityAI() {
+		this.tasks.addTask(1, new EntityAISwimming(this));
+		if (!this.getCustomNameTag().equals("Pepe")) {
+			this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
+			this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 6.0F, 1.5D, 1.5D));
+		} else if (this.getCustomNameTag().equals("Pepe")) {
+			this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.2F));
+			this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
+			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+		}
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
+		this.tasks.addTask(5, new EntityAIWander(this, 0.6D));
+
+	}
+    
+    @Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	{
+
+    	ItemStack stack = player.getHeldItem(hand);
+    	
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG) {
+			if (!stack.hasDisplayName())
+			{
+				return false;
+			}
+			else 
+			{
+				EntityLiving entityliving = (EntityLiving)this;
+				entityliving.setCustomNameTag(stack.getDisplayName());
+
+				entityliving.enablePersistence();
+				if (!player.capabilities.isCreativeMode) {
+					stack.shrink(1);;
+				}
+
+				if (stack.getDisplayName().equals("Pepe")) {
+					this.initEntityAI();
+					this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+					this.setHealth(20);
+				}
+
+			}
+
+		}
+		return super.processInteract(player, hand);
+	}
+    
     @Override
     @Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
@@ -102,6 +160,26 @@ public class EntityFrogs extends EntityAmphibian
         else
             return null;
     }
+    
+    @Override
+	public boolean attackEntityAsMob(Entity entityIn)
+	{
+		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 2.0F);
+		entityIn.attackEntityFrom(DamageSource.GENERIC, 2.0F);
+
+		if (flag)
+		{
+			this.applyEnchantments(this, entityIn);
+		}
+
+		//Custom Knockback		
+		if (entityIn instanceof EntityPlayer) {
+			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+		}
+
+
+		return flag;
+	}
 
     @Override
     protected SoundEvent getHurtSound() {
