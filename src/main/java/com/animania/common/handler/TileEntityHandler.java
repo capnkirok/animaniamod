@@ -1,5 +1,6 @@
 package com.animania.common.handler;
 
+import com.animania.common.tileentities.TileEntityHamsterWheel;
 import com.animania.common.tileentities.TileEntityInvisiblock;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityTrough;
@@ -13,5 +14,7 @@ public class TileEntityHandler
         GameRegistry.registerTileEntity(TileEntityTrough.class, "TileEntityTrough");
         GameRegistry.registerTileEntity(TileEntityNest.class, "TileEntityNest");
         GameRegistry.registerTileEntity(TileEntityInvisiblock.class, "TileEntityInvisiblock");
+        GameRegistry.registerTileEntity(TileEntityHamsterWheel.class, "TileEntityHamsterWheel");
+
     }
 }

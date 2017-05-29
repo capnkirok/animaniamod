@@ -214,6 +214,8 @@ public class EntityHamster extends EntityTameable
 		nbttagcompound.setBoolean("IsTamed", this.getIsTamed());
 		nbttagcompound.setBoolean("IsRiding", this.getIsRiding());
 	}
+	
+	
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound) {

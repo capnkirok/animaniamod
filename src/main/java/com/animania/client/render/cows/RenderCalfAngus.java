@@ -5,6 +5,7 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCalf;
+import com.animania.client.models.ModelCalfAngus;
 import com.animania.common.entities.cows.EntityCalfAngus;
 
 import net.minecraft.client.renderer.entity.Render;
@@ -25,7 +26,7 @@ public class RenderCalfAngus<T extends EntityCalfAngus> extends RenderLiving<T>
     Random                                rand             = new Random();
 
     public RenderCalfAngus(RenderManager rm) {
-        super(rm, new ModelCalf(), 0.5F);
+        super(rm, new ModelCalfAngus(), 0.5F);
     }
 
     protected ResourceLocation getCowTextures(T par1EntityCow) {

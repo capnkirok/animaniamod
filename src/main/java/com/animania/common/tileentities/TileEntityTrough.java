@@ -145,6 +145,7 @@ public class TileEntityTrough extends TileEntity implements ITickable
 	 * 9 = Slop, 1/3
 	 * </pre>
 	 */
+	@Deprecated
 	public void setType(int type)
 	{
 		this.troughType = type;
