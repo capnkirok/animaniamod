@@ -14,13 +14,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelCalf extends ModelBase
+public class ModelCalfAngus extends ModelBase
 {
     private float        headRotationAngleX;
     public ModelRenderer Head          = new ModelRenderer(this, 0, 0);
     ModelRenderer        Body;
-    ModelRenderer        Horn1;
-    ModelRenderer        Horn2;
+ //   ModelRenderer        Horn1;
+  //  ModelRenderer        Horn2;
     ModelRenderer        Snout;
     ModelRenderer        EarL;
     ModelRenderer        EarR;
@@ -35,7 +35,7 @@ public class ModelCalf extends ModelBase
     protected float      field_78145_g = 8.0F;
     protected float      field_78151_h = 4.0F;
 
-    public ModelCalf() {
+    public ModelCalfAngus() {
         this.Body = new ModelRenderer(this, 29, 9);
         this.Body.setTextureSize(64, 64);
         this.Body.addBox(-3F, -4.5F, -2.5F, 6, 9, 5);
@@ -61,7 +61,7 @@ public class ModelCalf extends ModelBase
         this.Snout.addBox(-2F, -1.5F, -1F, 4, 3, 2);
         this.Snout.setRotationPoint(0F, 2F, -1.5F);
 
-        this.Horn1 = new ModelRenderer(this, 22, 0);
+ /*       this.Horn1 = new ModelRenderer(this, 22, 0);
         this.Horn1.setTextureSize(64, 64);
         this.Horn1.addBox(-0.5F, -1F, -0.5F, 1, 2, 1);
         this.Horn1.setRotationPoint(-2F, -3.5F, 0F);
@@ -69,7 +69,7 @@ public class ModelCalf extends ModelBase
         this.Horn2 = new ModelRenderer(this, 22, 0);
         this.Horn2.setTextureSize(64, 64);
         this.Horn2.addBox(-0.5F, -1F, -0.5F, 1, 2, 1);
-        this.Horn2.setRotationPoint(2F, -3.5F, 0F);
+        this.Horn2.setRotationPoint(2F, -3.5F, 0F); */
 
         this.TailTop = new ModelRenderer(this, 32, 49);
         this.TailTop.setTextureSize(64, 64);
@@ -108,8 +108,8 @@ public class ModelCalf extends ModelBase
         this.Leg3.addBox(-1F, 1F, -1F, 2, 8, 2);
         this.Leg3.setRotationPoint(2F, 15F, 3.5F);
 
-        this.Head.addChild(this.Horn1);
-        this.Head.addChild(this.Horn2);
+     //   this.Head.addChild(this.Horn1);
+     //   this.Head.addChild(this.Horn2);
        
         this.Head.addChild(this.Snout);
         this.Head.addChild(this.EarL);
