@@ -2,6 +2,9 @@ package com.animania.common.entities.horses.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.horses.EntityMareDraftHorse;
+import com.animania.common.entities.horses.EntityStallionDraftHorse;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -21,7 +24,7 @@ public class EntityAIMateHorses extends EntityAIBase
 	public EntityAIMateHorses(EntityAnimal animal, double speedIn)
 	{
 		this.theAnimal = animal;
-		this.theWorld = animal.worldObj;
+		this.theWorld = animal.world;
 		this.moveSpeed = speedIn;
 		this.setMutexBits(3);
 		this.courtshipTimer = 20;
@@ -111,9 +114,9 @@ public class EntityAIMateHorses extends EntityAIBase
 				double xt = entity.posX;
 				double yt = entity.posY;
 				double zt = entity.posZ;
-				int x1 = MathHelper.floor_double(this.theAnimal.posX);
-				int y1 = MathHelper.floor_double(this.theAnimal.posY);
-				int z1 = MathHelper.floor_double(this.theAnimal.posZ);
+				int x1 = MathHelper.floor(this.theAnimal.posX);
+				int y1 = MathHelper.floor(this.theAnimal.posY);
+				int z1 = MathHelper.floor(this.theAnimal.posZ);
 				double x2 = Math.abs(xt - x1);
 				double y2 = Math.abs(yt - y1);
 				double z2 = Math.abs(zt - z1);
@@ -162,9 +165,9 @@ public class EntityAIMateHorses extends EntityAIBase
 				double xt = entity.posX;
 				double yt = entity.posY;
 				double zt = entity.posZ;
-				int x1 = MathHelper.floor_double(this.theAnimal.posX);
-				int y1 = MathHelper.floor_double(this.theAnimal.posY);
-				int z1 = MathHelper.floor_double(this.theAnimal.posZ);
+				int x1 = MathHelper.floor(this.theAnimal.posX);
+				int y1 = MathHelper.floor(this.theAnimal.posY);
+				int z1 = MathHelper.floor(this.theAnimal.posZ);
 				double x2 = Math.abs(xt - x1);
 				double y2 = Math.abs(yt - y1);
 				double z2 = Math.abs(zt - z1);

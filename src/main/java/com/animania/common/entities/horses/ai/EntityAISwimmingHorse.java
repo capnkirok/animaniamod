@@ -36,7 +36,7 @@ public class EntityAISwimmingHorse extends EntityAIBase
 		
 			BlockPos poschk = new BlockPos(this.theEntity.posX + this.theEntity.motionX/1.5, this.theEntity.posY+.1F, this.theEntity.posZ + this.theEntity.motionZ/1.5);
 			
-			Block blockchk = this.theEntity.worldObj.getBlockState(poschk).getBlock();
+			Block blockchk = this.theEntity.world.getBlockState(poschk).getBlock();
 			
 			if (blockchk != Blocks.WATER) {
 				this.theEntity.setPositionAndUpdate(this.theEntity.posX + this.theEntity.motionX/2, this.theEntity.posY+.15F, this.theEntity.posZ + this.theEntity.motionZ/2);

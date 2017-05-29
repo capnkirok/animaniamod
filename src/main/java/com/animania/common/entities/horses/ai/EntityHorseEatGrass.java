@@ -1,5 +1,9 @@
 package com.animania.common.entities.horses.ai;
 
+import com.animania.common.entities.horses.EntityStallionDraftHorse;
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
@@ -9,9 +13,6 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 
 public class EntityHorseEatGrass extends EntityAIBase
 {
@@ -26,7 +27,7 @@ public class EntityHorseEatGrass extends EntityAIBase
 	public EntityHorseEatGrass(EntityLiving grassEaterEntityIn)
 	{
 		this.grassEaterEntity = grassEaterEntityIn;
-		this.entityWorld = grassEaterEntityIn.worldObj;
+		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);
 	}
 

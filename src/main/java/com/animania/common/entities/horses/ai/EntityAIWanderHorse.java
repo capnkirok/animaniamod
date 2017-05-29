@@ -6,11 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-
-import com.animania.Animania;
 
 public class EntityAIWanderHorse extends EntityAIBase
 {
@@ -83,7 +80,7 @@ public class EntityAIWanderHorse extends EntityAIBase
 		double z = entity.posZ;
 
 		BlockPos pos = new BlockPos(x, y, z);
-		Block blockchk = entity.worldObj.getBlockState(pos).getBlock();
+		Block blockchk = entity.world.getBlockState(pos).getBlock();
 		Random rand = new Random();
 
 		this.entity.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);

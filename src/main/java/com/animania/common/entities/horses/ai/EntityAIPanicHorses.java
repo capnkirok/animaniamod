@@ -1,7 +1,5 @@
 package com.animania.common.entities.horses.ai;
 
-import java.util.UUID;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -38,7 +36,7 @@ public class EntityAIPanicHorses extends EntityAIBase
 	 */
 	public boolean shouldExecute()
 	{
-		EntityPlayer checkPlayer = this.theEntityCreature.worldObj.getClosestPlayer(this.theEntityCreature.posX, this.theEntityCreature.posY, this.theEntityCreature.posZ, 20, false);
+		EntityPlayer checkPlayer = this.theEntityCreature.world.getClosestPlayer(this.theEntityCreature.posX, this.theEntityCreature.posY, this.theEntityCreature.posZ, 20, false);
 		
 		
 		if (this.theEntityCreature.getAITarget() == null && !this.theEntityCreature.isBurning() && duration == 0)
@@ -71,7 +69,7 @@ public class EntityAIPanicHorses extends EntityAIBase
 		}
 		else
 		{
-			BlockPos blockpos = this.getRandPos(this.theEntityCreature.worldObj, this.theEntityCreature, 20, 4);
+			BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
 		
 			if (blockpos == null)
 			{

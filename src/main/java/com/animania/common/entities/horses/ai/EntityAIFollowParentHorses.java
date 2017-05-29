@@ -2,6 +2,8 @@ package com.animania.common.entities.horses.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.horses.EntityFoalDraftHorse;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -38,18 +40,18 @@ public class EntityAIFollowParentHorses extends EntityAIBase
 					return false;
 				} else {
 
-					int esize = this.childAnimal.worldObj.loadedEntityList.size();
+					int esize = this.childAnimal.world.loadedEntityList.size();
 
 					for (int k = 0; k <= esize - 1; k++) {
 
-						Entity entity = (Entity) this.childAnimal.worldObj.loadedEntityList.get(k);
+						Entity entity = (Entity) this.childAnimal.world.loadedEntityList.get(k);
 
 						double xt = entity.posX;
 						double yt = entity.posY;
 						double zt = entity.posZ;
-						int x1 = MathHelper.floor_double(this.childAnimal.posX);
-						int y1 = MathHelper.floor_double(this.childAnimal.posY);
-						int z1 = MathHelper.floor_double(this.childAnimal.posZ);
+						int x1 = MathHelper.floor(this.childAnimal.posX);
+						int y1 = MathHelper.floor(this.childAnimal.posY);
+						int z1 = MathHelper.floor(this.childAnimal.posZ);
 						double x2 = Math.abs(xt - x1);
 						double y2 = Math.abs(yt - y1);
 						double z2 = Math.abs(zt - z1);
