@@ -13,20 +13,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 
-public class EntityAIFindFood extends EntityAIBase
+public class EntityAIFindFood extends EntityAIBase 
 {
 	private final EntityCreature temptedEntity;
-	private final double         speed;
-	private double               targetX;
-	private double               targetY;
-	private double               targetZ;
-	private double               pitch;
-	private double               yaw;
-	private EntityPlayer         temptingPlayer;
-	private boolean              isRunning;
-	private int                  delayTemptCounter;
+	private final double speed;
+	private double targetX;
+	private double targetY;
+	private double targetZ;
+	private double pitch;
+	private double yaw;
+	private EntityPlayer temptingPlayer;
+	private boolean isRunning;
+	private int delayTemptCounter;
 
-	public EntityAIFindFood(EntityCreature temptedEntityIn, double speedIn) {
+	public EntityAIFindFood(EntityCreature temptedEntityIn, double speedIn)
+	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
 		this.setMutexBits(3);
@@ -36,112 +37,112 @@ public class EntityAIFindFood extends EntityAIBase
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
-	@Override
-	public boolean shouldExecute() {
-
+	public boolean shouldExecute()
+	{
 		delayTemptCounter++;
 		if (this.delayTemptCounter < 40) {
 			return false;
 		} else if (delayTemptCounter > 40) {
-			if (this.temptedEntity instanceof EntityStallionDraftHorse) {
-				EntityStallionDraftHorse ech = (EntityStallionDraftHorse) this.temptedEntity;
-				if (ech.getFed())
+			if (temptedEntity instanceof EntityStallionDraftHorse) {
+				EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+				if (ech.getFed()) {
 					this.delayTemptCounter = 0;
-				return false;
+					return false;
+				}
+			
 			}
 
-			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
-			BlockPos trypos1 = new BlockPos(this.temptedEntity.posX + 1, this.temptedEntity.posY, this.temptedEntity.posZ);
-			BlockPos trypos2 = new BlockPos(this.temptedEntity.posX - 1, this.temptedEntity.posY, this.temptedEntity.posZ);
-			BlockPos trypos3 = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ + 1);
-			BlockPos trypos4 = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ - 1);
-			BlockPos trypos5 = new BlockPos(this.temptedEntity.posX + 1, this.temptedEntity.posY, this.temptedEntity.posZ + 1);
-			BlockPos trypos6 = new BlockPos(this.temptedEntity.posX - 1, this.temptedEntity.posY, this.temptedEntity.posZ - 1);
-			BlockPos trypos7 = new BlockPos(this.temptedEntity.posX - 1, this.temptedEntity.posY, this.temptedEntity.posZ + 1);
-			BlockPos trypos8 = new BlockPos(this.temptedEntity.posX + 1, this.temptedEntity.posY, this.temptedEntity.posZ - 1);
-			Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
-			Block poschk1 = this.temptedEntity.world.getBlockState(trypos1).getBlock();
-			Block poschk2 = this.temptedEntity.world.getBlockState(trypos2).getBlock();
-			Block poschk3 = this.temptedEntity.world.getBlockState(trypos3).getBlock();
-			Block poschk4 = this.temptedEntity.world.getBlockState(trypos4).getBlock();
-			Block poschk5 = this.temptedEntity.world.getBlockState(trypos5).getBlock();
-			Block poschk6 = this.temptedEntity.world.getBlockState(trypos6).getBlock();
-			Block poschk7 = this.temptedEntity.world.getBlockState(trypos7).getBlock();
-			Block poschk8 = this.temptedEntity.world.getBlockState(trypos8).getBlock();
+			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
+			BlockPos trypos1 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ);
+			BlockPos trypos2 = new BlockPos(temptedEntity.posX - 1, temptedEntity.posY, temptedEntity.posZ);
+			BlockPos trypos3 = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ + 1);
+			BlockPos trypos4 = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ - 1);
+			BlockPos trypos5 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ + 1);
+			BlockPos trypos6 = new BlockPos(temptedEntity.posX - 1, temptedEntity.posY, temptedEntity.posZ - 1);
+			BlockPos trypos7 = new BlockPos(temptedEntity.posX - 1, temptedEntity.posY, temptedEntity.posZ + 1);
+			BlockPos trypos8 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ - 1);
+			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
+			Block poschk1 = temptedEntity.world.getBlockState(trypos1).getBlock();
+			Block poschk2 = temptedEntity.world.getBlockState(trypos2).getBlock();
+			Block poschk3 = temptedEntity.world.getBlockState(trypos3).getBlock();
+			Block poschk4 = temptedEntity.world.getBlockState(trypos4).getBlock();
+			Block poschk5 = temptedEntity.world.getBlockState(trypos5).getBlock();
+			Block poschk6 = temptedEntity.world.getBlockState(trypos6).getBlock();
+			Block poschk7 = temptedEntity.world.getBlockState(trypos7).getBlock();
+			Block poschk8 = temptedEntity.world.getBlockState(trypos8).getBlock();
 
 			if (poschk == BlockHandler.blockTrough) {
-				// do nothing
-			}
-			else if (poschk1 == BlockHandler.blockTrough)
+				//do nothing
+			} else if (poschk1 == BlockHandler.blockTrough) {
 				currentpos = trypos1;
-			else if (poschk2 == BlockHandler.blockTrough)
+			} else if (poschk2 == BlockHandler.blockTrough) {
 				currentpos = trypos2;
-			else if (poschk3 == BlockHandler.blockTrough)
+			} else if (poschk3 == BlockHandler.blockTrough) {
 				currentpos = trypos3;
-			else if (poschk4 == BlockHandler.blockTrough)
+			} else if (poschk4 == BlockHandler.blockTrough) {
 				currentpos = trypos4;
-			else if (poschk5 == BlockHandler.blockTrough)
+			} else if (poschk5 == BlockHandler.blockTrough) {
 				currentpos = trypos5;
-			else if (poschk6 == BlockHandler.blockTrough)
+			} else if (poschk6 == BlockHandler.blockTrough) {
 				currentpos = trypos6;
-			else if (poschk7 == BlockHandler.blockTrough)
+			} else if (poschk7 == BlockHandler.blockTrough) {
 				currentpos = trypos7;
-			else if (poschk8 == BlockHandler.blockTrough)
+			} else if (poschk8 == BlockHandler.blockTrough) {
 				currentpos = trypos8;
+			}
 
-			if (poschk == BlockHandler.blockTrough) {
-				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(currentpos);
-				if (te != null && te.getTroughType() == 4) {
+			if (poschk1 == BlockHandler.blockTrough || poschk2 == BlockHandler.blockTrough || poschk3 == BlockHandler.blockTrough || poschk4 == BlockHandler.blockTrough || poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough || poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
+				TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(currentpos);
+				if (te !=null && te.getTroughType() == 4) {
 					te.setType(0);
 					te.markDirty();
-					this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
-					this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
+					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 
-					if (this.temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse) this.temptedEntity;
+					if (temptedEntity instanceof EntityStallionDraftHorse) {
+						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
-						return false;
+					
 					}
 
-				}
-				else if (te != null && te.getTroughType() == 5) {
+					return false;
+
+				} else if (te !=null && te.getTroughType() == 5) {
 					te.setType(4);
 					te.markDirty();
-					this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 4);
-					this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (this.temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse) this.temptedEntity;
+					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 4);
+					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+					if (temptedEntity instanceof EntityStallionDraftHorse) {
+						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
-					}
+					} 
 					return false;
-				}
-				else if (te != null && te.getTroughType() == 6) {
+				} else if (te !=null && te.getTroughType() == 6) {
 					te.setType(5);
 					te.markDirty();
-					this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 5);
-					this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (this.temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse) this.temptedEntity;
+					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 5);
+					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+					if (temptedEntity instanceof EntityStallionDraftHorse) {
+						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
-					}
+					} 
 					return false;
 				}
 
-			}
+
+			} 
 
 			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT || poschk == Blocks.YELLOW_FLOWER) {
 
-				if (this.temptedEntity instanceof EntityStallionDraftHorse) {
-					EntityStallionDraftHorse ech = (EntityStallionDraftHorse) this.temptedEntity;
+				if (temptedEntity instanceof EntityStallionDraftHorse) {
+					EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				}
+				} 
 
-
-				this.temptedEntity.world.destroyBlock(currentpos, false);
 
 				return false;
 			}
@@ -155,65 +156,66 @@ public class EntityAIFindFood extends EntityAIBase
 
 			BlockPos pos = new BlockPos(x, y, z);
 
-			for (int i = -16; i < 16; i++)
-				for (int j = -3; j < 3; j++)
+			for (int i = -16; i < 16; i++) {
+				for (int j = -3; j < 3; j++) {
 					for (int k = -16; k < 16; k++) {
 
 						pos = new BlockPos(x + i, y + j, z + k);
 
-						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
 						if (blockchk == BlockHandler.blockTrough) {
-							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
-							if (te != null && (te.getTroughType() == 4 || te.getTroughType() == 5 || te.getTroughType() == 6)) {
+							TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
+							if (te !=null && (te.getTroughType() == 4 || te.getTroughType() == 5 || te.getTroughType() == 6)) {
 								foodFound = true;
 								if (rand.nextInt(20) == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
-								}
-								else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
-										&& this.temptedEntity.motionZ == 0) {
+								} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
-								}
-								else
+								} else {
 									return true;
+								}
 							}
 						}
 
-						if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT
-								|| blockchk == Blocks.YELLOW_FLOWER) {
+						if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER) {
 
 							foodFound = true;
 							if (rand.nextInt(20) == 0) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
-							}
-							else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
-									&& this.temptedEntity.motionZ == 0) {
+							} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
-							}
-							else
+							} else {
 								return true;
+							}
 						}
 
 					}
 
-			if (!foodFound)
+				}
+			}
+
+			if (!foodFound) {
 				this.delayTemptCounter = 0;
-			return false;
+				return false;
+			}
 		}
 
 		return false;
 	}
 
-	@Override
-	public boolean continueExecuting() {
+
+
+	public boolean continueExecuting()
+	{
 
 		return this.shouldExecute();
 	}
@@ -221,23 +223,24 @@ public class EntityAIFindFood extends EntityAIBase
 	/**
 	 * Execute a one shot task or start executing a continuous task
 	 */
-	@Override
-	public void startExecuting() {
+	public void startExecuting()
+	{	
 		this.isRunning = true;
 	}
 
 	/**
 	 * Resets the task
 	 */
-	@Override
-	public void resetTask() {
+	public void resetTask()
+	{
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigator().clearPathEntity();
 		this.isRunning = false;
 	}
 
-	@Override
-	public void updateTask() {
+
+	public void updateTask()
+	{
 
 		double x = this.temptedEntity.posX;
 		double y = this.temptedEntity.posY;
@@ -247,71 +250,71 @@ public class EntityAIFindFood extends EntityAIBase
 		int loc = 24;
 		int newloc = 24;
 		BlockPos pos = new BlockPos(x, y, z);
-		BlockPos mudPos = new BlockPos(x, y, z);
+		BlockPos foodPos = new BlockPos(x, y, z);
 
-		for (int i = -16; i < 16; i++)
-			for (int j = -3; j < 3; j++)
+		for (int i = -16; i < 16; i++) {
+			for (int j = -3; j < 3; j++) {
 				for (int k = -16; k < 16; k++) {
 
 					pos = new BlockPos(x + i, y + j, z + k);
-					Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+					Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
+
 
 					if (blockchk == BlockHandler.blockTrough) {
 
-						TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
 
-						if (te != null && (te.getTroughType() == 4 || te.getTroughType() == 5 || te.getTroughType() == 6)) {
+						TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
+
+						if (te !=null && (te.getTroughType() == 4 || te.getTroughType() == 5 || te.getTroughType() == 6)) {
 
 							foodFound = true;
-							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
+							newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
 
 							if (newloc < loc) {
 
 								loc = newloc;
 
-								if (this.temptedEntity.posX < mudPos.getX()) {
-									BlockPos mudPoschk = new BlockPos(x + i + 1, y + j, z + k);
-									Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPoschk).getBlock();
+								if (temptedEntity.posX < foodPos.getX()) {
+									BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
+									Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
 									i = i + 1;
-								}
+								} 
 
-								if (this.temptedEntity.posZ < mudPos.getZ()) {
-									BlockPos mudPoschk = new BlockPos(x + i, y + j, z + k + 1);
-									Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPoschk).getBlock();
+								if (temptedEntity.posZ < foodPos.getZ()) {
+									BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
+									Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
 									k = k + 1;
 								}
 
-								mudPos = new BlockPos(x + i, y + j, z + k);
+								foodPos = new BlockPos(x + i, y + j, z + k);
 
 							}
 						}
-					}
-					else if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT
-							|| blockchk == Blocks.YELLOW_FLOWER) {
+					} else if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER) {
 						foodFound = true;
-						newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
+						newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
 
 						if (newloc < loc) {
 
 							loc = newloc;
 
-							if (this.temptedEntity.posX < mudPos.getX()) {
-								BlockPos mudPoschk = new BlockPos(x + i + 1, y + j, z + k);
-								Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPoschk).getBlock();
-								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT
-										|| mudBlockchk == Blocks.YELLOW_FLOWER)
+							if (temptedEntity.posX < foodPos.getX()) {
+								BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
+								Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
+								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
 									i = i + 1;
-							}
+								}
+							} 
 
-							if (this.temptedEntity.posZ < mudPos.getZ()) {
-								BlockPos mudPoschk = new BlockPos(x + i, y + j, z + k + 1);
-								Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPoschk).getBlock();
-								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT
-										|| mudBlockchk == Blocks.YELLOW_FLOWER)
+							if (temptedEntity.posZ < foodPos.getZ()) {
+								BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
+								Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
+								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
 									k = k + 1;
+								} 
 							}
 
-							mudPos = new BlockPos(x + i, y + j, z + k);
+							foodPos = new BlockPos(x + i, y + j, z + k);
 
 						}
 
@@ -319,17 +322,29 @@ public class EntityAIFindFood extends EntityAIBase
 
 				}
 
+			}
+
+
+		}
+
 		if (foodFound) {
 
-			Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPos).getBlock();
-			if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT
-					|| mudBlockchk == Blocks.YELLOW_FLOWER || mudBlockchk == BlockHandler.blockTrough)
-				this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
+			Block mudBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
+			if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || (mudBlockchk == BlockHandler.blockTrough)) {
+
+				this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
+
+			}
 		}
 
 	}
 
-	public boolean isRunning() {
+
+
+
+
+	public boolean isRunning()
+	{
 		return this.isRunning;
 	}
 }

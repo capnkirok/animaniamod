@@ -5,6 +5,7 @@ item.animania_brown_egg.name=Egg
 item.animania_bucket_slop.name=Bucket o' Slop
 item.animania_carving_knife.name=Carving Knife
 item.animania_cheese_mold.name=Cheese Mold
+item.animania_riding_crop.name=Riding Crop
 
 item.animania_blue_peacock_feather.name=Blue Peacock Feather
 item.animania_white_peacock_feather.name=White Peacock Feather
@@ -154,6 +155,11 @@ item.animania_entity_egg_frog.name=Frog
 item.animania_entity_egg_toad.name=Toad
 item.animania_entity_egg_dart_frog.name=Dart Frog
 
+item.animania_entity_egg_draft_horse_mare.name=Draft Horse Mare
+item.animania_entity_egg_draft_horse_stallion.name=Draft Horse Stallion
+item.animania_entity_egg_draft_horse_foal.name=Draft Horse Foal
+
+
 entity.animania.ChickRhodeIslandRed.name=Rhode Island Red Chick
 entity.animania.HenRhodeIslandRed.name=Rhode Island Red Hen
 entity.animania.RoosterRhodeIslandRed.name=Rhode Island Red Rooster
@@ -219,11 +225,16 @@ entity.animania.PeacockWhite.name=White Peacock
 entity.animania.PeafowlWhite.name=White Peafowl
 entity.animania.PeachickWhite.name=White Peachick
 
+entity.animania.StallionDraftHorse.name=Draft Horse Stallion
+entity.animania.MareDraftHorse.name=Draft Horse Mare
+entity.animania.FoalDraftHorse.name=Draft Horse Foal
+
 entity.animania:frog.name=Frog
 entity.animania:toad.name=Toad
 entity.animania:dartfrog.name=Tree Frog
 
 death.attack.bull=%1$s was gored to death
+death.attack.pepe=%1$s was memed to death
 
 tile.animania_block_mud.name=Mud
 tile.animania_block_seeds.name=Seeds
@@ -231,11 +242,9 @@ tile.animania_block_trough.name=Trough
 tile.animania_block_nest.name=Nest
 tile.animania_invisiblock.name=Trough
 
-
 fluid.slop=Slop
 fluid.milk_holstein=Holstein Milk
 fluid.milk_friesian=Friesian Milk
-
 
 tab.animania_entities.label=Animania Entities
 tab.animania_resources.label=Animania Resources
@@ -312,6 +321,11 @@ achievement.an.feelsbadman.desc=Y u do dis
 achievement.an.hamsters=Hamster Whisperer
 achievement.an.hamsters.desc=Befriend a Hamster
 
+achievement.an.horses=Draft Horses
+achievement.an.horses.desc=Befriend a Draft Horse
+achievement.an.horseriding=Seabiscuit
+achievement.an.horseriding.desc=Ride a Draft Horse
+
 animania.updatetext.1=Animania Version 
 animania.updatetext.2=is now available
 animania.updatetext.3=Failed to connect to see if an update to Animania is available
@@ -327,6 +341,9 @@ tooltip.an.regeneration=Regeneration
 tooltip.an.haste=Haste
 tooltip.an.healthboost=Health Boost
 tooltip.an.jumping=Jump Boost
+
+tooltip.an.ridingcrop1=Use on well fed Draft Horse to ride
+tooltip.an.ridingcrop2=While riding, hold down to increase speed
 
 tooltip.an.edibleanytime=Edible Anytime
 
@@ -344,7 +361,7 @@ text.waila.matemissing=Mate missing
 text.waila.milkable=Ready to milk
 text.waila.parent=Parent
 text.waila.parentmissing=Parent missing
-text.waila.played=Cheerful
+text.waila.played=Content
 text.waila.bored=Bored
 text.waila.egglay=Ticks until next egg
 text.waila.sitting=Sitting

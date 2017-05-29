@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.handler.DamageSourceHandler;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -164,8 +165,8 @@ public class EntityFrogs extends EntityAmphibian
     @Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
-		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 2.0F);
-		entityIn.attackEntityFrom(DamageSource.GENERIC, 2.0F);
+    	boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.pepeDamage, 2.0F);
+		entityIn.attackEntityFrom(DamageSourceHandler.pepeDamage, 2.0F);
 
 		if (flag)
 		{

@@ -8,21 +8,24 @@ import com.animania.client.models.ModelPigletHampshire;
 import com.animania.client.render.pigs.RenderSowYorkshire.Factory;
 import com.animania.client.render.pigs.layers.LayerMudPigletHampshire;
 import com.animania.common.entities.pigs.EntityPigletHampshire;
+import com.animania.common.entities.pigs.EntityPigletLargeBlack;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderPigletHampshire extends RenderLiving
+public class RenderPigletHampshire<T extends EntityPigletHampshire> extends RenderLiving<T>
 {
     public static final Factory           FACTORY            = new Factory();
 
@@ -85,13 +88,12 @@ public class RenderPigletHampshire extends RenderLiving
     }
 
     @Override
-    protected void preRenderCallback(EntityLivingBase entityliving, float f) {
-        this.preRenderScale((EntityPigletHampshire) entityliving, f);
+    protected void preRenderCallback(T entityliving, float f) {
+        this.preRenderScale(entityliving, f);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(Entity par1Entity) {
-        EntityPigletHampshire entity = (EntityPigletHampshire) par1Entity;
+    protected ResourceLocation getEntityTexture(T entity) {
 
         int blinkTimer = entity.blinkTimer;
 
@@ -99,5 +101,13 @@ public class RenderPigletHampshire extends RenderLiving
             return RenderPigletHampshire.PIG_TEXTURES_BLINK;
         else
             return RenderPigletHampshire.PIG_TEXTURES;
+    }
+
+    static class Factory<T extends EntityPigletLargeBlack> implements IRenderFactory<T>
+    {
+        @Override
+        public Render<? super T> createRenderFor(RenderManager manager) {
+            return new RenderPigletHampshire(manager);
+        }
     }
 }

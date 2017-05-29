@@ -58,6 +58,7 @@ import com.animania.common.items.ItemRawPrimePork;
 import com.animania.common.items.ItemRawPrimeSteak;
 import com.animania.common.items.ItemRawRhodeIslandRedChicken;
 import com.animania.common.items.ItemRawWyandotteChicken;
+import com.animania.common.items.ItemRidingCrop;
 import com.animania.common.items.ItemTruffle;
 import com.animania.common.items.ItemTruffleSoup;
 
@@ -77,6 +78,7 @@ public class ItemHandler
 
     public static Item peacockFeatherBlue;
     public static Item peacockFeatherWhite;
+    public static Item ridingCrop;
 
     // Beef
     public static Item rawHerefordBeef;
@@ -243,9 +245,9 @@ public class ItemHandler
     public static Item entityegghedgehogalbino;
 
     // Eggs - Horses
-    // public static Item entityeggdrafthorsestallion;
-    // public static Item entityeggdrafthorsemare;
-    // public static Item entityeggdrafthorsefoal;
+    public static Item entityeggdrafthorsestallion;
+    public static Item entityeggdrafthorsemare;
+    public static Item entityeggdrafthorsefoal;
 
     // Eggs - Rodents
     public static Item entityeggfrog;
@@ -264,6 +266,7 @@ public class ItemHandler
         // milkBucketHolstein = new ItemBucketMilk("holstein");
         ItemHandler.peacockFeatherBlue = new ItemPeacockFeather("blue");
         ItemHandler.peacockFeatherWhite = new ItemPeacockFeather("white");
+        ItemHandler.ridingCrop = new ItemRidingCrop();
 
         // Other foods
         ItemHandler.ultimateOmelette = new ItemOmelette("super");
@@ -442,10 +445,9 @@ public class ItemHandler
         ItemHandler.entityeggdartfrog = new ItemEntityEgg("dart_frog");
 
         // HORSES
-        // entityeggdrafthorsestallion = new
-        // ItemEntityEgg("draft_horse_stallion");
-        // entityeggdrafthorsemare = new ItemEntityEgg("draft_horse_mare");
-        // entityeggdrafthorsefoal = new ItemEntityEgg("draft_horse_foal");
+        entityeggdrafthorsestallion = new ItemEntityEgg("draft_horse_stallion");
+        entityeggdrafthorsemare = new ItemEntityEgg("draft_horse_mare");
+        entityeggdrafthorsefoal = new ItemEntityEgg("draft_horse_foal");
 
     }
 }

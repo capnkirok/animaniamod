@@ -194,9 +194,15 @@ public class CommonConfig
         public int PigletHampshireID       = 617;
 
         // HORSES
-        // public int MareDraftHorseID = 701;
-        // public int StallionDraftHorseID = 702;
-        // public int FoalDraftHorseID = 703;
+        
+        @Comment("Stallion Draft Horse Entity ID")
+      	public int MareDraftHorseID 		= 701;
+        
+        @Comment("Mare Draft Horse Entity ID")
+      	public int StallionDraftHorseID		= 702;
+        
+        @Comment("Foal Draft Horse Entity ID")
+      	public int FoalDraftHorseID 		= 703;
 
     }
 
@@ -276,9 +282,13 @@ public class CommonConfig
         public int     spawnLimitPeacocks         = 50;
         @Comment("Spawn limit for Amphibians in loaded chunks")
         public int     spawnLimitAmphibians       = 60;
+        @Comment("Spawn limit for Horses in loaded chunks")
+        public int     spawnLimitHorses             = 40;
 
         @Comment("Spawn probability Cows")
         public int     spawnProbabilityCows       = 12;
+        @Comment("Spawn probability Horses")
+        public int     spawnProbabilityHorses     = 12;
         @Comment("Spawn probability Sows")
         public int     spawnProbabilitySows       = 12;
         @Comment("Spawn probability Hens")
@@ -300,6 +310,8 @@ public class CommonConfig
         public int     numberPigFamilies          = 1;
         @Comment("Number of potential Chicken families per chunk")
         public int     numberChickenFamilies      = 1;
+        @Comment("Number of potential Horse families per chunk")
+        public int     numberHorseFamilies      = 1;
     }
 
     public static class CareAndFeeding
