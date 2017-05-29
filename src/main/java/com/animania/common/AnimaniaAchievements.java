@@ -50,6 +50,9 @@ public class AnimaniaAchievements
     public static Achievement     Sonic;
     public static Achievement     Sanic;
     public static Achievement     FeelsBadMan;
+    
+    public static Achievement     Horses;
+    public static Achievement     Horseriding;
 
     public static void init() {
 
@@ -119,6 +122,10 @@ public class AnimaniaAchievements
                 .registerStat().setSpecial();
         AnimaniaAchievements.FeelsBadMan = new Achievement("feelsbadman", "an.feelsbadman", 14, 10, ItemHandler.entityeggfrog, (Achievement) null)
                 .registerStat().setSpecial();
+        
+        AnimaniaAchievements.Horses = new Achievement("horses", "an.horses", -2, 12, ItemHandler.entityeggdrafthorsestallion, (Achievement)null).registerStat();
+		AnimaniaAchievements.Horseriding = new Achievement("horseriding", "an.horseriding", 0, 12, ItemHandler.ridingCrop, (Achievement)null).registerStat();
+
 
         AchievementPage.registerAchievementPage(AnimaniaAchievements.page = new AchievementPage("Animania",
                 new Achievement[] { AnimaniaAchievements.Leghorn, AnimaniaAchievements.Orpington, AnimaniaAchievements.PlymouthRock,
@@ -129,7 +136,8 @@ public class AnimaniaAchievements
                         AnimaniaAchievements.Yorkshire, AnimaniaAchievements.Pigs, AnimaniaAchievements.IndiaBlue, AnimaniaAchievements.White,
                         AnimaniaAchievements.Peacocks, AnimaniaAchievements.WhiteFerret, AnimaniaAchievements.GreyFerret,
                         AnimaniaAchievements.Ferrets, AnimaniaAchievements.Hamsters, AnimaniaAchievements.Hedgehog,
-                        AnimaniaAchievements.AlbinoHedgehog, AnimaniaAchievements.Hedgehogs }));
+                        AnimaniaAchievements.AlbinoHedgehog, AnimaniaAchievements.Hedgehogs,
+                        AnimaniaAchievements.Horses, AnimaniaAchievements.Horseriding }));
 
     }
 

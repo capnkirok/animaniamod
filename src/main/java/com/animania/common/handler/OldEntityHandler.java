@@ -31,6 +31,9 @@ import com.animania.common.entities.cows.EntityCowFriesian;
 import com.animania.common.entities.cows.EntityCowHereford;
 import com.animania.common.entities.cows.EntityCowHolstein;
 import com.animania.common.entities.cows.EntityCowLonghorn;
+import com.animania.common.entities.horses.EntityFoalDraftHorse;
+import com.animania.common.entities.horses.EntityMareDraftHorse;
+import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.entities.peacocks.EntityPeachickBlue;
 import com.animania.common.entities.peacocks.EntityPeachickWhite;
 import com.animania.common.entities.peacocks.EntityPeacockBlue;
@@ -65,6 +68,8 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class OldEntityHandler
@@ -380,6 +385,23 @@ public class OldEntityHandler
                     Biomes.JUNGLE, Biomes.SWAMPLAND);
             EntityRegistry.addSpawn(EntityPeachickWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks / 2, 1, 1, EnumCreatureType.CREATURE,
                     Biomes.JUNGLE, Biomes.SWAMPLAND);
+        }
+        
+        // HORSES
+        if (AnimaniaConfig.spawn.spawnAnimaniaHorses) {
+
+        	ResourceLocation ho1 = new ResourceLocation("animania:textures/entity/horses/draft_horse_black.png");
+            EntityRegistry.registerModEntity(ho1, EntityStallionDraftHorse.class, "animania.StallionDraftHorse", AnimaniaConfig.entity.StallionDraftHorseID, Animania.MODID, 64, 3, true);
+           
+            ResourceLocation ho2 = new ResourceLocation("animania:textures/entity/horses/draft_horse_grey.png");
+            EntityRegistry.registerModEntity(ho2, EntityMareDraftHorse.class, "animania.MareDraftHorse", AnimaniaConfig.entity.MareDraftHorseID, Animania.MODID, 64, 3, true);
+            
+            ResourceLocation ho3 = new ResourceLocation("animania:textures/entity/horses/draft_horse_white.png");
+            EntityRegistry.registerModEntity(ho3, EntityFoalDraftHorse.class, "animania.FoalDraftHorse", AnimaniaConfig.entity.FoalDraftHorseID, Animania.MODID, 64, 3, true);
+            
+            EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 1, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, Biomes.PLAINS, Biomes.SAVANNA); 
+	
+           
         }
 
     }

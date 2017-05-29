@@ -2,6 +2,8 @@ package com.animania.common.events;
 
 import java.util.Random;
 
+import com.animania.common.entities.horses.EntityMareDraftHorse;
+import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.entities.pigs.EntityHogDuroc;
 import com.animania.common.entities.pigs.EntityHogHampshire;
 import com.animania.common.entities.pigs.EntityHogLargeBlack;
@@ -15,6 +17,7 @@ import com.animania.common.entities.pigs.EntitySowLargeWhite;
 import com.animania.common.entities.pigs.EntitySowOldSpot;
 import com.animania.common.entities.pigs.EntitySowYorkshire;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.ItemHandler;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.BlockFarmland;
@@ -139,6 +142,24 @@ public class ItemSeedHandler
 			
 			}
 
+		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && player.isRiding()) {
+			if (player.getRidingEntity() instanceof EntityStallionDraftHorse) {
+				EntityStallionDraftHorse ep = (EntityStallionDraftHorse)player.getRidingEntity();
+				ep.boost();
+				if (!player.capabilities.isCreativeMode) {
+					stack.damageItem(1, player);
+				}
+			}
+		}
+		
+		if (stack != null && stack.getItem() == ItemHandler.ridingCrop && player.isRiding()) {
+			if (player.getRidingEntity() instanceof EntityMareDraftHorse) {
+				EntityMareDraftHorse ep = (EntityMareDraftHorse)player.getRidingEntity();
+				ep.boost();
+				if (!player.capabilities.isCreativeMode) {
+					stack.damageItem(1, player);
+				}
+			}
 		}
 
 	}

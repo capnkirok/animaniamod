@@ -278,6 +278,7 @@ public class EntityHamster extends EntityTameable
 
 			player.addStat(AnimaniaAchievements.Hamsters, 1);
 			this.setInLove(player);
+			this.setFed(true);
 			this.setIsTamed(true);
 			this.setTamed(true);
 			this.setOwnerId(player.getUniqueID());

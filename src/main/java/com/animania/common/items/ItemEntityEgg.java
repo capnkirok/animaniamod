@@ -38,6 +38,8 @@ import com.animania.common.entities.cows.EntityCowFriesian;
 import com.animania.common.entities.cows.EntityCowHereford;
 import com.animania.common.entities.cows.EntityCowHolstein;
 import com.animania.common.entities.cows.EntityCowLonghorn;
+import com.animania.common.entities.horses.EntityFoalDraftHorse;
+import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.entities.peacocks.EntityPeachickBlue;
 import com.animania.common.entities.peacocks.EntityPeachickWhite;
@@ -1449,6 +1451,30 @@ public class ItemEntityEgg extends Item
                     }
                     else if (this.animalType.equals("draft_horse_stallion")) {
                         EntityStallionDraftHorse entityB1 = new EntityStallionDraftHorse(worldIn);
+                        entityB1.setPosition(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5);
+                        worldIn.spawnEntity(entityB1);
+                        if (entityB1 != null) {
+                            if (entityB1 instanceof EntityLivingBase && stack.hasDisplayName())
+                                ((EntityLiving) entityB1).setCustomNameTag(stack.getDisplayName());
+
+                            if (!playerIn.capabilities.isCreativeMode)
+                                stack.setCount(stack.getCount() - 1);
+                        }
+                    }
+                    else if (this.animalType.equals("draft_horse_mare")) {
+                        EntityMareDraftHorse entityB1 = new EntityMareDraftHorse(worldIn);
+                        entityB1.setPosition(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5);
+                        worldIn.spawnEntity(entityB1);
+                        if (entityB1 != null) {
+                            if (entityB1 instanceof EntityLivingBase && stack.hasDisplayName())
+                                ((EntityLiving) entityB1).setCustomNameTag(stack.getDisplayName());
+
+                            if (!playerIn.capabilities.isCreativeMode)
+                                stack.setCount(stack.getCount() - 1);
+                        }
+                    }
+                    else if (this.animalType.equals("draft_horse_foal")) {
+                        EntityFoalDraftHorse entityB1 = new EntityFoalDraftHorse(worldIn);
                         entityB1.setPosition(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5);
                         worldIn.spawnEntity(entityB1);
                         if (entityB1 != null) {
