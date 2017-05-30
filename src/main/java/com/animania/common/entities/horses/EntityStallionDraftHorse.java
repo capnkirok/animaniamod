@@ -129,6 +129,12 @@ public class EntityStallionDraftHorse extends EntityAnimal
 			stack.shrink(1);
 		}
 	}
+	
+	@Override
+	public double getMountedYOffset()
+	{
+		return (double)this.height * 0.72D;
+	}
 
 	public int getVerticalFaceSpeed()
 	{
