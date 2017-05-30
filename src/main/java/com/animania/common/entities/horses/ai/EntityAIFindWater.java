@@ -2,6 +2,8 @@ package com.animania.common.entities.horses.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.horses.EntityFoalDraftHorse;
+import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
@@ -15,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class EntityAIFindWater extends EntityAIBase 
 {
@@ -55,7 +58,19 @@ public class EntityAIFindWater extends EntityAIBase
 					this.delayTemptCounter = 0;
 					return false;		
 				}
-			} 
+			} else if (temptedEntity instanceof EntityMareDraftHorse) {
+				EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
+				if (ech.getWatered()) {
+					this.delayTemptCounter = 0;
+					return false;		
+				}
+			} else if (temptedEntity instanceof EntityFoalDraftHorse) {
+				EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
+				if (ech.getWatered()) {
+					this.delayTemptCounter = 0;
+					return false;		
+				}
+			}
 
 			Random rand = new Random();
 
@@ -102,13 +117,12 @@ public class EntityAIFindWater extends EntityAIBase
 			}
 
 
-			if (poschk1 == BlockHandler.blockTrough || poschk2 == BlockHandler.blockTrough || poschk3 == BlockHandler.blockTrough || poschk4 == BlockHandler.blockTrough || poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough || poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
+			if (poschk == BlockHandler.blockTrough || poschk1 == BlockHandler.blockTrough || poschk2 == BlockHandler.blockTrough || poschk3 == BlockHandler.blockTrough || poschk4 == BlockHandler.blockTrough || poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough || poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
 
-				TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(currentpos);
-				if (te !=null && te.getTroughType() == 3) {
+				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(currentpos);
+				if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
+					te.fluidHandler.drain(335, true);
 
-					te.setType(0);
-					te.markDirty();
 					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
 					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 
@@ -116,46 +130,37 @@ public class EntityAIFindWater extends EntityAIBase
 						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setWatered(true);
-					} 
-
-					return false;
-
-				} else if (te !=null && te.getTroughType() == 2) {
-					te.setType(3);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 3);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+					} else if (temptedEntity instanceof EntityMareDraftHorse) {
+						EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setWatered(true);
-					} 
-					return false;
-
-				} else if (te !=null && te.getTroughType() == 1) {
-					te.setType(2);
-					te.markDirty();
-
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 2);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+					} else if (temptedEntity instanceof EntityFoalDraftHorse) {
+						EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setWatered(true);
-					} 
+					}
+
 					return false;
+
 				}
-			} else if (poschk2 == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+
+			} else if ((poschk == Blocks.WATER || poschk1 == Blocks.WATER || poschk2 == Blocks.WATER || poschk3 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 
 				if (temptedEntity instanceof EntityStallionDraftHorse) {
 					EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setWatered(true);
-				} 
+				} else if (temptedEntity instanceof EntityMareDraftHorse) {
+					EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setWatered(true);
+				} else if (temptedEntity instanceof EntityFoalDraftHorse) {
+					EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setWatered(true);
+				}
 
 				temptedEntity.world.setBlockToAir(currentposlower);
-
-
 
 				return false;
 			}
@@ -189,8 +194,8 @@ public class EntityAIFindWater extends EntityAIBase
 								return true;
 							}
 						} else if (blockchk == BlockHandler.blockTrough) {
-							TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
-							if (te != null && (te.getTroughType() == 1 || te.getTroughType() == 2 || te.getTroughType() == 3)) {
+							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
+							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
 								waterFound = true;
 								if (rand.nextInt(20) == 0) {
 									this.delayTemptCounter = 0;
@@ -275,8 +280,8 @@ public class EntityAIFindWater extends EntityAIBase
 						Biome biomegenbase = temptedEntity.world.getBiome(pos); 
 
 						if (blockchk == BlockHandler.blockTrough) {
-							TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
-							if (te !=null && (te.getTroughType() == 1 || te.getTroughType() == 2 || te.getTroughType() == 3)) {
+							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
+							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
 								waterFound = true;
 								newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
 
@@ -350,16 +355,14 @@ public class EntityAIFindWater extends EntityAIBase
 				Biome biomegenbase = temptedEntity.world.getBiome(waterPos); 
 
 				if (waterBlockchk == BlockHandler.blockTrough) {
-					TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(waterPos);
 
-					if (te.getTroughType() == 3 || te.getTroughType() == 2 || te.getTroughType() == 1) {
-						if(this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX() + .7, waterPos.getY(), waterPos.getZ(), this.speed) == false) {
-							this.resetTask();
-						} else {
-							this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX() + .7, waterPos.getY(), waterPos.getZ(), this.speed);
-						}
-
+					if(this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX() + .7, waterPos.getY(), waterPos.getZ(), this.speed) == false) {
+						this.resetTask();
+					} else {
+						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX() + .7, waterPos.getY(), waterPos.getZ(), this.speed);
 					}
+
+
 				} else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 					if(this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false) {
 						this.resetTask();

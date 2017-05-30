@@ -205,7 +205,8 @@ public class AnimaniaTextures
 		register(ItemHandler.entityeggdrafthorsefoal);
 		register(ItemHandler.entityeggdrafthorsemare);
 		register(ItemHandler.entityeggdrafthorsestallion);
-        register(Item.getItemFromBlock(BlockHandler.blockHamsterWheel));
+       
+		//register(Item.getItemFromBlock(BlockHandler.blockHamsterWheel));
 
 		// Blocks
 		register(Item.getItemFromBlock(BlockHandler.blockMud));

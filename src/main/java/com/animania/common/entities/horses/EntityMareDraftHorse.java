@@ -74,6 +74,7 @@ public class EntityMareDraftHorse extends EntityAnimal
 	private boolean boosting;
 	private int boostTime;
 	private int totalBoostTime;
+	protected float jumpPower;
 
 	public EntityMareDraftHorse(World world)
 	{
@@ -180,14 +181,22 @@ public class EntityMareDraftHorse extends EntityAnimal
 	}
 
 	@Override
+	public double getMountedYOffset()
+	{
+		return (double)this.height * 0.60D;
+	}
+
+
+
+	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
 		this.entityAIEatGrass.startExecuting();
 		eatTimer = 80;
-		
+
 		player.addStat(AnimaniaAchievements.Horses, 1);
-		
+
 		if (!player.capabilities.isCreativeMode)
 		{
 			stack.shrink(1);
@@ -385,12 +394,12 @@ public class EntityMareDraftHorse extends EntityAnimal
 			return super.attackEntityFrom(source, amount);
 		}
 	}
-	
+
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_HORSE_STEP, 0.20F, 0.8F);
 	}
-	
+
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
@@ -497,7 +506,7 @@ public class EntityMareDraftHorse extends EntityAnimal
 		Item dropItem;
 		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.horseDrop;
-			 dropItem = Item.getByNameOrId(drop);
+			dropItem = Item.getByNameOrId(drop);
 		} else {
 			dropItem = null;
 		}
@@ -520,7 +529,7 @@ public class EntityMareDraftHorse extends EntityAnimal
 
 	}
 
-	
+
 
 
 	public void onLivingUpdate()
@@ -571,28 +580,28 @@ public class EntityMareDraftHorse extends EntityAnimal
 			this.blinkTimer--;
 			if (blinkTimer == 0) {
 				this.blinkTimer = 80 + rand.nextInt(80);
-				
+
 				// Check for Mate
-                if (this.getMateUniqueId() != null) {
-                    String mate = this.getMateUniqueId().toString();
-                    boolean mateReset = true;
+				if (this.getMateUniqueId() != null) {
+					String mate = this.getMateUniqueId().toString();
+					boolean mateReset = true;
 
-                    int esize = this.world.loadedEntityList.size();
-                    for (int k = 0; k <= esize - 1; k++) {
-                        Entity entity = this.world.loadedEntityList.get(k);
-                        if (entity != null) {
-                            UUID id = entity.getPersistentID();
-                            if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead) {
-                                mateReset = false;
-                                break;
-                            }
-                        }
-                    }
+					int esize = this.world.loadedEntityList.size();
+					for (int k = 0; k <= esize - 1; k++) {
+						Entity entity = this.world.loadedEntityList.get(k);
+						if (entity != null) {
+							UUID id = entity.getPersistentID();
+							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead) {
+								mateReset = false;
+								break;
+							}
+						}
+					}
 
-                    if (mateReset)
-                        this.setMateUniqueId(null);
+					if (mateReset)
+						this.setMateUniqueId(null);
 
-                }
+				}
 			}
 		}
 
@@ -658,9 +667,9 @@ public class EntityMareDraftHorse extends EntityAnimal
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
 
-		 ItemStack stack = player.getHeldItem(hand);
-			
-		 if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
+		ItemStack stack = player.getHeldItem(hand);
+
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
 			{
 				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
 				{
@@ -816,4 +825,8 @@ public class EntityMareDraftHorse extends EntityAnimal
 	{
 		return null;
 	}
+
+	
+	
+
 }
