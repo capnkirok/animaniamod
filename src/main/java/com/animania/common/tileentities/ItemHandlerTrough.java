@@ -1,5 +1,7 @@
 package com.animania.common.tileentities;
 
+import com.animania.common.blocks.BlockTrough;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
@@ -19,7 +21,16 @@ public class ItemHandlerTrough extends ItemStackHandler
 
     @Override
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-        return !stack.isEmpty() && (stack.getItem() == Items.WHEAT) ? super.insertItem(slot, stack, simulate) : stack;
+    	
+    	if(!stack.isEmpty())
+    	{
+    		if(stack.getItem() == Items.WHEAT || BlockTrough.isModdedFoodItem(stack))
+    			return super.insertItem(slot, stack, simulate);
+    		
+    		return stack;
+    	}
+    	
+    	return stack;
     }
     
    
