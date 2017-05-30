@@ -292,12 +292,12 @@ public class CommonConfig
         @Comment("Spawn limit for Amphibians in loaded chunks")
         public int     spawnLimitAmphibians       = 60;
         @Comment("Spawn limit for Horses in loaded chunks")
-        public int     spawnLimitHorses             = 40;
+        public int     spawnLimitHorses             = 24;
 
         @Comment("Spawn probability Cows")
         public int     spawnProbabilityCows       = 12;
         @Comment("Spawn probability Horses")
-        public int     spawnProbabilityHorses     = 12;
+        public int     spawnProbabilityHorses     = 8;
         @Comment("Spawn probability Sows")
         public int     spawnProbabilitySows       = 12;
         @Comment("Spawn probability Hens")

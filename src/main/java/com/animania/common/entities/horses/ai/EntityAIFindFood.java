@@ -2,6 +2,8 @@ package com.animania.common.entities.horses.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.horses.EntityFoalDraftHorse;
+import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
@@ -47,11 +49,23 @@ public class EntityAIFindFood extends EntityAIBase
 				EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
 				if (ech.getFed()) {
 					this.delayTemptCounter = 0;
-					return false;
+					return false;		
+				}
+			} else if (temptedEntity instanceof EntityMareDraftHorse) {
+				EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
+				if (ech.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;		
+				}
+			} else if (temptedEntity instanceof EntityFoalDraftHorse) {
+				EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
+				if (ech.getFed()) {
+					this.delayTemptCounter = 0;
+					return false;		
 				}
 			
 			}
-
+			
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
 			BlockPos trypos1 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ);
 			BlockPos trypos2 = new BlockPos(temptedEntity.posX - 1, temptedEntity.posY, temptedEntity.posZ);
@@ -91,49 +105,29 @@ public class EntityAIFindFood extends EntityAIBase
 				currentpos = trypos8;
 			}
 
-			if (poschk1 == BlockHandler.blockTrough || poschk2 == BlockHandler.blockTrough || poschk3 == BlockHandler.blockTrough || poschk4 == BlockHandler.blockTrough || poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough || poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
+			if (poschk == BlockHandler.blockTrough || poschk1 == BlockHandler.blockTrough || poschk2 == BlockHandler.blockTrough || poschk3 == BlockHandler.blockTrough || poschk4 == BlockHandler.blockTrough || poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough || poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
 				TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(currentpos);
-				if (te !=null && te.getTroughType() == 4) {
-					te.setType(0);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+				if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty()) {
+					te.itemHandler.extractItem(0, 1, false);
 
 					if (temptedEntity instanceof EntityStallionDraftHorse) {
 						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
-					
+					} else if (temptedEntity instanceof EntityMareDraftHorse) {
+						EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
+						ech.entityAIEatGrass.startExecuting();
+						ech.setFed(true);
+					} else if (temptedEntity instanceof EntityFoalDraftHorse) {
+						EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
+						ech.entityAIEatGrass.startExecuting();
+						ech.setFed(true);
 					}
 
 					return false;
 
-				} else if (te !=null && te.getTroughType() == 5) {
-					te.setType(4);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 4);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} 
-					return false;
-				} else if (te !=null && te.getTroughType() == 6) {
-					te.setType(5);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 5);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} 
-					return false;
-				}
-
-
-			} 
+				} 
+			}
 
 			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT || poschk == Blocks.YELLOW_FLOWER) {
 
@@ -141,7 +135,15 @@ public class EntityAIFindFood extends EntityAIBase
 					EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} 
+				} else if (temptedEntity instanceof EntityMareDraftHorse) {
+					EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setFed(true);
+				} else if (temptedEntity instanceof EntityFoalDraftHorse) {
+					EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setFed(true);
+				}
 
 
 				return false;
@@ -166,7 +168,7 @@ public class EntityAIFindFood extends EntityAIBase
 
 						if (blockchk == BlockHandler.blockTrough) {
 							TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
-							if (te !=null && (te.getTroughType() == 4 || te.getTroughType() == 5 || te.getTroughType() == 6)) {
+							if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty()) {
 								foodFound = true;
 								if (rand.nextInt(20) == 0) {
 									this.delayTemptCounter = 0;
@@ -265,7 +267,7 @@ public class EntityAIFindFood extends EntityAIBase
 
 						TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
 
-						if (te !=null && (te.getTroughType() == 4 || te.getTroughType() == 5 || te.getTroughType() == 6)) {
+						if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty()) {
 
 							foodFound = true;
 							newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);

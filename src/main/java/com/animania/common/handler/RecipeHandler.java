@@ -107,6 +107,9 @@ public class RecipeHandler
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawLonghornSteak, 4),
 				new Object[] { ItemHandler.rawLonghornBeef, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawPrimeSteak, 4),
+				new Object[] { ItemHandler.rawPrimeBeef, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		// PORK Recipes
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawLargeBlackBacon, 5),
@@ -120,6 +123,9 @@ public class RecipeHandler
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawHampshireBacon, 4),
 				new Object[] { ItemHandler.rawHampshirePork, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawPrimeBacon, 4),
+				new Object[] { ItemHandler.rawPrimePork, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.LEAD, 1), new Object[] { "leather", "leather", "string", "string" }));
 
@@ -151,6 +157,8 @@ public class RecipeHandler
 				new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedLargeBlackBacon }));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1),
 				new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedOldSpotBacon }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1),
+				new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedPrimeBacon }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.truffleOmelette, 1),
 				new Object[] { ItemHandler.plainOmelette, ItemHandler.truffle }));
@@ -162,7 +170,7 @@ public class RecipeHandler
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1),
 				new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedLargeBlackBacon, ItemHandler.truffle, "foodCheese" }));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1),
-				new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedOldSpotBacon, ItemHandler.truffle, "foodCheese" }));
+				new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedPrimeBacon, ItemHandler.truffle, "foodCheese" }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.chocolateTruffle, 1),
 				new Object[] { ItemHandler.truffle, new ItemStack(Items.DYE, 1, 3), "listAllsugar" }));

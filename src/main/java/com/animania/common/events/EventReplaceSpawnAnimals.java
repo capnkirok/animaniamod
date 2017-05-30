@@ -4,7 +4,9 @@ import java.util.Random;
 
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
-import com.animania.common.entities.amphibians.EntityAmphibian;
+import com.animania.common.entities.amphibians.EntityDartFrogs;
+import com.animania.common.entities.amphibians.EntityFrogs;
+import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -35,6 +37,9 @@ import com.animania.common.entities.cows.EntityCowFriesian;
 import com.animania.common.entities.cows.EntityCowHereford;
 import com.animania.common.entities.cows.EntityCowHolstein;
 import com.animania.common.entities.cows.EntityCowLonghorn;
+import com.animania.common.entities.horses.EntityFoalDraftHorse;
+import com.animania.common.entities.horses.EntityMareDraftHorse;
+import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.entities.peacocks.EntityPeachickBlue;
 import com.animania.common.entities.peacocks.EntityPeachickWhite;
 import com.animania.common.entities.peacocks.EntityPeacockBlue;
@@ -507,20 +512,41 @@ public class EventReplaceSpawnAnimals
 				}
 
 		}
-		else if ((event.getEntity().getClass().equals(EntityAmphibian.class) || event.getEntity().getClass().equals(EntityAmphibian.class))
+		else if ((event.getEntity().getClass().equals(EntityFrogs.class) || event.getEntity().getClass().equals(EntityToad.class) || event.getEntity().getClass().equals(EntityDartFrogs.class))
 				&& !worldIn.isRemote) {
 
 			int animalCount = 0;
 			int esize = worldIn.loadedEntityList.size();
 			for (int k = 0; k <= esize - 1; k++) {
 				Entity entity = worldIn.loadedEntityList.get(k);
-				if (entity.getClass().equals(EntityFerretGrey.class) || entity.getClass().equals(EntityAmphibian.class))
+				if (entity.getClass().equals(EntityFrogs.class) || entity.getClass().equals(EntityToad.class) || entity.getClass().equals(EntityDartFrogs.class))
 					animalCount = animalCount + 1;
 			}
 
-			// System.out.println("Ferret count: " + ferretCount);
+			//System.out.println("animal Count: " + animalCount);
 
 			if (animalCount >= AnimaniaConfig.spawn.spawnLimitAmphibians && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
+				if (!event.getEntity().hasCustomName()) {
+					event.getEntity().setDead();
+					event.setCanceled(true);
+					event.isCanceled();
+				}
+
+		}
+		else if ((event.getEntity().getClass().equals(EntityStallionDraftHorse.class) || event.getEntity().getClass().equals(EntityMareDraftHorse.class) || event.getEntity().getClass().equals(EntityFoalDraftHorse.class))
+				&& !worldIn.isRemote) {
+
+			int animalCount = 0;
+			int esize = worldIn.loadedEntityList.size();
+			for (int k = 0; k <= esize - 1; k++) {
+				Entity entity = worldIn.loadedEntityList.get(k);
+				if (entity.getClass().equals(EntityStallionDraftHorse.class) || entity.getClass().equals(EntityMareDraftHorse.class) || entity.getClass().equals(EntityFoalDraftHorse.class))
+					animalCount = animalCount + 1;
+			}
+
+			//System.out.println("animal Count: " + animalCount);
+
+			if (animalCount >= AnimaniaConfig.spawn.spawnLimitHorses && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
 				if (!event.getEntity().hasCustomName()) {
 					event.getEntity().setDead();
 					event.setCanceled(true);
