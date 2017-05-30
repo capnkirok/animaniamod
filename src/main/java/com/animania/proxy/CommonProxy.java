@@ -13,6 +13,7 @@ import com.animania.common.handler.EntityHandler;
 import com.animania.common.handler.EventsHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.handler.OldEntityHandler;
+import com.animania.common.handler.PatreonHandler;
 import com.animania.common.handler.RecipeHandler;
 import com.animania.common.handler.TileEntityHandler;
 
@@ -31,6 +32,7 @@ public class CommonProxy
         TileEntityHandler.preInit();
         DamageSourceHandler.preInit();
         CompatHandler.preInit();
+        PatreonHandler.initList();
 
         // EVENTS
         EventsHandler.preInit();

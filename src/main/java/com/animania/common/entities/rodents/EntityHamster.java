@@ -19,6 +19,7 @@ import com.animania.common.entities.rodents.ai.EntityAITemptHamster;
 import com.animania.common.entities.rodents.ai.EntityAIWanderRodent;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.handler.PatreonHandler;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
@@ -72,7 +73,7 @@ public class EntityHamster extends EntityTameable
 	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHamster.class,
 			DataSerializers.BOOLEAN);
 	private static final String[]               HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou",
-	"white" };
+	"white" , "gold"};
 
 	private int                                 fedTimer;
 	private int                                 wateredTimer;
@@ -283,6 +284,8 @@ public class EntityHamster extends EntityTameable
 			this.setTamed(true);
 			this.setOwnerId(player.getUniqueID());
 
+			this.doPatreonCheck(player);
+			
 			return true;
 		}
 		else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.WATER_BUCKET) {
@@ -313,6 +316,8 @@ public class EntityHamster extends EntityTameable
 				props.setPetName(this.getCustomNameTag());
 				props.setPetType("Hamster");
 				this.setIsRiding(true);
+				
+				
 			}
 			return this.interactRide(player);
 		}
@@ -361,6 +366,9 @@ public class EntityHamster extends EntityTameable
 		entityplayer.addStat(AnimaniaAchievements.Hamsters, 1);
 		this.setHamsterStanding(true);
 		this.standCount = 100;
+		
+		this.doPatreonCheck(entityplayer);
+		
 
 		if (itemstack.getCount() <= 0 && entityplayer.inventory != null)
 			entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, ItemStack.EMPTY);
@@ -915,5 +923,19 @@ public class EntityHamster extends EntityTameable
 	protected void playStepSound(BlockPos pos, Block blockIn) {
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.8F);
 	}
+	
+	
+	private void doPatreonCheck(EntityPlayer player)
+	{
+		if(player.isSneaking())
+		{
+			if(PatreonHandler.isPlayerPatreon(player))
+			{
+				this.setColorNumber(9);
+				this.resourceLocation = null;
+			}
+		}
+	}
+	
 
 }

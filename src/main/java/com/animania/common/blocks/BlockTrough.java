@@ -46,6 +46,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -97,19 +98,22 @@ public class BlockTrough extends BlockContainer
 
 		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 
-		if (entityIn != null && entityIn instanceof EntityItem)
+		if (entityIn != null && entityIn instanceof EntityItem && !worldIn.isRemote)
 		{
 
 			EntityItem entityitem = (EntityItem) entityIn;
 			ItemStack stack = entityitem.getEntityItem();
 
 			// SOLIDS
-			if (!stack.isEmpty() && stack.getItem() == Items.WHEAT)
+			if (!stack.isEmpty() && stack.getItem() == Items.WHEAT || isModdedFoodItem(stack))
 			{
 				if (!te.itemHandler.getStackInSlot(0).isEmpty() && te.itemHandler.getStackInSlot(0).getCount() < 3 || te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 				{
-					te.itemHandler.insertItem(0, new ItemStack(Items.WHEAT), false);
-					stack.shrink(1);
+					ItemStack held = stack.copy().splitStack(1);
+					ItemStack remaining = te.itemHandler.insertItem(0, held, false);
+					if (!ItemStack.areItemStacksEqual(remaining, held))
+						stack.shrink(1);
+
 
 				}
 
@@ -324,12 +328,13 @@ public class BlockTrough extends BlockContainer
 		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 
 		// SOLIDS
-		if (!heldItem.isEmpty() && heldItem.getItem() == Items.WHEAT)
+		if (!heldItem.isEmpty() && heldItem.getItem() == Items.WHEAT || isModdedFoodItem(heldItem))
 		{
 			if ((!te.itemHandler.getStackInSlot(0).isEmpty() && te.itemHandler.getStackInSlot(0).getCount() < 3) || te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
-				te.itemHandler.insertItem(0, new ItemStack(Items.WHEAT), false);
-				if (!playerIn.isCreative())
+				ItemStack held = heldItem.copy().splitStack(1);
+				ItemStack remaining = te.itemHandler.insertItem(0, held, false);
+				if (!playerIn.isCreative() && !ItemStack.areItemStacksEqual(remaining, held))
 					heldItem.shrink(1);
 
 				worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
@@ -468,6 +473,41 @@ public class BlockTrough extends BlockContainer
 
 		return pos.offset(facing);
 	}
+	
+	public static boolean isModdedFoodItem(ItemStack stack)
+	{
+		if(stack.isEmpty())
+			return false;
+		
+		Item item = stack.getItem();
+		
+		
+		if(Loader.isModLoaded("simplecorn"))
+		{
+			if(item == Item.getByNameOrId("simplecorn:corncob"))
+				return true;
+		}
+		
+		if(Loader.isModLoaded("harvestcraft"))
+		{
+			if(item == Item.getByNameOrId("harvestcraft:barleyitem"))
+				return true;
+			
+			if(item == Item.getByNameOrId("harvestcraft:oatsitem"))
+				return true;
+			
+			if(item == Item.getByNameOrId("harvestcraft:ryeitem"))
+				return true;
+			
+			if(item == Item.getByNameOrId("harvestcraft:cornitem"))
+				return true;
+		}
+		
+		
+		return false;
+	}
+	
+	
 
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
