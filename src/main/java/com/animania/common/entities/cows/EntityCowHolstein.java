@@ -622,15 +622,17 @@ public class EntityCowHolstein extends EntityAnimal
 
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
+    	
+    	
         ItemStack stack = player.getHeldItem(hand);
         EntityPlayer entityplayer = player;
         if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET) {
             player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 0.9F);
             stack.shrink(1);
             if (stack.getCount() == 0)
-                player.setHeldItem(hand, this.milkHolstein);
-            else if (!player.inventory.addItemStackToInventory(this.milkHolstein))
-                player.dropItem(this.milkHolstein, false);
+                player.setHeldItem(hand, this.milkHolstein.copy());
+            else if (!player.inventory.addItemStackToInventory(this.milkHolstein.copy()))
+                player.dropItem(this.milkHolstein.copy(), false);
 
             this.setWatered(false);
 
