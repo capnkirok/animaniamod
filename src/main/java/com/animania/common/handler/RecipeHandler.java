@@ -4,6 +4,7 @@ import com.animania.common.recipes.CheeseRecipe1;
 import com.animania.common.recipes.CheeseRecipe2;
 import com.animania.common.recipes.CheeseRecipe3;
 import com.animania.common.recipes.CheeseRecipe4;
+import com.animania.common.recipes.MilkConversionRecipe;
 import com.animania.common.recipes.SlopBucketRecipe1;
 import com.animania.common.recipes.SlopBucketRecipe2;
 import com.animania.common.recipes.SlopBucketRecipe3;
@@ -229,6 +230,8 @@ public class RecipeHandler
 		RecipeSorter.register("animania:bucketslop4", SlopBucketRecipe4.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 		RecipeSorter.register("animania:bucketslop5", SlopBucketRecipe5.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 		RecipeSorter.register("animania:bucketslop6", SlopBucketRecipe6.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("animania:milkconversion", MilkConversionRecipe.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+
 		// Slop OreDict
 		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket,
 				new Object[] { "listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropPotato", Items.BUCKET }));
@@ -311,9 +314,9 @@ public class RecipeHandler
 
 		}
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkFriesian }));
+		GameRegistry.addRecipe(new MilkConversionRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkFriesian }));
 
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkHolstein }));
+		GameRegistry.addRecipe(new MilkConversionRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkHolstein }));
 
 		// Smelting Recipes
 		GameRegistry.addSmelting(ItemHandler.rawAngusBeef, new ItemStack(ItemHandler.cookedAngusRoast, 1), .3F);

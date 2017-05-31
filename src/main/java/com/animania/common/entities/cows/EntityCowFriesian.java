@@ -627,9 +627,9 @@ public class EntityCowFriesian extends EntityAnimal
             player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 0.8F);
             stack.shrink(1);
             if (stack.getCount() == 0)
-                player.setHeldItem(hand, this.milkFriesian);
-            else if (!player.inventory.addItemStackToInventory(this.milkFriesian))
-                player.dropItem(this.milkFriesian, false);
+                player.setHeldItem(hand, this.milkFriesian.copy());
+            else if (!player.inventory.addItemStackToInventory(this.milkFriesian.copy()))
+                player.dropItem(this.milkFriesian.copy(), false);
 
             this.setWatered(false);
 
