@@ -570,10 +570,6 @@ public class EntityMareDraftHorse extends EntityAnimal
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-		if (this.isEntityInsideOpaqueBlock()) {
-			this.jumpHelper.setJumping();
-		}
-		
 		if (!fed || !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		} else if (!fed && !watered) {

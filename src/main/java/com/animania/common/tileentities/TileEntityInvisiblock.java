@@ -24,7 +24,7 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 
-        if (AnimaniaConfig.gameRules.allowTroughAutomation) {
+        if (AnimaniaConfig.gameRules.allowTroughAutomation && world !=null) {
             if (this.world.isRemote) {
                 if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
                     return true;

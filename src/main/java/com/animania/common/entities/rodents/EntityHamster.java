@@ -522,10 +522,7 @@ public class EntityHamster extends EntityTameable
 			this.navigator.setSpeed(0);
 		}
 		
-		if (this.isEntityInsideOpaqueBlock()) {
-			this.jumpHelper.setJumping();
-		}
-
+		
 		if (this.getHealth() < 10) {
 			this.eatFood();
 			this.eatCount = 5000;

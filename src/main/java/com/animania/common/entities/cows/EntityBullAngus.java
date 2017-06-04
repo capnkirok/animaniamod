@@ -484,9 +484,6 @@ public class EntityBullAngus extends EntityAnimal
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-		if (this.isEntityInsideOpaqueBlock()) {
-			this.jumpHelper.setJumping();
-		}
 		
 		if (!fed && !watered)
 		{

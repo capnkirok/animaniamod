@@ -287,11 +287,8 @@ public class EntityRoosterOrpington extends EntityAnimal
         this.destPos = (float) (this.destPos + (this.onGround ? -1 : 4) * 0.3D);
         this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
-        if (this.isEntityInsideOpaqueBlock()) {
-			this.jumpHelper.setJumping();
-		}
         
-        this.fallDistance = 0;
+	    this.fallDistance = 0;
 
         if (!this.onGround && this.wingRotDelta < 1.0F)
             this.wingRotDelta = 1.0F;

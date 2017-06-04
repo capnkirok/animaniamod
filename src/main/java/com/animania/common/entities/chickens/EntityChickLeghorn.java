@@ -256,11 +256,7 @@ public class EntityChickLeghorn extends EntityAnimal
         this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
         this.fallDistance = 0;
-
-        if (this.isEntityInsideOpaqueBlock()) {
-			this.jumpHelper.setJumping();
-		}
-        
+ 
         if (!this.onGround && this.wingRotDelta < 1.0F)
             this.wingRotDelta = 1.0F;
 

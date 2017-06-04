@@ -446,9 +446,6 @@ public class EntityHedgehog extends EntityTameable
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-		if (this.isEntityInsideOpaqueBlock()) {
-			this.jumpHelper.setJumping();
-		}
 		
 		if (this.getCustomNameTag().equals("Sonic"))
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 2, 4, false, false));

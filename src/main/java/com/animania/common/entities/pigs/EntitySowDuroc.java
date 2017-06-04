@@ -739,9 +739,6 @@ public class EntitySowDuroc extends EntityAnimal
         boolean watered = this.getWatered();
         boolean played = this.getPlayed();
 
-        if (this.isEntityInsideOpaqueBlock()) {
-			this.jumpHelper.setJumping();
-		}
         
         if (!fed && !watered) {
             this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));

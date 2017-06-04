@@ -50,418 +50,415 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityCalfAngus extends EntityAnimal
 {
-    private static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityCalfAngus.class,
-            DataSerializers.OPTIONAL_UNIQUE_ID);
-    private static final DataParameter<Boolean>        WATERED          = EntityDataManager.<Boolean> createKey(EntityCalfAngus.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean>        FED              = EntityDataManager.<Boolean> createKey(EntityCalfAngus.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Float>          AGE              = EntityDataManager.<Float> createKey(EntityCalfAngus.class,
-            DataSerializers.FLOAT);
-    private static final Set<Item>                     TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
-    private int                                        happyTimer;
-    private int                                        ageTimer;
-    public int                                         blinkTimer;
+	private static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityCalfAngus.class,
+			DataSerializers.OPTIONAL_UNIQUE_ID);
+	private static final DataParameter<Boolean>        WATERED          = EntityDataManager.<Boolean> createKey(EntityCalfAngus.class,
+			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean>        FED              = EntityDataManager.<Boolean> createKey(EntityCalfAngus.class,
+			DataSerializers.BOOLEAN);
+	private static final DataParameter<Float>          AGE              = EntityDataManager.<Float> createKey(EntityCalfAngus.class,
+			DataSerializers.FLOAT);
+	private static final Set<Item>                     TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
+	private int                                        happyTimer;
+	private int                                        ageTimer;
+	public int                                         blinkTimer;
 
-    public EntityCalfAngus(World world) {
-        super(world);
-        this.setSize(0.7F, 1.0F);
-        this.stepHeight = 1.1F;
-        this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
-        this.tasks.addTask(1, new EntityAIFindFood(this, 1.2D));
-        this.entityAIEatGrass = new EntityAICowEatGrass(this);
-        this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
-        this.tasks.addTask(4, new EntityAIWanderCow(this, 1.0D));
-        this.tasks.addTask(1, new EntityAISwimmingCows(this));
-        this.tasks.addTask(2, new EntityAIPanicCows(this, 2.1D));
-        this.tasks.addTask(4, new EntityAITempt(this, 1.25D, false, EntityCalfAngus.TEMPTATION_ITEMS));
-        this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
-        this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
-        this.tasks.addTask(0, this.entityAIEatGrass);
-        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(7, new EntityAILookIdle(this));
-        this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-        this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-        this.happyTimer = 60;
-        this.blinkTimer = 100 + this.rand.nextInt(100);
-        this.enablePersistence();
-        this.ageTimer = 0;
+	public EntityCalfAngus(World world) {
+		super(world);
+		this.setSize(0.7F, 1.0F);
+		this.stepHeight = 1.1F;
+		this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
+		this.tasks.addTask(1, new EntityAIFindFood(this, 1.2D));
+		this.entityAIEatGrass = new EntityAICowEatGrass(this);
+		this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+		this.tasks.addTask(4, new EntityAIWanderCow(this, 1.0D));
+		this.tasks.addTask(1, new EntityAISwimmingCows(this));
+		this.tasks.addTask(2, new EntityAIPanicCows(this, 2.1D));
+		this.tasks.addTask(4, new EntityAITempt(this, 1.25D, false, EntityCalfAngus.TEMPTATION_ITEMS));
+		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
+		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
+		this.tasks.addTask(0, this.entityAIEatGrass);
+		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(7, new EntityAILookIdle(this));
+		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
+		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
+		this.happyTimer = 60;
+		this.blinkTimer = 100 + this.rand.nextInt(100);
+		this.enablePersistence();
+		this.ageTimer = 0;
 
-    }
+	}
 
-    @Override
-    public boolean isChild() {
-        return true;
-    }
+	@Override
+	public boolean isChild() {
+		return true;
+	}
 
-    public static void registerFixesCow(DataFixer fixer) {
-        EntityLiving.registerFixesMob(fixer, EntityCalfAngus.class);
-    }
+	public static void registerFixesCow(DataFixer fixer) {
+		EntityLiving.registerFixesMob(fixer, EntityCalfAngus.class);
+	}
 
-    @Override
-    protected boolean canDespawn() {
-        return false;
-    }
+	@Override
+	protected boolean canDespawn() {
+		return false;
+	}
 
-    public int                 eatTimer;
-    private int                fedTimer;
-    private int                wateredTimer;
-    public EntityAICowEatGrass entityAIEatGrass;
-    private int                damageTimer;
+	public int                 eatTimer;
+	private int                fedTimer;
+	private int                wateredTimer;
+	public EntityAICowEatGrass entityAIEatGrass;
+	private int                damageTimer;
 
-    @Override
-    protected void entityInit() {
-        super.entityInit();
-        this.dataManager.register(EntityCalfAngus.FED, Boolean.valueOf(true));
-        this.dataManager.register(EntityCalfAngus.WATERED, Boolean.valueOf(true));
-        this.dataManager.register(EntityCalfAngus.AGE, Float.valueOf(0));
-        this.dataManager.register(EntityCalfAngus.PARENT_UNIQUE_ID, Optional.<UUID> absent());
-    }
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		this.dataManager.register(EntityCalfAngus.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityCalfAngus.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityCalfAngus.AGE, Float.valueOf(0));
+		this.dataManager.register(EntityCalfAngus.PARENT_UNIQUE_ID, Optional.<UUID> absent());
+	}
 
-    @Override
-    protected void applyEntityAttributes() {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.26000000298023224D);
-    }
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.26000000298023224D);
+	}
 
-    @Override
-    protected void consumeItemFromStack(EntityPlayer player, ItemStack stack) {
-        this.setFed(true);
-        this.entityAIEatGrass.startExecuting();
-        this.eatTimer = 80;
-        player.addStat(AnimaniaAchievements.Angus, 1);
-        if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian)
-                && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein)
-                && player.hasAchievement(AnimaniaAchievements.Longhorn))
-            player.addStat(AnimaniaAchievements.Cows, 1);
-        if (!player.capabilities.isCreativeMode)
-            stack.setCount(stack.getCount() - 1);
-    }
+	@Override
+	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack) {
+		this.setFed(true);
+		this.entityAIEatGrass.startExecuting();
+		this.eatTimer = 80;
+		player.addStat(AnimaniaAchievements.Angus, 1);
+		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian)
+				&& player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein)
+				&& player.hasAchievement(AnimaniaAchievements.Longhorn))
+			player.addStat(AnimaniaAchievements.Cows, 1);
+		if (!player.capabilities.isCreativeMode)
+			stack.setCount(stack.getCount() - 1);
+	}
 
-    @Override
-    public void setInLove(EntityPlayer player) {
-        this.world.setEntityState(this, (byte) 18);
-    }
+	@Override
+	public void setInLove(EntityPlayer player) {
+		this.world.setEntityState(this, (byte) 18);
+	}
 
-    @Override
-    protected void updateAITasks() {
-        this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
-        super.updateAITasks();
-    }
+	@Override
+	protected void updateAITasks() {
+		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
+		super.updateAITasks();
+	}
 
-    @Override
-    public void writeEntityToNBT(NBTTagCompound compound) {
-        super.writeEntityToNBT(compound);
-        compound.setBoolean("Fed", this.getFed());
-        compound.setBoolean("Watered", this.getWatered());
-        compound.setFloat("Age", this.getEntityAge());
-        if (this.getParentUniqueId() != null)
-            if (this.getParentUniqueId() != null)
-                compound.setString("ParentUUID", this.getParentUniqueId().toString());
-    }
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("Fed", this.getFed());
+		compound.setBoolean("Watered", this.getWatered());
+		compound.setFloat("Age", this.getEntityAge());
+		if (this.getParentUniqueId() != null)
+			if (this.getParentUniqueId() != null)
+				compound.setString("ParentUUID", this.getParentUniqueId().toString());
+	}
 
-    @Override
-    public void readEntityFromNBT(NBTTagCompound compound) {
-        super.readEntityFromNBT(compound);
-        this.setFed(compound.getBoolean("Fed"));
-        this.setWatered(compound.getBoolean("Watered"));
-        this.setEntityAge(compound.getFloat("Age"));
-        String s;
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		this.setFed(compound.getBoolean("Fed"));
+		this.setWatered(compound.getBoolean("Watered"));
+		this.setEntityAge(compound.getFloat("Age"));
+		String s;
 
-        if (compound.hasKey("ParentUUID", 8))
-            s = compound.getString("ParentUUID");
-        else {
-            String s1 = compound.getString("Parent");
-            s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-        }
-
-        if (!s.isEmpty())
-            this.setParentUniqueId(UUID.fromString(s));
-    }
-
-    @Nullable
-    public UUID getParentUniqueId() {
-        return (UUID) ((Optional) this.dataManager.get(EntityCalfAngus.PARENT_UNIQUE_ID)).orNull();
-    }
-
-    public void setParentUniqueId(@Nullable UUID uniqueId) {
-        this.dataManager.set(EntityCalfAngus.PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
-    }
-
-    public boolean getFed() {
-        return this.dataManager.get(EntityCalfAngus.FED).booleanValue();
-    }
-
-    public void setFed(boolean fed) {
-        if (fed) {
-            this.dataManager.set(EntityCalfAngus.FED, Boolean.valueOf(true));
-            this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-            this.setHealth(this.getHealth() + 1.0F);
-        }
-        else
-            this.dataManager.set(EntityCalfAngus.FED, Boolean.valueOf(false));
-    }
-
-    public boolean getWatered() {
-        return this.dataManager.get(EntityCalfAngus.WATERED).booleanValue();
-    }
-
-    public void setWatered(boolean watered) {
-        if (watered) {
-            this.dataManager.set(EntityCalfAngus.WATERED, Boolean.valueOf(true));
-            this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-        }
-        else
-            this.dataManager.set(EntityCalfAngus.WATERED, Boolean.valueOf(false));
-    }
-
-    public float getEntityAge() {
-        return this.dataManager.get(EntityCalfAngus.AGE).floatValue();
-    }
-
-    public void setEntityAge(float age) {
-        this.dataManager.set(EntityCalfAngus.AGE, Float.valueOf(age));
-    }
-
-    @Override
-    protected SoundEvent getAmbientSound() {
-        int happy = 0;
-        int num = 0;
-
-        if (this.getWatered())
-            happy++;
-        if (this.getFed())
-            happy++;
-
-        if (happy == 2)
-            num = 6;
-        else if (happy == 1)
-            num = 12;
-        else
-            num = 24;
-
-        Random rand = new Random();
-        int chooser = rand.nextInt(num);
-
-        if (chooser == 0)
-            return ModSoundEvents.mooCalf1;
-        else if (chooser == 1)
-            return ModSoundEvents.mooCalf2;
-        else if (chooser == 2)
-            return ModSoundEvents.mooCalf3;
-        else
-            return null;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound() {
-        Random rand = new Random();
-        int chooser = rand.nextInt(3);
-
-        if (chooser == 0)
-            return ModSoundEvents.mooCalf1;
-        else if (chooser == 1)
-            return ModSoundEvents.mooCalf2;
-        else
-            return ModSoundEvents.mooCalf3;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        Random rand = new Random();
-        int chooser = rand.nextInt(3);
-
-        if (chooser == 0)
-            return ModSoundEvents.mooCalf1;
-        else if (chooser == 1)
-            return ModSoundEvents.mooCalf2;
-        else
-            return ModSoundEvents.mooCalf3;
-    }
-
-    @Override
-    public void playLivingSound() {
-        SoundEvent soundevent = this.getAmbientSound();
-
-        if (soundevent != null)
-            this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F - this.getEntityAge() * 2);
-    }
-
-    /**
-     * Returns the volume for the sounds this mob makes.
-     */
-    @Override
-    protected float getSoundVolume() {
-        return 0.4F;
-    }
-
-    @Override
-    protected Item getDropItem() {
-        return null;
-    }
-
-    @Override
-    public void onLivingUpdate() {
-        if (this.world.isRemote)
-            this.eatTimer = Math.max(0, this.eatTimer - 1);
-
-        if (this.blinkTimer > -1) {
-            this.blinkTimer--;
-            if (this.blinkTimer == 0)
-                this.blinkTimer = 100 + this.rand.nextInt(100);
-        }
-
-        if (this.fedTimer > -1) {
-            this.fedTimer--;
-
-            if (this.fedTimer == 0)
-                this.setFed(false);
-        }
-
-        if (this.wateredTimer > -1) {
-            this.wateredTimer--;
-
-            if (this.wateredTimer == 0)
-                this.setWatered(false);
-        }
-
-        boolean fed = this.getFed();
-        boolean watered = this.getWatered();
-
-        if (this.isEntityInsideOpaqueBlock()) {
-			this.jumpHelper.setJumping();
+		if (compound.hasKey("ParentUUID", 8))
+			s = compound.getString("ParentUUID");
+		else {
+			String s1 = compound.getString("Parent");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
 		}
-        
-        if (!fed && !watered) {
-            this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-            if (AnimaniaConfig.gameRules.animalsStarve) {
-                if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer) {
-                    this.attackEntityFrom(DamageSource.STARVE, 4f);
-                    this.damageTimer = 0;
-                }
-                this.damageTimer++;
-            }
 
-        }
-        else if (!fed || !watered)
-            this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
+		if (!s.isEmpty())
+			this.setParentUniqueId(UUID.fromString(s));
+	}
 
-        this.ageTimer++;
-        if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
-            if (fed && watered) {
-                this.ageTimer = 0;
-                float age = this.getEntityAge();
-                age = age + .01F;
-                this.setEntityAge(age);
+	@Nullable
+	public UUID getParentUniqueId() {
+		return (UUID) ((Optional) this.dataManager.get(EntityCalfAngus.PARENT_UNIQUE_ID)).orNull();
+	}
 
-                if (age >= 1.0 && !this.world.isRemote) {
-                    this.setDead();
+	public void setParentUniqueId(@Nullable UUID uniqueId) {
+		this.dataManager.set(EntityCalfAngus.PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
+	}
 
-                    if (this.rand.nextInt(2) < 1) {
-                        EntityCowAngus entityCow = new EntityCowAngus(this.world);
-                        entityCow.setPosition(this.posX, this.posY + .5, this.posZ);
-                        String name = this.getCustomNameTag();
-                        if (name != "")
-                            entityCow.setCustomNameTag(name);
-                        this.world.spawnEntity(entityCow);
-                        this.playSound(ModSoundEvents.moo1, 0.50F, 1.1F);
-                    }
-                    else {
-                        EntityBullAngus entityBull = new EntityBullAngus(this.world);
-                        entityBull.setPosition(this.posX, this.posY + .5, this.posZ);
-                        String name = this.getCustomNameTag();
-                        if (name != "")
-                            entityBull.setCustomNameTag(name);
-                        this.world.spawnEntity(entityBull);
-                        this.playSound(ModSoundEvents.bullMoo1, 0.50F, 1.1F);
-                    }
+	public boolean getFed() {
+		return this.dataManager.get(EntityCalfAngus.FED).booleanValue();
+	}
 
-                }
-            }
+	public void setFed(boolean fed) {
+		if (fed) {
+			this.dataManager.set(EntityCalfAngus.FED, Boolean.valueOf(true));
+			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
+			this.setHealth(this.getHealth() + 1.0F);
+		}
+		else
+			this.dataManager.set(EntityCalfAngus.FED, Boolean.valueOf(false));
+	}
 
-        if (this.happyTimer > -1) {
-            this.happyTimer--;
-            if (this.happyTimer == 0) {
-                this.happyTimer = 60;
+	public boolean getWatered() {
+		return this.dataManager.get(EntityCalfAngus.WATERED).booleanValue();
+	}
 
-                if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles) {
-                    double d = this.rand.nextGaussian() * 0.001D;
-                    double d1 = this.rand.nextGaussian() * 0.001D;
-                    double d2 = this.rand.nextGaussian() * 0.001D;
-                    this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + this.rand.nextFloat() * this.width - this.width,
-                            this.posY + 1.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d,
-                            d1, d2);
-                }
-            }
-        }
+	public void setWatered(boolean watered) {
+		if (watered) {
+			this.dataManager.set(EntityCalfAngus.WATERED, Boolean.valueOf(true));
+			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
+		}
+		else
+			this.dataManager.set(EntityCalfAngus.WATERED, Boolean.valueOf(false));
+	}
 
-        super.onLivingUpdate();
-    }
+	public float getEntityAge() {
+		return this.dataManager.get(EntityCalfAngus.AGE).floatValue();
+	}
 
-    @Override
-    protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
-        return;
-    }
+	public void setEntityAge(float age) {
+		this.dataManager.set(EntityCalfAngus.AGE, Float.valueOf(age));
+	}
 
-    @Override
-    public boolean processInteract(EntityPlayer player, EnumHand hand) {
-        ItemStack stack = player.getHeldItem(hand);
-        EntityPlayer entityplayer = player;
+	@Override
+	protected SoundEvent getAmbientSound() {
+		int happy = 0;
+		int num = 0;
 
-        if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
-            if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-                player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-            else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-                player.dropItem(new ItemStack(Items.BUCKET), false);
+		if (this.getWatered())
+			happy++;
+		if (this.getFed())
+			happy++;
 
-            this.eatTimer = 40;
-            this.entityAIEatGrass.startExecuting();
-            this.setWatered(true);
-            this.setInLove(player);
-            return true;
-        }
-        else
-            return super.processInteract(player, hand);
-    }
+		if (happy == 2)
+			num = 6;
+		else if (happy == 1)
+			num = 12;
+		else
+			num = 24;
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void handleStatusUpdate(byte id) {
-        if (id == 10)
-            this.eatTimer = 160;
-        else
-            super.handleStatusUpdate(id);
-    }
+		Random rand = new Random();
+		int chooser = rand.nextInt(num);
 
-    @SideOnly(Side.CLIENT)
-    public float getHeadRotationPointY(float p_70894_1_) {
-        return this.eatTimer <= 0 ? 0.0F
-                : this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F
-                        : this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F;
-    }
+		if (chooser == 0)
+			return ModSoundEvents.mooCalf1;
+		else if (chooser == 1)
+			return ModSoundEvents.mooCalf2;
+		else if (chooser == 2)
+			return ModSoundEvents.mooCalf3;
+		else
+			return null;
+	}
 
-    @SideOnly(Side.CLIENT)
-    public float getHeadRotationAngleX(float p_70890_1_) {
-        if (this.eatTimer > 4 && this.eatTimer <= 156) {
-            float f = (this.eatTimer - 4 - p_70890_1_) / 64.0F;
-            return (float) Math.PI / 5F + (float) Math.PI * 7F / 100F * MathHelper.sin(f * 28.7F);
-        }
-        else
-            return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
-    }
+	@Override
+	protected SoundEvent getHurtSound() {
+		Random rand = new Random();
+		int chooser = rand.nextInt(3);
 
-    @Override
-    public boolean isBreedingItem(@Nullable ItemStack stack) {
-        return stack != ItemStack.EMPTY && this.isCowBreedingItem(stack.getItem());
-    }
+		if (chooser == 0)
+			return ModSoundEvents.mooCalf1;
+		else if (chooser == 1)
+			return ModSoundEvents.mooCalf2;
+		else
+			return ModSoundEvents.mooCalf3;
+	}
 
-    private boolean isCowBreedingItem(Item itemIn) {
-        return itemIn == Items.WHEAT || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		Random rand = new Random();
+		int chooser = rand.nextInt(3);
 
-    @Override
-    public EntityCalfAngus createChild(EntityAgeable p_90011_1_) {
-        return null;
-    }
+		if (chooser == 0)
+			return ModSoundEvents.mooCalf1;
+		else if (chooser == 1)
+			return ModSoundEvents.mooCalf2;
+		else
+			return ModSoundEvents.mooCalf3;
+	}
+
+	@Override
+	public void playLivingSound() {
+		SoundEvent soundevent = this.getAmbientSound();
+
+		if (soundevent != null)
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F - this.getEntityAge() * 2);
+	}
+
+	/**
+	 * Returns the volume for the sounds this mob makes.
+	 */
+	@Override
+	protected float getSoundVolume() {
+		return 0.4F;
+	}
+
+	@Override
+	protected Item getDropItem() {
+		return null;
+	}
+
+	@Override
+	public void onLivingUpdate() {
+		if (this.world.isRemote)
+			this.eatTimer = Math.max(0, this.eatTimer - 1);
+
+		if (this.blinkTimer > -1) {
+			this.blinkTimer--;
+			if (this.blinkTimer == 0)
+				this.blinkTimer = 100 + this.rand.nextInt(100);
+		}
+
+		if (this.fedTimer > -1) {
+			this.fedTimer--;
+
+			if (this.fedTimer == 0)
+				this.setFed(false);
+		}
+
+		if (this.wateredTimer > -1) {
+			this.wateredTimer--;
+
+			if (this.wateredTimer == 0)
+				this.setWatered(false);
+		}
+
+		boolean fed = this.getFed();
+		boolean watered = this.getWatered();
+
+
+		if (!fed && !watered) {
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
+			if (AnimaniaConfig.gameRules.animalsStarve) {
+				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer) {
+					this.attackEntityFrom(DamageSource.STARVE, 4f);
+					this.damageTimer = 0;
+				}
+				this.damageTimer++;
+			}
+
+		}
+		else if (!fed || !watered)
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
+
+		this.ageTimer++;
+		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
+			if (fed && watered) {
+				this.ageTimer = 0;
+				float age = this.getEntityAge();
+				age = age + .01F;
+				this.setEntityAge(age);
+
+				if (age >= 1.0 && !this.world.isRemote) {
+					this.setDead();
+
+					if (this.rand.nextInt(2) < 1) {
+						EntityCowAngus entityCow = new EntityCowAngus(this.world);
+						entityCow.setPosition(this.posX, this.posY + .5, this.posZ);
+						String name = this.getCustomNameTag();
+						if (name != "")
+							entityCow.setCustomNameTag(name);
+						this.world.spawnEntity(entityCow);
+						this.playSound(ModSoundEvents.moo1, 0.50F, 1.1F);
+					}
+					else {
+						EntityBullAngus entityBull = new EntityBullAngus(this.world);
+						entityBull.setPosition(this.posX, this.posY + .5, this.posZ);
+						String name = this.getCustomNameTag();
+						if (name != "")
+							entityBull.setCustomNameTag(name);
+						this.world.spawnEntity(entityBull);
+						this.playSound(ModSoundEvents.bullMoo1, 0.50F, 1.1F);
+					}
+
+				}
+			}
+
+		if (this.happyTimer > -1) {
+			this.happyTimer--;
+			if (this.happyTimer == 0) {
+				this.happyTimer = 60;
+
+				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles) {
+					double d = this.rand.nextGaussian() * 0.001D;
+					double d1 = this.rand.nextGaussian() * 0.001D;
+					double d2 = this.rand.nextGaussian() * 0.001D;
+					this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + this.rand.nextFloat() * this.width - this.width,
+							this.posY + 1.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d,
+							d1, d2);
+				}
+			}
+		}
+
+		super.onLivingUpdate();
+	}
+
+	@Override
+	protected void dropFewItems(boolean p_70628_1_, int p_70628_2_) {
+		return;
+	}
+
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		EntityPlayer entityplayer = player;
+
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
+			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
+				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
+				player.dropItem(new ItemStack(Items.BUCKET), false);
+
+			this.eatTimer = 40;
+			this.entityAIEatGrass.startExecuting();
+			this.setWatered(true);
+			this.setInLove(player);
+			return true;
+		}
+		else
+			return super.processInteract(player, hand);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void handleStatusUpdate(byte id) {
+		if (id == 10)
+			this.eatTimer = 160;
+		else
+			super.handleStatusUpdate(id);
+	}
+
+	@SideOnly(Side.CLIENT)
+	public float getHeadRotationPointY(float p_70894_1_) {
+		return this.eatTimer <= 0 ? 0.0F
+				: this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F
+						: this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public float getHeadRotationAngleX(float p_70890_1_) {
+		if (this.eatTimer > 4 && this.eatTimer <= 156) {
+			float f = (this.eatTimer - 4 - p_70890_1_) / 64.0F;
+			return (float) Math.PI / 5F + (float) Math.PI * 7F / 100F * MathHelper.sin(f * 28.7F);
+		}
+		else
+			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
+	}
+
+	@Override
+	public boolean isBreedingItem(@Nullable ItemStack stack) {
+		return stack != ItemStack.EMPTY && this.isCowBreedingItem(stack.getItem());
+	}
+
+	private boolean isCowBreedingItem(Item itemIn) {
+		return itemIn == Items.WHEAT || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
+	}
+
+	@Override
+	public EntityCalfAngus createChild(EntityAgeable p_90011_1_) {
+		return null;
+	}
 }

@@ -710,9 +710,6 @@ public class EntitySowYorkshire extends EntityAnimal
             }
         }
         
-        if (this.isEntityInsideOpaqueBlock()) {
-			this.jumpHelper.setJumping();
-		}
 
         if (this.wateredTimer > -1) {
             this.wateredTimer--;
