@@ -259,6 +259,10 @@ public class EntityChickOrpington extends EntityAnimal
 
         this.fallDistance = 0;
 
+        if (this.isEntityInsideOpaqueBlock()) {
+			this.jumpHelper.setJumping();
+		}
+        
         if (!this.onGround && this.wingRotDelta < 1.0F)
             this.wingRotDelta = 1.0F;
 

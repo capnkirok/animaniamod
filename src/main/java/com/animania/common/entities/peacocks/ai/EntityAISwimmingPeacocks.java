@@ -37,12 +37,15 @@ public class EntityAISwimmingPeacocks extends EntityAIBase
 
             Block blockchk = this.theEntity.world.getBlockState(poschk).getBlock();
 
-            if (blockchk != Blocks.WATER)
-                this.theEntity.setPositionAndUpdate(this.theEntity.posX + this.theEntity.motionX / 2, this.theEntity.posY + .15F,
-                        this.theEntity.posZ + this.theEntity.motionZ / 2);
-            else
-                this.theEntity.setPositionAndUpdate(this.theEntity.posX + this.theEntity.motionX / 2, this.theEntity.posY + .6F,
-                        this.theEntity.posZ + this.theEntity.motionZ / 2);
+            if (this.theEntity.isPushedByWater()) {
+				this.theEntity.getJumpHelper().setJumping();
+				this.theEntity.setPositionAndUpdate(this.theEntity.posX + this.theEntity.motionX/2, this.theEntity.posY+.5F, this.theEntity.posZ + this.theEntity.motionZ/2);
+			} else if (blockchk != Blocks.WATER) {
+				this.theEntity.getJumpHelper().setJumping();
+				this.theEntity.setPositionAndUpdate(this.theEntity.posX + this.theEntity.motionX / 2, this.theEntity.posY + .5F, this.theEntity.posZ + this.theEntity.motionZ / 2);
+			} else {
+				this.theEntity.setPositionAndUpdate(this.theEntity.posX + this.theEntity.motionX / 2, this.theEntity.posY + .6F, this.theEntity.posZ + this.theEntity.motionZ / 2);
+			}
         }
     }
 }

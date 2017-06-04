@@ -441,6 +441,10 @@ public class EntityFerretGrey extends EntityTameable
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
+		if (this.isEntityInsideOpaqueBlock()) {
+			this.jumpHelper.setJumping();
+		}
+		
 		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 			if (AnimaniaConfig.gameRules.animalsStarve) {

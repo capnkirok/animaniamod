@@ -358,6 +358,10 @@ public class EntityHenLeghorn extends EntityAnimal
 			this.motionY *= 0.6D;
 
 		this.wingRotation += this.wingRotDelta * 2.0F;
+		
+		if (this.isEntityInsideOpaqueBlock()) {
+			this.jumpHelper.setJumping();
+		}
 
 		if (!this.world.isRemote && !this.isChild() && !this.isChickenJockey() && --this.timeUntilNextEgg <= 0)
 			// this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F,

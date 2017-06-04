@@ -709,6 +709,10 @@ public class EntitySowYorkshire extends EntityAnimal
                 }
             }
         }
+        
+        if (this.isEntityInsideOpaqueBlock()) {
+			this.jumpHelper.setJumping();
+		}
 
         if (this.wateredTimer > -1) {
             this.wateredTimer--;
@@ -744,7 +748,7 @@ public class EntitySowYorkshire extends EntityAnimal
             this.setPlayed(true);
             this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + this.rand.nextInt(100);
         }
-
+       
         boolean fed = this.getFed();
         boolean watered = this.getWatered();
         boolean played = this.getPlayed();

@@ -420,6 +420,10 @@ public class EntityCowLonghorn extends EntityAnimal
             if (this.wateredTimer == 0)
                 this.setWatered(false);
         }
+        
+        if (this.isEntityInsideOpaqueBlock()) {
+			this.jumpHelper.setJumping();
+		}
 
         boolean fed = this.getFed();
         boolean watered = this.getWatered();

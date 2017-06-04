@@ -397,6 +397,10 @@ public class EntityCowHereford extends EntityAnimal
         boolean fed = this.getFed();
         boolean watered = this.getWatered();
 
+        if (this.isEntityInsideOpaqueBlock()) {
+			this.jumpHelper.setJumping();
+		}
+        
         if (!fed && !watered) {
             this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
             if (AnimaniaConfig.gameRules.animalsStarve) {
@@ -407,10 +411,9 @@ public class EntityCowHereford extends EntityAnimal
                 this.damageTimer++;
             }
 
-        }
-        else if (!fed || !watered)
+        } else if (!fed || !watered)
             this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-
+        
         if (this.happyTimer > -1) {
             this.happyTimer--;
             if (this.happyTimer == 0) {
