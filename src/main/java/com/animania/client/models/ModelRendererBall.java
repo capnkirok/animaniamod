@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 public class ModelRendererBall extends ModelRenderer
 {
 
-    public static final ResourceLocation resource = new ResourceLocation("animania:entity/hamsters/hamster_ball.png");
+    public static final ResourceLocation resource = new ResourceLocation("animania:textures/entity/rodents/hamster_ball.png");
 
     ModelRenderer                        Shape1;
     ModelRenderer                        Shape2;
@@ -146,10 +146,40 @@ public class ModelRendererBall extends ModelRenderer
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         Minecraft.getMinecraft().renderEngine.bindTexture(ModelRendererBall.resource);
-        Random rand = new Random();
-        EnumDyeColor col = EntitySheep.getRandomSheepColor(rand);
-        // TODO GL11.glColor3f(col[0], col[1], col[2]);
-
+       
+        if (color == 0) {
+			GL11.glColor3f(0.1F, 0.1F, 0.1F); //Black
+		} else if (color == 1) {
+			GL11.glColor3f(1.0F, 0.0F, 0.0F); //Red
+		} else if (color == 2) {
+			GL11.glColor3f(0.4F, 0.49F, 0.2F); //Green
+		} else if (color == 3) {
+			GL11.glColor3f(0.6F, 0.49F, 0.2F); //Brown
+		} else if (color == 4) {
+			GL11.glColor3f(0.2F, 0.5F, 1.0F); //Blue
+		} else if (color == 5) {
+			GL11.glColor3f(0.5F, 0.25F, 0.7F); //Purple
+		} else if (color == 6) {
+			GL11.glColor3f(0.28F, 0.50F, 0.6F); //Cyan
+		} else if (color == 7) {
+			GL11.glColor3f(0.6F, 0.6F, 0.6F); //Light Gray
+		} else if (color == 8) {
+			GL11.glColor3f(0.3F, 0.3F, 0.3F); //Gray
+		} else if (color == 9) {
+			GL11.glColor3f(0.95F, 0.50F, 0.65F); //Pink
+		} else if (color == 10) {
+			GL11.glColor3f(0.5F, 0.8F, 0.01F); //Lime
+		} else if (color == 11) {
+			GL11.glColor3f(1.0F, 1.0F, 0.0F); //Yellow
+		} else if (color == 12) {
+			GL11.glColor3f(0.4F, 0.6F, 0.847F); //Light Blue
+		} else if (color == 13) {
+			GL11.glColor3f(0.7F, 0.3F, 0.85F); //Magenta
+		} else if (color == 14) {
+			GL11.glColor3f(0.85F, 0.5F, 0.2F); //Orange
+		} else if (color == 15) {
+			GL11.glColor3f(1.0F, 1.0F, 1.0F); //White
+		} 
         GL11.glPushMatrix();
         GL11.glTranslatef(0, 1, 0);
         GL11.glRotatef(this.rotation * 20, 1, 0, 0);
@@ -172,6 +202,9 @@ public class ModelRendererBall extends ModelRenderer
         this.Shape15.render(f5);
         this.Shape16.render(f5);
         GL11.glPopMatrix();
+        
+        GL11.glColor3f(1.0F, 1.0F, 1.0F); //Clear Colors
+        
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z) {

@@ -17,7 +17,6 @@ public class AnimaniaTextures
 		register(ItemHandler.hamsterFood);
 		register(ItemHandler.truffle);
 		register(ItemHandler.brownEgg);
-		// register(ItemHandler.bucketSlop);
 		register(ItemHandler.carvingKnife);
 		register(ItemHandler.cheeseMold);
 		register(ItemHandler.cheeseWheelFriesian);
@@ -31,11 +30,27 @@ public class AnimaniaTextures
 		register(ItemHandler.baconOmelette);
 		register(ItemHandler.truffleOmelette);
 		register(ItemHandler.ultimateOmelette);
-		// register(ItemHandler.milkBucketFriesian);
-		// register(ItemHandler.milkBucketHolstein);
 		register(ItemHandler.peacockFeatherBlue);
 		register(ItemHandler.peacockFeatherWhite);
 		register(ItemHandler.ridingCrop);
+		register(ItemHandler.hamsterBallClear);
+		register(ItemHandler.hamsterBallBlack);
+		register(ItemHandler.hamsterBallRed);
+		register(ItemHandler.hamsterBallGreen);
+		register(ItemHandler.hamsterBallBrown);
+		register(ItemHandler.hamsterBallBlue);
+		register(ItemHandler.hamsterBallPurple);
+		register(ItemHandler.hamsterBallCyan);
+		register(ItemHandler.hamsterBallLightGray);
+		register(ItemHandler.hamsterBallGray);
+		register(ItemHandler.hamsterBallPink);
+		register(ItemHandler.hamsterBallLime);
+		register(ItemHandler.hamsterBallYellow);
+		register(ItemHandler.hamsterBallLightBlue);
+		register(ItemHandler.hamsterBallMagenta);
+		register(ItemHandler.hamsterBallOrange);
+		register(ItemHandler.hamsterBallWhite);
+		
 
 		// Beef
 		register(ItemHandler.rawAngusBeef);
