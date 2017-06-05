@@ -40,7 +40,7 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -62,7 +62,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityRoosterLeghorn extends EntityAnimal
+public class EntityRoosterLeghorn extends EntityChicken
 {
     private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityRoosterLeghorn.class, DataSerializers.STRING);
     private static final DataParameter<Integer> CROWTIMER        = EntityDataManager.<Integer> createKey(EntityRoosterLeghorn.class, DataSerializers.VARINT);
@@ -576,7 +576,7 @@ public class EntityRoosterLeghorn extends EntityAnimal
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable ageable) {
+    public EntityRoosterLeghorn createChild(EntityAgeable ageable) {
         // TODO Auto-generated method stub
         return null;
     }

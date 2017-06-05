@@ -31,53 +31,61 @@ public class RecipeHandler
 		ItemStack slopBucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
 		ItemStack milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
 		ItemStack milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
+	
 		// Recipes
 
 		// HAMSTERS
-
-		/*
-		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,0), new Object[]{
-		 * "xxx","x x","xxx",'x', Blocks.GLASS, }); GameRegistry.addRecipe(new
-		 * ItemStack(hamsterBall,1,1), new Object[]{ "xxx","xdx","xxx",'x',
-		 * Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 14) });
-		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,2), new Object[]{
-		 * "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1,
-		 * 13) }); GameRegistry.addRecipe(new ItemStack(hamsterBall,1,3), new
-		 * Object[]{ "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new
-		 * ItemStack(Items.DYE, 1, 12) }); GameRegistry.addRecipe(new
-		 * ItemStack(hamsterBall,1,4), new Object[]{ "xxx","xdx","xxx",'x',
-		 * Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 11) });
-		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,5), new Object[]{
-		 * "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1,
-		 * 10) }); GameRegistry.addRecipe(new ItemStack(hamsterBall,1,6), new
-		 * Object[]{ "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new
-		 * ItemStack(Items.DYE, 1, 9) }); GameRegistry.addRecipe(new
-		 * ItemStack(hamsterBall,1,7), new Object[]{ "xxx","xdx","xxx",'x',
-		 * Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 8) });
-		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,8), new Object[]{
-		 * "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1,
-		 * 7) }); GameRegistry.addRecipe(new ItemStack(hamsterBall,1,9), new
-		 * Object[]{ "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new
-		 * ItemStack(Items.DYE, 1, 6) }); GameRegistry.addRecipe(new
-		 * ItemStack(hamsterBall,1,10), new Object[]{ "xxx","xdx","xxx",'x',
-		 * Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 5) });
-		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,11), new Object[]{
-		 * "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1,
-		 * 4) }); GameRegistry.addRecipe(new ItemStack(hamsterBall,1,12), new
-		 * Object[]{ "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new
-		 * ItemStack(Items.DYE, 1, 3) }); GameRegistry.addRecipe(new
-		 * ItemStack(hamsterBall,1,13), new Object[]{ "xxx","xdx","xxx",'x',
-		 * Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1, 2) });
-		 * GameRegistry.addRecipe(new ItemStack(hamsterBall,1,14), new Object[]{
-		 * "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new ItemStack(Items.DYE, 1,
-		 * 1) }); GameRegistry.addRecipe(new ItemStack(hamsterBall,1,15), new
-		 * Object[]{ "xxx","xdx","xxx",'x', Blocks.GLASS, 'd', new
-		 * ItemStack(Items.DYE, 1, 0) }); /* GameRegistry.addRecipe(new
-		 * ItemStack(WaterBottle,1,0), new Object[]{ "x","w","i",'x',
-		 * Blocks.glass, 'w', new ItemStack(Items.potionitem, 1, 0), 'i',
-		 * Items.iron_ingot });
-		 */
-
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallClear), new Object[]{
+				"xxx","x x","xxx",'x', Blocks.GLASS_PANE
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallBlack), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 0)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallRed), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 1)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallGreen), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 2)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallBrown), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 3)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallBlue), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 4)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallPurple), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 5)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallCyan), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 6)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallLightGray), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 7)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallGray), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 8)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallPink), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 9)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallLime), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 10)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallYellow), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 11)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallLightBlue), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 12)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallMagenta), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 13)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallOrange), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 14)
+		});
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallWhite), new Object[]{
+				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 15)
+		});
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.hamsterFood, 3),
 				new Object[] { Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, Items.MELON_SEEDS }));
 
@@ -108,7 +116,7 @@ public class RecipeHandler
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawLonghornSteak, 4),
 				new Object[] { ItemHandler.rawLonghornBeef, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
-		
+
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawPrimeSteak, 4),
 				new Object[] { ItemHandler.rawPrimeBeef, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
@@ -124,7 +132,7 @@ public class RecipeHandler
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawHampshireBacon, 4),
 				new Object[] { ItemHandler.rawHampshirePork, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
-		
+
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawPrimeBacon, 4),
 				new Object[] { ItemHandler.rawPrimePork, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
