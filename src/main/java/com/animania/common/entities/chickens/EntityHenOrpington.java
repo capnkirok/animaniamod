@@ -41,6 +41,7 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -62,7 +63,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityHenOrpington extends EntityAnimal
+public class EntityHenOrpington extends EntityChicken
 {
     private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityHenOrpington.class,
             DataSerializers.STRING);
@@ -348,6 +349,7 @@ public class EntityHenOrpington extends EntityAnimal
 
         this.fallDistance = 0;
 
+     
         if (!this.onGround && this.wingRotDelta < 1.0F)
             this.wingRotDelta = 1.0F;
 
@@ -634,7 +636,7 @@ public class EntityHenOrpington extends EntityAnimal
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable ageable) {
+    public EntityHenOrpington createChild(EntityAgeable ageable) {
         // TODO Auto-generated method stub
         return null;
     }

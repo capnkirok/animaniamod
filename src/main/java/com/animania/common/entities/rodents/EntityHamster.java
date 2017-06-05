@@ -20,6 +20,7 @@ import com.animania.common.entities.rodents.ai.EntityAIWanderRodent;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.handler.PatreonHandler;
+import com.animania.common.items.ItemHamsterBall;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
@@ -344,15 +345,101 @@ public class EntityHamster extends EntityTameable
 		else if (!this.getIsTamed() && itemstack.getItem() == Items.LEAD)
 			return super.processInteract(player, hand);
 
-		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBall && !this.isInBall()) {
-			this.setInBall(true);
-			this.setBallColor(itemstack.getItemDamage());
+		
+		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallBlack && !isInBall()) {
+			setInBall(true);
+			setBallColor(0);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallRed && !isInBall()) {
+			setInBall(true);
+			setBallColor(1);
 			itemstack.damageItem(1, player);
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallGreen && !isInBall()) {
+			setInBall(true);
+			setBallColor(2);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallBrown && !isInBall()) {
+			setInBall(true);
+			setBallColor(3);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallBlue && !isInBall()) {
+			setInBall(true);
+			setBallColor(4);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallPurple && !isInBall()) {
+			setInBall(true);
+			setBallColor(5);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallCyan && !isInBall()) {
+			setInBall(true);
+			setBallColor(6);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallLightGray && !isInBall()) {
+			setInBall(true);
+			setBallColor(7);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallGray && !isInBall()) {
+			setInBall(true);
+			setBallColor(8);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallPink && !isInBall()) {
+			setInBall(true);
+			setBallColor(9);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallLime && !isInBall()) {
+			setInBall(true);
+			setBallColor(10);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallYellow && !isInBall()) {
+			setInBall(true);
+			setBallColor(11);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallLightBlue && !isInBall()) {
+			setInBall(true);
+			setBallColor(12);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallMagenta && !isInBall()) {
+			setInBall(true);
+			setBallColor(13);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallOrange && !isInBall()) {
+			setInBall(true);
+			setBallColor(14);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallWhite && !isInBall()) {
+			setInBall(true);
+			setBallColor(15);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterBallClear && !isInBall()) {
+			setInBall(true);
+			setBallColor(16);
+			itemstack.damageItem(1, player); 
+			return true;
+		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() instanceof ItemHamsterBall && isInBall()) {
+			setInBall(false);
+			return true;
 		}
+		
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood) {
-			this.addFoodStack();
+			addFoodStack();
 			player.addStat(AnimaniaAchievements.Hamsters, 1);
-			return this.interactSeedsTamed(itemstack, player);
+			return interactSeedsTamed(itemstack, player);
 		}
 
 		return super.processInteract(player, hand);
@@ -521,7 +608,8 @@ public class EntityHamster extends EntityTameable
 			this.navigator.clearPathEntity();
 			this.navigator.setSpeed(0);
 		}
-
+		
+		
 		if (this.getHealth() < 10) {
 			this.eatFood();
 			this.eatCount = 5000;

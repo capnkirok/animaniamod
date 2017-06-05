@@ -7,6 +7,24 @@ item.animania_carving_knife.name=Carving Knife
 item.animania_cheese_mold.name=Cheese Mold
 item.animania_riding_crop.name=Riding Crop
 
+item.animania_hamster_ball_clear.name=Hamster Ball
+item.animania_hamster_ball_black.name=Hamster Ball
+item.animania_hamster_ball_red.name=Hamster Ball
+item.animania_hamster_ball_green.name=Hamster Ball
+item.animania_hamster_ball_brown.name=Hamster Ball
+item.animania_hamster_ball_blue.name=Hamster Ball
+item.animania_hamster_ball_purple.name=Hamster Ball
+item.animania_hamster_ball_cyan.name=Hamster Ball
+item.animania_hamster_ball_light_gray.name=Hamster Ball
+item.animania_hamster_ball_gray.name=Hamster Ball
+item.animania_hamster_ball_pink.name=Hamster Ball
+item.animania_hamster_ball_lime.name=Hamster Ball
+item.animania_hamster_ball_yellow.name=Hamster Ball
+item.animania_hamster_ball_light_blue.name=Hamster Ball
+item.animania_hamster_ball_magenta.name=Hamster Ball
+item.animania_hamster_ball_orange.name=Hamster Ball
+item.animania_hamster_ball_white.name=Hamster Ball
+
 item.animania_blue_peacock_feather.name=Blue Peacock Feather
 item.animania_white_peacock_feather.name=White Peacock Feather
 
@@ -345,6 +363,8 @@ tooltip.an.jumping=Jump Boost
 
 tooltip.an.ridingcrop1=Use on well fed Draft Horse to ride
 tooltip.an.ridingcrop2=While riding, hold down to increase speed
+tooltip.an.hamsterball1=Use on tamed Hamster to place in
+tooltip.an.hamsterball2=or remove from ball
 
 tooltip.an.edibleanytime=Edible Anytime
 

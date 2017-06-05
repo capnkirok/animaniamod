@@ -40,6 +40,7 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -61,7 +62,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityHenRhodeIslandRed extends EntityAnimal
+public class EntityHenRhodeIslandRed extends EntityChicken
 {
     private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityHenRhodeIslandRed.class,
             DataSerializers.STRING);
@@ -344,6 +345,8 @@ public class EntityHenRhodeIslandRed extends EntityAnimal
         this.destPos = (float) (this.destPos + (this.onGround ? -1 : 4) * 0.3D);
         this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
+        
+	    
         this.fallDistance = 0;
 
         if (!this.onGround && this.wingRotDelta < 1.0F)
@@ -627,7 +630,7 @@ public class EntityHenRhodeIslandRed extends EntityAnimal
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable ageable) {
+    public EntityHenRhodeIslandRed createChild(EntityAgeable ageable) {
         // TODO Auto-generated method stub
         return null;
     }

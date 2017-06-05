@@ -437,7 +437,7 @@ public class EntityFoalDraftHorse extends EntityAnimal
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
-
+		
 		if (!fed || !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 		} else if (!fed && !watered) {
@@ -460,7 +460,8 @@ public class EntityFoalDraftHorse extends EntityAnimal
 				age = age + .01F;
 				this.setEntityAge(age);
 
-				if (age >= 0.6 && !this.world.isRemote) {
+				if (age >= 0.45 && !this.world.isRemote) {
+					int color = this.getColorNumber();
 					this.setDead();
 
 					if (rand.nextInt(2) < 1) {
@@ -471,7 +472,8 @@ public class EntityFoalDraftHorse extends EntityAnimal
 							entityHorse.setCustomNameTag(name);
 						}
 						this.world.spawnEntity(entityHorse);
-						this.playSound(ModSoundEvents.moo1, 0.50F, 1.1F); //TODO
+						this.setColorNumber(color);
+						this.playSound(ModSoundEvents.horseliving1, 0.50F, 1.1F); 
 					} else {
 						EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
 						entityHorse.setPosition(this.posX, this.posY + .5, this.posZ);
@@ -480,7 +482,8 @@ public class EntityFoalDraftHorse extends EntityAnimal
 							entityHorse.setCustomNameTag(name);
 						}
 						this.world.spawnEntity(entityHorse);
-						this.playSound(ModSoundEvents.bullMoo1, 0.50F, 1.1F); //TODO
+						this.setColorNumber(color);
+						this.playSound(ModSoundEvents.horseliving2, 0.50F, 1.1F); 
 					}
 
 				}

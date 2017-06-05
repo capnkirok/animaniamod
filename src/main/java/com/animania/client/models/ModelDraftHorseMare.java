@@ -454,9 +454,9 @@ public class ModelDraftHorseMare extends ModelBase
 		//this.tailA.rotateAngleX = 1.5F;
 		//this.tailA.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 
-		this.BackLeftMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.3F * par2;
-		this.BackRightMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.3F * par2;
-		this.FrontLeftMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.3F * par2;
-		this.FrontRightMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.3F * par2;
+		this.BackLeftMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.0F * par2;
+		this.BackRightMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.0F * par2;
+		this.FrontLeftMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.0F * par2;
+		this.FrontRightMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.0F * par2;
 	}
 }

@@ -742,7 +742,8 @@ public class EntitySowHampshire extends EntityAnimal
             this.setPlayed(true);
             this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + this.rand.nextInt(100);
         }
-
+        
+        
         boolean fed = this.getFed();
         boolean watered = this.getWatered();
         boolean played = this.getPlayed();

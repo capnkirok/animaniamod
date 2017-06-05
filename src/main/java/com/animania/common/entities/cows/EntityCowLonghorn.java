@@ -31,6 +31,7 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -58,7 +59,7 @@ import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityCowLonghorn extends EntityAnimal
+public class EntityCowLonghorn extends EntityCow
 {
     private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID   = EntityDataManager.<Optional<UUID>> createKey(EntityCowLonghorn.class,
             DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -420,7 +421,8 @@ public class EntityCowLonghorn extends EntityAnimal
             if (this.wateredTimer == 0)
                 this.setWatered(false);
         }
-
+        
+  
         boolean fed = this.getFed();
         boolean watered = this.getWatered();
 

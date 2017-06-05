@@ -31,6 +31,7 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -58,7 +59,7 @@ import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityCowHereford extends EntityAnimal
+public class EntityCowHereford extends EntityCow
 {
     private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID   = EntityDataManager.<Optional<UUID>> createKey(EntityCowHereford.class,
             DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -407,10 +408,9 @@ public class EntityCowHereford extends EntityAnimal
                 this.damageTimer++;
             }
 
-        }
-        else if (!fed || !watered)
+        } else if (!fed || !watered)
             this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-
+        
         if (this.happyTimer > -1) {
             this.happyTimer--;
             if (this.happyTimer == 0) {

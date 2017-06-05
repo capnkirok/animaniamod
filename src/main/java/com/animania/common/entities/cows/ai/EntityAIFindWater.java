@@ -361,7 +361,9 @@ public class EntityAIFindWater extends EntityAIBase
 				}
 
 
-				this.temptedEntity.world.setBlockToAir(currentposlower);
+				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER) {
+					this.temptedEntity.world.setBlockToAir(currentposlower);
+				}
 
 				return false;
 			}

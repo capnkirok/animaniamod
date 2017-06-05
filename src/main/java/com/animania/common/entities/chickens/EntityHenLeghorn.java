@@ -39,6 +39,7 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -60,7 +61,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityHenLeghorn extends EntityAnimal
+public class EntityHenLeghorn extends EntityChicken
 {
 	private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityHenLeghorn.class,
 			DataSerializers.STRING);
@@ -358,7 +359,8 @@ public class EntityHenLeghorn extends EntityAnimal
 			this.motionY *= 0.6D;
 
 		this.wingRotation += this.wingRotDelta * 2.0F;
-
+		
+		
 		if (!this.world.isRemote && !this.isChild() && !this.isChickenJockey() && --this.timeUntilNextEgg <= 0)
 			// this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F,
 			// (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
@@ -623,7 +625,7 @@ public class EntityHenLeghorn extends EntityAnimal
 	}
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable ageable) {
+	public EntityChicken createChild(EntityAgeable ageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}

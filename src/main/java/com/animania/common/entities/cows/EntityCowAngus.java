@@ -31,6 +31,7 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -56,7 +57,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityCowAngus extends EntityAnimal
+public class EntityCowAngus extends EntityCow
 {
     private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID   = EntityDataManager.<Optional<UUID>> createKey(EntityCowAngus.class,
             DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -427,6 +428,7 @@ public class EntityCowAngus extends EntityAnimal
         boolean fed = this.getFed();
         boolean watered = this.getWatered();
 
+     
         if (!fed && !watered) {
             this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
             if (AnimaniaConfig.gameRules.animalsStarve) {
@@ -676,7 +678,7 @@ public class EntityCowAngus extends EntityAnimal
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable ageable) {
+    public EntityCow createChild(EntityAgeable ageable) {
 
         return null;
     }

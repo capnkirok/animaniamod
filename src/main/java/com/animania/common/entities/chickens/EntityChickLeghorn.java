@@ -31,7 +31,7 @@ import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -52,7 +52,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityChickLeghorn extends EntityAnimal
+public class EntityChickLeghorn extends EntityChicken
 {
     private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityChickLeghorn.class,
             DataSerializers.STRING);
@@ -256,7 +256,7 @@ public class EntityChickLeghorn extends EntityAnimal
         this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
         this.fallDistance = 0;
-
+ 
         if (!this.onGround && this.wingRotDelta < 1.0F)
             this.wingRotDelta = 1.0F;
 
@@ -495,8 +495,7 @@ public class EntityChickLeghorn extends EntityAnimal
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable ageable) {
-        // TODO Auto-generated method stub
+    public EntityChicken createChild(EntityAgeable ageable) {
         return null;
     }
 }

@@ -31,6 +31,7 @@ import com.animania.common.items.ItemCookedPrimeSteak;
 import com.animania.common.items.ItemCookedRhodeIslandRedChicken;
 import com.animania.common.items.ItemCookedWyandotteChicken;
 import com.animania.common.items.ItemEntityEgg;
+import com.animania.common.items.ItemHamsterBall;
 import com.animania.common.items.ItemHamsterFood;
 import com.animania.common.items.ItemOmelette;
 import com.animania.common.items.ItemPeacockFeather;
@@ -68,14 +69,30 @@ import net.minecraft.item.Item.ToolMaterial;
 public class ItemHandler
 {
     // Items
-    public static Item hamsterBall;
+    
     public static Item hamsterFood;
     public static Item truffle;
     public static Item brownEgg;
-    // public static Item bucketSlop;
     public static Item carvingKnife;
     public static Item cheeseMold;
-
+    public static Item hamsterBallClear;
+	public static Item hamsterBallBlack;
+	public static Item hamsterBallRed;
+	public static Item hamsterBallGreen;
+	public static Item hamsterBallBrown;
+	public static Item hamsterBallBlue;
+	public static Item hamsterBallPurple;
+	public static Item hamsterBallCyan;
+	public static Item hamsterBallLightGray;
+	public static Item hamsterBallGray;
+	public static Item hamsterBallPink;
+	public static Item hamsterBallLime;
+	public static Item hamsterBallYellow;
+	public static Item hamsterBallLightBlue;
+	public static Item hamsterBallMagenta;
+	public static Item hamsterBallOrange;
+	public static Item hamsterBallWhite;
+    
     public static Item peacockFeatherBlue;
     public static Item peacockFeatherWhite;
     public static Item ridingCrop;
@@ -151,11 +168,8 @@ public class ItemHandler
     public static Item cheeseWedgeHolstein;
     public static Item truffleSoup;
     public static Item chocolateTruffle;
-    // public static Item milkBucketHolstein;
-    // public static Item milkBucketFriesian;
-
+  
     // Eggs - Cows
-
     public static Item entityeggcalfholstein;
     public static Item entityeggcowholstein;
     public static Item entityeggbullholstein;
@@ -259,15 +273,30 @@ public class ItemHandler
         // Items for Animals
         ItemHandler.hamsterFood = new ItemHamsterFood();
         ItemHandler.truffle = new ItemTruffle();
-        // bucketSlop = new ItemBucketSlop();
         ItemHandler.carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
         ItemHandler.cheeseMold = new ItemCheeseMold();
-        // milkBucketFriesian = new ItemBucketMilk("friesian");
-        // milkBucketHolstein = new ItemBucketMilk("holstein");
         ItemHandler.peacockFeatherBlue = new ItemPeacockFeather("blue");
         ItemHandler.peacockFeatherWhite = new ItemPeacockFeather("white");
         ItemHandler.ridingCrop = new ItemRidingCrop();
-
+        ItemHandler.hamsterBallClear = new ItemHamsterBall("clear");
+        ItemHandler.hamsterBallBlack = new ItemHamsterBall("black");
+        ItemHandler.hamsterBallRed = new ItemHamsterBall("red");
+        ItemHandler.hamsterBallGreen = new ItemHamsterBall("green");
+        ItemHandler.hamsterBallBrown = new ItemHamsterBall("brown");
+        ItemHandler.hamsterBallBlue = new ItemHamsterBall("blue");
+        ItemHandler.hamsterBallPurple = new ItemHamsterBall("purple");
+        ItemHandler.hamsterBallCyan = new ItemHamsterBall("cyan");
+        ItemHandler.hamsterBallLightGray = new ItemHamsterBall("light_gray");
+        ItemHandler.hamsterBallGray = new ItemHamsterBall("gray");
+        ItemHandler.hamsterBallPink = new ItemHamsterBall("pink");
+        ItemHandler.hamsterBallLime = new ItemHamsterBall("lime");
+        ItemHandler.hamsterBallYellow = new ItemHamsterBall("yellow");
+        ItemHandler.hamsterBallLightBlue = new ItemHamsterBall("light_blue");
+        ItemHandler.hamsterBallMagenta = new ItemHamsterBall("magenta");
+        ItemHandler.hamsterBallOrange = new ItemHamsterBall("orange");
+        ItemHandler.hamsterBallWhite = new ItemHamsterBall("white");
+        
+        
         // Other foods
         ItemHandler.ultimateOmelette = new ItemOmelette("super");
         ItemHandler.truffleOmelette = new ItemOmelette("truffle");

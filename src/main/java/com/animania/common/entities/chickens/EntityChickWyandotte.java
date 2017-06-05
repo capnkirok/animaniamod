@@ -30,7 +30,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -51,7 +51,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityChickWyandotte extends EntityAnimal
+public class EntityChickWyandotte extends EntityChicken
 {
     private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityChickWyandotte.class,
             DataSerializers.STRING);
@@ -255,6 +255,7 @@ public class EntityChickWyandotte extends EntityAnimal
 
         this.fallDistance = 0;
 
+       
         if (!this.onGround && this.wingRotDelta < 1.0F)
             this.wingRotDelta = 1.0F;
 
@@ -493,7 +494,7 @@ public class EntityChickWyandotte extends EntityAnimal
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable ageable) {
+    public EntityChicken createChild(EntityAgeable ageable) {
         // TODO Auto-generated method stub
         return null;
     }

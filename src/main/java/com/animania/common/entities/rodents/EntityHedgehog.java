@@ -446,6 +446,7 @@ public class EntityHedgehog extends EntityTameable
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
+		
 		if (this.getCustomNameTag().equals("Sonic"))
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 2, 4, false, false));
 		else if (this.getCustomNameTag().equals("Sanic")) {
