@@ -387,7 +387,7 @@ public class BlockTrough extends BlockContainer
 			if (!playerIn.isCreative())
 			{
 				IFluidHandlerItem handler;
-				if (heldItem.getCount() > 1)
+				if (heldItem.getCount() >= 1)
 				{
 					ItemStack heldItem1 = heldItem.copy();
 					heldItem1.setCount(1);

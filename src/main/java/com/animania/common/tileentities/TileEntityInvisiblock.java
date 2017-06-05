@@ -43,7 +43,7 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (AnimaniaConfig.gameRules.allowTroughAutomation) {
+        if (AnimaniaConfig.gameRules.allowTroughAutomation && this.trough != null) {
 
             if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.trough.fluidHandler.getFluid() == null)
                 return (T) this.trough.itemHandler;
