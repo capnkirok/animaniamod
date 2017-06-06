@@ -5,6 +5,7 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 
@@ -34,23 +35,8 @@ public class AnimaniaTextures
 		register(ItemHandler.peacockFeatherWhite);
 		register(ItemHandler.ridingCrop);
 		register(ItemHandler.hamsterBallClear);
-		register(ItemHandler.hamsterBallBlack);
-		register(ItemHandler.hamsterBallRed);
-		register(ItemHandler.hamsterBallGreen);
-		register(ItemHandler.hamsterBallBrown);
-		register(ItemHandler.hamsterBallBlue);
-		register(ItemHandler.hamsterBallPurple);
-		register(ItemHandler.hamsterBallCyan);
-		register(ItemHandler.hamsterBallLightGray);
-		register(ItemHandler.hamsterBallGray);
-		register(ItemHandler.hamsterBallPink);
-		register(ItemHandler.hamsterBallLime);
-		register(ItemHandler.hamsterBallYellow);
-		register(ItemHandler.hamsterBallLightBlue);
-		register(ItemHandler.hamsterBallMagenta);
-		register(ItemHandler.hamsterBallOrange);
-		register(ItemHandler.hamsterBallWhite);
-		
+		registerColored(ItemHandler.hamsterBallColored, "hamster_ball");
+
 
 		// Beef
 		register(ItemHandler.rawAngusBeef);
@@ -220,7 +206,7 @@ public class AnimaniaTextures
 		register(ItemHandler.entityeggdrafthorsefoal);
 		register(ItemHandler.entityeggdrafthorsemare);
 		register(ItemHandler.entityeggdrafthorsestallion);
-       
+
 		//register(Item.getItemFromBlock(BlockHandler.blockHamsterWheel));
 
 		// Blocks
@@ -239,8 +225,21 @@ public class AnimaniaTextures
 	 *
 	 * @param item
 	 */
-	public static void register(Item item) {
+	public static void register(Item item) 
+	{
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 	}
+
+	public static void register(Item item, String name, int meta)
+	{
+		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name, "inventory"));
+	}
+
+	public static void registerColored(Item item, String name)
+	{
+		for(int meta = 0; meta < 16; meta++)
+			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name + "_" + EnumDyeColor.byDyeDamage(meta).getName(), "inventory"));
+	}
+
 
 }

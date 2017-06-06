@@ -76,8 +76,8 @@ public class ItemHandler
     public static Item carvingKnife;
     public static Item cheeseMold;
     public static Item hamsterBallClear;
-	public static Item hamsterBallBlack;
-	public static Item hamsterBallRed;
+	public static Item hamsterBallColored;
+	/*public static Item hamsterBallRed;
 	public static Item hamsterBallGreen;
 	public static Item hamsterBallBrown;
 	public static Item hamsterBallBlue;
@@ -91,7 +91,7 @@ public class ItemHandler
 	public static Item hamsterBallLightBlue;
 	public static Item hamsterBallMagenta;
 	public static Item hamsterBallOrange;
-	public static Item hamsterBallWhite;
+	public static Item hamsterBallWhite;*/
     
     public static Item peacockFeatherBlue;
     public static Item peacockFeatherWhite;
@@ -278,9 +278,9 @@ public class ItemHandler
         ItemHandler.peacockFeatherBlue = new ItemPeacockFeather("blue");
         ItemHandler.peacockFeatherWhite = new ItemPeacockFeather("white");
         ItemHandler.ridingCrop = new ItemRidingCrop();
-        ItemHandler.hamsterBallClear = new ItemHamsterBall("clear");
-        ItemHandler.hamsterBallBlack = new ItemHamsterBall("black");
-        ItemHandler.hamsterBallRed = new ItemHamsterBall("red");
+        ItemHandler.hamsterBallClear = new ItemHamsterBall(false, "hamster_ball_clear");
+        ItemHandler.hamsterBallColored = new ItemHamsterBall(true, "hamster_ball_colored");
+        /*ItemHandler.hamsterBallRed = new ItemHamsterBall("red");
         ItemHandler.hamsterBallGreen = new ItemHamsterBall("green");
         ItemHandler.hamsterBallBrown = new ItemHamsterBall("brown");
         ItemHandler.hamsterBallBlue = new ItemHamsterBall("blue");
@@ -294,7 +294,7 @@ public class ItemHandler
         ItemHandler.hamsterBallLightBlue = new ItemHamsterBall("light_blue");
         ItemHandler.hamsterBallMagenta = new ItemHamsterBall("magenta");
         ItemHandler.hamsterBallOrange = new ItemHamsterBall("orange");
-        ItemHandler.hamsterBallWhite = new ItemHamsterBall("white");
+        ItemHandler.hamsterBallWhite = new ItemHamsterBall("white"); */
         
         
         // Other foods
