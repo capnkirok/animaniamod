@@ -38,52 +38,52 @@ public class RecipeHandler
 		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallClear), new Object[]{
 				"xxx","x x","xxx",'x', Blocks.GLASS_PANE
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallBlack), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 0), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 0)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallRed), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 1), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 1)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallGreen), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 2), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 2)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallBrown), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 3), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 3)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallBlue), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 4), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 4)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallPurple), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 5), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 5)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallCyan), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 6), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 6)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallLightGray), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 7), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 7)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallGray), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 8), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 8)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallPink), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 9), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 9)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallLime), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 10), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 10)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallYellow), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 11), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 11)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallLightBlue), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 12), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 12)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallMagenta), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 13), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 13)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallOrange), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 14), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 14)
 		});
-		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallWhite), new Object[]{
+		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 15), new Object[]{
 				"xxx","xdx","xxx",'x', Blocks.GLASS_PANE, 'd', new ItemStack(Items.DYE, 1, 15)
 		});
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.hamsterFood, 3),
