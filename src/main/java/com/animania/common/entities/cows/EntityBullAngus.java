@@ -47,6 +47,7 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.MathHelper;
@@ -70,6 +71,7 @@ public class EntityBullAngus extends EntityCow
 		super(world);
 		this.setSize(1.6F, 1.8F);
 		this.stepHeight = 1.1F;
+		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAICowEatGrass(this);
 		this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 2.3D, true));
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
@@ -118,6 +120,12 @@ public class EntityBullAngus extends EntityCow
 		this.dataManager.register(EntityBullAngus.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityBullAngus.WATERED, Boolean.valueOf(true));
 
+	}
+	
+	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
 	}
 
 	@Override

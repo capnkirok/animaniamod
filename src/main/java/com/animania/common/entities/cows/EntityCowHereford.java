@@ -48,6 +48,7 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
@@ -76,6 +77,7 @@ public class EntityCowHereford extends EntityCow
         super(world);
         this.setSize(1.4F, 1.8F);
         this.stepHeight = 1.1F;
+        this.tasks.taskEntries.clear();
         this.entityAIEatGrass = new EntityAICowEatGrass(this);
         this.tasks.addTask(1, new EntityAIFindFood(this, 1.0D));
         this.tasks.addTask(4, new EntityAIWanderCow(this, 1.0D));
@@ -101,6 +103,12 @@ public class EntityCowHereford extends EntityCow
         EntityLiving.registerFixesMob(fixer, EntityCowHereford.class);
     }
 
+    @Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
+	}
+    
     @Override
     protected boolean canDespawn() {
         return false;

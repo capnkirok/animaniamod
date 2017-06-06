@@ -93,6 +93,7 @@ public class EntityHenLeghorn extends EntityChicken
 	public EntityHenLeghorn(World world) {
 		super(world);
 		this.setSize(0.5F, 0.7F);
+		this.tasks.taskEntries.clear();
 		this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
 		this.tasks.addTask(0, new EntityAISwimmingChickens(this));
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.0D));
@@ -125,6 +126,12 @@ public class EntityHenLeghorn extends EntityChicken
 
 	public boolean isAIEnabled() {
 		return true;
+	}
+	
+	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
 	}
 
 	@Override

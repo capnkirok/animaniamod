@@ -83,6 +83,7 @@ public class EntityChickWyandotte extends EntityChicken
     public EntityChickWyandotte(World world) {
         super(world);
         this.setSize(0.3F, 0.4F);
+        this.tasks.taskEntries.clear();
         this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         this.tasks.addTask(0, new EntityAISwimmingChicks(this));
         this.tasks.addTask(1, new EntityAIPanicChickens(this, 1.4D));
@@ -112,6 +113,12 @@ public class EntityChickWyandotte extends EntityChicken
     public boolean isChild() {
         return true;
     }
+    
+    @Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
+	}
 
     @Override
     protected void consumeItemFromStack(EntityPlayer player, ItemStack stack) {

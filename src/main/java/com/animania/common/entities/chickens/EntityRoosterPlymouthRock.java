@@ -95,6 +95,7 @@ public class EntityRoosterPlymouthRock extends EntityChicken
     public EntityRoosterPlymouthRock(World world) {
         super(world);
         this.setSize(0.6F, 0.8F);
+        this.tasks.taskEntries.clear();
         this.setTimeUntilNextCrow(this.rand.nextInt(200) + 200);
         this.tasks.addTask(0, new EntityAISwimmingChickens(this));
         this.tasks.addTask(1, new EntityAIFindWater(this, 1.0D));
@@ -140,6 +141,12 @@ public class EntityRoosterPlymouthRock extends EntityChicken
         if (!player.capabilities.isCreativeMode)
             stack.setCount(stack.getCount() - 1);
     }
+    
+    @Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
+	}
 
     @Override
     public void setInLove(EntityPlayer player) {

@@ -89,6 +89,7 @@ public class EntityRoosterLeghorn extends EntityChicken
     public EntityRoosterLeghorn(World world) {
         super(world);
         this.setSize(0.6F, 0.8F);
+        this.tasks.taskEntries.clear();
         this.setTimeUntilNextCrow(this.rand.nextInt(200) + 200);
         this.tasks.addTask(0, new EntityAISwimmingChickens(this));
         this.tasks.addTask(1, new EntityAIFindWater(this, 1.0D));
@@ -140,6 +141,12 @@ public class EntityRoosterLeghorn extends EntityChicken
     public void setInLove(EntityPlayer player) {
         this.world.setEntityState(this, (byte) 18);
     }
+    
+    @Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
+	}
 
     public boolean isAIEnabled() {
         return true;

@@ -79,6 +79,7 @@ public class EntityCowHolstein extends EntityCow
 		super(world);
 		this.setSize(1.4F, 1.8F);
 		this.stepHeight = 1.1F;
+		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAICowEatGrass(this);
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderCow(this, 1.0D));
@@ -105,6 +106,7 @@ public class EntityCowHolstein extends EntityCow
 	public static void registerFixesCow(DataFixer fixer) {
 		EntityLiving.registerFixesMob(fixer, EntityCowHolstein.class);
 	}
+	
 
 	@Override
 	protected boolean canDespawn() {

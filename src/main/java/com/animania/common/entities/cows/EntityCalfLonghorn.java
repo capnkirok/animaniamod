@@ -43,6 +43,7 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.BlockPos;
@@ -70,6 +71,7 @@ public class EntityCalfLonghorn extends EntityCow
         super(world);
         this.setSize(0.7F, 1.1F);
         this.stepHeight = 1.1F;
+        this.tasks.taskEntries.clear();
         this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
         this.tasks.addTask(1, new EntityAIFindFood(this, 1.2D));
         this.entityAIEatGrass = new EntityAICowEatGrass(this);
@@ -95,6 +97,12 @@ public class EntityCalfLonghorn extends EntityCow
     public boolean isChild() {
         return true;
     }
+    
+    @Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
+	}
 
     public static void registerFixesCow(DataFixer fixer) {
         EntityLiving.registerFixesMob(fixer, EntityCalfLonghorn.class);
