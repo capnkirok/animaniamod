@@ -582,7 +582,7 @@ public class EventReplaceSpawnAnimals
 				}
 
 		}
-		else if (event.getEntity().getClass().equals(EntityZombie.class)) {
+		else if (event.getEntity().getClass().equals(EntityZombie.class) && AnimaniaConfig.gameRules.allowMobRiding) {
 
 			if (worldIn.rand.nextFloat() < 0.05D) {
 				if (worldIn.getClosestPlayerToEntity(event.getEntity(), 10) != null && !worldIn.isRemote) {
@@ -598,7 +598,7 @@ public class EventReplaceSpawnAnimals
 			}
 
 		}
-		else if (event.getEntity().getClass().equals(EntityPigZombie.class)) {
+		else if (event.getEntity().getClass().equals(EntityPigZombie.class) && AnimaniaConfig.gameRules.allowMobRiding) {
 
 			if (worldIn.rand.nextFloat() < 0.05D) {
 				if (worldIn.getClosestPlayerToEntity(event.getEntity(), 10) != null && !worldIn.isRemote) {
@@ -613,7 +613,7 @@ public class EventReplaceSpawnAnimals
 			}
 
 		}
-		else if (event.getEntity().getClass().equals(EntitySkeleton.class)) {
+		else if (event.getEntity().getClass().equals(EntitySkeleton.class) && AnimaniaConfig.gameRules.allowMobRiding) {
 
 			if (worldIn.rand.nextFloat() < 0.05D) {
 				if (worldIn.getClosestPlayerToEntity(event.getEntity(), 10) != null && !worldIn.isRemote) {
