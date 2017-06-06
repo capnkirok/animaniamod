@@ -81,6 +81,7 @@ public class EntityMareDraftHorse extends EntityAnimal
 		super(world);
 		this.setSize(1.6F, 2.2F);
 		this.stepHeight = 1.1F;
+		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityHorseEatGrass(this);
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
 		this.tasks.addTask(2, new EntityAIPanicHorses(this, 2.0D));

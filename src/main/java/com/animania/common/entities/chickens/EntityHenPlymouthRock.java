@@ -95,6 +95,7 @@ public class EntityHenPlymouthRock extends EntityChicken
     public EntityHenPlymouthRock(World world) {
         super(world);
         this.setSize(0.5F, 0.7F);
+        this.tasks.taskEntries.clear();
         this.tasks.addTask(0, new EntityAISwimmingChickens(this));
         this.tasks.addTask(1, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(2, new EntityAIWanderChickens(this, 1.0D));
@@ -136,6 +137,12 @@ public class EntityHenPlymouthRock extends EntityChicken
         if (!player.capabilities.isCreativeMode)
             stack.setCount(stack.getCount() - 1);
     }
+    
+    @Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
+	}
 
     @Override
     @Nullable

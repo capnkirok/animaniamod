@@ -4,6 +4,7 @@ import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.pathfinding.PathNavigateGround;
@@ -45,21 +46,21 @@ public class EntityAISwimmingChicks extends EntityAIBase
 	public void updateTask() {
 		if (this.theEntity.getRNG().nextFloat() < 0.9F) {
 
-			BlockPos poschk = new BlockPos(this.theEntity.posX + this.theEntity.motionX / 1.5, this.theEntity.posY + .1F, this.theEntity.posZ + this.theEntity.motionZ / 1.5);
+			BlockPos poschk = new BlockPos(this.theEntity.posX + this.theEntity.motionX/1.5, this.theEntity.posY+.1F, this.theEntity.posZ + this.theEntity.motionZ/1.5);
 
 			Block blockchk = this.theEntity.world.getBlockState(poschk).getBlock();
 
 			if (this.theEntity.isPushedByWater()) {
+				this.theEntity.move(MoverType.SELF, this.theEntity.motionX, this.theEntity.motionY + .3, this.theEntity.motionZ);	
+			} else if (blockchk != Blocks.WATER) {
+				this.theEntity.move(MoverType.SELF, this.theEntity.motionX, this.theEntity.motionY + .3, this.theEntity.motionZ);	
 				this.theEntity.getJumpHelper().setJumping();
-				this.theEntity.setPositionAndUpdate(this.theEntity.posX + this.theEntity.motionX/2, this.theEntity.posY+.5F, this.theEntity.posZ + this.theEntity.motionZ/2);
-			} else if (blockchk != Blocks.WATER && blockchk != BlockHandler.blockMud) {
-				this.theEntity.getJumpHelper().setJumping();
-				this.theEntity.setPositionAndUpdate(this.theEntity.posX + this.theEntity.motionX / 2, this.theEntity.posY + .5F, this.theEntity.posZ + this.theEntity.motionZ / 2);
 			} else if (blockchk == BlockHandler.blockMud) {
-				this.theEntity.setPositionAndUpdate(this.theEntity.posX + this.theEntity.motionX / 2, this.theEntity.posY + .5F, this.theEntity.posZ + this.theEntity.motionZ / 2);
+				this.theEntity.move(MoverType.SELF, this.theEntity.motionX, this.theEntity.motionY + .12, this.theEntity.motionZ);	
 			} else {
-				this.theEntity.setPositionAndUpdate(this.theEntity.posX + this.theEntity.motionX / 2, this.theEntity.posY + .6F, this.theEntity.posZ + this.theEntity.motionZ / 2);
+				this.theEntity.move(MoverType.SELF, this.theEntity.motionX, this.theEntity.motionX + .3F, this.theEntity.motionZ);	
 			}
+			
 		}
 	}
 }

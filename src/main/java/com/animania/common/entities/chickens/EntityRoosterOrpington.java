@@ -96,6 +96,7 @@ public class EntityRoosterOrpington extends EntityChicken
     public EntityRoosterOrpington(World world) {
         super(world);
         this.setSize(0.6F, 0.8F);
+        this.tasks.taskEntries.clear();
         this.tasks.addTask(0, new EntityAISwimmingChickens(this));
         this.tasks.addTask(1, new EntityAIFindWater(this, 1.0D));
         this.tasks.addTask(2, new EntityAITempt(this, 1.2D, false, EntityRoosterOrpington.TEMPTATION_ITEMS));
@@ -139,6 +140,12 @@ public class EntityRoosterOrpington extends EntityChicken
         if (!player.capabilities.isCreativeMode)
             stack.setCount(stack.getCount() - 1);
     }
+    
+    @Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
+	}
 
     @Override
     public void setInLove(EntityPlayer player) {
