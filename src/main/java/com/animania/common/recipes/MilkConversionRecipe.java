@@ -6,7 +6,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-public class MilkConversionRecipe extends ShapelessOreRecipe
+public class MilkConversionRecipe extends ShapelessNBTRecipe
 {
 
 	public MilkConversionRecipe(ItemStack result, Object[] recipe)
