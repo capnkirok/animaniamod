@@ -297,6 +297,8 @@ public class EntityRoosterRhodeIslandRed extends EntityChicken
 
         this.fallDistance = 0;
 
+        this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
+        
         if (!this.onGround && this.wingRotDelta < 1.0F)
             this.wingRotDelta = 1.0F;
 

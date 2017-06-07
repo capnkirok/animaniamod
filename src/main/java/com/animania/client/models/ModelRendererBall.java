@@ -183,7 +183,7 @@ public class ModelRendererBall extends ModelRenderer
         GL11.glPushMatrix();
         GL11.glTranslatef(0, 1, 0);
         GL11.glRotatef(this.rotation * 20, 1, 0, 0);
-        GL11.glTranslatef(0, -1.9f, 0);
+        GL11.glTranslatef(-.1f, -1.9f, 0);
         GL11.glScalef(1.7f, 1.7f, 1.7f);
         this.Shape1.render(f5);
         this.Shape2.render(f5);

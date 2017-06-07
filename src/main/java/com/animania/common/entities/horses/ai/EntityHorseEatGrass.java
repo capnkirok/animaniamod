@@ -1,5 +1,7 @@
 package com.animania.common.entities.horses.ai;
 
+import com.animania.common.entities.horses.EntityFoalDraftHorse;
+import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -100,9 +102,16 @@ public class EntityHorseEatGrass extends EntityAIBase
 
 				this.entityWorld.destroyBlock(blockpos, false);
 
-
 				if (grassEaterEntity instanceof EntityStallionDraftHorse) {
 					EntityStallionDraftHorse ech = (EntityStallionDraftHorse)grassEaterEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setFed(true);
+				} else if (grassEaterEntity instanceof EntityMareDraftHorse) {
+					EntityMareDraftHorse ech = (EntityMareDraftHorse)grassEaterEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setFed(true);
+				} else if (grassEaterEntity instanceof EntityFoalDraftHorse) {
+					EntityFoalDraftHorse ech = (EntityFoalDraftHorse)grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} 
@@ -120,9 +129,16 @@ public class EntityHorseEatGrass extends EntityAIBase
 					this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
 					this.entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
 
-
 					if (grassEaterEntity instanceof EntityStallionDraftHorse) {
 						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)grassEaterEntity;
+						ech.entityAIEatGrass.startExecuting();
+						ech.setFed(true);
+					} else if (grassEaterEntity instanceof EntityMareDraftHorse) {
+						EntityMareDraftHorse ech = (EntityMareDraftHorse)grassEaterEntity;
+						ech.entityAIEatGrass.startExecuting();
+						ech.setFed(true);
+					} else if (grassEaterEntity instanceof EntityFoalDraftHorse) {
+						EntityFoalDraftHorse ech = (EntityFoalDraftHorse)grassEaterEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} 

@@ -241,6 +241,9 @@ public class CommonConfig
 
         @Comment("Animals starve to death when not fed and watered")
         public boolean animalsStarve              = false;
+        
+        @Comment("Allow random mobs to spawn on Animania animals")
+        public boolean allowMobRiding             = true;
 
         @Comment("Allow the trough to be automated with hoppers/pipes")
         public boolean allowTroughAutomation      = true;
