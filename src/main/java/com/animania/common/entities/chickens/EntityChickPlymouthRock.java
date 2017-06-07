@@ -64,7 +64,6 @@ public class EntityChickPlymouthRock extends EntityChicken
             DataSerializers.FLOAT);
     private static final Set<Item>              TEMPTATION_ITEMS = Sets
             .newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
-    public int                                  timeUntilNextEgg;
     public boolean                              chickenJockey;
     private static List                         ColorList;
     private ResourceLocation                    resourceLocation;
@@ -85,7 +84,6 @@ public class EntityChickPlymouthRock extends EntityChicken
         super(world);
         this.setSize(0.3F, 0.4F);
         this.tasks.taskEntries.clear();
-        this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         this.tasks.addTask(0, new EntityAISwimmingChicks(this));
         this.tasks.addTask(1, new EntityAIPanicChickens(this, 1.4D));
         this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
@@ -230,7 +228,6 @@ public class EntityChickPlymouthRock extends EntityChicken
         super.writeEntityToNBT(nbttagcompound);
         nbttagcompound.setString("Color", this.getColor());
         nbttagcompound.setBoolean("IsChickenJockey", this.chickenJockey);
-        nbttagcompound.setInteger("EggLayTime", this.timeUntilNextEgg);
         nbttagcompound.setBoolean("Fed", this.getFed());
         nbttagcompound.setBoolean("Watered", this.getWatered());
         nbttagcompound.setFloat("Age", this.getEntityAge());
@@ -253,10 +250,6 @@ public class EntityChickPlymouthRock extends EntityChicken
             }
 
         this.chickenJockey = nbttagcompound.getBoolean("IsChickenJockey");
-
-        if (nbttagcompound.hasKey("EggLayTime"))
-            this.timeUntilNextEgg = nbttagcompound.getInteger("EggLayTime");
-
         this.setFed(nbttagcompound.getBoolean("Fed"));
         this.setWatered(nbttagcompound.getBoolean("Watered"));
         this.setEntityAge(nbttagcompound.getFloat("Age"));
@@ -271,8 +264,6 @@ public class EntityChickPlymouthRock extends EntityChicken
         this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
         this.fallDistance = 0;
-
-        this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
       
         if (!this.onGround && this.wingRotDelta < 1.0F)
             this.wingRotDelta = 1.0F;
