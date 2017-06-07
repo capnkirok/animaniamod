@@ -73,7 +73,7 @@ public class EntityHenLeghorn extends EntityChicken
 			DataSerializers.BOOLEAN);
 	private static final Set<Item>              TEMPTATION_ITEMS = Sets
 			.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
-	public int                                  timeUntilNextEgg;
+	
 	public boolean                              chickenJockey;
 	private static List                         ColorList;
 	private ResourceLocation                    resourceLocation;
@@ -94,7 +94,6 @@ public class EntityHenLeghorn extends EntityChicken
 		super(world);
 		this.setSize(0.5F, 0.7F);
 		this.tasks.taskEntries.clear();
-		this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
 		this.tasks.addTask(0, new EntityAISwimmingChickens(this));
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.0D));
 		this.tasks.addTask(2, new EntityAILookIdle(this));
@@ -314,7 +313,6 @@ public class EntityHenLeghorn extends EntityChicken
 		super.writeEntityToNBT(nbttagcompound);
 		nbttagcompound.setString("Color", this.getColor());
 		nbttagcompound.setBoolean("IsChickenJockey", this.chickenJockey);
-		nbttagcompound.setInteger("EggLayTime", this.timeUntilNextEgg);
 		nbttagcompound.setBoolean("Fed", this.getFed());
 		nbttagcompound.setBoolean("Watered", this.getWatered());
 		nbttagcompound.setBoolean("Laid", this.getLaid());
@@ -338,9 +336,6 @@ public class EntityHenLeghorn extends EntityChicken
 
 		this.chickenJockey = nbttagcompound.getBoolean("IsChickenJockey");
 
-		if (nbttagcompound.hasKey("EggLayTime"))
-			this.timeUntilNextEgg = nbttagcompound.getInteger("EggLayTime");
-
 		this.setFed(nbttagcompound.getBoolean("Fed"));
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
 		this.setLaid(nbttagcompound.getBoolean("Laid"));
@@ -356,9 +351,7 @@ public class EntityHenLeghorn extends EntityChicken
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
 		this.fallDistance = 0;
-		
-		this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
-
+	
 		if (!this.onGround && this.wingRotDelta < 1.0F)
 			this.wingRotDelta = 1.0F;
 
@@ -369,13 +362,6 @@ public class EntityHenLeghorn extends EntityChicken
 
 		this.wingRotation += this.wingRotDelta * 2.0F;
 		
-		
-		if (!this.world.isRemote && !this.isChild() && !this.isChickenJockey() && --this.timeUntilNextEgg <= 0)
-			// this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F,
-			// (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-			// this.dropItem(Items.EGG, 1);
-			this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
-
 		if (this.blinkTimer > -1) {
 			this.blinkTimer--;
 			if (this.blinkTimer == 0)
