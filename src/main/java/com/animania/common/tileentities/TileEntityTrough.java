@@ -3,6 +3,8 @@ package com.animania.common.tileentities;
 import javax.annotation.Nullable;
 
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.tileentities.handler.FluidHandlerTrough;
+import com.animania.common.tileentities.handler.ItemHandlerTrough;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Iterables;
 import com.mojang.authlib.GameProfile;

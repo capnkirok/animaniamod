@@ -1,4 +1,4 @@
-package com.animania.common.tileentities;
+package com.animania.common.tileentities.handler;
 
 import cofh.api.energy.EnergyStorage;
 
