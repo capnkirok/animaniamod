@@ -350,24 +350,13 @@ public class EntityHamster extends EntityTameable
 			setInBall(true);
 			int meta = itemstack.getMetadata();
 			setBallColor(meta);
-			if(!player.isCreative())
-				itemstack.shrink(1);
 			return true;
 		} else if (!itemstack.isEmpty() && itemstack.getItem() == ItemHandler.hamsterBallClear && !isInBall()) {
 			setInBall(true);
 			setBallColor(16);
-			if(!player.isCreative())
-				itemstack.shrink(1); 
 			return true;
 		} else if (!itemstack.isEmpty() && itemstack.getItem() instanceof ItemHamsterBall && isInBall()) {
 			int color = this.getBallColor();
-			if(!this.world.isRemote)
-			{
-				if(color != 16)
-					this.entityDropItem(new ItemStack(ItemHandler.hamsterBallColored, 1, color), 0.3f);
-				else
-					this.entityDropItem(new ItemStack(ItemHandler.hamsterBallClear), 0.3f);
-			}
 			setInBall(false);
 			return true;
 		}
@@ -712,10 +701,13 @@ public class EntityHamster extends EntityTameable
 	}
 
 	public void setInBall(boolean ball) {
-		if (ball)
+		if (ball) {
+			this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.30F, 1.6F);
 			this.dataManager.set(EntityHamster.IN_BALL, Boolean.valueOf(true));
-		else
+		} else {
+			this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.30F, 1.3F);
 			this.dataManager.set(EntityHamster.IN_BALL, Boolean.valueOf(false));
+		}
 	}
 
 	public int getBallColor() {

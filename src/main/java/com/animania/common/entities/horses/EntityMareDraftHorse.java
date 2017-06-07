@@ -16,6 +16,7 @@ import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
 import com.animania.common.entities.horses.ai.EntityAISwimmingHorse;
 import com.animania.common.entities.horses.ai.EntityAITemptHorses;
 import com.animania.common.entities.horses.ai.EntityAIWanderHorse;
+import com.animania.common.entities.horses.ai.EntityAIWatchClosestHorses;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
 import com.animania.common.handler.ItemHandler;
 import com.animania.config.AnimaniaConfig;
@@ -29,6 +30,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -91,8 +93,8 @@ public class EntityMareDraftHorse extends EntityAnimal
 		this.tasks.addTask(5, new EntityAISwimmingHorse(this));
 		this.tasks.addTask(7, new EntityAITemptHorses(this, 1.25D, false, TEMPTATION_ITEMS));
 		this.tasks.addTask(8, this.entityAIEatGrass);
-		//this.tasks.addTask(10, new EntityAIWatchClosestHorses(this, EntityPlayer.class, 6.0F));
-		//this.tasks.addTask(11, new EntityAILookIdle(this));
+		this.tasks.addTask(10, new EntityAIWatchClosestHorses(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
@@ -791,7 +793,7 @@ public class EntityMareDraftHorse extends EntityAnimal
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
 		if (this.isBeingRidden()) {
-			return 0.0F;
+			return 0;
 		} 
 
 		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 160) - p_70894_1_) / 4.0F));
@@ -800,14 +802,20 @@ public class EntityMareDraftHorse extends EntityAnimal
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationAngleX(float p_70890_1_)
 	{
-		if (this.eatTimer > 4 && this.eatTimer <= 156 && !this.isBeingRidden())
+		
+		if (this.isBeingRidden()) {
+			return 0;
+		} 
+
+		
+		if (this.eatTimer > 4 && this.eatTimer <= 156)
 		{
 			float f = ((float)(this.eatTimer - 4) - p_70890_1_) / 80.0F;
-			return ((float)Math.PI / 5F) + ((float)Math.PI * 7F / 350F) * MathHelper.sin(f * 18.7F);
+			return ((float)Math.PI / 5F) + ((float)Math.PI * 7F / 500F) * MathHelper.sin(f * 28.7F);
 		}
 		else
 		{
-			return this.eatTimer > 0 ? ((float)Math.PI / 5F) : this.rotationPitch * 0.57453292F;
+			return this.eatTimer > 0 ? ((float)Math.PI / 5F) : this.rotationPitch * 0.017453292F;
 		}
 	}
 

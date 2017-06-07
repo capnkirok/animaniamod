@@ -69,7 +69,7 @@ public class EntityCalfLonghorn extends EntityCow
 
     public EntityCalfLonghorn(World world) {
         super(world);
-        this.setSize(0.7F, 1.1F);
+        this.setSize(1.0F, 1.4F);
         this.stepHeight = 1.1F;
         this.tasks.taskEntries.clear();
         this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
