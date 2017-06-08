@@ -63,16 +63,11 @@ import net.minecraft.world.World;
 
 public class EntityHenLeghorn extends EntityChicken
 {
-	private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityHenLeghorn.class,
-			DataSerializers.STRING);
-	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHenLeghorn.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHenLeghorn.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> LAID             = EntityDataManager.<Boolean> createKey(EntityHenLeghorn.class,
-			DataSerializers.BOOLEAN);
-	private static final Set<Item>              TEMPTATION_ITEMS = Sets
-			.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
+	private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityHenLeghorn.class, DataSerializers.STRING);
+	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHenLeghorn.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHenLeghorn.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> LAID             = EntityDataManager.<Boolean> createKey(EntityHenLeghorn.class, DataSerializers.BOOLEAN);
+	private static final Set<Item>              TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
 	
 	public boolean                              chickenJockey;
 	private static List                         ColorList;
@@ -306,6 +301,7 @@ public class EntityHenLeghorn extends EntityChicken
 		this.dataManager.register(EntityHenLeghorn.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityHenLeghorn.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityHenLeghorn.LAID, Boolean.valueOf(true));
+		this.timeUntilNextEgg = 6000;
 	}
 
 	@Override
@@ -316,6 +312,7 @@ public class EntityHenLeghorn extends EntityChicken
 		nbttagcompound.setBoolean("Fed", this.getFed());
 		nbttagcompound.setBoolean("Watered", this.getWatered());
 		nbttagcompound.setBoolean("Laid", this.getLaid());
+		nbttagcompound.setInteger("EggLayTime", 6000);
 	}
 
 	@Override
@@ -334,6 +331,8 @@ public class EntityHenLeghorn extends EntityChicken
 				// setDead();
 			}
 
+		this.timeUntilNextEgg = 6000;
+		
 		this.chickenJockey = nbttagcompound.getBoolean("IsChickenJockey");
 
 		this.setFed(nbttagcompound.getBoolean("Fed"));
