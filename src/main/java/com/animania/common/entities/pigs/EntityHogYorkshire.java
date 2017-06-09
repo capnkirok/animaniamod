@@ -35,6 +35,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -425,7 +426,7 @@ public class EntityHogYorkshire extends EntityAnimal
 			else
 				this.dropItem(Items.PORKCHOP, 1);
 	}
-
+	
 	public boolean getSaddled() {
 		return this.dataManager.get(EntityHogYorkshire.SADDLED).booleanValue();
 	}

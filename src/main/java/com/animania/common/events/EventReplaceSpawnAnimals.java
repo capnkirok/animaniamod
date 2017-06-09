@@ -546,7 +546,7 @@ public class EventReplaceSpawnAnimals
 
 			//System.out.println("animal Count: " + animalCount);
 
-			if (animalCount >= AnimaniaConfig.spawn.spawnLimitHorses && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
+			if (animalCount >= AnimaniaConfig.spawn.spawnLimitHorses + 10 && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
 				if (!event.getEntity().hasCustomName()) {
 					event.getEntity().setDead();
 					event.setCanceled(true);

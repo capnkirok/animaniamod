@@ -1719,6 +1719,10 @@ public class ItemEntityEgg extends Item
 						entityB1.setLocationAndAngles(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
 						entityB1.rotationYawHead = entityB1.rotationYaw;
 						entityB1.renderYawOffset = entityB1.rotationYaw;
+						if(entityB1.getColorNumber() == 0) {
+							int bob2 = rand.nextInt(6) + 1;
+							entityB1.setColorNumber(bob2);
+						}
 						worldIn.spawnEntity(entityB1);
 						if (entityB1 != null) {
 							if (entityB1 instanceof EntityLivingBase && stack.hasDisplayName())
@@ -1733,6 +1737,10 @@ public class ItemEntityEgg extends Item
 						entityB1.setLocationAndAngles(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
 						entityB1.rotationYawHead = entityB1.rotationYaw;
 						entityB1.renderYawOffset = entityB1.rotationYaw;
+						if(entityB1.getColorNumber() == 0) {
+							int bob2 = rand.nextInt(6) + 1;
+							entityB1.setColorNumber(bob2);
+						}
 						worldIn.spawnEntity(entityB1);
 						if (entityB1 != null) {
 							if (entityB1 instanceof EntityLivingBase && stack.hasDisplayName())
@@ -1747,6 +1755,10 @@ public class ItemEntityEgg extends Item
 						entityB1.setLocationAndAngles(blockpos.getX() + .5, blockpos.getY() + 1, blockpos.getZ() + .5, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
 						entityB1.rotationYawHead = entityB1.rotationYaw;
 						entityB1.renderYawOffset = entityB1.rotationYaw;
+						if(entityB1.getColorNumber() == 0) {
+							int bob2 = rand.nextInt(6) + 1;
+							entityB1.setColorNumber(bob2);
+						}
 						worldIn.spawnEntity(entityB1);
 						if (entityB1 != null) {
 							if (entityB1 instanceof EntityLivingBase && stack.hasDisplayName())

@@ -295,7 +295,7 @@ public class CommonConfig
         @Comment("Spawn limit for Amphibians in loaded chunks")
         public int     spawnLimitAmphibians       = 60;
         @Comment("Spawn limit for Horses in loaded chunks")
-        public int     spawnLimitHorses             = 24;
+        public int     spawnLimitHorses             = 40;
 
         @Comment("Spawn probability Cows")
         public int     spawnProbabilityCows       = 12;
@@ -377,7 +377,7 @@ public class CommonConfig
         public String  dartFrogDrop     = "";
         @Comment("Allow Animania Chickens to drop Eggs")
         public Boolean chickensDropEggs = false;
-        @Comment("Allow Animania Chickesn to drop Feathers")
+        @Comment("Allow Animania Chickens to drop Feathers")
         public Boolean chickensDropFeathers = true;
     }
 }

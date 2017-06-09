@@ -475,7 +475,7 @@ public class EntityFoalDraftHorse extends EntityAnimal
 							entityHorse.setCustomNameTag(name);
 						}
 						this.world.spawnEntity(entityHorse);
-						this.setColorNumber(color);
+						entityHorse.setColorNumber(color);
 						this.playSound(ModSoundEvents.horseliving1, 0.50F, 1.1F); 
 					} else {
 						EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
@@ -485,7 +485,7 @@ public class EntityFoalDraftHorse extends EntityAnimal
 							entityHorse.setCustomNameTag(name);
 						}
 						this.world.spawnEntity(entityHorse);
-						this.setColorNumber(color);
+						entityHorse.setColorNumber(color);
 						this.playSound(ModSoundEvents.horseliving2, 0.50F, 1.1F); 
 					}
 
