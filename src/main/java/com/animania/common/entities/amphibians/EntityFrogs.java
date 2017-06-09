@@ -22,7 +22,9 @@ import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -44,45 +46,45 @@ import net.minecraftforge.common.AchievementPage;
 public class EntityFrogs extends EntityAmphibian
 {
 
-    private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer> createKey(EntityFrogs.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer> createKey(EntityFrogs.class, DataSerializers.VARINT);
 
-    public EntityFrogs(World worldIn) {
-        super(worldIn, true);
-    }
+	public EntityFrogs(World worldIn) {
+		super(worldIn, true);
+	}
 
-    @Override
-    protected void entityInit() {
-        super.entityInit();
-        this.dataManager.register(EntityFrogs.FROGS_TYPE, Integer.valueOf(this.rand.nextInt(2)));
-    }
+	@Override
+	protected void entityInit() {
+		super.entityInit();
+		this.dataManager.register(EntityFrogs.FROGS_TYPE, Integer.valueOf(this.rand.nextInt(2)));
+	}
 
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    @Override
-    public void writeEntityToNBT(NBTTagCompound compound) {
-        super.writeEntityToNBT(compound);
-        compound.setInteger("FrogsType", this.getFrogsType());
-    }
+	/**
+	 * (abstract) Protected helper method to write subclass entity data to NBT.
+	 */
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setInteger("FrogsType", this.getFrogsType());
+	}
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    @Override
-    public void readEntityFromNBT(NBTTagCompound compound) {
-        super.readEntityFromNBT(compound);
-        this.setFrogsType(compound.getInteger("FrogsType"));
-    }
+	/**
+	 * (abstract) Protected helper method to read subclass entity data from NBT.
+	 */
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		this.setFrogsType(compound.getInteger("FrogsType"));
+	}
 
-    public int getFrogsType() {
-        return this.dataManager.get(EntityFrogs.FROGS_TYPE).intValue();
-    }
+	public int getFrogsType() {
+		return this.dataManager.get(EntityFrogs.FROGS_TYPE).intValue();
+	}
 
-    public void setFrogsType(int frogsId) {
-        this.dataManager.set(EntityFrogs.FROGS_TYPE, Integer.valueOf(frogsId));
-    }
+	public void setFrogsType(int frogsId) {
+		this.dataManager.set(EntityFrogs.FROGS_TYPE, Integer.valueOf(frogsId));
+	}
 
-    @Override
+	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(1, new EntityAISwimming(this));
 		if (!this.getCustomNameTag().equals("Pepe")) {
@@ -97,13 +99,13 @@ public class EntityFrogs extends EntityAmphibian
 		this.tasks.addTask(5, new EntityAIWander(this, 0.6D));
 
 	}
-    
-    @Override
+
+	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
 
-    	ItemStack stack = player.getHeldItem(hand);
-    	
+		ItemStack stack = player.getHeldItem(hand);
+
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG) {
 			if (!stack.hasDisplayName())
 			{
@@ -130,42 +132,42 @@ public class EntityFrogs extends EntityAmphibian
 		}
 		return super.processInteract(player, hand);
 	}
-    
-    @Override
-    @Nullable
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-        livingdata = super.onInitialSpawn(difficulty, livingdata);
 
-        this.setFrogsType(this.rand.nextInt(2));
+	@Override
+	@Nullable
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
 
-        return livingdata;
-    }
+		this.setFrogsType(this.rand.nextInt(2));
 
-    @Override
-    protected SoundEvent getAmbientSound() {
+		return livingdata;
+	}
 
-        Random rand = new Random();
-        int chooser = rand.nextInt(4);
-        if (this.getCustomNameTag().equals("Pepe") && 0.1 > Math.random()) {
-            this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 5, 4, true, false));
-            return ModSoundEvents.reeee;
+	@Override
+	protected SoundEvent getAmbientSound() {
 
-        }
+		Random rand = new Random();
+		int chooser = rand.nextInt(4);
+		if (this.getCustomNameTag().equals("Pepe") && 0.1 > Math.random()) {
+			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 5, 4, true, false));
+			return ModSoundEvents.reeee;
 
-        if (chooser == 0)
-            return ModSoundEvents.frogLiving1;
-        else if (chooser == 1)
-            return ModSoundEvents.frogLiving2;
-        else if (chooser == 2)
-            return ModSoundEvents.frogLiving3;
-        else
-            return null;
-    }
-    
-    @Override
+		}
+
+		if (chooser == 0)
+			return ModSoundEvents.frogLiving1;
+		else if (chooser == 1)
+			return ModSoundEvents.frogLiving2;
+		else if (chooser == 2)
+			return ModSoundEvents.frogLiving3;
+		else
+			return null;
+	}
+
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
-    	boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.pepeDamage, 2.0F);
+		boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.pepeDamage, 2.0F);
 		entityIn.attackEntityFrom(DamageSourceHandler.pepeDamage, 2.0F);
 
 		if (flag)
@@ -182,60 +184,107 @@ public class EntityFrogs extends EntityAmphibian
 		return flag;
 	}
 
-    @Override
-    protected SoundEvent getHurtSound() {
-        return null;
-    }
+	@Override
+	protected SoundEvent getHurtSound() {
+		return null;
+	}
 
-    @Override
-    protected SoundEvent getDeathSound() {
-        return null;
-    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		return null;
+	}
 
-    @Override
-    public void playLivingSound() {
-        SoundEvent soundevent = this.getAmbientSound();
+	@Override
+	public void playLivingSound() {
+		SoundEvent soundevent = this.getAmbientSound();
 
-        if (soundevent != null)
-            this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getAge() * 2);
-    }
+		if (soundevent != null)
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getAge() * 2);
+	}
 
-    @Override
-    public void onDeath(DamageSource cause) {
-        if (this.getCustomNameTag().equals("Pepe"))
-            if (cause.getEntity() != null && cause.getEntity() instanceof EntityPlayer) {
-                ((EntityPlayer) cause.getEntity()).addStat(AnimaniaAchievements.FeelsBadMan, 1);
-                AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.FeelsBadMan);
-            }
+	@Override
+	public void onDeath(DamageSource cause) {
+		if (this.getCustomNameTag().equals("Pepe"))
+			if (cause.getEntity() != null && cause.getEntity() instanceof EntityPlayer) {
+				((EntityPlayer) cause.getEntity()).addStat(AnimaniaAchievements.FeelsBadMan, 1);
+				AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.FeelsBadMan);
+			}
 
-        super.onDeath(cause);
-    }
+		super.onDeath(cause);
+	}
 
-    @Override
-    protected void playStepSound(BlockPos pos, Block blockIn) {
-        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.04F, 1.1F);
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, Block blockIn) {
+		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.04F, 1.1F);
+	}
 
-    @Override
-    protected float getSoundVolume() {
-        return 0.4F;
-    }
+	@Override
+	protected float getSoundVolume() {
+		return 0.4F;
+	}
 
-    @Override
-    protected void dropFewItems(boolean hit, int lootlevel) {
+	@Override
+	protected void dropFewItems(boolean hit, int lootlevel) {
 
-        Item dropItem;
+		ItemStack dropItem;
+		String drop = AnimaniaConfig.drops.frogDrop;
+		dropItem = getItem(drop);
 
-        String drop = AnimaniaConfig.drops.frogDrop;
-        dropItem = Item.getByNameOrId(drop);
-        if (this.isBurning() && drop.equals("animania:raw_frog_legs")) {
-            drop = "animania:cooked_frog_legs";
-            dropItem = Item.getByNameOrId(drop);
-        }
+		if (this.isBurning() && drop.equals("animania:raw_frog_legs")) {
+			drop = "animania:cooked_frog_legs";
+			dropItem = getItem(drop);
+		}
 
-        if (this.rand.nextInt(3) < 1)
-            this.dropItem(dropItem, 1 + lootlevel);
+		if (this.rand.nextInt(3) < 1) {
+			dropItem.setCount(1 + lootlevel);
+			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+			world.spawnEntity(entityitem);
+		}
+	}
 
-    }
+	private ItemStack getItem(String moditem) {
+
+		ItemStack foundStack = null;
+		String item = "";
+		String mod = "";
+		int sepLoc = 0;
+		int metaLoc = 0;
+		boolean metaFlag = false;
+		String metaVal = "";
+
+		sepLoc = moditem.indexOf(":");
+		metaLoc = moditem.indexOf("#");
+
+		if (!moditem.contains(":")) {
+			return new ItemStack(Blocks.AIR, 1);
+		}
+
+		mod = moditem.substring(0, sepLoc);
+
+		if (metaLoc > 0) {
+			item = moditem.substring(sepLoc+1, metaLoc);
+		} else {
+			item = moditem.substring(sepLoc+1, moditem.length());
+		}
+		if (metaLoc > 0) {
+			metaFlag = true;
+			metaVal = moditem.substring(metaLoc+1, moditem.length());
+		}
+
+		Item bob = Item.getByNameOrId(item);
+
+		if (bob != null) {
+
+			if (metaFlag) {
+				foundStack = new ItemStack(bob, 1, Integer.parseInt(metaVal));
+			} else {
+				foundStack = new ItemStack(bob, 1);
+			}
+		} else {
+			foundStack = new ItemStack(Blocks.AIR, 1);
+		}
+
+		return foundStack;
+	}
 
 }

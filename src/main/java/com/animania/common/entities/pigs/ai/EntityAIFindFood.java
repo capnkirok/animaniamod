@@ -305,7 +305,7 @@ public class EntityAIFindFood extends EntityAIBase
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletOldSpot) {
+					} else if (temptedEntity instanceof EntityPigletYorkshire) {
 						EntityPigletYorkshire ech = (EntityPigletYorkshire)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setSlopFed(true);

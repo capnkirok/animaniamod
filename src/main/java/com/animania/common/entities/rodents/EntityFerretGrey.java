@@ -41,9 +41,11 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAISit;
 import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -72,7 +74,7 @@ public class EntityFerretGrey extends EntityTameable
 	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityFerretGrey.class, DataSerializers.BOOLEAN);
 	private static final Set<Item>              TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.MUTTON, Items.EGG, ItemHandler.brownEgg, Items.CHICKEN, ItemHandler.rawWyandotteChicken,
-					ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken });
+			ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken });
 	private int                                 fedTimer;
 	private int                                 wateredTimer;
 	private int                                 happyTimer;
@@ -179,7 +181,7 @@ public class EntityFerretGrey extends EntityTameable
 		if (this.getFed())
 			happyDrops++;
 
-		Item dropItem;
+		ItemStack dropItem;
 		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.ferretDrop;
 			dropItem = this.getItem(drop);
@@ -187,16 +189,61 @@ public class EntityFerretGrey extends EntityTameable
 		else
 			dropItem = null;
 
-		if (happyDrops == 2)
-			this.dropItem(dropItem, 1 + lootlevel);
-		else if (happyDrops == 1)
-			this.dropItem(dropItem, 1 + lootlevel);
+		if (happyDrops == 2) {
+			dropItem.setCount(1 + lootlevel);
+			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+			world.spawnEntity(entityitem);
+		} else if (happyDrops == 1) {
+			dropItem.setCount(1 + lootlevel);
+			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+			world.spawnEntity(entityitem);
+		}
 
 	}
 
-	private Item getItem(String moditem) {
-		Item bob = Item.getByNameOrId(moditem);
-		return bob;
+	private ItemStack getItem(String moditem) {
+
+		ItemStack foundStack = null;
+		String item = "";
+		String mod = "";
+		int sepLoc = 0;
+		int metaLoc = 0;
+		boolean metaFlag = false;
+		String metaVal = "";
+
+		sepLoc = moditem.indexOf(":");
+		metaLoc = moditem.indexOf("#");
+
+		if (!moditem.contains(":")) {
+			return new ItemStack(Blocks.AIR, 1);
+		}
+
+		mod = moditem.substring(0, sepLoc);
+
+		if (metaLoc > 0) {
+			item = moditem.substring(sepLoc+1, metaLoc);
+		} else {
+			item = moditem.substring(sepLoc+1, moditem.length());
+		}
+		if (metaLoc > 0) {
+			metaFlag = true;
+			metaVal = moditem.substring(metaLoc+1, moditem.length());
+		}
+
+		Item bob = Item.getByNameOrId(item);
+
+		if (bob != null) {
+
+			if (metaFlag) {
+				foundStack = new ItemStack(bob, 1, Integer.parseInt(metaVal));
+			} else {
+				foundStack = new ItemStack(bob, 1);
+			}
+		} else {
+			foundStack = new ItemStack(Blocks.AIR, 1);
+		}
+
+		return foundStack;
 	}
 
 	@Override
@@ -268,7 +315,7 @@ public class EntityFerretGrey extends EntityTameable
 
 		if (flag)
 			this.applyEnchantments(this, entityIn);
-		
+
 		if (entityIn instanceof EntityAmphibian) {
 			this.setFed(true);
 		}
@@ -441,7 +488,7 @@ public class EntityFerretGrey extends EntityTameable
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-		
+
 		if (!fed && !watered) {
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 			if (AnimaniaConfig.gameRules.animalsStarve) {

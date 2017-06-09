@@ -41,8 +41,10 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -531,24 +533,25 @@ public class EntityRoosterPlymouthRock extends EntityChicken
         if (this.getFed())
             happyDrops++;
 
-        Item dropItem;
+        ItemStack dropItem;
         if (AnimaniaConfig.drops.customMobDrops) {
             String drop = AnimaniaConfig.drops.chickenDrop;
-            dropItem = Item.getByNameOrId(drop);
+            dropItem = getItem(drop);
             if (this.isBurning() && drop.equals("animania:raw_prime_chicken")) {
                 drop = "animania:cooked_prime_chicken";
-                dropItem = Item.getByNameOrId(drop);
+                dropItem = getItem(drop);
             }
         }
         else {
-            dropItem = ItemHandler.rawPlymouthRockChicken;
+            dropItem = new ItemStack(ItemHandler.rawPlymouthRockChicken);
             if (this.isBurning())
-                dropItem = ItemHandler.cookedPlymouthRockChicken;
+                dropItem = new ItemStack(ItemHandler.cookedPlymouthRockChicken);
         }
 
         if (happyDrops == 2) {
-            this.dropItem(dropItem, 1 + lootlevel);
-            this.dropItem(Items.FEATHER, 1);
+        	dropItem.setCount(1 + lootlevel);
+    		EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+    		world.spawnEntity(entityitem);
         }
         else if (happyDrops == 1) {
             if (this.isBurning()) {
@@ -564,6 +567,52 @@ public class EntityRoosterPlymouthRock extends EntityChicken
             this.dropItem(Items.FEATHER, 1 + lootlevel);
 
     }
+    
+    private ItemStack getItem(String moditem) {
+
+		ItemStack foundStack = null;
+		String item = "";
+		String mod = "";
+		int sepLoc = 0;
+		int metaLoc = 0;
+		boolean metaFlag = false;
+		String metaVal = "";
+
+		sepLoc = moditem.indexOf(":");
+		metaLoc = moditem.indexOf("#");
+
+		if (!moditem.contains(":")) {
+			return new ItemStack(Blocks.AIR, 1);
+		}
+
+		mod = moditem.substring(0, sepLoc);
+
+		if (metaLoc > 0) {
+			item = moditem.substring(sepLoc+1, metaLoc);
+		} else {
+			item = moditem.substring(sepLoc+1, moditem.length());
+		}
+		if (metaLoc > 0) {
+			metaFlag = true;
+			metaVal = moditem.substring(metaLoc+1, moditem.length());
+		}
+
+		Item bob = Item.getByNameOrId(item);
+
+		if (bob != null) {
+
+			if (metaFlag) {
+				foundStack = new ItemStack(bob, 1, Integer.parseInt(metaVal));
+			} else {
+				foundStack = new ItemStack(bob, 1);
+			}
+		} else {
+			foundStack = new ItemStack(Blocks.AIR, 1);
+		}
+
+		return foundStack;
+	}
+
 
     @Override
     public boolean isBreedingItem(@Nullable ItemStack stack) {

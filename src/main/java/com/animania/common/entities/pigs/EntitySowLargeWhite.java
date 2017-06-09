@@ -37,6 +37,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -487,10 +488,7 @@ public class EntitySowLargeWhite extends EntityAnimal
     public boolean getSaddled() {
         return this.dataManager.get(EntitySowLargeWhite.SADDLED).booleanValue();
     }
-
-    /**
-     * Set or remove the saddle of the pig.
-     */
+   
     public void setSaddled(boolean saddled) {
         if (saddled)
             this.dataManager.set(EntitySowLargeWhite.SADDLED, Boolean.valueOf(true));
