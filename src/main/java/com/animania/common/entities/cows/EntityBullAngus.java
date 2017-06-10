@@ -74,7 +74,7 @@ public class EntityBullAngus extends EntityCow
 		this.stepHeight = 1.1F;
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAICowEatGrass(this);
-		this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 2.3D, false));
+		this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 2.3D, true));
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
 		this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
