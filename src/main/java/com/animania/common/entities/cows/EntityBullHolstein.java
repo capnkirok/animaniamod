@@ -57,15 +57,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityBullHolstein extends EntityCow
 {
 
-    private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID   = EntityDataManager.<Optional<UUID>> createKey(EntityBullHolstein.class,
-            DataSerializers.OPTIONAL_UNIQUE_ID);
-    private static final DataParameter<Boolean>        FIGHTING         = EntityDataManager.<Boolean> createKey(EntityBullHolstein.class,
-            DataSerializers.BOOLEAN);
+    private static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID   = EntityDataManager.<Optional<UUID>> createKey(EntityBullHolstein.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+    private static final DataParameter<Boolean>        FIGHTING         = EntityDataManager.<Boolean> createKey(EntityBullHolstein.class, DataSerializers.BOOLEAN);
     private static final Set<Item>                     TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
-    private static final DataParameter<Boolean>        WATERED          = EntityDataManager.<Boolean> createKey(EntityBullHolstein.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean>        FED              = EntityDataManager.<Boolean> createKey(EntityBullHolstein.class,
-            DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean>        WATERED          = EntityDataManager.<Boolean> createKey(EntityBullHolstein.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean>        FED              = EntityDataManager.<Boolean> createKey(EntityBullHolstein.class, DataSerializers.BOOLEAN);
     private int                                        happyTimer;
     public int                                         blinkTimer;
     private int                                        damageTimer;
@@ -76,7 +72,7 @@ public class EntityBullHolstein extends EntityCow
         this.stepHeight = 1.1F;
         this.tasks.taskEntries.clear();
         this.entityAIEatGrass = new EntityAICowEatGrass(this);
-        this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 2.3D, true));
+        this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 2.3D, false));
         this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
         this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
         this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
