@@ -106,7 +106,7 @@ public class EntityCowHolstein extends EntityCow
 	public static void registerFixesCow(DataFixer fixer) {
 		EntityLiving.registerFixesMob(fixer, EntityCowHolstein.class);
 	}
-	
+
 
 	@Override
 	protected boolean canDespawn() {
@@ -506,9 +506,9 @@ public class EntityCowHolstein extends EntityCow
 								event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
 
 							}
-							else if (entity instanceof EntityBullHolstein) {
+							else if (entity instanceof EntityBullFriesian) {
 								if (this.rand.nextInt(2) == 0) {
-									EntityCalfHolstein entityCalf = new EntityCalfHolstein(this.world);
+									EntityCalfFriesian entityCalf = new EntityCalfFriesian(this.world);
 									entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
 									this.world.spawnEntity(entityCalf);
 									entityCalf.setParentUniqueId(this.getPersistentID());
