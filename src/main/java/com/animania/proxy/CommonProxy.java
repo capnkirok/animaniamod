@@ -9,6 +9,7 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.handler.DictionaryHandler;
+import com.animania.common.handler.DispenserHandler;
 import com.animania.common.handler.EntityHandler;
 import com.animania.common.handler.EventsHandler;
 import com.animania.common.handler.ItemHandler;
@@ -44,6 +45,8 @@ public class CommonProxy
     public void init() {
         DictionaryHandler.init();
         RecipeHandler.init();
+        DispenserHandler.init();
+        
     }
 
     public void registerFluidBlockRendering(Block block, String name) {
