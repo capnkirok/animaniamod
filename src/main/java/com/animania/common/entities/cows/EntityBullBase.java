@@ -43,7 +43,7 @@ public class EntityBullBase extends EntityAnimaniaCow
 		super(worldIn);
 		this.setSize(1.6F, 1.8F);
 		this.stepHeight = 1.1F;
-		this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 2.3D, false));
+		this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 1.8D, false));
 		this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
 		this.tasks.addTask(6, new EntityAIMateCows(this, 1.0D));
 		this.milkable = false;
@@ -98,14 +98,13 @@ public class EntityBullBase extends EntityAnimaniaCow
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
 		boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 4.0F);
-		entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 4.0F);
-
+	
 		if (flag)
 			this.applyEnchantments(this, entityIn);
 
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)
-			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((EntityLivingBase) entityIn).knockBack(this, 1, (this.posX - entityIn.posX)/2, (this.posZ - entityIn.posZ)/2);
 
 		return flag;
 	}
