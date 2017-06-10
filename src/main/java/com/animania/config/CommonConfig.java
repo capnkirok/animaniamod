@@ -235,6 +235,9 @@ public class CommonConfig
 
         @Comment("Allow eggs to be thrown")
         public boolean allowEggThrowing           = false;
+        
+        @Comment("Allow dispensers to place seeds")
+        public boolean allowSeedDispenserPlacement= true;
 
         @Comment("Shift-Right-Click for Seed Placement")
         public boolean shiftSeedPlacement         = false;
