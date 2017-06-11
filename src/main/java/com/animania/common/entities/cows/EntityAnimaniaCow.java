@@ -61,9 +61,7 @@ public class EntityAnimaniaCow extends EntityCow
 	public CowType cowType;
 	protected Item dropRaw = Items.BEEF;
 	protected Item dropCooked = Items.COOKED_BEEF;
-	protected ItemStack milk = new ItemStack(Items.MILK_BUCKET);
 	protected boolean mateable = false;
-	public boolean milkable = false;
 
 	public EntityAnimaniaCow(World worldIn)
 	{
@@ -180,14 +178,6 @@ public class EntityAnimaniaCow extends EntityCow
 			this.dataManager.set(EntityAnimaniaCow.WATERED, Boolean.valueOf(false));
 	}
 
-	@Override
-	protected void applyEntityAttributes()
-	{
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-	}
 
 	@Override
 	protected void updateAITasks()
@@ -359,6 +349,9 @@ public class EntityAnimaniaCow extends EntityCow
 				}
 			}
 		}
+		
+		
+		
 
 		super.onLivingUpdate();
 	}
@@ -383,7 +376,7 @@ public class EntityAnimaniaCow extends EntityCow
 			this.setInLove(player);
 			return true;
 		} 
-		else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && !this.milkable)
+		else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
 		{
 			return false;
 		}
