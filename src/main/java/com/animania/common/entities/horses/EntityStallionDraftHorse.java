@@ -9,6 +9,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.CowType;
+import com.animania.common.entities.cows.EntityBullBase;
 import com.animania.common.entities.horses.ai.EntityAIFindFood;
 import com.animania.common.entities.horses.ai.EntityAIFindWater;
 import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
@@ -56,6 +58,19 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+
+public class EntityStallionDraftHorse extends EntityStallionBase
+{
+
+	public EntityStallionDraftHorse(World world)
+	{
+		super(world);
+		this.horseType = horseType.DRAFT;
+	}
+
+}
+/*
 
 public class EntityStallionDraftHorse extends EntityAnimal
 {
@@ -411,9 +426,7 @@ public class EntityStallionDraftHorse extends EntityAnimal
 		}
 	}
 
-	/**
-	 * Returns the volume for the sounds this mob makes.
-	 */
+	
 	protected float getSoundVolume()
 	{
 		return 0.4F;
@@ -465,7 +478,7 @@ public class EntityStallionDraftHorse extends EntityAnimal
 
 	}
 
-	private ItemStack getItem(String moditem) {
+	protected ItemStack getItem(String moditem) {
 
 		ItemStack foundStack = null;
 		String item = "";
@@ -487,7 +500,7 @@ public class EntityStallionDraftHorse extends EntityAnimal
 		if (metaLoc > 0) {
 			item = moditem.substring(sepLoc+1, metaLoc);
 		} else {
-			item = moditem.substring(sepLoc+1, moditem.length());
+			item = moditem;
 		}
 		if (metaLoc > 0) {
 			metaFlag = true;
@@ -509,6 +522,7 @@ public class EntityStallionDraftHorse extends EntityAnimal
 
 		return foundStack;
 	}
+
 
 
 	public void onLivingUpdate()
@@ -769,4 +783,5 @@ public class EntityStallionDraftHorse extends EntityAnimal
 	{
 		return null;
 	}
-}
+	
+	*/
