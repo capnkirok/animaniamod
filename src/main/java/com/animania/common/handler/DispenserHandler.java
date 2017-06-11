@@ -36,7 +36,7 @@ public class DispenserHandler
 			BlockPos pos = source.getBlockPos().offset(enumfacing);
 			BlockPos below = pos.offset(EnumFacing.DOWN);
 
-			if(world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable) && AnimaniaConfig.gameRules.allowSeedDispenserPlacement)
+			if(world.getBlockState(pos).getBlock() != BlockHandler.blockSeeds && world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable) && AnimaniaConfig.gameRules.allowSeedDispenserPlacement)
 			{
 				if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
 				{
@@ -53,6 +53,10 @@ public class DispenserHandler
 					stack.shrink(1);
 					return stack;
 				}
+			}
+			else if(world.getBlockState(pos).getBlock() == BlockHandler.blockSeeds)
+			{
+				return stack;
 			}
 
 
