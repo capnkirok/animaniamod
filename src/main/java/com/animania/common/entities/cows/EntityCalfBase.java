@@ -10,23 +10,22 @@ import com.animania.common.entities.cows.ai.EntityAIFollowParentCows;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.management.PreYggdrasilConverter;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -186,6 +185,12 @@ public class EntityCalfBase extends EntityAnimaniaCow
 		else
 			return ModSoundEvents.mooCalf3;
 	}
+	
+	@Override
+	protected void playStepSound(BlockPos pos, Block blockIn)
+	{
+		this.playSound(SoundEvents.ENTITY_COW_STEP, 0.05F, 1.1F);
+	}
 
 	@Override
 	protected Item getDropItem()
@@ -270,6 +275,18 @@ public class EntityCalfBase extends EntityAnimaniaCow
 	{
 		return;
 	}
+
+	@Override
+	public void playLivingSound()
+	{
+		SoundEvent soundevent = this.getAmbientSound();
+
+		if (soundevent != null)
+		{
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F - (this.getEntityAge() * 2));
+		}
+	}
+
 
 	@Override
 	@SideOnly(Side.CLIENT)
