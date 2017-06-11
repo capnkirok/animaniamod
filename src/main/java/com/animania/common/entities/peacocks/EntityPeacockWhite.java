@@ -55,15 +55,11 @@ import net.minecraft.world.World;
 
 public class EntityPeacockWhite extends EntityAnimal
 {
-    private static final DataParameter<Boolean> FED                   = EntityDataManager.<Boolean> createKey(EntityPeacockWhite.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> WATERED               = EntityDataManager.<Boolean> createKey(EntityPeacockWhite.class,
-            DataSerializers.BOOLEAN);
-    private static final Set<Item>              TEMPTATION_ITEMS      = Sets
-            .newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
+    private static final DataParameter<Boolean> FED                   = EntityDataManager.<Boolean> createKey(EntityPeacockWhite.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> WATERED               = EntityDataManager.<Boolean> createKey(EntityPeacockWhite.class, DataSerializers.BOOLEAN);
+    private static final Set<Item>              TEMPTATION_ITEMS      = Sets.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
     private ResourceLocation                    resourceLocation      = new ResourceLocation("animania:textures/entity/peacocks/peacock_white.png");
-    private ResourceLocation                    resourceLocationBlink = new ResourceLocation(
-            "animania:textures/entity/peacocks/peacock_white_blink.png");
+    private ResourceLocation                    resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_white_blink.png");
     public float                                wingRotation;
     public float                                destPos;
     public float                                oFlapSpeed;

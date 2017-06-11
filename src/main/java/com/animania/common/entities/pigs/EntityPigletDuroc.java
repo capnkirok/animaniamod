@@ -515,6 +515,7 @@ public class EntityPigletDuroc extends EntityAnimal
             entitypigzombie.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
             entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
             entitypigzombie.setNoAI(this.isAIDisabled());
+            entitypigzombie.setChild(true);
 
             if (this.hasCustomName()) {
                 entitypigzombie.setCustomNameTag(this.getCustomNameTag());

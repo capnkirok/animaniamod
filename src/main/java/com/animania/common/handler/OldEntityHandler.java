@@ -287,13 +287,13 @@ public class OldEntityHandler
 
 		// PEACOCKS
 		if (AnimaniaConfig.spawn.spawnAnimaniaPeacocks) {
-			ResourceLocation pb1 = new ResourceLocation("animania:textures/entity/pigs/peacock_blue.png");
+			ResourceLocation pb1 = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue.png");
 			EntityRegistry.registerModEntity(pb1, EntityPeacockBlue.class, "animania.PeacockBlue", AnimaniaConfig.entity.PeacockBlueID, Animania.MODID, 64, 3, true);
 
-			ResourceLocation pb2 = new ResourceLocation("animania:textures/entity/pigs/peafowl_blue.png");
+			ResourceLocation pb2 = new ResourceLocation("animania:textures/entity/peacocks/peafowl_blue.png");
 			EntityRegistry.registerModEntity(pb2, EntityPeafowlBlue.class, "animania.PeafowlBlue", AnimaniaConfig.entity.PeafowlBlueID, Animania.MODID, 64, 3, true);
 
-			ResourceLocation pb3 = new ResourceLocation("animania:textures/entity/pigs/peachick_blue.png");
+			ResourceLocation pb3 = new ResourceLocation("animania:textures/entity/peacocks/peachick_blue.png");
 			EntityRegistry.registerModEntity(pb3, EntityPeachickBlue.class, "animania.PeachickBlue", AnimaniaConfig.entity.PeachickBlueID, Animania.MODID, 64, 3, true);
 
 			EntityRegistry.addSpawn(EntityPeacockBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
@@ -304,18 +304,19 @@ public class OldEntityHandler
 			EntityRegistry.addSpawn(EntityPeafowlBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
 			EntityRegistry.addSpawn(EntityPeachickBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks / 2, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
 
-			ResourceLocation pw1 = new ResourceLocation("animania:textures/entity/pigs/peacock_white.png");
+			ResourceLocation pw1 = new ResourceLocation("animania:textures/entity/peacocks/peacock_white.png");
 			EntityRegistry.registerModEntity(pw1, EntityPeacockWhite.class, "animania.PeacockWhite", AnimaniaConfig.entity.PeacockWhiteID, Animania.MODID, 64, 3, true);
 
-			ResourceLocation pw2 = new ResourceLocation("animania:textures/entity/pigs/peacock_white.png");
+			ResourceLocation pw2 = new ResourceLocation("animania:textures/entity/peacocks/peafowl_white.png");
 			EntityRegistry.registerModEntity(pw2, EntityPeafowlWhite.class, "animania.PeafowlWhite", AnimaniaConfig.entity.PeafowlWhiteID, Animania.MODID, 64, 3, true);
 
-			ResourceLocation pw3 = new ResourceLocation("animania:textures/entity/pigs/peacock_white.png");
+			ResourceLocation pw3 = new ResourceLocation("animania:textures/entity/peacocks/peachick_white.png");
 			EntityRegistry.registerModEntity(pw3, EntityPeachickWhite.class, "animania.PeachickWhite", AnimaniaConfig.entity.PeachickWhiteID, Animania.MODID, 64, 3, true);
 
 			EntityRegistry.addSpawn(EntityPeacockWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
 			EntityRegistry.addSpawn(EntityPeafowlWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
 			EntityRegistry.addSpawn(EntityPeachickWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks / 2, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
+			
 			EntityRegistry.addSpawn(EntityPeacockWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
 			EntityRegistry.addSpawn(EntityPeafowlWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
 			EntityRegistry.addSpawn(EntityPeachickWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks / 2, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
