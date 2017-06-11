@@ -48,6 +48,11 @@ public class EntityCowBase extends EntityAnimaniaCow
 		this.mateable = true;
 
 	}
+	
+	public int getGestationTimer()
+	{
+		return gestationTimer;
+	}
 
 	@Override
 	public void setInLove(EntityPlayer player)
