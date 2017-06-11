@@ -60,26 +60,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityPigletOldSpot extends EntityAnimal
 {
-    private static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityPigletOldSpot.class,
-            DataSerializers.OPTIONAL_UNIQUE_ID);
-    private static final DataParameter<Boolean>        SADDLED          = EntityDataManager.<Boolean> createKey(EntityPigletOldSpot.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean>        MUDDY            = EntityDataManager.<Boolean> createKey(EntityPigletOldSpot.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Float>          SPLASHTIMER      = EntityDataManager.<Float> createKey(EntityPigletOldSpot.class,
-            DataSerializers.FLOAT);
-    private static final DataParameter<Float>          MUDTIMER         = EntityDataManager.<Float> createKey(EntityPigletOldSpot.class,
-            DataSerializers.FLOAT);
-    private static final DataParameter<Boolean>        FED              = EntityDataManager.<Boolean> createKey(EntityPigletOldSpot.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean>        WATERED          = EntityDataManager.<Boolean> createKey(EntityPigletOldSpot.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean>        PLAYED           = EntityDataManager.<Boolean> createKey(EntityPigletOldSpot.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Float>          AGE              = EntityDataManager.<Float> createKey(EntityPigletOldSpot.class,
-            DataSerializers.FLOAT);
-    private static final Set<Item>                     TEMPTATION_ITEMS = Sets
-            .newHashSet(new Item[] { Items.CARROT, Items.POTATO, Items.BEETROOT, Items.POISONOUS_POTATO });
+    private static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityPigletOldSpot.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+    private static final DataParameter<Boolean>        SADDLED          = EntityDataManager.<Boolean> createKey(EntityPigletOldSpot.class,  DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean>        MUDDY            = EntityDataManager.<Boolean> createKey(EntityPigletOldSpot.class,  DataSerializers.BOOLEAN);
+    private static final DataParameter<Float>          SPLASHTIMER      = EntityDataManager.<Float> createKey(EntityPigletOldSpot.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float>          MUDTIMER         = EntityDataManager.<Float> createKey(EntityPigletOldSpot.class, DataSerializers.FLOAT);
+    private static final DataParameter<Boolean>        FED              = EntityDataManager.<Boolean> createKey(EntityPigletOldSpot.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean>        WATERED          = EntityDataManager.<Boolean> createKey(EntityPigletOldSpot.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean>        PLAYED           = EntityDataManager.<Boolean> createKey(EntityPigletOldSpot.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Float>          AGE              = EntityDataManager.<Float> createKey(EntityPigletOldSpot.class, DataSerializers.FLOAT);
+    private static final Set<Item>                     TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.CARROT, Items.POTATO, Items.BEETROOT, Items.POISONOUS_POTATO });
     private boolean                                    boosting;
     private int                                        boostTime;
     private int                                        totalBoostTime;
@@ -512,6 +502,7 @@ public class EntityPigletOldSpot extends EntityAnimal
             entitypigzombie.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
             entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
             entitypigzombie.setNoAI(this.isAIDisabled());
+            entitypigzombie.setChild(true);
 
             if (this.hasCustomName()) {
                 entitypigzombie.setCustomNameTag(this.getCustomNameTag());

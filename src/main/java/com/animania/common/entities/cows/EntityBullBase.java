@@ -97,7 +97,7 @@ public class EntityBullBase extends EntityAnimaniaCow
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
-		boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 4.0F);
+		boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 5.0F);
 	
 		if (flag)
 			this.applyEnchantments(this, entityIn);

@@ -85,6 +85,7 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
                 eb.setFighting(true);
             }
 
+            /*
             if (this.canPenalize)
                 if (--this.delayCounter <= 0) {
                     this.entityPathEntity = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
@@ -93,6 +94,8 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
                 }
                 else
                     return true;
+            */
+            
             this.entityPathEntity = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
 
             return this.entityPathEntity != null;
