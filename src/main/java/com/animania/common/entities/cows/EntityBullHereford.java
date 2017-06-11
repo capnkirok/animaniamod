@@ -1,5 +1,7 @@
 package com.animania.common.entities.cows;
 
+import com.animania.common.handler.ItemHandler;
+
 import net.minecraft.world.World;
 
 public class EntityBullHereford extends EntityBullBase
