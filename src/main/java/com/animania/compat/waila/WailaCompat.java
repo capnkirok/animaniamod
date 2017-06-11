@@ -18,21 +18,9 @@ import com.animania.common.entities.chickens.EntityRoosterOrpington;
 import com.animania.common.entities.chickens.EntityRoosterPlymouthRock;
 import com.animania.common.entities.chickens.EntityRoosterRhodeIslandRed;
 import com.animania.common.entities.chickens.EntityRoosterWyandotte;
-import com.animania.common.entities.cows.EntityBullAngus;
-import com.animania.common.entities.cows.EntityBullFriesian;
-import com.animania.common.entities.cows.EntityBullHereford;
-import com.animania.common.entities.cows.EntityBullHolstein;
-import com.animania.common.entities.cows.EntityBullLonghorn;
-import com.animania.common.entities.cows.EntityCalfAngus;
-import com.animania.common.entities.cows.EntityCalfFriesian;
-import com.animania.common.entities.cows.EntityCalfHereford;
-import com.animania.common.entities.cows.EntityCalfHolstein;
-import com.animania.common.entities.cows.EntityCalfLonghorn;
-import com.animania.common.entities.cows.EntityCowAngus;
-import com.animania.common.entities.cows.EntityCowFriesian;
-import com.animania.common.entities.cows.EntityCowHereford;
-import com.animania.common.entities.cows.EntityCowHolstein;
-import com.animania.common.entities.cows.EntityCowLonghorn;
+import com.animania.common.entities.cows.EntityBullBase;
+import com.animania.common.entities.cows.EntityCalfBase;
+import com.animania.common.entities.cows.EntityCowBase;
 import com.animania.common.entities.horses.EntityFoalDraftHorse;
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
@@ -91,21 +79,11 @@ public class WailaCompat
 		r.registerStackProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
 
 		// COWS
-		regEntityInfoBull(r, EntityBullAngus.class);
-		regEntityInfoBull(r, EntityBullFriesian.class);
-		regEntityInfoBull(r, EntityBullHereford.class);
-		regEntityInfoBull(r, EntityBullHolstein.class);
-		regEntityInfoBull(r, EntityBullLonghorn.class);
-		regEntityInfoCow(r, EntityCowAngus.class);
-		regEntityInfoCow(r, EntityCowFriesian.class);
-		regEntityInfoCow(r, EntityCowHereford.class);
-		regEntityInfoCow(r, EntityCowHolstein.class);
-		regEntityInfoCow(r, EntityCowLonghorn.class);
-		regEntityInfoCalf(r, EntityCalfAngus.class);
-		regEntityInfoCalf(r, EntityCalfFriesian.class);
-		regEntityInfoCalf(r, EntityCalfHereford.class);
-		regEntityInfoCalf(r, EntityCalfHolstein.class);
-		regEntityInfoCalf(r, EntityCalfLonghorn.class);
+		regEntityInfoBull(r, EntityBullBase.class);
+		
+		regEntityInfoCow(r, EntityCowBase.class);
+	
+		regEntityInfoCalf(r, EntityCalfBase.class);
 
 		// PIGS
 		regEntityInfoPig(r, EntityHogDuroc.class);

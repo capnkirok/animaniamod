@@ -11,6 +11,7 @@ import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
 import com.animania.common.entities.cows.ai.EntityAIWanderCow;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
@@ -209,52 +210,6 @@ public class EntityAnimaniaCow extends EntityCow
 	{
 		return Items.LEATHER;
 	}
-
-	protected ItemStack getItem(String moditem) {
-
-		ItemStack foundStack = null;
-		String item = "";
-		String mod = "";
-		int sepLoc = 0;
-		int metaLoc = 0;
-		boolean metaFlag = false;
-		String metaVal = "";
-
-		sepLoc = moditem.indexOf(":");
-		metaLoc = moditem.indexOf("#");
-
-		if (!moditem.contains(":")) {
-			return new ItemStack(Blocks.AIR, 1);
-		}
-
-		mod = moditem.substring(0, sepLoc);
-
-		if (metaLoc > 0) {
-			item = moditem.substring(sepLoc+1, metaLoc);
-		} else {
-			item = moditem;
-		}
-		if (metaLoc > 0) {
-			metaFlag = true;
-			metaVal = moditem.substring(metaLoc+1, moditem.length());
-		}
-
-		Item bob = Item.getByNameOrId(item);
-
-		if (bob != null) {
-
-			if (metaFlag) {
-				foundStack = new ItemStack(bob, 1, Integer.parseInt(metaVal));
-			} else {
-				foundStack = new ItemStack(bob, 1);
-			}
-		} else {
-			foundStack = new ItemStack(Blocks.AIR, 1);
-		}
-
-		return foundStack;
-	}
-
 
 	@Override
 	public void onLivingUpdate()
@@ -458,11 +413,11 @@ public class EntityAnimaniaCow extends EntityCow
 		if (AnimaniaConfig.drops.customMobDrops && dropRaw != Items.BEEF && dropCooked != Items.COOKED_BEEF)
 		{
 			String drop = AnimaniaConfig.drops.cowDrop;
-			dropItem = getItem(drop);
+			dropItem = AnimaniaHelper.getItem(drop);
 			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
 			{
 				drop = this.dropCooked.getRegistryName().toString();
-				dropItem = getItem(drop);
+				dropItem = AnimaniaHelper.getItem(drop);
 			}
 		} else
 		{

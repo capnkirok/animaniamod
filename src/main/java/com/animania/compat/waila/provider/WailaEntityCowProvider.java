@@ -14,7 +14,7 @@ public class WailaEntityCowProvider extends WailaEntityAnimalProviderMateable
     public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
         currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 
-        if (currenttip.contains(I18n.translateToLocal("text.waila.happy")) && accessor.getPlayer().isSneaking())
+        if (currenttip.contains(I18n.translateToLocal("text.waila.fed")) && accessor.getPlayer().isSneaking())
             currenttip.add(I18n.translateToLocal("text.waila.milkable"));
 
         return currenttip;
