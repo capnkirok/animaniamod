@@ -14,7 +14,7 @@ public class TileEntityHandler
         GameRegistry.registerTileEntity(TileEntityTrough.class, "TileEntityTrough");
         GameRegistry.registerTileEntity(TileEntityNest.class, "TileEntityNest");
         GameRegistry.registerTileEntity(TileEntityInvisiblock.class, "TileEntityInvisiblock");
-       //GameRegistry.registerTileEntity(TileEntityHamsterWheel.class, "TileEntityHamsterWheel");
+       GameRegistry.registerTileEntity(TileEntityHamsterWheel.class, "TileEntityHamsterWheel");
 
     }
 }

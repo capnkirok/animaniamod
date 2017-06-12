@@ -57,7 +57,7 @@ public class BlockHandler
 		BlockHandler.blockInvisiblock = new BlockInvisiblock().setHardness(1.0F).setResistance(1.0F);
 		BlockHandler.blockNest = new BlockNest().setHardness(1.0F).setResistance(1.0F);
 		BlockHandler.blockSeeds = new BlockSeeds();
-		//BlockHandler.blockHamsterWheel = new BlockHamsterWheel();
+		BlockHandler.blockHamsterWheel = new BlockHamsterWheel();
 
 		// Fluids
 		BlockHandler.fluidSlop = new FluidBase("slop").setViscosity(7000).setDensity(3000).setEmptySound(SoundEvents.BLOCK_SLIME_PLACE).setFillSound(SoundEvents.BLOCK_SLIME_FALL);
@@ -82,6 +82,6 @@ public class BlockHandler
 		BlockHandler.itemBlockNest = new ItemBlock(BlockHandler.blockNest);
 		GameRegistry.register(BlockHandler.itemBlockNest.setRegistryName(BlockHandler.blockNest.getRegistryName()));
 
-		//GameRegistry.register(new ItemBlock(BlockHandler.blockHamsterWheel), new ResourceLocation(Animania.MODID, "block_hamster_wheel"));
+		GameRegistry.register(new ItemBlock(BlockHandler.blockHamsterWheel), new ResourceLocation(Animania.MODID, "block_hamster_wheel"));
 	}
 }
