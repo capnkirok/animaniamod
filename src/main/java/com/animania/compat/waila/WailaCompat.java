@@ -1,5 +1,6 @@
 package com.animania.compat.waila;
 
+import com.animania.common.blocks.BlockHamsterWheel;
 import com.animania.common.blocks.BlockInvisiblock;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.blocks.BlockTrough;
@@ -53,6 +54,7 @@ import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.compat.waila.provider.WailaBlockHamsterWheelProvider;
 import com.animania.compat.waila.provider.WailaBlockInvisiblockProvider;
 import com.animania.compat.waila.provider.WailaBlockSeedProvider;
 import com.animania.compat.waila.provider.WailaBlockTroughProvider;
@@ -77,7 +79,9 @@ public class WailaCompat
 		r.registerBodyProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
 		r.registerNBTProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
 		r.registerStackProvider(new WailaBlockInvisiblockProvider(), BlockInvisiblock.class);
-
+		r.registerBodyProvider(new WailaBlockHamsterWheelProvider(), BlockHamsterWheel.class);
+		r.registerNBTProvider(new WailaBlockHamsterWheelProvider(), BlockHamsterWheel.class);
+		
 		// COWS
 		regEntityInfoBull(r, EntityBullBase.class);
 		

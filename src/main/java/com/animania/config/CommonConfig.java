@@ -261,7 +261,7 @@ public class CommonConfig
         public int hamsterWheelRFGeneration = 20;
         
         @Comment("RF/tick that the Hamster wheel generates while in use")
-        public int hamsterWheelUseTime = 2700;
+        public int hamsterWheelUseTime = 900;
     }
 
     public static class Spawn
