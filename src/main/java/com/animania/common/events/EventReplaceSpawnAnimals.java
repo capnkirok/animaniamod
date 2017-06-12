@@ -593,6 +593,8 @@ public class EventReplaceSpawnAnimals
 					worldIn.spawnEntity(entitychicken1);
 					ez.setChild(true);
 					ez.startRiding(entitychicken1);
+					
+					// System.out.println(3);
 				}
 
 			}
@@ -608,6 +610,8 @@ public class EventReplaceSpawnAnimals
 					worldIn.spawnEntity(ep);
 					ez.setChild(true);
 					ez.startRiding(ep);
+					
+					// System.out.println(1);
 				}
 
 			}
@@ -623,6 +627,8 @@ public class EventReplaceSpawnAnimals
 					worldIn.spawnEntity(ef);
 					ez.startRiding(ef);
 					ef.updatePassenger(ez);
+					
+					// System.out.println(2);
 				}
 			}
 		} 

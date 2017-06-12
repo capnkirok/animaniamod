@@ -147,7 +147,6 @@ public class EntityAIFerretFindFood extends EntityAIBase
 			}
 
 			if (!foodFound) {
-				System.out.println("no find");
 				this.delayTemptCounter = 0;
 				return false;
 			}

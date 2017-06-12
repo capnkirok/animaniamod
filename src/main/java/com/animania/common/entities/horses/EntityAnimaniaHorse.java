@@ -15,6 +15,7 @@ import com.animania.common.entities.horses.ai.EntityAISwimmingHorse;
 import com.animania.common.entities.horses.ai.EntityAITemptHorses;
 import com.animania.common.entities.horses.ai.EntityAIWanderHorse;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
@@ -388,7 +389,7 @@ public class EntityAnimaniaHorse extends EntityAnimal
 		if (AnimaniaConfig.drops.customMobDrops)
 		{
 			String drop = AnimaniaConfig.drops.horseDrop;
-			dropItem = getItem(drop);
+			dropItem = AnimaniaHelper.getItem(drop);
 		} else {
 			dropItem = ItemStack.EMPTY;
 		}

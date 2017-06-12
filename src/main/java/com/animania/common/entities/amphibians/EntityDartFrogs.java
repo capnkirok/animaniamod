@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -211,7 +212,7 @@ public class EntityDartFrogs extends EntityAmphibian
 
 		ItemStack dropItem;
 		String drop = AnimaniaConfig.drops.dartFrogDrop;
-		dropItem = getItem(drop);
+		dropItem = AnimaniaHelper.getItem(drop);
 		dropItem.setCount(1 + lootlevel);
 		EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 		world.spawnEntity(entityitem);
