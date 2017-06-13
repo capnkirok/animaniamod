@@ -24,8 +24,9 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 public class CommonProxy
 {
 
-    public void preInit() {
-    	CapabilityManager.INSTANCE.register(ICapabilityPlayer.class, new CapabilitiesPlayerStorage(), CapabilityPlayer.class);
+    public void preInit()
+    {
+        CapabilityManager.INSTANCE.register(ICapabilityPlayer.class, new CapabilitiesPlayerStorage(), CapabilityPlayer.class);
         OldEntityHandler.preInit();
         EntityHandler.preInit();
         ItemHandler.preInit();
@@ -42,15 +43,23 @@ public class CommonProxy
 
     }
 
-    public void init() {
+    public void init()
+    {
         DictionaryHandler.init();
         RecipeHandler.init();
         DispenserHandler.init();
-        
-    }
-
-    public void registerFluidBlockRendering(Block block, String name) {
 
     }
+
+    public void registerFluidBlockRendering(Block block, String name)
+    {
+
+    }
+
+    public void registerCraftStudioModels()
+    {}
+
+    public void registerCraftStudioAnimations()
+    {}
 
 }

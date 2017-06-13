@@ -3,10 +3,14 @@ package com.animania;
 import com.animania.common.creativeTab.TabAnimaniaEntities;
 import com.animania.common.creativeTab.TabAnimaniaResources;
 import com.animania.proxy.CommonProxy;
+import com.leviathanstudio.craftstudio.client.json.CSReadedAnim;
+import com.leviathanstudio.craftstudio.client.json.CSReadedModel;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -14,7 +18,9 @@ import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@EventBusSubscriber
 @Mod(modid = Animania.MODID, name = Animania.NAME, version = Animania.VERSION, guiFactory = "com.animania.client.gui.GuiFactoryAnimania", dependencies = "after:quark")
 public class Animania
 {
@@ -35,21 +41,36 @@ public class Animania
     public static CreativeTabs TabAnimaniaResources = new TabAnimaniaResources(CreativeTabs.getNextID(), "Animania");
 
     @EventHandler
-    public void construction(FMLConstructionEvent event) {
+    public void construction(FMLConstructionEvent event)
+    {
         FluidRegistry.enableUniversalBucket();
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event)
+    {
         Animania.proxy.preInit();
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event)
+    {
         Animania.proxy.init();
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent e) {}
+    public void postInit(FMLPostInitializationEvent e)
+    {}
 
+    @SubscribeEvent
+    public static void registerModels(RegistryEvent.Register<CSReadedModel> e)
+    {
+        proxy.registerCraftStudioModels();
+    }
+
+    @SubscribeEvent
+    public static void registerAnimations(RegistryEvent.Register<CSReadedAnim> e)
+    {
+        proxy.registerCraftStudioAnimations();
+    }
 }
