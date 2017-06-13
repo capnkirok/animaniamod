@@ -65,6 +65,7 @@ import com.animania.client.render.rodents.RenderFerretWhite;
 import com.animania.client.render.rodents.RenderHamster;
 import com.animania.client.render.rodents.RenderHedgehog;
 import com.animania.client.render.rodents.RenderHedgehogAlbino;
+import com.animania.client.render.tileEntity.TileEntityHamsterWheelRenderer;
 import com.animania.client.render.tileEntity.TileEntityNestRenderer;
 import com.animania.client.render.tileEntity.TileEntityTroughRenderer;
 import com.animania.common.entities.amphibians.EntityDartFrogs;
@@ -132,6 +133,7 @@ import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.common.tileentities.TileEntityHamsterWheel;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityTrough;
 
@@ -251,5 +253,6 @@ public class RenderHandler
     static void renderTileEntity() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrough.class, new TileEntityTroughRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNest.class, new TileEntityNestRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHamsterWheel.class, new TileEntityHamsterWheelRenderer());
     }
 }
