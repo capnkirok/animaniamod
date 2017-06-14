@@ -233,7 +233,7 @@ public class EntityFrogs extends EntityAmphibian
 
 		if (this.isBurning() && drop.equals("animania:raw_frog_legs")) {
 			drop = "animania:cooked_frog_legs";
-			dropItem = getItem(drop);
+			dropItem = AnimaniaHelper.getItem(drop);
 		}
 
 		if (this.rand.nextInt(3) < 1) {

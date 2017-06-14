@@ -25,6 +25,7 @@ import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 import com.google.common.reflect.ClassPath;
@@ -67,18 +68,12 @@ import net.minecraft.world.World;
 
 public class EntityRoosterOrpington extends EntityChicken
 {
-    private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityRoosterOrpington.class,
-            DataSerializers.STRING);
-    private static final DataParameter<Integer> CROWTIMER        = EntityDataManager.<Integer> createKey(EntityRoosterOrpington.class,
-            DataSerializers.VARINT);
-    private static final DataParameter<Integer> CROWDURATION     = EntityDataManager.<Integer> createKey(EntityRoosterOrpington.class,
-            DataSerializers.VARINT);
-    private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityRoosterOrpington.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityRoosterOrpington.class,
-            DataSerializers.BOOLEAN);
-    private static final Set<Item>              TEMPTATION_ITEMS = Sets
-            .newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
+    private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityRoosterOrpington.class, DataSerializers.STRING);
+    private static final DataParameter<Integer> CROWTIMER        = EntityDataManager.<Integer> createKey(EntityRoosterOrpington.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> CROWDURATION     = EntityDataManager.<Integer> createKey(EntityRoosterOrpington.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityRoosterOrpington.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityRoosterOrpington.class, DataSerializers.BOOLEAN);
+    private static final Set<Item>              TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
 
     public boolean                              chickenJockey;
     private static List                         ColorList;
@@ -535,10 +530,10 @@ public class EntityRoosterOrpington extends EntityChicken
         ItemStack dropItem;
         if (AnimaniaConfig.drops.customMobDrops) {
             String drop = AnimaniaConfig.drops.chickenDrop;
-            dropItem = getItem(drop);
+            dropItem = AnimaniaHelper.getItem(drop);
             if (this.isBurning() && drop.equals("animania:raw_prime_chicken")) {
                 drop = "animania:cooked_prime_chicken";
-                dropItem = getItem(drop);
+                dropItem = AnimaniaHelper.getItem(drop);
             }
         }
         else {

@@ -5,6 +5,25 @@ item.animania_brown_egg.name=鸡蛋
 item.animania_bucket_slop.name=泔水桶
 item.animania_carving_knife.name=餐刀
 item.animania_cheese_mold.name=奶酪压模
+item.animania_riding_crop.name=马鞭
+
+item.animania_hamster_ball_clear.name=透明仓鼠球
+item.animania_hamster_ball_black.name=黑色仓鼠球
+item.animania_hamster_ball_red.name=红色仓鼠球
+item.animania_hamster_ball_green.name=绿色仓鼠球
+item.animania_hamster_ball_brown.name=棕色仓鼠球
+item.animania_hamster_ball_blue.name=蓝色仓鼠球
+item.animania_hamster_ball_purple.name=紫色仓鼠球
+item.animania_hamster_ball_cyan.name=青色仓鼠球
+item.animania_hamster_ball_silver.name=淡灰色仓鼠球
+item.animania_hamster_ball_gray.name=灰色仓鼠球
+item.animania_hamster_ball_pink.name=粉红色仓鼠球
+item.animania_hamster_ball_lime.name=黄绿色仓鼠球
+item.animania_hamster_ball_yellow.name=黄色仓鼠球
+item.animania_hamster_ball_light_blue.name=淡蓝色仓鼠球
+item.animania_hamster_ball_magenta.name=品红色仓鼠球
+item.animania_hamster_ball_orange.name=橙色仓鼠球
+item.animania_hamster_ball_white.name=白色仓鼠球
 
 item.animania_blue_peacock_feather.name=蓝孔雀羽毛
 item.animania_white_peacock_feather.name=白孔雀羽毛
@@ -26,6 +45,19 @@ item.animania_raw_longhorn_beef.name=生牛肉（长角牛）
 item.animania_cooked_longhorn_roast.name=烤牛肉（长角牛）
 item.animania_raw_longhorn_steak.name=生牛排（长角牛）
 item.animania_cooked_longhorn_steak.name=烤牛排（长角牛）
+
+item.animania_raw_prime_beef.name=生一级牛肉
+item.animania_cooked_prime_beef.name=烤一级牛肉
+item.animania_raw_prime_steak.name=生一级牛排
+item.animania_cooked_prime_steak.name=烤一级牛排
+
+item.animania_raw_prime_pork.name=生一级猪肉
+item.animania_cooked_prime_pork.name=烤一级猪肉
+item.animania_raw_prime_bacon.name=生一级猪排
+item.animania_cooked_prime_bacon.name=烤一级猪排
+
+item.animania_raw_prime_chicken.name=生一级鸡肉
+item.animania_cooked_prime_chicken.name=烤一级鸡肉
 
 item.animania_raw_large_black_pork.name=生猪肉（大黑猪）
 item.animania_cooked_large_black_roast.name=烤猪肉（大黑猪）
@@ -52,6 +84,9 @@ item.animania_raw_rhode_island_red_chicken.name=生鸡肉（罗得岛红鸡）
 item.animania_cooked_rhode_island_red_chicken.name=烤鸡肉（罗得岛红鸡）
 item.animania_raw_wyandotte_chicken.name=生鸡肉（怀恩多特鸡）
 item.animania_cooked_wyandotte_chicken.name=烤鸡肉（怀恩多特鸡）
+
+item.animania_raw_frog_legs.name=生蛙腿
+item.animania_cooked_frog_legs.name=烤蛙腿
 
 item.animania_friesian_cheese_wheel.name=奶酪块（黑白花牛）
 item.animania_friesian_cheese_wedge.name=小块奶酪（黑白花牛）
@@ -128,13 +163,21 @@ item.animania_entity_egg_hedgehog_albino.name=白化刺猬
 item.animania_entity_egg_peacock_blue.name=印度蓝孔雀（雄）
 item.animania_entity_egg_peafowl_blue.name=印度蓝孔雀（雌）
 item.animania_entity_egg_peachick_blue.name=印度蓝孔雀（雏）
-item.animania_entity_egg_peacock_white.name=白孔雀（雄） 
+item.animania_entity_egg_peacock_white.name=白孔雀（雄）
 item.animania_entity_egg_peafowl_white.name=白孔雀（雌）
 item.animania_entity_egg_peachick_white.name=白孔雀（雏）
+
+item.animania_entity_egg_draft_horse_stallion.name=驮马（公）
+item.animania_entity_egg_draft_horse_mare.name=驮马（母）
+item.animania_entity_egg_draft_horse_foal.name=驮马（幼）
 
 item.animania_entity_egg_cow_random.name=牛（随机）
 item.animania_entity_egg_pig_random.name=猪（随机）
 item.animania_entity_egg_chicken_random.name=鸡（随机）
+
+item.animania_entity_egg_frog.name=青蛙
+item.animania_entity_egg_toad.name=蟾蜍
+item.animania_entity_egg_dart_frog.name=箭毒蛙
 
 entity.animania.ChickRhodeIslandRed.name=罗得岛红鸡（小鸡）
 entity.animania.HenRhodeIslandRed.name=罗得岛红鸡（母鸡）
@@ -201,7 +244,16 @@ entity.animania.PeacockWhite.name=白孔雀（雄）
 entity.animania.PeafowlWhite.name=白孔雀（雌）
 entity.animania.PeachickWhite.name=白孔雀（雏）
 
+entity.animania.StallionDraftHorse.name=驮马（公）
+entity.animania.MareDraftHorse.name=驮马（母）
+entity.animania.FoalDraftHorse.name=驮马（幼）
+
+entity.animania.Frog.name=青蛙
+entity.animania.Toad.name=蟾蜍
+entity.animania.Dart Frog.name=树蛙
+
 death.attack.bull=%1$s 被牛顶死
+death.attack.pepe=%1$s 玩梗玩死了
 
 tile.animania_block_mud.name=污泥
 tile.animania_block_seeds.name=种子
@@ -282,10 +334,20 @@ achievement.an.hedgehogsanic.desc=来吧，加快你的步伐
 achievement.an.hamsters=仓鼠语者
 achievement.an.hamsters.desc=与仓鼠成为朋友
 
+achievement.an.horses=驮马
+achievement.an.horses.desc=与驮马成为朋友
+achievement.an.horseriding=奔腾年代
+achievement.an.horseriding.desc=骑上一匹驮马
+
+tooltip.an.ridingcrop1=用的好的话能够喂养骑行的驮马
+tooltip.an.ridingcrop2=当骑着时候，按下能够提升速度
+tooltip.an.hamsterball1=对着驯服的仓鼠使用能够装入
+tooltip.an.hamsterball2=或者从球中移出
+
 animania.updatetext.1=Animania最新版本：
 animania.updatetext.2=现已可用
 animania.updatetext.3=无法检测Animania更新
-animania.update.download=["点击：[",{"text":"下载","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"点此以查看1.11.2版本可供下载的最新文件","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]
+animania.update.download=["点击：[",{"text":"下载","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"点此以查看可供下载的最新文件","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]
 
 tooltip.an.cheeseomelette=瞬间治疗
 tooltip.an.baconomelette=力量（30秒）
@@ -295,5 +357,6 @@ tooltip.an.chocolatetruffle=速度（1分钟）
 tooltip.an.absorption=伤害吸收
 tooltip.an.regeneration=再生
 tooltip.an.haste=急迫
+tooltip.an.jumping=跳跃提升
 tooltip.an.healthboost=生命恢复
 tooltip.an.edibleanytime=随时可吃

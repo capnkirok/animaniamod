@@ -22,6 +22,7 @@ import com.animania.common.entities.chickens.ai.EntityAISwimmingChickens;
 import com.animania.common.entities.chickens.ai.EntityAIWanderChickens;
 import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 import com.google.common.reflect.ClassPath;
@@ -67,17 +68,11 @@ import net.minecraft.world.World;
 
 public class EntityHenPlymouthRock extends EntityChicken
 {
-    private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityHenPlymouthRock.class,
-            DataSerializers.STRING);
-    private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHenPlymouthRock.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHenPlymouthRock.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> LAID             = EntityDataManager.<Boolean> createKey(EntityHenPlymouthRock.class,
-            DataSerializers.BOOLEAN);
-    private static final Set<Item>              TEMPTATION_ITEMS = Sets
-            .newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
-  
+    private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityHenPlymouthRock.class, DataSerializers.STRING);
+    private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHenPlymouthRock.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHenPlymouthRock.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> LAID             = EntityDataManager.<Boolean> createKey(EntityHenPlymouthRock.class, DataSerializers.BOOLEAN);
+    private static final Set<Item>              TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
     public boolean                              chickenJockey;
     private static List                         ColorList;
     private ResourceLocation                    resourceLocation;
@@ -559,10 +554,10 @@ public class EntityHenPlymouthRock extends EntityChicken
         ItemStack dropItem;
         if (AnimaniaConfig.drops.customMobDrops) {
             String drop = AnimaniaConfig.drops.chickenDrop;
-            dropItem = getItem(drop);
+            dropItem = AnimaniaHelper.getItem(drop);
             if (this.isBurning() && drop.equals("animania:raw_prime_chicken")) {
                 drop = "animania:cooked_prime_chicken";
-                dropItem = getItem(drop);
+                dropItem = AnimaniaHelper.getItem(drop);
             }
         }
         else {

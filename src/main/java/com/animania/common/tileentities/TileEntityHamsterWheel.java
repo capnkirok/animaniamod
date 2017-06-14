@@ -33,10 +33,12 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 	private ItemHandlerHamsterWheel itemHandler;
 	private int timer;
 	private int energy;
+	public int rotateTimer;
 
 	public TileEntityHamsterWheel()
 	{
 		this.itemHandler = new ItemHandlerHamsterWheel();
+		this.rotateTimer = 0;
 	}
 	
 	@Override
@@ -91,6 +93,11 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 				int recieved = reciever.receiveEnergy(facing.getOpposite(), energy, false);
 				energy -= recieved;
 			}
+		}
+		
+		this.rotateTimer++;
+		if (this.rotateTimer > 2) {
+			this.rotateTimer = 0;
 		}
 
 	}
