@@ -39,6 +39,7 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 	
 	static{
 		animHandler.addAnim(Animania.MODID, "anim_hamster_wheel", "model_hamster_wheel", true);
+		animHandler.addAnim(Animania.MODID, "hamster_run", "hamster", true);
 	}
 	
 	private boolean isRunning;
@@ -118,10 +119,14 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 		}
 		
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT){
-			if (this.isRunning && !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this))
+			if (this.isRunning && !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)){
 				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_hamster_wheel", this);
-			else if (!this.isRunning && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this))
+				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "hamster_run", this);
+			}
+			else if (!this.isRunning && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)){
 				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_hamster_wheel", this);//Actually not working on server
+				this.getAnimationHandler().stopAnimation(Animania.MODID, "hamster_run", this);
+			}
 		}
 
 	}

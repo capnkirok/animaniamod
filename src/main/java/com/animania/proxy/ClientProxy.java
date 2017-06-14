@@ -78,11 +78,13 @@ public class ClientProxy extends CommonProxy
     public void registerCraftStudioModels()
     {
         csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_hamster_wheel");
+        csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "hamster");
     }
 
     @Override
     public void registerCraftStudioAnimations()
     {
         csRegistry.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "anim_hamster_wheel");
+        csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "hamster_run");
     }
 }
