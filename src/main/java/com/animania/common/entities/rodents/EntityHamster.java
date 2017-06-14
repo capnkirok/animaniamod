@@ -509,21 +509,22 @@ public class EntityHamster extends EntityTameable
 				this.blinkTimer = 80 + this.rand.nextInt(80);
 		}
 
-		if (this.getColorNumber() == 0) {
-			Random rand = new Random();
-			int bob2 = rand.nextInt(8) + 1;
-			this.setColorNumber(bob2);
-			this.resourceLocation = new ResourceLocation(
-					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2 - 1] + ".png");
-			this.resourceLocationBlink = new ResourceLocation(
-					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2 - 1] + "_blink.png");
-		}
-		else if (this.resourceLocation == null) {
-			this.resourceLocation = new ResourceLocation(
-					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber() - 1] + ".png");
-			this.resourceLocationBlink = new ResourceLocation(
-					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber() - 1] + "_blink.png");
-		}
+		this.setResourceLoc();
+//		if (this.getColorNumber() == 0) {
+//			Random rand = new Random();
+//			int bob2 = rand.nextInt(8) + 1;
+//			this.setColorNumber(bob2);
+//			this.resourceLocation = new ResourceLocation(
+//					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2 - 1] + ".png");
+//			this.resourceLocationBlink = new ResourceLocation(
+//					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2 - 1] + "_blink.png");
+//		}
+//		else if (this.resourceLocation == null) {
+//			this.resourceLocation = new ResourceLocation(
+//					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber() - 1] + ".png");
+//			this.resourceLocationBlink = new ResourceLocation(
+//					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber() - 1] + "_blink.png");
+//		}
 
 		super.onLivingUpdate();
 
@@ -996,6 +997,24 @@ public class EntityHamster extends EntityTameable
 				this.setColorNumber(9);
 				this.resourceLocation = null;
 			}
+		}
+	}
+	
+	public void setResourceLoc(){
+		if (this.getColorNumber() == 0) {
+			Random rand = new Random();
+			int bob2 = rand.nextInt(8) + 1;
+			this.setColorNumber(bob2);
+			this.resourceLocation = new ResourceLocation(
+					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2 - 1] + ".png");
+			this.resourceLocationBlink = new ResourceLocation(
+					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2 - 1] + "_blink.png");
+		}
+		else if (this.resourceLocation == null) {
+			this.resourceLocation = new ResourceLocation(
+					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber() - 1] + ".png");
+			this.resourceLocationBlink = new ResourceLocation(
+					"animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber() - 1] + "_blink.png");
 		}
 	}
 

@@ -58,15 +58,6 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 	@Override
 	public void update()
 	{
-		//this.hamster = null;
-		if (this.hamster == null){
-			BlockPos pos = this.pos;
-			List<EntityHamster> hamsterList = this.world.getEntitiesWithinAABB(EntityHamster.class, new AxisAlignedBB(pos.getX() - 1, pos.getY() - 1, pos.getZ() - 1, pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
-			if (!hamsterList.isEmpty()){
-				this.setHamster(hamsterList.get(0));
-				this.world.removeEntity(hamsterList.get(0));
-			}
-		}
 		if (hamster == null && hamsterNBT != null)
 		{
 			hamster = new EntityHamster(world);
@@ -118,7 +109,7 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 			}
 		}
 		
-		if (FMLCommonHandler.instance().getSide() == Side.CLIENT){
+		if (FMLCommonHandler.instance().getSide().isClient()){
 			if (this.isRunning && !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)){
 				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_hamster_wheel", this);
 				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "hamster_run", this);

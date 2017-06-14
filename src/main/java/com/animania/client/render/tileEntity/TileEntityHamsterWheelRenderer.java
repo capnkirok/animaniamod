@@ -1,6 +1,7 @@
 package com.animania.client.render.tileEntity;
 
 import com.animania.Animania;
+import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
 import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
 
@@ -20,12 +21,15 @@ public class TileEntityHamsterWheelRenderer<T extends TileEntityHamsterWheel> ex
         GlStateManager.rotate(180F, 0, 1, 0);
         this.bindTexture(new ResourceLocation(Animania.MODID, "textures/blocks/hamster_wheel.png"));
         this.modelWheel.render(te);
-        if (te.getHamster() != null){
+        EntityHamster hamster = te.getHamster();
+        if (hamster != null){
+        	if (hamster.getResourceLocation() == null)
+        		hamster.setResourceLoc();
         	GlStateManager.pushMatrix();
         	GlStateManager.scale(0.5, 0.5, 0.5);
         	GlStateManager.translate(0, 0.9, 0);
         	GlStateManager.rotate(-90, 0, 1, 0);
-        	this.bindTexture(te.getHamster().getResourceLocation());
+        	this.bindTexture(hamster.getResourceLocation());
         	this.modelHamster.render(te);
         	GlStateManager.popMatrix();
         }
