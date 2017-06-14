@@ -27,9 +27,33 @@ minecraft {
     makeObfSourceJar = false
 }
 
+repositories {
+    maven { //Maven for CraftStudioApi
+        name = "LeviathanStudio maven"
+        url = "http://maven.leviathan-studio.com/artifactory/leviathan/"
+    }
+    maven { //Maven for Waila
+       name 'ProfMobius maven'
+       url "http://mobiusstrip.eu/maven/"
+   }
+   maven { //Maven for JEI
+    name = "Progwml6 maven"
+    url = "http://dvs1.progwml6.com/files/maven"
+  }
+}
+
 dependencies {
-	compile files("lib/jei_1.11.2-4.3.5.277-api.jar")
-	compile files("lib/Waila-1.7.1_1.11.2-dev.jar")
+   compile 'com.leviathanstudio:CraftStudio:0.2.1.78-mc1.11.2-beta:dev'
+   
+   deobfCompile 'mcp.mobius.waila:Waila:1.7.1_1.11.2'
+   // Should be that(compile) but it cause a weird bug for Ze and me(Timmy) (Crash noClassDefFound on DisplayUtil)
+   // compile 'mcp.mobius.waila:Waila:1.7.1_1.11.2:dev'
+   
+   deobfCompile 'mezz.jei:jei_1.11.2:4.3.5.277:api'
+   runtime 'mezz.jei:jei_1.11.2:4.3.5.277'
+
+//    compile files("lib/jei_1.11.2-4.3.5.277-api.jar")
+//    compile files("lib/Waila-1.7.1_1.11.2-dev.jar")
 }
 
 processResources {
