@@ -6,6 +6,9 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.rodents.EntityFerretBase;
+import com.animania.common.entities.rodents.EntityHedgehog;
+import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
@@ -20,6 +23,7 @@ import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -92,9 +96,14 @@ public class EntityFrogs extends EntityAmphibian
 			this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
 			this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 6.0F, 1.5D, 1.5D));
 		} else if (this.getCustomNameTag().equals("Pepe")) {
-			this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.2F));
-			this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
+			this.tasks.taskEntries.clear();
+			this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
+			this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
 			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+	        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFerretBase.class, true));
+	        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityHedgehog.class, true));
+	        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, true));
+
 		}
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
 		this.tasks.addTask(5, new EntityAIWander(this, 0.6D));
