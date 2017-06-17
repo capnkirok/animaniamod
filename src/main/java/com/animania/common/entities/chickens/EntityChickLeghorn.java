@@ -54,16 +54,11 @@ import net.minecraft.world.World;
 
 public class EntityChickLeghorn extends EntityChicken
 {
-    private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityChickLeghorn.class,
-            DataSerializers.STRING);
-    private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityChickLeghorn.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityChickLeghorn.class,
-            DataSerializers.BOOLEAN);
-    private static final DataParameter<Float>   AGE              = EntityDataManager.<Float> createKey(EntityChickLeghorn.class,
-            DataSerializers.FLOAT);
-    private static final Set<Item>              TEMPTATION_ITEMS = Sets
-            .newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
+    private static final DataParameter<String>  COLOR            = EntityDataManager.<String> createKey(EntityChickLeghorn.class, DataSerializers.STRING);
+    private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityChickLeghorn.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityChickLeghorn.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Float>   AGE              = EntityDataManager.<Float> createKey(EntityChickLeghorn.class,  DataSerializers.FLOAT);
+    private static final Set<Item>              TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
     public boolean                              chickenJockey;
     private static List                         ColorList;
     private ResourceLocation                    resourceLocation;

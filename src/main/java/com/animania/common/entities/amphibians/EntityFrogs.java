@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.handler.DamageSourceHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -228,11 +229,11 @@ public class EntityFrogs extends EntityAmphibian
 
 		ItemStack dropItem;
 		String drop = AnimaniaConfig.drops.frogDrop;
-		dropItem = getItem(drop);
+		dropItem = AnimaniaHelper.getItem(drop);
 
 		if (this.isBurning() && drop.equals("animania:raw_frog_legs")) {
 			drop = "animania:cooked_frog_legs";
-			dropItem = getItem(drop);
+			dropItem = AnimaniaHelper.getItem(drop);
 		}
 
 		if (this.rand.nextInt(3) < 1) {

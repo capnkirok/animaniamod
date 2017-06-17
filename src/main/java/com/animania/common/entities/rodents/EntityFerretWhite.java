@@ -26,6 +26,7 @@ import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
 import com.animania.common.entities.rodents.ai.EntityAIWanderRodent;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -68,20 +69,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityFerretWhite extends EntityTameable
 {
-	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityFerretWhite.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityFerretWhite.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityFerretWhite.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityFerretWhite.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityFerretWhite.class,
-			DataSerializers.BOOLEAN);
-
-	private static final Set<Item>              TEMPTATION_ITEMS = Sets
-			.newHashSet(new Item[] { Items.MUTTON, Items.EGG, ItemHandler.brownEgg, Items.CHICKEN, ItemHandler.rawWyandotteChicken,
-					ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken });
+	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityFerretWhite.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityFerretWhite.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityFerretWhite.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityFerretWhite.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityFerretWhite.class, DataSerializers.BOOLEAN);
+	private static final Set<Item>              TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.MUTTON, Items.EGG, ItemHandler.brownEgg, Items.CHICKEN, ItemHandler.rawWyandotteChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken });
 	private int                                 fedTimer;
 	private int                                 wateredTimer;
 	private int                                 happyTimer;
@@ -207,7 +200,7 @@ public class EntityFerretWhite extends EntityTameable
 		ItemStack dropItem;
 		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.ferretDrop;
-			dropItem = this.getItem(drop);
+			dropItem = AnimaniaHelper.getItem(drop);
 		}
 		else
 			dropItem = null;

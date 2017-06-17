@@ -25,6 +25,7 @@ import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 import com.google.common.reflect.ClassPath;
@@ -535,10 +536,10 @@ public class EntityRoosterWyandotte extends EntityChicken
         ItemStack dropItem;
         if (AnimaniaConfig.drops.customMobDrops) {
             String drop = AnimaniaConfig.drops.chickenDrop;
-            dropItem = getItem(drop);
+            dropItem = AnimaniaHelper.getItem(drop);
             if (this.isBurning() && drop.equals("animania:raw_prime_chicken")) {
                 drop = "animania:cooked_prime_chicken";
-                dropItem = getItem(drop);
+                dropItem = AnimaniaHelper.getItem(drop);
             }
         }
         else {

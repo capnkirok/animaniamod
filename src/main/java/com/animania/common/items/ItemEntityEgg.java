@@ -690,6 +690,7 @@ public class ItemEntityEgg extends Item
 						entityB1.rotationYawHead = entityB1.rotationYaw;
 						entityB1.renderYawOffset = entityB1.rotationYaw;
 
+						worldIn.spawnEntity(entityB1);
 						if (entityB1 != null) {
 							if (entityB1 instanceof EntityLivingBase && stack.hasDisplayName())
 								((EntityLiving) entityB1).setCustomNameTag(stack.getDisplayName());
