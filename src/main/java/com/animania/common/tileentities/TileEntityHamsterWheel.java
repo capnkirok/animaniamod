@@ -1,8 +1,6 @@
 package com.animania.common.tileentities;
 
-import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -13,7 +11,7 @@ import com.animania.common.tileentities.handler.ItemHandlerHamsterWheel;
 import com.animania.config.AnimaniaConfig;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
-import com.leviathanstudio.craftstudio.common.animation.IAnimated;
+import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileEntity;
 
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
@@ -26,15 +24,12 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEnergyProvider, IAnimated
+public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable, IEnergyProvider
 {
 	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(TileEntityHamsterWheel.class);
 	
@@ -53,12 +48,13 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 	public TileEntityHamsterWheel()
 	{
 		this.itemHandler = new ItemHandlerHamsterWheel();
-		animHandler.addAnimated(this);
 	}
 	
 	@Override
 	public void update()
 	{
+		super.update();
+		
 		if (hamster == null && hamsterNBT != null)
 		{
 			hamster = new EntityHamster(world);
@@ -114,13 +110,13 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 
 		}
 		
-		if (FMLCommonHandler.instance().getSide().isClient()){
+		if (!this.isWorldRemote()){
 			if (this.isRunning && !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)){
-				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_hamster_wheel", this);
-				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "hamster_run", this);
+				this.getAnimationHandler().startAnimation(Animania.MODID, "anim_hamster_wheel", this);
+				this.getAnimationHandler().startAnimation(Animania.MODID, "hamster_run", this);
 			}
 			else if (!this.isRunning && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)){
-				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_hamster_wheel", this);//Actually not working on server
+				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_hamster_wheel", this);
 				this.getAnimationHandler().stopAnimation(Animania.MODID, "hamster_run", this);
 			}
 		}
@@ -200,6 +196,11 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 		NBTTagCompound hamster = compound.getCompoundTag("hamster");
 		if (!hamster.equals(new NBTTagCompound()))
 			this.hamsterNBT = hamster;
+		else{
+			//Delete the hamster so this side does not restart the wheel
+			this.hamsterNBT = null;
+			this.hamster = null;
+		}
 		this.isRunning = compound.getBoolean("running");
 		this.timer = compound.getInteger("timer");
 		this.itemHandler.deserializeNBT(compound.getCompoundTag("items"));
@@ -309,11 +310,4 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 	public AnimationHandler<TileEntityHamsterWheel> getAnimationHandler() {
 		return animHandler;
 	}
-
-	@Override
-	public UUID getUUID() {
-		//Server animation not supported yet for TileEntity
-		return null;
-	}
-
 }

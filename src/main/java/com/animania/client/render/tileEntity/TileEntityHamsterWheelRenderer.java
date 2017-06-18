@@ -1,24 +1,21 @@
 package com.animania.client.render.tileEntity;
 
 import com.animania.Animania;
-import com.animania.client.models.ModelHamster;
-import com.animania.client.models.ModelHamsterWheel;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
 import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
+import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSTileEntitySpecialRenderer;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class TileEntityHamsterWheelRenderer<T extends TileEntityHamsterWheel> extends TileEntitySpecialRenderer<T>
+public class TileEntityHamsterWheelRenderer extends TileEntitySpecialRenderer<TileEntityHamsterWheel>
 {
 	private static final ResourceLocation WHEEL_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/hamster_wheel.png");
 
@@ -32,11 +29,11 @@ public class TileEntityHamsterWheelRenderer<T extends TileEntityHamsterWheel> ex
 	@Override
 	public void renderTileEntityAt(TileEntityHamsterWheel te, double x, double y, double z, float partialTicks, int destroyStage) {
 		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
-
+		
 		GlStateManager.pushMatrix();
         GlStateManager.translate(x + 0.5D, y + 1.5D, z + 0.5D);
-        GlStateManager.rotate(180F, 0, 0, 1);
-        GlStateManager.rotate(180F, 0, 1, 0);
+        GlStateManager.multMatrix(CSTileEntitySpecialRenderer.ROTATION_CORRECTOR);
+        GlStateManager.rotate(enumfacing.getHorizontalAngle(), 0, 1, 0);
         this.bindTexture(WHEEL_TEXTURE);
         this.modelWheel.render(te);
         EntityHamster hamster = te.getHamster();
