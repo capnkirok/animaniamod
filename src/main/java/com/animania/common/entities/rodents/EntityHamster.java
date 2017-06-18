@@ -20,6 +20,7 @@ import com.animania.common.entities.rodents.ai.EntityAIWanderRodent;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.handler.PatreonHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemHamsterBall;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -57,25 +58,18 @@ import net.minecraft.world.World;
 
 public class EntityHamster extends EntityTameable
 {
-	private static final DataParameter<Boolean> IN_BALL          = EntityDataManager.<Boolean> createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IN_BALL          = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> COLOR_NUM        = EntityDataManager.<Integer> createKey(EntityHamster.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> FOOD_STACK_COUNT = EntityDataManager.<Integer> createKey(EntityHamster.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> IN_LOVE          = EntityDataManager.<Integer> createKey(EntityHamster.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> BALL_COLOR       = EntityDataManager.<Integer> createKey(EntityHamster.class, DataSerializers.VARINT);
 	private static final Set<Item>              TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { ItemHandler.hamsterFood });
-	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHamster.class,
-			DataSerializers.BOOLEAN);
-	private static final String[]               HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou",
-			"white" , "gold"};
+	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final String[]               HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou", "white" , "gold"};
 
 	private int                                 fedTimer;
 	private int                                 wateredTimer;
@@ -787,7 +781,7 @@ public class EntityHamster extends EntityTameable
 		ItemStack dropItem;
 		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.hamsterDrop;
-			dropItem = this.getItem(drop);
+			dropItem = AnimaniaHelper.getItem(drop);
 		}
 		else
 			dropItem = null;

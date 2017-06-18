@@ -17,6 +17,7 @@ import com.animania.common.entities.peacocks.ai.EntityAISwimmingPeacocks;
 import com.animania.common.entities.peacocks.ai.EntityAIWanderPeacock;
 import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -280,8 +281,8 @@ public class EntityPeacockWhite extends EntityAnimal
 
         ItemStack dropItem;
         if (AnimaniaConfig.drops.customMobDrops) {
-            String drop = AnimaniaConfig.drops.peacockWhiteDrop;
-            dropItem = this.getItem(drop);
+        	String drop = AnimaniaConfig.drops.peacockWhiteDrop;
+    		dropItem = AnimaniaHelper.getItem(drop);
         }
         else
             dropItem = new ItemStack(ItemHandler.peacockFeatherWhite);

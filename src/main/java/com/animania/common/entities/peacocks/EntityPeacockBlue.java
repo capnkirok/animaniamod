@@ -17,6 +17,7 @@ import com.animania.common.entities.peacocks.ai.EntityAISwimmingPeacocks;
 import com.animania.common.entities.peacocks.ai.EntityAIWanderPeacock;
 import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -55,15 +56,11 @@ import net.minecraft.world.World;
 
 public class EntityPeacockBlue extends EntityAnimal
 {
-	private static final DataParameter<Boolean> FED                   = EntityDataManager.<Boolean> createKey(EntityPeacockBlue.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED               = EntityDataManager.<Boolean> createKey(EntityPeacockBlue.class,
-			DataSerializers.BOOLEAN);
-	private static final Set<Item>              TEMPTATION_ITEMS      = Sets
-			.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
+	private static final DataParameter<Boolean> FED                   = EntityDataManager.<Boolean> createKey(EntityPeacockBlue.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED               = EntityDataManager.<Boolean> createKey(EntityPeacockBlue.class, DataSerializers.BOOLEAN);
+	private static final Set<Item>              TEMPTATION_ITEMS      = Sets.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
 	private ResourceLocation                    resourceLocation      = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue.png");
-	private ResourceLocation                    resourceLocationBlink = new ResourceLocation(
-			"animania:textures/entity/peacocks/peacock_blue_blink.png");
+	private ResourceLocation                    resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue_blink.png");
 	public float                                wingRotation;
 	public float                                destPos;
 	public float                                oFlapSpeed;
@@ -390,7 +387,7 @@ public class EntityPeacockBlue extends EntityAnimal
 		ItemStack dropItem;
 		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.peacockBlueDrop;
-			dropItem = this.getItem(drop);
+			dropItem = AnimaniaHelper.getItem(drop);
 		}
 		else
 			dropItem = new ItemStack(ItemHandler.peacockFeatherBlue);

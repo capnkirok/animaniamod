@@ -17,6 +17,7 @@ import com.animania.common.handler.OldEntityHandler;
 import com.animania.common.handler.PatreonHandler;
 import com.animania.common.handler.RecipeHandler;
 import com.animania.common.handler.TileEntityHandler;
+import com.animania.network.NetworkHandler;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -35,6 +36,7 @@ public class CommonProxy
         DamageSourceHandler.preInit();
         CompatHandler.preInit();
         PatreonHandler.initList();
+        NetworkHandler.init();
 
         // EVENTS
         EventsHandler.preInit();

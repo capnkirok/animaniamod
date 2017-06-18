@@ -778,8 +778,7 @@ public class BlockNest extends BlockContainer
 		else if (te.getNestType() == 1)
 		{
 			ItemStack bob = new ItemStack(Items.EGG, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(0);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -788,8 +787,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 2)
 		{
 			ItemStack bob = new ItemStack(Items.EGG, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(1);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -798,8 +796,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 3)
 		{
 			ItemStack bob = new ItemStack(Items.EGG, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(2);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -808,8 +805,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 4)
 		{
 			ItemStack bob = new ItemStack(Items.EGG, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(0);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -818,8 +814,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 5)
 		{
 			ItemStack bob = new ItemStack(Items.EGG, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(4);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -828,8 +823,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 6)
 		{
 			ItemStack bob = new ItemStack(Items.EGG, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(5);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -838,8 +832,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 7)
 		{
 			ItemStack bob = new ItemStack(Items.EGG, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(0);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -848,8 +841,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 8)
 		{
 			ItemStack bob = new ItemStack(Items.EGG, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(7);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -858,8 +850,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 9)
 		{
 			ItemStack bob = new ItemStack(Items.EGG, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(8);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -868,8 +859,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 10)
 		{
 			ItemStack bob = new ItemStack(ItemHandler.brownEgg, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(0);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -878,8 +868,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 11)
 		{
 			ItemStack bob = new ItemStack(ItemHandler.brownEgg, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(10);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -888,8 +877,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 12)
 		{
 			ItemStack bob = new ItemStack(ItemHandler.brownEgg, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(11);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -898,8 +886,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 13)
 		{
 			ItemStack bob = new ItemStack(ItemHandler.brownEgg, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(0);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -908,8 +895,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 14)
 		{
 			ItemStack bob = new ItemStack(ItemHandler.brownEgg, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(13);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
@@ -918,8 +904,7 @@ public class BlockNest extends BlockContainer
 		} else if (te.getNestType() == 15)
 		{
 			ItemStack bob = new ItemStack(ItemHandler.brownEgg, 1);
-			EntityItem entityitem = new EntityItem(playerIn.world, playerIn.posX + 0.5D, playerIn.posY + 0.5D, playerIn.posZ + 0.5D, bob);
-			worldIn.spawnEntity(entityitem);
+			playerIn.inventory.addItemStackToInventory(bob);
 			te.setType(14);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);

@@ -20,6 +20,7 @@ import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
 import com.animania.common.entities.rodents.ai.EntityAIWanderHedgehog;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -66,16 +67,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityHedgehogAlbino extends EntityTameable
 {
-	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class,
-			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityHedgehogAlbino.class, DataSerializers.BOOLEAN);
 
 	private int                                 fedTimer;
 	private int                                 wateredTimer;
@@ -186,7 +182,7 @@ public class EntityHedgehogAlbino extends EntityTameable
 		ItemStack dropItem;
 		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.hedgehogDrop;
-			dropItem = this.getItem(drop);
+			dropItem = AnimaniaHelper.getItem(drop);
 		}
 		else
 			dropItem = null;

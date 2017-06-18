@@ -20,6 +20,7 @@ import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
 import com.animania.common.entities.rodents.ai.EntityAIWanderHedgehog;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -66,24 +67,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityHedgehog extends EntityTameable
 {
-	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHedgehog.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHedgehog.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityHedgehog.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityHedgehog.class,
-			DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityHedgehog.class,
-			DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> FED              = EntityDataManager.<Boolean> createKey(EntityHedgehog.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> WATERED          = EntityDataManager.<Boolean> createKey(EntityHedgehog.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> TAMED            = EntityDataManager.<Boolean> createKey(EntityHedgehog.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SITTING          = EntityDataManager.<Boolean> createKey(EntityHedgehog.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> RIDING           = EntityDataManager.<Boolean> createKey(EntityHedgehog.class, DataSerializers.BOOLEAN);
 
 	private int                                 fedTimer;
 	private int                                 wateredTimer;
 	private int                                 happyTimer;
 	private int                                 tamedTimer;
 	public int                                  blinkTimer;
-	private static final Set<Item>              TEMPTATION_ITEMS = Sets
-			.newHashSet(new Item[] { Items.CARROT, Items.BEETROOT, ItemHandler.brownEgg, Items.EGG });
+	private static final Set<Item>              TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.CARROT, Items.BEETROOT, ItemHandler.brownEgg, Items.EGG });
 
 	public EntityHedgehog(World worldIn) {
 		super(worldIn);
@@ -185,7 +180,7 @@ public class EntityHedgehog extends EntityTameable
 		ItemStack dropItem;
 		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.hedgehogDrop;
-			dropItem = this.getItem(drop);
+			dropItem = AnimaniaHelper.getItem(drop);
 		}
 		else
 			dropItem = null;
