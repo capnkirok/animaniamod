@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 @Mod(modid = Animania.MODID, name = Animania.NAME, version = Animania.VERSION, guiFactory = "com.animania.client.gui.GuiFactoryAnimania", dependencies = "after:quark")
 public class Animania
@@ -30,6 +31,9 @@ public class Animania
     public static final String VERSION              = "1.1.5";
     public static final String NAME                 = "Animania";
 
+	public static SimpleNetworkWrapper network;
+
+    
     // Tabs
     public static CreativeTabs TabAnimaniaEggs      = new TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania");
     public static CreativeTabs TabAnimaniaResources = new TabAnimaniaResources(CreativeTabs.getNextID(), "Animania");

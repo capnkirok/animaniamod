@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.animania.common.entities.rodents.EntityHamster;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.handler.ItemHandlerHamsterWheel;
 import com.animania.config.AnimaniaConfig;
 
@@ -64,6 +65,7 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 		{
 			energy += AnimaniaConfig.gameRules.hamsterWheelRFGeneration;
 			timer++;
+			this.markDirty();
 
 		}
 
@@ -92,7 +94,10 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 				IEnergyReceiver reciever = (IEnergyReceiver) getSurroundingTE(facing);
 				int recieved = reciever.receiveEnergy(facing.getOpposite(), energy, false);
 				energy -= recieved;
+				
 			}
+			this.markDirty();
+
 		}
 		
 		this.rotateTimer++;
@@ -270,6 +275,14 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 
 		return super.getCapability(capability, facing);
 
+	}
+	
+	
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		
+		AnimaniaHelper.sendTileEntityUpdate(this);
 	}
 
 }

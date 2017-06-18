@@ -10,8 +10,10 @@ import com.animania.common.handler.ItemHandler;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
 
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,7 +34,9 @@ public class BlockHamsterWheel extends BlockContainer
 {
 
 	private String name = "block_hamster_wheel";
+    public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
+	
 	public BlockHamsterWheel()
 	{
 		super(Material.IRON, MapColor.GRAY);
@@ -44,6 +48,7 @@ public class BlockHamsterWheel extends BlockContainer
 		this.setTickRandomly(true);
 		this.setHardness(1.4f);
 		this.setResistance(3.4F);
+		this.useNeighborBrightness = true;
 	}
 
 	@Override
