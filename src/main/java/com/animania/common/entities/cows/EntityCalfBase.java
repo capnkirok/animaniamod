@@ -41,7 +41,7 @@ public class EntityCalfBase extends EntityAnimaniaCow
 	public EntityCalfBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.0F, 1.4F);
+		this.setSize(1.2F, 1.8F);
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
 		this.ageTimer = 0;
@@ -238,6 +238,7 @@ public class EntityCalfBase extends EntityAnimaniaCow
 				float age = this.getEntityAge();
 				age = age + .01F;
 				this.setEntityAge(age);
+				this.setSize(1.2F + age, 1.8F + age);
 
 				if (age >= 1.0 && !this.world.isRemote)
 				{
