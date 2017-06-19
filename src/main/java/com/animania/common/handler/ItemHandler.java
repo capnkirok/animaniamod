@@ -77,21 +77,6 @@ public class ItemHandler
     public static Item cheeseMold;
     public static Item hamsterBallClear;
 	public static Item hamsterBallColored;
-	/*public static Item hamsterBallRed;
-	public static Item hamsterBallGreen;
-	public static Item hamsterBallBrown;
-	public static Item hamsterBallBlue;
-	public static Item hamsterBallPurple;
-	public static Item hamsterBallCyan;
-	public static Item hamsterBallLightGray;
-	public static Item hamsterBallGray;
-	public static Item hamsterBallPink;
-	public static Item hamsterBallLime;
-	public static Item hamsterBallYellow;
-	public static Item hamsterBallLightBlue;
-	public static Item hamsterBallMagenta;
-	public static Item hamsterBallOrange;
-	public static Item hamsterBallWhite;*/
     
     public static Item peacockFeatherBlue;
     public static Item peacockFeatherWhite;
@@ -280,21 +265,6 @@ public class ItemHandler
         ItemHandler.ridingCrop = new ItemRidingCrop();
         ItemHandler.hamsterBallClear = new ItemHamsterBall(false, "hamster_ball_clear");
         ItemHandler.hamsterBallColored = new ItemHamsterBall(true, "hamster_ball_colored");
-        /*ItemHandler.hamsterBallRed = new ItemHamsterBall("red");
-        ItemHandler.hamsterBallGreen = new ItemHamsterBall("green");
-        ItemHandler.hamsterBallBrown = new ItemHamsterBall("brown");
-        ItemHandler.hamsterBallBlue = new ItemHamsterBall("blue");
-        ItemHandler.hamsterBallPurple = new ItemHamsterBall("purple");
-        ItemHandler.hamsterBallCyan = new ItemHamsterBall("cyan");
-        ItemHandler.hamsterBallLightGray = new ItemHamsterBall("light_gray");
-        ItemHandler.hamsterBallGray = new ItemHamsterBall("gray");
-        ItemHandler.hamsterBallPink = new ItemHamsterBall("pink");
-        ItemHandler.hamsterBallLime = new ItemHamsterBall("lime");
-        ItemHandler.hamsterBallYellow = new ItemHamsterBall("yellow");
-        ItemHandler.hamsterBallLightBlue = new ItemHamsterBall("light_blue");
-        ItemHandler.hamsterBallMagenta = new ItemHamsterBall("magenta");
-        ItemHandler.hamsterBallOrange = new ItemHamsterBall("orange");
-        ItemHandler.hamsterBallWhite = new ItemHamsterBall("white"); */
         
         
         // Other foods
