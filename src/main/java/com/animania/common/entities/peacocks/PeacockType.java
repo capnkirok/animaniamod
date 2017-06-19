@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 public enum PeacockType implements AnimaniaType
 {
 	BLUE(EntityPeacockBlue.class, EntityPeafowlBlue.class, EntityPeachickBlue.class, AnimaniaAchievements.IndiaBlue),
-	WHITE(EntityPeacockBlue.class, EntityPeafowlBlue.class, EntityPeachickBlue.class, AnimaniaAchievements.White);
+	WHITE(EntityPeacockWhite.class, EntityPeafowlWhite.class, EntityPeachickWhite.class, AnimaniaAchievements.White);
 
 	private Class male;
 	private Class female;
