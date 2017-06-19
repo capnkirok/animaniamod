@@ -173,7 +173,7 @@ public class ModelDraftHorseStallion extends ModelBase
 		FrontLeftMuscle = new ModelRenderer( this, 60, 2 );
 		FrontLeftMuscle.setTextureSize( 128, 128 );
 		FrontLeftMuscle.addBox( -4F, -6F, -6F, 7, 12, 12);
-		FrontLeftMuscle.setRotationPoint( 5F, -1F + 1F, -8F );
+		FrontLeftMuscle.setRotationPoint( 5F, -1F, -8F );
 
 		FrontLeftA = new ModelRenderer( this, 1, 67 );
 		FrontLeftA.setTextureSize( 128, 128 );

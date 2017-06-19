@@ -154,7 +154,9 @@ public class EntityAITemptHamster extends EntityAIBase
         else {
             EntityHamster hamster = (EntityHamster) this.temptedEntity;
             hamster.setHamsterStanding(true);
-            this.temptedEntity.getNavigator().tryMoveToEntityLiving(this.temptingPlayer, this.speed);
+            if (!hamster.isSitting()) {
+				this.temptedEntity.getNavigator().tryMoveToEntityLiving(this.temptingPlayer, this.speed);
+			}
         }
     }
 
