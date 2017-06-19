@@ -4,11 +4,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import com.animania.common.AnimaniaAchievements;
+import com.animania.common.entities.AnimaniaType;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
-public enum FerretType
+public enum FerretType implements AnimaniaType
 {
 
 	GREY(EntityFerretGrey.class, AnimaniaAchievements.GreyFerret),
@@ -24,11 +26,7 @@ public enum FerretType
 		this.achievement = achievement;
 	}
 	
-	public static Class getMale(FerretType type)
-	{
-		return type.male;
-	}
-	
+	@Override
 	public EntityFerretBase getMale(World world)
 	{
 		Constructor<?> constructor = null;
@@ -50,6 +48,18 @@ public enum FerretType
 			e.printStackTrace();
 		}
 		return ferret;
+	}
+
+	@Override
+	public EntityLivingBase getFemale(World world)
+	{
+		return null;
+	}
+
+	@Override
+	public EntityLivingBase getChild(World world)
+	{
+		return null;
 	}
 	
 	public StatBase getAchievement()
