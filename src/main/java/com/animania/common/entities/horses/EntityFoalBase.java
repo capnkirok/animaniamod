@@ -49,7 +49,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse
 	public EntityFoalBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.2F, 1.4F);
+		this.setSize(1.0F, 1.4F);
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentHorses(this, 1.1D));
 		this.ageTimer = 0;
@@ -313,6 +313,8 @@ public class EntityFoalBase extends EntityAnimaniaHorse
 				float age = this.getEntityAge();
 				age = age + .01F;
 				this.setEntityAge(age);
+				
+				this.setSize(1.0F + age, 1.4F + age);
 
 				if (age >= 0.45 && !this.world.isRemote) {
 					int color = this.getColorNumber();

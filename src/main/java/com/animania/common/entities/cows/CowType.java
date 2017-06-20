@@ -5,11 +5,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import com.animania.common.AnimaniaAchievements;
+import com.animania.common.entities.AnimaniaType;
 
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
-public enum CowType
+public enum CowType implements AnimaniaType
 {
 	ANGUS(EntityBullAngus.class, EntityCowAngus.class, EntityCalfAngus.class, AnimaniaAchievements.Angus),
 	FRIESIAN(EntityBullFriesian.class, EntityCowFriesian.class, EntityCalfFriesian.class, AnimaniaAchievements.Friesian),
@@ -31,21 +32,7 @@ public enum CowType
 		this.achievement = achievement;
 	}
 
-	public static Class getMale(CowType type)
-	{
-		return type.bull;
-	}
-
-	public static Class getFemale(CowType type)
-	{
-		return type.cow;
-	}
-
-	public static Class getChild(CowType type)
-	{
-		return type.calf;
-	}
-
+	@Override
 	public EntityBullBase getMale(World world)
 	{
 		Constructor<?> constructor = null;
@@ -69,6 +56,7 @@ public enum CowType
 		return bull;
 	}
 
+	@Override
 	public EntityCowBase getFemale(World world)
 	{
 		Constructor<?> constructor = null;
@@ -92,6 +80,7 @@ public enum CowType
 		return cow;	
 	}
 
+	@Override
 	public EntityCalfBase getChild(World world)
 	{
 		Constructor<?> constructor = null;
@@ -128,6 +117,7 @@ public enum CowType
 	{
 		return this.achievement;
 	}
+
 
 
 

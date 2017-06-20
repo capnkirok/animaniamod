@@ -28,13 +28,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 
 public class VanillaEggHandler 
 {
 	Random rand = new Random();
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.LOW)
 	public void eggDrop(EntityJoinWorldEvent event)
 	{		
 

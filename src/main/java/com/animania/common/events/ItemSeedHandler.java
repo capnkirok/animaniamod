@@ -4,18 +4,18 @@ import java.util.Random;
 
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
+import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.EntityHogDuroc;
 import com.animania.common.entities.pigs.EntityHogHampshire;
 import com.animania.common.entities.pigs.EntityHogLargeBlack;
 import com.animania.common.entities.pigs.EntityHogLargeWhite;
 import com.animania.common.entities.pigs.EntityHogOldSpot;
-import com.animania.common.entities.pigs.EntityHogYorkshire;
+import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.entities.pigs.EntitySowDuroc;
 import com.animania.common.entities.pigs.EntitySowHampshire;
 import com.animania.common.entities.pigs.EntitySowLargeBlack;
 import com.animania.common.entities.pigs.EntitySowLargeWhite;
 import com.animania.common.entities.pigs.EntitySowOldSpot;
-import com.animania.common.entities.pigs.EntitySowYorkshire;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.config.AnimaniaConfig;
@@ -67,116 +67,24 @@ public class ItemSeedHandler
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && player.isRiding())
 		{
-			if (player.getRidingEntity() instanceof EntitySowYorkshire)
+			if (player.getRidingEntity() instanceof EntitySowBase)
 			{
-				EntitySowYorkshire ep = (EntitySowYorkshire) player.getRidingEntity();
+				EntitySowBase ep = (EntitySowBase) player.getRidingEntity();
 				ep.boost();
 				if (!player.capabilities.isCreativeMode)
 				{
 					stack.damageItem(1, player);
 				}
 			}
-			else if (player.getRidingEntity() instanceof EntityHogYorkshire)
+			else if (player.getRidingEntity() instanceof EntityHogBase)
 			{
-				EntityHogYorkshire ep = (EntityHogYorkshire) player.getRidingEntity();
+				EntityHogBase ep = (EntityHogBase) player.getRidingEntity();
 				ep.boost();
 				if (!player.capabilities.isCreativeMode)
 				{
 					stack.damageItem(1, player);
 				}
 			}
-			else if (player.getRidingEntity() instanceof EntitySowDuroc)
-			{
-				EntitySowDuroc ep = (EntitySowDuroc) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
-			}
-			else if (player.getRidingEntity() instanceof EntityHogDuroc)
-			{
-				EntityHogDuroc ep = (EntityHogDuroc) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
-			}
-			else if (player.getRidingEntity() instanceof EntitySowHampshire)
-			{
-				EntitySowHampshire ep = (EntitySowHampshire) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
-			}
-			else if (player.getRidingEntity() instanceof EntityHogHampshire)
-			{
-				EntityHogHampshire ep = (EntityHogHampshire) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
-			}
-			else if (player.getRidingEntity() instanceof EntitySowLargeBlack)
-			{
-				EntitySowLargeBlack ep = (EntitySowLargeBlack) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
-			}
-			else if (player.getRidingEntity() instanceof EntityHogLargeBlack)
-			{
-				EntityHogLargeBlack ep = (EntityHogLargeBlack) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
-			}
-			else if (player.getRidingEntity() instanceof EntitySowLargeWhite)
-			{
-				EntitySowLargeWhite ep = (EntitySowLargeWhite) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
-			}
-			else if (player.getRidingEntity() instanceof EntityHogLargeWhite)
-			{
-				EntityHogLargeWhite ep = (EntityHogLargeWhite) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
-			}
-			else if (player.getRidingEntity() instanceof EntitySowOldSpot)
-			{
-				EntitySowOldSpot ep = (EntitySowOldSpot) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
-			}
-			else if (player.getRidingEntity() instanceof EntityHogOldSpot)
-			{
-				EntityHogOldSpot ep = (EntityHogOldSpot) player.getRidingEntity();
-				ep.boost();
-				if (!player.capabilities.isCreativeMode)
-				{
-					stack.damageItem(1, player);
-				}
-
-			}
-
 		}
 		else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && player.isRiding())
 		{
