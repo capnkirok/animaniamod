@@ -84,23 +84,29 @@ public class EntityChickBase extends EntityAnimaniaChicken
 
 					if (this.rand.nextInt(2) < 1)
 					{
-						EntityHenLeghorn entityHen = new EntityHenLeghorn(this.world);
-						entityHen.setPosition(this.posX, this.posY + .5, this.posZ);
-						String name = this.getCustomNameTag();
-						if (name != "")
-							entityHen.setCustomNameTag(name);
-						this.world.spawnEntity(entityHen);
-						this.playSound(ModSoundEvents.chickenHurt1, 0.50F, 1.1F);
+						EntityHenBase entityHen = type.getFemale(world);
+						if (entityHen != null)
+						{
+							entityHen.setPosition(this.posX, this.posY + .5, this.posZ);
+							String name = this.getCustomNameTag();
+							if (name != "")
+								entityHen.setCustomNameTag(name);
+							this.world.spawnEntity(entityHen);
+							this.playSound(ModSoundEvents.chickenHurt1, 0.50F, 1.1F);
+						}
 					}
 					else
 					{
-						EntityRoosterLeghorn entityRooster = new EntityRoosterLeghorn(this.world);
-						entityRooster.setPosition(this.posX, this.posY + .5, this.posZ);
-						String name = this.getCustomNameTag();
-						if (name != "")
-							entityRooster.setCustomNameTag(name);
-						this.world.spawnEntity(entityRooster);
-						this.playSound(ModSoundEvents.chickenCrow1, 0.50F, 1.1F);
+						EntityRoosterBase entityRooster = type.getMale(world);
+						if (entityRooster != null)
+						{
+							entityRooster.setPosition(this.posX, this.posY + .5, this.posZ);
+							String name = this.getCustomNameTag();
+							if (name != "")
+								entityRooster.setCustomNameTag(name);
+							this.world.spawnEntity(entityRooster);
+							this.playSound(ModSoundEvents.chickenCrow1, 0.50F, 1.1F);
+						}
 					}
 
 				}
@@ -108,7 +114,7 @@ public class EntityChickBase extends EntityAnimaniaChicken
 
 		super.onLivingUpdate();
 	}
-	
+
 	public float getEntityAge()
 	{
 		return this.dataManager.get(EntityChickBase.AGE).floatValue();
@@ -118,7 +124,6 @@ public class EntityChickBase extends EntityAnimaniaChicken
 	{
 		this.dataManager.set(EntityChickBase.AGE, Float.valueOf(age));
 	}
-	
 
 	@Override
 	public void playLivingSound()
@@ -128,18 +133,17 @@ public class EntityChickBase extends EntityAnimaniaChicken
 		if (soundevent != null)
 			this.playSound(soundevent, this.getSoundVolume() - .3F, this.getSoundPitch() + .9F - this.getEntityAge() * 2);
 	}
-	
+
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
 		return;
 	}
-	
+
 	@Override
 	protected Item getDropItem()
 	{
 		return null;
 	}
-
 
 }

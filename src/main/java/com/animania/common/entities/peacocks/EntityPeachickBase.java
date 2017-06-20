@@ -22,13 +22,13 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 		this.ageTimer = 0;
 
 	}
-	
+
 	@Override
 	public boolean isChild()
 	{
 		return true;
 	}
-	
+
 	@Override
 	protected void entityInit()
 	{
@@ -36,8 +36,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 		this.dataManager.register(EntityPeachickBase.AGE, Float.valueOf(0));
 
 	}
-	
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
 	{
@@ -45,7 +44,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 		nbttagcompound.setFloat("Age", this.getEntityAge());
 
 	}
-	
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
 	{
@@ -53,14 +52,13 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 		this.setEntityAge(nbttagcompound.getFloat("Age"));
 
 	}
-	
-	
+
 	@Override
 	public void onLivingUpdate()
 	{
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
-		
+
 		this.ageTimer++;
 		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
 			if (fed && watered)
@@ -78,32 +76,36 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 					if (this.rand.nextInt(2) < 1)
 					{
 						EntityPeafowlBase entityFowl = type.getFemale(world);
-						entityFowl.setPosition(this.posX, this.posY + .5, this.posZ);
-						String name = this.getCustomNameTag();
-						if (name != "")
-							entityFowl.setCustomNameTag(name);
-						this.world.spawnEntity(entityFowl);
-						this.playSound(ModSoundEvents.peacock1, 0.50F, 1.1F);
+						if (entityFowl != null)
+						{
+							entityFowl.setPosition(this.posX, this.posY + .5, this.posZ);
+							String name = this.getCustomNameTag();
+							if (name != "")
+								entityFowl.setCustomNameTag(name);
+							this.world.spawnEntity(entityFowl);
+							this.playSound(ModSoundEvents.peacock1, 0.50F, 1.1F);
+						}
 					}
 					else
 					{
 						EntityPeacockBase entityPeacock = type.getMale(world);
-						entityPeacock.setPosition(this.posX, this.posY + .5, this.posZ);
-						String name = this.getCustomNameTag();
-						if (name != "")
-							entityPeacock.setCustomNameTag(name);
-						this.world.spawnEntity(entityPeacock);
-						this.playSound(ModSoundEvents.peacock8, 0.50F, 1.1F);
+						if (entityPeacock != null)
+						{
+							entityPeacock.setPosition(this.posX, this.posY + .5, this.posZ);
+							String name = this.getCustomNameTag();
+							if (name != "")
+								entityPeacock.setCustomNameTag(name);
+							this.world.spawnEntity(entityPeacock);
+							this.playSound(ModSoundEvents.peacock8, 0.50F, 1.1F);
+						}
 					}
 
 				}
 			}
 
-		
 		super.onLivingUpdate();
 	}
-	
-	
+
 	public float getEntityAge()
 	{
 		return this.dataManager.get(EntityPeachickBase.AGE).floatValue();
@@ -113,7 +115,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 	{
 		this.dataManager.set(EntityPeachickBase.AGE, Float.valueOf(age));
 	}
-	
+
 	@Override
 	public void playLivingSound()
 	{
@@ -122,7 +124,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 		if (soundevent != null)
 			this.playSound(soundevent, this.getSoundVolume() - .9F, this.getSoundPitch() + .4F - this.getEntityAge() * 2);
 	}
-	
+
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{

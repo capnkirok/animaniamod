@@ -185,7 +185,7 @@ public class EntityCalfBase extends EntityAnimaniaCow
 		else
 			return ModSoundEvents.mooCalf3;
 	}
-	
+
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
@@ -246,22 +246,28 @@ public class EntityCalfBase extends EntityAnimaniaCow
 					if (this.rand.nextInt(2) < 1)
 					{
 						EntityCowBase entityCow = this.cowType.getFemale(world);
-						entityCow.setPosition(this.posX, this.posY + .5, this.posZ);
-						String name = this.getCustomNameTag();
-						if (name != "")
-							entityCow.setCustomNameTag(name);
-						this.world.spawnEntity(entityCow);
-						this.playSound(ModSoundEvents.moo1, 0.50F, 1.1F);
+						if (entityCow != null)
+						{
+							entityCow.setPosition(this.posX, this.posY + .5, this.posZ);
+							String name = this.getCustomNameTag();
+							if (name != "")
+								entityCow.setCustomNameTag(name);
+							this.world.spawnEntity(entityCow);
+							this.playSound(ModSoundEvents.moo1, 0.50F, 1.1F);
+						}
 					}
 					else
 					{
 						EntityBullBase entityBull = this.cowType.getMale(world);
-						entityBull.setPosition(this.posX, this.posY + .5, this.posZ);
-						String name = this.getCustomNameTag();
-						if (name != "")
-							entityBull.setCustomNameTag(name);
-						this.world.spawnEntity(entityBull);
-						this.playSound(ModSoundEvents.bullMoo1, 0.50F, 1.1F);
+						if (entityBull != null)
+						{
+							entityBull.setPosition(this.posX, this.posY + .5, this.posZ);
+							String name = this.getCustomNameTag();
+							if (name != "")
+								entityBull.setCustomNameTag(name);
+							this.world.spawnEntity(entityBull);
+							this.playSound(ModSoundEvents.bullMoo1, 0.50F, 1.1F);
+						}
 					}
 
 				}
@@ -286,7 +292,6 @@ public class EntityCalfBase extends EntityAnimaniaCow
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F - (this.getEntityAge() * 2));
 		}
 	}
-
 
 	@Override
 	@SideOnly(Side.CLIENT)
