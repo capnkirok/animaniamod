@@ -151,8 +151,9 @@ public class ItemEntityEgg extends Item
 		}
 		if (entity != null)
 		{
-			entity.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-
+			
+			entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
+			
 			if (stack.hasDisplayName())
 				((EntityLivingBase) entity).setCustomNameTag(stack.getDisplayName());
 
@@ -161,7 +162,8 @@ public class ItemEntityEgg extends Item
 
 			Random rand = new Random();
 			world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
-
+			entity.rotationYawHead = entity.rotationYaw;
+			entity.renderYawOffset = entity.rotationYaw;
 			world.spawnEntity(entity);
 			return EnumActionResult.SUCCESS;
 
