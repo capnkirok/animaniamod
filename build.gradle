@@ -43,7 +43,7 @@ repositories {
 }
 
 dependencies {
-   compile 'com.leviathanstudio:CraftStudio:0.2.1.85-mc1.11.2-beta:dev'
+   compile 'com.leviathanstudio:CraftStudio:0.3.0.86-mc1.11.2-beta:dev'
    
    deobfCompile 'mcp.mobius.waila:Waila:1.7.1_1.11.2'
    // Should be that(compile) but it cause a weird bug for Ze and me(Timmy) (Crash noClassDefFound on DisplayUtil)
