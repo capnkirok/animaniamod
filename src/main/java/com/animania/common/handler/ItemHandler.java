@@ -1,5 +1,15 @@
 package com.animania.common.handler;
 
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.amphibians.AmphibianType;
+import com.animania.common.entities.chickens.ChickenType;
+import com.animania.common.entities.cows.CowType;
+import com.animania.common.entities.horses.HorseType;
+import com.animania.common.entities.peacocks.PeacockType;
+import com.animania.common.entities.pigs.PigType;
+import com.animania.common.entities.rodents.FerretType;
+import com.animania.common.entities.rodents.HamsterType;
+import com.animania.common.entities.rodents.HedgehogType;
 import com.animania.common.items.ItemBrownEgg;
 import com.animania.common.items.ItemCarvingKnife;
 import com.animania.common.items.ItemCheeseMold;
@@ -77,21 +87,6 @@ public class ItemHandler
     public static Item cheeseMold;
     public static Item hamsterBallClear;
 	public static Item hamsterBallColored;
-	/*public static Item hamsterBallRed;
-	public static Item hamsterBallGreen;
-	public static Item hamsterBallBrown;
-	public static Item hamsterBallBlue;
-	public static Item hamsterBallPurple;
-	public static Item hamsterBallCyan;
-	public static Item hamsterBallLightGray;
-	public static Item hamsterBallGray;
-	public static Item hamsterBallPink;
-	public static Item hamsterBallLime;
-	public static Item hamsterBallYellow;
-	public static Item hamsterBallLightBlue;
-	public static Item hamsterBallMagenta;
-	public static Item hamsterBallOrange;
-	public static Item hamsterBallWhite;*/
     
     public static Item peacockFeatherBlue;
     public static Item peacockFeatherWhite;
@@ -280,21 +275,6 @@ public class ItemHandler
         ItemHandler.ridingCrop = new ItemRidingCrop();
         ItemHandler.hamsterBallClear = new ItemHamsterBall(false, "hamster_ball_clear");
         ItemHandler.hamsterBallColored = new ItemHamsterBall(true, "hamster_ball_colored");
-        /*ItemHandler.hamsterBallRed = new ItemHamsterBall("red");
-        ItemHandler.hamsterBallGreen = new ItemHamsterBall("green");
-        ItemHandler.hamsterBallBrown = new ItemHamsterBall("brown");
-        ItemHandler.hamsterBallBlue = new ItemHamsterBall("blue");
-        ItemHandler.hamsterBallPurple = new ItemHamsterBall("purple");
-        ItemHandler.hamsterBallCyan = new ItemHamsterBall("cyan");
-        ItemHandler.hamsterBallLightGray = new ItemHamsterBall("light_gray");
-        ItemHandler.hamsterBallGray = new ItemHamsterBall("gray");
-        ItemHandler.hamsterBallPink = new ItemHamsterBall("pink");
-        ItemHandler.hamsterBallLime = new ItemHamsterBall("lime");
-        ItemHandler.hamsterBallYellow = new ItemHamsterBall("yellow");
-        ItemHandler.hamsterBallLightBlue = new ItemHamsterBall("light_blue");
-        ItemHandler.hamsterBallMagenta = new ItemHamsterBall("magenta");
-        ItemHandler.hamsterBallOrange = new ItemHamsterBall("orange");
-        ItemHandler.hamsterBallWhite = new ItemHamsterBall("white"); */
         
         
         // Other foods
@@ -380,103 +360,103 @@ public class ItemHandler
 
         // Item Entity Eggs
         // COWS
-        ItemHandler.entityeggcalfholstein = new ItemEntityEgg("calf_holstein");
-        ItemHandler.entityeggcowholstein = new ItemEntityEgg("cow_holstein");
-        ItemHandler.entityeggbullholstein = new ItemEntityEgg("bull_holstein");
+        ItemHandler.entityeggcalfholstein = new ItemEntityEgg("calf_holstein", CowType.HOLSTEIN, EntityGender.CHILD);
+        ItemHandler.entityeggcowholstein = new ItemEntityEgg("cow_holstein", CowType.HOLSTEIN, EntityGender.FEMALE);
+        ItemHandler.entityeggbullholstein = new ItemEntityEgg("bull_holstein", CowType.HOLSTEIN, EntityGender.MALE);
 
-        ItemHandler.entityeggcalffriesian = new ItemEntityEgg("calf_friesian");
-        ItemHandler.entityeggcowfriesian = new ItemEntityEgg("cow_friesian");
-        ItemHandler.entityeggbullfriesian = new ItemEntityEgg("bull_friesian");
+        ItemHandler.entityeggcalffriesian = new ItemEntityEgg("calf_friesian" , CowType.FRIESIAN, EntityGender.CHILD);
+        ItemHandler.entityeggcowfriesian = new ItemEntityEgg("cow_friesian", CowType.FRIESIAN, EntityGender.FEMALE);
+        ItemHandler.entityeggbullfriesian = new ItemEntityEgg("bull_friesian", CowType.FRIESIAN, EntityGender.MALE);
 
-        ItemHandler.entityeggcalfangus = new ItemEntityEgg("calf_angus");
-        ItemHandler.entityeggcowangus = new ItemEntityEgg("cow_angus");
-        ItemHandler.entityeggbullangus = new ItemEntityEgg("bull_angus");
+        ItemHandler.entityeggcalfangus = new ItemEntityEgg("calf_angus", CowType.ANGUS, EntityGender.CHILD);
+        ItemHandler.entityeggcowangus = new ItemEntityEgg("cow_angus", CowType.ANGUS, EntityGender.FEMALE);
+        ItemHandler.entityeggbullangus = new ItemEntityEgg("bull_angus", CowType.ANGUS, EntityGender.MALE);
 
-        ItemHandler.entityeggcalflonghorn = new ItemEntityEgg("calf_longhorn");
-        ItemHandler.entityeggcowlonghorn = new ItemEntityEgg("cow_longhorn");
-        ItemHandler.entityeggbulllonghorn = new ItemEntityEgg("bull_longhorn");
+        ItemHandler.entityeggcalflonghorn = new ItemEntityEgg("calf_longhorn", CowType.LONGHORN, EntityGender.CHILD);
+        ItemHandler.entityeggcowlonghorn = new ItemEntityEgg("cow_longhorn", CowType.LONGHORN, EntityGender.FEMALE);
+        ItemHandler.entityeggbulllonghorn = new ItemEntityEgg("bull_longhorn", CowType.LONGHORN, EntityGender.MALE);
 
-        ItemHandler.entityeggcalfhereford = new ItemEntityEgg("calf_hereford");
-        ItemHandler.entityeggcowhereford = new ItemEntityEgg("cow_hereford");
-        ItemHandler.entityeggbullhereford = new ItemEntityEgg("bull_hereford");
+        ItemHandler.entityeggcalfhereford = new ItemEntityEgg("calf_hereford", CowType.HEREFORD, EntityGender.CHILD);
+        ItemHandler.entityeggcowhereford = new ItemEntityEgg("cow_hereford", CowType.HEREFORD, EntityGender.FEMALE);
+        ItemHandler.entityeggbullhereford = new ItemEntityEgg("bull_hereford", CowType.HEREFORD, EntityGender.MALE);
 
-        ItemHandler.entityeggrandomcow = new ItemEntityEgg("cow_random");
+        ItemHandler.entityeggrandomcow = new ItemEntityEgg("cow_random", CowType.ANGUS, EntityGender.RANDOM);
 
         // CHICKENS
-        ItemHandler.entityeggchickplymouth = new ItemEntityEgg("chick_plymouth");
-        ItemHandler.entityegghenplymouth = new ItemEntityEgg("hen_plymouth");
-        ItemHandler.entityeggroosterplymouth = new ItemEntityEgg("rooster_plymouth");
+        ItemHandler.entityeggchickplymouth = new ItemEntityEgg("chick_plymouth", ChickenType.PLYMOUTH_ROCK, EntityGender.CHILD);
+        ItemHandler.entityegghenplymouth = new ItemEntityEgg("hen_plymouth", ChickenType.PLYMOUTH_ROCK, EntityGender.FEMALE);
+        ItemHandler.entityeggroosterplymouth = new ItemEntityEgg("rooster_plymouth", ChickenType.PLYMOUTH_ROCK, EntityGender.MALE);
 
-        ItemHandler.entityeggchickleghorn = new ItemEntityEgg("chick_leghorn");
-        ItemHandler.entityegghenleghorn = new ItemEntityEgg("hen_leghorn");
-        ItemHandler.entityeggroosterleghorn = new ItemEntityEgg("rooster_leghorn");
+        ItemHandler.entityeggchickleghorn = new ItemEntityEgg("chick_leghorn", ChickenType.LEGHORN, EntityGender.CHILD);
+        ItemHandler.entityegghenleghorn = new ItemEntityEgg("hen_leghorn", ChickenType.LEGHORN, EntityGender.FEMALE);
+        ItemHandler.entityeggroosterleghorn = new ItemEntityEgg("rooster_leghorn", ChickenType.LEGHORN, EntityGender.MALE);
 
-        ItemHandler.entityeggchickorpington = new ItemEntityEgg("chick_orpington");
-        ItemHandler.entityegghenorpington = new ItemEntityEgg("hen_orpington");
-        ItemHandler.entityeggroosterorpington = new ItemEntityEgg("rooster_orpington");
+        ItemHandler.entityeggchickorpington = new ItemEntityEgg("chick_orpington", ChickenType.ORPINGTON, EntityGender.CHILD);
+        ItemHandler.entityegghenorpington = new ItemEntityEgg("hen_orpington", ChickenType.ORPINGTON, EntityGender.FEMALE);
+        ItemHandler.entityeggroosterorpington = new ItemEntityEgg("rooster_orpington", ChickenType.ORPINGTON, EntityGender.MALE);
 
-        ItemHandler.entityeggchickred = new ItemEntityEgg("chick_red");
-        ItemHandler.entityegghenred = new ItemEntityEgg("hen_red");
-        ItemHandler.entityeggroosterred = new ItemEntityEgg("rooster_red");
+        ItemHandler.entityeggchickred = new ItemEntityEgg("chick_red", ChickenType.RHODE_ISLAND_RED, EntityGender.CHILD);
+        ItemHandler.entityegghenred = new ItemEntityEgg("hen_red", ChickenType.RHODE_ISLAND_RED, EntityGender.FEMALE);
+        ItemHandler.entityeggroosterred = new ItemEntityEgg("rooster_red", ChickenType.RHODE_ISLAND_RED, EntityGender.MALE);
 
-        ItemHandler.entityeggchickwyandotte = new ItemEntityEgg("chick_wyandotte");
-        ItemHandler.entityegghenwyandotte = new ItemEntityEgg("hen_wyandotte");
-        ItemHandler.entityeggroosterwyandotte = new ItemEntityEgg("rooster_wyandotte");
+        ItemHandler.entityeggchickwyandotte = new ItemEntityEgg("chick_wyandotte", ChickenType.WYANDOTTE, EntityGender.CHILD);
+        ItemHandler.entityegghenwyandotte = new ItemEntityEgg("hen_wyandotte", ChickenType.WYANDOTTE, EntityGender.FEMALE);
+        ItemHandler.entityeggroosterwyandotte = new ItemEntityEgg("rooster_wyandotte", ChickenType.WYANDOTTE, EntityGender.MALE);
 
-        ItemHandler.entityeggrandomchicken = new ItemEntityEgg("chicken_random");
+        ItemHandler.entityeggrandomchicken = new ItemEntityEgg("chicken_random", ChickenType.LEGHORN, EntityGender.RANDOM);
 
         // PEAFOWL
-        ItemHandler.entityeggpeachickblue = new ItemEntityEgg("peachick_blue");
-        ItemHandler.entityeggpeafowlblue = new ItemEntityEgg("peafowl_blue");
-        ItemHandler.entityeggpeacockblue = new ItemEntityEgg("peacock_blue");
+        ItemHandler.entityeggpeachickblue = new ItemEntityEgg("peachick_blue", PeacockType.BLUE, EntityGender.CHILD);
+        ItemHandler.entityeggpeafowlblue = new ItemEntityEgg("peafowl_blue", PeacockType.BLUE, EntityGender.FEMALE);
+        ItemHandler.entityeggpeacockblue = new ItemEntityEgg("peacock_blue", PeacockType.BLUE, EntityGender.MALE);
 
-        ItemHandler.entityeggpeachickwhite = new ItemEntityEgg("peachick_white");
-        ItemHandler.entityeggpeafowlwhite = new ItemEntityEgg("peafowl_white");
-        ItemHandler.entityeggpeacockwhite = new ItemEntityEgg("peacock_white");
+        ItemHandler.entityeggpeachickwhite = new ItemEntityEgg("peachick_white", PeacockType.WHITE, EntityGender.CHILD);
+        ItemHandler.entityeggpeafowlwhite = new ItemEntityEgg("peafowl_white", PeacockType.WHITE, EntityGender.FEMALE);
+        ItemHandler.entityeggpeacockwhite = new ItemEntityEgg("peacock_white", PeacockType.WHITE, EntityGender.MALE);
 
         // PIGS
-        ItemHandler.entityeggpigletyorkshire = new ItemEntityEgg("piglet_yorkshire");
-        ItemHandler.entityeggsowyorkshire = new ItemEntityEgg("sow_yorkshire");
-        ItemHandler.entityegghogyorkshire = new ItemEntityEgg("hog_yorkshire");
+        ItemHandler.entityeggpigletyorkshire = new ItemEntityEgg("piglet_yorkshire", PigType.YORKSHIRE, EntityGender.CHILD);
+        ItemHandler.entityeggsowyorkshire = new ItemEntityEgg("sow_yorkshire", PigType.YORKSHIRE, EntityGender.FEMALE);
+        ItemHandler.entityegghogyorkshire = new ItemEntityEgg("hog_yorkshire", PigType.YORKSHIRE, EntityGender.MALE);
 
-        ItemHandler.entityeggpigletoldspot = new ItemEntityEgg("piglet_oldspot");
-        ItemHandler.entityeggsowoldspot = new ItemEntityEgg("sow_oldspot");
-        ItemHandler.entityegghogoldspot = new ItemEntityEgg("hog_oldspot");
+        ItemHandler.entityeggpigletoldspot = new ItemEntityEgg("piglet_oldspot", PigType.OLD_SPOT, EntityGender.CHILD);
+        ItemHandler.entityeggsowoldspot = new ItemEntityEgg("sow_oldspot", PigType.OLD_SPOT, EntityGender.FEMALE);
+        ItemHandler.entityegghogoldspot = new ItemEntityEgg("hog_oldspot", PigType.OLD_SPOT, EntityGender.MALE);
 
-        ItemHandler.entityeggpigletlargeblack = new ItemEntityEgg("piglet_largeblack");
-        ItemHandler.entityeggsowlargeblack = new ItemEntityEgg("sow_largeblack");
-        ItemHandler.entityegghoglargeblack = new ItemEntityEgg("hog_largeblack");
+        ItemHandler.entityeggpigletlargeblack = new ItemEntityEgg("piglet_largeblack", PigType.LARGE_BLACK, EntityGender.CHILD);
+        ItemHandler.entityeggsowlargeblack = new ItemEntityEgg("sow_largeblack", PigType.LARGE_BLACK, EntityGender.FEMALE);
+        ItemHandler.entityegghoglargeblack = new ItemEntityEgg("hog_largeblack", PigType.LARGE_BLACK, EntityGender.MALE);
 
-        ItemHandler.entityeggpigletlargewhite = new ItemEntityEgg("piglet_largewhite");
-        ItemHandler.entityeggsowlargewhite = new ItemEntityEgg("sow_largewhite");
-        ItemHandler.entityegghoglargewhite = new ItemEntityEgg("hog_largewhite");
+        ItemHandler.entityeggpigletlargewhite = new ItemEntityEgg("piglet_largewhite", PigType.LARGE_WHITE, EntityGender.CHILD);
+        ItemHandler.entityeggsowlargewhite = new ItemEntityEgg("sow_largewhite", PigType.LARGE_WHITE, EntityGender.FEMALE);
+        ItemHandler.entityegghoglargewhite = new ItemEntityEgg("hog_largewhite", PigType.LARGE_WHITE, EntityGender.MALE);
 
-        ItemHandler.entityeggpigletduroc = new ItemEntityEgg("piglet_duroc");
-        ItemHandler.entityeggsowduroc = new ItemEntityEgg("sow_duroc");
-        ItemHandler.entityegghogduroc = new ItemEntityEgg("hog_duroc");
+        ItemHandler.entityeggpigletduroc = new ItemEntityEgg("piglet_duroc", PigType.DUROC, EntityGender.CHILD);
+        ItemHandler.entityeggsowduroc = new ItemEntityEgg("sow_duroc", PigType.DUROC, EntityGender.FEMALE);
+        ItemHandler.entityegghogduroc = new ItemEntityEgg("hog_duroc", PigType.DUROC, EntityGender.MALE);
 
-        ItemHandler.entityeggpiglethampshire = new ItemEntityEgg("piglet_hampshire");
-        ItemHandler.entityeggsowhampshire = new ItemEntityEgg("sow_hampshire");
-        ItemHandler.entityegghoghampshire = new ItemEntityEgg("hog_hampshire");
+        ItemHandler.entityeggpiglethampshire = new ItemEntityEgg("piglet_hampshire", PigType.HAMPSHIRE, EntityGender.CHILD);
+        ItemHandler.entityeggsowhampshire = new ItemEntityEgg("sow_hampshire", PigType.HAMPSHIRE, EntityGender.FEMALE);
+        ItemHandler.entityegghoghampshire = new ItemEntityEgg("hog_hampshire", PigType.HAMPSHIRE, EntityGender.MALE);
 
-        ItemHandler.entityeggrandompig = new ItemEntityEgg("pig_random");
+        ItemHandler.entityeggrandompig = new ItemEntityEgg("pig_random", PigType.DUROC, EntityGender.RANDOM);
 
         // RODENTS
-        ItemHandler.entityegghamster = new ItemEntityEgg("hamster");
-        ItemHandler.entityeggferretgrey = new ItemEntityEgg("ferret_grey");
-        ItemHandler.entityeggferretwhite = new ItemEntityEgg("ferret_white");
-        ItemHandler.entityegghedgehog = new ItemEntityEgg("hedgehog");
-        ItemHandler.entityegghedgehogalbino = new ItemEntityEgg("hedgehog_albino");
+        ItemHandler.entityegghamster = new ItemEntityEgg("hamster", HamsterType.STANDARD, EntityGender.MALE);
+        ItemHandler.entityeggferretgrey = new ItemEntityEgg("ferret_grey", FerretType.GREY, EntityGender.MALE);
+        ItemHandler.entityeggferretwhite = new ItemEntityEgg("ferret_white", FerretType.WHITE, EntityGender.MALE);
+        ItemHandler.entityegghedgehog = new ItemEntityEgg("hedgehog", HedgehogType.NORMAL, EntityGender.MALE);
+        ItemHandler.entityegghedgehogalbino = new ItemEntityEgg("hedgehog_albino", HedgehogType.ALBINO, EntityGender.MALE);
 
         // AMPHIBIANS
-        ItemHandler.entityeggfrog = new ItemEntityEgg("frog");
-        ItemHandler.entityeggtoad = new ItemEntityEgg("toad");
-        ItemHandler.entityeggdartfrog = new ItemEntityEgg("dart_frog");
+        ItemHandler.entityeggfrog = new ItemEntityEgg("frog", AmphibianType.FROG, EntityGender.MALE);
+        ItemHandler.entityeggtoad = new ItemEntityEgg("toad", AmphibianType.TOAD, EntityGender.MALE);
+        ItemHandler.entityeggdartfrog = new ItemEntityEgg("dart_frog", AmphibianType.DART_FROG, EntityGender.MALE);
 
         // HORSES
-        entityeggdrafthorsestallion = new ItemEntityEgg("draft_horse_stallion");
-        entityeggdrafthorsemare = new ItemEntityEgg("draft_horse_mare");
-        entityeggdrafthorsefoal = new ItemEntityEgg("draft_horse_foal");
+        entityeggdrafthorsestallion = new ItemEntityEgg("draft_horse_stallion", HorseType.DRAFT, EntityGender.MALE);
+        entityeggdrafthorsemare = new ItemEntityEgg("draft_horse_mare", HorseType.DRAFT, EntityGender.FEMALE);
+        entityeggdrafthorsefoal = new ItemEntityEgg("draft_horse_foal", HorseType.DRAFT, EntityGender.CHILD);
 
     }
 }

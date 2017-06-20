@@ -67,7 +67,6 @@ public class EntityAnimaniaHorse extends EntityAnimal
 	public EntityAnimaniaHorse(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.6F, 2.2F);
 		this.stepHeight = 1.1F;
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityHorseEatGrass(this);

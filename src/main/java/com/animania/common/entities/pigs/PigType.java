@@ -5,11 +5,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import com.animania.common.AnimaniaAchievements;
+import com.animania.common.entities.AnimaniaType;
 
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
-public enum PigType
+public enum PigType implements AnimaniaType
 {
 	DUROC(EntityHogDuroc.class, EntitySowDuroc.class, EntityPigletDuroc.class, AnimaniaAchievements.Duroc),
 	HAMPSHIRE(EntityHogHampshire.class, EntitySowHampshire.class, EntityPigletHampshire.class, AnimaniaAchievements.Hampshire),
@@ -32,21 +33,7 @@ public enum PigType
 		this.achievement = achievement;
 	}
 
-	public static Class getMale(PigType type)
-	{
-		return type.hog;
-	}
-
-	public static Class getFemale(PigType type)
-	{
-		return type.sow;
-	}
-
-	public static Class getChild(PigType type)
-	{
-		return type.piglet;
-	}
-
+	@Override
 	public EntityHogBase getMale(World world)
 	{
 		Constructor<?> constructor = null;
@@ -70,6 +57,7 @@ public enum PigType
 		return bull;
 	}
 
+	@Override
 	public EntitySowBase getFemale(World world)
 	{
 		Constructor<?> constructor = null;
@@ -93,6 +81,7 @@ public enum PigType
 		return cow;	
 	}
 
+	@Override
 	public EntityPigletBase getChild(World world)
 	{
 		Constructor<?> constructor = null;

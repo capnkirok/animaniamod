@@ -5,11 +5,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import com.animania.common.AnimaniaAchievements;
+import com.animania.common.entities.AnimaniaType;
 
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
-public enum HorseType
+public enum HorseType implements AnimaniaType
 {
 	DRAFT(EntityStallionDraftHorse.class, EntityMareDraftHorse.class, EntityFoalDraftHorse.class, AnimaniaAchievements.Horses);
 	
@@ -26,21 +27,7 @@ public enum HorseType
 		this.achievement = achievement;
 	}
 
-	public static Class getMale(HorseType type)
-	{
-		return type.stallion;
-	}
-
-	public static Class getFemale(HorseType type)
-	{
-		return type.mare;
-	}
-
-	public static Class getChild(HorseType type)
-	{
-		return type.foal;
-	}
-
+	@Override
 	public EntityStallionBase getMale(World world)
 	{
 		Constructor<?> constructor = null;
@@ -64,6 +51,7 @@ public enum HorseType
 		return stallion;
 	}
 
+	@Override
 	public EntityMareBase getFemale(World world)
 	{
 		Constructor<?> constructor = null;
@@ -87,6 +75,7 @@ public enum HorseType
 		return mare;	
 	}
 
+	@Override
 	public EntityFoalBase getChild(World world)
 	{
 		Constructor<?> constructor = null;

@@ -252,49 +252,5 @@ public class EntityFrogs extends EntityAmphibian
 		}
 	}
 
-	private ItemStack getItem(String moditem) {
-
-		ItemStack foundStack = null;
-		String item = "";
-		String mod = "";
-		int sepLoc = 0;
-		int metaLoc = 0;
-		boolean metaFlag = false;
-		String metaVal = "";
-
-		sepLoc = moditem.indexOf(":");
-		metaLoc = moditem.indexOf("#");
-
-		if (!moditem.contains(":")) {
-			return new ItemStack(Blocks.AIR, 1);
-		}
-
-		mod = moditem.substring(0, sepLoc);
-
-		if (metaLoc > 0) {
-			item = moditem.substring(sepLoc+1, metaLoc);
-		} else {
-			item = moditem.substring(sepLoc+1, moditem.length());
-		}
-		if (metaLoc > 0) {
-			metaFlag = true;
-			metaVal = moditem.substring(metaLoc+1, moditem.length());
-		}
-
-		Item bob = Item.getByNameOrId(item);
-
-		if (bob != null) {
-
-			if (metaFlag) {
-				foundStack = new ItemStack(bob, 1, Integer.parseInt(metaVal));
-			} else {
-				foundStack = new ItemStack(bob, 1);
-			}
-		} else {
-			foundStack = new ItemStack(Blocks.AIR, 1);
-		}
-
-		return foundStack;
-	}
 
 }
