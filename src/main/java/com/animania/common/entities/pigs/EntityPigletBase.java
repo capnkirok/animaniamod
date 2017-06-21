@@ -32,7 +32,6 @@ public class EntityPigletBase extends EntityAnimaniaPig
 	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityPigletBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
-
 	public EntityPigletBase(World worldIn)
 	{
 		super(worldIn);
@@ -41,7 +40,6 @@ public class EntityPigletBase extends EntityAnimaniaPig
 		this.ageTimer = 0;
 
 	}
-
 
 	@Override
 	protected void initEntityAI()
@@ -56,7 +54,6 @@ public class EntityPigletBase extends EntityAnimaniaPig
 		return true;
 	}
 
-
 	@Override
 	protected void applyEntityAttributes()
 	{
@@ -65,7 +62,6 @@ public class EntityPigletBase extends EntityAnimaniaPig
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.315D);
 
 	}
-
 
 	@Override
 	protected void entityInit()
@@ -106,7 +102,6 @@ public class EntityPigletBase extends EntityAnimaniaPig
 			this.setParentUniqueId(UUID.fromString(s));
 
 	}
-
 
 	@Nullable
 	public UUID getParentUniqueId()
@@ -205,11 +200,10 @@ public class EntityPigletBase extends EntityAnimaniaPig
 	@Override
 	public void onLivingUpdate()
 	{
-		
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
-		
+
 		this.ageTimer++;
 		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
 		{
@@ -227,22 +221,28 @@ public class EntityPigletBase extends EntityAnimaniaPig
 					if (this.rand.nextInt(2) < 1)
 					{
 						EntitySowBase entityPig = this.pigType.getFemale(world);
-						entityPig.setPosition(this.posX, this.posY + .5, this.posZ);
-						String name = this.getCustomNameTag();
-						if (name != "")
-							entityPig.setCustomNameTag(name);
-						this.world.spawnEntity(entityPig);
-						this.playSound(ModSoundEvents.pig1, 0.50F, 1.1F);
+						if (entityPig != null)
+						{
+							entityPig.setPosition(this.posX, this.posY + .5, this.posZ);
+							String name = this.getCustomNameTag();
+							if (name != "")
+								entityPig.setCustomNameTag(name);
+							this.world.spawnEntity(entityPig);
+							this.playSound(ModSoundEvents.pig1, 0.50F, 1.1F);
+						}
 					}
 					else
 					{
 						EntityHogBase entityPig = this.pigType.getMale(world);
-						entityPig.setPosition(this.posX, this.posY + .5, this.posZ);
-						String name = this.getCustomNameTag();
-						if (name != "")
-							entityPig.setCustomNameTag(name);
-						this.world.spawnEntity(entityPig);
-						this.playSound(ModSoundEvents.hog1, 0.50F, 1.1F);
+						if (entityPig != null)
+						{
+							entityPig.setPosition(this.posX, this.posY + .5, this.posZ);
+							String name = this.getCustomNameTag();
+							if (name != "")
+								entityPig.setCustomNameTag(name);
+							this.world.spawnEntity(entityPig);
+							this.playSound(ModSoundEvents.hog1, 0.50F, 1.1F);
+						}
 					}
 
 				}
@@ -251,8 +251,7 @@ public class EntityPigletBase extends EntityAnimaniaPig
 
 		super.onLivingUpdate();
 	}
-	
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
@@ -296,14 +295,13 @@ public class EntityPigletBase extends EntityAnimaniaPig
 	{
 		return stack != ItemStack.EMPTY && (EntityAnimaniaPig.TEMPTATION_ITEMS.contains(stack.getItem()) || ItemStack.areItemStacksEqual(stack, this.slop));
 	}
-	
-	
+
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
 		return;
 	}
-	
+
 	@Override
 	protected Item getDropItem()
 	{

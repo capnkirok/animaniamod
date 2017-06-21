@@ -4,10 +4,14 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.handler.ItemHandlerHamsterWheel;
 import com.animania.config.AnimaniaConfig;
+import com.leviathanstudio.craftstudio.CraftStudioApi;
+import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
+import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileEntity;
 
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
@@ -25,26 +29,32 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEnergyProvider
+public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable, IEnergyProvider
 {
-
+	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(TileEntityHamsterWheel.class);
+	
+	static{
+		animHandler.addAnim(Animania.MODID, "anim_hamster_wheel", "model_hamster_wheel", true);
+		animHandler.addAnim(Animania.MODID, "hamster_run", "hamster", true);
+	}
+	
 	private boolean isRunning;
 	private EntityHamster hamster;
 	private NBTTagCompound hamsterNBT;
 	private ItemHandlerHamsterWheel itemHandler;
 	private int timer;
 	private int energy;
-	public int rotateTimer;
 
 	public TileEntityHamsterWheel()
 	{
 		this.itemHandler = new ItemHandlerHamsterWheel();
-		this.rotateTimer = 0;
 	}
 	
 	@Override
 	public void update()
 	{
+		super.update();
+		
 		if (hamster == null && hamsterNBT != null)
 		{
 			hamster = new EntityHamster(world);
@@ -100,9 +110,15 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 
 		}
 		
-		this.rotateTimer++;
-		if (this.rotateTimer > 2) {
-			this.rotateTimer = 0;
+		if (!this.isWorldRemote()){
+			if (this.isRunning && !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)){
+				this.getAnimationHandler().startAnimation(Animania.MODID, "anim_hamster_wheel", this);
+				this.getAnimationHandler().startAnimation(Animania.MODID, "hamster_run", this);
+			}
+			else if (!this.isRunning && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)){
+				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_hamster_wheel", this);
+				this.getAnimationHandler().stopAnimation(Animania.MODID, "hamster_run", this);
+			}
 		}
 
 	}
@@ -180,6 +196,11 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 		NBTTagCompound hamster = compound.getCompoundTag("hamster");
 		if (!hamster.equals(new NBTTagCompound()))
 			this.hamsterNBT = hamster;
+		else{
+			//Delete the hamster so this side does not restart the wheel
+			this.hamsterNBT = null;
+			this.hamster = null;
+		}
 		this.isRunning = compound.getBoolean("running");
 		this.timer = compound.getInteger("timer");
 		this.itemHandler.deserializeNBT(compound.getCompoundTag("items"));
@@ -285,4 +306,8 @@ public class TileEntityHamsterWheel extends TileEntity implements ITickable, IEn
 		AnimaniaHelper.sendTileEntityUpdate(this);
 	}
 
+	@Override
+	public AnimationHandler<TileEntityHamsterWheel> getAnimationHandler() {
+		return animHandler;
+	}
 }
