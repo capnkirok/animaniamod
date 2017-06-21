@@ -1,0 +1,177 @@
+{
+  "title": "Hamster Wheel",
+  "tree": [
+    {
+      "name": "Base1",
+      "position": [ 6, 0, -6 ],
+      "offsetFromPivot": [ -0.5, -6.5, 0 ],
+      "size": [ 1, 13, 1 ],
+      "rotation": [ 0, 0, -89.99999 ],
+      "texOffset": [ 12, 1 ],
+      "children": [
+        {
+          "name": "Base2",
+          "position": [ -10.5, 0.4999996, 0 ],
+          "offsetFromPivot": [ 0, -6, 0 ],
+          "size": [ 1, 13, 1 ],
+          "rotation": [ 0, 0, 120 ],
+          "texOffset": [ 12, 1 ],
+          "children": []
+        },
+        {
+          "name": "axel1",
+          "position": [ -10.5, 0.4999996, 1 ],
+          "offsetFromPivot": [ 0, 0, 0 ],
+          "size": [ 1, 1, 1 ],
+          "rotation": [ 0, 0, 120 ],
+          "texOffset": [ 12, 1 ],
+          "children": []
+        },
+        {
+          "name": "Base3",
+          "position": [ 0.4999999, 6.499999, 12 ],
+          "offsetFromPivot": [ -0.5, -6.5, 0 ],
+          "size": [ 1, 13, 1 ],
+          "rotation": [ 0, 0, 9.659347E-06 ],
+          "texOffset": [ 12, 1 ],
+          "children": [
+            {
+              "name": "Base4",
+              "position": [ -10.5, 0.4999996, 0 ],
+              "offsetFromPivot": [ 0, -6, 0 ],
+              "size": [ 1, 13, 1 ],
+              "rotation": [ 0, 0, 120 ],
+              "texOffset": [ 12, 1 ],
+              "children": []
+            },
+            {
+              "name": "axel12",
+              "position": [ -10.5, 0.4999978, -1 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 1, 1, 1 ],
+              "rotation": [ 0, 0, 120 ],
+              "texOffset": [ 12, 1 ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Base5",
+          "position": [ -8.642673E-07, -6.000001, 6 ],
+          "offsetFromPivot": [ 0, 0, 0 ],
+          "size": [ 1, 1, 12 ],
+          "rotation": [ 0, 0, 90.00001 ],
+          "texOffset": [ 4, 13 ],
+          "children": []
+        },
+        {
+          "name": "Wheel1",
+          "position": [ -17, 0.4999969, 6 ],
+          "offsetFromPivot": [ 0, 0, 0 ],
+          "size": [ 6, 1, 10 ],
+          "rotation": [ 0, 0, 90.00002 ],
+          "texOffset": [ 19, 2 ],
+          "children": [
+            {
+              "name": "Wheel2",
+              "position": [ 3, 0.5, 0 ],
+              "offsetFromPivot": [ 3, -0.5, 0 ],
+              "size": [ 6, 1, 10 ],
+              "rotation": [ 0, 0, -45.00001 ],
+              "texOffset": [ 19, 2 ],
+              "children": [
+                {
+                  "name": "Wheel3",
+                  "position": [ 3, 0.5, 0 ],
+                  "offsetFromPivot": [ 3, -0.5, 0 ],
+                  "size": [ 6, 1, 10 ],
+                  "rotation": [ 0, 0, -45 ],
+                  "texOffset": [ 19, 2 ],
+                  "children": [
+                    {
+                      "name": "Wheel4",
+                      "position": [ 3, 0.5, 0 ],
+                      "offsetFromPivot": [ 3, -0.5, 0 ],
+                      "size": [ 6, 1, 10 ],
+                      "rotation": [ 0, 0, -45 ],
+                      "texOffset": [ 19, 2 ],
+                      "children": [
+                        {
+                          "name": "Wheel5",
+                          "position": [ 3, 0.5, 0 ],
+                          "offsetFromPivot": [ 3, -0.5, 0 ],
+                          "size": [ 6, 1, 10 ],
+                          "rotation": [ -360, 1.252957E-13, -45 ],
+                          "texOffset": [ 19, 2 ],
+                          "children": [
+                            {
+                              "name": "Wheel6",
+                              "position": [ 3, 0.5, 0 ],
+                              "offsetFromPivot": [ 3, -0.5, 0 ],
+                              "size": [ 6, 1, 10 ],
+                              "rotation": [ 0, 0, -45 ],
+                              "texOffset": [ 19, 2 ],
+                              "children": [
+                                {
+                                  "name": "Wheel7",
+                                  "position": [ 3, 0.5, 0 ],
+                                  "offsetFromPivot": [ 3, -0.5, 0 ],
+                                  "size": [ 6, 1, 10 ],
+                                  "rotation": [ 0, 0, -45 ],
+                                  "texOffset": [ 19, 2 ],
+                                  "children": [
+                                    {
+                                      "name": "Wheel8",
+                                      "position": [ 3, 0.5, 0 ],
+                                      "offsetFromPivot": [ 3, -0.5, 0 ],
+                                      "size": [ 6, 1, 10 ],
+                                      "rotation": [ 0, 0, -45 ],
+                                      "texOffset": [ 19, 2 ],
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Stick",
+              "position": [ -7.061636E-07, -6.5, -4.75 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 1, 13, 0 ],
+              "rotation": [ 0, 0, 0 ],
+              "texOffset": [ 13, 2 ],
+              "children": [
+                {
+                  "name": "Stick2",
+                  "position": [ -7.061636E-07, -1.156998E-07, 9.5 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 1, 13, 0 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 13, 2 ],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "axel1b",
+          "position": [ -10.5, 0.4999996, -1 ],
+          "offsetFromPivot": [ 0, 0, 0 ],
+          "size": [ 1, 1, 2 ],
+          "rotation": [ 0, 0, 120 ],
+          "texOffset": [ 0, 0 ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}
