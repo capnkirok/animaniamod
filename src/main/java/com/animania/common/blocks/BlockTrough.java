@@ -7,7 +7,11 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.compat.top.TOPInfoProvider;
 
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
@@ -37,20 +41,23 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class BlockTrough extends BlockContainer
+public class BlockTrough extends BlockContainer implements TOPInfoProvider
 {
 	private String name = "block_trough";
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
@@ -114,7 +121,6 @@ public class BlockTrough extends BlockContainer
 					if (!ItemStack.areItemStacksEqual(remaining, held))
 						stack.shrink(1);
 
-
 				}
 
 			}
@@ -128,7 +134,8 @@ public class BlockTrough extends BlockContainer
 				ItemStack newStack = handler.getContainer();
 				entityitem.setEntityItemStack(newStack);
 
-			} else if (this.hasFluid(stack, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+			}
+			else if (this.hasFluid(stack, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
 				te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.BLOCKS, 0.6F, 0.8F);
@@ -193,19 +200,22 @@ public class BlockTrough extends BlockContainer
 				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
 				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 				te.setTroughRotation(0);
-			} else if (placer.getHorizontalFacing().toString() == "north")
+			}
+			else if (placer.getHorizontalFacing().toString() == "north")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
 				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
 				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 				te.setTroughRotation(1);
-			} else if (placer.getHorizontalFacing().toString() == "east")
+			}
+			else if (placer.getHorizontalFacing().toString() == "east")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
 				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
 				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 				te.setTroughRotation(2);
-			} else if (placer.getHorizontalFacing().toString() == "west")
+			}
+			else if (placer.getHorizontalFacing().toString() == "west")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
 				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
@@ -273,15 +283,18 @@ public class BlockTrough extends BlockContainer
 		{
 			BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
 			worldIn.setBlockToAir(invisipos);
-		} else if (dir == "north")
+		}
+		else if (dir == "north")
 		{
 			BlockPos invisipos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
 			worldIn.setBlockToAir(invisipos);
-		} else if (dir == "east")
+		}
+		else if (dir == "east")
 		{
 			BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
 			worldIn.setBlockToAir(invisipos);
-		} else if (dir == "west")
+		}
+		else if (dir == "west")
 		{
 			BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
 			worldIn.setBlockToAir(invisipos);
@@ -321,8 +334,8 @@ public class BlockTrough extends BlockContainer
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing,
-			float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	{
 
 		ItemStack heldItem = playerIn.getHeldItem(hand);
 		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
@@ -340,6 +353,7 @@ public class BlockTrough extends BlockContainer
 				worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 				return true;
 			}
+			
 
 		}
 		// LIQUIDS
@@ -357,7 +371,8 @@ public class BlockTrough extends BlockContainer
 			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 			return true;
 
-		} else if (hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+		}
+		else if (hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 		{
 			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
@@ -373,7 +388,7 @@ public class BlockTrough extends BlockContainer
 
 		}
 		// EMPTY SOLIDS
-		else if (heldItem.isEmpty() && !te.itemHandler.getStackInSlot(0).isEmpty())
+		else if (playerIn.getHeldItemOffhand().isEmpty() && playerIn.getHeldItemMainhand().isEmpty() && !te.itemHandler.getStackInSlot(0).isEmpty())
 		{
 			ItemStack extract = te.itemHandler.extractItem(0, 1, false);
 			playerIn.inventory.addItemStackToInventory(extract);
@@ -396,17 +411,19 @@ public class BlockTrough extends BlockContainer
 					handler.fill(fluidStack, true);
 					ItemStack newstack = handler.getContainer();
 
-					if (heldItem.getCount() > 1) {
+					if (heldItem.getCount() > 1)
+					{
 						heldItem.shrink(1);
 						playerIn.inventory.addItemStackToInventory(newstack);
 					}
 					else
 						playerIn.setHeldItem(hand, newstack);
-
+					
+					return true;
 				}
-				
+
 			}
-			
+
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
 			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 
@@ -415,20 +432,22 @@ public class BlockTrough extends BlockContainer
 		}
 		return false;
 	}
-	
-	
+
 	@Override
-	public IBlockState withRotation(IBlockState state, Rotation rot) {
+	public IBlockState withRotation(IBlockState state, Rotation rot)
+	{
 		return state.withProperty(BlockTrough.FACING, rot.rotate(state.getValue(BlockTrough.FACING)));
 	}
 
 	@Override
-	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
+	{
 		return state.withRotation(mirrorIn.toRotation(state.getValue(BlockTrough.FACING)));
 	}
 
 	@Override
-	protected BlockStateContainer createBlockState() {
+	protected BlockStateContainer createBlockState()
+	{
 		return new BlockStateContainer(this, new IProperty[] { BlockTrough.FACING });
 	}
 
@@ -465,7 +484,6 @@ public class BlockTrough extends BlockContainer
 		return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000 && FluidUtil.getFluidContained(stack).getFluid() == fluid;
 	}
 
-
 	public BlockPos findInvisiblock(World world, BlockPos pos)
 	{
 		EnumFacing facing = world.getBlockState(pos).getValue(FACING);
@@ -473,41 +491,37 @@ public class BlockTrough extends BlockContainer
 
 		return pos.offset(facing);
 	}
-	
+
 	public static boolean isModdedFoodItem(ItemStack stack)
 	{
-		if(stack.isEmpty())
+		if (stack.isEmpty())
 			return false;
-		
+
 		Item item = stack.getItem();
-		
-		
-		if(Loader.isModLoaded("simplecorn"))
+
+		if (Loader.isModLoaded("simplecorn"))
 		{
-			if(item == Item.getByNameOrId("simplecorn:corncob"))
+			if (item == Item.getByNameOrId("simplecorn:corncob"))
 				return true;
 		}
-		
-		if(Loader.isModLoaded("harvestcraft"))
+
+		if (Loader.isModLoaded("harvestcraft"))
 		{
-			if(item == Item.getByNameOrId("harvestcraft:barleyitem"))
+			if (item == Item.getByNameOrId("harvestcraft:barleyitem"))
 				return true;
-			
-			if(item == Item.getByNameOrId("harvestcraft:oatsitem"))
+
+			if (item == Item.getByNameOrId("harvestcraft:oatsitem"))
 				return true;
-			
-			if(item == Item.getByNameOrId("harvestcraft:ryeitem"))
+
+			if (item == Item.getByNameOrId("harvestcraft:ryeitem"))
 				return true;
-			
-			if(item == Item.getByNameOrId("harvestcraft:cornitem"))
+
+			if (item == Item.getByNameOrId("harvestcraft:cornitem"))
 				return true;
 		}
-		
-		
+
 		return false;
 	}
-	
-	
 
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
@@ -516,6 +530,32 @@ public class BlockTrough extends BlockContainer
 		worldIn.updateComparatorOutputLevel(invisi, BlockHandler.blockInvisiblock);
 
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+	}
+
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
+	{
+		TileEntity te = world.getTileEntity(data.getPos());
+		if (te instanceof TileEntityTrough)
+		{
+			TileEntityTrough trough = (TileEntityTrough) te;
+			ItemStack stack = trough.itemHandler.getStackInSlot(0);
+			FluidStack fluid = trough.fluidHandler.getFluid();
+
+			if(!stack.isEmpty())
+			{
+				probeInfo.horizontal();
+				probeInfo.item(stack);
+			}
+			if(fluid != null)
+			{
+				ItemStack bucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluid.getFluid());
+				probeInfo.horizontal().item(bucket).text(TextFormatting.GRAY + fluid.getLocalizedName() + ", " + fluid.amount + "mB");
+
+			}
+			
+		}
+
 	}
 
 }

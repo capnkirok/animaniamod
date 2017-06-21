@@ -30,6 +30,8 @@ minecraft {
 dependencies {
 	compile files("lib/jei_1.11.2-4.3.5.277-api.jar")
 	compile files("lib/Waila-1.7.1_1.11.2-dev.jar")
+	compile files("lib/TheOneProbe-1.1x-1.4.7-57-api.jar")
+
 }
 
 processResources {
