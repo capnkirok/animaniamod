@@ -1,4 +1,4 @@
-package com.animania.compat.top;
+package com.animania.compat.top.providers;
 
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;

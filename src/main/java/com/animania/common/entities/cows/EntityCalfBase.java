@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.cows.ai.EntityAIFollowParentCows;
+import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
@@ -31,7 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityCalfBase extends EntityAnimaniaCow
+public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProviderChild
 {
 
 	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityCalfBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -45,6 +46,7 @@ public class EntityCalfBase extends EntityAnimaniaCow
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
 		this.ageTimer = 0;
+		this.cowType = CowType.FRIESIAN;
 
 	}
 

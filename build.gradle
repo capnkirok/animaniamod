@@ -39,7 +39,7 @@ repositories {
    maven { //Maven for JEI
     name = "Progwml6 maven"
     url = "http://dvs1.progwml6.com/files/maven"
-  }
+  }  	maven { // TOP        name 'tterrag maven'        url "http://maven.tterrag.com/"    }
 }
 
 dependencies {
@@ -49,7 +49,7 @@ dependencies {
    // Should be that(compile) but it cause a weird bug for Ze and me(Timmy) (Crash noClassDefFound on DisplayUtil)
    // compile 'mcp.mobius.waila:Waila:1.7.1_1.11.2:dev'
    
-   deobfCompile 'mezz.jei:jei_1.11.2:4.3.5.277:api'
+   deobfCompile 'mezz.jei:jei_1.11.2:4.3.5.277:api'   deobfCompile 'mcjty.theoneprobe:TheOneProbe:1.1x-1.4.7-57'   
    runtime 'mezz.jei:jei_1.11.2:4.3.5.277'
 
 //    compile files("lib/jei_1.11.2-4.3.5.277-api.jar")

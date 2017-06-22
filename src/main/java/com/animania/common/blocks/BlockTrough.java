@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
-import com.animania.compat.top.TOPInfoProvider;
+import com.animania.compat.top.providers.TOPInfoProvider;
 
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;

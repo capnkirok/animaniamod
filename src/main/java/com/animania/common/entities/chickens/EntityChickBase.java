@@ -1,6 +1,7 @@
 package com.animania.common.entities.chickens;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIFollowParent;
@@ -13,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityChickBase extends EntityAnimaniaChicken
+public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
 
 	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityChickBase.class, DataSerializers.FLOAT);
@@ -25,6 +26,7 @@ public class EntityChickBase extends EntityAnimaniaChicken
 		this.setSize(0.3F, 0.4F);
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
 		this.ageTimer = 0;
+		this.type = ChickenType.LEGHORN;
 
 	}
 
