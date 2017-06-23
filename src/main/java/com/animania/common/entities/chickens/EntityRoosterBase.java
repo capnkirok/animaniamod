@@ -10,6 +10,7 @@ import com.animania.common.entities.rodents.EntityFerretGrey;
 import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,7 +29,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityRoosterBase extends EntityAnimaniaChicken
+public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
 
 	protected static final DataParameter<Integer> CROWTIMER = EntityDataManager.<Integer>createKey(EntityRoosterBase.class, DataSerializers.VARINT);

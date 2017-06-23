@@ -17,6 +17,7 @@ import com.animania.common.entities.peacocks.ai.EntityAISwimmingPeacocks;
 import com.animania.common.entities.peacocks.ai.EntityAIWanderPeacock;
 import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -52,7 +53,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaPeacock extends EntityAnimal
+public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);

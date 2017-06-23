@@ -4,56 +4,20 @@ import com.animania.common.blocks.BlockHamsterWheel;
 import com.animania.common.blocks.BlockInvisiblock;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.blocks.BlockTrough;
-import com.animania.common.entities.chickens.EntityChickLeghorn;
-import com.animania.common.entities.chickens.EntityChickOrpington;
-import com.animania.common.entities.chickens.EntityChickPlymouthRock;
-import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityChickWyandotte;
-import com.animania.common.entities.chickens.EntityHenLeghorn;
-import com.animania.common.entities.chickens.EntityHenOrpington;
-import com.animania.common.entities.chickens.EntityHenPlymouthRock;
-import com.animania.common.entities.chickens.EntityHenRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityHenWyandotte;
-import com.animania.common.entities.chickens.EntityRoosterLeghorn;
-import com.animania.common.entities.chickens.EntityRoosterOrpington;
-import com.animania.common.entities.chickens.EntityRoosterPlymouthRock;
-import com.animania.common.entities.chickens.EntityRoosterRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityRoosterWyandotte;
+import com.animania.common.entities.chickens.EntityChickBase;
+import com.animania.common.entities.chickens.EntityHenBase;
+import com.animania.common.entities.chickens.EntityRoosterBase;
 import com.animania.common.entities.cows.EntityBullBase;
 import com.animania.common.entities.cows.EntityCalfBase;
 import com.animania.common.entities.cows.EntityCowBase;
-import com.animania.common.entities.horses.EntityFoalDraftHorse;
-import com.animania.common.entities.horses.EntityMareDraftHorse;
-import com.animania.common.entities.horses.EntityStallionDraftHorse;
-import com.animania.common.entities.peacocks.EntityPeachickBlue;
-import com.animania.common.entities.peacocks.EntityPeachickWhite;
-import com.animania.common.entities.peacocks.EntityPeacockBlue;
-import com.animania.common.entities.peacocks.EntityPeacockWhite;
-import com.animania.common.entities.peacocks.EntityPeafowlBlue;
-import com.animania.common.entities.peacocks.EntityPeafowlWhite;
-import com.animania.common.entities.pigs.EntityHogDuroc;
-import com.animania.common.entities.pigs.EntityHogHampshire;
-import com.animania.common.entities.pigs.EntityHogLargeBlack;
-import com.animania.common.entities.pigs.EntityHogLargeWhite;
-import com.animania.common.entities.pigs.EntityHogOldSpot;
-import com.animania.common.entities.pigs.EntityHogYorkshire;
-import com.animania.common.entities.pigs.EntityPigletDuroc;
-import com.animania.common.entities.pigs.EntityPigletHampshire;
-import com.animania.common.entities.pigs.EntityPigletLargeBlack;
-import com.animania.common.entities.pigs.EntityPigletLargeWhite;
-import com.animania.common.entities.pigs.EntityPigletOldSpot;
-import com.animania.common.entities.pigs.EntityPigletYorkshire;
-import com.animania.common.entities.pigs.EntitySowDuroc;
-import com.animania.common.entities.pigs.EntitySowHampshire;
-import com.animania.common.entities.pigs.EntitySowLargeBlack;
-import com.animania.common.entities.pigs.EntitySowLargeWhite;
-import com.animania.common.entities.pigs.EntitySowOldSpot;
-import com.animania.common.entities.pigs.EntitySowYorkshire;
-import com.animania.common.entities.rodents.EntityFerretGrey;
-import com.animania.common.entities.rodents.EntityFerretWhite;
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
+import com.animania.common.entities.pigs.EntityHogBase;
+import com.animania.common.entities.pigs.EntityPigletBase;
+import com.animania.common.entities.pigs.EntitySowBase;
+import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.entities.rodents.EntityHamster;
-import com.animania.common.entities.rodents.EntityHedgehog;
-import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.common.entities.rodents.EntityHedgehogBase;
 import com.animania.compat.waila.provider.WailaBlockHamsterWheelProvider;
 import com.animania.compat.waila.provider.WailaBlockInvisiblockProvider;
 import com.animania.compat.waila.provider.WailaBlockSeedProvider;
@@ -90,61 +54,33 @@ public class WailaCompat
 		regEntityInfoCalf(r, EntityCalfBase.class);
 
 		// PIGS
-		regEntityInfoPig(r, EntityHogDuroc.class);
-		regEntityInfoPig(r, EntityHogHampshire.class);
-		regEntityInfoPig(r, EntityHogLargeBlack.class);
-		regEntityInfoPig(r, EntityHogLargeWhite.class);
-		regEntityInfoPig(r, EntityHogOldSpot.class);
-		regEntityInfoPig(r, EntityHogYorkshire.class);
-		regEntityInfoPig(r, EntitySowDuroc.class);
-		regEntityInfoPig(r, EntitySowHampshire.class);
-		regEntityInfoPig(r, EntitySowLargeBlack.class);
-		regEntityInfoPig(r, EntitySowLargeWhite.class);
-		regEntityInfoPig(r, EntitySowOldSpot.class);
-		regEntityInfoPig(r, EntitySowYorkshire.class);
-		regEntityInfoPiglet(r, EntityPigletDuroc.class);
-		regEntityInfoPiglet(r, EntityPigletHampshire.class);
-		regEntityInfoPiglet(r, EntityPigletLargeBlack.class);
-		regEntityInfoPiglet(r, EntityPigletLargeWhite.class);
-		regEntityInfoPiglet(r, EntityPigletOldSpot.class);
-		regEntityInfoPiglet(r, EntityPigletYorkshire.class);
+		regEntityInfoPig(r, EntityHogBase.class);
+		
+		regEntityInfoPig(r, EntitySowBase.class);
+		
+		regEntityInfoPiglet(r, EntityPigletBase.class);
+		
 
 		// CHICKENS
-		regEntityInfoBase(r, EntityRoosterLeghorn.class);
-		regEntityInfoBase(r, EntityRoosterOrpington.class);
-		regEntityInfoBase(r, EntityRoosterPlymouthRock.class);
-		regEntityInfoBase(r, EntityRoosterRhodeIslandRed.class);
-		regEntityInfoBase(r, EntityRoosterWyandotte.class);
-		regEntityInfoBase(r, EntityChickLeghorn.class);
-		regEntityInfoBase(r, EntityChickOrpington.class);
-		regEntityInfoBase(r, EntityChickPlymouthRock.class);
-		regEntityInfoBase(r, EntityChickRhodeIslandRed.class);
-		regEntityInfoBase(r, EntityChickWyandotte.class);
-		regEntityInfoHen(r, EntityHenLeghorn.class);
-		regEntityInfoHen(r, EntityHenOrpington.class);
-		regEntityInfoHen(r, EntityHenPlymouthRock.class);
-		regEntityInfoHen(r, EntityHenRhodeIslandRed.class);
-		regEntityInfoHen(r, EntityHenWyandotte.class);
-
+		regEntityInfoBase(r, EntityRoosterBase.class);
+		
+		regEntityInfoBase(r, EntityChickBase.class);
+		
+		regEntityInfoHen(r, EntityHenBase.class);
+		
 		// PEACOCKS
-		regEntityInfoBase(r, EntityPeacockBlue.class);
-		regEntityInfoBase(r, EntityPeacockWhite.class);
-		regEntityInfoBase(r, EntityPeafowlBlue.class);
-		regEntityInfoBase(r, EntityPeafowlWhite.class);
-		regEntityInfoBase(r, EntityPeachickBlue.class);
-		regEntityInfoBase(r, EntityPeachickWhite.class);
+		regEntityInfoBase(r, EntityAnimaniaPeacock.class);
 
 		// RODENTS
-		regEntityInfoRodent(r, EntityFerretGrey.class);
-		regEntityInfoRodent(r, EntityFerretWhite.class);
+		regEntityInfoRodent(r, EntityFerretBase.class);
+		
 		regEntityInfoRodent(r, EntityHamster.class);
-		regEntityInfoRodent(r, EntityHedgehog.class);
-		regEntityInfoRodent(r, EntityHedgehogAlbino.class);
+		
+		regEntityInfoRodent(r, EntityHedgehogBase.class);
 
 		// HORSES
-		regEntityInfoHorse(r, EntityStallionDraftHorse.class);
-		regEntityInfoHorse(r, EntityMareDraftHorse.class);
-		regEntityInfoHorse(r, EntityFoalDraftHorse.class);
+		regEntityInfoHorse(r, EntityAnimaniaHorse.class);
+
 		
 	}
 

@@ -53,6 +53,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentHorses(this, 1.1D));
 		this.ageTimer = 0;
+		this.horseType = HorseType.DRAFT;
 	}
 
 	

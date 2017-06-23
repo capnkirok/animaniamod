@@ -11,9 +11,13 @@ import com.animania.common.entities.cows.ai.EntityAIFollowMateCows;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.handler.ItemHandler;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
+import mcjty.theoneprobe.api.IProbeHitEntityData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,7 +38,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityBullBase extends EntityAnimaniaCow
+public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProviderMateable
 {
 
 	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBullAngus.class, DataSerializers.BOOLEAN);
@@ -236,6 +240,12 @@ public class EntityBullBase extends EntityAnimaniaCow
 		
 		this.setFighting(compound.getBoolean("Fighting"));
 
+	}
+	
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	{
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
 
 

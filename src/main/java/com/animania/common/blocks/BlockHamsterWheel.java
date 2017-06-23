@@ -8,7 +8,12 @@ import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
+import com.animania.common.tileentities.TileEntityInvisiblock;
+import com.animania.compat.top.providers.TOPInfoProvider;
 
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.MapColor;
@@ -30,13 +35,12 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockHamsterWheel extends BlockContainer
+public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 {
 
 	private String name = "block_hamster_wheel";
-    public static final PropertyDirection FACING = BlockHorizontal.FACING;
+	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
-	
 	public BlockHamsterWheel()
 	{
 		super(Material.IRON, MapColor.GRAY);
@@ -57,7 +61,6 @@ public class BlockHamsterWheel extends BlockContainer
 		return new TileEntityHamsterWheel();
 	}
 
-
 	@Override
 	public boolean isFullyOpaque(IBlockState state)
 	{
@@ -70,18 +73,17 @@ public class BlockHamsterWheel extends BlockContainer
 		return false;
 	}
 
-
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 		TileEntityHamsterWheel te = (TileEntityHamsterWheel) world.getTileEntity(pos);
 
-		if(player.isBeingRidden() && !te.isRunning())
+		if (player.isBeingRidden() && !te.isRunning())
 		{
 			List<Entity> passengers = player.getPassengers();
-			if(passengers.get(0) instanceof EntityHamster && ((EntityHamster)passengers.get(0)).getFed())
+			if (passengers.get(0) instanceof EntityHamster && ((EntityHamster) passengers.get(0)).getFed())
 			{
-				if(player.hasCapability(CapabilityRefs.CAPS, null))
+				if (player.hasCapability(CapabilityRefs.CAPS, null))
 				{
 					player.getCapability(CapabilityRefs.CAPS, null).setMounted(false);
 				}
@@ -98,27 +100,33 @@ public class BlockHamsterWheel extends BlockContainer
 				te.markDirty();
 
 				Random rand = new Random();
-	            player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+				player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
 
-				
 				return true;
 
 			}
 		}
-		else if(!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == ItemHandler.hamsterFood)
+		else if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == ItemHandler.hamsterFood)
 		{
 			ItemStack held = player.getHeldItem(hand);
 			ItemStack remainder = te.getItemHandler().insertItem(0, new ItemStack(ItemHandler.hamsterFood), false);
-			
-			if(!player.isCreative() && remainder.isEmpty())
+
+			if (!player.isCreative() && remainder.isEmpty())
 				held.shrink(1);
-			
+
 			return true;
 		}
 
+		if (!world.isRemote && player.isSneaking() && hand == EnumHand.MAIN_HAND)
+		{
+			ItemStack food = te.getItemHandler().getStackInSlot(0);
+			if (food.isEmpty())
+				player.sendMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF"));
+			else
+				player.sendMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF, " + food.getCount() + " " + food.getDisplayName()));
 
-		if(!world.isRemote && player.isSneaking() && hand == EnumHand.MAIN_HAND)
-			player.sendMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF"));
+
+		}
 
 		return false;
 	}
@@ -132,6 +140,19 @@ public class BlockHamsterWheel extends BlockContainer
 		super.breakBlock(worldIn, pos, state);
 	}
 
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
+	{
 
+		TileEntity te = world.getTileEntity(data.getPos());
+		if (te instanceof TileEntityHamsterWheel)
+		{
+			TileEntityHamsterWheel wheel = (TileEntityHamsterWheel) te;
+			ItemStack food = wheel.getItemHandler().getStackInSlot(0);
+
+			probeInfo.horizontal();
+			probeInfo.item(food);
+		}
+	}
 
 }
