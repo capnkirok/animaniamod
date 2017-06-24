@@ -79,6 +79,12 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	}
 
 	@Override
+	public boolean isFullCube(IBlockState state)
+	{
+		return false;
+	}
+
+	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 		TileEntityHamsterWheel te = (TileEntityHamsterWheel) world.getTileEntity(pos);
@@ -151,11 +157,14 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 		TileEntity te = world.getTileEntity(data.getPos());
 		if (te instanceof TileEntityHamsterWheel)
 		{
-			TileEntityHamsterWheel wheel = (TileEntityHamsterWheel) te;
-			ItemStack food = wheel.getItemHandler().getStackInSlot(0);
+			if (mode == ProbeMode.NORMAL)
+			{
+				TileEntityHamsterWheel wheel = (TileEntityHamsterWheel) te;
+				ItemStack food = wheel.getItemHandler().getStackInSlot(0);
 
-			probeInfo.horizontal();
-			probeInfo.item(food);
+				if (!food.isEmpty())
+					probeInfo.item(food);
+			}
 		}
 	}
 
@@ -169,48 +178,48 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	{
 		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 	}
-	
+
 	public IBlockState getStateFromMeta(int meta)
-    {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
+	{
+		EnumFacing enumfacing = EnumFacing.getFront(meta);
 
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
-        {
-            enumfacing = EnumFacing.NORTH;
-        }
+		if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+		{
+			enumfacing = EnumFacing.NORTH;
+		}
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
-    }
+		return this.getDefaultState().withProperty(FACING, enumfacing);
+	}
 
-    /**
-     * Convert the BlockState into the correct metadata value
-     */
-    public int getMetaFromState(IBlockState state)
-    {
-        return ((EnumFacing)state.getValue(FACING)).getIndex();
-    }
+	/**
+	 * Convert the BlockState into the correct metadata value
+	 */
+	public int getMetaFromState(IBlockState state)
+	{
+		return ((EnumFacing) state.getValue(FACING)).getIndex();
+	}
 
-    /**
-     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withRotation(IBlockState state, Rotation rot)
-    {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
-    }
+	/**
+	 * Returns the blockstate with the given rotation from the passed
+	 * blockstate. If inapplicable, returns the passed blockstate.
+	 */
+	public IBlockState withRotation(IBlockState state, Rotation rot)
+	{
+		return state.withProperty(FACING, rot.rotate((EnumFacing) state.getValue(FACING)));
+	}
 
-    /**
-     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
-     * blockstate.
-     */
-    public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
-    {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
-    }
+	/**
+	 * Returns the blockstate with the given mirror of the passed blockstate. If
+	 * inapplicable, returns the passed blockstate.
+	 */
+	public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
+	{
+		return state.withRotation(mirrorIn.toRotation((EnumFacing) state.getValue(FACING)));
+	}
 
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
-    }
+	protected BlockStateContainer createBlockState()
+	{
+		return new BlockStateContainer(this, new IProperty[] { FACING });
+	}
 
 }

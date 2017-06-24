@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.rodents.EntityHamster;
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.handler.ItemHandlerHamsterWheel;
 import com.animania.config.AnimaniaConfig;
@@ -196,7 +197,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 			pos = pos.offset(e);
 			IBlockState state = world.getBlockState(pos);
 
-			if (!state.isFullyOpaque() && !state.isFullBlock())
+			if (!state.isFullyOpaque() && !state.isFullCube() && state.getBlock() != BlockHandler.blockHamsterWheel)
 			{
 				this.hamster.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
 				return true;
