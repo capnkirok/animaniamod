@@ -63,6 +63,7 @@ public class EntityAnimaniaChicken extends EntityChicken
 	protected int wateredTimer;
 	protected int happyTimer;
 	public int blinkTimer;
+	private int featherTimer;
 	protected int damageTimer;
 	protected ChickenType type;
 	protected Item dropRaw = Items.CHICKEN;
@@ -84,6 +85,7 @@ public class EntityAnimaniaChicken extends EntityChicken
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + this.rand.nextInt(80);
+		this.featherTimer = AnimaniaConfig.careAndFeeding.featherTimer + rand.nextInt(1000);
 		this.enablePersistence();
 	}
 
@@ -175,7 +177,7 @@ public class EntityAnimaniaChicken extends EntityChicken
 	@Override
 	public void onLivingUpdate()
 	{
-		this.timeUntilNextEgg = 1000;
+		
 		super.onLivingUpdate();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
@@ -183,6 +185,13 @@ public class EntityAnimaniaChicken extends EntityChicken
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
 		this.fallDistance = 0;
+		
+		if (!this.world.isRemote && !this.isChild() && AnimaniaConfig.drops.chickensDropFeathers && !this.isChickenJockey() && --this.featherTimer <= 0)
+		{
+			this.playSound(ModSoundEvents.chickenCluck2, 0.5F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+			this.dropItem(Items.FEATHER, 1);
+			this.featherTimer = AnimaniaConfig.careAndFeeding.featherTimer + rand.nextInt(1000);
+		}
 
 		if (!this.onGround && this.wingRotDelta < 1.0F)
 			this.wingRotDelta = 1.0F;
