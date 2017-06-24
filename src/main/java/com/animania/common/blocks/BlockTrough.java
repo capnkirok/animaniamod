@@ -353,7 +353,6 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 				worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
 				return true;
 			}
-			
 
 		}
 		// LIQUIDS
@@ -418,7 +417,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 					}
 					else
 						playerIn.setHeldItem(hand, newstack);
-					
+
 					return true;
 				}
 
@@ -542,18 +541,22 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 			ItemStack stack = trough.itemHandler.getStackInSlot(0);
 			FluidStack fluid = trough.fluidHandler.getFluid();
 
-			if(!stack.isEmpty())
+			if (mode == ProbeMode.NORMAL)
 			{
-				probeInfo.horizontal();
-				probeInfo.item(stack);
-			}
-			if(fluid != null)
-			{
-				ItemStack bucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluid.getFluid());
-				probeInfo.horizontal().item(bucket).text(TextFormatting.GRAY + fluid.getLocalizedName() + ", " + fluid.amount + "mB");
 
+				if (!stack.isEmpty())
+				{
+					probeInfo.horizontal();
+					probeInfo.item(stack);
+				}
+				if (fluid != null)
+				{
+					ItemStack bucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluid.getFluid());
+					probeInfo.horizontal().item(bucket).text(fluid.getLocalizedName() + ", " + fluid.amount + "mB");
+
+				}
 			}
-			
+
 		}
 
 	}
