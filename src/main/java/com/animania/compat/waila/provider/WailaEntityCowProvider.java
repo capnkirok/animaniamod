@@ -25,27 +25,15 @@ public class WailaEntityCowProvider extends WailaEntityAnimalProviderMateable
 			if (currenttip.contains(I18n.translateToLocal("text.waila.fed")))
 				currenttip.add(I18n.translateToLocal("text.waila.milkable"));
 			
-			int timer = accessor.getNBTData().getInteger("gestation");
+			/*int timer = accessor.getNBTData().getInteger("gestation");
 			
 			if (timer > -1)
 			{
 				currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + ", " + timer + " " + I18n.translateToLocal("text.waila.pregnant2"));
-			}
+			} */
 		}
 		return currenttip;
 	}
 
-	@Override
-	public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world)
-	{
-		if (ent instanceof EntityCowBase)
-		{
-			EntityCowBase cow = (EntityCowBase) ent;
-			tag.setInteger("gestation", ((EntityCowBase) ent).getGestationTimer());
-
-		}
-
-		return super.getNBTData(player, ent, tag, world);
-	}
 
 }

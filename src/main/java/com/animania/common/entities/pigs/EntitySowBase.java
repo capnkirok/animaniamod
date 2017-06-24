@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
+import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
@@ -36,7 +37,7 @@ import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntitySowBase extends EntityAnimaniaPig
+public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderPig
 {
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntitySowBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected int gestationTimer;

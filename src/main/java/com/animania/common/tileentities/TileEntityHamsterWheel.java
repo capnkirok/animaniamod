@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
+import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.handler.ItemHandlerHamsterWheel;
@@ -15,6 +16,7 @@ import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileE
 
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -24,6 +26,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -32,12 +35,13 @@ import net.minecraftforge.items.CapabilityItemHandler;
 public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable, IEnergyProvider
 {
 	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(TileEntityHamsterWheel.class);
-	
-	static{
+
+	static
+	{
 		animHandler.addAnim(Animania.MODID, "anim_hamster_wheel", "model_hamster_wheel", true);
 		animHandler.addAnim(Animania.MODID, "hamster_run", "hamster", true);
 	}
-	
+
 	private boolean isRunning;
 	private EntityHamster hamster;
 	private NBTTagCompound hamsterNBT;
@@ -49,12 +53,12 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	{
 		this.itemHandler = new ItemHandlerHamsterWheel();
 	}
-	
+
 	@Override
 	public void update()
 	{
 		super.update();
-		
+
 		if (hamster == null && hamsterNBT != null)
 		{
 			hamster = new EntityHamster(world);
@@ -81,7 +85,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		if (timer >= AnimaniaConfig.gameRules.hamsterWheelUseTime)
 		{
-			if(!itemHandler.getStackInSlot(0).isEmpty())
+			if (!itemHandler.getStackInSlot(0).isEmpty())
 			{
 				ItemStack stack = itemHandler.getStackInSlot(0).copy();
 				stack.shrink(1);
@@ -104,18 +108,21 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 				IEnergyReceiver reciever = (IEnergyReceiver) getSurroundingTE(facing);
 				int recieved = reciever.receiveEnergy(facing.getOpposite(), energy, false);
 				energy -= recieved;
-				
+
 			}
 			this.markDirty();
 
 		}
-		
-		if (!this.isWorldRemote()){
-			if (this.isRunning && !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)){
+
+		if (!this.isWorldRemote())
+		{
+			if (this.isRunning && !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this))
+			{
 				this.getAnimationHandler().startAnimation(Animania.MODID, "anim_hamster_wheel", this);
 				this.getAnimationHandler().startAnimation(Animania.MODID, "hamster_run", this);
 			}
-			else if (!this.isRunning && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)){
+			else if (!this.isRunning && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this))
+			{
 				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_hamster_wheel", this);
 				this.getAnimationHandler().stopAnimation(Animania.MODID, "hamster_run", this);
 			}
@@ -162,15 +169,40 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	{
 		if (hamster != null && !world.isRemote)
 		{
-			this.hamster.setPosition(this.pos.getX() + 0.5, this.pos.getY() + 1, this.pos.getZ() + 0.5);
-			world.spawnEntity(hamster);
-			Random rand = new Random();
-            hamster.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
-			// this.hamster.setWatered(false);
-			this.hamster.setFed(false);
-			this.hamster = null;
-			this.hamsterNBT = null;
+			if (findPositionForHamster())
+			{
+				world.spawnEntity(hamster);
+				Random rand = new Random();
+				hamster.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+				// this.hamster.setWatered(false);
+				this.hamster.setFed(false);
+				this.hamster = null;
+				this.hamsterNBT = null;
+			}
+			else
+			{
+				world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSoundEvents.hamsterDeath, SoundCategory.AMBIENT, 1.0F, 1.0F, false);
+				this.hamster = null;
+				this.hamsterNBT = null;
+			}
 		}
+	}
+
+	private boolean findPositionForHamster()
+	{
+		for (EnumFacing e : EnumFacing.VALUES)
+		{
+			BlockPos pos = this.pos;
+			pos = pos.offset(e);
+			IBlockState state = world.getBlockState(pos);
+
+			if (!state.isFullyOpaque() && !state.isFullBlock())
+			{
+				this.hamster.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -196,8 +228,9 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		NBTTagCompound hamster = compound.getCompoundTag("hamster");
 		if (!hamster.equals(new NBTTagCompound()))
 			this.hamsterNBT = hamster;
-		else{
-			//Delete the hamster so this side does not restart the wheel
+		else
+		{
+			// Delete the hamster so this side does not restart the wheel
 			this.hamsterNBT = null;
 			this.hamster = null;
 		}
@@ -297,17 +330,18 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		return super.getCapability(capability, facing);
 
 	}
-	
-	
+
 	@Override
-	public void markDirty() {
+	public void markDirty()
+	{
 		super.markDirty();
-		
+
 		AnimaniaHelper.sendTileEntityUpdate(this);
 	}
 
 	@Override
-	public AnimationHandler<TileEntityHamsterWheel> getAnimationHandler() {
+	public AnimationHandler<TileEntityHamsterWheel> getAnimationHandler()
+	{
 		return animHandler;
 	}
 }

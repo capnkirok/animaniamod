@@ -343,10 +343,10 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			{
 				probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.milkable"));
 			}
-			if(this.getGestationTimer() > -1)
+	/*		if(this.getGestationTimer() > -1)
 			{
 				probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.pregnant1") + ", " + this.getGestationTimer() + " " + I18n.translateToLocal("text.waila.pregnant2"));
-			}
+			} */
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}

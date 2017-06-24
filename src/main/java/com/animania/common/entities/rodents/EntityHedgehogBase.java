@@ -21,6 +21,7 @@ import com.animania.common.entities.rodents.ai.EntityAIWanderHedgehog;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -64,7 +65,7 @@ import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityHedgehogBase extends EntityTameable
+public class EntityHedgehogBase extends EntityTameable implements TOPInfoProviderRodent
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);

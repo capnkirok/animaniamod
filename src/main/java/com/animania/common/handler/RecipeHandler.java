@@ -35,6 +35,8 @@ public class RecipeHandler
 		// Recipes
 
 		// HAMSTERS
+		GameRegistry.addRecipe(new ShapedOreRecipe(BlockHandler.blockHamsterWheel, new Object[]{" I ", "I I", "SIS", 'I', "ingotIron", 'S', new ItemStack(Blocks.STONE_SLAB)}));
+		
 		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallClear), new Object[]{
 				"xxx","x x","xxx",'x', Blocks.GLASS_PANE
 		});
