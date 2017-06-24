@@ -10,6 +10,7 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIMateHorses;
 import com.animania.common.handler.ItemHandler;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -32,7 +33,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityStallionBase extends EntityAnimaniaHorse
+public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable
 {	
 
 	private ResourceLocation resourceLocation;

@@ -175,6 +175,7 @@ public class EntityAnimaniaChicken extends EntityChicken
 	@Override
 	public void onLivingUpdate()
 	{
+		this.timeUntilNextEgg = 1000;
 		super.onLivingUpdate();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;

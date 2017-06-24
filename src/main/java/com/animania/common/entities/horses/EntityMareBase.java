@@ -9,6 +9,7 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
 import com.animania.common.handler.ItemHandler;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -35,7 +36,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityMareBase extends EntityAnimaniaHorse
+public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable
 {	
 	
 	protected int gestationTimer;

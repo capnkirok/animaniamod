@@ -18,9 +18,12 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryHelper;
@@ -29,7 +32,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -45,7 +50,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	{
 		super(Material.IRON, MapColor.GRAY);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		this.setDefaultState(this.blockState.getBaseState());
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		GameRegistry.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
@@ -121,10 +126,9 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 		{
 			ItemStack food = te.getItemHandler().getStackInSlot(0);
 			if (food.isEmpty())
-				player.sendMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF"));
+				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF"), true);
 			else
-				player.sendMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF, " + food.getCount() + " " + food.getDisplayName()));
-
+				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
 
 		}
 
@@ -154,5 +158,59 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 			probeInfo.item(food);
 		}
 	}
+
+	@Override
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	{
+		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+	}
+
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+	{
+		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+	}
+	
+	public IBlockState getStateFromMeta(int meta)
+    {
+        EnumFacing enumfacing = EnumFacing.getFront(meta);
+
+        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+        {
+            enumfacing = EnumFacing.NORTH;
+        }
+
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
+
+    /**
+     * Convert the BlockState into the correct metadata value
+     */
+    public int getMetaFromState(IBlockState state)
+    {
+        return ((EnumFacing)state.getValue(FACING)).getIndex();
+    }
+
+    /**
+     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+     * blockstate.
+     */
+    public IBlockState withRotation(IBlockState state, Rotation rot)
+    {
+        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+    }
+
+    /**
+     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+     * blockstate.
+     */
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
+    {
+        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+    }
+
+    protected BlockStateContainer createBlockState()
+    {
+        return new BlockStateContainer(this, new IProperty[] {FACING});
+    }
 
 }

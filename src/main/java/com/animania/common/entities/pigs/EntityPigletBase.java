@@ -7,11 +7,17 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.pigs.ai.EntityAIFollowParentPigs;
+import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
+import mcjty.theoneprobe.api.IProbeHitEntityData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,11 +27,13 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityPigletBase extends EntityAnimaniaPig
+public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProviderChild
 {
 
 	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityPigletBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -307,6 +315,17 @@ public class EntityPigletBase extends EntityAnimaniaPig
 	protected Item getDropItem()
 	{
 		return null;
+	}
+	
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	{
+		 if (this.getPlayed())
+	           	probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.played"));
+	        else
+	        	probeInfo.text(TextFormatting.YELLOW + I18n.translateToLocal("text.waila.bored"));
+		 
+		TOPInfoProviderChild.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
 
 }

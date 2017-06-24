@@ -6,8 +6,7 @@ import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.ai.EntityAIFindNest;
-import com.animania.common.handler.ItemHandler;
-import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.Entity;
@@ -18,12 +17,8 @@ import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -33,7 +28,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityHenBase extends EntityAnimaniaChicken
+public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
 
 	protected static final DataParameter<Boolean> LAID = EntityDataManager.<Boolean>createKey(EntityHenBase.class, DataSerializers.BOOLEAN);

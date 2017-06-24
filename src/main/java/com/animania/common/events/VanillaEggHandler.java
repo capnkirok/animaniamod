@@ -35,7 +35,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class VanillaEggHandler 
 {
 	Random rand = new Random();
-	@SubscribeEvent(priority = EventPriority.LOW)
+	
+	/*@SubscribeEvent(priority = EventPriority.LOW)
 	public void eggDrop(EntityJoinWorldEvent event)
 	{		
 
@@ -89,7 +90,7 @@ public class VanillaEggHandler
 
 		}
 
-	}
+	} */
 
 }
 

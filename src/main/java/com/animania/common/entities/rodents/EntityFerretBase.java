@@ -27,6 +27,7 @@ import com.animania.common.entities.rodents.ai.EntityAIWanderRodent;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -65,7 +66,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityFerretBase extends EntityTameable
+public class EntityFerretBase extends EntityTameable implements TOPInfoProviderRodent
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
