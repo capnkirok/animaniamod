@@ -322,6 +322,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 			if (this.getIsRiding()) {
 				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
+				props.setPetColor(this.getColorNumber());
 				props.setMounted(false);
 				this.setIsRiding(false);
 			}

@@ -184,8 +184,7 @@ public class EntityAIMateCows extends EntityAIBase
                 double y2 = Math.abs(yt - y1);
                 double z2 = Math.abs(zt - z1);
 
-                if (entity != null && (entity instanceof EntityBullAngus || entity instanceof EntityBullFriesian
-                        || entity instanceof EntityBullHereford || entity instanceof EntityBullHolstein || entity instanceof EntityBullLonghorn)
+                if (entity != null && (entity instanceof EntityBullAngus || entity instanceof EntityBullFriesian || entity instanceof EntityBullHereford || entity instanceof EntityBullHolstein || entity instanceof EntityBullLonghorn)
                         && x2 <= 4 && y2 <= 2 && z2 <= 4) {
 
                     this.courtshipTimer--;
