@@ -341,6 +341,8 @@ public class CommonConfig
         public int playTimer       = 4000;
         @Comment("Ticks between laying eggs")
         public int laidTimer       = 2000;
+        @Comment("Ticks between dropping feathers")
+        public int featherTimer       = 12000;
         @Comment("Ticks between birthings")
         public int gestationTimer  = 20000;
         @Comment("Ticks between animals taking starvation damage")

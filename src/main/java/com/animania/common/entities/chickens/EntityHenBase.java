@@ -170,6 +170,11 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	@Override
 	public void onLivingUpdate()
 	{
+		
+		if (!AnimaniaConfig.drops.chickensDropEggs) {
+			this.timeUntilNextEgg = 1000;
+		}
+		
 		if (this.laidTimer > -1)
 			this.laidTimer--;
 		else

@@ -68,6 +68,9 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	@Override
 	public void onLivingUpdate()
 	{
+		
+		this.timeUntilNextEgg = 1000;
+		
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 

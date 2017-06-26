@@ -106,7 +106,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	@Override
 	public void onLivingUpdate()
 	{
-
+		this.timeUntilNextEgg = 1000;
 		long currentTime = this.world.getWorldTime() % 23999;
 
 		if (this.getTimeUntilNextCrow() > 0)
