@@ -125,23 +125,9 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 			}
 			this.markDirty();
-
 		}
-
-		if (!this.isWorldRemote())
-		{
-			if (this.isRunning && !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this))
-			{
-				this.getAnimationHandler().startAnimation(Animania.MODID, "anim_hamster_wheel", this);
-				this.getAnimationHandler().startAnimation(Animania.MODID, "hamster_run", this);
-			}
-			else if (!this.isRunning && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this))
-			{
-				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_hamster_wheel", this);
-				this.getAnimationHandler().stopAnimation(Animania.MODID, "hamster_run", this);
-			}
-		}
-
+		
+		this.updateAnims();
 	}
 
 	public boolean isRunning()
@@ -357,5 +343,19 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	public AnimationHandler<TileEntityHamsterWheel> getAnimationHandler()
 	{
 		return animHandler;
+	}
+	
+	private void updateAnims() {
+		if (this.isWorldRemote()) {
+			if (this.isRunning
+					&& !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)) {
+				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_hamster_wheel", this);
+				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "hamster_run", this);
+			} else if (!this.isRunning
+					&& this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)) {
+				this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_hamster_wheel", this);
+				this.getAnimationHandler().clientStopAnimation(Animania.MODID, "hamster_run", this);
+			}
+		}
 	}
 }
