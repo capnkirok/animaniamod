@@ -18,6 +18,8 @@ public class AnimaniaTextures
 		register(ItemHandler.hamsterFood);
 		register(ItemHandler.truffle);
 		register(ItemHandler.brownEgg);
+		register(ItemHandler.peacockEggBlue);
+		register(ItemHandler.peacockEggWhite);
 		register(ItemHandler.carvingKnife);
 		register(ItemHandler.cheeseMold);
 		register(ItemHandler.cheeseWheelFriesian);
@@ -36,6 +38,7 @@ public class AnimaniaTextures
 		register(ItemHandler.ridingCrop);
 		register(ItemHandler.hamsterBallClear);
 		registerColored(ItemHandler.hamsterBallColored, "hamster_ball");
+		
 
 
 		// Beef

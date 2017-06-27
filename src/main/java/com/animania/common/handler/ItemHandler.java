@@ -44,6 +44,7 @@ import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemHamsterBall;
 import com.animania.common.items.ItemHamsterFood;
 import com.animania.common.items.ItemOmelette;
+import com.animania.common.items.ItemPeacockEgg;
 import com.animania.common.items.ItemPeacockFeather;
 import com.animania.common.items.ItemRawAngusBeef;
 import com.animania.common.items.ItemRawAngusSteak;
@@ -87,6 +88,8 @@ public class ItemHandler
     public static Item cheeseMold;
     public static Item hamsterBallClear;
 	public static Item hamsterBallColored;
+	public static Item peacockEggBlue;
+	public static Item peacockEggWhite;
     
     public static Item peacockFeatherBlue;
     public static Item peacockFeatherWhite;
@@ -347,6 +350,8 @@ public class ItemHandler
         ItemHandler.rawPrimeChicken = new ItemRawPrimeChicken();
         ItemHandler.cookedPrimeChicken = new ItemCookedPrimeChicken();
         ItemHandler.brownEgg = new ItemBrownEgg();
+        ItemHandler.peacockEggBlue = new ItemPeacockEgg("blue");
+		ItemHandler.peacockEggWhite = new ItemPeacockEgg("white");
 
         // FROG ITEMS
         ItemHandler.rawFrogLegs = new ItemRawFrogLegs();

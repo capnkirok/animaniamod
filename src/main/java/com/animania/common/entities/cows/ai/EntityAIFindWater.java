@@ -58,9 +58,9 @@ public class EntityAIFindWater extends EntityAIBase
 	public boolean shouldExecute() {
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 40) {
+		if (this.delayTemptCounter <= 32) {
 			return false;
-		} else if (delayTemptCounter > 40) {
+		} else if (delayTemptCounter > 32) {
 			if (temptedEntity instanceof EntityCowHolstein) {
 				EntityCowHolstein ech = (EntityCowHolstein)temptedEntity;
 				if (ech.getWatered()) {
@@ -240,6 +240,7 @@ public class EntityAIFindWater extends EntityAIBase
 					else if (this.temptedEntity instanceof EntityBullHereford) {
 						EntityBullHereford ech = (EntityBullHereford) this.temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
+						ech.setWatered(true);
 					}
 					else if (this.temptedEntity instanceof EntityBullLonghorn) {
 						EntityBullLonghorn ech = (EntityBullLonghorn) this.temptedEntity;
