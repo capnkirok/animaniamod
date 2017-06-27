@@ -547,6 +547,24 @@ public class ModelNest extends ModelBase
 		this.Nest8.rotateAngleY = -2.356194F;
 		this.Fluff2.rotateAngleY = 0.5906957F;
 		this.Fluff5.rotateAngleY = 0.3574434F;
+
+		//Peacock Feathers
+		this.Feather1.rotateAngleX = 0.2803867F;
+		this.Feather1.rotateAngleY = 0.5182232F;
+		this.Feather1.rotateAngleZ = 0.04484942F;
+		this.Feather2.rotateAngleX = 0.2142004F;
+		this.Feather2.rotateAngleY = 2.028859F;
+		this.Feather2.rotateAngleZ = -0.122275F;
+		this.Feather3.rotateAngleX = 0.4055626F;
+		this.Feather3.rotateAngleY = -1.776956F;
+		this.Feather3.rotateAngleZ = -0.1216153F;
+		this.Feather4.rotateAngleX = 0.2880184F;
+		this.Feather4.rotateAngleY = -2.569335F;
+		this.Feather4.rotateAngleZ = 0.1257959F;
+		this.Feather5.rotateAngleX = 0.2764485F;
+		this.Feather5.rotateAngleY = -0.3568929F;
+		this.Feather5.rotateAngleZ = 0.1771393F;
+
 		this.Egg1.rotateAngleX = -0.2400439F;
 		this.Egg1.rotateAngleY = 0.1601751F;
 		this.Egg1.rotateAngleZ = -0.1941436F;
