@@ -17,7 +17,6 @@ import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileE
 
 import cofh.api.energy.IEnergyProvider;
 import cofh.api.energy.IEnergyReceiver;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -31,6 +30,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable, IEnergyProvider
@@ -104,11 +105,23 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		for (EnumFacing facing : EnumFacing.VALUES)
 		{
-			if (getSurroundingTE(facing) != null && getSurroundingTE(facing) instanceof IEnergyReceiver)
+			if (getSurroundingTE(facing) != null && ((getSurroundingTE(facing) instanceof IEnergyReceiver) || getSurroundingTE(facing).hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())))
 			{
-				IEnergyReceiver reciever = (IEnergyReceiver) getSurroundingTE(facing);
-				int recieved = reciever.receiveEnergy(facing.getOpposite(), energy, false);
-				energy -= recieved;
+				if (getSurroundingTE(facing) instanceof IEnergyReceiver)
+				{
+					IEnergyReceiver reciever = (IEnergyReceiver) getSurroundingTE(facing);
+					int recieved = reciever.receiveEnergy(facing.getOpposite(), energy, false);
+					energy -= recieved;
+				}
+				else
+				{
+					IEnergyStorage energyStorage = getSurroundingTE(facing).getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
+					if(energyStorage.canReceive())
+					{
+						int recieved = energyStorage.receiveEnergy(energy, false);
+						energy -= recieved;
+					}
+				}
 
 			}
 			this.markDirty();
