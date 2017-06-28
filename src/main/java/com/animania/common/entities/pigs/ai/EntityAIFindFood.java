@@ -56,9 +56,9 @@ public class EntityAIFindFood extends EntityAIBase
 	@Override
 	public boolean shouldExecute() {
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 40) {
+		if (this.delayTemptCounter <= 32) {
 			return false;
-		} else if (delayTemptCounter > 40) {
+		} else if (delayTemptCounter > 32) {
 			if (this.temptedEntity instanceof EntitySowYorkshire) {
 				EntitySowYorkshire sow = (EntitySowYorkshire) temptedEntity;
 				if (sow.getFed()) {

@@ -16,6 +16,10 @@ import com.animania.common.entities.chickens.EntityRoosterOrpington;
 import com.animania.common.entities.chickens.EntityRoosterPlymouthRock;
 import com.animania.common.entities.chickens.EntityRoosterRhodeIslandRed;
 import com.animania.common.entities.chickens.EntityRoosterWyandotte;
+import com.animania.common.entities.peacocks.EntityPeachickBlue;
+import com.animania.common.entities.peacocks.EntityPeachickWhite;
+import com.animania.common.entities.peacocks.EntityPeacockBlue;
+import com.animania.common.entities.peacocks.EntityPeacockWhite;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.tileentities.TileEntityNest;
@@ -26,7 +30,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -63,6 +66,11 @@ public class BlockNest extends BlockContainer
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setTickRandomly(true);
 
+	}
+	
+	public int tickRate(World worldIn)
+	{
+		return 5;
 	}
 
 	@Override
@@ -692,8 +700,114 @@ public class BlockNest extends BlockContainer
 									k = esize;
 								}
 
-						if (hatchFlag)
-							this.updateNest(worldIn, pos, state, te);
+					}
+					if (hatchFlag) {
+						updateNest(worldIn, pos, state, te);
+					}
+
+				} else if (entity !=null && (entity instanceof EntityPeacockBlue))
+				{
+
+					boolean hatchFlag = false;
+
+					double xt = entity.posX;
+					double yt = entity.posY;
+					double zt = entity.posZ;
+					int x1 = pos.getX();
+					int y1 = pos.getY();
+					int z1 = pos.getZ();
+					double x2 = xt - x1;
+					double y2 = yt - y1;
+					double z2 = zt - z1;
+
+					if (MathHelper.abs((int)x2) < 8 && MathHelper.abs((int)y2) < 4 && MathHelper.abs((int)z2) < 8)
+					{
+
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1) {
+							if (nestType == 16 || nestType == 17 || nestType == 18) {
+								EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+								entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+								worldIn.spawnEntity(entityChick);
+								entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+								hatchFlag = true;
+								k = esize;	
+							} else if (nestType == 19 || nestType == 20 | nestType == 21) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							}
+						}
+
+						if (hatchFlag) {
+							updateNest(worldIn, pos, state, te);
+						}
+
+					}
+
+				} else if (entity !=null && (entity instanceof EntityPeacockWhite))
+				{
+
+					boolean hatchFlag = false;
+
+					double xt = entity.posX;
+					double yt = entity.posY;
+					double zt = entity.posZ;
+					int x1 = pos.getX();
+					int y1 = pos.getY();
+					int z1 = pos.getZ();
+					double x2 = xt - x1;
+					double y2 = yt - y1;
+					double z2 = zt - z1;
+
+					if (MathHelper.abs((int)x2) < 8 && MathHelper.abs((int)y2) < 4 && MathHelper.abs((int)z2) < 8)
+					{
+
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
+						{
+							if (nestType == 16 || nestType == 17 || nestType == 18) {
+
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 19 || nestType == 20 | nestType == 21) {
+
+								EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+								entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+								worldIn.spawnEntity(entityChick);
+								entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+								k = esize;	
+
+							}
+						}
+					}
+
+					if (hatchFlag) {
+						updateNest(worldIn, pos, state, te);
+
 					}
 				}
 			}
@@ -910,7 +1024,61 @@ public class BlockNest extends BlockContainer
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
 			worldIn.updateComparatorOutputLevel(pos, this);
 			return true;
-		} else
+		} else if (te.getNestType() == 16) 
+		{
+			ItemStack bob = new ItemStack(ItemHandler.peacockEggBlue, 1);
+			playerIn.inventory.addItemStackToInventory(bob);
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+			return true;
+		} else if (te.getNestType() == 17) 
+		{
+			ItemStack bob = new ItemStack(ItemHandler.peacockEggBlue, 1);
+			playerIn.inventory.addItemStackToInventory(bob);
+			te.setType(16);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+			return true;
+		} else if (te.getNestType() == 18) 
+		{
+			ItemStack bob = new ItemStack(ItemHandler.peacockEggBlue, 1);
+			playerIn.inventory.addItemStackToInventory(bob);
+			te.setType(17);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+			return true;
+		} else if (te.getNestType() == 19) 
+		{
+			ItemStack bob = new ItemStack(ItemHandler.peacockEggWhite, 1);
+			playerIn.inventory.addItemStackToInventory(bob);
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+			return true;
+		} else if (te.getNestType() == 20) 
+		{
+			ItemStack bob = new ItemStack(ItemHandler.peacockEggWhite, 1);
+			playerIn.inventory.addItemStackToInventory(bob);
+			te.setType(19);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+			return true;
+		} else if (te.getNestType() == 21) 
+		{
+			ItemStack bob = new ItemStack(ItemHandler.peacockEggWhite, 1);
+			playerIn.inventory.addItemStackToInventory(bob);
+			te.setType(20);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+			return true;
+		} else 
 			return false;
 	}
 
@@ -972,7 +1140,25 @@ public class BlockNest extends BlockContainer
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
 			worldIn.updateComparatorOutputLevel(pos, this);
-		} else if (nestType == 7)
+		} else if (nestType == 7)			
+		{
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 6)
+		{
+			te.setType(5);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 5)
+		{
+			te.setType(4);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 4)			
 		{
 			te.setType(0);
 			te.markDirty();
@@ -997,7 +1183,45 @@ public class BlockNest extends BlockContainer
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
 			worldIn.updateComparatorOutputLevel(pos, this);
 
+			//Peacocks
+		} else if (nestType == 18)
+		{
+			te.setType(17);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 17)
+		{
+			te.setType(16);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 16)
+		{
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 15)
+		{
+			te.setType(14);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 14)
+		{
+			te.setType(13);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 13)
+		{
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
 		}
+
 	}
 
 }

@@ -4,11 +4,15 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelPeafowl;
 import com.animania.common.entities.peacocks.EntityPeafowlBlue;
+import com.animania.common.handler.BlockHandler;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
@@ -37,6 +41,19 @@ public class RenderPeafowlBlue<T extends EntityPeafowlBlue> extends RenderLiving
 
     protected void preRenderScale(EntityPeafowlBlue entity, float f) {
         GL11.glScalef(0.9F, 0.9F, 0.9F);
+        
+        double x = entity.posX;
+		double y = entity.posY;
+		double z = entity.posZ;
+
+		BlockPos pos = new BlockPos(x, y, z);
+		
+		Block blockchk = entity.world.getBlockState(pos).getBlock();
+
+		if (blockchk == BlockHandler.blockNest) {
+			GlStateManager.translate(0.0F, 0.45F, -0.45F);
+		}
+		
     }
 
     @Override
