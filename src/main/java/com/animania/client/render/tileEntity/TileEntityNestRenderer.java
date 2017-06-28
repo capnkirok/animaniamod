@@ -20,6 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntityNest>
 {
 	private static final ResourceLocation NEST_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/block_nest_white.png");
+	private static final ResourceLocation NEST_TEXTURE2 = new ResourceLocation("animania:textures/entity/tileentities/block_nest_blue.png");
 	public static TileEntityNestRenderer  instance;
 	private final ModelNest               nest         = new ModelNest();
 
@@ -119,15 +120,15 @@ public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntity
 				animateTicks = 15.0F;
 				break;
 			case 16:
-				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE2);
 				animateTicks = 16.0F;
 				break;
 			case 17:
-				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE2);
 				animateTicks = 17.0F;
 				break;
 			case 18:
-				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE2);
 				animateTicks = 18.0F;
 				break;
 			case 19:

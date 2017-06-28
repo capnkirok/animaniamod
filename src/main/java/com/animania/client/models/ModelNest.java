@@ -140,27 +140,27 @@ public class ModelNest extends ModelBase
 		this.Fluff5.addBox(-8F, 0F, -8F, 16, 0, 16);
 		this.Fluff5.setRotationPoint(0F, 19.65F, 0F);
 
-		this.Feather1 = new ModelRenderer( this, 50, 0 );
+		this.Feather1 = new ModelRenderer( this, 62, 0 );
 		this.Feather1.setTextureSize( 128, 64 );
-		this.Feather1.addBox( -6.5F, 0F, -20F, 13, 0, 40);
+		this.Feather1.addBox( -6.5F, .0F, -20F, 13, 0, 40);
 		this.Feather1.setRotationPoint( 3F, 60F, 2F );
-		this.Feather2 = new ModelRenderer( this, 50, 0 );
+		this.Feather2 = new ModelRenderer( this, 62, 0 );
 		this.Feather2.setTextureSize( 128, 64 );
-		this.Feather2.addBox( -6.5F, 0F, -20F, 13, 0, 40);
+		this.Feather2.addBox( -6.6F, 0F, -20F, 13, 0, 40);
 		this.Feather2.setRotationPoint( 2F, 60F, -2F );
-		this.Feather3 = new ModelRenderer( this, 50, 0 );
+		this.Feather3 = new ModelRenderer( this, 62, 0 );
 		this.Feather3.setTextureSize( 128, 64 );
-		this.Feather3.addBox( -6.5F, 0F, -20F, 13, 0, 40);
+		this.Feather3.addBox( -6.4F, .0F, -20F, 13, 0, 40);
 		this.Feather3.setRotationPoint( -4F, 60.75F, 0F );
-
-		this.Feather4 = new ModelRenderer( this, 60, 0 );
+       
+		this.Feather4 = new ModelRenderer( this, 62, 0 );
 		this.Feather4.setTextureSize( 128, 64 );
-		this.Feather4.addBox( -6.5F, 0F, -20F, 13, 0, 40);
+		this.Feather4.addBox( -6.5F, .01F, -20F, 13, 0, 40);
 		this.Feather4.setRotationPoint( -1F, 60F, -4F );
-
-		this.Feather5 = new ModelRenderer( this, 60, 0 );
+        
+		this.Feather5 = new ModelRenderer( this, 62, 0 );
 		this.Feather5.setTextureSize( 128, 64 );
-		this.Feather5.addBox( -6.5F, 0F, -20F, 13, 0, 40);
+		this.Feather5.addBox( -6.5F, .01F, -20F, 13, 0, 40);
 		this.Feather5.setRotationPoint( -1F, 60F, 4F );
 
 
@@ -455,8 +455,7 @@ public class ModelNest extends ModelBase
 			this.BlEgg1b.render(scale);
 			this.BlEgg1c.render(scale);
 			this.Feather1.render(scale/3);
-			this.Feather2.render(scale/3);
-			this.Feather3.render(scale/3);
+			
 
 		} else if (nestType == 17.0F) {
 
@@ -470,8 +469,7 @@ public class ModelNest extends ModelBase
 			this.BlEgg2c.render(scale);
 			this.Feather1.render(scale/3);
 			this.Feather2.render(scale/3);
-			this.Feather3.render(scale/3);
-
+			
 		} else if (nestType == 18.0F) {
 
 			this.BlEgg1.render(scale);
@@ -497,7 +495,7 @@ public class ModelNest extends ModelBase
 			this.WEgg1b.render(scale);
 			this.WEgg1c.render(scale);
 			this.Feather4.render(scale/3);
-			this.Feather5.render(scale/3);
+			
 
 		} else if (nestType == 20.0F) {
 
