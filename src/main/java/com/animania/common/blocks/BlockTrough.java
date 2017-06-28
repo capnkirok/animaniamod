@@ -6,8 +6,10 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.compat.top.providers.TOPInfoProvider;
+import com.animania.config.AnimaniaConfig;
 
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -496,26 +498,11 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 		if (stack.isEmpty())
 			return false;
 
-		Item item = stack.getItem();
-
-		if (Loader.isModLoaded("simplecorn"))
+		String[] foods = AnimaniaConfig.gameRules.troughFood;
+		
+		for(int i = 0; i < foods.length; i++)
 		{
-			if (item == Item.getByNameOrId("simplecorn:corncob"))
-				return true;
-		}
-
-		if (Loader.isModLoaded("harvestcraft"))
-		{
-			if (item == Item.getByNameOrId("harvestcraft:barleyitem"))
-				return true;
-
-			if (item == Item.getByNameOrId("harvestcraft:oatsitem"))
-				return true;
-
-			if (item == Item.getByNameOrId("harvestcraft:ryeitem"))
-				return true;
-
-			if (item == Item.getByNameOrId("harvestcraft:cornitem"))
+			if(ItemStack.areItemsEqual(AnimaniaHelper.getItem(foods[i]), stack))
 				return true;
 		}
 
