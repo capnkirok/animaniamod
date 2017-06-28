@@ -3,6 +3,7 @@ package com.animania.common.helper;
 import com.animania.Animania;
 import com.animania.network.client.TileEntitySyncPacket;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -59,6 +60,12 @@ public class AnimaniaHelper
             Animania.network.sendToAllAround(new TileEntitySyncPacket(data), new NetworkRegistry.TargetPoint(tile.getWorld().provider.getDimension(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), 64));
         }
     
+	}
+	
+	public static void addItem(EntityPlayer player, ItemStack stack)
+	{
+		if(!player.inventory.addItemStackToInventory(stack))
+			player.dropItem(stack, false);
 	}
 
 
