@@ -92,7 +92,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 		if (player.isBeingRidden() && !te.isRunning())
 		{
 			List<Entity> passengers = player.getPassengers();
-			if (passengers.get(0) instanceof EntityHamster && ((EntityHamster) passengers.get(0)).getFed())
+			if (passengers.get(0) instanceof EntityHamster && ((EntityHamster) passengers.get(0)).getFed() && !((EntityHamster) passengers.get(0)).isInBall())
 			{
 				if (player.hasCapability(CapabilityRefs.CAPS, null))
 				{
