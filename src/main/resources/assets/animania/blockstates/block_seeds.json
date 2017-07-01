@@ -1,11 +1,35 @@
 {
     "variants": {
-        "normal": 
+        "variant=wheat": 
 		[
-					{ "model": "animania:block_seeds" },
+				  { "model": "animania:block_seeds" },
 		          { "model": "animania:block_seeds", "y": 90 },
 		          { "model": "animania:block_seeds", "y": 180 },
 		          { "model": "animania:block_seeds", "y": 270 }
+				  
+		],
+		"variant=pumpkin": 
+		[
+				  { "model": "animania:block_seeds_pumpkin" },
+		          { "model": "animania:block_seeds_pumpkin", "y": 90 },
+		          { "model": "animania:block_seeds_pumpkin", "y": 180 },
+		          { "model": "animania:block_seeds_pumpkin", "y": 270 }
+				  
+		],
+		"variant=melon": 
+		[
+				  { "model": "animania:block_seeds_melon" },
+		          { "model": "animania:block_seeds_melon", "y": 90 },
+		          { "model": "animania:block_seeds_melon", "y": 180 },
+		          { "model": "animania:block_seeds_melon", "y": 270 }
+				  
+		],
+		"variant=beetroot": 
+		[
+				  { "model": "animania:block_seeds_beetroot" },
+		          { "model": "animania:block_seeds_beetroot", "y": 90 },
+		          { "model": "animania:block_seeds_beetroot", "y": 180 },
+		          { "model": "animania:block_seeds_beetroot", "y": 270 }
 				  
 		]
 

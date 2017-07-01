@@ -1,0 +1,7 @@
+{
+    "parent": "block/carpet",
+    "textures": {
+        "wool": "animania:blocks/seeds_beetroot",
+        "particle": "animania:blocks/seeds_beetroot"
+    }
+}

@@ -2,6 +2,7 @@ package com.animania.common.events;
 
 import java.util.Random;
 
+import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.entities.pigs.EntityHogBase;
@@ -24,6 +25,7 @@ import net.minecraft.block.BlockFarmland;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -43,8 +45,9 @@ public class ItemSeedHandler
 		BlockPos pos = event.getPos();
 		World world = event.getWorld();
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WHEAT_SEEDS && (AnimaniaConfig.gameRules.shiftSeedPlacement ? player.isSneaking() : true))
+		if (stack != ItemStack.EMPTY && (stack.getItem() == Items.WHEAT_SEEDS || stack.getItem() == Items.PUMPKIN_SEEDS || stack.getItem() == Items.MELON_SEEDS || stack.getItem() == Items.BEETROOT_SEEDS) && (AnimaniaConfig.gameRules.shiftSeedPlacement ? player.isSneaking() : true))
 		{
+			Item item = stack.getItem();
 
 			if (!world.getBlockState(pos).getBlock().isReplaceable(world, pos))
 				pos = pos.offset(event.getFace());
@@ -54,7 +57,14 @@ public class ItemSeedHandler
 			if (world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable))
 				if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
 				{
-					world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState());
+					if (item == Items.WHEAT_SEEDS)
+						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState());
+					else if	(item == Items.PUMPKIN_SEEDS)
+						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.PUMPKIN));
+					else if	(item == Items.MELON_SEEDS)
+						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
+					else if	(item == Items.BEETROOT_SEEDS)
+						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
 					player.swingArm(event.getHand());
 					if (!player.isCreative())
 						stack.shrink(1);
