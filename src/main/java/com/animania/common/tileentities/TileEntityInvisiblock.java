@@ -32,9 +32,9 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable
                     return true;
             }
 
-            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.trough != null)
+            if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.trough != null && this.trough.fluidHandler.getFluid() == null)
                 return true;
-            if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.trough != null)
+            if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.trough != null && this.trough.itemHandler.getStackInSlot(0).isEmpty())
                 return true;
         }
 
