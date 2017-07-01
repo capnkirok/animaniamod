@@ -48,7 +48,7 @@ public class UpdateHandler
             Scanner s = new Scanner(url.openStream());
             UpdateHandler.newestVersion = s.next();
             s.close();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
