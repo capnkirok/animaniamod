@@ -36,7 +36,8 @@ public class UpdateHandler
             }
         }
         else {
-            UpdateHandler.show = false;
+            //UpdateHandler.show = false;
+            UpdateHandler.show = true;
             UpdateHandler.updateStatus = TextFormatting.WHITE + I18n.translateToLocal("animania.updatetext.3");
         }
     }

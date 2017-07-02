@@ -2,6 +2,7 @@ package com.animania.common.handler;
 
 import java.util.Random;
 
+import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.cows.CowType;
@@ -32,17 +33,19 @@ public class DispenserHandler
 	public static void init()
 	{
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.WHEAT_SEEDS, SEEDS_DISPENSER_BEHAVIOUR);
-		
-		for(ResourceLocation path : Item.REGISTRY.getKeys())
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.PUMPKIN_SEEDS, SEEDS_DISPENSER_BEHAVIOUR);
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.MELON_SEEDS, SEEDS_DISPENSER_BEHAVIOUR);
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.BEETROOT_SEEDS, SEEDS_DISPENSER_BEHAVIOUR);
+
+		for (ResourceLocation path : Item.REGISTRY.getKeys())
 		{
 			Item item = Item.getByNameOrId(path.toString());
-			if(item instanceof ItemEntityEgg)
+			if (item instanceof ItemEntityEgg)
 			{
 				BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(item, SPAWNEGG_DISPENSER_BEHAVIOUR);
 			}
 		}
 	}
-
 
 	public static final IBehaviorDispenseItem SEEDS_DISPENSER_BEHAVIOUR = new BehaviorDefaultDispenseItem()
 	{
@@ -50,53 +53,65 @@ public class DispenserHandler
 
 		public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
 		{
-			EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
+			EnumFacing enumfacing = (EnumFacing) source.getBlockState().getValue(BlockDispenser.FACING);
 			World world = source.getWorld();
 			BlockPos pos = source.getBlockPos().offset(enumfacing);
 			BlockPos below = pos.offset(EnumFacing.DOWN);
+			Item item = stack.getItem();
 
-			if(world.getBlockState(pos).getBlock() != BlockHandler.blockSeeds && world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable) && AnimaniaConfig.gameRules.allowSeedDispenserPlacement)
+			if (world.getBlockState(pos).getBlock() != BlockHandler.blockSeeds && world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable) && AnimaniaConfig.gameRules.allowSeedDispenserPlacement)
 			{
 				if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
 				{
-					world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState());
+					if (item == Items.WHEAT_SEEDS)
+						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState());
+					else if (item == Items.PUMPKIN_SEEDS)
+						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.PUMPKIN));
+					else if (item == Items.MELON_SEEDS)
+						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
+					else if (item == Items.BEETROOT_SEEDS)
+						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
 					stack.shrink(1);
 					return stack;
 				}
 			}
-			else if(Loader.isModLoaded("quark") && world.getBlockState(below).getBlock() instanceof BlockFarmland)
+			else if (Loader.isModLoaded("quark") && world.getBlockState(below).getBlock() instanceof BlockFarmland)
 			{
 				if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
 				{
-					world.setBlockState(pos, Blocks.WHEAT.getDefaultState());
-					stack.shrink(1);
+					if (item == Items.WHEAT_SEEDS)
+						world.setBlockState(pos, Blocks.WHEAT.getDefaultState());
+					else if (item == Items.PUMPKIN_SEEDS)
+						world.setBlockState(pos, Blocks.PUMPKIN_STEM.getDefaultState());
+					else if (item == Items.MELON_SEEDS)
+						world.setBlockState(pos, Blocks.MELON_STEM.getDefaultState());
+					else if (item == Items.BEETROOT_SEEDS)
+						world.setBlockState(pos, Blocks.BEETROOTS.getDefaultState());
 					return stack;
 				}
 			}
-			else if(world.getBlockState(pos).getBlock() == BlockHandler.blockSeeds)
+			else if (world.getBlockState(pos).getBlock() == BlockHandler.blockSeeds)
 			{
 				return stack;
 			}
-
 
 			return super.dispenseStack(source, stack);
 
 		}
 
 	};
-	
-	
+
 	public static final IBehaviorDispenseItem SPAWNEGG_DISPENSER_BEHAVIOUR = new BehaviorDefaultDispenseItem()
 	{
 		private final BehaviorDefaultDispenseItem behaviourDefaultDispenseItem = new BehaviorDefaultDispenseItem();
 
 		public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
 		{
-			EnumFacing enumfacing = (EnumFacing)source.getBlockState().getValue(BlockDispenser.FACING);
+			EnumFacing enumfacing = (EnumFacing) source.getBlockState().getValue(BlockDispenser.FACING);
 			World world = source.getWorld();
 			BlockPos pos = source.getBlockPos().offset(enumfacing);
 			ItemEntityEgg item = (ItemEntityEgg) stack.getItem();
-			
+
 			EntityLivingBase entity = null;
 
 			if (item.gender == EntityGender.RANDOM)
@@ -126,21 +141,21 @@ public class DispenserHandler
 				if (stack.hasDisplayName())
 					((EntityLivingBase) entity).setCustomNameTag(stack.getDisplayName());
 
-					stack.shrink(1);
+				stack.shrink(1);
 
-				//Random rand = new Random();
-				//world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSoundEvents.combo, SoundCategory.BLOCKS, 0.8F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+				// Random rand = new Random();
+				// world.playSound(null, pos.getX(), pos.getY(), pos.getZ(),
+				// ModSoundEvents.combo, SoundCategory.BLOCKS, 0.8F,
+				// ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) /
+				// 0.8F);
 
 				world.spawnEntity(entity);
 			}
-
 
 			return stack;
 
 		}
 
 	};
-
-
 
 }
