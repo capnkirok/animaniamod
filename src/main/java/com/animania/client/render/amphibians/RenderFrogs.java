@@ -18,14 +18,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderFrogs<T extends EntityFrogs> extends RenderLiving<T>
 {// RenderPlayer
     public static final Factory             FACTORY        = new Factory();
-
-    // Need to move in main class
+    
     // Need to move in main class
     private static final String             modid          = "animania", frogsBaseDir = "textures/entity/amphibians/frogs/";
     private static final ResourceLocation   PEPE_TEXTURE   = new ResourceLocation("animania:textures/entity/amphibians/frogs/pepe_frog.png");
-    private static final ResourceLocation[] FROGS_TEXTURES = new ResourceLocation[] {
-            new ResourceLocation(RenderFrogs.modid, RenderFrogs.frogsBaseDir + "default_frog.png"),
-            new ResourceLocation(RenderFrogs.modid, RenderFrogs.frogsBaseDir + "green_frog.png") };
+    private static final ResourceLocation[] FROGS_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderFrogs.modid, RenderFrogs.frogsBaseDir + "default_frog.png"), new ResourceLocation(RenderFrogs.modid, RenderFrogs.frogsBaseDir + "green_frog.png") };
 
     public RenderFrogs(RenderManager rendermanagerIn) {
         super(rendermanagerIn, new ModelFrog(), 0.05F);
