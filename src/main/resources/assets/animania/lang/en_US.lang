@@ -89,9 +89,9 @@ item.animania_cooked_prime_chicken.name=Roast Prime Chicken
 item.animania_raw_frog_legs.name=Raw Frog Legs
 item.animania_cooked_frog_legs.name=Cooked Frog Legs
 
-item.animania_friesian_cheese_wheel.name=Cheese Wheel (Friesian)
+tile.animania_cheese_friesian.name=Cheese Wheel (Friesian)
 item.animania_friesian_cheese_wedge.name=Cheese Wedge (Friesian)
-item.animania_holstein_cheese_wheel.name=Cheese Wheel (Holstein)
+tile.animania_cheese_holstein.name=Cheese Wheel (Holstein)
 item.animania_holstein_cheese_wedge.name=Cheese Wedge (Holstein)
 item.animania_holstein_bucket_milk.name=Bucket Milk (Holstein)
 item.animania_friesian_bucket_milk.name=Bucket Milk (Friesian)

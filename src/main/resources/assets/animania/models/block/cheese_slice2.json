@@ -1,0 +1,22 @@
+{
+    "textures": {
+        "particle": "animania:blocks/cheese_side",
+        "bottom": "animania:blocks/cheese_bottom",
+        "top": "animania:blocks/cheese_top",
+        "side": "animania:blocks/cheese_side",
+        "inside": "animania:blocks/cheese_inner"
+    },
+    "elements": [
+        {   "from": [ 5, 0, 1 ],
+            "to": [ 15, 8, 15 ],
+            "faces": {
+                "down":  { "texture": "#bottom", "cullface": "down" },
+                "up":    { "texture": "#top" },
+                "north": { "texture": "#side" },
+                "south": { "texture": "#side" },
+                "west":  { "texture": "#inside" },
+                "east":  { "texture": "#side" }
+            }
+        }
+    ]
+}

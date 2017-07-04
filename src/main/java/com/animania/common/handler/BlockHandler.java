@@ -1,6 +1,7 @@
 package com.animania.common.handler;
 
 import com.animania.Animania;
+import com.animania.common.blocks.BlockCheese;
 import com.animania.common.blocks.BlockHamsterWheel;
 import com.animania.common.blocks.BlockInvisiblock;
 import com.animania.common.blocks.BlockMud;
@@ -31,7 +32,9 @@ public class BlockHandler
 	public static BlockFluidBase blockSlop;
 	public static BlockFluidBase blockMilkHolstein;
 	public static BlockFluidBase blockMilkFriesian;
-
+	public static Block blockCheeseHolstein;
+	public static Block blockCheeseFriesian;
+	
 	// TileEntity blocks
 	public static Block blockTrough;
 	public static Block blockNest;
@@ -58,7 +61,9 @@ public class BlockHandler
 		BlockHandler.blockNest = new BlockNest().setHardness(1.0F).setResistance(1.0F);
 		BlockHandler.blockSeeds = new BlockSeeds();
 		BlockHandler.blockHamsterWheel = new BlockHamsterWheel();
-
+		BlockHandler.blockCheeseFriesian = new BlockCheese("cheese_friesian");
+		BlockHandler.blockCheeseHolstein = new BlockCheese("cheese_holstein");
+		
 		// Fluids
 		BlockHandler.fluidSlop = new FluidBase("slop").setViscosity(7000).setDensity(3000).setEmptySound(SoundEvents.BLOCK_SLIME_PLACE).setFillSound(SoundEvents.BLOCK_SLIME_FALL);
 		FluidRegistry.addBucketForFluid(BlockHandler.fluidSlop);

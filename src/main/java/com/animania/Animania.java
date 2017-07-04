@@ -20,9 +20,11 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber
-@Mod(modid = Animania.MODID, name = Animania.NAME, version = Animania.VERSION, guiFactory = "com.animania.client.gui.GuiFactoryAnimania", dependencies = "required-after:craftstudioapi;after:quark")
+@Mod(modid = Animania.MODID, name = Animania.NAME, version = Animania.VERSION, guiFactory = "com.animania.client.gui.GuiFactoryAnimania", dependencies = "required-after:craftstudioapi;after:quark;required-after:forge@[13.20.1.2386,)")
 public class Animania
 {
 
@@ -66,12 +68,14 @@ public class Animania
     public void postInit(FMLPostInitializationEvent e)
     {}
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void registerModels(RegistryEvent.Register<CSReadedModel> e)
     {
         proxy.registerCraftStudioModels();
     }
 
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void registerAnimations(RegistryEvent.Register<CSReadedAnim> e)
     {

@@ -3,9 +3,11 @@ package com.animania.common.recipes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
@@ -23,7 +25,7 @@ public class CheeseRecipe4 implements IRecipe
     public CheeseRecipe4() {
         this.recipeOutput = new ItemStack(ItemHandler.cheeseWedgeFriesian, 4);
         this.recipeItems.add(new ItemStack(ItemHandler.carvingKnife));
-        this.recipeItems.add(new ItemStack(ItemHandler.cheeseWheelFriesian));
+        this.recipeItems.add(new ItemStack(Item.getItemFromBlock(BlockHandler.blockCheeseFriesian)));
 
     }
 
