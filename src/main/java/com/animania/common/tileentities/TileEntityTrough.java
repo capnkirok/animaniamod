@@ -3,6 +3,7 @@ package com.animania.common.tileentities;
 import javax.annotation.Nullable;
 
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.handler.FluidHandlerTrough;
 import com.animania.common.tileentities.handler.ItemHandlerTrough;
 import com.animania.config.AnimaniaConfig;
@@ -261,16 +262,24 @@ public class TileEntityTrough extends TileEntity implements ITickable
 		if (AnimaniaConfig.gameRules.allowTroughAutomation)
 		{
 
-			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.fluidHandler.getFluid() == null)
+			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 				return (T) this.itemHandler;
 
-			if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.itemHandler.getStackInSlot(0).isEmpty())
+			if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
 				return (T) this.fluidHandler;
 
 		}
 
 		return super.getCapability(capability, facing);
 
+	}
+	
+	@Override
+	public void markDirty()
+	{
+		super.markDirty();
+		
+		AnimaniaHelper.sendTileEntityUpdate(this);
 	}
 
 }

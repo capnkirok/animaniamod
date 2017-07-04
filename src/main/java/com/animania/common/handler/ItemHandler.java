@@ -76,6 +76,7 @@ import com.animania.common.items.ItemTruffleSoup;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemBlock;
 
 public class ItemHandler
 {
@@ -160,9 +161,9 @@ public class ItemHandler
     public static Item baconOmelette;
     public static Item truffleOmelette;
     public static Item ultimateOmelette;
-    public static Item cheeseWheelFriesian;
+    public static ItemBlock cheeseWheelFriesian;
     public static Item cheeseWedgeFriesian;
-    public static Item cheeseWheelHolstein;
+    public static ItemBlock cheeseWheelHolstein;
     public static Item cheeseWedgeHolstein;
     public static Item truffleSoup;
     public static Item chocolateTruffle;
@@ -358,8 +359,8 @@ public class ItemHandler
         ItemHandler.cookedFrogLegs = new ItemCookedFrogLegs();
 
         // CHEESE
-        ItemHandler.cheeseWheelFriesian = new ItemCheeseWheel("friesian");
-        ItemHandler.cheeseWheelHolstein = new ItemCheeseWheel("holstein");
+       // ItemHandler.cheeseWheelFriesian = new ItemCheeseWheel("friesian");
+        //ItemHandler.cheeseWheelHolstein = new ItemCheeseWheel("holstein");
         ItemHandler.cheeseWedgeFriesian = new ItemCheeseWedge("friesian");
         ItemHandler.cheeseWedgeHolstein = new ItemCheeseWedge("holstein");
 

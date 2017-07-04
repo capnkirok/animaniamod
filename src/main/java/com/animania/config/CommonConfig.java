@@ -263,7 +263,7 @@ public class CommonConfig
         @Comment("RF/tick that the Hamster wheel generates while in use")
         public int hamsterWheelUseTime = 900;
         
-        @Comment("RF/tick that the Hamster wheel generates while in use")
+        @Comment("Food Items that can be placed in the trough")
         public String[] troughFood = {"minecraft:wheat", "simplecorn:corncob" , "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem", "harvestcraft:cornitem"};
     }
 
