@@ -19,7 +19,23 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 {
 
 	public static final Factory             FACTORY        = new Factory();
-	private static final ResourceLocation horseTextures = new ResourceLocation("animania:textures/entity/horses/draft_horse_grey.png");
+	private static final String             modid          = "animania", horseBaseDir = "textures/entity/horses/";
+
+	private static final ResourceLocation[] HORSE_TEXTURES = new ResourceLocation[] { 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "black.png"), 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir +"draft_horse_" + "bw1.png"), 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir +"draft_horse_" + "bw2.png"), 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir +"draft_horse_" + "grey.png"), 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir +"draft_horse_" + "red.png"), 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir +"draft_horse_" + "white.png")}; 
+
+	private static final ResourceLocation[] HORSE_TEXTURES_BLINK = new ResourceLocation[] { 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir + "draft_horse_" + "black_blink.png"), 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir +"draft_horse_" + "bw1_blink.png"), 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir +"draft_horse_" + "bw2_blink.png"), 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir +"draft_horse_" + "grey_blink.png"), 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir +"draft_horse_" + "red_blink.png"), 
+			new ResourceLocation(RenderFoalDraftHorse.modid, RenderFoalDraftHorse.horseBaseDir +"draft_horse_" + "white_blink.png")}; 
 
 	public RenderFoalDraftHorse(RenderManager rm)
 	{
@@ -42,30 +58,25 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 		preRenderScale((EntityFoalDraftHorse)entityliving, f);
 	}
 
-	protected ResourceLocation getHorseTextures(EntityFoalDraftHorse par1Entity)
-	{
-		return horseTextures;
-	}
-
+	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityFoalDraftHorse entity) {
 
 		int blinkTimer = entity.blinkTimer;
 
-		if (blinkTimer < 5 && blinkTimer >= 0) {
-			return entity.getResourceLocationBlink();
-		} else {
-			return entity.getResourceLocation();
-		}
+		if (blinkTimer < 5 && blinkTimer >= 0)
+			return RenderFoalDraftHorse.HORSE_TEXTURES_BLINK[entity.getColorNumber()];
+		else
+			return RenderFoalDraftHorse.HORSE_TEXTURES[entity.getColorNumber()];
 
 
 	}
-	
+
 	static class Factory<T extends EntityFoalDraftHorse> implements IRenderFactory<T>
-    {
-        @Override
-        public Render<? super T> createRenderFor(RenderManager manager) {
-            return new RenderFoalDraftHorse(manager);
-        }
-    }
+	{
+		@Override
+		public Render<? super T> createRenderFor(RenderManager manager) {
+			return new RenderFoalDraftHorse(manager);
+		}
+	}
 }

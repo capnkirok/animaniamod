@@ -100,7 +100,7 @@ public class EntityAnimaniaHorse extends EntityAnimal
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaHorse.COLOR_NUM, Integer.valueOf(0));
+		this.dataManager.register(EntityAnimaniaHorse.COLOR_NUM, Integer.valueOf(rand.nextInt(6)));
 		this.dataManager.register(EntityAnimaniaHorse.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaHorse.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaHorse.MATE_UNIQUE_ID, Optional.<UUID>absent());

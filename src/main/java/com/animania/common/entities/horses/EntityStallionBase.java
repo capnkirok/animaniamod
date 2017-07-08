@@ -312,17 +312,6 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	public void onLivingUpdate()
 	{
 
-		if(getColorNumber() == 0) {
-			Random rand = new Random();
-			int bob2 = rand.nextInt(6) + 1;
-			this.setColorNumber(bob2);
-			resourceLocation = new ResourceLocation("animania:textures/entity/horses/draft_horse_" + this.HORSE_TEXTURES[bob2-1] + ".png");
-			resourceLocationBlink = new ResourceLocation("animania:textures/entity/horses/draft_horse_" + this.HORSE_TEXTURES[bob2-1] + "_blink.png");
-		} else if (resourceLocation == null) {
-			resourceLocation = new ResourceLocation("animania:textures/entity/horses/draft_horse_" + this.HORSE_TEXTURES[this.getColorNumber()-1] + ".png");
-			resourceLocationBlink = new ResourceLocation("animania:textures/entity/horses/draft_horse_" + this.HORSE_TEXTURES[this.getColorNumber()-1] + "_blink.png");
-		}
-
 		if (this.world.isRemote)
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
