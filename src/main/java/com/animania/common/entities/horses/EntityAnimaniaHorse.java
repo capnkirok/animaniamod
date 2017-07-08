@@ -49,7 +49,7 @@ public class EntityAnimaniaHorse extends EntityAnimal
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaHorse.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityStallionDraftHorse.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
 	private static final String[] HORSE_TEXTURES = new String[] {"black", "bw1", "bw2", "grey", "red", "white"};
 
 	protected int happyTimer;

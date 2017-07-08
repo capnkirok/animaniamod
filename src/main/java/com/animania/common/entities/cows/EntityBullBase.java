@@ -41,7 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProviderMateable
 {
 
-	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBullAngus.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
 	
 	public EntityBullBase(World worldIn)
 	{
