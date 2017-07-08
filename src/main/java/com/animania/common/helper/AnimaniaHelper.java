@@ -1,13 +1,18 @@
 package com.animania.common.helper;
 
+import java.util.List;
+
 import com.animania.Animania;
 import com.animania.network.client.TileEntitySyncPacket;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class AnimaniaHelper
@@ -68,5 +73,10 @@ public class AnimaniaHelper
 			player.dropItem(stack, false);
 	}
 
+	public static List<EntityLivingBase> getEntitiesInRange(Class<? extends EntityLivingBase> filterEntity, double range, World world, Entity theEntity)
+    {
+        List<EntityLivingBase> list = world.<EntityLivingBase>getEntitiesWithinAABB(filterEntity, theEntity.getEntityBoundingBox().expandXyz(range));
+        return list;
+    }
 
 }

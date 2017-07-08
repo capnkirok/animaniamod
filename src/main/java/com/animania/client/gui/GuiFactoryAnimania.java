@@ -28,6 +28,7 @@ public class GuiFactoryAnimania implements IModGuiFactory
         return null;
     }
 
+   
 	@Override
 	public boolean hasConfigGui()
 	{
@@ -40,6 +41,7 @@ public class GuiFactoryAnimania implements IModGuiFactory
 
 		return new GuiConfigAnimania(parentScreen);
 	}
+	
 
 
 }
