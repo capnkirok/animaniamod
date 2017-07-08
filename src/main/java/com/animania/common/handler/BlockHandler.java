@@ -15,6 +15,7 @@ import com.animania.common.blocks.fluids.FluidBase;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
@@ -63,7 +64,9 @@ public class BlockHandler
 		BlockHandler.blockHamsterWheel = new BlockHamsterWheel();
 		BlockHandler.blockCheeseFriesian = new BlockCheese("cheese_friesian");
 		BlockHandler.blockCheeseHolstein = new BlockCheese("cheese_holstein");
-		
+		ItemHandler.cheeseWheelFriesian = Item.getItemFromBlock(blockCheeseFriesian);
+		ItemHandler.cheeseWheelHolstein = Item.getItemFromBlock(blockCheeseHolstein);
+
 		// Fluids
 		BlockHandler.fluidSlop = new FluidBase("slop").setViscosity(7000).setDensity(3000).setEmptySound(SoundEvents.BLOCK_SLIME_PLACE).setFillSound(SoundEvents.BLOCK_SLIME_FALL);
 		FluidRegistry.addBucketForFluid(BlockHandler.fluidSlop);
