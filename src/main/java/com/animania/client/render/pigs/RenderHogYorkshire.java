@@ -23,85 +23,85 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderHogYorkshire<T extends EntityHogYorkshire> extends RenderLiving<T>
 {
-    public static final Factory           FACTORY            = new Factory();
+	public static final Factory           FACTORY            = new Factory();
 
-    private static final ResourceLocation PIG_TEXTURES       = new ResourceLocation("animania:textures/entity/pigs/hog_yorkshire.png");
-    private static final ResourceLocation PIG_TEXTURES_BLINK = new ResourceLocation("animania:textures/entity/pigs/hog_yorkshire_blink.png");
+	private static final ResourceLocation PIG_TEXTURES       = new ResourceLocation("animania:textures/entity/pigs/hog_yorkshire.png");
+	private static final ResourceLocation PIG_TEXTURES_BLINK = new ResourceLocation("animania:textures/entity/pigs/hog_yorkshire_blink.png");
 
-    public RenderHogYorkshire(RenderManager rm) {
-        super(rm, new ModelHog(), 0.5F);
-        this.addLayer(new LayerMudHogYorkshire(this));
-    }
+	public RenderHogYorkshire(RenderManager rm) {
+		super(rm, new ModelHog(), 0.5F);
+		this.addLayer(new LayerMudHogYorkshire(this));
+	}
 
-    protected void preRenderScale(T entity, float f) {
-        GL11.glScalef(1.10F, 1.10F, 1.10F);
+	protected void preRenderScale(T entity, float f) {
+		GL11.glScalef(1.10F, 1.10F, 1.10F);
 
-        double x = entity.posX;
-        double y = entity.posY;
-        double z = entity.posZ;
+		double x = entity.posX;
+		double y = entity.posY;
+		double z = entity.posZ;
 
-        BlockPos pos = new BlockPos(x, y, z);
-        Random rand = new Random();
+		BlockPos pos = new BlockPos(x, y, z);
+		Random rand = new Random();
 
-        Block blockchk = entity.world.getBlockState(pos).getBlock();
+		Block blockchk = entity.world.getBlockState(pos).getBlock();
 
-        if (blockchk == BlockHandler.blockMud && !entity.getMuddy()) {
-            GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
-            GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
-            entity.setMuddy(true);
-            entity.setMudTimer(1.0F);
-            entity.setSplashTimer(1.0F);
-        }
-        else if (entity.isWet() && entity.getMuddy()) {
-            entity.setMuddy(false);
-            entity.setMudTimer(0.0F);
-            entity.setSplashTimer(0.0F);
-        }
-        else if (blockchk == BlockHandler.blockMud) {
-            Float splashTimer = entity.getSplashTimer();
-            GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
-            GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
+		if (blockchk == BlockHandler.blockMud && !entity.getMuddy()) {
+			GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
+			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
+			entity.setMuddy(true);
+			entity.setMudTimer(1.0F);
+			entity.setSplashTimer(1.0F);
+		}
+		else if (entity.isWet() && entity.getMuddy() && blockchk != BlockHandler.blockMud) {
+			entity.setMuddy(false);
+			entity.setMudTimer(0.0F);
+			entity.setSplashTimer(0.0F);
+		}
+		else if (blockchk == BlockHandler.blockMud) {
+			Float splashTimer = entity.getSplashTimer();
+			GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
+			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
 
-            splashTimer = splashTimer - 0.045F;
-            entity.setSplashTimer(splashTimer);
-            if (splashTimer <= 0.0F) {
-                entity.setMuddy(true);
-                entity.setMudTimer(1.0F);
-            }
+			splashTimer = splashTimer - 0.045F;
+			entity.setSplashTimer(splashTimer);
+			if (splashTimer <= 0.0F) {
+				entity.setMuddy(true);
+				entity.setMudTimer(1.0F);
+			}
 
-        }
-        else if (entity.getMudTimer() > 0) {
-            entity.setMuddy(false);
-            float mudTimer = entity.getMudTimer();
-            if (rand.nextInt(3) < 1) {
-                mudTimer = mudTimer - 0.0025F;
-                entity.setMudTimer(mudTimer);
-            }
-        }
+		}
+		else if (entity.getMudTimer() > 0) {
+			entity.setMuddy(false);
+			float mudTimer = entity.getMudTimer();
+			if (rand.nextInt(3) < 1) {
+				mudTimer = mudTimer - 0.0025F;
+				entity.setMudTimer(mudTimer);
+			}
+		}
 
-    }
+	}
 
-    @Override
-    protected void preRenderCallback(T entityliving, float f) {
-        this.preRenderScale(entityliving, f);
-    }
+	@Override
+	protected void preRenderCallback(T entityliving, float f) {
+		this.preRenderScale(entityliving, f);
+	}
 
-    @Override
-    protected ResourceLocation getEntityTexture(T entity) {
-        int blinkTimer = entity.blinkTimer;
+	@Override
+	protected ResourceLocation getEntityTexture(T entity) {
+		int blinkTimer = entity.blinkTimer;
 
-        if (blinkTimer < 7 && blinkTimer >= 0)
-            return RenderHogYorkshire.PIG_TEXTURES_BLINK;
-        else
-            return RenderHogYorkshire.PIG_TEXTURES;
-    }
+		if (blinkTimer < 7 && blinkTimer >= 0)
+			return RenderHogYorkshire.PIG_TEXTURES_BLINK;
+		else
+			return RenderHogYorkshire.PIG_TEXTURES;
+	}
 
-    static class Factory<T extends EntityHogYorkshire> implements IRenderFactory<T>
-    {
-        @Override
-        public Render<? super T> createRenderFor(RenderManager manager) {
-            return new RenderHogYorkshire(manager);
-        }
-    }
+	static class Factory<T extends EntityHogYorkshire> implements IRenderFactory<T>
+	{
+		@Override
+		public Render<? super T> createRenderFor(RenderManager manager) {
+			return new RenderHogYorkshire(manager);
+		}
+	}
 
 }
