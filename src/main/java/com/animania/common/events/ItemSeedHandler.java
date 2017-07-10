@@ -35,17 +35,16 @@ public class ItemSeedHandler
 		EntityPlayer player = event.getEntityPlayer();
 		BlockPos pos = event.getPos();
 		World world = event.getWorld();
-
+			
 		if (stack != ItemStack.EMPTY && (stack.getItem() == Items.WHEAT_SEEDS || stack.getItem() == Items.PUMPKIN_SEEDS || stack.getItem() == Items.MELON_SEEDS || stack.getItem() == Items.BEETROOT_SEEDS) && (AnimaniaConfig.gameRules.shiftSeedPlacement ? player.isSneaking() : true))
 		{
 			Item item = stack.getItem();
 
 			if (!world.getBlockState(pos).getBlock().isReplaceable(world, pos))
-				pos = pos.offset(event.getFace());
-
+				pos = pos.offset(event.getFace()); 
 			BlockPos below = pos.down();
 
-			if (world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable) && !(world.getBlockState(below).getBlock() instanceof IGrowable))
+			if (world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable))
 				if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
 				{
 					if (item == Items.WHEAT_SEEDS)
@@ -63,7 +62,7 @@ public class ItemSeedHandler
 					Random rand = new Random();
 					event.getWorld().playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ, SoundEvents.BLOCK_GRASS_FALL, SoundCategory.PLAYERS, 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 				}
-
+			
 		}
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && player.isRiding())

@@ -120,6 +120,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		return true;
 	}
+	
+	@Override
+	public void fall(float distance, float damageMultiplier)
+	{
+
+	}
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
