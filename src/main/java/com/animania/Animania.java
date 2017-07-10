@@ -36,7 +36,7 @@ public class Animania
     public static Animania     instance;
 
     public static final String MODID                = "animania";
-    public static final String VERSION              = "1.2";
+    public static final String VERSION              = "1.2.1";
     public static final String NAME                 = "Animania";
 
 	public static SimpleNetworkWrapper network;

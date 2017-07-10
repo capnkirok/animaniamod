@@ -53,7 +53,7 @@ public class RenderPigletOldSpot<T extends EntityPigletOldSpot> extends RenderLi
             entity.setMudTimer(1.0F);
             entity.setSplashTimer(1.0F);
         }
-        else if (entity.isWet() && entity.getMuddy()) {
+        else if (entity.isWet() && entity.getMuddy() && blockchk != BlockHandler.blockMud) {
             entity.setMuddy(false);
             entity.setMudTimer(0.0F);
             entity.setSplashTimer(0.0F);
