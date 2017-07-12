@@ -12,6 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
@@ -73,10 +75,21 @@ public class AnimaniaHelper
 			player.dropItem(stack, false);
 	}
 
+	
 	public static List<EntityLivingBase> getEntitiesInRange(Class<? extends EntityLivingBase> filterEntity, double range, World world, Entity theEntity)
     {
         List<EntityLivingBase> list = world.<EntityLivingBase>getEntitiesWithinAABB(filterEntity, theEntity.getEntityBoundingBox().expandXyz(range));
         return list;
     }
+	
+	
+	public static RayTraceResult rayTrace(EntityPlayer player, double blockReachDistance)
+    {
+        Vec3d vec3d = player.getPositionEyes(1f);
+        Vec3d vec3d1 = player.getLook(1f);
+        Vec3d vec3d2 = vec3d.addVector(vec3d1.xCoord * blockReachDistance, vec3d1.yCoord * blockReachDistance, vec3d1.zCoord * blockReachDistance);
+        return player.world.rayTraceBlocks(vec3d, vec3d2, false, false, true);
+    }
+	
 
 }

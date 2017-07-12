@@ -9,17 +9,20 @@ import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
+import com.ibm.icu.text.DisplayContext.Type;
 
 import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.IGrowable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -28,41 +31,49 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ItemSeedHandler
 {
 	@SubscribeEvent
-	public void notify(PlayerInteractEvent.RightClickBlock event)
+	public void notify(PlayerInteractEvent.RightClickItem event)
 	{
 
 		ItemStack stack = event.getItemStack();
 		EntityPlayer player = event.getEntityPlayer();
-		BlockPos pos = event.getPos();
 		World world = event.getWorld();
-			
+
 		if (stack != ItemStack.EMPTY && (stack.getItem() == Items.WHEAT_SEEDS || stack.getItem() == Items.PUMPKIN_SEEDS || stack.getItem() == Items.MELON_SEEDS || stack.getItem() == Items.BEETROOT_SEEDS) && (AnimaniaConfig.gameRules.shiftSeedPlacement ? player.isSneaking() : true))
 		{
 			Item item = stack.getItem();
+			RayTraceResult ray = AnimaniaHelper.rayTrace(player, player.isCreative() ? 5.5 : 4.5);
 
-			if (!world.getBlockState(pos).getBlock().isReplaceable(world, pos))
-				pos = pos.offset(event.getFace()); 
-			BlockPos below = pos.down();
+			if (ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK)
+			{
+				EnumFacing facing = ray.sideHit;
+				BlockPos pos = ray.getBlockPos();
+				
+				if (!world.getBlockState(pos).getBlock().isReplaceable(world, pos))
+					pos = pos.offset(facing);
+				BlockPos below = pos.down();
 
-			if (world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable))
-				if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
+				if (world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable))
 				{
-					if (item == Items.WHEAT_SEEDS)
-						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState());
-					else if	(item == Items.PUMPKIN_SEEDS)
-						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.PUMPKIN));
-					else if	(item == Items.MELON_SEEDS)
-						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
-					else if	(item == Items.BEETROOT_SEEDS)
-						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
-					player.swingArm(event.getHand());
-					if (!player.isCreative())
-						stack.shrink(1);
+					if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
+					{
+						if (item == Items.WHEAT_SEEDS)
+							world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState());
+						else if (item == Items.PUMPKIN_SEEDS)
+							world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.PUMPKIN));
+						else if (item == Items.MELON_SEEDS)
+							world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
+						else if (item == Items.BEETROOT_SEEDS)
+							world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
+						player.swingArm(event.getHand());
+						if (!player.isCreative())
+							stack.shrink(1);
 
-					Random rand = new Random();
-					event.getWorld().playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ, SoundEvents.BLOCK_GRASS_FALL, SoundCategory.PLAYERS, 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+						Random rand = new Random();
+						event.getWorld().playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ, SoundEvents.BLOCK_GRASS_FALL, SoundCategory.PLAYERS, 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+					}
 				}
-			
+			}
+
 		}
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && player.isRiding())
