@@ -15,6 +15,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class AnimaniaHelper
@@ -90,6 +92,12 @@ public class AnimaniaHelper
         Vec3d vec3d2 = vec3d.addVector(vec3d1.xCoord * blockReachDistance, vec3d1.yCoord * blockReachDistance, vec3d1.zCoord * blockReachDistance);
         return player.world.rayTraceBlocks(vec3d, vec3d2, false, false, true);
     }
+	
+	
+	public static boolean hasFluid(ItemStack stack, Fluid fluid)
+	{
+		return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000 && FluidUtil.getFluidContained(stack).getFluid() == fluid;
+	}
 	
 
 }

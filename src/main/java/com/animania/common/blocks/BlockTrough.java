@@ -127,7 +127,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 
 			}
 			// LIQUIDS
-			else if (this.hasFluid(stack, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+			else if (AnimaniaHelper.hasFluid(stack, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
 				te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.6F, 0.8F);
@@ -137,7 +137,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 				entityitem.setEntityItemStack(newStack);
 
 			}
-			else if (this.hasFluid(stack, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+			else if (AnimaniaHelper.hasFluid(stack, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
 				te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.BLOCKS, 0.6F, 0.8F);
@@ -358,7 +358,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 
 		}
 		// LIQUIDS
-		else if (hasFluid(heldItem, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+		else if (AnimaniaHelper.hasFluid(heldItem, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 		{
 			te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
@@ -373,7 +373,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 			return true;
 
 		}
-		else if (hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+		else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 		{
 			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
@@ -478,11 +478,6 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 	public String getName()
 	{
 		return this.name;
-	}
-
-	private boolean hasFluid(ItemStack stack, Fluid fluid)
-	{
-		return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000 && FluidUtil.getFluidContained(stack).getFluid() == fluid;
 	}
 
 	public BlockPos findInvisiblock(World world, BlockPos pos)

@@ -98,18 +98,6 @@ public class RecipeHandler
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.truffleSoup, 1), new Object[] { ItemHandler.truffle, ItemHandler.truffle, Items.BOWL }));
 
-		/*
-		 * GameRegistry.addRecipe(new ShapelessOreRecipe(new
-		 * ItemStack(ItemHandler.cheeseWheelHolstein, 1), new Object[] {
-		 * ItemHandler.milkBucketHolstein, new ItemStack(ItemHandler.cheeseMold,
-		 * 1, OreDictionary.WILDCARD_VALUE) }));
-		 *
-		 * GameRegistry.addRecipe(new ShapelessOreRecipe(new
-		 * ItemStack(ItemHandler.cheeseWheelFriesian, 1), new Object[] {
-		 * ItemHandler.milkBucketFriesian, new ItemStack(ItemHandler.cheeseMold,
-		 * 1, OreDictionary.WILDCARD_VALUE) }));
-		 */
-
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseOmelette, 1), new Object[] { ItemHandler.plainOmelette, "foodCheese" }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.baconOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedDurocBacon }));
@@ -162,15 +150,6 @@ public class RecipeHandler
 		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropBeet", "bread", Items.BUCKET }));
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropPotato", "bread", Items.BUCKET }));
-
-		// Cheese Mold Recipes
-		GameRegistry.addRecipe(new CheeseRecipe1());
-		RecipeSorter.register("animania:cheesewheelholstein", CheeseRecipe1.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		GameRegistry.addShapelessRecipe(new ItemStack(ItemHandler.cheeseWheelHolstein), new Object[] { ItemHandler.cheeseMold, milkHolstein });
-
-		GameRegistry.addRecipe(new CheeseRecipe2());
-		RecipeSorter.register("animania:cheesewheelfriesian", CheeseRecipe2.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		GameRegistry.addShapelessRecipe(new ItemStack(ItemHandler.cheeseWheelFriesian), new Object[] { ItemHandler.cheeseMold, milkFriesian });
 
 		// Carving Knife Recipes
 		GameRegistry.addRecipe(new CheeseRecipe3());

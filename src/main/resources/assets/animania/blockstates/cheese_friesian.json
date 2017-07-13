@@ -1,11 +1,11 @@
 {
     "variants": {
-        "bites=0": { "model": "animania:cheese_uneaten" },
-        "bites=1": { "model": "animania:cheese_slice1" },
-        "bites=2": { "model": "animania:cheese_slice2" },
-        "bites=3": { "model": "animania:cheese_slice3" },
-        "bites=4": { "model": "animania:cheese_slice4" },
-        "bites=5": { "model": "animania:cheese_slice5" },
-        "bites=6": { "model": "animania:cheese_slice6" }
+        "bites=0": { "model": "animania:friesian_cheese_uneaten" },
+        "bites=1": { "model": "animania:friesian_cheese_slice1" },
+        "bites=2": { "model": "animania:friesian_cheese_slice2" },
+        "bites=3": { "model": "animania:friesian_cheese_slice3" },
+        "bites=4": { "model": "animania:friesian_cheese_slice4" },
+        "bites=5": { "model": "animania:friesian_cheese_slice5" },
+        "bites=6": { "model": "animania:friesian_cheese_slice6" }
     }
 }

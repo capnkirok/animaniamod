@@ -1,13 +1,13 @@
 {
     "textures": {
-        "particle": "animania:blocks/cheese_side",
-        "bottom": "animania:blocks/cheese_bottom",
-        "top": "animania:blocks/cheese_top",
-        "side": "animania:blocks/cheese_side",
-        "inside": "animania:blocks/cheese_inner"
+        "particle": "animania:blocks/friesian_cheese_side",
+        "bottom": "animania:blocks/friesian_cheese_bottom",
+        "top": "animania:blocks/friesian_cheese_top",
+        "side": "animania:blocks/friesian_cheese_side",
+        "inside": "animania:blocks/friesian_cheese_inner"
     },
     "elements": [
-        {   "from": [ 11, 0, 1 ],
+        {   "from": [ 3, 0, 1 ],
             "to": [ 15, 8, 15 ],
             "faces": {
                 "down":  { "texture": "#bottom", "cullface": "down" },

@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "variant=empty": { "model": "animania:mold_empty" },
+        "variant=holstein_milk": { "model": "animania:mold_holstein_milk" },
+        "variant=holstein_cheese": { "model": "animania:mold_holstein_cheese" },
+        "variant=friesian_milk": { "model": "animania:mold_friesian_milk" },
+        "variant=friesian_cheese": { "model": "animania:mold_friesian_cheese" }
+    }
+}
