@@ -4,7 +4,7 @@ item.animania_truffle.name=Truffle
 item.animania_brown_egg.name=Egg
 item.animania_bucket_slop.name=Bucket o' Slop
 item.animania_carving_knife.name=Carving Knife
-item.animania_cheese_mold.name=Cheese Mold
+tile.animania_cheese_mold.name=Cheese Mold
 item.animania_riding_crop.name=Riding Crop
 
 item.animania_hamster_ball_clear.name=Clear Hamster Ball
@@ -393,6 +393,7 @@ text.waila.tamed=Tamed
 text.waila.ownermissing=Owner missing
 text.waila.pregnant1=Pregnant
 text.waila.pregnant2=Ticks remaining
+text.waila.aging=Aging progress
 
 text.jei.trough=The trough can be used to feed your animals. Right click it with Wheat, a Water Bucket or a Slop Bucket to fill it up.
 text.jei.mud=Mud blocks are essential for pigs, they love to dig around in it.

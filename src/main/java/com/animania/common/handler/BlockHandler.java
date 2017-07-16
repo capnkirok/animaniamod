@@ -2,6 +2,7 @@ package com.animania.common.handler;
 
 import com.animania.Animania;
 import com.animania.common.blocks.BlockCheese;
+import com.animania.common.blocks.BlockCheeseMold;
 import com.animania.common.blocks.BlockHamsterWheel;
 import com.animania.common.blocks.BlockInvisiblock;
 import com.animania.common.blocks.BlockMud;
@@ -35,6 +36,7 @@ public class BlockHandler
 	public static BlockFluidBase blockMilkFriesian;
 	public static Block blockCheeseHolstein;
 	public static Block blockCheeseFriesian;
+	public static Block blockCheeseMold;
 	
 	// TileEntity blocks
 	public static Block blockTrough;
@@ -66,6 +68,8 @@ public class BlockHandler
 		BlockHandler.blockCheeseHolstein = new BlockCheese("cheese_holstein");
 		ItemHandler.cheeseWheelFriesian = Item.getItemFromBlock(blockCheeseFriesian);
 		ItemHandler.cheeseWheelHolstein = Item.getItemFromBlock(blockCheeseHolstein);
+		BlockHandler.blockCheeseMold = new BlockCheeseMold();
+		ItemHandler.cheeseMold = Item.getItemFromBlock(blockCheeseMold);
 
 		// Fluids
 		BlockHandler.fluidSlop = new FluidBase("slop").setViscosity(7000).setDensity(3000).setEmptySound(SoundEvents.BLOCK_SLIME_PLACE).setFillSound(SoundEvents.BLOCK_SLIME_FALL);

@@ -30,7 +30,8 @@ public class BlockCheese extends BlockCake
 		this.setHardness(0.6f);
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), new ResourceLocation(Animania.MODID, name.substring(7) + "_cheese_wheel"));
-		
+		this.setTickRandomly(true);
+
 	}
 	
 	@Override

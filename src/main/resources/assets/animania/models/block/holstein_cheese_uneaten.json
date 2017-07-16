@@ -1,20 +1,19 @@
 {
     "textures": {
-        "particle": "animania:blocks/cheese_side",
-        "bottom": "animania:blocks/cheese_bottom",
-        "top": "animania:blocks/cheese_top",
-        "side": "animania:blocks/cheese_side",
-        "inside": "animania:blocks/cheese_inner"
+        "particle": "animania:blocks/holstein_cheese_side",
+        "bottom": "animania:blocks/holstein_cheese_bottom",
+        "top": "animania:blocks/holstein_cheese_top",
+        "side": "animania:blocks/holstein_cheese_side"
     },
     "elements": [
-        {   "from": [ 9, 0, 1 ],
+        {   "from": [ 1, 0, 1 ],
             "to": [ 15, 8, 15 ],
             "faces": {
                 "down":  { "texture": "#bottom", "cullface": "down" },
                 "up":    { "texture": "#top" },
                 "north": { "texture": "#side" },
                 "south": { "texture": "#side" },
-                "west":  { "texture": "#inside" },
+                "west":  { "texture": "#side" },
                 "east":  { "texture": "#side" }
             }
         }

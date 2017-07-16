@@ -273,7 +273,7 @@ public class ItemHandler
         ItemHandler.hamsterFood = new ItemHamsterFood();
         ItemHandler.truffle = new ItemTruffle();
         ItemHandler.carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
-        ItemHandler.cheeseMold = new ItemCheeseMold();
+        //ItemHandler.cheeseMold = new ItemCheeseMold();
         ItemHandler.peacockFeatherBlue = new ItemPeacockFeather("blue");
         ItemHandler.peacockFeatherWhite = new ItemPeacockFeather("white");
         ItemHandler.ridingCrop = new ItemRidingCrop();
