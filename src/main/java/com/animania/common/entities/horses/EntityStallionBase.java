@@ -103,6 +103,9 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		}
 		else
 		{
+			
+			return true;
+			/*
 			EntityPlayer entityplayer = (EntityPlayer)entity;
 			ItemStack itemstack = entityplayer.getHeldItemMainhand();
 
@@ -115,6 +118,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 				itemstack = entityplayer.getHeldItemOffhand();
 				return itemstack != null && itemstack.getItem() == ItemHandler.ridingCrop;
 			}
+			*/
 		}
 	}
 	

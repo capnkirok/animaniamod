@@ -207,6 +207,8 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		}
 		else
 		{
+			return true;
+			/*
 			EntityPlayer entityplayer = (EntityPlayer)entity;
 			ItemStack itemstack = entityplayer.getHeldItemMainhand();
 
@@ -219,6 +221,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				itemstack = entityplayer.getHeldItemOffhand();
 				return itemstack != null && itemstack.getItem() == ItemHandler.ridingCrop;
 			}
+			*/
 		}
 	}
 	

@@ -200,7 +200,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.dataManager.register(EntityHamster.IN_BALL, Boolean.valueOf(false));
 		this.dataManager.register(EntityHamster.SITTING, Boolean.valueOf(false));
 		this.dataManager.register(EntityHamster.TAMED, Boolean.valueOf(false));
-		this.dataManager.register(EntityHamster.COLOR_NUM, Integer.valueOf(0));
+		this.dataManager.register(EntityHamster.COLOR_NUM, Integer.valueOf(rand.nextInt(8)));
 		this.dataManager.register(EntityHamster.FOOD_STACK_COUNT, Integer.valueOf(0));
 		this.dataManager.register(EntityHamster.IN_LOVE, Integer.valueOf(0));
 		this.dataManager.register(EntityHamster.BALL_COLOR, Integer.valueOf(0));
@@ -901,7 +901,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		}
 
 	}
-	
+
 	private ItemStack getItem(String moditem)
 	{
 
@@ -1120,7 +1120,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		{
 			if (PatreonHandler.isPlayerPatreon(player))
 			{
-				this.setColorNumber(9);
+				this.setColorNumber(8);
 				this.resourceLocation = null;
 			}
 		}
@@ -1128,20 +1128,16 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public void setResourceLoc()
 	{
-		
-		System.out.println(this.getColorNumber());
-		
-		if (this.getColorNumber() == 0)
+
+		if (this.getColorNumber() == 9) 
 		{
-			int bob2 = rand.nextInt(8) + 1;
-			this.setColorNumber(bob2);
-			this.resourceLocation = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2 - 1] + ".png");
-			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2 - 1] + "_blink.png");
+			this.setColorNumber(8);
 		}
-		else if (this.resourceLocation == null)
+		
+		if (this.resourceLocation == null)
 		{
-			this.resourceLocation = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber() - 1] + ".png");
-			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber() - 1] + "_blink.png");
+			this.resourceLocation = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber()] + ".png");
+			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber()] + "_blink.png");
 		}
 	}
 
