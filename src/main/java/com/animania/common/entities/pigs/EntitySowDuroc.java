@@ -11,8 +11,8 @@ public class EntitySowDuroc extends EntitySowBase
 	{
 		super(world);
 		this.pigType = PigType.DUROC;
-		this.dropRaw = ItemHandler.rawPrimePork;
-		this.dropCooked = ItemHandler.cookedPrimePork;
+		this.dropRaw = ItemHandler.rawDurocPork;
+		this.dropCooked = ItemHandler.cookedDurocRoast;
 	}
 
 }

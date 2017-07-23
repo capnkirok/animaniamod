@@ -11,8 +11,8 @@ public class EntityHogHampshire extends EntityHogBase
 	{
 		super(world);
 		this.pigType = PigType.HAMPSHIRE;
-		this.dropRaw = ItemHandler.rawPrimePork;
-		this.dropCooked = ItemHandler.cookedPrimePork;
+		this.dropRaw = ItemHandler.rawHampshirePork;
+		this.dropCooked = ItemHandler.cookedHampshireRoast;
 	}
 
 }

@@ -263,6 +263,10 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 		}
+		
+		if (this.getColorNumber() > 5) {
+			this.setColorNumber(0);
+		}
 
 		if (this.fedTimer > -1) {
 			this.fedTimer--;

@@ -1,0 +1,405 @@
+item.animania_hamster_food.name=햄스터 사료
+item.animania_chicken_feed.name=닭 모이
+item.animania_truffle.name=송로버섯
+item.animania_brown_egg.name=알
+item.animania_bucket_slop.name=여물 양동이
+item.animania_carving_knife.name=식칼
+item.animania_cheese_mold.name=치즈 틀
+item.animania_riding_crop.name=승마용 채찍
+
+item.animania_hamster_ball_clear.name=유리 햄스터볼
+item.animania_hamster_ball_black.name=검은색 유리 햄스터볼
+item.animania_hamster_ball_red.name=빨간색 유리 햄스터볼
+item.animania_hamster_ball_green.name=녹색 유리 햄스터볼
+item.animania_hamster_ball_brown.name=갈색 유리 햄스터볼
+item.animania_hamster_ball_blue.name=파란색 유리 햄스터볼
+item.animania_hamster_ball_purple.name=보라색 유리 햄스터볼
+item.animania_hamster_ball_cyan.name=청록색 유리 햄스터볼
+item.animania_hamster_ball_silver.name=회백색 유리 햄스터볼
+item.animania_hamster_ball_gray.name=회색 유리 햄스터볼
+item.animania_hamster_ball_pink.name=분홍색 유리 햄스터볼
+item.animania_hamster_ball_lime.name=연두색 유리 햄스터볼
+item.animania_hamster_ball_yellow.name=노란색 유리 햄스터볼
+item.animania_hamster_ball_light_blue.name=하늘색 유리 햄스터볼
+item.animania_hamster_ball_magenta.name=자홍색 유리 햄스터볼
+item.animania_hamster_ball_orange.name=주황색 유리 햄스터볼
+item.animania_hamster_ball_white.name=하얀색 유리 햄스터볼
+
+item.animania_blue_peacock_feather.name=파란색 공작 깃털
+item.animania_white_peacock_feather.name=하얀색 공작 깃털
+item.animania_peacock_egg_blue.name=공작 알
+item.animania_peacock_egg_white.name=공작 알
+
+
+item.animania_carving_knife.desc=고기와 치즈를 저미는 데 사용함
+item.animania_cheese_mold.desc=치즈를 만드는 데 사용함
+item.animania_entity_egg.desc1=소환
+item.animania_entity_egg.desc2=[우클릭]
+
+item.animania_raw_angus_beef.name=익히지 않은 소고기 (앵거스)
+item.animania_cooked_angus_roast.name=익힌 소고기 (앵거스)
+item.animania_raw_angus_steak.name=익히지 않은 스테이크 (앵거스)
+item.animania_cooked_angus_steak.name=스테이크 (앵거스)
+item.animania_raw_hereford_beef.name=익히지 않은 소고기 (헤리퍼드)
+item.animania_cooked_hereford_roast.name=익힌 소고기 (헤리퍼드)
+item.animania_raw_hereford_steak.name=익히지 않은 스테이크 (헤리퍼드)
+item.animania_cooked_hereford_steak.name=스테이크 (헤리퍼드)
+item.animania_raw_longhorn_beef.name=익히지 않은 소고기 (롱혼)
+item.animania_cooked_longhorn_roast.name=익힌 소고기 (롱혼)
+item.animania_raw_longhorn_steak.name=익히지 않은 스테이크 (롱혼)
+item.animania_cooked_longhorn_steak.name=스테이크 (롱혼)
+
+item.animania_raw_large_black_pork.name=익히지 않은 돼지고기 (라지 블랙)
+item.animania_cooked_large_black_roast.name=익힌 돼지고기 (라지 블랙)
+item.animania_raw_large_black_bacon.name=익히지 않은 베이컨 (라지 블랙)
+item.animania_cooked_large_black_bacon.name=베이컨 (라지 블랙)
+item.animania_raw_duroc_pork.name=익히지 않은 돼지고기 (두록)
+item.animania_cooked_duroc_roast.name=익힌 돼지고기 (두록)
+item.animania_raw_duroc_bacon.name=익히지 않은 베이컨 (두록)
+item.animania_cooked_duroc_bacon.name=베이컨 (두록)
+item.animania_raw_old_spot_pork.name=익히지 않은 돼지고기 (올드 스팟)
+item.animania_cooked_old_spot_roast.name=익힌 돼지고기 (올드 스팟)
+item.animania_raw_old_spot_bacon.name=익히지 않은 베이컨 (올드 스팟)
+item.animania_cooked_old_spot_bacon.name=베이컨 (올드 스팟)
+item.animania_raw_hampshire_pork.name=익히지 않은 돼지고기 (햄프셔)
+item.animania_cooked_hampshire_roast.name=익힌 돼지고기 (햄프셔)
+item.animania_raw_hampshire_bacon.name=익히지 않은 베이컨 (햄프셔)
+item.animania_cooked_hampshire_bacon.name=베이컨 (햄프셔)
+
+item.animania_raw_orpington_chicken.name=익히지 않은 닭고기 (오핑턴)
+item.animania_cooked_orpington_chicken.name=익힌 닭고기 (오핑턴)
+item.animania_raw_plymouth_rock_chicken.name=익히지 않은 닭고기 (플리머스 록)
+item.animania_cooked_plymouth_rock_chicken.name=익힌 닭고기 (플리머스 록)
+item.animania_raw_rhode_island_red_chicken.name=익히지 않은 닭고기 (로드 아일랜드 레드)
+item.animania_cooked_rhode_island_red_chicken.name=익힌 닭고기 (로드 아일랜드 레드)
+item.animania_raw_wyandotte_chicken.name=익히지 않은 닭고기 (와이언도트)
+item.animania_cooked_wyandotte_chicken.name=익힌 닭고기 (와이언도트)
+
+item.animania_raw_prime_beef.name=익히지 않은 최고급 소고기
+item.animania_cooked_prime_beef.name=익힌 최고급 소고기
+item.animania_raw_prime_steak.name=익히지 않은 최고급 스테이크
+item.animania_cooked_prime_steak.name=최고급 스테이크
+item.animania_raw_prime_pork.name=익히지 않은 최고급 돼지고기
+item.animania_cooked_prime_pork.name=익힌 최고급 돼지고기
+item.animania_raw_prime_bacon.name=익히지 않은 최고급 베이컨
+item.animania_cooked_prime_bacon.name=익힌 최고급 베이컨
+item.animania_raw_prime_chicken.name=익히지 않은 최고급 닭고기
+item.animania_cooked_prime_chicken.name=익힌 최고급 닭고기
+
+item.animania_raw_frog_legs.name=익히지 않은 개구리 다리
+item.animania_cooked_frog_legs.name=익힌 개구리 다리
+
+item.animania_friesian_cheese_wheel.name=치즈 휠 (프리지아)
+item.animania_friesian_cheese_wedge.name=웨지 치즈 (프리지아)
+item.animania_holstein_cheese_wheel.name=치즈 휠 (홀스타인)
+item.animania_holstein_cheese_wedge.name=웨지 치즈 (홀스타인)
+item.animania_holstein_bucket_milk.name=우유 양동이 (홀스타인)
+item.animania_friesian_bucket_milk.name=우유 양동이 (프리지아)
+item.animania_truffle_soup.name=송로버섯 스프
+item.animania_chocolate_truffle.name=초콜릿 송로버섯
+
+item.animania_plain_omelette.name=달걀 오믈렛
+item.animania_bacon_omelette.name=베이컨 오믈렛
+item.animania_cheese_omelette.name=치즈 오믈렛
+item.animania_truffle_omelette.name=송로버섯 오믈렛
+item.animania_super_omelette.name=특제 오믈렛
+
+item.animania_entity_egg_cow_holstein.name=홀스타인 암소
+item.animania_entity_egg_bull_holstein.name=홀스타인 황소
+item.animania_entity_egg_calf_holstein.name=홀스타인 송아지
+item.animania_entity_egg_cow_friesian.name=프리지아 암소
+item.animania_entity_egg_bull_friesian.name=프리지아 황소
+item.animania_entity_egg_calf_friesian.name=프리지아 송아지
+item.animania_entity_egg_cow_angus.name=앵거스 암소
+item.animania_entity_egg_bull_angus.name=앵거스 황소
+item.animania_entity_egg_calf_angus.name=앵거스 송아지
+item.animania_entity_egg_cow_longhorn.name=롱혼 암소
+item.animania_entity_egg_bull_longhorn.name=롱혼 황소
+item.animania_entity_egg_calf_longhorn.name=롱혼 송아지
+item.animania_entity_egg_cow_hereford.name=헤리퍼드 암소
+item.animania_entity_egg_bull_hereford.name=헤리퍼드 황소
+item.animania_entity_egg_calf_hereford.name=헤리퍼드 송아지
+
+item.animania_entity_egg_chick_plymouth.name=플리머스 록 병아리
+item.animania_entity_egg_hen_plymouth.name=플리머스 록 암탉
+item.animania_entity_egg_rooster_plymouth.name=플리머스 록 수탉
+item.animania_entity_egg_chick_red.name=로드 아일랜드 레드 병아리
+item.animania_entity_egg_hen_red.name=로드 아일랜드 레드 암탉
+item.animania_entity_egg_rooster_red.name=로드 아일랜드 레드 수탉
+item.animania_entity_egg_chick_leghorn.name=레그혼 병아리
+item.animania_entity_egg_hen_leghorn.name=레그혼 암탉
+item.animania_entity_egg_rooster_leghorn.name=레그혼 수탉
+item.animania_entity_egg_chick_orpington.name=오핑턴 병아리
+item.animania_entity_egg_hen_orpington.name=오핑턴 암탉
+item.animania_entity_egg_rooster_orpington.name=오핑턴 수탉
+item.animania_entity_egg_chick_wyandotte.name=와이언도트 병아리
+item.animania_entity_egg_hen_wyandotte.name=와이언도트 암탉
+item.animania_entity_egg_rooster_wyandotte.name=와이언도트 수탉
+
+item.animania_entity_egg_piglet_yorkshire.name=새끼 요크셔 돼지
+item.animania_entity_egg_sow_yorkshire.name=요크셔 암퇘지
+item.animania_entity_egg_hog_yorkshire.name=요크셔 수퇘지
+item.animania_entity_egg_piglet_oldspot.name=새끼 올드 스팟 돼지
+item.animania_entity_egg_sow_oldspot.name=올드 스팟 암퇘지
+item.animania_entity_egg_hog_oldspot.name=올드 스팟 암퇘지
+item.animania_entity_egg_piglet_duroc.name=새끼 두록 돼지
+item.animania_entity_egg_sow_duroc.name=두록 암퇘지
+item.animania_entity_egg_hog_duroc.name=두록 수퇘지
+item.animania_entity_egg_piglet_largeblack.name=새끼 라지 블랙 돼지
+item.animania_entity_egg_sow_largeblack.name=라지 블랙 암퇘지
+item.animania_entity_egg_hog_largeblack.name=라지 블랙 수퇘지
+item.animania_entity_egg_piglet_largewhite.name=새끼 라지 화이트 돼지
+item.animania_entity_egg_sow_largewhite.name=라지 화이트 암퇘지
+item.animania_entity_egg_hog_largewhite.name=라지 화이트 수퇘지
+item.animania_entity_egg_piglet_hampshire.name=새끼 햄프셔 돼지
+item.animania_entity_egg_sow_hampshire.name=햄프셔 암퇘지
+item.animania_entity_egg_hog_hampshire.name=햄프셔 수퇘지
+
+item.animania_entity_egg_hamster.name=햄스터
+item.animania_entity_egg_ferret_white.name=하얀색 페럿
+item.animania_entity_egg_ferret_grey.name=회색 페럿
+item.animania_entity_egg_hedgehog.name=고슴도치
+item.animania_entity_egg_hedgehog_albino.name=알비노 고슴도치
+
+item.animania_entity_egg_peacock_blue.name= 수컷 인도 공작
+item.animania_entity_egg_peafowl_blue.name=암컷 인도 공작
+item.animania_entity_egg_peachick_blue.name=새끼 인도 공작
+item.animania_entity_egg_peacock_white.name=수컷 하얀 공작  
+item.animania_entity_egg_peafowl_white.name=암컷 하얀 공작
+item.animania_entity_egg_peachick_white.name=새끼 하얀 공작
+
+item.animania_entity_egg_cow_random.name=무작위 품종의 소
+item.animania_entity_egg_pig_random.name=무작위 품종의 돼지
+item.animania_entity_egg_chicken_random.name=무작위 품종의 닭
+
+item.animania_entity_egg_frog.name=개구리
+item.animania_entity_egg_toad.name=두꺼비
+item.animania_entity_egg_dart_frog.name=독개구리
+
+item.animania_entity_egg_draft_horse_mare.name=암컷 짐수레말
+item.animania_entity_egg_draft_horse_stallion.name=수컷 짐수레말
+item.animania_entity_egg_draft_horse_foal.name=새끼 짐수레말
+
+
+entity.animania.ChickRhodeIslandRed.name=로드 아일랜드 레드 병아리
+entity.animania.HenRhodeIslandRed.name=로드 아일랜드 레드 암탉
+entity.animania.RoosterRhodeIslandRed.name=로드 아일랜드 레드 수탉
+entity.animania.ChickPlymouthRock.name=플리머스 록 병아리
+entity.animania.HenPlymouthRock.name=플리머스 록 암탉
+entity.animania.RoosterPlymouthRock.name=플리머스 록 수탉
+entity.animania.ChickLeghorn.name=레그혼 병아리
+entity.animania.HenLeghorn.name=레그혼 암탉
+entity.animania.RoosterLeghorn.name=레그혼 수탉
+entity.animania.ChickOrpington.name=오핑턴 병아리
+entity.animania.HenOrpington.name=오핑턴 암탉
+entity.animania.RoosterOrpington.name=오핑턴 수탉
+entity.animania.ChickWyandotte.name=와이언도트 병아리
+entity.animania.HenWyandotte.name=와이언도트 암탉
+entity.animania.RoosterWyandotte.name=와이언도트 수탉
+
+entity.animania.BullAngus.name=앵거스 황소
+entity.animania.CowAngus.name=앵거스 암소
+entity.animania.CalfAngus.name=앵거스 송아지
+entity.animania.BullHolstein.name=홀스타인 황소
+entity.animania.CowHolstein.name=홀스타인 암소
+entity.animania.CalfHolstein.name=홀스타인 송아지
+entity.animania.BullFriesian.name=프리지아 황소
+entity.animania.CowFriesian.name=프리지아 암소
+entity.animania.CalfFriesian.name=프리지아 송아지
+entity.animania.BullHereford.name=헤리퍼드 황소
+entity.animania.CowHereford.name=헤리퍼드 암소
+entity.animania.CalfHereford.name=헤리퍼드 송아지
+entity.animania.BullLonghorn.name=롱혼 황소
+entity.animania.CowLonghorn.name=롱혼 암소
+entity.animania.CalfLonghorn.name=롱혼 송아지
+
+entity.animania.HogYorkshire.name=요크셔 수퇘지
+entity.animania.SowYorkshire.name=요크셔 암퇘지
+entity.animania.PigletYorkshire.name=새끼 요크셔 돼지
+entity.animania.HogOldSpot.name=올드 스팟 수퇘지
+entity.animania.SowOldSpot.name=올드 스팟 암퇘지
+entity.animania.PigletOldSpot.name=새끼 요크셔 돼지
+entity.animania.HogLargeBlack.name=라지 블랙 수퇘지
+entity.animania.SowLargeBlack.name=라지 블랙 암퇘지
+entity.animania.PigletLargeBlack.name=새끼 라지 블랙 돼지
+entity.animania.HogLargeWhite.name=라지 화이트 수퇘지
+entity.animania.SowLargeWhite.name=라지 화이트 암퇘지
+entity.animania.PigletLargeWhite.name=수컷 라지 화이트 돼지
+entity.animania.HogDuroc.name=두록 수퇘지
+entity.animania.SowDuroc.name=두록 암퇘지
+entity.animania.PigletDuroc.name=새끼 두록 돼지
+entity.animania.HogHampshire.name=햄프셔 수퇘지
+entity.animania.SowHampshire.name=햄프셔 암퇘지
+entity.animania.PigletHampshire.name=새끼 햄프셔 돼지
+
+entity.animania.Hamster.name=햄스터
+entity.animania.FerretGrey.name=회색 페럿
+entity.animania.FerretWhite.name=하얀색 페럿
+entity.animania.Hedgehog.name=고슴도치
+entity.animania.HedgehogAlbino.name=알비노 고슴도치
+
+entity.animania.PeacockBlue.name=수컷 인도 공작
+entity.animania.PeafowlBlue.name=암컷 인도 공작
+entity.animania.PeachickBlue.name=새끼 인도 공작
+
+entity.animania.PeacockWhite.name=수컷 하얀 공작
+entity.animania.PeafowlWhite.name=암컷 하얀 공작
+entity.animania.PeachickWhite.name=새끼 하얀 공작
+
+entity.animania.StallionDraftHorse.name=수컷 일말 
+entity.animania.MareDraftHorse.name=암컷 일말
+entity.animania.FoalDraftHorse.name=새끼 일말
+
+entity.animania:frog.name=개구리
+entity.animania:toad.name=두꺼비
+entity.animania:dartfrog.name=독개구리
+
+death.attack.bull=%1$s는 뿔에 받혀 죽었습니다.
+death.attack.pepe=%1$s는 밈이 되었습니다.
+
+tile.animania_block_mud.name=진흙
+tile.animania_block_seeds.name=씨앗
+tile.animania_block_trough.name=여물통
+tile.animania_block_nest.name=둥지
+tile.animania_invisiblock.name=여물통
+tile.animania_block_hamster_wheel.name=쳇바퀴
+
+fluid.slop=여물
+fluid.milk_holstein=홀스타인 우유
+fluid.milk_friesian=프리지아 우유
+
+tab.animania_entities.label=애니매니아
+tab.animania_resources.label=애니매니아 자원
+
+achievement.an.leghorn=레그혼
+achievement.an.leghorn.desc=레그혼과 친구가 되세요!
+achievement.an.orpington=오핑턴
+achievement.an.orpington.desc=오핑턴과 친구가 되세요!
+achievement.an.plymouthrock=플리머스 록
+achievement.an.plymouthrock.desc=플리머스 록과 친구가 되세요!
+achievement.an.rhodeislandred=로드 아일랜드 레드
+achievement.an.rhodeislandred.desc=로드 아일랜드 레드와 친구가 되세요!
+achievement.an.wyandotte=와이언도트
+achievement.an.wyandotte.desc=와이언도트와 친구가 되세요!
+achievement.an.chickens=닭들의 친구
+achievement.an.chickens.desc=모든 닭들과 친구가 되세요!
+
+achievement.an.angus=앵거스
+achievement.an.angus.desc=앵거스와 친구가 되세요!
+achievement.an.friesian=프리지아
+achievement.an.friesian.desc=프리지아와 친구가 되세요!
+achievement.an.hereford=헤리퍼드
+achievement.an.hereford.desc=헤리퍼드와 친구가 되세요!
+achievement.an.holstein=홀스타인
+achievement.an.holstein.desc=홀스타인과 친구가 되세요!
+achievement.an.longhorn=롱혼
+achievement.an.longhorn.desc=롱혼과 친구가 되세요!
+achievement.an.cows=소들의 친구
+achievement.an.cows.desc=모든 소들과 친구가 되세요!
+
+achievement.an.duroc=두록
+achievement.an.duroc.desc=두록과 친구가 되세요!
+achievement.an.hampshire=햄프셔
+achievement.an.hampshire.desc=햄프셔와 친구가 되세요!
+achievement.an.largeblack=라지 블랙
+achievement.an.largeblack.desc=라지 블랙과 친구가 되세요!
+achievement.an.largewhite=라지 화이트
+achievement.an.largewhite.desc=라지 화이트와 친구가 되세요!
+achievement.an.oldspot=올드 스팟
+achievement.an.oldspot.desc=올드 스팟과 친구가 되세요!
+achievement.an.yorkshire=요크셔
+achievement.an.yorkshire.desc=요크셔와 친구가 되세요!
+achievement.an.pigs=돼지들의 친구
+achievement.an.pigs.desc=모든 돼지들과 친구가 되세요!
+
+achievement.an.indiablue=인도 공작
+achievement.an.indiablue.desc=인도 공작과 친구가 되세요!
+achievement.an.white=하얀 공작
+achievement.an.white.desc=하얀 공작과 친구가 되세요!
+achievement.an.peacocks=공작들의 친구
+achievement.an.peacocks.desc=모든 공작들과 친구가 되세요!
+
+achievement.an.greyferret=회색 페럿
+achievement.an.greyferret.desc=회색 페럿과 친구가 되세요!
+achievement.an.whiteferret=하얀색 페럿
+achievement.an.whiteferret.desc=하얀색 페럿과 친구가 되세요!
+achievement.an.ferrets=페럿들의 친구
+achievement.an.ferrets.desc=모든 페럿들과 친구가 되세요!
+
+achievement.an.hedgehog=고슴도치
+achievement.an.hedgehog.desc=고슴도치와 친구가 되세요!
+achievement.an.albinohedgehog=알비노 고슴도치
+achievement.an.albinohedgehog.desc=알비노 고슴도치와 친구가 되세요!
+achievement.an.hedgehogs=고슴도치들의 친구
+achievement.an.hedgehogs.desc=모든 고슴도치들의 친구가 되세요!
+
+achievement.an.hedgehogsonic=속도 좀 올려볼까!
+achievement.an.hedgehogsonic.desc=소닉을 발견하세요
+achievement.an.hedgehogsanic=빨리 가지마!!!
+achievement.an.hedgehogsanic.desc=뭐해, 잡아보라구!!
+achievement.an.feelsbadman=슬픈 개구리
+achievement.an.feelsbadman.desc=니가 이랬냐
+
+achievement.an.hamsters=햄스터들의 친구
+achievement.an.hamsters.desc=햄스터와 친구가 되세요!
+
+achievement.an.horses=짐수레말
+achievement.an.horses.desc=짐수레말과 친구가 되세요!
+achievement.an.horseriding=씨비스킷
+achievement.an.horseriding.desc=짐수레말을 타세요
+
+animania.updatetext.1=새로운 버젼이
+animania.updatetext.2=있습니다.
+animania.updatetext.3=새로운 버젼이 있는지 확인하는데 실패했습니다.
+animania.update.download=["클릭: [",{"text":"다운로드","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"최신 버젼을 다운로드하려면 클릭하세요.","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]
+
+tooltip.an.cheeseomelette=즉시 회복
+tooltip.an.baconomelette=힘 (30초)
+tooltip.an.truffleomelette=재생 (30초)
+tooltip.an.instanthealth=즉시 회복
+tooltip.an.chocolatetruffle=신속 (1분)
+tooltip.an.absorption=흡수
+tooltip.an.regeneration=재생
+tooltip.an.haste=성급함
+tooltip.an.healthboost=체력 강화
+tooltip.an.jumping=점프 강화
+
+tooltip.an.ridingcrop1=타려는 배부른 짐수레말에게 사용합니다
+tooltip.an.ridingcrop2=속도를 올리려면 계속 들고 있으세요 
+tooltip.an.hamsterball1=길들인 햄스터에게 사용해서 들어가게 하거나 
+tooltip.an.hamsterball2=나오게 합니다
+
+tooltip.an.edibleanytime=언제든 먹을 수 있음
+
+animania.category.gamerules=게임 규칙
+animania.category.spawn=소환
+animania.category.entity=엔티티
+animania.category.careandfeeding=돌봄과 사육
+animania.category.drops=아이템
+
+text.waila.fed=배부름
+text.waila.thirsty=목마름
+text.waila.hungry=배고픔
+text.waila.mated=짝맺음
+text.waila.matemissing=짝이 없음
+text.waila.milkable=우유를 짤 준비가 됨
+text.waila.parent=부모
+text.waila.parentmissing=부모가 사라짐
+text.waila.played=만족함
+text.waila.bored=지루함
+text.waila.egglay=다음 산란까지 시간 필요
+text.waila.sitting=앉아있음
+text.waila.tamed=길들여짐
+text.waila.ownermissing=주인이 사라짐
+text.waila.pregnant1=임신함
+text.waila.pregnant2=시간 필요
+
+text.jei.trough=여물통은 당신의 가축들을 먹이는데 사용될 수 있고 우클릭으로 밀, 물, 여물을 채워 넣을 수 있습니다.
+text.jei.mud=진흙은 돼지들에게 꼭 필요합니다. 돼지들은 진흙을 파내는걸 정말 좋아하죠. 
+text.jei.seeds=씨앗은 우클릭으로 땅에 뿌려질 수 있고 뿌려진 씨앗은 닭의 모이가 됩니다.
+text.jei.truffle=송로버섯은 숲에서 길들인 돼지가 찾을 수 있습니다.
+text.jei.nest=둥지는 암탉이 사용합니다. 암탉은 알을 낳을 장소가 필요하니까요.
+text.jei.slop=여물은 돼지들이 가장 좋아하는 먹이입니다.
+text.jei.slop.craft=여물을 만드려면, 우유 한 양동이와 야채 두 가지를 섞으세요. 야채로 당근, 감자, 비트, 빵을 쓸 수 있습니다.
+text.jei.milkholstein=홀스타인 우유는 홀스타인에게 얻을 수 있습니다.
+text.jei.milkfriesian=프리지아 우유는 프리지아에게 얻을 수 있습니다.

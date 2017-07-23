@@ -16,7 +16,7 @@ public class EntityHenWyandotte extends EntityHenBase
 		this.type = ChickenType.WYANDOTTE;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/hen_brown.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/hen_brown_blink.png");
-		this.dropRaw = ItemHandler.rawPrimeChicken;
-		this.dropCooked = ItemHandler.cookedPrimeChicken;
+		this.dropRaw = ItemHandler.rawWyandotteChicken;
+		this.dropCooked = ItemHandler.cookedWyandotteChicken;
 	}
 }

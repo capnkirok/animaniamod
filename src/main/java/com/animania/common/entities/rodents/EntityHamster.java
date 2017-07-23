@@ -1128,9 +1128,11 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public void setResourceLoc()
 	{
+		
+		System.out.println(this.getColorNumber());
+		
 		if (this.getColorNumber() == 0)
 		{
-			Random rand = new Random();
 			int bob2 = rand.nextInt(8) + 1;
 			this.setColorNumber(bob2);
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[bob2 - 1] + ".png");

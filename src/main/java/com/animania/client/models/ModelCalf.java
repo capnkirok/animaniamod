@@ -49,7 +49,7 @@ public class ModelCalf extends ModelBase
         this.EarL = new ModelRenderer(this, 6, 48);
         this.EarL.setTextureSize(64, 64);
         this.EarL.addBox(-1F, -1F, -0.5F, 2, 2, 1);
-        this.EarL.setRotationPoint(-4F, -1F, -1F);
+        this.EarL.setRotationPoint(-4F, -1F, 0F);
 
         this.EarR = new ModelRenderer(this, 0, 48);
         this.EarR.setTextureSize(64, 64);
