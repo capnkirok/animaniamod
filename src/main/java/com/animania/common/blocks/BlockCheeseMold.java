@@ -264,9 +264,9 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 
 			probeInfo.text(I18n.translateToLocal("text.waila.aging") + ":");
 			if (stack.isEmpty())
-				probeInfo.progress((int) (((float) progress / (float) AnimaniaConfig.gameRules.cheeseMaturityTime) * 100), 100);
+				probeInfo.progress((int) (((float) progress / (float) AnimaniaConfig.gameRules.cheeseMaturityTime) * 100), 100, probeInfo.defaultProgressStyle().suffix("%"));
 			else
-				probeInfo.progress(100, 100);
+				probeInfo.progress(100, 100, probeInfo.defaultProgressStyle().suffix("%"));
 
 			if (mode == ProbeMode.NORMAL)
 			{
