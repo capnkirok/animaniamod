@@ -57,11 +57,6 @@ public class ItemTruffleSoup extends ItemFood
 				entityplayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
 			}
 		}
-
-		if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
-        {
-            stack.shrink(1);
-        }
 		
 		if (entityLiving instanceof EntityPlayer)
         {
@@ -70,6 +65,11 @@ public class ItemTruffleSoup extends ItemFood
 			worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
             this.onFoodEaten(stack, worldIn, entityplayer);
 			entityplayer.addStat(StatList.getObjectUseStats(this));
+        }
+		
+		if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
+        {
+            stack.shrink(1);
         }
 		
 		return stack.getCount() <= 0 ? new ItemStack(Items.BOWL) : stack;

@@ -59,7 +59,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 	{
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
-
+		this.growingAge = -24000;
 		this.ageTimer++;
 		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
 			if (fed && watered)

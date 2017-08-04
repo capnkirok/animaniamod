@@ -73,6 +73,8 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 		
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
+		
+		this.growingAge = -24000;
 
 		this.ageTimer++;
 		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
@@ -118,6 +120,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 			}
 
 		super.onLivingUpdate();
+		
 	}
 
 	public float getEntityAge()

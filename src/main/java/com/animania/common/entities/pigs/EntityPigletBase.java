@@ -212,7 +212,7 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
-
+		this.growingAge = -24000;
 		this.ageTimer++;
 		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
 		{

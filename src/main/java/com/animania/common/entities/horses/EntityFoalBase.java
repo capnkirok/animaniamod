@@ -299,7 +299,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				this.blinkTimer = 80 + rand.nextInt(80);
 			}
 		}
-
+		this.growingAge = -24000;
 		ageTimer++;
 		if (ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick) {
 
