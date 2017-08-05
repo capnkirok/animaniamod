@@ -203,6 +203,9 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public void onLivingUpdate()
 	{
+		
+		this.growingAge = -24000;
+		
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 

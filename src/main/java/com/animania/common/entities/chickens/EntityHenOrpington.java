@@ -16,7 +16,7 @@ public class EntityHenOrpington extends EntityHenBase
 		this.type = ChickenType.ORPINGTON;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/hen_golden.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/hen_golden_blink.png");
-		this.dropRaw = ItemHandler.rawPrimeChicken;
-		this.dropCooked = ItemHandler.cookedPrimeChicken;
+		this.dropRaw = ItemHandler.rawOrpingtonChicken;
+		this.dropCooked = ItemHandler.cookedOrpingtonChicken;
 	}
 }

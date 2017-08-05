@@ -263,6 +263,10 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 		}
+		
+		if (this.getColorNumber() > 5) {
+			this.setColorNumber(0);
+		}
 
 		if (this.fedTimer > -1) {
 			this.fedTimer--;
@@ -295,7 +299,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				this.blinkTimer = 80 + rand.nextInt(80);
 			}
 		}
-
+		this.growingAge = -24000;
 		ageTimer++;
 		if (ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick) {
 

@@ -67,7 +67,7 @@ public class BlockNest extends BlockContainer
 		this.setTickRandomly(true);
 
 	}
-	
+
 	public int tickRate(World worldIn)
 	{
 		return 5;
@@ -1092,6 +1092,8 @@ public class BlockNest extends BlockContainer
 
 		int nestType = te.getNestType();
 
+		System.out.println(nestType);
+		
 		if (nestType == 15)
 		{
 			te.setType(14);
@@ -1184,6 +1186,24 @@ public class BlockNest extends BlockContainer
 			worldIn.updateComparatorOutputLevel(pos, this);
 
 			//Peacocks
+		} else if (nestType == 21)
+		{
+			te.setType(20);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 20)
+		{
+			te.setType(19);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 19)
+		{
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
 		} else if (nestType == 18)
 		{
 			te.setType(17);
@@ -1197,24 +1217,6 @@ public class BlockNest extends BlockContainer
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
 			worldIn.updateComparatorOutputLevel(pos, this);
 		} else if (nestType == 16)
-		{
-			te.setType(0);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 1);
-			worldIn.updateComparatorOutputLevel(pos, this);
-		} else if (nestType == 15)
-		{
-			te.setType(14);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 1);
-			worldIn.updateComparatorOutputLevel(pos, this);
-		} else if (nestType == 14)
-		{
-			te.setType(13);
-			te.markDirty();
-			worldIn.notifyBlockUpdate(pos, state, state, 1);
-			worldIn.updateComparatorOutputLevel(pos, this);
-		} else if (nestType == 13)
 		{
 			te.setType(0);
 			te.markDirty();

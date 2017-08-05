@@ -27,8 +27,8 @@ item.animania_hamster_ball_white.name=White Hamster Ball
 
 item.animania_blue_peacock_feather.name=Blue Peacock Feather
 item.animania_white_peacock_feather.name=White Peacock Feather
-item.animania_peacock_egg_blue.name=Peacock Egg
-item.animania_peacock_egg_white.name=Peacock Egg
+item.animania_peacock_egg_blue.name=Peafowl Egg
+item.animania_peacock_egg_white.name=Peafowl Egg
 
 
 item.animania_carving_knife.desc=Used to carve meats and cheeses
@@ -162,10 +162,10 @@ item.animania_entity_egg_hedgehog.name=Hedgehog
 item.animania_entity_egg_hedgehog_albino.name=Albino Hedgehog
 
 item.animania_entity_egg_peacock_blue.name=India Blue Peacock 
-item.animania_entity_egg_peafowl_blue.name=India Blue Peafowl
+item.animania_entity_egg_peafowl_blue.name=India Blue Peahen
 item.animania_entity_egg_peachick_blue.name=India Blue Peachick
 item.animania_entity_egg_peacock_white.name=White Peacock 
-item.animania_entity_egg_peafowl_white.name=White Peafowl
+item.animania_entity_egg_peafowl_white.name=White Peahen
 item.animania_entity_egg_peachick_white.name=White Peachick
 
 item.animania_entity_egg_cow_random.name=Random Cow
@@ -239,11 +239,11 @@ entity.animania.Hedgehog.name=Hedgehog
 entity.animania.HedgehogAlbino.name=Albino Hedgehog
 
 entity.animania.PeacockBlue.name=India Blue Peacock
-entity.animania.PeafowlBlue.name=India Blue Peafowl
-entity.animania.PeachickBlue.name=India Blue Peafowl
+entity.animania.PeafowlBlue.name=India Blue Peahen
+entity.animania.PeachickBlue.name=India Blue Peachick
 
 entity.animania.PeacockWhite.name=White Peacock
-entity.animania.PeafowlWhite.name=White Peafowl
+entity.animania.PeafowlWhite.name=White Peahen
 entity.animania.PeachickWhite.name=White Peachick
 
 entity.animania.StallionDraftHorse.name=Draft Horse Stallion
@@ -313,11 +313,11 @@ achievement.an.pigs=Pig Whisperer
 achievement.an.pigs.desc=Befriend all the Pig breeds
 
 achievement.an.indiablue=India Blue
-achievement.an.indiablue.desc=Befriend an India Blue peacock
-achievement.an.white=White Peacock
-achievement.an.white.desc=Befriend a White peacock
-achievement.an.peacocks=Peacock Whisperer
-achievement.an.peacocks.desc=Befriend all the Peacock breeds
+achievement.an.indiablue.desc=Befriend an India Blue peafowl
+achievement.an.white=White Peafowl
+achievement.an.white.desc=Befriend a White peafowl
+achievement.an.peacocks=Peafowl Whisperer
+achievement.an.peacocks.desc=Befriend all the Peafowl breeds
 
 achievement.an.greyferret=Grey Ferret
 achievement.an.greyferret.desc=Befriend a Grey Ferret

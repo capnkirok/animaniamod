@@ -17,6 +17,9 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
@@ -47,7 +50,7 @@ public class ItemTruffleSoup extends ItemFood
 	@Override
 	@Nullable
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-		
+
 		if (entityLiving instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entityLiving;
 			if (!worldIn.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects) {
@@ -55,10 +58,28 @@ public class ItemTruffleSoup extends ItemFood
 			}
 		}
 		
-		stack.shrink(1);
-		stack = new ItemStack(Items.BOWL);
-		return stack;
+		if (entityLiving instanceof EntityPlayer)
+        {
+			EntityPlayer entityplayer = (EntityPlayer)entityLiving;
+			entityplayer.getFoodStats().addStats(this, stack);
+			worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+            this.onFoodEaten(stack, worldIn, entityplayer);
+			entityplayer.addStat(StatList.getObjectUseStats(this));
+        }
+		
+		if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
+        {
+            stack.shrink(1);
+        }
+		
+		return stack.getCount() <= 0 ? new ItemStack(Items.BOWL) : stack;
 	}
+	
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+    {
+        playerIn.setActiveHand(hand);
+        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+    }
 
 	public String getName() {
 		return this.name;

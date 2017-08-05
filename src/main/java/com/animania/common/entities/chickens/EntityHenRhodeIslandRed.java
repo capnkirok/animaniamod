@@ -16,7 +16,7 @@ public class EntityHenRhodeIslandRed extends EntityHenBase
 		this.type = ChickenType.RHODE_ISLAND_RED;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/hen_red.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/hen_red_blink.png");
-		this.dropRaw = ItemHandler.rawPrimeChicken;
-		this.dropCooked = ItemHandler.cookedPrimeChicken;
+		this.dropRaw = ItemHandler.rawRhodeIslandRedChicken;
+		this.dropCooked = ItemHandler.cookedRhodeIslandRedChicken;
 	}
 }

@@ -103,6 +103,9 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		}
 		else
 		{
+			
+			return true;
+			/*
 			EntityPlayer entityplayer = (EntityPlayer)entity;
 			ItemStack itemstack = entityplayer.getHeldItemMainhand();
 
@@ -115,6 +118,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 				itemstack = entityplayer.getHeldItemOffhand();
 				return itemstack != null && itemstack.getItem() == ItemHandler.ridingCrop;
 			}
+			*/
 		}
 	}
 	
@@ -315,6 +319,10 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		if (this.world.isRemote)
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
+		}
+		
+		if (this.getColorNumber() > 5) {
+			this.setColorNumber(0);
 		}
 
 		if (this.fedTimer > -1) {
