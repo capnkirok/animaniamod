@@ -281,19 +281,19 @@ public class EntityAnimaniaPig extends EntityAnimal
 			}
 		}
 
-		if (happyDrops == 3)
+		if (happyDrops == 3 && dropItem !=null)
 		{
 			dropItem.setCount(2 + lootlevel);
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 			world.spawnEntity(entityitem);
 		}
-		else if (happyDrops == 2)
+		else if (happyDrops == 2 && dropItem !=null)
 		{
 			dropItem.setCount(1 + lootlevel);
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 			world.spawnEntity(entityitem);
 		}
-		else if (happyDrops == 1)
+		else if (happyDrops == 1 && dropItem !=null)
 		{
 			if (this.isBurning())
 			{

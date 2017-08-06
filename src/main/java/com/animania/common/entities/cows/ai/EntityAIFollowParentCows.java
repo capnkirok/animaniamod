@@ -60,7 +60,7 @@ public class EntityAIFollowParentCows extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityCalfHolstein) this.childAnimal).getParentUniqueId().toString())
+                                        .equals(((EntityCalfHolstein) this.childAnimal).getParentUniqueId().toString())
                                 && x2 <= 20 && y2 <= 8 && z2 <= 20 && x2 >= 3 && z2 >= 3) {
                             this.parentAnimal = (EntityAnimal) entity;
                             return true;
@@ -95,7 +95,7 @@ public class EntityAIFollowParentCows extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityCalfAngus) this.childAnimal).getParentUniqueId().toString())
+                                        .equals(((EntityCalfAngus) this.childAnimal).getParentUniqueId().toString())
                                 && x2 <= 20 && y2 <= 8 && z2 <= 20 && x2 >= 3 && z2 >= 3) {
                             this.parentAnimal = (EntityAnimal) entity;
                             return true;
@@ -130,7 +130,7 @@ public class EntityAIFollowParentCows extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityCalfFriesian) this.childAnimal).getParentUniqueId().toString())
+                                        .equals(((EntityCalfFriesian) this.childAnimal).getParentUniqueId().toString())
                                 && x2 <= 20 && y2 <= 8 && z2 <= 20 && x2 >= 3 && z2 >= 3) {
                             this.parentAnimal = (EntityAnimal) entity;
                             return true;
@@ -165,7 +165,7 @@ public class EntityAIFollowParentCows extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityCalfHereford) this.childAnimal).getParentUniqueId().toString())
+                                        .equals(((EntityCalfHereford) this.childAnimal).getParentUniqueId().toString())
                                 && x2 <= 20 && y2 <= 8 && z2 <= 20 && x2 >= 3 && z2 >= 3) {
                             this.parentAnimal = (EntityAnimal) entity;
                             return true;
@@ -201,7 +201,7 @@ public class EntityAIFollowParentCows extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityCalfLonghorn) this.childAnimal).getParentUniqueId().toString())
+                                        .equals(((EntityCalfLonghorn) this.childAnimal).getParentUniqueId().toString())
                                 && x2 <= 20 && y2 <= 8 && z2 <= 20 && x2 >= 3 && z2 >= 3) {
                             this.parentAnimal = (EntityAnimal) entity;
                             return true;

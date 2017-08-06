@@ -58,7 +58,7 @@ public class EntityAIFollowMatePigs extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityHogDuroc) this.thisAnimal).getMateUniqueId().toString())
+                                        .equals(((EntityHogDuroc) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;
@@ -93,7 +93,7 @@ public class EntityAIFollowMatePigs extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityHogHampshire) this.thisAnimal).getMateUniqueId().toString())
+                                        .equals(((EntityHogHampshire) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;
@@ -128,7 +128,7 @@ public class EntityAIFollowMatePigs extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityHogOldSpot) this.thisAnimal).getMateUniqueId().toString())
+                                        .equals(((EntityHogOldSpot) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;
@@ -163,7 +163,7 @@ public class EntityAIFollowMatePigs extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityHogLargeBlack) this.thisAnimal).getMateUniqueId().toString())
+                                        .equals(((EntityHogLargeBlack) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;
@@ -199,7 +199,7 @@ public class EntityAIFollowMatePigs extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityHogLargeWhite) this.thisAnimal).getMateUniqueId().toString())
+                                        .equals(((EntityHogLargeWhite) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;
@@ -234,7 +234,7 @@ public class EntityAIFollowMatePigs extends EntityAIBase
 
                         if (entity != null
                                 && entity.getPersistentID().toString()
-                                        .equalsIgnoreCase(((EntityHogYorkshire) this.thisAnimal).getMateUniqueId().toString())
+                                        .equals(((EntityHogYorkshire) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;

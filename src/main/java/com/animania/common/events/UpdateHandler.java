@@ -26,7 +26,7 @@ public class UpdateHandler
         getNewestVersion();
 
         if (UpdateHandler.newestVersion != null) {
-            if (UpdateHandler.newestVersion.equalsIgnoreCase(UpdateHandler.currentVersion)) {
+            if (UpdateHandler.newestVersion.equals(UpdateHandler.currentVersion)) {
                 // show = true;
             }
             else {
