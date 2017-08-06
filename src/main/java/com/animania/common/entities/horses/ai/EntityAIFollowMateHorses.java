@@ -53,7 +53,7 @@ public class EntityAIFollowMateHorses extends EntityAIBase
 						double y2 = Math.abs(yt - y1);
 						double z2 = Math.abs(zt - z1);
 
-						if (entity !=null && entity.getPersistentID().toString().equalsIgnoreCase(((EntityStallionDraftHorse) this.thisAnimal).getMateUniqueId().toString()) && x2 <= 40 && y2 <=8 && z2 <=40 && x2 >= 5 && z2 >= 5) {
+						if (entity !=null && entity.getPersistentID().toString().equals(((EntityStallionDraftHorse) this.thisAnimal).getMateUniqueId().toString()) && x2 <= 40 && y2 <=8 && z2 <=40 && x2 >= 5 && z2 >= 5) {
 							mateAnimal = (EntityAnimal) entity;
 							return true;
 						}

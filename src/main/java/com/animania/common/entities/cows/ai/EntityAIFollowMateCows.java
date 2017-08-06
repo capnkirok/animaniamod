@@ -55,7 +55,7 @@ public class EntityAIFollowMateCows extends EntityAIBase
                         double z2 = Math.abs(zt - z1);
 
                         if (entity != null
-                                && entity.getPersistentID().toString().equalsIgnoreCase(((EntityBullHolstein) this.thisAnimal).getMateUniqueId().toString())
+                                && entity.getPersistentID().toString().equals(((EntityBullHolstein) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;
@@ -89,7 +89,7 @@ public class EntityAIFollowMateCows extends EntityAIBase
                         double z2 = Math.abs(zt - z1);
 
                         if (entity != null
-                                && entity.getPersistentID().toString().equalsIgnoreCase(((EntityBullAngus) this.thisAnimal).getMateUniqueId().toString())
+                                && entity.getPersistentID().toString().equals(((EntityBullAngus) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;
@@ -123,7 +123,7 @@ public class EntityAIFollowMateCows extends EntityAIBase
                         double z2 = Math.abs(zt - z1);
 
                         if (entity != null
-                                && entity.getPersistentID().toString().equalsIgnoreCase(((EntityBullLonghorn) this.thisAnimal).getMateUniqueId().toString())
+                                && entity.getPersistentID().toString().equals(((EntityBullLonghorn) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;
@@ -157,7 +157,7 @@ public class EntityAIFollowMateCows extends EntityAIBase
                         double z2 = Math.abs(zt - z1);
 
                         if (entity != null
-                                && entity.getPersistentID().toString().equalsIgnoreCase(((EntityBullFriesian) this.thisAnimal).getMateUniqueId().toString())
+                                && entity.getPersistentID().toString().equals(((EntityBullFriesian) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;
@@ -191,8 +191,7 @@ public class EntityAIFollowMateCows extends EntityAIBase
                         double y2 = Math.abs(yt - y1);
                         double z2 = Math.abs(zt - z1);
 
-                        if (entity != null
-                                && entity.getPersistentID().toString().equalsIgnoreCase(((EntityBullHereford) this.thisAnimal).getMateUniqueId().toString())
+                        if (entity != null && entity.getPersistentID().toString().equals(((EntityBullHereford) this.thisAnimal).getMateUniqueId().toString())
                                 && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
                             this.mateAnimal = (EntityAnimal) entity;
                             return true;

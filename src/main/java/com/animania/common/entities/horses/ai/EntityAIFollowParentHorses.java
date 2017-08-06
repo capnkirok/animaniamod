@@ -56,7 +56,7 @@ public class EntityAIFollowParentHorses extends EntityAIBase
 						double y2 = Math.abs(yt - y1);
 						double z2 = Math.abs(zt - z1);
 
-						if (entity !=null && entity.getPersistentID().toString().equalsIgnoreCase(((EntityFoalDraftHorse) this.childAnimal).getParentUniqueId().toString()) && x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
+						if (entity !=null && entity.getPersistentID().toString().equals(((EntityFoalDraftHorse) this.childAnimal).getParentUniqueId().toString()) && x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
 							parentAnimal = (EntityAnimal) entity;
 							return true;
 						}

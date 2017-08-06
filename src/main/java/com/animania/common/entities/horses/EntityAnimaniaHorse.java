@@ -393,12 +393,12 @@ public class EntityAnimaniaHorse extends EntityAnimal
 			dropItem = ItemStack.EMPTY;
 		}
 
-		if (happyDrops == 2) {
+		if (happyDrops == 2 && dropItem !=null) {
 			dropItem.setCount(1 + lootlevel);
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 			world.spawnEntity(entityitem);
 			this.dropItem(Items.LEATHER, 1);
-		} else if (happyDrops == 1) {
+		} else if (happyDrops == 1 && dropItem !=null) {
 			if (this.isBurning())
 			{
 				this.dropItem(Items.LEATHER, 1 + lootlevel);

@@ -100,9 +100,9 @@ public class EntityFrogs extends EntityAmphibian
 			this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
 			this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
 			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-	        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFerretBase.class, true));
-	        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityHedgehog.class, true));
-	        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, true));
+			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFerretBase.class, true));
+			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityHedgehog.class, true));
+			this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, true));
 
 		}
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
@@ -240,15 +240,17 @@ public class EntityFrogs extends EntityAmphibian
 		String drop = AnimaniaConfig.drops.frogDrop;
 		dropItem = AnimaniaHelper.getItem(drop);
 
-		if (this.isBurning() && drop.equals("animania:raw_frog_legs")) {
-			drop = "animania:cooked_frog_legs";
-			dropItem = AnimaniaHelper.getItem(drop);
-		}
+		if (dropItem != null) {
+			if (this.isBurning() && drop.equals("animania:raw_frog_legs")) {
+				drop = "animania:cooked_frog_legs";
+				dropItem = AnimaniaHelper.getItem(drop);
+			}
 
-		if (this.rand.nextInt(3) < 1) {
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (this.rand.nextInt(3) < 1) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
 		}
 	}
 
