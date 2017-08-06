@@ -33,6 +33,7 @@ import com.animania.client.render.cows.RenderCowFriesian;
 import com.animania.client.render.cows.RenderCowHereford;
 import com.animania.client.render.cows.RenderCowHolstein;
 import com.animania.client.render.cows.RenderCowLonghorn;
+import com.animania.client.render.goats.RenderBuckAlpine;
 import com.animania.client.render.horses.RenderFoalDraftHorse;
 import com.animania.client.render.horses.RenderMareDraftHorse;
 import com.animania.client.render.horses.RenderStallionDraftHorse;
@@ -101,6 +102,7 @@ import com.animania.common.entities.cows.EntityCowFriesian;
 import com.animania.common.entities.cows.EntityCowHereford;
 import com.animania.common.entities.cows.EntityCowHolstein;
 import com.animania.common.entities.cows.EntityCowLonghorn;
+import com.animania.common.entities.goats.EntityBuckAlpine;
 import com.animania.common.entities.horses.EntityFoalDraftHorse;
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
@@ -155,6 +157,10 @@ public class RenderHandler
     }
 
     static void renderEntitiesFactory() {
+    	
+    	//Goats
+        RenderingRegistry.registerEntityRenderingHandler(EntityBuckAlpine.class, RenderBuckAlpine.FACTORY);
+
         // Frogs
         RenderingRegistry.registerEntityRenderingHandler(EntityFrogs.class, RenderFrogs.FACTORY);
         RenderingRegistry.registerEntityRenderingHandler(EntityDartFrogs.class, RenderDartFrogs.FACTORY);

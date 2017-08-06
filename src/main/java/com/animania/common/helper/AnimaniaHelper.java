@@ -3,8 +3,10 @@ package com.animania.common.helper;
 import java.util.List;
 
 import com.animania.Animania;
+import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.network.client.TileEntitySyncPacket;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -78,9 +80,9 @@ public class AnimaniaHelper
 	}
 
 	
-	public static List<EntityLivingBase> getEntitiesInRange(Class<? extends EntityLivingBase> filterEntity, double range, World world, Entity theEntity)
+	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
     {
-        List<EntityLivingBase> list = world.<EntityLivingBase>getEntitiesWithinAABB(filterEntity, theEntity.getEntityBoundingBox().expandXyz(range));
+        List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, theEntity.getEntityBoundingBox().expandXyz(range));
         return list;
     }
 	

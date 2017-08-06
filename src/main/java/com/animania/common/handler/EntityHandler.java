@@ -6,6 +6,7 @@ import java.util.Set;
 import com.animania.common.entities.amphibians.EntityDartFrogs;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
+import com.animania.common.entities.goats.EntityBuckAlpine;
 import com.animania.common.helper.RegistryHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Lists;
@@ -370,6 +371,10 @@ public class EntityHandler
 	
 		RegistryHelper.Entities.register(EntityDartFrogs.class, "dartfrog", entityID++, 64, 3, true);
 		RegistryHelper.Entities.addSpawn(EntityToad.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.JUNGLE));
+	
+		RegistryHelper.Entities.register(EntityBuckAlpine.class, "buck_alpine", entityID++, 64, 3, true);
+		RegistryHelper.Entities.addSpawn(EntityBuckAlpine.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, 2, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.MOUNTAIN));
+
 	}
 
 	private static Biome[] getBiomes(BiomeDictionary.Type type) {
