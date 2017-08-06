@@ -370,6 +370,8 @@ public class CommonConfig
 
         @Comment("Enable Animal Drops from Config")
         public boolean customMobDrops   = true;
+        @Comment("Enable Animals Drop their custom meat types")
+        public boolean oldMeatDrops   = false;
         @Comment("Set Custom Chicken Drop (if enabled)")
         public String  chickenDrop      = "animania:raw_prime_chicken";
         @Comment("Set Custom Pig Drop (if enabled)")

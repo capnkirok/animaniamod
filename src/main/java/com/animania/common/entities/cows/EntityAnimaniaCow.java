@@ -62,6 +62,8 @@ public class EntityAnimaniaCow extends EntityCow
 	public CowType cowType;
 	protected Item dropRaw = Items.BEEF;
 	protected Item dropCooked = Items.COOKED_BEEF;
+	protected Item oldDropRaw = Items.BEEF;
+	protected Item oldDropCooked = Items.COOKED_BEEF;
 	protected boolean mateable = false;
 
 	public EntityAnimaniaCow(World worldIn)
@@ -113,14 +115,14 @@ public class EntityAnimaniaCow extends EntityCow
 	@Nullable
 	public UUID getMateUniqueId()
 	{
-		if(mateable)
+		if (mateable)
 		{
 			try
 			{
 				UUID id = (UUID) ((Optional) this.dataManager.get(EntityAnimaniaCow.MATE_UNIQUE_ID)).orNull();
 				return id;
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				return null;
 			}
@@ -160,7 +162,8 @@ public class EntityAnimaniaCow extends EntityCow
 			this.dataManager.set(EntityAnimaniaCow.FED, Boolean.valueOf(true));
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaCow.FED, Boolean.valueOf(false));
 	}
 
@@ -175,10 +178,10 @@ public class EntityAnimaniaCow extends EntityCow
 		{
 			this.dataManager.set(EntityAnimaniaCow.WATERED, Boolean.valueOf(true));
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaCow.WATERED, Boolean.valueOf(false));
 	}
-
 
 	@Override
 	protected void updateAITasks()
@@ -271,7 +274,6 @@ public class EntityAnimaniaCow extends EntityCow
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-
 		if (!fed && !watered)
 		{
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
@@ -285,7 +287,8 @@ public class EntityAnimaniaCow extends EntityCow
 				this.damageTimer++;
 			}
 
-		} else if (!fed || !watered)
+		}
+		else if (!fed || !watered)
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 
 		if (this.happyTimer > -1)
@@ -304,13 +307,9 @@ public class EntityAnimaniaCow extends EntityCow
 				}
 			}
 		}
-		
-		
-		
 
 		super.onLivingUpdate();
 	}
-
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
@@ -330,8 +329,8 @@ public class EntityAnimaniaCow extends EntityCow
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
-		} 
-		else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
+		}
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
 		{
 			return false;
 		}
@@ -348,7 +347,6 @@ public class EntityAnimaniaCow extends EntityCow
 		else
 			super.handleStatusUpdate(id);
 	}
-
 
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
@@ -398,7 +396,6 @@ public class EntityAnimaniaCow extends EntityCow
 
 	}
 
-
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
@@ -419,11 +416,21 @@ public class EntityAnimaniaCow extends EntityCow
 				drop = this.dropCooked.getRegistryName().toString();
 				dropItem = AnimaniaHelper.getItem(drop);
 			}
-		} else
+		}
+		else
 		{
-			dropItem = new ItemStack(this.dropRaw, 1);
-			if (this.isBurning())
-				dropItem = new ItemStack(this.dropCooked, 1);
+			if (AnimaniaConfig.drops.oldMeatDrops)
+			{
+				dropItem = new ItemStack(this.oldDropRaw, 1);
+				if (this.isBurning())
+					dropItem = new ItemStack(this.oldDropCooked, 1);
+			}
+			else
+			{
+				dropItem = new ItemStack(this.dropRaw, 1);
+				if (this.isBurning())
+					dropItem = new ItemStack(this.dropCooked, 1);
+			}
 		}
 
 		if (happyDrops == 2)
@@ -432,21 +439,23 @@ public class EntityAnimaniaCow extends EntityCow
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 			world.spawnEntity(entityitem);
 			this.dropItem(Items.LEATHER, 1);
-		} else if (happyDrops == 1)
+		}
+		else if (happyDrops == 1)
 		{
 			if (this.isBurning())
 			{
 				this.dropItem(Items.COOKED_BEEF, 1 + lootlevel);
 				this.dropItem(Items.LEATHER, 1 + lootlevel);
-			} else
+			}
+			else
 			{
 				this.dropItem(Items.BEEF, 1 + lootlevel);
 				this.dropItem(Items.LEATHER, 1 + lootlevel);
 			}
-		} else if (happyDrops == 0)
+		}
+		else if (happyDrops == 0)
 			this.dropItem(Items.LEATHER, 1 + lootlevel);
 
 	}
-
 
 }

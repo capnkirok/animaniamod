@@ -14,8 +14,10 @@ public class EntityCowHereford extends EntityCowBase
 	{
 		super(world);
 		this.cowType = CowType.HEREFORD;
-		this.dropRaw = ItemHandler.rawHerefordBeef;
-		this.dropCooked = ItemHandler.cookedHerefordRoast;
+		this.dropRaw = ItemHandler.rawPrimeBeef;
+		this.dropCooked = ItemHandler.cookedPrimeBeef;
+		this.oldDropRaw = ItemHandler.rawHerefordBeef;
+		this.oldDropCooked = ItemHandler.cookedHerefordRoast;
 	}
 
 }

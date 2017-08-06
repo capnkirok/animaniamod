@@ -24,7 +24,7 @@ public class ItemRawOldSpotPork extends ItemFood
         // this.setMaxStackSize(1);
         GameRegistry.register(this);
         this.setUnlocalizedName(Animania.MODID + "_" + this.name);
-        if (AnimaniaConfig.drops.customMobDrops)
+        if (!AnimaniaConfig.drops.oldMeatDrops)
             this.setCreativeTab(null);
         else
             this.setCreativeTab(Animania.TabAnimaniaResources);

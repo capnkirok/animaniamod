@@ -14,7 +14,9 @@ public class EntityRoosterPlymouthRock extends EntityRoosterBase
 		this.type = ChickenType.PLYMOUTH_ROCK;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/rooster_specked.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/rooster_specked_blink.png");
-		this.dropRaw = ItemHandler.rawPlymouthRockChicken;
-		this.dropCooked = ItemHandler.cookedPlymouthRockChicken;
+		this.oldDropRaw = ItemHandler.rawPlymouthRockChicken;
+		this.oldDropCooked = ItemHandler.cookedPlymouthRockChicken;
+		this.dropRaw = ItemHandler.rawPrimeChicken;
+		this.dropCooked = ItemHandler.cookedPrimeChicken;
 	}
 }

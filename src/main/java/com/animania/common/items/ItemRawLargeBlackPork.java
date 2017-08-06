@@ -23,7 +23,7 @@ public class ItemRawLargeBlackPork extends ItemFood
         this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
         GameRegistry.register(this);
         this.setUnlocalizedName(Animania.MODID + "_" + this.name);
-        if (AnimaniaConfig.drops.customMobDrops)
+        if (!AnimaniaConfig.drops.oldMeatDrops)
             this.setCreativeTab(null);
         else
             this.setCreativeTab(Animania.TabAnimaniaResources);

@@ -70,6 +70,8 @@ public class EntityAnimaniaPig extends EntityAnimal
 	protected PigType pigType;
 	protected Item dropRaw = Items.PORKCHOP;
 	protected Item dropCooked = Items.COOKED_PORKCHOP;
+	protected Item oldDropRaw = Items.PORKCHOP;
+	protected Item oldDropCooked = Items.COOKED_PORKCHOP;
 
 	public EntityAnimaniaPig(World worldIn)
 	{
@@ -209,7 +211,7 @@ public class EntityAnimaniaPig extends EntityAnimal
 		}
 		else if (stack != ItemStack.EMPTY && ItemStack.areItemStacksEqual(stack, this.slop))
 		{
-			if(!player.isCreative())
+			if (!player.isCreative())
 				player.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.BUCKET));
 			if (this.entityAIEatGrass != null)
 			{
@@ -226,11 +228,11 @@ public class EntityAnimaniaPig extends EntityAnimal
 
 	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source)
-    {
-        this.dropFewItems(wasRecentlyHit, lootingModifier);
-        this.dropEquipment(wasRecentlyHit, lootingModifier);
-    }
-	
+	{
+		this.dropFewItems(wasRecentlyHit, lootingModifier);
+		this.dropEquipment(wasRecentlyHit, lootingModifier);
+	}
+
 	@Override
 	protected void dropEquipment(boolean wasRecentlyHit, int lootingModifier)
 	{
@@ -238,7 +240,7 @@ public class EntityAnimaniaPig extends EntityAnimal
 
 		if (this.getSaddled())
 			this.dropItem(Items.SADDLE, 1);
-	} 
+	}
 
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
@@ -265,9 +267,18 @@ public class EntityAnimaniaPig extends EntityAnimal
 		}
 		else
 		{
-			dropItem = new ItemStack(this.dropRaw, 1);
-			if (this.isBurning())
-				dropItem = new ItemStack(this.dropCooked, 1);
+			if (AnimaniaConfig.drops.oldMeatDrops)
+			{
+				dropItem = new ItemStack(this.oldDropRaw, 1);
+				if (this.isBurning())
+					dropItem = new ItemStack(this.oldDropCooked, 1);
+			}
+			else
+			{
+				dropItem = new ItemStack(this.dropRaw, 1);
+				if (this.isBurning())
+					dropItem = new ItemStack(this.dropCooked, 1);
+			}
 		}
 
 		if (happyDrops == 3)
@@ -294,7 +305,6 @@ public class EntityAnimaniaPig extends EntityAnimal
 			}
 		}
 	}
-
 
 	public boolean getSaddled()
 	{
@@ -415,7 +425,7 @@ public class EntityAnimaniaPig extends EntityAnimal
 			entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
 			entitypigzombie.setNoAI(this.isAIDisabled());
 
-			if(this.isChild())
+			if (this.isChild())
 			{
 				entitypigzombie.setChild(true);
 			}
@@ -523,7 +533,7 @@ public class EntityAnimaniaPig extends EntityAnimal
 
 		super.onLivingUpdate();
 	}
-	
+
 	@Override
 	protected Item getDropItem()
 	{
