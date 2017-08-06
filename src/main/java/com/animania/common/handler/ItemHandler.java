@@ -10,11 +10,10 @@ import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.rodents.FerretType;
 import com.animania.common.entities.rodents.HamsterType;
 import com.animania.common.entities.rodents.HedgehogType;
+import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.common.items.ItemBrownEgg;
 import com.animania.common.items.ItemCarvingKnife;
-import com.animania.common.items.ItemCheeseMold;
 import com.animania.common.items.ItemCheeseWedge;
-import com.animania.common.items.ItemCheeseWheel;
 import com.animania.common.items.ItemChocolateTruffle;
 import com.animania.common.items.ItemCookedAngusRoast;
 import com.animania.common.items.ItemCookedAngusSteak;
@@ -27,7 +26,6 @@ import com.animania.common.items.ItemCookedHerefordRoast;
 import com.animania.common.items.ItemCookedHerefordSteak;
 import com.animania.common.items.ItemCookedLargeBlackBacon;
 import com.animania.common.items.ItemCookedLargeBlackRoast;
-import com.animania.common.items.ItemCookedLonghornRoast;
 import com.animania.common.items.ItemCookedLonghornSteak;
 import com.animania.common.items.ItemCookedOldSpotBacon;
 import com.animania.common.items.ItemCookedOldSpotRoast;
@@ -75,9 +73,10 @@ import com.animania.common.items.ItemTruffle;
 import com.animania.common.items.ItemTruffleSoup;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.potion.PotionEffect;
 
 public class ItemHandler
 {
@@ -283,11 +282,11 @@ public class ItemHandler
         
         
         // Other foods
-        ItemHandler.ultimateOmelette = new ItemOmelette("super");
+        ItemHandler.ultimateOmelette = new ItemAnimaniaFood(5, 5f, "super_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false), new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false), new PotionEffect(MobEffects.RESISTANCE, 600, 1, false, false));
         ItemHandler.truffleOmelette = new ItemOmelette("truffle");
         ItemHandler.baconOmelette = new ItemOmelette("bacon");
         ItemHandler.cheeseOmelette = new ItemOmelette("cheese");
-        ItemHandler.plainOmelette = new ItemOmelette("plain");
+        ItemHandler.plainOmelette = new ItemAnimaniaFood(5, 5f, "plain_omelette");
         ItemHandler.truffleSoup = new ItemTruffleSoup();
         ItemHandler.chocolateTruffle = new ItemChocolateTruffle();
 
@@ -301,7 +300,7 @@ public class ItemHandler
         ItemHandler.rawHerefordSteak = new ItemRawHerefordSteak();
         ItemHandler.rawAngusSteak = new ItemRawAngusSteak();
 
-        ItemHandler.cookedLonghornRoast = new ItemCookedLonghornRoast();
+        ItemHandler.cookedLonghornRoast = new ItemAnimaniaFood(10, 10f, "cooked_longhorn_roast", AnimaniaConfig.drops.oldMeatDrops, new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 1, false, false));
         ItemHandler.cookedHerefordRoast = new ItemCookedHerefordRoast();
         ItemHandler.cookedAngusRoast = new ItemCookedAngusRoast();
 

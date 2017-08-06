@@ -363,6 +363,8 @@ tooltip.an.regeneration=Regeneration
 tooltip.an.haste=Haste
 tooltip.an.healthboost=Health Boost
 tooltip.an.jumping=Jump Boost
+tooltip.an.strength=Strength
+tooltip.an.resistance=Resistance
 
 tooltip.an.ridingcrop1=Use on well fed Draft Horse to ride
 tooltip.an.ridingcrop2=While riding, hold down to increase speed
