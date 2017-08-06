@@ -11,8 +11,10 @@ public class EntityHogLargeBlack extends EntityHogBase
 	{
 		super(world);
 		this.pigType = PigType.LARGE_BLACK;
-		this.dropRaw = ItemHandler.rawLargeBlackPork;
-		this.dropCooked = ItemHandler.cookedLargeBlackRoast;
+		this.oldDropRaw = ItemHandler.rawLargeBlackPork;
+		this.oldDropCooked = ItemHandler.cookedLargeBlackRoast;
+		this.dropRaw = ItemHandler.rawPrimePork;
+		this.dropCooked = ItemHandler.cookedPrimePork;
 	}
 
 }

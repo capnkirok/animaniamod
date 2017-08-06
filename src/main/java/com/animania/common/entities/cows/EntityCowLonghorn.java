@@ -14,8 +14,10 @@ public class EntityCowLonghorn extends EntityCowBase
 	{
 		super(world);
 		this.cowType = CowType.LONGHORN;
-		this.dropRaw = ItemHandler.rawLonghornBeef;
-		this.dropCooked = ItemHandler.cookedLonghornRoast;
+		this.dropRaw = ItemHandler.rawPrimeBeef;
+		this.dropCooked = ItemHandler.cookedPrimeBeef;
+		this.oldDropRaw = ItemHandler.rawLonghornBeef;
+		this.oldDropCooked = ItemHandler.cookedLonghornRoast;
 	}
 
 }

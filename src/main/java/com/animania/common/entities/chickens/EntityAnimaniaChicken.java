@@ -68,6 +68,8 @@ public class EntityAnimaniaChicken extends EntityChicken
 	protected ChickenType type;
 	protected Item dropRaw = Items.CHICKEN;
 	protected Item dropCooked = Items.COOKED_CHICKEN;
+	protected Item oldDropRaw = Items.CHICKEN;
+	protected Item oldDropCooked = Items.COOKED_CHICKEN;
 
 	public EntityAnimaniaChicken(World worldIn)
 	{
@@ -177,7 +179,7 @@ public class EntityAnimaniaChicken extends EntityChicken
 	@Override
 	public void onLivingUpdate()
 	{
-		
+
 		super.onLivingUpdate();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
@@ -185,7 +187,7 @@ public class EntityAnimaniaChicken extends EntityChicken
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
 		this.fallDistance = 0;
-		
+
 		if (!this.world.isRemote && !this.isChild() && AnimaniaConfig.drops.chickensDropFeathers && !this.isChickenJockey() && --this.featherTimer <= 0)
 		{
 			this.playSound(ModSoundEvents.chickenCluck2, 0.5F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
@@ -442,9 +444,18 @@ public class EntityAnimaniaChicken extends EntityChicken
 		}
 		else
 		{
-			dropItem = new ItemStack(this.dropRaw, 1);
-			if (this.isBurning())
-				dropItem = new ItemStack(this.dropCooked, 1);
+			if (AnimaniaConfig.drops.oldMeatDrops)
+			{
+				dropItem = new ItemStack(this.oldDropRaw, 1);
+				if (this.isBurning())
+					dropItem = new ItemStack(this.oldDropCooked, 1);
+			}
+			else
+			{
+				dropItem = new ItemStack(this.dropRaw, 1);
+				if (this.isBurning())
+					dropItem = new ItemStack(this.dropCooked, 1);
+			}
 		}
 
 		if (happyDrops == 2 && dropItem !=null)

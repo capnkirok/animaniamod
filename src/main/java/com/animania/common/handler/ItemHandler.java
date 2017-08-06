@@ -73,6 +73,7 @@ import com.animania.common.items.ItemRawWyandotteChicken;
 import com.animania.common.items.ItemRidingCrop;
 import com.animania.common.items.ItemTruffle;
 import com.animania.common.items.ItemTruffleSoup;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -353,7 +354,7 @@ public class ItemHandler
         ItemHandler.brownEgg = new ItemBrownEgg();
         ItemHandler.peacockEggBlue = new ItemPeacockEgg("blue");
 		ItemHandler.peacockEggWhite = new ItemPeacockEgg("white");
-
+		
         // FROG ITEMS
         ItemHandler.rawFrogLegs = new ItemRawFrogLegs();
         ItemHandler.cookedFrogLegs = new ItemCookedFrogLegs();

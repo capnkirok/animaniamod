@@ -14,7 +14,9 @@ public class EntityRoosterOrpington extends EntityRoosterBase
 		this.type = ChickenType.ORPINGTON;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/rooster_golden.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/rooster_golden_blink.png");
-		this.dropRaw = ItemHandler.rawOrpingtonChicken;
-		this.dropCooked = ItemHandler.cookedOrpingtonChicken;
+		this.oldDropRaw = ItemHandler.rawOrpingtonChicken;
+		this.oldDropCooked = ItemHandler.cookedOrpingtonChicken;
+		this.dropRaw = ItemHandler.rawPrimeChicken;
+		this.dropCooked = ItemHandler.cookedPrimeChicken;
 	}
 }
