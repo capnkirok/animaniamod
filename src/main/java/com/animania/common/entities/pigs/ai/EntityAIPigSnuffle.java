@@ -1,6 +1,7 @@
 package com.animania.common.entities.pigs.ai;
 
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.ItemHelper;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
@@ -10,9 +11,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -105,13 +105,9 @@ public class EntityAIPigSnuffle extends EntityAIBase
 
 				Biome biomegenbase = this.entityWorld.getBiome(blockpos1);
 
-				if (BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild()) {
+				if (BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() &&  this.grassEaterEntity.getLeashedToEntity() instanceof EntityPlayer) {
 					this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
-					ItemStack bob2 = new ItemStack(ItemHandler.truffle, 1);
-					EntityItem entityitem = new EntityItem(this.entityWorld, blockpos1.getX() + 0.5D, blockpos1.getY(), blockpos.getZ() + 0.5D,
-							bob2);
-					// entityitem.height = 1;
-					this.entityWorld.spawnEntity(entityitem);
+					ItemHelper.spawnItem(entityWorld, blockpos, ItemHandler.truffle);
 				}
 
 				this.grassEaterEntity.eatGrassBonus();

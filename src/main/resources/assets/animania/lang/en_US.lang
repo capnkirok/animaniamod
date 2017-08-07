@@ -6,6 +6,7 @@ item.animania_bucket_slop.name=Bucket o' Slop
 item.animania_carving_knife.name=Carving Knife
 tile.animania_cheese_mold.name=Cheese Mold
 item.animania_riding_crop.name=Riding Crop
+item.animania_dolly.name=Dolly
 
 item.animania_hamster_ball_clear.name=Clear Hamster Ball
 item.animania_hamster_ball_black.name=Black Hamster Ball
@@ -363,6 +364,8 @@ tooltip.an.regeneration=Regeneration
 tooltip.an.haste=Haste
 tooltip.an.healthboost=Health Boost
 tooltip.an.jumping=Jump Boost
+tooltip.an.strength=Strength
+tooltip.an.resistance=Resistance
 
 tooltip.an.ridingcrop1=Use on well fed Draft Horse to ride
 tooltip.an.ridingcrop2=While riding, hold down to increase speed
