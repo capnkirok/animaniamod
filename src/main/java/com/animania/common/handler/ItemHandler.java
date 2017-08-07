@@ -38,6 +38,7 @@ import com.animania.common.items.ItemCookedPrimePork;
 import com.animania.common.items.ItemCookedPrimeSteak;
 import com.animania.common.items.ItemCookedRhodeIslandRedChicken;
 import com.animania.common.items.ItemCookedWyandotteChicken;
+import com.animania.common.items.ItemDolly;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemHamsterBall;
 import com.animania.common.items.ItemHamsterFood;
@@ -95,6 +96,7 @@ public class ItemHandler
     public static Item peacockFeatherBlue;
     public static Item peacockFeatherWhite;
     public static Item ridingCrop;
+	public static Item dolly;
 
     // Beef
     public static Item rawHerefordBeef;
@@ -277,6 +279,7 @@ public class ItemHandler
         ItemHandler.peacockFeatherBlue = new ItemPeacockFeather("blue");
         ItemHandler.peacockFeatherWhite = new ItemPeacockFeather("white");
         ItemHandler.ridingCrop = new ItemRidingCrop();
+        ItemHandler.dolly = new ItemDolly();
         ItemHandler.hamsterBallClear = new ItemHamsterBall(false, "hamster_ball_clear");
         ItemHandler.hamsterBallColored = new ItemHamsterBall(true, "hamster_ball_colored");
         
