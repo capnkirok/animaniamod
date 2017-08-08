@@ -2,11 +2,15 @@ package com.animania.common.items;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumActionResult;
@@ -47,14 +51,18 @@ public class ItemDolly extends AnimaniaItem
 
 				if (canPlace)
 				{
-					world.setBlockState(pos2, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, facing2.getOpposite()));
-					TileEntity tile = world.getTileEntity(pos2);
-					tile.readFromNBT(getChest(stack));
-					tile.setPos(pos2);
-					clearChest(stack);
-					player.playSound(SoundEvents.BLOCK_CHEST_CLOSE, 1.0f, 0.5f);
-					stack.damageItem(1, player);
-					return EnumActionResult.SUCCESS;
+					if (player.canPlayerEdit(pos, facing, stack) && world.mayPlace(Blocks.CHEST, pos2, false, facing, (Entity)null))
+					{
+						world.setBlockState(pos2, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, facing2.getOpposite()));
+						TileEntity tile = world.getTileEntity(pos2);
+						tile.readFromNBT(getChest(stack));
+						tile.setPos(pos2);
+						clearChest(stack);
+						player.playSound(SoundEvents.BLOCK_CHEST_CLOSE, 1.0f, 0.5f);
+						stack.damageItem(1, player);
+						return EnumActionResult.SUCCESS;
+					}
+					
 				}
 			}
 
@@ -78,6 +86,19 @@ public class ItemDolly extends AnimaniaItem
 
 		return EnumActionResult.FAIL;
 	}
+	
+	
+	@Override
+	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected)
+	{
+		if(hasChest(stack))
+		{
+			if(entity instanceof EntityLivingBase)
+			{
+				((EntityLivingBase)entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 1, false, false));
+			}
+		}
+	}
 
 	public static boolean hasChest(ItemStack stack)
 	{
@@ -89,7 +110,7 @@ public class ItemDolly extends AnimaniaItem
 		return false;
 	}
 
-	private boolean storeChest(TileEntityChest tile, ItemStack stack)
+	public static boolean storeChest(TileEntityChest tile, ItemStack stack)
 	{
 		if (tile == null)
 			return false;
@@ -109,7 +130,7 @@ public class ItemDolly extends AnimaniaItem
 		return true;
 	}
 
-	private void clearChest(ItemStack stack)
+	public static void clearChest(ItemStack stack)
 	{
 		if (stack.hasTagCompound())
 		{
@@ -118,7 +139,7 @@ public class ItemDolly extends AnimaniaItem
 		}
 	}
 
-	private NBTTagCompound getChest(ItemStack stack)
+	public static NBTTagCompound getChest(ItemStack stack)
 	{
 		if (stack.hasTagCompound())
 		{
