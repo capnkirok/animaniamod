@@ -22,9 +22,7 @@ public class AnimaniaTextures
 		register(ItemHandler.peacockEggWhite);
 		register(ItemHandler.carvingKnife);
 		register(ItemHandler.cheeseMold);
-		//register(ItemHandler.cheeseWheelFriesian);
 		register(ItemHandler.cheeseWedgeFriesian);
-		//register(ItemHandler.cheeseWheelHolstein);
 		register(ItemHandler.cheeseWedgeHolstein);
 		register(ItemHandler.truffleSoup);
 		register(ItemHandler.chocolateTruffle);
@@ -37,10 +35,10 @@ public class AnimaniaTextures
 		register(ItemHandler.peacockFeatherWhite);
 		register(ItemHandler.ridingCrop);
 		register(ItemHandler.hamsterBallClear);
-		registerColored(ItemHandler.hamsterBallColored, "hamster_ball");
+		register(ItemHandler.dolly);
 		
-
-
+		registerColored(ItemHandler.hamsterBallColored, "hamster_ball");
+	
 		// Beef
 		register(ItemHandler.rawAngusBeef);
 		register(ItemHandler.rawHerefordBeef);

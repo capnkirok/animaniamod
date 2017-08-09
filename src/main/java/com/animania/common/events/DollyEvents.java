@@ -2,6 +2,9 @@ package com.animania.common.events;
 
 import java.lang.reflect.Field;
 
+import org.lwjgl.opengl.GL11;
+
+import com.animania.client.render.tileEntity.TileEntityNestRenderer;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemDolly;
 
@@ -9,6 +12,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.entity.RenderEntityItem;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntityChestRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.settings.GameSettings;
@@ -17,6 +27,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,11 +35,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
@@ -40,6 +53,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DollyEvents
 {
+	private static final ResourceLocation CHEST_TEXTURE = new ResourceLocation("minecraft:textures/entity/chest/normal.png");
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
@@ -151,23 +165,58 @@ public class DollyEvents
 		}
 	}
 
+	/*
+
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void renderHand(RenderHandEvent event)
 	{
+
 		World world = Minecraft.getMinecraft().world;
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		ItemStack stack = player.getHeldItemMainhand();
+
 		if(!stack.isEmpty() && stack.getItem() == ItemHandler.dolly && ItemDolly.hasChest(stack))
 		{
 			BlockPos pos = player.getPosition();
 			NBTTagCompound nbt = ItemDolly.getChest(stack);
 			TileEntityChest chest = (TileEntityChest) TileEntityChest.create(world, nbt);
 			TileEntitySpecialRenderer<TileEntityChest> tesr = TileEntityRendererDispatcher.instance.getSpecialRenderer(chest);
+
 			GlStateManager.pushMatrix();
-			tesr.renderTileEntityAt(chest, pos.getX(), pos.getY() + 0.5, pos.getZ(), 1.0f, 0);
+			tesr.renderTileEntityAt(chest, pos.getX(), pos.getY() + 0.5, pos.getZ(), 0, 0);
 			GlStateManager.popMatrix();
+
 		}
-	
+		}
+	 */
+
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void PlayerRender(RenderPlayerEvent.Post event)
+	{
+		World world = Minecraft.getMinecraft().world;
+		EntityPlayer player = Minecraft.getMinecraft().player;
+		ItemStack stack = player.getHeldItemMainhand();
+
+		if(!stack.isEmpty() && stack.getItem() == ItemHandler.dolly && ItemDolly.hasChest(stack))
+		{
+			//TODO Temporary... pull stack from Dolly when we have it
+			stack = new ItemStack(Blocks.CHEST,1);
+
+			EntityItem entityItem = new EntityItem(Minecraft.getMinecraft().world, 0, 0, 0);
+			entityItem.hoverStart = 0;
+
+			entityItem.setEntityItemStack(stack);
+
+			GlStateManager.pushMatrix();
+			GlStateManager.scale(3, 3, 3);
+			Minecraft.getMinecraft().getRenderManager().doRenderEntity(entityItem, event.getX() + .1, event.getY(), event.getZ() + .1, event.getEntityPlayer().rotationYaw, 90, true);
+			GlStateManager.scale(1, 1, 1);
+			GlStateManager.popMatrix();
+
+		}
 	}
+
+
 }
