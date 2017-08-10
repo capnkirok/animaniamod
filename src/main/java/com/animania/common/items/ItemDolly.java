@@ -223,6 +223,26 @@ public class ItemDolly extends AnimaniaItem
 		return new ItemStack(getBlock(stack), 1, getMeta(stack));
 	}
 	
+	public static IBlockState getBlockState(ItemStack stack)
+	{
+		return getBlock(stack).getStateFromMeta(getMeta(stack));
+	}
+	
+	
+	public static boolean isLocked(BlockPos pos, World world)
+	{
+		TileEntity te = world.getTileEntity(pos);
+		if(te != null)
+		{
+			NBTTagCompound tag = new NBTTagCompound();
+			te.writeToNBT(tag);
+			
+			return tag.hasKey("Lock") ? !tag.getString("Lock").equals("") : false;
+		}
+		
+		return false;
+	}
+	
 	private boolean equal(Object[] a, Object[] b)
 	{
 		if (a.length != b.length)

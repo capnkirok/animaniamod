@@ -415,6 +415,7 @@ public class CommonConfig
     					"animania:block_trough",
     					"animania:block_invisiblock",
     					"ic2:*",
+    					"immersiveengineering:*",
     					"embers:block_furnace",
     					"embers:ember_bore",
     					"embers:ember_activator",
