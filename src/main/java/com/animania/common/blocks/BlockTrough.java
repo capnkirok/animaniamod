@@ -303,7 +303,10 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 		}
 
 		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
-		InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
+		if (te != null)
+		{
+			InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
+		}
 		Random rand = new Random();
 
 		super.breakBlock(worldIn, pos, state);
@@ -494,10 +497,10 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 			return false;
 
 		String[] foods = AnimaniaConfig.gameRules.troughFood;
-		
-		for(int i = 0; i < foods.length; i++)
+
+		for (int i = 0; i < foods.length; i++)
 		{
-			if(ItemStack.areItemsEqual(AnimaniaHelper.getItem(foods[i]), stack))
+			if (ItemStack.areItemsEqual(AnimaniaHelper.getItem(foods[i]), stack))
 				return true;
 		}
 

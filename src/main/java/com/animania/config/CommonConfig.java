@@ -1,5 +1,9 @@
 package com.animania.config;
 
+import java.util.ArrayList;
+
+import com.animania.common.handler.ForbiddenTileHandler;
+
 import net.minecraftforge.common.config.Config.Comment;
 
 public class CommonConfig
@@ -401,4 +405,34 @@ public class CommonConfig
         @Comment("Allow Animania Chickens to drop Feathers")
         public Boolean chickensDropFeathers = true;
     }
+    
+    
+    public static class ForbiddenTiles
+    {
+    	@Comment("Tile Entities that cannot be picked up")
+    	public String[] forbiddenTiles = new String[]
+    			{
+    					"animania:block_trough",
+    					"animania:block_invisiblock",
+    					"ic2:*",
+    					"embers:block_furnace",
+    					"embers:ember_bore",
+    					"embers:ember_activator",
+    					"embers:mixer",
+    					"embers:heat_coil",
+    					"embers:large_tank",
+    					"embers:crystal_cell",
+    					"embers:alchemy_pedestal",
+    					"embers:boiler",
+    					"embers:combustor",
+    					"embers:catalzyer",
+    					"embers:field_chart",
+    					"embers:inferno_forge"
+
+    			};
+	
+    }
+    
+    
+    
 }

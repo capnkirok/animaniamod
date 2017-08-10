@@ -145,8 +145,11 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
 	{
 		TileEntityHamsterWheel te = (TileEntityHamsterWheel) worldIn.getTileEntity(pos);
-		te.ejectHamster();
-		InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
+		if (te != null)
+		{
+			te.ejectHamster();
+			InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
+		}
 		super.breakBlock(worldIn, pos, state);
 	}
 
