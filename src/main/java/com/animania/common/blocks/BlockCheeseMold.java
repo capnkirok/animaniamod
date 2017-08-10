@@ -191,7 +191,8 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
 	{
 		TileEntityCheeseMold te = (TileEntityCheeseMold) worldIn.getTileEntity(pos);
-		InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
+		if (te != null)
+			InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
 		super.breakBlock(worldIn, pos, state);
 	}
 

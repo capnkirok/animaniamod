@@ -379,6 +379,7 @@ animania.category.spawn=Spawn
 animania.category.entity=Entities
 animania.category.careandfeeding=Care and Feeding
 animania.category.drops=Drops
+animania.category.forbiddentiles=Forbidden Tile Entities
 
 text.waila.fed=Well fed
 text.waila.thirsty=Thirsty

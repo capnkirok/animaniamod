@@ -57,25 +57,34 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 				FluidStack fluid = fluidHandler.getFluid();
 				if (fluid != null)
 				{
+					IBlockState state = world.getBlockState(pos);
 					fluidHandler.drain(1000, true);
 					if (fluid.getFluid() == BlockHandler.fluidMilkFriesian)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(ItemHandler.cheeseWheelFriesian));
-						IBlockState state = world.getBlockState(pos);
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
 					}
 					else if (fluid.getFluid() == BlockHandler.fluidMilkHolstein)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(ItemHandler.cheeseWheelHolstein));
-						IBlockState state = world.getBlockState(pos);
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_CHEESE));
 					}
+
 					progress = 0;
 					markDirty();
 
 				}
 
 			}
+			
+			IBlockState state2 = world.getBlockState(pos);
+
+			if(this.itemHandler.getStackInSlot(0).getItem() == ItemHandler.cheeseWheelFriesian && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.FRIESIAN_CHEESE)
+				world.setBlockState(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
+
+			if(this.itemHandler.getStackInSlot(0).getItem() == ItemHandler.cheeseWheelHolstein && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.HOLSTEIN_CHEESE)
+				world.setBlockState(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_CHEESE));
+			
 			
 			if(this.fluidHandler.getFluid() != null)
 			{
