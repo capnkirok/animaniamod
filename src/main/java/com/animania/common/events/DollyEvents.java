@@ -9,9 +9,7 @@ import com.animania.common.items.ItemDolly;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -76,8 +74,8 @@ public class DollyEvents
 				ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
 				if (inventory && !stack.isEmpty() && stack.getItem() == ItemHandler.dolly && ItemDolly.hasTileData(stack))
 				{
-					// event.setCanceled(true);
-					// Minecraft.getMinecraft().currentScreen = null;
+					 event.setCanceled(true);
+					 Minecraft.getMinecraft().currentScreen = null;
 				}
 			}
 		}
@@ -150,11 +148,12 @@ public class DollyEvents
 						}
 					}
 				}
-				world.setBlockState(finalPos, block.getDefaultState());
+				world.setBlockState(finalPos, ItemDolly.getBlockState(stack));
 				TileEntity tile = world.getTileEntity(finalPos);
 				tile.readFromNBT(ItemDolly.getTileData(stack));
 				tile.setPos(finalPos);
 				ItemDolly.clearTileData(stack);
+				eitem.setEntityItemStack(ItemStack.EMPTY);
 			}
 		}
 	}
@@ -258,7 +257,7 @@ public class DollyEvents
 
 		if (!stack.isEmpty() && stack.getItem() == ItemHandler.dolly && ItemDolly.hasTileData(stack))
 		{
-
+			
 		}
 	}
 
@@ -272,7 +271,7 @@ public class DollyEvents
 		Block block = world.getBlockState(pos).getBlock();
 		IBlockState state = world.getBlockState(pos);
 
-		if (main.isEmpty() && player.isSneaking() && !ForbiddenTileHandler.isForbidden(block))
+		if (!world.isRemote && main.isEmpty() && player.isSneaking() && !ForbiddenTileHandler.isForbidden(block) && !ItemDolly.isLocked(pos, world))
 		{
 			ItemStack stack = new ItemStack(ItemHandler.dolly);
 
@@ -290,5 +289,6 @@ public class DollyEvents
 
 		}
 	}
+	
 
 }
