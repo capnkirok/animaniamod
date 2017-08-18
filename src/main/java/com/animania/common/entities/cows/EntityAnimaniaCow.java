@@ -138,6 +138,15 @@ public class EntityAnimaniaCow extends EntityCow
 	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
+
+		if (this instanceof EntityBullBase) {
+			EntityBullBase ebb = (EntityBullBase) this;
+			if (ebb.getFighting()) {
+				System.out.println("yep");
+				return;
+			}
+		}
+
 		this.setFed(true);
 		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
@@ -316,8 +325,16 @@ public class EntityAnimaniaCow extends EntityCow
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
+		boolean fighting = false;
+		
+		if (this instanceof EntityBullBase) {
+			EntityBullBase ebb = (EntityBullBase) this;
+			if (ebb.getFighting()) {
+				fighting = true;
+			}
+		}
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET && fighting == false)
 		{
 			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
 				player.setHeldItem(hand, new ItemStack(Items.BUCKET));

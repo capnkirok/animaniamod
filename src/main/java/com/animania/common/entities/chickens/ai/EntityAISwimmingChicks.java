@@ -20,9 +20,6 @@ public class EntityAISwimmingChicks extends EntityAIBase
 		((PathNavigateGround) entitylivingIn.getNavigator()).setCanSwim(true);
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
 	@Override
 	public boolean shouldExecute() {
 
@@ -39,9 +36,6 @@ public class EntityAISwimmingChicks extends EntityAIBase
 
 	}
 
-	/**
-	 * Updates the task
-	 */
 	@Override
 	public void updateTask() {
 		if (this.theEntity.getRNG().nextFloat() < 0.9F) {

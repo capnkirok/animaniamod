@@ -16,34 +16,17 @@ import net.minecraft.pathfinding.PathNavigateGround;
 
 public class EntityAITemptHamster extends EntityAIBase
 {
-    /** The entity using this AI that is tempted by the player. */
     private final EntityCreature temptedEntity;
     private final double         speed;
-    /** X position of player tempting this mob */
     private double               targetX;
-    /** Y position of player tempting this mob */
     private double               targetY;
-    /** Z position of player tempting this mob */
     private double               targetZ;
-    /** Tempting player's pitch */
     private double               pitch;
-    /** Tempting player's yaw */
     private double               yaw;
-    /** The player that is tempting the entity that is using this AI. */
     private EntityPlayer         temptingPlayer;
-    /**
-     * A counter that is decremented each time the shouldExecute method is
-     * called. The shouldExecute method will always return false if
-     * delayTemptCounter is greater than 0.
-     */
     private int                  delayTemptCounter;
-    /** True if this EntityAITempt task is running */
     private boolean              isRunning;
     private final Set<Item>      temptItem;
-    /**
-     * Whether the entity using this AI will be scared by the tempter's sudden
-     * movement.
-     */
     private final boolean        scaredByPlayerMovement;
 
     public EntityAITemptHamster(EntityCreature temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn) {
@@ -61,13 +44,8 @@ public class EntityAITemptHamster extends EntityAIBase
             throw new IllegalArgumentException("Unsupported mob type for TemptGoal");
     }
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
     @Override
     public boolean shouldExecute() {
-
-        // System.out.println(delayTemptCounter);
 
         if (this.delayTemptCounter > 0) {
             --this.delayTemptCounter;
@@ -86,9 +64,6 @@ public class EntityAITemptHamster extends EntityAIBase
         return stack == null ? false : this.temptItem.contains(stack.getItem());
     }
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
     @Override
     public boolean continueExecuting() {
         if (this.scaredByPlayerMovement) {
@@ -114,9 +89,6 @@ public class EntityAITemptHamster extends EntityAIBase
         return this.shouldExecute();
     }
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
     @Override
     public void startExecuting() {
         this.targetX = this.temptingPlayer.posX;
@@ -125,9 +97,6 @@ public class EntityAITemptHamster extends EntityAIBase
         this.isRunning = true;
     }
 
-    /**
-     * Resets the task
-     */
     @Override
     public void resetTask() {
         this.temptingPlayer = null;
@@ -138,9 +107,6 @@ public class EntityAITemptHamster extends EntityAIBase
         hamster.setHamsterStanding(false);
     }
 
-    /**
-     * Updates the task
-     */
     @Override
     public void updateTask() {
         this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, this.temptedEntity.getHorizontalFaceSpeed() + 20,
@@ -160,9 +126,6 @@ public class EntityAITemptHamster extends EntityAIBase
         }
     }
 
-    /**
-     * @see #isRunning
-     */
     public boolean isRunning() {
         return this.isRunning;
     }

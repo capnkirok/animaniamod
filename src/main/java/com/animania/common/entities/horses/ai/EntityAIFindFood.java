@@ -2,6 +2,7 @@ package com.animania.common.entities.horses.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.horses.EntityFoalDraftHorse;
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
@@ -36,35 +37,19 @@ public class EntityAIFindFood extends EntityAIBase
 		this.delayTemptCounter = 0;
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
 	public boolean shouldExecute()
 	{
 		delayTemptCounter++;
 		if (this.delayTemptCounter <= 32) {
 			return false;
 		} else if (delayTemptCounter > 32) {
-			if (temptedEntity instanceof EntityStallionDraftHorse) {
-				EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+			if (temptedEntity instanceof EntityAnimaniaHorse) {
+				EntityAnimaniaHorse ech = (EntityAnimaniaHorse)temptedEntity;
 				if (ech.getFed()) {
 					this.delayTemptCounter = 0;
 					return false;		
 				}
-			} else if (temptedEntity instanceof EntityMareDraftHorse) {
-				EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
-				if (ech.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;		
-				}
-			} else if (temptedEntity instanceof EntityFoalDraftHorse) {
-				EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
-				if (ech.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;		
-				}
-			
-			}
+			} 
 			
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
 			BlockPos trypos1 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ);
@@ -110,19 +95,11 @@ public class EntityAIFindFood extends EntityAIBase
 				if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty()) {
 					te.itemHandler.extractItem(0, 1, false);
 
-					if (temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+					if (temptedEntity instanceof EntityAnimaniaHorse) {
+						EntityAnimaniaHorse ech = (EntityAnimaniaHorse)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityMareDraftHorse) {
-						EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityFoalDraftHorse) {
-						EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					}
+					} 
 
 					return false;
 
@@ -131,21 +108,11 @@ public class EntityAIFindFood extends EntityAIBase
 
 			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT || poschk == Blocks.YELLOW_FLOWER) {
 
-				if (temptedEntity instanceof EntityStallionDraftHorse) {
-					EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+				if (temptedEntity instanceof EntityAnimaniaHorse) {
+					EntityAnimaniaHorse ech = (EntityAnimaniaHorse)temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityMareDraftHorse) {
-					EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setFed(true);
-				} else if (temptedEntity instanceof EntityFoalDraftHorse) {
-					EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setFed(true);
-				}
-
-
+				} 
 				return false;
 			}
 
@@ -214,25 +181,17 @@ public class EntityAIFindFood extends EntityAIBase
 		return false;
 	}
 
-
-
 	public boolean continueExecuting()
 	{
 
 		return this.shouldExecute();
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	public void startExecuting()
 	{	
 		this.isRunning = true;
 	}
 
-	/**
-	 * Resets the task
-	 */
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
@@ -340,9 +299,6 @@ public class EntityAIFindFood extends EntityAIBase
 		}
 
 	}
-
-
-
 
 
 	public boolean isRunning()

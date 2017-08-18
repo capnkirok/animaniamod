@@ -31,28 +31,25 @@ public class EntityAIPanicHorses extends EntityAIBase
 		this.hitFlag = false;
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
 	public boolean shouldExecute()
 	{
 		EntityPlayer checkPlayer = this.theEntityCreature.world.getClosestPlayer(this.theEntityCreature.posX, this.theEntityCreature.posY, this.theEntityCreature.posZ, 20, false);
-		
-		
+
+
 		if (this.theEntityCreature.getAITarget() == null && !this.theEntityCreature.isBurning() && duration == 0)
 		{
 			hitFlag = false;
 			return false;
 		} else if (!this.theEntityCreature.isBurning()) {
 			Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 20, 4);
-		
+
 			if (hitFlag == false) {
 				hitFlag = true;
 				duration = 40;
 			}
-		
+
 			duration--;
-			
+
 			if (vec3d == null)
 			{
 				hitFlag = false;
@@ -63,14 +60,14 @@ public class EntityAIPanicHorses extends EntityAIBase
 				this.randPosX = vec3d.xCoord;
 				this.randPosY = vec3d.yCoord;
 				this.randPosZ = vec3d.zCoord;
-				
+
 				return true;
 			}
 		}
 		else
 		{
 			BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
-		
+
 			if (blockpos == null)
 			{
 				hitFlag = false;
@@ -81,23 +78,17 @@ public class EntityAIPanicHorses extends EntityAIBase
 				this.randPosX = (double)blockpos.getX();
 				this.randPosY = (double)blockpos.getY();
 				this.randPosZ = (double)blockpos.getZ();
-				
+
 				return true;
 			}
 		}
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	public void startExecuting()
 	{
 		this.theEntityCreature.getNavigator().tryMoveToXYZ(this.randPosX, this.randPosY, this.randPosZ, this.speed);
 	}
 
-	/**
-	 * Returns whether an in-progress EntityAIBase should continue executing
-	 */
 	public boolean continueExecuting()
 	{
 		return !this.theEntityCreature.getNavigator().noPath();

@@ -1,12 +1,16 @@
 package com.animania.common.entities.pigs;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.horses.EntityFoalDraftHorse;
+import com.animania.common.entities.horses.EntityStallionBase;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -412,48 +416,28 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 			this.gestationTimer--;
 			if (this.gestationTimer == 0)
 			{
-
 				this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(2000);
-
-				String MateID = this.getMateUniqueId().toString();
-
-				int esize = this.world.loadedEntityList.size();
-				for (int k = 0; k <= esize - 1; k++)
+				UUID MateID = this.getMateUniqueId();
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityHogBase.class, 16, this.world, this);
+				int esize = entities.size();
+				for (int k = 0; k <= esize - 1; k++) 
 				{
-					Entity entity = this.world.loadedEntityList.get(k);
-
-					double xt = entity.posX;
-					double yt = entity.posY;
-					double zt = entity.posZ;
-					int x1 = MathHelper.floor(this.posX);
-					int y1 = MathHelper.floor(this.posY);
-					int z1 = MathHelper.floor(this.posZ);
-					double x2 = xt - x1;
-					double y2 = yt - y1;
-					double z2 = zt - z1;
-
-					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().toString().equals(MateID) && x2 <= 20 && y2 <= 20 && z2 <= 20)
-					{
+					EntityHogBase entity = (EntityHogBase)entities.get(k);
+					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
 
 						this.setInLove(null);
 
 						if (!this.world.isRemote)
 						{
 
-							if (entity instanceof EntityHogBase)
-							{
-								PigType maleType = ((EntityHogBase) entity).pigType;
-								PigType babyType = PigType.breed(maleType, this.pigType);
+							PigType maleType = ((EntityHogBase) entity).pigType;
+							PigType babyType = PigType.breed(maleType, this.pigType);
+							EntityPigletBase piglet = babyType.getChild(world);
+							piglet.setPosition(this.posX, this.posY + .2, this.posZ);
+							this.world.spawnEntity(piglet);
+							piglet.setParentUniqueId(this.getPersistentID());
+							this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
 
-								EntityPigletBase piglet = babyType.getChild(world);
-								piglet.setPosition(this.posX, this.posY + .2, this.posZ);
-								this.world.spawnEntity(piglet);
-								piglet.setParentUniqueId(this.getPersistentID());
-								this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
-								BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, piglet);
-								MinecraftForge.EVENT_BUS.post(event);
-
-							}
 						}
 					}
 				}

@@ -2,6 +2,7 @@ package com.animania.common.entities.chickens.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
@@ -32,469 +33,268 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class EntityAIFindWater extends EntityAIBase
 {
-    private final EntityCreature temptedEntity;
-    private final double         speed;
-    private double               targetX;
-    private double               targetY;
-    private double               targetZ;
-    private double               pitch;
-    private double               yaw;
-    private EntityPlayer         temptingPlayer;
-    private int                  delayTemptCounter;
-    private boolean              isRunning;
+	private final EntityCreature temptedEntity;
+	private final double         speed;
+	private double               targetX;
+	private double               targetY;
+	private double               targetZ;
+	private double               pitch;
+	private double               yaw;
+	private EntityPlayer         temptingPlayer;
+	private int                  delayTemptCounter;
+	private boolean              isRunning;
 
-    public EntityAIFindWater(EntityCreature temptedEntityIn, double speedIn) {
-        this.temptedEntity = temptedEntityIn;
-        this.speed = speedIn;
-        this.setMutexBits(3);
-        this.delayTemptCounter = 0;
-    }
+	public EntityAIFindWater(EntityCreature temptedEntityIn, double speedIn) {
+		this.temptedEntity = temptedEntityIn;
+		this.speed = speedIn;
+		this.setMutexBits(3);
+		this.delayTemptCounter = 0;
+	}
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
-    @Override
-    public boolean shouldExecute() {
+	/**
+	 * Returns whether the EntityAIBase should begin execution.
+	 */
+	@Override
+	public boolean shouldExecute() {
 
-    	delayTemptCounter++;
+		delayTemptCounter++;
 		if (this.delayTemptCounter < 40) {
 			return false;
 		} else if (delayTemptCounter > 40) {
-			if (this.temptedEntity instanceof EntityChickLeghorn) {
-				EntityChickLeghorn entity = (EntityChickLeghorn) temptedEntity;
+			if (this.temptedEntity instanceof EntityAnimaniaChicken) {
+				EntityAnimaniaChicken entity = (EntityAnimaniaChicken) temptedEntity;
 				if (entity.getWatered()) {
 					this.delayTemptCounter = 0;
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityChickOrpington) {
-				EntityChickOrpington entity = (EntityChickOrpington)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
+			} 
+
+			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
+			Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
+
+			Biome biomegenbase = this.temptedEntity.world
+					.getBiome(new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ));
+
+			if (poschk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+
+				if (this.temptedEntity instanceof EntityAnimaniaChicken) {
+					EntityAnimaniaChicken entity = (EntityAnimaniaChicken) this.temptedEntity;
+					entity.setWatered(true);
 				}
-			} else if (temptedEntity instanceof EntityChickPlymouthRock) {
-				EntityChickPlymouthRock entity = (EntityChickPlymouthRock)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityChickRhodeIslandRed) {
-				EntityChickRhodeIslandRed entity = (EntityChickRhodeIslandRed)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityChickWyandotte) {
-				EntityChickWyandotte entity = (EntityChickWyandotte)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHenLeghorn) {
-				EntityHenLeghorn entity = (EntityHenLeghorn)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHenOrpington) {
-				EntityHenOrpington entity = (EntityHenOrpington)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHenPlymouthRock) {
-				EntityHenPlymouthRock entity = (EntityHenPlymouthRock)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHenRhodeIslandRed) {
-				EntityHenRhodeIslandRed entity = (EntityHenRhodeIslandRed)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHenWyandotte) {
-				EntityHenWyandotte entity = (EntityHenWyandotte)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityRoosterLeghorn) {
-				EntityRoosterLeghorn entity = (EntityRoosterLeghorn)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityRoosterOrpington) {
-				EntityRoosterOrpington entity = (EntityRoosterOrpington)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityRoosterPlymouthRock) {
-				EntityRoosterPlymouthRock entity = (EntityRoosterPlymouthRock)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityRoosterRhodeIslandRed) {
-				EntityRoosterRhodeIslandRed entity = (EntityRoosterRhodeIslandRed)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityRoosterWyandotte) {
-				EntityRoosterWyandotte entity = (EntityRoosterWyandotte)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
+
+				return false;
+
+			}
+			else if (poschk == BlockHandler.blockTrough) {
+
+				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(currentpos);
+
+				if (te != null && (te.getTroughType() == 3 || te.getTroughType() == 2 || te.getTroughType() == 1)) {
+					if (this.temptedEntity instanceof EntityAnimaniaChicken) {
+						EntityAnimaniaChicken entity = (EntityAnimaniaChicken) this.temptedEntity;
+						entity.setWatered(true);
+					}
+
 					return false;
 				}
 			}
 
-            BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
-            Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
+			double x = this.temptedEntity.posX;
+			double y = this.temptedEntity.posY;
+			double z = this.temptedEntity.posZ;
 
-            Biome biomegenbase = this.temptedEntity.world
-                    .getBiome(new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ));
+			boolean waterFound = false;
+			Random rand = new Random();
 
-            if (poschk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+			BlockPos pos = new BlockPos(x, y, z);
 
-                if (this.temptedEntity instanceof EntityChickLeghorn) {
-                    EntityChickLeghorn entity = (EntityChickLeghorn) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityChickOrpington) {
-                    EntityChickOrpington entity = (EntityChickOrpington) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityChickPlymouthRock) {
-                    EntityChickPlymouthRock entity = (EntityChickPlymouthRock) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityChickRhodeIslandRed) {
-                    EntityChickRhodeIslandRed entity = (EntityChickRhodeIslandRed) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityChickWyandotte) {
-                    EntityChickWyandotte entity = (EntityChickWyandotte) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityHenLeghorn) {
-                    EntityHenLeghorn entity = (EntityHenLeghorn) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityHenOrpington) {
-                    EntityHenOrpington entity = (EntityHenOrpington) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityHenPlymouthRock) {
-                    EntityHenPlymouthRock entity = (EntityHenPlymouthRock) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityHenRhodeIslandRed) {
-                    EntityHenRhodeIslandRed entity = (EntityHenRhodeIslandRed) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityHenWyandotte) {
-                    EntityHenWyandotte entity = (EntityHenWyandotte) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityRoosterLeghorn) {
-                    EntityRoosterLeghorn entity = (EntityRoosterLeghorn) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityRoosterOrpington) {
-                    EntityRoosterOrpington entity = (EntityRoosterOrpington) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityRoosterPlymouthRock) {
-                    EntityRoosterPlymouthRock entity = (EntityRoosterPlymouthRock) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityRoosterRhodeIslandRed) {
-                    EntityRoosterRhodeIslandRed entity = (EntityRoosterRhodeIslandRed) this.temptedEntity;
-                    entity.setWatered(true);
-                }
-                else if (this.temptedEntity instanceof EntityRoosterWyandotte) {
-                    EntityRoosterWyandotte entity = (EntityRoosterWyandotte) this.temptedEntity;
-                    entity.setWatered(true);
-                }
+			for (int i = -10; i < 10; i++)
+				for (int j = -3; j < 3; j++)
+					for (int k = -10; k < 10; k++) {
 
-                return false;
+						pos = new BlockPos(x + i, y + j, z + k);
+						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+						if (blockchk == Blocks.WATER) {
+							waterFound = true;
 
-            }
-            else if (poschk == BlockHandler.blockTrough) {
+							if (rand.nextInt(20) == 0) {
+								this.delayTemptCounter = 0;
+								this.resetTask();
+								return false;
+							}
+							else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
+									&& this.temptedEntity.motionZ == 0) {
+								this.delayTemptCounter = 0;
+								this.resetTask();
+								return false;
+							}
+							else
+								return true;
 
-                TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(currentpos);
+						}
+						else if (blockchk == BlockHandler.blockTrough) {
+							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
+							if (te != null && (te.getTroughType() == 1 || te.getTroughType() == 2 || te.getTroughType() == 3)) {
+								waterFound = true;
 
-                if (te != null && (te.getTroughType() == 3 || te.getTroughType() == 2 || te.getTroughType() == 1)) {
-                    if (this.temptedEntity instanceof EntityChickLeghorn) {
-                        EntityChickLeghorn entity = (EntityChickLeghorn) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityChickOrpington) {
-                        EntityChickOrpington entity = (EntityChickOrpington) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityChickPlymouthRock) {
-                        EntityChickPlymouthRock entity = (EntityChickPlymouthRock) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityChickRhodeIslandRed) {
-                        EntityChickRhodeIslandRed entity = (EntityChickRhodeIslandRed) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityChickWyandotte) {
-                        EntityChickWyandotte entity = (EntityChickWyandotte) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityHenLeghorn) {
-                        EntityHenLeghorn entity = (EntityHenLeghorn) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityHenOrpington) {
-                        EntityHenOrpington entity = (EntityHenOrpington) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityHenPlymouthRock) {
-                        EntityHenPlymouthRock entity = (EntityHenPlymouthRock) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityHenRhodeIslandRed) {
-                        EntityHenRhodeIslandRed entity = (EntityHenRhodeIslandRed) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityHenWyandotte) {
-                        EntityHenWyandotte entity = (EntityHenWyandotte) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityRoosterLeghorn) {
-                        EntityRoosterLeghorn entity = (EntityRoosterLeghorn) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityRoosterOrpington) {
-                        EntityRoosterOrpington entity = (EntityRoosterOrpington) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityRoosterPlymouthRock) {
-                        EntityRoosterPlymouthRock entity = (EntityRoosterPlymouthRock) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityRoosterRhodeIslandRed) {
-                        EntityRoosterRhodeIslandRed entity = (EntityRoosterRhodeIslandRed) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    else if (this.temptedEntity instanceof EntityRoosterWyandotte) {
-                        EntityRoosterWyandotte entity = (EntityRoosterWyandotte) this.temptedEntity;
-                        entity.setWatered(true);
-                    }
-                    return false;
-                }
-            }
+								if (rand.nextInt(20) == 0) {
+									this.delayTemptCounter = 0;
+									this.resetTask();
+									return false;
+								}
+								else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
+										&& this.temptedEntity.motionZ == 0) {
+									this.delayTemptCounter = 0;
+									this.resetTask();
+									return false;
+								}
+								else
+									return true;
+							}
+						}
 
-            double x = this.temptedEntity.posX;
-            double y = this.temptedEntity.posY;
-            double z = this.temptedEntity.posZ;
+					}
 
-            boolean waterFound = false;
-            Random rand = new Random();
+			if (!waterFound) {
+				this.delayTemptCounter = 0;
+				this.resetTask();
+				return false;
+			}
+		}
 
-            BlockPos pos = new BlockPos(x, y, z);
+		return false;
+	}
 
-            for (int i = -10; i < 10; i++)
-                for (int j = -3; j < 3; j++)
-                    for (int k = -10; k < 10; k++) {
+	@Override
+	public boolean continueExecuting() {
 
-                        pos = new BlockPos(x + i, y + j, z + k);
-                        Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
-                        if (blockchk == Blocks.WATER) {
-                            waterFound = true;
+		return this.shouldExecute();
+	}
 
-                            if (rand.nextInt(20) == 0) {
-                                this.delayTemptCounter = 0;
-                                this.resetTask();
-                                return false;
-                            }
-                            else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
-                                    && this.temptedEntity.motionZ == 0) {
-                                this.delayTemptCounter = 0;
-                                this.resetTask();
-                                return false;
-                            }
-                            else
-                                return true;
+	@Override
+	public void startExecuting() {
+		this.isRunning = true;
+	}
 
-                        }
-                        else if (blockchk == BlockHandler.blockTrough) {
-                            TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
-                            if (te != null && (te.getTroughType() == 1 || te.getTroughType() == 2 || te.getTroughType() == 3)) {
-                                waterFound = true;
+	@Override
+	public void resetTask() {
+		this.temptingPlayer = null;
+		this.temptedEntity.getNavigator().clearPathEntity();
+		this.isRunning = false;
+	}
 
-                                if (rand.nextInt(20) == 0) {
-                                    this.delayTemptCounter = 0;
-                                    this.resetTask();
-                                    return false;
-                                }
-                                else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
-                                        && this.temptedEntity.motionZ == 0) {
-                                    this.delayTemptCounter = 0;
-                                    this.resetTask();
-                                    return false;
-                                }
-                                else
-                                    return true;
-                            }
-                        }
+	@Override
+	public void updateTask() {
 
-                    }
+		double x = this.temptedEntity.posX;
+		double y = this.temptedEntity.posY;
+		double z = this.temptedEntity.posZ;
 
-            if (!waterFound) {
-                this.delayTemptCounter = 0;
-                this.resetTask();
-                return false;
-            }
-        }
+		BlockPos currentpos = new BlockPos(x, y, z);
+		Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
+		if (poschk != Blocks.WATER) {
 
-        return false;
-    }
+			boolean waterFound = false;
+			int loc = 24;
+			int newloc = 24;
+			BlockPos pos = new BlockPos(x, y, z);
+			BlockPos waterPos = new BlockPos(x, y, z);
 
-    @Override
-    public boolean continueExecuting() {
+			for (int i = -10; i < 10; i++)
+				for (int j = -3; j < 3; j++)
+					for (int k = -10; k < 10; k++) {
 
-        return this.shouldExecute();
-    }
+						pos = new BlockPos(x + i, y + j, z + k);
+						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    @Override
-    public void startExecuting() {
-        this.isRunning = true;
-    }
+						Biome biomegenbase = this.temptedEntity.world.getBiome(pos);
 
-    /**
-     * Resets the task
-     */
-    @Override
-    public void resetTask() {
-        this.temptingPlayer = null;
-        this.temptedEntity.getNavigator().clearPathEntity();
-        this.isRunning = false;
-    }
+						if (blockchk == BlockHandler.blockTrough) {
+							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
+							if (te != null && (te.getTroughType() == 1 || te.getTroughType() == 2 || te.getTroughType() == 3)) {
+								waterFound = true;
+								newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
-    @Override
-    public void updateTask() {
+								if (newloc < loc) {
 
-        double x = this.temptedEntity.posX;
-        double y = this.temptedEntity.posY;
-        double z = this.temptedEntity.posZ;
+									loc = newloc;
 
-        BlockPos currentpos = new BlockPos(x, y, z);
-        Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
-        if (poschk != Blocks.WATER) {
+									if (this.temptedEntity.posX < waterPos.getX()) {
+										BlockPos waterPoschk = new BlockPos(x + i + 1, y + j, z + k);
+										Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
+										if (waterBlockchk == BlockHandler.blockTrough)
+											i = i + 1;
+									}
 
-            boolean waterFound = false;
-            int loc = 24;
-            int newloc = 24;
-            BlockPos pos = new BlockPos(x, y, z);
-            BlockPos waterPos = new BlockPos(x, y, z);
+									if (this.temptedEntity.posZ < waterPos.getZ()) {
+										BlockPos waterPoschk = new BlockPos(x + i, y + j, z + k + 1);
+										Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
+										if (waterBlockchk == BlockHandler.blockTrough)
+											k = k + 1;
+									}
 
-            for (int i = -10; i < 10; i++)
-                for (int j = -3; j < 3; j++)
-                    for (int k = -10; k < 10; k++) {
+									waterPos = new BlockPos(x + i, y + j, z + k);
 
-                        pos = new BlockPos(x + i, y + j, z + k);
-                        Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+								}
 
-                        Biome biomegenbase = this.temptedEntity.world.getBiome(pos);
+							}
+						}
 
-                        if (blockchk == BlockHandler.blockTrough) {
-                            TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
-                            if (te != null && (te.getTroughType() == 1 || te.getTroughType() == 2 || te.getTroughType() == 3)) {
-                                waterFound = true;
-                                newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
+						if (blockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
+								&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH) && !this.temptedEntity.hasPath()) {
+							waterFound = true;
+							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
-                                if (newloc < loc) {
+							if (newloc < loc) {
 
-                                    loc = newloc;
+								loc = newloc;
 
-                                    if (this.temptedEntity.posX < waterPos.getX()) {
-                                        BlockPos waterPoschk = new BlockPos(x + i + 1, y + j, z + k);
-                                        Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
-                                        if (waterBlockchk == BlockHandler.blockTrough)
-                                            i = i + 1;
-                                    }
+								if (this.temptedEntity.posX < waterPos.getX()) {
+									BlockPos waterPoschk = new BlockPos(x + i + 1, y + j, z + k);
+									Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
+									if (waterBlockchk == Blocks.WATER)
+										i = i + 1;
+								}
 
-                                    if (this.temptedEntity.posZ < waterPos.getZ()) {
-                                        BlockPos waterPoschk = new BlockPos(x + i, y + j, z + k + 1);
-                                        Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
-                                        if (waterBlockchk == BlockHandler.blockTrough)
-                                            k = k + 1;
-                                    }
+								if (this.temptedEntity.posZ < waterPos.getZ()) {
+									BlockPos waterPoschk = new BlockPos(x + i, y + j, z + k + 1);
+									Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
+									if (waterBlockchk == Blocks.WATER)
+										k = k + 1;
+								}
 
-                                    waterPos = new BlockPos(x + i, y + j, z + k);
+								waterPos = new BlockPos(x + i, y + j, z + k);
 
-                                }
+							}
 
-                            }
-                        }
+						}
 
-                        if (blockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
-                                && !BiomeDictionary.hasType(biomegenbase, Type.BEACH) && !this.temptedEntity.hasPath()) {
-                            waterFound = true;
-                            newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
+					}
 
-                            if (newloc < loc) {
+			if (waterFound) {
 
-                                loc = newloc;
+				Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPos).getBlock();
+				Biome biomegenbase = this.temptedEntity.world.getBiome(waterPos);
 
-                                if (this.temptedEntity.posX < waterPos.getX()) {
-                                    BlockPos waterPoschk = new BlockPos(x + i + 1, y + j, z + k);
-                                    Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
-                                    if (waterBlockchk == Blocks.WATER)
-                                        i = i + 1;
-                                }
+				if (waterBlockchk == BlockHandler.blockTrough) {
+					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
+						this.resetTask();
+					else
+						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
 
-                                if (this.temptedEntity.posZ < waterPos.getZ()) {
-                                    BlockPos waterPoschk = new BlockPos(x + i, y + j, z + k + 1);
-                                    Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
-                                    if (waterBlockchk == Blocks.WATER)
-                                        k = k + 1;
-                                }
+				}
+				else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
+						&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH))
+					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
+						this.resetTask();
+					else
+						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
+			}
+		}
 
-                                waterPos = new BlockPos(x + i, y + j, z + k);
+	}
 
-                            }
-
-                        }
-
-                    }
-
-            if (waterFound) {
-
-                Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPos).getBlock();
-                Biome biomegenbase = this.temptedEntity.world.getBiome(waterPos);
-
-                if (waterBlockchk == BlockHandler.blockTrough) {
-                    if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
-                        this.resetTask();
-                    else
-                        this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
-
-                }
-                else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
-                        && !BiomeDictionary.hasType(biomegenbase, Type.BEACH))
-                    if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
-                        this.resetTask();
-                    else
-                        this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
-            }
-        }
-
-    }
-
-    public boolean isRunning() {
-        return this.isRunning;
-    }
+	public boolean isRunning() {
+		return this.isRunning;
+	}
 }

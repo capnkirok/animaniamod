@@ -2,9 +2,7 @@ package com.animania.common.entities.horses.ai;
 
 import java.util.Random;
 
-import com.animania.common.entities.horses.EntityFoalDraftHorse;
-import com.animania.common.entities.horses.EntityMareDraftHorse;
-import com.animania.common.entities.horses.EntityStallionDraftHorse;
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
 
@@ -32,8 +30,6 @@ public class EntityAIFindWater extends EntityAIBase
 	private int delayTemptCounter;
 	private boolean isRunning;
 
-
-
 	public EntityAIFindWater(EntityCreature temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
@@ -42,9 +38,6 @@ public class EntityAIFindWater extends EntityAIBase
 		this.delayTemptCounter = 0;
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
 	public boolean shouldExecute()
 	{
 
@@ -52,20 +45,8 @@ public class EntityAIFindWater extends EntityAIBase
 		if (this.delayTemptCounter <= 32) {
 			return false;
 		} else if (delayTemptCounter > 32) {
-			if (temptedEntity instanceof EntityStallionDraftHorse) {
-				EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
-				if (ech.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;		
-				}
-			} else if (temptedEntity instanceof EntityMareDraftHorse) {
-				EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
-				if (ech.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;		
-				}
-			} else if (temptedEntity instanceof EntityFoalDraftHorse) {
-				EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
+			if (temptedEntity instanceof EntityAnimaniaHorse) {
+				EntityAnimaniaHorse ech = (EntityAnimaniaHorse)temptedEntity;
 				if (ech.getWatered()) {
 					this.delayTemptCounter = 0;
 					return false;		
@@ -126,19 +107,11 @@ public class EntityAIFindWater extends EntityAIBase
 					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
 					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 
-					if (temptedEntity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+					if (temptedEntity instanceof EntityAnimaniaHorse) {
+						EntityAnimaniaHorse ech = (EntityAnimaniaHorse)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityMareDraftHorse) {
-						EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityFoalDraftHorse) {
-						EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					}
+					} 
 
 					return false;
 
@@ -146,19 +119,11 @@ public class EntityAIFindWater extends EntityAIBase
 
 			} else if ((poschk == Blocks.WATER || poschk1 == Blocks.WATER || poschk2 == Blocks.WATER || poschk3 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 
-				if (temptedEntity instanceof EntityStallionDraftHorse) {
-					EntityStallionDraftHorse ech = (EntityStallionDraftHorse)temptedEntity;
+				if (temptedEntity instanceof EntityAnimaniaHorse) {
+					EntityAnimaniaHorse ech = (EntityAnimaniaHorse)temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityMareDraftHorse) {
-					EntityMareDraftHorse ech = (EntityMareDraftHorse)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityFoalDraftHorse) {
-					EntityFoalDraftHorse ech = (EntityFoalDraftHorse)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				}
+				} 
 
 				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER) {
 					this.temptedEntity.world.setBlockToAir(currentposlower);
@@ -212,9 +177,7 @@ public class EntityAIFindWater extends EntityAIBase
 								}
 							}
 						}
-
 					}
-
 				}
 			}
 
@@ -227,32 +190,22 @@ public class EntityAIFindWater extends EntityAIBase
 		return false;
 	}
 
-
-
 	public boolean continueExecuting()
 	{
-
 		return this.shouldExecute();
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	public void startExecuting()
 	{	
 		this.isRunning = true;
 	}
 
-	/**
-	 * Resets the task
-	 */
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigator().clearPathEntity();
 		this.isRunning = false;
 	}
-
 
 	public void updateTask()
 	{
@@ -310,7 +263,6 @@ public class EntityAIFindWater extends EntityAIBase
 									waterPos = new BlockPos(x + i, y + j, z + k);
 
 								}
-
 							}
 						}
 
@@ -341,14 +293,9 @@ public class EntityAIFindWater extends EntityAIBase
 								waterPos = new BlockPos(x + i, y + j, z + k);
 
 							}
-
 						} 
-
 					}
-
 				}
-
-
 			}
 
 			if (waterFound) {
@@ -373,11 +320,7 @@ public class EntityAIFindWater extends EntityAIBase
 					}
 				}
 			}
-
 		}
-
-
-
 	}
 
 	public boolean isRunning()

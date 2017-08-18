@@ -373,7 +373,7 @@ public class EntityHandler
 		RegistryHelper.Entities.addSpawn(EntityToad.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.JUNGLE));
 	
 		RegistryHelper.Entities.register(EntityBuckAlpine.class, "buck_alpine", entityID++, 64, 3, true);
-		RegistryHelper.Entities.addSpawn(EntityBuckAlpine.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, 2, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.MOUNTAIN));
+		RegistryHelper.Entities.addSpawn(EntityBuckAlpine.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, AnimaniaConfig.spawn.numberGoatFamilies, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.MOUNTAIN));
 
 	}
 

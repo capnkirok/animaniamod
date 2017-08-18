@@ -2,6 +2,7 @@ package com.animania.common.entities.peacocks.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 import com.animania.common.entities.peacocks.EntityPeachickBlue;
 import com.animania.common.entities.peacocks.EntityPeachickWhite;
 import com.animania.common.entities.peacocks.EntityPeacockBlue;
@@ -46,43 +47,13 @@ public class EntityAIFindFood extends EntityAIBase
 		if (this.delayTemptCounter < 40) {
 			return false;
 		} else if (delayTemptCounter > 40) {
-			if (this.temptedEntity instanceof EntityPeachickBlue) {
-				EntityPeachickBlue entity = (EntityPeachickBlue) temptedEntity;
+			if (this.temptedEntity instanceof EntityAnimaniaPeacock) {
+				EntityAnimaniaPeacock entity = (EntityAnimaniaPeacock) temptedEntity;
 				if (entity.getFed()) {
 					this.delayTemptCounter = 0;
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityPeachickWhite) {
-				EntityPeachickWhite entity = (EntityPeachickWhite)temptedEntity;
-				if (entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityPeacockBlue) {
-				EntityPeacockBlue entity = (EntityPeacockBlue)temptedEntity;
-				if (entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityPeacockWhite) {
-				EntityPeacockWhite entity = (EntityPeacockWhite)temptedEntity;
-				if (entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityPeafowlBlue) {
-				EntityPeafowlBlue entity = (EntityPeafowlBlue)temptedEntity;
-				if (entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityPeafowlWhite) {
-				EntityPeafowlWhite entity = (EntityPeafowlWhite)temptedEntity;
-				if (entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			}
+			} 
 
 			Random rand = new Random();
 			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
@@ -115,28 +86,11 @@ public class EntityAIFindFood extends EntityAIBase
 					EntityPeachickBlue entity = (EntityPeachickBlue) this.temptedEntity;
 					entity.setFed(true);
 				}
-				else if (this.temptedEntity instanceof EntityPeachickWhite) {
+				else if (this.temptedEntity instanceof EntityAnimaniaPeacock) {
 					EntityPeachickWhite entity = (EntityPeachickWhite) this.temptedEntity;
 					entity.setFed(true);
 				}
-				else if (this.temptedEntity instanceof EntityPeacockBlue) {
-					EntityPeacockBlue entity = (EntityPeacockBlue) this.temptedEntity;
-					entity.setFed(true);
-				}
-				else if (this.temptedEntity instanceof EntityPeacockWhite) {
-					EntityPeacockWhite entity = (EntityPeacockWhite) this.temptedEntity;
-					entity.setFed(true);
-				}
-				else if (this.temptedEntity instanceof EntityPeafowlBlue) {
-					EntityPeafowlBlue entity = (EntityPeafowlBlue) this.temptedEntity;
-					entity.setFed(true);
-				}
-				else if (this.temptedEntity instanceof EntityPeafowlWhite) {
-					EntityPeafowlWhite entity = (EntityPeafowlWhite) this.temptedEntity;
-					entity.setFed(true);
-				}
-
-
+				
 				this.temptedEntity.world.destroyBlock(currentpos, false);
 				this.temptedEntity.limbSwingAmount = 50.0f;
 
@@ -192,17 +146,11 @@ public class EntityAIFindFood extends EntityAIBase
 		return this.shouldExecute();
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	@Override
 	public void startExecuting() {
 		this.isRunning = true;
 	}
 
-	/**
-	 * Resets the task
-	 */
 	@Override
 	public void resetTask() {
 		this.temptingPlayer = null;

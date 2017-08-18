@@ -1,6 +1,7 @@
 package com.animania.common.entities.cows.ai;
 
 import com.animania.common.entities.cows.EntityBullAngus;
+import com.animania.common.entities.cows.EntityBullBase;
 import com.animania.common.entities.cows.EntityBullFriesian;
 import com.animania.common.entities.cows.EntityBullHereford;
 import com.animania.common.entities.cows.EntityBullHolstein;
@@ -105,24 +106,8 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
             this.attacker.setAttackTarget((EntityLivingBase) null);
 
         this.attacker.getNavigator().clearPathEntity();
-        if (this.attacker instanceof EntityBullAngus) {
-            EntityBullAngus eb = (EntityBullAngus) this.attacker;
-            eb.setFighting(false);
-        }
-        else if (this.attacker instanceof EntityBullHolstein) {
-            EntityBullHolstein eb = (EntityBullHolstein) this.attacker;
-            eb.setFighting(false);
-        }
-        else if (this.attacker instanceof EntityBullFriesian) {
-            EntityBullFriesian eb = (EntityBullFriesian) this.attacker;
-            eb.setFighting(false);
-        }
-        else if (this.attacker instanceof EntityBullHereford) {
-            EntityBullHereford eb = (EntityBullHereford) this.attacker;
-            eb.setFighting(false);
-        }
-        else if (this.attacker instanceof EntityBullLonghorn) {
-            EntityBullLonghorn eb = (EntityBullLonghorn) this.attacker;
+        if (this.attacker instanceof EntityBullBase) {
+            EntityBullBase eb = (EntityBullBase) this.attacker;
             eb.setFighting(false);
         }
     }

@@ -2,8 +2,7 @@ package com.animania.common.entities.rodents.ai;
 
 import java.util.Random;
 
-import com.animania.common.entities.rodents.EntityFerretGrey;
-import com.animania.common.entities.rodents.EntityFerretWhite;
+import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityNest;
 
@@ -41,14 +40,8 @@ public class EntityAIFerretFindFood extends EntityAIBase
 		if (this.delayTemptCounter < 40) {
 			return false;
 		} else if (delayTemptCounter >= 40) {
-			if (this.temptedEntity instanceof EntityFerretGrey) {
-				EntityFerretGrey entity = (EntityFerretGrey) this.temptedEntity;
-				if (entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (this.temptedEntity instanceof EntityFerretWhite) {
-				EntityFerretWhite entity = (EntityFerretWhite) this.temptedEntity;
+			if (this.temptedEntity instanceof EntityFerretBase) {
+				EntityFerretBase entity = (EntityFerretBase) this.temptedEntity;
 				if (entity.getFed()) {
 					this.delayTemptCounter = 0;
 					return false;
@@ -71,19 +64,13 @@ public class EntityAIFerretFindFood extends EntityAIBase
 					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
 					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 
-					if (temptedEntity instanceof EntityFerretGrey) {
-						EntityFerretGrey ech = (EntityFerretGrey)temptedEntity;
+					if (temptedEntity instanceof EntityFerretBase) {
+						EntityFerretBase ech = (EntityFerretBase)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 						ech.setWatered(true);
 						System.out.println("eating");
-					} else if (temptedEntity instanceof EntityFerretWhite) {
-						EntityFerretWhite ech = (EntityFerretWhite)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-						ech.setWatered(true);
-					}
-
+					} 
 					return false;
 
 				} else if (te !=null && te.getNestType() >= 2 && te.getNestType() <= 15) {
@@ -91,16 +78,12 @@ public class EntityAIFerretFindFood extends EntityAIBase
 					te.markDirty();
 					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), te.getNestType()-1);
 					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (temptedEntity instanceof EntityFerretGrey) {
-						EntityFerretGrey ech = (EntityFerretGrey)temptedEntity;
+					if (temptedEntity instanceof EntityFerretBase) {
+						EntityFerretBase ech = (EntityFerretBase)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
-					} else if (temptedEntity instanceof EntityFerretWhite) {
-						EntityFerretWhite ech = (EntityFerretWhite)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-
-					}
+					} 
+					
 					return false;
 				}
 			} 
@@ -140,9 +123,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 								}
 							}
 						}
-
 					}
-
 				}
 			}
 
@@ -151,12 +132,8 @@ public class EntityAIFerretFindFood extends EntityAIBase
 				return false;
 			}
 		}
-
 		return false;
-
 	}
-
-
 
 	public boolean continueExecuting()
 	{
@@ -164,29 +141,20 @@ public class EntityAIFerretFindFood extends EntityAIBase
 		return this.shouldExecute();
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	public void startExecuting()
 	{	
 		this.isRunning = true;
 	}
 
-	/**
-	 * Resets the task
-	 */
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigator().clearPathEntity();
 		this.isRunning = false;
-
 	}
-
 
 	public void updateTask()
 	{
-
 		double x = this.temptedEntity.posX;
 		double y = this.temptedEntity.posY;
 		double z = this.temptedEntity.posZ;
@@ -203,11 +171,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 
 					pos = new BlockPos(x + i, y + j, z + k);
 					Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
-
-
 					if (blockchk == BlockHandler.blockNest) {
-
-
 						TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 
 						if (te !=null && (te.getNestType() >= 1 && te.getNestType() <= 15)) {
@@ -255,12 +219,9 @@ public class EntityAIFerretFindFood extends EntityAIBase
 					} else {
 						this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
 					}
-
 				}
-
 			}
 		}
-
 	}
 
 

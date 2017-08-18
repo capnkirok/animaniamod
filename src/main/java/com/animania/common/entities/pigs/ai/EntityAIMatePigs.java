@@ -60,7 +60,6 @@ public class EntityAIMatePigs extends EntityAIBase
 					return false;
 			}
 
-
 			this.targetMate = this.getNearbyMate();
 
 			Random rand = new Random();
@@ -75,7 +74,6 @@ public class EntityAIMatePigs extends EntityAIBase
 		}
 		else
 			return false;
-
 	}
 
 	@Override
@@ -128,9 +126,7 @@ public class EntityAIMatePigs extends EntityAIBase
 					this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());
 					this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
 					return null;
-
 				} 
-
 			} 
 
 		} else if (this.theAnimal instanceof EntityHogBase) {
@@ -163,12 +159,9 @@ public class EntityAIMatePigs extends EntityAIBase
 					this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());
 					this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
 					return null;
-
 				}
 			}
 		}
-
-
 		return null;
 	}
 }

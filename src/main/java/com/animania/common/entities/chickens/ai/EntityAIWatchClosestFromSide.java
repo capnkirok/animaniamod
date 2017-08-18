@@ -8,9 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 public class EntityAIWatchClosestFromSide extends EntityAIBase
 {
     protected EntityLiving            theWatcher;
-    /** The closest entity which is being watched by this one. */
     protected Entity                  closestEntity;
-    /** This is the Maximum distance that the AI will look for the Entity */
     protected float                   maxDistanceForPlayer;
     private int                       lookTime;
     private final float               chance;
@@ -32,9 +30,6 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
         this.setMutexBits(2);
     }
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
     @Override
     public boolean shouldExecute() {
         if (this.theWatcher.getRNG().nextFloat() >= this.chance)
@@ -53,9 +48,6 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
         }
     }
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
     @Override
     public boolean continueExecuting() {
         return !this.closestEntity.isEntityAlive() ? false
@@ -63,25 +55,16 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
                         : this.lookTime > 0;
     }
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
     @Override
     public void startExecuting() {
         this.lookTime = 40 + this.theWatcher.getRNG().nextInt(40);
     }
 
-    /**
-     * Resets the task
-     */
     @Override
     public void resetTask() {
         this.closestEntity = null;
     }
 
-    /**
-     * Updates the task
-     */
     @Override
     public void updateTask() {
 

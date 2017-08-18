@@ -21,13 +21,9 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 
 public class EntityAIPigSnuffle extends EntityAIBase
 {
-	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE,
-			Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	/** The entity owner of this AITask */
+	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	private final EntityLiving                  grassEaterEntity;
-	/** The world the grass eater entity is eating from */
 	private final World                         entityWorld;
-	/** Number of ticks since the entity started to eat grass */
 	int                                         eatingGrassTimer;
 
 	public EntityAIPigSnuffle(EntityLiving grassEaterEntityIn) {
@@ -36,9 +32,6 @@ public class EntityAIPigSnuffle extends EntityAIBase
 		this.setMutexBits(7);
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
 	@Override
 	public boolean shouldExecute() {
 		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
@@ -51,9 +44,6 @@ public class EntityAIPigSnuffle extends EntityAIBase
 		}
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	@Override
 	public void startExecuting() {
 		this.eatingGrassTimer = 160;
@@ -61,32 +51,20 @@ public class EntityAIPigSnuffle extends EntityAIBase
 		this.grassEaterEntity.getNavigator().clearPathEntity();
 	}
 
-	/**
-	 * Resets the task
-	 */
 	@Override
 	public void resetTask() {
 		this.eatingGrassTimer = 0;
 	}
 
-	/**
-	 * Returns whether an in-progress EntityAIBase should continue executing
-	 */
 	@Override
 	public boolean continueExecuting() {
 		return this.eatingGrassTimer > 0;
 	}
 
-	/**
-	 * Number of ticks since the entity started to eat grass
-	 */
 	public int getEatingGrassTimer() {
 		return this.eatingGrassTimer;
 	}
 
-	/**
-	 * Updates the task
-	 */
 	@Override
 	public void updateTask() {
 		this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);

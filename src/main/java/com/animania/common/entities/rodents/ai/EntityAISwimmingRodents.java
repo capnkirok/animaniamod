@@ -20,9 +20,6 @@ public class EntityAISwimmingRodents extends EntityAIBase
         ((PathNavigateGround) entitylivingIn.getNavigator()).setCanSwim(true);
     }
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
     @Override
     public boolean shouldExecute() {
 
@@ -39,15 +36,11 @@ public class EntityAISwimmingRodents extends EntityAIBase
 
     }
 
-    /**
-     * Updates the task
-     */
     @Override
     public void updateTask() {
         if (this.theEntity.getRNG().nextFloat() < 0.9F) {
 
 			BlockPos poschk = new BlockPos(this.theEntity.posX + this.theEntity.motionX/1.5, this.theEntity.posY+.1F, this.theEntity.posZ + this.theEntity.motionZ/1.5);
-
 			Block blockchk = this.theEntity.world.getBlockState(poschk).getBlock();
 
 			if (this.theEntity.isPushedByWater()) {

@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
 import com.animania.common.entities.cows.ai.EntityAIFollowMateCows;
@@ -42,7 +43,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 {
 
 	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
-	
+
 	public EntityBullBase(World worldIn)
 	{
 		super(worldIn);
@@ -53,7 +54,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.tasks.addTask(6, new EntityAIMateCows(this, 1.0D));
 		this.mateable = true;
 	}
-	
+
 	@Override
 	protected void applyEntityAttributes()
 	{
@@ -62,22 +63,23 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
 	}
-	
+
 	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
 		this.dataManager.register(EntityBullBase.FIGHTING, Boolean.valueOf(false));
 	}
-	
+
 	@Override
 	public void setInLove(EntityPlayer player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		if (!this.getFighting()) {
+			this.world.setEntityState(this, (byte) 18);
+		}
 	}
-	
-	
-	
+
+
 	public boolean getFighting()
 	{
 		return this.dataManager.get(EntityBullBase.FIGHTING).booleanValue();
@@ -90,7 +92,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		else
 			this.dataManager.set(EntityBullBase.FIGHTING, Boolean.valueOf(false));
 	}
-	
+
 	@Override
 	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
 	{
@@ -105,12 +107,12 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		else
 			return super.attackEntityFrom(source, amount);
 	}
-	
+
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
 		boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 5.0F);
-	
+
 		if (flag)
 			this.applyEnchantments(this, entityIn);
 
@@ -120,7 +122,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 		return flag;
 	}
-	
+
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
@@ -166,7 +168,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		else
 			return ModSoundEvents.moo8;
 	}
-	
+
 	@Override
 	protected SoundEvent getHurtSound()
 	{
@@ -180,7 +182,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		else
 			return ModSoundEvents.angryBull3;
 	}
-	
+
 	@Override
 	protected SoundEvent getDeathSound()
 	{
@@ -192,7 +194,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		else
 			return ModSoundEvents.cowDeath2;
 	}
-	
+
 
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
@@ -200,8 +202,8 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 		if (!this.getFighting())
 			return this.eatTimer <= 0 ? 0.0F : this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F;
-		else
-			return 0.0F;
+			else
+				return 0.0F;
 
 	}
 
@@ -215,33 +217,33 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		} else
 			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
-	
+
 	@Override
 	public EntityBullBase createChild(EntityAgeable p_90011_1_)
 	{
 		return null;
 	}
-	
-	
+
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		
+
 		compound.setBoolean("Fighting", this.getFighting());
 
 	}
-	
-	
+
+
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-		
+
 		this.setFighting(compound.getBoolean("Fighting"));
 
 	}
-	
+
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{

@@ -18,17 +18,11 @@ public class EntityAISwimmingPigs extends EntityAIBase
         ((PathNavigateGround) entitylivingIn.getNavigator()).setCanSwim(true);
     }
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
     @Override
     public boolean shouldExecute() {
         return this.theEntity.isInWater() || this.theEntity.isInLava();
     }
 
-    /**
-     * Updates the task
-     */
     @Override
     public void updateTask() {
         if (this.theEntity.getRNG().nextFloat() < 0.9F) {
@@ -46,6 +40,5 @@ public class EntityAISwimmingPigs extends EntityAIBase
 				this.theEntity.move(MoverType.SELF, this.theEntity.motionX, this.theEntity.motionX + .3F, this.theEntity.motionZ);	
 			}
         }
-
     }
 }

@@ -2,6 +2,7 @@ package com.animania.common.entities.pigs.ai;
 
 import java.util.Random;
 
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityHogDuroc;
 import com.animania.common.entities.pigs.EntityHogHampshire;
 import com.animania.common.entities.pigs.EntityHogLargeBlack;
@@ -54,9 +55,6 @@ public class EntityAIFindWater extends EntityAIBase
 		this.delayTemptCounter = 0;
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
 	@Override
 	public boolean shouldExecute() {
 
@@ -64,123 +62,13 @@ public class EntityAIFindWater extends EntityAIBase
 		if (this.delayTemptCounter <= 32) {
 			return false;
 		} else if (delayTemptCounter > 32) {
-			if (this.temptedEntity instanceof EntitySowYorkshire) {
-				EntitySowYorkshire sow = (EntitySowYorkshire) temptedEntity;
+			if (this.temptedEntity instanceof EntityAnimaniaPig) {
+				EntityAnimaniaPig sow = (EntityAnimaniaPig) temptedEntity;
 				if (sow.getWatered()) {
 					this.delayTemptCounter = 0;
 					return false;
 				}
-			} else if (temptedEntity instanceof EntitySowOldSpot) {
-				EntitySowOldSpot sow = (EntitySowOldSpot)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntitySowDuroc) {
-				EntitySowDuroc sow = (EntitySowDuroc)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntitySowHampshire) {
-				EntitySowHampshire sow = (EntitySowHampshire)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntitySowYorkshire) {
-				EntitySowYorkshire sow = (EntitySowYorkshire)temptedEntity;
-				sow.entityAIEatGrass.startExecuting();
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntitySowLargeBlack) {
-				EntitySowLargeBlack sow = (EntitySowLargeBlack)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntitySowLargeWhite) {
-				EntitySowLargeWhite sow = (EntitySowLargeWhite)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHogOldSpot) {
-				EntityHogOldSpot sow = (EntityHogOldSpot)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHogDuroc) {
-				EntityHogDuroc sow = (EntityHogDuroc)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHogHampshire) {
-				EntityHogHampshire sow = (EntityHogHampshire)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHogYorkshire) {
-				EntityHogYorkshire sow = (EntityHogYorkshire)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHogLargeBlack) {
-				EntityHogLargeBlack sow = (EntityHogLargeBlack)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHogLargeWhite) {
-				EntityHogLargeWhite sow = (EntityHogLargeWhite)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityPigletOldSpot) {
-				EntityPigletOldSpot sow = (EntityPigletOldSpot)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityPigletDuroc) {
-				EntityPigletDuroc sow = (EntityPigletDuroc)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityPigletHampshire) {
-				EntityPigletHampshire sow = (EntityPigletHampshire)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityPigletYorkshire) {
-				EntityPigletYorkshire sow = (EntityPigletYorkshire)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityPigletLargeBlack) {
-				EntityPigletLargeBlack sow = (EntityPigletLargeBlack)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityPigletLargeWhite) {
-				EntityPigletLargeWhite sow = (EntityPigletLargeWhite)temptedEntity;
-				if (sow.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			}
-
+			} 
 
 			Random rand = new Random();
 
@@ -198,160 +86,23 @@ public class EntityAIFindWater extends EntityAIBase
 
 					te.fluidHandler.drain(335, true);
 
-					if (temptedEntity instanceof EntitySowOldSpot) {
-						EntitySowOldSpot ech = (EntitySowOldSpot)temptedEntity;
+					if (temptedEntity instanceof EntityAnimaniaPig) {
+						EntityAnimaniaPig ech = (EntityAnimaniaPig)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntitySowDuroc) {
-						EntitySowDuroc ech = (EntitySowDuroc)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntitySowHampshire) {
-						EntitySowHampshire ech = (EntitySowHampshire)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntitySowYorkshire) {
-						EntitySowYorkshire ech = (EntitySowYorkshire)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntitySowLargeBlack) {
-						EntitySowLargeBlack ech = (EntitySowLargeBlack)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntitySowLargeWhite) {
-						EntitySowLargeWhite ech = (EntitySowLargeWhite)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogOldSpot) {
-						EntityHogOldSpot ech = (EntityHogOldSpot)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogDuroc) {
-						EntityHogDuroc ech = (EntityHogDuroc)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogHampshire) {
-						EntityHogHampshire ech = (EntityHogHampshire)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogYorkshire) {
-						EntityHogYorkshire ech = (EntityHogYorkshire)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogLargeBlack) {
-						EntityHogLargeBlack ech = (EntityHogLargeBlack)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityHogLargeWhite) {
-						EntityHogLargeWhite ech = (EntityHogLargeWhite)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletOldSpot) {
-						EntityPigletOldSpot ech = (EntityPigletOldSpot)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletDuroc) {
-						EntityPigletDuroc ech = (EntityPigletDuroc)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletHampshire) {
-						EntityPigletHampshire ech = (EntityPigletHampshire)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletYorkshire) {
-						EntityPigletYorkshire ech = (EntityPigletYorkshire)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletLargeBlack) {
-						EntityPigletLargeBlack ech = (EntityPigletLargeBlack)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					} else if (temptedEntity instanceof EntityPigletLargeWhite) {
-						EntityPigletLargeWhite ech = (EntityPigletLargeWhite)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setWatered(true);
-					}
+					} 
 
 					return false;
-
 				}
 			}
 			else if (poschk2 == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
 					&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 
-				if (temptedEntity instanceof EntitySowOldSpot) {
-					EntitySowOldSpot ech = (EntitySowOldSpot)temptedEntity;
+				if (temptedEntity instanceof EntityAnimaniaPig) {
+					EntityAnimaniaPig ech = (EntityAnimaniaPig)temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntitySowDuroc) {
-					EntitySowDuroc ech = (EntitySowDuroc)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntitySowHampshire) {
-					EntitySowHampshire ech = (EntitySowHampshire)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntitySowYorkshire) {
-					EntitySowYorkshire ech = (EntitySowYorkshire)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntitySowLargeBlack) {
-					EntitySowLargeBlack ech = (EntitySowLargeBlack)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntitySowLargeWhite) {
-					EntitySowLargeWhite ech = (EntitySowLargeWhite)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityHogOldSpot) {
-					EntityHogOldSpot ech = (EntityHogOldSpot)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityHogDuroc) {
-					EntityHogDuroc ech = (EntityHogDuroc)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityHogHampshire) {
-					EntityHogHampshire ech = (EntityHogHampshire)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityHogYorkshire) {
-					EntityHogYorkshire ech = (EntityHogYorkshire)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityHogLargeBlack) {
-					EntityHogLargeBlack ech = (EntityHogLargeBlack)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityHogLargeWhite) {
-					EntityHogLargeWhite ech = (EntityHogLargeWhite)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityPigletOldSpot) {
-					EntityPigletOldSpot ech = (EntityPigletOldSpot)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityPigletDuroc) {
-					EntityPigletDuroc ech = (EntityPigletDuroc)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityPigletHampshire) {
-					EntityPigletHampshire ech = (EntityPigletHampshire)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityPigletYorkshire) {
-					EntityPigletYorkshire ech = (EntityPigletYorkshire)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityPigletLargeBlack) {
-					EntityPigletLargeBlack ech = (EntityPigletLargeBlack)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				} else if (temptedEntity instanceof EntityPigletLargeWhite) {
-					EntityPigletLargeWhite ech = (EntityPigletLargeWhite)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setWatered(true);
-				}
+				} 
 
 				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER) {
 					this.temptedEntity.world.setBlockToAir(currentposlower);
@@ -410,7 +161,6 @@ public class EntityAIFindWater extends EntityAIBase
 									return true;
 							}
 						}
-
 					}
 
 			if (!waterFound)
@@ -427,17 +177,11 @@ public class EntityAIFindWater extends EntityAIBase
 		return this.shouldExecute();
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	@Override
 	public void startExecuting() {
 		this.isRunning = true;
 	}
 
-	/**
-	 * Resets the task
-	 */
 	@Override
 	public void resetTask() {
 		this.temptingPlayer = null;
@@ -508,9 +252,7 @@ public class EntityAIFindWater extends EntityAIBase
 										j = 3;
 										k = 10;
 									}
-
 								}
-
 							}
 						}
 
@@ -548,11 +290,8 @@ public class EntityAIFindWater extends EntityAIBase
 									j = 3;
 									k = 10;
 								}
-
 							}
-
 						}
-
 					}
 
 			if (waterFound) {

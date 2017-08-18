@@ -30,13 +30,9 @@ public class EntityAIPanicPigs extends EntityAIBase
         this.hitFlag = false;
     }
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
     @Override
     public boolean shouldExecute() {
-        EntityPlayer checkPlayer = this.theEntityCreature.world.getClosestPlayer(this.theEntityCreature.posX, this.theEntityCreature.posY,
-                this.theEntityCreature.posZ, 20, false);
+        EntityPlayer checkPlayer = this.theEntityCreature.world.getClosestPlayer(this.theEntityCreature.posX, this.theEntityCreature.posY, this.theEntityCreature.posZ, 20, false);
 
         if (this.theEntityCreature.getAITarget() == null && !this.theEntityCreature.isBurning() && this.duration == 0) {
             this.hitFlag = false;
@@ -79,17 +75,11 @@ public class EntityAIPanicPigs extends EntityAIBase
         }
     }
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
     @Override
     public void startExecuting() {
         this.theEntityCreature.getNavigator().tryMoveToXYZ(this.randPosX, this.randPosY, this.randPosZ, this.speed);
     }
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
     @Override
     public boolean continueExecuting() {
         return !this.theEntityCreature.getNavigator().noPath();

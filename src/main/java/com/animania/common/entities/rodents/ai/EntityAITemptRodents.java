@@ -15,30 +15,17 @@ import net.minecraft.pathfinding.PathNavigateGround;
 
 public class EntityAITemptRodents extends EntityAIBase
 {
-	/** The entity using this AI that is tempted by the player. */
 	private final EntityTameable temptedEntity;
 	private final double speed;
-	/** X position of player tempting this mob */
 	private double targetX;
-	/** Y position of player tempting this mob */
 	private double targetY;
-	/** Z position of player tempting this mob */
 	private double targetZ;
-	/** Tempting player's pitch */
 	private double pitch;
-	/** Tempting player's yaw */
 	private double yaw;
-	/** The player that is tempting the entity that is using this AI. */
 	private EntityPlayer temptingPlayer;
-	/**
-	 * A counter that is decremented each time the shouldExecute method is called. The shouldExecute method will always
-	 * return false if delayTemptCounter is greater than 0.
-	 */
 	private int delayTemptCounter;
-	/** True if this EntityAITempt task is running */
 	private boolean isRunning;
 	private final Set<Item> temptItem;
-	/** Whether the entity using this AI will be scared by the tempter's sudden movement. */
 	private final boolean scaredByPlayerMovement;
 
 	public EntityAITemptRodents(EntityTameable temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn)
@@ -60,13 +47,8 @@ public class EntityAITemptRodents extends EntityAIBase
 		}
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
 	public boolean shouldExecute()
 	{
-
-
 		if (this.delayTemptCounter > 0)
 		{
 			--this.delayTemptCounter;
@@ -84,9 +66,6 @@ public class EntityAITemptRodents extends EntityAIBase
 		return stack == null ? false : this.temptItem.contains(stack.getItem());
 	}
 
-	/**
-	 * Returns whether an in-progress EntityAIBase should continue executing
-	 */
 	public boolean continueExecuting()
 	{
 		if (this.scaredByPlayerMovement)
@@ -117,9 +96,6 @@ public class EntityAITemptRodents extends EntityAIBase
 		return this.shouldExecute();
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	public void startExecuting()
 	{
 		this.targetX = this.temptingPlayer.posX;
@@ -128,9 +104,6 @@ public class EntityAITemptRodents extends EntityAIBase
 		this.isRunning = true;
 	}
 
-	/**
-	 * Resets the task
-	 */
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
@@ -140,9 +113,6 @@ public class EntityAITemptRodents extends EntityAIBase
 
 	}
 
-	/**
-	 * Updates the task
-	 */
 	public void updateTask()
 	{
 		this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, (float)(this.temptedEntity.getHorizontalFaceSpeed() + 20), (float)this.temptedEntity.getVerticalFaceSpeed());
@@ -161,9 +131,6 @@ public class EntityAITemptRodents extends EntityAIBase
 
 	}
 
-	/**
-	 * @see #isRunning
-	 */
 	public boolean isRunning()
 	{
 		return this.isRunning;

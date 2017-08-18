@@ -2,10 +2,7 @@ package com.animania.common.entities.rodents.ai;
 
 import java.util.Random;
 
-import com.animania.common.entities.rodents.EntityFerretGrey;
-import com.animania.common.entities.rodents.EntityFerretWhite;
-import com.animania.common.entities.rodents.EntityHedgehog;
-import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.common.entities.rodents.EntityHedgehogBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityNest;
 
@@ -36,9 +33,6 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
         this.delayTemptCounter = 0;
     }
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
     @Override
     public boolean shouldExecute() {
     	delayTemptCounter++;
@@ -46,19 +40,13 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 			return false;
 		} else if (delayTemptCounter > 40) {
 
-			if (this.temptedEntity instanceof EntityHedgehog) {
-				EntityHedgehog entity = (EntityHedgehog) this.temptedEntity;
+			if (this.temptedEntity instanceof EntityHedgehogBase) {
+				EntityHedgehogBase entity = (EntityHedgehogBase) this.temptedEntity;
 				if (entity.getFed()) {
 					this.delayTemptCounter = 0;
 					return false;
 				}
-			} else if (this.temptedEntity instanceof EntityHedgehogAlbino) {
-				EntityHedgehogAlbino entity = (EntityHedgehogAlbino) this.temptedEntity;
-				if (entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			}
+			} 
 
             BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
             Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
@@ -76,19 +64,13 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
                     this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
                     this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 
-                    if (this.temptedEntity instanceof EntityHedgehog) {
-                        EntityHedgehog ech = (EntityHedgehog) this.temptedEntity;
+                    if (this.temptedEntity instanceof EntityHedgehogBase) {
+                        EntityHedgehogBase ech = (EntityHedgehogBase) this.temptedEntity;
                         ech.entityAIEatGrass.startExecuting();
                         ech.setFed(true);
                         ech.setWatered(true);
                     }
-                    else if (this.temptedEntity instanceof EntityHedgehogAlbino) {
-                        EntityHedgehogAlbino ech = (EntityHedgehogAlbino) this.temptedEntity;
-                        ech.entityAIEatGrass.startExecuting();
-                        ech.setFed(true);
-                        ech.setWatered(true);
-                    }
-
+                    
                     return false;
 
                 }
@@ -97,34 +79,24 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
                     te.markDirty();
                     this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), te.getNestType() - 1);
                     this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-                    if (this.temptedEntity instanceof EntityHedgehog) {
-                        EntityHedgehog ech = (EntityHedgehog) this.temptedEntity;
+                    if (this.temptedEntity instanceof EntityHedgehogBase) {
+                        EntityHedgehogBase ech = (EntityHedgehogBase) this.temptedEntity;
                         ech.entityAIEatGrass.startExecuting();
                         ech.setFed(true);
                     }
-                    else if (this.temptedEntity instanceof EntityHedgehogAlbino) {
-                        EntityHedgehogAlbino ech = (EntityHedgehogAlbino) this.temptedEntity;
-                        ech.entityAIEatGrass.startExecuting();
-                        ech.setFed(true);
-
-                    }
+                    
                     return false;
                 }
             }
 
             if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES) {
 
-                if (this.temptedEntity instanceof EntityHedgehog) {
-                    EntityHedgehog ech = (EntityHedgehog) this.temptedEntity;
+                if (this.temptedEntity instanceof EntityHedgehogBase) {
+                    EntityHedgehogBase ech = (EntityHedgehogBase) this.temptedEntity;
                     ech.entityAIEatGrass.startExecuting();
                     ech.setFed(true);
                 }
-                else if (this.temptedEntity instanceof EntityHedgehogAlbino) {
-                    EntityHedgehogAlbino ech = (EntityHedgehogAlbino) this.temptedEntity;
-                    ech.entityAIEatGrass.startExecuting();
-                    ech.setFed(true);
-                }
-
+                
                 this.temptedEntity.world.destroyBlock(currentpos, false);
 
                 return false;
@@ -185,7 +157,6 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
                             else
                                 return true;
                         }
-
                     }
 
             if (!foodFound)
@@ -203,17 +174,11 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
         return this.shouldExecute();
     }
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
     @Override
     public void startExecuting() {
         this.isRunning = true;
     }
 
-    /**
-     * Resets the task
-     */
     @Override
     public void resetTask() {
         this.temptingPlayer = null;

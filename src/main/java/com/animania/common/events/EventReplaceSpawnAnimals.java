@@ -37,6 +37,7 @@ import com.animania.common.entities.cows.EntityCowFriesian;
 import com.animania.common.entities.cows.EntityCowHereford;
 import com.animania.common.entities.cows.EntityCowHolstein;
 import com.animania.common.entities.cows.EntityCowLonghorn;
+import com.animania.common.entities.goats.EntityBuckAlpine;
 import com.animania.common.entities.horses.EntityFoalDraftHorse;
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
@@ -574,6 +575,29 @@ public class EventReplaceSpawnAnimals
 			// System.out.println("Peacock count: " + peacockCount);
 
 			if (peacockCount >= AnimaniaConfig.spawn.spawnLimitPeacocks && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null
+					&& !event.getEntity().hasCustomName())
+				if (!event.getEntity().hasCustomName()) {
+					event.getEntity().setDead();
+					event.setCanceled(true);
+					event.isCanceled();
+				}
+
+		}
+		else if ((event.getEntity().getClass().equals(EntityBuckAlpine.class) && !worldIn.isRemote)) {
+
+			int goatCount = 0;
+			int esize = worldIn.loadedEntityList.size();
+			for (int k = 0; k <= esize - 1; k++) {
+				Entity entity = worldIn.loadedEntityList.get(k);
+				if (entity.getClass().equals(EntityBuckAlpine.class)) {
+					EntityLivingBase elb = (EntityLivingBase) entity;
+					goatCount = goatCount + 1;
+				}
+			}
+
+			//System.out.println("Goat count: " + goatCount);
+
+			if (goatCount >= AnimaniaConfig.spawn.spawnLimitGoats && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null
 					&& !event.getEntity().hasCustomName())
 				if (!event.getEntity().hasCustomName()) {
 					event.getEntity().setDead();

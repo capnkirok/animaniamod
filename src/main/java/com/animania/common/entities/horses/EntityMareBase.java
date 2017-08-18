@@ -1,5 +1,6 @@
 package com.animania.common.entities.horses;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -8,7 +9,9 @@ import javax.annotation.Nullable;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
+import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
 
@@ -38,7 +41,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable
 {	
-	
+
 	protected int gestationTimer;
 	private ResourceLocation resourceLocation;
 	private ResourceLocation resourceLocationBlink;
@@ -120,7 +123,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 		return livingdata;
 	}
-	
+
 	@Override
 	protected void applyEntityAttributes()
 	{
@@ -129,7 +132,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
 	}
-	
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
@@ -163,19 +166,19 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			return super.processInteract(player, hand);
 		}
 	}
-	
+
 	@Override
 	public double getMountedYOffset()
 	{
 		return (double)this.height * 0.60D;
 	}
 
-	
+
 	public int getVerticalFaceSpeed()
 	{
 		return super.getVerticalFaceSpeed();
 	}
-	
+
 	public boolean boost()
 	{
 		if (this.boosting)
@@ -190,7 +193,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			return true;
 		}
 	}
-	
+
 	@Nullable
 	public Entity getControllingPassenger()
 	{
@@ -221,10 +224,10 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				itemstack = entityplayer.getHeldItemOffhand();
 				return itemstack != null && itemstack.getItem() == ItemHandler.ridingCrop;
 			}
-			*/
+			 */
 		}
 	}
-	
+
 	@Override
 	public void moveEntityWithHeading(float strafe, float forward)
 	{
@@ -384,15 +387,15 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 160) - p_70894_1_) / 4.0F));
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationAngleX(float p_70890_1_)
 	{
-		
+
 		if (this.isBeingRidden()) {
 			return 0;
 		} 
-		
+
 		if (this.eatTimer > 4 && this.eatTimer <= 156)
 		{
 			float f = ((float)(this.eatTimer - 4) - p_70890_1_) / 80.0F;
@@ -403,7 +406,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			return this.eatTimer > 0 ? ((float)Math.PI / 5F) : this.rotationPitch * 0.017453292F;
 		}
 	}
-	
+
 	public ResourceLocation getResourceLocation()
 	{
 		return resourceLocation;
@@ -413,7 +416,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		return resourceLocationBlink;
 	}
-	
+
 	public void onLivingUpdate()
 	{
 
@@ -421,7 +424,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 		}
-		
+
 		if (this.getColorNumber() > 5) {
 			this.setColorNumber(0);
 		}
@@ -500,34 +503,22 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 				gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(2000);
 
-				String MateID = this.getMateUniqueId().toString();
-
-				int esize = this.world.loadedEntityList.size();
-				for (int k = 0; k <= esize - 1; k++) {
-					Entity entity = (Entity) this.world.loadedEntityList.get(k);
-
-					double xt = entity.posX;
-					double yt = entity.posY;
-					double zt = entity.posZ;
-					int x1 = MathHelper.floor(this.posX);
-					int y1 = MathHelper.floor(this.posY);
-					int z1 = MathHelper.floor(this.posZ);
-					double x2 = xt - x1;
-					double y2 = yt - y1;
-					double z2 = zt - z1;
-
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().toString().equals(MateID) && x2 <= 10 && y2 <=10 && z2 <=10) {
+				UUID MateID = this.getMateUniqueId();
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityStallionBase.class, 10, this.world, this);
+				int esize = entities.size();
+				for (int k = 0; k <= esize - 1; k++) 
+				{
+					EntityStallionBase entity = (EntityStallionBase)entities.get(k);
+					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
 
 						this.setInLove(null);
 
 						if (!this.world.isRemote) {
-
 							EntityFoalDraftHorse entityFoal = new EntityFoalDraftHorse(this.world);
 							entityFoal.setPosition(this.posX,  this.posY + .2, this.posZ);
 							this.world.spawnEntity(entityFoal);
 							entityFoal.setParentUniqueId(this.getPersistentID());
-							this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F); //TODO
-
+							this.playSound(ModSoundEvents.horseliving2, 0.50F, 1.1F); 
 						}
 					}
 				}
@@ -547,5 +538,5 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 
-	
+
 }

@@ -2,6 +2,7 @@ package com.animania.common.entities.chickens.ai;
 
 import java.util.List;
 
+import com.animania.common.entities.chickens.EntityHenBase;
 import com.animania.common.entities.chickens.EntityHenLeghorn;
 import com.animania.common.entities.chickens.EntityHenOrpington;
 import com.animania.common.entities.chickens.EntityHenPlymouthRock;
@@ -16,7 +17,6 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
 
 public class EntityAIFindNest extends EntityAIBase
 {
@@ -52,37 +52,13 @@ public class EntityAIFindNest extends EntityAIBase
 				return false;
 			}
 
-			if (temptedEntity instanceof EntityHenLeghorn) {
-				EntityHenLeghorn entity = (EntityHenLeghorn)temptedEntity;
+			if (temptedEntity instanceof EntityHenBase) {
+				EntityHenBase entity = (EntityHenBase)temptedEntity;
 				if (!entity.getWatered() || !entity.getFed()) {
 					this.delayTemptCounter = 0;
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityHenOrpington) {
-				EntityHenOrpington entity = (EntityHenOrpington)temptedEntity;
-				if (!entity.getWatered() || !entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHenPlymouthRock) {
-				EntityHenPlymouthRock entity = (EntityHenPlymouthRock)temptedEntity;
-				if (!entity.getWatered() || !entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHenRhodeIslandRed) {
-				EntityHenRhodeIslandRed entity = (EntityHenRhodeIslandRed)temptedEntity;
-				if (!entity.getWatered() || !entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityHenWyandotte) {
-				EntityHenWyandotte entity = (EntityHenWyandotte)temptedEntity;
-				if (!entity.getWatered() || !entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			}
+			} 
 
 
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
@@ -286,17 +262,11 @@ public class EntityAIFindNest extends EntityAIBase
 		return this.shouldExecute();
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	public void startExecuting()
 	{	
 		this.isRunning = true;
 	}
 
-	/**
-	 * Resets the task
-	 */
 	public void resetTask()
 	{
 		this.temptingPlayer = null;

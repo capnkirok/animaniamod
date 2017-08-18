@@ -8,35 +8,17 @@ import net.minecraft.pathfinding.PathNavigateGround;
 
 public class EntityAITemptItemStack extends EntityAIBase
 {
-    /** The entity using this AI that is tempted by the player. */
     private final EntityCreature temptedEntity;
     private final double         speed;
-    /** X position of player tempting this mob */
     private double               targetX;
-    /** Y position of player tempting this mob */
     private double               targetY;
-    /** Z position of player tempting this mob */
     private double               targetZ;
-    /** Tempting player's pitch */
     private double               pitch;
-    /** Tempting player's yaw */
     private double               yaw;
-    /** The player that is tempting the entity that is using this AI. */
     private EntityPlayer         temptingPlayer;
-    /**
-     * A counter that is decremented each time the shouldExecute method is
-     * called. The shouldExecute method will always return false if
-     * delayTemptCounter is greater than 0.
-     */
     private int                  delayTemptCounter;
-    /** True if this EntityAITempt task is running */
     private boolean              isRunning;
     private final ItemStack      temptItem;
-
-    /**
-     * Whether the entity using this AI will be scared by the tempter's sudden
-     * movement.
-     */
 
     public EntityAITemptItemStack(EntityCreature temptedEntityIn, double speedIn, ItemStack temptItemIn) {
         this.temptedEntity = temptedEntityIn;
@@ -48,9 +30,6 @@ public class EntityAITemptItemStack extends EntityAIBase
             throw new IllegalArgumentException("Unsupported mob type for TemptGoal");
     }
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
     @Override
     public boolean shouldExecute() {
         if (this.delayTemptCounter > 0) {
@@ -68,17 +47,11 @@ public class EntityAITemptItemStack extends EntityAIBase
         return ItemStack.areItemStacksEqual(stack, this.temptItem);
     }
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
     @Override
     public boolean continueExecuting() {
         return this.shouldExecute();
     }
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
     @Override
     public void startExecuting() {
         this.targetX = this.temptingPlayer.posX;
@@ -87,9 +60,6 @@ public class EntityAITemptItemStack extends EntityAIBase
         this.isRunning = true;
     }
 
-    /**
-     * Resets the task
-     */
     @Override
     public void resetTask() {
         this.temptingPlayer = null;
@@ -98,9 +68,6 @@ public class EntityAITemptItemStack extends EntityAIBase
         this.isRunning = false;
     }
 
-    /**
-     * Updates the task
-     */
     @Override
     public void updateTask() {
         this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, this.temptedEntity.getHorizontalFaceSpeed() + 20,
@@ -112,9 +79,6 @@ public class EntityAITemptItemStack extends EntityAIBase
             this.temptedEntity.getNavigator().tryMoveToEntityLiving(this.temptingPlayer, this.speed);
     }
 
-    /**
-     * @see #isRunning
-     */
     public boolean isRunning() {
         return this.isRunning;
     }

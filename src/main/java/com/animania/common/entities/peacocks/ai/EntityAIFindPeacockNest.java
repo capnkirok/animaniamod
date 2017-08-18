@@ -2,6 +2,7 @@ package com.animania.common.entities.peacocks.ai;
 
 import java.util.List;
 
+import com.animania.common.entities.peacocks.EntityPeafowlBase;
 import com.animania.common.entities.peacocks.EntityPeafowlBlue;
 import com.animania.common.entities.peacocks.EntityPeafowlWhite;
 import com.animania.common.handler.BlockHandler;
@@ -27,7 +28,6 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-
 	public EntityAIFindPeacockNest(EntityCreature temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
@@ -44,14 +44,13 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 			return false;
 		} else if (delayTemptCounter > 40) {
 
-
 			if (!this.temptedEntity.world.isDaytime()) {
 				this.delayTemptCounter = 0;
 				return false;
 			}
 
-			if (temptedEntity instanceof EntityPeafowlBlue) {
-				EntityPeafowlBlue entity = (EntityPeafowlBlue)temptedEntity;
+			if (temptedEntity instanceof EntityPeafowlBase) {
+				 EntityPeafowlBase entity = (EntityPeafowlBase)temptedEntity;
 				if (!entity.getWatered() || !entity.getFed()) {
 					this.delayTemptCounter = 0;
 					return false;
@@ -63,7 +62,6 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 					return false;
 				}
 			}
-
 
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
 			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
@@ -124,10 +122,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 						this.resetTask();
 					}
-
-				
 				}
-
 				return false;
 			}
 
@@ -161,12 +156,9 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 									nestFound = true;
 									return true;
 								} 
-
 							}
 						}
-
 					}
-
 				}
 			}
 
@@ -178,32 +170,23 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 		return false;
 	}
 
-
-
 	public boolean continueExecuting()
 	{
 
 		return this.shouldExecute();
 	}
-
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
+	
 	public void startExecuting()
 	{	
 		this.isRunning = true;
 	}
 
-	/**
-	 * Resets the task
-	 */
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigator().clearPathEntity();
 		this.isRunning = false;
 	}
-
 
 	public void updateTask()
 	{
@@ -270,14 +253,10 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 									nestPos = new BlockPos(x + i, y + j, z + k);
 
 								}
-
 							}
-
 						}
 					}
-
 				}
-
 			}
 
 			if (nestFound) {
@@ -291,13 +270,9 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 					//this.temptedEntity.getNavigator().tryMoveToXYZ(nestPos.getX(), nestPos.getY(), nestPos.getZ(), this.speed);
 
 				}
-
 			}
 		}
-
 	}
-
-
 
 	public boolean isRunning()
 	{

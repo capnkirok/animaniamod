@@ -13,7 +13,6 @@ import net.minecraft.util.math.MathHelper;
 
 public class EntityAIFollowParentPigs extends EntityAIBase
 {
-	/** The child that is following its parent. */
 	EntityAnimal childAnimal;
 	EntityAnimal parentAnimal;
 	double       moveSpeed;
@@ -65,9 +64,7 @@ public class EntityAIFollowParentPigs extends EntityAIBase
 				}
 			}
 		}
-
 		return false;
-
 	}
 
 	@Override

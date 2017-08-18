@@ -2,11 +2,9 @@ package com.animania.common.entities.rodents.ai;
 
 import java.util.Random;
 
-import com.animania.common.entities.rodents.EntityFerretGrey;
-import com.animania.common.entities.rodents.EntityFerretWhite;
+import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.entities.rodents.EntityHamster;
-import com.animania.common.entities.rodents.EntityHedgehog;
-import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.common.entities.rodents.EntityHedgehogBase;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -45,14 +43,8 @@ public class EntityAIFindWater extends EntityAIBase
 		if (this.delayTemptCounter < 40) {
 			return false;
 		} else if (delayTemptCounter > 40) {
-			if (this.temptedEntity instanceof EntityFerretGrey) {
-				EntityFerretGrey entity = (EntityFerretGrey) temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} else if (temptedEntity instanceof EntityFerretWhite) {
-				EntityFerretWhite entity = (EntityFerretWhite)temptedEntity;
+			if (this.temptedEntity instanceof EntityFerretBase) {
+				EntityFerretBase entity = (EntityFerretBase) temptedEntity;
 				if (entity.getWatered()) {
 					this.delayTemptCounter = 0;
 					return false;
@@ -63,45 +55,32 @@ public class EntityAIFindWater extends EntityAIBase
 					this.delayTemptCounter = 0;
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityHedgehog) {
-				EntityHedgehog entity = (EntityHedgehog)temptedEntity;
+			} else if (temptedEntity instanceof EntityHedgehogBase) {
+				EntityHedgehogBase entity = (EntityHedgehogBase)temptedEntity;
 				if (entity.getWatered()) {
 					this.delayTemptCounter = 0;
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityHedgehogAlbino) {
-				EntityHedgehogAlbino entity = (EntityHedgehogAlbino)temptedEntity;
-				if (entity.getWatered()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			}
+			} 
 
 			Random rand = new Random();
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
 			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
 
-			Biome biomegenbase = this.temptedEntity.world
-					.getBiome(new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ));
+			Biome biomegenbase = this.temptedEntity.world.getBiome(new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ));
 
 			if (poschk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 
-				if (this.temptedEntity instanceof EntityFerretGrey) {
-					EntityFerretGrey entity = (EntityFerretGrey) temptedEntity;
-					entity.setWatered(true);
-				} else if (temptedEntity instanceof EntityFerretWhite) {
-					EntityFerretWhite entity = (EntityFerretWhite)temptedEntity;
+				if (this.temptedEntity instanceof EntityFerretBase) {
+					EntityFerretBase entity = (EntityFerretBase) temptedEntity;
 					entity.setWatered(true);
 				} else if (temptedEntity instanceof EntityHamster) {
 					EntityHamster entity = (EntityHamster)temptedEntity;
 					entity.setWatered(true);
-				} else if (temptedEntity instanceof EntityHedgehog) {
-					EntityHedgehog entity = (EntityHedgehog)temptedEntity;
+				} else if (temptedEntity instanceof EntityHedgehogBase) {
+					EntityHedgehogBase entity = (EntityHedgehogBase)temptedEntity;
 					entity.setWatered(true);
-				} else if (temptedEntity instanceof EntityHedgehogAlbino) {
-					EntityHedgehogAlbino entity = (EntityHedgehogAlbino)temptedEntity;
-					entity.setWatered(true);
-				}
+				} 
 
 				return false;
 			}
@@ -134,9 +113,7 @@ public class EntityAIFindWater extends EntityAIBase
 								return true;
 							}
 						}
-
 					}
-
 				}
 			}
 
@@ -146,7 +123,6 @@ public class EntityAIFindWater extends EntityAIBase
 			}
 		}
 
-
 		return false;
 	}
 
@@ -154,28 +130,20 @@ public class EntityAIFindWater extends EntityAIBase
 
 	public boolean continueExecuting()
 	{
-
 		return this.shouldExecute();
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	public void startExecuting()
 	{	
 		this.isRunning = true;
 	}
 
-	/**
-	 * Resets the task
-	 */
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigator().clearPathEntity();
 		this.isRunning = false;
 	}
-
 
 	public void updateTask()
 	{
@@ -230,13 +198,9 @@ public class EntityAIFindWater extends EntityAIBase
 								waterPos = new BlockPos(x + i, y + j, z + k);
 
 							}
-
 						}
-
 					}
-
 				}
-
 			}
 
 			if (waterFound) {
@@ -251,17 +215,10 @@ public class EntityAIFindWater extends EntityAIBase
 					} else {
 						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
 					}
-
-
-
 				}
-
 			}
 		}
-
 	}
-
-
 
 	public boolean isRunning()
 	{

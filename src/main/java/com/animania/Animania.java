@@ -6,6 +6,9 @@ import com.animania.proxy.CommonProxy;
 import com.leviathanstudio.craftstudio.client.json.CSReadedAnim;
 import com.leviathanstudio.craftstudio.client.json.CSReadedModel;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -36,11 +39,11 @@ public class Animania
     public static Animania     instance;
 
     public static final String MODID                = "animania";
-    public static final String VERSION              = "1.2.2";
+    public static final String VERSION              = "1.3";
     public static final String NAME                 = "Animania";
+    public static final Logger LOGGER = LogManager.getFormatterLogger("Animania");
 
 	public static SimpleNetworkWrapper network;
-
     
     // Tabs
     public static CreativeTabs TabAnimaniaEggs      = new TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania");
