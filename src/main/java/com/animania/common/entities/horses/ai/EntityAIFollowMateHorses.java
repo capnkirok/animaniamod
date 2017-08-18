@@ -1,8 +1,12 @@
 package com.animania.common.entities.horses.ai;
 
-import com.animania.common.entities.horses.EntityStallionDraftHorse;
+import java.util.List;
 
-import net.minecraft.entity.Entity;
+import com.animania.common.entities.cows.EntityCowBase;
+import com.animania.common.entities.horses.EntityMareBase;
+import com.animania.common.entities.horses.EntityStallionBase;
+import com.animania.common.helper.AnimaniaHelper;
+
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.math.MathHelper;
@@ -21,58 +25,47 @@ public class EntityAIFollowMateHorses extends EntityAIBase
 		this.moveSpeed = speed;
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
-
-	public boolean shouldExecute()
-	{
-
-		delayCounter++;
-		if (delayCounter > 60) {
-
-			if (this.thisAnimal instanceof EntityStallionDraftHorse) {
-				EntityStallionDraftHorse ec = (EntityStallionDraftHorse)this.thisAnimal;
-				if (ec.getMateUniqueId() == null) {
+	public boolean shouldExecute() {
+		this.delayCounter++;
+		if (this.delayCounter > 60)
+			if (this.thisAnimal instanceof EntityStallionBase) {
+				EntityStallionBase ec = (EntityStallionBase) this.thisAnimal;
+				if (ec.getMateUniqueId() == null)
 					return false;
-				} else {
+				else {
 
-					int esize = this.thisAnimal.world.loadedEntityList.size();
+					List entities = AnimaniaHelper.getEntitiesInRange(EntityMareBase.class, 40, this.thisAnimal.world, this.thisAnimal);
 
-					for (int k = 0; k <= esize - 1; k++) {
+					for (int k = 0; k <= entities.size() - 1; k++) {
 
-						Entity entity = (Entity) this.thisAnimal.world.loadedEntityList.get(k);
+						EntityMareBase entity = (EntityMareBase)entities.get(k);
+						
+						if (entities.get(k) != null && entity.getPersistentID().equals(((EntityStallionBase) this.thisAnimal).getMateUniqueId())) {
+							double xt = entity.posX;
+							double yt = entity.posY;
+							double zt = entity.posZ;
+							int x1 = MathHelper.floor(this.thisAnimal.posX);
+							int y1 = MathHelper.floor(this.thisAnimal.posY);
+							int z1 = MathHelper.floor(this.thisAnimal.posZ);
+							double x2 = Math.abs(xt - x1);
+							double y2 = Math.abs(yt - y1);
+							double z2 = Math.abs(zt - z1);
 
-						double xt = entity.posX;
-						double yt = entity.posY;
-						double zt = entity.posZ;
-						int x1 = MathHelper.floor(this.thisAnimal.posX);
-						int y1 = MathHelper.floor(this.thisAnimal.posY);
-						int z1 = MathHelper.floor(this.thisAnimal.posZ);
-						double x2 = Math.abs(xt - x1);
-						double y2 = Math.abs(yt - y1);
-						double z2 = Math.abs(zt - z1);
-
-						if (entity !=null && entity.getPersistentID().toString().equals(((EntityStallionDraftHorse) this.thisAnimal).getMateUniqueId().toString()) && x2 <= 40 && y2 <=8 && z2 <=40 && x2 >= 5 && z2 >= 5) {
-							mateAnimal = (EntityAnimal) entity;
-							return true;
+							if (x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
+								this.mateAnimal = (EntityAnimal) entity;
+								return true;
+							} else {
+								return false;
+							}
 						}
-
 					}
-
-
 				}
-			
 			}
-		}
 
 		return false;
 
 	}
 
-	/**
-	 * Returns whether an in-progress EntityAIBase should continue executing
-	 */
 	public boolean continueExecuting()
 	{
 		if (!this.mateAnimal.isEntityAlive())
@@ -86,25 +79,16 @@ public class EntityAIFollowMateHorses extends EntityAIBase
 		}
 	}
 
-	/**
-	 * Execute a one shot task or start executing a continuous task
-	 */
 	public void startExecuting()
 	{
 		this.delayCounter = 0;
 	}
 
-	/**
-	 * Resets the task
-	 */
 	public void resetTask()
 	{
 		this.mateAnimal = null;
 	}
 
-	/**
-	 * Updates the task
-	 */
 	public void updateTask()
 	{
 		if (--this.delayCounter <= 0)

@@ -1,292 +1,98 @@
 package com.animania.common.entities.pigs.ai;
 
-import com.animania.common.entities.pigs.EntityHogDuroc;
-import com.animania.common.entities.pigs.EntityHogHampshire;
-import com.animania.common.entities.pigs.EntityHogLargeBlack;
-import com.animania.common.entities.pigs.EntityHogLargeWhite;
-import com.animania.common.entities.pigs.EntityHogOldSpot;
-import com.animania.common.entities.pigs.EntityHogYorkshire;
+import java.util.List;
 
-import net.minecraft.entity.Entity;
+import com.animania.common.entities.cows.EntityBullBase;
+import com.animania.common.entities.cows.EntityCowBase;
+import com.animania.common.entities.pigs.EntityHogBase;
+import com.animania.common.entities.pigs.EntitySowBase;
+import com.animania.common.helper.AnimaniaHelper;
+
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.math.MathHelper;
 
 public class EntityAIFollowMatePigs extends EntityAIBase
 {
-    /** The child that is following its parent. */
-    EntityAnimal thisAnimal;
-    EntityAnimal mateAnimal;
-    double       moveSpeed;
-    private int  delayCounter;
 
-    public EntityAIFollowMatePigs(EntityAnimal animal, double speed) {
-        this.thisAnimal = animal;
-        this.moveSpeed = speed;
-    }
+	EntityAnimal thisAnimal;
+	EntityAnimal mateAnimal;
+	double       moveSpeed;
+	private int  delayCounter;
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
+	public EntityAIFollowMatePigs(EntityAnimal animal, double speed) {
+		this.thisAnimal = animal;
+		this.moveSpeed = speed;
+	}
 
-    @Override
-    public boolean shouldExecute() {
+	public boolean shouldExecute() {
+		this.delayCounter++;
+		if (this.delayCounter > 60)
+			if (this.thisAnimal instanceof EntityHogBase) {
+				EntityHogBase ec = (EntityHogBase) this.thisAnimal;
+				if (ec.getMateUniqueId() == null)
+					return false;
+				else {
 
-        this.delayCounter++;
-        if (this.delayCounter > 60)
-            if (this.thisAnimal instanceof EntityHogDuroc) {
-                EntityHogDuroc ec = (EntityHogDuroc) this.thisAnimal;
-                if (ec.getMateUniqueId() == null)
-                    return false;
-                else {
+					List entities = AnimaniaHelper.getEntitiesInRange(EntitySowBase.class, 40, this.thisAnimal.world, this.thisAnimal);
 
-                    int esize = this.thisAnimal.world.loadedEntityList.size();
+					for (int k = 0; k <= entities.size() - 1; k++) {
 
-                    for (int k = 0; k <= esize - 1; k++) {
+						EntitySowBase entitysow = (EntitySowBase)entities.get(k);
+						if (entities.get(k) != null && entitysow.getPersistentID().equals(((EntityHogBase) this.thisAnimal).getMateUniqueId())) {
 
-                        Entity entity = this.thisAnimal.world.loadedEntityList.get(k);
+							double xt = entitysow.posX;
+							double yt = entitysow.posY;
+							double zt = entitysow.posZ;
+							int x1 = MathHelper.floor(this.thisAnimal.posX);
+							int y1 = MathHelper.floor(this.thisAnimal.posY);
+							int z1 = MathHelper.floor(this.thisAnimal.posZ);
+							double x2 = Math.abs(xt - x1);
+							double y2 = Math.abs(yt - y1);
+							double z2 = Math.abs(zt - z1);
 
-                        double xt = entity.posX;
-                        double yt = entity.posY;
-                        double zt = entity.posZ;
-                        int x1 = MathHelper.floor(this.thisAnimal.posX);
-                        int y1 = MathHelper.floor(this.thisAnimal.posY);
-                        int z1 = MathHelper.floor(this.thisAnimal.posZ);
-                        double x2 = Math.abs(xt - x1);
-                        double y2 = Math.abs(yt - y1);
-                        double z2 = Math.abs(zt - z1);
+							if (x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
+								this.mateAnimal = (EntityAnimal) entitysow;
+								return true;
+							} else {
+								return false;
+							}
 
-                        if (entity != null
-                                && entity.getPersistentID().toString()
-                                        .equals(((EntityHogDuroc) this.thisAnimal).getMateUniqueId().toString())
-                                && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
-                            this.mateAnimal = (EntityAnimal) entity;
-                            return true;
-                        }
+						}
 
-                    }
+					}
+				}
+			}
 
-                }
+		return false;
 
-            }
-            else if (this.thisAnimal instanceof EntityHogHampshire) {
-                EntityHogHampshire ec = (EntityHogHampshire) this.thisAnimal;
-                if (ec.getMateUniqueId() == null)
-                    return false;
-                else {
+	}
 
-                    int esize = this.thisAnimal.world.loadedEntityList.size();
+	@Override
+	public boolean continueExecuting() {
+		if (!this.mateAnimal.isEntityAlive())
+			return false;
+		else {
+			double d0 = this.thisAnimal.getDistanceSqToEntity(this.mateAnimal);
+			return d0 >= 9.0D && d0 <= 256.0D;
+		}
+	}
 
-                    for (int k = 0; k <= esize - 1; k++) {
+	@Override
+	public void startExecuting() {
+		this.delayCounter = 0;
+	}
 
-                        Entity entity = this.thisAnimal.world.loadedEntityList.get(k);
+	@Override
+	public void resetTask() {
+		this.mateAnimal = null;
+	}
 
-                        double xt = entity.posX;
-                        double yt = entity.posY;
-                        double zt = entity.posZ;
-                        int x1 = MathHelper.floor(this.thisAnimal.posX);
-                        int y1 = MathHelper.floor(this.thisAnimal.posY);
-                        int z1 = MathHelper.floor(this.thisAnimal.posZ);
-                        double x2 = Math.abs(xt - x1);
-                        double y2 = Math.abs(yt - y1);
-                        double z2 = Math.abs(zt - z1);
-
-                        if (entity != null
-                                && entity.getPersistentID().toString()
-                                        .equals(((EntityHogHampshire) this.thisAnimal).getMateUniqueId().toString())
-                                && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
-                            this.mateAnimal = (EntityAnimal) entity;
-                            return true;
-
-                        }
-
-                    }
-
-                }
-            }
-            else if (this.thisAnimal instanceof EntityHogOldSpot) {
-                EntityHogOldSpot ec = (EntityHogOldSpot) this.thisAnimal;
-                if (ec.getMateUniqueId() == null)
-                    return false;
-                else {
-
-                    int esize = this.thisAnimal.world.loadedEntityList.size();
-
-                    for (int k = 0; k <= esize - 1; k++) {
-
-                        Entity entity = this.thisAnimal.world.loadedEntityList.get(k);
-
-                        double xt = entity.posX;
-                        double yt = entity.posY;
-                        double zt = entity.posZ;
-                        int x1 = MathHelper.floor(this.thisAnimal.posX);
-                        int y1 = MathHelper.floor(this.thisAnimal.posY);
-                        int z1 = MathHelper.floor(this.thisAnimal.posZ);
-                        double x2 = Math.abs(xt - x1);
-                        double y2 = Math.abs(yt - y1);
-                        double z2 = Math.abs(zt - z1);
-
-                        if (entity != null
-                                && entity.getPersistentID().toString()
-                                        .equals(((EntityHogOldSpot) this.thisAnimal).getMateUniqueId().toString())
-                                && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
-                            this.mateAnimal = (EntityAnimal) entity;
-                            return true;
-
-                        }
-
-                    }
-
-                }
-            }
-            else if (this.thisAnimal instanceof EntityHogLargeBlack) {
-                EntityHogLargeBlack ec = (EntityHogLargeBlack) this.thisAnimal;
-                if (ec.getMateUniqueId() == null)
-                    return false;
-                else {
-
-                    int esize = this.thisAnimal.world.loadedEntityList.size();
-
-                    for (int k = 0; k <= esize - 1; k++) {
-
-                        Entity entity = this.thisAnimal.world.loadedEntityList.get(k);
-
-                        double xt = entity.posX;
-                        double yt = entity.posY;
-                        double zt = entity.posZ;
-                        int x1 = MathHelper.floor(this.thisAnimal.posX);
-                        int y1 = MathHelper.floor(this.thisAnimal.posY);
-                        int z1 = MathHelper.floor(this.thisAnimal.posZ);
-                        double x2 = Math.abs(xt - x1);
-                        double y2 = Math.abs(yt - y1);
-                        double z2 = Math.abs(zt - z1);
-
-                        if (entity != null
-                                && entity.getPersistentID().toString()
-                                        .equals(((EntityHogLargeBlack) this.thisAnimal).getMateUniqueId().toString())
-                                && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
-                            this.mateAnimal = (EntityAnimal) entity;
-                            return true;
-
-                        }
-
-                    }
-
-                }
-
-            }
-            else if (this.thisAnimal instanceof EntityHogLargeWhite) {
-                EntityHogLargeWhite ec = (EntityHogLargeWhite) this.thisAnimal;
-                if (ec.getMateUniqueId() == null)
-                    return false;
-                else {
-
-                    int esize = this.thisAnimal.world.loadedEntityList.size();
-
-                    for (int k = 0; k <= esize - 1; k++) {
-
-                        Entity entity = this.thisAnimal.world.loadedEntityList.get(k);
-
-                        double xt = entity.posX;
-                        double yt = entity.posY;
-                        double zt = entity.posZ;
-                        int x1 = MathHelper.floor(this.thisAnimal.posX);
-                        int y1 = MathHelper.floor(this.thisAnimal.posY);
-                        int z1 = MathHelper.floor(this.thisAnimal.posZ);
-                        double x2 = Math.abs(xt - x1);
-                        double y2 = Math.abs(yt - y1);
-                        double z2 = Math.abs(zt - z1);
-
-                        if (entity != null
-                                && entity.getPersistentID().toString()
-                                        .equals(((EntityHogLargeWhite) this.thisAnimal).getMateUniqueId().toString())
-                                && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
-                            this.mateAnimal = (EntityAnimal) entity;
-                            return true;
-
-                        }
-
-                    }
-
-                }
-            }
-            else if (this.thisAnimal instanceof EntityHogYorkshire) {
-                EntityHogYorkshire ec = (EntityHogYorkshire) this.thisAnimal;
-                if (ec.getMateUniqueId() == null)
-                    return false;
-                else {
-
-                    int esize = this.thisAnimal.world.loadedEntityList.size();
-
-                    for (int k = 0; k <= esize - 1; k++) {
-
-                        Entity entity = this.thisAnimal.world.loadedEntityList.get(k);
-
-                        double xt = entity.posX;
-                        double yt = entity.posY;
-                        double zt = entity.posZ;
-                        int x1 = MathHelper.floor(this.thisAnimal.posX);
-                        int y1 = MathHelper.floor(this.thisAnimal.posY);
-                        int z1 = MathHelper.floor(this.thisAnimal.posZ);
-                        double x2 = Math.abs(xt - x1);
-                        double y2 = Math.abs(yt - y1);
-                        double z2 = Math.abs(zt - z1);
-
-                        if (entity != null
-                                && entity.getPersistentID().toString()
-                                        .equals(((EntityHogYorkshire) this.thisAnimal).getMateUniqueId().toString())
-                                && x2 <= 40 && y2 <= 8 && z2 <= 40 && x2 >= 5 && z2 >= 5) {
-                            this.mateAnimal = (EntityAnimal) entity;
-                            return true;
-
-                        }
-
-                    }
-
-                }
-            }
-
-        return false;
-
-    }
-
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
-    @Override
-    public boolean continueExecuting() {
-        if (!this.mateAnimal.isEntityAlive())
-            return false;
-        else {
-            double d0 = this.thisAnimal.getDistanceSqToEntity(this.mateAnimal);
-            return d0 >= 9.0D && d0 <= 256.0D;
-        }
-    }
-
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    @Override
-    public void startExecuting() {
-        this.delayCounter = 0;
-    }
-
-    /**
-     * Resets the task
-     */
-    @Override
-    public void resetTask() {
-        this.mateAnimal = null;
-    }
-
-    /**
-     * Updates the task
-     */
-    @Override
-    public void updateTask() {
-        if (--this.delayCounter <= 0) {
-            this.delayCounter = 60;
-            this.thisAnimal.getNavigator().tryMoveToEntityLiving(this.mateAnimal, this.moveSpeed);
-        }
-    }
+	@Override
+	public void updateTask() {
+		if (--this.delayCounter <= 0) {
+			this.delayCounter = 60;
+			this.thisAnimal.getNavigator().tryMoveToEntityLiving(this.mateAnimal, this.moveSpeed);
+		}
+	}
 }

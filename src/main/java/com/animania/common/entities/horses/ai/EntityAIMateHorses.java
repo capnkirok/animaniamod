@@ -1,14 +1,14 @@
 package com.animania.common.entities.horses.ai;
 
+import java.util.List;
 import java.util.Random;
 
-import com.animania.common.entities.horses.EntityMareDraftHorse;
-import com.animania.common.entities.horses.EntityStallionDraftHorse;
+import com.animania.common.entities.horses.EntityMareBase;
+import com.animania.common.entities.horses.EntityStallionBase;
+import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityAIMateHorses extends EntityAIBase
@@ -32,60 +32,49 @@ public class EntityAIMateHorses extends EntityAIBase
 
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
-	public boolean shouldExecute()
-	{
-		delayCounter++;
-		if (delayCounter > 100) {
+	@Override
+	public boolean shouldExecute() {
 
-			if (this.theAnimal instanceof EntityMareDraftHorse) {
-				EntityMareDraftHorse ec = (EntityMareDraftHorse)this.theAnimal;
-				if (ec.getMateUniqueId() != null) {
+		this.delayCounter++;
+		if (this.delayCounter > 100) {
+
+			if (this.theAnimal instanceof EntityMareBase) {
+				EntityMareBase ec = (EntityMareBase) this.theAnimal;
+				if (ec.getMateUniqueId() != null)
 					return false;
-				}
-			} else if (this.theAnimal instanceof EntityStallionDraftHorse) {
-				EntityStallionDraftHorse ec = (EntityStallionDraftHorse)this.theAnimal;
-				if (ec.getMateUniqueId() != null) {
+			} else if (this.theAnimal instanceof EntityStallionBase) {
+				EntityStallionBase ec = (EntityStallionBase) this.theAnimal;
+				if (ec.getMateUniqueId() != null)
 					return false;
-				}
 			}
 
 			this.targetMate = this.getNearbyMate();
-			
+
 			Random rand = new Random();
 			if (this.targetMate != null && rand.nextInt(20) == 0) {
 				this.delayCounter = 0;
 				this.resetTask();
 				return false;
 			}
-			
+
 			return this.targetMate != null;
-		} else {
-			return false;
+
 		}
+		else
+			return false;
+
 	}
 
-	/**
-	 * Returns whether an in-progress EntityAIBase should continue executing
-	 */
 	public boolean continueExecuting()
 	{
 		return this.targetMate.isEntityAlive();
 	}
 
-	/**
-	 * Resets the task
-	 */
 	public void resetTask()
 	{
 		this.targetMate = null;
 	}
 
-	/**
-	 * Updates the task
-	 */
 	public void updateTask()
 	{
 		this.theAnimal.getLookHelper().setLookPositionWithEntity(this.targetMate, 10.0F, (float)this.theAnimal.getVerticalFaceSpeed());
@@ -93,116 +82,80 @@ public class EntityAIMateHorses extends EntityAIBase
 
 	}
 
+	private EntityAnimal getNearbyMate() {
 
-	private EntityAnimal getNearbyMate()
-	{
-
-		if (this.theAnimal instanceof EntityMareDraftHorse) {
+		if (this.theAnimal instanceof EntityMareBase) {
 
 			String mateID = "";
-			if (this.theAnimal instanceof EntityStallionDraftHorse) {
-				EntityStallionDraftHorse entity2 = (EntityStallionDraftHorse)this.theAnimal;
-				if (entity2.getMateUniqueId() != null) {
-					mateID = entity2.getMateUniqueId().toString();
-				}
+
+			EntityMareBase entity2 = (EntityMareBase) this.theAnimal;
+			if (entity2.getMateUniqueId() != null) {
+				mateID = entity2.getMateUniqueId().toString();
+			}
+
+
+			List entities = AnimaniaHelper.getEntitiesInRange(EntityStallionBase.class, 5, this.theAnimal.world, this.theAnimal);
+
+			for (int k = 0; k <= entities.size() - 1; k++) {
+				EntityStallionBase entity = (EntityStallionBase)entities.get(k); 
+
+				this.courtshipTimer--;
+
+				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
+					((EntityMareBase) this.theAnimal).setMateUniqueId(entity.getUniqueID());
+					entity.setMateUniqueId(this.theAnimal.getUniqueID());
+
+					this.theAnimal.setInLove(null);
+					this.courtshipTimer = 20;
+					k = entities.size();
+					return (EntityAnimal) entity;
+				} else if (entity.getMateUniqueId() == null) {
+					k = entities.size();
+					this.theAnimal.setInLove(null);
+					this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());
+					this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
+					return null;
+
+				} 
+
 			} 
 
-			int esize = this.theWorld.loadedEntityList.size();
-			for (int k = 0; k <= esize - 1; k++) {
-				Entity entity = (Entity) this.theWorld.loadedEntityList.get(k);
-
-				double xt = entity.posX;
-				double yt = entity.posY;
-				double zt = entity.posZ;
-				int x1 = MathHelper.floor(this.theAnimal.posX);
-				int y1 = MathHelper.floor(this.theAnimal.posY);
-				int z1 = MathHelper.floor(this.theAnimal.posZ);
-				double x2 = Math.abs(xt - x1);
-				double y2 = Math.abs(yt - y1);
-				double z2 = Math.abs(zt - z1);
-
-
-				if (entity !=null && (entity instanceof EntityStallionDraftHorse) && x2 <= 4 && y2 <=2 && z2 <=4) {
-
-					this.courtshipTimer--;
-					if (entity instanceof EntityStallionDraftHorse) {
-						EntityStallionDraftHorse entity3 = (EntityStallionDraftHorse) entity;
-						if (entity3.getMateUniqueId() == null && this.courtshipTimer < 0) {
-							if (this.theAnimal instanceof EntityMareDraftHorse) {
-								((EntityMareDraftHorse) this.theAnimal).setMateUniqueId(entity.getUniqueID());
-								entity3.setMateUniqueId(this.theAnimal.getUniqueID());
-							}
-							this.theAnimal.setInLove(null);
-							this.courtshipTimer = 20;
-							k = esize;
-							return (EntityAnimal) entity;
-						} else if (entity3.getMateUniqueId() == null) {
-							k = esize;
-							this.theAnimal.setInLove(null);
-							this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, (float)this.theAnimal.getVerticalFaceSpeed());
-							this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
-							return null;
-						}
-					
-					}
-				} 
-			}
-		} else if (this.theAnimal instanceof EntityStallionDraftHorse) {
-
+		} else if (this.theAnimal instanceof EntityStallionBase) {
 
 			String mateID = "";
-			if (this.theAnimal instanceof EntityStallionDraftHorse) {
-				EntityStallionDraftHorse entity2 = (EntityStallionDraftHorse)this.theAnimal;
-				if (entity2.getMateUniqueId() != null) {
-					mateID = entity2.getMateUniqueId().toString();
-				}
-			} 
 
-			int esize = this.theWorld.loadedEntityList.size();
-			for (int k = 0; k <= esize - 1; k++) {
-				Entity entity = (Entity) this.theWorld.loadedEntityList.get(k);
-
-				double xt = entity.posX;
-				double yt = entity.posY;
-				double zt = entity.posZ;
-				int x1 = MathHelper.floor(this.theAnimal.posX);
-				int y1 = MathHelper.floor(this.theAnimal.posY);
-				int z1 = MathHelper.floor(this.theAnimal.posZ);
-				double x2 = Math.abs(xt - x1);
-				double y2 = Math.abs(yt - y1);
-				double z2 = Math.abs(zt - z1);
-
-
-				if (entity !=null && (entity instanceof EntityMareDraftHorse) && x2 <= 4 && y2 <=2 && z2 <=4) {
-
-					this.courtshipTimer--;
-
-					if (entity instanceof EntityMareDraftHorse) {
-						EntityMareDraftHorse entity3 = (EntityMareDraftHorse) entity;
-						if (entity3.getMateUniqueId() == null && this.courtshipTimer < 0 )  {
-							if (this.theAnimal instanceof EntityStallionDraftHorse) {
-								((EntityStallionDraftHorse)this.theAnimal).setMateUniqueId(entity.getUniqueID());
-								entity3.setMateUniqueId(this.theAnimal.getUniqueID());
-							} 
-							this.theAnimal.setInLove(null);
-							this.courtshipTimer = 20;
-							k = esize;
-							return (EntityAnimal) entity;
-						} else if (entity3.getMateUniqueId() == null) {
-							k = esize;
-							this.theAnimal.setInLove(null);
-							this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, (float)this.theAnimal.getVerticalFaceSpeed());
-							this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
-							return null;
-						}
-					}
-
-				} 
+			EntityStallionBase entity2 = (EntityStallionBase) this.theAnimal;
+			if (entity2.getMateUniqueId() != null) {
+				mateID = entity2.getMateUniqueId().toString();
 			}
-		} 
+
+			List entities = AnimaniaHelper.getEntitiesInRange(EntityMareBase.class, 5, this.theAnimal.world, this.theAnimal);
+
+			for (int k = 0; k <= entities.size() - 1; k++) {
+				EntityMareBase entity = (EntityMareBase)entities.get(k); 
+
+				this.courtshipTimer--;
+
+				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
+					((EntityStallionBase) this.theAnimal).setMateUniqueId(entity.getUniqueID());
+					entity.setMateUniqueId(this.theAnimal.getUniqueID());
+
+					this.theAnimal.setInLove(null);
+					this.courtshipTimer = 20;
+					k = entities.size();
+					return (EntityAnimal) entity;
+				} else if (entity.getMateUniqueId() == null) {
+					k = entities.size();
+					this.theAnimal.setInLove(null);
+					this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());
+					this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
+					return null;
+
+				}
+			}
+		}
+
 
 		return null;
 	}
-
-
 }

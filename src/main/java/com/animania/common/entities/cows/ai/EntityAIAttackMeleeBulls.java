@@ -20,19 +20,9 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 {
     World                    worldObj;
     protected EntityCreature attacker;
-    /**
-     * An amount of decrementing ticks that allows the entity to attack once the
-     * tick reaches 0.
-     */
     protected int            attackTick;
-    /** The speed with which the mob will approach the target */
     double                   speedTowardsTarget;
-    /**
-     * When true, the mob will continue chasing its target, even if it can't
-     * find a path to them right now.
-     */
     boolean                  longMemory;
-    /** The PathEntity of our entity. */
     Path                     entityPathEntity;
     private int              delayCounter;
     private double           targetX;
@@ -50,9 +40,6 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
         this.setMutexBits(3);
     }
 
-    /**
-     * Returns whether the EntityAIBase should begin execution.
-     */
     @Override
     public boolean shouldExecute() {
         EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
@@ -85,17 +72,6 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
                 eb.setFighting(true);
             }
 
-            /*
-            if (this.canPenalize)
-                if (--this.delayCounter <= 0) {
-                    this.entityPathEntity = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
-                    this.delayCounter = 4 + this.attacker.getRNG().nextInt(7);
-                    return this.entityPathEntity != null;
-                }
-                else
-                    return true;
-            */
-            
             this.entityPathEntity = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
 
             return this.entityPathEntity != null;
@@ -103,9 +79,6 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
         }
     }
 
-    /**
-     * Returns whether an in-progress EntityAIBase should continue executing
-     */
     @Override
     public boolean continueExecuting() {
         EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
@@ -117,19 +90,13 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
                                                 && !((EntityPlayer) entitylivingbase).isCreative();
     }
 
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
     @Override
     public void startExecuting() {
         this.attacker.getNavigator().setPath(this.entityPathEntity, this.speedTowardsTarget);
         this.delayCounter = 0;
     }
 
-    /**
-     * Resets the task
-     */
-    @Override
+   @Override
     public void resetTask() {
         EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
 

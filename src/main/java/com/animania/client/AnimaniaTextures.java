@@ -35,7 +35,6 @@ public class AnimaniaTextures
 		register(ItemHandler.peacockFeatherWhite);
 		register(ItemHandler.ridingCrop);
 		register(ItemHandler.hamsterBallClear);
-		register(ItemHandler.dolly);
 		
 		registerColored(ItemHandler.hamsterBallColored, "hamster_ball");
 	

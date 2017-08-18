@@ -11,7 +11,7 @@ import com.animania.common.handler.ItemHandler;
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
-import mezz.jei.ingredients.IngredientBlacklist;
+//import mezz.jei.ingredients.IngredientBlacklist;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -37,10 +37,10 @@ public class JEICompat extends BlankModPlugin
         registry.addDescription(this.milkHolstein, "text.jei.milkholstein");
         registry.addDescription(this.milkFriesian, "text.jei.milkfriesian");
         
-        
+        /*
         IngredientBlacklist blacklist = new IngredientBlacklist(registry.getIngredientRegistry());
         blacklist.addIngredientToBlacklist(new ItemStack(ItemHandler.dolly));
-        
+        */
     }
 
 }

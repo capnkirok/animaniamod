@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.pigs.ai.EntityAIFollowMatePigs;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
 import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
 import com.google.common.base.Optional;
@@ -50,6 +51,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		super.initEntityAI();
 		this.tasks.addTask(8, new EntityAIMatePigs(this, 1.0D));
+		this.tasks.addTask(9, new EntityAIFollowMatePigs(this, 1.1D));
 
 	}
 	

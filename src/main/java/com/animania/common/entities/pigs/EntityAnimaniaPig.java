@@ -94,13 +94,11 @@ public class EntityAnimaniaPig extends EntityAnimal
 		this.tasks.addTask(2, new EntityAIWanderPig(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIFindFood(this, 1.0D));
-		this.tasks.addTask(6, new EntityAIWanderPig(this, 1.0D));
 		this.tasks.addTask(7, new EntityAIPanicPigs(this, 1.5D));
 		this.tasks.addTask(9, new EntityAITempt(this, 1.2D, Items.CARROT_ON_A_STICK, false));
 		this.tasks.addTask(10, new EntityAITempt(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
 		this.tasks.addTask(10, new EntityAITemptItemStack(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
 		this.tasks.addTask(11, this.entityAIEatGrass);
-		this.tasks.addTask(12, new EntityAIWanderPig(this, 1.0D));
 		this.tasks.addTask(13, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new EntityAILookIdle(this));
 
