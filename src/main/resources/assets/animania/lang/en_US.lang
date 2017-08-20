@@ -255,6 +255,10 @@ entity.animania:frog.name=Frog
 entity.animania:toad.name=Toad
 entity.animania:dartfrog.name=Tree Frog
 
+entity.animania:buck_alpine.name=Alpine Buck
+entity.animania:doe_alpine.name=Alpine Buck
+entity.animania:kid_alpine.name=Alpine Buck
+
 death.attack.bull=%1$s was gored to death
 death.attack.pepe=%1$s was memed to death
 

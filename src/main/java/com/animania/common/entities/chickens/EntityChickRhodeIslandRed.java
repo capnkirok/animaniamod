@@ -1,7 +1,5 @@
 package com.animania.common.entities.chickens;
 
-import java.util.Random;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 

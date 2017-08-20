@@ -1,7 +1,5 @@
 package com.animania.common.entities.pigs;
 
-import com.animania.common.handler.ItemHandler;
-
 import net.minecraft.init.Items;
 import net.minecraft.world.World;
 

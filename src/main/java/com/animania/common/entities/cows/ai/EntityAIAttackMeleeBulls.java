@@ -1,11 +1,6 @@
 package com.animania.common.entities.cows.ai;
 
-import com.animania.common.entities.cows.EntityBullAngus;
 import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.cows.EntityBullFriesian;
-import com.animania.common.entities.cows.EntityBullHereford;
-import com.animania.common.entities.cows.EntityBullHolstein;
-import com.animania.common.entities.cows.EntityBullLonghorn;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -51,27 +46,12 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
             return false;
         else {
 
-            if (this.attacker instanceof EntityBullAngus) {
-                EntityBullAngus eb = (EntityBullAngus) this.attacker;
+            if (this.attacker instanceof EntityBullBase) {
+            	EntityBullBase eb = (EntityBullBase) this.attacker;
                 eb.setFighting(true);
                 eb.entityAIEatGrass.eatingGrassTimer = 0;
             }
-            else if (this.attacker instanceof EntityBullHolstein) {
-                EntityBullHolstein eb = (EntityBullHolstein) this.attacker;
-                eb.setFighting(true);
-            }
-            else if (this.attacker instanceof EntityBullFriesian) {
-                EntityBullFriesian eb = (EntityBullFriesian) this.attacker;
-                eb.setFighting(true);
-            }
-            else if (this.attacker instanceof EntityBullHereford) {
-                EntityBullHereford eb = (EntityBullHereford) this.attacker;
-                eb.setFighting(true);
-            }
-            else if (this.attacker instanceof EntityBullLonghorn) {
-                EntityBullLonghorn eb = (EntityBullLonghorn) this.attacker;
-                eb.setFighting(true);
-            }
+            
 
             this.entityPathEntity = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
 

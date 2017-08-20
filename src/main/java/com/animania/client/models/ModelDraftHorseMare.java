@@ -69,7 +69,6 @@ public class ModelDraftHorseMare extends ModelBase
 		Body.addBox( -7F, -7F, -16F, 14, 14, 32);
 		Body.setRotationPoint( 0F, -3F, 3F );
 
-
 		TailNode = new ModelRenderer( this, 108, 108 );
 		TailNode.setTextureSize( 128, 128 );
 		TailNode.addBox( 0F, 0F, 0F, 0, 0, 0);
@@ -129,7 +128,6 @@ public class ModelDraftHorseMare extends ModelBase
 		BackLeftFluffb.setTextureSize( 128, 128 );
 		BackLeftFluffb.addBox( -1F, -1.5F, -2F, 1, 9, 4);
 		BackLeftFluffb.setRotationPoint( 5.000259F - 5F, 15.18772F+ 1F, 18.3578F - 14F);
-
 
 		BackRightMuscle = new ModelRenderer( this, 60, 2 );
 		BackRightMuscle.setTextureSize( 128, 128 );
@@ -235,7 +233,6 @@ public class ModelDraftHorseMare extends ModelBase
 		FrontRightFluffb.setTextureSize( 128, 128 );
 		FrontRightFluffb.addBox( -1F, -1.5F, -2F, 1, 9, 4);
 		FrontRightFluffb.setRotationPoint( -4.999883F + 4F, 15.18012F + 1F, -5.998679F  + 8F );
-
 
 		HeadNode = new ModelRenderer( this, 87, 46 );
 		HeadNode.setTextureSize( 128, 128 );

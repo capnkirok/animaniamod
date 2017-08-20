@@ -1,7 +1,5 @@
 package com.animania.common.entities.chickens;
 
-import com.animania.common.entities.peacocks.EntityPeachickBase;
-import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.util.ResourceLocation;

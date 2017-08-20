@@ -26,7 +26,7 @@ public class RenderBuckAlpine<T extends EntityBuckAlpine> extends RenderLiving<T
     Random                                rand             = new Random();
 
     public RenderBuckAlpine(RenderManager rm) {
-        super(rm, new ModelBuckAlpine(), 0.75F);
+        super(rm, new ModelBuckAlpine(), 0.5F);
     }
 
     protected ResourceLocation getGoatTextures(T par1EntityCow) {
