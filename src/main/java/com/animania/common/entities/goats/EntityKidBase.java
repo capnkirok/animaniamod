@@ -6,12 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.pigs.EntityHogBase;
-import com.animania.common.entities.pigs.EntityPigletBase;
-import com.animania.common.entities.pigs.EntitySowBase;
-import com.animania.common.entities.pigs.PigType;
-import com.animania.common.entities.pigs.ai.EntityAIFollowParentPigs;
+import com.animania.common.entities.goats.ai.EntityAIFollowParentGoats;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
@@ -48,7 +43,7 @@ public class EntityKidBase extends EntityAnimaniaGoat
 	protected void initEntityAI()
 	{
 		super.initEntityAI();
-		//this.tasks.addTask(1, new EntityAIFollowParentGoats(this, 1.1D));
+		this.tasks.addTask(1, new EntityAIFollowParentGoats(this, 1.1D));
 	}
 	
 	@Override

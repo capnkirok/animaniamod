@@ -4,6 +4,7 @@ import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.amphibians.AmphibianType;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.cows.CowType;
+import com.animania.common.entities.goats.GoatType;
 import com.animania.common.entities.horses.HorseType;
 import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.entities.pigs.PigType;
@@ -262,25 +263,52 @@ public class ItemHandler
     public static Item entityeggdrafthorsemare;
     public static Item entityeggdrafthorsefoal;
 
-    // Eggs - Rodents
+    // Eggs - Amphibians
     public static Item entityeggfrog;
     public static Item entityeggtoad;
     public static Item entityeggdartfrog;
-
+    
+    // Eggs - Goats
+    public static Item entityeggkidalpine;
+    public static Item entityeggbuckalpine;
+    public static Item entityeggdoealpine;
+    
+    public static Item entityeggkidangora;
+    public static Item entityeggbuckangora;
+    public static Item entityeggdoeangora;
+    
+    public static Item entityeggkidfainting;
+    public static Item entityeggbuckfainting;
+    public static Item entityeggdoefainting;
+    
+    public static Item entityeggkidkiko;
+    public static Item entityeggbuckkiko;
+    public static Item entityeggdoekiko;
+    
+    public static Item entityeggkidkinder;
+    public static Item entityeggbuckkinder;
+    public static Item entityeggdoekinder;
+    
+    public static Item entityeggkidnigeriandwarf;
+    public static Item entityeggbucknigeriandwarf;
+    public static Item entityeggdoenigeriandwarf;
+    
+    public static Item entityeggkidpygmy;
+    public static Item entityeggbuckpygmy;
+    public static Item entityeggdoepygmy;
+  
     public static void preInit() {
         // ITEMS
         // Items for Animals
         ItemHandler.hamsterFood = new ItemHamsterFood();
         ItemHandler.truffle = new ItemTruffle();
         ItemHandler.carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
-        //ItemHandler.cheeseMold = new ItemCheeseMold();
         ItemHandler.peacockFeatherBlue = new ItemPeacockFeather("blue");
         ItemHandler.peacockFeatherWhite = new ItemPeacockFeather("white");
         ItemHandler.ridingCrop = new ItemRidingCrop();
         ItemHandler.hamsterBallClear = new ItemHamsterBall(false, "hamster_ball_clear");
         ItemHandler.hamsterBallColored = new ItemHamsterBall(true, "hamster_ball_colored");
-        
-        
+  
         // Other foods
         ItemHandler.ultimateOmelette = new ItemAnimaniaFood(5, 5f, "super_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false), new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false), new PotionEffect(MobEffects.RESISTANCE, 600, 1, false, false));
         ItemHandler.truffleOmelette = new ItemOmelette("truffle");
@@ -456,11 +484,40 @@ public class ItemHandler
         ItemHandler.entityeggfrog = new ItemEntityEgg("frog", AmphibianType.FROG, EntityGender.MALE);
         ItemHandler.entityeggtoad = new ItemEntityEgg("toad", AmphibianType.TOAD, EntityGender.MALE);
         ItemHandler.entityeggdartfrog = new ItemEntityEgg("dart_frog", AmphibianType.DART_FROG, EntityGender.MALE);
-
+        
         // HORSES
         entityeggdrafthorsestallion = new ItemEntityEgg("draft_horse_stallion", HorseType.DRAFT, EntityGender.MALE);
         entityeggdrafthorsemare = new ItemEntityEgg("draft_horse_mare", HorseType.DRAFT, EntityGender.FEMALE);
         entityeggdrafthorsefoal = new ItemEntityEgg("draft_horse_foal", HorseType.DRAFT, EntityGender.CHILD);
+        
+        // GOATS
+        ItemHandler.entityeggkidalpine = new ItemEntityEgg("kid_alpine", GoatType.ALPINE, EntityGender.CHILD);
+        ItemHandler.entityeggbuckalpine = new ItemEntityEgg("buck_alpine", GoatType.ALPINE, EntityGender.MALE);
+        ItemHandler.entityeggdoealpine = new ItemEntityEgg("doe_alpine", GoatType.ALPINE, EntityGender.FEMALE);
+        
+        ItemHandler.entityeggkidangora = new ItemEntityEgg("kid_angora", GoatType.ANGORA, EntityGender.CHILD);
+        ItemHandler.entityeggbuckangora = new ItemEntityEgg("buck_angora", GoatType.ANGORA, EntityGender.MALE);
+        ItemHandler.entityeggdoeangora = new ItemEntityEgg("doe_angora", GoatType.ANGORA, EntityGender.FEMALE);
+        
+        ItemHandler.entityeggkidfainting = new ItemEntityEgg("kid_fainting", GoatType.FAINTING, EntityGender.CHILD);
+        ItemHandler.entityeggbuckfainting = new ItemEntityEgg("buck_fainting", GoatType.FAINTING, EntityGender.MALE);
+        ItemHandler.entityeggdoefainting = new ItemEntityEgg("doe_fainting", GoatType.FAINTING, EntityGender.FEMALE);
+        
+        ItemHandler.entityeggkidkiko = new ItemEntityEgg("kid_kiko", GoatType.KIKO, EntityGender.CHILD);
+        ItemHandler.entityeggbuckkiko = new ItemEntityEgg("buck_kiko", GoatType.KIKO, EntityGender.MALE);
+        ItemHandler.entityeggdoekiko = new ItemEntityEgg("doe_kiko", GoatType.KIKO, EntityGender.FEMALE);
+        
+        ItemHandler.entityeggkidkinder = new ItemEntityEgg("kid_kinder", GoatType.KINDER, EntityGender.CHILD);
+        ItemHandler.entityeggbuckkinder = new ItemEntityEgg("buck_kinder", GoatType.KINDER, EntityGender.MALE);
+        ItemHandler.entityeggdoekinder = new ItemEntityEgg("doe_kinder", GoatType.KINDER, EntityGender.FEMALE);
+        
+        ItemHandler.entityeggkidnigeriandwarf = new ItemEntityEgg("kid_nigeriandwarf", GoatType.NIGERIAN_DWARF, EntityGender.CHILD);
+        ItemHandler.entityeggbucknigeriandwarf = new ItemEntityEgg("buck_nigeriandwarf", GoatType.NIGERIAN_DWARF, EntityGender.MALE);
+        ItemHandler.entityeggdoenigeriandwarf = new ItemEntityEgg("doe_nigeriandwarf", GoatType.NIGERIAN_DWARF, EntityGender.FEMALE);
+        
+        ItemHandler.entityeggkidpygmy = new ItemEntityEgg("kid_pygmy", GoatType.PYGMY, EntityGender.CHILD);
+        ItemHandler.entityeggbuckpygmy = new ItemEntityEgg("buck_pygmy", GoatType.PYGMY, EntityGender.MALE);
+        ItemHandler.entityeggdoepygmy = new ItemEntityEgg("doe_pygmy", GoatType.PYGMY, EntityGender.FEMALE);
 
     }
 }

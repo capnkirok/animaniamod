@@ -1,28 +1,21 @@
 package com.animania.common.entities.goats;
 
 import java.util.Set;
-import java.util.UUID;
 
-import javax.annotation.Nullable;
-
-import com.animania.common.AnimaniaAchievements;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.ai.EntityAICowEatGrass;
-import com.animania.common.entities.cows.ai.EntityAIFindFood;
-import com.animania.common.entities.cows.ai.EntityAIFindWater;
-import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
-import com.animania.common.entities.cows.ai.EntityAIWanderCow;
+import com.animania.common.entities.goats.ai.EntityAIFindFood;
+import com.animania.common.entities.goats.ai.EntityAIFindWater;
+import com.animania.common.entities.goats.ai.EntityAIGoatEatGrass;
+import com.animania.common.entities.goats.ai.EntityAISwimmingGoats;
+import com.animania.common.entities.goats.ai.EntityAIWatchClosestGoats;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,12 +29,10 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -61,22 +52,22 @@ public class EntityAnimaniaGoat extends EntityAnimal
 	public GoatType goatType;
 	protected Item dropRaw = Items.BEEF;
 	protected Item dropCooked = Items.COOKED_BEEF;
-	// public EntityAIGoatEatGrass entityAIEatGrass;
+	public EntityAIGoatEatGrass entityAIEatGrass;
 
 	public EntityAnimaniaGoat(World worldIn)
 	{
 		super(worldIn);
 		this.tasks.taskEntries.clear();
-		// this.entityAIEatGrass = new EntityAICowEatGrass(this);
+		this.entityAIEatGrass = new EntityAIGoatEatGrass(this);
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
-		this.tasks.addTask(4, new EntityAIWanderCow(this, 1.0D));
-		this.tasks.addTask(5, new EntityAISwimmingCows(this));
+		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
+		this.tasks.addTask(5, new EntityAISwimmingGoats(this));
 		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
-		// this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(8, this.entityAIEatGrass);
+		this.tasks.addTask(10, new EntityAIWatchClosestGoats(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);

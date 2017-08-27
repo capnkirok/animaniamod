@@ -7,9 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.pigs.EntityHogBase;
-import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
+import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.helper.AnimaniaHelper;
 import com.google.common.base.Optional;
 
@@ -47,7 +45,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat
 	protected void initEntityAI()
 	{
 		super.initEntityAI();
-		//this.tasks.addTask(8, new EntityAIMateGoats(this, 1.0D));
+		this.tasks.addTask(8, new EntityAIMateGoats(this, 1.0D));
 
 	}
 	

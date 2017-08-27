@@ -16,7 +16,6 @@ import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
 import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
 import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
 import com.animania.common.entities.rodents.ai.EntityAITemptHamster;
-import com.animania.common.entities.rodents.ai.EntityAIWanderRodent;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.handler.PatreonHandler;
@@ -34,6 +33,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
 import net.minecraft.entity.ai.EntityAIMate;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -100,7 +100,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public EntityHamster(World world)
 	{
 		super(world);
-		this.setHealth(10);
+		this.setHealth(6);
 		this.yOffset = 0.1F;
 		this.setSize(0.5F, 0.3F);
 		this.stepHeight = 1.0F;
@@ -125,7 +125,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.tasks.addTask(1, new EntityAIPanicRodents(this, 1.4D));
 		this.tasks.addTask(2, new EntityAISwimmingRodents(this));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
-		this.tasks.addTask(4, new EntityAIWanderRodent(this, 1.2D));
+		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.1D));
 		this.tasks.addTask(5, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(6, new EntityAITemptHamster(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
 		this.tasks.addTask(2, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));

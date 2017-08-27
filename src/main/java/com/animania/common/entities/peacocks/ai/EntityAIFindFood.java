@@ -3,12 +3,6 @@ package com.animania.common.entities.peacocks.ai;
 import java.util.Random;
 
 import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
-import com.animania.common.entities.peacocks.EntityPeachickBlue;
-import com.animania.common.entities.peacocks.EntityPeachickWhite;
-import com.animania.common.entities.peacocks.EntityPeacockBlue;
-import com.animania.common.entities.peacocks.EntityPeacockWhite;
-import com.animania.common.entities.peacocks.EntityPeafowlBlue;
-import com.animania.common.entities.peacocks.EntityPeafowlWhite;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
@@ -82,12 +76,9 @@ public class EntityAIFindFood extends EntityAIBase
 			if (poschk == BlockHandler.blockSeeds || poschk1 == BlockHandler.blockSeeds || poschk2 == BlockHandler.blockSeeds
 					|| poschk3 == BlockHandler.blockSeeds || poschk4 == BlockHandler.blockSeeds) {
 
-				if (this.temptedEntity instanceof EntityPeachickBlue) {
-					EntityPeachickBlue entity = (EntityPeachickBlue) this.temptedEntity;
-					entity.setFed(true);
-				}
-				else if (this.temptedEntity instanceof EntityAnimaniaPeacock) {
-					EntityPeachickWhite entity = (EntityPeachickWhite) this.temptedEntity;
+				
+				if (this.temptedEntity instanceof EntityAnimaniaPeacock) {
+					EntityAnimaniaPeacock entity = (EntityAnimaniaPeacock) this.temptedEntity;
 					entity.setFed(true);
 				}
 				

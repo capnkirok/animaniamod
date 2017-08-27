@@ -309,11 +309,13 @@ public class CommonConfig
         public int     spawnLimitHorses             = 40;
         @Comment("Spawn limit for Goats in loaded chunks")
         public int     spawnLimitGoats            = 40;
+        @Comment("Spawn limit for Sheep in loaded chunks")
+        public int     spawnLimitSheep            = 40;
         
         @Comment("Spawn probability Cows")
         public int     spawnProbabilityCows       = 12;
         @Comment("Spawn probability Horses")
-        public int     spawnProbabilityHorses     = 8;
+        public int     spawnProbabilityHorses     = 12;
         @Comment("Spawn probability Sows")
         public int     spawnProbabilitySows       = 12;
         @Comment("Spawn probability Hens")
@@ -329,7 +331,9 @@ public class CommonConfig
         @Comment("Spawn probability Amphibians")
         public int     spawnProbabilityAmphibians = 10;
         @Comment("Spawn probability Goats")
-        public int     spawnProbabilityGoats = 10;
+        public int     spawnProbabilityGoats = 12;
+        @Comment("Spawn probability Sheep")
+        public int     spawnProbabilitySheep = 12;
         
         @Comment("Number of potential Cow families per chunk")
         public int     numberCowFamilies          = 2;
@@ -338,7 +342,7 @@ public class CommonConfig
         @Comment("Number of potential Chicken families per chunk")
         public int     numberChickenFamilies      = 1;
         @Comment("Number of potential Horse families per chunk")
-        public int     numberHorseFamilies      = 1;
+        public int     numberHorseFamilies      = 2;
         @Comment("Number of potential Goat families per chunk")
         public int     numberGoatFamilies      = 1;
     }

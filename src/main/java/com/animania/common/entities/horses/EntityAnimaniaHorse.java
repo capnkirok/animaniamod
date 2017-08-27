@@ -13,7 +13,6 @@ import com.animania.common.entities.horses.ai.EntityAIMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
 import com.animania.common.entities.horses.ai.EntityAISwimmingHorse;
 import com.animania.common.entities.horses.ai.EntityAITemptHorses;
-import com.animania.common.entities.horses.ai.EntityAIWanderHorse;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
@@ -23,9 +22,10 @@ import com.google.common.collect.Sets;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -43,7 +43,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaHorse extends EntityAnimal
+public class EntityAnimaniaHorse extends EntityHorse
 {
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] {Items.WHEAT, Items.APPLE, Items.CARROT});
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
@@ -71,14 +71,14 @@ public class EntityAnimaniaHorse extends EntityAnimal
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityHorseEatGrass(this);
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
-		this.tasks.addTask(1, new EntityAIPanicHorses(this, 2.0D));
-		this.tasks.addTask(5, new EntityAIMateHorses(this, 1.0D));
-		this.tasks.addTask(1, new EntityAIFollowMateHorses(this, 1.1D));
-		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
-		this.tasks.addTask(4, new EntityAIWanderHorse(this, 1.0D));
-		this.tasks.addTask(5, new EntityAISwimmingHorse(this));
-		this.tasks.addTask(7, new EntityAITemptHorses(this, 1.25D, false, TEMPTATION_ITEMS));
-		this.tasks.addTask(8, this.entityAIEatGrass);
+		this.tasks.addTask(2, new EntityAIPanicHorses(this, 2.0D));
+		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
+		this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
+		this.tasks.addTask(5, new EntityAIFindWater(this, 1.0D));
+		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
+		this.tasks.addTask(7, new EntityAISwimmingHorse(this));
+		this.tasks.addTask(8, new EntityAITemptHorses(this, 1.25D, false, TEMPTATION_ITEMS));
+		this.tasks.addTask(9, this.entityAIEatGrass);
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));

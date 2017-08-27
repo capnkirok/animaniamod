@@ -25,6 +25,6 @@ public class EventsHandler
         MinecraftForge.EVENT_BUS.register(new RemoveVanillaSpawns());
         MinecraftForge.EVENT_BUS.register(new EntityEventHandler());
         MinecraftForge.EVENT_BUS.register(new CapabilityLoadHandler());
-
+       
     }
 }

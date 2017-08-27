@@ -7,7 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.pigs.EntityHogBase;
+import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -50,7 +50,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat
 	protected void initEntityAI()
 	{
 		super.initEntityAI();
-		//	this.tasks.addTask(8, new EntityAIMateGoats(this, 1.0D));
+		this.tasks.addTask(8, new EntityAIMateGoats(this, 1.0D));
 
 	}
 
@@ -81,7 +81,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat
 
 		if (goatCount <= AnimaniaConfig.spawn.spawnLimitGoats)
 		{
-
+			
 			int chooser = this.rand.nextInt(5);
 
 			if (chooser == 0)

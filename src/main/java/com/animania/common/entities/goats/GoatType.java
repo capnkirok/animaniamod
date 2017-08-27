@@ -5,22 +5,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import com.animania.common.entities.AnimaniaType;
-import com.animania.common.entities.pigs.EntityHogBase;
-import com.animania.common.entities.pigs.PigType;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
 public enum GoatType implements AnimaniaType
 {
-	ALPINE(EntityBuckAlpine.class, null, null, null),
-	NIGERIAN_DWARF(null, null, null, null),
-	KIKO(null, null, null, null),
-	FAINTING(null, null, null, null),
-	KINDER(null, null, null, null),
-	PYGMY(null, null, null, null),
-	ANGORA(null, null, null, null);
+	ALPINE(EntityBuckAlpine.class, EntityDoeAlpine.class, EntityKidAlpine.class, null),
+	ANGORA(EntityBuckAngora.class, EntityDoeAngora.class, EntityKidAngora.class, null),
+	FAINTING(EntityBuckFainting.class, EntityDoeFainting.class, EntityKidFainting.class, null),
+	KIKO(EntityBuckKiko.class, EntityDoeKiko.class, EntityKidKiko.class, null),
+	KINDER(EntityBuckKinder.class, EntityDoeKinder.class, EntityKidKinder.class, null),
+	NIGERIAN_DWARF(EntityBuckNigerianDwarf.class, EntityDoeNigerianDwarf.class, EntityKidNigerianDwarf.class, null),
+	PYGMY(EntityBuckPygmy.class, EntityDoePygmy.class, EntityKidPygmy.class, null);
+	
 
 	private Class male;
 	private Class female;

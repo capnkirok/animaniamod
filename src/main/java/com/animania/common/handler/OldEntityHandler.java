@@ -334,8 +334,8 @@ public class OldEntityHandler
 			ResourceLocation ho3 = new ResourceLocation("animania:textures/entity/horses/draft_horse_white.png");
 			EntityRegistry.registerModEntity(ho3, EntityFoalDraftHorse.class, "animania.FoalDraftHorse", AnimaniaConfig.entity.FoalDraftHorseID, Animania.MODID, 64, 3, true);
 
-			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 1, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
-			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 1, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
+			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 2, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 2, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
 
 
 		}

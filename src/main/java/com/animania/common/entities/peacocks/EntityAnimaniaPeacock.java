@@ -14,8 +14,8 @@ import com.animania.common.entities.peacocks.ai.EntityAIFindFood;
 import com.animania.common.entities.peacocks.ai.EntityAIFindWater;
 import com.animania.common.entities.peacocks.ai.EntityAIPanicPeacocks;
 import com.animania.common.entities.peacocks.ai.EntityAISwimmingPeacocks;
-import com.animania.common.entities.peacocks.ai.EntityAIWanderPeacock;
 import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
+import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
@@ -31,6 +31,7 @@ import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -73,6 +74,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	protected int damageTimer;
 	protected PeacockType type;
 	protected Item drop = null;
+	private int featherCounter;
 
 	public EntityAnimaniaPeacock(World worldIn)
 	{
@@ -83,7 +85,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		this.tasks.addTask(2, new EntityAIFindFood(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIPanicPeacocks(this, 1.4D));
 		this.tasks.addTask(4, new EntityAITempt(this, 1.0D, Items.WHEAT_SEEDS, false));
-		this.tasks.addTask(5, new EntityAIWanderPeacock(this, 1.0D));
+		this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(7, new EntityAILookIdle(this));
 		this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
@@ -95,6 +97,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		this.blinkTimer = 80 + this.rand.nextInt(80);
 		this.enablePersistence();
 		this.happyTimer = 60;
+		this.featherCounter = AnimaniaConfig.careAndFeeding.featherTimer;
 
 	}
 
@@ -120,7 +123,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		return true;
 	}
-	
+
 	@Override
 	public void fall(float distance, float damageMultiplier)
 	{
@@ -181,7 +184,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(7.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.5D);
 	}
@@ -288,6 +291,25 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 					this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + this.rand.nextFloat() * this.width - this.width, this.posY + 1.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1, d2);
 				}
 			}
+		}
+
+		if (this instanceof EntityPeacockBase && AnimaniaConfig.drops.chickensDropFeathers) {
+			this.featherCounter--;
+			if (featherCounter <= 0) {
+				featherCounter = AnimaniaConfig.careAndFeeding.featherTimer;
+				Item feather = null;
+				if (this.type == PeacockType.BLUE) {
+					feather = ItemHandler.peacockFeatherBlue;
+				} else {
+					feather = ItemHandler.peacockFeatherWhite;
+				}
+				if (feather !=null && !world.isRemote) {
+					ItemStack bob = new ItemStack(feather, 1);
+					EntityItem entityitem = new EntityItem(world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, bob);
+					world.spawnEntity(entityitem);
+				}
+			}
+
 		}
 	}
 
@@ -413,7 +435,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		return null;
 	}
-	
+
 	@Override
 	protected SoundEvent getAmbientSound()
 	{

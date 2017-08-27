@@ -11,7 +11,6 @@ import com.animania.common.entities.chickens.ai.EntityAIFindFood;
 import com.animania.common.entities.chickens.ai.EntityAIFindWater;
 import com.animania.common.entities.chickens.ai.EntityAIPanicChickens;
 import com.animania.common.entities.chickens.ai.EntityAISwimmingChicks;
-import com.animania.common.entities.chickens.ai.EntityAIWanderChickens;
 import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
@@ -24,6 +23,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
@@ -80,7 +80,7 @@ public class EntityAnimaniaChicken extends EntityChicken
 		this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
 		this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
-		this.tasks.addTask(6, new EntityAIWanderChickens(this, 1.0D));
+		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(7, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(8, new EntityAILookIdle(this));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
@@ -144,7 +144,7 @@ public class EntityAnimaniaChicken extends EntityChicken
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(4.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.29D);
 	}
 

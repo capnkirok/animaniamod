@@ -206,8 +206,37 @@ public class AnimaniaTextures
 		register(ItemHandler.entityeggdrafthorsefoal);
 		register(ItemHandler.entityeggdrafthorsemare);
 		register(ItemHandler.entityeggdrafthorsestallion);
-
-
+		
+		// Goats
+		register(ItemHandler.entityeggkidalpine);
+		register(ItemHandler.entityeggbuckalpine);
+		register(ItemHandler.entityeggdoealpine);
+		
+		register(ItemHandler.entityeggkidangora);
+		register(ItemHandler.entityeggbuckangora);
+		register(ItemHandler.entityeggdoeangora);
+		
+		register(ItemHandler.entityeggkidfainting);
+		register(ItemHandler.entityeggbuckfainting);
+		register(ItemHandler.entityeggdoefainting);
+		
+		register(ItemHandler.entityeggkidkiko);
+		register(ItemHandler.entityeggbuckkiko);
+		register(ItemHandler.entityeggdoekiko);
+		
+		register(ItemHandler.entityeggkidkinder);
+		register(ItemHandler.entityeggbuckkinder);
+		register(ItemHandler.entityeggdoekinder);
+		
+		register(ItemHandler.entityeggkidnigeriandwarf);
+		register(ItemHandler.entityeggbucknigeriandwarf);
+		register(ItemHandler.entityeggdoenigeriandwarf);
+		
+		register(ItemHandler.entityeggkidpygmy);
+		register(ItemHandler.entityeggbuckpygmy);
+		register(ItemHandler.entityeggdoepygmy);
+		
+		
 		// Blocks
 		register(Item.getItemFromBlock(BlockHandler.blockMud));
 		register(Item.getItemFromBlock(BlockHandler.blockTrough));

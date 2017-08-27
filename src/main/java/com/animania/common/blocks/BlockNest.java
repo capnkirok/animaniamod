@@ -1,5 +1,6 @@
 package com.animania.common.blocks;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.animania.common.entities.peacocks.EntityPeacockBlue;
 import com.animania.common.entities.peacocks.EntityPeacockWhite;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.ItemHelper;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.config.AnimaniaConfig;
 
@@ -845,12 +847,11 @@ public class BlockNest extends BlockContainer
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
 	{
 
-		// TODO better breakblock ?
 		TileEntityNest te = (TileEntityNest) worldIn.getTileEntity(pos);
 
-		if (te != null && te.getNestType() == 0)
-			// System.out.println(te.getNestType());
-			worldIn.removeTileEntity(te.getPos()); // by Ze' ;)
+		if (te != null && te.getNestType() == 0) {
+			worldIn.removeTileEntity(te.getPos());
+		}
 
 		super.breakBlock(worldIn, pos, state);
 	}
@@ -1093,7 +1094,7 @@ public class BlockNest extends BlockContainer
 		int nestType = te.getNestType();
 
 		System.out.println(nestType);
-		
+
 		if (nestType == 15)
 		{
 			te.setType(14);
