@@ -58,10 +58,25 @@ import com.animania.client.render.horses.RenderFoalDraftHorse;
 import com.animania.client.render.horses.RenderMareDraftHorse;
 import com.animania.client.render.horses.RenderStallionDraftHorse;
 import com.animania.client.render.peacocks.RenderPeachickBlue;
+import com.animania.client.render.peacocks.RenderPeachickCharcoal;
+import com.animania.client.render.peacocks.RenderPeachickOpal;
+import com.animania.client.render.peacocks.RenderPeachickPeach;
+import com.animania.client.render.peacocks.RenderPeachickPurple;
+import com.animania.client.render.peacocks.RenderPeachickTaupe;
 import com.animania.client.render.peacocks.RenderPeachickWhite;
 import com.animania.client.render.peacocks.RenderPeacockBlue;
+import com.animania.client.render.peacocks.RenderPeacockCharcoal;
+import com.animania.client.render.peacocks.RenderPeacockOpal;
+import com.animania.client.render.peacocks.RenderPeacockPeach;
+import com.animania.client.render.peacocks.RenderPeacockPurple;
+import com.animania.client.render.peacocks.RenderPeacockTaupe;
 import com.animania.client.render.peacocks.RenderPeacockWhite;
 import com.animania.client.render.peacocks.RenderPeafowlBlue;
+import com.animania.client.render.peacocks.RenderPeafowlCharcoal;
+import com.animania.client.render.peacocks.RenderPeafowlOpal;
+import com.animania.client.render.peacocks.RenderPeafowlPeach;
+import com.animania.client.render.peacocks.RenderPeafowlPurple;
+import com.animania.client.render.peacocks.RenderPeafowlTaupe;
 import com.animania.client.render.peacocks.RenderPeafowlWhite;
 import com.animania.client.render.pigs.RenderHogDuroc;
 import com.animania.client.render.pigs.RenderHogHampshire;
@@ -147,10 +162,25 @@ import com.animania.common.entities.horses.EntityFoalDraftHorse;
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.entities.peacocks.EntityPeachickBlue;
+import com.animania.common.entities.peacocks.EntityPeachickCharcoal;
+import com.animania.common.entities.peacocks.EntityPeachickOpal;
+import com.animania.common.entities.peacocks.EntityPeachickPeach;
+import com.animania.common.entities.peacocks.EntityPeachickPurple;
+import com.animania.common.entities.peacocks.EntityPeachickTaupe;
 import com.animania.common.entities.peacocks.EntityPeachickWhite;
 import com.animania.common.entities.peacocks.EntityPeacockBlue;
+import com.animania.common.entities.peacocks.EntityPeacockCharcoal;
+import com.animania.common.entities.peacocks.EntityPeacockOpal;
+import com.animania.common.entities.peacocks.EntityPeacockPeach;
+import com.animania.common.entities.peacocks.EntityPeacockPurple;
+import com.animania.common.entities.peacocks.EntityPeacockTaupe;
 import com.animania.common.entities.peacocks.EntityPeacockWhite;
 import com.animania.common.entities.peacocks.EntityPeafowlBlue;
+import com.animania.common.entities.peacocks.EntityPeafowlCharcoal;
+import com.animania.common.entities.peacocks.EntityPeafowlOpal;
+import com.animania.common.entities.peacocks.EntityPeafowlPeach;
+import com.animania.common.entities.peacocks.EntityPeafowlPurple;
+import com.animania.common.entities.peacocks.EntityPeafowlTaupe;
 import com.animania.common.entities.peacocks.EntityPeafowlWhite;
 import com.animania.common.entities.pigs.EntityHogDuroc;
 import com.animania.common.entities.pigs.EntityHogHampshire;
@@ -202,11 +232,11 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidAlpine.class, RenderKidAlpine.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckAlpine.class, RenderBuckAlpine.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoeAlpine.class, RenderDoeAlpine.FACTORY);
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidAngora.class, RenderKidAngora.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckAngora.class, RenderBuckAngora.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoeAngora.class, RenderDoeAngora.FACTORY);
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidFainting.class, RenderKidFainting.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckFainting.class, RenderBuckFainting.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoeFainting.class, RenderDoeFainting.FACTORY);
@@ -214,20 +244,20 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidKiko.class, RenderKidKiko.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckKiko.class, RenderBuckKiko.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoeKiko.class, RenderDoeKiko.FACTORY);
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidKinder.class, RenderKidKinder.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckKinder.class, RenderBuckKinder.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoeKinder.class, RenderDoeKinder.FACTORY);
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidNigerianDwarf.class, RenderKidNigerianDwarf.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckNigerianDwarf.class, RenderBuckNigerianDwarf.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoeNigerianDwarf.class, RenderDoeNigerianDwarf.FACTORY);
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidPygmy.class, RenderKidPygmy.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckPygmy.class, RenderBuckPygmy.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoePygmy.class, RenderDoePygmy.FACTORY);
-		
-		
+
+
 		// Frogs
 		RenderingRegistry.registerEntityRenderingHandler(EntityFrogs.class, RenderFrogs.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDartFrogs.class, RenderDartFrogs.FACTORY);
@@ -316,10 +346,32 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlWhite.class, RenderPeafowlWhite.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickWhite.class, RenderPeachickWhite.FACTORY);
 
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockCharcoal.class, RenderPeacockCharcoal.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlCharcoal.class, RenderPeafowlCharcoal.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickCharcoal.class, RenderPeachickCharcoal.FACTORY);
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockOpal.class, RenderPeacockOpal.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlOpal.class, RenderPeafowlOpal.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickOpal.class, RenderPeachickOpal.FACTORY);
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockPeach.class, RenderPeacockPeach.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlPeach.class, RenderPeafowlPeach.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickPeach.class, RenderPeachickPeach.FACTORY);
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockPurple.class, RenderPeacockPurple.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlPurple.class, RenderPeafowlPurple.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickPurple.class, RenderPeachickPurple.FACTORY);
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockTaupe.class, RenderPeacockTaupe.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlTaupe.class, RenderPeafowlTaupe.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickTaupe.class, RenderPeachickTaupe.FACTORY);
+
 		// Horses
 		RenderingRegistry.registerEntityRenderingHandler(EntityStallionDraftHorse.class, RenderStallionDraftHorse.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMareDraftHorse.class, RenderMareDraftHorse.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityFoalDraftHorse.class, RenderFoalDraftHorse.FACTORY);
+
+
 
 	}
 

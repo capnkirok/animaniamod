@@ -140,7 +140,6 @@ public class EntityAnimaniaCow extends EntityCow
 		if (this instanceof EntityBullBase) {
 			EntityBullBase ebb = (EntityBullBase) this;
 			if (ebb.getFighting()) {
-				System.out.println("yep");
 				return;
 			}
 		}

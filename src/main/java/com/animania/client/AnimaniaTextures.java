@@ -33,6 +33,11 @@ public class AnimaniaTextures
 		register(ItemHandler.ultimateOmelette);
 		register(ItemHandler.peacockFeatherBlue);
 		register(ItemHandler.peacockFeatherWhite);
+		register(ItemHandler.peacockFeatherCharcoal);
+		register(ItemHandler.peacockFeatherOpal);
+		register(ItemHandler.peacockFeatherPeach);
+		register(ItemHandler.peacockFeatherPurple);
+		register(ItemHandler.peacockFeatherTaupe);
 		register(ItemHandler.ridingCrop);
 		register(ItemHandler.hamsterBallClear);
 		

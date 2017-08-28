@@ -79,21 +79,8 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			return null;
 
 		int cowCount = 0;
-		int esize = this.world.loadedEntityList.size();
-		for (int k = 0; k <= esize - 1; k++)
-		{
-			Entity entity = this.world.loadedEntityList.get(k);
-			if (entity.getName().contains("Holstein") || entity.getName().contains("Friesian") || entity.getName().contains("Angus") || entity.getName().contains("Longhorn") || entity.getName().contains("Hereford"))
-			{
-				EntityAnimal ea = (EntityAnimal) entity;
-				if (ea.hasCustomName() || ea.isInLove())
-				{
-					// cowCount = cowCount - 1;
-				}
-				else
-					cowCount = cowCount + 1;
-			}
-		}
+		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 128, this.world, this);
+		cowCount = entities.size();
 
 		if (cowCount <= AnimaniaConfig.spawn.spawnLimitCows)
 		{

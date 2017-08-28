@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -68,18 +69,8 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		}
 
 		int horseCount = 0;
-		int esize = this.world.loadedEntityList.size();
-		for (int k = 0; k <= esize - 1; k++) {
-			Entity entity = (Entity) this.world.loadedEntityList.get(k);
-			if (entity.getName().contains("Draft")) {
-				EntityAnimal ea = (EntityAnimal) entity;
-				if (ea.hasCustomName() || ea.isInLove()) {
-					//do nothing
-				} else {
-					horseCount = horseCount + 1;
-				}
-			}
-		}
+		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 128, this.world, this);
+		horseCount = entities.size();
 
 		if (horseCount <= AnimaniaConfig.spawn.spawnLimitHorses) {
 

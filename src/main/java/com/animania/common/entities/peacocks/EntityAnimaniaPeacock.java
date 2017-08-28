@@ -300,6 +300,16 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 				Item feather = null;
 				if (this.type == PeacockType.BLUE) {
 					feather = ItemHandler.peacockFeatherBlue;
+				} else if (this.type == PeacockType.CHARCOAL) {
+					feather = ItemHandler.peacockFeatherCharcoal;
+				} else if (this.type == PeacockType.OPAL) {
+					feather = ItemHandler.peacockFeatherOpal;
+				} else if (this.type == PeacockType.PEACH) {
+					feather = ItemHandler.peacockFeatherPeach;
+				} else if (this.type == PeacockType.PURPLE) {
+					feather = ItemHandler.peacockFeatherPeach;
+				} else if (this.type == PeacockType.TAUPE) {
+					feather = ItemHandler.peacockFeatherPeach;
 				} else {
 					feather = ItemHandler.peacockFeatherWhite;
 				}
@@ -374,6 +384,16 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 				drop = AnimaniaConfig.drops.peacockBlueDrop;
 			if (type == PeacockType.WHITE)
 				drop = AnimaniaConfig.drops.peacockWhiteDrop;
+			if (type == PeacockType.CHARCOAL)
+				drop = AnimaniaConfig.drops.peacockCharcoalDrop;
+			if (type == PeacockType.OPAL)
+				drop = AnimaniaConfig.drops.peacockOpalDrop;
+			if (type == PeacockType.PEACH)
+				drop = AnimaniaConfig.drops.peacockPeachDrop;
+			if (type == PeacockType.PURPLE)
+				drop = AnimaniaConfig.drops.peacockPurpleDrop;
+			if (type == PeacockType.TAUPE)
+				drop = AnimaniaConfig.drops.peacockTaupeDrop;
 			dropItem = AnimaniaHelper.getItem(drop);
 		}
 		else

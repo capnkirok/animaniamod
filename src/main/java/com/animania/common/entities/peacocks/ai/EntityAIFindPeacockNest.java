@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.animania.common.entities.peacocks.EntityPeafowlBase;
 import com.animania.common.entities.peacocks.EntityPeafowlBlue;
+import com.animania.common.entities.peacocks.EntityPeafowlCharcoal;
+import com.animania.common.entities.peacocks.EntityPeafowlOpal;
+import com.animania.common.entities.peacocks.EntityPeafowlPeach;
+import com.animania.common.entities.peacocks.EntityPeafowlPurple;
+import com.animania.common.entities.peacocks.EntityPeafowlTaupe;
 import com.animania.common.entities.peacocks.EntityPeafowlWhite;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityNest;
@@ -50,18 +55,13 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 			}
 
 			if (temptedEntity instanceof EntityPeafowlBase) {
-				 EntityPeafowlBase entity = (EntityPeafowlBase)temptedEntity;
+				EntityPeafowlBase entity = (EntityPeafowlBase)temptedEntity;
 				if (!entity.getWatered() || !entity.getFed()) {
 					this.delayTemptCounter = 0;
 					return false;
 				}
-			} else if (temptedEntity instanceof EntityPeafowlWhite) {
-				EntityPeafowlWhite entity = (EntityPeafowlWhite)temptedEntity;
-				if (!entity.getWatered() || !entity.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			}
+			} 
+
 
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
 			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
@@ -69,10 +69,10 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 			if (poschk == BlockHandler.blockNest) {
 				TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(currentpos);
 
-				if (te.getNestType() == 3 || te.getNestType() == 6 || te.getNestType() == 9 || te.getNestType() == 12 || te.getNestType() == 15 || te.getNestType() == 18 || te.getNestType() == 21) {
+				if (te.getNestType() == 3 || te.getNestType() == 6 || te.getNestType() == 9 || te.getNestType() == 12 || te.getNestType() == 15 || te.getNestType() == 18 || te.getNestType() == 21 || te.getNestType() == 24 || te.getNestType() == 27 || te.getNestType() == 30 || te.getNestType() == 33 || te.getNestType() == 36) {
 					return false;
 				}
-				
+
 				if (temptedEntity instanceof EntityPeafowlBlue) {
 					EntityPeafowlBlue entity = (EntityPeafowlBlue)temptedEntity;
 
@@ -122,6 +122,126 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 						this.resetTask();
 					}
+				} else if (temptedEntity instanceof EntityPeafowlCharcoal) {
+					EntityPeafowlCharcoal entity = (EntityPeafowlCharcoal)temptedEntity;
+					if (te !=null && te.getNestType() == 0 && !entity.getLaid() ) {
+						te.setType(22);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					} else if (te !=null && te.getNestType() == 22 && !entity.getLaid() ) {
+						te.setType(23);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					} else if (te !=null && te.getNestType() == 23 && !entity.getLaid() ) {
+						te.setType(24);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					}
+				} else if (temptedEntity instanceof EntityPeafowlOpal) {
+					EntityPeafowlOpal entity = (EntityPeafowlOpal)temptedEntity;
+					if (te !=null && te.getNestType() == 0 && !entity.getLaid() ) {
+						te.setType(25);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					} else if (te !=null && te.getNestType() == 25 && !entity.getLaid() ) {
+						te.setType(26);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					} else if (te !=null && te.getNestType() == 26 && !entity.getLaid() ) {
+						te.setType(27);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					}
+				} else if (temptedEntity instanceof EntityPeafowlPeach) {
+					EntityPeafowlPeach entity = (EntityPeafowlPeach)temptedEntity;
+					if (te !=null && te.getNestType() == 0 && !entity.getLaid() ) {
+						te.setType(28);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					} else if (te !=null && te.getNestType() == 28 && !entity.getLaid() ) {
+						te.setType(29);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					} else if (te !=null && te.getNestType() == 29 && !entity.getLaid() ) {
+						te.setType(30);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					}
+				} else if (temptedEntity instanceof EntityPeafowlPurple) {
+					EntityPeafowlPurple entity = (EntityPeafowlPurple)temptedEntity;
+					if (te !=null && te.getNestType() == 0 && !entity.getLaid() ) {
+						te.setType(31);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					} else if (te !=null && te.getNestType() == 31 && !entity.getLaid() ) {
+						te.setType(32);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					} else if (te !=null && te.getNestType() == 32 && !entity.getLaid() ) {
+						te.setType(33);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					}
+				} else if (temptedEntity instanceof EntityPeafowlTaupe) {
+					EntityPeafowlTaupe entity = (EntityPeafowlTaupe)temptedEntity;
+					if (te !=null && te.getNestType() == 0 && !entity.getLaid() ) {
+						te.setType(34);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					} else if (te !=null && te.getNestType() == 34 && !entity.getLaid() ) {
+						te.setType(35);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					} else if (te !=null && te.getNestType() == 35 && !entity.getLaid() ) {
+						te.setType(36);
+						te.markDirty();
+						entity.setLaid(true);
+						this.temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 1);
+						this.temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+						this.resetTask();
+					}
 				}
 				return false;
 			}
@@ -146,13 +266,28 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 							int nestType = te.getNestType();
 
-							if (nestType == 30) { 
+							if (nestType == 40) { 
 								//do nothing
 							} else {
 								if (temptedEntity instanceof EntityPeafowlBlue && (nestType == 0 || nestType == 16 || nestType == 17 || nestType == 18)) {
 									nestFound = true;
 									return true;
 								} else if (temptedEntity instanceof EntityPeafowlWhite && (nestType == 0 || nestType == 19 || nestType == 20  || nestType == 21)) {
+									nestFound = true;
+									return true;
+								} else if (temptedEntity instanceof EntityPeafowlCharcoal && (nestType == 0 || nestType == 22 || nestType == 23  || nestType == 24)) {
+									nestFound = true;
+									return true;
+								} else if (temptedEntity instanceof EntityPeafowlOpal && (nestType == 0 || nestType == 25 || nestType == 26  || nestType == 27)) {
+									nestFound = true;
+									return true;
+								} else if (temptedEntity instanceof EntityPeafowlPeach && (nestType == 0 || nestType == 28 || nestType == 29  || nestType == 30)) {
+									nestFound = true;
+									return true;
+								} else if (temptedEntity instanceof EntityPeafowlPurple && (nestType == 0 || nestType == 31 || nestType == 32  || nestType == 33)) {
+									nestFound = true;
+									return true;
+								} else if (temptedEntity instanceof EntityPeafowlTaupe && (nestType == 0 || nestType == 34 || nestType == 35  || nestType == 36)) {
 									nestFound = true;
 									return true;
 								} 
@@ -175,7 +310,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 
 		return this.shouldExecute();
 	}
-	
+
 	public void startExecuting()
 	{	
 		this.isRunning = true;
@@ -216,12 +351,22 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 
 							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 							int nestType = te.getNestType();
-							if (nestType == 20) { 
+							if (nestType == 40) { 
 								//do nothing
 							} else {
-								if (temptedEntity instanceof EntityPeafowlBlue && (nestType == 0 || nestType == 1 || nestType == 2 || nestType == 3)) {
+								if (temptedEntity instanceof EntityPeafowlBlue && (nestType == 0 || nestType == 16 || nestType == 17 || nestType == 18)) {
 									nestFound = true;
-								} else if (temptedEntity instanceof EntityPeafowlWhite && (nestType == 0 || nestType == 4 || nestType == 5 || nestType == 6)) {
+								} else if (temptedEntity instanceof EntityPeafowlBase && (nestType == 0 || nestType == 19 || nestType == 20 || nestType == 21)) {
+									nestFound = true;
+								} else if (temptedEntity instanceof EntityPeafowlCharcoal && (nestType == 0 || nestType == 22 || nestType == 23  || nestType == 24)) {
+									nestFound = true;
+								} else if (temptedEntity instanceof EntityPeafowlOpal && (nestType == 0 || nestType == 25 || nestType == 26  || nestType == 27)) {
+									nestFound = true;
+								} else if (temptedEntity instanceof EntityPeafowlPeach && (nestType == 0 || nestType == 28 || nestType == 29  || nestType == 30)) {
+									nestFound = true;
+								} else if (temptedEntity instanceof EntityPeafowlPurple && (nestType == 0 || nestType == 31 || nestType == 32  || nestType == 33)) {
+									nestFound = true;
+								} else if (temptedEntity instanceof EntityPeafowlTaupe && (nestType == 0 || nestType == 34 || nestType == 35  || nestType == 36)) {
 									nestFound = true;
 								} 
 							}

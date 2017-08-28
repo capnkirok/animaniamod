@@ -120,15 +120,15 @@ public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntity
 				animateTicks = 15.0F;
 				break;
 			case 16:
-				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE2);
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
 				animateTicks = 16.0F;
 				break;
 			case 17:
-				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE2);
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
 				animateTicks = 17.0F;
 				break;
 			case 18:
-				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE2);
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
 				animateTicks = 18.0F;
 				break;
 			case 19:
@@ -143,6 +143,66 @@ public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntity
 				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
 				animateTicks = 21.0F;
 				break;
+			case 22:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 22.0F;
+				break;
+			case 23:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 23.0F;
+				break;
+			case 24:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 24.0F;
+				break;
+			case 25:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 25.0F;
+				break;
+			case 26:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 26.0F;
+				break;
+			case 27:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 27.0F;
+				break;
+			case 28:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 28.0F;
+				break;
+			case 29:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 29.0F;
+				break;
+			case 30:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 30.0F;
+				break;
+			case 31:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 31.0F;
+				break;
+			case 32:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 32.0F;
+				break;
+			case 33:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 33.0F;
+				break;
+			case 34:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 34.0F;
+				break;
+			case 35:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 35.0F;
+				break;
+			case 36:
+				this.bindTexture(TileEntityNestRenderer.NEST_TEXTURE);
+				animateTicks = 36.0F;
+				break;	
 			}
 
 

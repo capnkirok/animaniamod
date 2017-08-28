@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
@@ -63,21 +64,8 @@ public class EntityDoeBase extends EntityAnimaniaGoat
 			return null;
 
 		int goatCount = 0;
-		int esize = this.world.loadedEntityList.size();
-		for (int k = 0; k <= esize - 1; k++)
-		{
-			Entity entity = this.world.loadedEntityList.get(k);
-			if (entity instanceof EntityAnimaniaGoat)
-			{
-				EntityAnimal ea = (EntityAnimal) entity;
-				if (ea.hasCustomName() || ea.isInLove())
-				{
-					// pigCount = pigCount - 1;
-				}
-				else
-					goatCount = goatCount + 1;
-			}
-		}
+		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaGoat.class, 128, this.world, this);
+		goatCount = entities.size();
 
 		if (goatCount <= AnimaniaConfig.spawn.spawnLimitGoats)
 		{

@@ -3,8 +3,8 @@ package com.animania.common.entities.goats.ai;
 import java.util.List;
 import java.util.Random;
 
+import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.common.entities.goats.EntityDoeBase;
-import com.animania.common.entities.horses.EntityStallionBase;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.ai.EntityAIBase;
@@ -42,8 +42,8 @@ public class EntityAIMateGoats extends EntityAIBase
 				EntityDoeBase ec = (EntityDoeBase) this.theAnimal;
 				if (ec.getMateUniqueId() != null)
 					return false;
-			} else if (this.theAnimal instanceof EntityStallionBase) {
-				EntityStallionBase ec = (EntityStallionBase) this.theAnimal;
+			} else if (this.theAnimal instanceof EntityBuckBase) {
+				EntityBuckBase ec = (EntityBuckBase) this.theAnimal;
 				if (ec.getMateUniqueId() != null)
 					return false;
 			}
@@ -94,10 +94,10 @@ public class EntityAIMateGoats extends EntityAIBase
 			}
 
 
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityStallionBase.class, 5, this.theAnimal.world, this.theAnimal);
+			List entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 5, this.theAnimal.world, this.theAnimal);
 
 			for (int k = 0; k <= entities.size() - 1; k++) {
-				EntityStallionBase entity = (EntityStallionBase)entities.get(k); 
+				EntityBuckBase entity = (EntityBuckBase)entities.get(k); 
 
 				this.courtshipTimer--;
 
@@ -120,11 +120,11 @@ public class EntityAIMateGoats extends EntityAIBase
 
 			} 
 
-		} else if (this.theAnimal instanceof EntityStallionBase) {
+		} else if (this.theAnimal instanceof EntityBuckBase) {
 
 			String mateID = "";
 
-			EntityStallionBase entity2 = (EntityStallionBase) this.theAnimal;
+			EntityBuckBase entity2 = (EntityBuckBase) this.theAnimal;
 			if (entity2.getMateUniqueId() != null) {
 				mateID = entity2.getMateUniqueId().toString();
 			}
@@ -137,7 +137,7 @@ public class EntityAIMateGoats extends EntityAIBase
 				this.courtshipTimer--;
 
 				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
-					((EntityStallionBase) this.theAnimal).setMateUniqueId(entity.getUniqueID());
+					((EntityBuckBase) this.theAnimal).setMateUniqueId(entity.getUniqueID());
 					entity.setMateUniqueId(this.theAnimal.getUniqueID());
 
 					this.theAnimal.setInLove(null);

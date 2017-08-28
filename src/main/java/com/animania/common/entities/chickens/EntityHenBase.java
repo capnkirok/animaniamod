@@ -1,11 +1,15 @@
 package com.animania.common.entities.chickens;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.ai.EntityAIFindNest;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 
@@ -56,22 +60,9 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 			return null;
 
 		int chickenCount = 0;
-		int esize = this.world.loadedEntityList.size();
-		for (int k = 0; k <= esize - 1; k++)
-		{
-			Entity entity = this.world.loadedEntityList.get(k);
-			if (entity.getName().contains("Leghorn") || entity.getName().contains("Orpington") || entity.getName().contains("PlymouthRock") || entity.getName().contains("RhodeIsland") || entity.getName().contains("Wyandotte"))
-			{
-				EntityAnimal ea = (EntityAnimal) entity;
-				if (ea.hasCustomName() || ea.isInLove())
-				{
-					// chickenCount = chickenCount - 1;
-				}
-				else
-					chickenCount = chickenCount + 1;
-			}
-		}
-
+		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 128, this.world, this);
+		chickenCount = entities.size();
+		
 		if (chickenCount <= AnimaniaConfig.spawn.spawnLimitChickens)
 		{
 

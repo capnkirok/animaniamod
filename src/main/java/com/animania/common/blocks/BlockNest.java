@@ -1,6 +1,5 @@
 package com.animania.common.blocks;
 
-import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
@@ -18,12 +17,21 @@ import com.animania.common.entities.chickens.EntityRoosterPlymouthRock;
 import com.animania.common.entities.chickens.EntityRoosterRhodeIslandRed;
 import com.animania.common.entities.chickens.EntityRoosterWyandotte;
 import com.animania.common.entities.peacocks.EntityPeachickBlue;
+import com.animania.common.entities.peacocks.EntityPeachickCharcoal;
+import com.animania.common.entities.peacocks.EntityPeachickOpal;
+import com.animania.common.entities.peacocks.EntityPeachickPeach;
+import com.animania.common.entities.peacocks.EntityPeachickPurple;
+import com.animania.common.entities.peacocks.EntityPeachickTaupe;
 import com.animania.common.entities.peacocks.EntityPeachickWhite;
 import com.animania.common.entities.peacocks.EntityPeacockBlue;
+import com.animania.common.entities.peacocks.EntityPeacockCharcoal;
+import com.animania.common.entities.peacocks.EntityPeacockOpal;
+import com.animania.common.entities.peacocks.EntityPeacockPeach;
+import com.animania.common.entities.peacocks.EntityPeacockPurple;
+import com.animania.common.entities.peacocks.EntityPeacockTaupe;
 import com.animania.common.entities.peacocks.EntityPeacockWhite;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
-import com.animania.common.helper.ItemHelper;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.config.AnimaniaConfig;
 
@@ -749,6 +757,86 @@ public class BlockNest extends BlockContainer
 									hatchFlag = true;
 									k = esize;	
 								}
+							} else if (nestType == 22 || nestType == 23 | nestType == 24) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 25 || nestType == 26 | nestType == 27) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 28 || nestType == 29 | nestType == 30) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 31 || nestType == 32 | nestType == 33) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 34 || nestType == 35 | nestType == 36) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
 							}
 						}
 
@@ -802,14 +890,807 @@ public class BlockNest extends BlockContainer
 								worldIn.spawnEntity(entityChick);
 								entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
 								k = esize;	
-
+							} else if (nestType == 22 || nestType == 23 | nestType == 24) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 25 || nestType == 26 | nestType == 27) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 28 || nestType == 29 | nestType == 30) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 31 || nestType == 32 | nestType == 33) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 34 || nestType == 35 | nestType == 36) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
 							}
 						}
+
+
+						if (hatchFlag) {
+							updateNest(worldIn, pos, state, te);
+
+						}
 					}
+				} else if (entity !=null && (entity instanceof EntityPeacockCharcoal))
+				{
 
-					if (hatchFlag) {
-						updateNest(worldIn, pos, state, te);
+					boolean hatchFlag = false;
 
+					double xt = entity.posX;
+					double yt = entity.posY;
+					double zt = entity.posZ;
+					int x1 = pos.getX();
+					int y1 = pos.getY();
+					int z1 = pos.getZ();
+					double x2 = xt - x1;
+					double y2 = yt - y1;
+					double z2 = zt - z1;
+
+					if (MathHelper.abs((int)x2) < 8 && MathHelper.abs((int)y2) < 4 && MathHelper.abs((int)z2) < 8)
+					{
+
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
+						{
+							if (nestType == 16 || nestType == 17 || nestType == 18) {
+
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 19 || nestType == 20 | nestType == 21) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 22 || nestType == 23 | nestType == 24) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 25 || nestType == 26 | nestType == 27) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 28 || nestType == 29 | nestType == 30) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 31 || nestType == 32 | nestType == 33) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 34 || nestType == 35 | nestType == 36) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							}
+						}
+
+
+						if (hatchFlag) {
+							updateNest(worldIn, pos, state, te);
+
+						}
+					}
+				} else if (entity !=null && (entity instanceof EntityPeacockOpal))
+				{
+
+					boolean hatchFlag = false;
+
+					double xt = entity.posX;
+					double yt = entity.posY;
+					double zt = entity.posZ;
+					int x1 = pos.getX();
+					int y1 = pos.getY();
+					int z1 = pos.getZ();
+					double x2 = xt - x1;
+					double y2 = yt - y1;
+					double z2 = zt - z1;
+
+					if (MathHelper.abs((int)x2) < 8 && MathHelper.abs((int)y2) < 4 && MathHelper.abs((int)z2) < 8)
+					{
+
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
+						{
+							if (nestType == 16 || nestType == 17 || nestType == 18) {
+
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 19 || nestType == 20 | nestType == 21) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 22 || nestType == 23 | nestType == 24) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 25 || nestType == 26 | nestType == 27) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 28 || nestType == 29 | nestType == 30) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 31 || nestType == 32 | nestType == 33) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 34 || nestType == 35 | nestType == 36) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							}
+						}
+
+
+						if (hatchFlag) {
+							updateNest(worldIn, pos, state, te);
+
+						}
+					}
+				} else if (entity !=null && (entity instanceof EntityPeacockPeach))
+				{
+
+					boolean hatchFlag = false;
+
+					double xt = entity.posX;
+					double yt = entity.posY;
+					double zt = entity.posZ;
+					int x1 = pos.getX();
+					int y1 = pos.getY();
+					int z1 = pos.getZ();
+					double x2 = xt - x1;
+					double y2 = yt - y1;
+					double z2 = zt - z1;
+
+					if (MathHelper.abs((int)x2) < 8 && MathHelper.abs((int)y2) < 4 && MathHelper.abs((int)z2) < 8)
+					{
+
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
+						{
+							if (nestType == 16 || nestType == 17 || nestType == 18) {
+
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 19 || nestType == 20 | nestType == 21) {
+
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 22 || nestType == 23 | nestType == 24) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 25 || nestType == 26 | nestType == 27) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 28 || nestType == 29 | nestType == 30) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 31 || nestType == 32 | nestType == 33) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 34 || nestType == 35 | nestType == 36) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							}
+						}
+
+
+						if (hatchFlag) {
+							updateNest(worldIn, pos, state, te);
+
+						}
+					}
+				} else if (entity !=null && (entity instanceof EntityPeacockPurple))
+				{
+
+					boolean hatchFlag = false;
+
+					double xt = entity.posX;
+					double yt = entity.posY;
+					double zt = entity.posZ;
+					int x1 = pos.getX();
+					int y1 = pos.getY();
+					int z1 = pos.getZ();
+					double x2 = xt - x1;
+					double y2 = yt - y1;
+					double z2 = zt - z1;
+
+					if (MathHelper.abs((int)x2) < 8 && MathHelper.abs((int)y2) < 4 && MathHelper.abs((int)z2) < 8)
+					{
+
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
+						{
+							if (nestType == 16 || nestType == 17 || nestType == 18) {
+
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 19 || nestType == 20 | nestType == 21) {
+
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickWhite entityChick = new EntityPeachickWhite(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 22 || nestType == 23 | nestType == 24) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 25 || nestType == 26 | nestType == 27) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 28 || nestType == 29 | nestType == 30) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 31 || nestType == 32 | nestType == 33) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 34 || nestType == 35 | nestType == 36) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							}
+						}
+
+
+						if (hatchFlag) {
+							updateNest(worldIn, pos, state, te);
+
+						}
+					}
+				} else if (entity !=null && (entity instanceof EntityPeacockTaupe))
+				{
+
+					boolean hatchFlag = false;
+
+					double xt = entity.posX;
+					double yt = entity.posY;
+					double zt = entity.posZ;
+					int x1 = pos.getX();
+					int y1 = pos.getY();
+					int z1 = pos.getZ();
+					double x2 = xt - x1;
+					double y2 = yt - y1;
+					double z2 = zt - z1;
+
+					if (MathHelper.abs((int)x2) < 8 && MathHelper.abs((int)y2) < 4 && MathHelper.abs((int)z2) < 8)
+					{
+
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
+						{
+							if (nestType == 16 || nestType == 17 || nestType == 18) {
+
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickBlue entityChick = new EntityPeachickBlue(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 19 || nestType == 20 | nestType == 21) {
+
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 22 || nestType == 23 | nestType == 24) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickCharcoal entityChick = new EntityPeachickCharcoal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 25 || nestType == 26 | nestType == 27) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickOpal entityChick = new EntityPeachickOpal(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 28 || nestType == 29 | nestType == 30) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPeach entityChick = new EntityPeachickPeach(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 31 || nestType == 32 | nestType == 33) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickPurple entityChick = new EntityPeachickPurple(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							} else if (nestType == 34 || nestType == 35 | nestType == 36) {
+								if (rand.nextInt(2) < 1) {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								} else {
+									EntityPeachickTaupe entityChick = new EntityPeachickTaupe(worldIn);
+									entityChick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+									worldIn.spawnEntity(entityChick);
+									entityChick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+									hatchFlag = true;
+									k = esize;	
+								}
+							}
+						}
+
+
+						if (hatchFlag) {
+							updateNest(worldIn, pos, state, te);
+
+						}
 					}
 				}
 			}
@@ -817,20 +1698,12 @@ public class BlockNest extends BlockContainer
 
 	}
 
-	/**
-	 * Called by ItemBlocks just before a block is actually set in the world, to
-	 * allow for adjustments to the IBlockstate
-	 */
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 
 		return this.getDefaultState();
 	}
 
-	/**
-	 * Returns a new instance of a block's tile entity class. Called on placing
-	 * the block.
-	 */
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
@@ -1052,7 +1925,7 @@ public class BlockNest extends BlockContainer
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
 			worldIn.updateComparatorOutputLevel(pos, this);
 			return true;
-		} else if (te.getNestType() == 19) 
+		} else if (te.getNestType() == 19 || te.getNestType() == 22 || te.getNestType() == 25 || te.getNestType() == 28 || te.getNestType() == 31 || te.getNestType() == 34) 
 		{
 			ItemStack bob = new ItemStack(ItemHandler.peacockEggWhite, 1);
 			playerIn.inventory.addItemStackToInventory(bob);
@@ -1061,20 +1934,20 @@ public class BlockNest extends BlockContainer
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
 			worldIn.updateComparatorOutputLevel(pos, this);
 			return true;
-		} else if (te.getNestType() == 20) 
+		} else if (te.getNestType() == 20 || te.getNestType() == 23 || te.getNestType() == 26 || te.getNestType() == 29 || te.getNestType() == 32 || te.getNestType() == 35) 
 		{
 			ItemStack bob = new ItemStack(ItemHandler.peacockEggWhite, 1);
 			playerIn.inventory.addItemStackToInventory(bob);
-			te.setType(19);
+			te.setType(te.getNestType()-1);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
 			worldIn.updateComparatorOutputLevel(pos, this);
 			return true;
-		} else if (te.getNestType() == 21) 
+		} else if (te.getNestType() == 21 || te.getNestType() == 24 || te.getNestType() == 27 || te.getNestType() == 30 || te.getNestType() == 33 || te.getNestType() == 36)  
 		{
 			ItemStack bob = new ItemStack(ItemHandler.peacockEggWhite, 1);
 			playerIn.inventory.addItemStackToInventory(bob);
-			te.setType(20);
+			te.setType(te.getNestType()-1);
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
 			worldIn.updateComparatorOutputLevel(pos, this);
@@ -1092,8 +1965,6 @@ public class BlockNest extends BlockContainer
 	{
 
 		int nestType = te.getNestType();
-
-		System.out.println(nestType);
 
 		if (nestType == 15)
 		{
@@ -1223,7 +2094,100 @@ public class BlockNest extends BlockContainer
 			te.markDirty();
 			worldIn.notifyBlockUpdate(pos, state, state, 1);
 			worldIn.updateComparatorOutputLevel(pos, this);
+
+			//New Peacocks
+		} else if (nestType == 36)
+		{
+			te.setType(35);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 35)
+		{
+			te.setType(34);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 34)
+		{
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 33)
+		{
+			te.setType(32);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 32)
+		{
+			te.setType(31);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 31)
+		{
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 30)
+		{
+			te.setType(29);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 29)
+		{
+			te.setType(28);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 28)
+		{
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 27)
+		{
+			te.setType(26);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 26)
+		{
+			te.setType(25);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 25)
+		{
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 24)
+		{
+			te.setType(23);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 23)
+		{
+			te.setType(22);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
+		} else if (nestType == 22)
+		{
+			te.setType(0);
+			te.markDirty();
+			worldIn.notifyBlockUpdate(pos, state, state, 1);
+			worldIn.updateComparatorOutputLevel(pos, this);
 		}
+
 
 	}
 

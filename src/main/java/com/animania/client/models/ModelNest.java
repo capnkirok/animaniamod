@@ -454,7 +454,7 @@ public class ModelNest extends ModelBase
 			this.BlEgg1a.render(scale);
 			this.BlEgg1b.render(scale);
 			this.BlEgg1c.render(scale);
-			this.Feather1.render(scale/3);
+			//this.Feather1.render(scale/3);
 			
 
 		} else if (nestType == 17.0F) {
@@ -467,8 +467,8 @@ public class ModelNest extends ModelBase
 			this.BlEgg2a.render(scale);
 			this.BlEgg2b.render(scale);
 			this.BlEgg2c.render(scale);
-			this.Feather1.render(scale/3);
-			this.Feather2.render(scale/3);
+			//this.Feather1.render(scale/3);
+			//this.Feather2.render(scale/3);
 			
 		} else if (nestType == 18.0F) {
 
@@ -484,20 +484,20 @@ public class ModelNest extends ModelBase
 			this.BlEgg3a.render(scale);
 			this.BlEgg3b.render(scale);
 			this.BlEgg3c.render(scale);
-			this.Feather1.render(scale/3);
-			this.Feather2.render(scale/3);
-			this.Feather3.render(scale/3);
+			//this.Feather1.render(scale/3);
+			//this.Feather2.render(scale/3);
+			//this.Feather3.render(scale/3);
 
-		} else if (nestType == 19.0) {
+		} else if (nestType == 19.0 || nestType == 22.0F || nestType == 25.0F || nestType == 28.0F || nestType == 31.0F || nestType == 34.0F ) {
 
 			this.WEgg1.render(scale);
 			this.WEgg1a.render(scale);
 			this.WEgg1b.render(scale);
 			this.WEgg1c.render(scale);
-			this.Feather4.render(scale/3);
+			//this.Feather4.render(scale/3);
 			
 
-		} else if (nestType == 20.0F) {
+		} else if (nestType == 20.0F || nestType == 23.0F || nestType == 26.0F || nestType == 29.0F || nestType == 32.0F || nestType == 35.0F ) {
 
 			this.WEgg1.render(scale);
 			this.WEgg1a.render(scale);
@@ -507,10 +507,10 @@ public class ModelNest extends ModelBase
 			this.WEgg2a.render(scale);
 			this.WEgg2b.render(scale);
 			this.WEgg2c.render(scale);
-			this.Feather4.render(scale/3);
-			this.Feather5.render(scale/3);
+			//this.Feather4.render(scale/3);
+			//this.Feather5.render(scale/3);
 
-		} else if (nestType == 21.0F) {
+		} else if (nestType == 21.0F || nestType == 24.0F || nestType == 27.0F || nestType == 30.0F || nestType == 33.0F || nestType == 36.0F ) {
 
 			this.WEgg1.render(scale);
 			this.WEgg1a.render(scale);
@@ -524,8 +524,8 @@ public class ModelNest extends ModelBase
 			this.WEgg3a.render(scale);
 			this.WEgg3b.render(scale);
 			this.WEgg3c.render(scale);
-			this.Feather4.render(scale/3);
-			this.Feather5.render(scale/3);
+			//this.Feather4.render(scale/3);
+			//this.Feather5.render(scale/3);
 
 		}
 

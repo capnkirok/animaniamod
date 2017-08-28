@@ -285,7 +285,7 @@ public class OldEntityHandler
 			EntityRegistry.addSpawn(EntityHedgehogAlbino.class, AnimaniaConfig.spawn.spawnProbabilityHedgehogs, 1, 2, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
 		}
 
-		// PEACOCKS
+		// PEACOCKS (OLD)
 		if (AnimaniaConfig.spawn.spawnAnimaniaPeacocks) {
 			ResourceLocation pb1 = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue.png");
 			EntityRegistry.registerModEntity(pb1, EntityPeacockBlue.class, "animania.PeacockBlue", AnimaniaConfig.entity.PeacockBlueID, Animania.MODID, 64, 3, true);

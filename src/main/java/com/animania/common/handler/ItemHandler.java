@@ -95,6 +95,12 @@ public class ItemHandler
     
     public static Item peacockFeatherBlue;
     public static Item peacockFeatherWhite;
+    public static Item peacockFeatherCharcoal;
+    public static Item peacockFeatherOpal;
+    public static Item peacockFeatherPeach;
+    public static Item peacockFeatherPurple;
+    public static Item peacockFeatherTaupe;
+    
     public static Item ridingCrop;
 	
     // Beef
@@ -223,6 +229,26 @@ public class ItemHandler
     public static Item entityeggpeachickwhite;
     public static Item entityeggpeafowlwhite;
     public static Item entityeggpeacockwhite;
+    
+    public static Item entityeggpeachickcharcoal;
+    public static Item entityeggpeafowlcharcoal;
+    public static Item entityeggpeacockcharcoal;
+    
+    public static Item entityeggpeachickopal;
+    public static Item entityeggpeafowlopal;
+    public static Item entityeggpeacockopal;
+    
+    public static Item entityeggpeachickpeach;
+    public static Item entityeggpeafowlpeach;
+    public static Item entityeggpeacockpeach;
+    
+    public static Item entityeggpeachickpurple;
+    public static Item entityeggpeafowlpurple;
+    public static Item entityeggpeacockpurple;
+    
+    public static Item entityeggpeachicktaupe;
+    public static Item entityeggpeafowltaupe;
+    public static Item entityeggpeacocktaupe;
 
     // Eggs - Pigs
     public static Item entityeggpigletyorkshire;
@@ -305,6 +331,12 @@ public class ItemHandler
         ItemHandler.carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
         ItemHandler.peacockFeatherBlue = new ItemPeacockFeather("blue");
         ItemHandler.peacockFeatherWhite = new ItemPeacockFeather("white");
+        ItemHandler.peacockFeatherCharcoal = new ItemPeacockFeather("charcoal");
+        ItemHandler.peacockFeatherOpal = new ItemPeacockFeather("opal");
+        ItemHandler.peacockFeatherPeach = new ItemPeacockFeather("peach");
+        ItemHandler.peacockFeatherPurple = new ItemPeacockFeather("purple");
+        ItemHandler.peacockFeatherTaupe = new ItemPeacockFeather("taupe");
+        
         ItemHandler.ridingCrop = new ItemRidingCrop();
         ItemHandler.hamsterBallClear = new ItemHamsterBall(false, "hamster_ball_clear");
         ItemHandler.hamsterBallColored = new ItemHamsterBall(true, "hamster_ball_colored");
@@ -445,7 +477,27 @@ public class ItemHandler
         ItemHandler.entityeggpeachickwhite = new ItemEntityEgg("peachick_white", PeacockType.WHITE, EntityGender.CHILD);
         ItemHandler.entityeggpeafowlwhite = new ItemEntityEgg("peafowl_white", PeacockType.WHITE, EntityGender.FEMALE);
         ItemHandler.entityeggpeacockwhite = new ItemEntityEgg("peacock_white", PeacockType.WHITE, EntityGender.MALE);
-
+        
+        ItemHandler.entityeggpeachickcharcoal = new ItemEntityEgg("peachick_charcoal", PeacockType.CHARCOAL, EntityGender.CHILD);
+        ItemHandler.entityeggpeafowlcharcoal = new ItemEntityEgg("peafowl_charcoal", PeacockType.CHARCOAL, EntityGender.FEMALE);
+        ItemHandler.entityeggpeacockcharcoal = new ItemEntityEgg("peacock_charcoal", PeacockType.CHARCOAL, EntityGender.MALE);
+        
+        ItemHandler.entityeggpeachickopal = new ItemEntityEgg("peachick_opal", PeacockType.OPAL, EntityGender.CHILD);
+        ItemHandler.entityeggpeafowlopal = new ItemEntityEgg("peafowl_opal", PeacockType.OPAL, EntityGender.FEMALE);
+        ItemHandler.entityeggpeacockopal = new ItemEntityEgg("peacock_opal", PeacockType.OPAL, EntityGender.MALE);
+        
+        ItemHandler.entityeggpeachickpeach = new ItemEntityEgg("peachick_peach", PeacockType.PEACH, EntityGender.CHILD);
+        ItemHandler.entityeggpeafowlpeach = new ItemEntityEgg("peafowl_peach", PeacockType.PEACH, EntityGender.FEMALE);
+        ItemHandler.entityeggpeacockpeach = new ItemEntityEgg("peacock_peach", PeacockType.PEACH, EntityGender.MALE);
+        
+        ItemHandler.entityeggpeachickpurple = new ItemEntityEgg("peachick_purple", PeacockType.PURPLE, EntityGender.CHILD);
+        ItemHandler.entityeggpeafowlpurple = new ItemEntityEgg("peafowl_purple", PeacockType.PURPLE, EntityGender.FEMALE);
+        ItemHandler.entityeggpeacockpurple = new ItemEntityEgg("peacock_purple", PeacockType.PURPLE, EntityGender.MALE);
+        
+        ItemHandler.entityeggpeachicktaupe = new ItemEntityEgg("peachick_taupe", PeacockType.TAUPE, EntityGender.CHILD);
+        ItemHandler.entityeggpeafowltaupe = new ItemEntityEgg("peafowl_taupe", PeacockType.TAUPE, EntityGender.FEMALE);
+        ItemHandler.entityeggpeacocktaupe = new ItemEntityEgg("peacock_taupe", PeacockType.TAUPE, EntityGender.MALE);
+       
         // PIGS
         ItemHandler.entityeggpigletyorkshire = new ItemEntityEgg("piglet_yorkshire", PigType.YORKSHIRE, EntityGender.CHILD);
         ItemHandler.entityeggsowyorkshire = new ItemEntityEgg("sow_yorkshire", PigType.YORKSHIRE, EntityGender.FEMALE);

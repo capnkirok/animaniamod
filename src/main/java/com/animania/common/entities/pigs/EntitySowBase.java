@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.horses.EntityFoalDraftHorse;
 import com.animania.common.entities.horses.EntityStallionBase;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
@@ -72,21 +73,8 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 			return null;
 
 		int pigCount = 0;
-		int esize = this.world.loadedEntityList.size();
-		for (int k = 0; k <= esize - 1; k++)
-		{
-			Entity entity = this.world.loadedEntityList.get(k);
-			if (entity.getName().contains("Duroc") || entity.getName().contains("Hampshire") || entity.getName().contains("LargeBlack") || entity.getName().contains("OldSpot") || entity.getName().contains("LargeWhite") || entity.getName().contains("Yorkshire"))
-			{
-				EntityAnimal ea = (EntityAnimal) entity;
-				if (ea.hasCustomName() || ea.isInLove())
-				{
-					// pigCount = pigCount - 1;
-				}
-				else
-					pigCount = pigCount + 1;
-			}
-		}
+		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 128, this.world, this);
+		pigCount = entities.size();
 
 		if (pigCount <= AnimaniaConfig.spawn.spawnLimitPigs)
 		{
