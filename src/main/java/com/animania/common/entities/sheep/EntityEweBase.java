@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.pigs.EntityHogBase;
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -19,16 +20,22 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.management.PreYggdrasilConverter;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -36,6 +43,7 @@ public class EntityEweBase extends EntityAnimaniaSheep
 {
 
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityEweBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
 	protected int gestationTimer;
 
 	public EntityEweBase(World worldIn)
@@ -320,6 +328,43 @@ public class EntityEweBase extends EntityAnimaniaSheep
 		super.onLivingUpdate();
 	}
 
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	{
+		ItemStack stack = player.getHeldItem(hand);
+		EntityPlayer entityplayer = player;
+
+		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && this.getMateUniqueId() != null)
+		{
+			player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
+			stack.shrink(1);
+
+			if (stack.getCount() == 0)
+				player.setHeldItem(hand, this.milk.copy());
+			else if (!player.inventory.addItemStackToInventory(this.milk.copy()))
+				player.dropItem(this.milk.copy(), false);
+
+			this.setWatered(false);
+
+			return true;
+		}
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		{
+			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
+				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
+				player.dropItem(new ItemStack(Items.BUCKET), false);
+
+			this.eatTimer = 40;
+			this.entityAIEatGrass.startExecuting();
+			this.setWatered(true);
+			this.setInLove(player);
+			return true;
+		}
+		else
+			return super.processInteract(player, hand);
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)

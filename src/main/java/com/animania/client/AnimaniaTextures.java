@@ -24,6 +24,8 @@ public class AnimaniaTextures
 		register(ItemHandler.cheeseMold);
 		register(ItemHandler.cheeseWedgeFriesian);
 		register(ItemHandler.cheeseWedgeHolstein);
+		register(ItemHandler.cheeseWedgeGoat);
+		register(ItemHandler.cheeseWedgeSheep);
 		register(ItemHandler.truffleSoup);
 		register(ItemHandler.chocolateTruffle);
 		register(ItemHandler.plainOmelette);
@@ -111,6 +113,10 @@ public class AnimaniaTextures
 		// Frogs
 		register(ItemHandler.rawFrogLegs);
 		register(ItemHandler.cookedFrogLegs);
+		
+		// Frogs
+		register(ItemHandler.rawChevon);
+		register(ItemHandler.cookedChevon);
 
 		// Cows
 		register(ItemHandler.entityeggbullholstein);
@@ -249,10 +255,15 @@ public class AnimaniaTextures
 		register(Item.getItemFromBlock(BlockHandler.blockHamsterWheel));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseFriesian));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseHolstein));
+		register(Item.getItemFromBlock(BlockHandler.blockCheeseGoat));
+		register(Item.getItemFromBlock(BlockHandler.blockCheeseSheep));
 
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkFriesian, "milk_friesian");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkHolstein, "milk_holstein");
+		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkGoat, "milk_goat");
+		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkSheep, "milk_sheep");
+		
 
 	}
 

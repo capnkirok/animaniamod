@@ -20,42 +20,49 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemCheeseWedge extends ItemFood
 {
-    private String name = "cheese_wedge";
+	private String name = "cheese_wedge";
 
-    public ItemCheeseWedge(String type) {
-        super(2, 2F, true);
-        this.setAlwaysEdible();
-        this.name = type + "_" + this.name;
-        this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-        GameRegistry.register(this);
-        this.setUnlocalizedName(Animania.MODID + "_" + this.name);
-        this.setCreativeTab(Animania.TabAnimaniaResources);
-    }
+	public ItemCheeseWedge(String type) {
+		super(2, 2F, true);
+		this.setAlwaysEdible();
+		this.name = type + "_" + this.name;
+		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
+		GameRegistry.register(this);
+		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
+		this.setCreativeTab(Animania.TabAnimaniaResources);
+	}
 
-    @Override
-    public EnumAction getItemUseAction(ItemStack itemstack) {
-        return EnumAction.EAT;
-    }
+	@Override
+	public EnumAction getItemUseAction(ItemStack itemstack) {
+		return EnumAction.EAT;
+	}
 
-    @Override
-    protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
-        if (!worldObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
-            if (itemstack.getItem() == ItemHandler.cheeseWedgeFriesian)
-                entityplayer.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
-            else if (itemstack.getItem() == ItemHandler.cheeseWedgeHolstein)
-                entityplayer.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
-    }
+	@Override
+	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
+		if (!worldObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
+			if (itemstack.getItem() == ItemHandler.cheeseWedgeFriesian)
+				entityplayer.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
+			else if (itemstack.getItem() == ItemHandler.cheeseWedgeHolstein)
+				entityplayer.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
+			else if (itemstack.getItem() == ItemHandler.cheeseWedgeGoat)
+				entityplayer.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 1200, 0, false, false));
+			else if (itemstack.getItem() == ItemHandler.cheeseWedgeSheep)
+				entityplayer.addPotionEffect(new PotionEffect(MobEffects.HEALTH_BOOST, 16, 2, false, false));
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    @Override
-    public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4) {
-        if (AnimaniaConfig.gameRules.foodsGiveBonusEffects) {
-            list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.instanthealth"));
-            list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
-        }
-    }
+	@Override
+	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4) {
+		if (AnimaniaConfig.gameRules.foodsGiveBonusEffects) {
+			if (itemstack.getItem() == ItemHandler.cheeseWedgeGoat) 
+				list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.resistance"));
+			else
+				list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.instanthealth"));
+			list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+		}
+	}
 
 }

@@ -254,7 +254,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
+		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && this.getMateUniqueId() != null)
 		{
 			player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 			stack.shrink(1);

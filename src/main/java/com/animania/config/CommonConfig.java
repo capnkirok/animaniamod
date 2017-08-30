@@ -410,6 +410,8 @@ public class CommonConfig
 		public String  toadDrop         = "";
 		@Comment("Set Custom Dart Frog Drop")
 		public String  dartFrogDrop     = "";
+		@Comment("Set Custom Goat Drop")
+		public String  goatDrop         = "animania:raw_chevon";
 		@Comment("Allow Animania Chickens to drop Eggs")
 		public Boolean chickensDropEggs = false;
 		@Comment("Allow Animania Chickens to drop Feathers")

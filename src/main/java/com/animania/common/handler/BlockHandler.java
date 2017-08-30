@@ -34,9 +34,14 @@ public class BlockHandler
 	public static BlockFluidBase blockSlop;
 	public static BlockFluidBase blockMilkHolstein;
 	public static BlockFluidBase blockMilkFriesian;
+	public static BlockFluidBase blockMilkGoat;
+	public static BlockFluidBase blockMilkSheep;
 	public static Block blockCheeseHolstein;
 	public static Block blockCheeseFriesian;
+	public static Block blockCheeseGoat;
+	public static Block blockCheeseSheep;
 	public static Block blockCheeseMold;
+	
 	
 	// TileEntity blocks
 	public static Block blockTrough;
@@ -46,6 +51,8 @@ public class BlockHandler
 	public static Fluid fluidSlop;
 	public static Fluid fluidMilkHolstein;
 	public static Fluid fluidMilkFriesian;
+	public static Fluid fluidMilkGoat;
+	public static Fluid fluidMilkSheep;
 
 	// Item Blocks
 	public static ItemBlock itemBlockMud;
@@ -66,8 +73,12 @@ public class BlockHandler
 		BlockHandler.blockHamsterWheel = new BlockHamsterWheel();
 		BlockHandler.blockCheeseFriesian = new BlockCheese("cheese_friesian");
 		BlockHandler.blockCheeseHolstein = new BlockCheese("cheese_holstein");
+		BlockHandler.blockCheeseGoat = new BlockCheese("cheese_goat");
+		BlockHandler.blockCheeseSheep = new BlockCheese("cheese_sheep");
 		ItemHandler.cheeseWheelFriesian = Item.getItemFromBlock(blockCheeseFriesian);
 		ItemHandler.cheeseWheelHolstein = Item.getItemFromBlock(blockCheeseHolstein);
+		ItemHandler.cheeseWheelGoat = Item.getItemFromBlock(blockCheeseGoat);
+		ItemHandler.cheeseWheelSheep = Item.getItemFromBlock(blockCheeseSheep);
 		BlockHandler.blockCheeseMold = new BlockCheeseMold();
 		ItemHandler.cheeseMold = Item.getItemFromBlock(blockCheeseMold);
 
@@ -83,6 +94,14 @@ public class BlockHandler
 		BlockHandler.fluidMilkFriesian = new FluidBase("milk_friesian").setViscosity(1000).setDensity(500);
 		FluidRegistry.addBucketForFluid(BlockHandler.fluidMilkFriesian);
 		BlockHandler.blockMilkFriesian = new BlockFluidMilk(BlockHandler.fluidMilkFriesian, "milk_friesian");
+		
+		BlockHandler.fluidMilkGoat = new FluidBase("milk_goat").setViscosity(1000).setDensity(500);
+		FluidRegistry.addBucketForFluid(BlockHandler.fluidMilkGoat);
+		BlockHandler.blockMilkGoat = new BlockFluidMilk(BlockHandler.fluidMilkGoat, "milk_goat");
+		
+		BlockHandler.fluidMilkSheep = new FluidBase("milk_sheep").setViscosity(1000).setDensity(500);
+		FluidRegistry.addBucketForFluid(BlockHandler.fluidMilkSheep);
+		BlockHandler.blockMilkSheep = new BlockFluidMilk(BlockHandler.fluidMilkSheep, "milk_sheep");
 
 		// Itemblocks
 		BlockHandler.itemBlockMud = new ItemBlock(BlockHandler.blockMud);

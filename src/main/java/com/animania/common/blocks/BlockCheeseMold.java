@@ -144,7 +144,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 		{
 			if (!stack.isEmpty() && te != null)
 			{
-				if (AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkFriesian) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkHolstein))
+				if (AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkFriesian) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkHolstein) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkGoat) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkSheep))
 				{
 					if (te.getFluidHandler().getFluidAmount() == 0 && te.getItemHandler().getStackInSlot(0).isEmpty())
 					{
@@ -198,7 +198,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 
 	public static enum EnumType implements IStringSerializable
 	{
-		EMPTY(0, "empty"), HOLSTEIN_MILK(1, "holstein_milk"), HOLSTEIN_CHEESE(2, "holstein_cheese"), FRIESIAN_MILK(3, "friesian_milk"), FRIESIAN_CHEESE(2, "friesian_cheese");
+		EMPTY(0, "empty"), HOLSTEIN_MILK(1, "holstein_milk"), HOLSTEIN_CHEESE(2, "holstein_cheese"), FRIESIAN_MILK(3, "friesian_milk"), FRIESIAN_CHEESE(4, "friesian_cheese"), GOAT_MILK(5, "goat_milk"), GOAT_CHEESE(6, "goat_cheese"), SHEEP_MILK(7, "sheep_milk"), SHEEP_CHEESE(8, "sheep_cheese");
 
 		/** Array of the Block's BlockStates */
 		private static final BlockCheeseMold.EnumType[] META = new BlockCheeseMold.EnumType[values().length];

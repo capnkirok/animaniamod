@@ -7,6 +7,8 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
+import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
 import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.helper.AnimaniaHelper;
 import com.google.common.base.Optional;
@@ -15,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,12 +36,15 @@ public class EntityBuckBase extends EntityAnimaniaGoat
 {
 
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityBuckBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	
+	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBuckBase.class, DataSerializers.BOOLEAN);
+
 	public EntityBuckBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
+		this.mateable = true;
+		this.headbutting = true;
 	}
 	
 	@Override
@@ -46,6 +52,8 @@ public class EntityBuckBase extends EntityAnimaniaGoat
 	{
 		super.initEntityAI();
 		this.tasks.addTask(8, new EntityAIMateGoats(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
+		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.25F));
 
 	}
 	
@@ -62,7 +70,8 @@ public class EntityBuckBase extends EntityAnimaniaGoat
 	{
 		super.entityInit();
 		this.dataManager.register(EntityBuckBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
-
+		this.dataManager.register(EntityBuckBase.FIGHTING, Boolean.valueOf(false));
+		
 	}
 	
 	@Override
@@ -91,6 +100,20 @@ public class EntityBuckBase extends EntityAnimaniaGoat
 
 	}
 	
+	public boolean getFighting()
+	{
+		return this.dataManager.get(EntityBuckBase.FIGHTING).booleanValue();
+	}
+
+	public void setFighting(boolean fighting)
+	{
+		if (fighting)
+			this.dataManager.set(EntityBuckBase.FIGHTING, Boolean.valueOf(true));
+		else
+			this.dataManager.set(EntityBuckBase.FIGHTING, Boolean.valueOf(false));
+	}
+
+	
 	@Nullable
 	public UUID getMateUniqueId()
 	{
@@ -101,6 +124,18 @@ public class EntityBuckBase extends EntityAnimaniaGoat
 	{
 		this.dataManager.set(EntityBuckBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
+	
+	@Nullable
+	public UUID getRivalUniqueId()
+	{
+		return (UUID) ((Optional) this.dataManager.get(EntityBuckBase.RIVAL_UNIQUE_ID)).orNull();
+	}
+
+	public void setRivalUniqueId(@Nullable UUID uniqueId)
+	{
+		this.dataManager.set(EntityBuckBase.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
+	}
+	
 	
 	@Override
 	protected SoundEvent getAmbientSound()
@@ -224,6 +259,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat
 				}
 			}
 		}
+		
 		
 		super.onLivingUpdate();
 	}

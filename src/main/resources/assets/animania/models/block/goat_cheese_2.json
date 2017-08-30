@@ -1,0 +1,38 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "0": "animania:blocks/goat_cheese_side",
+        "1": "animania:blocks/goat_cheese_inner",
+        "2": "animania:blocks/goat_cheese_top",
+        "3": "animania:blocks/goat_cheese_bottom",
+		"particle" : "animania:blocks/goat_cheese_top"
+    },
+    "elements": [
+        {
+            "name": "Slice1",
+            "from": [ 1.0, 0.0, 1.0 ], 
+            "to": [ 8.0, 8.0, 8.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 8.0, 8.0, 15.0, 16.0 ] },
+                "east": { "texture": "#1", "uv": [ 8.0, 8.0, 15.0, 16.0 ] },
+                "south": { "texture": "#1", "uv": [ 1.0, 8.0, 8.0, 16.0 ] },
+                "west": { "texture": "#0", "uv": [ 15.0, 8.0, 8.0, 16.0 ] },
+                "up": { "texture": "#2", "uv": [ 1.0, 1.0, 8.0, 8.0 ] },
+                "down": { "texture": "#3", "uv": [ 1.0, 8.0, 8.0, 15.0 ] }
+            }
+        },
+        {
+            "name": "Slice2",
+            "from": [ 8.0, 0.0, 1.0 ], 
+            "to": [ 15.0, 8.0, 8.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 1.0, 8.0, 8.0, 16.0 ] },
+                "east": { "texture": "#0", "uv": [ 8.0, 8.0, 15.0, 16.0 ] },
+                "south": { "texture": "#1", "uv": [ 8.0, 8.0, 15.0, 16.0 ] },
+                "west": { "texture": "#1", "uv": [ 15.0, 8.0, 8.0, 16.0 ] },
+                "up": { "texture": "#2", "uv": [ 8.0, 1.0, 15.0, 8.0 ] },
+                "down": { "texture": "#3", "uv": [ 8.0, 8.0, 15.0, 15.0 ] }
+            }
+        }
+    ]
+}

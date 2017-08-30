@@ -117,8 +117,12 @@ public class BlockCheese extends Block
 		{
 			if (!worldIn.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 			{
-				if (this == BlockHandler.blockCheeseFriesian)
+				if (this == BlockHandler.blockCheeseFriesian) 
 					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
+				else if (this == BlockHandler.blockCheeseGoat) 
+					player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 1200, 0, false, false));
+				else if (this == BlockHandler.blockCheeseSheep) 
+					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 16, 2, false, false));
 				else
 					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
 
@@ -168,7 +172,7 @@ public class BlockCheese extends Block
 	{
 		return super.canPlaceBlockAt(worldIn, pos) ? this.canBlockStay(worldIn, pos) : false;
 	}
-	
+
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
 	{

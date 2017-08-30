@@ -25,6 +25,8 @@ public class JEICompat extends BlankModPlugin
     private ItemStack slopBucket   = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
     private ItemStack milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
     private ItemStack milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
+    private ItemStack milkGoat = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
+    private ItemStack milkSheep = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
 
     @Override
     public void register(@Nonnull IModRegistry registry) {
@@ -36,6 +38,8 @@ public class JEICompat extends BlankModPlugin
         registry.addDescription(this.slopBucket, "text.jei.slop", "text.jei.slop.craft");
         registry.addDescription(this.milkHolstein, "text.jei.milkholstein");
         registry.addDescription(this.milkFriesian, "text.jei.milkfriesian");
+        registry.addDescription(this.milkGoat, "text.jei.milkgoat");
+        registry.addDescription(this.milkSheep, "text.jei.milksheep");
         
         /*
         IngredientBlacklist blacklist = new IngredientBlacklist(registry.getIngredientRegistry());

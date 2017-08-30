@@ -24,6 +24,20 @@
 					"fluid": "milk_holstein"
 				}
 			}
+		],
+		"milk_goat": [
+            {
+                "custom": {
+                    "fluid": "milk_goat"
+                }
+            }
+        ],
+		"milk_sheep": [
+			{
+				"custom": {
+					"fluid": "milk_sheep"
+				}
+			}
 		]
 	}
 }

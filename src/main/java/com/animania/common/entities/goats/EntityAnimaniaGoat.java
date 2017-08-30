@@ -1,14 +1,21 @@
 package com.animania.common.entities.goats;
 
 import java.util.Set;
+import java.util.UUID;
 
+import javax.annotation.Nullable;
+
+import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindFood;
 import com.animania.common.entities.goats.ai.EntityAIFindWater;
 import com.animania.common.entities.goats.ai.EntityAIGoatEatGrass;
+import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
+import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.entities.goats.ai.EntityAISwimmingGoats;
 import com.animania.common.entities.goats.ai.EntityAIWatchClosestGoats;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.EntityAgeable;
@@ -29,6 +36,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -43,6 +51,9 @@ public class EntityAnimaniaGoat extends EntityAnimal
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Optional<UUID>> RIVAL_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+
 	protected int happyTimer;
 	public int blinkTimer;
 	public int eatTimer;
@@ -53,6 +64,8 @@ public class EntityAnimaniaGoat extends EntityAnimal
 	protected Item dropRaw = Items.BEEF;
 	protected Item dropCooked = Items.COOKED_BEEF;
 	public EntityAIGoatEatGrass entityAIEatGrass;
+	protected boolean mateable = false;
+	protected boolean headbutting = false;
 
 	public EntityAnimaniaGoat(World worldIn)
 	{
@@ -60,6 +73,9 @@ public class EntityAnimaniaGoat extends EntityAnimal
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAIGoatEatGrass(this);
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
+		this.tasks.addTask(2, new EntityAIMateGoats(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
+		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.3F));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAISwimmingGoats(this));
@@ -89,12 +105,8 @@ public class EntityAnimaniaGoat extends EntityAnimal
 		super.entityInit();
 		this.dataManager.register(EntityAnimaniaGoat.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaGoat.WATERED, Boolean.valueOf(true));
-	}
-
-	@Override
-	public EntityAgeable createChild(EntityAgeable ageable)
-	{
-		return null;
+		this.dataManager.register(EntityAnimaniaGoat.MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
 	}
 
 	@Override
@@ -103,7 +115,7 @@ public class EntityAnimaniaGoat extends EntityAnimal
 		return null;
 	}
 
-	
+
 	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
@@ -118,7 +130,30 @@ public class EntityAnimaniaGoat extends EntityAnimal
 		if (!player.isCreative())
 			stack.shrink(1);;
 	}
-	
+
+	@Nullable
+	public UUID getMateUniqueId()
+	{
+		if(mateable)
+		{
+			try
+			{
+				UUID id = (UUID) ((Optional) this.dataManager.get(EntityAnimaniaGoat.MATE_UNIQUE_ID)).orNull();
+				return id;
+			}
+			catch(Exception e)
+			{
+				return null;
+			}
+		}
+		return null;
+	}
+
+	public void setMateUniqueId(@Nullable UUID uniqueId)
+	{
+		this.dataManager.set(EntityAnimaniaGoat.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+	}
+
 	public boolean getFed()
 	{
 		return this.dataManager.get(EntityAnimaniaGoat.FED).booleanValue();
@@ -134,7 +169,7 @@ public class EntityAnimaniaGoat extends EntityAnimal
 		} else
 			this.dataManager.set(EntityAnimaniaGoat.FED, Boolean.valueOf(false));
 	}
-	
+
 	public boolean getWatered()
 	{
 		return this.dataManager.get(EntityAnimaniaGoat.WATERED).booleanValue();
@@ -149,27 +184,27 @@ public class EntityAnimaniaGoat extends EntityAnimal
 		} else
 			this.dataManager.set(EntityAnimaniaGoat.WATERED, Boolean.valueOf(false));
 	}
-	
+
 	@Override
 	protected void updateAITasks()
 	{
 		//this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
 		super.updateAITasks();
 	}
-	
+
 	@Override
 	protected float getSoundVolume()
 	{
 		return 0.4F;
 	}
-	
-	
+
+
 	@Override
 	protected Item getDropItem()
 	{
 		return Items.LEATHER;
 	}
-	
+
 	@Override
 	public void onLivingUpdate()
 	{
@@ -237,13 +272,13 @@ public class EntityAnimaniaGoat extends EntityAnimal
 				}
 			}
 		}
-		
-		
-		
+
+
+
 
 		super.onLivingUpdate();
 	}
-	
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
@@ -270,7 +305,7 @@ public class EntityAnimaniaGoat extends EntityAnimal
 		else
 			return super.processInteract(player, hand);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
@@ -280,11 +315,14 @@ public class EntityAnimaniaGoat extends EntityAnimal
 		else
 			super.handleStatusUpdate(id);
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
+		if (this.getMateUniqueId() != null) {
+			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		}
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
 
@@ -294,11 +332,28 @@ public class EntityAnimaniaGoat extends EntityAnimal
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
+		String s;
+
+		if (compound.hasKey("MateUUID", 8))
+		{
+			s = compound.getString("MateUUID");
+		}
+		else
+		{
+			String s1 = compound.getString("Mate");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		}
+
+		if (!s.isEmpty())
+		{
+			this.setMateUniqueId(UUID.fromString(s));
+		}
+
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
 
 	}
-	
+
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
@@ -310,42 +365,37 @@ public class EntityAnimaniaGoat extends EntityAnimal
 			happyDrops++;
 
 		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops && dropRaw != Items.BEEF && dropCooked != Items.COOKED_BEEF)
-		{
-			String drop = AnimaniaConfig.drops.cowDrop;
+		if (AnimaniaConfig.drops.customMobDrops) {
+			String drop = AnimaniaConfig.drops.goatDrop;
 			dropItem = AnimaniaHelper.getItem(drop);
+			//TODO AIR
 			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
 			{
 				drop = this.dropCooked.getRegistryName().toString();
 				dropItem = AnimaniaHelper.getItem(drop);
 			}
-		} else
-		{
+		} else {
 			dropItem = new ItemStack(this.dropRaw, 1);
 			if (this.isBurning())
 				dropItem = new ItemStack(this.dropCooked, 1);
 		}
 
-		if (happyDrops == 2)
+		
+
+		if (happyDrops >= 1)
 		{
 			dropItem.setCount(1 + lootlevel);
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 			world.spawnEntity(entityitem);
-			this.dropItem(Items.LEATHER, 1);
-		} else if (happyDrops == 1)
-		{
-			if (this.isBurning())
-			{
-				this.dropItem(Items.COOKED_BEEF, 1 + lootlevel);
-				this.dropItem(Items.LEATHER, 1 + lootlevel);
-			} else
-			{
-				this.dropItem(Items.BEEF, 1 + lootlevel);
-				this.dropItem(Items.LEATHER, 1 + lootlevel);
-			}
+			this.dropItem(Items.LEATHER, 1 + lootlevel);
 		} else if (happyDrops == 0)
 			this.dropItem(Items.LEATHER, 1 + lootlevel);
 
+	}
+
+	@Override
+	public EntityAgeable createChild(EntityAgeable ageable) {
+		return null;
 	}
 
 }

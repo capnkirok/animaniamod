@@ -172,7 +172,6 @@ public class ModelDoeNigerianDwarf extends ModelBase
 
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
-		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		Butt.rotateAngleX = 0.01847221F;
 		Tail.rotateAngleX = -0.8720122F;
 		BackLeg_L.rotateAngleX = 0.01847221F;

@@ -1,9 +1,9 @@
 package com.animania.common.handler;
 
-import com.animania.common.recipes.CheeseRecipe1;
-import com.animania.common.recipes.CheeseRecipe2;
 import com.animania.common.recipes.CheeseRecipe3;
 import com.animania.common.recipes.CheeseRecipe4;
+import com.animania.common.recipes.CheeseRecipe6;
+import com.animania.common.recipes.CheeseRecipe8;
 import com.animania.common.recipes.MilkConversionRecipe;
 import com.animania.common.recipes.SlopBucketRecipe1;
 import com.animania.common.recipes.SlopBucketRecipe2;
@@ -32,6 +32,8 @@ public class RecipeHandler
 		ItemStack slopBucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
 		ItemStack milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
 		ItemStack milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
+		ItemStack milkGoat = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
+		ItemStack milkSheep = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
 
 		// Recipes
 
@@ -133,10 +135,19 @@ public class RecipeHandler
 
 		GameRegistry.addRecipe(new CheeseRecipe4());
 		RecipeSorter.register("animania:cheesewedgefriesian", CheeseRecipe4.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		
+		GameRegistry.addRecipe(new CheeseRecipe6());
+		RecipeSorter.register("animania:cheesewedgegoat", CheeseRecipe6.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		
+		GameRegistry.addRecipe(new CheeseRecipe8());
+		RecipeSorter.register("animania:cheesewedgesheep", CheeseRecipe8.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseWedgeHolstein, 4), new Object[] { BlockHandler.blockCheeseHolstein, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseWedgeFriesian, 4), new Object[] { BlockHandler.blockCheeseFriesian, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseWedgeGoat, 4), new Object[] { BlockHandler.blockCheeseGoat, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.cheeseWedgeSheep, 4), new Object[] { BlockHandler.blockCheeseSheep, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 
+		
 		// Slop Bucket Special Recipe
 		GameRegistry.addRecipe(new ShapelessOreRecipe(slopBucket, new Object[] { "listAllmilk", "listAllmilk", "listAllmilk", "listAllmilk", "cropCarrot", "cropBeet", Items.BUCKET }));
 

@@ -172,7 +172,6 @@ public class ModelDoeKinder extends ModelBase
 
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
-		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		Body.rotateAngleX = -0.08726646F;
 		Butt.rotateAngleX = 0.01847221F;
 		Tail.rotateAngleX = -0.6475495F;

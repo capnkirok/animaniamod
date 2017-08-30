@@ -1,5 +1,6 @@
 package com.animania.client.models.goats;
 
+import com.animania.common.entities.cows.EntityBullAngus;
 import com.animania.common.entities.goats.EntityBuckAlpine;
 
 import net.minecraft.client.model.ModelBase;
@@ -12,7 +13,7 @@ public class ModelBuckAlpine extends ModelBase
 {	
 	private float headRotationAngleX;
 	public ModelRenderer HeadNode = new ModelRenderer(this, 0, 0);
-	
+
 	ModelRenderer Body;
 	ModelRenderer Butt;
 	ModelRenderer Tail;
@@ -86,112 +87,112 @@ public class ModelBuckAlpine extends ModelBase
 		Reproductive2.setTextureSize(128, 128);
 		Reproductive2.addBox(-1.5F, -2F, -1F, 3, 4, 2);
 		Reproductive2.setRotationPoint(0F, 13.46643F, 18.58669F);
-		
+
 		HeadNode = new ModelRenderer(this, 85, 78);
 		HeadNode.setTextureSize(128, 128);
 		HeadNode.addBox(0F, 0F, 0F, 0, 0, 0);
 		HeadNode.setRotationPoint(0F, 7.738533F, -0.9885842F);
-		
+
 		Neck = new ModelRenderer(this, 85, 78);
 		Neck.setTextureSize(128, 128);
 		Neck.addBox(-2F, -4F, -14.5F, 4, 8, 15);
 		Neck.setRotationPoint(0F, 0F, 0F);
-		
+
 		Head = new ModelRenderer(this, 9, 60);
 		Head.setTextureSize(128, 128);
 		Head.addBox(-3F, -3.5F, -7.5F, 6, 7, 7);
 		Head.setRotationPoint(0F, -3.019106F - 7.738533F, -5.760714F + 0.9885842F);
-		
+
 		Ear_R = new ModelRenderer(this, 60, 84);
 		Ear_R.setTextureSize(128, 128);
 		Ear_R.addBox(-4F, -1F, -0.5F, 4, 2, 1);
 		Ear_R.setRotationPoint(-2.5F, -4.118599F - 7.738533F, -9.194533F + 0.9885842F);
-		
+
 		Ear2_R = new ModelRenderer(this, 49, 80);
 		Ear2_R.setTextureSize(128, 128);
 		Ear2_R.addBox(-2.5F, -0.5F, -0.5F, 1, 1, 1);
 		Ear2_R.setRotationPoint(-4.761655F, -4.845879F - 7.738533F, -9.97298F + 0.9885842F);
-		
+
 		Ear_L = new ModelRenderer(this, 60, 84);
 		Ear_L.setTextureSize(128, 128);
 		Ear_L.addBox(0F, -1F, -0.5F, 4, 2, 1);
 		Ear_L.setRotationPoint(2.5F, -4.118599F - 7.738533F, -9.194533F + 0.9885842F);
-		
+
 		Ear2_L = new ModelRenderer(this, 49, 80);
 		Ear2_L.setTextureSize(128, 128);
 		Ear2_L.addBox(1.5F, -0.5F, -0.5F, 1, 1, 1);
 		Ear2_L.setRotationPoint(4.761655F, -4.845879F - 7.738533F, -9.97298F + 0.9885842F);
-		
+
 		Bud_R = new ModelRenderer(this, 38, 64);
 		Bud_R.setTextureSize(128, 128);
 		Bud_R.addBox(-1.5F, -0.5F, -1.5F, 3, 1, 3);
 		Bud_R.setRotationPoint(-1.8F, -6.123981F - 7.738533F, -8.727151F + 0.9885842F);
-		
+
 		Horn1_R = new ModelRenderer(this, 38, 71);
 		Horn1_R.setTextureSize(128, 128);
 		Horn1_R.addBox(-1F, -7.5F, -1F, 2, 7, 2);
 		Horn1_R.setRotationPoint(-1.691772F, -5.63872F - 7.738533F, -8.63936F + 0.9885842F);
-		
+
 		Horn2_R = new ModelRenderer(this, 38, 71);
 		Horn2_R.setTextureSize(128, 128);
 		Horn2_R.addBox(-1F, -7.5F, -1F, 2, 7, 2);
 		Horn2_R.setRotationPoint(-3.712005F, -10.69292F - 7.738533F, -5.073734F + 0.9885842F);
-		
+
 		Horn3_R = new ModelRenderer(this, 38, 71);
 		Horn3_R.setTextureSize(128, 128);
 		Horn3_R.addBox(-1F, -6F, -1F, 2, 6, 2);
 		Horn3_R.setRotationPoint(-6.09127F, -10.93122F - 7.738533F, 1.051931F + 0.9885842F);
-		
+
 		Mouth = new ModelRenderer(this, 8, 111);
 		Mouth.setTextureSize(128, 128);
 		Mouth.addBox(-1.5F, -0.5F, -5.5F, 3, 1, 6);
 		Mouth.setRotationPoint(0F, 1.416758F - 7.738533F, -10.73395F + 0.9885842F);
-		
+
 		Beard = new ModelRenderer(this, 31, 111);
 		Beard.setTextureSize(128, 128);
 		Beard.addBox(-1F, -2F, 0F, 2, 8, 4);
 		Beard.setRotationPoint(0F, 3.526743F - 7.738533F, -14.81134F + 0.9885842F);
-		
+
 		Snout3 = new ModelRenderer(this, 9, 86);
 		Snout3.setTextureSize(128, 128);
 		Snout3.addBox(-1.5F, 0F, -5F, 3, 2, 5);
 		Snout3.setRotationPoint(0F, -2.642731F - 7.738533F, -13.45297F + 0.9885842F);
-		
+
 		Nose = new ModelRenderer(this, 40, 91);
 		Nose.setTextureSize(128, 128);
 		Nose.addBox(-1F, 0F, 0F, 2, 2, 2);
 		Nose.setRotationPoint(0F, 0.481411F - 7.738533F, -18.02077F + 0.9885842F);
-		
+
 		Snout1 = new ModelRenderer(this, 11, 76);
 		Snout1.setTextureSize(128, 128);
 		Snout1.addBox(-1.5F, 0F, -5.5F, 3, 2, 6);
 		Snout1.setRotationPoint(-0.01F, -3.844696F - 7.738533F, -13.79616F + 0.9885842F);
-		
+
 		Snout2 = new ModelRenderer(this, 10, 96);
 		Snout2.setTextureSize(128, 128);
 		Snout2.addBox(-2F, -0.5F, -5F, 4, 3, 6);
 		Snout2.setRotationPoint(0F, -1.047844F - 7.738533F, -12.85815F + 0.9885842F);
-		
+
 		Bud_L = new ModelRenderer(this, 38, 64);
 		Bud_L.setTextureSize(128, 128);
 		Bud_L.addBox(-1.5F, -0.5F, -1.5F, 3, 1, 3);
 		Bud_L.setRotationPoint(1.8F, -6.123981F - 7.738533F, -8.727151F + 0.9885842F);
-		
+
 		Horn1_L = new ModelRenderer(this, 38, 71);
 		Horn1_L.setTextureSize(128, 128);
 		Horn1_L.addBox(-1F, -7.5F, -1F, 2, 7, 2);
 		Horn1_L.setRotationPoint(1.691772F, -5.63872F - 7.738533F, -8.63936F + 0.9885842F);
-		
+
 		Horn2_L = new ModelRenderer(this, 38, 71);
 		Horn2_L.setTextureSize(128, 128);
 		Horn2_L.addBox(-1F, -7.5F, -1F, 2, 7, 2);
 		Horn2_L.setRotationPoint(3.712005F, -10.69292F - 7.738533F, -5.073734F + 0.9885842F);
-		
+
 		Horn3_L = new ModelRenderer(this, 38, 71);
 		Horn3_L.setTextureSize(128, 128);
 		Horn3_L.addBox(-1F, -6F, -1F, 2, 6, 2);
 		Horn3_L.setRotationPoint(6.09127F, -10.93122F - 7.738533F, 1.051931F + 0.9885842F);
-		
+
 		this.HeadNode.addChild(Head);
 		this.HeadNode.addChild(Neck);
 		this.HeadNode.addChild(Ear_R);
@@ -216,8 +217,6 @@ public class ModelBuckAlpine extends ModelBase
 
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
-		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		
 		Body.rotateAngleX = -0.08726646F;
 		Butt.rotateAngleX = 0.01847221F;
 		Tail.rotateAngleX = -0.6475495F;
@@ -242,15 +241,15 @@ public class ModelBuckAlpine extends ModelBase
 		Horn1_R.rotateAngleX = -0.7273443F;
 		Horn1_R.rotateAngleY = -0.4953492F;
 		Horn1_R.rotateAngleZ = -0.01269654F;
-		
+
 		Horn2_R.rotateAngleX = -1.890043F;
 		//Horn2_R.rotateAngleY = -1.887417F;
 		Horn2_R.rotateAngleZ = 1.380272F;
-		
+
 		Horn3_R.rotateAngleX = -0.8089435F;
 		//Horn3_R.rotateAngleY = 3.05143F;
 		Horn3_R.rotateAngleZ = 3.165597F;
-		
+
 		Mouth.rotateAngleX = 0.278122F;
 		Mouth.rotateAngleY = 0F;
 		Mouth.rotateAngleZ = 0F;
@@ -272,21 +271,21 @@ public class ModelBuckAlpine extends ModelBase
 		Bud_L.rotateAngleX = 0.1502857F;
 		Bud_L.rotateAngleY = 0.1260964F;
 		Bud_L.rotateAngleZ = 0.09764142F;
-		
+
 		Horn1_L.rotateAngleX = -0.7273443F;
 		Horn1_L.rotateAngleY = 0.4953492F;
 		Horn1_L.rotateAngleZ = 0.01269654F;
-		
+
 		Horn2_L.rotateAngleX = -1.890043F;
 		//Horn2_L.rotateAngleY = 1.887417F;
 		Horn2_L.rotateAngleZ = -1.380272F;
-		
+
 		Horn3_L.rotateAngleX = -0.8089435F;
 		//Horn3_L.rotateAngleY = -3.05143F;
 		Horn3_L.rotateAngleZ = -3.165597F;
-		
+
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-		
+
 		Body.render(scale);
 		Butt.render(scale);
 		Tail.render(scale);
@@ -297,29 +296,49 @@ public class ModelBuckAlpine extends ModelBase
 		Reproductive1.render(scale);
 		Reproductive2.render(scale);
 		HeadNode.render(scale);
-		
+
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
+	public void setLivingAnimations(EntityLivingBase entity, float p_78086_2_, float p_78086_3_, float partialTickTime)
 	{
-		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckAlpine)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityBuckAlpine)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
-		
+		if (entity instanceof EntityBuckAlpine) {
+			EntityBuckAlpine eb = (EntityBuckAlpine) entity;
+			if (!eb.getFighting()) {
+				this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckAlpine)entity).getHeadRotationPointY(partialTickTime) * 6.0F;
+				this.headRotationAngleX = ((EntityBuckAlpine)entity).getHeadRotationAngleX(partialTickTime);
+			}
+		}
+
 	}
 
 	@Override
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity scale)
+	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity)
 	{
 		float f6 = 180F / (float) Math.PI;
+		
+		if (entity instanceof EntityBuckAlpine) {
 
-		//this.Body.rotateAngleX = (float) Math.PI / 2F;
+			EntityBuckAlpine eb = (EntityBuckAlpine) entity;
+			if (eb.getFighting() && eb.getRivalUniqueId() != null) {
+				this.HeadNode.rotateAngleX = 0.687F;
+			}
+			else {
+				this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
+				this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
+				this.HeadNode.rotateAngleX = this.headRotationAngleX;
+			}
 
-		this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
-		this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
-		this.HeadNode.rotateAngleX = this.headRotationAngleX;
+		}
+		else {
+			this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
+			this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
+			this.HeadNode.rotateAngleX = this.headRotationAngleX;
+		}
+
+
 
 		//this.Tail.rotateAngleX = (float) Math.PI / 2F;
 		this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;

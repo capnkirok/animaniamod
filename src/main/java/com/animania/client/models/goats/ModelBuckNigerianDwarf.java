@@ -188,7 +188,6 @@ public class ModelBuckNigerianDwarf extends ModelBase
 
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
-		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		Butt.rotateAngleX = 0.01847221F;
 		Tail.rotateAngleX = -0.8720122F;
 		BackLeg_L.rotateAngleX = 0.01847221F;
@@ -260,15 +259,29 @@ public class ModelBuckNigerianDwarf extends ModelBase
 	}
 
 	@Override
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity scale)
+	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity)
 	{
 		float f6 = 180F / (float) Math.PI;
 
-		//this.Body.rotateAngleX = (float) Math.PI / 2F;
+		if (entity instanceof EntityBuckNigerianDwarf) {
 
-		this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
-		this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
-		this.HeadNode.rotateAngleX = this.headRotationAngleX;
+			EntityBuckNigerianDwarf eb = (EntityBuckNigerianDwarf) entity;
+			if (eb.getFighting() && eb.getRivalUniqueId() != null) {
+				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckNigerian) entity).getHeadRotationPointY(1) * 12.0F;
+				this.HeadNode.rotateAngleX = 0.687F;
+			}
+			else {
+				this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
+				this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
+				this.HeadNode.rotateAngleX = this.headRotationAngleX;
+			}
+
+		}
+		else {
+			this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
+			this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
+			this.HeadNode.rotateAngleX = this.headRotationAngleX;
+		}
 
 		//this.Tail.rotateAngleX = (float) Math.PI / 2F;
 		this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
