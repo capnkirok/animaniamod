@@ -11,4 +11,15 @@ public class EntityKidPygmy extends EntityKidBase
 		this.goatType = GoatType.PYGMY;
 	}
 
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 9475221;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 4145731;
+	}
 }

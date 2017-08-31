@@ -10,5 +10,17 @@ public class EntityStallionDraftHorse extends EntityStallionBase
 		super(world);
 		this.horseType = horseType.DRAFT;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 8600606;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 12829635;
+	}
 
 }

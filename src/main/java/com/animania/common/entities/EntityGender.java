@@ -7,7 +7,7 @@ import scala.util.Random;
 public enum EntityGender
 {
 
-	MALE, FEMALE, CHILD, RANDOM;
+	MALE, FEMALE, CHILD, RANDOM, NONE;
 
 	public static EntityLivingBase getEntity(AnimaniaType type, EntityGender gender, World world)
 	{
@@ -30,8 +30,11 @@ public enum EntityGender
 			case 2:
 				return type.getChild(world);
 			}
+		case NONE:
+			return type.getMale(world);
 
 		}
+		
 		return null;
 
 	}

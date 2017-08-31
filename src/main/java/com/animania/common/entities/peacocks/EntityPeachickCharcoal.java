@@ -13,4 +13,16 @@ public class EntityPeachickCharcoal extends EntityPeachickBase
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peachick_charcoal.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_charcoal_blink.png");
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 3815994;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 3092271;
+	}
 }

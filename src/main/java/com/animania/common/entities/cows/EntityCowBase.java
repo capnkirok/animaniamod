@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.EntityPigletBase;
@@ -57,6 +58,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200);
 		this.tasks.addTask(5, new EntityAIMateCows(this, 1.0D));
 		this.mateable = true;
+		this.gender = EntityGender.FEMALE;
 
 	}
 

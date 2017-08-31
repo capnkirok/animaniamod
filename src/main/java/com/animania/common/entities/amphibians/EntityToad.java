@@ -3,7 +3,10 @@ package com.animania.common.entities.amphibians;
 import java.util.Random;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -126,6 +129,24 @@ public class EntityToad extends EntityAmphibian
 		}
 
 		return foundStack;
+	}
+	
+	@Override
+	public Item getSpawnEgg()
+	{
+		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(AmphibianType.TOAD, EntityGender.NONE));
+	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 13868916;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 5650205;
 	}
 
 }

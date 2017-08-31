@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
 import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
 import com.animania.common.entities.goats.ai.EntityAIMateGoats;
@@ -50,6 +51,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 		this.headbutting = true;
+		this.gender = EntityGender.MALE;
 	}
 	
 	@Override

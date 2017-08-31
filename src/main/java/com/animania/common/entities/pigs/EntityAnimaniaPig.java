@@ -3,6 +3,9 @@ package com.animania.common.entities.pigs;
 import java.util.Set;
 
 import com.animania.common.AnimaniaAchievements;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.pigs.ai.EntityAIFindFood;
 import com.animania.common.entities.pigs.ai.EntityAIFindMud;
 import com.animania.common.entities.pigs.ai.EntityAIFindWater;
@@ -12,6 +15,7 @@ import com.animania.common.entities.pigs.ai.EntityAISwimmingPigs;
 import com.animania.common.entities.pigs.ai.EntityAITemptItemStack;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -40,11 +44,12 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
-public class EntityAnimaniaPig extends EntityAnimal
+public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 {
 
 	protected static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
@@ -72,6 +77,7 @@ public class EntityAnimaniaPig extends EntityAnimal
 	protected Item dropCooked = Items.COOKED_PORKCHOP;
 	protected Item oldDropRaw = Items.PORKCHOP;
 	protected Item oldDropCooked = Items.COOKED_PORKCHOP;
+	protected EntityGender gender;
 
 	public EntityAnimaniaPig(World worldIn)
 	{
@@ -542,6 +548,32 @@ public class EntityAnimaniaPig extends EntityAnimal
 	public EntityAgeable createChild(EntityAgeable ageable)
 	{
 		return null;
+	}
+	
+	@Override
+	public Item getSpawnEgg()
+	{
+		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.pigType, this.gender));
+	}
+	
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target)
+	{
+		return new ItemStack(getSpawnEgg());
+	}
+
+	@Override
+	public int getPrimaryEggColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getSecondaryEggColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

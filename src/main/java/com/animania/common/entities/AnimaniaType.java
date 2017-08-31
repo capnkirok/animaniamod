@@ -18,5 +18,9 @@ public interface AnimaniaType
 	
 	public EntityLivingBase getChild(World world);
 
+	public static AnimaniaType valueOf(String type)
+	{
+		return null;
+	}
 
 }

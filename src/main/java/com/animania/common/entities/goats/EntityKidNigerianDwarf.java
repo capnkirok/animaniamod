@@ -10,5 +10,17 @@ public class EntityKidNigerianDwarf extends EntityKidBase
 		super(worldIn);
 		this.goatType = GoatType.NIGERIAN_DWARF;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 2697513;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 8343350;
+	}
 
 }

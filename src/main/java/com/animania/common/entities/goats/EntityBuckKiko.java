@@ -16,5 +16,17 @@ public class EntityBuckKiko extends EntityBuckBase
 		this.dropRaw = ItemHandler.rawChevon;
 		this.dropCooked = ItemHandler.cookedChevon;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 8802872;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 3549475;
+	}
 
 }

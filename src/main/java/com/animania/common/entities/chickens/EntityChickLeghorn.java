@@ -13,4 +13,16 @@ public class EntityChickLeghorn extends EntityChickBase
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_white.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_white_blink.png");
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 15724527;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 14869218;
+	}
 }

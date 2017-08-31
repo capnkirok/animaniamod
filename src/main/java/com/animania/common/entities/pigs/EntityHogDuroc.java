@@ -16,5 +16,17 @@ public class EntityHogDuroc extends EntityHogBase
 		this.dropRaw = ItemHandler.rawPrimePork;
 		this.dropCooked = ItemHandler.cookedPrimePork;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 9399147;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 6896443;
+	}
 
 }

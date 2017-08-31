@@ -1,86 +1,25 @@
 package com.animania.common.items;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaType;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.amphibians.EntityDartFrogs;
-import com.animania.common.entities.amphibians.EntityFrogs;
-import com.animania.common.entities.amphibians.EntityToad;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.chickens.ChickenType;
-import com.animania.common.entities.chickens.EntityChickLeghorn;
-import com.animania.common.entities.chickens.EntityChickOrpington;
-import com.animania.common.entities.chickens.EntityChickPlymouthRock;
-import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityChickWyandotte;
-import com.animania.common.entities.chickens.EntityHenLeghorn;
-import com.animania.common.entities.chickens.EntityHenOrpington;
-import com.animania.common.entities.chickens.EntityHenPlymouthRock;
-import com.animania.common.entities.chickens.EntityHenRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityHenWyandotte;
-import com.animania.common.entities.chickens.EntityRoosterLeghorn;
-import com.animania.common.entities.chickens.EntityRoosterOrpington;
-import com.animania.common.entities.chickens.EntityRoosterPlymouthRock;
-import com.animania.common.entities.chickens.EntityRoosterRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityRoosterWyandotte;
 import com.animania.common.entities.cows.CowType;
-import com.animania.common.entities.cows.EntityBullAngus;
-import com.animania.common.entities.cows.EntityBullFriesian;
-import com.animania.common.entities.cows.EntityBullHereford;
-import com.animania.common.entities.cows.EntityBullHolstein;
-import com.animania.common.entities.cows.EntityBullLonghorn;
-import com.animania.common.entities.cows.EntityCalfAngus;
-import com.animania.common.entities.cows.EntityCalfFriesian;
-import com.animania.common.entities.cows.EntityCalfHereford;
-import com.animania.common.entities.cows.EntityCalfHolstein;
-import com.animania.common.entities.cows.EntityCalfLonghorn;
-import com.animania.common.entities.cows.EntityCowAngus;
-import com.animania.common.entities.cows.EntityCowFriesian;
-import com.animania.common.entities.cows.EntityCowHereford;
-import com.animania.common.entities.cows.EntityCowHolstein;
-import com.animania.common.entities.cows.EntityCowLonghorn;
-import com.animania.common.entities.horses.EntityFoalDraftHorse;
-import com.animania.common.entities.horses.EntityMareDraftHorse;
-import com.animania.common.entities.horses.EntityStallionDraftHorse;
-import com.animania.common.entities.peacocks.EntityPeachickBlue;
-import com.animania.common.entities.peacocks.EntityPeachickWhite;
-import com.animania.common.entities.peacocks.EntityPeacockBlue;
-import com.animania.common.entities.peacocks.EntityPeacockWhite;
-import com.animania.common.entities.peacocks.EntityPeafowlBlue;
-import com.animania.common.entities.peacocks.EntityPeafowlWhite;
-import com.animania.common.entities.pigs.EntityHogDuroc;
-import com.animania.common.entities.pigs.EntityHogHampshire;
-import com.animania.common.entities.pigs.EntityHogLargeBlack;
-import com.animania.common.entities.pigs.EntityHogLargeWhite;
-import com.animania.common.entities.pigs.EntityHogOldSpot;
-import com.animania.common.entities.pigs.EntityHogYorkshire;
-import com.animania.common.entities.pigs.EntityPigletDuroc;
-import com.animania.common.entities.pigs.EntityPigletHampshire;
-import com.animania.common.entities.pigs.EntityPigletLargeBlack;
-import com.animania.common.entities.pigs.EntityPigletLargeWhite;
-import com.animania.common.entities.pigs.EntityPigletOldSpot;
-import com.animania.common.entities.pigs.EntityPigletYorkshire;
-import com.animania.common.entities.pigs.EntitySowDuroc;
-import com.animania.common.entities.pigs.EntitySowHampshire;
-import com.animania.common.entities.pigs.EntitySowLargeBlack;
-import com.animania.common.entities.pigs.EntitySowLargeWhite;
-import com.animania.common.entities.pigs.EntitySowOldSpot;
-import com.animania.common.entities.pigs.EntitySowYorkshire;
+import com.animania.common.entities.goats.GoatType;
+import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.entities.pigs.PigType;
-import com.animania.common.entities.rodents.EntityFerretGrey;
-import com.animania.common.entities.rodents.EntityFerretWhite;
-import com.animania.common.entities.rodents.EntityHamster;
-import com.animania.common.entities.rodents.EntityHedgehog;
-import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -91,11 +30,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemEntityEgg extends Item
 {
@@ -103,6 +43,8 @@ public class ItemEntityEgg extends Item
 	private String name = "entity_egg";
 	public AnimaniaType type;
 	public EntityGender gender;
+
+	public static Map<AnimalContainer, Item> ANIMAL_EGGS = new HashMap<AnimalContainer, Item>();
 
 	public ItemEntityEgg(String atype, AnimaniaType animal, EntityGender gender)
 	{
@@ -115,6 +57,9 @@ public class ItemEntityEgg extends Item
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.type = animal;
 		this.gender = gender;
+
+		ANIMAL_EGGS.put(new AnimalContainer(animal, gender), this);
+
 	}
 
 	@Override
@@ -144,6 +89,14 @@ public class ItemEntityEgg extends Item
 			{
 				entity = EntityGender.getEntity(ChickenType.values()[rand.nextInt(((ChickenType) type).values().length)], gender, world);
 			}
+			if(type instanceof GoatType)
+			{
+				entity = EntityGender.getEntity(GoatType.values()[rand.nextInt(((GoatType) type).values().length)], gender, world);
+			}
+			if(type instanceof PeacockType)
+			{
+				entity = EntityGender.getEntity(PeacockType.values()[rand.nextInt(((PeacockType) type).values().length)], gender, world);
+			}
 		}
 		else
 		{
@@ -151,9 +104,9 @@ public class ItemEntityEgg extends Item
 		}
 		if (entity != null)
 		{
-			
+
 			entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
-			
+
 			if (stack.hasDisplayName())
 				((EntityLivingBase) entity).setCustomNameTag(stack.getDisplayName());
 
@@ -172,6 +125,11 @@ public class ItemEntityEgg extends Item
 		return EnumActionResult.FAIL;
 	}
 
+	public AnimalContainer getAnimal()
+	{
+		return new AnimalContainer(this.type, this.gender);
+	}
+
 	public String getName()
 	{
 		return this.name;
@@ -181,5 +139,37 @@ public class ItemEntityEgg extends Item
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
 	{
 		list.add(TextFormatting.GOLD + I18n.translateToLocal("item.animania_entity_egg.desc1") + " " + TextFormatting.DARK_GRAY + I18n.translateToLocal("item.animania_entity_egg.desc2"));
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static class Color implements IItemColor
+	{
+		@Override
+		public int getColorFromItemstack(ItemStack stack, int tintIndex)
+		{
+			World world = Minecraft.getMinecraft().world;
+			if (!stack.isEmpty())
+			{
+				AnimalContainer animal = ((ItemEntityEgg) stack.getItem()).getAnimal();
+				EntityLivingBase entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world);
+
+				if (animal.getGender() != EntityGender.RANDOM)
+				{
+
+					if (entity != null)
+					{
+						if (((ISpawnable) entity).usesEggColor())
+						{
+							if (tintIndex == 0)
+								return ((ISpawnable) entity).getPrimaryEggColor();
+							else if (tintIndex == 1)
+								return ((ISpawnable) entity).getSecondaryEggColor();
+						}
+					}
+				}
+			}
+			return -1;
+		}
+
 	}
 }

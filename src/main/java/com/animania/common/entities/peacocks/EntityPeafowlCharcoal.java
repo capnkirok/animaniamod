@@ -15,4 +15,16 @@ public class EntityPeafowlCharcoal extends EntityPeafowlBase
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peafowl_charcoal.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_charcoal_blink.png");
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 3815994;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 3092271;
+	}
 }

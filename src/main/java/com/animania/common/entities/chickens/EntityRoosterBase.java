@@ -3,6 +3,7 @@ package com.animania.common.entities.chickens;
 import java.util.Random;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
@@ -49,6 +50,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityFerretGrey.class, false));
 		this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
 		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+		this.gender = EntityGender.MALE;
 	}
 
 	@Override

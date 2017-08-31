@@ -1,6 +1,7 @@
 package com.animania.common.entities.chickens;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 
@@ -27,6 +28,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
 		this.ageTimer = 0;
 		this.type = ChickenType.LEGHORN;
+		this.gender = EntityGender.CHILD;
 
 	}
 

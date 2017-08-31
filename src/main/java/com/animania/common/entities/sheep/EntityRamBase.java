@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
@@ -46,6 +47,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		super(worldIn);
 		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
+		this.gender = EntityGender.MALE;
 	}
 	
 	@Override

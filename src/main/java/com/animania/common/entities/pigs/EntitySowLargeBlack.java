@@ -16,5 +16,17 @@ public class EntitySowLargeBlack extends EntitySowBase
 		this.dropRaw = ItemHandler.rawPrimePork;
 		this.dropCooked = ItemHandler.cookedPrimePork;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 8417906;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 5326149;
+	}
 
 }

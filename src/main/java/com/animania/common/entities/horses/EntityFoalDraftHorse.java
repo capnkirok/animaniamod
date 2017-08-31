@@ -10,6 +10,18 @@ public class EntityFoalDraftHorse extends EntityFoalBase
 		super(world);
 		this.horseType = HorseType.DRAFT;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 8600606;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 12829635;
+	}
 
 }
 

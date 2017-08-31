@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.handler.BlockHandler;
@@ -59,6 +60,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		this.stepHeight = 1.1F;
 		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200);
 		this.mateable = true;
+		this.gender = EntityGender.FEMALE;
 	}
 
 

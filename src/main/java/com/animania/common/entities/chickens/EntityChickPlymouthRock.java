@@ -14,4 +14,16 @@ public class EntityChickPlymouthRock extends EntityChickBase
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_specked_blink.png");
 
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 13683925;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 9735826;
+	}
 }

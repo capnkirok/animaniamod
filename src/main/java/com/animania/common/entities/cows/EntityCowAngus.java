@@ -16,5 +16,18 @@ public class EntityCowAngus extends EntityCowBase
 		this.oldDropRaw = ItemHandler.rawAngusBeef;
 		this.oldDropCooked = ItemHandler.cookedAngusRoast;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 3028024;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 2304560;
+	}
+
 
 }

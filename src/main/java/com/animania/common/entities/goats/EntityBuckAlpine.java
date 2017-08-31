@@ -17,5 +17,17 @@ public class EntityBuckAlpine extends EntityBuckBase
 		this.dropCooked = ItemHandler.cookedChevon;
 		
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 14867928;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 8281676;
+	}
 
 }

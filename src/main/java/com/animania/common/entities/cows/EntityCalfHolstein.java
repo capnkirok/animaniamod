@@ -10,5 +10,17 @@ public class EntityCalfHolstein extends EntityCalfBase
 		super(world);
 		this.cowType = CowType.HOLSTEIN;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 15987699;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 2236962;
+	}
 
 }

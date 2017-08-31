@@ -19,4 +19,16 @@ public class EntityRoosterWyandotte extends EntityRoosterBase
 		this.dropRaw = ItemHandler.rawPrimeChicken;
 		this.dropCooked = ItemHandler.cookedPrimeChicken;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 8219743;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 5129532;
+	}
 }

@@ -6,6 +6,8 @@ import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.cows.CowType;
+import com.animania.common.entities.goats.GoatType;
+import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.entities.pigs.PigType;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -128,6 +130,14 @@ public class DispenserHandler
 				if (item.type instanceof ChickenType)
 				{
 					entity = EntityGender.getEntity(ChickenType.values()[rand.nextInt(((ChickenType) item.type).values().length)], item.gender, world);
+				}
+				if(item.type instanceof GoatType)
+				{
+					entity = EntityGender.getEntity(GoatType.values()[rand.nextInt(((GoatType) item.type).values().length)], item.gender, world);
+				}
+				if(item.type instanceof PeacockType)
+				{
+					entity = EntityGender.getEntity(PeacockType.values()[rand.nextInt(((PeacockType) item.type).values().length)], item.gender, world);
 				}
 			}
 			else

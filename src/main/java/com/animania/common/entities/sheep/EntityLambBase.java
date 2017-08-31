@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.EntityPigletBase;
@@ -43,6 +44,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 		this.setSize(0.5F, 0.5F);
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
+		this.gender = EntityGender.CHILD;
 	}
 	
 	@Override
