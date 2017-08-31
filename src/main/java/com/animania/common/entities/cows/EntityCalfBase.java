@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIFollowParentCows;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
@@ -47,6 +48,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
 		this.ageTimer = 0;
 		this.cowType = CowType.FRIESIAN;
+		this.gender = EntityGender.CHILD;
 
 	}
 

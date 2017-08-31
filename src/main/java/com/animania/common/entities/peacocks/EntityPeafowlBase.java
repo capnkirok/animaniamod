@@ -1,5 +1,6 @@
 package com.animania.common.entities.peacocks;
 
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.chickens.EntityHenBase;
 import com.animania.common.entities.peacocks.ai.EntityAIFindPeacockNest;
 import com.animania.config.AnimaniaConfig;
@@ -23,7 +24,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock
 		this.setSize(0.6F, 1.2F);
 		this.tasks.addTask(1, new EntityAIFindPeacockNest(this, 1.0D));
 		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100);
-		
+		this.gender = EntityGender.FEMALE;
 	}
 	
 	@Override

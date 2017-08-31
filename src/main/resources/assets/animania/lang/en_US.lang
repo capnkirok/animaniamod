@@ -206,6 +206,9 @@ item.animania_entity_egg_peachick_taupe.name=Taupe Peachick
 item.animania_entity_egg_cow_random.name=Random Cow
 item.animania_entity_egg_pig_random.name=Random Pig
 item.animania_entity_egg_chicken_random.name=Random Chicken
+item.animania_entity_egg_goat_random.name=Random Goat
+item.animania_entity_egg_peacock_random.name=Random Peacock
+
 
 item.animania_entity_egg_frog.name=Frog
 item.animania_entity_egg_toad.name=Toad
@@ -448,16 +451,13 @@ animania.updatetext.2=is now available
 animania.updatetext.3=Failed to connect to see if an update to Animania is available
 animania.update.download=["Click to: [",{"text":"Download","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click to see the latest files available for download","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]
 
-tooltip.an.cheeseomelette=Instant Health
-tooltip.an.baconomelette=Strength (30 seconds)
-tooltip.an.truffleomelette=Regeneration (30 seconds)
 tooltip.an.instanthealth=Instant Health
-tooltip.an.chocolatetruffle=Speed Boost (1 minute)
+tooltip.an.speed=Speed Boost
 tooltip.an.absorption=Absorption
 tooltip.an.regeneration=Regeneration
 tooltip.an.haste=Haste
 tooltip.an.healthboost=Health Boost
-tooltip.an.jumping=Jump Boost
+tooltip.an.jumpboost=Jump Boost
 tooltip.an.strength=Strength
 tooltip.an.resistance=Resistance
 

@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.pigs.ai.EntityAIFollowParentPigs;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
@@ -47,7 +48,7 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.pigType = PigType.YORKSHIRE;
-
+		this.gender = EntityGender.CHILD;
 	}
 
 	@Override

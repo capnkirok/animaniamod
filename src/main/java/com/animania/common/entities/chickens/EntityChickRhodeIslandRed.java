@@ -13,4 +13,16 @@ public class EntityChickRhodeIslandRed extends EntityChickBase
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_red.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_red_blink.png");
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 13668724;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 12480342;
+	}
 }

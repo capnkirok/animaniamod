@@ -13,4 +13,16 @@ public class EntityChickWyandotte extends EntityChickBase
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_brown.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_brown_blink.png");
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 8219743;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 5129532;
+	}
 }

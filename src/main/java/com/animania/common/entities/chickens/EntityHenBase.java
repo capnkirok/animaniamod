@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
@@ -48,6 +49,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
 		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
 		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100);
+		this.gender = EntityGender.FEMALE;
 
 	}
 

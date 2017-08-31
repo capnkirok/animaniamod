@@ -16,5 +16,17 @@ public class EntitySowDuroc extends EntitySowBase
 		this.dropRaw = ItemHandler.rawPrimePork;
 		this.dropCooked = ItemHandler.cookedPrimePork;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 9399147;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 6896443;
+	}
 
 }

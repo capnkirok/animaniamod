@@ -16,5 +16,17 @@ public class EntityHogHampshire extends EntityHogBase
 		this.dropRaw = ItemHandler.rawPrimePork;
 		this.dropCooked = ItemHandler.cookedPrimePork;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 5327691;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 13684944;
+	}
 
 }

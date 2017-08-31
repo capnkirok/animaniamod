@@ -17,4 +17,16 @@ public class EntityBuckFainting extends EntityBuckBase
 		this.dropCooked = ItemHandler.cookedChevon;
 	}
 
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 1250067;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 14803425;
+	}
+
 }

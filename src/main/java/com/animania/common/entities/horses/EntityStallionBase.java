@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIMateHorses;
 import com.animania.common.handler.ItemHandler;
@@ -51,6 +52,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		this.tasks.addTask(1, new EntityAIFollowMateHorses(this, 1.1D));
 		this.tasks.addTask(6, new EntityAIMateHorses(this, 1.0D));
 		this.mateable = true;
+		this.gender = EntityGender.MALE;
 	}
 
 	protected void applyEntityAttributes()

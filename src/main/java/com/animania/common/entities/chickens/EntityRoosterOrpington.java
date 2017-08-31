@@ -19,4 +19,16 @@ public class EntityRoosterOrpington extends EntityRoosterBase
 		this.dropRaw = ItemHandler.rawPrimeChicken;
 		this.dropCooked = ItemHandler.cookedPrimeChicken;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 15980429;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 13270563;
+	}
 }

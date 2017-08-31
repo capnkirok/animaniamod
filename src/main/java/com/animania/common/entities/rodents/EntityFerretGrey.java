@@ -11,4 +11,16 @@ public class EntityFerretGrey extends EntityFerretBase
 		this.type = FerretType.GREY;
 	}
 	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 13948116;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 8741209;
+	}
+	
 }

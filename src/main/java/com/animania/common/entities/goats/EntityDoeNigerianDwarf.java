@@ -14,5 +14,17 @@ public class EntityDoeNigerianDwarf extends EntityDoeBase
 		this.dropRaw = ItemHandler.rawChevon;
 		this.dropCooked = ItemHandler.cookedChevon;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 2697513;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 8343350;
+	}
 
 }

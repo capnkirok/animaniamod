@@ -10,5 +10,17 @@ public class EntityKidFainting extends EntityKidBase
 		super(worldIn);
 		this.goatType = GoatType.FAINTING;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 1250067;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 14803425;
+	}
 
 }

@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.goats.ai.EntityAIFollowParentGoats;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
@@ -38,6 +39,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		this.setSize(0.5F, 0.5F);
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
+		this.gender = EntityGender.CHILD;
 	}
 	
 	@Override

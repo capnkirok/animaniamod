@@ -2,6 +2,8 @@ package com.animania.common.entities.amphibians;
 
 import java.util.Random;
 
+import com.animania.common.entities.ISpawnable;
+
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -14,17 +16,20 @@ import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAmphibian extends EntityAnimal
+public class EntityAmphibian extends EntityAnimal implements ISpawnable
 {
 
 	private int     jumpTicks;
@@ -370,5 +375,29 @@ public class EntityAmphibian extends EntityAnimal
 		public RabbitTypeData(int type) {
 			this.typeData = type;
 		}
+	}
+
+	@Override
+	public Item getSpawnEgg()
+	{
+		return null;
+	}
+	
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target)
+	{
+		return new ItemStack(getSpawnEgg());
+	}
+
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 0;
+	}
+
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 0;
 	}
 }

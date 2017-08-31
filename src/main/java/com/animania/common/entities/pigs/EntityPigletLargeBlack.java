@@ -10,5 +10,17 @@ public class EntityPigletLargeBlack extends EntityPigletBase
 		super(world);
 		this.pigType = PigType.LARGE_BLACK;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 8417906;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 5326149;
+	}
 
 }

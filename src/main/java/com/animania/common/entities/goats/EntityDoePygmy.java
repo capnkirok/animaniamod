@@ -15,4 +15,15 @@ public class EntityDoePygmy extends EntityDoeBase
 		this.dropCooked = ItemHandler.cookedChevon;
 	}
 
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 9475221;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 4145731;
+	}
 }

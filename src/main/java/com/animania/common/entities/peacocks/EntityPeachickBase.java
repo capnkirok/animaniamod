@@ -1,6 +1,7 @@
 package com.animania.common.entities.peacocks;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,6 +22,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 		this.setSize(0.3F, 0.6F);
 		this.ageTimer = 0;
 		this.type = PeacockType.BLUE;
+		this.gender = EntityGender.CHILD;
 
 	}
 

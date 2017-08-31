@@ -5,7 +5,10 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -263,6 +266,18 @@ public class EntityDartFrogs extends EntityAmphibian
 		}
 
 		return foundStack;
+	}
+	
+	@Override
+	public Item getSpawnEgg()
+	{
+		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(AmphibianType.DART_FROG, EntityGender.NONE));
+	}
+	
+	@Override
+	public boolean usesEggColor()
+	{
+		return false;
 	}
 
 }

@@ -10,5 +10,18 @@ public class EntityPigletHampshire extends EntityPigletBase
 		super(world);
 		this.pigType = PigType.HAMPSHIRE;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 5327691;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 13684944;
+	}
+
 
 }

@@ -6,11 +6,14 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -29,7 +32,6 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -252,6 +254,24 @@ public class EntityFrogs extends EntityAmphibian
 				world.spawnEntity(entityitem);
 			}
 		}
+	}
+	
+	@Override
+	public Item getSpawnEgg()
+	{
+		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(AmphibianType.FROG, EntityGender.NONE));
+	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 1860371;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 1793554;
 	}
 
 

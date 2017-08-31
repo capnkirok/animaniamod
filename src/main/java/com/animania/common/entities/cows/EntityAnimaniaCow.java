@@ -6,11 +6,15 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.cows.ai.EntityAICowEatGrass;
 import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
@@ -40,11 +44,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaCow extends EntityCow
+public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 {
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
@@ -63,6 +68,7 @@ public class EntityAnimaniaCow extends EntityCow
 	protected Item oldDropRaw = Items.BEEF;
 	protected Item oldDropCooked = Items.COOKED_BEEF;
 	protected boolean mateable = false;
+	protected EntityGender gender;
 
 	public EntityAnimaniaCow(World worldIn)
 	{
@@ -469,6 +475,30 @@ public class EntityAnimaniaCow extends EntityCow
 		else if (happyDrops == 0)
 			this.dropItem(Items.LEATHER, 1 + lootlevel);
 
+	}
+	
+	@Override
+	public Item getSpawnEgg()
+	{
+		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.cowType, this.gender));
+	}
+	
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target)
+	{
+		return new ItemStack(getSpawnEgg());
+	}
+
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 0;
+	}
+
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 0;
 	}
 
 }

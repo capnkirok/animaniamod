@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
 import com.animania.common.handler.ItemHandler;
@@ -58,6 +59,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200);
 		this.tasks.addTask(5, new EntityAIMateCows(this, 1.0D));
 		this.mateable = true;
+		this.gender = EntityGender.FEMALE;
 	}
 
 	@Nullable

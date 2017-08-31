@@ -2,12 +2,16 @@ package com.animania.common.entities.sheep;
 
 import java.util.Set;
 
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
 import com.animania.common.entities.sheep.ai.EntityAISheepEatGrass;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -34,11 +38,12 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaSheep extends EntityAnimal
+public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 {
 
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
@@ -54,6 +59,7 @@ public class EntityAnimaniaSheep extends EntityAnimal
 	protected Item dropRaw = ItemHandler.rawMutton;
 	protected Item dropCooked = ItemHandler.cookedMutton;
 	public EntityAISheepEatGrass entityAIEatGrass;
+	protected EntityGender gender;
 
 	public EntityAnimaniaSheep(World worldIn)
 	{
@@ -347,6 +353,32 @@ public class EntityAnimaniaSheep extends EntityAnimal
 		} else if (happyDrops == 0)
 			this.dropItem(Items.LEATHER, 1 + lootlevel);
 
+	}
+	
+	@Override
+	public Item getSpawnEgg()
+	{
+		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.sheepType, this.gender));
+	}
+	
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target)
+	{
+		return new ItemStack(getSpawnEgg());
+	}
+
+	@Override
+	public int getPrimaryEggColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getSecondaryEggColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

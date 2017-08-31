@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "animania:items/egg_layer_1",
+		"layer1": "animania:items/egg_layer_2"
+    }
+}

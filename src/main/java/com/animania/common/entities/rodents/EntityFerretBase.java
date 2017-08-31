@@ -9,6 +9,9 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
@@ -26,6 +29,7 @@ import com.animania.common.entities.rodents.ai.EntityAITemptRodents;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
@@ -62,11 +66,12 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityFerretBase extends EntityTameable implements TOPInfoProviderRodent
+public class EntityFerretBase extends EntityTameable implements TOPInfoProviderRodent, ISpawnable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
@@ -629,6 +634,32 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && EntityFerretBase.TEMPTATION_ITEMS.contains(stack.getItem());
+	}
+	
+	@Override
+	public Item getSpawnEgg()
+	{
+		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, EntityGender.NONE));
+	}
+	
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target)
+	{
+		return new ItemStack(getSpawnEgg());
+	}
+
+	@Override
+	public int getPrimaryEggColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getSecondaryEggColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -122,7 +122,7 @@ public class BlockCheese extends Block
 				else if (this == BlockHandler.blockCheeseGoat) 
 					player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 1200, 0, false, false));
 				else if (this == BlockHandler.blockCheeseSheep) 
-					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 16, 2, false, false));
+					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 0, false, false));
 				else
 					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
 

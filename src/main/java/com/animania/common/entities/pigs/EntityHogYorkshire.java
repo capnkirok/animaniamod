@@ -13,5 +13,17 @@ public class EntityHogYorkshire extends EntityHogBase
 		this.dropRaw = Items.PORKCHOP;
 		this.dropCooked = Items.COOKED_PORKCHOP;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 15845576;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 15117998;
+	}
 
 }

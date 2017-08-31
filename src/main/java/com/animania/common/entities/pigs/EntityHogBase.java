@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.pigs.ai.EntityAIFollowMatePigs;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
 import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
@@ -44,6 +45,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		super(worldIn);
 		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
+		this.gender = EntityGender.MALE;
 	}
 	
 	@Override

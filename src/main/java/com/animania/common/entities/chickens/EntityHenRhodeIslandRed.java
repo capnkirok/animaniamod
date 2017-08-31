@@ -19,4 +19,16 @@ public class EntityHenRhodeIslandRed extends EntityHenBase
 		this.dropRaw = ItemHandler.rawPrimeChicken;
 		this.dropCooked = ItemHandler.cookedPrimeChicken;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 13668724;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 12480342;
+	}
 }

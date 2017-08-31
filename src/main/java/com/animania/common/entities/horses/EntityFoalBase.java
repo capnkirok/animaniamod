@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.horses.ai.EntityAIFollowParentHorses;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
@@ -55,6 +56,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		this.tasks.addTask(1, new EntityAIFollowParentHorses(this, 1.1D));
 		this.ageTimer = 0;
 		this.horseType = HorseType.DRAFT;
+		this.gender = EntityGender.CHILD;
 	}
 
 	

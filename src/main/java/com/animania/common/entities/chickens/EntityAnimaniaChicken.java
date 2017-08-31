@@ -7,12 +7,16 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.chickens.ai.EntityAIFindFood;
 import com.animania.common.entities.chickens.ai.EntityAIFindWater;
 import com.animania.common.entities.chickens.ai.EntityAIPanicChickens;
 import com.animania.common.entities.chickens.ai.EntityAISwimmingChicks;
 import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -44,9 +48,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaChicken extends EntityChicken
+public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
@@ -70,6 +75,7 @@ public class EntityAnimaniaChicken extends EntityChicken
 	protected Item dropCooked = Items.COOKED_CHICKEN;
 	protected Item oldDropRaw = Items.CHICKEN;
 	protected Item oldDropCooked = Items.COOKED_CHICKEN;
+	protected EntityGender gender;
 
 	public EntityAnimaniaChicken(World worldIn)
 	{
@@ -458,14 +464,14 @@ public class EntityAnimaniaChicken extends EntityChicken
 			}
 		}
 
-		if (happyDrops == 2 && dropItem !=null)
+		if (happyDrops == 2 && dropItem != null)
 		{
 			dropItem.setCount(1 + lootlevel);
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 			world.spawnEntity(entityitem);
 			this.dropItem(Items.FEATHER, 1);
 		}
-		else if (happyDrops == 1 && dropItem !=null)
+		else if (happyDrops == 1 && dropItem != null)
 		{
 			if (this.isBurning())
 			{
@@ -481,6 +487,32 @@ public class EntityAnimaniaChicken extends EntityChicken
 		else if (happyDrops == 0)
 			this.dropItem(Items.FEATHER, 1 + lootlevel);
 
+	}
+
+	@Override
+	public Item getSpawnEgg()
+	{
+		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, this.gender));
+	}
+
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target)
+	{
+		return new ItemStack(getSpawnEgg());
+	}
+
+	@Override
+	public int getPrimaryEggColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getSecondaryEggColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

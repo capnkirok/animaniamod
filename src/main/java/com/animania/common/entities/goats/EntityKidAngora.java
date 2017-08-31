@@ -10,5 +10,18 @@ public class EntityKidAngora extends EntityKidBase
 		super(worldIn);
 		this.goatType = GoatType.ANGORA;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 16776179;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 13814191;
+	}
+
 
 }

@@ -10,5 +10,17 @@ public class EntityPigletDuroc extends EntityPigletBase
 		super(world);
 		this.pigType = PigType.DUROC;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 9399147;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 6896443;
+	}
 
 }

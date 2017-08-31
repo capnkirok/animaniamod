@@ -13,4 +13,16 @@ public class EntityChickOrpington extends EntityChickBase
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_golden.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_golden_blink.png");
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 15980429;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 13270563;
+	}
 }

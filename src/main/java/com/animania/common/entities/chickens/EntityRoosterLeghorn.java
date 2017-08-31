@@ -16,6 +16,18 @@ public class EntityRoosterLeghorn extends EntityRoosterBase
 	}
 	
 	@Override
+	public int getPrimaryEggColor()
+	{
+		return 15724527;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 14869218;
+	}
+	
+	@Override
 	protected void dropFewItems(boolean hit, int lootlevel) {
 
 		int happyDrops = 0;

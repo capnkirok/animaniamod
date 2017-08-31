@@ -10,5 +10,17 @@ public class EntityCalfFriesian extends EntityCalfBase
 		super(world);
 		this.cowType = CowType.FRIESIAN;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 15987699;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 3944229;
+	}
 
 }

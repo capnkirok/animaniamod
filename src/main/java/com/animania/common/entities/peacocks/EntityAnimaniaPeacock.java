@@ -7,6 +7,9 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
@@ -17,6 +20,7 @@ import com.animania.common.entities.peacocks.ai.EntityAISwimmingPeacocks;
 import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
@@ -52,9 +56,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase
+public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, ISpawnable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
@@ -75,6 +80,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	protected PeacockType type;
 	protected Item drop = null;
 	private int featherCounter;
+	protected EntityGender gender;
 
 	public EntityAnimaniaPeacock(World worldIn)
 	{
@@ -524,6 +530,32 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 			return ModSoundEvents.peacockHurt1;
 		else
 			return ModSoundEvents.peacockHurt2;
+	}
+	
+	@Override
+	public Item getSpawnEgg()
+	{
+		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, this.gender));
+	}
+	
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target)
+	{
+		return new ItemStack(getSpawnEgg());
+	}
+
+	@Override
+	public int getPrimaryEggColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getSecondaryEggColor()
+	{
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

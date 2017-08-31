@@ -11,4 +11,16 @@ public class EntityHedgehog extends EntityHedgehogBase
 		this.type = HedgehogType.NORMAL;
 	}
 	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 10451558;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 14337943;
+	}
+	
 }

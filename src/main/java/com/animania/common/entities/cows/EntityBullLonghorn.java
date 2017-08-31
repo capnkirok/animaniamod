@@ -16,5 +16,17 @@ public class EntityBullLonghorn extends EntityBullBase
 		this.oldDropRaw = ItemHandler.rawLonghornBeef;
 		this.oldDropCooked = ItemHandler.cookedLonghornRoast;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 16763795;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 11227168;
+	}
 
 }
