@@ -29,6 +29,7 @@ public class PatreonHandler
 		//PATREONS
 		patreonUUIDS.add("b0bb3fff-ddbd-40c6-95d7-51dfcaece879"); //LeKoopa92
 		patreonUUIDS.add("1f471396-84d9-41a0-ad9b-52a722c12a6a"); //stacyplays
+		patreonUUIDS.add("6265251a-5dae-4eb4-a95e-dfd922ad8fd5"); //stacysays
 		patreonUUIDS.add("407720e3-22a6-4a78-9e64-0f6e82e00609"); //Xorbah
 		patreonUUIDS.add("f865dbb5-552c-4f62-8d73-2360634f6edd"); //Gold172
 		patreonUUIDS.add("2ea31456-53d4-4eee-b034-5126fc45e1c7"); //akirakujo

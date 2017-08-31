@@ -308,7 +308,7 @@ public class EventReplaceSpawnAnimals
 
 		}
 		else if (AnimaniaConfig.gameRules.replaceVanillaChickens && event.getEntity().getClass().equals(EntityChicken.class) && !worldIn.isRemote) {
-			if (!event.getEntity().hasCustomName() && !event.getEntity().isBeingRidden()) {
+			if (!event.getEntity().hasCustomName() && event.getEntity().posY > 50 && !event.getEntity().isBeingRidden()) {
 				event.getEntity().setDead();
 				event.setCanceled(true);
 				event.isCanceled();

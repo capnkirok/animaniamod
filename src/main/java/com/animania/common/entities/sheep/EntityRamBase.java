@@ -11,12 +11,17 @@ import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.google.common.base.Optional;
 
+import mcjty.theoneprobe.api.IProbeHitEntityData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,7 +36,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityRamBase extends EntityAnimaniaSheep
+public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProviderMateable
 {
 
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityRamBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -266,5 +271,10 @@ public class EntityRamBase extends EntityAnimaniaSheep
 		return stack != ItemStack.EMPTY && (EntityAnimaniaSheep.TEMPTATION_ITEMS.contains(stack.getItem()));
 	}
 	
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	{
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+	}
 
 }

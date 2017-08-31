@@ -42,9 +42,9 @@ public class AnimaniaTextures
 		register(ItemHandler.peacockFeatherTaupe);
 		register(ItemHandler.ridingCrop);
 		register(ItemHandler.hamsterBallClear);
-		
+
 		registerColored(ItemHandler.hamsterBallColored, "hamster_ball");
-	
+
 		// Beef
 		register(ItemHandler.rawAngusBeef);
 		register(ItemHandler.rawHerefordBeef);
@@ -113,10 +113,20 @@ public class AnimaniaTextures
 		// Frogs
 		register(ItemHandler.rawFrogLegs);
 		register(ItemHandler.cookedFrogLegs);
-		
-		// Frogs
+
+		// Goats
 		register(ItemHandler.rawChevon);
 		register(ItemHandler.cookedChevon);
+		register(ItemHandler.rawPrimeChevon);
+		register(ItemHandler.cookedPrimeChevon);
+
+		// Sheep
+		register(ItemHandler.rawMutton);
+		register(ItemHandler.cookedMutton);
+
+		// Rabbit
+		register(ItemHandler.rawRabbit);
+		register(ItemHandler.cookedRabbit);
 
 		// Cows
 		register(ItemHandler.entityeggbullholstein);
@@ -217,37 +227,37 @@ public class AnimaniaTextures
 		register(ItemHandler.entityeggdrafthorsefoal);
 		register(ItemHandler.entityeggdrafthorsemare);
 		register(ItemHandler.entityeggdrafthorsestallion);
-		
+
 		// Goats
 		register(ItemHandler.entityeggkidalpine);
 		register(ItemHandler.entityeggbuckalpine);
 		register(ItemHandler.entityeggdoealpine);
-		
+
 		register(ItemHandler.entityeggkidangora);
 		register(ItemHandler.entityeggbuckangora);
 		register(ItemHandler.entityeggdoeangora);
-		
+
 		register(ItemHandler.entityeggkidfainting);
 		register(ItemHandler.entityeggbuckfainting);
 		register(ItemHandler.entityeggdoefainting);
-		
+
 		register(ItemHandler.entityeggkidkiko);
 		register(ItemHandler.entityeggbuckkiko);
 		register(ItemHandler.entityeggdoekiko);
-		
+
 		register(ItemHandler.entityeggkidkinder);
 		register(ItemHandler.entityeggbuckkinder);
 		register(ItemHandler.entityeggdoekinder);
-		
+
 		register(ItemHandler.entityeggkidnigeriandwarf);
 		register(ItemHandler.entityeggbucknigeriandwarf);
 		register(ItemHandler.entityeggdoenigeriandwarf);
-		
+
 		register(ItemHandler.entityeggkidpygmy);
 		register(ItemHandler.entityeggbuckpygmy);
 		register(ItemHandler.entityeggdoepygmy);
-		
-		
+
+
 		// Blocks
 		register(Item.getItemFromBlock(BlockHandler.blockMud));
 		register(Item.getItemFromBlock(BlockHandler.blockTrough));
@@ -263,7 +273,6 @@ public class AnimaniaTextures
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkHolstein, "milk_holstein");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkGoat, "milk_goat");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkSheep, "milk_sheep");
-		
 
 	}
 

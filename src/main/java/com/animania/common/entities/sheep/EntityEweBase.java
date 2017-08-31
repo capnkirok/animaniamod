@@ -11,9 +11,13 @@ import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
+import mcjty.theoneprobe.api.IProbeHitEntityData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -32,6 +36,8 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
@@ -39,7 +45,7 @@ import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityEweBase extends EntityAnimaniaSheep
+public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProviderMateable
 {
 
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityEweBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -397,5 +403,22 @@ public class EntityEweBase extends EntityAnimaniaSheep
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && (EntityAnimaniaSheep.TEMPTATION_ITEMS.contains(stack.getItem()));
+	}
+	
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	{
+		if (mode == ProbeMode.EXTENDED)
+		{
+			if (this.getWatered() && this.getFed() && this.getMateUniqueId() != null)
+			{
+				probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.milkable"));
+			}
+			/*		if(this.getGestationTimer() > -1)
+			{
+				probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.pregnant1") + ", " + this.getGestationTimer() + " " + I18n.translateToLocal("text.waila.pregnant2"));
+			} */
+		}
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
 }

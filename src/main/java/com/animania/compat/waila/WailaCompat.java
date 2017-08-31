@@ -12,6 +12,9 @@ import com.animania.common.entities.chickens.EntityRoosterBase;
 import com.animania.common.entities.cows.EntityBullBase;
 import com.animania.common.entities.cows.EntityCalfBase;
 import com.animania.common.entities.cows.EntityCowBase;
+import com.animania.common.entities.goats.EntityBuckBase;
+import com.animania.common.entities.goats.EntityDoeBase;
+import com.animania.common.entities.goats.EntityKidBase;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 import com.animania.common.entities.pigs.EntityHogBase;
@@ -20,16 +23,21 @@ import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.entities.rodents.EntityHedgehogBase;
+import com.animania.common.entities.sheep.EntityEweBase;
+import com.animania.common.entities.sheep.EntityLambBase;
+import com.animania.common.entities.sheep.EntityRamBase;
+import com.animania.compat.waila.provider.WailaBlockCheeseMoldProvider;
 import com.animania.compat.waila.provider.WailaBlockCheeseProvider;
 import com.animania.compat.waila.provider.WailaBlockHamsterWheelProvider;
 import com.animania.compat.waila.provider.WailaBlockInvisiblockProvider;
 import com.animania.compat.waila.provider.WailaBlockSeedProvider;
 import com.animania.compat.waila.provider.WailaBlockTroughProvider;
-import com.animania.compat.waila.provider.WailaBlockCheeseMoldProvider;
 import com.animania.compat.waila.provider.WailaEntityAnimalProviderBase;
 import com.animania.compat.waila.provider.WailaEntityAnimalProviderChild;
 import com.animania.compat.waila.provider.WailaEntityAnimalProviderMateable;
 import com.animania.compat.waila.provider.WailaEntityCowProvider;
+import com.animania.compat.waila.provider.WailaEntityDoeProvider;
+import com.animania.compat.waila.provider.WailaEntityEweProvider;
 import com.animania.compat.waila.provider.WailaEntityHorseProvider;
 import com.animania.compat.waila.provider.WailaEntityPigProvider;
 import com.animania.compat.waila.provider.WailaEntityPigletProvider;
@@ -52,43 +60,57 @@ public class WailaCompat
 		r.registerStackProvider(new WailaBlockCheeseProvider(), BlockCheese.class);
 		r.registerBodyProvider(new WailaBlockCheeseMoldProvider(), BlockCheeseMold.class);
 
-		
+
 		// COWS
 		regEntityInfoBull(r, EntityBullBase.class);
-		
+
 		regEntityInfoCow(r, EntityCowBase.class);
-	
+
 		regEntityInfoCalf(r, EntityCalfBase.class);
 
 		// PIGS
 		regEntityInfoPig(r, EntityHogBase.class);
-		
+
 		regEntityInfoPig(r, EntitySowBase.class);
-		
+
 		regEntityInfoPiglet(r, EntityPigletBase.class);
-		
+
 
 		// CHICKENS
 		regEntityInfoBase(r, EntityRoosterBase.class);
-		
+
 		regEntityInfoBase(r, EntityChickBase.class);
-		
+
 		regEntityInfoHen(r, EntityHenBase.class);
-		
+
+		// GOATS
+		regEntityInfoBuck(r, EntityBuckBase.class);
+
+		regEntityInfoDoe(r, EntityDoeBase.class);
+
+		regEntityInfoKid(r, EntityKidBase.class);
+
+		// SHEEP
+		regEntityInfoRam(r, EntityRamBase.class);
+
+		regEntityInfoEwe(r, EntityEweBase.class);
+
+		regEntityInfoLamb(r, EntityLambBase.class);
+
 		// PEACOCKS
 		regEntityInfoBase(r, EntityAnimaniaPeacock.class);
 
 		// RODENTS
 		regEntityInfoRodent(r, EntityFerretBase.class);
-		
+
 		regEntityInfoRodent(r, EntityHamster.class);
-		
+
 		regEntityInfoRodent(r, EntityHedgehogBase.class);
 
 		// HORSES
 		regEntityInfoHorse(r, EntityAnimaniaHorse.class);
 
-		
+
 	}
 
 	private static void regEntityInfoBull(IWailaRegistrar r, Class clazz) {
@@ -127,7 +149,7 @@ public class WailaCompat
 		// r.registerBodyProvider(new WailaEntityHenProvider(), clazz);
 		// r.registerNBTProvider(new WailaEntityHenProvider(), clazz);
 	}
-	
+
 	private static void regEntityInfoRodent(IWailaRegistrar r, Class clazz) {
 		r.registerBodyProvider(new WailaEntityRodentProvider(), clazz);
 		r.registerNBTProvider(new WailaEntityRodentProvider(), clazz);
@@ -137,5 +159,36 @@ public class WailaCompat
 		r.registerBodyProvider(new WailaEntityHorseProvider(), clazz);
 		r.registerNBTProvider(new WailaEntityHorseProvider(), clazz);
 	}
+
+	private static void regEntityInfoBuck(IWailaRegistrar r, Class clazz) {
+		r.registerBodyProvider(new WailaEntityAnimalProviderMateable(), clazz);
+		r.registerNBTProvider(new WailaEntityAnimalProviderMateable(), clazz);
+	}
+
+	private static void regEntityInfoDoe(IWailaRegistrar r, Class clazz) {
+		r.registerBodyProvider(new WailaEntityDoeProvider(), clazz);
+		r.registerNBTProvider(new WailaEntityDoeProvider(), clazz);
+	}
+
+	private static void regEntityInfoKid(IWailaRegistrar r, Class clazz) {
+		r.registerBodyProvider(new WailaEntityAnimalProviderChild(), clazz);
+		r.registerNBTProvider(new WailaEntityAnimalProviderChild(), clazz);
+	}
+
+	private static void regEntityInfoRam(IWailaRegistrar r, Class clazz) {
+		r.registerBodyProvider(new WailaEntityAnimalProviderMateable(), clazz);
+		r.registerNBTProvider(new WailaEntityAnimalProviderMateable(), clazz);
+	}
+
+	private static void regEntityInfoEwe(IWailaRegistrar r, Class clazz) {
+		r.registerBodyProvider(new WailaEntityEweProvider(), clazz);
+		r.registerNBTProvider(new WailaEntityEweProvider(), clazz);
+	}
+
+	private static void regEntityInfoLamb(IWailaRegistrar r, Class clazz) {
+		r.registerBodyProvider(new WailaEntityAnimalProviderChild(), clazz);
+		r.registerNBTProvider(new WailaEntityAnimalProviderChild(), clazz);
+	}
+
 	
 }

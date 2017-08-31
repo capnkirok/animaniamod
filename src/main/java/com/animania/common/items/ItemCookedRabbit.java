@@ -17,11 +17,11 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemCookedChevon extends ItemFood
+public class ItemCookedRabbit extends ItemFood
 {
-    private final String name = "cooked_chevon";
+    private final String name = "cooked_rabbit";
 
-    public ItemCookedChevon() {
+    public ItemCookedRabbit() {
         super(3, 5F, true);
         this.setAlwaysEdible();
         this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
@@ -38,7 +38,7 @@ public class ItemCookedChevon extends ItemFood
     @Override
     protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
         if (!worldObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
-            entityplayer.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 0, false, false));
+            entityplayer.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 600, 3, false, false));
     }
 
     public String getName() {
@@ -48,7 +48,7 @@ public class ItemCookedChevon extends ItemFood
     @Override
     public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4) {
         if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
-            list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.resistance"));
+            list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.jumpboost"));
         list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
     }

@@ -13,6 +13,7 @@ import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
 import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.entities.goats.ai.EntityAISwimmingGoats;
 import com.animania.common.entities.goats.ai.EntityAIWatchClosestGoats;
+import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -61,8 +62,8 @@ public class EntityAnimaniaGoat extends EntityAnimal
 	protected int wateredTimer;
 	protected int damageTimer;
 	public GoatType goatType;
-	protected Item dropRaw = Items.BEEF;
-	protected Item dropCooked = Items.COOKED_BEEF;
+	protected Item dropRaw = ItemHandler.rawChevon;
+	protected Item dropCooked = ItemHandler.cookedChevon;
 	public EntityAIGoatEatGrass entityAIEatGrass;
 	protected boolean mateable = false;
 	protected boolean headbutting = false;

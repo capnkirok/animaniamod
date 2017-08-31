@@ -17,11 +17,11 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemCookedChevon extends ItemFood
+public class ItemCookedPrimeChevon extends ItemFood
 {
-    private final String name = "cooked_chevon";
+    private final String name = "cooked_prime_chevon";
 
-    public ItemCookedChevon() {
+    public ItemCookedPrimeChevon() {
         super(3, 5F, true);
         this.setAlwaysEdible();
         this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
@@ -38,7 +38,7 @@ public class ItemCookedChevon extends ItemFood
     @Override
     protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer) {
         if (!worldObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
-            entityplayer.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 0, false, false));
+            entityplayer.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 1200, 1, false, false));
     }
 
     public String getName() {

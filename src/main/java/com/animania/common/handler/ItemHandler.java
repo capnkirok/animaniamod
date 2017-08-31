@@ -29,15 +29,18 @@ import com.animania.common.items.ItemCookedHerefordSteak;
 import com.animania.common.items.ItemCookedLargeBlackBacon;
 import com.animania.common.items.ItemCookedLargeBlackRoast;
 import com.animania.common.items.ItemCookedLonghornSteak;
+import com.animania.common.items.ItemCookedMutton;
 import com.animania.common.items.ItemCookedOldSpotBacon;
 import com.animania.common.items.ItemCookedOldSpotRoast;
 import com.animania.common.items.ItemCookedOrpingtonChicken;
 import com.animania.common.items.ItemCookedPlymouthRockChicken;
 import com.animania.common.items.ItemCookedPrimeBacon;
 import com.animania.common.items.ItemCookedPrimeBeef;
+import com.animania.common.items.ItemCookedPrimeChevon;
 import com.animania.common.items.ItemCookedPrimeChicken;
 import com.animania.common.items.ItemCookedPrimePork;
 import com.animania.common.items.ItemCookedPrimeSteak;
+import com.animania.common.items.ItemCookedRabbit;
 import com.animania.common.items.ItemCookedRhodeIslandRedChicken;
 import com.animania.common.items.ItemCookedWyandotteChicken;
 import com.animania.common.items.ItemEntityEgg;
@@ -60,15 +63,18 @@ import com.animania.common.items.ItemRawLargeBlackBacon;
 import com.animania.common.items.ItemRawLargeBlackPork;
 import com.animania.common.items.ItemRawLonghornBeef;
 import com.animania.common.items.ItemRawLonghornSteak;
+import com.animania.common.items.ItemRawMutton;
 import com.animania.common.items.ItemRawOldSpotBacon;
 import com.animania.common.items.ItemRawOldSpotPork;
 import com.animania.common.items.ItemRawOrpingtonChicken;
 import com.animania.common.items.ItemRawPlymouthRockChicken;
 import com.animania.common.items.ItemRawPrimeBacon;
 import com.animania.common.items.ItemRawPrimeBeef;
+import com.animania.common.items.ItemRawPrimeChevon;
 import com.animania.common.items.ItemRawPrimeChicken;
 import com.animania.common.items.ItemRawPrimePork;
 import com.animania.common.items.ItemRawPrimeSteak;
+import com.animania.common.items.ItemRawRabbit;
 import com.animania.common.items.ItemRawRhodeIslandRedChicken;
 import com.animania.common.items.ItemRawWyandotteChicken;
 import com.animania.common.items.ItemRidingCrop;
@@ -84,7 +90,6 @@ import net.minecraft.potion.PotionEffect;
 public class ItemHandler
 {
 	// Items
-
 	public static Item hamsterFood;
 	public static Item truffle;
 	public static Item brownEgg;
@@ -167,6 +172,16 @@ public class ItemHandler
 	// Goats
 	public static Item rawChevon;
 	public static Item cookedChevon;
+	public static Item rawPrimeChevon;
+	public static Item cookedPrimeChevon;
+
+	// Sheep
+	public static Item rawMutton;
+	public static Item cookedMutton;
+
+	// Rabbit
+	public static Item rawRabbit;
+	public static Item cookedRabbit;
 
 	// Other Foods
 	public static Item plainOmelette;
@@ -431,6 +446,16 @@ public class ItemHandler
 		// GOAT ITEMS
 		ItemHandler.rawChevon = new ItemRawChevon();
 		ItemHandler.cookedChevon = new ItemCookedChevon();
+		ItemHandler.rawPrimeChevon = new ItemRawPrimeChevon();
+		ItemHandler.cookedPrimeChevon = new ItemCookedPrimeChevon();
+
+		// SHEEP ITEMS
+		ItemHandler.rawMutton = new ItemRawMutton();
+		ItemHandler.cookedMutton = new ItemCookedMutton();
+
+		// RABBIT ITEMS
+		ItemHandler.rawRabbit = new ItemRawRabbit();
+		ItemHandler.cookedRabbit = new ItemCookedRabbit();
 
 		// CHEESE
 		ItemHandler.cheeseWedgeFriesian = new ItemCheeseWedge("friesian");

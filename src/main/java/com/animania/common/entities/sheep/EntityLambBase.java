@@ -12,6 +12,7 @@ import com.animania.common.entities.pigs.EntityPigletBase;
 import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.pigs.ai.EntityAIFollowParentPigs;
+import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
@@ -29,7 +30,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityLambBase extends EntityAnimaniaSheep
+public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProviderChild
 {
 
 	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityLambBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);

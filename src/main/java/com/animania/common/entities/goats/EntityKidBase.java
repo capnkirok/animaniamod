@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.goats.ai.EntityAIFollowParentGoats;
+import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
@@ -24,7 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityKidBase extends EntityAnimaniaGoat
+public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProviderChild
 {
 
 	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityKidBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);

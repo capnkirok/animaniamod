@@ -315,7 +315,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	{
 		if (mode == ProbeMode.EXTENDED)
 		{
-			if (this.getWatered() && this.getFed())
+			if (this.getWatered() && this.getFed() && this.getMateUniqueId() != null)
 			{
 				probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.milkable"));
 			}

@@ -6,6 +6,7 @@ import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
 import com.animania.common.entities.sheep.ai.EntityAISheepEatGrass;
+import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
@@ -50,8 +51,8 @@ public class EntityAnimaniaSheep extends EntityAnimal
 	protected int wateredTimer;
 	protected int damageTimer;
 	public SheepType sheepType;
-	protected Item dropRaw = Items.BEEF;
-	protected Item dropCooked = Items.COOKED_BEEF;
+	protected Item dropRaw = ItemHandler.rawMutton;
+	protected Item dropCooked = ItemHandler.cookedMutton;
 	public EntityAISheepEatGrass entityAIEatGrass;
 
 	public EntityAnimaniaSheep(World worldIn)
