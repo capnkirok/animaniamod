@@ -141,6 +141,7 @@ public class AnimaniaTextures
 		register(ItemHandler.entityeggrandomgoat);
 		register(ItemHandler.entityeggrandompeacock);
 		register(ItemHandler.entityeggdartfrog);
+		register(ItemHandler.entityeggrandomanimal);
 
 		
 		// Blocks

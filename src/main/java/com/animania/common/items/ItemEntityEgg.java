@@ -11,6 +11,7 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaType;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.goats.GoatType;
@@ -96,6 +97,10 @@ public class ItemEntityEgg extends Item
 			if(type instanceof PeacockType)
 			{
 				entity = EntityGender.getEntity(PeacockType.values()[rand.nextInt(((PeacockType) type).values().length)], gender, world);
+			}
+			if(type instanceof RandomAnimalType)
+			{
+				entity = EntityGender.getEntity(type, gender, world);
 			}
 		}
 		else

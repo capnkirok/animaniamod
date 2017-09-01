@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.goats.GoatType;
@@ -138,6 +139,10 @@ public class DispenserHandler
 				if(item.type instanceof PeacockType)
 				{
 					entity = EntityGender.getEntity(PeacockType.values()[rand.nextInt(((PeacockType) item.type).values().length)], item.gender, world);
+				}
+				if(item.type instanceof RandomAnimalType)
+				{
+					entity = EntityGender.getEntity(item.type, item.gender, world);
 				}
 			}
 			else
