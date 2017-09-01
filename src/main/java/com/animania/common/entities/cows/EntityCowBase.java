@@ -9,9 +9,7 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
-import com.animania.common.entities.pigs.EntityHogBase;
-import com.animania.common.entities.pigs.EntityPigletBase;
-import com.animania.common.entities.pigs.PigType;
+import com.animania.common.entities.cows.ai.EntityAIPanicCows;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
@@ -23,14 +21,17 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -47,19 +48,33 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderMateable
 {
 
-	protected int gestationTimer;
+	public int gestationTimer;
+	public int dryTimer;
 	protected ItemStack milk = new ItemStack(Items.MILK_BUCKET);
+	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean>createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean>createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
 
 	public EntityCowBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(1.4F, 1.8F);
 		this.stepHeight = 1.1F;
-		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200);
+		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(500);
 		this.tasks.addTask(5, new EntityAIMateCows(this, 1.0D));
+		this.tasks.addTask(1, new EntityAIPanicCows(this, 2.0D));
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;
 
+	}
+
+	@Override
+	protected void entityInit()
+	{
+		super.entityInit();
+		this.dataManager.register(EntityCowBase.PREGNANT, Boolean.valueOf(false));
+		this.dataManager.register(EntityCowBase.HAS_KIDS, Boolean.valueOf(false));
+		this.dataManager.register(EntityCowBase.FERTILE, Boolean.valueOf(true));
 	}
 
 	public int getGestationTimer()
@@ -95,7 +110,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				entityCow.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityCow);
 				entityCow.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityCow.getUniqueID());
+				this.setMateUniqueId(entityCow.getPersistentID());
 			}
 			else if (chooser == 1)
 			{
@@ -110,12 +125,13 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				entityCow.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityCow);
 				entityCow.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityCow.getUniqueID());
+				this.setMateUniqueId(entityCow.getPersistentID());
 				EntityCalfBase entityCalf = this.cowType.getChild(world);
 				entityCalf.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityCalf);
 				entityCalf.setParentUniqueId(this.entityUniqueID);
 			}
+
 
 			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
@@ -124,6 +140,9 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			else
 				this.setLeftHanded(false);
 
+
+		} else {
+			return null;
 		}
 
 		return livingdata;
@@ -135,6 +154,39 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(18.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+	}
+
+	public boolean getPregnant()
+	{
+		return this.dataManager.get(EntityCowBase.PREGNANT).booleanValue();
+	}
+
+	public void setPregnant(boolean preggers)
+	{
+		if (preggers) {
+			this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(500);
+		}
+		this.dataManager.set(EntityCowBase.PREGNANT, Boolean.valueOf(preggers));
+	}
+	
+	public boolean getFertile()
+	{
+		return this.dataManager.get(EntityCowBase.FERTILE).booleanValue();
+	}
+
+	public void setFertile(boolean preggers)
+	{
+		this.dataManager.set(EntityCowBase.FERTILE, Boolean.valueOf(preggers));
+	}
+
+	public boolean getHasKids()
+	{
+		return this.dataManager.get(EntityCowBase.HAS_KIDS).booleanValue();
+	}
+	
+	public void setHasKids(boolean kids)
+	{
+		this.dataManager.set(EntityCowBase.HAS_KIDS, Boolean.valueOf(kids));
 	}
 
 	@Override
@@ -213,15 +265,57 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	public void onLivingUpdate()
 	{
 
-		if (this.gestationTimer > -1 && this.getMateUniqueId() != null)
+		if (!this.getFertile() && this.dryTimer > -1) {
+			this.dryTimer--;
+		} else {
+			this.setFertile(true);
+			this.dryTimer = AnimaniaConfig.careAndFeeding.gestationTimer/9 + rand.nextInt(50);
+		}
+		
+		if (this.blinkTimer > -1)
+		{
+			this.blinkTimer--;
+			if (this.blinkTimer == 0)
+			{
+				this.blinkTimer = 100 + this.rand.nextInt(100);
+
+				// Check for Mate
+				if (this.getMateUniqueId() != null)
+				{
+					UUID mate = this.getMateUniqueId();
+					boolean mateReset = true;
+
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityBullBase.class, 20, world, this);
+					for (int k = 0; k <= entities.size() - 1; k++)
+					{
+						Entity entity = entities.get(k);
+						if (entity != null)
+						{
+							UUID id = entity.getPersistentID();
+							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
+							{
+								mateReset = false;
+								break;
+							}
+						}
+					}
+
+					if (mateReset)
+						this.setMateUniqueId(null);
+
+				}
+			}
+		}
+		
+		if (this.gestationTimer > -1 && this.getPregnant())
 		{
 			this.gestationTimer--;
+
 			if (this.gestationTimer == 0)
 			{
 
-				this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(2000);
 				UUID MateID = this.getMateUniqueId();
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityBullBase.class, 16, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityBullBase.class, 30, this.world, this);
 				int esize = entities.size();
 				for (int k = 0; k <= esize - 1; k++) 
 				{
@@ -231,16 +325,22 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 						this.setInLove(null);
 						CowType maleType = ((EntityAnimaniaCow) entity).cowType;
 						CowType babyType = CowType.breed(maleType, this.cowType);
-
 						EntityCalfBase entityCalf = babyType.getChild(world);
 						entityCalf.setPosition(this.posX, this.posY + .2, this.posZ);
-						this.world.spawnEntity(entityCalf);
+						if (!world.isRemote) {
+							this.world.spawnEntity(entityCalf);
+						}
 						entityCalf.setParentUniqueId(this.getPersistentID());
 						this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
-						
-						//BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
-						//MinecraftForge.EVENT_BUS.post(event);
 
+						this.setPregnant(false);
+						this.setFertile(false);
+						this.setHasKids(true);
+
+						BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityCalf);
+						MinecraftForge.EVENT_BUS.post(event);
+						k = esize;
+						break;
 
 					}
 				}
@@ -315,16 +415,29 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
-		if (mode == ProbeMode.EXTENDED)
+		if (player.isSneaking())
 		{
-			if (this.getWatered() && this.getFed() && this.getMateUniqueId() != null)
+			
+			if (this.getMateUniqueId() != null) 
+				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
+			
+			if (this.getHasKids())
+				probeInfo.text(I18n.translateToLocal("text.waila.milkable"));
+
+			if (this.getFertile() && !this.getPregnant())
 			{
-				probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.milkable"));
-			}
-			/*		if(this.getGestationTimer() > -1)
+				probeInfo.text(I18n.translateToLocal("text.waila.fertile1"));
+			} 
+
+			if (this.getPregnant())
 			{
-				probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.pregnant1") + ", " + this.getGestationTimer() + " " + I18n.translateToLocal("text.waila.pregnant2"));
-			} */
+				if (this.gestationTimer > 0) {
+					int bob = this.gestationTimer;
+					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
+				} else {
+					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
+				}
+			} 
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}

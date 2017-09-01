@@ -214,7 +214,7 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-		this.setOwnerId(player.getUniqueID());
+		this.setOwnerId(player.getPersistentID());
 		this.setIsTamed(true);
 		this.setTamed(true);
 		this.setSitting(false);

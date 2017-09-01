@@ -152,7 +152,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-		this.setOwnerId(player.getUniqueID());
+		this.setOwnerId(player.getPersistentID());
 		this.setIsTamed(true);
 		this.setTamed(true);
 		this.setSitting(true);
@@ -382,7 +382,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 					stack.setCount(stack.getCount() - 1);
 				this.setIsTamed(true);
 				this.setTamed(true);
-				this.setOwnerId(player.getUniqueID());
+				this.setOwnerId(player.getPersistentID());
 				return true;
 			}
 

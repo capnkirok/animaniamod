@@ -11,6 +11,8 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
+import com.animania.common.entities.goats.EntityBuckBase;
+import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -19,6 +21,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -83,7 +86,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
 				this.world.spawnEntity(entityHorse);
 				entityHorse.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityHorse.getUniqueID());
+				this.setMateUniqueId(entityHorse.getPersistentID());
 			} else if (chooser == 1) {
 				EntityFoalDraftHorse entityHorse = new EntityFoalDraftHorse(this.world);
 				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
@@ -94,7 +97,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
 				this.world.spawnEntity(entityHorse);
 				entityHorse.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityHorse.getUniqueID());
+				this.setMateUniqueId(entityHorse.getPersistentID());
 				EntityFoalDraftHorse entityFoal = new EntityFoalDraftHorse(this.world);
 				entityFoal.setPosition(this.posX,  this.posY, this.posZ);
 				this.world.spawnEntity(entityFoal);
@@ -452,16 +455,20 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				this.blinkTimer = 80 + rand.nextInt(80);
 
 				// Check for Mate
-				if (this.getMateUniqueId() != null) {
-					String mate = this.getMateUniqueId().toString();
+				if (this.getMateUniqueId() != null)
+				{
+					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					int esize = this.world.loadedEntityList.size();
-					for (int k = 0; k <= esize - 1; k++) {
-						Entity entity = this.world.loadedEntityList.get(k);
-						if (entity != null) {
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityStallionBase.class, 20, world, this);
+					for (int k = 0; k <= entities.size() - 1; k++)
+					{
+						Entity entity = entities.get(k);
+						if (entity != null)
+						{
 							UUID id = entity.getPersistentID();
-							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead) {
+							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
+							{
 								mateReset = false;
 								break;
 							}

@@ -102,8 +102,8 @@ public class EntityAIMateHorses extends EntityAIBase
 				this.courtshipTimer--;
 
 				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
-					((EntityMareBase) this.theAnimal).setMateUniqueId(entity.getUniqueID());
-					entity.setMateUniqueId(this.theAnimal.getUniqueID());
+					((EntityMareBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
+					entity.setMateUniqueId(this.theAnimal.getPersistentID());
 
 					this.theAnimal.setInLove(null);
 					this.courtshipTimer = 20;
@@ -137,8 +137,8 @@ public class EntityAIMateHorses extends EntityAIBase
 				this.courtshipTimer--;
 
 				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
-					((EntityStallionBase) this.theAnimal).setMateUniqueId(entity.getUniqueID());
-					entity.setMateUniqueId(this.theAnimal.getUniqueID());
+					((EntityStallionBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
+					entity.setMateUniqueId(this.theAnimal.getPersistentID());
 
 					this.theAnimal.setInLove(null);
 					this.courtshipTimer = 20;

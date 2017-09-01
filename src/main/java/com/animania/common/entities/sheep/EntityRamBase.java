@@ -10,6 +10,7 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityHogBase;
+import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -209,17 +210,17 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				// Check for Mate
 				if (this.getMateUniqueId() != null)
 				{
-					String mate = this.getMateUniqueId().toString();
+					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 64, world, this);
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityEweBase.class, 20, world, this);
 					for (int k = 0; k <= entities.size() - 1; k++)
 					{
 						Entity entity = entities.get(k);
 						if (entity != null)
 						{
 							UUID id = entity.getPersistentID();
-							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead)
+							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
 							{
 								mateReset = false;
 								break;

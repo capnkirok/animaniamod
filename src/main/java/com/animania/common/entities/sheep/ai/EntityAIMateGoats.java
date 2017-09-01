@@ -102,8 +102,8 @@ public class EntityAIMateGoats extends EntityAIBase
 				this.courtshipTimer--;
 
 				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
-					((EntityDoeBase) this.theAnimal).setMateUniqueId(entity.getUniqueID());
-					entity.setMateUniqueId(this.theAnimal.getUniqueID());
+					((EntityDoeBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
+					entity.setMateUniqueId(this.theAnimal.getPersistentID());
 
 					this.theAnimal.setInLove(null);
 					this.courtshipTimer = 20;
@@ -137,8 +137,8 @@ public class EntityAIMateGoats extends EntityAIBase
 				this.courtshipTimer--;
 
 				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
-					((EntityBuckBase) this.theAnimal).setMateUniqueId(entity.getUniqueID());
-					entity.setMateUniqueId(this.theAnimal.getUniqueID());
+					((EntityBuckBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
+					entity.setMateUniqueId(this.theAnimal.getPersistentID());
 
 					this.theAnimal.setInLove(null);
 					this.courtshipTimer = 20;
