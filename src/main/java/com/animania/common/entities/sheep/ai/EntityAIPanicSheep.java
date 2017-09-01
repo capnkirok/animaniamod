@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class EntityAIPanicGoats extends EntityAIBase
+public class EntityAIPanicSheep extends EntityAIBase
 {
 	private final EntityCreature theEntityCreature;
 	protected double speed;
@@ -22,7 +22,7 @@ public class EntityAIPanicGoats extends EntityAIBase
 	private int duration;
 	private boolean hitFlag;
 
-	public EntityAIPanicGoats(EntityCreature creature, double speedIn)
+	public EntityAIPanicSheep(EntityCreature creature, double speedIn)
 	{
 		this.theEntityCreature = creature;
 		this.speed = speedIn;

@@ -1,5 +1,6 @@
 package com.animania.common.entities.horses;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -8,15 +9,19 @@ import javax.annotation.Nullable;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIMateHorses;
+import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -358,16 +363,20 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 				this.blinkTimer = 80 + rand.nextInt(80);
 
 				// Check for Mate
-				if (this.getMateUniqueId() != null) {
-					String mate = this.getMateUniqueId().toString();
+				if (this.getMateUniqueId() != null)
+				{
+					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					int esize = this.world.loadedEntityList.size();
-					for (int k = 0; k <= esize - 1; k++) {
-						Entity entity = this.world.loadedEntityList.get(k);
-						if (entity != null) {
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityMareBase.class, 20, world, this);
+					for (int k = 0; k <= entities.size() - 1; k++)
+					{
+						Entity entity = entities.get(k);
+						if (entity != null)
+						{
 							UUID id = entity.getPersistentID();
-							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead) {
+							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
+							{
 								mateReset = false;
 								break;
 							}

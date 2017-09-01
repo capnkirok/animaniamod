@@ -1,21 +1,19 @@
 package com.animania.common.entities.cows;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
 import com.animania.common.entities.cows.ai.EntityAIFollowMateCows;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
 import com.animania.common.handler.DamageSourceHandler;
-import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -24,18 +22,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -198,6 +193,49 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 
+	@Override
+	public void onLivingUpdate()
+	{
+
+		if (this.blinkTimer > -1)
+		{
+			this.blinkTimer--;
+			if (this.blinkTimer == 0)
+			{
+				this.blinkTimer = 100 + this.rand.nextInt(100);
+
+				// Check for Mate
+				if (this.getMateUniqueId() != null)
+				{
+					UUID mate = this.getMateUniqueId();
+					boolean mateReset = true;
+
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityCowBase.class, 20, world, this);
+					for (int k = 0; k <= entities.size() - 1; k++)
+					{
+						Entity entity = entities.get(k);
+						if (entity != null)
+						{
+							UUID id = entity.getPersistentID();
+							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
+							{
+								mateReset = false;
+								break;
+							}
+						}
+					}
+
+					if (mateReset)
+						this.setMateUniqueId(null);
+
+				}
+			}
+		}
+
+		super.onLivingUpdate();
+	}
+
+
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
@@ -249,6 +287,13 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
+
+		if (player.isSneaking())
+		{
+
+			if (this.getMateUniqueId() != null) 
+				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
+		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
 

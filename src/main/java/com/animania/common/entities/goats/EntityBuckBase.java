@@ -22,7 +22,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -245,7 +244,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 					String mate = this.getMateUniqueId().toString();
 					boolean mateReset = true;
 
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 64, world, this);
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityDoeBase.class, 64, world, this);
 					for (int k = 0; k <= entities.size() - 1; k++)
 					{
 						Entity entity = entities.get(k);

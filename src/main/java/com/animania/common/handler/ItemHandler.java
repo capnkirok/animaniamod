@@ -401,12 +401,12 @@ public class ItemHandler
 		ItemHandler.cookedPrimeChevon = new ItemAnimaniaFood(3, 5f, "cooked_prime_chevon", new PotionEffect(MobEffects.RESISTANCE, 1200, 1, false, false));
 
 		// SHEEP ITEMS
-		ItemHandler.rawMutton = new ItemAnimaniaFoodRaw("raw_mutton");
-		ItemHandler.cookedMutton = new ItemAnimaniaFood(3, 5f, "cooked_mutton", new PotionEffect(MobEffects.INSTANT_HEALTH, 5, 1, false, false));
+		ItemHandler.rawMutton = new ItemAnimaniaFoodRaw("raw_prime_mutton");
+		ItemHandler.cookedMutton = new ItemAnimaniaFood(3, 5f, "cooked_prime_mutton", new PotionEffect(MobEffects.INSTANT_HEALTH, 5, 1, false, false));
 
 		// RABBIT ITEMS
-		ItemHandler.rawRabbit = new ItemAnimaniaFoodRaw("raw_rabbit");
-		ItemHandler.cookedRabbit = new ItemAnimaniaFood(4, 6f, "cooked_rabbit", new PotionEffect(MobEffects.JUMP_BOOST, 600, 3, false, false));
+		ItemHandler.rawRabbit = new ItemAnimaniaFoodRaw("raw_prime_rabbit");
+		ItemHandler.cookedRabbit = new ItemAnimaniaFood(4, 6f, "cooked_prime_rabbit", new PotionEffect(MobEffects.JUMP_BOOST, 600, 3, false, false));
 
 		// CHEESE
 		ItemHandler.cheeseWedgeFriesian = new ItemAnimaniaFood(2, 2f, "friesian_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));

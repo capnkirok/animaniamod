@@ -156,7 +156,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	{
 
 		this.setFed(true);
-		this.setOwnerId(player.getUniqueID());
+		this.setOwnerId(player.getPersistentID());
 		this.setIsTamed(true);
 		this.setTamed(true);
 
@@ -282,7 +282,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 					itemstack.setCount(itemstack.getCount() - 1);
 				this.setIsTamed(true);
 				this.setTamed(true);
-				this.setOwnerId(player.getUniqueID());
+				this.setOwnerId(player.getPersistentID());
 				return true;
 			}
 
@@ -302,7 +302,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.setFed(true);
 			this.setIsTamed(true);
 			this.setTamed(true);
-			this.setOwnerId(player.getUniqueID());
+			this.setOwnerId(player.getPersistentID());
 
 			this.doPatreonCheck(player);
 

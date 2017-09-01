@@ -107,18 +107,18 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 
 					if (thisEntity.getRivalUniqueId() == null && entity.getRivalUniqueId() == null && thisEntity != entity) {
 						foundEntity = entity;
-						foundEntity.setRivalUniqueId(thisEntity.getUniqueID());
-						thisEntity.setRivalUniqueId(foundEntity.getUniqueID());
+						foundEntity.setRivalUniqueId(thisEntity.getPersistentID());
+						thisEntity.setRivalUniqueId(foundEntity.getPersistentID());
 						thisEntity.setFighting(true);
 						foundEntity.setFighting(true);
 						thisEntity.setAttackTarget(foundEntity);
 						foundEntity.setAttackTarget(thisEntity);
 						k = entities.size();
 						break;
-					} else if (thisEntity.getRivalUniqueId() != null && thisEntity.getRivalUniqueId() == entity.getUniqueID() && thisEntity != entity) {
+					} else if (thisEntity.getRivalUniqueId() != null && thisEntity.getRivalUniqueId() == entity.getPersistentID() && thisEntity != entity) {
 						foundEntity = entity;	
-						foundEntity.setRivalUniqueId(thisEntity.getUniqueID());
-						thisEntity.setRivalUniqueId(foundEntity.getUniqueID());
+						foundEntity.setRivalUniqueId(thisEntity.getPersistentID());
+						thisEntity.setRivalUniqueId(foundEntity.getPersistentID());
 						thisEntity.setAttackTarget(foundEntity);
 						foundEntity.setAttackTarget(thisEntity);
 						k = entities.size();

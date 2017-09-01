@@ -1,24 +1,23 @@
-package com.animania.common.entities.horses.ai;
+package com.animania.common.entities.goats.ai;
 
 import java.util.List;
 
-import com.animania.common.entities.cows.EntityCowBase;
-import com.animania.common.entities.horses.EntityMareBase;
-import com.animania.common.entities.horses.EntityStallionBase;
+import com.animania.common.entities.goats.EntityBuckBase;
+import com.animania.common.entities.goats.EntityDoeBase;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.math.MathHelper;
 
-public class EntityAIFollowMateHorses extends EntityAIBase
+public class EntityAIFollowMateGoats extends EntityAIBase
 {
 	EntityAnimal thisAnimal;
 	EntityAnimal mateAnimal;
 	double moveSpeed;
 	private int delayCounter;
 
-	public EntityAIFollowMateHorses(EntityAnimal animal, double speed)
+	public EntityAIFollowMateGoats(EntityAnimal animal, double speed)
 	{
 		this.thisAnimal = animal;
 		this.moveSpeed = speed;
@@ -27,19 +26,19 @@ public class EntityAIFollowMateHorses extends EntityAIBase
 	public boolean shouldExecute() {
 		this.delayCounter++;
 		if (this.delayCounter > 60)
-			if (this.thisAnimal instanceof EntityStallionBase) {
-				EntityStallionBase ec = (EntityStallionBase) this.thisAnimal;
+			if (this.thisAnimal instanceof EntityBuckBase) {
+				EntityBuckBase ec = (EntityBuckBase) this.thisAnimal;
 				if (ec.getMateUniqueId() == null)
 					return false;
 				else {
 
-					List entities = AnimaniaHelper.getEntitiesInRange(EntityMareBase.class, 40, this.thisAnimal.world, this.thisAnimal);
+					List entities = AnimaniaHelper.getEntitiesInRange(EntityDoeBase.class, 40, this.thisAnimal.world, this.thisAnimal);
 
 					for (int k = 0; k <= entities.size() - 1; k++) {
 
-						EntityMareBase entity = (EntityMareBase)entities.get(k);
+						EntityDoeBase entity = (EntityDoeBase)entities.get(k);
 						
-						if (entities.get(k) != null && entity.getPersistentID().equals(((EntityStallionBase) this.thisAnimal).getMateUniqueId())) {
+						if (entities.get(k) != null && entity.getPersistentID().equals(((EntityBuckBase) this.thisAnimal).getMateUniqueId())) {
 							double xt = entity.posX;
 							double yt = entity.posY;
 							double zt = entity.posZ;

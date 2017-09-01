@@ -1,5 +1,6 @@
 package com.animania.common.entities.pigs;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -7,14 +8,17 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.common.entities.pigs.ai.EntityAIFollowMatePigs;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
 import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -326,17 +330,17 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				// Check for Mate
 				if (this.getMateUniqueId() != null)
 				{
-					String mate = this.getMateUniqueId().toString();
+					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					int esize = this.world.loadedEntityList.size();
-					for (int k = 0; k <= esize - 1; k++)
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntitySowBase.class, 20, world, this);
+					for (int k = 0; k <= entities.size() - 1; k++)
 					{
-						Entity entity = this.world.loadedEntityList.get(k);
+						Entity entity = entities.get(k);
 						if (entity != null)
 						{
 							UUID id = entity.getPersistentID();
-							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead)
+							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
 							{
 								mateReset = false;
 								break;

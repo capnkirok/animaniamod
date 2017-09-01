@@ -103,6 +103,12 @@ item.animania_cooked_chevon.Roast Chevon
 item.animania_raw_prime_chevon.name=Raw Prime Chevon
 item.animania_cooked_prime_chevon.name=Cooked Prime Chevon
 
+item.animania_raw_prime_raw_rabbit.name=Raw Prime Rabbit
+item.animania_raw_prime_rabbit.name=Cooked Prime Rabbit
+
+item.animania_raw_prime_mutton.name=Raw Prime Mutton
+item.animania_cooked_prime_mutton.name=Cooked Prime Mutton
+
 tile.animania_cheese_friesian.name=Cheese Wheel (Friesian)
 item.animania_friesian_cheese_wedge.name=Cheese Wedge (Friesian)
 tile.animania_cheese_holstein.name=Cheese Wheel (Holstein)
@@ -491,8 +497,9 @@ text.waila.sitting=Sitting
 text.waila.tamed=Tamed
 text.waila.ownermissing=Owner missing
 text.waila.pregnant1=Pregnant
-text.waila.pregnant2=Ticks remaining
+text.waila.pregnant2=ticks remaining
 text.waila.aging=Aging progress
+text.waila.fertile1=Fertile
 
 text.jei.trough=The trough can be used to feed your animals. Right click it with Wheat, a Water Bucket or a Slop Bucket to fill it up.
 text.jei.mud=Mud blocks are essential for pigs, they love to dig around in it.

@@ -113,8 +113,8 @@ public class EntityAIMatePigs extends EntityAIBase
 				this.courtshipTimer--;
 
 				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
-					((EntitySowBase) this.theAnimal).setMateUniqueId(entity.getUniqueID());
-					entity.setMateUniqueId(this.theAnimal.getUniqueID());
+					((EntitySowBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
+					entity.setMateUniqueId(this.theAnimal.getPersistentID());
 
 					this.theAnimal.setInLove(null);
 					this.courtshipTimer = 20;
@@ -146,8 +146,8 @@ public class EntityAIMatePigs extends EntityAIBase
 				this.courtshipTimer--;
 
 				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
-					((EntityHogBase) this.theAnimal).setMateUniqueId(entity.getUniqueID());
-					entity.setMateUniqueId(this.theAnimal.getUniqueID());
+					((EntityHogBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
+					entity.setMateUniqueId(this.theAnimal.getPersistentID());
 
 					this.theAnimal.setInLove(null);
 					this.courtshipTimer = 20;

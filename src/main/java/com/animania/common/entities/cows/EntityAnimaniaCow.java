@@ -1,5 +1,6 @@
 package com.animania.common.entities.cows;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ import com.animania.common.entities.cows.ai.EntityAICowEatGrass;
 import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
+import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -20,6 +22,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
@@ -232,41 +235,6 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 100 + this.rand.nextInt(100);
-
-				// Check for Mate
-				if (this.mateable && this.getMateUniqueId() != null)
-				{
-					String mate = this.getMateUniqueId().toString();
-					boolean mateReset = true;
-
-					int esize = this.world.loadedEntityList.size();
-					for (int k = 0; k <= esize - 1; k++)
-					{
-						Entity entity = this.world.loadedEntityList.get(k);
-						if (entity != null)
-						{
-							UUID id = entity.getPersistentID();
-							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead)
-							{
-								mateReset = false;
-								break;
-							}
-						}
-					}
-
-					if (mateReset)
-						this.setMateUniqueId(null);
-
-				}
-			}
-		}
-
 		if (this.fedTimer > -1)
 		{
 			this.fedTimer--;
@@ -329,7 +297,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 		boolean fighting = false;
-		
+
 		if (this instanceof EntityBullBase) {
 			EntityBullBase ebb = (EntityBullBase) this;
 			if (ebb.getFighting()) {
@@ -476,13 +444,13 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 			this.dropItem(Items.LEATHER, 1 + lootlevel);
 
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.cowType, this.gender));
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
