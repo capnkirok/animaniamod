@@ -11,7 +11,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
-public class EntityAIMateGoats extends EntityAIBase
+public class EntityAIMateSheep extends EntityAIBase
 {
 	private final EntityAnimal theAnimal;
 	World theWorld;
@@ -21,7 +21,7 @@ public class EntityAIMateGoats extends EntityAIBase
 	private int delayCounter;
 
 
-	public EntityAIMateGoats(EntityAnimal animal, double speedIn)
+	public EntityAIMateSheep(EntityAnimal animal, double speedIn)
 	{
 		this.theAnimal = animal;
 		this.theWorld = animal.world;

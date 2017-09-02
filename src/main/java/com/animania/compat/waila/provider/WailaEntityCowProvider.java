@@ -35,8 +35,8 @@ public class WailaEntityCowProvider extends WailaEntityAnimalProviderMateable
 
 			if (thisEntity.getPregnant())
 			{
-				if (thisEntity.gestationTimer > 0) {
-					int bob = thisEntity.gestationTimer;
+				if (thisEntity.getGestation() > 0) {
+					int bob = thisEntity.getGestation();
 					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
 				} else {
 					currenttip.add(I18n.translateToLocal("text.waila.pregnant1"));

@@ -29,6 +29,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -36,7 +37,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -48,19 +48,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderMateable
 {
 
-	public int gestationTimer;
 	public int dryTimer;
 	protected ItemStack milk = new ItemStack(Items.MILK_BUCKET);
 	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean>createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean>createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityCowBase.class, DataSerializers.VARINT);
 
 	public EntityCowBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(1.4F, 1.8F);
 		this.stepHeight = 1.1F;
-		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(500);
 		this.tasks.addTask(5, new EntityAIMateCows(this, 1.0D));
 		this.tasks.addTask(1, new EntityAIPanicCows(this, 2.0D));
 		this.mateable = true;
@@ -75,11 +74,40 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		this.dataManager.register(EntityCowBase.PREGNANT, Boolean.valueOf(false));
 		this.dataManager.register(EntityCowBase.HAS_KIDS, Boolean.valueOf(false));
 		this.dataManager.register(EntityCowBase.FERTILE, Boolean.valueOf(true));
+		this.dataManager.register(EntityCowBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 	}
 
-	public int getGestationTimer()
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound)
 	{
-		return gestationTimer;
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("Pregnant", this.getPregnant());
+		compound.setBoolean("HasKids", this.getHasKids());
+		compound.setBoolean("Fertile", this.getFertile());
+		compound.setInteger("Gestation", this.getGestation());
+
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound)
+	{
+		super.readEntityFromNBT(compound);
+		
+		this.setPregnant(compound.getBoolean("Pregnant"));
+		this.setHasKids(compound.getBoolean("HasKids"));
+		this.setFertile(compound.getBoolean("Fertile"));
+		this.setGestation(compound.getInteger("Gestation"));
+
+	}
+	
+	public int getGestation()
+	{
+		return this.dataManager.get(EntityCowBase.GESTATION_TIMER).intValue();
+	}
+
+	public void setGestation(int gestation)
+	{
+		this.dataManager.set(EntityCowBase.GESTATION_TIMER, Integer.valueOf(gestation));
 	}
 
 	@Override
@@ -164,7 +192,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	public void setPregnant(boolean preggers)
 	{
 		if (preggers) {
-			this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(500);
+			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(500));
 		}
 		this.dataManager.set(EntityCowBase.PREGNANT, Boolean.valueOf(preggers));
 	}
@@ -307,11 +335,13 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			}
 		}
 		
-		if (this.gestationTimer > -1 && this.getPregnant())
+		int gestationTimer = this.getGestation();
+		if (gestationTimer > -1 && this.getPregnant())
 		{
-			this.gestationTimer--;
-
-			if (this.gestationTimer == 0)
+			gestationTimer--;
+			this.setGestation(gestationTimer);
+			
+			if (gestationTimer == 0)
 			{
 
 				UUID MateID = this.getMateUniqueId();
@@ -431,8 +461,8 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 			if (this.getPregnant())
 			{
-				if (this.gestationTimer > 0) {
-					int bob = this.gestationTimer;
+				if (this.getGestation() > 0) {
+					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
 				} else {
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));

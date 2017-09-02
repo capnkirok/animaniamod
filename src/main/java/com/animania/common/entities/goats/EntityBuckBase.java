@@ -25,11 +25,9 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -40,7 +38,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable
 {
 
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityBuckBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBuckBase.class, DataSerializers.BOOLEAN);
 
 	public EntityBuckBase(World worldIn)
@@ -57,9 +54,10 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	protected void initEntityAI()
 	{
 		super.initEntityAI();
-		this.tasks.addTask(8, new EntityAIMateGoats(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
 		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.25F));
+		this.tasks.addTask(5, new EntityAIMateGoats(this, 1.0D));
+		
 
 	}
 	
@@ -75,35 +73,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityBuckBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityBuckBase.FIGHTING, Boolean.valueOf(false));
-		
-	}
-	
-	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null)
-			compound.setString("MateUUID", this.getMateUniqueId().toString());
-
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-		
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
 	}
 	
 	public boolean getFighting()
