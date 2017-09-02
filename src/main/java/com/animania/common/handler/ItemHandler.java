@@ -394,32 +394,13 @@ public class ItemHandler
         ItemHandler.cookedHampshireBacon = new ItemAnimaniaFood(4, 8f, "cooked_hampshire_bacon", AnimaniaConfig.drops.oldMeatDrops,
                 new PotionEffect(MobEffects.ABSORPTION, 1200, 0, false, false));
 
-        ItemHandler.rawPrimePork = new ItemAnimaniaFoodRaw("raw_prime_pork", !AnimaniaConfig.drops.oldMeatDrops);
-        ItemHandler.cookedPrimePork = new ItemAnimaniaFood(16, 16f, "cooked_prime_pork", !AnimaniaConfig.drops.oldMeatDrops,
-                new PotionEffect(MobEffects.ABSORPTION, 1800, 2, false, false));
-        ItemHandler.rawPrimeBacon = new ItemAnimaniaFoodRaw("raw_prime_bacon", !AnimaniaConfig.drops.oldMeatDrops);
-        ItemHandler.cookedPrimeBacon = new ItemAnimaniaFood(8, 16f, "cooked_prime_bacon", !AnimaniaConfig.drops.oldMeatDrops,
-                new PotionEffect(MobEffects.ABSORPTION, 1200, 2, false, false));
+		// SHEEP ITEMS
+		ItemHandler.rawMutton = new ItemAnimaniaFoodRaw("raw_prime_mutton");
+		ItemHandler.cookedMutton = new ItemAnimaniaFood(3, 5f, "cooked_prime_mutton", new PotionEffect(MobEffects.INSTANT_HEALTH, 5, 1, false, false));
 
-        // CHICKEN ITEMS
-        ItemHandler.rawOrpingtonChicken = new ItemAnimaniaFoodRaw("raw_orpington_chicken", AnimaniaConfig.drops.oldMeatDrops);
-        ItemHandler.rawPlymouthRockChicken = new ItemAnimaniaFoodRaw("raw_plymouth_rock_chicken", AnimaniaConfig.drops.oldMeatDrops);
-        ItemHandler.rawWyandotteChicken = new ItemAnimaniaFoodRaw("raw_wyandotte_chicken", AnimaniaConfig.drops.oldMeatDrops);
-        ItemHandler.rawRhodeIslandRedChicken = new ItemAnimaniaFoodRaw("raw_rhode_island_red_chicken", AnimaniaConfig.drops.oldMeatDrops);
-        ItemHandler.cookedOrpingtonChicken = new ItemAnimaniaFood(12, 12f, "cooked_orpington_chicken", AnimaniaConfig.drops.oldMeatDrops,
-                new PotionEffect(MobEffects.HASTE, 3000, 0, false, false));
-        ItemHandler.cookedPlymouthRockChicken = new ItemAnimaniaFood(10, 10f, "cooked_plymouth_rock_chicken", AnimaniaConfig.drops.oldMeatDrops,
-                new PotionEffect(MobEffects.HASTE, 2400, 0, false, false));
-        ItemHandler.cookedWyandotteChicken = new ItemAnimaniaFood(6, 6f, "cooked_wyandotte_chicken", AnimaniaConfig.drops.oldMeatDrops,
-                new PotionEffect(MobEffects.HASTE, 1800, 0, false, false));
-        ItemHandler.cookedRhodeIslandRedChicken = new ItemAnimaniaFood(8, 8f, "cooked_rhode_island_red_chicken", AnimaniaConfig.drops.oldMeatDrops,
-                new PotionEffect(MobEffects.HASTE, 1200, 0, false, false));
-        ItemHandler.rawPrimeChicken = new ItemAnimaniaFoodRaw("raw_prime_chicken", !AnimaniaConfig.drops.oldMeatDrops);
-        ItemHandler.cookedPrimeChicken = new ItemAnimaniaFood(12, 12f, "cooked_prime_chicken", !AnimaniaConfig.drops.oldMeatDrops,
-                new PotionEffect(MobEffects.HASTE, 3000, 0, false, false));
-        ItemHandler.brownEgg = new ItemBrownEgg();
-        ItemHandler.peacockEggBlue = new ItemPeacockEgg("blue");
-        ItemHandler.peacockEggWhite = new ItemPeacockEgg("white");
+		// RABBIT ITEMS
+		ItemHandler.rawRabbit = new ItemAnimaniaFoodRaw("raw_prime_rabbit");
+		ItemHandler.cookedRabbit = new ItemAnimaniaFood(4, 6f, "cooked_prime_rabbit", new PotionEffect(MobEffects.JUMP_BOOST, 600, 3, false, false));
 
         // FROG ITEMS
         ItemHandler.rawFrogLegs = new ItemAnimaniaFoodRaw("raw_frog_legs");

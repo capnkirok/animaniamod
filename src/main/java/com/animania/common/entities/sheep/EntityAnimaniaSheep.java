@@ -56,8 +56,8 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 	protected int wateredTimer;
 	protected int damageTimer;
 	public SheepType sheepType;
-	protected Item dropRaw = ItemHandler.rawMutton;
-	protected Item dropCooked = ItemHandler.cookedMutton;
+	protected Item dropRaw = Items.MUTTON;
+	protected Item dropCooked = Items.COOKED_MUTTON;
 	public EntityAISheepEatGrass entityAIEatGrass;
 	protected EntityGender gender;
 
@@ -317,9 +317,9 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 			happyDrops++;
 
 		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops && dropRaw != Items.BEEF && dropCooked != Items.COOKED_BEEF)
+		if (AnimaniaConfig.drops.customMobDrops && dropRaw != Items.MUTTON && dropCooked != Items.COOKED_MUTTON)
 		{
-			String drop = AnimaniaConfig.drops.cowDrop;
+			String drop = AnimaniaConfig.drops.sheepDrop;
 			dropItem = AnimaniaHelper.getItem(drop);
 			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
 			{

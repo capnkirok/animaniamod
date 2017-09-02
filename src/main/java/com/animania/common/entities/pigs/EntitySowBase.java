@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
+import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.common.entities.horses.EntityFoalDraftHorse;
 import com.animania.common.entities.horses.EntityStallionBase;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
@@ -20,6 +21,7 @@ import com.google.common.base.Optional;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -88,7 +90,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				entityPig.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityPig);
 				entityPig.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityPig.getUniqueID());
+				this.setMateUniqueId(entityPig.getPersistentID());
 			}
 			else if (chooser == 1)
 			{
@@ -103,7 +105,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				entityPig.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityPig);
 				entityPig.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityPig.getUniqueID());
+				this.setMateUniqueId(entityPig.getPersistentID());
 				EntityPigletBase entityPiglet = this.pigType.getChild(world);
 				entityPiglet.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityPiglet);
@@ -371,17 +373,17 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				// Check for Mate
 				if (this.getMateUniqueId() != null)
 				{
-					String mate = this.getMateUniqueId().toString();
+					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					int esize = this.world.loadedEntityList.size();
-					for (int k = 0; k <= esize - 1; k++)
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityHogBase.class, 20, world, this);
+					for (int k = 0; k <= entities.size() - 1; k++)
 					{
-						Entity entity = this.world.loadedEntityList.get(k);
+						Entity entity = entities.get(k);
 						if (entity != null)
 						{
 							UUID id = entity.getPersistentID();
-							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead)
+							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
 							{
 								mateReset = false;
 								break;

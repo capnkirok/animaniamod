@@ -8,8 +8,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.ai.EntityAIMateGoats;
+import com.animania.common.entities.goats.ai.EntityAIPanicGoats;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -20,11 +20,11 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -37,41 +37,84 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable
 {
-
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityDoeBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
-	protected int gestationTimer;
+	public int dryTimerDoe;
+	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean>createKey(EntityDoeBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean>createKey(EntityDoeBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityDoeBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityDoeBase.class, DataSerializers.VARINT);
 
+	
 	public EntityDoeBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(1.1F, 1.0F);
 		this.stepHeight = 1.1F;
-		this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200);
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;
 	}
-
-
+	
 	@Override
 	protected void initEntityAI()
 	{
 		super.initEntityAI();
-		this.tasks.addTask(8, new EntityAIMateGoats(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIPanicGoats(this, 2.0D));
+		this.tasks.addTask(5, new EntityAIMateGoats(this, 1.0D));
+	}
+	
+	@Override
+	protected void entityInit()
+	{
+		super.entityInit();
+		this.dataManager.register(EntityDoeBase.PREGNANT, Boolean.valueOf(false));
+		this.dataManager.register(EntityDoeBase.HAS_KIDS, Boolean.valueOf(false));
+		this.dataManager.register(EntityDoeBase.FERTILE, Boolean.valueOf(true));
+		this.dataManager.register(EntityDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
+	}
+	
+	@Override
+	protected void applyEntityAttributes()
+	{
+		super.applyEntityAttributes();
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.265D);
+	}
+	
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound)
+	{
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("Pregnant", this.getPregnant());
+		compound.setBoolean("HasKids", this.getHasKids());
+		compound.setBoolean("Fertile", this.getFertile());
+		compound.setInteger("Gestation", this.getGestation());
 
 	}
 
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound)
+	{
+		super.readEntityFromNBT(compound);
+		
+		this.setPregnant(compound.getBoolean("Pregnant"));
+		this.setHasKids(compound.getBoolean("HasKids"));
+		this.setFertile(compound.getBoolean("Fertile"));
+		this.setGestation(compound.getInteger("Gestation"));
+
+	}
+	
 	@Override
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
@@ -95,7 +138,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				entityGoat.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityGoat);
 				entityGoat.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityGoat.getUniqueID());
+				this.setMateUniqueId(entityGoat.getPersistentID());
 			}
 			else if (chooser == 1)
 			{
@@ -110,7 +153,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				entityBuck.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityBuck);
 				entityBuck.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityBuck.getUniqueID());
+				this.setMateUniqueId(entityBuck.getPersistentID());
 				EntityKidBase entityKid = this.goatType.getChild(world);
 				entityKid.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityKid);
@@ -127,48 +170,50 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		return livingdata;
 	}
 
-	@Override
-	protected void applyEntityAttributes()
+	
+	public int getGestation()
 	{
-		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.265D);
+		return this.dataManager.get(EntityDoeBase.GESTATION_TIMER).intValue();
 	}
 
-	@Override
-	protected void entityInit()
+	public void setGestation(int gestation)
 	{
-		super.entityInit();
-		this.dataManager.register(EntityDoeBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
-
+		this.dataManager.set(EntityDoeBase.GESTATION_TIMER, Integer.valueOf(gestation));
 	}
 
-	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public boolean getPregnant()
 	{
-		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null)
-			compound.setString("MateUUID", this.getMateUniqueId().toString());
-
+		return this.dataManager.get(EntityDoeBase.PREGNANT).booleanValue();
 	}
 
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void setPregnant(boolean preggers)
 	{
-		super.readEntityFromNBT(compound);
-
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		if (preggers) {
+			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200));
 		}
-
+		this.dataManager.set(EntityDoeBase.PREGNANT, Boolean.valueOf(preggers));
+	}
+	
+	public boolean getFertile()
+	{
+		return this.dataManager.get(EntityDoeBase.FERTILE).booleanValue();
 	}
 
+	public void setFertile(boolean fertile)
+	{
+		this.dataManager.set(EntityDoeBase.FERTILE, Boolean.valueOf(fertile));
+	}
+
+	public boolean getHasKids()
+	{
+		return this.dataManager.get(EntityDoeBase.HAS_KIDS).booleanValue();
+	}
+	
+	public void setHasKids(boolean kids)
+	{
+		this.dataManager.set(EntityDoeBase.HAS_KIDS, Boolean.valueOf(kids));
+	}
+	
 	@Nullable
 	public UUID getMateUniqueId()
 	{
@@ -258,7 +303,14 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Override
 	public void onLivingUpdate()
 	{
-
+		if (!this.getFertile() && this.dryTimerDoe > -1) {
+			this.dryTimerDoe--;
+		} else {
+			this.setFertile(true);
+			this.dryTimerDoe = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
+		}
+		
+		
 		if (this.blinkTimer > -1)
 		{
 			this.blinkTimer--;
@@ -269,17 +321,17 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				// Check for Mate
 				if (this.getMateUniqueId() != null)
 				{
-					String mate = this.getMateUniqueId().toString();
+					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 64, world, this);
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 20, world, this);
 					for (int k = 0; k <= entities.size() - 1; k++)
 					{
 						Entity entity = entities.get(k);
 						if (entity != null)
 						{
 							UUID id = entity.getPersistentID();
-							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead)
+							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
 							{
 								mateReset = false;
 								break;
@@ -296,39 +348,44 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
-
-		if (this.gestationTimer > -1 && this.getMateUniqueId() != null)
+		int gestationTimer = this.getGestation();
+		
+		if (gestationTimer > -1 && this.getPregnant())
 		{
-			this.gestationTimer--;
-			if (this.gestationTimer == 0)
+			gestationTimer--;
+			this.setGestation(gestationTimer);
+			
+			if (gestationTimer == 0)
 			{
 
-				this.gestationTimer = AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(2000);
-
 				UUID MateID = this.getMateUniqueId();
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 16, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 30, this.world, this);
 				int esize = entities.size();
-				for (int k = 0; k <= esize - 1; k++) {
-
+				for (int k = 0; k <= esize - 1; k++) 
+				{
 					EntityBuckBase entity = (EntityBuckBase)entities.get(k);
 					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
 
 						this.setInLove(null);
-
-						if (!this.world.isRemote)
-						{
-
-							GoatType maleType = ((EntityBuckBase) entity).goatType;
-							GoatType babyType = GoatType.breed(maleType, this.goatType);
-
-							EntityKidBase kid = babyType.getChild(world);
-							kid.setPosition(this.posX, this.posY + .2, this.posZ);
-							this.world.spawnEntity(kid);
-							kid.setParentUniqueId(this.getPersistentID());
-							this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F); //TODO Goat Noises
-							//BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, kid);
-							//MinecraftForge.EVENT_BUS.post(event);
+						GoatType maleType = ((EntityAnimaniaGoat) entity).goatType;
+						GoatType babyType = GoatType.breed(maleType, this.goatType);
+						EntityKidBase entityKid = babyType.getChild(world);
+						entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
+						if (!world.isRemote) {
+							this.world.spawnEntity(entityKid);
 						}
+						entityKid.setParentUniqueId(this.getPersistentID());
+						this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+
+						this.setPregnant(false);
+						this.setFertile(false);
+						this.setHasKids(true);
+
+						BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityKid);
+						MinecraftForge.EVENT_BUS.post(event);
+						k = esize;
+						break;
+
 					}
 				}
 			}
@@ -411,16 +468,29 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
-		if (mode == ProbeMode.EXTENDED)
+		if (player.isSneaking())
 		{
-			if (this.getWatered() && this.getFed() && this.getMateUniqueId() != null)
+			
+			if (this.getMateUniqueId() != null) 
+				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
+			
+			if (this.getHasKids())
+				probeInfo.text(I18n.translateToLocal("text.waila.milkable"));
+
+			if (this.getFertile() && !this.getPregnant())
 			{
-				probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.milkable"));
-			}
-			/*		if(this.getGestationTimer() > -1)
+				probeInfo.text(I18n.translateToLocal("text.waila.fertile1"));
+			} 
+
+			if (this.getPregnant())
 			{
-				probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.pregnant1") + ", " + this.getGestationTimer() + " " + I18n.translateToLocal("text.waila.pregnant2"));
-			} */
+				if (this.getGestation() > 0) {
+					int bob = this.getGestation();
+					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
+				} else {
+					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
+				}
+			} 
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}

@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "animania:items/mutton_raw"
+        "layer0": "animania:items/prime_mutton_raw"
     },
     "display": {
         "ground": {

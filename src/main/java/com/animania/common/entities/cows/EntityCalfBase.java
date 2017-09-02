@@ -8,6 +8,8 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIFollowParentCows;
+import com.animania.common.entities.cows.ai.EntityAIPanicCows;
+import com.animania.common.entities.horses.EntityFoalBase;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -46,6 +48,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.setSize(1.2F, 1.8F);
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
+		this.tasks.addTask(1, new EntityAIPanicCows(this, 2.0D));
 		this.ageTimer = 0;
 		this.cowType = CowType.FRIESIAN;
 		this.gender = EntityGender.CHILD;
@@ -238,6 +241,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 		boolean watered = this.getWatered();
 
 		this.ageTimer++;
+		
 		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
 			if (fed && watered)
 			{
@@ -247,7 +251,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 				this.setEntityAge(age);
 				this.setSize(1.2F + age, 1.8F + age);
 
-				if (age >= 1.0 && !this.world.isRemote)
+				if (age >= 0.85 && !this.world.isRemote)
 				{
 					this.setDead();
 

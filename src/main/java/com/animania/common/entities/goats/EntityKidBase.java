@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.goats.ai.EntityAIFollowParentGoats;
+import com.animania.common.entities.goats.ai.EntityAIPanicGoats;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -47,6 +48,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	{
 		super.initEntityAI();
 		this.tasks.addTask(1, new EntityAIFollowParentGoats(this, 1.1D));
+		this.tasks.addTask(1, new EntityAIPanicGoats(this, 2.0D));
 	}
 	
 	@Override

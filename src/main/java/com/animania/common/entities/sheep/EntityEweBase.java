@@ -8,8 +8,6 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -20,11 +18,11 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -42,6 +40,8 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -94,7 +94,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				entitySheep.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entitySheep);
 				entitySheep.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entitySheep.getUniqueID());
+				this.setMateUniqueId(entitySheep.getPersistentID());
 			}
 			else if (chooser == 1)
 			{
@@ -109,7 +109,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				entityBuck.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityBuck);
 				entityBuck.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityBuck.getUniqueID());
+				this.setMateUniqueId(entityBuck.getPersistentID());
 				EntityLambBase entityKid = this.sheepType.getChild(world);
 				entityKid.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityKid);
@@ -268,17 +268,17 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				// Check for Mate
 				if (this.getMateUniqueId() != null)
 				{
-					String mate = this.getMateUniqueId().toString();
+					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 64, world, this);
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 20, world, this);
 					for (int k = 0; k <= entities.size() - 1; k++)
 					{
 						Entity entity = entities.get(k);
 						if (entity != null)
 						{
 							UUID id = entity.getPersistentID();
-							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead)
+							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
 							{
 								mateReset = false;
 								break;
@@ -325,8 +325,8 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 							this.world.spawnEntity(kid);
 							kid.setParentUniqueId(this.getPersistentID());
 							this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F); //TODO Sheep Noises
-							//BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, kid);
-							//MinecraftForge.EVENT_BUS.post(event);
+							BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, kid);
+							MinecraftForge.EVENT_BUS.post(event);
 						}
 					}
 				}

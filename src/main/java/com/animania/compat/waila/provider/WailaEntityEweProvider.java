@@ -2,16 +2,12 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
-import com.animania.common.entities.cows.EntityCowBase;
+import com.animania.common.entities.sheep.EntityEweBase;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.World;
 
 public class WailaEntityEweProvider extends WailaEntityAnimalProviderMateable
 {
@@ -22,15 +18,28 @@ public class WailaEntityEweProvider extends WailaEntityAnimalProviderMateable
 		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 		if (accessor.getPlayer().isSneaking())
 		{
-			if (currenttip.contains(I18n.translateToLocal("text.waila.fed")))
+
+			EntityEweBase thisEntity = (EntityEweBase)entity;
+			/*
+			if (thisEntity.getHasKids())
 				currenttip.add(I18n.translateToLocal("text.waila.milkable"));
-			
-			/*int timer = accessor.getNBTData().getInteger("gestation");
-			
-			if (timer > -1)
+
+			if (thisEntity.getFertile() && !thisEntity.getPregnant())
 			{
-				currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + ", " + timer + " " + I18n.translateToLocal("text.waila.pregnant2"));
-			} */
+				currenttip.add(I18n.translateToLocal("text.waila.fertile1"));
+			} 
+
+			if (thisEntity.getPregnant())
+			{
+				if (thisEntity.gestationTimer > 0) {
+					int bob = thisEntity.gestationTimer;
+					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
+				} else {
+					currenttip.add(I18n.translateToLocal("text.waila.pregnant1"));
+				}
+			} 
+			*/
+
 		}
 		return currenttip;
 	}

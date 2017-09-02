@@ -80,14 +80,13 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAIGoatEatGrass(this);
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
-		this.tasks.addTask(2, new EntityAIMateGoats(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
+		this.tasks.addTask(3, new EntityAIMateGoats(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.3F));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAISwimmingGoats(this));
 		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
-		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
 		this.tasks.addTask(10, new EntityAIWatchClosestGoats(this, EntityPlayer.class, 6.0F));
@@ -127,7 +126,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-		//this.entityAIEatGrass.startExecuting();
+		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
 		player.addStat(goatType.getAchievement(), 1);
 
@@ -195,7 +194,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	@Override
 	protected void updateAITasks()
 	{
-		//this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
+		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
 		super.updateAITasks();
 	}
 
@@ -215,6 +214,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	@Override
 	public void onLivingUpdate()
 	{
+		 
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -300,7 +300,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 				player.dropItem(new ItemStack(Items.BUCKET), false);
 
 			this.eatTimer = 40;
-			//this.entityAIEatGrass.startExecuting();
+			this.entityAIEatGrass.startExecuting();
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
