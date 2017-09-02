@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.leviathanstudio.craftstudio.CraftStudioApi;
-import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
-import com.leviathanstudio.craftstudio.common.animation.IAnimated;
+import com.google.common.collect.Lists;
 
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockPlanks;
@@ -40,7 +38,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityWagon extends Entity implements IAnimated
+public class EntityWagon extends Entity
 {
     private static final DataParameter<Integer>   TIME_SINCE_HIT    = EntityDataManager.<Integer> createKey(EntityWagon.class,
             DataSerializers.VARINT);
@@ -76,13 +74,6 @@ public class EntityWagon extends Entity implements IAnimated
     private EntityWagon.Status                    status;
     private EntityWagon.Status                    previousStatus;
     private double                                lastYd;
-
-    protected static AnimationHandler             animHandler       = CraftStudioApi.getNewAnimationHandler(EntityWagon.class);
-
-    static
-    {
-
-    }
 
     public EntityWagon(World worldIn)
     {
@@ -126,24 +117,33 @@ public class EntityWagon extends Entity implements IAnimated
         }
     }
 
-    public AxisAlignedBB getCollisionBox(Entity entity)
+    /**
+     * Returns a boundingBox used to collide the entity with other entities and
+     * blocks. This enables the entity to be pushable on contact, like boats or
+     * minecarts.
+     */
+    @Nullable
+    public AxisAlignedBB getCollisionBox(Entity entityIn)
     {
-        return entity.getEntityBoundingBox();
+        return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
     }
 
+    /**
+     * Returns the collision bounding box for this entity
+     */
+    @Nullable
     public AxisAlignedBB getCollisionBoundingBox()
     {
         return this.getEntityBoundingBox();
     }
 
-    public boolean canBeCollidedWith()
-    {
-        return !this.isDead;
-    }
-
+    /**
+     * Returns true if this entity should push and be pushed by other entities
+     * when colliding.
+     */
     public boolean canBePushed()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -152,7 +152,7 @@ public class EntityWagon extends Entity implements IAnimated
      */
     public double getMountedYOffset()
     {
-        return 1.5D;
+        return 1.3D;
     }
 
     /**
@@ -245,6 +245,15 @@ public class EntityWagon extends Entity implements IAnimated
         this.setForwardDirection(-this.getForwardDirection());
         this.setTimeSinceHit(10);
         this.setDamageTaken(this.getDamageTaken() * 11.0F);
+    }
+
+    /**
+     * Returns true if other Entities should be prevented from moving through
+     * this Entity.
+     */
+    public boolean canBeCollidedWith()
+    {
+        return !this.isDead;
     }
 
     /**
@@ -420,7 +429,17 @@ public class EntityWagon extends Entity implements IAnimated
         }
         else
         {
-            return EntityWagon.Status.IN_AIR;
+            float f = this.getBoatGlide();
+
+            if (f > 0.0F)
+            {
+                this.boatGlide = f;
+                return EntityWagon.Status.ON_LAND;
+            }
+            else
+            {
+                return EntityWagon.Status.IN_AIR;
+            }
         }
     }
 
@@ -483,6 +502,64 @@ public class EntityWagon extends Entity implements IAnimated
         {
             blockpos$pooledmutableblockpos.release();
         }
+    }
+
+    /**
+     * Decides how much the boat should be gliding on the land (based on any
+     * slippery blocks)
+     */
+    public float getBoatGlide()
+    {
+        AxisAlignedBB axisalignedbb = this.getEntityBoundingBox();
+        AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY - 0.001D, axisalignedbb.minZ, axisalignedbb.maxX,
+                axisalignedbb.minY, axisalignedbb.maxZ);
+        int i = MathHelper.floor(axisalignedbb1.minX) - 1;
+        int j = MathHelper.ceil(axisalignedbb1.maxX) + 1;
+        int k = MathHelper.floor(axisalignedbb1.minY) - 1;
+        int l = MathHelper.ceil(axisalignedbb1.maxY) + 1;
+        int i1 = MathHelper.floor(axisalignedbb1.minZ) - 1;
+        int j1 = MathHelper.ceil(axisalignedbb1.maxZ) + 1;
+        List<AxisAlignedBB> list = Lists.<AxisAlignedBB> newArrayList();
+        float f = 0.0F;
+        int k1 = 0;
+        BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
+
+        try
+        {
+            for (int l1 = i; l1 < j; ++l1)
+            {
+                for (int i2 = i1; i2 < j1; ++i2)
+                {
+                    int j2 = (l1 != i && l1 != j - 1 ? 0 : 1) + (i2 != i1 && i2 != j1 - 1 ? 0 : 1);
+
+                    if (j2 != 2)
+                    {
+                        for (int k2 = k; k2 < l; ++k2)
+                        {
+                            if (j2 <= 0 || k2 != k && k2 != l - 1)
+                            {
+                                blockpos$pooledmutableblockpos.setPos(l1, k2, i2);
+                                IBlockState iblockstate = this.world.getBlockState(blockpos$pooledmutableblockpos);
+                                iblockstate.addCollisionBoxToList(this.world, blockpos$pooledmutableblockpos, axisalignedbb1, list, this, false);
+
+                                if (!list.isEmpty())
+                                {
+                                    f += iblockstate.getBlock().slipperiness;
+                                    ++k1;
+                                }
+
+                                list.clear();
+                            }
+                        }
+                    }
+                }
+            }
+        } finally
+        {
+            blockpos$pooledmutableblockpos.release();
+        }
+
+        return f / (float) k1;
     }
 
     private boolean checkInWater()
@@ -707,7 +784,7 @@ public class EntityWagon extends Entity implements IAnimated
             }
 
             Vec3d vec3d = (new Vec3d((double) f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
-            passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double) f1, this.posZ + vec3d.zCoord + 1.67);
+            passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double) f1, this.posZ + vec3d.zCoord + 1.68D);
             passenger.rotationYaw += this.deltaRotation;
             passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
             this.applyYawToEntity(passenger);
@@ -979,41 +1056,5 @@ public class EntityWagon extends Entity implements IAnimated
 
             return values()[0];
         }
-    }
-
-    @Override
-    public AnimationHandler getAnimationHandler()
-    {
-        return animHandler;
-    }
-
-    @Override
-    public int getDimension()
-    {
-        return this.dimension;
-    }
-
-    @Override
-    public double getX()
-    {
-        return this.posX;
-    }
-
-    @Override
-    public double getY()
-    {
-        return this.posY;
-    }
-
-    @Override
-    public double getZ()
-    {
-        return this.posZ;
-    }
-
-    @Override
-    public boolean isWorldRemote()
-    {
-        return this.world.isRemote;
     }
 }
