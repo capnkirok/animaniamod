@@ -2,27 +2,15 @@ package com.animania.common.entities.pigs.ai;
 
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import com.animania.common.entities.pigs.EntityHogBase;
-import com.animania.common.entities.pigs.EntityHogDuroc;
-import com.animania.common.entities.pigs.EntityHogHampshire;
-import com.animania.common.entities.pigs.EntityHogLargeBlack;
-import com.animania.common.entities.pigs.EntityHogLargeWhite;
-import com.animania.common.entities.pigs.EntityHogOldSpot;
-import com.animania.common.entities.pigs.EntityHogYorkshire;
+import com.animania.common.entities.pigs.EntityPigletBase;
 import com.animania.common.entities.pigs.EntitySowBase;
-import com.animania.common.entities.pigs.EntitySowDuroc;
-import com.animania.common.entities.pigs.EntitySowHampshire;
-import com.animania.common.entities.pigs.EntitySowLargeBlack;
-import com.animania.common.entities.pigs.EntitySowLargeWhite;
-import com.animania.common.entities.pigs.EntitySowOldSpot;
-import com.animania.common.entities.pigs.EntitySowYorkshire;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityAIMatePigs extends EntityAIBase
@@ -33,6 +21,7 @@ public class EntityAIMatePigs extends EntityAIBase
 	int                        courtshipTimer;
 	double                     moveSpeed;
 	private int                delayCounter;
+	private Random			   rand;
 
 	public EntityAIMatePigs(EntityAnimal animal, double speedIn) {
 		this.theAnimal = animal;
@@ -41,6 +30,7 @@ public class EntityAIMatePigs extends EntityAIBase
 		this.setMutexBits(3);
 		this.courtshipTimer = 20;
 		this.delayCounter = 0;
+		this.rand = new Random();
 
 	}
 
@@ -48,18 +38,16 @@ public class EntityAIMatePigs extends EntityAIBase
 	public boolean shouldExecute() {
 
 		this.delayCounter++;
+
+		//System.out.println(delayCounter);
+
 		if (this.delayCounter > 100) {
 
-			if (this.theAnimal instanceof EntitySowBase) {
-				EntitySowBase ec = (EntitySowBase) this.theAnimal;
-				if (ec.getMateUniqueId() != null)
-					return false;
-			} else if (this.theAnimal instanceof EntityHogBase) {
-				EntityHogBase ec = (EntityHogBase) this.theAnimal;
-				if (ec.getMateUniqueId() != null)
-					return false;
+			if (this.theAnimal instanceof EntityPigletBase || this.theAnimal instanceof EntitySowBase) {
+				this.delayCounter = 0;
+				return false;
 			}
-
+			
 			this.targetMate = this.getNearbyMate();
 
 			Random rand = new Random();
@@ -74,11 +62,16 @@ public class EntityAIMatePigs extends EntityAIBase
 		}
 		else
 			return false;
+
 	}
 
 	@Override
 	public boolean continueExecuting() {
-		return this.targetMate.isEntityAlive();
+		if (targetMate != null) {
+			return this.targetMate.isEntityAlive();
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -88,80 +81,93 @@ public class EntityAIMatePigs extends EntityAIBase
 
 	@Override
 	public void updateTask() {
-		this.theAnimal.getLookHelper().setLookPositionWithEntity(this.targetMate, 10.0F, this.theAnimal.getVerticalFaceSpeed());
-		this.theAnimal.getNavigator().tryMoveToEntityLiving(this.targetMate, this.moveSpeed);
 
+		if (this.targetMate != null) {
+			EntitySowBase tm = (EntitySowBase) this.targetMate;
+			if (!tm.getPregnant() && tm.getFertile()) {
+				this.targetMate = this.getNearbyMate();
+			} else {
+				this.theAnimal.resetInLove();
+				this.resetTask();
+				this.theAnimal.getNavigator().clearPathEntity();
+				this.delayCounter = 0;
+			}
+		}
 	}
 
 	private EntityAnimal getNearbyMate() {
 
-		if (this.theAnimal instanceof EntitySowBase) {
+	
+		if (this.theAnimal instanceof EntityHogBase) {
 
-			String mateID = "";
-
-			EntitySowBase entity2 = (EntitySowBase) this.theAnimal;
-			if (entity2.getMateUniqueId() != null) {
-				mateID = entity2.getMateUniqueId().toString();
-			}
-
-
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityHogBase.class, 5, this.theAnimal.world, this.theAnimal);
-
-			for (int k = 0; k <= entities.size() - 1; k++) {
-				EntityHogBase entity = (EntityHogBase)entities.get(k); 
-
-				this.courtshipTimer--;
-
-				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
-					((EntitySowBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
-					entity.setMateUniqueId(this.theAnimal.getPersistentID());
-
-					this.theAnimal.setInLove(null);
-					this.courtshipTimer = 20;
-					k = entities.size();
-					return (EntityAnimal) entity;
-				} else if (entity.getMateUniqueId() == null) {
-					k = entities.size();
-					this.theAnimal.setInLove(null);
-					this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());
-					this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
-					return null;
-				} 
-			} 
-
-		} else if (this.theAnimal instanceof EntityHogBase) {
-
-			String mateID = "";
+			UUID mateID = null;
 
 			EntityHogBase entity2 = (EntityHogBase) this.theAnimal;
 			if (entity2.getMateUniqueId() != null) {
-				mateID = entity2.getMateUniqueId().toString();
+				mateID = entity2.getMateUniqueId();
 			}
 
-			List entities = AnimaniaHelper.getEntitiesInRange(EntitySowBase.class, 5, this.theAnimal.world, this.theAnimal);
+			if (mateID != null) {
+				List entities = AnimaniaHelper.getEntitiesInRange(EntitySowBase.class, 3, this.theAnimal.world, this.theAnimal);
+				
+				for (int k = 0; k <= entities.size() - 1; k++) {
+					EntitySowBase entity = (EntitySowBase)entities.get(k); 
 
-			for (int k = 0; k <= entities.size() - 1; k++) {
-				EntitySowBase entity = (EntitySowBase)entities.get(k); 
+					if (entity.getPersistentID().equals(mateID) && entity.getFertile() && !entity.getPregnant()) {
 
-				this.courtshipTimer--;
+						this.courtshipTimer--;
+						if (this.courtshipTimer < 0) {
+							this.theAnimal.setInLove(null);
+							this.courtshipTimer = 20;
+							k = entities.size();
+							entity.setPregnant(true);
+							entity.setFertile(false);
+							delayCounter = 0;
+							return (EntityAnimal) entity;
+						} else {
+							k = entities.size();
+							this.theAnimal.setInLove(null);
+							this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());
+							this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
+							entity.getLookHelper().setLookPositionWithEntity(this.theAnimal, 10.0F, entity.getVerticalFaceSpeed());
+							entity.getNavigator().tryMoveToEntityLiving(this.theAnimal, this.moveSpeed);
+							
+							return null;
+						}
+					}
+				}
+			} else {
+				List entities = AnimaniaHelper.getEntitiesInRange(EntitySowBase.class, 5, this.theAnimal.world, this.theAnimal);
 
-				if (entity.getMateUniqueId() == null && this.courtshipTimer < 0) {
-					((EntityHogBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
-					entity.setMateUniqueId(this.theAnimal.getPersistentID());
+				for (int k = 0; k <= entities.size() - 1; k++) {
+					EntitySowBase entity = (EntitySowBase)entities.get(k); 
 
-					this.theAnimal.setInLove(null);
-					this.courtshipTimer = 20;
-					k = entities.size();
-					return (EntityAnimal) entity;
-				} else if (entity.getMateUniqueId() == null) {
-					k = entities.size();
-					this.theAnimal.setInLove(null);
-					this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());
-					this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
-					return null;
+					this.courtshipTimer--;
+					if (entity.getMateUniqueId() == null && this.courtshipTimer < 0 && entity.getFertile() && !entity.getPregnant()) {
+						((EntityHogBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
+						entity.setMateUniqueId(this.theAnimal.getPersistentID());
+						this.theAnimal.setInLove(null);
+						this.courtshipTimer = 20;
+						k = entities.size();
+						entity.setPregnant(true);
+						entity.setFertile(false);
+						delayCounter = 0;
+						return (EntityAnimal) entity;
+					} else if (entity.getMateUniqueId() == null) {
+						k = entities.size();
+						this.theAnimal.setInLove(null);
+						this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());
+						this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
+						entity.getLookHelper().setLookPositionWithEntity(this.theAnimal, 10.0F, entity.getVerticalFaceSpeed());
+						entity.getNavigator().tryMoveToEntityLiving(this.theAnimal, this.moveSpeed);
+						return null;
+
+					}
 				}
 			}
 		}
+
+		delayCounter = 0;
 		return null;
 	}
 }

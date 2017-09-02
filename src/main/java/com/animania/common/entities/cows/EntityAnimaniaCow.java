@@ -232,6 +232,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 	@Override
 	public void onLivingUpdate()
 	{
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 

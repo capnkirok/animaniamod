@@ -2,14 +2,14 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
-import com.animania.common.entities.goats.EntityDoeBase;
+import com.animania.common.entities.horses.EntityMareBase;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.text.translation.I18n;
 
-public class WailaEntityDoeProvider extends WailaEntityAnimalProviderMateable
+public class WailaEntityMareProvider extends WailaEntityAnimalProviderMateable
 {
 
 	@Override
@@ -19,7 +19,7 @@ public class WailaEntityDoeProvider extends WailaEntityAnimalProviderMateable
 		if (accessor.getPlayer().isSneaking())
 		{
 
-			EntityDoeBase thisEntity = (EntityDoeBase)entity;
+			EntityMareBase thisEntity = (EntityMareBase)entity;
 			
 			if (thisEntity.getHasKids())
 				currenttip.add(I18n.translateToLocal("text.waila.milkable"));

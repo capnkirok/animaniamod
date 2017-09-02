@@ -26,6 +26,7 @@ public class AnimaniaTextures
 		register(ItemHandler.peacockEggBlue);
 		register(ItemHandler.peacockEggWhite);
 		register(ItemHandler.carvingKnife);
+		register(ItemHandler.salt);
 		register(ItemHandler.cheeseMold);
 		register(ItemHandler.cheeseWedgeFriesian);
 		register(ItemHandler.cheeseWedgeHolstein);

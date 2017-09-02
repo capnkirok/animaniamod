@@ -10,6 +10,9 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.goats.EntityBuckBase;
+import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
+import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
+import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIMateHorses;
 import com.animania.common.entities.pigs.EntitySowBase;
@@ -54,12 +57,18 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		super(worldIn);
 		this.setSize(1.6F, 2.2F);
 		this.stepHeight = 1.1F;
-		this.tasks.addTask(1, new EntityAIFollowMateHorses(this, 1.1D));
-		this.tasks.addTask(6, new EntityAIMateHorses(this, 1.0D));
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
 	}
 
+	@Override
+	protected void initEntityAI()
+	{
+		super.initEntityAI();
+		this.tasks.addTask(1, new EntityAIFollowMateHorses(this, 1.1D));
+		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
+	}
+	
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();

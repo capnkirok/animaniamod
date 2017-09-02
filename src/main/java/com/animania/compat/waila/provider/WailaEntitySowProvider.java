@@ -2,25 +2,33 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
-import com.animania.common.entities.goats.EntityDoeBase;
+import com.animania.common.entities.pigs.EntitySowBase;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 
-public class WailaEntityDoeProvider extends WailaEntityAnimalProviderMateable
+public class WailaEntitySowProvider extends WailaEntityAnimalProviderMateable
 {
 
 	@Override
 	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
 	{
+		
+		EntitySowBase thisEntity = (EntitySowBase)entity;
+		boolean played = thisEntity.getPlayed();
+
+		if (played)
+			currenttip.add(I18n.translateToLocal("text.waila.played"));
+		else
+			currenttip.add(I18n.translateToLocal("text.waila.bored"));
+		
 		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 		if (accessor.getPlayer().isSneaking())
 		{
 
-			EntityDoeBase thisEntity = (EntityDoeBase)entity;
-			
 			if (thisEntity.getHasKids())
 				currenttip.add(I18n.translateToLocal("text.waila.milkable"));
 

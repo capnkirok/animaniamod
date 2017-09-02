@@ -22,6 +22,7 @@ import com.animania.common.items.ItemHamsterFood;
 import com.animania.common.items.ItemPeacockEgg;
 import com.animania.common.items.ItemPeacockFeather;
 import com.animania.common.items.ItemRidingCrop;
+import com.animania.common.items.ItemSalt;
 import com.animania.common.items.ItemTruffle;
 import com.animania.common.items.ItemTruffleSoup;
 import com.animania.config.AnimaniaConfig;
@@ -43,6 +44,7 @@ public class ItemHandler
 	public static Item hamsterBallColored;
 	public static Item peacockEggBlue;
 	public static Item peacockEggWhite;
+	public static Item salt;
 
 	public static Item peacockFeatherBlue;
 	public static Item peacockFeatherWhite;
@@ -305,6 +307,7 @@ public class ItemHandler
 		ItemHandler.hamsterFood = new ItemHamsterFood();
 		ItemHandler.truffle = new ItemTruffle();
 		ItemHandler.carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
+		ItemHandler.salt = new ItemSalt();
 		ItemHandler.peacockFeatherBlue = new ItemPeacockFeather("blue");
 		ItemHandler.peacockFeatherWhite = new ItemPeacockFeather("white");
 		ItemHandler.peacockFeatherCharcoal = new ItemPeacockFeather("charcoal");

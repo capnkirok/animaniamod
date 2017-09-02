@@ -1,19 +1,19 @@
-package com.animania.common.entities.cows.ai;
+package com.animania.common.entities.sheep.ai;
 
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.cows.EntityCalfBase;
-import com.animania.common.entities.cows.EntityCowBase;
+import com.animania.common.entities.sheep.EntityEweBase;
+import com.animania.common.entities.sheep.EntityLambBase;
+import com.animania.common.entities.sheep.EntityRamBase;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
-public class EntityAIMateCows extends EntityAIBase
+public class EntityAIMateSheep extends EntityAIBase
 {
 	private final EntityAnimal theAnimal;
 	World                      theWorld;
@@ -23,7 +23,7 @@ public class EntityAIMateCows extends EntityAIBase
 	private int                delayCounter;
 	private Random			   rand;
 
-	public EntityAIMateCows(EntityAnimal animal, double speedIn) {
+	public EntityAIMateSheep(EntityAnimal animal, double speedIn) {
 		this.theAnimal = animal;
 		this.theWorld = animal.world;
 		this.moveSpeed = speedIn;
@@ -43,7 +43,7 @@ public class EntityAIMateCows extends EntityAIBase
 
 		if (this.delayCounter > 100) {
 
-			if (this.theAnimal instanceof EntityCalfBase || this.theAnimal instanceof EntityCowBase) {
+			if (this.theAnimal instanceof EntityLambBase || this.theAnimal instanceof EntityEweBase) {
 				this.delayCounter = 0;
 				return false;
 			}
@@ -83,7 +83,7 @@ public class EntityAIMateCows extends EntityAIBase
 	public void updateTask() {
 
 		if (this.targetMate != null) {
-			EntityCowBase tm = (EntityCowBase) this.targetMate;
+			EntityEweBase tm = (EntityEweBase) this.targetMate;
 			if (!tm.getPregnant() && tm.getFertile()) {
 				this.targetMate = this.getNearbyMate();
 			} else {
@@ -98,20 +98,20 @@ public class EntityAIMateCows extends EntityAIBase
 	private EntityAnimal getNearbyMate() {
 
 	
-		if (this.theAnimal instanceof EntityBullBase) {
+		if (this.theAnimal instanceof EntityRamBase) {
 
 			UUID mateID = null;
 
-			EntityBullBase entity2 = (EntityBullBase) this.theAnimal;
+			EntityRamBase entity2 = (EntityRamBase) this.theAnimal;
 			if (entity2.getMateUniqueId() != null) {
 				mateID = entity2.getMateUniqueId();
 			}
 
 			if (mateID != null) {
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityCowBase.class, 3, this.theAnimal.world, this.theAnimal);
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityEweBase.class, 3, this.theAnimal.world, this.theAnimal);
 				
 				for (int k = 0; k <= entities.size() - 1; k++) {
-					EntityCowBase entity = (EntityCowBase)entities.get(k); 
+					EntityEweBase entity = (EntityEweBase)entities.get(k); 
 
 					if (entity.getPersistentID().equals(mateID) && entity.getFertile() && !entity.getPregnant()) {
 
@@ -137,14 +137,14 @@ public class EntityAIMateCows extends EntityAIBase
 					}
 				}
 			} else {
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityCowBase.class, 5, this.theAnimal.world, this.theAnimal);
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityEweBase.class, 5, this.theAnimal.world, this.theAnimal);
 
 				for (int k = 0; k <= entities.size() - 1; k++) {
-					EntityCowBase entity = (EntityCowBase)entities.get(k); 
+					EntityEweBase entity = (EntityEweBase)entities.get(k); 
 
 					this.courtshipTimer--;
 					if (entity.getMateUniqueId() == null && this.courtshipTimer < 0 && entity.getFertile() && !entity.getPregnant()) {
-						((EntityBullBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
+						((EntityRamBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
 						entity.setMateUniqueId(this.theAnimal.getPersistentID());
 						this.theAnimal.setInLove(null);
 						this.courtshipTimer = 20;

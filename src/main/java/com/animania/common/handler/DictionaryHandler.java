@@ -20,9 +20,12 @@ public class DictionaryHandler
 		OreDictionary.registerOre("egg", ItemHandler.brownEgg);
 		OreDictionary.registerOre("egg", ItemHandler.peacockEggBlue);
 		OreDictionary.registerOre("egg", ItemHandler.peacockEggWhite);
+		OreDictionary.registerOre("egg", ItemHandler.peacockEggWhite);
 		OreDictionary.registerOre("listAllegg", ItemHandler.brownEgg);
 		OreDictionary.registerOre("listAllegg", ItemHandler.peacockEggBlue);
 		OreDictionary.registerOre("listAllegg", ItemHandler.peacockEggWhite);
+		OreDictionary.registerOre("salt", ItemHandler.salt);
+		OreDictionary.registerOre("listAllsalt", ItemHandler.salt);
 
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusBeef);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusSteak);

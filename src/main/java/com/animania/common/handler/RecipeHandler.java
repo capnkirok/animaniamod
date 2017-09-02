@@ -107,6 +107,9 @@ public class RecipeHandler
 		// Cheese Mold
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.cheeseMold, 1), new Object[] { "   ", "pip", " p ", 'p', "plankWood", 'i', "ingotIron" }));
 
+		// Salt Lick
+		GameRegistry.addRecipe(new ShapelessOreRecipe(BlockHandler.blockSaltLick, new Object[] { "salt", "salt", "salt", "salt", Items.WATER_BUCKET }));
+		
 		GameRegistry.addRecipe(new SlopBucketRecipe1());
 		GameRegistry.addRecipe(new SlopBucketRecipe2());
 		GameRegistry.addRecipe(new SlopBucketRecipe3());
