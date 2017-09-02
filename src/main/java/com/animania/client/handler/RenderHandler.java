@@ -103,6 +103,7 @@ import com.animania.client.render.rodents.RenderHedgehog;
 import com.animania.client.render.rodents.RenderHedgehogAlbino;
 import com.animania.client.render.tileEntity.TileEntityHamsterWheelRenderer;
 import com.animania.client.render.tileEntity.TileEntityNestRenderer;
+import com.animania.client.render.tileEntity.TileEntitySaltLickRenderer;
 import com.animania.client.render.tileEntity.TileEntityTroughRenderer;
 import com.animania.common.entities.amphibians.EntityDartFrogs;
 import com.animania.common.entities.amphibians.EntityFrogs;
@@ -207,6 +208,7 @@ import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
 import com.animania.common.tileentities.TileEntityNest;
+import com.animania.common.tileentities.TileEntitySaltLick;
 import com.animania.common.tileentities.TileEntityTrough;
 
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -379,5 +381,7 @@ public class RenderHandler
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrough.class, new TileEntityTroughRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNest.class, new TileEntityNestRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHamsterWheel.class, new TileEntityHamsterWheelRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySaltLick.class, new TileEntitySaltLickRenderer());
+
 	}
 }
