@@ -7,6 +7,7 @@ import com.animania.common.blocks.BlockHamsterWheel;
 import com.animania.common.blocks.BlockInvisiblock;
 import com.animania.common.blocks.BlockMud;
 import com.animania.common.blocks.BlockNest;
+import com.animania.common.blocks.BlockSaltLick;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.blocks.BlockTrough;
 import com.animania.common.blocks.fluids.BlockFluidBase;
@@ -30,7 +31,6 @@ public class BlockHandler
 	public static Block blockMud;
 	public static Block blockInvisiblock;
 	public static Block blockSeeds;
-	public static Block blockHamsterWheel;
 	public static BlockFluidBase blockSlop;
 	public static BlockFluidBase blockMilkHolstein;
 	public static BlockFluidBase blockMilkFriesian;
@@ -40,12 +40,14 @@ public class BlockHandler
 	public static Block blockCheeseFriesian;
 	public static Block blockCheeseGoat;
 	public static Block blockCheeseSheep;
-	public static Block blockCheeseMold;
 	
 	
 	// TileEntity blocks
 	public static Block blockTrough;
 	public static Block blockNest;
+	public static Block blockCheeseMold;
+	public static Block blockHamsterWheel;
+	public static Block blockSaltLick;
 
 	// Fluids
 	public static Fluid fluidSlop;
@@ -81,6 +83,7 @@ public class BlockHandler
 		ItemHandler.cheeseWheelSheep = Item.getItemFromBlock(blockCheeseSheep);
 		BlockHandler.blockCheeseMold = new BlockCheeseMold();
 		ItemHandler.cheeseMold = Item.getItemFromBlock(blockCheeseMold);
+		BlockHandler.blockSaltLick = new BlockSaltLick();
 
 		// Fluids
 		BlockHandler.fluidSlop = new FluidBase("slop").setViscosity(7000).setDensity(3000).setEmptySound(SoundEvents.BLOCK_SLIME_PLACE).setFillSound(SoundEvents.BLOCK_SLIME_FALL);

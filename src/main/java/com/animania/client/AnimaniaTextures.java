@@ -153,6 +153,7 @@ public class AnimaniaTextures
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseHolstein));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseGoat));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseSheep));
+		register(Item.getItemFromBlock(BlockHandler.blockSaltLick));
 
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkFriesian, "milk_friesian");
