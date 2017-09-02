@@ -691,6 +691,7 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 
 		public void onUpdateMoveHelper()
 		{
+			/*
 			if (this.theEntity.onGround && !this.theEntity.isJumping && !((EntityRabbit.RabbitJumpHelper)this.theEntity.jumpHelper).getIsJumping())
 			{
 				this.theEntity.setMovementSpeed(0.0D);
@@ -698,7 +699,7 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 			else if (this.isUpdating())
 			{
 				this.theEntity.setMovementSpeed(this.nextJumpSpeed);
-			}
+			} */
 
 			super.onUpdateMoveHelper();
 		}

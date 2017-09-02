@@ -1,6 +1,7 @@
 package com.animania.common.handler;
 
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.entities.amphibians.AmphibianType;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.cows.CowType;
@@ -294,6 +295,9 @@ public class ItemHandler
 	public static Item entityeggdoepygmy;
 	
 	public static Item entityeggrandomgoat;
+	
+	public static Item entityeggrandomanimal;
+
 
 	public static void preInit() {
 		// ITEMS
@@ -412,6 +416,8 @@ public class ItemHandler
 
 		// Item Entity Eggs
 		// COWS
+		ItemHandler.entityeggrandomanimal = new ItemEntityEgg("random", new RandomAnimalType(), EntityGender.RANDOM);
+		
 		ItemHandler.entityeggcalfholstein = new ItemEntityEgg("calf_holstein", CowType.HOLSTEIN, EntityGender.CHILD);
 		ItemHandler.entityeggcowholstein = new ItemEntityEgg("cow_holstein", CowType.HOLSTEIN, EntityGender.FEMALE);
 		ItemHandler.entityeggbullholstein = new ItemEntityEgg("bull_holstein", CowType.HOLSTEIN, EntityGender.MALE);

@@ -214,6 +214,7 @@ item.animania_entity_egg_pig_random.name=Random Pig
 item.animania_entity_egg_chicken_random.name=Random Chicken
 item.animania_entity_egg_goat_random.name=Random Goat
 item.animania_entity_egg_peacock_random.name=Random Peacock
+item.animania_entity_egg_random.name=Random Animal
 
 
 item.animania_entity_egg_frog.name=Frog
