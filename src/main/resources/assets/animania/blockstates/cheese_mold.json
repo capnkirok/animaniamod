@@ -8,6 +8,8 @@
         "variant=goat_milk": { "model": "animania:mold_goat_milk" },
         "variant=goat_cheese": { "model": "animania:mold_goat_cheese" },
         "variant=sheep_milk": { "model": "animania:mold_sheep_milk" },
-        "variant=sheep_cheese": { "model": "animania:mold_sheep_cheese" }
+        "variant=sheep_cheese": { "model": "animania:mold_sheep_cheese" },
+		"variant=water": { "model": "animania:mold_water" },
+        "variant=salt": { "model": "animania:mold_salt" }
     }
 }

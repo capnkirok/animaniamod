@@ -26,6 +26,9 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllegg", ItemHandler.peacockEggWhite);
 		OreDictionary.registerOre("salt", ItemHandler.salt);
 		OreDictionary.registerOre("listAllsalt", ItemHandler.salt);
+		OreDictionary.registerOre("dustSalt", ItemHandler.salt);
+		OreDictionary.registerOre("itemSalt", ItemHandler.salt);
+		OreDictionary.registerOre("foodSalt", ItemHandler.salt);
 
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusBeef);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusSteak);
