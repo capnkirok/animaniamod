@@ -7,7 +7,7 @@ import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.text.translation.I18n;
 
-public class WailaEntityHorseProvider extends WailaEntityAnimalProviderMateable
+public class WailaEntityStallionProvider extends WailaEntityAnimalProviderMateable
 {
 
     @Override

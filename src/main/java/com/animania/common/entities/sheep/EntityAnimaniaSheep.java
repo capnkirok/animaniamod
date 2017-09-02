@@ -1,6 +1,7 @@
 package com.animania.common.entities.sheep;
 
 import java.util.Set;
+import java.util.UUID;
 
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
@@ -8,11 +9,13 @@ import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
+import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.sheep.ai.EntityAISheepEatGrass;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.EntityAgeable;
@@ -49,6 +52,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected int happyTimer;
 	public int blinkTimer;
 	public int eatTimer;

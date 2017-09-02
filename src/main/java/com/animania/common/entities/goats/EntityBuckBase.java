@@ -57,8 +57,6 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
 		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.25F));
 		this.tasks.addTask(5, new EntityAIMateGoats(this, 1.0D));
-		
-
 	}
 	
 	@Override

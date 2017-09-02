@@ -71,7 +71,6 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	{
 		super.initEntityAI();
 		this.tasks.addTask(3, new EntityAIPanicGoats(this, 2.0D));
-		this.tasks.addTask(5, new EntityAIMateGoats(this, 1.0D));
 	}
 	
 	@Override
@@ -309,7 +308,6 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 			this.setFertile(true);
 			this.dryTimerDoe = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
 		}
-		
 		
 		if (this.blinkTimer > -1)
 		{
