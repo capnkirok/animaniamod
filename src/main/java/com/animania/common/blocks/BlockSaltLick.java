@@ -34,7 +34,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.1875,0,0.1875,0.8125,0.45,0.8125);
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.1875,0,0.1875,0.8125,0.25,0.8125);
 	
 	public BlockSaltLick()
 	{
@@ -90,14 +90,6 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 			((TileEntitySaltLick)te).usesLeft = left;
 		}
 	}
-
-	/*
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-	{
-		useSaltLick(worldIn, pos, playerIn);
-		return true;
-	} */
 	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)

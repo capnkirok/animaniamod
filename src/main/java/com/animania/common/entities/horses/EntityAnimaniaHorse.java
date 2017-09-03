@@ -10,6 +10,7 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.horses.ai.EntityAIFindFood;
+import com.animania.common.entities.horses.ai.EntityAIFindSaltLickHorses;
 import com.animania.common.entities.horses.ai.EntityAIFindWater;
 import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIMateHorses;
@@ -87,6 +88,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
 		this.tasks.addTask(9, this.entityAIEatGrass);
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
+		this.tasks.addTask(12, new EntityAIFindSaltLickHorses(this, 1.0));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);

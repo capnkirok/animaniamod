@@ -251,7 +251,7 @@ public class ModelLambFriesian extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityLambFriesian)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
+		this.HeadNode.rotationPointY = + 4F + ((EntityLambFriesian)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 4.0F;
 		this.headRotationAngleX = ((EntityLambFriesian)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
 
 	}
@@ -268,17 +268,17 @@ public class ModelLambFriesian extends ModelBase
 
 		this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 
-		this.LeftBackLeg.rotateAngleX = MathHelper.cos(par1 * 0.8882F + (float) Math.PI) * 1.2F * par2;
-		this.RightBackLegWool.rotateAngleX = MathHelper.cos(par1 * 0.8882F + (float) Math.PI) * 1.2F * par2;
+		this.LeftBackLeg.rotateAngleX =  MathHelper.cos(par1 * 0.6662F) * 1.2F * par2; //Left Back
+		this.RightBackLegWool.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.2F * par2;//Left Back
 
-		this.LeftBackLegWool.rotateAngleX = MathHelper.cos(par1 * 0.8882F) * 1.2F * par2;
-		this.LeftBackLeg1.rotateAngleX = MathHelper.cos(par1 * 0.8882F) * 1.2F * par2;
+		this.LeftBackLegWool.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;//Right Back
+		this.LeftBackLeg1.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;//Right Back
 
-		this.RightFrontLeg.rotateAngleX = MathHelper.cos(par1 * 0.8882F) * 1.2F * par2;
-		this.RightFrontLegWool.rotateAngleX = MathHelper.cos(par1 * 0.8882F + (float) Math.PI) * 1.2F * par2;
-		
-		this.LeftFrontLeg.rotateAngleX = MathHelper.cos(par1 * 0.8882F + (float) Math.PI) * 1.2F * par2;
-		this.LeftFrontLegWool.rotateAngleX = MathHelper.cos(par1 * 0.8882F) * 1.2F * par2;
+		this.LeftFrontLeg.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;//Left Front
+		this.RightFrontLegWool.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;//Left Front
+
+		this.RightFrontLeg.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;//Right Front
+		this.LeftFrontLegWool.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;//Right Front
 
 	}
 
