@@ -1,6 +1,5 @@
 package com.animania.common.entities.cows;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,15 +14,12 @@ import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
 import com.animania.common.entities.genericAi.EntityAIFindSaltLick;
-import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
