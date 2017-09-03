@@ -14,6 +14,7 @@ import com.animania.common.entities.cows.ai.EntityAICowEatGrass;
 import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
+import com.animania.common.entities.genericAi.EntityAIFindSaltLick;
 import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
@@ -88,6 +89,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		this.tasks.addTask(8, this.entityAIEatGrass);
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
+		this.tasks.addTask(1, new EntityAIFindSaltLick(this, 1.0));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);

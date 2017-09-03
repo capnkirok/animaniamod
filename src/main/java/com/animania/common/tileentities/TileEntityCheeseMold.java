@@ -22,6 +22,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -79,6 +80,11 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 						this.itemHandler.setStackInSlot(0, new ItemStack(ItemHandler.cheeseWheelSheep));
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_CHEESE));
 					}
+					else if (fluid.getFluid() == FluidRegistry.WATER)
+					{
+						this.itemHandler.setStackInSlot(0, new ItemStack(ItemHandler.salt, 16));
+						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
+					}
 
 					progress = 0;
 					markDirty();
@@ -101,6 +107,8 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 			if(this.itemHandler.getStackInSlot(0).getItem() == ItemHandler.cheeseWheelSheep && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.SHEEP_CHEESE)
 				world.setBlockState(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_CHEESE));
 
+			if(this.itemHandler.getStackInSlot(0).getItem() == ItemHandler.salt && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.SALT)
+				world.setBlockState(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
 
 			if(this.fluidHandler.getFluid() != null)
 			{
@@ -129,6 +137,12 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 					IBlockState state = world.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.SHEEP_MILK)
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_MILK));
+				}
+				else if (fluid.getFluid() == FluidRegistry.WATER)
+				{
+					IBlockState state = world.getBlockState(pos);
+					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.WATER)
+						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.WATER));
 				}
 			}
 
