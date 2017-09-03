@@ -8,10 +8,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.pigs.EntityHogBase;
-import com.animania.common.entities.pigs.EntitySowBase;
-import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
+import com.animania.common.entities.goats.EntityBuckBase;
+import com.animania.common.entities.sheep.ai.EntityAIMateSheep;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.google.common.base.Optional;
@@ -40,9 +38,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProviderMateable
 {
+	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityRamBase.class, DataSerializers.BOOLEAN);
 
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityRamBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	
 	public EntityRamBase(World worldIn)
 	{
 		super(worldIn);
@@ -55,7 +52,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	protected void initEntityAI()
 	{
 		super.initEntityAI();
-		//this.tasks.addTask(8, new EntityAIMateGoats(this, 1.0D));
+		this.tasks.addTask(8, new EntityAIMateSheep(this, 1.0D));
 
 	}
 	
@@ -64,52 +61,39 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	{
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.265D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20D);
 	}
 	
 	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityRamBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityRamBase.FIGHTING, Boolean.valueOf(false));
 
 	}
 	
-	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public boolean getFighting()
 	{
-		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null)
-			compound.setString("MateUUID", this.getMateUniqueId().toString());
-
+		return this.dataManager.get(EntityRamBase.FIGHTING).booleanValue();
 	}
 
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void setFighting(boolean fighting)
 	{
-		super.readEntityFromNBT(compound);
-		
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
+		if (fighting)
+			this.dataManager.set(EntityRamBase.FIGHTING, Boolean.valueOf(true));
 		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
+			this.dataManager.set(EntityRamBase.FIGHTING, Boolean.valueOf(false));
 	}
 	
 	@Nullable
-	public UUID getMateUniqueId()
+	public UUID getRivalUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityRamBase.MATE_UNIQUE_ID)).orNull();
+		return (UUID) ((Optional) this.dataManager.get(EntityRamBase.RIVAL_UNIQUE_ID)).orNull();
 	}
 
-	public void setMateUniqueId(@Nullable UUID uniqueId)
+	public void setRivalUniqueId(@Nullable UUID uniqueId)
 	{
-		this.dataManager.set(EntityRamBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		this.dataManager.set(EntityRamBase.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 	
 	@Override

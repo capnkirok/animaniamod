@@ -63,6 +63,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.setSize(1.1F, 1.0F);
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.FEMALE;
+		this.mateable = true;
 	}
 
 
@@ -168,17 +169,6 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.setFertile(compound.getBoolean("Fertile"));
 		this.setGestation(compound.getInteger("Gestation"));
 
-	}
-
-	@Nullable
-	public UUID getMateUniqueId()
-	{
-		return (UUID) ((Optional) this.dataManager.get(EntityEweBase.MATE_UNIQUE_ID)).orNull();
-	}
-
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityEweBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	public int getGestation()
@@ -388,7 +378,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && this.getMateUniqueId() != null)
+		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && this.getHasKids())
 		{
 			player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 			stack.shrink(1);

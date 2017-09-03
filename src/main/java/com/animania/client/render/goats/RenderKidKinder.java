@@ -36,7 +36,8 @@ public class RenderKidKinder<T extends EntityKidKinder> extends RenderLiving<T>
     }
 
     protected void preRenderScale(EntityKidKinder entity, float f) {
-        GL11.glScalef(0.27F, 0.27F, 0.27F);
+    	float age = entity.getEntityAge();
+		GL11.glScalef(0.32F + age, 0.32F + age, 0.32F + age); 
         GL11.glTranslatef(0f, 0f, -0.5f);
     }
 

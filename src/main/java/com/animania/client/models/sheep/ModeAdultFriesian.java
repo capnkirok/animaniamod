@@ -1,6 +1,7 @@
 package com.animania.client.models.sheep;
 
-import com.animania.common.entities.sheep.EntityLambFriesian;
+import com.animania.common.entities.sheep.EntityEweFriesian;
+import com.animania.common.entities.sheep.EntityRamFriesian;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -8,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
 
-public class ModelLambFriesian extends ModelBase
+public class ModeAdultFriesian extends ModelBase
 {	
 	private float headRotationAngleX;
 	public ModelRenderer HeadNode = new ModelRenderer(this, 0, 0);
@@ -36,17 +37,23 @@ public class ModelLambFriesian extends ModelBase
 	ModelRenderer LeftEar2;
 	ModelRenderer RightEar1;
 	ModelRenderer RightEar2;
+	ModelRenderer RightHorn1;
+	ModelRenderer RightHorn2;
+	ModelRenderer RightHorn3;
+	ModelRenderer LeftHorn1;
+	ModelRenderer LeftHorn2;
+	ModelRenderer LeftHorn3;
 	ModelRenderer WoolNeck1;
 	ModelRenderer WoolNeck2;
 	ModelRenderer WoolBody1;
 	ModelRenderer WoolBody2;
 
-	public ModelLambFriesian()
+	public ModeAdultFriesian()
 	{
 		this(0.0f);
 	}
 
-	public ModelLambFriesian(float par1)
+	public ModeAdultFriesian(float par1)
 	{
 
 		Body = new ModelRenderer( this, 0, 36 );
@@ -156,7 +163,36 @@ public class ModelLambFriesian extends ModelBase
 		RightEar2.setTextureSize( 128, 128 );
 		RightEar2.addBox( -1F, -0.5F, -1F, 1, 1, 1);
 		RightEar2.setRotationPoint( -6.203258F, -1.282747F - 3.843416F, -18.78926F + 9.107978F);
-		
+		RightHorn1 = new ModelRenderer( this, 80, 15 );
+		RightHorn1.setTextureSize( 128, 128 );
+		RightHorn1.addBox( -5F, -1F, -1F, 5, 2, 2);
+		RightHorn1.setRotationPoint( -2.1F, -1.299633F - 3.843416F, -19.10564F + 9.107978F);
+
+		RightHorn2 = new ModelRenderer( this, 80, 15 );
+		RightHorn2.setTextureSize( 128, 128 );
+		RightHorn2.addBox( -6F, -1F, -1F, 6, 2, 2);
+		RightHorn2.setRotationPoint( -5.204046F, -3.656723F - 3.843416F, -16.48655F + 9.107978F);
+
+		RightHorn3 = new ModelRenderer( this, 80, 15 );
+		RightHorn3.setTextureSize( 128, 128 );
+		RightHorn3.addBox( -6F, -1F, -1F, 6, 2, 2);
+		RightHorn3.setRotationPoint( -6.294238F, 4.2681656F - 3.843416F, -20.6277F + 9.107978F);
+
+		LeftHorn1 = new ModelRenderer( this, 80, 15 );
+		LeftHorn1.setTextureSize( 128, 128 );
+		LeftHorn1.addBox( 0F, -1F, -1F, 5, 2, 2);
+		LeftHorn1.setRotationPoint( 2.1F, -1.299633F - 3.843416F, -19.10564F + 9.107978F);
+
+		LeftHorn2 = new ModelRenderer( this, 80, 15 );
+		LeftHorn2.setTextureSize( 128, 128 );
+		LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
+		LeftHorn2.setRotationPoint( 5.204046F, -3.656723F - 3.843416F, -16.48655F + 9.107978F);
+
+		LeftHorn3 = new ModelRenderer( this, 80, 15 );
+		LeftHorn3.setTextureSize( 128, 128 );
+		LeftHorn3.addBox( 0F, -1F, -1F, 6, 2, 2);
+		LeftHorn3.setRotationPoint( 6.294238F, 4.2681656F - 3.843416F, -20.6277F + 9.107978F);
+
 		WoolNeck1 = new ModelRenderer( this, 45, 76 );
 		WoolNeck1.setTextureSize( 128, 128 );
 		WoolNeck1.addBox( -3F, 0F, -8F, 6, 8, 9);
@@ -177,14 +213,12 @@ public class ModelLambFriesian extends ModelBase
 		this.HeadNode.addChild(LeftEar2);
 		this.HeadNode.addChild(RightEar1);
 		this.HeadNode.addChild(RightEar2);
-		/*
-		this.HeadNode.addChild(RightHorn1);
-		this.HeadNode.addChild(RightHorn2);
-		this.HeadNode.addChild(RightHorn3);
-		this.HeadNode.addChild(LeftHorn1);
-		this.HeadNode.addChild(LeftHorn2);
-		this.HeadNode.addChild(LeftHorn3);
-		*/
+		//this.HeadNode.addChild(RightHorn1);
+		//this.HeadNode.addChild(RightHorn2);
+		//this.HeadNode.addChild(RightHorn3);
+		//this.HeadNode.addChild(LeftHorn1);
+		//this.HeadNode.addChild(LeftHorn2);
+		//this.HeadNode.addChild(LeftHorn3);
 		this.HeadNode.addChild(WoolNeck1);
 		this.HeadNode.addChild(WoolNeck2);
 
@@ -220,7 +254,30 @@ public class ModelLambFriesian extends ModelBase
 		RightEar2.rotateAngleX = 0.3336921F;
 		RightEar2.rotateAngleY = -0.4053539F;
 		RightEar2.rotateAngleZ = -0.01711698F;
-		
+		RightHorn1.rotateAngleX = 0.09060038F;
+		RightHorn1.rotateAngleY = 0.5898282F;
+		RightHorn1.rotateAngleZ = 0.5822915F;
+
+		RightHorn2.rotateAngleX = 0.1612098F;
+		RightHorn2.rotateAngleY = 0.2702589F;
+		RightHorn2.rotateAngleZ = -1.1250489F;
+
+		RightHorn3.rotateAngleX = -0.1058653F;
+		RightHorn3.rotateAngleY = 2.14474F;
+		RightHorn3.rotateAngleZ = -1.849401F;
+
+		LeftHorn1.rotateAngleX = 0.09060038F;
+		LeftHorn1.rotateAngleY = -0.5898282F;
+		LeftHorn1.rotateAngleZ = -0.5822915F;
+
+		LeftHorn2.rotateAngleX = 0.1612098F;
+		LeftHorn2.rotateAngleY = -0.2702589F;
+		LeftHorn2.rotateAngleZ = 1.1250489F;
+
+		LeftHorn3.rotateAngleX = -0.1058653F;
+		LeftHorn3.rotateAngleY = -2.14474F;
+		LeftHorn3.rotateAngleZ = 1.849401F;
+
 		WoolNeck1.rotateAngleX = -0.6220354F;
 		WoolNeck2.rotateAngleX = -0.1822123F;
 		WoolBody1.rotateAngleX = -0.02513274F;
@@ -231,29 +288,36 @@ public class ModelLambFriesian extends ModelBase
 		Body.render(scale);
 		HeadNode.render(scale);
 		RightFrontLeg.render(scale);
-		LeftFrontLegWool.render(scale);
 		LeftFrontLeg.render(scale);
-		RightFrontLegWool.render(scale);
 		Hips.render(scale);
 		LeftBackLeg.render(scale);
-		RightBackLegWool.render(scale);
+		
 		LeftBackLeg1.render(scale);
-		LeftBackLegWool.render(scale);
 		Tail.render(scale);
+	
+		LeftFrontLegWool.render(scale);
+		RightFrontLegWool.render(scale);
+		RightBackLegWool.render(scale);
+		LeftBackLegWool.render(scale);
 		WoolHips.render(scale);
 		WoolBody1.render(scale);
 		WoolBody2.render(scale);
+		
 
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
+	public void setLivingAnimations(EntityLivingBase entity, float p_78086_2_, float p_78086_3_, float partialTickTime)
 	{
-		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityLambFriesian)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityLambFriesian)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
-
+		if (entity instanceof EntityRamFriesian ) {
+			this.HeadNode.rotationPointY = + 7.75F + ((EntityRamFriesian)entity).getHeadRotationPointY(partialTickTime) * 6.0F;
+			this.headRotationAngleX = ((EntityRamFriesian)entity).getHeadRotationAngleX(partialTickTime);
+		} else {
+			this.HeadNode.rotationPointY = + 7.75F + ((EntityEweFriesian)entity).getHeadRotationPointY(partialTickTime) * 6.0F;
+			this.headRotationAngleX = ((EntityEweFriesian)entity).getHeadRotationAngleX(partialTickTime);
+		}
 	}
 
 	@Override
@@ -261,10 +325,27 @@ public class ModelLambFriesian extends ModelBase
 	{
 		float f6 = 180F / (float) Math.PI;
 
-		this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
-		this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
-		this.HeadNode.rotateAngleX = this.headRotationAngleX;
 
+
+		if (entity instanceof EntityRamFriesian) {
+			/*
+			EntityRamFriesian eb = (EntityRamFriesian) entity;
+			if (eb.getFighting() && eb.getRivalUniqueId() != null) {
+				this.HeadNode.rotateAngleX = 0.687F;
+			}
+			else {
+				this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
+				this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
+				this.HeadNode.rotateAngleX = this.headRotationAngleX;
+			}
+
+		}
+		else {
+			 */
+			this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
+			this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
+			this.HeadNode.rotateAngleX = this.headRotationAngleX;
+		}
 
 		this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 

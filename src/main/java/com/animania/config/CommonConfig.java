@@ -288,6 +288,8 @@ public class CommonConfig
 		public boolean spawnAnimaniaAmphibians    = true;
 		@Comment("Spawn Animania Goats in world")
 		public boolean spawnAnimaniaGoats    = true;
+		@Comment("Spawn Animania Sheep in world")
+		public boolean spawnAnimaniaSheep    = true;
 
 		@Comment("Spawn limit for Cows in loaded chunks")
 		public int     spawnLimitCows             = 40;

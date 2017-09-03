@@ -36,7 +36,7 @@ public class RenderKidPygmy<T extends EntityKidPygmy> extends RenderLiving<T>
     }
 
     protected void preRenderScale(EntityKidPygmy entity, float f) {
-        GL11.glScalef(0.24F, 0.24F, 0.24F);
+        GL11.glScalef(0.29F, 0.29F, 0.29F);
         GL11.glTranslatef(0f, 0f, -0.5f);
     }
 

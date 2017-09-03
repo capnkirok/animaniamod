@@ -36,7 +36,9 @@ public class RenderKidAlpine<T extends EntityKidAlpine> extends RenderLiving<T>
     }
 
     protected void preRenderScale(EntityKidAlpine entity, float f) {
-        GL11.glScalef(0.33F, 0.33F, 0.33F);
+       
+    	float age = entity.getEntityAge();
+		GL11.glScalef(0.38F + age, 0.38F + age, 0.38F + age); 
         GL11.glTranslatef(0f, 0f, -0.5f);
     }
 

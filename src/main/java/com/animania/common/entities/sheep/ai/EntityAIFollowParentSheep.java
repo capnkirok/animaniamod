@@ -11,7 +11,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.math.MathHelper;
 
-public class EntityAIFollowParentGoats extends EntityAIBase
+public class EntityAIFollowParentSheep extends EntityAIBase
 {
 	EntityAnimal childAnimal;
 	EntityAnimal parentAnimal;
@@ -19,7 +19,7 @@ public class EntityAIFollowParentGoats extends EntityAIBase
 	private int delayCounter;
 	Random rand = new Random();
 
-	public EntityAIFollowParentGoats(EntityAnimal animal, double speed)
+	public EntityAIFollowParentSheep(EntityAnimal animal, double speed)
 	{
 		this.childAnimal = animal;
 		this.moveSpeed = speed;

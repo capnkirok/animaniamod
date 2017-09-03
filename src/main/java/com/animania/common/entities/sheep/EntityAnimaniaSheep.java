@@ -3,15 +3,16 @@ package com.animania.common.entities.sheep;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.annotation.Nullable;
+
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.cows.ai.EntityAIFindFood;
-import com.animania.common.entities.cows.ai.EntityAIFindWater;
-import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
-import com.animania.common.entities.goats.EntityAnimaniaGoat;
+import com.animania.common.entities.sheep.ai.EntityAIFindFood;
+import com.animania.common.entities.sheep.ai.EntityAIFindWater;
+import com.animania.common.entities.sheep.ai.EntityAIMateSheep;
 import com.animania.common.entities.sheep.ai.EntityAISheepEatGrass;
-import com.animania.common.handler.ItemHandler;
+import com.animania.common.entities.sheep.ai.EntityAISwimmingSheep;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -30,6 +31,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -37,6 +39,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -52,7 +55,9 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaSheep.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Optional<UUID>> RIVAL_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaSheep.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected int happyTimer;
 	public int blinkTimer;
 	public int eatTimer;
@@ -63,6 +68,8 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 	protected Item dropRaw = Items.MUTTON;
 	protected Item dropCooked = Items.COOKED_MUTTON;
 	public EntityAISheepEatGrass entityAIEatGrass;
+	protected boolean mateable = false;
+	protected boolean headbutting = false;
 	protected EntityGender gender;
 
 	public EntityAnimaniaSheep(World worldIn)
@@ -73,7 +80,8 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new EntityAISwimmingCows(this));
+		this.tasks.addTask(3, new EntityAIMateSheep(this, 1.0D));
+		this.tasks.addTask(5, new EntityAISwimmingSheep(this));
 		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
@@ -100,6 +108,9 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 		super.entityInit();
 		this.dataManager.register(EntityAnimaniaSheep.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaSheep.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaSheep.SHEARED, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaSheep.MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityAnimaniaSheep.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
 	}
 
 	@Override
@@ -129,6 +140,23 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 		if (!player.isCreative())
 			stack.shrink(1);;
 	}
+	
+	public boolean getSheared()
+	{
+		return this.dataManager.get(EntityAnimaniaSheep.SHEARED).booleanValue();
+	}
+
+	public void setSheared(boolean sheared)
+	{
+		if (sheared)
+		{
+			this.dataManager.set(EntityAnimaniaSheep.SHEARED, Boolean.valueOf(true));
+			//this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
+			//need a sheared timer
+		} else
+			this.dataManager.set(EntityAnimaniaSheep.SHEARED, Boolean.valueOf(false));
+	}
+	
 	
 	public boolean getFed()
 	{
@@ -261,6 +289,27 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
+        if (stack.getItem() == Items.SHEARS && !this.getSheared() && !this.isChild())   //Forge: Moved to onSheared
+        {
+            if (!this.world.isRemote)
+            {
+                this.setSheared(true);
+                int i = 1 + this.rand.nextInt(2);
+
+                for (int j = 0; j < i; ++j)
+                {
+                    //EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, this.getFleeceColor().getMetadata()), 1.0F);
+                    EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
+                    entityitem.motionY += (double)(this.rand.nextFloat() * 0.05F);
+                    entityitem.motionX += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
+                    entityitem.motionZ += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
+                }
+            }
+
+            stack.damageItem(1, player);
+            this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
+        }
+		
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
 		{
 			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
@@ -292,12 +341,39 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 			super.handleStatusUpdate(id);
 	}
 	
+	@Nullable
+	public UUID getMateUniqueId()
+	{
+		if(mateable)
+		{
+			try
+			{
+				UUID id = (UUID) ((Optional) this.dataManager.get(EntityAnimaniaSheep.MATE_UNIQUE_ID)).orNull();
+				return id;
+			}
+			catch(Exception e)
+			{
+				return null;
+			}
+		}
+		return null;
+	}
+
+	public void setMateUniqueId(@Nullable UUID uniqueId)
+	{
+		this.dataManager.set(EntityAnimaniaSheep.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+	}
+	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
+		if (this.getMateUniqueId() != null) {
+			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		}
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
+		compound.setBoolean("Sheared", this.getSheared());
 
 	}
 
@@ -305,8 +381,21 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
+		String s;
+
+		if (compound.hasKey("MateUUID", 8))
+		{
+			s = compound.getString("MateUUID");
+		}
+		else
+		{
+			String s1 = compound.getString("Mate");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		}
+
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
+		this.setSheared(compound.getBoolean("Sheared"));
 
 	}
 	

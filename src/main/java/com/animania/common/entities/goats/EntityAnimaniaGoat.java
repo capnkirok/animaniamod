@@ -16,6 +16,7 @@ import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
 import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.entities.goats.ai.EntityAISwimmingGoats;
 import com.animania.common.entities.goats.ai.EntityAIWatchClosestGoats;
+import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
@@ -34,6 +35,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -59,6 +61,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Optional<UUID>> RIVAL_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -113,6 +116,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		this.dataManager.register(EntityAnimaniaGoat.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaGoat.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(false));
 	}
 
 	@Override
@@ -292,6 +296,27 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
+		if (stack.getItem() == Items.SHEARS && !this.getSheared() && !this.isChild() && (this instanceof EntityBuckAngora || this instanceof EntityDoeAngora))   //Forge: Moved to onSheared
+        {
+            if (!this.world.isRemote)
+            {
+                this.setSheared(true);
+                int i = 1 + this.rand.nextInt(2);
+
+                for (int j = 0; j < i; ++j)
+                {
+                    //EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, this.getFleeceColor().getMetadata()), 1.0F);
+                    EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
+                    entityitem.motionY += (double)(this.rand.nextFloat() * 0.05F);
+                    entityitem.motionX += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
+                    entityitem.motionZ += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
+                }
+            }
+
+            stack.damageItem(1, player);
+            this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
+        }
+		
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
 		{
 			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
@@ -332,7 +357,24 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		}
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
+		compound.setBoolean("Sheared", this.getSheared());
 
+	}
+	
+	public boolean getSheared()
+	{
+		return this.dataManager.get(EntityAnimaniaGoat.SHEARED).booleanValue();
+	}
+
+	public void setSheared(boolean sheared)
+	{
+		if (sheared)
+		{
+			this.dataManager.set(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(true));
+			//this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
+			//need a sheared timer
+		} else
+			this.dataManager.set(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(false));
 	}
 
 	@Override
@@ -358,6 +400,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
+		this.setSheared(compound.getBoolean("Sheared"));
 
 	}
 
