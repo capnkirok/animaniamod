@@ -18,7 +18,9 @@ import com.animania.common.entities.goats.EntityKidBase;
 import com.animania.common.entities.horses.EntityFoalBase;
 import com.animania.common.entities.horses.EntityMareBase;
 import com.animania.common.entities.horses.EntityStallionBase;
-import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
+import com.animania.common.entities.peacocks.EntityPeachickBase;
+import com.animania.common.entities.peacocks.EntityPeacockBase;
+import com.animania.common.entities.peacocks.EntityPeafowlBase;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.EntityPigletBase;
 import com.animania.common.entities.pigs.EntitySowBase;
@@ -40,7 +42,9 @@ import com.animania.compat.waila.provider.WailaEntityAnimalProviderMateable;
 import com.animania.compat.waila.provider.WailaEntityCowProvider;
 import com.animania.compat.waila.provider.WailaEntityDoeProvider;
 import com.animania.compat.waila.provider.WailaEntityEweProvider;
+import com.animania.compat.waila.provider.WailaEntityHenProvider;
 import com.animania.compat.waila.provider.WailaEntityMareProvider;
+import com.animania.compat.waila.provider.WailaEntityPeafowlProvider;
 import com.animania.compat.waila.provider.WailaEntityPigProvider;
 import com.animania.compat.waila.provider.WailaEntityPigletProvider;
 import com.animania.compat.waila.provider.WailaEntityRodentProvider;
@@ -91,7 +95,9 @@ public class WailaCompat
 		regEntityInfoLamb(r, EntityLambBase.class);
 
 		// PEACOCKS
-		regEntityInfoBase(r, EntityAnimaniaPeacock.class);
+		regEntityInfoBase(r, EntityPeacockBase.class);
+		regEntityInfoPeafowl(r, EntityPeafowlBase.class);
+		regEntityInfoBase(r, EntityPeachickBase.class);
 
 		// RODENTS
 		regEntityInfoRodent(r, EntityFerretBase.class);
@@ -142,10 +148,13 @@ public class WailaCompat
 	}
 
 	private static void regEntityInfoHen(IWailaRegistrar r, Class clazz) {
-		r.registerBodyProvider(new WailaEntityAnimalProviderBase(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderBase(), clazz);
-		// r.registerBodyProvider(new WailaEntityHenProvider(), clazz);
-		// r.registerNBTProvider(new WailaEntityHenProvider(), clazz);
+		 r.registerBodyProvider(new WailaEntityHenProvider(), clazz);
+		 r.registerNBTProvider(new WailaEntityHenProvider(), clazz);
+	}
+	
+	private static void regEntityInfoPeafowl(IWailaRegistrar r, Class clazz) {
+		 r.registerBodyProvider(new WailaEntityPeafowlProvider(), clazz);
+		 r.registerNBTProvider(new WailaEntityPeafowlProvider(), clazz);
 	}
 
 	private static void regEntityInfoRodent(IWailaRegistrar r, Class clazz) {

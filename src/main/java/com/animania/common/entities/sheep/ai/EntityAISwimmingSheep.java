@@ -8,11 +8,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.math.BlockPos;
 
-public class EntityAISwimmingGoats extends EntityAIBase
+public class EntityAISwimmingSheep extends EntityAIBase
 {
 	private final EntityLiving theEntity;
 
-	public EntityAISwimmingGoats(EntityLiving entitylivingIn)
+	public EntityAISwimmingSheep(EntityLiving entitylivingIn)
 	{
 		this.theEntity = entitylivingIn;
 		this.setMutexBits(4);

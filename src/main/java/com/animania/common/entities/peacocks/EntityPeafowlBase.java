@@ -1,21 +1,28 @@
 package com.animania.common.entities.peacocks;
 
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.chickens.EntityHenBase;
 import com.animania.common.entities.peacocks.ai.EntityAIFindPeacockNest;
+import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 
+import mcjty.theoneprobe.api.IProbeHitEntityData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class EntityPeafowlBase extends EntityAnimaniaPeacock
+public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoProviderBase
 {
 
 	private static final DataParameter<Boolean> LAID = EntityDataManager.<Boolean>createKey(EntityPeafowlBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> LAID_TIMER = EntityDataManager.<Integer>createKey(EntityPeafowlBase.class, DataSerializers.VARINT);
 	protected int laidTimer;
 	
 	public EntityPeafowlBase(World worldIn)
@@ -32,6 +39,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock
 	{
 		super.entityInit();
 		this.dataManager.register(EntityPeafowlBase.LAID, Boolean.valueOf(true));
+		this.dataManager.register(EntityPeafowlBase.LAID_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100)));
 	}
 	
 	@Override
@@ -39,6 +47,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock
 	{
 		super.writeEntityToNBT(nbttagcompound);
 		nbttagcompound.setBoolean("Laid", this.getLaid());
+		nbttagcompound.setInteger("LaidTimer", this.getLaidTimer());
 	}
 
 	@Override
@@ -46,16 +55,32 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock
 	{
 		super.readEntityFromNBT(nbttagcompound);
 		this.setLaid(nbttagcompound.getBoolean("Laid"));
+		this.setLaidTimer(nbttagcompound.getInteger("LaidTimer"));
 	}
 
+	public int getLaidTimer()
+	{
+		return this.dataManager.get(EntityPeafowlBase.LAID_TIMER).intValue();
+	}
+
+	public void setLaidTimer(int laidtimer)
+	{
+		this.dataManager.set(EntityPeafowlBase.LAID_TIMER, Integer.valueOf(laidtimer));
+	}
+
+	
 	@Override
 	public void onLivingUpdate()
 	{
 		
-		if (this.laidTimer > -1)
-			this.laidTimer--;
-		else
+		int laidTimer = this.getLaidTimer();
+
+		if (laidTimer > -1) {
+			laidTimer--;
+			this.setLaidTimer(laidTimer); 
+		} else {
 			this.setLaid(false);
+		}
 
 		super.onLivingUpdate();
 	}
@@ -70,7 +95,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock
 		if (laid)
 		{
 			this.dataManager.set(EntityPeafowlBase.LAID, Boolean.valueOf(true));
-			this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer + this.rand.nextInt(100);
+			this.setLaidTimer(AnimaniaConfig.careAndFeeding.laidTimer + this.rand.nextInt(100));
 		}
 		else
 			this.dataManager.set(EntityPeafowlBase.LAID, Boolean.valueOf(false));
@@ -89,6 +114,23 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
 		return;
+	}
+	
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	{
+		if (player.isSneaking())
+		{
+
+			EntityPeafowlBase ehb = (EntityPeafowlBase)entity;
+			int timer = ehb.getLaidTimer();
+			if (timer >= 0) { 
+				probeInfo.text(I18n.translateToLocal("text.waila.egglay") + ": " + timer);
+			} else {
+				probeInfo.text(I18n.translateToLocal("text.waila.egglay2"));
+			}
+		}
+		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
 
 }

@@ -19,21 +19,31 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderDoeAngora<T extends EntityDoeAngora> extends RenderLiving<T>
 {
     public static final Factory           FACTORY          = new Factory();
-    private static final ResourceLocation goatTextures      = new ResourceLocation("animania:textures/entity/goats/doe_angora.png");
-    private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/doe_angora_blink.png");
+    private static final ResourceLocation goatTextures      = new ResourceLocation("animania:textures/entity/goats/Doe_angora.png");
+	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/Doe_angora_blink.png");
+	private static final ResourceLocation goatTexturesSheared      = new ResourceLocation("animania:textures/entity/goats/Doe_angora_sheared.png");
+	private static final ResourceLocation goatTexturesShearedBlink = new ResourceLocation("animania:textures/entity/goats/Doe_angora_sheared_blink.png");
     Random                                rand             = new Random();
 
     public RenderDoeAngora(RenderManager rm) {
         super(rm, new ModelDoeAngora(), 0.5F);
     }
 
-    protected ResourceLocation getGoatTextures(T par1Entity) {
-        return RenderDoeAngora.goatTextures;
-    }
+    protected ResourceLocation getGoatTextures(T entity) {
+		if (entity.getSheared()) {
+			return RenderDoeAngora.goatTexturesSheared;
+		} else {
+			return RenderDoeAngora.goatTextures;
+		}
+	}
 
-    protected ResourceLocation getGoatTexturesBlink(T par1Entity) {
-        return RenderDoeAngora.goatTexturesBlink;
-    }
+	protected ResourceLocation getGoatTexturesBlink(T entity) {
+		if (entity.getSheared()) {
+			return RenderDoeAngora.goatTexturesShearedBlink;
+		} else {
+			return RenderDoeAngora.goatTexturesBlink;
+		}
+	}
 
     protected void preRenderScale(EntityDoeAngora entity, float f) {
         GL11.glScalef(0.58F, 0.58F, 0.58F);

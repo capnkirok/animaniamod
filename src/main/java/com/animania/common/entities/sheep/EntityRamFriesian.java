@@ -11,4 +11,16 @@ public class EntityRamFriesian extends EntityRamBase
 		this.sheepType = SheepType.FRIESIAN;
 	}
 
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 16250871;
+	}
+	
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 15198183;
+	}
+	
 }

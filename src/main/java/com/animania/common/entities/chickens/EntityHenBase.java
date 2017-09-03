@@ -10,10 +10,15 @@ import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.ai.EntityAIFindNest;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
+import com.animania.common.entities.goats.EntityDoeBase;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
 
+import mcjty.theoneprobe.api.IProbeHitEntityData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -30,6 +35,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -37,7 +43,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 {
 
 	protected static final DataParameter<Boolean> LAID = EntityDataManager.<Boolean>createKey(EntityHenBase.class, DataSerializers.BOOLEAN);
-	protected int laidTimer;
+	protected static final DataParameter<Integer> LAID_TIMER = EntityDataManager.<Integer>createKey(EntityHenBase.class, DataSerializers.VARINT);
 
 	public EntityHenBase(World worldIn)
 	{
@@ -48,7 +54,6 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
 		this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
 		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
-		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100);
 		this.gender = EntityGender.FEMALE;
 
 	}
@@ -64,7 +69,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		int chickenCount = 0;
 		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 128, this.world, this);
 		chickenCount = entities.size();
-		
+
 		if (chickenCount <= AnimaniaConfig.spawn.spawnLimitChickens)
 		{
 
@@ -141,6 +146,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	{
 		super.entityInit();
 		this.dataManager.register(EntityHenBase.LAID, Boolean.valueOf(true));
+		this.dataManager.register(EntityHenBase.LAID_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100)));
 		this.timeUntilNextEgg = 6000;
 	}
 
@@ -150,6 +156,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		super.writeEntityToNBT(nbttagcompound);
 		nbttagcompound.setBoolean("Laid", this.getLaid());
 		nbttagcompound.setInteger("EggLayTime", timeUntilNextEgg);
+		nbttagcompound.setInteger("LaidTimer", this.getLaidTimer());
 	}
 
 	@Override
@@ -158,23 +165,40 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		super.readEntityFromNBT(nbttagcompound);
 		this.timeUntilNextEgg = nbttagcompound.getInteger("EggLayTime");
 		this.setLaid(nbttagcompound.getBoolean("Laid"));
+		this.setLaidTimer(nbttagcompound.getInteger("LaidTimer"));
 	}
+
+	public int getLaidTimer()
+	{
+		return this.dataManager.get(EntityHenBase.LAID_TIMER).intValue();
+	}
+
+	public void setLaidTimer(int laidtimer)
+	{
+		this.dataManager.set(EntityHenBase.LAID_TIMER, Integer.valueOf(laidtimer));
+	}
+
 
 	@Override
 	public void onLivingUpdate()
 	{
-		
+
 		if (!AnimaniaConfig.drops.chickensDropEggs) {
 			this.timeUntilNextEgg = 1000;
 		}
-		
-		if (this.laidTimer > -1)
-			this.laidTimer--;
-		else
-			this.setLaid(false);
 
 		super.onLivingUpdate();
+
+		int laidTimer = this.getLaidTimer();
+
+		if (laidTimer > -1) {
+			laidTimer--;
+			this.setLaidTimer(laidTimer); 
+		} else {
+			this.setLaid(false);
+		}
 	}
+
 
 	public boolean getLaid()
 	{
@@ -186,7 +210,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		if (laid)
 		{
 			this.dataManager.set(EntityHenBase.LAID, Boolean.valueOf(true));
-			this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer + this.rand.nextInt(100);
+			this.setLaidTimer(AnimaniaConfig.careAndFeeding.laidTimer + this.rand.nextInt(100));
 		}
 		else
 			this.dataManager.set(EntityHenBase.LAID, Boolean.valueOf(false));
@@ -201,6 +225,21 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 			this.playSound(soundevent, this.getSoundVolume() - .3F, this.getSoundPitch());
 	}
 
-	
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	{
+		if (player.isSneaking())
+		{
+
+			EntityHenBase ehb = (EntityHenBase)entity;
+			int timer = ehb.getLaidTimer();
+			if (timer >= 0) { 
+				probeInfo.text(I18n.translateToLocal("text.waila.egglay") + ": " + timer);
+			} else {
+				probeInfo.text(I18n.translateToLocal("text.waila.egglay2"));
+			}
+		}
+		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+	}
 
 }

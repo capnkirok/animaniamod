@@ -36,7 +36,8 @@ public class RenderKidFainting<T extends EntityKidFainting> extends RenderLiving
     }
 
     protected void preRenderScale(EntityKidFainting entity, float f) {
-        GL11.glScalef(0.21F, 0.21F, 0.21F);
+    	float age = entity.getEntityAge();
+		GL11.glScalef(0.26F + age, 0.26F + age, 0.26F + age); 
         GL11.glTranslatef(0f, 0f, -0.5f);
     }
 

@@ -101,6 +101,9 @@ import com.animania.client.render.rodents.RenderFerretWhite;
 import com.animania.client.render.rodents.RenderHamster;
 import com.animania.client.render.rodents.RenderHedgehog;
 import com.animania.client.render.rodents.RenderHedgehogAlbino;
+import com.animania.client.render.sheep.RenderEweFriesian;
+import com.animania.client.render.sheep.RenderLambFriesian;
+import com.animania.client.render.sheep.RenderRamFriesian;
 import com.animania.client.render.tileEntity.TileEntityHamsterWheelRenderer;
 import com.animania.client.render.tileEntity.TileEntityNestRenderer;
 import com.animania.client.render.tileEntity.TileEntitySaltLickRenderer;
@@ -206,6 +209,9 @@ import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.common.entities.sheep.EntityEweFriesian;
+import com.animania.common.entities.sheep.EntityLambFriesian;
+import com.animania.common.entities.sheep.EntityRamFriesian;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntitySaltLick;
@@ -230,6 +236,11 @@ public class RenderHandler
 
 	static void renderEntitiesFactory() {
 
+		//Sheep
+		RenderingRegistry.registerEntityRenderingHandler(EntityRamFriesian.class, RenderRamFriesian.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityEweFriesian.class, RenderEweFriesian.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityLambFriesian.class, RenderLambFriesian.FACTORY);
+		
 		//Goats
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidAlpine.class, RenderKidAlpine.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckAlpine.class, RenderBuckAlpine.FACTORY);

@@ -2,7 +2,7 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
-import com.animania.common.entities.chickens.EntityHenBase;
+import com.animania.common.entities.peacocks.EntityPeafowlBase;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
@@ -12,13 +12,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class WailaEntityHenProvider extends WailaEntityAnimalProviderBase
+public class WailaEntityPeafowlProvider extends WailaEntityAnimalProviderBase
 {
 	@Override
 	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
 		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 
-		EntityHenBase ehb = (EntityHenBase)entity;
+		EntityPeafowlBase ehb = (EntityPeafowlBase)entity;
 		int timer = ehb.getLaidTimer();
 
 

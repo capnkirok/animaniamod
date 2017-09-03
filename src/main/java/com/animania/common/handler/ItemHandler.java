@@ -12,6 +12,7 @@ import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.rodents.FerretType;
 import com.animania.common.entities.rodents.HamsterType;
 import com.animania.common.entities.rodents.HedgehogType;
+import com.animania.common.entities.sheep.SheepType;
 import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.common.items.ItemAnimaniaFoodRaw;
 import com.animania.common.items.ItemBrownEgg;
@@ -298,6 +299,12 @@ public class ItemHandler
 	
 	public static Item entityeggrandomgoat;
 	
+	// Eggs - Sheep
+	public static Item entityeggramfriesian;
+	public static Item entityeggewefriesian;
+	public static Item entityegglambfriesian;
+	
+	// Eggs - Random Animal
 	public static Item entityeggrandomanimal;
 
 
@@ -572,5 +579,12 @@ public class ItemHandler
 		
 		ItemHandler.entityeggrandomgoat = new ItemEntityEgg("goat_random", GoatType.ALPINE, EntityGender.RANDOM);
 
+		// SHEEP
+		ItemHandler.entityeggramfriesian = new ItemEntityEgg("ram_friesian", SheepType.FRIESIAN, EntityGender.MALE);
+		ItemHandler.entityeggewefriesian = new ItemEntityEgg("ewe_friesian", SheepType.FRIESIAN, EntityGender.FEMALE);
+		ItemHandler.entityegglambfriesian = new ItemEntityEgg("lamb_friesian", SheepType.FRIESIAN, EntityGender.CHILD);
+		
+ 
+		
 	}
 }

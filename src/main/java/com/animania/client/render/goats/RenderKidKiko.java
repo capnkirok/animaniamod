@@ -36,7 +36,8 @@ public class RenderKidKiko<T extends EntityKidKiko> extends RenderLiving<T>
     }
 
     protected void preRenderScale(EntityKidKiko entity, float f) {
-        GL11.glScalef(0.24F, 0.24F, 0.24F);
+    	float age = entity.getEntityAge();
+		GL11.glScalef(0.29F + age, 0.29F + age, 0.29F + age); 
         GL11.glTranslatef(0f, 0f, -0.5f);
     }
 

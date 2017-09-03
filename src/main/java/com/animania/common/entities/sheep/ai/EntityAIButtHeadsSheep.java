@@ -3,9 +3,9 @@ package com.animania.common.entities.sheep.ai;
 import java.util.List;
 import java.util.Random;
 
-import com.animania.common.entities.goats.EntityBuckBase;
-import com.animania.common.entities.goats.EntityDoeBase;
-import com.animania.common.entities.goats.EntityKidBase;
+import com.animania.common.entities.sheep.EntityEweBase;
+import com.animania.common.entities.sheep.EntityLambBase;
+import com.animania.common.entities.sheep.EntityRamBase;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.ai.EntityAIBase;
@@ -40,7 +40,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 		this.delayCounter++;
 		if (this.delayCounter > 250) {
 
-			if (this.theAnimal instanceof EntityDoeBase || this.theAnimal instanceof EntityKidBase) {
+			if (this.theAnimal instanceof EntityEweBase || this.theAnimal instanceof EntityLambBase) {
 				return false;
 			}
 			
@@ -53,7 +53,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 				return false;
 			}
 
-			EntityBuckBase thisEntity = (EntityBuckBase) this.theAnimal;
+			EntityRamBase thisEntity = (EntityRamBase) this.theAnimal;
 
 			return (this.targetMate != null && thisEntity.getFighting());
 
@@ -80,7 +80,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 	public void updateTask()
 	{
 
-		EntityBuckBase thisEntity = (EntityBuckBase) this.theAnimal;
+		EntityRamBase thisEntity = (EntityRamBase) this.theAnimal;
 		if (thisEntity.getFighting()) {
 			this.theAnimal.getLookHelper().setLookPositionWithEntity(this.targetMate, 10.0F, (float)this.theAnimal.getVerticalFaceSpeed());
 			this.theAnimal.getNavigator().tryMoveToEntityLiving(this.targetMate, this.moveSpeed);
@@ -93,17 +93,17 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 
 	private EntityAnimal getNearbyRival() {
 
-		if (this.theAnimal instanceof EntityBuckBase) {
+		if (this.theAnimal instanceof EntityRamBase) {
 		
-			EntityBuckBase thisEntity = (EntityBuckBase) this.theAnimal;
-			EntityBuckBase foundEntity = null;
+			EntityRamBase thisEntity = (EntityRamBase) this.theAnimal;
+			EntityRamBase foundEntity = null;
 
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 10, this.theAnimal.world, this.theAnimal);
+			List entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 10, this.theAnimal.world, this.theAnimal);
 			
 			if (entities != null) {
 				for (int k = 0; k < entities.size(); k++) {
 
-					EntityBuckBase entity = (EntityBuckBase)entities.get(k); 
+					EntityRamBase entity = (EntityRamBase)entities.get(k); 
 
 					if (thisEntity.getRivalUniqueId() == null && entity.getRivalUniqueId() == null && thisEntity != entity) {
 						foundEntity = entity;
@@ -136,7 +136,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 					thisEntity.setFighting(false);
 					foundEntity.setFighting(false);
 					foundEntity.setRivalUniqueId(null);
-					thisEntity.setRivalUniqueId(null);
+					thisEntity.setRivalUniqueId(null); 
 					thisEntity.setAttackTarget(null);
 					foundEntity.setAttackTarget(null);
 					this.delayCounter = 0;

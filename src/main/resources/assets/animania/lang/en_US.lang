@@ -247,6 +247,12 @@ item.animania_entity_egg_buck_pygmy.name=Pygmy Buck
 item.animania_entity_egg_doe_pygmy.name=Pygmy Doe
 item.animania_entity_egg_kid_pygmy.name=Pygmy Kid
 
+
+item.animania_entity_egg_ram_friesian.name=Friesian Ram
+item.animania_entity_egg_ewe_friesian.name=Friesian Ewe
+item.animania_entity_egg_lamb_friesian.name=Friesian Lamb
+
+
 entity.animania.ChickRhodeIslandRed.name=Rhode Island Red Chick
 entity.animania.HenRhodeIslandRed.name=Rhode Island Red Hen
 entity.animania.RoosterRhodeIslandRed.name=Rhode Island Red Rooster
@@ -356,6 +362,10 @@ entity.animania:kid_nigerian_dwarf.name=Nigerian Dwarf Kid
 entity.animania:buck_pygmy.name=Pygmy Buck
 entity.animania:doe_pygmy.name=Pygmy Doe
 entity.animania:kid_pygmy.name=Pygmy Kid
+
+entity.animania:ram_friesian.name=Friesian Ram
+entity.animania:ewe_friesian.name=Friesian Ewe
+entity.animania:lamb_friesian.name=Friesian Lamb
 
 death.attack.bull=%1$s was gored to death
 death.attack.pepe=%1$s was memed to death
@@ -494,6 +504,7 @@ text.waila.parentmissing=Parent missing
 text.waila.played=Content
 text.waila.bored=Bored
 text.waila.egglay=Ticks until next egg
+text.waila.egglay2=Looking for nest
 text.waila.sitting=Sitting
 text.waila.tamed=Tamed
 text.waila.ownermissing=Owner missing
