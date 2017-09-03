@@ -19,10 +19,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderDoeAngora<T extends EntityDoeAngora> extends RenderLiving<T>
 {
     public static final Factory           FACTORY          = new Factory();
-    private static final ResourceLocation goatTextures      = new ResourceLocation("animania:textures/entity/goats/Doe_angora.png");
-	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/Doe_angora_blink.png");
-	private static final ResourceLocation goatTexturesSheared      = new ResourceLocation("animania:textures/entity/goats/Doe_angora_sheared.png");
-	private static final ResourceLocation goatTexturesShearedBlink = new ResourceLocation("animania:textures/entity/goats/Doe_angora_sheared_blink.png");
+    private static final ResourceLocation goatTextures      = new ResourceLocation("animania:textures/entity/goats/buck_angora.png");
+	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/buck_angora_blink.png");
+	private static final ResourceLocation goatTexturesSheared      = new ResourceLocation("animania:textures/entity/goats/buck_angora_sheared.png");
+	private static final ResourceLocation goatTexturesShearedBlink = new ResourceLocation("animania:textures/entity/goats/buck_angora_sheared_blink.png");
     Random                                rand             = new Random();
 
     public RenderDoeAngora(RenderManager rm) {

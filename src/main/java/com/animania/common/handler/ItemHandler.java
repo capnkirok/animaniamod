@@ -12,10 +12,7 @@ import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.rodents.FerretType;
 import com.animania.common.entities.rodents.HamsterType;
 import com.animania.common.entities.rodents.HedgehogType;
-<<<<<<< HEAD
 import com.animania.common.entities.sheep.SheepType;
-=======
->>>>>>> tschipp
 import com.animania.common.items.AnimaniaItem;
 import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.common.items.ItemAnimaniaFoodRaw;
