@@ -31,6 +31,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -49,7 +50,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.headbutting = true;
 		this.gender = EntityGender.MALE;
 	}
-	
+
 	@Override
 	protected void initEntityAI()
 	{
@@ -58,7 +59,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.25F));
 		this.tasks.addTask(5, new EntityAIMateGoats(this, 1.0D));
 	}
-	
+
 	@Override
 	protected void applyEntityAttributes()
 	{
@@ -66,14 +67,14 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.265D);
 	}
-	
+
 	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
 		this.dataManager.register(EntityBuckBase.FIGHTING, Boolean.valueOf(false));
 	}
-	
+
 	public boolean getFighting()
 	{
 		return this.dataManager.get(EntityBuckBase.FIGHTING).booleanValue();
@@ -87,7 +88,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 			this.dataManager.set(EntityBuckBase.FIGHTING, Boolean.valueOf(false));
 	}
 
-	
+
 	@Nullable
 	public UUID getMateUniqueId()
 	{
@@ -98,7 +99,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	{
 		this.dataManager.set(EntityBuckBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
-	
+
 	@Nullable
 	public UUID getRivalUniqueId()
 	{
@@ -109,8 +110,8 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	{
 		this.dataManager.set(EntityBuckBase.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
-	
-	
+
+
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
@@ -152,7 +153,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 			return null;
 
 	}
-	
+
 	@Override
 	protected SoundEvent getHurtSound()
 	{
@@ -180,7 +181,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		else
 			return ModSoundEvents.pig3;
 	}
-	
+
 	@Override
 	public void playLivingSound()
 	{
@@ -189,13 +190,13 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		if (soundevent != null)
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .2F);
 	}
-	
+
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.10F, 0.8F);
 	}
-	
+
 	@Override
 	public void onLivingUpdate()
 	{
@@ -233,12 +234,12 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 				}
 			}
 		}
-		
-		
+
+
 		super.onLivingUpdate();
 	}
-	
-	
+
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
@@ -248,8 +249,8 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		else
 			super.handleStatusUpdate(id);
 	}
-	
-	
+
+
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
@@ -267,16 +268,30 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		else
 			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
-	
+
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && (EntityAnimaniaGoat.TEMPTATION_ITEMS.contains(stack.getItem()));
 	}
-	
+
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
+		if (player.isSneaking())
+		{
+
+			if (this.getSheared() && this instanceof EntityBuckAngora)
+			{
+				if (this.getWoolRegrowthTimer() > 0) {
+					int bob = this.getWoolRegrowthTimer();
+					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
+				} 
+			}  else if (!this.getSheared() && this instanceof EntityBuckAngora) {
+				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
+			}
+
+		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
 

@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.common.entities.sheep.ai.EntityAIMateSheep;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -24,14 +23,13 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -43,9 +41,11 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	public EntityRamBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.0F, 1.0F);
+		this.setSize(1.4F, 1.0F);
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
+		this.headbutting = true;
+		this.mateable = true;
 	}
 	
 	@Override
@@ -261,6 +261,20 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
+		if (player.isSneaking())
+		{
+			if (this.getSheared())
+			{
+				if (this.getWoolRegrowthTimer() > 0) {
+					int bob = this.getWoolRegrowthTimer();
+					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
+				} 
+			}  else if (!this.getSheared()) {
+				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
+			}
+
+		}
+		
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
 

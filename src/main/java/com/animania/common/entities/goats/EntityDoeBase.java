@@ -56,7 +56,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityDoeBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityDoeBase.class, DataSerializers.VARINT);
 
-	
+
 	public EntityDoeBase(World worldIn)
 	{
 		super(worldIn);
@@ -65,14 +65,14 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;
 	}
-	
+
 	@Override
 	protected void initEntityAI()
 	{
 		super.initEntityAI();
 		this.tasks.addTask(3, new EntityAIPanicGoats(this, 2.0D));
 	}
-	
+
 	@Override
 	protected void entityInit()
 	{
@@ -82,7 +82,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		this.dataManager.register(EntityDoeBase.FERTILE, Boolean.valueOf(true));
 		this.dataManager.register(EntityDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 	}
-	
+
 	@Override
 	protected void applyEntityAttributes()
 	{
@@ -90,7 +90,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.265D);
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
@@ -106,14 +106,14 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-		
+
 		this.setPregnant(compound.getBoolean("Pregnant"));
 		this.setHasKids(compound.getBoolean("HasKids"));
 		this.setFertile(compound.getBoolean("Fertile"));
 		this.setGestation(compound.getInteger("Gestation"));
 
 	}
-	
+
 	@Override
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
@@ -128,7 +128,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 		if (goatCount <= AnimaniaConfig.spawn.spawnLimitGoats)
 		{
-			
+
 			int chooser = this.rand.nextInt(5);
 
 			if (chooser == 0)
@@ -169,7 +169,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		return livingdata;
 	}
 
-	
+
 	public int getGestation()
 	{
 		return this.dataManager.get(EntityDoeBase.GESTATION_TIMER).intValue();
@@ -192,7 +192,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		}
 		this.dataManager.set(EntityDoeBase.PREGNANT, Boolean.valueOf(preggers));
 	}
-	
+
 	public boolean getFertile()
 	{
 		return this.dataManager.get(EntityDoeBase.FERTILE).booleanValue();
@@ -207,12 +207,12 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	{
 		return this.dataManager.get(EntityDoeBase.HAS_KIDS).booleanValue();
 	}
-	
+
 	public void setHasKids(boolean kids)
 	{
 		this.dataManager.set(EntityDoeBase.HAS_KIDS, Boolean.valueOf(kids));
 	}
-	
+
 	@Nullable
 	public UUID getMateUniqueId()
 	{
@@ -308,7 +308,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 			this.setFertile(true);
 			this.dryTimerDoe = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
 		}
-		
+
 		if (this.blinkTimer > -1)
 		{
 			this.blinkTimer--;
@@ -347,12 +347,12 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 		int gestationTimer = this.getGestation();
-		
+
 		if (gestationTimer > -1 && this.getPregnant())
 		{
 			gestationTimer--;
 			this.setGestation(gestationTimer);
-			
+
 			if (gestationTimer == 0)
 			{
 
@@ -428,7 +428,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		else
 			return super.processInteract(player, hand);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
@@ -462,16 +462,16 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	{
 		return stack != ItemStack.EMPTY && (EntityAnimaniaGoat.TEMPTATION_ITEMS.contains(stack.getItem()));
 	}
-	
+
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
-			
+
 			if (this.getMateUniqueId() != null) 
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
-			
+
 			if (this.getHasKids())
 				probeInfo.text(I18n.translateToLocal("text.waila.milkable"));
 
@@ -489,6 +489,17 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
 			} 
+
+
+			if (this.getSheared() && this instanceof EntityDoeAngora)
+			{
+				if (this.getWoolRegrowthTimer() > 0) {
+					int bob = this.getWoolRegrowthTimer();
+					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
+				} 
+			}  else {
+				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
+			}
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}

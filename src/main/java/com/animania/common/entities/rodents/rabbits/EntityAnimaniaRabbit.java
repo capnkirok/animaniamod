@@ -1,15 +1,14 @@
-package com.animania.common.entities.rodents;
+package com.animania.common.entities.rodents.rabbits;
 
-import java.util.Random;
 import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.AnimaniaAchievements;
-import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
+import com.animania.common.entities.rodents.RabbitType;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
 import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
@@ -17,7 +16,6 @@ import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
 import com.animania.common.entities.rodents.ai.EntityAITemptRodents;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
@@ -33,7 +31,6 @@ import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -56,14 +53,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderRodent
+public class EntityAnimaniaRabbit extends EntityTameable implements ISpawnable
 {
 
-	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityRabbitBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityRabbitBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityRabbitBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityRabbitBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityRabbitBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] {Items.WHEAT, Items.APPLE, Items.CARROT, Items.BEETROOT});
 	protected int fedTimer;
 	protected int wateredTimer;
@@ -81,7 +78,7 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 	protected Item dropRaw = Items.BEEF;
 	protected Item dropCooked = Items.COOKED_BEEF;
 
-	public EntityRabbitBase(World worldIn)
+	public EntityAnimaniaRabbit(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(.75F, .40F);
@@ -92,8 +89,8 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + this.rand.nextInt(70);
 		this.enablePersistence();
-		this.jumpHelper = new EntityRabbitBase.RabbitJumpHelper(this);
-		this.moveHelper = new EntityRabbitBase.RabbitMoveHelper(this);
+		this.jumpHelper = new EntityAnimaniaRabbit.RabbitJumpHelper(this);
+		this.moveHelper = new EntityAnimaniaRabbit.RabbitMoveHelper(this);
 		this.setMovementSpeed(0.0D);
 	}
 
@@ -110,7 +107,7 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 		this.tasks.addTask(6, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
 		this.tasks.addTask(7, new EntityAIPanic(this, 1.5D));
 		this.tasks.addTask(8, new EntityAIRodentEat(this));
-		this.tasks.addTask(9, new EntityAITemptRodents(this, 1.2D, false, EntityRabbitBase.TEMPTATION_ITEMS));
+		this.tasks.addTask(9, new EntityAITemptRodents(this, 1.2D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
 		this.tasks.addTask(10, this.entityAIEatGrass);
 		this.tasks.addTask(11, new EntityAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(12, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
@@ -355,11 +352,11 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityRabbitBase.FED, Boolean.valueOf(true));
-		this.dataManager.register(EntityRabbitBase.WATERED, Boolean.valueOf(true));
-		this.dataManager.register(EntityRabbitBase.TAMED, Boolean.valueOf(false));
-		this.dataManager.register(EntityRabbitBase.SITTING, Boolean.valueOf(false));
-		this.dataManager.register(EntityRabbitBase.RIDING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaRabbit.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaRabbit.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaRabbit.TAMED, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaRabbit.SITTING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaRabbit.RIDING, Boolean.valueOf(false));
 
 	}
 
@@ -539,74 +536,74 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean isRabbitSitting()
 	{
-		return this.dataManager.get(EntityRabbitBase.SITTING).booleanValue();
+		return this.dataManager.get(EntityAnimaniaRabbit.SITTING).booleanValue();
 	}
 
 	public void setRabbitSitting(boolean flag)
 	{
 		if (flag)
-			this.dataManager.set(EntityRabbitBase.SITTING, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaRabbit.SITTING, Boolean.valueOf(true));
 		else
-			this.dataManager.set(EntityRabbitBase.SITTING, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaRabbit.SITTING, Boolean.valueOf(false));
 	}
 
 	public boolean isRabbitRiding()
 	{
-		return this.dataManager.get(EntityRabbitBase.RIDING).booleanValue();
+		return this.dataManager.get(EntityAnimaniaRabbit.RIDING).booleanValue();
 	}
 
 	public void setRabbitRiding(boolean flag)
 	{
 		if (flag)
-			this.dataManager.set(EntityRabbitBase.RIDING, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaRabbit.RIDING, Boolean.valueOf(true));
 		else
-			this.dataManager.set(EntityRabbitBase.RIDING, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaRabbit.RIDING, Boolean.valueOf(false));
 	}
 
 	public boolean getFed()
 	{
-		return this.dataManager.get(EntityRabbitBase.FED).booleanValue();
+		return this.dataManager.get(EntityAnimaniaRabbit.FED).booleanValue();
 	}
 
 	public void setFed(boolean fed)
 	{
 		if (fed)
 		{
-			this.dataManager.set(EntityRabbitBase.FED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaRabbit.FED, Boolean.valueOf(true));
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		}
 		else
-			this.dataManager.set(EntityRabbitBase.FED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaRabbit.FED, Boolean.valueOf(false));
 	}
 
 	public boolean getWatered()
 	{
-		return this.dataManager.get(EntityRabbitBase.WATERED).booleanValue();
+		return this.dataManager.get(EntityAnimaniaRabbit.WATERED).booleanValue();
 	}
 
 	public void setWatered(boolean watered)
 	{
 		if (watered)
 		{
-			this.dataManager.set(EntityRabbitBase.WATERED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaRabbit.WATERED, Boolean.valueOf(true));
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		}
 		else
-			this.dataManager.set(EntityRabbitBase.WATERED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaRabbit.WATERED, Boolean.valueOf(false));
 	}
 
 	public boolean getIsTamed()
 	{
-		return this.dataManager.get(EntityRabbitBase.TAMED).booleanValue();
+		return this.dataManager.get(EntityAnimaniaRabbit.TAMED).booleanValue();
 	}
 
 	public void setIsTamed(boolean fed)
 	{
 		if (fed)
-			this.dataManager.set(EntityRabbitBase.TAMED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaRabbit.TAMED, Boolean.valueOf(true));
 		else
-			this.dataManager.set(EntityRabbitBase.TAMED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaRabbit.TAMED, Boolean.valueOf(false));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -628,7 +625,7 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 	}
 
 	@Override
-	public EntityRabbitBase createChild(EntityAgeable ageable)
+	public EntityAnimaniaRabbit createChild(EntityAgeable ageable)
 	{
 		return null;
 	}
@@ -636,15 +633,15 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
-		return stack != ItemStack.EMPTY && EntityRabbitBase.TEMPTATION_ITEMS.contains(stack.getItem());
+		return stack != ItemStack.EMPTY && EntityAnimaniaRabbit.TEMPTATION_ITEMS.contains(stack.getItem());
 	}
 
 	public class RabbitJumpHelper extends EntityJumpHelper
 	{
-		private final EntityRabbitBase theEntity;
+		private final EntityAnimaniaRabbit theEntity;
 		private boolean canJump;
 
-		public RabbitJumpHelper(EntityRabbitBase entityRabbitBase)
+		public RabbitJumpHelper(EntityAnimaniaRabbit entityRabbitBase)
 		{
 			super(entityRabbitBase);
 			this.theEntity = entityRabbitBase;
@@ -680,10 +677,10 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 
 	static class RabbitMoveHelper extends EntityMoveHelper
 	{
-		private final EntityRabbitBase theEntity;
+		private final EntityAnimaniaRabbit theEntity;
 		private double nextJumpSpeed;
 
-		public RabbitMoveHelper(EntityRabbitBase entityRabbitBase)
+		public RabbitMoveHelper(EntityAnimaniaRabbit entityRabbitBase)
 		{
 			super(entityRabbitBase);
 			this.theEntity = entityRabbitBase;
@@ -722,6 +719,23 @@ public class EntityRabbitBase extends EntityTameable implements TOPInfoProviderR
 			}
 		}
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 0;
+	}
 
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 0;
+	}
+
+	@Override
+	public Item getSpawnEgg() {
+		return null;
+	}
+	
 
 }

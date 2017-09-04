@@ -39,6 +39,7 @@ import com.animania.compat.waila.provider.WailaBlockTroughProvider;
 import com.animania.compat.waila.provider.WailaEntityAnimalProviderBase;
 import com.animania.compat.waila.provider.WailaEntityAnimalProviderChild;
 import com.animania.compat.waila.provider.WailaEntityAnimalProviderMateable;
+import com.animania.compat.waila.provider.WailaEntityBuckProvider;
 import com.animania.compat.waila.provider.WailaEntityCowProvider;
 import com.animania.compat.waila.provider.WailaEntityDoeProvider;
 import com.animania.compat.waila.provider.WailaEntityEweProvider;
@@ -47,6 +48,7 @@ import com.animania.compat.waila.provider.WailaEntityMareProvider;
 import com.animania.compat.waila.provider.WailaEntityPeafowlProvider;
 import com.animania.compat.waila.provider.WailaEntityPigProvider;
 import com.animania.compat.waila.provider.WailaEntityPigletProvider;
+import com.animania.compat.waila.provider.WailaEntityRamProvider;
 import com.animania.compat.waila.provider.WailaEntityRodentProvider;
 import com.animania.compat.waila.provider.WailaEntitySowProvider;
 
@@ -178,8 +180,8 @@ public class WailaCompat
 	}
 	
 	private static void regEntityInfoBuck(IWailaRegistrar r, Class clazz) {
-		r.registerBodyProvider(new WailaEntityAnimalProviderMateable(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderMateable(), clazz);
+		r.registerBodyProvider(new WailaEntityBuckProvider(), clazz);
+		r.registerNBTProvider(new WailaEntityBuckProvider(), clazz);
 	}
 
 	private static void regEntityInfoDoe(IWailaRegistrar r, Class clazz) {
@@ -193,8 +195,8 @@ public class WailaCompat
 	}
 
 	private static void regEntityInfoRam(IWailaRegistrar r, Class clazz) {
-		r.registerBodyProvider(new WailaEntityAnimalProviderMateable(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderMateable(), clazz);
+		r.registerBodyProvider(new WailaEntityRamProvider(), clazz);
+		r.registerNBTProvider(new WailaEntityRamProvider(), clazz);
 	}
 
 	private static void regEntityInfoEwe(IWailaRegistrar r, Class clazz) {
