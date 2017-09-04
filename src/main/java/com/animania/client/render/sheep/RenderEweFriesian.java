@@ -46,7 +46,7 @@ public class RenderEweFriesian<T extends EntityEweFriesian> extends RenderLiving
 	}
 
     protected void preRenderScale(EntityEweFriesian entity, float f) {
-        GL11.glScalef(0.52F, 0.52F, 0.52F);
+        GL11.glScalef(0.60F, 0.60F, 0.60F);
         GL11.glTranslatef(0f, 0f, -0.5f);
     }
 

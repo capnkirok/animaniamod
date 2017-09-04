@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
 import com.animania.common.entities.sheep.ai.EntityAIFindFood;
 import com.animania.common.entities.sheep.ai.EntityAIFindSaltLickSheep;
 import com.animania.common.entities.sheep.ai.EntityAIFindWater;
@@ -56,9 +57,10 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaSheep.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Optional<UUID>> RIVAL_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaSheep.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> SHEARED_TIMER = EntityDataManager.<Integer>createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
 	protected int happyTimer;
 	public int blinkTimer;
 	public int eatTimer;
@@ -79,6 +81,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAISheepEatGrass(this);
 		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
+		this.tasks.addTask(3, new EntityAIButtHeadsSheep(this, 1.3D));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIMateSheep(this, 1.0D));
@@ -110,9 +113,10 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 		super.entityInit();
 		this.dataManager.register(EntityAnimaniaSheep.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaSheep.WATERED, Boolean.valueOf(true));
-		this.dataManager.register(EntityAnimaniaSheep.SHEARED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaSheep.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaSheep.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityAnimaniaSheep.SHEARED, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaSheep.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
 	}
 
 	@Override
@@ -143,6 +147,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 			stack.shrink(1);;
 	}
 	
+	
 	public boolean getSheared()
 	{
 		return this.dataManager.get(EntityAnimaniaSheep.SHEARED).booleanValue();
@@ -153,12 +158,20 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 		if (sheared)
 		{
 			this.dataManager.set(EntityAnimaniaSheep.SHEARED, Boolean.valueOf(true));
-			//this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-			//need a sheared timer
+			this.setWoolRegrowthTimer(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500));
 		} else
 			this.dataManager.set(EntityAnimaniaSheep.SHEARED, Boolean.valueOf(false));
 	}
 	
+	public int getWoolRegrowthTimer()
+	{
+		return this.dataManager.get(EntityAnimaniaSheep.SHEARED_TIMER).intValue();
+	}
+
+	public void setWoolRegrowthTimer(int time)
+	{
+		this.dataManager.set(EntityAnimaniaSheep.SHEARED_TIMER, Integer.valueOf(time));
+	}
 	
 	public boolean getFed()
 	{
@@ -194,7 +207,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 	@Override
 	protected void updateAITasks()
 	{
-		//this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
+		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
 		super.updateAITasks();
 	}
 	
@@ -279,7 +292,16 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 			}
 		}
 		
-		
+		boolean sheared = this.getSheared();
+		if (sheared) {
+			int shearedTimer = this.getWoolRegrowthTimer();
+			shearedTimer--;
+			this.setWoolRegrowthTimer(shearedTimer);
+			if (shearedTimer < 0) {
+				this.setSheared(false);
+				
+			}
+		}
 		
 
 		super.onLivingUpdate();

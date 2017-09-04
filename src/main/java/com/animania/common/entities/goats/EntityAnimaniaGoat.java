@@ -62,6 +62,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Optional<UUID>> RIVAL_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> SHEARED_TIMER = EntityDataManager.<Integer>createKey(EntityAnimaniaGoat.class, DataSerializers.VARINT);
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -118,6 +119,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		this.dataManager.register(EntityAnimaniaGoat.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaGoat.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
 	}
 
 	@Override
@@ -285,7 +287,16 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 			}
 		}
 
-
+		boolean sheared = this.getSheared();
+		if (sheared) {
+			int shearedTimer = this.getWoolRegrowthTimer();
+			shearedTimer--;
+			this.setWoolRegrowthTimer(shearedTimer);
+			if (shearedTimer < 0) {
+				this.setSheared(false);
+				
+			}
+		}
 
 
 		super.onLivingUpdate();
@@ -372,10 +383,19 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		if (sheared)
 		{
 			this.dataManager.set(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(true));
-			//this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-			//need a sheared timer
+			this.setWoolRegrowthTimer(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500));
 		} else
 			this.dataManager.set(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(false));
+	}
+	
+	public int getWoolRegrowthTimer()
+	{
+		return this.dataManager.get(EntityAnimaniaGoat.SHEARED_TIMER).intValue();
+	}
+
+	public void setWoolRegrowthTimer(int time)
+	{
+		this.dataManager.set(EntityAnimaniaGoat.SHEARED_TIMER, Integer.valueOf(time));
 	}
 
 	@Override

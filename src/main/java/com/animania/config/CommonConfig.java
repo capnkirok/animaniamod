@@ -365,6 +365,8 @@ public class CommonConfig
 		public int featherTimer       = 12000;
 		@Comment("Ticks between birthings")
 		public int gestationTimer  = 20000;
+		@Comment("Ticks before wool regrowth after shearing")
+		public int woolRegrowthTimer  = 8000;
 		@Comment("Ticks between animals taking starvation damage")
 		public int starvationTimer = 400;
 		@Comment("Egg hatch chance (1/x)")

@@ -2,6 +2,7 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
+import com.animania.common.entities.goats.EntityDoeAngora;
 import com.animania.common.entities.goats.EntityDoeBase;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -38,7 +39,16 @@ public class WailaEntityDoeProvider extends WailaEntityAnimalProviderMateable
 					currenttip.add(I18n.translateToLocal("text.waila.pregnant1"));
 				}
 			} 
+			
+			if (thisEntity.getSheared() && thisEntity instanceof EntityDoeAngora) {
+				if (thisEntity.getWoolRegrowthTimer() > 0) {
+					int bob = thisEntity.getWoolRegrowthTimer();
+					currenttip.add(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
+				}
 
+			} else if (!thisEntity.getSheared() && thisEntity instanceof EntityDoeAngora) {
+				currenttip.add(I18n.translateToLocal("text.waila.wool3"));
+			}
 
 		}
 		return currenttip;

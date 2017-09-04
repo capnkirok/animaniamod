@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.goats.EntityBuckAngora;
 import com.animania.common.entities.sheep.ai.EntityAIPanicSheep;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -60,7 +61,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	public EntityEweBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.1F, 1.0F);
+		this.setSize(1.4F, 1.0F);
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.FEMALE;
 		this.mateable = true;
@@ -448,10 +449,10 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	{
 		if (player.isSneaking())
 		{
-			
+
 			if (this.getMateUniqueId() != null) 
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
-			
+
 			if (this.getHasKids())
 				probeInfo.text(I18n.translateToLocal("text.waila.milkable"));
 
@@ -468,8 +469,23 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				} else {
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
-			} 
+			}
+
+			if (this.getSheared())
+			{
+				if (this.getWoolRegrowthTimer() > 0) {
+					int bob = this.getWoolRegrowthTimer();
+					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
+				} 
+			}  else if (!this.getSheared()) {
+				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
+			}
+
+
+
 		}
+
+
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
 }
