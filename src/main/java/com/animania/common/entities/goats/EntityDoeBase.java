@@ -56,7 +56,6 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityDoeBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityDoeBase.class, DataSerializers.VARINT);
 
-
 	public EntityDoeBase(World worldIn)
 	{
 		super(worldIn);
@@ -169,7 +168,6 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		return livingdata;
 	}
 
-
 	public int getGestation()
 	{
 		return this.dataManager.get(EntityDoeBase.GESTATION_TIMER).intValue();
@@ -187,7 +185,8 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	public void setPregnant(boolean preggers)
 	{
-		if (preggers) {
+		if (preggers)
+		{
 			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200));
 		}
 		this.dataManager.set(EntityDoeBase.PREGNANT, Boolean.valueOf(preggers));
@@ -302,11 +301,14 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!this.getFertile() && this.dryTimerDoe > -1) {
+		if (!this.getFertile() && this.dryTimerDoe > -1)
+		{
 			this.dryTimerDoe--;
-		} else {
+		}
+		else
+		{
 			this.setFertile(true);
-			this.dryTimerDoe = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
+			this.dryTimerDoe = AnimaniaConfig.careAndFeeding.gestationTimer / 5 + rand.nextInt(50);
 		}
 
 		if (this.blinkTimer > -1)
@@ -359,17 +361,19 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 30, this.world, this);
 				int esize = entities.size();
-				for (int k = 0; k <= esize - 1; k++) 
+				for (int k = 0; k <= esize - 1; k++)
 				{
-					EntityBuckBase entity = (EntityBuckBase)entities.get(k);
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
+					EntityBuckBase entity = (EntityBuckBase) entities.get(k);
+					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID))
+					{
 
 						this.setInLove(null);
 						GoatType maleType = ((EntityAnimaniaGoat) entity).goatType;
 						GoatType babyType = GoatType.breed(maleType, this.goatType);
 						EntityKidBase entityKid = babyType.getChild(world);
 						entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
-						if (!world.isRemote) {
+						if (!world.isRemote)
+						{
 							this.world.spawnEntity(entityKid);
 						}
 						entityKid.setParentUniqueId(this.getPersistentID());
@@ -469,7 +473,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		if (player.isSneaking())
 		{
 
-			if (this.getMateUniqueId() != null) 
+			if (this.getMateUniqueId() != null)
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
 
 			if (this.getHasKids())
@@ -478,26 +482,31 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 			if (this.getFertile() && !this.getPregnant())
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.fertile1"));
-			} 
+			}
 
 			if (this.getPregnant())
 			{
-				if (this.getGestation() > 0) {
+				if (this.getGestation() > 0)
+				{
 					int bob = this.getGestation();
-					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
-				} else {
+					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
+				}
+				else
+				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
-			} 
-
+			}
 
 			if (this.getSheared() && this instanceof EntityDoeAngora)
 			{
-				if (this.getWoolRegrowthTimer() > 0) {
+				if (this.getWoolRegrowthTimer() > 0)
+				{
 					int bob = this.getWoolRegrowthTimer();
-					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
-				} 
-			}  else {
+					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")");
+				}
+			}
+			else if (this instanceof EntityDoeAngora)
+			{
 				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
 			}
 		}

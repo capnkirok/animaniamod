@@ -114,7 +114,7 @@ public enum RabbitType implements AnimaniaType
 		return child;
 	}
 
-	public static GoatType breed(GoatType male, GoatType female)
+	public static RabbitType breed(RabbitType male, RabbitType female)
 	{
 		Random rand = new Random();
 		if(rand.nextInt(2) == 0)

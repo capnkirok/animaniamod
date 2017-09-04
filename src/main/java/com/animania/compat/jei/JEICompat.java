@@ -40,7 +40,8 @@ public class JEICompat extends BlankModPlugin
         registry.addDescription(this.milkFriesian, "text.jei.milkfriesian");
         registry.addDescription(this.milkGoat, "text.jei.milkgoat");
         registry.addDescription(this.milkSheep, "text.jei.milksheep");
-        
+        registry.addDescription(new ItemStack(ItemHandler.salt), "text.jei.salt");
+
         /*
         IngredientBlacklist blacklist = new IngredientBlacklist(registry.getIngredientRegistry());
         blacklist.addIngredientToBlacklist(new ItemStack(ItemHandler.dolly));
