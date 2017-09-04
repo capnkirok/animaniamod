@@ -369,7 +369,8 @@ public class CommonConfig
 		public int starvationTimer = 400;
 		@Comment("Egg hatch chance (1/x)")
 		public int eggHatchChance  = 2;
-		
+		@Comment("Ticks between using Salt Lick")
+		public int saltLickTick = 8000;
 		@Comment("Maximum uses of the salt lick")
 		public int saltLickMaxUses = 200;
 	}

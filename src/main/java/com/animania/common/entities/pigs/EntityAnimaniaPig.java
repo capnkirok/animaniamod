@@ -8,6 +8,7 @@ import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.pigs.ai.EntityAIFindFood;
 import com.animania.common.entities.pigs.ai.EntityAIFindMud;
+import com.animania.common.entities.pigs.ai.EntityAIFindSaltLickPigs;
 import com.animania.common.entities.pigs.ai.EntityAIFindWater;
 import com.animania.common.entities.pigs.ai.EntityAIPanicPigs;
 import com.animania.common.entities.pigs.ai.EntityAIPigSnuffle;
@@ -105,6 +106,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		this.tasks.addTask(10, new EntityAITempt(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
 		this.tasks.addTask(10, new EntityAITemptItemStack(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
 		this.tasks.addTask(11, this.entityAIEatGrass);
+		this.tasks.addTask(12, new EntityAIFindSaltLickPigs(this, 1.0));
 		this.tasks.addTask(13, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new EntityAILookIdle(this));
 
