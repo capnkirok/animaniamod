@@ -42,7 +42,7 @@ public class ItemSeedHandler
 		{
 			Item item = stack.getItem();
 			RayTraceResult ray = AnimaniaHelper.rayTrace(player, player.isCreative() ? 5.5 : 4.5);
-
+			
 			if (ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK)
 			{
 				EnumFacing facing = ray.sideHit;

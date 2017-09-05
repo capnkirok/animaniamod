@@ -3,13 +3,14 @@ package com.animania.common.items;
 import java.util.List;
 
 import com.animania.Animania;
+import com.animania.common.handler.FoodValueHandler;
 import com.animania.common.helper.RomanNumberHelper;
 import com.animania.common.helper.TimeHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -37,6 +38,26 @@ public class ItemAnimaniaFood extends ItemFood
 		this.setAlwaysEdible();
 		if (creativeTab)
 			this.setCreativeTab(Animania.TabAnimaniaResources);
+	}
+
+	@Override
+	public int getHealAmount(ItemStack stack)
+	{
+		Item item = stack.getItem();
+		if (FoodValueHandler.hasOverride(item))
+			return FoodValueHandler.getHealAmount(item);
+		else
+			return super.getHealAmount(stack);
+	}
+	
+	@Override
+	public float getSaturationModifier(ItemStack stack)
+	{
+		Item item = stack.getItem();
+		if (FoodValueHandler.hasOverride(item))
+			return FoodValueHandler.getSaturation(item);
+		else
+			return super.getSaturationModifier(stack);
 	}
 
 	public ItemAnimaniaFood(int amount, float saturation, boolean isWolfFood, String name)

@@ -26,7 +26,8 @@ public class AnimaniaConfig
     public static CommonConfig.Drops          drops          = new CommonConfig.Drops();
     public static CommonConfig.Spawn          spawn          = new CommonConfig.Spawn();
     public static CommonConfig.CareAndFeeding careAndFeeding = new CommonConfig.CareAndFeeding();
-    
+    public static CommonConfig.FoodValues foodValues = new CommonConfig.FoodValues();
+
     @Mod.EventBusSubscriber
     public static class EventHandler
     {
