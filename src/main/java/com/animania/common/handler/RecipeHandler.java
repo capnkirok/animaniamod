@@ -108,8 +108,16 @@ public class RecipeHandler
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.cheeseMold, 1), new Object[] { "   ", "pip", " p ", 'p', "plankWood", 'i', "ingotIron" }));
 
 		// Salt Lick
-		GameRegistry.addRecipe(new ShapelessOreRecipe(BlockHandler.blockSaltLick, new Object[] { "dustSalt", "dustSalt", "dustSalt", "dustSalt", Items.WATER_BUCKET }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(BlockHandler.blockSaltLick, new Object[] { "dustSalt", "dustSalt", "dustSalt", "dustSalt", "dustSalt", "dustSalt", "dustSalt", "dustSalt" ,Items.WATER_BUCKET }));
 		
+		// Wool
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 12), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 12), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 3));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 12), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 5));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 15), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 1));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 0), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 2));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 0), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 4));
+
 		GameRegistry.addRecipe(new SlopBucketRecipe1());
 		GameRegistry.addRecipe(new SlopBucketRecipe2());
 		GameRegistry.addRecipe(new SlopBucketRecipe3());
