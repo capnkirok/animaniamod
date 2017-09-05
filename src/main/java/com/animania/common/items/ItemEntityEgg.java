@@ -17,6 +17,7 @@ import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.goats.GoatType;
 import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.entities.pigs.PigType;
+import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -153,7 +154,7 @@ public class ItemEntityEgg extends Item
 		public int getColorFromItemstack(ItemStack stack, int tintIndex)
 		{
 			World world = Minecraft.getMinecraft().world;
-			if (!stack.isEmpty())
+			if (!stack.isEmpty() && stack.getItem() != ItemHandler.entityeggrandomanimal)
 			{
 				AnimalContainer animal = ((ItemEntityEgg) stack.getItem()).getAnimal();
 				EntityLivingBase entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world);

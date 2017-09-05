@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "animania:blocks/wool_friesian_black"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "variant=dorset_brown": { "model": "animania:wool_dorset_brown" },
+		"variant=friesian_black": { "model": "animania:wool_friesian_black" },
+		"variant=jacob": { "model": "animania:wool_jacob" },
+		"variant=merino_brown": { "model": "animania:wool_merino_brown" },
+		"variant=merino_white": { "model": "animania:wool_merino_white" },
+		"variant=suffolk_brown": { "model": "animania:wool_suffolk_brown" }
+    }
+}

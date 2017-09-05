@@ -378,6 +378,13 @@ tile.animania_invisiblock.name=Trough
 tile.animania_block_hamster_wheel.name=Hamster Wheel
 tile.animania_salt_lick.name=Salt Lick
 
+tile.animania_wool_dorset_brown.name=Wool (Dorset, Brown)
+tile.animania_wool_friesian_black.name=Wool (Friesian, Black)
+tile.animania_wool_jacob.name=Wool (Jacob)
+tile.animania_wool_merino_brown.name=Wool (Merino, Brown)
+tile.animania_wool_merino_white.name=Wool (Merino, White)
+tile.animania_wool_suffolk_brown.name=Wool (Suffolk, Brown)
+
 fluid.slop=Slop
 fluid.milk_holstein=Holstein Milk
 fluid.milk_friesian=Friesian Milk
@@ -527,3 +534,4 @@ text.jei.milkholstein=Holstein Milk is obtained from Holstein Cows.
 text.jei.milkfriesian=Friesian Milk is obtained from Friesian Cows.
 text.jei.milkgoat=Goat Milk is obtained from Does.
 text.jei.milksheep=Sheep Milk is obtained from Ewes.
+text.jei.salt=Salt is created by letting Water evaporate in a cheese mold.

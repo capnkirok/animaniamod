@@ -1,15 +1,21 @@
 package com.animania.client;
 
 import com.animania.Animania;
+import com.animania.common.blocks.IMetaBlockName;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEgg;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
@@ -155,6 +161,7 @@ public class AnimaniaTextures
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseGoat));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseSheep));
 		register(Item.getItemFromBlock(BlockHandler.blockSaltLick));
+		regSpecial(BlockHandler.blockAnimaniaWool);
 
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkFriesian, "milk_friesian");
@@ -183,6 +190,23 @@ public class AnimaniaTextures
 	{
 		for (int meta = 0; meta < 16; meta++)
 			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name + "_" + EnumDyeColor.byDyeDamage(meta).getName(), "inventory"));
+	}
+	
+	public static void regSpecial(Block block)
+	{
+		NonNullList<ItemStack> list = NonNullList.create();
+		
+		block.getSubBlocks(Item.getItemFromBlock(block), null, list);
+		
+		for(int i = 0; i < list.size(); i++)
+		{
+			ItemStack stack = list.get(i);
+			
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), stack.getMetadata(), new ModelResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName)block).getSpecialName(stack), "inventory"));
+			ModelBakery.registerItemVariants(Item.getItemFromBlock(block), new ResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName)block).getSpecialName(stack)));
+		
+		}
+		
 	}
 
 	public static void registerEntityEggs()
