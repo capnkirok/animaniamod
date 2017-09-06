@@ -507,6 +507,8 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 					}
 				}
 			}
+		} else if (gestationTimer < 0){
+			this.setGestation(1);
 		}
 
 		super.onLivingUpdate();

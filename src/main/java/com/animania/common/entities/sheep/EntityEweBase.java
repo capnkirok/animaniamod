@@ -49,8 +49,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProviderMateable
 {
-
-
 	protected ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
 	public int dryTimerEwe;
 	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean>createKey(EntityEweBase.class, DataSerializers.BOOLEAN);
@@ -368,6 +366,8 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					}
 				}
 			}
+		} else if (gestationTimer < 0){
+			this.setGestation(1);
 		}
 
 		super.onLivingUpdate();

@@ -349,7 +349,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 		int gestationTimer = this.getGestation();
-
+		
 		if (gestationTimer > -1 && this.getPregnant())
 		{
 			gestationTimer--;
@@ -391,6 +391,8 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 					}
 				}
 			}
+		} else if (gestationTimer < 0){
+			this.setGestation(100);
 		}
 
 		super.onLivingUpdate();

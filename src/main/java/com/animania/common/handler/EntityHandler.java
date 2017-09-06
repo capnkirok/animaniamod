@@ -42,6 +42,30 @@ import com.animania.common.entities.peacocks.EntityPeafowlOpal;
 import com.animania.common.entities.peacocks.EntityPeafowlPeach;
 import com.animania.common.entities.peacocks.EntityPeafowlPurple;
 import com.animania.common.entities.peacocks.EntityPeafowlTaupe;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckChinchilla;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckCottontail;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckDutch;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckHavana;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckJack;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckLop;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckNewZealand;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckRex;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeChinchilla;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeCottontail;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeDutch;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeHavana;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeJack;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeLop;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeNewZealand;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeRex;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitChinchilla;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitCottontail;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitDutch;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitHavana;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitJack;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitLop;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitNewZealand;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitRex;
 import com.animania.common.entities.sheep.EntityEweFriesian;
 import com.animania.common.entities.sheep.EntityLambFriesian;
 import com.animania.common.entities.sheep.EntityRamFriesian;
@@ -61,6 +85,7 @@ public class EntityHandler
 
 		int entityID = 0;
 
+		//AMPHIBIANS
 		if (AnimaniaConfig.spawn.spawnAnimaniaAmphibians) {
 			RegistryHelper.Entities.register(EntityFrogs.class, "frog", entityID++, 64, 3, true);
 			RegistryHelper.Entities.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 1, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.SWAMP));
@@ -124,6 +149,43 @@ public class EntityHandler
 			RegistryHelper.Entities.register(EntityRamFriesian.class, "ram_friesian", entityID++, 64, 3, true);
 			//RegistryHelper.Entities.addSpawn(EntityDoeAlpine.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, AnimaniaConfig.spawn.numberGoatFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
 			//RegistryHelper.Entities.addSpawn(EntityDoeAlpine.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, AnimaniaConfig.spawn.numberGoatFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.HILLS));
+		}
+
+		//RABBITS
+		if (AnimaniaConfig.spawn.spawnAnimaniaRabbits) {
+			RegistryHelper.Entities.register(EntityRabbitBuckCottontail.class, "buck_cottontail", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitDoeCottontail.class, "doe_cottontail", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitKitCottontail.class, "kit_cottontail", entityID++, 64, 3, true);
+
+			RegistryHelper.Entities.register(EntityRabbitBuckChinchilla.class, "buck_chinchilla", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitDoeChinchilla.class, "doe_chinchilla", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitKitChinchilla.class, "kit_chinchilla", entityID++, 64, 3, true);
+			
+			RegistryHelper.Entities.register(EntityRabbitBuckDutch.class, "buck_dutch", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitDoeDutch.class, "doe_dutch", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitKitDutch.class, "kit_dutch", entityID++, 64, 3, true);
+			
+			RegistryHelper.Entities.register(EntityRabbitBuckHavana.class, "buck_havana", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitDoeHavana.class, "doe_havana", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitKitHavana.class, "kit_havana", entityID++, 64, 3, true);
+			
+			RegistryHelper.Entities.register(EntityRabbitBuckJack.class, "buck_jack", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitDoeJack.class, "doe_jack", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitKitJack.class, "kit_jack", entityID++, 64, 3, true);
+			
+			RegistryHelper.Entities.register(EntityRabbitBuckNewZealand.class, "buck_new_zealand", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitDoeNewZealand.class, "doe_new_zealand", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitKitNewZealand.class, "kit_new_zealand", entityID++, 64, 3, true);
+			
+			RegistryHelper.Entities.register(EntityRabbitBuckRex.class, "buck_rex", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitDoeRex.class, "doe_rex", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitKitRex.class, "kit_rex", entityID++, 64, 3, true);
+			
+			RegistryHelper.Entities.register(EntityRabbitBuckLop.class, "buck_lop", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitDoeLop.class, "doe_lop", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRabbitKitLop.class, "kit_lop", entityID++, 64, 3, true);
+
+			
 		}
 
 		// PEACOCKS (NEW)

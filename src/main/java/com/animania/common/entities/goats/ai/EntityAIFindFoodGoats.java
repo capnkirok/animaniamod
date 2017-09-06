@@ -13,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 
-public class EntityAIFindFood extends EntityAIBase 
+public class EntityAIFindFoodGoats extends EntityAIBase 
 {
 	private final EntityCreature temptedEntity;
 	private final double speed;
@@ -26,7 +26,7 @@ public class EntityAIFindFood extends EntityAIBase
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIFindFood(EntityCreature temptedEntityIn, double speedIn)
+	public EntityAIFindFoodGoats(EntityCreature temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
@@ -110,6 +110,9 @@ public class EntityAIFindFood extends EntityAIBase
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} 
+				
+				temptedEntity.world.destroyBlock(currentpos, false);
+				
 				return false;
 			}
 

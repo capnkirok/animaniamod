@@ -12,6 +12,7 @@ import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.rodents.FerretType;
 import com.animania.common.entities.rodents.HamsterType;
 import com.animania.common.entities.rodents.HedgehogType;
+import com.animania.common.entities.rodents.rabbits.RabbitType;
 import com.animania.common.entities.sheep.SheepType;
 import com.animania.common.items.AnimaniaItem;
 import com.animania.common.items.ItemAnimaniaFood;
@@ -221,7 +222,7 @@ public class ItemHandler
 	public static Item entityeggpeachicktaupe;
 	public static Item entityeggpeafowltaupe;
 	public static Item entityeggpeacocktaupe;
-	
+
 	public static Item entityeggrandompeacock;
 
 	// Eggs - Pigs
@@ -296,13 +297,48 @@ public class ItemHandler
 	public static Item entityeggkidpygmy;
 	public static Item entityeggbuckpygmy;
 	public static Item entityeggdoepygmy;
-	
+
 	public static Item entityeggrandomgoat;
-	
+
 	// Eggs - Sheep
 	public static Item entityeggramfriesian;
 	public static Item entityeggewefriesian;
 	public static Item entityegglambfriesian;
+
+	// Eggs - Rabbits
+	public static Item entityeggbuckcottontail;
+	public static Item entityeggdoecottontail;
+	public static Item entityeggkitcottontail;
+	
+	public static Item entityeggbuckchinchilla;
+	public static Item entityeggdoechinchilla;
+	public static Item entityeggkitchinchilla;
+	
+	public static Item entityeggbuckdutch;
+	public static Item entityeggdoedutch;
+	public static Item entityeggkitdutch;
+	
+	public static Item entityeggbuckhavana;
+	public static Item entityeggdoehavana;
+	public static Item entityeggkithavana;
+	
+	public static Item entityeggbuckjack;
+	public static Item entityeggdoejack;
+	public static Item entityeggkitjack;
+	
+	public static Item entityeggbucklop;
+	public static Item entityeggdoelop;
+	public static Item entityeggkitlop;
+	
+	public static Item entityeggbucknewzealand;
+	public static Item entityeggdoenewzealand;
+	public static Item entityeggkitnewzealand;
+	
+	public static Item entityeggbuckrex;
+	public static Item entityeggdoerex;
+	public static Item entityeggkitrex;
+	
+	
 	
 	// Eggs - Random Animal
 	public static Item entityeggrandomanimal;
@@ -427,7 +463,7 @@ public class ItemHandler
 		// Item Entity Eggs
 		// COWS
 		ItemHandler.entityeggrandomanimal = new ItemEntityEgg("random", new RandomAnimalType(), EntityGender.RANDOM);
-		
+
 		ItemHandler.entityeggcalfholstein = new ItemEntityEgg("calf_holstein", CowType.HOLSTEIN, EntityGender.CHILD);
 		ItemHandler.entityeggcowholstein = new ItemEntityEgg("cow_holstein", CowType.HOLSTEIN, EntityGender.FEMALE);
 		ItemHandler.entityeggbullholstein = new ItemEntityEgg("bull_holstein", CowType.HOLSTEIN, EntityGender.MALE);
@@ -501,7 +537,7 @@ public class ItemHandler
 		ItemHandler.entityeggpeachicktaupe = new ItemEntityEgg("peachick_taupe", PeacockType.TAUPE, EntityGender.CHILD);
 		ItemHandler.entityeggpeafowltaupe = new ItemEntityEgg("peafowl_taupe", PeacockType.TAUPE, EntityGender.FEMALE);
 		ItemHandler.entityeggpeacocktaupe = new ItemEntityEgg("peacock_taupe", PeacockType.TAUPE, EntityGender.MALE);
-		
+
 		ItemHandler.entityeggrandompeacock = new ItemEntityEgg("peacock_random", PeacockType.BLUE, EntityGender.RANDOM);
 
 		// PIGS
@@ -576,15 +612,47 @@ public class ItemHandler
 		ItemHandler.entityeggkidpygmy = new ItemEntityEgg("kid_pygmy", GoatType.PYGMY, EntityGender.CHILD);
 		ItemHandler.entityeggbuckpygmy = new ItemEntityEgg("buck_pygmy", GoatType.PYGMY, EntityGender.MALE);
 		ItemHandler.entityeggdoepygmy = new ItemEntityEgg("doe_pygmy", GoatType.PYGMY, EntityGender.FEMALE);
-		
+
 		ItemHandler.entityeggrandomgoat = new ItemEntityEgg("goat_random", GoatType.ALPINE, EntityGender.RANDOM);
 
 		// SHEEP
 		ItemHandler.entityeggramfriesian = new ItemEntityEgg("ram_friesian", SheepType.FRIESIAN, EntityGender.MALE);
 		ItemHandler.entityeggewefriesian = new ItemEntityEgg("ewe_friesian", SheepType.FRIESIAN, EntityGender.FEMALE);
 		ItemHandler.entityegglambfriesian = new ItemEntityEgg("lamb_friesian", SheepType.FRIESIAN, EntityGender.CHILD);
+
+		// RABBITS
+		ItemHandler.entityeggbuckcottontail = new ItemEntityEgg("buck_cottontail", RabbitType.COTTONTAIL, EntityGender.MALE);
+		ItemHandler.entityeggdoecottontail = new ItemEntityEgg("doe_cottontail", RabbitType.COTTONTAIL, EntityGender.FEMALE);
+		ItemHandler.entityeggkitcottontail = new ItemEntityEgg("kit_cottontail", RabbitType.COTTONTAIL, EntityGender.CHILD);
+
+		ItemHandler.entityeggbuckchinchilla = new ItemEntityEgg("buck_chinchilla", RabbitType.CHINCHILLA, EntityGender.MALE);
+		ItemHandler.entityeggdoechinchilla = new ItemEntityEgg("doe_chinchilla", RabbitType.CHINCHILLA, EntityGender.FEMALE);
+		ItemHandler.entityeggkitchinchilla = new ItemEntityEgg("kit_chinchilla", RabbitType.CHINCHILLA, EntityGender.CHILD);
 		
- 
+		ItemHandler.entityeggbuckdutch = new ItemEntityEgg("buck_dutch", RabbitType.DUTCH, EntityGender.MALE);
+		ItemHandler.entityeggdoedutch = new ItemEntityEgg("doe_dutch", RabbitType.DUTCH, EntityGender.FEMALE);
+		ItemHandler.entityeggkitdutch = new ItemEntityEgg("kit_dutch", RabbitType.DUTCH, EntityGender.CHILD);
 		
+		ItemHandler.entityeggbuckhavana = new ItemEntityEgg("buck_havana", RabbitType.HAVANA, EntityGender.MALE);
+		ItemHandler.entityeggdoehavana = new ItemEntityEgg("doe_havana", RabbitType.HAVANA, EntityGender.FEMALE);
+		ItemHandler.entityeggkithavana = new ItemEntityEgg("kit_havana", RabbitType.HAVANA, EntityGender.CHILD);
+		
+		ItemHandler.entityeggbuckjack = new ItemEntityEgg("buck_jack", RabbitType.JACK, EntityGender.MALE);
+		ItemHandler.entityeggdoejack = new ItemEntityEgg("doe_jack", RabbitType.JACK, EntityGender.FEMALE);
+		ItemHandler.entityeggkitjack = new ItemEntityEgg("kit_jack", RabbitType.JACK, EntityGender.CHILD);
+		
+		ItemHandler.entityeggbucklop = new ItemEntityEgg("buck_lop", RabbitType.LOP, EntityGender.MALE);
+		ItemHandler.entityeggdoelop = new ItemEntityEgg("doe_lop", RabbitType.LOP, EntityGender.FEMALE);
+		ItemHandler.entityeggkitlop = new ItemEntityEgg("kit_lop", RabbitType.LOP, EntityGender.CHILD);
+		
+		ItemHandler.entityeggbucknewzealand = new ItemEntityEgg("buck_newzealand", RabbitType.NEW_ZEALAND, EntityGender.MALE);
+		ItemHandler.entityeggdoenewzealand = new ItemEntityEgg("doe_newzealand", RabbitType.NEW_ZEALAND, EntityGender.FEMALE);
+		ItemHandler.entityeggkitnewzealand = new ItemEntityEgg("kit_newzealand", RabbitType.NEW_ZEALAND, EntityGender.CHILD);
+		
+		ItemHandler.entityeggbuckrex = new ItemEntityEgg("buck_rex", RabbitType.REX, EntityGender.MALE);
+		ItemHandler.entityeggdoerex = new ItemEntityEgg("doe_rex", RabbitType.REX, EntityGender.FEMALE);
+		ItemHandler.entityeggkitrex = new ItemEntityEgg("kit_rex", RabbitType.REX, EntityGender.CHILD);
+		
+
 	}
 }

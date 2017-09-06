@@ -1,5 +1,6 @@
 package com.animania.common.entities.sheep;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -46,12 +47,15 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
+public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, IShearable
 {
 
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT });
@@ -496,6 +500,18 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 	{
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

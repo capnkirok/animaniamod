@@ -1,17 +1,10 @@
-package com.animania.common.entities.rodents;
+package com.animania.common.entities.rodents.rabbits;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import com.animania.common.entities.AnimaniaType;
-import com.animania.common.entities.goats.GoatType;
-import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckLop;
-import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeBase;
-import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeLop;
-import com.animania.common.entities.rodents.rabbits.EntityRabbitKitBase;
-import com.animania.common.entities.rodents.rabbits.EntityRabbitKitLop;
 
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
@@ -19,14 +12,14 @@ import net.minecraft.world.World;
 public enum RabbitType implements AnimaniaType
 {
 
-	LOP(EntityRabbitBuckLop.class, EntityRabbitDoeLop.class, EntityRabbitKitLop.class, null);
-	//REX(EntityRabbitRex.class, null),
-	//DUTCH(EntityRabbitDutch.class, null),
-	//HAVANA(EntityRabbitHavana.class, null),
-	//NEW_ZEALAND(EntityRabbitNewZealand.class, null),
-	//JACK(EntityRabbitJack.class, null),
-	//COTTONTAIL(EntityRabbitCottontail.class, null),
-	//CHINCHILLA(EntityRabbitChinchilla.class, null);
+	LOP(EntityRabbitBuckLop.class, EntityRabbitDoeLop.class, EntityRabbitKitLop.class, null),
+	REX(EntityRabbitBuckRex.class, EntityRabbitDoeRex.class, EntityRabbitKitRex.class, null),
+	DUTCH(EntityRabbitBuckDutch.class, EntityRabbitDoeDutch.class, EntityRabbitKitDutch.class, null),
+	HAVANA(EntityRabbitBuckHavana.class, EntityRabbitDoeHavana.class, EntityRabbitKitHavana.class, null),
+	NEW_ZEALAND(EntityRabbitBuckNewZealand.class, EntityRabbitDoeNewZealand.class, EntityRabbitKitNewZealand.class, null),
+	JACK(EntityRabbitBuckJack.class, EntityRabbitDoeJack.class, EntityRabbitKitJack.class, null),
+	COTTONTAIL(EntityRabbitBuckCottontail.class, EntityRabbitDoeCottontail.class, EntityRabbitKitCottontail.class, null),
+	CHINCHILLA(EntityRabbitBuckChinchilla.class, EntityRabbitDoeChinchilla.class, EntityRabbitKitChinchilla.class, null);
 	
 	
 	private Class male;
@@ -43,7 +36,7 @@ public enum RabbitType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityAnimaniaRabbit getMale(World world)
+	public EntityRabbitBuckBase getMale(World world)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -54,10 +47,10 @@ public enum RabbitType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		EntityAnimaniaRabbit male = null;
+		EntityRabbitBuckBase male = null;
 		try
 		{
-			male = (EntityAnimaniaRabbit) constructor.newInstance(world);
+			male = (EntityRabbitBuckBase) constructor.newInstance(world);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

@@ -9,7 +9,7 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
-import com.animania.common.entities.goats.ai.EntityAIFindFood;
+import com.animania.common.entities.goats.ai.EntityAIFindFoodGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindSaltLickGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindWater;
 import com.animania.common.entities.goats.ai.EntityAIGoatEatGrass;
@@ -83,7 +83,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAIGoatEatGrass(this);
-		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
+		this.tasks.addTask(1, new EntityAIFindFoodGoats(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
 		this.tasks.addTask(3, new EntityAIMateGoats(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.3F));

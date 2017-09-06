@@ -1,28 +1,26 @@
 package com.animania.common.entities.rodents.rabbits;
 
-import com.animania.common.entities.rodents.RabbitType;
-
 import net.minecraft.world.World;
 
-public class EntityRabbitKitLop extends EntityAnimaniaRabbit
+public class EntityRabbitKitLop extends EntityRabbitKitBase
 {
 
 	public EntityRabbitKitLop(World worldIn)
 	{
 		super(worldIn);
-		this.type = RabbitType.LOP;
+		this.rabbitType = RabbitType.LOP;
 	}
 	
 	@Override
 	public int getPrimaryEggColor()
 	{
-		return 15845576;
+		return 16513763;
 	}
 	
 	@Override
 	public int getSecondaryEggColor()
 	{
-		return 9859698;
+		return 12883817;
 	}
 	
 }

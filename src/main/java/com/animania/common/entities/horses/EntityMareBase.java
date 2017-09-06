@@ -652,6 +652,8 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				}
 			}
 
+		} else if (gestationTimer < 0){
+			this.setGestation(1);
 		}
 
 		super.onLivingUpdate();

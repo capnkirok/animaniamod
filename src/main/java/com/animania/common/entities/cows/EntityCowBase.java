@@ -375,6 +375,8 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 					}
 				}
 			}
+		} else if (gestationTimer < 0){
+			this.setGestation(1);
 		}
 
 		super.onLivingUpdate();
