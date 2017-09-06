@@ -14,7 +14,6 @@ public class SubtypesItemBlock extends ItemBlock
 	{
 		super(block);
 		this.setRegistryName(block.getRegistryName());
-		GameRegistry.register(this);
 		this.hasSubtypes = true;
 	}
 	

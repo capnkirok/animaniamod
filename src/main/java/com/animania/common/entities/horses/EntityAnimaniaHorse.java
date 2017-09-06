@@ -150,6 +150,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
 		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
 		player.addStat(horseType.getAchievement(), 1);
+		this.setInLove(player);
 
 		player.addStat(AnimaniaAchievements.Horses, 1);
 
@@ -311,6 +312,11 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
 		else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
 		{
 			return false;
+		}
+		else if(!stack.isEmpty() && isHorseBreedingItem(stack.getItem()))
+		{
+			consumeItemFromStack(player, stack);
+			return true;
 		}
 		else
 			return super.processInteract(player, hand);

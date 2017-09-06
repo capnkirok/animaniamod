@@ -3,9 +3,12 @@ package com.animania.compat.waila.provider;
 import java.util.List;
 import java.util.UUID;
 
+import com.animania.common.helper.AnimaniaHelper;
+
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.translation.I18n;
@@ -23,7 +26,7 @@ public class WailaEntityAnimalProviderChild extends WailaEntityAnimalProviderBas
             World world = entity.world;
 
             if (!parent.equals("")) {
-                for (Entity e : world.getLoadedEntityList()) {
+                for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 20, world, entity)) {
                     UUID id = e.getPersistentID();
                     if (id.toString().equals(parent)) {
                         String name = e.getCustomNameTag();
