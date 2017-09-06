@@ -440,6 +440,12 @@ public class CommonConfig
 		@Comment("Allow Animania Chickens to drop Feathers")
 		public Boolean chickensDropFeathers = true;
 	}
+	
+	public static class FoodValues
+	{
+		@Comment("Food Value Overrides")
+		public String[] foodValueOverrides = new String[]{};
+	}
 
 
 

@@ -12,6 +12,7 @@ import com.animania.common.handler.DictionaryHandler;
 import com.animania.common.handler.DispenserHandler;
 import com.animania.common.handler.EntityHandler;
 import com.animania.common.handler.EventsHandler;
+import com.animania.common.handler.FoodValueHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.handler.OldEntityHandler;
 import com.animania.common.handler.PatreonHandler;
@@ -50,6 +51,7 @@ public class CommonProxy
         DictionaryHandler.init();
         RecipeHandler.init();
         DispenserHandler.init();
+        FoodValueHandler.init();
 
     }
 

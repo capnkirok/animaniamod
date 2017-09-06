@@ -27,45 +27,19 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ItemTruffleSoup extends ItemFood
+public class ItemTruffleSoup extends ItemAnimaniaFood
 {
-	private final String name = "truffle_soup";
-
 	public ItemTruffleSoup() {
-		super(10, 10F, true);
-		this.setAlwaysEdible();
-		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		GameRegistry.register(this);
-		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
-		this.setCreativeTab(Animania.TabAnimaniaResources);
+		super(10, 10f, "truffle_soup", new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
 		this.setMaxStackSize(1);
-
-	}
-
-	@Override
-	public EnumAction getItemUseAction(ItemStack itemstack) {
-		return EnumAction.EAT;
 	}
 	
 	@Override
 	@Nullable
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-
-		if (entityLiving instanceof EntityPlayer) {
-			EntityPlayer entityplayer = (EntityPlayer) entityLiving;
-			if (!worldIn.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects) {
-				entityplayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
-			}
-		}
 		
-		if (entityLiving instanceof EntityPlayer)
-        {
-			EntityPlayer entityplayer = (EntityPlayer)entityLiving;
-			entityplayer.getFoodStats().addStats(this, stack);
-			worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-            this.onFoodEaten(stack, worldIn, entityplayer);
-			entityplayer.addStat(StatList.getObjectUseStats(this));
-        }
+		if(entityLiving instanceof EntityPlayer)
+			((EntityPlayer)entityLiving).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
 		
 		if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
         {
@@ -75,22 +49,15 @@ public class ItemTruffleSoup extends ItemFood
 		return stack.getCount() <= 0 ? new ItemStack(Items.BOWL) : stack;
 	}
 	
+	@Override
+	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
+	{
+		
+	}
+	
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
     {
         playerIn.setActiveHand(hand);
         return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
     }
-
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4) {
-		if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
-			list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.regeneration"));
-		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
-
-	}
-
 }

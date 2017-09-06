@@ -21,11 +21,7 @@ import com.animania.common.items.ItemBrownEgg;
 import com.animania.common.items.ItemCarvingKnife;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemHamsterBall;
-import com.animania.common.items.ItemHamsterFood;
-import com.animania.common.items.ItemPeacockEgg;
-import com.animania.common.items.ItemPeacockFeather;
 import com.animania.common.items.ItemRidingCrop;
-import com.animania.common.items.ItemTruffle;
 import com.animania.common.items.ItemTruffleSoup;
 import com.animania.config.AnimaniaConfig;
 
@@ -347,17 +343,17 @@ public class ItemHandler
 	public static void preInit() {
 		// ITEMS
 		// Items for Animals
-		ItemHandler.hamsterFood = new ItemHamsterFood();
-		ItemHandler.truffle = new ItemTruffle();
+		ItemHandler.hamsterFood = new AnimaniaItem("hamster_food");
+		ItemHandler.truffle = new AnimaniaItem("truffle");
 		ItemHandler.carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
 		ItemHandler.salt = new AnimaniaItem("salt");
-		ItemHandler.peacockFeatherBlue = new ItemPeacockFeather("blue");
-		ItemHandler.peacockFeatherWhite = new ItemPeacockFeather("white");
-		ItemHandler.peacockFeatherCharcoal = new ItemPeacockFeather("charcoal");
-		ItemHandler.peacockFeatherOpal = new ItemPeacockFeather("opal");
-		ItemHandler.peacockFeatherPeach = new ItemPeacockFeather("peach");
-		ItemHandler.peacockFeatherPurple = new ItemPeacockFeather("purple");
-		ItemHandler.peacockFeatherTaupe = new ItemPeacockFeather("taupe");
+		ItemHandler.peacockFeatherBlue = new AnimaniaItem("blue_peacock_feather");
+		ItemHandler.peacockFeatherWhite = new AnimaniaItem("white_peacock_feather");
+		ItemHandler.peacockFeatherCharcoal = new AnimaniaItem("charcoal_peacock_feather");
+		ItemHandler.peacockFeatherOpal = new AnimaniaItem("opal_peacock_feather");
+		ItemHandler.peacockFeatherPeach = new AnimaniaItem("peach_peacock_feather");
+		ItemHandler.peacockFeatherPurple = new AnimaniaItem("purple_peacock_feather");
+		ItemHandler.peacockFeatherTaupe = new AnimaniaItem("taupe_peacock_feather");
 
 		ItemHandler.ridingCrop = new ItemRidingCrop();
 		ItemHandler.hamsterBallClear = new ItemHamsterBall(false, "hamster_ball_clear");
@@ -433,8 +429,8 @@ public class ItemHandler
 		ItemHandler.rawPrimeChicken = new ItemAnimaniaFoodRaw("raw_prime_chicken", !AnimaniaConfig.drops.oldMeatDrops);
 		ItemHandler.cookedPrimeChicken = new ItemAnimaniaFood(12, 12f, "cooked_prime_chicken", !AnimaniaConfig.drops.oldMeatDrops, new PotionEffect(MobEffects.HASTE, 3000, 0, false, false));
 		ItemHandler.brownEgg = new ItemBrownEgg();
-		ItemHandler.peacockEggBlue = new ItemPeacockEgg("blue");
-		ItemHandler.peacockEggWhite = new ItemPeacockEgg("white");
+		ItemHandler.peacockEggBlue = new AnimaniaItem("peacock_egg_blue");
+		ItemHandler.peacockEggWhite = new AnimaniaItem("peacock_egg_white");
 
 		// FROG ITEMS
 		ItemHandler.rawFrogLegs = new ItemAnimaniaFoodRaw("raw_frog_legs");
