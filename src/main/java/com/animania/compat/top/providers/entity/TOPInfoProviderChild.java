@@ -2,10 +2,13 @@ package com.animania.compat.top.providers.entity;
 
 import java.util.UUID;
 
+import com.animania.common.helper.AnimaniaHelper;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.translation.I18n;
@@ -29,7 +32,7 @@ public interface TOPInfoProviderChild extends TOPInfoProviderBase
 
 			if (!parent.equals(""))
 			{
-				for (Entity e : world.getLoadedEntityList())
+				for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 20, world, entity))
 				{
 					UUID id = e.getPersistentID();
 					if (id.toString().equals(parent))

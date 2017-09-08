@@ -5,10 +5,13 @@ import java.util.UUID;
 
 import com.animania.common.entities.goats.EntityBuckAngora;
 import com.animania.common.entities.goats.EntityDoeAngora;
+import com.animania.common.entities.goats.EntityDoeBase;
+import com.animania.common.helper.AnimaniaHelper;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.translation.I18n;
@@ -26,7 +29,7 @@ public class WailaEntityBuckProvider extends WailaEntityAnimalProviderBase
 			World world = entity.world;
 
 			if (!mate.equals("")) {
-				for (Entity e : world.getLoadedEntityList()) {
+				for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityDoeBase.class, 20, world, entity)) {
 					UUID id = e.getPersistentID();
 					if (id.toString().equals(mate)) {
 						String name = e.getCustomNameTag();

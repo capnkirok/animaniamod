@@ -3,10 +3,8 @@ package com.animania.common.helper;
 import java.util.List;
 
 import com.animania.Animania;
-import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.network.client.TileEntitySyncPacket;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -86,6 +86,11 @@ public class AnimaniaHelper
         return list;
     }
 	
+	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, BlockPos pos)
+    {
+        List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos).expandXyz(range));
+        return list;
+    }
 	
 	public static RayTraceResult rayTrace(EntityPlayer player, double blockReachDistance)
     {
