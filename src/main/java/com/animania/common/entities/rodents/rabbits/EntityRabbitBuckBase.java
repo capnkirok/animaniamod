@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.rodents.ai.EntityAIFollowMateRabbits;
 import com.animania.common.entities.rodents.ai.EntityAIMateRabbits;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -36,7 +37,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	public EntityRabbitBuckBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.75F, 0.75F);
+		this.setSize(0.7F, 0.6F);
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
@@ -47,6 +48,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	{
 		super.initEntityAI();
 		this.tasks.addTask(5, new EntityAIMateRabbits(this, 1.0D));
+		this.tasks.addTask(1, new EntityAIFollowMateRabbits(this, 1.1D));
 	}
 
 	@Override
@@ -73,8 +75,34 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
+		int happy = 0;
+		int num = 0;
 
-		return null;
+		if (this.getWatered())
+			happy++;
+		if (this.getFed())
+			happy++;
+
+		if (happy == 2)
+			num = 8;
+		else if (happy == 1)
+			num = 16;
+		else
+			num = 32;
+
+		Random rand = new Random();
+		int chooser = rand.nextInt(num);
+
+		if (chooser == 0)
+			return ModSoundEvents.rabbit1;
+		else if (chooser == 1)
+			return ModSoundEvents.rabbit2;
+		else if (chooser == 2)
+			return ModSoundEvents.rabbit3;
+		else if (chooser == 3)
+			return ModSoundEvents.rabbit4;
+		else
+			return null;
 
 	}
 
@@ -82,28 +110,24 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = rand.nextInt(2);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.rabbitHurt1;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.rabbitHurt2;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
 		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = rand.nextInt(2);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.rabbitHurt1;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.rabbitHurt2;
 	}
 
 	@Override

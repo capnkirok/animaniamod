@@ -8,6 +8,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.goats.EntityKidBase;
+import com.animania.common.entities.goats.GoatType;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
@@ -479,6 +481,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityHogBase.class, 30, this.world, this);
 				int esize = entities.size();
+				Boolean mateFound = false;
 				for (int k = 0; k <= esize - 1; k++) 
 				{
 					EntityHogBase entity = (EntityHogBase)entities.get(k);
@@ -493,7 +496,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 							this.world.spawnEntity(entityPiglet);
 						}
 						entityPiglet.setParentUniqueId(this.getPersistentID());
-						this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+						this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
 
 						this.setPregnant(false);
 						this.setFertile(false);
@@ -502,9 +505,33 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 						BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPiglet);
 						MinecraftForge.EVENT_BUS.post(event);
 						k = esize;
+						mateFound = true;
 						break;
 
 					}
+				}
+				
+				if (!mateFound && this.getFed() && this.getWatered()) {
+
+					this.setInLove(null);
+					PigType babyType = pigType.breed(this.pigType, this.pigType);
+					EntityPigletBase entityKid = babyType.getChild(world);
+					entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
+					if (!world.isRemote) {
+						this.world.spawnEntity(entityKid);
+					}
+
+					entityKid.setParentUniqueId(this.getPersistentID());
+					this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
+
+					this.setPregnant(false);
+					this.setFertile(false);
+					this.setHasKids(true);
+
+					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entityKid, entityKid);
+					MinecraftForge.EVENT_BUS.post(event);
+					mateFound = true;
+
 				}
 			}
 		} else if (gestationTimer < 0){
@@ -588,7 +615,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 			if (this.getPregnant())
 			{
-				if (this.getGestation() > 0) {
+				if (this.getGestation() > 1) {
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
 				} else {

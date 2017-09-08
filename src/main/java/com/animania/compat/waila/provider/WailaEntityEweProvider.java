@@ -32,7 +32,7 @@ public class WailaEntityEweProvider extends WailaEntityAnimalProviderMateable
 
 			if (thisEntity.getPregnant())
 			{
-				if (thisEntity.getGestation() > 0) {
+				if (thisEntity.getGestation() > 1) {
 					int bob = thisEntity.getGestation();
 					currenttip.add(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
 				} else {

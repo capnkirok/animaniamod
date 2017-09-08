@@ -7,6 +7,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.rodents.ai.EntityAIFollowParentRabbits;
+import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -35,7 +37,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	public EntityRabbitKitBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.4F, 0.4F);
+		this.setSize(0.8F, 0.8F);
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
@@ -45,8 +47,8 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected void initEntityAI()
 	{
 		super.initEntityAI();
-		//this.tasks.addTask(1, new EntityAIFollowParentRabbits(this, 1.1D));
-		//this.tasks.addTask(1, new EntityAIPanicRabbits(this, 2.0D));
+		this.tasks.addTask(1, new EntityAIFollowParentRabbits(this, 1.1D));
+		this.tasks.addTask(1, new EntityAIPanicRodents(this, 2.0D));
 	}
 	
 	@Override
@@ -137,15 +139,13 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		int chooser = rand.nextInt(num);
 
 		if (chooser == 0)
-			return ModSoundEvents.piglet1;
+			return ModSoundEvents.rabbit1;
 		else if (chooser == 1)
-			return ModSoundEvents.piglet2;
+			return ModSoundEvents.rabbit2;
 		else if (chooser == 2)
-			return ModSoundEvents.piglet3;
+			return ModSoundEvents.rabbit3;
 		else if (chooser == 3)
-			return ModSoundEvents.pig1;
-		else if (chooser == 4)
-			return ModSoundEvents.pig2;
+			return ModSoundEvents.rabbit4;
 		else
 			return null;
 
@@ -155,28 +155,24 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = rand.nextInt(2);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigletHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigletHurt2;
+			return ModSoundEvents.rabbitHurt1;
 		else
-			return ModSoundEvents.pigletHurt3;
+			return ModSoundEvents.rabbitHurt2;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
 		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = rand.nextInt(2);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigletHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigletHurt2;
+			return ModSoundEvents.rabbitHurt1;
 		else
-			return ModSoundEvents.pigletHurt3;
+			return ModSoundEvents.rabbitHurt2;
 	}
 
 	@Override
@@ -215,7 +211,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 				age = age + .01F;
 				this.setEntityAge(age);
 
-				if (age >= .8 && !this.world.isRemote)
+				if (age >= .36 && !this.world.isRemote)
 				{
 					this.setDead();
 
@@ -229,7 +225,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 							if (name != "")
 								entityGoat.setCustomNameTag(name);
 							this.world.spawnEntity(entityGoat);
-							this.playSound(ModSoundEvents.pig1, 0.50F, 1.1F);
+							this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
 						}
 					}
 					else
@@ -242,7 +238,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 							if (name != "")
 								entityGoat.setCustomNameTag(name);
 							this.world.spawnEntity(entityGoat);
-							this.playSound(ModSoundEvents.hog1, 0.50F, 1.1F);
+							this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
 						}
 					}
 

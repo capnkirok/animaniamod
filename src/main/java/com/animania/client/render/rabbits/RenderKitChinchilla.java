@@ -36,8 +36,9 @@ public class RenderKitChinchilla<T extends EntityRabbitKitChinchilla> extends Re
 	}
 
 	protected void preRenderScale(EntityRabbitKitChinchilla entity, float f) {
-		GL11.glScalef(0.33F, 0.33F, 0.33F);
-		GL11.glTranslatef(0f, 0f, -0.5f);
+		float age = entity.getEntityAge();
+		GL11.glScalef(0.33F + age, 0.33F + age, 0.33F + age); 
+        GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 
 	@Override

@@ -11,8 +11,8 @@ public class EntityBuckFainting extends EntityBuckBase
 	{
 		super(worldIn);
 		this.goatType = GoatType.FAINTING;
-		this.setSize(1.4F, 1.2F);
-		this.width = 1.6F;
+		this.setSize(1.1F, 1.0F);
+		this.width = 1.2F;
 		this.dropRaw = ItemHandler.rawChevon;
 		this.dropCooked = ItemHandler.cookedChevon;
 	}

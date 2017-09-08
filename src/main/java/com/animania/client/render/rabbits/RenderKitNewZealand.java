@@ -36,8 +36,9 @@ public class RenderKitNewZealand<T extends EntityRabbitKitNewZealand> extends Re
 	}
 
 	protected void preRenderScale(EntityRabbitKitNewZealand entity, float f) {
-		GL11.glScalef(0.32F, 0.32F, 0.32F);
-		GL11.glTranslatef(0f, 0f, -0.5f);
+		float age = entity.getEntityAge();
+		GL11.glScalef(0.32F + age, 0.32F + age, 0.32F + age); 
+        GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 
 	@Override

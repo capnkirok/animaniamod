@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.rodents.ai.EntityAIFindFoodRabbits;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAIMateRabbits;
@@ -73,6 +74,8 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaRabbit.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaRabbit.class, DataSerializers.VARINT);
+	private static final String[] RABBIT_TEXTURES = new String[] {"black", "brown", "golden", "olive", "patch_black", "patch_brown", "patch_grey"};
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -86,6 +89,8 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 	public EntityAIRodentEat entityAIEatGrass;
 	protected boolean mateable = false;
 	protected EntityGender gender;
+	private ResourceLocation resourceLocation;
+	private ResourceLocation resourceLocationBlink;
 
 	private int jumpTicks;
 	private int jumpDuration;
@@ -153,7 +158,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 			return 0.4F;
 		}
 	}
-	
+
 	protected void jump()
 	{
 		super.jump();
@@ -214,6 +219,11 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 	protected void entityInit()
 	{
 		super.entityInit();
+		if (this instanceof EntityRabbitBuckLop || this instanceof EntityRabbitDoeLop || this instanceof EntityRabbitKitLop) {
+			this.dataManager.register(EntityAnimaniaRabbit.COLOR_NUM, Integer.valueOf(rand.nextInt(7)));
+		} else {
+			this.dataManager.register(EntityAnimaniaRabbit.COLOR_NUM, 0);
+		}
 		this.dataManager.register(EntityAnimaniaRabbit.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaRabbit.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaRabbit.MATE_UNIQUE_ID, Optional.<UUID>absent());
@@ -359,6 +369,26 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		return 0.4F;
 	}
 
+	public int getColorNumber()
+	{
+		return ((Integer)this.dataManager.get(COLOR_NUM)).intValue();
+	}
+
+	public void setColorNumber(int color)
+	{
+		this.dataManager.set(COLOR_NUM, Integer.valueOf(color));
+	}
+
+	public ResourceLocation getResourceLocation()
+	{
+		return resourceLocation;
+	}
+
+	public ResourceLocation getResourceLocationBlink()
+	{
+		return resourceLocationBlink;
+	}
+	
 
 	@Override
 	protected Item getDropItem()
@@ -529,6 +559,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		}
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
+		compound.setInteger("ColorNumber", getColorNumber());
 
 	}
 
@@ -553,6 +584,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 			this.setMateUniqueId(UUID.fromString(s));
 		}
 
+		this.setColorNumber(compound.getInteger("ColorNumber"));
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
 
@@ -834,7 +866,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
@@ -845,7 +877,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 	{
 		return itemIn == Items.WHEAT || itemIn == Items.CARROT || itemIn == Items.APPLE || itemIn == Items.BEETROOT;
 	}
-	
+
 	@Override
 	public EntityAnimaniaRabbit createChild(EntityAgeable ageable) {
 		return null;

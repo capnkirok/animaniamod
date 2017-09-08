@@ -56,7 +56,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	public EntityRabbitDoeBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.8F, 0.8F);
+		this.setSize(0.7F, 0.6F);
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;
@@ -223,37 +223,61 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		return null;
+		int happy = 0;
+		int num = 0;
+
+		if (this.getWatered())
+			happy++;
+		if (this.getFed())
+			happy++;
+
+		if (happy == 2)
+			num = 8;
+		else if (happy == 1)
+			num = 16;
+		else
+			num = 32;
+
+		Random rand = new Random();
+		int chooser = rand.nextInt(num);
+
+		if (chooser == 0)
+			return ModSoundEvents.rabbit1;
+		else if (chooser == 1)
+			return ModSoundEvents.rabbit2;
+		else if (chooser == 2)
+			return ModSoundEvents.rabbit3;
+		else if (chooser == 3)
+			return ModSoundEvents.rabbit4;
+		else
+			return null;
+
 	}
 
 	@Override
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = rand.nextInt(2);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.rabbitHurt1;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.rabbitHurt2;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
 		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = rand.nextInt(2);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.rabbitHurt1;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.rabbitHurt2;
 	}
-
+	
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
@@ -309,6 +333,9 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 
 					if (mateReset)
 						this.setMateUniqueId(null);
+						if (!this.getFertile() && !this.getPregnant()) {
+							this.setFertile(true);
+						}
 
 				}
 			}
@@ -329,9 +356,11 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityRabbitBuckBase.class, 30, this.world, this);
 				int esize = entities.size();
+				Boolean mateFound = false;
 				for (int k = 0; k <= esize - 1; k++) 
 				{
 					EntityRabbitBuckBase entity = (EntityRabbitBuckBase)entities.get(k);
+					
 					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
 
 						this.setInLove(null);
@@ -343,7 +372,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 							this.world.spawnEntity(entityKid);
 						}
 						entityKid.setParentUniqueId(this.getPersistentID());
-						this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+						this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
 
 						this.setPregnant(false);
 						this.setFertile(false);
@@ -352,9 +381,33 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 						BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityKid);
 						MinecraftForge.EVENT_BUS.post(event);
 						k = esize;
+						mateFound = true;
 						break;
 
 					}
+				}
+				
+				if (!mateFound && this.getFed() && this.getWatered()) {
+					
+					this.setInLove(null);
+					RabbitType babyType = RabbitType.breed(this.rabbitType, this.rabbitType);
+					EntityRabbitKitBase entityKid = babyType.getChild(world);
+					entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
+					if (!world.isRemote) {
+						this.world.spawnEntity(entityKid);
+					}
+					
+					entityKid.setParentUniqueId(this.getPersistentID());
+					this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
+
+					this.setPregnant(false);
+					this.setFertile(false);
+					this.setHasKids(true);
+
+					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entityKid, entityKid);
+					MinecraftForge.EVENT_BUS.post(event);
+					mateFound = true;
+					
 				}
 			}
 		} else if (gestationTimer < 0){
@@ -430,9 +483,6 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 			if (this.getMateUniqueId() != null) 
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
 
-			if (this.getHasKids())
-				probeInfo.text(I18n.translateToLocal("text.waila.milkable"));
-
 			if (this.getFertile() && !this.getPregnant())
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.fertile1"));
@@ -440,7 +490,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 
 			if (this.getPregnant())
 			{
-				if (this.getGestation() > 0) {
+				if (this.getGestation() > 1) {
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
 				} else {

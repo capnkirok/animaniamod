@@ -5,6 +5,7 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.rabbits.ModelLop;
+import com.animania.client.render.horses.RenderMareDraftHorse;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitLop;
 
 import net.minecraft.client.renderer.entity.Render;
@@ -18,26 +19,37 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderKitLop<T extends EntityRabbitKitLop> extends RenderLiving<T>
 {
-	public static final Factory           FACTORY          = new Factory();
-	private static final ResourceLocation rabbitTextures      = new ResourceLocation("animania:textures/entity/rabbits/rabbit_lop_patch_black.png");
-	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_Lop_patch_black_blink.png");
-	Random                                rand             = new Random();
+	public static final Factory             FACTORY        = new Factory();
+	private static final String             modid          = "animania", rabbitBaseDir = "textures/entity/rabbits/";
 
+	private static final ResourceLocation[] RABBIT_TEXTURES = new ResourceLocation[] { 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir + "rabbit_lop_" + "black.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "brown.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "golden.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "olive.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "patch_black.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "patch_brown.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "patch_grey.png")}; 
+
+	private static final ResourceLocation[] RABBIT_TEXTURES_BLINK = new ResourceLocation[] { 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir + "rabbit_lop_" + "black_blink.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "brown_blink.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "golden_blink.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "olive_blink.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "patch_black_blink.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "patch_brown_blink.png"), 
+			new ResourceLocation(RenderKitLop.modid, RenderKitLop.rabbitBaseDir +"rabbit_lop_" + "patch_grey_blink.png")}; 
+	
+	
 	public RenderKitLop(RenderManager rm) {
 		super(rm, new ModelLop(), 0.25F);
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow) {
-		return RenderKitLop.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow) {
-		return RenderKitLop.rabbitTexturesBlink;
-	}
-
+	
 	protected void preRenderScale(EntityRabbitKitLop entity, float f) {
-		GL11.glScalef(0.21F, 0.21F, 0.21F);
-		GL11.glTranslatef(0f, 0f, -0.5f);
+		float age = entity.getEntityAge();
+		GL11.glScalef(0.23F + age, 0.23F + age, 0.23F + age); 
+        GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 
 	@Override
@@ -50,9 +62,10 @@ public class RenderKitLop<T extends EntityRabbitKitLop> extends RenderLiving<T>
 		int blinkTimer = entity.blinkTimer;
 
 		if (blinkTimer < 7 && blinkTimer >= 0)
-			return this.getRabbitTexturesBlink(entity);
+			return RenderKitLop.RABBIT_TEXTURES_BLINK[entity.getColorNumber()];
 		else
-			return this.getRabbitTextures(entity);
+			return RenderKitLop.RABBIT_TEXTURES[entity.getColorNumber()];
+
 	}
 
 	static class Factory<T extends EntityRabbitKitLop> implements IRenderFactory<T>

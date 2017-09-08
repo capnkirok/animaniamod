@@ -13,6 +13,8 @@ import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.goats.EntityKidBase;
 import com.animania.common.entities.goats.GoatType;
 import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitBase;
+import com.animania.common.entities.rodents.rabbits.RabbitType;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -529,7 +531,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			this.setFertile(true);
 			this.dryTimerMare = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
 		}
-		
+
 		if (this.world.isRemote)
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
@@ -612,7 +614,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		}
 
 		int gestationTimer = this.getGestation();
-		
+
 		if (gestationTimer > -1 && this.getPregnant())
 		{
 			gestationTimer--;
@@ -622,6 +624,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityStallionBase.class, 30, this.world, this);
 				int esize = entities.size();
+				Boolean mateFound = false;
 				for (int k = 0; k <= esize - 1; k++) 
 				{
 					EntityStallionBase entity = (EntityStallionBase)entities.get(k);
@@ -646,9 +649,33 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 						BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityFoal);
 						MinecraftForge.EVENT_BUS.post(event);
 						k = esize;
+						mateFound = true;
 						break;
 
 					}
+				}
+
+				if (!mateFound && this.getFed() && this.getWatered()) {
+
+					this.setInLove(null);
+					HorseType babyType = HorseType.breed(this.horseType, this.horseType);
+					EntityFoalBase entityKid = babyType.getChild(world);
+					entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
+					if (!world.isRemote) {
+						this.world.spawnEntity(entityKid);
+					}
+
+					entityKid.setParentUniqueId(this.getPersistentID());
+					this.playSound(ModSoundEvents.horseliving2, 0.50F, 1.1F);
+
+					this.setPregnant(false);
+					this.setFertile(false);
+					this.setHasKids(true);
+
+					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entityKid, entityKid);
+					MinecraftForge.EVENT_BUS.post(event);
+					mateFound = true;
+
 				}
 			}
 
@@ -686,7 +713,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 			if (this.getPregnant())
 			{
-				if (this.getGestation() > 0) {
+				if (this.getGestation() > 1) {
 					int bob = this.getGestation();
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
 				} else {

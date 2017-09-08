@@ -2,14 +2,14 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
-import com.animania.common.entities.horses.EntityMareBase;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeBase;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.text.translation.I18n;
 
-public class WailaEntityMareProvider extends WailaEntityAnimalProviderMateable
+public class WailaEntityRabbitDoeProvider extends WailaEntityAnimalProviderMateable
 {
 
 	@Override
@@ -19,11 +19,8 @@ public class WailaEntityMareProvider extends WailaEntityAnimalProviderMateable
 		if (accessor.getPlayer().isSneaking())
 		{
 
-			EntityMareBase thisEntity = (EntityMareBase)entity;
+			EntityRabbitDoeBase thisEntity = (EntityRabbitDoeBase)entity;
 			
-			if (thisEntity.getHasKids())
-				currenttip.add(I18n.translateToLocal("text.waila.milkable"));
-
 			if (thisEntity.getFertile() && !thisEntity.getPregnant())
 			{
 				currenttip.add(I18n.translateToLocal("text.waila.fertile1"));
@@ -38,8 +35,7 @@ public class WailaEntityMareProvider extends WailaEntityAnimalProviderMateable
 					currenttip.add(I18n.translateToLocal("text.waila.pregnant1"));
 				}
 			} 
-
-
+			
 		}
 		return currenttip;
 	}

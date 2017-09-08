@@ -36,8 +36,9 @@ public class RenderKitHavana<T extends EntityRabbitKitHavana> extends RenderLivi
 	}
 
 	protected void preRenderScale(EntityRabbitKitHavana entity, float f) {
-		GL11.glScalef(0.26F, 0.26F, 0.26F);
-		GL11.glTranslatef(0f, 0f, -0.5f);
+		float age = entity.getEntityAge();
+		GL11.glScalef(0.26F + age, 0.26F + age, 0.26F + age); 
+        GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 
 	@Override
