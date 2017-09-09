@@ -432,6 +432,7 @@ tile.animania_wool_jacob.name=Wool (Jacob)
 tile.animania_wool_merino_brown.name=Wool (Merino, Brown)
 tile.animania_wool_merino_white.name=Wool (Merino, White)
 tile.animania_wool_suffolk_brown.name=Wool (Suffolk, Brown)
+tile.animania_wool_friesian_brown.name=Wool (Friesian, Brown)
 
 fluid.slop=Slop
 fluid.milk_holstein=Holstein Milk
