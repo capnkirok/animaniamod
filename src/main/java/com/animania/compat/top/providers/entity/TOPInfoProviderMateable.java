@@ -23,7 +23,7 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 	{
 
 		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
-		
+
 		if (mode == ProbeMode.EXTENDED)
 		{
 
@@ -31,26 +31,29 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 			entity.writeToNBT(nbt);
 			String mate = nbt.getString("MateUUID");
 
-			if (!mate.equals(""))
+			if (mate != null)
 			{
-				for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 20, world, entity))
+				if (!mate.equals(""))
 				{
-					UUID id = e.getPersistentID();
-					if (id.toString().equals(mate))
+					for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 20, world, entity))
 					{
-						String name = e.getCustomNameTag();
-						if (!name.equals(""))
+						UUID id = e.getPersistentID();
+						if (id.toString().equals(mate))
 						{
-							probeInfo.entity(e).text(I18n.translateToLocal("text.waila.mated") + " (" + name + ")");
+							String name = e.getCustomNameTag();
+							if (!name.equals(""))
+							{
+								probeInfo.entity(e).text(I18n.translateToLocal("text.waila.mated") + " (" + name + ")");
+							}
+							else
+								probeInfo.entity(e).text(I18n.translateToLocal("text.waila.mated"));
+
+							return;
 						}
-						else
-							probeInfo.entity(e).text(I18n.translateToLocal("text.waila.mated"));
-
-						return;
 					}
-				}
 
-				probeInfo.text(I18n.translateToLocal("text.waila.matemissing"));
+					probeInfo.text(I18n.translateToLocal("text.waila.matemissing"));
+				}
 			}
 		}
 

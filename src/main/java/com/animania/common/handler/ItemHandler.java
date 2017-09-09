@@ -338,7 +338,10 @@ public class ItemHandler
 	public static Item entityeggbuckrex;
 	public static Item entityeggdoerex;
 	public static Item entityeggkitrex;
+	
+	public static Item entityeggrandomrabbit;
 
+	
 	// Eggs - Random Animal
 	public static Item entityeggrandomanimal;
 
@@ -684,6 +687,8 @@ public class ItemHandler
 		ItemHandler.entityeggbuckrex = new ItemEntityEgg("buck_rex", RabbitType.REX, EntityGender.MALE);
 		ItemHandler.entityeggdoerex = new ItemEntityEgg("doe_rex", RabbitType.REX, EntityGender.FEMALE);
 		ItemHandler.entityeggkitrex = new ItemEntityEgg("kit_rex", RabbitType.REX, EntityGender.CHILD);
+		
+		ItemHandler.entityeggrandomrabbit = new ItemEntityEgg("rabbit_random", RabbitType.LOP, EntityGender.RANDOM);
 
 
 	}

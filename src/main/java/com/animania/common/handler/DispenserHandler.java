@@ -10,6 +10,7 @@ import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.goats.GoatType;
 import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.entities.pigs.PigType;
+import com.animania.common.entities.rodents.rabbits.RabbitType;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 
@@ -139,6 +140,10 @@ public class DispenserHandler
 				if(item.type instanceof PeacockType)
 				{
 					entity = EntityGender.getEntity(PeacockType.values()[rand.nextInt(((PeacockType) item.type).values().length)], item.gender, world);
+				}
+				if(item.type instanceof RabbitType)
+				{
+					entity = EntityGender.getEntity(RabbitType.values()[rand.nextInt(((RabbitType) item.type).values().length)], item.gender, world);
 				}
 				if(item.type instanceof RandomAnimalType)
 				{

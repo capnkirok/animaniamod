@@ -90,8 +90,8 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 
 			if (poschk == BlockHandler.blockTrough || poschk1 == BlockHandler.blockTrough || poschk2 == BlockHandler.blockTrough || poschk3 == BlockHandler.blockTrough || poschk4 == BlockHandler.blockTrough || poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough || poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
 				TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(currentpos);
-				if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty()) {
-					te.itemHandler.extractItem(0, 1, false);
+				if (te != null && te.canConsume(EntityAnimaniaRabbit.TEMPTATION_ITEMS, null)) {
+					te.consumeSolid(1);
 
 					if (temptedEntity instanceof EntityAnimaniaRabbit) {
 						EntityAnimaniaRabbit ech = (EntityAnimaniaRabbit)temptedEntity;
@@ -136,7 +136,7 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 
 						if (blockchk == BlockHandler.blockTrough) {
 							TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
-							if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty()) {
+							if (te != null && te.canConsume(EntityAnimaniaRabbit.TEMPTATION_ITEMS, null)) {
 								foodFound = true;
 								if (rand.nextInt(20) == 0) {
 									this.delayTemptCounter = 0;
@@ -227,7 +227,7 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 
 						TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
 
-						if (te != null && !te.itemHandler.getStackInSlot(0).isEmpty()) {
+						if (te != null && te.canConsume(EntityAnimaniaRabbit.TEMPTATION_ITEMS, null)) {
 
 							foodFound = true;
 							newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);

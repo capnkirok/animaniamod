@@ -102,7 +102,7 @@ public class EntityAIFindWater extends EntityAIBase
 
 				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(currentpos);
 				if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
-					te.fluidHandler.drain(335, true);
+					te.consumeLiquid(100);
 
 					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
 					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);

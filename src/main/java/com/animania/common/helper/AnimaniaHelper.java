@@ -1,5 +1,6 @@
 package com.animania.common.helper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.animania.Animania;
@@ -33,78 +34,94 @@ public class AnimaniaHelper
 
 		metaLoc = name.indexOf("#");
 
-		if (metaLoc > -1) {
+		if (metaLoc > -1)
+		{
 			metaVal = name.substring(metaLoc);
 			name = name.replace(metaVal, "");
 			metaVal = metaVal.replace("#", "");
 			metaFlag = true;
-		} 
+		}
 
 		Item item = Item.getByNameOrId(name);
 
-		if (item != null) {
+		if (item != null)
+		{
 
-			if (metaFlag) {
+			if (metaFlag)
+			{
 				stack = new ItemStack(item, 1, Integer.parseInt(metaVal));
-			} else {
+			}
+			else
+			{
 				stack = new ItemStack(item, 1);
 			}
-		} 
+		}
 
 		return stack;
 
 	}
-	
-	
+
 	public static void sendTileEntityUpdate(TileEntity tile)
 	{
-        if(tile.getWorld() != null && !tile.getWorld().isRemote)
-        {
-            NBTTagCompound compound = new NBTTagCompound();
-            compound = tile.writeToNBT(compound);
+		if (tile.getWorld() != null && !tile.getWorld().isRemote)
+		{
+			NBTTagCompound compound = new NBTTagCompound();
+			compound = tile.writeToNBT(compound);
 
-            NBTTagCompound data = new NBTTagCompound();
-            data.setTag("data", compound);
-            data.setInteger("x", tile.getPos().getX());
-            data.setInteger("y", tile.getPos().getY());
-            data.setInteger("z", tile.getPos().getZ());
-            Animania.network.sendToAllAround(new TileEntitySyncPacket(data), new NetworkRegistry.TargetPoint(tile.getWorld().provider.getDimension(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), 64));
-        }
-    
+			NBTTagCompound data = new NBTTagCompound();
+			data.setTag("data", compound);
+			data.setInteger("x", tile.getPos().getX());
+			data.setInteger("y", tile.getPos().getY());
+			data.setInteger("z", tile.getPos().getZ());
+			Animania.network.sendToAllAround(new TileEntitySyncPacket(data), new NetworkRegistry.TargetPoint(tile.getWorld().provider.getDimension(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), 64));
+		}
+
 	}
-	
+
 	public static void addItem(EntityPlayer player, ItemStack stack)
 	{
-		if(!player.inventory.addItemStackToInventory(stack))
+		if (!player.inventory.addItemStackToInventory(stack))
 			player.dropItem(stack, false);
 	}
 
-	
 	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
-    {
-        List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, theEntity.getEntityBoundingBox().expandXyz(range));
-        return list;
-    }
-	
+	{
+		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, theEntity.getEntityBoundingBox().expandXyz(range));
+		return list;
+	}
+
 	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, BlockPos pos)
-    {
-        List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos).expandXyz(range));
-        return list;
-    }
-	
+	{
+		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos).expandXyz(range));
+		return list;
+	}
+
 	public static RayTraceResult rayTrace(EntityPlayer player, double blockReachDistance)
-    {
-        Vec3d vec3d = player.getPositionEyes(1f);
-        Vec3d vec3d1 = player.getLook(1f);
-        Vec3d vec3d2 = vec3d.addVector(vec3d1.xCoord * blockReachDistance, vec3d1.yCoord * blockReachDistance, vec3d1.zCoord * blockReachDistance);
-        return player.world.rayTraceBlocks(vec3d, vec3d2, false, false, true);
-    }
-	
-	
+	{
+		Vec3d vec3d = player.getPositionEyes(1f);
+		Vec3d vec3d1 = player.getLook(1f);
+		Vec3d vec3d2 = vec3d.addVector(vec3d1.xCoord * blockReachDistance, vec3d1.yCoord * blockReachDistance, vec3d1.zCoord * blockReachDistance);
+		return player.world.rayTraceBlocks(vec3d, vec3d2, false, false, true);
+	}
+
 	public static boolean hasFluid(ItemStack stack, Fluid fluid)
 	{
 		return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000 && FluidUtil.getFluidContained(stack).getFluid() == fluid;
 	}
-	
+
+	public static Item[] getItemArray(String[] names)
+	{
+		ArrayList<Item> list = new ArrayList<Item>();
+		for (String name : names)
+		{
+			Item i = StringParser.getItem(name);
+			if (i != null)
+			{
+				list.add(i);
+			}
+		}
+		
+		return list.toArray(new Item[list.size()]);
+	}
 
 }

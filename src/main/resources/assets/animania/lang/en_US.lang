@@ -215,6 +215,7 @@ item.animania_entity_egg_chicken_random.name=Random Chicken
 item.animania_entity_egg_goat_random.name=Random Goat
 item.animania_entity_egg_peacock_random.name=Random Peacock
 item.animania_entity_egg_random.name=Random Animal
+item.animania_entity_egg_rabbit_random.name=Random Rabbit
 
 item.animania_entity_egg_frog.name=Frog
 item.animania_entity_egg_toad.name=Toad
@@ -550,6 +551,7 @@ animania.category.entity=Entities
 animania.category.careandfeeding=Care and Feeding
 animania.category.drops=Drops
 animania.category.forbiddentiles=Forbidden Tile Entities
+animania.category.foodvalues=Food Value Overrides
 
 text.waila.fed=Well fed
 text.waila.thirsty=Thirsty

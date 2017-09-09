@@ -108,8 +108,9 @@ public class EntityAIFindFood extends EntityAIBase
 					|| poschk4 == BlockHandler.blockTrough || poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough
 					|| poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
 				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(currentpos);
-				if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == BlockHandler.fluidSlop) {
-					te.fluidHandler.drain(335, true);
+				if (te != null && te.canConsume(EntityAnimaniaPig.TEMPTATION_ITEMS, BlockHandler.fluidSlop)) {
+					
+					te.consumeSolidOrLiquid(100, 1);
 
 					if (temptedEntity instanceof EntityAnimaniaPig) {
 						EntityAnimaniaPig pig = (EntityAnimaniaPig)temptedEntity;
@@ -306,7 +307,7 @@ public class EntityAIFindFood extends EntityAIBase
 			if (foodBlockchk == BlockHandler.blockTrough) {
 				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(foodPos);
 
-				if (te.getTroughType() == 7 || te.getTroughType() == 8 || te.getTroughType() == 9)
+				if (te.canConsume(EntityAnimaniaPig.TEMPTATION_ITEMS, BlockHandler.fluidSlop))
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
 						this.resetTask();
 					else
