@@ -37,7 +37,7 @@ public class RenderKidNigerianDwarf<T extends EntityKidNigerianDwarf> extends Re
 
     protected void preRenderScale(EntityKidNigerianDwarf entity, float f) {
     	float age = entity.getEntityAge();
-		GL11.glScalef(0.29F + age, 0.29F + age, 0.29F + age); 
+		GL11.glScalef(0.24F + age, 0.24F + age, 0.24F + age); 
         GL11.glTranslatef(0f, 0f, -0.5f);
     }
 

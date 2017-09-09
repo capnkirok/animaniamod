@@ -308,8 +308,8 @@ public class ModelDraftHorseMare extends ModelBase
 		this.HeadNode.addChild(this.Head);
 		this.HeadNode.addChild(this.Nose);
 		this.HeadNode.addChild(this.Mouth);
-		this.HeadNode.addChild(this.Cheek);
-		this.HeadNode.addChild(this.Cheek2);
+		//this.HeadNode.addChild(this.Cheek);
+		//this.HeadNode.addChild(this.Cheek2);
 		this.HeadNode.addChild(this.EarL);
 		this.HeadNode.addChild(this.EarR);
 		this.HeadNode.addChild(this.Fleco);

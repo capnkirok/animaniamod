@@ -112,6 +112,9 @@ public class EntityAIFindFood extends EntityAIBase
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} 
+				
+				temptedEntity.world.destroyBlock(currentpos, false);
+				
 				return false;
 			}
 

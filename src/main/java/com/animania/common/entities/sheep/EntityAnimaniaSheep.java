@@ -1,5 +1,6 @@
 package com.animania.common.entities.sheep;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -46,12 +47,15 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
+public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, IShearable
 {
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.sheepFood));
@@ -61,6 +65,10 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 	protected static final DataParameter<Optional<UUID>> RIVAL_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaSheep.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> SHEARED_TIMER = EntityDataManager.<Integer>createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
+	private static final String[] SHEEP_TEXTURES = new String[] {"black", "white", "brown"};
+
+	
 	protected int happyTimer;
 	public int blinkTimer;
 	public int eatTimer;
@@ -117,6 +125,20 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 		this.dataManager.register(EntityAnimaniaSheep.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaSheep.SHEARED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaSheep.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
+	
+		if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian || this instanceof EntityLambFriesian) {
+			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(3)));
+		} else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset || this instanceof EntityLambDorset) {
+				this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(3)));
+		} else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino || this instanceof EntityLambMerino) {
+			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
+		} else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk || this instanceof EntityLambSuffolk) {
+			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
+		} else {
+			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, 0);
+		}
+		
+	
 	}
 
 	@Override
@@ -398,6 +420,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Sheared", this.getSheared());
+		compound.setInteger("ColorNumber", getColorNumber());
 
 	}
 
@@ -416,11 +439,21 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 			String s1 = compound.getString("Mate");
 			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
 		}
-
+		this.setColorNumber(compound.getInteger("ColorNumber"));
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setSheared(compound.getBoolean("Sheared"));
 
+	}
+	
+	public int getColorNumber()
+	{
+		return ((Integer)this.dataManager.get(COLOR_NUM)).intValue();
+	}
+
+	public void setColorNumber(int color)
+	{
+		this.dataManager.set(COLOR_NUM, Integer.valueOf(color));
 	}
 	
 	@Override
@@ -496,6 +529,18 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable
 	{
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

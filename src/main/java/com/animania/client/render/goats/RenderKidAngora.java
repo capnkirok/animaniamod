@@ -37,7 +37,7 @@ public class RenderKidAngora<T extends EntityKidAngora> extends RenderLiving<T>
 
     protected void preRenderScale(EntityKidAngora entity, float f) {
     	float age = entity.getEntityAge();
-		GL11.glScalef(0.35F + age, 0.35F + age, 0.35F + age); 
+		GL11.glScalef(0.30F + age, 0.30F + age, 0.30F + age); 
         GL11.glTranslatef(0f, 0f, -0.5f);
     }
 

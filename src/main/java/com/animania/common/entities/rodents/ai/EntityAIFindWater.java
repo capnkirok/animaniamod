@@ -5,6 +5,7 @@ import java.util.Random;
 import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.entities.rodents.EntityHedgehogBase;
+import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -61,6 +62,12 @@ public class EntityAIFindWater extends EntityAIBase
 					this.delayTemptCounter = 0;
 					return false;
 				}
+			} else if (temptedEntity instanceof EntityAnimaniaRabbit) {
+				EntityAnimaniaRabbit entity = (EntityAnimaniaRabbit)temptedEntity;
+				if (entity.getWatered()) {
+					this.delayTemptCounter = 0;
+					return false;
+				}
 			} 
 
 			Random rand = new Random();
@@ -79,6 +86,9 @@ public class EntityAIFindWater extends EntityAIBase
 					entity.setWatered(true);
 				} else if (temptedEntity instanceof EntityHedgehogBase) {
 					EntityHedgehogBase entity = (EntityHedgehogBase)temptedEntity;
+					entity.setWatered(true);
+				} else if (temptedEntity instanceof EntityAnimaniaRabbit) {
+					EntityAnimaniaRabbit entity = (EntityAnimaniaRabbit)temptedEntity;
 					entity.setWatered(true);
 				} 
 

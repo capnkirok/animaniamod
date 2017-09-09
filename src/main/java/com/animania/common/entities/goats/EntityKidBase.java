@@ -37,7 +37,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	public EntityKidBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.5F, 0.5F);
+		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
@@ -203,7 +203,6 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Override
 	public void onLivingUpdate()
 	{
-
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 		this.growingAge = -24000;
@@ -217,7 +216,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				age = age + .01F;
 				this.setEntityAge(age);
 
-				if (age >= .8 && !this.world.isRemote)
+				if (age >= .28 && !this.world.isRemote)
 				{
 					this.setDead();
 

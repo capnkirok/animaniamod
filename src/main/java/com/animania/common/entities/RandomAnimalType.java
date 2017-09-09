@@ -12,7 +12,7 @@ import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.rodents.FerretType;
 import com.animania.common.entities.rodents.HamsterType;
 import com.animania.common.entities.rodents.HedgehogType;
-import com.animania.common.entities.rodents.RabbitType;
+import com.animania.common.entities.rodents.rabbits.RabbitType;
 import com.animania.common.entities.sheep.SheepType;
 
 import net.minecraft.entity.EntityLivingBase;

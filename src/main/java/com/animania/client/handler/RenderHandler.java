@@ -96,6 +96,30 @@ import com.animania.client.render.pigs.RenderSowLargeBlack;
 import com.animania.client.render.pigs.RenderSowLargeWhite;
 import com.animania.client.render.pigs.RenderSowOldSpot;
 import com.animania.client.render.pigs.RenderSowYorkshire;
+import com.animania.client.render.rabbits.RenderBuckChinchilla;
+import com.animania.client.render.rabbits.RenderBuckCottontail;
+import com.animania.client.render.rabbits.RenderBuckDutch;
+import com.animania.client.render.rabbits.RenderBuckHavana;
+import com.animania.client.render.rabbits.RenderBuckJack;
+import com.animania.client.render.rabbits.RenderBuckLop;
+import com.animania.client.render.rabbits.RenderBuckNewZealand;
+import com.animania.client.render.rabbits.RenderBuckRex;
+import com.animania.client.render.rabbits.RenderDoeChinchilla;
+import com.animania.client.render.rabbits.RenderDoeCottontail;
+import com.animania.client.render.rabbits.RenderDoeDutch;
+import com.animania.client.render.rabbits.RenderDoeHavana;
+import com.animania.client.render.rabbits.RenderDoeJack;
+import com.animania.client.render.rabbits.RenderDoeLop;
+import com.animania.client.render.rabbits.RenderDoeNewZealand;
+import com.animania.client.render.rabbits.RenderDoeRex;
+import com.animania.client.render.rabbits.RenderKitChinchilla;
+import com.animania.client.render.rabbits.RenderKitCottontail;
+import com.animania.client.render.rabbits.RenderKitDutch;
+import com.animania.client.render.rabbits.RenderKitHavana;
+import com.animania.client.render.rabbits.RenderKitJack;
+import com.animania.client.render.rabbits.RenderKitLop;
+import com.animania.client.render.rabbits.RenderKitNewZealand;
+import com.animania.client.render.rabbits.RenderKitRex;
 import com.animania.client.render.rodents.RenderFerretGrey;
 import com.animania.client.render.rodents.RenderFerretWhite;
 import com.animania.client.render.rodents.RenderHamster;
@@ -209,6 +233,30 @@ import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckChinchilla;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckCottontail;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckDutch;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckHavana;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckJack;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckLop;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckNewZealand;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckRex;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeChinchilla;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeCottontail;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeDutch;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeHavana;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeJack;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeLop;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeNewZealand;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeRex;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitChinchilla;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitCottontail;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitDutch;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitHavana;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitJack;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitLop;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitNewZealand;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitRex;
 import com.animania.common.entities.sheep.EntityEweFriesian;
 import com.animania.common.entities.sheep.EntityLambFriesian;
 import com.animania.common.entities.sheep.EntityRamFriesian;
@@ -236,11 +284,46 @@ public class RenderHandler
 
 	static void renderEntitiesFactory() {
 
+
+		//Rabbits
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitBuckCottontail.class, RenderBuckCottontail.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitDoeCottontail.class, RenderDoeCottontail.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitKitCottontail.class, RenderKitCottontail.FACTORY);
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitBuckChinchilla.class, RenderBuckChinchilla.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitDoeChinchilla.class, RenderDoeChinchilla.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitKitChinchilla.class, RenderKitChinchilla.FACTORY);
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitBuckDutch.class, RenderBuckDutch.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitDoeDutch.class, RenderDoeDutch.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitKitDutch.class, RenderKitDutch.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitBuckHavana.class, RenderBuckHavana.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitDoeHavana.class, RenderDoeHavana.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitKitHavana.class, RenderKitHavana.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitBuckJack.class, RenderBuckJack.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitDoeJack.class, RenderDoeJack.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitKitJack.class, RenderKitJack.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitBuckNewZealand.class, RenderBuckNewZealand.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitDoeNewZealand.class, RenderDoeNewZealand.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitKitNewZealand.class, RenderKitNewZealand.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitBuckRex.class, RenderBuckRex.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitDoeRex.class, RenderDoeRex.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitKitRex.class, RenderKitRex.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitBuckLop.class, RenderBuckLop.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitDoeLop.class, RenderDoeLop.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitKitLop.class, RenderKitLop.FACTORY);
+
+		
 		//Sheep
 		RenderingRegistry.registerEntityRenderingHandler(EntityRamFriesian.class, RenderRamFriesian.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityEweFriesian.class, RenderEweFriesian.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityLambFriesian.class, RenderLambFriesian.FACTORY);
-		
+
 		//Goats
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidAlpine.class, RenderKidAlpine.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckAlpine.class, RenderBuckAlpine.FACTORY);

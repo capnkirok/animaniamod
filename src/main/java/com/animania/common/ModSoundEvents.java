@@ -39,8 +39,6 @@ public class ModSoundEvents
 	public static SoundEvent hedgehogLiving4;
 	public static SoundEvent hedgehogLiving5;
 
-
-
 	// Amphibians
 	public static SoundEvent frogLiving1;
 	public static SoundEvent frogLiving2;
@@ -149,6 +147,15 @@ public class ModSoundEvents
 	public static SoundEvent piglet2;
 	public static SoundEvent piglet3;
 
+	//Rabbits
+	public static SoundEvent rabbit1;
+	public static SoundEvent rabbit2;
+	public static SoundEvent rabbit3;
+	public static SoundEvent rabbit4;
+	public static SoundEvent rabbitHurt1;
+	public static SoundEvent rabbitHurt2;
+	
+	
 	public static void registerSounds() {
 
 		ModSoundEvents.zap = registerSound("zap");
@@ -178,6 +185,13 @@ public class ModSoundEvents
 		ModSoundEvents.hedgehogLiving4 = registerSound("hedgehogLiving4");
 		ModSoundEvents.hedgehogLiving5 = registerSound("hedgehogLiving5");
 
+		ModSoundEvents.rabbitHurt1 = registerSound("rabbitHurt1");
+		ModSoundEvents.rabbitHurt2 = registerSound("rabbitHurt2");
+		ModSoundEvents.rabbit1 = registerSound("rabbit1");
+		ModSoundEvents.rabbit2 = registerSound("rabbit2");
+		ModSoundEvents.rabbit3 = registerSound("rabbit3");
+		ModSoundEvents.rabbit4 = registerSound("rabbit4");
+		
 		// Amphibians
 		ModSoundEvents.frogLiving1 = registerSound("frogLiving1");
 		ModSoundEvents.frogLiving2 = registerSound("frogLiving2");

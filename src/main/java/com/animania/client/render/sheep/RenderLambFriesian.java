@@ -1,10 +1,8 @@
 package com.animania.client.render.sheep;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
-import com.animania.client.models.sheep.ModelLambFriesian;
+import com.animania.client.models.sheep.ModeFriesianSheep;
 import com.animania.common.entities.sheep.EntityLambFriesian;
 
 import net.minecraft.client.renderer.entity.Render;
@@ -19,27 +17,37 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderLambFriesian<T extends EntityLambFriesian> extends RenderLiving<T>
 {
 	public static final Factory           FACTORY          = new Factory();
-	private static final ResourceLocation sheepTextures      = new ResourceLocation("animania:textures/entity/sheep/sheep_friesian_ram.png");
-    private static final ResourceLocation sheepTexturesBlink = new ResourceLocation("animania:textures/entity/sheep/sheep_friesian_ram_blink.png"); 
-    private static final ResourceLocation sheepTexturesSheared = new ResourceLocation("animania:textures/entity/sheep/sheep_ram_sheared.png");
-	Random                                rand             = new Random();
+	private static final String             modid          = "animania", SheepBaseDir = "textures/entity/sheep/";
+
+	private static final ResourceLocation[] SHEEP_TEXTURES = new ResourceLocation[] { 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir + "sheep_friesian_" + "black.png"), 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir +"sheep_friesian_" + "white.png"), 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir +"sheep_friesian_" + "brown.png")}; 
+
+	private static final ResourceLocation[] SHEEP_TEXTURES_BLINK = new ResourceLocation[] { 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir + "sheep_friesian_" + "black_blink.png"), 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir +"sheep_friesian_" + "white_blink.png"), 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir +"sheep_friesian_" + "brown_blink.png")}; 
+
+	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = new ResourceLocation[] { 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir + "sheep_friesian_" + "black_sheared.png"), 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir +"sheep_friesian_" + "white_sheared.png"), 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir +"sheep_friesian_" + "brown_sheared.png")}; 
+
+	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED_BLINK = new ResourceLocation[] { 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir + "sheep_friesian_" + "black_sheared_blink.png"), 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir +"sheep_friesian_" + "white_sheared_blink.png"), 
+			new ResourceLocation(RenderLambFriesian.modid, RenderLambFriesian.SheepBaseDir +"sheep_friesian_" + "brown_sheared_blink.png")}; 
+
 
 	public RenderLambFriesian(RenderManager rm) {
-		super(rm, new ModelLambFriesian(), 0.5F);
-	}
-
-	protected ResourceLocation getsheepTextures(T par1EntityCow) {
-		return RenderLambFriesian.sheepTextures;
-	}
-
-	protected ResourceLocation getsheepTexturesBlink(T par1EntityCow) {
-		return RenderLambFriesian.sheepTexturesBlink;
+		super(rm, new ModeFriesianSheep(), 0.5F);
 	}
 
 	protected void preRenderScale(EntityLambFriesian entity, float f) {
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.35F + age, 0.35F + age, 0.35F + age); 
-		GL11.glTranslatef(0f, 0f, -0.5f);
+		GL11.glScalef(0.30F + age, 0.30F + age, 0.30F + age); 
+        GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 
 	@Override
@@ -51,10 +59,19 @@ public class RenderLambFriesian<T extends EntityLambFriesian> extends RenderLivi
 	protected ResourceLocation getEntityTexture(T entity) {
 		int blinkTimer = entity.blinkTimer;
 
-		if (blinkTimer < 7 && blinkTimer >= 0)
-			return this.getsheepTexturesBlink(entity);
-		else
-			return this.getsheepTextures(entity);
+		if (!entity.getSheared()) {
+			if (blinkTimer < 7 && blinkTimer >= 0) {
+				return RenderLambFriesian.SHEEP_TEXTURES_BLINK[entity.getColorNumber()];
+			} else {
+				return RenderLambFriesian.SHEEP_TEXTURES[entity.getColorNumber()];
+			}
+		} else {
+			if (blinkTimer < 7 && blinkTimer >= 0) {
+				return RenderLambFriesian.SHEEP_TEXTURES_SHEARED_BLINK[entity.getColorNumber()];
+			} else {
+				return RenderLambFriesian.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
+			}
+		}
 	}
 
 	static class Factory<T extends EntityLambFriesian> implements IRenderFactory<T>

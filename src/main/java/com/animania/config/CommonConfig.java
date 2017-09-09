@@ -231,7 +231,10 @@ public class CommonConfig
 		public boolean replaceVanillaPigs = true;
 
 		@Comment("Remove vanilla Chickens")
-		public boolean replaceVanillaChickens = true;
+		public boolean replaceVanillaChickens     = true;
+		
+		@Comment("Remove vanilla Rabbits")
+		public boolean replaceVanillaRabbits     = true;
 
 		@Comment("Allow eggs to be thrown")
 		public boolean allowEggThrowing = false;
@@ -291,7 +294,9 @@ public class CommonConfig
 		@Comment("Spawn Animania Goats in world")
 		public boolean spawnAnimaniaGoats = true;
 		@Comment("Spawn Animania Sheep in world")
-		public boolean spawnAnimaniaSheep = true;
+		public boolean spawnAnimaniaSheep    = true;
+		@Comment("Spawn Animania Rabbits in world")
+		public boolean spawnAnimaniaRabbits    = true;
 
 		@Comment("Spawn limit for Cows in loaded chunks")
 		public int spawnLimitCows = 40;
@@ -314,7 +319,9 @@ public class CommonConfig
 		@Comment("Spawn limit for Goats in loaded chunks")
 		public int spawnLimitGoats = 40;
 		@Comment("Spawn limit for Sheep in loaded chunks")
-		public int spawnLimitSheep = 40;
+		public int     spawnLimitSheep            = 40;
+		@Comment("Spawn limit for Rabbits in loaded chunks")
+		public int     spawnLimitRabbits           = 40;
 
 		@Comment("Spawn probability Cows")
 		public int spawnProbabilityCows = 12;
@@ -331,24 +338,31 @@ public class CommonConfig
 		@Comment("Spawn probability Hamsters")
 		public int spawnProbabilityHamsters = 12;
 		@Comment("Spawn probability Peacocks")
-		public int spawnProbabilityPeacocks = 20;
+		public int     spawnProbabilityPeacocks   = 18;
 		@Comment("Spawn probability Amphibians")
-		public int spawnProbabilityAmphibians = 10;
+		public int     spawnProbabilityAmphibians = 11;
 		@Comment("Spawn probability Goats")
 		public int spawnProbabilityGoats = 12;
 		@Comment("Spawn probability Sheep")
-		public int spawnProbabilitySheep = 12;
+		public int     spawnProbabilitySheep = 16;
+		@Comment("Spawn probability Rabbits")
+		public int     spawnProbabilityRabbits = 12;
+		
 
 		@Comment("Number of potential Cow families per chunk")
-		public int numberCowFamilies = 2;
+		public int     numberCowFamilies          = 1;
 		@Comment("Number of potential Pig families per chunk")
 		public int numberPigFamilies = 1;
 		@Comment("Number of potential Chicken families per chunk")
 		public int numberChickenFamilies = 1;
 		@Comment("Number of potential Horse families per chunk")
-		public int numberHorseFamilies = 2;
+		public int     numberHorseFamilies      = 1;
 		@Comment("Number of potential Goat families per chunk")
-		public int numberGoatFamilies = 1;
+		public int     numberGoatFamilies      = 1;
+		@Comment("Number of potential Sheep families per chunk")
+		public int     numberSheepFamilies      = 2;
+		@Comment("Number of potential Rabbit families per chunk")
+		public int     numberRabbitFamilies      = 2;
 	}
 
 	public static class CareAndFeeding
@@ -440,7 +454,7 @@ public class CommonConfig
 		@Comment("Set Custom Sheep Drop")
 		public String sheepDrop = "animania:raw_mutton";
 		@Comment("Set Custom Rabbit Drop")
-		public String rabbitDrop = "animania:raw_chevon";
+		public String  rabbitDrop         = "animania:raw_prime_rabbit";
 		@Comment("Allow Animania Chickens to drop Eggs")
 		public Boolean chickensDropEggs = false;
 		@Comment("Allow Animania Chickens to drop Feathers")
