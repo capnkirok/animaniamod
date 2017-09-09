@@ -4,7 +4,6 @@ import com.animania.Animania;
 import com.animania.common.entities.props.EntityWagon;
 import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
@@ -40,13 +39,13 @@ public class RenderWagon<T extends EntityWagon> extends Render<T>
         GlStateManager.popMatrix();
 
         // Utils
-        if (Minecraft.getMinecraft().gameSettings.showDebugInfo)
-        {
-            GlStateManager.pushMatrix();
-            GlStateManager.translate((float) x, (float) y, (float) z);
-            this.drawSelectionBox(entity, partialTicks);
-            GlStateManager.popMatrix();
-        }
+        // if (Minecraft.getMinecraft().gameSettings.showDebugInfo)
+        // {
+        // GlStateManager.pushMatrix();
+        // GlStateManager.translate((float) x, (float) y, (float) z);
+        // this.drawSelectionBox(entity, partialTicks);
+        // GlStateManager.popMatrix();
+        // }
 
     }
 
