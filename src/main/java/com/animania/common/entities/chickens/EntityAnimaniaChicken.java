@@ -75,7 +75,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	protected Item dropCooked = Items.COOKED_CHICKEN;
 	protected Item oldDropRaw = Items.CHICKEN;
 	protected Item oldDropCooked = Items.COOKED_CHICKEN;
-	protected EntityGender gender;
+	public EntityGender gender;
 
 	public EntityAnimaniaChicken(World worldIn)
 	{
@@ -513,6 +513,12 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	{
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public EntityGender getEntityGender()
+	{
+		return this.gender;
 	}
 
 }

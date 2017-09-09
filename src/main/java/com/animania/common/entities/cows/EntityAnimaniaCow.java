@@ -468,4 +468,10 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		return 0;
 	}
 
+	@Override
+	public EntityGender getEntityGender()
+	{
+		return this.gender;
+	}
+
 }

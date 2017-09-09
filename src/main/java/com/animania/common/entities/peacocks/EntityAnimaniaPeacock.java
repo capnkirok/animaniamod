@@ -557,5 +557,11 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public EntityGender getEntityGender()
+	{
+		return this.gender;
+	}
 
 }

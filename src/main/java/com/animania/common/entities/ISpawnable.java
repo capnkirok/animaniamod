@@ -11,6 +11,8 @@ public interface ISpawnable
 	
 	public int getSecondaryEggColor();
 	
+	public EntityGender getEntityGender();
+	
 	default boolean usesEggColor()
 	{
 		return true;

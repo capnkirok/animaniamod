@@ -542,5 +542,11 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public EntityGender getEntityGender()
+	{
+		return this.gender;
+	}
 
 }

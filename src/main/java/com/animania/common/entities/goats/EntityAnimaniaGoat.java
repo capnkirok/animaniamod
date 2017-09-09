@@ -495,4 +495,10 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		return 0;
 	}
 
+	@Override
+	public EntityGender getEntityGender()
+	{
+		return this.gender;
+	}
+
 }

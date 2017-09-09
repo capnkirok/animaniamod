@@ -577,5 +577,11 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public EntityGender getEntityGender()
+	{
+		return this.gender;
+	}
 
 }
