@@ -232,6 +232,9 @@ public class CommonConfig
 
 		@Comment("Remove vanilla Chickens")
 		public boolean replaceVanillaChickens     = true;
+		
+		@Comment("Remove vanilla Rabbits")
+		public boolean replaceVanillaRabbits     = true;
 
 		@Comment("Allow eggs to be thrown")
 		public boolean allowEggThrowing           = false;
@@ -333,30 +336,30 @@ public class CommonConfig
 		@Comment("Spawn probability Hamsters")
 		public int     spawnProbabilityHamsters   = 12;
 		@Comment("Spawn probability Peacocks")
-		public int     spawnProbabilityPeacocks   = 20;
+		public int     spawnProbabilityPeacocks   = 18;
 		@Comment("Spawn probability Amphibians")
-		public int     spawnProbabilityAmphibians = 10;
+		public int     spawnProbabilityAmphibians = 11;
 		@Comment("Spawn probability Goats")
 		public int     spawnProbabilityGoats = 12;
 		@Comment("Spawn probability Sheep")
-		public int     spawnProbabilitySheep = 14;
+		public int     spawnProbabilitySheep = 16;
 		@Comment("Spawn probability Rabbits")
-		public int     spawnProbabilityRabbits = 14;
+		public int     spawnProbabilityRabbits = 12;
 		
 
 		@Comment("Number of potential Cow families per chunk")
-		public int     numberCowFamilies          = 2;
+		public int     numberCowFamilies          = 1;
 		@Comment("Number of potential Pig families per chunk")
 		public int     numberPigFamilies          = 1;
 		@Comment("Number of potential Chicken families per chunk")
 		public int     numberChickenFamilies      = 1;
 		@Comment("Number of potential Horse families per chunk")
-		public int     numberHorseFamilies      = 2;
+		public int     numberHorseFamilies      = 1;
 		@Comment("Number of potential Goat families per chunk")
 		public int     numberGoatFamilies      = 1;
-		@Comment("Number of potential Goat families per chunk")
+		@Comment("Number of potential Sheep families per chunk")
 		public int     numberSheepFamilies      = 2;
-		@Comment("Number of potential Goat families per chunk")
+		@Comment("Number of potential Rabbit families per chunk")
 		public int     numberRabbitFamilies      = 2;
 	}
 

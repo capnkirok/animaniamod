@@ -64,6 +64,19 @@ import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.entities.rodents.EntityHedgehogBase;
+import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckChinchilla;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckCottontail;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckHavana;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckJack;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeChinchilla;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeCottontail;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeHavana;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeJack;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitChinchilla;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitCottontail;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitHavana;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitJack;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
@@ -74,6 +87,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -411,6 +425,113 @@ public class EventReplaceSpawnAnimals
 				}
 			
 			//System.out.println(event.getEntity().posX + "  " + event.getEntity().posY + "  "+ event.getEntity().posZ);
+
+		}
+		if (AnimaniaConfig.gameRules.replaceVanillaRabbits && event.getEntity().getClass().equals(EntityRabbit.class) && !worldIn.isRemote) {
+			if (!event.getEntity().hasCustomName()) {
+				event.getEntity().setDead();
+				event.setCanceled(true);
+				event.isCanceled();
+			}
+
+			int rabbitCount = 0;
+			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaRabbit.class, 128, event.getWorld(), event.getEntity());
+			rabbitCount = entities.size();
+
+			if (AnimaniaConfig.spawn.spawnAnimaniaRabbits && rabbitCount < AnimaniaConfig.spawn.spawnLimitRabbits) {
+
+
+				int chooser = 0;
+				if (worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
+					chooser = rand.nextInt(10);
+				else
+					chooser = rand.nextInt(5);
+
+				if (biome.equals(Type.FOREST)) {
+					if (chooser <= 2) {
+						EntityRabbitBuckCottontail entity = new EntityRabbitBuckCottontail(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 3) {
+						EntityRabbitDoeCottontail entity = new EntityRabbitDoeCottontail(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 4) {
+						EntityRabbitKitCottontail entity = new EntityRabbitKitCottontail(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+				}
+				else if (biome.equals(Type.SAVANNA) || biome.equals(Type.SANDY) || biome.equals(Type.MESA)) {
+					if (chooser <= 2) {
+						EntityRabbitBuckJack entity = new EntityRabbitBuckJack(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 3) {
+						EntityRabbitDoeJack entity = new EntityRabbitDoeJack(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 4) {
+						EntityRabbitKitJack entity = new EntityRabbitKitJack(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+				}
+				else if (biome.equals(Type.HILLS) || biome.equals(Type.MOUNTAIN)) {
+					if (chooser <= 2) {
+						EntityRabbitBuckHavana entity = new EntityRabbitBuckHavana(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 3) {
+						EntityRabbitDoeHavana entity = new EntityRabbitDoeHavana(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 4) {
+						EntityRabbitKitHavana entity = new EntityRabbitKitHavana(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+				}
+				else if (biome.equals(Type.SNOWY) || biome.equals(Type.COLD)) {
+					if (chooser <= 2) {
+						EntityRabbitDoeChinchilla entity = new EntityRabbitDoeChinchilla(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 3) {
+						EntityRabbitBuckChinchilla entity = new EntityRabbitBuckChinchilla(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 4) {
+						EntityRabbitKitChinchilla entity = new EntityRabbitKitChinchilla(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+				}
+				else if (chooser <= 2) {
+					EntityRabbitBuckCottontail entity = new EntityRabbitBuckCottontail(worldIn);
+					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+					worldIn.spawnEntity(entity);
+				}
+				else if (chooser == 3) {
+					EntityRabbitDoeCottontail entity = new EntityRabbitDoeCottontail(worldIn);
+					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+					worldIn.spawnEntity(entity);
+				}
+				else if (chooser == 4) {
+					EntityRabbitKitCottontail entity = new EntityRabbitKitCottontail(worldIn);
+					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+					worldIn.spawnEntity(entity);
+				}
+
+			}
 
 		}
 		else if (event.getEntity() instanceof EntityHedgehogBase && !worldIn.isRemote) {
