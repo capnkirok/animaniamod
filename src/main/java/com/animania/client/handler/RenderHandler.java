@@ -96,6 +96,7 @@ import com.animania.client.render.pigs.RenderSowLargeBlack;
 import com.animania.client.render.pigs.RenderSowLargeWhite;
 import com.animania.client.render.pigs.RenderSowOldSpot;
 import com.animania.client.render.pigs.RenderSowYorkshire;
+<<<<<<<
 import com.animania.client.render.rabbits.RenderBuckChinchilla;
 import com.animania.client.render.rabbits.RenderBuckCottontail;
 import com.animania.client.render.rabbits.RenderBuckDutch;
@@ -120,6 +121,9 @@ import com.animania.client.render.rabbits.RenderKitJack;
 import com.animania.client.render.rabbits.RenderKitLop;
 import com.animania.client.render.rabbits.RenderKitNewZealand;
 import com.animania.client.render.rabbits.RenderKitRex;
+=======
+import com.animania.client.render.props.RenderWagon;
+>>>>>>>
 import com.animania.client.render.rodents.RenderFerretGrey;
 import com.animania.client.render.rodents.RenderFerretWhite;
 import com.animania.client.render.rodents.RenderHamster;
@@ -228,6 +232,7 @@ import com.animania.common.entities.pigs.EntitySowLargeBlack;
 import com.animania.common.entities.pigs.EntitySowLargeWhite;
 import com.animania.common.entities.pigs.EntitySowOldSpot;
 import com.animania.common.entities.pigs.EntitySowYorkshire;
+import com.animania.common.entities.props.EntityWagon;
 import com.animania.common.entities.rodents.EntityFerretGrey;
 import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHamster;
@@ -274,16 +279,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderHandler
 {
 
-	public static void preInit() {
-		renderEntitiesFactory();
-	}
+    public static void preInit()
+    {
+        renderEntitiesFactory();
+    }
 
-	public static void init() {
-		renderTileEntity();
-	}
+    public static void init()
+    {
+        renderTileEntity();
+    }
 
-	static void renderEntitiesFactory() {
+    static void renderEntitiesFactory()
+    {
 
+<<<<<<<
 
 		//Rabbits
 		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitBuckCottontail.class, RenderBuckCottontail.FACTORY);
@@ -328,146 +337,156 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidAlpine.class, RenderKidAlpine.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckAlpine.class, RenderBuckAlpine.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoeAlpine.class, RenderDoeAlpine.FACTORY);
+=======
+        // Props
+        RenderingRegistry.registerEntityRenderingHandler(EntityWagon.class, RenderWagon.FACTORY);
+>>>>>>>
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityKidAngora.class, RenderKidAngora.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBuckAngora.class, RenderBuckAngora.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoeAngora.class, RenderDoeAngora.FACTORY);
+        // Goats
+        RenderingRegistry.registerEntityRenderingHandler(EntityKidAlpine.class, RenderKidAlpine.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBuckAlpine.class, RenderBuckAlpine.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityDoeAlpine.class, RenderDoeAlpine.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityKidFainting.class, RenderKidFainting.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBuckFainting.class, RenderBuckFainting.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoeFainting.class, RenderDoeFainting.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityKidAngora.class, RenderKidAngora.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBuckAngora.class, RenderBuckAngora.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityDoeAngora.class, RenderDoeAngora.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityKidKiko.class, RenderKidKiko.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBuckKiko.class, RenderBuckKiko.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoeKiko.class, RenderDoeKiko.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityKidFainting.class, RenderKidFainting.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBuckFainting.class, RenderBuckFainting.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityDoeFainting.class, RenderDoeFainting.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityKidKinder.class, RenderKidKinder.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBuckKinder.class, RenderBuckKinder.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoeKinder.class, RenderDoeKinder.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityKidKiko.class, RenderKidKiko.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBuckKiko.class, RenderBuckKiko.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityDoeKiko.class, RenderDoeKiko.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityKidNigerianDwarf.class, RenderKidNigerianDwarf.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBuckNigerianDwarf.class, RenderBuckNigerianDwarf.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoeNigerianDwarf.class, RenderDoeNigerianDwarf.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityKidKinder.class, RenderKidKinder.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBuckKinder.class, RenderBuckKinder.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityDoeKinder.class, RenderDoeKinder.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityKidPygmy.class, RenderKidPygmy.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBuckPygmy.class, RenderBuckPygmy.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoePygmy.class, RenderDoePygmy.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityKidNigerianDwarf.class, RenderKidNigerianDwarf.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBuckNigerianDwarf.class, RenderBuckNigerianDwarf.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityDoeNigerianDwarf.class, RenderDoeNigerianDwarf.FACTORY);
 
+        RenderingRegistry.registerEntityRenderingHandler(EntityKidPygmy.class, RenderKidPygmy.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBuckPygmy.class, RenderBuckPygmy.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityDoePygmy.class, RenderDoePygmy.FACTORY);
 
-		// Frogs
-		RenderingRegistry.registerEntityRenderingHandler(EntityFrogs.class, RenderFrogs.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDartFrogs.class, RenderDartFrogs.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityToad.class, RenderToad.FACTORY);
+        // Frogs
+        RenderingRegistry.registerEntityRenderingHandler(EntityFrogs.class, RenderFrogs.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityDartFrogs.class, RenderDartFrogs.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityToad.class, RenderToad.FACTORY);
 
-		// Chickens
-		RenderingRegistry.registerEntityRenderingHandler(EntityHenPlymouthRock.class, RenderHenPlymouthRock.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityRoosterPlymouthRock.class, RenderRoosterPlymouthRock.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityChickPlymouthRock.class, RenderChickPlymouthRock.FACTORY);
+        // Chickens
+        RenderingRegistry.registerEntityRenderingHandler(EntityHenPlymouthRock.class, RenderHenPlymouthRock.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRoosterPlymouthRock.class, RenderRoosterPlymouthRock.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityChickPlymouthRock.class, RenderChickPlymouthRock.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityHenLeghorn.class, RenderHenLeghorn.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityRoosterLeghorn.class, RenderRoosterLeghorn.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityChickLeghorn.class, RenderChickLeghorn.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHenLeghorn.class, RenderHenLeghorn.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRoosterLeghorn.class, RenderRoosterLeghorn.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityChickLeghorn.class, RenderChickLeghorn.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityHenOrpington.class, RenderHenOrpington.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityRoosterOrpington.class, RenderRoosterOrpington.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityChickOrpington.class, RenderChickOrpington.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHenOrpington.class, RenderHenOrpington.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRoosterOrpington.class, RenderRoosterOrpington.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityChickOrpington.class, RenderChickOrpington.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityHenWyandotte.class, RenderHenWyandotte.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityRoosterWyandotte.class, RenderRoosterWyandotte.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityChickWyandotte.class, RenderChickWyandotte.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHenWyandotte.class, RenderHenWyandotte.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRoosterWyandotte.class, RenderRoosterWyandotte.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityChickWyandotte.class, RenderChickWyandotte.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityHenRhodeIslandRed.class, RenderHenRhodeIslandRed.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityRoosterRhodeIslandRed.class, RenderRoosterRhodeIslandRed.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityChickRhodeIslandRed.class, RenderChickRhodeIslandRed.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHenRhodeIslandRed.class, RenderHenRhodeIslandRed.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRoosterRhodeIslandRed.class, RenderRoosterRhodeIslandRed.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityChickRhodeIslandRed.class, RenderChickRhodeIslandRed.FACTORY);
 
-		// Cows
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowHolstein.class, RenderCowHolstein.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBullHolstein.class, RenderBullHolstein.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityCalfHolstein.class, RenderCalfHolstein.FACTORY);
+        // Cows
+        RenderingRegistry.registerEntityRenderingHandler(EntityCowHolstein.class, RenderCowHolstein.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBullHolstein.class, RenderBullHolstein.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCalfHolstein.class, RenderCalfHolstein.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowFriesian.class, RenderCowFriesian.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBullFriesian.class, RenderBullFriesian.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityCalfFriesian.class, RenderCalfFriesian.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCowFriesian.class, RenderCowFriesian.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBullFriesian.class, RenderBullFriesian.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCalfFriesian.class, RenderCalfFriesian.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowAngus.class, RenderCowAngus.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBullAngus.class, RenderBullAngus.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityCalfAngus.class, RenderCalfAngus.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCowAngus.class, RenderCowAngus.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBullAngus.class, RenderBullAngus.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCalfAngus.class, RenderCalfAngus.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowLonghorn.class, RenderCowLonghorn.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBullLonghorn.class, RenderBullLonghorn.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityCalfLonghorn.class, RenderCalfLonghorn.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCowLonghorn.class, RenderCowLonghorn.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBullLonghorn.class, RenderBullLonghorn.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCalfLonghorn.class, RenderCalfLonghorn.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowHereford.class, RenderCowHereford.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBullHereford.class, RenderBullHereford.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityCalfHereford.class, RenderCalfHereford.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCowHereford.class, RenderCowHereford.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityBullHereford.class, RenderBullHereford.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityCalfHereford.class, RenderCalfHereford.FACTORY);
 
-		// Pigs
-		RenderingRegistry.registerEntityRenderingHandler(EntitySowYorkshire.class, RenderSowYorkshire.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityHogYorkshire.class, RenderHogYorkshire.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletYorkshire.class, RenderPigletYorkshire.FACTORY);
+        // Pigs
+        RenderingRegistry.registerEntityRenderingHandler(EntitySowYorkshire.class, RenderSowYorkshire.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHogYorkshire.class, RenderHogYorkshire.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPigletYorkshire.class, RenderPigletYorkshire.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntitySowOldSpot.class, RenderSowOldSpot.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityHogOldSpot.class, RenderHogOldSpot.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletOldSpot.class, RenderPigletOldSpot.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySowOldSpot.class, RenderSowOldSpot.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHogOldSpot.class, RenderHogOldSpot.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPigletOldSpot.class, RenderPigletOldSpot.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntitySowLargeBlack.class, RenderSowLargeBlack.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityHogLargeBlack.class, RenderHogLargeBlack.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletLargeBlack.class, RenderPigletLargeBlack.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySowLargeBlack.class, RenderSowLargeBlack.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHogLargeBlack.class, RenderHogLargeBlack.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPigletLargeBlack.class, RenderPigletLargeBlack.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntitySowLargeWhite.class, RenderSowLargeWhite.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityHogLargeWhite.class, RenderHogLargeWhite.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletLargeWhite.class, RenderPigletLargeWhite.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySowLargeWhite.class, RenderSowLargeWhite.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHogLargeWhite.class, RenderHogLargeWhite.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPigletLargeWhite.class, RenderPigletLargeWhite.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntitySowDuroc.class, RenderSowDuroc.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityHogDuroc.class, RenderHogDuroc.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletDuroc.class, RenderPigletDuroc.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySowDuroc.class, RenderSowDuroc.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHogDuroc.class, RenderHogDuroc.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPigletDuroc.class, RenderPigletDuroc.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntitySowHampshire.class, RenderSowHampshire.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityHogHampshire.class, RenderHogHampshire.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletHampshire.class, RenderPigletHampshire.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySowHampshire.class, RenderSowHampshire.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHogHampshire.class, RenderHogHampshire.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPigletHampshire.class, RenderPigletHampshire.FACTORY);
 
-		// Rodents
-		RenderingRegistry.registerEntityRenderingHandler(EntityHamster.class, RenderHamster.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityHedgehog.class, RenderHedgehog.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityHedgehogAlbino.class, RenderHedgehogAlbino.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityFerretGrey.class, RenderFerretGrey.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityFerretWhite.class, RenderFerretWhite.FACTORY);
+        // Rodents
+        RenderingRegistry.registerEntityRenderingHandler(EntityHamster.class, RenderHamster.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHedgehog.class, RenderHedgehog.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityHedgehogAlbino.class, RenderHedgehogAlbino.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityFerretGrey.class, RenderFerretGrey.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityFerretWhite.class, RenderFerretWhite.FACTORY);
 
-		// Peacocks
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockBlue.class, RenderPeacockBlue.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlBlue.class, RenderPeafowlBlue.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickBlue.class, RenderPeachickBlue.FACTORY);
+        // Peacocks
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeacockBlue.class, RenderPeacockBlue.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlBlue.class, RenderPeafowlBlue.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeachickBlue.class, RenderPeachickBlue.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockWhite.class, RenderPeacockWhite.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlWhite.class, RenderPeafowlWhite.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickWhite.class, RenderPeachickWhite.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeacockWhite.class, RenderPeacockWhite.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlWhite.class, RenderPeafowlWhite.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeachickWhite.class, RenderPeachickWhite.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockCharcoal.class, RenderPeacockCharcoal.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlCharcoal.class, RenderPeafowlCharcoal.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickCharcoal.class, RenderPeachickCharcoal.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeacockCharcoal.class, RenderPeacockCharcoal.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlCharcoal.class, RenderPeafowlCharcoal.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeachickCharcoal.class, RenderPeachickCharcoal.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockOpal.class, RenderPeacockOpal.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlOpal.class, RenderPeafowlOpal.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickOpal.class, RenderPeachickOpal.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeacockOpal.class, RenderPeacockOpal.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlOpal.class, RenderPeafowlOpal.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeachickOpal.class, RenderPeachickOpal.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockPeach.class, RenderPeacockPeach.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlPeach.class, RenderPeafowlPeach.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickPeach.class, RenderPeachickPeach.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeacockPeach.class, RenderPeacockPeach.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlPeach.class, RenderPeafowlPeach.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeachickPeach.class, RenderPeachickPeach.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockPurple.class, RenderPeacockPurple.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlPurple.class, RenderPeafowlPurple.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickPurple.class, RenderPeachickPurple.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeacockPurple.class, RenderPeacockPurple.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlPurple.class, RenderPeafowlPurple.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeachickPurple.class, RenderPeachickPurple.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeacockTaupe.class, RenderPeacockTaupe.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlTaupe.class, RenderPeafowlTaupe.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPeachickTaupe.class, RenderPeachickTaupe.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeacockTaupe.class, RenderPeacockTaupe.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeafowlTaupe.class, RenderPeafowlTaupe.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityPeachickTaupe.class, RenderPeachickTaupe.FACTORY);
 
-		// Horses
-		RenderingRegistry.registerEntityRenderingHandler(EntityStallionDraftHorse.class, RenderStallionDraftHorse.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityMareDraftHorse.class, RenderMareDraftHorse.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityFoalDraftHorse.class, RenderFoalDraftHorse.FACTORY);
+        // Horses
+        RenderingRegistry.registerEntityRenderingHandler(EntityStallionDraftHorse.class, RenderStallionDraftHorse.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityMareDraftHorse.class, RenderMareDraftHorse.FACTORY);
+        RenderingRegistry.registerEntityRenderingHandler(EntityFoalDraftHorse.class, RenderFoalDraftHorse.FACTORY);
 
+    }
 
+<<<<<<<
 
 	}
 
@@ -478,4 +497,12 @@ public class RenderHandler
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySaltLick.class, new TileEntitySaltLickRenderer());
 
 	}
+=======
+    static void renderTileEntity()
+    {
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrough.class, new TileEntityTroughRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNest.class, new TileEntityNestRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHamsterWheel.class, new TileEntityHamsterWheelRenderer());
+    }
+>>>>>>>
 }
