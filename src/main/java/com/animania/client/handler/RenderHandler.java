@@ -96,7 +96,7 @@ import com.animania.client.render.pigs.RenderSowLargeBlack;
 import com.animania.client.render.pigs.RenderSowLargeWhite;
 import com.animania.client.render.pigs.RenderSowOldSpot;
 import com.animania.client.render.pigs.RenderSowYorkshire;
-<<<<<<<
+import com.animania.client.render.props.RenderWagon;
 import com.animania.client.render.rabbits.RenderBuckChinchilla;
 import com.animania.client.render.rabbits.RenderBuckCottontail;
 import com.animania.client.render.rabbits.RenderBuckDutch;
@@ -121,9 +121,6 @@ import com.animania.client.render.rabbits.RenderKitJack;
 import com.animania.client.render.rabbits.RenderKitLop;
 import com.animania.client.render.rabbits.RenderKitNewZealand;
 import com.animania.client.render.rabbits.RenderKitRex;
-=======
-import com.animania.client.render.props.RenderWagon;
->>>>>>>
 import com.animania.client.render.rodents.RenderFerretGrey;
 import com.animania.client.render.rodents.RenderFerretWhite;
 import com.animania.client.render.rodents.RenderHamster;
@@ -292,7 +289,7 @@ public class RenderHandler
     static void renderEntitiesFactory()
     {
 
-<<<<<<<
+
 
 		//Rabbits
 		RenderingRegistry.registerEntityRenderingHandler(EntityRabbitBuckCottontail.class, RenderBuckCottontail.FACTORY);
@@ -337,10 +334,9 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidAlpine.class, RenderKidAlpine.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBuckAlpine.class, RenderBuckAlpine.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDoeAlpine.class, RenderDoeAlpine.FACTORY);
-=======
+
         // Props
         RenderingRegistry.registerEntityRenderingHandler(EntityWagon.class, RenderWagon.FACTORY);
->>>>>>>
 
         // Goats
         RenderingRegistry.registerEntityRenderingHandler(EntityKidAlpine.class, RenderKidAlpine.FACTORY);
@@ -486,9 +482,7 @@ public class RenderHandler
 
     }
 
-<<<<<<<
 
-	}
 
 	static void renderTileEntity() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrough.class, new TileEntityTroughRenderer());
@@ -497,12 +491,4 @@ public class RenderHandler
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySaltLick.class, new TileEntitySaltLickRenderer());
 
 	}
-=======
-    static void renderTileEntity()
-    {
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrough.class, new TileEntityTroughRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNest.class, new TileEntityNestRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHamsterWheel.class, new TileEntityHamsterWheelRenderer());
-    }
->>>>>>>
 }
