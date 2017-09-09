@@ -5,6 +5,7 @@ import java.util.Random;
 import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityNest;
+import com.animania.common.tileentities.TileEntityNest.NestContent;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -15,15 +16,15 @@ import net.minecraft.util.math.BlockPos;
 public class EntityAIFerretFindFood extends EntityAIBase
 {
 	private final EntityCreature temptedEntity;
-	private final double         speed;
-	private double               targetX;
-	private double               targetY;
-	private double               targetZ;
-	private double               pitch;
-	private double               yaw;
-	private EntityPlayer         temptingPlayer;
-	private boolean              isRunning;
-	private int                  delayTemptCounter;
+	private final double speed;
+	private double targetX;
+	private double targetY;
+	private double targetZ;
+	private double pitch;
+	private double yaw;
+	private EntityPlayer temptingPlayer;
+	private boolean isRunning;
+	private int delayTemptCounter;
 
 	public EntityAIFerretFindFood(EntityCreature temptedEntityIn, double speedIn)
 	{
@@ -37,12 +38,17 @@ public class EntityAIFerretFindFood extends EntityAIBase
 	{
 		this.delayTemptCounter++;
 
-		if (this.delayTemptCounter < 40) {
+		if (this.delayTemptCounter < 40)
+		{
 			return false;
-		} else if (delayTemptCounter >= 40) {
-			if (this.temptedEntity instanceof EntityFerretBase) {
+		}
+		else if (delayTemptCounter >= 40)
+		{
+			if (this.temptedEntity instanceof EntityFerretBase)
+			{
 				EntityFerretBase entity = (EntityFerretBase) this.temptedEntity;
-				if (entity.getFed()) {
+				if (entity.getFed())
+				{
 					this.delayTemptCounter = 0;
 					return false;
 				}
@@ -51,42 +57,29 @@ public class EntityAIFerretFindFood extends EntityAIBase
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
 			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
 
-			if (poschk == BlockHandler.blockNest) {
+			if (poschk == BlockHandler.blockNest)
+			{
 				TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(currentpos);
-	
-				if (te.getNestType() == 0) {
+
+				if (te == null ? true : te.getNestContent() == NestContent.EMPTY)
 					return false;
-				}
 
-				if (te !=null && (te.getNestType() == 1 || te.getNestType() == 4 || te.getNestType() == 7 || te.getNestType() == 10 || te.getNestType() == 13)) {
-					te.setType(0);
+				if ((te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) && te.itemHandler.getStackInSlot(0).getCount() > 0)
+				{
+					te.itemHandler.extractItem(0, 1, false);
 					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
 
-					if (temptedEntity instanceof EntityFerretBase) {
-						EntityFerretBase ech = (EntityFerretBase)temptedEntity;
+					if (temptedEntity instanceof EntityFerretBase)
+					{
+						EntityFerretBase ech = (EntityFerretBase) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 						ech.setWatered(true);
-						System.out.println("eating");
-					} 
+					}
 					return false;
 
-				} else if (te !=null && te.getNestType() >= 2 && te.getNestType() <= 15) {
-					te.setType(te.getNestType()-1);
-					te.markDirty();
-					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), te.getNestType()-1);
-					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
-					if (temptedEntity instanceof EntityFerretBase) {
-						EntityFerretBase ech = (EntityFerretBase)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
-					} 
-					
-					return false;
 				}
-			} 
+			}
 
 			double x = this.temptedEntity.posX;
 			double y = this.temptedEntity.posY;
@@ -97,28 +90,38 @@ public class EntityAIFerretFindFood extends EntityAIBase
 
 			BlockPos pos = new BlockPos(x, y, z);
 
-			for (int i = -16; i < 16; i++) {
-				for (int j = -3; j < 3; j++) {
-					for (int k = -16; k < 16; k++) {
+			for (int i = -16; i < 16; i++)
+			{
+				for (int j = -3; j < 3; j++)
+				{
+					for (int k = -16; k < 16; k++)
+					{
 
 						pos = new BlockPos(x + i, y + j, z + k);
 
 						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
-						if (blockchk == BlockHandler.blockNest) {
+						if (blockchk == BlockHandler.blockNest)
+						{
 							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 
-							if (te !=null && (te.getNestType() >= 1 && te.getNestType() <= 15)) {
+							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+							{
 								foodFound = true;
-								if (rand.nextInt(50) == 0) {
+								if (rand.nextInt(50) == 0)
+								{
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
-								} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0) {
+								}
+								else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
+								{
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
-								} else {
+								}
+								else
+								{
 									return true;
 								}
 							}
@@ -127,12 +130,14 @@ public class EntityAIFerretFindFood extends EntityAIBase
 				}
 			}
 
-			if (!foodFound) {
+			if (!foodFound)
+			{
 				this.delayTemptCounter = 0;
 				return false;
 			}
 		}
 		return false;
+
 	}
 
 	public boolean continueExecuting()
@@ -142,7 +147,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 	}
 
 	public void startExecuting()
-	{	
+	{
 		this.isRunning = true;
 	}
 
@@ -165,31 +170,39 @@ public class EntityAIFerretFindFood extends EntityAIBase
 		BlockPos pos = new BlockPos(x, y, z);
 		BlockPos foodPos = new BlockPos(x, y, z);
 
-		for (int i = -16; i < 16; i++) {
-			for (int j = -3; j < 3; j++) {
-				for (int k = -16; k < 16; k++) {
+		for (int i = -16; i < 16; i++)
+		{
+			for (int j = -3; j < 3; j++)
+			{
+				for (int k = -16; k < 16; k++)
+				{
 
 					pos = new BlockPos(x + i, y + j, z + k);
 					Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
-					if (blockchk == BlockHandler.blockNest) {
+					if (blockchk == BlockHandler.blockNest)
+					{
 						TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 
-						if (te !=null && (te.getNestType() >= 1 && te.getNestType() <= 15)) {
+						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+						{
 
 							foodFound = true;
-							newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
+							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
-							if (newloc < loc) {
+							if (newloc < loc)
+							{
 
 								loc = newloc;
 
-								if (temptedEntity.posX < foodPos.getX()) {
+								if (temptedEntity.posX < foodPos.getX())
+								{
 									BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
 									Block foodBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
 									i = i + 1;
-								} 
+								}
 
-								if (temptedEntity.posZ < foodPos.getZ()) {
+								if (temptedEntity.posZ < foodPos.getZ())
+								{
 									BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
 									Block foodBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
 									k = k + 1;
@@ -204,26 +217,31 @@ public class EntityAIFerretFindFood extends EntityAIBase
 			}
 		}
 
-		if (foodFound) {
+		if (foodFound)
+		{
 
 			System.out.println("pathing");
 
 			Block foodBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
 
-			if (foodBlockchk == BlockHandler.blockNest) {
+			if (foodBlockchk == BlockHandler.blockNest)
+			{
 				TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(foodPos);
 
-				if (te.getNestType() > 0 && te.getNestType() <= 15) {
-					if(this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false) {
+				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+				{
+					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
+					{
 						this.resetTask();
-					} else {
+					}
+					else
+					{
 						this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
 					}
 				}
 			}
 		}
 	}
-
 
 	public boolean isRunning()
 	{

@@ -70,7 +70,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	public int blinkTimer;
 	private int featherTimer;
 	protected int damageTimer;
-	protected ChickenType type;
+	public ChickenType type;
 	protected Item dropRaw = Items.CHICKEN;
 	protected Item dropCooked = Items.COOKED_CHICKEN;
 	protected Item oldDropRaw = Items.CHICKEN;

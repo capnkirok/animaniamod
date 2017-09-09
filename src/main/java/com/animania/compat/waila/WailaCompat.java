@@ -4,6 +4,7 @@ import com.animania.common.blocks.BlockCheese;
 import com.animania.common.blocks.BlockCheeseMold;
 import com.animania.common.blocks.BlockHamsterWheel;
 import com.animania.common.blocks.BlockInvisiblock;
+import com.animania.common.blocks.BlockNest;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.blocks.BlockTrough;
 import com.animania.common.entities.chickens.EntityChickBase;
@@ -37,6 +38,7 @@ import com.animania.compat.waila.provider.WailaBlockCheeseMoldProvider;
 import com.animania.compat.waila.provider.WailaBlockCheeseProvider;
 import com.animania.compat.waila.provider.WailaBlockHamsterWheelProvider;
 import com.animania.compat.waila.provider.WailaBlockInvisiblockProvider;
+import com.animania.compat.waila.provider.WailaBlockNestProvider;
 import com.animania.compat.waila.provider.WailaBlockSeedProvider;
 import com.animania.compat.waila.provider.WailaBlockTroughProvider;
 import com.animania.compat.waila.provider.WailaEntityAnimalProviderBase;
@@ -73,7 +75,7 @@ public class WailaCompat
 		r.registerNBTProvider(new WailaBlockHamsterWheelProvider(), BlockHamsterWheel.class);
 		r.registerStackProvider(new WailaBlockCheeseProvider(), BlockCheese.class);
 		r.registerBodyProvider(new WailaBlockCheeseMoldProvider(), BlockCheeseMold.class);
-
+		r.registerBodyProvider(new WailaBlockNestProvider(), BlockNest.class);
 
 		// COWS
 		regEntityInfoBull(r, EntityBullBase.class);
