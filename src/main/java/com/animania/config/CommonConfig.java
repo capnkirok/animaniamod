@@ -406,6 +406,9 @@ public class CommonConfig
 	
 		@Comment("Food Items that sheep can eat")
 		public String[] sheepFood = { "minecraft:wheat", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem"};
+		
+		@Comment("Food Items that rabbits can eat")
+		public String[] rabbitFood = { "minecraft:wheat", "minecraft:carrot", "minecraft:beetroot", "minecraft:apple"};
 	}
 
 	public static class Drops
