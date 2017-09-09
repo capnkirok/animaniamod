@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.client.render.tileEntity.TileEntityNestRenderer;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
@@ -16,6 +17,7 @@ import com.animania.common.entities.sheep.ai.EntityAIFindWater;
 import com.animania.common.entities.sheep.ai.EntityAIMateSheep;
 import com.animania.common.entities.sheep.ai.EntityAISheepEatGrass;
 import com.animania.common.entities.sheep.ai.EntityAISwimmingSheep;
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -344,8 +346,34 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 
                 for (int j = 0; j < i; ++j)
                 {
-                    //EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, this.getFleeceColor().getMetadata()), 1.0F);
-                    EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
+                	EntityItem entityitem = null;
+                	if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian) {
+                		switch (this.getColorNumber()) {
+            			case 0:
+            				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 1), 1.0F);
+            				break;
+            			case 1:
+            				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
+            				break;
+            			case 2:
+            				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, 12), 1.0F);
+            				break;
+                		}	
+                	} else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk) {
+                    		switch (this.getColorNumber()) {
+                			case 0:
+                				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
+                				break;
+                			case 1:
+                				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 5), 1.0F);
+                				break;
+                			}	
+                    		
+                		
+                	} else {
+                		entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
+                	}
+                	
                     entityitem.motionY += (double)(this.rand.nextFloat() * 0.05F);
                     entityitem.motionX += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
                     entityitem.motionZ += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
@@ -533,9 +561,13 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 
 	@Override
 	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
-		// TODO Auto-generated method stub
-		return false;
+		if (!this.getSheared() && !this.isChild()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
+
 
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {

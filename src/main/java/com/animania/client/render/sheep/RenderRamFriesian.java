@@ -2,7 +2,7 @@ package com.animania.client.render.sheep;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.client.models.sheep.ModeFriesianSheep;
+import com.animania.client.models.sheep.ModelFriesianSheep;
 import com.animania.common.entities.sheep.EntityRamFriesian;
 
 import net.minecraft.client.renderer.entity.Render;
@@ -41,7 +41,7 @@ public class RenderRamFriesian<T extends EntityRamFriesian> extends RenderLiving
 
 
 	public RenderRamFriesian(RenderManager rm) {
-		super(rm, new ModeFriesianSheep(), 0.5F);
+		super(rm, new ModelFriesianSheep(), 0.5F);
 	}
 
 	protected void preRenderScale(EntityRamFriesian entity, float f) {

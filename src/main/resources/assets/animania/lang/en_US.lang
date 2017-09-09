@@ -390,6 +390,10 @@ entity.animania:ram_friesian.name=Friesian Ram
 entity.animania:ewe_friesian.name=Friesian Ewe
 entity.animania:lamb_friesian.name=Friesian Lamb
 
+entity.animania:ram_suffolk.name=Suffolk Ram
+entity.animania:ewe_suffolk.name=Suffolk Ewe
+entity.animania:lamb_suffolk.name=Suffolk Lamb
+
 entity.animania:buck_cottontail.name=Cottontail Buck
 entity.animania:doe_cottontail.name=Cottontail Doe
 entity.animania:kit_cottontail.name=Cottontail Kit
