@@ -127,8 +127,11 @@ import com.animania.client.render.rodents.RenderHamster;
 import com.animania.client.render.rodents.RenderHedgehog;
 import com.animania.client.render.rodents.RenderHedgehogAlbino;
 import com.animania.client.render.sheep.RenderEweFriesian;
+import com.animania.client.render.sheep.RenderEweSuffolk;
 import com.animania.client.render.sheep.RenderLambFriesian;
+import com.animania.client.render.sheep.RenderLambSuffolk;
 import com.animania.client.render.sheep.RenderRamFriesian;
+import com.animania.client.render.sheep.RenderRamSuffolk;
 import com.animania.client.render.tileEntity.TileEntityHamsterWheelRenderer;
 import com.animania.client.render.tileEntity.TileEntityNestRenderer;
 import com.animania.client.render.tileEntity.TileEntitySaltLickRenderer;
@@ -260,8 +263,11 @@ import com.animania.common.entities.rodents.rabbits.EntityRabbitKitLop;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitNewZealand;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitRex;
 import com.animania.common.entities.sheep.EntityEweFriesian;
+import com.animania.common.entities.sheep.EntityEweSuffolk;
 import com.animania.common.entities.sheep.EntityLambFriesian;
+import com.animania.common.entities.sheep.EntityLambSuffolk;
 import com.animania.common.entities.sheep.EntityRamFriesian;
+import com.animania.common.entities.sheep.EntityRamSuffolk;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntitySaltLick;
@@ -329,6 +335,10 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityRamFriesian.class, RenderRamFriesian.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityEweFriesian.class, RenderEweFriesian.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityLambFriesian.class, RenderLambFriesian.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRamSuffolk.class, RenderRamSuffolk.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityEweSuffolk.class, RenderEweSuffolk.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityLambSuffolk.class, RenderLambSuffolk.FACTORY);
 
 		//Goats
 		RenderingRegistry.registerEntityRenderingHandler(EntityKidAlpine.class, RenderKidAlpine.FACTORY);

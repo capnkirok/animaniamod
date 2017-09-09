@@ -301,6 +301,10 @@ public class ItemHandler
 	public static Item entityeggramfriesian;
 	public static Item entityeggewefriesian;
 	public static Item entityegglambfriesian;
+	
+	public static Item entityeggramsuffolk;
+	public static Item entityeggewesuffolk;
+	public static Item entityegglambsuffolk;
 
 	// Eggs - Rabbits
 	public static Item entityeggbuckcottontail;
@@ -643,6 +647,10 @@ public class ItemHandler
 		ItemHandler.entityeggramfriesian = new ItemEntityEgg("ram_friesian", SheepType.FRIESIAN, EntityGender.MALE);
 		ItemHandler.entityeggewefriesian = new ItemEntityEgg("ewe_friesian", SheepType.FRIESIAN, EntityGender.FEMALE);
 		ItemHandler.entityegglambfriesian = new ItemEntityEgg("lamb_friesian", SheepType.FRIESIAN, EntityGender.CHILD);
+		
+		ItemHandler.entityeggramsuffolk = new ItemEntityEgg("ram_suffolk", SheepType.SUFFOLK, EntityGender.MALE);
+		ItemHandler.entityeggewesuffolk = new ItemEntityEgg("ewe_suffolk", SheepType.SUFFOLK, EntityGender.FEMALE);
+		ItemHandler.entityegglambsuffolk = new ItemEntityEgg("lamb_suffolk", SheepType.SUFFOLK, EntityGender.CHILD);
 
 		// RABBITS
 		ItemHandler.entityeggbuckcottontail = new ItemEntityEgg("buck_cottontail", RabbitType.COTTONTAIL, EntityGender.MALE);

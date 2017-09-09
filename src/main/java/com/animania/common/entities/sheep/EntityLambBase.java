@@ -220,7 +220,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 				age = age + .01F;
 				this.setEntityAge(age);
 
-				if (age >= .8 && !this.world.isRemote)
+				if (age >= .52 && !this.world.isRemote)
 				{
 					this.setDead();
 
@@ -234,7 +234,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 							if (name != "")
 								entitySheep.setCustomNameTag(name);
 							this.world.spawnEntity(entitySheep);
-							this.playSound(ModSoundEvents.pig1, 0.50F, 1.1F);
+							this.playSound(ModSoundEvents.pig1, 0.50F, 1.1F); //TODO Sounds
 						}
 					}
 					else
