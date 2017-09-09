@@ -30,6 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class EntityAIFindWater extends EntityAIBase
 {
@@ -89,10 +90,11 @@ public class EntityAIFindWater extends EntityAIBase
 
 				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(currentpos);
 
-				if (te != null && (te.getTroughType() == 3 || te.getTroughType() == 2 || te.getTroughType() == 1)) {
+				if (te != null && (te.canConsume(null, FluidRegistry.WATER))) {
 					if (this.temptedEntity instanceof EntityAnimaniaChicken) {
 						EntityAnimaniaChicken entity = (EntityAnimaniaChicken) this.temptedEntity;
 						entity.setWatered(true);
+						te.consumeLiquid(50);
 					}
 
 					return false;
@@ -134,7 +136,7 @@ public class EntityAIFindWater extends EntityAIBase
 						}
 						else if (blockchk == BlockHandler.blockTrough) {
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
-							if (te != null && (te.getTroughType() == 1 || te.getTroughType() == 2 || te.getTroughType() == 3)) {
+							if (te != null && (te.canConsume(null, FluidRegistry.WATER))) {
 								waterFound = true;
 
 								if (rand.nextInt(20) == 0) {
@@ -211,7 +213,7 @@ public class EntityAIFindWater extends EntityAIBase
 
 						if (blockchk == BlockHandler.blockTrough) {
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
-							if (te != null && (te.getTroughType() == 1 || te.getTroughType() == 2 || te.getTroughType() == 3)) {
+							if (te != null && (te.canConsume(null, FluidRegistry.WATER))) {
 								waterFound = true;
 								newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 

@@ -183,7 +183,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 
 		TileEntityTrough teChk = (TileEntityTrough) worldIn.getTileEntity(pos);
 
-		if (teChk == null || teChk.getTroughType() == 0.0F)
+		if (teChk == null || true)
 		{
 
 			EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3).getOpposite();

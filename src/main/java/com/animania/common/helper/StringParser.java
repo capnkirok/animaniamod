@@ -23,8 +23,8 @@ public class StringParser
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
-		if (string.contains(";"))
-			string = string.replace(string.substring(string.indexOf(";")), "");
+		if (string.contains("#"))
+			string = string.replace(string.substring(string.indexOf("#")), "");
 
 		Block block = Block.getBlockFromName(string);
 		if (block == null)
@@ -39,12 +39,12 @@ public class StringParser
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
-		if (string.contains(";"))
+		if (string.contains("#"))
 		{
 			int meta = 0;
 			try
 			{
-				meta = Integer.parseInt(string.substring(string.indexOf(";")).replace(";", ""));
+				meta = Integer.parseInt(string.substring(string.indexOf("#")).replace("#", ""));
 			}
 			catch (Exception e)
 			{
@@ -88,8 +88,8 @@ public class StringParser
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
-		if (string.contains(";"))
-			string = string.replace(string.substring(string.indexOf(";")), "");
+		if (string.contains("#"))
+			string = string.replace(string.substring(string.indexOf("#")), "");
 
 		return Item.getByNameOrId(string);
 	}
