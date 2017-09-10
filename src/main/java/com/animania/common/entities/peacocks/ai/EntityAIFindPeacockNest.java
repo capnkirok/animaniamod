@@ -89,13 +89,14 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 					EntityPeafowlBlue entity = (EntityPeafowlBlue) temptedEntity;
 					if (te != null && (te.getNestContent() == NestContent.EMPTY || te.getNestContent() == NestContent.PEACOCK_BLUE) && !entity.getLaid())
 					{
-						if (te.insertItem(new ItemStack(ItemHandler.peacockEggBlue)))
-						{
-							entity.setLaid(true);
-							te.birdType = entity.type;
-							this.resetTask();
-							te.markDirty();
-						}
+						if (te.getNestContent() == NestContent.PEACOCK_BLUE ? entity.type == te.birdType : true)
+							if (te.insertItem(new ItemStack(ItemHandler.peacockEggBlue)))
+							{
+								entity.setLaid(true);
+								te.birdType = entity.type;
+								this.resetTask();
+								te.markDirty();
+							}
 					}
 				}
 				else if (temptedEntity instanceof EntityPeafowlBase)
@@ -103,13 +104,14 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 					EntityPeafowlBase entity = (EntityPeafowlBase) temptedEntity;
 					if (te != null && (te.getNestContent() == NestContent.EMPTY || te.getNestContent() == NestContent.PEACOCK_WHITE) && !entity.getLaid())
 					{
-						if (te.insertItem(new ItemStack(ItemHandler.peacockEggWhite)))
-						{
-							entity.setLaid(true);
-							te.birdType = entity.type;
-							this.resetTask();
-							te.markDirty();
-						}
+						if (te.getNestContent() == NestContent.PEACOCK_WHITE ? entity.type == te.birdType : true)
+							if (te.insertItem(new ItemStack(ItemHandler.peacockEggWhite)))
+							{
+								entity.setLaid(true);
+								te.birdType = entity.type;
+								this.resetTask();
+								te.markDirty();
+							}
 					}
 				}
 				return false;
@@ -139,14 +141,14 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 							NestContent nestType = te.getNestContent();
 
-							if(nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY)
+							if (nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY)
 							{
 								if (temptedEntity instanceof EntityPeafowlBlue && (nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
 								}
-								else if (temptedEntity instanceof EntityPeafowlBase && (nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY))
+								else if (temptedEntity instanceof EntityPeafowlBase && (nestType == NestContent.PEACOCK_WHITE ? ((EntityPeafowlBase) temptedEntity).type == te.birdType : nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
@@ -218,13 +220,13 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 							NestContent nestType = te.getNestContent();
 
-							if(nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY)
+							if (nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY)
 							{
 								if (temptedEntity instanceof EntityPeafowlBlue && (nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}
-								else if (temptedEntity instanceof EntityPeafowlBase && (nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY))
+								else if (temptedEntity instanceof EntityPeafowlBase && (nestType == NestContent.PEACOCK_WHITE ? ((EntityPeafowlBase) temptedEntity).type == te.birdType : nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}

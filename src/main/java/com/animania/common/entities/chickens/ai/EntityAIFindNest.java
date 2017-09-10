@@ -87,13 +87,14 @@ public class EntityAIFindNest extends EntityAIBase
 					EntityHenBase entity = (EntityHenBase) temptedEntity;
 					if (te != null && (te.getNestContent() == NestContent.EMPTY || te.getNestContent() == NestContent.CHICKEN_WHITE) && !entity.getLaid())
 					{
-						if (te.insertItem(new ItemStack(Items.EGG)))
-						{
-							entity.setLaid(true);
-							te.birdType = entity.type;
-							this.resetTask();
-							te.markDirty();
-						}
+						if (te.getNestContent() == NestContent.CHICKEN_WHITE ? entity.type == te.birdType : true)
+							if (te.insertItem(new ItemStack(Items.EGG)))
+							{
+								entity.setLaid(true);
+								te.birdType = entity.type;
+								this.resetTask();
+								te.markDirty();
+							}
 					}
 				}
 				else if (temptedEntity instanceof EntityHenRhodeIslandRed || temptedEntity instanceof EntityHenWyandotte)
@@ -101,13 +102,14 @@ public class EntityAIFindNest extends EntityAIBase
 					EntityHenBase hen = (EntityHenBase) temptedEntity;
 					if (te != null && (te.getNestContent() == NestContent.EMPTY || te.getNestContent() == NestContent.CHICKEN_BROWN) && !hen.getLaid())
 					{
-						if (te.insertItem(new ItemStack(ItemHandler.brownEgg)))
-						{
-							hen.setLaid(true);
-							te.birdType = hen.type;
-							this.resetTask();
-							te.markDirty();
-						}
+						if (te.getNestContent() == NestContent.CHICKEN_BROWN ? hen.type == te.birdType : true)
+							if (te.insertItem(new ItemStack(ItemHandler.brownEgg)))
+							{
+								hen.setLaid(true);
+								te.birdType = hen.type;
+								this.resetTask();
+								te.markDirty();
+							}
 					}
 				}
 
@@ -138,29 +140,29 @@ public class EntityAIFindNest extends EntityAIBase
 							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 							NestContent nestType = te.getNestContent();
 
-							if(nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY)
+							if (nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY)
 							{
-								if (temptedEntity instanceof EntityHenLeghorn && (nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY))
+								if (temptedEntity instanceof EntityHenLeghorn && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
 								}
-								else if (temptedEntity instanceof EntityHenOrpington && (nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY))
+								else if (temptedEntity instanceof EntityHenOrpington && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
 								}
-								else if (temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY))
+								else if (temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
 								}
-								else if (temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.EMPTY))
+								else if (temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
 								}
-								else if (temptedEntity instanceof EntityHenWyandotte && (nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.EMPTY))
+								else if (temptedEntity instanceof EntityHenWyandotte && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 									return true;
@@ -234,25 +236,25 @@ public class EntityAIFindNest extends EntityAIBase
 							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 							NestContent nestType = te.getNestContent();
 
-							if(nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY)
+							if (nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY)
 							{
-								if (temptedEntity instanceof EntityHenLeghorn && (nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY))
+								if (temptedEntity instanceof EntityHenLeghorn && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}
-								else if (temptedEntity instanceof EntityHenOrpington && (nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY))
+								else if (temptedEntity instanceof EntityHenOrpington && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}
-								else if (temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE || nestType == NestContent.EMPTY))
+								else if (temptedEntity instanceof EntityHenPlymouthRock && (nestType == NestContent.CHICKEN_WHITE ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}
-								else if (temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.EMPTY))
+								else if (temptedEntity instanceof EntityHenRhodeIslandRed && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}
-								else if (temptedEntity instanceof EntityHenWyandotte && (nestType == NestContent.CHICKEN_BROWN || nestType == NestContent.EMPTY))
+								else if (temptedEntity instanceof EntityHenWyandotte && (nestType == NestContent.CHICKEN_BROWN ? ((EntityHenBase)temptedEntity).type == te.birdType: nestType == NestContent.EMPTY))
 								{
 									nestFound = true;
 								}
