@@ -305,6 +305,22 @@ public class ItemHandler
 	public static Item entityeggramsuffolk;
 	public static Item entityeggewesuffolk;
 	public static Item entityegglambsuffolk;
+	
+	public static Item entityeggramdorper;
+	public static Item entityeggewedorper;
+	public static Item entityegglambdorper;
+	
+	public static Item entityeggramdorset;
+	public static Item entityeggewedorset;
+	public static Item entityegglambdorset;
+	
+	public static Item entityeggramjacob;
+	public static Item entityeggewejacob;
+	public static Item entityegglambjacob;
+	
+	public static Item entityeggrammerino;
+	public static Item entityeggewemerino;
+	public static Item entityegglambmerino;
 
 	// Eggs - Rabbits
 	public static Item entityeggbuckcottontail;
@@ -654,6 +670,22 @@ public class ItemHandler
 		ItemHandler.entityeggramsuffolk = new ItemEntityEgg("ram_suffolk", SheepType.SUFFOLK, EntityGender.MALE);
 		ItemHandler.entityeggewesuffolk = new ItemEntityEgg("ewe_suffolk", SheepType.SUFFOLK, EntityGender.FEMALE);
 		ItemHandler.entityegglambsuffolk = new ItemEntityEgg("lamb_suffolk", SheepType.SUFFOLK, EntityGender.CHILD);
+		
+		ItemHandler.entityeggramdorper = new ItemEntityEgg("ram_dorper", SheepType.DORPER, EntityGender.MALE);
+		ItemHandler.entityeggewedorper = new ItemEntityEgg("ewe_dorper", SheepType.DORPER, EntityGender.FEMALE);
+		ItemHandler.entityegglambdorper = new ItemEntityEgg("lamb_dorper", SheepType.DORPER, EntityGender.CHILD);
+		
+		ItemHandler.entityeggramdorset = new ItemEntityEgg("ram_dorset", SheepType.DORSET, EntityGender.MALE);
+		ItemHandler.entityeggewedorset = new ItemEntityEgg("ewe_dorset", SheepType.DORSET, EntityGender.FEMALE);
+		ItemHandler.entityegglambdorset = new ItemEntityEgg("lamb_dorset", SheepType.DORSET, EntityGender.CHILD);
+		
+		ItemHandler.entityeggramjacob = new ItemEntityEgg("ram_jacob", SheepType.JACOB, EntityGender.MALE);
+		ItemHandler.entityeggewejacob = new ItemEntityEgg("ewe_jacob", SheepType.JACOB, EntityGender.FEMALE);
+		ItemHandler.entityegglambjacob = new ItemEntityEgg("lamb_jacob", SheepType.JACOB, EntityGender.CHILD);
+		
+		ItemHandler.entityeggrammerino = new ItemEntityEgg("ram_merino", SheepType.MERINO, EntityGender.MALE);
+		ItemHandler.entityeggewemerino = new ItemEntityEgg("ewe_merino", SheepType.MERINO, EntityGender.FEMALE);
+		ItemHandler.entityegglambmerino = new ItemEntityEgg("lamb_merino", SheepType.MERINO, EntityGender.CHILD);
 
 		// RABBITS
 		ItemHandler.entityeggbuckcottontail = new ItemEntityEgg("buck_cottontail", RabbitType.COTTONTAIL, EntityGender.MALE);

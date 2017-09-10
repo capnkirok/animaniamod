@@ -153,7 +153,7 @@ public class EntityAIMateCows extends EntityAIBase
 						entity.setFertile(false);
 						delayCounter = 0;
 						return (EntityAnimal) entity;
-					} else if (entity.getMateUniqueId() == null) {
+					} else if (entity.getMateUniqueId() == null && !entity.getPregnant() && entity.getFertile()) {
 						k = entities.size();
 						this.theAnimal.setInLove(null);
 						this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());
