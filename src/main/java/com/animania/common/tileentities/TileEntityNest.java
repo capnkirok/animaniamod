@@ -136,6 +136,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 		{
 			this.nestContent = NestContent.EMPTY;
 			this.birdType = null;
+			this.markDirty();
 		}
 	}
 
