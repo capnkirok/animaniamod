@@ -458,5 +458,11 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
 		return 0;
 	}
 
+	@Override
+	public EntityGender getEntityGender()
+	{
+		return this.gender;
+	}
+
 
 }

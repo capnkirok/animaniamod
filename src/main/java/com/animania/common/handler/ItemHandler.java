@@ -451,8 +451,8 @@ public class ItemHandler
 		ItemHandler.rawPrimeChicken = new ItemAnimaniaFoodRaw("raw_prime_chicken", !AnimaniaConfig.drops.oldMeatDrops);
 		ItemHandler.cookedPrimeChicken = new ItemAnimaniaFood(12, 12f, "cooked_prime_chicken", !AnimaniaConfig.drops.oldMeatDrops, new PotionEffect(MobEffects.HASTE, 3000, 0, false, false));
 		ItemHandler.brownEgg = new ItemBrownEgg();
-		ItemHandler.peacockEggBlue = new AnimaniaItem("peacock_egg_blue");
-		ItemHandler.peacockEggWhite = new AnimaniaItem("peacock_egg_white");
+		ItemHandler.peacockEggBlue = new AnimaniaItem("peacock_egg_blue").setMaxStackSize(16);
+		ItemHandler.peacockEggWhite = new AnimaniaItem("peacock_egg_white").setMaxStackSize(16);
 		ItemHandler.rawLargeBlackBacon = new ItemAnimaniaFoodRaw("raw_large_black_bacon", AnimaniaConfig.drops.oldMeatDrops);
 		ItemHandler.rawDurocBacon = new ItemAnimaniaFoodRaw("raw_duroc_bacon", AnimaniaConfig.drops.oldMeatDrops);
 		ItemHandler.rawOldSpotBacon = new ItemAnimaniaFoodRaw("raw_old_spot_bacon", AnimaniaConfig.drops.oldMeatDrops);

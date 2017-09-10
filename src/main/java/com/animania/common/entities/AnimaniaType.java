@@ -17,7 +17,7 @@ public interface AnimaniaType
 	public EntityLivingBase getFemale(World world);
 	
 	public EntityLivingBase getChild(World world);
-
+	
 	public static AnimaniaType valueOf(String type)
 	{
 		return null;

@@ -1169,5 +1169,11 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	{
 		return 14317391;
 	}
+	
+	@Override
+	public EntityGender getEntityGender()
+	{
+		return EntityGender.NONE;
+	}
 
 }

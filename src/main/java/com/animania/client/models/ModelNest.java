@@ -1,5 +1,7 @@
 package com.animania.client.models;
 
+import com.animania.common.tileentities.TileEntityNest.NestContent;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -78,11 +80,13 @@ public class ModelNest extends ModelBase
 	ModelRenderer Feather4;
 	ModelRenderer Feather5;
 
-	public ModelNest() {
+	public ModelNest()
+	{
 		this(0.0f);
 	}
 
-	public ModelNest(float par1) {
+	public ModelNest(float par1)
+	{
 		this.Nest1 = new ModelRenderer(this, 0, 0);
 		this.Nest1.setTextureSize(128, 64);
 		this.Nest1.addBox(-3F, -2F, -8F, 6, 4, 3);
@@ -140,29 +144,28 @@ public class ModelNest extends ModelBase
 		this.Fluff5.addBox(-8F, 0F, -8F, 16, 0, 16);
 		this.Fluff5.setRotationPoint(0F, 19.65F, 0F);
 
-		this.Feather1 = new ModelRenderer( this, 62, 0 );
-		this.Feather1.setTextureSize( 128, 64 );
-		this.Feather1.addBox( -6.5F, .0F, -20F, 13, 0, 40);
-		this.Feather1.setRotationPoint( 3F, 60F, 2F );
-		this.Feather2 = new ModelRenderer( this, 62, 0 );
-		this.Feather2.setTextureSize( 128, 64 );
-		this.Feather2.addBox( -6.6F, 0F, -20F, 13, 0, 40);
-		this.Feather2.setRotationPoint( 2F, 60F, -2F );
-		this.Feather3 = new ModelRenderer( this, 62, 0 );
-		this.Feather3.setTextureSize( 128, 64 );
-		this.Feather3.addBox( -6.4F, .0F, -20F, 13, 0, 40);
-		this.Feather3.setRotationPoint( -4F, 60.75F, 0F );
-       
-		this.Feather4 = new ModelRenderer( this, 62, 0 );
-		this.Feather4.setTextureSize( 128, 64 );
-		this.Feather4.addBox( -6.5F, .01F, -20F, 13, 0, 40);
-		this.Feather4.setRotationPoint( -1F, 60F, -4F );
-        
-		this.Feather5 = new ModelRenderer( this, 62, 0 );
-		this.Feather5.setTextureSize( 128, 64 );
-		this.Feather5.addBox( -6.5F, .01F, -20F, 13, 0, 40);
-		this.Feather5.setRotationPoint( -1F, 60F, 4F );
+		this.Feather1 = new ModelRenderer(this, 62, 0);
+		this.Feather1.setTextureSize(128, 64);
+		this.Feather1.addBox(-6.5F, .0F, -20F, 13, 0, 40);
+		this.Feather1.setRotationPoint(3F, 60F, 2F);
+		this.Feather2 = new ModelRenderer(this, 62, 0);
+		this.Feather2.setTextureSize(128, 64);
+		this.Feather2.addBox(-6.6F, 0F, -20F, 13, 0, 40);
+		this.Feather2.setRotationPoint(2F, 60F, -2F);
+		this.Feather3 = new ModelRenderer(this, 62, 0);
+		this.Feather3.setTextureSize(128, 64);
+		this.Feather3.addBox(-6.4F, .0F, -20F, 13, 0, 40);
+		this.Feather3.setRotationPoint(-4F, 60.75F, 0F);
 
+		this.Feather4 = new ModelRenderer(this, 62, 0);
+		this.Feather4.setTextureSize(128, 64);
+		this.Feather4.addBox(-6.5F, .01F, -20F, 13, 0, 40);
+		this.Feather4.setRotationPoint(-1F, 60F, -4F);
+
+		this.Feather5 = new ModelRenderer(this, 62, 0);
+		this.Feather5.setTextureSize(128, 64);
+		this.Feather5.addBox(-6.5F, .01F, -20F, 13, 0, 40);
+		this.Feather5.setRotationPoint(-1F, 60F, 4F);
 
 		this.Egg1 = new ModelRenderer(this, 68, 2);
 		this.Egg1.setTextureSize(128, 64);
@@ -262,108 +265,109 @@ public class ModelNest extends ModelBase
 		this.BEgg3c.addBox(-1F, -0.5F, -1F, 2, 1, 2);
 		this.BEgg3c.setRotationPoint(1.039286F, 21.43386F, 1.3255F);
 
-		this.BlEgg1 = new ModelRenderer( this, 68, 32 );
-		this.BlEgg1.setTextureSize( 128, 64 );
-		this.BlEgg1.addBox( -1.5F, -1.5F, -1.5F, 3, 3, 3);
-		this.BlEgg1.setRotationPoint( -2.5F, 20.5F, 1F );
-		this.BlEgg1a = new ModelRenderer( this, 71, 34 );
-		this.BlEgg1a.setTextureSize( 128, 64 );
-		this.BlEgg1a.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.BlEgg1a.setRotationPoint( -2.768189F, 18.83211F, 1.45686F );
-		this.BlEgg1b = new ModelRenderer( this, 72, 33 );
-		this.BlEgg1b.setTextureSize( 128, 64 );
-		this.BlEgg1b.addBox( -0.5F, -0.5F, -0.5F, 1, 1, 1);
-		this.BlEgg1b.setRotationPoint( -2.845569F, 18.35441F, 1.582717F );
-		this.BlEgg1c = new ModelRenderer( this, 71, 36 );
-		this.BlEgg1c.setTextureSize( 128, 64 );
-		this.BlEgg1c.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.BlEgg1c.setRotationPoint( -2.270879F, 21.92846F, 0.6037322F );
-		this.BlEgg2 = new ModelRenderer( this, 73, 34 );
-		this.BlEgg2.setTextureSize( 128, 64 );
-		this.BlEgg2.addBox( -1.5F, -1.5F, -1.5F, 3, 3, 3);
-		this.BlEgg2.setRotationPoint( 0F, 20.5F, -2.25F );
-		this.BlEgg2a = new ModelRenderer( this, 73, 33 );
-		this.BlEgg2a.setTextureSize( 128, 64 );
-		this.BlEgg2a.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.BlEgg2a.setRotationPoint( -1.557231F, 19.99435F, -2.867943F );
-		this.BlEgg2b = new ModelRenderer( this, 75, 36 );
-		this.BlEgg2b.setTextureSize( 128, 64 );
-		this.BlEgg2b.addBox( -0.5F, -0.5F, -0.5F, 1, 1, 1);
-		this.BlEgg2b.setRotationPoint( -2.000357F, 19.84989F, -3.049029F );
-		this.BlEgg2c = new ModelRenderer( this, 78, 32 );
-		this.BlEgg2c.setTextureSize( 128, 64 );
-		this.BlEgg2c.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.BlEgg2c.setRotationPoint( 1.336568F, 20.93341F, -1.724865F );
-		this.BlEgg3 = new ModelRenderer( this, 76, 33 );
-		this.BlEgg3.setTextureSize( 128, 64 );
-		this.BlEgg3.addBox( -1.5F, -1.5F, -1.5F, 3, 3, 3);
-		this.BlEgg3.setRotationPoint( 2F, 20.5F, 2F );
-		this.BlEgg3a = new ModelRenderer( this, 77, 36 );
-		this.BlEgg3a.setTextureSize( 128, 64 );
-		this.BlEgg3a.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.BlEgg3a.setRotationPoint( 3.119674F, 19.40652F, 2.783019F );
-		this.BlEgg3b = new ModelRenderer( this, 78, 34 );
-		this.BlEgg3b.setTextureSize( 128, 64 );
-		this.BlEgg3b.addBox( -0.5F, -0.5F, -0.5F, 1, 1, 1);
-		this.BlEgg3b.setRotationPoint( 3.438589F, 19.09068F, 3.003399F );
-		this.BlEgg3c = new ModelRenderer( this, 75, 32 );
-		this.BlEgg3c.setTextureSize( 128, 64 );
-		this.BlEgg3c.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.BlEgg3c.setRotationPoint( 1.039286F, 21.43386F, 1.3255F );
+		this.BlEgg1 = new ModelRenderer(this, 68, 32);
+		this.BlEgg1.setTextureSize(128, 64);
+		this.BlEgg1.addBox(-1.5F, -1.5F, -1.5F, 3, 3, 3);
+		this.BlEgg1.setRotationPoint(-2.5F, 20.5F, 1F);
+		this.BlEgg1a = new ModelRenderer(this, 71, 34);
+		this.BlEgg1a.setTextureSize(128, 64);
+		this.BlEgg1a.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.BlEgg1a.setRotationPoint(-2.768189F, 18.83211F, 1.45686F);
+		this.BlEgg1b = new ModelRenderer(this, 72, 33);
+		this.BlEgg1b.setTextureSize(128, 64);
+		this.BlEgg1b.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.BlEgg1b.setRotationPoint(-2.845569F, 18.35441F, 1.582717F);
+		this.BlEgg1c = new ModelRenderer(this, 71, 36);
+		this.BlEgg1c.setTextureSize(128, 64);
+		this.BlEgg1c.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.BlEgg1c.setRotationPoint(-2.270879F, 21.92846F, 0.6037322F);
+		this.BlEgg2 = new ModelRenderer(this, 73, 34);
+		this.BlEgg2.setTextureSize(128, 64);
+		this.BlEgg2.addBox(-1.5F, -1.5F, -1.5F, 3, 3, 3);
+		this.BlEgg2.setRotationPoint(0F, 20.5F, -2.25F);
+		this.BlEgg2a = new ModelRenderer(this, 73, 33);
+		this.BlEgg2a.setTextureSize(128, 64);
+		this.BlEgg2a.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.BlEgg2a.setRotationPoint(-1.557231F, 19.99435F, -2.867943F);
+		this.BlEgg2b = new ModelRenderer(this, 75, 36);
+		this.BlEgg2b.setTextureSize(128, 64);
+		this.BlEgg2b.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.BlEgg2b.setRotationPoint(-2.000357F, 19.84989F, -3.049029F);
+		this.BlEgg2c = new ModelRenderer(this, 78, 32);
+		this.BlEgg2c.setTextureSize(128, 64);
+		this.BlEgg2c.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.BlEgg2c.setRotationPoint(1.336568F, 20.93341F, -1.724865F);
+		this.BlEgg3 = new ModelRenderer(this, 76, 33);
+		this.BlEgg3.setTextureSize(128, 64);
+		this.BlEgg3.addBox(-1.5F, -1.5F, -1.5F, 3, 3, 3);
+		this.BlEgg3.setRotationPoint(2F, 20.5F, 2F);
+		this.BlEgg3a = new ModelRenderer(this, 77, 36);
+		this.BlEgg3a.setTextureSize(128, 64);
+		this.BlEgg3a.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.BlEgg3a.setRotationPoint(3.119674F, 19.40652F, 2.783019F);
+		this.BlEgg3b = new ModelRenderer(this, 78, 34);
+		this.BlEgg3b.setTextureSize(128, 64);
+		this.BlEgg3b.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.BlEgg3b.setRotationPoint(3.438589F, 19.09068F, 3.003399F);
+		this.BlEgg3c = new ModelRenderer(this, 75, 32);
+		this.BlEgg3c.setTextureSize(128, 64);
+		this.BlEgg3c.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.BlEgg3c.setRotationPoint(1.039286F, 21.43386F, 1.3255F);
 
-		this.WEgg1 = new ModelRenderer( this, 68, 42 );
-		this.WEgg1.setTextureSize( 128, 64 );
-		this.WEgg1.addBox( -1.5F, -1.5F, -1.5F, 3, 3, 3);
-		this.WEgg1.setRotationPoint( -2.5F, 20.5F, 1F );
-		this.WEgg1a = new ModelRenderer( this, 71, 44 );
-		this.WEgg1a.setTextureSize( 128, 64 );
-		this.WEgg1a.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.WEgg1a.setRotationPoint( -2.768189F, 18.83211F, 1.45686F );
-		this.WEgg1b = new ModelRenderer( this, 72, 43 );
-		this.WEgg1b.setTextureSize( 128, 64 );
-		this.WEgg1b.addBox( -0.5F, -0.5F, -0.5F, 1, 1, 1);
-		this.WEgg1b.setRotationPoint( -2.845569F, 18.35441F, 1.582717F );
-		this.WEgg1c = new ModelRenderer( this, 71, 46 );
-		this.WEgg1c.setTextureSize( 128, 64 );
-		this.WEgg1c.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.WEgg1c.setRotationPoint( -2.270879F, 21.92846F, 0.6037322F );
-		this.WEgg2 = new ModelRenderer( this, 73, 44 );
-		this.WEgg2.setTextureSize( 128, 64 );
-		this.WEgg2.addBox( -1.5F, -1.5F, -1.5F, 3, 3, 3);
-		this.WEgg2.setRotationPoint( 0F, 20.5F, -2.25F );
-		this.WEgg2a = new ModelRenderer( this, 73, 43 );
-		this.WEgg2a.setTextureSize( 128, 64 );
-		this.WEgg2a.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.WEgg2a.setRotationPoint( -1.557231F, 19.99435F, -2.867943F );
-		this.WEgg2b = new ModelRenderer( this, 75, 46 );
-		this.WEgg2b.setTextureSize( 128, 64 );
-		this.WEgg2b.addBox( -0.5F, -0.5F, -0.5F, 1, 1, 1);
-		this.WEgg2b.setRotationPoint( -2.000357F, 19.84989F, -3.049029F );
-		this.WEgg2c = new ModelRenderer( this, 78, 42 );
-		this.WEgg2c.setTextureSize( 128, 64 );
-		this.WEgg2c.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.WEgg2c.setRotationPoint( 1.336568F, 20.93341F, -1.724865F );
-		this.WEgg3 = new ModelRenderer( this, 76, 43 );
-		this.WEgg3.setTextureSize( 128, 64 );
-		this.WEgg3.addBox( -1.5F, -1.5F, -1.5F, 3, 3, 3);
-		this.WEgg3.setRotationPoint( 2F, 20.5F, 2F );
-		this.WEgg3a = new ModelRenderer( this, 77, 46 );
-		this.WEgg3a.setTextureSize( 128, 64 );
-		this.WEgg3a.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.WEgg3a.setRotationPoint( 3.119674F, 19.40652F, 2.783019F );
-		this.WEgg3b = new ModelRenderer( this, 78, 44 );
-		this.WEgg3b.setTextureSize( 128, 64 );
-		this.WEgg3b.addBox( -0.5F, -0.5F, -0.5F, 1, 1, 1);
-		this.WEgg3b.setRotationPoint( 3.438589F, 19.09068F, 3.003399F );
-		this.WEgg3c = new ModelRenderer( this, 75, 42 );
-		this.WEgg3c.setTextureSize( 128, 64 );
-		this.WEgg3c.addBox( -1F, -0.5F, -1F, 2, 1, 2);
-		this.WEgg3c.setRotationPoint( 1.039286F, 21.43386F, 1.3255F );
+		this.WEgg1 = new ModelRenderer(this, 68, 42);
+		this.WEgg1.setTextureSize(128, 64);
+		this.WEgg1.addBox(-1.5F, -1.5F, -1.5F, 3, 3, 3);
+		this.WEgg1.setRotationPoint(-2.5F, 20.5F, 1F);
+		this.WEgg1a = new ModelRenderer(this, 71, 44);
+		this.WEgg1a.setTextureSize(128, 64);
+		this.WEgg1a.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.WEgg1a.setRotationPoint(-2.768189F, 18.83211F, 1.45686F);
+		this.WEgg1b = new ModelRenderer(this, 72, 43);
+		this.WEgg1b.setTextureSize(128, 64);
+		this.WEgg1b.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.WEgg1b.setRotationPoint(-2.845569F, 18.35441F, 1.582717F);
+		this.WEgg1c = new ModelRenderer(this, 71, 46);
+		this.WEgg1c.setTextureSize(128, 64);
+		this.WEgg1c.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.WEgg1c.setRotationPoint(-2.270879F, 21.92846F, 0.6037322F);
+		this.WEgg2 = new ModelRenderer(this, 73, 44);
+		this.WEgg2.setTextureSize(128, 64);
+		this.WEgg2.addBox(-1.5F, -1.5F, -1.5F, 3, 3, 3);
+		this.WEgg2.setRotationPoint(0F, 20.5F, -2.25F);
+		this.WEgg2a = new ModelRenderer(this, 73, 43);
+		this.WEgg2a.setTextureSize(128, 64);
+		this.WEgg2a.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.WEgg2a.setRotationPoint(-1.557231F, 19.99435F, -2.867943F);
+		this.WEgg2b = new ModelRenderer(this, 75, 46);
+		this.WEgg2b.setTextureSize(128, 64);
+		this.WEgg2b.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.WEgg2b.setRotationPoint(-2.000357F, 19.84989F, -3.049029F);
+		this.WEgg2c = new ModelRenderer(this, 78, 42);
+		this.WEgg2c.setTextureSize(128, 64);
+		this.WEgg2c.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.WEgg2c.setRotationPoint(1.336568F, 20.93341F, -1.724865F);
+		this.WEgg3 = new ModelRenderer(this, 76, 43);
+		this.WEgg3.setTextureSize(128, 64);
+		this.WEgg3.addBox(-1.5F, -1.5F, -1.5F, 3, 3, 3);
+		this.WEgg3.setRotationPoint(2F, 20.5F, 2F);
+		this.WEgg3a = new ModelRenderer(this, 77, 46);
+		this.WEgg3a.setTextureSize(128, 64);
+		this.WEgg3a.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.WEgg3a.setRotationPoint(3.119674F, 19.40652F, 2.783019F);
+		this.WEgg3b = new ModelRenderer(this, 78, 44);
+		this.WEgg3b.setTextureSize(128, 64);
+		this.WEgg3b.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
+		this.WEgg3b.setRotationPoint(3.438589F, 19.09068F, 3.003399F);
+		this.WEgg3c = new ModelRenderer(this, 75, 42);
+		this.WEgg3c.setTextureSize(128, 64);
+		this.WEgg3c.addBox(-1F, -0.5F, -1F, 2, 1, 2);
+		this.WEgg3c.setRotationPoint(1.039286F, 21.43386F, 1.3255F);
 
 	}
 
 	@Override
-	public void render(Entity entityIn, float nestType, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(Entity entityIn, float nestType, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+	{
 
 		this.Nest1.render(scale);
 		this.Fluff3.render(scale);
@@ -380,161 +384,106 @@ public class ModelNest extends ModelBase
 		this.Fluff4.render(scale);
 		this.Fluff5.render(scale);
 
-		if (nestType == 1.0F || nestType == 4.0F || nestType == 7.0F) {
-
-			this.Egg1.render(scale);
-			this.Egg1a.render(scale);
-			this.Egg1b.render(scale);
-			this.Egg1c.render(scale);
-
-		}
-		else if (nestType == 2.0F || nestType == 5.0F || nestType == 8.0F) {
-
-			this.Egg1.render(scale);
-			this.Egg1a.render(scale);
-			this.Egg1b.render(scale);
-			this.Egg1c.render(scale);
-			this.Egg2.render(scale);
-			this.Egg2a.render(scale);
-			this.Egg2b.render(scale);
-			this.Egg2c.render(scale);
-
-		}
-		else if (nestType == 3.0F || nestType == 6.0F || nestType == 9.0F) {
-			this.Egg1.render(scale);
-			this.Egg1a.render(scale);
-			this.Egg1b.render(scale);
-			this.Egg1c.render(scale);
-			this.Egg2.render(scale);
-			this.Egg2a.render(scale);
-			this.Egg2b.render(scale);
-			this.Egg2c.render(scale);
-			this.Egg3.render(scale);
-			this.Egg3a.render(scale);
-			this.Egg3b.render(scale);
-			this.Egg3c.render(scale);
-
-		}
-		else if (nestType == 10.0F || nestType == 13.0F) {
-
-			this.BEgg1.render(scale);
-			this.BEgg1a.render(scale);
-			this.BEgg1b.render(scale);
-			this.BEgg1c.render(scale);
-
-		}
-		else if (nestType == 11.0F || nestType == 14.0F) {
-
-			this.BEgg1.render(scale);
-			this.BEgg1a.render(scale);
-			this.BEgg1b.render(scale);
-			this.BEgg1c.render(scale);
-			this.BEgg2.render(scale);
-			this.BEgg2a.render(scale);
-			this.BEgg2b.render(scale);
-			this.BEgg2c.render(scale);
-
-		}
-		else if (nestType == 12.0F || nestType == 15.0F) {
-			this.BEgg1.render(scale);
-			this.BEgg1a.render(scale);
-			this.BEgg1b.render(scale);
-			this.BEgg1c.render(scale);
-			this.BEgg2.render(scale);
-			this.BEgg2a.render(scale);
-			this.BEgg2b.render(scale);
-			this.BEgg2c.render(scale);
-			this.BEgg3.render(scale);
-			this.BEgg3a.render(scale);
-			this.BEgg3b.render(scale);
-			this.BEgg3c.render(scale);
-		} else if (nestType == 16.0) {
-
-			this.BlEgg1.render(scale);
-			this.BlEgg1a.render(scale);
-			this.BlEgg1b.render(scale);
-			this.BlEgg1c.render(scale);
-			//this.Feather1.render(scale/3);
-			
-
-		} else if (nestType == 17.0F) {
-
-			this.BlEgg1.render(scale);
-			this.BlEgg1a.render(scale);
-			this.BlEgg1b.render(scale);
-			this.BlEgg1c.render(scale);
-			this.BlEgg2.render(scale);
-			this.BlEgg2a.render(scale);
-			this.BlEgg2b.render(scale);
-			this.BlEgg2c.render(scale);
-			//this.Feather1.render(scale/3);
-			//this.Feather2.render(scale/3);
-			
-		} else if (nestType == 18.0F) {
-
-			this.BlEgg1.render(scale);
-			this.BlEgg1a.render(scale);
-			this.BlEgg1b.render(scale);
-			this.BlEgg1c.render(scale);
-			this.BlEgg2.render(scale);
-			this.BlEgg2a.render(scale);
-			this.BlEgg2b.render(scale);
-			this.BlEgg2c.render(scale);
-			this.BlEgg3.render(scale);
-			this.BlEgg3a.render(scale);
-			this.BlEgg3b.render(scale);
-			this.BlEgg3c.render(scale);
-			//this.Feather1.render(scale/3);
-			//this.Feather2.render(scale/3);
-			//this.Feather3.render(scale/3);
-
-		} else if (nestType == 19.0 || nestType == 22.0F || nestType == 25.0F || nestType == 28.0F || nestType == 31.0F || nestType == 34.0F ) {
-
-			this.WEgg1.render(scale);
-			this.WEgg1a.render(scale);
-			this.WEgg1b.render(scale);
-			this.WEgg1c.render(scale);
-			//this.Feather4.render(scale/3);
-			
-
-		} else if (nestType == 20.0F || nestType == 23.0F || nestType == 26.0F || nestType == 29.0F || nestType == 32.0F || nestType == 35.0F ) {
-
-			this.WEgg1.render(scale);
-			this.WEgg1a.render(scale);
-			this.WEgg1b.render(scale);
-			this.WEgg1c.render(scale);
-			this.WEgg2.render(scale);
-			this.WEgg2a.render(scale);
-			this.WEgg2b.render(scale);
-			this.WEgg2c.render(scale);
-			//this.Feather4.render(scale/3);
-			//this.Feather5.render(scale/3);
-
-		} else if (nestType == 21.0F || nestType == 24.0F || nestType == 27.0F || nestType == 30.0F || nestType == 33.0F || nestType == 36.0F ) {
-
-			this.WEgg1.render(scale);
-			this.WEgg1a.render(scale);
-			this.WEgg1b.render(scale);
-			this.WEgg1c.render(scale);
-			this.WEgg2.render(scale);
-			this.WEgg2a.render(scale);
-			this.WEgg2b.render(scale);
-			this.WEgg2c.render(scale);
-			this.WEgg3.render(scale);
-			this.WEgg3a.render(scale);
-			this.WEgg3b.render(scale);
-			this.WEgg3c.render(scale);
-			//this.Feather4.render(scale/3);
-			//this.Feather5.render(scale/3);
-
-		}
-
 		this.setRotationAngles(0.0F, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 	}
 
+	public void renderEggs(float scale, int count, NestContent type)
+	{
+		if (type == NestContent.CHICKEN_WHITE)
+		{
+
+			this.Egg1.render(scale);
+			this.Egg1a.render(scale);
+			this.Egg1b.render(scale);
+			this.Egg1c.render(scale);
+			if (count >= 2)
+			{
+				this.Egg2.render(scale);
+				this.Egg2a.render(scale);
+				this.Egg2b.render(scale);
+				this.Egg2c.render(scale);
+				if (count >= 3)
+				{
+					this.Egg3.render(scale);
+					this.Egg3a.render(scale);
+					this.Egg3b.render(scale);
+					this.Egg3c.render(scale);
+				}
+			}
+		}
+		else if (type == NestContent.CHICKEN_BROWN)
+		{
+
+			this.BEgg1.render(scale);
+			this.BEgg1a.render(scale);
+			this.BEgg1b.render(scale);
+			this.BEgg1c.render(scale);
+			if (count >= 2)
+			{
+				this.BEgg2.render(scale);
+				this.BEgg2a.render(scale);
+				this.BEgg2b.render(scale);
+				this.BEgg2c.render(scale);
+				if (count >= 3)
+				{
+					this.BEgg3.render(scale);
+					this.BEgg3a.render(scale);
+					this.BEgg3b.render(scale);
+					this.BEgg3c.render(scale);
+				}
+			}
+
+		}
+		else if (type == NestContent.PEACOCK_BLUE)
+		{
+
+			this.BlEgg1.render(scale);
+			this.BlEgg1a.render(scale);
+			this.BlEgg1b.render(scale);
+			this.BlEgg1c.render(scale);
+			if (count >= 2)
+			{
+				this.BlEgg2.render(scale);
+				this.BlEgg2a.render(scale);
+				this.BlEgg2b.render(scale);
+				this.BlEgg2c.render(scale);
+				if (count >= 3)
+				{
+					this.BlEgg3.render(scale);
+					this.BlEgg3a.render(scale);
+					this.BlEgg3b.render(scale);
+					this.BlEgg3c.render(scale);
+				}
+			}
+
+		}
+		else if (type == NestContent.PEACOCK_WHITE)
+		{
+
+			this.WEgg1.render(scale);
+			this.WEgg1a.render(scale);
+			this.WEgg1b.render(scale);
+			this.WEgg1c.render(scale);
+			if (count >= 2)
+			{
+				this.WEgg2.render(scale);
+				this.WEgg2a.render(scale);
+				this.WEgg2b.render(scale);
+				this.WEgg2c.render(scale);
+				if (count >= 3)
+				{
+					this.WEgg3.render(scale);
+					this.WEgg3a.render(scale);
+					this.WEgg3b.render(scale);
+					this.WEgg3c.render(scale);
+				}
+			}
+		}
+	}
+
 	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor,
-			Entity entityIn) {
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
+	{
 
 		this.Fluff3.rotateAngleY = 1.133858F;
 		this.Nest3.rotateAngleY = 1.570796F;
@@ -546,7 +495,7 @@ public class ModelNest extends ModelBase
 		this.Fluff2.rotateAngleY = 0.5906957F;
 		this.Fluff5.rotateAngleY = 0.3574434F;
 
-		//Peacock Feathers
+		// Peacock Feathers
 		this.Feather1.rotateAngleX = 0.2803867F;
 		this.Feather1.rotateAngleY = 0.5182232F;
 		this.Feather1.rotateAngleZ = 0.04484942F;
@@ -637,7 +586,7 @@ public class ModelNest extends ModelBase
 		this.BEgg3c.rotateAngleY = 0.2888342F;
 		this.BEgg3c.rotateAngleZ = 0.5073518F;
 
-		//Peacocks
+		// Peacocks
 		this.BlEgg1.rotateAngleX = -0.2400439F;
 		this.BlEgg1.rotateAngleY = 0.1601751F;
 		this.BlEgg1.rotateAngleZ = -0.1941436F;

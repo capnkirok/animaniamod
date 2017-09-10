@@ -77,7 +77,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	protected int happyTimer;
 	public int blinkTimer;
 	protected int damageTimer;
-	protected PeacockType type;
+	public PeacockType type;
 	protected Item drop = null;
 	private int featherCounter;
 	protected EntityGender gender;
@@ -556,6 +556,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public EntityGender getEntityGender()
+	{
+		return this.gender;
 	}
 
 }

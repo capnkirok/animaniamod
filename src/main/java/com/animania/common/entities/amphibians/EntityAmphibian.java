@@ -2,6 +2,7 @@ package com.animania.common.entities.amphibians;
 
 import java.util.Random;
 
+import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 
 import net.minecraft.entity.EntityAgeable;
@@ -399,5 +400,11 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 	public int getSecondaryEggColor()
 	{
 		return 0;
+	}
+
+	@Override
+	public EntityGender getEntityGender()
+	{
+		return EntityGender.NONE;
 	}
 }

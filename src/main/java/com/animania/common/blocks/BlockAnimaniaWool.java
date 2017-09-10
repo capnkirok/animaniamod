@@ -102,10 +102,11 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	{
 		DORSET_BROWN(0, MapColor.BROWN, "dorset_brown"),
 		FRIESIAN_BLACK(1, MapColor.BLACK, "friesian_black"),
-		JACOB(2, MapColor.SNOW, "jacob"),
-		MERINO_BROWN(3, MapColor.BROWN, "merino_brown"),
-		MERINO_WHITE(4, MapColor.SNOW, "merino_white"),
-		SUFFOLK_BROWN(5, MapColor.BROWN, "suffolk_brown");
+		FRIESIAN_BROWN(2, MapColor.BROWN, "friesian_brown"),
+		JACOB(3, MapColor.SNOW, "jacob"),
+		MERINO_BROWN(4, MapColor.BROWN, "merino_brown"),
+		MERINO_WHITE(5, MapColor.SNOW, "merino_white"),
+		SUFFOLK_BROWN(6, MapColor.BROWN, "suffolk_brown");
 
 		/** Array of the Block's BlockStates */
 		private static final BlockAnimaniaWool.EnumType[] META = new BlockAnimaniaWool.EnumType[values().length];
@@ -190,12 +191,14 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 		case 1:
 			return "friesian_black";
 		case 2:
-			return "jacob";
+			return "friesian_brown";
 		case 3:
-			return "merino_brown";
+			return "jacob";
 		case 4:
-			return "merino_white";
+			return "merino_brown";
 		case 5:
+			return "merino_white";
+		case 6:
 			return "suffolk_brown";
 		}
 
