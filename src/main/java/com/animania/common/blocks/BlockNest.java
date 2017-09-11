@@ -104,14 +104,14 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{
 		TileEntityNest te = (TileEntityNest) worldIn.getTileEntity(pos);
-		if(te != null && te.getNestContent() != NestContent.EMPTY)
+		if (te != null && te.getNestContent() != NestContent.EMPTY)
 		{
 			List<EntityRoosterBase> roosters = AnimaniaHelper.getEntitiesInRange(EntityRoosterBase.class, 3, worldIn, pos);
 			List<EntityPeacockBase> peacocks = AnimaniaHelper.getEntitiesInRange(EntityPeacockBase.class, 3, worldIn, pos);
 
-			if(te.getBirdType() instanceof ChickenType)
+			if (te.getBirdType() instanceof ChickenType)
 			{
-				for(EntityRoosterBase rooster : roosters)
+				for (EntityRoosterBase rooster : roosters)
 				{
 					if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
 					{
@@ -126,9 +126,9 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 					}
 				}
 			}
-			if(te.getBirdType() instanceof PeacockType)
+			if (te.getBirdType() instanceof PeacockType)
 			{
-				for(EntityPeacockBase peacock : peacocks)
+				for (EntityPeacockBase peacock : peacocks)
 				{
 					if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
 					{
@@ -145,7 +145,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 			}
 
 		}
-	
+
 	}
 
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
@@ -172,7 +172,8 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 
 		TileEntityNest te = (TileEntityNest) worldIn.getTileEntity(pos);
 
-		InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
+		if (te != null)
+			InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
 
 		super.breakBlock(worldIn, pos, state);
 	}
@@ -191,13 +192,13 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 		ItemStack heldItem = playerIn.getHeldItem(hand);
 		TileEntityNest te = (TileEntityNest) worldIn.getTileEntity(pos);
 
-		if(te != null && heldItem.isEmpty())
+		if (te != null && heldItem.isEmpty())
 		{
 			ItemStack stack = te.itemHandler.extractItem(0, 1, false);
 			AnimaniaHelper.addItem(playerIn, stack);
 			return true;
 		}
-		
+
 		return false;
 
 	}
@@ -206,7 +207,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 	{
 		return this.name;
 	}
-	
+
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
 	{
@@ -222,7 +223,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 				{
 					probeInfo.horizontal();
 					probeInfo.item(stack);
-					if(nest.birdType != null)
+					if (nest.birdType != null)
 						probeInfo.text("From: " + nest.birdType.toString().substring(0, 1).toUpperCase() + nest.birdType.toString().substring(1).toLowerCase());
 				}
 			}
