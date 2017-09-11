@@ -126,11 +126,23 @@ import com.animania.client.render.rodents.RenderFerretWhite;
 import com.animania.client.render.rodents.RenderHamster;
 import com.animania.client.render.rodents.RenderHedgehog;
 import com.animania.client.render.rodents.RenderHedgehogAlbino;
+import com.animania.client.render.sheep.RenderEweDorper;
+import com.animania.client.render.sheep.RenderEweDorset;
 import com.animania.client.render.sheep.RenderEweFriesian;
+import com.animania.client.render.sheep.RenderEweJacob;
+import com.animania.client.render.sheep.RenderEweMerino;
 import com.animania.client.render.sheep.RenderEweSuffolk;
+import com.animania.client.render.sheep.RenderLambDorper;
+import com.animania.client.render.sheep.RenderLambDorset;
 import com.animania.client.render.sheep.RenderLambFriesian;
+import com.animania.client.render.sheep.RenderLambJacob;
+import com.animania.client.render.sheep.RenderLambMerino;
 import com.animania.client.render.sheep.RenderLambSuffolk;
+import com.animania.client.render.sheep.RenderRamDorper;
+import com.animania.client.render.sheep.RenderRamDorset;
 import com.animania.client.render.sheep.RenderRamFriesian;
+import com.animania.client.render.sheep.RenderRamJacob;
+import com.animania.client.render.sheep.RenderRamMerino;
 import com.animania.client.render.sheep.RenderRamSuffolk;
 import com.animania.client.render.tileEntity.TileEntityHamsterWheelRenderer;
 import com.animania.client.render.tileEntity.TileEntityNestRenderer;
@@ -262,11 +274,23 @@ import com.animania.common.entities.rodents.rabbits.EntityRabbitKitJack;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitLop;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitNewZealand;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitRex;
+import com.animania.common.entities.sheep.EntityEweDorper;
+import com.animania.common.entities.sheep.EntityEweDorset;
 import com.animania.common.entities.sheep.EntityEweFriesian;
+import com.animania.common.entities.sheep.EntityEweJacob;
+import com.animania.common.entities.sheep.EntityEweMerino;
 import com.animania.common.entities.sheep.EntityEweSuffolk;
+import com.animania.common.entities.sheep.EntityLambDorper;
+import com.animania.common.entities.sheep.EntityLambDorset;
 import com.animania.common.entities.sheep.EntityLambFriesian;
+import com.animania.common.entities.sheep.EntityLambJacob;
+import com.animania.common.entities.sheep.EntityLambMerino;
 import com.animania.common.entities.sheep.EntityLambSuffolk;
+import com.animania.common.entities.sheep.EntityRamDorper;
+import com.animania.common.entities.sheep.EntityRamDorset;
 import com.animania.common.entities.sheep.EntityRamFriesian;
+import com.animania.common.entities.sheep.EntityRamJacob;
+import com.animania.common.entities.sheep.EntityRamMerino;
 import com.animania.common.entities.sheep.EntityRamSuffolk;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
 import com.animania.common.tileentities.TileEntityNest;
@@ -339,11 +363,23 @@ public class RenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityRamSuffolk.class, RenderRamSuffolk.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityEweSuffolk.class, RenderEweSuffolk.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityLambSuffolk.class, RenderLambSuffolk.FACTORY);
-
-		//Goats
-		RenderingRegistry.registerEntityRenderingHandler(EntityKidAlpine.class, RenderKidAlpine.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBuckAlpine.class, RenderBuckAlpine.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoeAlpine.class, RenderDoeAlpine.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRamDorper.class, RenderRamDorper.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityEweDorper.class, RenderEweDorper.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityLambDorper.class, RenderLambDorper.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRamDorset.class, RenderRamDorset.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityEweDorset.class, RenderEweDorset.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityLambDorset.class, RenderLambDorset.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRamMerino.class, RenderRamMerino.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityEweMerino.class, RenderEweMerino.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityLambMerino.class, RenderLambMerino.FACTORY);
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityRamJacob.class, RenderRamJacob.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityEweJacob.class, RenderEweJacob.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityLambJacob.class, RenderLambJacob.FACTORY);
+		
 
         // Props
         RenderingRegistry.registerEntityRenderingHandler(EntityWagon.class, RenderWagon.FACTORY);

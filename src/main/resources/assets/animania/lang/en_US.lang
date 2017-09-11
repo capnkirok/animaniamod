@@ -250,6 +250,22 @@ item.animania_entity_egg_kid_pygmy.name=Pygmy Kid
 item.animania_entity_egg_ram_friesian.name=Friesian Ram
 item.animania_entity_egg_ewe_friesian.name=Friesian Ewe
 item.animania_entity_egg_lamb_friesian.name=Friesian Lamb
+item.animania_entity_egg_ram_suffolk.name=Suffolk Ram
+item.animania_entity_egg_ewe_suffolk.name=Suffolk Ewe
+item.animania_entity_egg_lamb_suffolk.name=Suffolk Lamb
+item.animania_entity_egg_ram_dorset.name=Dorset Ram
+item.animania_entity_egg_ewe_dorset.name=Dorset Ewe
+item.animania_entity_egg_lamb_dorset.name=Dorset Lamb
+item.animania_entity_egg_ram_dorper.name=Dorper Ram
+item.animania_entity_egg_ewe_dorper.name=Dorper Ewe
+item.animania_entity_egg_lamb_dorper.name=Dorper Lamb
+item.animania_entity_egg_ram_merino.name=Merino Ram
+item.animania_entity_egg_ewe_merino.name=Merino Ewe
+item.animania_entity_egg_lamb_merino.name=Merino Lamb
+item.animania_entity_egg_ram_jacob.name=Jacob Ram
+item.animania_entity_egg_ewe_jacob.name=Jacob Ewe
+item.animania_entity_egg_lamb_jacob.name=Jacob Lamb
+
 
 item.animania_entity_egg_buck_cottontail.name=Cottontail Buck
 item.animania_entity_egg_doe_cottontail.name=Cottontail Doe
@@ -389,10 +405,22 @@ entity.animania:kid_pygmy.name=Pygmy Kid
 entity.animania:ram_friesian.name=Friesian Ram
 entity.animania:ewe_friesian.name=Friesian Ewe
 entity.animania:lamb_friesian.name=Friesian Lamb
-
 entity.animania:ram_suffolk.name=Suffolk Ram
 entity.animania:ewe_suffolk.name=Suffolk Ewe
 entity.animania:lamb_suffolk.name=Suffolk Lamb
+entity.animania:ram_dorper.name=Dorper Ram
+entity.animania:ewe_dorper.name=Dorper Ewe
+entity.animania:lamb_dorper.name=Dorper Lamb
+entity.animania:ram_dorset.name=Dorset Ram
+entity.animania:ewe_dorset.name=Dorset Ewe
+entity.animania:lamb_dorset.name=Dorset Lamb
+entity.animania:ram_merino.name=Merino Ram
+entity.animania:ewe_merino.name=Merino Ewe
+entity.animania:lamb_merino.name=Merino Lamb
+entity.animania:ram_jacob.name=Jacob Ram
+entity.animania:ewe_jacob.name=Jacob Ewe
+entity.animania:lamb_jacob.name=Jacob Lamb
+
 
 entity.animania:buck_cottontail.name=Cottontail Buck
 entity.animania:doe_cottontail.name=Cottontail Doe

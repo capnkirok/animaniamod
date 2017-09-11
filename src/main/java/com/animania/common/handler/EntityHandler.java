@@ -67,11 +67,23 @@ import com.animania.common.entities.rodents.rabbits.EntityRabbitKitJack;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitLop;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitNewZealand;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitRex;
+import com.animania.common.entities.sheep.EntityEweDorper;
+import com.animania.common.entities.sheep.EntityEweDorset;
 import com.animania.common.entities.sheep.EntityEweFriesian;
+import com.animania.common.entities.sheep.EntityEweJacob;
+import com.animania.common.entities.sheep.EntityEweMerino;
 import com.animania.common.entities.sheep.EntityEweSuffolk;
+import com.animania.common.entities.sheep.EntityLambDorper;
+import com.animania.common.entities.sheep.EntityLambDorset;
 import com.animania.common.entities.sheep.EntityLambFriesian;
+import com.animania.common.entities.sheep.EntityLambJacob;
+import com.animania.common.entities.sheep.EntityLambMerino;
 import com.animania.common.entities.sheep.EntityLambSuffolk;
+import com.animania.common.entities.sheep.EntityRamDorper;
+import com.animania.common.entities.sheep.EntityRamDorset;
 import com.animania.common.entities.sheep.EntityRamFriesian;
+import com.animania.common.entities.sheep.EntityRamJacob;
+import com.animania.common.entities.sheep.EntityRamMerino;
 import com.animania.common.entities.sheep.EntityRamSuffolk;
 import com.animania.common.helper.RegistryHelper;
 import com.animania.config.AnimaniaConfig;
@@ -174,6 +186,22 @@ public class EntityHandler
 			RegistryHelper.Entities.register(EntityLambSuffolk.class, "lamb_suffolk", entityID++, 64, 3, true);
 			RegistryHelper.Entities.register(EntityEweSuffolk.class, "ewe_suffolk", entityID++, 64, 3, true);
 			RegistryHelper.Entities.register(EntityRamSuffolk.class, "ram_suffolk", entityID++, 64, 3, true);
+			
+			RegistryHelper.Entities.register(EntityLambDorper.class, "lamb_dorper", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityEweDorper.class, "ewe_dorper", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRamDorper.class, "ram_dorper", entityID++, 64, 3, true);
+			
+			RegistryHelper.Entities.register(EntityLambDorset.class, "lamb_dorset", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityEweDorset.class, "ewe_dorset", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRamDorset.class, "ram_dorset", entityID++, 64, 3, true);
+			
+			RegistryHelper.Entities.register(EntityLambMerino.class, "lamb_merino", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityEweMerino.class, "ewe_merino", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRamMerino.class, "ram_merino", entityID++, 64, 3, true);
+			
+			RegistryHelper.Entities.register(EntityLambJacob.class, "lamb_jacob", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityEweJacob.class, "ewe_jacob", entityID++, 64, 3, true);
+			RegistryHelper.Entities.register(EntityRamJacob.class, "ram_jacob", entityID++, 64, 3, true);
 
 		}
 

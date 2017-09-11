@@ -1,8 +1,7 @@
 package com.animania.client.models.sheep;
 
-import com.animania.common.entities.sheep.EntityEweSuffolk;
-import com.animania.common.entities.sheep.EntityLambSuffolk;
-import com.animania.common.entities.sheep.EntityRamSuffolk;
+import com.animania.common.entities.sheep.EntityEweDorset;
+import com.animania.common.entities.sheep.EntityLambDorset;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -10,106 +9,105 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
 
-public class ModelSuffolkRam extends ModelBase
+public class ModelDorsetEwe extends ModelBase
 {	
 	private float headRotationAngleX;
 	public ModelRenderer HeadNode = new ModelRenderer(this, 0, 0);
 
 	ModelRenderer Body;
-    ModelRenderer RightFrontLeg;
-    ModelRenderer RightFrontLegWool;
-    ModelRenderer Hips;
-    ModelRenderer RightBackLeg;
-    ModelRenderer RightBackLegWool;
-    ModelRenderer Tail;
-    ModelRenderer WoolBody1;
-    ModelRenderer WoolBody2;
-    ModelRenderer WoolHips;
-    ModelRenderer LeftBackLeg;
-    ModelRenderer LeftBackLegWool;
-    ModelRenderer Neck;
-    ModelRenderer Head;
-    ModelRenderer UpperJaw;
-    ModelRenderer Nose;
-    ModelRenderer UpperJawDetail1;
-    ModelRenderer UpperJawDetail2;
-    ModelRenderer LowerJaw;
-    ModelRenderer LeftEar1;
-    ModelRenderer LeftEar2;
-    ModelRenderer RightEar1;
-    ModelRenderer RightEar2;
-    ModelRenderer HeadWool;
-    ModelRenderer NeckWool;
-    ModelRenderer NeckWool2;
-    ModelRenderer LeftFrontLeg;
-    ModelRenderer LeftFrontLegWool;
+	ModelRenderer RightFrontLeg;
+	ModelRenderer RightFrontLegWool;
+	ModelRenderer Hips;
+	ModelRenderer RightBackLeg;
+	ModelRenderer RightBackLegWool;
+	ModelRenderer Tail;
+	ModelRenderer WoolBody1;
+	ModelRenderer WoolBody2;
+	ModelRenderer WoolHips;
+	ModelRenderer LeftBackLeg;
+	ModelRenderer LeftBackLegWool;
+	ModelRenderer Neck;
+	ModelRenderer Head;
+	ModelRenderer UpperJaw;
+	ModelRenderer Nose;
+	ModelRenderer UpperJawDetail1;
+	ModelRenderer UpperJawDetail2;
+	ModelRenderer LowerJaw;
+	ModelRenderer LeftEar1;
+	ModelRenderer LeftEar2;
+	ModelRenderer RightEar1;
+	ModelRenderer RightEar2;
+	ModelRenderer HeadWool;
+	ModelRenderer NeckWool;
+	ModelRenderer NeckWool2;
+	ModelRenderer LeftFrontLeg;
+	ModelRenderer LeftFrontLegWool;
 
 
-	public ModelSuffolkRam()
+	public ModelDorsetEwe()
 	{
 		this(0.0f);
 	}
 
-	public ModelSuffolkRam(float par1)
+	public ModelDorsetEwe(float par1)
 	{
-
 		Body = new ModelRenderer( this, 0, 39 );
-        Body.setTextureSize( 128, 128 );
-        Body.addBox( -3.5F, -5.5F, -13.5F, 7, 13, 17);
-        Body.setRotationPoint( 0F, 7F, 0F );
-        RightFrontLeg = new ModelRenderer( this, 107, 4 );
-        RightFrontLeg.setTextureSize( 128, 128 );
-        RightFrontLeg.addBox( -1.5F, 0F, -1.5F, 3, 16, 3);
-        RightFrontLeg.setRotationPoint( -4F, 9.149483F, -10.08116F );
-        RightFrontLegWool = new ModelRenderer( this, 98, 65 );
-        RightFrontLegWool.setTextureSize( 128, 128 );
-        RightFrontLegWool.addBox( -2F, -2F, -2.5F, 4, 10, 5);
-        RightFrontLegWool.setRotationPoint( -4F, 9.149483F, -10.08116F );
-        Hips = new ModelRenderer( this, 56, 25 );
-        Hips.setTextureSize( 128, 128 );
-        Hips.addBox( -4F, -1F, 0F, 8, 12, 11);
-        Hips.setRotationPoint( 0F, 2.675018F, 1.651946F );
-        RightBackLeg = new ModelRenderer( this, 107, 26 );
-        RightBackLeg.setTextureSize( 128, 128 );
-        RightBackLeg.addBox( -1.5F, -0.5F, -1.5F, 3, 18, 3);
-        RightBackLeg.setRotationPoint( -4.5F, 7.543364F, 9.238067F );
-        RightBackLegWool = new ModelRenderer( this, 99, 83 );
-        RightBackLegWool.setTextureSize( 128, 128 );
-        RightBackLegWool.addBox( -2F, -1F, -2.5F, 4, 12, 5);
-        RightBackLegWool.setRotationPoint( -4.5F, 7.043413F, 9.245048F );
-        Tail = new ModelRenderer( this, 0, 0 );
-        Tail.setTextureSize( 128, 128 );
-        Tail.addBox( -1.5F, -1F, -2F, 3, 7, 3);
-        Tail.setRotationPoint( 0F, 3.352909F, 12.66545F );
-        WoolBody1 = new ModelRenderer( this, 40, 100 );
-        WoolBody1.setTextureSize( 128, 128 );
-        WoolBody1.addBox( -5F, -6F, -6F, 10, 14, 12);
-        WoolBody1.setRotationPoint( 0F, 7.204525F, 0.0007457264F );
-        WoolBody2 = new ModelRenderer( this, 1, 104 );
-        WoolBody2.setTextureSize( 128, 128 );
-        WoolBody2.addBox( -5.5F, -6.5F, -5F, 11, 15, 8);
-        WoolBody2.setRotationPoint( 0F, 7.153107F, -8.771488F );
-        WoolHips = new ModelRenderer( this, 85, 104 );
-        WoolHips.setTextureSize( 128, 128 );
-        WoolHips.addBox( -6F, -6F, -6F, 12, 14, 8);
-        WoolHips.setRotationPoint( 0F, 7.308489F, 11.23427F );
-        LeftBackLeg = new ModelRenderer( this, 107, 26 );
-        LeftBackLeg.setTextureSize( 128, 128 );
-        LeftBackLeg.addBox( -1.5F, -0.5F, -1.5F, 3, 18, 3);
-        LeftBackLeg.setRotationPoint( 4.5F, 7.543364F, 9.238067F );
-        LeftBackLegWool = new ModelRenderer( this, 99, 83 );
-        LeftBackLegWool.setTextureSize( 128, 128 );
-        LeftBackLegWool.addBox( -2F, -1F, -2.5F, 4, 12, 5);
-        LeftBackLegWool.setRotationPoint( 4.5F, 7.043413F, 9.245048F );
-        LeftFrontLeg = new ModelRenderer( this, 107, 4 );
-        LeftFrontLeg.setTextureSize( 128, 128 );
-        LeftFrontLeg.addBox( -1.5F, 0F, -1.5F, 3, 16, 3);
-        LeftFrontLeg.setRotationPoint( 4F, 9.149483F, -10.08116F );
-        LeftFrontLegWool = new ModelRenderer( this, 98, 65 );
-        LeftFrontLegWool.setTextureSize( 128, 128 );
-        LeftFrontLegWool.addBox( -2F, -2F, -2.5F, 4, 10, 5);
-        LeftFrontLegWool.setRotationPoint( 4F, 9.149483F, -10.08116F );
-        
+		Body.setTextureSize( 128, 128 );
+		Body.addBox( -3.5F, -5.5F, -13.5F, 7, 13, 17);
+		Body.setRotationPoint( 0F, 7F, 0F );
+		RightFrontLeg = new ModelRenderer( this, 107, 4 );
+		RightFrontLeg.setTextureSize( 128, 128 );
+		RightFrontLeg.addBox( -1.5F, 0F, -1.5F, 3, 16, 3);
+		RightFrontLeg.setRotationPoint( -4F, 9.149483F, -10.08116F );
+		RightFrontLegWool = new ModelRenderer( this, 98, 65 );
+		RightFrontLegWool.setTextureSize( 128, 128 );
+		RightFrontLegWool.addBox( -2F, -2F, -2.5F, 4, 10, 5);
+		RightFrontLegWool.setRotationPoint( -4F, 9.149483F, -10.08116F );
+		Hips = new ModelRenderer( this, 56, 25 );
+		Hips.setTextureSize( 128, 128 );
+		Hips.addBox( -4F, -1F, 0F, 8, 12, 11);
+		Hips.setRotationPoint( 0F, 2.675018F, 1.651946F );
+		RightBackLeg = new ModelRenderer( this, 107, 26 );
+		RightBackLeg.setTextureSize( 128, 128 );
+		RightBackLeg.addBox( -1.5F, -0.5F, -1.5F, 3, 18, 3);
+		RightBackLeg.setRotationPoint( -4.5F, 7.543364F, 9.238067F );
+		RightBackLegWool = new ModelRenderer( this, 99, 83 );
+		RightBackLegWool.setTextureSize( 128, 128 );
+		RightBackLegWool.addBox( -2F, -1F, -2.5F, 4, 12, 5);
+		RightBackLegWool.setRotationPoint( -4.5F, 7.043413F, 9.245048F );
+		Tail = new ModelRenderer( this, 0, 0 );
+		Tail.setTextureSize( 128, 128 );
+		Tail.addBox( -1.5F, -1F, -2F, 3, 7, 3);
+		Tail.setRotationPoint( 0F, 3.352909F, 12.66545F );
+		WoolBody1 = new ModelRenderer( this, 40, 100 );
+		WoolBody1.setTextureSize( 128, 128 );
+		WoolBody1.addBox( -5F, -6.5F, -6F, 10, 15, 12);
+		WoolBody1.setRotationPoint( 0F, 7.704449F, 0.009471932F );
+		WoolBody2 = new ModelRenderer( this, 1, 104 );
+		WoolBody2.setTextureSize( 128, 128 );
+		WoolBody2.addBox( -5.5F, -6.5F, -5F, 11, 15, 8);
+		WoolBody2.setRotationPoint( 0F, 7.153107F, -8.771488F );
+		WoolHips = new ModelRenderer( this, 85, 104 );
+		WoolHips.setTextureSize( 128, 128 );
+		WoolHips.addBox( -6F, -6F, -6F, 12, 14, 8);
+		WoolHips.setRotationPoint( 0F, 7.308489F, 11.23427F );
+		LeftBackLeg = new ModelRenderer( this, 107, 26 );
+		LeftBackLeg.setTextureSize( 128, 128 );
+		LeftBackLeg.addBox( -1.5F, -0.5F, -1.5F, 3, 18, 3);
+		LeftBackLeg.setRotationPoint( 4.5F, 7.543364F, 9.238067F );
+		LeftBackLegWool = new ModelRenderer( this, 99, 83 );
+		LeftBackLegWool.setTextureSize( 128, 128 );
+		LeftBackLegWool.addBox( -2F, -1F, -2.5F, 4, 12, 5);
+		LeftBackLegWool.setRotationPoint( 4.5F, 7.043413F, 9.245048F );
+		LeftFrontLeg = new ModelRenderer( this, 107, 4 );
+		LeftFrontLeg.setTextureSize( 128, 128 );
+		LeftFrontLeg.addBox( -1.5F, 0F, -1.5F, 3, 16, 3);
+		LeftFrontLeg.setRotationPoint( 4F, 9.149483F, -10.08116F );
+		LeftFrontLegWool = new ModelRenderer( this, 98, 65 );
+		LeftFrontLegWool.setTextureSize( 128, 128 );
+		LeftFrontLegWool.addBox( -2F, -2F, -2.5F, 4, 10, 5);
+		LeftFrontLegWool.setRotationPoint( 4F, 9.149483F, -10.08116F );
+
 		HeadNode = new ModelRenderer(this, 0, 19);
 		HeadNode.setTextureSize(128, 128);
 		HeadNode.addBox(0F, 0F, 0F, 0, 0, 0);
@@ -117,69 +115,64 @@ public class ModelSuffolkRam extends ModelBase
 
 		Neck = new ModelRenderer( this, 0, 18 );
 		Neck.setTextureSize( 128, 128 );
-		Neck.addBox( -2.5F, -1.5F, -10.5F, 5, 5, 11);
+		Neck.addBox( -2.5F, -1.5F, -10.5F, 5, 7, 11);
 		Neck.setRotationPoint( 0F, 0F, 0F );
-		
+
 		Head = new ModelRenderer( this, 32, 25 );
 		Head.setTextureSize( 128, 128 );
 		Head.addBox( -3F, -2F, -4F, 6, 7, 5);
 		Head.setRotationPoint( 0F, -0.022192F - 5.110041F, -19.57529F + 11.14083F );
-		
+
 		UpperJaw = new ModelRenderer( this, 32, 39 );
 		UpperJaw.setTextureSize( 128, 128 );
 		UpperJaw.addBox( -2F, 0F, -5F, 4, 3, 5);
 		UpperJaw.setRotationPoint( 0F, 2.052254F - 5.110041F, -23.13853F + 11.14083F );
-		
 		Nose = new ModelRenderer( this, 0, 36 );
 		Nose.setTextureSize( 128, 128 );
 		Nose.addBox( 0F, 0F, 0F, 2, 2, 2);
 		Nose.setRotationPoint( -1F, 3.780466F - 5.110041F, -28.36378F  + 11.14083F );
-		
 		UpperJawDetail1 = new ModelRenderer( this, 0, 10 );
 		UpperJawDetail1.setTextureSize( 128, 128 );
 		UpperJawDetail1.addBox( -1.5F, 0F, -5F, 3, 2, 5);
 		UpperJawDetail1.setRotationPoint( 0F, -0.6369667F - 5.110041F, -23.91834F  + 11.14083F );
-		
 		UpperJawDetail2 = new ModelRenderer( this, 14, 0 );
 		UpperJawDetail2.setTextureSize( 128, 128 );
 		UpperJawDetail2.addBox( -1.5F, 0F, -5F, 3, 2, 5);
 		UpperJawDetail2.setRotationPoint( 0F, 0.3641491F - 5.110041F, -23.90201F  + 11.14083F );
-		
 		LowerJaw = new ModelRenderer( this, 12, 8 );
 		LowerJaw.setTextureSize( 128, 128 );
 		LowerJaw.addBox( -1.5F, 0F, -5F, 3, 1, 5);
 		LowerJaw.setRotationPoint( 0F, 4.670414F - 5.110041F, -21.75461F  + 11.14083F );
-		
 		LeftEar1 = new ModelRenderer( this, 20, 15 );
 		LeftEar1.setTextureSize( 128, 128 );
 		LeftEar1.addBox( 0F, -1F, -1F, 4, 2, 1);
 		LeftEar1.setRotationPoint( 2.5F, -0.2142792F - 5.110041F, -19.63099F + 11.14083F  );
-		
 		LeftEar2 = new ModelRenderer( this, 0, 26 );
 		LeftEar2.setTextureSize( 128, 128 );
 		LeftEar2.addBox( 0F, -0.5F, -1F, 1, 1, 1);
 		LeftEar2.setRotationPoint( 6.166575F, -0.6877365F - 5.110041F, -20.50967F + 11.14083F  );
-		
+
 		RightEar1 = new ModelRenderer( this, 20, 15 );
 		RightEar1.setTextureSize( 128, 128 );
 		RightEar1.addBox( -4F, -1F, -1F, 4, 2, 1);
 		RightEar1.setRotationPoint( -2.5F, -0.2142792F - 5.110041F, -19.63099F + 11.14083F  );
-		
 		RightEar2 = new ModelRenderer( this, 0, 26 );
 		RightEar2.setTextureSize( 128, 128 );
 		RightEar2.addBox( -1F, -0.5F, -1F, 1, 1, 1);
 		RightEar2.setRotationPoint( -6.166575F, -0.6877346F - 5.110041F, -20.50966F + 11.14083F  );
-		
-		NeckWool = new ModelRenderer( this, 60, 69 );
-        NeckWool.setTextureSize( 128, 128 );
-        NeckWool.addBox( -3F, -1.5F, -5F, 6, 8, 10);
-        NeckWool.setRotationPoint( 0F, 2.858284F - 5.110041F, -13.18523F + 11.14083F );
-        
-        NeckWool2 = new ModelRenderer( this, 31, 75 );
-        NeckWool2.setTextureSize( 128, 128 );
-        NeckWool2.addBox( -3.5F, -2F, -2F, 7, 9, 4);
-        NeckWool2.setRotationPoint( 0F, 0.1517105F- 5.110041F, -17.41896F+ 11.14083F );
-		
+		HeadWool = new ModelRenderer( this, 30, 75 );
+		HeadWool.setTextureSize( 128, 128 );
+		HeadWool.addBox( -4F, -1F, -2F, 8, 2, 4);
+		HeadWool.setRotationPoint( 0F, -1.602097F - 5.110041F, -19.51283F + 11.14083F );
+		NeckWool = new ModelRenderer( this, 59, 69 );
+		NeckWool.setTextureSize( 128, 128 );
+		NeckWool.addBox( -3.5F, -2.5F, -5F, 7, 10, 10);
+		NeckWool.setRotationPoint( 0F, 2.858284F - 5.110041F, -13.18523F + 11.14083F  );
+		NeckWool2 = new ModelRenderer( this, 30, 75 );
+		NeckWool2.setTextureSize( 128, 128 );
+		NeckWool2.addBox( -4F, -2.5F, -2F, 8, 11, 4);
+		NeckWool2.setRotationPoint( 0F, 0.06732941F - 5.110041F, -17.128F  + 11.14083F );
+
 
 		this.HeadNode.addChild(Head);
 		this.HeadNode.addChild(Neck);
@@ -192,12 +185,7 @@ public class ModelSuffolkRam extends ModelBase
 		this.HeadNode.addChild(LeftEar2);
 		this.HeadNode.addChild(RightEar1);
 		this.HeadNode.addChild(RightEar2);
-		//this.HeadNode.addChild(RightHorn1);
-		//this.HeadNode.addChild(RightHorn2);
-		//this.HeadNode.addChild(RightHorn3);
-		//this.HeadNode.addChild(LeftHorn1);
-		//this.HeadNode.addChild(LeftHorn2);
-		//this.HeadNode.addChild(LeftHorn3);
+		this.HeadNode.addChild(HeadWool);
 		this.HeadNode.addChild(NeckWool);
 		this.HeadNode.addChild(NeckWool2);
 
@@ -237,6 +225,7 @@ public class ModelSuffolkRam extends ModelBase
 		RightEar2.rotateAngleX = 0.2696678F;
 		RightEar2.rotateAngleY = -0.3971407F;
 		RightEar2.rotateAngleZ = 0.07895218F;
+		HeadWool.rotateAngleX = 0.1118027F;
 		NeckWool.rotateAngleX = -0.5530767F;
 		NeckWool2.rotateAngleX = -0.3974314F;
 		LeftFrontLeg.rotateAngleX = -0.009773842F;
@@ -250,7 +239,6 @@ public class ModelSuffolkRam extends ModelBase
 		LeftFrontLeg.render(scale);
 		Hips.render(scale);
 		LeftBackLeg.render(scale);
-
 		RightBackLeg.render(scale);
 		Tail.render(scale);
 
@@ -270,15 +258,12 @@ public class ModelSuffolkRam extends ModelBase
 	{
 		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
 
-		if (entity instanceof EntityRamSuffolk ) {
-			this.HeadNode.rotationPointY = 4F + ((EntityRamSuffolk)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityRamSuffolk)entity).getHeadRotationAngleX(partialTickTime);
-		} else if (entity instanceof EntityEweSuffolk) {
-			this.HeadNode.rotationPointY = 4F + ((EntityEweSuffolk)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityEweSuffolk)entity).getHeadRotationAngleX(partialTickTime);
-		} else if (entity instanceof EntityLambSuffolk) {
-			this.HeadNode.rotationPointY = 4F + ((EntityLambSuffolk)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityLambSuffolk)entity).getHeadRotationAngleX(partialTickTime);
+		if (entity instanceof EntityEweDorset) {
+			this.HeadNode.rotationPointY = 4F + ((EntityEweDorset)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = ((EntityEweDorset)entity).getHeadRotationAngleX(partialTickTime);
+		} else if (entity instanceof EntityLambDorset) {
+			this.HeadNode.rotationPointY = 4F + ((EntityLambDorset)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = ((EntityLambDorset)entity).getHeadRotationAngleX(partialTickTime);
 		}
 	}
 
@@ -287,25 +272,9 @@ public class ModelSuffolkRam extends ModelBase
 	{
 		float f6 = 180F / (float) Math.PI;
 
-		if (entity instanceof EntityRamSuffolk) {
-
-			EntityRamSuffolk eb = (EntityRamSuffolk) entity;
-			if (eb.getFighting() && eb.getRivalUniqueId() != null) {
-				this.HeadNode.rotateAngleX = 0.687F;
-			}
-			else {
-				this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
-				this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
-				this.HeadNode.rotateAngleX = this.headRotationAngleX;
-			}
-
-		}
-		else {
-
-			this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
-			this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
-			this.HeadNode.rotateAngleX = this.headRotationAngleX;
-		}
+		this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
+		this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
+		this.HeadNode.rotateAngleX = this.headRotationAngleX;
 
 		this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 

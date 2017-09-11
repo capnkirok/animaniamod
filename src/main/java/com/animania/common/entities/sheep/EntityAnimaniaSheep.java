@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.client.render.tileEntity.TileEntityNestRenderer;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
@@ -131,7 +130,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 		if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian || this instanceof EntityLambFriesian) {
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(3)));
 		} else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset || this instanceof EntityLambDorset) {
-				this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(3)));
+				this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
 		} else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino || this instanceof EntityLambMerino) {
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
 		} else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk || this instanceof EntityLambSuffolk) {
@@ -359,7 +358,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
             				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, 12), 1.0F);
             				break;
                 		}	
-                	} else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk) {
+                	} else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk || this instanceof EntityRamDorset || this instanceof EntityEweDorset) {
                     		switch (this.getColorNumber()) {
                 			case 0:
                 				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
@@ -368,6 +367,22 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
                 				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 5), 1.0F);
                 				break;
                 			}	
+                	} else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino ) {
+                		switch (this.getColorNumber()) {
+            			case 0:
+            				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 4), 1.0F);
+            				break;
+            			case 1:
+            				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 3), 1.0F);
+            				break;
+            			}	
+                	} else if (this instanceof EntityRamJacob || this instanceof EntityEweJacob) {
+                		switch (this.getColorNumber()) {
+            			case 0:
+            				entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 2), 1.0F);
+            				break;
+            			}	
+                		
                     		
                 		
                 	} else {
