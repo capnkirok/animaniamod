@@ -78,6 +78,18 @@ import com.animania.common.entities.rodents.rabbits.EntityRabbitKitCottontail;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitHavana;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitJack;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
+import com.animania.common.entities.sheep.EntityEweDorset;
+import com.animania.common.entities.sheep.EntityEweFriesian;
+import com.animania.common.entities.sheep.EntityEweMerino;
+import com.animania.common.entities.sheep.EntityEweSuffolk;
+import com.animania.common.entities.sheep.EntityLambDorset;
+import com.animania.common.entities.sheep.EntityLambFriesian;
+import com.animania.common.entities.sheep.EntityLambMerino;
+import com.animania.common.entities.sheep.EntityLambSuffolk;
+import com.animania.common.entities.sheep.EntityRamDorset;
+import com.animania.common.entities.sheep.EntityRamFriesian;
+import com.animania.common.entities.sheep.EntityRamMerino;
+import com.animania.common.entities.sheep.EntityRamSuffolk;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
@@ -88,6 +100,7 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntityRabbit;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -237,20 +250,39 @@ public class EventReplaceSpawnAnimals
 
 			if (AnimaniaConfig.spawn.spawnAnimaniaPigs && pigCount < AnimaniaConfig.spawn.spawnLimitPigs)
 				if (biome.equals(Type.FOREST)) {
-					if (chooser <= 2) {
-						EntitySowOldSpot entity = new EntitySowOldSpot(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
-					}
-					else if (chooser == 3) {
-						EntityHogOldSpot entity = new EntityHogOldSpot(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
-					}
-					else if (chooser == 4) {
-						EntityPigletOldSpot entity = new EntityPigletOldSpot(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+					if (rand.nextBoolean()) {
+						if (chooser <= 2) {
+							EntitySowOldSpot entity = new EntitySowOldSpot(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+						else if (chooser == 3) {
+							EntityHogOldSpot entity = new EntityHogOldSpot(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+						else if (chooser == 4) {
+							EntityPigletOldSpot entity = new EntityPigletOldSpot(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+					} else { 
+
+						if (chooser <= 2) {
+							EntitySowHampshire entity = new EntitySowHampshire(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+						else if (chooser == 3) {
+							EntityHogHampshire entity = new EntityHogHampshire(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+						else if (chooser == 4) {
+							EntityPigletHampshire entity = new EntityPigletHampshire(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
 					}
 				}
 				else if (biome.equals(Type.JUNGLE)) {
@@ -287,23 +319,7 @@ public class EventReplaceSpawnAnimals
 						worldIn.spawnEntity(entity);
 					}
 				}
-				else if (biome.equals(Type.FOREST)) {
-					if (chooser <= 2) {
-						EntitySowHampshire entity = new EntitySowHampshire(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
-					}
-					else if (chooser == 3) {
-						EntityHogHampshire entity = new EntityHogHampshire(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
-					}
-					else if (chooser == 4) {
-						EntityPigletHampshire entity = new EntityPigletHampshire(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
-					}
-				}
+				
 				else if (chooser <= 2) {
 					EntitySowYorkshire entity = new EntitySowYorkshire(worldIn);
 					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
@@ -316,6 +332,133 @@ public class EventReplaceSpawnAnimals
 				}
 				else if (chooser == 4) {
 					EntityPigletYorkshire entity = new EntityPigletYorkshire(worldIn);
+					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+					worldIn.spawnEntity(entity);
+				}
+
+		}
+		else if (AnimaniaConfig.gameRules.replaceVanillaSheep && event.getEntity().getClass().equals(EntitySheep.class) && !worldIn.isRemote) {
+
+			if (!event.getEntity().hasCustomName()) {
+				event.getEntity().setDead();
+				event.setCanceled(true);
+				event.isCanceled();
+			}
+
+			int sheepCount = 0;
+			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 128, event.getWorld(), event.getEntity());
+			sheepCount = entities.size();
+
+			int chooser = 0;
+			if (worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
+				chooser = rand.nextInt(10);
+			else
+				chooser = rand.nextInt(5);
+
+			//System.out.println("Sheep count: " + sheepCount);
+
+			if (AnimaniaConfig.spawn.spawnAnimaniaSheep && sheepCount < AnimaniaConfig.spawn.spawnLimitSheep)
+				if (biome.equals(Type.PLAINS)) {
+					int chooser2 = rand.nextInt(2);
+					if (chooser2 == 0) {
+						if (chooser <= 2) {
+							EntityEweDorset entity = new EntityEweDorset(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+						else if (chooser == 3) {
+							EntityRamDorset entity = new EntityRamDorset(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+						else if (chooser == 4) {
+							EntityLambDorset entity = new EntityLambDorset(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+					} else { 
+
+						if (chooser <= 2) {
+							EntityEweFriesian entity = new EntityEweFriesian(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+						else if (chooser == 3) {
+							EntityRamFriesian entity = new EntityRamFriesian(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+						else if (chooser == 4) {
+							EntityLambFriesian entity = new EntityLambFriesian(worldIn);
+							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+							worldIn.spawnEntity(entity);
+						}
+					}
+				}
+
+				else if (biome.equals(Type.SAVANNA)) {
+					if (chooser <= 2) {
+						EntityEweSuffolk entity = new EntityEweSuffolk(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 3) {
+						EntityRamSuffolk entity = new EntityRamSuffolk(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 4) {
+						EntityLambSuffolk entity = new EntityLambSuffolk(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+				}
+				else if (biome.equals(Type.HILLS)) {
+					if (chooser <= 2) {
+						EntityEweDorset entity = new EntityEweDorset(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 3) {
+						EntityRamDorset entity = new EntityRamDorset(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 4) {
+						EntityLambDorset entity = new EntityLambDorset(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+				}
+				else if (biome.equals(Type.DRY)) {
+					if (chooser <= 2) {
+						EntityEweMerino entity = new EntityEweMerino(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 3) {
+						EntityRamMerino entity = new EntityRamMerino(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+					else if (chooser == 4) {
+						EntityLambMerino entity = new EntityLambMerino(worldIn);
+						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+						worldIn.spawnEntity(entity);
+					}
+				}
+				else if (chooser <= 2) {
+					EntityEweFriesian entity = new EntityEweFriesian(worldIn);
+					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+					worldIn.spawnEntity(entity);
+				}
+				else if (chooser == 3) {
+					EntityRamFriesian entity = new EntityRamFriesian(worldIn);
+					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+					worldIn.spawnEntity(entity);
+				}
+				else if (chooser == 4) {
+					EntityLambFriesian entity = new EntityLambFriesian(worldIn);
 					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
 					worldIn.spawnEntity(entity);
 				}
@@ -423,7 +566,7 @@ public class EventReplaceSpawnAnimals
 					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
 					worldIn.spawnEntity(entity);
 				}
-			
+
 			//System.out.println(event.getEntity().posX + "  " + event.getEntity().posY + "  "+ event.getEntity().posZ);
 
 		}

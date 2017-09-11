@@ -14,13 +14,13 @@ public class EntityEweFriesian extends EntityEweBase
 	@Override
 	public int getPrimaryEggColor()
 	{
-		return 16250871;
+		return 2039583;
 	}
-	
+
 	@Override
 	public int getSecondaryEggColor()
 	{
-		return 15198183;
+		return 4013373;
 	}
 	
 }

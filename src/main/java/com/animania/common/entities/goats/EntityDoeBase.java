@@ -68,13 +68,6 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	}
 
 	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		this.tasks.addTask(3, new EntityAIPanicGoats(this, 2.0D));
-	}
-
-	@Override
 	protected void entityInit()
 	{
 		super.entityInit();

@@ -40,7 +40,7 @@ public class RenderEweDorset<T extends EntityEweDorset> extends RenderLiving<T>
 	}
 
 	protected void preRenderScale(EntityEweDorset entity, float f) {
-		GL11.glScalef(0.60F, 0.60F, 0.60F);
+		GL11.glScalef(0.58F, 0.58F, 0.58F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 

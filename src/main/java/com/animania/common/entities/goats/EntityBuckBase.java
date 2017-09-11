@@ -50,17 +50,10 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.mateable = true;
 		this.headbutting = true;
 		this.gender = EntityGender.MALE;
-	}
-
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
 		this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
 		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.25F));
 		this.tasks.addTask(5, new EntityAIMateGoats(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIFollowMateGoats(this, 1.0D));
-		
 	}
 
 	@Override

@@ -8,6 +8,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
+import com.animania.common.entities.sheep.ai.EntityAIFollowMateSheep;
 import com.animania.common.entities.sheep.ai.EntityAIMateSheep;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -46,14 +48,9 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.gender = EntityGender.MALE;
 		this.headbutting = true;
 		this.mateable = true;
-	}
-	
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		this.tasks.addTask(8, new EntityAIMateSheep(this, 1.0D));
-
+		this.tasks.addTask(3, new EntityAIFollowMateSheep(this, 1.1D));
+		this.tasks.addTask(3, new EntityAIMateSheep(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIButtHeadsSheep(this, 1.3D));
 	}
 	
 	@Override
@@ -197,7 +194,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityEweBase.class, 20, world, this);
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityEweBase.class, 30, world, this);
 					for (int k = 0; k <= entities.size() - 1; k++)
 					{
 						Entity entity = entities.get(k);

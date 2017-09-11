@@ -3,8 +3,8 @@ package com.animania.common.entities.sheep.ai;
 import java.util.List;
 import java.util.Random;
 
-import com.animania.common.entities.goats.EntityDoeBase;
-import com.animania.common.entities.goats.EntityKidBase;
+import com.animania.common.entities.sheep.EntityEweBase;
+import com.animania.common.entities.sheep.EntityLambBase;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.ai.EntityAIBase;
@@ -30,19 +30,19 @@ public class EntityAIFollowParentSheep extends EntityAIBase
 
 		this.delayCounter++;
 		if (this.delayCounter > 60) {
-			if (this.childAnimal instanceof EntityKidBase) {
-				EntityKidBase ec = (EntityKidBase) this.childAnimal;
+			if (this.childAnimal instanceof EntityLambBase) {
+				EntityLambBase ec = (EntityLambBase) this.childAnimal;
 				if (ec.getParentUniqueId() == null) {
 					return false;
 				} else {
 
-					List entities = AnimaniaHelper.getEntitiesInRange(EntityDoeBase.class, 40, this.childAnimal.world, this.childAnimal);
+					List entities = AnimaniaHelper.getEntitiesInRange(EntityEweBase.class, 40, this.childAnimal.world, this.childAnimal);
 
 					for (int k = 0; k <= entities.size() - 1; k++) {
 
-						EntityDoeBase entity = (EntityDoeBase)entities.get(k);
+						EntityEweBase entity = (EntityEweBase)entities.get(k);
 
-						if (entity !=null && entity.getPersistentID().equals(((EntityKidBase) this.childAnimal).getParentUniqueId())) {
+						if (entity !=null && entity.getPersistentID().equals(((EntityLambBase) this.childAnimal).getParentUniqueId())) {
 						
 							double xt = entity.posX;
 							double yt = entity.posY;

@@ -15,4 +15,16 @@ public class EntityRamSuffolk extends EntityRamBase
 		this.dropCooked = ItemHandler.cookedMutton;
 	}
 
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 16119026;
+	}
+
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 2302755;
+	}
+	
 }

@@ -7,12 +7,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.pigs.EntityHogBase;
-import com.animania.common.entities.pigs.EntityPigletBase;
-import com.animania.common.entities.pigs.EntitySowBase;
-import com.animania.common.entities.pigs.PigType;
-import com.animania.common.entities.pigs.ai.EntityAIFollowParentPigs;
+import com.animania.common.entities.sheep.ai.EntityAIFollowParentSheep;
+import com.animania.common.entities.sheep.ai.EntityAIPanicSheep;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -45,13 +41,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
-	}
-	
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		//this.tasks.addTask(1, new EntityAIFollowParentSheeps(this, 1.1D));
+		this.tasks.addTask(4, new EntityAIFollowParentSheep(this, 1.1D));
 	}
 	
 	@Override

@@ -10,5 +10,17 @@ public class EntityLambSuffolk extends EntityLambBase
 		super(worldIn);
 		this.sheepType = SheepType.SUFFOLK;
 	}
+	
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 16119026;
+	}
+
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 2302755;
+	}
 
 }

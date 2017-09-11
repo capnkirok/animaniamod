@@ -37,12 +37,6 @@ public class WailaEntityAnimalProviderBase implements IWailaEntityProvider
 		boolean fed = accessor.getNBTData().getBoolean("Fed");
 		boolean watered = accessor.getNBTData().getBoolean("Watered");
 		
-		if (entity instanceof ISpawnable)
-		{
-			if (((ISpawnable) entity).getEntityGender() == EntityGender.MALE || ((ISpawnable) entity).getEntityGender() == EntityGender.FEMALE)
-				currenttip.add(((ISpawnable) entity).getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
-		}
-
 		if (fed && watered)
 			currenttip.add(I18n.translateToLocal("text.waila.fed"));
 

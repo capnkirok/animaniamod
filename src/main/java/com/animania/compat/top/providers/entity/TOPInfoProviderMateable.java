@@ -3,6 +3,7 @@ package com.animania.compat.top.providers.entity;
 import java.util.UUID;
 
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.helper.AnimaniaHelper;
 
@@ -29,7 +30,7 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 
 		if (mode == ProbeMode.EXTENDED)
 		{
-
+			
 			NBTTagCompound nbt = new NBTTagCompound();
 			entity.writeToNBT(nbt);
 			String mate = nbt.getString("MateUUID");
@@ -54,7 +55,7 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 							return;
 						}
 					}
-
+					
 					probeInfo.text(I18n.translateToLocal("text.waila.matemissing"));
 				}
 			}

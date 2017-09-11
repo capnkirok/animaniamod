@@ -41,14 +41,8 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
-	}
-	
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		this.tasks.addTask(1, new EntityAIFollowParentGoats(this, 1.1D));
-		this.tasks.addTask(1, new EntityAIPanicGoats(this, 2.0D));
+		this.tasks.addTask(3, new EntityAIFollowParentGoats(this, 1.1D));
+		
 	}
 	
 	@Override

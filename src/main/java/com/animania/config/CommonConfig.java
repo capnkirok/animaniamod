@@ -235,6 +235,9 @@ public class CommonConfig
 		
 		@Comment("Remove vanilla Rabbits")
 		public boolean replaceVanillaRabbits     = true;
+		
+		@Comment("Remove vanilla Sheep")
+		public boolean replaceVanillaSheep     = true;
 
 		@Comment("Allow eggs to be thrown")
 		public boolean allowEggThrowing = false;
@@ -455,7 +458,7 @@ public class CommonConfig
 		@Comment("Set Custom Goat Drop")
 		public String goatDrop = "animania:raw_chevon";
 		@Comment("Set Custom Sheep Drop")
-		public String sheepDrop = "animania:raw_mutton";
+		public String sheepDrop = "animania:raw_prime_mutton";
 		@Comment("Set Custom Rabbit Drop")
 		public String  rabbitDrop         = "animania:raw_prime_rabbit";
 		@Comment("Allow Animania Chickens to drop Eggs")

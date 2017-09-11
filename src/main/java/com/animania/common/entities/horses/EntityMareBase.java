@@ -703,9 +703,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			if (this.getMateUniqueId() != null) 
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
 
-			if (this.getHasKids())
-				probeInfo.text(I18n.translateToLocal("text.waila.milkable"));
-
 			if (this.getFertile() && !this.getPregnant())
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.fertile1"));

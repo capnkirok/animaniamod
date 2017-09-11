@@ -8,15 +8,10 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.goats.EntityBuckAngora;
-import com.animania.common.entities.goats.EntityKidBase;
-import com.animania.common.entities.goats.GoatType;
-import com.animania.common.entities.sheep.ai.EntityAIPanicSheep;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -38,7 +33,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -65,15 +59,6 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.FEMALE;
 		this.mateable = true;
-	}
-
-
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		this.tasks.addTask(3, new EntityAIPanicSheep(this, 2.0D));
-
 	}
 
 	@Override
@@ -110,11 +95,11 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			}
 			else if (chooser > 2)
 			{
-				EntityRamBase entityBuck = this.sheepType.getMale(world);
-				entityBuck.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityBuck);
-				entityBuck.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityBuck.getPersistentID());
+				EntityRamBase entityRam = this.sheepType.getMale(world);
+				entityRam.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityRam);
+				entityRam.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityRam.getPersistentID());
 				EntityLambBase entityKid = this.sheepType.getChild(world);
 				entityKid.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityKid);
@@ -307,7 +292,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 20, world, this);
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 30, world, this);
 					for (int k = 0; k <= entities.size() - 1; k++)
 					{
 						Entity entity = entities.get(k);
@@ -341,61 +326,68 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 			if (gestationTimer == 0)
 			{
+
 				UUID MateID = this.getMateUniqueId();
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 16, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 30, this.world, this);
 				int esize = entities.size();
 				Boolean mateFound = false;
-				for (int k = 0; k <= esize - 1; k++) {
-
-					EntityRamBase entity = (EntityRamBase)entities.get(k);
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
-
-						this.setInLove(null);
-
-						if (!this.world.isRemote)
-						{
-
-							SheepType maleType = ((EntityRamBase) entity).sheepType;
-							SheepType babyType = SheepType.breed(maleType, this.sheepType);
-
-							EntityLambBase kid = babyType.getChild(world);
-							kid.setPosition(this.posX, this.posY + .2, this.posZ);
-							this.world.spawnEntity(kid);
-							kid.setParentUniqueId(this.getPersistentID());
-							this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F); //TODO Sheep Noises
-							BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, kid);
-							MinecraftForge.EVENT_BUS.post(event);
-						}
-					}
-					
-					if (!mateFound && this.getFed() && this.getWatered()) {
+				for (int k = 0; k <= esize - 1; k++)
+				{
+					EntityRamBase entity = (EntityRamBase) entities.get(k);
+					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID))
+					{
 
 						this.setInLove(null);
-						SheepType babyType = sheepType.breed(this.sheepType, this.sheepType);
+						SheepType maleType = ((EntityAnimaniaSheep) entity).sheepType;
+						SheepType babyType = sheepType.breed(maleType, this.sheepType);
 						EntityLambBase entityKid = babyType.getChild(world);
 						entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
-						if (!world.isRemote) {
+						if (!world.isRemote)
+						{
 							this.world.spawnEntity(entityKid);
 						}
-
 						entityKid.setParentUniqueId(this.getPersistentID());
-						this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F); //TODO
+						this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
 
 						this.setPregnant(false);
 						this.setFertile(false);
 						this.setHasKids(true);
 
-						BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entityKid, entityKid);
+						BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityKid);
 						MinecraftForge.EVENT_BUS.post(event);
+						k = esize;
 						mateFound = true;
+						break;
 
 					}
 				}
+
+				if (!mateFound && this.getFed() && this.getWatered()) {
+
+					this.setInLove(null);
+					SheepType babyType = sheepType.breed(this.sheepType, this.sheepType);
+					EntityLambBase entityKid = babyType.getChild(world);
+					entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
+					if (!world.isRemote) {
+						this.world.spawnEntity(entityKid);
+					}
+
+					entityKid.setParentUniqueId(this.getPersistentID());
+					this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F); //TODO
+
+					this.setPregnant(false);
+					this.setFertile(false);
+					this.setHasKids(true);
+
+					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entityKid, entityKid);
+					MinecraftForge.EVENT_BUS.post(event);
+					mateFound = true;
+
+				}
 			}
 		} else if (gestationTimer < 0){
-			this.setGestation(1);
+			this.setGestation(100);
 		}
-
 		super.onLivingUpdate();
 	}
 

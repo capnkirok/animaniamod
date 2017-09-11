@@ -40,7 +40,7 @@ public class RenderRamDorset<T extends EntityRamDorset> extends RenderLiving<T>
 	}
 
 	protected void preRenderScale(EntityRamDorset entity, float f) {
-		GL11.glScalef(0.64F, 0.64F, 0.64F);
+		GL11.glScalef(0.62F, 0.62F, 0.62F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 
