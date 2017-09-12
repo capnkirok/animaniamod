@@ -319,7 +319,7 @@ public class EventReplaceSpawnAnimals
 						worldIn.spawnEntity(entity);
 					}
 				}
-				
+
 				else if (chooser <= 2) {
 					EntitySowYorkshire entity = new EntitySowYorkshire(worldIn);
 					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
@@ -465,10 +465,13 @@ public class EventReplaceSpawnAnimals
 
 		}
 		else if (AnimaniaConfig.gameRules.replaceVanillaChickens && event.getEntity().getClass().equals(EntityChicken.class) && !worldIn.isRemote) {
-			if (!event.getEntity().hasCustomName() && event.getEntity().posY > 50 && !event.getEntity().isBeingRidden()) {
-				event.getEntity().setDead();
-				event.setCanceled(true);
-				event.isCanceled();
+			if (!event.getEntity().hasCustomName() && !event.getEntity().isBeingRidden()) {
+				EntityChicken bob = (EntityChicken) event.getEntity();
+				if (!bob.isChickenJockey()) { 
+					event.getEntity().setDead();
+					event.setCanceled(true);
+					event.isCanceled();
+				}
 			}
 
 			int chickenCount = 0;

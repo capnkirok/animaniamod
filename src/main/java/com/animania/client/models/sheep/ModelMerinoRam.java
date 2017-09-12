@@ -122,7 +122,7 @@ public class ModelMerinoRam extends ModelBase
 		HeadNode = new ModelRenderer(this, 0, 19);
 		HeadNode.setTextureSize(128, 128);
 		HeadNode.addBox(0F, 0F, 0F, 0, 0, 0);
-		HeadNode.setRotationPoint(0F, 5.110041F, -11.14083F);
+		HeadNode.setRotationPoint(0F, 5.110041F, -11.14083F + 7F);
 
 		Neck = new ModelRenderer( this, 0, 18 );
 		Neck.setTextureSize( 128, 128 );
@@ -166,18 +166,7 @@ public class ModelMerinoRam extends ModelBase
 		LeftHorn1.setTextureSize( 128, 128 );
 		LeftHorn1.addBox( 0F, -1F, -1F, 5, 2, 2);
 		LeftHorn1.setRotationPoint( 1F, -1.045092F - 5.110041F, -21.4337F + 11.14083F );
-		LeftHorn2 = new ModelRenderer( this, 80, 15 );
-		LeftHorn2.setTextureSize( 128, 128 );
-		LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
-		LeftHorn2.setRotationPoint( 3.841148F, -4.314388F - 5.110041F, -20.11477F + 11.14083F );
-		LeftHorn3 = new ModelRenderer( this, 80, 15 );
-		LeftHorn3.setTextureSize( 128, 128 );
-		LeftHorn3.addBox( 1F, -1F, -1F, 6, 2, 2);
-		LeftHorn3.setRotationPoint( 6.125732F, -2.09454F - 5.110041F, -16.77217F  + 11.14083F);
-		LeftHorn4 = new ModelRenderer( this, 80, 15 );
-		LeftHorn4.setTextureSize( 128, 128 );
-		LeftHorn4.addBox( 1F, -1F, 0F, 4, 2, 2);
-		LeftHorn4.setRotationPoint( 4.833957F, 2.566027F - 5.110041F, -18.38786F + 11.14083F );
+		
 		RightEar1 = new ModelRenderer( this, 20, 15 );
 		RightEar1.setTextureSize( 128, 128 );
 		RightEar1.addBox( -4F, -1F, -1F, 4, 2, 1);
@@ -194,18 +183,37 @@ public class ModelMerinoRam extends ModelBase
 		RightHorn1.setTextureSize( 128, 128 );
 		RightHorn1.addBox( -5F, -1F, -1F, 5, 2, 2);
 		RightHorn1.setRotationPoint( -1F, -1.045094F - 5.110041F, -21.4337F + 11.14083F );
+		
 		RightHorn2 = new ModelRenderer( this, 80, 15 );
 		RightHorn2.setTextureSize( 128, 128 );
 		RightHorn2.addBox( -6F, -1F, -1F, 6, 2, 2);
-		RightHorn2.setRotationPoint( -3.841148F, -4.31439F - 5.110041F, -20.11477F + 11.14083F );
+		RightHorn2.setRotationPoint( -3.841148F, -4.31439F - 5.110041F + .4F, -20.11477F + 11.14083F + .8F);
+		
 		RightHorn3 = new ModelRenderer( this, 80, 15 );
 		RightHorn3.setTextureSize( 128, 128 );
 		RightHorn3.addBox( -7F, -1F, -1F, 6, 2, 2);
-		RightHorn3.setRotationPoint( -6.125732F, -2.094542F - 5.110041F, -16.77217F + 11.14083F );
+		RightHorn3.setRotationPoint( -6.125732F -1F, -2.094542F - 5.110041F -.8F, -16.77217F + 11.14083F + 2F);
+		
 		RightHorn4 = new ModelRenderer( this, 80, 15 );
 		RightHorn4.setTextureSize( 128, 128 );
 		RightHorn4.addBox( -5F, -1F, 0F, 4, 2, 2);
-		RightHorn4.setRotationPoint( -4.833957F, 2.566025F - 5.110041F, -18.38786F  + 11.14083F);
+		RightHorn4.setRotationPoint( -4.833957F, 2.566025F - 5.110041F, -18.38786F  + 11.14083F + 2F);
+		
+		LeftHorn2 = new ModelRenderer( this, 80, 15 );
+		LeftHorn2.setTextureSize( 128, 128 );
+		LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
+		LeftHorn2.setRotationPoint( 3.841148F, -4.314388F - 5.110041F + .4F, -20.11477F + 11.14083F + .8F);
+		
+		LeftHorn3 = new ModelRenderer( this, 80, 15 );
+		LeftHorn3.setTextureSize( 128, 128 );
+		LeftHorn3.addBox( 1F, -1F, -1F, 6, 2, 2);
+		LeftHorn3.setRotationPoint( 6.125732F + 1F, -2.09454F - 5.110041F -.8F, -16.77217F  + 11.14083F + 2F);
+		
+		LeftHorn4 = new ModelRenderer( this, 80, 15 );
+		LeftHorn4.setTextureSize( 128, 128 );
+		LeftHorn4.addBox( 1F, -1F, 0F, 4, 2, 2);
+		LeftHorn4.setRotationPoint( 4.833957F, 2.566027F - 5.110041F, -18.38786F + 11.14083F + 2F );
+		
 		NeckWool = new ModelRenderer( this, 59, 69 );
 		NeckWool.setTextureSize( 128, 128 );
 		NeckWool.addBox( -3.5F, -3F, -5F, 7, 11, 10);
@@ -275,11 +283,11 @@ public class ModelMerinoRam extends ModelBase
 		LeftHorn2.rotateAngleY = -0.9091168F;
 		LeftHorn2.rotateAngleZ = 0.5917696F;
 		LeftHorn3.rotateAngleX = -0.1363656F;
-		LeftHorn3.rotateAngleY = -1.076111F;
-		LeftHorn3.rotateAngleZ = 1.990024F;
-		LeftHorn4.rotateAngleX = -1.025527F;
-		LeftHorn4.rotateAngleY = -1.828805F;
-		LeftHorn4.rotateAngleZ = 2.461559F;
+		LeftHorn3.rotateAngleY = .2F;
+		LeftHorn3.rotateAngleZ = 1.690024F;
+		LeftHorn4.rotateAngleX = -1F;
+		//LeftHorn4.rotateAngleY = -1.828805F;
+		LeftHorn4.rotateAngleZ = .5F;
 		RightEar1.rotateAngleX = 0.2500452F;
 		RightEar1.rotateAngleY = -0.2031327F;
 		RightEar1.rotateAngleZ = 0.1289499F;
@@ -294,11 +302,11 @@ public class ModelMerinoRam extends ModelBase
 		RightHorn2.rotateAngleY = 0.9091169F;
 		RightHorn2.rotateAngleZ = -0.5917696F;
 		RightHorn3.rotateAngleX = -0.1363656F;
-		RightHorn3.rotateAngleY = 1.076111F;
-		RightHorn3.rotateAngleZ = -1.990024F;
-		RightHorn4.rotateAngleX = -1.025527F;
-		RightHorn4.rotateAngleY = 1.828805F;
-		RightHorn4.rotateAngleZ = -2.461559F;
+		RightHorn3.rotateAngleY = -.2F;
+		RightHorn3.rotateAngleZ = -1.690024F;
+		RightHorn4.rotateAngleX = -1F;
+		//RightHorn4.rotateAngleY = 1.828805F;
+		RightHorn4.rotateAngleZ = -.5F;
 		NeckWool.rotateAngleX = -0.5530767F;
 		NeckWool2.rotateAngleX = -0.3974314F;
 		LeftFrontLeg.rotateAngleX = -0.009773842F;

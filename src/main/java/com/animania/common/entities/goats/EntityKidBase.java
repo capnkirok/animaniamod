@@ -133,15 +133,11 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		int chooser = rand.nextInt(num);
 
 		if (chooser == 0)
-			return ModSoundEvents.piglet1;
+			return ModSoundEvents.kidLiving1;
 		else if (chooser == 1)
-			return ModSoundEvents.piglet2;
+			return ModSoundEvents.kidLiving2;
 		else if (chooser == 2)
-			return ModSoundEvents.piglet3;
-		else if (chooser == 3)
-			return ModSoundEvents.pig1;
-		else if (chooser == 4)
-			return ModSoundEvents.pig2;
+			return ModSoundEvents.kidLiving3;
 		else
 			return null;
 
@@ -154,11 +150,11 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		int chooser = rand.nextInt(3);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigletHurt1;
+			return ModSoundEvents.kidHurt1;
 		else if (chooser == 1)
-			return ModSoundEvents.pigletHurt2;
+			return ModSoundEvents.kidHurt2;
 		else
-			return ModSoundEvents.pigletHurt3;
+			return null;
 	}
 
 	@Override
@@ -168,11 +164,10 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		int chooser = rand.nextInt(3);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigletHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigletHurt2;
-		else
-			return ModSoundEvents.pigletHurt3;
+			return ModSoundEvents.kidHurt1;
+		else 
+			return ModSoundEvents.kidHurt2;
+		
 	}
 
 	@Override
@@ -181,7 +176,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		SoundEvent soundevent = this.getAmbientSound();
 
 		if (soundevent != null)
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F);
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
 	}
 	
 	public float getEntityAge()
@@ -224,7 +219,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 							if (name != "")
 								entityGoat.setCustomNameTag(name);
 							this.world.spawnEntity(entityGoat);
-							this.playSound(ModSoundEvents.pig1, 0.50F, 1.1F);
+							this.playSound(ModSoundEvents.goatLiving1, 0.50F, 1.1F);
 						}
 					}
 					else
@@ -237,7 +232,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 							if (name != "")
 								entityGoat.setCustomNameTag(name);
 							this.world.spawnEntity(entityGoat);
-							this.playSound(ModSoundEvents.hog1, 0.50F, 1.1F);
+							this.playSound(ModSoundEvents.goatLiving2, 0.50F, 1.1F);
 						}
 					}
 

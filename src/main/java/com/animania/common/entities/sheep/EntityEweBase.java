@@ -222,17 +222,19 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		int chooser = rand.nextInt(num);
 
 		if (chooser == 0)
-			return ModSoundEvents.pig1;
+			return ModSoundEvents.sheepLiving1;
 		else if (chooser == 1)
-			return ModSoundEvents.pig2;
+			return ModSoundEvents.sheepLiving2;
 		else if (chooser == 2)
-			return ModSoundEvents.pig4;
+			return ModSoundEvents.sheepLiving3;
 		else if (chooser == 3)
-			return ModSoundEvents.pig5;
+			return ModSoundEvents.sheepLiving4;
 		else if (chooser == 4)
-			return ModSoundEvents.pig6;
+			return ModSoundEvents.sheepLiving5;
 		else if (chooser == 5)
-			return ModSoundEvents.pig7;
+			return ModSoundEvents.sheepLiving6;
+		else if (chooser == 6)
+			return ModSoundEvents.sheepLiving7;
 		else
 			return null;
 
@@ -242,14 +244,12 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = rand.nextInt(2);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.sheepHurt1;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.sheepLiving7;
 	}
 
 	@Override
@@ -257,13 +257,10 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);
-
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.sheepHurt1;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.sheepLiving7;
 	}
 
 	@Override
@@ -373,7 +370,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					}
 
 					entityKid.setParentUniqueId(this.getPersistentID());
-					this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F); //TODO
+					this.playSound(ModSoundEvents.lambLiving1, 0.50F, 1.1F); //TODO
 
 					this.setPregnant(false);
 					this.setFertile(false);

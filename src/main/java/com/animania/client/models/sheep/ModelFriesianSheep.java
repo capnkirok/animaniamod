@@ -158,30 +158,37 @@ public class ModelFriesianSheep extends ModelBase
 		LeftEar2.setTextureSize( 128, 128 );
 		LeftEar2.addBox( 0F, -0.5F, -1F, 1, 1, 1);
 		LeftEar2.setRotationPoint( 6.166575F, -0.6877365F - 5.110041F, -20.50967F + 11.14083F );
+		RightHorn1 = new ModelRenderer( this, 80, 15 );
+		RightHorn1.setTextureSize( 128, 128 );
+		RightHorn1.addBox( -5F, -1F, -1F, 5, 2, 2);
+		RightHorn1.setRotationPoint( -2.1F, -1.299633F - 3.843416F, -19.10564F + 9.107978F);
 		LeftHorn1 = new ModelRenderer( this, 80, 15 );
-        LeftHorn1.setTextureSize( 128, 128 );
-        LeftHorn1.addBox( 0F, -1F, -1F, 5, 2, 2);
-        LeftHorn1.setRotationPoint( 1F, -0.3727875F - 5.110041F, -21.23875F  + 11.14083F );
-        LeftHorn2 = new ModelRenderer( this, 80, 15 );
-        LeftHorn2.setTextureSize( 128, 128 );
-        LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
-        LeftHorn2.setRotationPoint( 3.359311F, -4.107119F - 5.110041F, -20.24455F  + 11.14083F);
-        LeftHorn3 = new ModelRenderer( this, 80, 15 );
-        LeftHorn3.setTextureSize( 128, 128 );
-        LeftHorn3.addBox( 1F, -1F, -1F, 4, 2, 2);
-        LeftHorn3.setRotationPoint( 6.205345F, -4.200037F - 5.110041F, -16.6098F  + 11.14083F);
-        RightHorn1 = new ModelRenderer( this, 80, 15 );
-        RightHorn1.setTextureSize( 128, 128 );
-        RightHorn1.addBox( -5F, -1F, -1F, 5, 2, 2);
-        RightHorn1.setRotationPoint( -1F, -0.3727856F - 5.110041F, -21.23875F + 11.14083F );
-        RightHorn2 = new ModelRenderer( this, 80, 15 );
-        RightHorn2.setTextureSize( 128, 128 );
-        RightHorn2.addBox( -6F, -1F, -1F, 6, 2, 2);
-        RightHorn2.setRotationPoint( -3.35931F, -4.107117F - 5.110041F, -20.24455F + 11.14083F );
-        RightHorn3 = new ModelRenderer( this, 80, 15 );
-        RightHorn3.setTextureSize( 128, 128 );
-        RightHorn3.addBox( -5F, -1F, -1F, 4, 2, 2);
-        RightHorn3.setRotationPoint( -6.205344F, -4.200035F - 5.110041F, -16.6098F  + 11.14083F);
+		LeftHorn1.setTextureSize( 128, 128 );
+		LeftHorn1.addBox( 0F, -1F, -1F, 5, 2, 2);
+		LeftHorn1.setRotationPoint( 2.1F, -1.299633F - 3.843416F, -19.10564F + 9.107978F);
+		
+		
+		RightHorn2 = new ModelRenderer( this, 80, 15 );
+		RightHorn2.setTextureSize( 128, 128 );
+		RightHorn2.addBox( -6F, -1F, -1F, 6, 2, 2);
+		RightHorn2.setRotationPoint( -5.204046F + .8F, -3.656723F - 3.843416F - .8F, -16.48655F + 9.107978F - .8F);
+
+		RightHorn3 = new ModelRenderer( this, 80, 15 );
+		RightHorn3.setTextureSize( 128, 128 );
+		RightHorn3.addBox( -6F, -1F, -1F, 6, 2, 2);
+		RightHorn3.setRotationPoint( -6.294238F - 1.2F, 4.2681656F - 3.843416F - 8.5F, -20.6277F + 9.107978F + 7.5F);
+
+		LeftHorn2 = new ModelRenderer( this, 80, 15 );
+		LeftHorn2.setTextureSize( 128, 128 );
+		LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
+		LeftHorn2.setRotationPoint( 5.204046F - .8F, -3.656723F - 3.843416F - .8F, -16.48655F + 9.107978F - .8F);
+
+		LeftHorn3 = new ModelRenderer( this, 80, 15 );
+		LeftHorn3.setTextureSize( 128, 128 );
+		LeftHorn3.addBox( 0F, -1F, -1F, 6, 2, 2);
+		LeftHorn3.setRotationPoint( 6.294238F + 1.2F, 4.2681656F - 3.843416F - 8.5F, -20.6277F + 9.107978F + 7.5F);
+		
+		
 		RightEar1 = new ModelRenderer( this, 20, 15 );
 		RightEar1.setTextureSize( 128, 128 );
 		RightEar1.addBox( -4F, -1F, -1F, 4, 2, 1);
@@ -249,25 +256,30 @@ public class ModelFriesianSheep extends ModelBase
 		LeftEar1.rotateAngleZ = -0.1289499F;
 		LeftEar2.rotateAngleX = 0.2696677F;
 		LeftEar2.rotateAngleY = 0.3971406F;
-		LeftEar2.rotateAngleZ = -0.07895216F;
+		LeftEar2.rotateAngleZ = -0.07895216F;	
 		LeftHorn1.rotateAngleX = 0.08560019F;
 		LeftHorn1.rotateAngleY = -0.5243015F;
 		LeftHorn1.rotateAngleZ = -0.8645296F;
-		LeftHorn2.rotateAngleX = 0.05121709F;
-		LeftHorn2.rotateAngleY = -0.9075357F;
-		LeftHorn2.rotateAngleZ = 0.06658725F;
-		LeftHorn3.rotateAngleX = -0.2553108F;
-		LeftHorn3.rotateAngleY = -0.8194962F;
-		LeftHorn3.rotateAngleZ = 1.064569F;
 		RightHorn1.rotateAngleX = 0.08560022F;
 		RightHorn1.rotateAngleY = 0.5243015F;
 		RightHorn1.rotateAngleZ = 0.8645297F;
+		LeftHorn2.rotateAngleX = 0.05121709F;
+		LeftHorn2.rotateAngleY = -0.9075357F;
+		LeftHorn2.rotateAngleZ = 0.06658725F;
 		RightHorn2.rotateAngleX = 0.05121716F;
 		RightHorn2.rotateAngleY = 0.9075359F;
 		RightHorn2.rotateAngleZ = -0.06658728F;
+		
+		LeftHorn3.rotateAngleX = -0.2553108F;
+		//LeftHorn3.rotateAngleY = -0.8194962F;
+		LeftHorn3.rotateAngleZ = 1.064569F;
+		
 		RightHorn3.rotateAngleX = -0.2553108F;
-		RightHorn3.rotateAngleY = 0.8194963F;
+		//RightHorn3.rotateAngleY = 0.8194963F;
 		RightHorn3.rotateAngleZ = -1.064569F;
+		
+		
+		
 		RightEar1.rotateAngleX = 0.2500452F;
 		RightEar1.rotateAngleY = -0.2031327F;
 		RightEar1.rotateAngleZ = 0.1289499F;

@@ -154,8 +154,34 @@ public class ModSoundEvents
 	public static SoundEvent rabbit4;
 	public static SoundEvent rabbitHurt1;
 	public static SoundEvent rabbitHurt2;
-	
-	
+
+	// Sheep
+	public static SoundEvent sheepHurt1;
+	public static SoundEvent sheepLiving1;
+	public static SoundEvent sheepLiving2;;
+	public static SoundEvent sheepLiving3;
+	public static SoundEvent sheepLiving4;
+	public static SoundEvent sheepLiving5;
+	public static SoundEvent sheepLiving6;
+	public static SoundEvent sheepLiving7;
+	public static SoundEvent lambLiving1;
+	public static SoundEvent lambLiving2;
+
+	// Goats
+	public static SoundEvent goatLiving1;
+	public static SoundEvent goatLiving2;;
+	public static SoundEvent goatLiving3;
+	public static SoundEvent goatLiving4;
+	public static SoundEvent goatLiving5;
+	public static SoundEvent kidLiving1;
+	public static SoundEvent kidLiving2;;
+	public static SoundEvent kidLiving3;
+	public static SoundEvent goatHurt1;
+	public static SoundEvent goatHurt2;
+	public static SoundEvent kidHurt1;
+	public static SoundEvent kidHurt2;
+
+
 	public static void registerSounds() {
 
 		ModSoundEvents.zap = registerSound("zap");
@@ -191,7 +217,7 @@ public class ModSoundEvents
 		ModSoundEvents.rabbit2 = registerSound("rabbit2");
 		ModSoundEvents.rabbit3 = registerSound("rabbit3");
 		ModSoundEvents.rabbit4 = registerSound("rabbit4");
-		
+
 		// Amphibians
 		ModSoundEvents.frogLiving1 = registerSound("frogLiving1");
 		ModSoundEvents.frogLiving2 = registerSound("frogLiving2");
@@ -299,6 +325,31 @@ public class ModSoundEvents
 		ModSoundEvents.piglet1 = registerSound("piglet1");
 		ModSoundEvents.piglet2 = registerSound("piglet2");
 		ModSoundEvents.piglet3 = registerSound("piglet3");
+
+		//Sheep
+		ModSoundEvents.sheepHurt1 = registerSound("sheephurt1");
+		ModSoundEvents.sheepLiving1 = registerSound("sheepliving1");
+		ModSoundEvents.sheepLiving2 = registerSound("sheepliving2");
+		ModSoundEvents.sheepLiving3 = registerSound("sheepliving3");
+		ModSoundEvents.sheepLiving4 = registerSound("sheepliving4");
+		ModSoundEvents.sheepLiving5 = registerSound("sheepliving5");
+		ModSoundEvents.sheepLiving6 = registerSound("sheepliving6");
+		ModSoundEvents.lambLiving1 = registerSound("lambLiving1");
+		ModSoundEvents.lambLiving2 = registerSound("lambLiving2");
+
+		//Goats
+		ModSoundEvents.goatLiving1 = registerSound("goatliving1");
+		ModSoundEvents.goatLiving2 = registerSound("goatliving2");
+		ModSoundEvents.goatLiving3 = registerSound("goatliving3");
+		ModSoundEvents.goatLiving4 = registerSound("goatliving4");
+		ModSoundEvents.goatLiving5 = registerSound("goatliving5");
+		ModSoundEvents.goatHurt1 = registerSound("goathurt1");
+		ModSoundEvents.goatHurt2 = registerSound("goathurt2");
+		ModSoundEvents.kidLiving1 = registerSound("kidLiving1");
+		ModSoundEvents.kidLiving2 = registerSound("kidLiving2");
+		ModSoundEvents.kidLiving3 = registerSound("kidLiving3");
+		ModSoundEvents.kidHurt1 = registerSound("kidhurt1");
+		ModSoundEvents.kidHurt2 = registerSound("kidhurt2");
 
 	}
 

@@ -186,42 +186,46 @@ public class ModelSuffolkRam extends ModelBase
         NeckWool2 = new ModelRenderer( this, 31, 75 );
         NeckWool2.setTextureSize( 128, 128 );
         NeckWool2.addBox( -3.5F, -2F, -2F, 7, 9, 4);
-        NeckWool2.setRotationPoint( 0F, 0.1517105F- 5.110041F, -17.41896F+ 11.14083F );
-        
+        NeckWool2.setRotationPoint( 0F, 0.1517105F - 5.110041F, -17.41896F+ 11.14083F );
         LeftHorn1 = new ModelRenderer( this, 80, 15 );
         LeftHorn1.setTextureSize( 128, 128 );
         LeftHorn1.addBox( 0F, -1F, -1F, 5, 2, 2);
-        LeftHorn1.setRotationPoint( 1F, -0.3727875F, -21.23875F );
-        LeftHorn2 = new ModelRenderer( this, 80, 15 );
-        LeftHorn2.setTextureSize( 128, 128 );
-        LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
-        LeftHorn2.setRotationPoint( 3.359311F, -4.107119F, -20.24455F );
-        LeftHorn3 = new ModelRenderer( this, 80, 15 );
-        LeftHorn3.setTextureSize( 128, 128 );
-        LeftHorn3.addBox( 1F, -1F, -1F, 4, 2, 2);
-        LeftHorn3.setRotationPoint( 6.205345F, -4.200037F, -16.6098F );
-        LeftHorn4 = new ModelRenderer( this, 80, 15 );
-        LeftHorn4.setTextureSize( 128, 128 );
-        LeftHorn4.addBox( 1F, -1F, -1F, 4, 2, 2);
-        LeftHorn4.setRotationPoint( 8.428642F, -1.049698F, -15.43408F );
+        LeftHorn1.setRotationPoint( 1F, -0.3727875F- 5.110041F, -21.23875F + 11.14083F);
         RightHorn1 = new ModelRenderer( this, 80, 15 );
         RightHorn1.setTextureSize( 128, 128 );
         RightHorn1.addBox( -5F, -1F, -1F, 5, 2, 2);
-        RightHorn1.setRotationPoint( -1F, -0.3727875F, -21.23875F );
+        RightHorn1.setRotationPoint( -1F, -0.3727875F - 5.110041F, -21.23875F + 11.14083F );
+        
+        LeftHorn2 = new ModelRenderer( this, 80, 15 );
+        LeftHorn2.setTextureSize( 128, 128 );
+        LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
+        LeftHorn2.setRotationPoint( 3.359311F + .4F, -4.107119F - 5.110041F +.4F, -20.24455F + 11.14083F + 1.5F );
+       
+        LeftHorn3 = new ModelRenderer( this, 80, 15 );
+        LeftHorn3.setTextureSize( 128, 128 );
+        LeftHorn3.addBox( 1F, -1F, -1F, 4, 2, 2);
+        LeftHorn3.setRotationPoint( 6.205345F - .5F, -4.200037F - 5.110041F, -16.6098F+ 11.14083F + 2F );
+        
+        LeftHorn4 = new ModelRenderer( this, 80, 15 );
+        LeftHorn4.setTextureSize( 128, 128 );
+        LeftHorn4.addBox( 1F, -1F, -1F, 4, 2, 2);
+        LeftHorn4.setRotationPoint( 8.428642F, -1.049698F- 5.110041F, -15.43408F+ 11.14083F + 1F);
+      
         RightHorn2 = new ModelRenderer( this, 80, 15 );
         RightHorn2.setTextureSize( 128, 128 );
-        RightHorn2.addBox( -6F, -1F, -1F, 6, 2, 2);
-        RightHorn2.setRotationPoint( -3.35931F, -4.107119F, -20.24456F );
+        RightHorn2.addBox( -6F, -1F, -1F -.8F, 6, 2, 2);
+        RightHorn2.setRotationPoint( -3.35931F + .4F, -4.107119F - 5.110041F +.4F, -20.24456F + 11.14083F + 1.5F);
+       
         RightHorn3 = new ModelRenderer( this, 80, 15 );
         RightHorn3.setTextureSize( 128, 128 );
         RightHorn3.addBox( -5F, -1F, -1F, 4, 2, 2);
-        RightHorn3.setRotationPoint( -6.205344F, -4.200037F, -16.6098F );
+        RightHorn3.setRotationPoint( -6.205344F + .5F, -4.200037F- 5.110041F, -16.6098F + 11.14083F + 2F);
+        
         RightHorn4 = new ModelRenderer( this, 80, 15 );
         RightHorn4.setTextureSize( 128, 128 );
         RightHorn4.addBox( -5F, -1F, -1F, 4, 2, 2);
-        RightHorn4.setRotationPoint( -8.428642F, -1.049698F, -15.43408F );
+        RightHorn4.setRotationPoint( -8.428642F, -1.049698F- 5.110041F, -15.43408F + 11.14083F + 1F);
 		
-
 		this.HeadNode.addChild(Head);
 		this.HeadNode.addChild(Neck);
 		this.HeadNode.addChild(UpperJaw);
@@ -290,11 +294,11 @@ public class ModelSuffolkRam extends ModelBase
         LeftHorn2.rotateAngleZ = 0.06658725F;
    
         LeftHorn3.rotateAngleX = -0.2553108F;
-        LeftHorn3.rotateAngleY = -0.8194962F;
+        //LeftHorn3.rotateAngleY = -0.8194962F;
         LeftHorn3.rotateAngleZ = 1.064569F;
    
         LeftHorn4.rotateAngleX = -0.2553108F;
-        LeftHorn4.rotateAngleY = -0.8194963F;
+        //LeftHorn4.rotateAngleY = -0.8194963F;
         LeftHorn4.rotateAngleZ = 2.378062F;
    
         RightHorn1.rotateAngleX = 0.08560017F;
@@ -306,11 +310,11 @@ public class ModelSuffolkRam extends ModelBase
         RightHorn2.rotateAngleZ = -0.0665873F;
    
         RightHorn3.rotateAngleX = -0.2553109F;
-        RightHorn3.rotateAngleY = 0.8194964F;
+        //RightHorn3.rotateAngleY = 0.8194964F;
         RightHorn3.rotateAngleZ = -1.064569F;
    
         RightHorn4.rotateAngleX = -0.2553109F;
-        RightHorn4.rotateAngleY = 0.8194965F;
+        //RightHorn4.rotateAngleY = 0.8194965F;
         RightHorn4.rotateAngleZ = -2.378062F;
         
 		NeckWool.rotateAngleX = -0.5530767F;

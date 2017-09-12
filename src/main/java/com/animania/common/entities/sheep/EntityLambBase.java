@@ -132,15 +132,9 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 		int chooser = rand.nextInt(num);
 
 		if (chooser == 0)
-			return ModSoundEvents.piglet1;
+			return ModSoundEvents.lambLiving1;
 		else if (chooser == 1)
-			return ModSoundEvents.piglet2;
-		else if (chooser == 2)
-			return ModSoundEvents.piglet3;
-		else if (chooser == 3)
-			return ModSoundEvents.pig1;
-		else if (chooser == 4)
-			return ModSoundEvents.pig2;
+			return ModSoundEvents.lambLiving2;
 		else
 			return null;
 
@@ -153,11 +147,11 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 		int chooser = rand.nextInt(3);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigletHurt1;
+			return ModSoundEvents.sheepHurt1;
 		else if (chooser == 1)
-			return ModSoundEvents.pigletHurt2;
+			return ModSoundEvents.lambLiving2;
 		else
-			return ModSoundEvents.pigletHurt3;
+			return null;
 	}
 
 	@Override
@@ -167,11 +161,11 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 		int chooser = rand.nextInt(3);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigletHurt1;
+			return ModSoundEvents.sheepHurt1;
 		else if (chooser == 1)
-			return ModSoundEvents.pigletHurt2;
+			return ModSoundEvents.lambLiving2;
 		else
-			return ModSoundEvents.pigletHurt3;
+			return null;
 	}
 
 	@Override
@@ -224,7 +218,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 							if (name != "")
 								entitySheep.setCustomNameTag(name);
 							this.world.spawnEntity(entitySheep);
-							this.playSound(ModSoundEvents.pig1, 0.50F, 1.1F); //TODO Sounds
+							this.playSound(ModSoundEvents.sheepLiving1, 0.50F, 1.1F);
 						}
 					}
 					else
@@ -237,7 +231,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 							if (name != "")
 								entitySheep.setCustomNameTag(name);
 							this.world.spawnEntity(entitySheep);
-							this.playSound(ModSoundEvents.hog1, 0.50F, 1.1F);
+							this.playSound(ModSoundEvents.sheepLiving2, 0.50F, 1.1F);
 						}
 					}
 

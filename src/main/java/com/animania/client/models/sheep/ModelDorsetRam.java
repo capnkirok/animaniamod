@@ -159,30 +159,36 @@ public class ModelDorsetRam extends ModelBase
 		LeftEar2.setTextureSize( 128, 128 );
 		LeftEar2.addBox( 0F, -0.5F, -1F, 1, 1, 1);
 		LeftEar2.setRotationPoint( 6.166575F, -0.6877365F - 5.110041F, -20.50967F + 11.14083F  );
+		
 		LeftHorn1 = new ModelRenderer( this, 80, 15 );
 		LeftHorn1.setTextureSize( 128, 128 );
 		LeftHorn1.addBox( 0F, -1F, -1F, 5, 2, 2);
 		LeftHorn1.setRotationPoint( 1F, -1.045092F - 5.110041F, -21.4337F + 11.14083F );
-		LeftHorn2 = new ModelRenderer( this, 80, 15 );
-		LeftHorn2.setTextureSize( 128, 128 );
-		LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
-		LeftHorn2.setRotationPoint( 3.841148F, -4.314388F - 5.110041F, -20.11477F + 11.14083F );
-		LeftHorn3 = new ModelRenderer( this, 80, 15 );
-		LeftHorn3.setTextureSize( 128, 128 );
-		LeftHorn3.addBox( 1F, -1F, -1F, 6, 2, 2);
-		LeftHorn3.setRotationPoint( 6.125732F, -2.09454F - 5.110041F, -16.77217F  + 11.14083F);
 		RightHorn1 = new ModelRenderer( this, 80, 15 );
 		RightHorn1.setTextureSize( 128, 128 );
 		RightHorn1.addBox( -5F, -1F, -1F, 5, 2, 2);
 		RightHorn1.setRotationPoint( -1F, -1.045094F - 5.110041F, -21.4337F  + 11.14083F);
+		
+		LeftHorn2 = new ModelRenderer( this, 80, 15 );
+		LeftHorn2.setTextureSize( 128, 128 );
+		LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
+		LeftHorn2.setRotationPoint( 3.841148F  - .5F, -4.314388F - 5.110041F, -20.11477F + 11.14083F + .8F );
+		
+		LeftHorn3 = new ModelRenderer( this, 80, 15 );
+		LeftHorn3.setTextureSize( 128, 128 );
+		LeftHorn3.addBox( 1F, -1F, -1F, 6, 2, 2);
+		LeftHorn3.setRotationPoint( 6.125732F -.6F, -2.09454F - 5.110041F - 3.3F, -16.77217F + 11.14083F + 1.5F);
+		
 		RightHorn2 = new ModelRenderer( this, 80, 15 );
 		RightHorn2.setTextureSize( 128, 128 );
 		RightHorn2.addBox( -6F, -1F, -1F, 6, 2, 2);
-		RightHorn2.setRotationPoint( -3.841148F, -4.31439F - 5.110041F, -20.11477F + 11.14083F );
+		RightHorn2.setRotationPoint( -3.841148F + .5F, -4.31439F - 5.110041F, -20.11477F + 11.14083F + .8F);
+		
 		RightHorn3 = new ModelRenderer( this, 80, 15 );
 		RightHorn3.setTextureSize( 128, 128 );
 		RightHorn3.addBox( -7F, -1F, -1F, 6, 2, 2);
-		RightHorn3.setRotationPoint( -6.125732F, -2.094542F - 5.110041F, -16.77217F  + 11.14083F);
+		RightHorn3.setRotationPoint( -6.125732F + .6F, -2.094542F - 5.110041F - 3.3F, -16.77217F  + 11.14083F + 1.5F);
+		
 		RightEar1 = new ModelRenderer( this, 20, 15 );
 		RightEar1.setTextureSize( 128, 128 );
 		RightEar1.addBox( -4F, -1F, -1F, 4, 2, 1);
@@ -255,24 +261,28 @@ public class ModelDorsetRam extends ModelBase
 		LeftEar2.rotateAngleX = 0.2696677F;
 		LeftEar2.rotateAngleY = 0.3971406F;
 		LeftEar2.rotateAngleZ = -0.07895216F;
+		
 		LeftHorn1.rotateAngleX = 0.08560019F;
 		LeftHorn1.rotateAngleY = -0.5243015F;
 		LeftHorn1.rotateAngleZ = -0.8645296F;
+		RightHorn1.rotateAngleX = 0.08560022F;
+		RightHorn1.rotateAngleY = 0.5243015F;
+		RightHorn1.rotateAngleZ = 0.8645297F;
+				
 		LeftHorn2.rotateAngleX = 0.05121709F;
 		LeftHorn2.rotateAngleY = -0.9075357F;
 		LeftHorn2.rotateAngleZ = 0.06658725F;
 		LeftHorn3.rotateAngleX = -0.2553108F;
-		LeftHorn3.rotateAngleY = -0.8194962F;
+		LeftHorn3.rotateAngleY = 0.15F;
 		LeftHorn3.rotateAngleZ = 1.064569F;
-		RightHorn1.rotateAngleX = 0.08560022F;
-		RightHorn1.rotateAngleY = 0.5243015F;
-		RightHorn1.rotateAngleZ = 0.8645297F;
+		
 		RightHorn2.rotateAngleX = 0.05121716F;
 		RightHorn2.rotateAngleY = 0.9075359F;
 		RightHorn2.rotateAngleZ = -0.06658728F;
 		RightHorn3.rotateAngleX = -0.2553108F;
-		RightHorn3.rotateAngleY = 0.8194963F;
+		RightHorn3.rotateAngleY = -0.15F;
 		RightHorn3.rotateAngleZ = -1.064569F;
+		
 		RightEar1.rotateAngleX = 0.2500452F;
 		RightEar1.rotateAngleY = -0.2031327F;
 		RightEar1.rotateAngleZ = 0.1289499F;
