@@ -68,13 +68,6 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	}
 
 	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		this.tasks.addTask(3, new EntityAIPanicGoats(this, 2.0D));
-	}
-
-	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
@@ -247,17 +240,15 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		int chooser = rand.nextInt(num);
 
 		if (chooser == 0)
-			return ModSoundEvents.pig1;
+			return ModSoundEvents.goatLiving1;
 		else if (chooser == 1)
-			return ModSoundEvents.pig2;
+			return ModSoundEvents.goatLiving2;
 		else if (chooser == 2)
-			return ModSoundEvents.pig4;
+			return ModSoundEvents.goatLiving3;
 		else if (chooser == 3)
-			return ModSoundEvents.pig5;
+			return ModSoundEvents.goatLiving4;
 		else if (chooser == 4)
-			return ModSoundEvents.pig6;
-		else if (chooser == 5)
-			return ModSoundEvents.pig7;
+			return ModSoundEvents.goatLiving5;
 		else
 			return null;
 
@@ -270,11 +261,11 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		int chooser = rand.nextInt(3);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
+			return ModSoundEvents.goatHurt1;
 		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.goatHurt2;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.goatLiving3;
 	}
 
 	@Override
@@ -284,11 +275,11 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		int chooser = rand.nextInt(3);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
+			return ModSoundEvents.goatHurt1;
 		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.goatHurt2;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.goatLiving3;
 	}
 
 	@Override
@@ -406,7 +397,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 					}
 
 					entityKid.setParentUniqueId(this.getPersistentID());
-					this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F); //TODO
+					this.playSound(ModSoundEvents.kidLiving1, 0.50F, 1.1F);
 
 					this.setPregnant(false);
 					this.setFertile(false);

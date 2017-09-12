@@ -41,14 +41,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
-	}
-	
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		this.tasks.addTask(1, new EntityAIFollowParentRabbits(this, 1.1D));
-		this.tasks.addTask(1, new EntityAIPanicRodents(this, 2.0D));
+		this.tasks.addTask(1, new EntityAIFollowParentRabbits(this, 1.15D));
 	}
 	
 	@Override

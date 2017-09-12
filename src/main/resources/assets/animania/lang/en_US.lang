@@ -216,6 +216,7 @@ item.animania_entity_egg_goat_random.name=Random Goat
 item.animania_entity_egg_peacock_random.name=Random Peacock
 item.animania_entity_egg_random.name=Random Animal
 item.animania_entity_egg_rabbit_random.name=Random Rabbit
+item.animania_entity_egg_sheep_random.name=Random Sheep
 
 item.animania_entity_egg_frog.name=Frog
 item.animania_entity_egg_toad.name=Toad
@@ -457,6 +458,9 @@ tile.animania_block_nest.name=Nest
 tile.animania_invisiblock.name=Trough
 tile.animania_block_hamster_wheel.name=Hamster Wheel
 tile.animania_salt_lick.name=Salt Lick
+
+entity.animania:wagon.name=Covered Wagon
+item.wagon.name=Covered Wagon
 
 tile.animania_wool_dorset_brown.name=Wool (Dorset, Brown)
 tile.animania_wool_friesian_black.name=Wool (Friesian, Black)

@@ -40,7 +40,7 @@ public class RenderRamMerino<T extends EntityRamMerino> extends RenderLiving<T>
 	}
 
 	protected void preRenderScale(EntityRamMerino entity, float f) {
-		GL11.glScalef(0.55F, 0.55F, 0.55F);
+		GL11.glScalef(0.56F, 0.56F, 0.56F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 

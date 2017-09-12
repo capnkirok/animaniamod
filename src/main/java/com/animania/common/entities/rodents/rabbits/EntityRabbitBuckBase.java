@@ -41,14 +41,8 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
-	}
-
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		this.tasks.addTask(5, new EntityAIMateRabbits(this, 1.0D));
-		this.tasks.addTask(1, new EntityAIFollowMateRabbits(this, 1.1D));
+		this.tasks.addTask(1, new EntityAIMateRabbits(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIFollowMateRabbits(this, 1.1D));
 	}
 
 	@Override

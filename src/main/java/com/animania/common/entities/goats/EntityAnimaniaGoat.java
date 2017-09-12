@@ -12,9 +12,12 @@ import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindFoodGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindSaltLickGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindWater;
+import com.animania.common.entities.goats.ai.EntityAIFollowMateGoats;
+import com.animania.common.entities.goats.ai.EntityAIFollowParentGoats;
 import com.animania.common.entities.goats.ai.EntityAIGoatEatGrass;
 import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
 import com.animania.common.entities.goats.ai.EntityAIMateGoats;
+import com.animania.common.entities.goats.ai.EntityAIPanicGoats;
 import com.animania.common.entities.goats.ai.EntityAISwimmingGoats;
 import com.animania.common.entities.goats.ai.EntityAIWatchClosestGoats;
 import com.animania.common.handler.ItemHandler;
@@ -84,9 +87,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAIGoatEatGrass(this);
 		this.tasks.addTask(1, new EntityAIFindFoodGoats(this, 1.1D));
-		this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
-		this.tasks.addTask(3, new EntityAIMateGoats(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.3F));
+		this.tasks.addTask(3, new EntityAIPanicGoats(this, 1.4D));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAISwimmingGoats(this));
@@ -221,7 +222,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	@Override
 	public void onLivingUpdate()
 	{
-		 
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -294,7 +295,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 			this.setWoolRegrowthTimer(shearedTimer);
 			if (shearedTimer < 0) {
 				this.setSheared(false);
-				
+
 			}
 		}
 
@@ -309,26 +310,26 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		EntityPlayer entityplayer = player;
 
 		if (stack.getItem() == Items.SHEARS && !this.getSheared() && !this.isChild() && (this instanceof EntityBuckAngora || this instanceof EntityDoeAngora))   //Forge: Moved to onSheared
-        {
-            if (!this.world.isRemote)
-            {
-                this.setSheared(true);
-                int i = 1 + this.rand.nextInt(2);
+		{
+			if (!this.world.isRemote)
+			{
+				this.setSheared(true);
+				int i = 1 + this.rand.nextInt(2);
 
-                for (int j = 0; j < i; ++j)
-                {
-                    //EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, this.getFleeceColor().getMetadata()), 1.0F);
-                    EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
-                    entityitem.motionY += (double)(this.rand.nextFloat() * 0.05F);
-                    entityitem.motionX += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
-                    entityitem.motionZ += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
-                }
-            }
+				for (int j = 0; j < i; ++j)
+				{
+					//EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, this.getFleeceColor().getMetadata()), 1.0F);
+					EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
+					entityitem.motionY += (double)(this.rand.nextFloat() * 0.05F);
+					entityitem.motionX += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
+					entityitem.motionZ += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
+				}
+			}
 
-            stack.damageItem(1, player);
-            this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
-        }
-		
+			stack.damageItem(1, player);
+			this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
+		}
+
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
 		{
 			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
@@ -372,7 +373,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		compound.setBoolean("Sheared", this.getSheared());
 
 	}
-	
+
 	public boolean getSheared()
 	{
 		return this.dataManager.get(EntityAnimaniaGoat.SHEARED).booleanValue();
@@ -387,7 +388,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		} else
 			this.dataManager.set(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(false));
 	}
-	
+
 	public int getWoolRegrowthTimer()
 	{
 		return this.dataManager.get(EntityAnimaniaGoat.SHEARED_TIMER).intValue();
@@ -451,16 +452,18 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 				dropItem = new ItemStack(this.dropCooked, 1);
 		}
 
-		
-
 		if (happyDrops >= 1)
 		{
 			dropItem.setCount(1 + lootlevel);
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 			world.spawnEntity(entityitem);
-			this.dropItem(Items.LEATHER, 1 + lootlevel);
+			if ((this instanceof EntityBuckAngora || this instanceof EntityDoeAngora) && !this.getSheared())  {
+				this.dropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1).getItem(), 1 + lootlevel);
+			}		
 		} else if (happyDrops == 0)
-			this.dropItem(Items.LEATHER, 1 + lootlevel);
+			if ((this instanceof EntityBuckAngora || this instanceof EntityDoeAngora) && !this.getSheared())  {
+				this.dropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1).getItem(), 1 + lootlevel);
+			}
 
 	}
 
@@ -468,13 +471,13 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	public EntityAgeable createChild(EntityAgeable ageable) {
 		return null;
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.goatType, this.gender));
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{

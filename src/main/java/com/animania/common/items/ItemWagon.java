@@ -28,7 +28,8 @@ public class ItemWagon extends Item
     public ItemWagon()
     {
         this.maxStackSize = 1;
-        this.setCreativeTab(CreativeTabs.TRANSPORTATION);
+        this.setCreativeTab(Animania.TabAnimaniaResources);
+        //this.setCreativeTab(CreativeTabs.TRANSPORTATION);
         this.setRegistryName(Animania.MODID, "item_wagon");
         this.setUnlocalizedName("wagon");
         GameRegistry.register(this);

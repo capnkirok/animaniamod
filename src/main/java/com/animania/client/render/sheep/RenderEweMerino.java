@@ -40,7 +40,7 @@ public class RenderEweMerino<T extends EntityEweMerino> extends RenderLiving<T>
 	}
 
 	protected void preRenderScale(EntityEweMerino entity, float f) {
-		GL11.glScalef(0.51F, 0.51F, 0.51F);
+		GL11.glScalef(0.53F, 0.53F, 0.53F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 

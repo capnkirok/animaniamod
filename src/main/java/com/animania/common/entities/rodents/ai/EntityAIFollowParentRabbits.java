@@ -29,6 +29,7 @@ public class EntityAIFollowParentRabbits extends EntityAIBase
 	public boolean shouldExecute() {
 
 		this.delayCounter++;
+	
 		if (this.delayCounter > 60) {
 			if (this.childAnimal instanceof EntityRabbitKitBase) {
 				EntityRabbitKitBase ec = (EntityRabbitKitBase) this.childAnimal;

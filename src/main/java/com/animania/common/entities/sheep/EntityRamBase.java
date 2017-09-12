@@ -8,6 +8,8 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
+import com.animania.common.entities.sheep.ai.EntityAIFollowMateSheep;
 import com.animania.common.entities.sheep.ai.EntityAIMateSheep;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -46,14 +48,9 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.gender = EntityGender.MALE;
 		this.headbutting = true;
 		this.mateable = true;
-	}
-	
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		this.tasks.addTask(8, new EntityAIMateSheep(this, 1.0D));
-
+		this.tasks.addTask(3, new EntityAIFollowMateSheep(this, 1.1D));
+		this.tasks.addTask(3, new EntityAIMateSheep(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIButtHeadsSheep(this, 1.3D));
 	}
 	
 	@Override
@@ -118,38 +115,34 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		int chooser = rand.nextInt(num);
 
 		if (chooser == 0)
-			return ModSoundEvents.hog1;
+			return ModSoundEvents.sheepLiving1;
 		else if (chooser == 1)
-			return ModSoundEvents.hog2;
+			return ModSoundEvents.sheepLiving2;
 		else if (chooser == 2)
-			return ModSoundEvents.hog3;
+			return ModSoundEvents.sheepLiving3;
 		else if (chooser == 3)
-			return ModSoundEvents.hog4;
+			return ModSoundEvents.sheepLiving4;
 		else if (chooser == 4)
-			return ModSoundEvents.hog5;
+			return ModSoundEvents.sheepLiving5;
 		else if (chooser == 5)
-			return ModSoundEvents.pig1;
+			return ModSoundEvents.sheepLiving6;
 		else if (chooser == 6)
-			return ModSoundEvents.pig2;
-		else if (chooser == 7)
-			return ModSoundEvents.pig4;
+			return ModSoundEvents.sheepLiving7;
 		else
 			return null;
 
 	}
-	
+
 	@Override
 	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = rand.nextInt(2);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.sheepHurt1;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.sheepLiving7;
 	}
 
 	@Override
@@ -157,13 +150,10 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);
-
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.sheepHurt1;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.sheepLiving7;
 	}
 	
 	@Override
@@ -172,7 +162,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		SoundEvent soundevent = this.getAmbientSound();
 
 		if (soundevent != null)
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .2F);
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .21F);
 	}
 	
 	@Override
@@ -197,7 +187,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityEweBase.class, 20, world, this);
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityEweBase.class, 30, world, this);
 					for (int k = 0; k <= entities.size() - 1; k++)
 					{
 						Entity entity = entities.get(k);

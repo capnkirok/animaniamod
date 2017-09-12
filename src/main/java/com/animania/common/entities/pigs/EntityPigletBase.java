@@ -49,12 +49,6 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 		this.ageTimer = 0;
 		this.pigType = PigType.YORKSHIRE;
 		this.gender = EntityGender.CHILD;
-	}
-
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
 		this.tasks.addTask(1, new EntityAIFollowParentPigs(this, 1.1D));
 	}
 

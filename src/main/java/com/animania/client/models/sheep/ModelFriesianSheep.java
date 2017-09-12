@@ -61,64 +61,64 @@ public class ModelFriesianSheep extends ModelBase
 		Body = new ModelRenderer( this, 0, 39 );
 		Body.setTextureSize( 128, 128 );
 		Body.addBox( -3.5F, -5.5F, -13.5F, 7, 13, 17);
-		Body.setRotationPoint( 0F, 7F, 0F );
+		Body.setRotationPoint( 0F, 7F, 0F + 7F);
 		RightFrontLeg = new ModelRenderer( this, 107, 4 );
 		RightFrontLeg.setTextureSize( 128, 128 );
 		RightFrontLeg.addBox( -1.5F, 0F, -1.5F, 3, 16, 3);
-		RightFrontLeg.setRotationPoint( -4F, 9.149483F, -10.08116F );
+		RightFrontLeg.setRotationPoint( -4F, 9.149483F, -10.08116F+ 7F );
 		RightFrontLegWool = new ModelRenderer( this, 98, 65 );
 		RightFrontLegWool.setTextureSize( 128, 128 );
 		RightFrontLegWool.addBox( -2F, -2F, -2.5F, 4, 10, 5);
-		RightFrontLegWool.setRotationPoint( -4F, 9.149483F, -10.08116F );
+		RightFrontLegWool.setRotationPoint( -4F, 9.149483F, -10.08116F + 7F);
 		Hips = new ModelRenderer( this, 56, 25 );
 		Hips.setTextureSize( 128, 128 );
 		Hips.addBox( -4F, -1F, 0F, 8, 12, 11);
-		Hips.setRotationPoint( 0F, 2.675018F, 1.651946F );
+		Hips.setRotationPoint( 0F, 2.675018F, 1.651946F + 7F);
 		RightBackLeg = new ModelRenderer( this, 107, 26 );
 		RightBackLeg.setTextureSize( 128, 128 );
 		RightBackLeg.addBox( -1.5F, -0.5F, -1.5F, 3, 18, 3);
-		RightBackLeg.setRotationPoint( -4.5F, 7.543364F, 9.238067F );
+		RightBackLeg.setRotationPoint( -4.5F, 7.543364F, 9.238067F + 7F);
 		RightBackLegWool = new ModelRenderer( this, 99, 83 );
 		RightBackLegWool.setTextureSize( 128, 128 );
 		RightBackLegWool.addBox( -2F, -1F, -2.5F, 4, 12, 5);
-		RightBackLegWool.setRotationPoint( -4.5F, 7.043413F, 9.245048F );
+		RightBackLegWool.setRotationPoint( -4.5F, 7.043413F, 9.245048F + 7F);
 		Tail = new ModelRenderer( this, 0, 0 );
 		Tail.setTextureSize( 128, 128 );
 		Tail.addBox( -1.5F, -1F, -2F, 3, 7, 3);
-		Tail.setRotationPoint( 0F, 3.352909F, 12.66545F );
+		Tail.setRotationPoint( 0F, 3.352909F, 12.66545F+ 7F );
 		WoolBody1 = new ModelRenderer( this, 40, 100 );
 		WoolBody1.setTextureSize( 128, 128 );
 		WoolBody1.addBox( -5F, -6.5F, -6F, 10, 15, 12);
-		WoolBody1.setRotationPoint( 0F, 7.704449F, 0.009471932F );
+		WoolBody1.setRotationPoint( 0F, 7.704449F, 0.009471932F+ 7F );
 		WoolBody2 = new ModelRenderer( this, 1, 104 );
 		WoolBody2.setTextureSize( 128, 128 );
 		WoolBody2.addBox( -5.5F, -6.5F, -5F, 11, 15, 8);
-		WoolBody2.setRotationPoint( 0F, 7.153107F, -8.771488F );
+		WoolBody2.setRotationPoint( 0F, 7.153107F, -8.771488F + 7F);
 		WoolHips = new ModelRenderer( this, 85, 104 );
 		WoolHips.setTextureSize( 128, 128 );
 		WoolHips.addBox( -6F, -6F, -6F, 12, 14, 8);
-		WoolHips.setRotationPoint( 0F, 7.308489F, 11.23427F );
+		WoolHips.setRotationPoint( 0F, 7.308489F, 11.23427F + 7F);
 		LeftBackLeg = new ModelRenderer( this, 107, 26 );
 		LeftBackLeg.setTextureSize( 128, 128 );
 		LeftBackLeg.addBox( -1.5F, -0.5F, -1.5F, 3, 18, 3);
-		LeftBackLeg.setRotationPoint( 4.5F, 7.543364F, 9.238067F );
+		LeftBackLeg.setRotationPoint( 4.5F, 7.543364F, 9.238067F + 7F);
 		LeftBackLegWool = new ModelRenderer( this, 99, 83 );
 		LeftBackLegWool.setTextureSize( 128, 128 );
 		LeftBackLegWool.addBox( -2F, -1F, -2.5F, 4, 12, 5);
-		LeftBackLegWool.setRotationPoint( 4.5F, 7.043413F, 9.245048F );
+		LeftBackLegWool.setRotationPoint( 4.5F, 7.043413F, 9.245048F + 7F);
 		LeftFrontLeg = new ModelRenderer( this, 107, 4 );
 		LeftFrontLeg.setTextureSize( 128, 128 );
 		LeftFrontLeg.addBox( -1.5F, 0F, -1.5F, 3, 16, 3);
-		LeftFrontLeg.setRotationPoint( 4F, 9.149483F, -10.08116F );
+		LeftFrontLeg.setRotationPoint( 4F, 9.149483F, -10.08116F+ 7F );
 		LeftFrontLegWool = new ModelRenderer( this, 98, 65 );
 		LeftFrontLegWool.setTextureSize( 128, 128 );
 		LeftFrontLegWool.addBox( -2F, -2F, -2.5F, 4, 10, 5);
-		LeftFrontLegWool.setRotationPoint( 4F, 9.149483F, -10.08116F );
+		LeftFrontLegWool.setRotationPoint( 4F, 9.149483F, -10.08116F + 7F);
 		
 		HeadNode = new ModelRenderer(this, 0, 19);
 		HeadNode.setTextureSize(128, 128);
 		HeadNode.addBox(0F, 0F, 0F, 0, 0, 0);
-		HeadNode.setRotationPoint(0F, 5.110041F, -11.14083F);
+		HeadNode.setRotationPoint(0F, 5.110041F, -11.14083F+ 7F);
 
 		Neck = new ModelRenderer( this, 0, 18 );
 		Neck.setTextureSize( 128, 128 );
@@ -153,35 +153,42 @@ public class ModelFriesianSheep extends ModelBase
 		LeftEar1 = new ModelRenderer( this, 20, 15 );
 		LeftEar1.setTextureSize( 128, 128 );
 		LeftEar1.addBox( 0F, -1F, -1F, 4, 2, 1);
-		LeftEar1.setRotationPoint( 2.5F, -0.2142792F - 5.110041F, -19.63099F + 11.14083F  );
+		LeftEar1.setRotationPoint( 2.5F, -0.2142792F - 5.110041F, -19.63099F + 11.14083F );
 		LeftEar2 = new ModelRenderer( this, 0, 26 );
 		LeftEar2.setTextureSize( 128, 128 );
 		LeftEar2.addBox( 0F, -0.5F, -1F, 1, 1, 1);
-		LeftEar2.setRotationPoint( 6.166575F, -0.6877365F - 5.110041F, -20.50967F + 11.14083F  );
-		LeftHorn1 = new ModelRenderer( this, 80, 15 );
-		LeftHorn1.setTextureSize( 128, 128 );
-		LeftHorn1.addBox( 0F, -1F, -1F, 5, 2, 2);
-		LeftHorn1.setRotationPoint( 1F, -0.3727875F - 5.110041F, -21.23875F + 11.14083F  );
-		LeftHorn2 = new ModelRenderer( this, 80, 15 );
-		LeftHorn2.setTextureSize( 128, 128 );
-		LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
-		LeftHorn2.setRotationPoint( 3.359311F, -4.107119F - 5.110041F, -20.24455F  + 11.14083F );
-		LeftHorn3 = new ModelRenderer( this, 80, 15 );
-		LeftHorn3.setTextureSize( 128, 128 );
-		LeftHorn3.addBox( 1F, -1F, -1F, 4, 2, 2);
-		LeftHorn3.setRotationPoint( 6.205345F, -4.200037F - 5.110041F, -16.6098F + 11.14083F  );
+		LeftEar2.setRotationPoint( 6.166575F, -0.6877365F - 5.110041F, -20.50967F + 11.14083F );
 		RightHorn1 = new ModelRenderer( this, 80, 15 );
 		RightHorn1.setTextureSize( 128, 128 );
 		RightHorn1.addBox( -5F, -1F, -1F, 5, 2, 2);
-		RightHorn1.setRotationPoint( -1F, -0.3727856F - 5.110041F, -21.23875F  + 11.14083F );
+		RightHorn1.setRotationPoint( -2.1F, -1.299633F - 3.843416F, -19.10564F + 9.107978F);
+		LeftHorn1 = new ModelRenderer( this, 80, 15 );
+		LeftHorn1.setTextureSize( 128, 128 );
+		LeftHorn1.addBox( 0F, -1F, -1F, 5, 2, 2);
+		LeftHorn1.setRotationPoint( 2.1F, -1.299633F - 3.843416F, -19.10564F + 9.107978F);
+		
+		
 		RightHorn2 = new ModelRenderer( this, 80, 15 );
 		RightHorn2.setTextureSize( 128, 128 );
 		RightHorn2.addBox( -6F, -1F, -1F, 6, 2, 2);
-		RightHorn2.setRotationPoint( -3.35931F, -4.107117F - 5.110041F, -20.24455F + 11.14083F  );
+		RightHorn2.setRotationPoint( -5.204046F + .8F, -3.656723F - 3.843416F - .8F, -16.48655F + 9.107978F - .8F);
+
 		RightHorn3 = new ModelRenderer( this, 80, 15 );
 		RightHorn3.setTextureSize( 128, 128 );
-		RightHorn3.addBox( -5F, -1F, -1F, 4, 2, 2);
-		RightHorn3.setRotationPoint( -6.205344F, -4.200035F - 5.110041F, -16.6098F  + 11.14083F );
+		RightHorn3.addBox( -6F, -1F, -1F, 6, 2, 2);
+		RightHorn3.setRotationPoint( -6.294238F - 1.2F, 4.2681656F - 3.843416F - 8.5F, -20.6277F + 9.107978F + 7.5F);
+
+		LeftHorn2 = new ModelRenderer( this, 80, 15 );
+		LeftHorn2.setTextureSize( 128, 128 );
+		LeftHorn2.addBox( 0F, -1F, -1F, 6, 2, 2);
+		LeftHorn2.setRotationPoint( 5.204046F - .8F, -3.656723F - 3.843416F - .8F, -16.48655F + 9.107978F - .8F);
+
+		LeftHorn3 = new ModelRenderer( this, 80, 15 );
+		LeftHorn3.setTextureSize( 128, 128 );
+		LeftHorn3.addBox( 0F, -1F, -1F, 6, 2, 2);
+		LeftHorn3.setRotationPoint( 6.294238F + 1.2F, 4.2681656F - 3.843416F - 8.5F, -20.6277F + 9.107978F + 7.5F);
+		
+		
 		RightEar1 = new ModelRenderer( this, 20, 15 );
 		RightEar1.setTextureSize( 128, 128 );
 		RightEar1.addBox( -4F, -1F, -1F, 4, 2, 1);
@@ -211,12 +218,12 @@ public class ModelFriesianSheep extends ModelBase
 		this.HeadNode.addChild(LeftEar2);
 		this.HeadNode.addChild(RightEar1);
 		this.HeadNode.addChild(RightEar2);
-		//this.HeadNode.addChild(RightHorn1);
-		//this.HeadNode.addChild(RightHorn2);
-		//this.HeadNode.addChild(RightHorn3);
-		//this.HeadNode.addChild(LeftHorn1);
-		//this.HeadNode.addChild(LeftHorn2);
-		//this.HeadNode.addChild(LeftHorn3);
+		this.HeadNode.addChild(RightHorn1);
+		this.HeadNode.addChild(RightHorn2);
+		this.HeadNode.addChild(RightHorn3);
+		this.HeadNode.addChild(LeftHorn1);
+		this.HeadNode.addChild(LeftHorn2);
+		this.HeadNode.addChild(LeftHorn3);
 		this.HeadNode.addChild(NeckWool);
 		this.HeadNode.addChild(NeckWool2);
 
@@ -249,25 +256,30 @@ public class ModelFriesianSheep extends ModelBase
 		LeftEar1.rotateAngleZ = -0.1289499F;
 		LeftEar2.rotateAngleX = 0.2696677F;
 		LeftEar2.rotateAngleY = 0.3971406F;
-		LeftEar2.rotateAngleZ = -0.07895216F;
+		LeftEar2.rotateAngleZ = -0.07895216F;	
 		LeftHorn1.rotateAngleX = 0.08560019F;
 		LeftHorn1.rotateAngleY = -0.5243015F;
 		LeftHorn1.rotateAngleZ = -0.8645296F;
-		LeftHorn2.rotateAngleX = 0.05121709F;
-		LeftHorn2.rotateAngleY = -0.9075357F;
-		LeftHorn2.rotateAngleZ = 0.06658725F;
-		LeftHorn3.rotateAngleX = -0.2553108F;
-		LeftHorn3.rotateAngleY = -0.8194962F;
-		LeftHorn3.rotateAngleZ = 1.064569F;
 		RightHorn1.rotateAngleX = 0.08560022F;
 		RightHorn1.rotateAngleY = 0.5243015F;
 		RightHorn1.rotateAngleZ = 0.8645297F;
+		LeftHorn2.rotateAngleX = 0.05121709F;
+		LeftHorn2.rotateAngleY = -0.9075357F;
+		LeftHorn2.rotateAngleZ = 0.06658725F;
 		RightHorn2.rotateAngleX = 0.05121716F;
 		RightHorn2.rotateAngleY = 0.9075359F;
 		RightHorn2.rotateAngleZ = -0.06658728F;
+		
+		LeftHorn3.rotateAngleX = -0.2553108F;
+		//LeftHorn3.rotateAngleY = -0.8194962F;
+		LeftHorn3.rotateAngleZ = 1.064569F;
+		
 		RightHorn3.rotateAngleX = -0.2553108F;
-		RightHorn3.rotateAngleY = 0.8194963F;
+		//RightHorn3.rotateAngleY = 0.8194963F;
 		RightHorn3.rotateAngleZ = -1.064569F;
+		
+		
+		
 		RightEar1.rotateAngleX = 0.2500452F;
 		RightEar1.rotateAngleY = -0.2031327F;
 		RightEar1.rotateAngleZ = 0.1289499F;
@@ -287,10 +299,8 @@ public class ModelFriesianSheep extends ModelBase
 		LeftFrontLeg.render(scale);
 		Hips.render(scale);
 		LeftBackLeg.render(scale);
-
 		RightBackLeg.render(scale);
 		Tail.render(scale);
-
 		LeftFrontLegWool.render(scale);
 		RightFrontLegWool.render(scale);
 		RightBackLegWool.render(scale);

@@ -21,9 +21,6 @@ public class WailaEntityMareProvider extends WailaEntityAnimalProviderMateable
 
 			EntityMareBase thisEntity = (EntityMareBase)entity;
 			
-			if (thisEntity.getHasKids())
-				currenttip.add(I18n.translateToLocal("text.waila.milkable"));
-
 			if (thisEntity.getFertile() && !thisEntity.getPregnant())
 			{
 				currenttip.add(I18n.translateToLocal("text.waila.fertile1"));

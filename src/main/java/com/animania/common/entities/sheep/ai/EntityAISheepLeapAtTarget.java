@@ -1,21 +1,21 @@
 package com.animania.common.entities.sheep.ai;
 
 import com.animania.common.entities.goats.EntityBuckBase;
-import com.animania.common.entities.goats.EntityDoeBase;
-import com.animania.common.entities.goats.EntityKidBase;
+import com.animania.common.entities.sheep.EntityEweBase;
+import com.animania.common.entities.sheep.EntityLambBase;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.MathHelper;
 
-public class EntityAIGoatsLeapAtTarget extends EntityAIBase
+public class EntityAISheepLeapAtTarget extends EntityAIBase
 {
 	EntityLiving leaper;
 	EntityLivingBase leapTarget;
 	float leapMotionY;
 
-	public EntityAIGoatsLeapAtTarget(EntityLivingBase leapingEntity, float leapMotionYIn)
+	public EntityAISheepLeapAtTarget(EntityLivingBase leapingEntity, float leapMotionYIn)
 	{
 		this.leaper = (EntityLiving) leapingEntity;
 		this.leapMotionY = leapMotionYIn;
@@ -25,7 +25,7 @@ public class EntityAIGoatsLeapAtTarget extends EntityAIBase
 	public boolean shouldExecute()
 	{
 		
-		if (this.leaper instanceof EntityDoeBase || this.leaper instanceof EntityKidBase) {
+		if (this.leaper instanceof EntityEweBase || this.leaper instanceof EntityLambBase) {
 			return false;
 		}
 		

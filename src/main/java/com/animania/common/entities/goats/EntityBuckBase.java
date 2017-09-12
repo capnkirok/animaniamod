@@ -50,17 +50,10 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.mateable = true;
 		this.headbutting = true;
 		this.gender = EntityGender.MALE;
-	}
-
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
 		this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
 		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.25F));
 		this.tasks.addTask(5, new EntityAIMateGoats(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIFollowMateGoats(this, 1.0D));
-		
 	}
 
 	@Override
@@ -137,21 +130,15 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		int chooser = rand.nextInt(num);
 
 		if (chooser == 0)
-			return ModSoundEvents.hog1;
+			return ModSoundEvents.goatLiving1;
 		else if (chooser == 1)
-			return ModSoundEvents.hog2;
+			return ModSoundEvents.goatLiving2;
 		else if (chooser == 2)
-			return ModSoundEvents.hog3;
+			return ModSoundEvents.goatLiving3;
 		else if (chooser == 3)
-			return ModSoundEvents.hog4;
+			return ModSoundEvents.goatLiving4;
 		else if (chooser == 4)
-			return ModSoundEvents.hog5;
-		else if (chooser == 5)
-			return ModSoundEvents.pig1;
-		else if (chooser == 6)
-			return ModSoundEvents.pig2;
-		else if (chooser == 7)
-			return ModSoundEvents.pig4;
+			return ModSoundEvents.goatLiving5;
 		else
 			return null;
 
@@ -164,11 +151,11 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		int chooser = rand.nextInt(3);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
+			return ModSoundEvents.goatHurt1;
 		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.goatHurt2;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.goatLiving3;
 	}
 
 	@Override
@@ -178,11 +165,11 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		int chooser = rand.nextInt(3);
 
 		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
+			return ModSoundEvents.goatHurt1;
 		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
+			return ModSoundEvents.goatHurt2;
 		else
-			return ModSoundEvents.pig3;
+			return ModSoundEvents.goatLiving3;
 	}
 
 	@Override

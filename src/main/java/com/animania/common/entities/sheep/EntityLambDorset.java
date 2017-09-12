@@ -11,4 +11,15 @@ public class EntityLambDorset extends EntityLambBase
 		this.sheepType = SheepType.DORSET;
 	}
 
+	@Override
+	public int getPrimaryEggColor()
+	{
+		return 4863280;
+	}
+
+	@Override
+	public int getSecondaryEggColor()
+	{
+		return 15790320;
+	}
 }

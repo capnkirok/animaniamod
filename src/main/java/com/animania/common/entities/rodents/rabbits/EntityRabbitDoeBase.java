@@ -62,12 +62,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 		this.gender = EntityGender.FEMALE;
 	}
 
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		//this.tasks.addTask(3, new EntityAIPanicRabbits(this, 2.0D));
-	}
+	
 
 	@Override
 	protected void entityInit()
@@ -316,7 +311,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 					UUID mate = this.getMateUniqueId();
 					boolean mateReset = true;
 
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityRabbitBuckBase.class, 20, world, this);
+					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityRabbitBuckBase.class, 30, world, this);
 					for (int k = 0; k <= entities.size() - 1; k++)
 					{
 						Entity entity = entities.get(k);

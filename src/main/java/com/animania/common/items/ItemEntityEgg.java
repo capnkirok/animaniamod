@@ -18,6 +18,7 @@ import com.animania.common.entities.goats.GoatType;
 import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.rodents.rabbits.RabbitType;
+import com.animania.common.entities.sheep.SheepType;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.client.Minecraft;
@@ -103,6 +104,10 @@ public class ItemEntityEgg extends Item
 			if(type instanceof RabbitType)
 			{
 				entity = EntityGender.getEntity(RabbitType.values()[rand.nextInt(((RabbitType) type).values().length)], gender, world);
+			}
+			if(type instanceof SheepType)
+			{
+				entity = EntityGender.getEntity(SheepType.values()[rand.nextInt(((SheepType) type).values().length)], gender, world);
 			}
 			if(type instanceof RandomAnimalType)
 			{

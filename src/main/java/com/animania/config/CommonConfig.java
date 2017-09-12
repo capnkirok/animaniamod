@@ -235,6 +235,9 @@ public class CommonConfig
 		
 		@Comment("Remove vanilla Rabbits")
 		public boolean replaceVanillaRabbits     = true;
+		
+		@Comment("Remove vanilla Sheep")
+		public boolean replaceVanillaSheep     = true;
 
 		@Comment("Allow eggs to be thrown")
 		public boolean allowEggThrowing = false;
@@ -319,15 +322,15 @@ public class CommonConfig
 		@Comment("Spawn limit for Goats in loaded chunks")
 		public int spawnLimitGoats = 40;
 		@Comment("Spawn limit for Sheep in loaded chunks")
-		public int     spawnLimitSheep            = 40;
+		public int     spawnLimitSheep            = 50;
 		@Comment("Spawn limit for Rabbits in loaded chunks")
-		public int     spawnLimitRabbits           = 40;
+		public int     spawnLimitRabbits           = 50;
 
 		@Comment("Spawn probability Cows")
 		public int spawnProbabilityCows = 12;
 		@Comment("Spawn probability Horses")
 		public int spawnProbabilityHorses = 12;
-		@Comment("Spawn probability Sows")
+		@Comment("Spawn probability Pigs")
 		public int spawnProbabilitySows = 12;
 		@Comment("Spawn probability Hens")
 		public int spawnProbabilityHens = 16;
@@ -344,7 +347,7 @@ public class CommonConfig
 		@Comment("Spawn probability Goats")
 		public int spawnProbabilityGoats = 12;
 		@Comment("Spawn probability Sheep")
-		public int     spawnProbabilitySheep = 16;
+		public int     spawnProbabilitySheep = 12;
 		@Comment("Spawn probability Rabbits")
 		public int     spawnProbabilityRabbits = 12;
 		
@@ -362,7 +365,7 @@ public class CommonConfig
 		@Comment("Number of potential Sheep families per chunk")
 		public int     numberSheepFamilies      = 2;
 		@Comment("Number of potential Rabbit families per chunk")
-		public int     numberRabbitFamilies      = 2;
+		public int     numberRabbitFamilies      = 1;
 	}
 
 	public static class CareAndFeeding
@@ -455,7 +458,7 @@ public class CommonConfig
 		@Comment("Set Custom Goat Drop")
 		public String goatDrop = "animania:raw_chevon";
 		@Comment("Set Custom Sheep Drop")
-		public String sheepDrop = "animania:raw_mutton";
+		public String sheepDrop = "animania:raw_prime_mutton";
 		@Comment("Set Custom Rabbit Drop")
 		public String  rabbitDrop         = "animania:raw_prime_rabbit";
 		@Comment("Allow Animania Chickens to drop Eggs")

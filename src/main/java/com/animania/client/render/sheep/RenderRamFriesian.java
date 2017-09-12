@@ -20,24 +20,24 @@ public class RenderRamFriesian<T extends EntityRamFriesian> extends RenderLiving
 	private static final String             modid          = "animania", SheepBaseDir = "textures/entity/sheep/";
 
 	private static final ResourceLocation[] SHEEP_TEXTURES = new ResourceLocation[] { 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir + "sheep_friesian_" + "black.png"), 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "white.png"), 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "brown.png")}; 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir + "sheep_friesian_" + "black_ram.png"), 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "white_ram.png"), 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "brown_ram.png")}; 
 
 	private static final ResourceLocation[] SHEEP_TEXTURES_BLINK = new ResourceLocation[] { 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir + "sheep_friesian_" + "black_blink.png"), 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "white_blink.png"), 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "brown_blink.png")}; 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir + "sheep_friesian_" + "black_ram_blink.png"), 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "white_ram_blink.png"), 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "brown_ram_blink.png")}; 
 
 	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = new ResourceLocation[] { 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir + "sheep_friesian_" + "black_sheared.png"), 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "white_sheared.png"), 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "brown_sheared.png")}; 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir + "sheep_friesian_" + "black_ram_sheared.png"), 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "white_ram_sheared.png"), 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "brown_ram_sheared.png")}; 
 
 	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED_BLINK = new ResourceLocation[] { 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir + "sheep_friesian_" + "black_sheared_blink.png"), 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "white_sheared_blink.png"), 
-			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "brown_sheared_blink.png")}; 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir + "sheep_friesian_" + "black_ram_sheared_blink.png"), 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "white_ram_sheared_blink.png"), 
+			new ResourceLocation(RenderRamFriesian.modid, RenderRamFriesian.SheepBaseDir +"sheep_friesian_" + "brown_ram_sheared_blink.png")}; 
 
 
 	public RenderRamFriesian(RenderManager rm) {
@@ -45,7 +45,7 @@ public class RenderRamFriesian<T extends EntityRamFriesian> extends RenderLiving
 	}
 
 	protected void preRenderScale(EntityRamFriesian entity, float f) {
-		GL11.glScalef(0.64F, 0.64F, 0.64F);
+		GL11.glScalef(0.62F, 0.62F, 0.62F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 

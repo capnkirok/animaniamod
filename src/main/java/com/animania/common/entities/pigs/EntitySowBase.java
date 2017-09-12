@@ -65,14 +65,6 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-		this.tasks.addTask(8, new EntityAIMatePigs(this, 1.0D));
-
-	}
-
-	@Override
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{

@@ -321,6 +321,8 @@ public class ItemHandler
 	public static Item entityeggrammerino;
 	public static Item entityeggewemerino;
 	public static Item entityegglambmerino;
+	
+	public static Item entityeggrandomsheep;
 
 	// Eggs - Rabbits
 	public static Item entityeggbuckcottontail;
@@ -686,6 +688,8 @@ public class ItemHandler
 		ItemHandler.entityeggrammerino = new ItemEntityEgg("ram_merino", SheepType.MERINO, EntityGender.MALE);
 		ItemHandler.entityeggewemerino = new ItemEntityEgg("ewe_merino", SheepType.MERINO, EntityGender.FEMALE);
 		ItemHandler.entityegglambmerino = new ItemEntityEgg("lamb_merino", SheepType.MERINO, EntityGender.CHILD);
+		
+		ItemHandler.entityeggrandomsheep = new ItemEntityEgg("sheep_random", SheepType.FRIESIAN, EntityGender.RANDOM);
 
 		// RABBITS
 		ItemHandler.entityeggbuckcottontail = new ItemEntityEgg("buck_cottontail", RabbitType.COTTONTAIL, EntityGender.MALE);
