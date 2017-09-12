@@ -2,8 +2,8 @@ package com.animania.common.entities.pigs;
 
 import java.util.Set;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.pigs.ai.EntityAIFindFood;
@@ -50,7 +50,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
-public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
+public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, AnimaniaAnimal
 {
 
 	protected static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);

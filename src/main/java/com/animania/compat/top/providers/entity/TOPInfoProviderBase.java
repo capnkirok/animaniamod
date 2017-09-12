@@ -24,9 +24,18 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 		NBTTagCompound tag = new NBTTagCompound();
 		entity.writeToNBT(tag);
 
+		if (player.isSneaking())
+		{
+			if (entity instanceof ISpawnable)
+			{
+				if (((ISpawnable) entity).getEntityGender() == EntityGender.MALE || ((ISpawnable) entity).getEntityGender() == EntityGender.FEMALE)
+					probeInfo.text(((ISpawnable) entity).getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
+			}
+		}
+		
 		boolean fed = tag.getBoolean("Fed");
 		boolean watered = tag.getBoolean("Watered");
-		
+
 		if (fed && watered)
 			probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.fed"));
 
@@ -38,12 +47,8 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 
 		if (!fed && !watered)
 			probeInfo.text(TextFormatting.RED + I18n.translateToLocal("text.waila.hungry") + ", " + I18n.translateToLocal("text.waila.thirsty"));
+
 		
-		if (entity instanceof ISpawnable)
-		{
-			if (((ISpawnable) entity).getEntityGender() == EntityGender.MALE || ((ISpawnable) entity).getEntityGender() == EntityGender.FEMALE)
-				probeInfo.text(((ISpawnable) entity).getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
-		}
 	}
 
 }

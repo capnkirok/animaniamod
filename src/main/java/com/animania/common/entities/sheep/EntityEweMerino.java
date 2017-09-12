@@ -44,7 +44,7 @@ public class EntityEweMerino extends EntityEweBase
 			woolDrops.add(new ItemStack((BlockHandler.blockAnimaniaWool), i, 5));
 			break;
 		case 1:
-			woolDrops.add(new ItemStack((BlockHandler.blockAnimaniaWool), i, 5));
+			woolDrops.add(new ItemStack((BlockHandler.blockAnimaniaWool), i, 4));
 			break;
 		}
 

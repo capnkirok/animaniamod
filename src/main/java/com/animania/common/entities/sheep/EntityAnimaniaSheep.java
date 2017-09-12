@@ -7,15 +7,12 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
 import com.animania.common.entities.sheep.ai.EntityAIFindFood;
 import com.animania.common.entities.sheep.ai.EntityAIFindSaltLickSheep;
 import com.animania.common.entities.sheep.ai.EntityAIFindWater;
-import com.animania.common.entities.sheep.ai.EntityAIFollowMateSheep;
-import com.animania.common.entities.sheep.ai.EntityAIFollowParentSheep;
-import com.animania.common.entities.sheep.ai.EntityAIMateSheep;
 import com.animania.common.entities.sheep.ai.EntityAIPanicSheep;
 import com.animania.common.entities.sheep.ai.EntityAISheepEatGrass;
 import com.animania.common.entities.sheep.ai.EntityAISwimmingSheep;
@@ -59,7 +56,7 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, IShearable
+public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, IShearable, AnimaniaAnimal
 {
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.sheepFood));
