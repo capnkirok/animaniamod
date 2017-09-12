@@ -5,9 +5,9 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
@@ -59,7 +59,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, ISpawnable
+public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, ISpawnable, AnimaniaAnimal
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);

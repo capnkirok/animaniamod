@@ -2,6 +2,7 @@ package com.animania.common.entities.amphibians;
 
 import java.util.Random;
 
+import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 
@@ -30,7 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAmphibian extends EntityAnimal implements ISpawnable
+public class EntityAmphibian extends EntityAnimal implements ISpawnable, AnimaniaAnimal
 {
 
 	private int     jumpTicks;

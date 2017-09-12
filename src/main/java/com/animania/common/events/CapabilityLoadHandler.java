@@ -14,9 +14,8 @@ public class CapabilityLoadHandler
 {
 	@SubscribeEvent
 	public void onEntityConstructing(AttachCapabilitiesEvent<Entity> event)            
-
 	{
-		if (event.getGenericType() instanceof EntityPlayer) {
+		if (event.getObject() instanceof EntityPlayer) {
 			event.addCapability(CapabilityRefs.toResource("AnimaniaPlayerCaps"), new CapabilityPlayerProvider());
 		}
 

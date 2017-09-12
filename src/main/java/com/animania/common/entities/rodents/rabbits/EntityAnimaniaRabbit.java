@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.rodents.ai.EntityAIFindFoodRabbits;
@@ -66,7 +67,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
+public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable, AnimaniaAnimal
 {
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.rabbitFood));
