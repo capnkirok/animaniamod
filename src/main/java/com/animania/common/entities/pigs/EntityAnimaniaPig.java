@@ -128,9 +128,9 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 			this.entityAIEatGrass.startExecuting();
 			this.eatTimer = 80;
 		}
-		player.addStat(this.pigType.getAchievement(), 1);
-		if (player.hasAchievement(AnimaniaAchievements.Duroc) && player.hasAchievement(AnimaniaAchievements.Hampshire) && player.hasAchievement(AnimaniaAchievements.LargeBlack) && player.hasAchievement(AnimaniaAchievements.LargeWhite) && player.hasAchievement(AnimaniaAchievements.OldSpot) && player.hasAchievement(AnimaniaAchievements.Yorkshire))
-			player.addStat(AnimaniaAchievements.Pigs, 1);
+//		player.addStat(this.pigType.getAchievement(), 1);
+//		if (player.hasAchievement(AnimaniaAchievements.Duroc) && player.hasAchievement(AnimaniaAchievements.Hampshire) && player.hasAchievement(AnimaniaAchievements.LargeBlack) && player.hasAchievement(AnimaniaAchievements.LargeWhite) && player.hasAchievement(AnimaniaAchievements.OldSpot) && player.hasAchievement(AnimaniaAchievements.Yorkshire))
+//			player.addStat(AnimaniaAchievements.Pigs, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY && !ItemStack.areItemStacksEqual(stack, this.slop))

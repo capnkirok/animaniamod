@@ -38,16 +38,16 @@ public class EntityAIPanicRodents extends EntityAIBase
         if (this.theEntityCreature.getCustomNameTag().equals("Sonic") || this.theEntityCreature.getCustomNameTag().equals("Sanic")) {
             Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 24, 4);
             if (vec3d != null) {
-                this.randPosX = vec3d.xCoord;
-                this.randPosY = vec3d.yCoord;
-                this.randPosZ = vec3d.zCoord;
+                this.randPosX = vec3d.x;
+                this.randPosY = vec3d.y;
+                this.randPosZ = vec3d.z;
                 return true;
             }
             else
                 return false;
         }
 
-        if (this.theEntityCreature.getAITarget() == null && !this.theEntityCreature.isBurning() && this.duration == 0) {
+        if (this.theEntityCreature.getAttackTarget() == null && !this.theEntityCreature.isBurning() && this.duration == 0) {
             this.hitFlag = false;
             return false;
         }
@@ -66,9 +66,9 @@ public class EntityAIPanicRodents extends EntityAIBase
                 return false;
             }
             else {
-                this.randPosX = vec3d.xCoord;
-                this.randPosY = vec3d.yCoord;
-                this.randPosZ = vec3d.zCoord;
+                this.randPosX = vec3d.x;
+                this.randPosY = vec3d.y;
+                this.randPosZ = vec3d.z;
                 return true;
             }
         }
@@ -94,7 +94,7 @@ public class EntityAIPanicRodents extends EntityAIBase
     }
 
     @Override
-    public boolean continueExecuting() {
+    public boolean shouldContinueExecuting() {
         return !this.theEntityCreature.getNavigator().noPath();
     }
 

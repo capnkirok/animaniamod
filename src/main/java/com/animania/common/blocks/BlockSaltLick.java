@@ -1,6 +1,5 @@
 package com.animania.common.blocks;
 
-import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
@@ -22,14 +21,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 {
@@ -44,8 +41,10 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 		this.setHardness(1.2f);
 		this.setResistance(1.7f);
 		this.isBlockContainer = true;
+		Item item = new ItemSaltLick(this);
+		item.setRegistryName(new ResourceLocation(Animania.MODID, "salt_lick"));
 		
-		GameRegistry.register(new ItemSaltLick(this), new ResourceLocation(Animania.MODID, "salt_lick"));
+		ForgeRegistries.ITEMS.register(item);
 	}
 	
 	public void useSaltLick(World world, BlockPos pos, @Nullable EntityLivingBase entity)
@@ -138,12 +137,12 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	{
 		return false;
 	}
-	
-	@Override
-	public boolean isFullyOpaque(IBlockState state)
-	{
-		return false;
-	}
+		
+//	@Override
+//	public boolean isFullyOpaque(IBlockState state)
+//	{
+//		return false;
+//	}
 	
 	@Override
 	public boolean hasTileEntity()

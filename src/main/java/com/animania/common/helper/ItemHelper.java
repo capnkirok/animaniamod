@@ -49,7 +49,7 @@ public class ItemHelper
 	{
 		EntityItem item = new EntityItem(world);
 		item.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-		item.setEntityItemStack(itemStack);
+		item.setItem(itemStack);
 		world.spawnEntity(item);
 	}
 	

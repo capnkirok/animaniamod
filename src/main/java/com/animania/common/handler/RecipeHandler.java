@@ -1,28 +1,10 @@
 package com.animania.common.handler;
 
-import com.animania.common.recipes.CheeseRecipe3;
-import com.animania.common.recipes.CheeseRecipe4;
-import com.animania.common.recipes.CheeseRecipe6;
-import com.animania.common.recipes.CheeseRecipe8;
-import com.animania.common.recipes.MilkConversionRecipe;
-import com.animania.common.recipes.SlopBucketRecipe1;
-import com.animania.common.recipes.SlopBucketRecipe2;
-import com.animania.common.recipes.SlopBucketRecipe3;
-import com.animania.common.recipes.SlopBucketRecipe4;
-import com.animania.common.recipes.SlopBucketRecipe5;
-import com.animania.common.recipes.SlopBucketRecipe6;
-import com.animania.config.AnimaniaConfig;
-
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RecipeHandler
 {
@@ -37,6 +19,7 @@ public class RecipeHandler
 
 		// Recipes
 
+		/*
 		// HAMSTERS
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockHandler.blockHamsterWheel, new Object[] { " I ", "I I", "SIS", 'I', "ingotIron", 'S', new ItemStack(Blocks.STONE_SLAB) }));
 		
@@ -194,6 +177,7 @@ public class RecipeHandler
 
 		GameRegistry.addRecipe(new MilkConversionRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkHolstein }));
 
+		*/
 		// Smelting Recipes
 		GameRegistry.addSmelting(ItemHandler.rawAngusBeef, new ItemStack(ItemHandler.cookedAngusRoast, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawLonghornBeef, new ItemStack(ItemHandler.cookedLonghornRoast, 1), .3F);

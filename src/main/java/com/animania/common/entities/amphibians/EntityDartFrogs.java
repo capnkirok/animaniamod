@@ -29,12 +29,12 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class EntityDartFrogs extends EntityAmphibian
 {
@@ -183,7 +183,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	}
 
 	@Override
-	protected SoundEvent getHurtSound() {
+	protected SoundEvent getHurtSound(DamageSource source) {
 		return null;
 	}
 
@@ -197,7 +197,7 @@ public class EntityDartFrogs extends EntityAmphibian
 		SoundEvent soundevent = this.getAmbientSound();
 
 		if (soundevent != null)
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getAge() * 2);
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getGrowingAge() * 2);
 	}
 
 	@Override

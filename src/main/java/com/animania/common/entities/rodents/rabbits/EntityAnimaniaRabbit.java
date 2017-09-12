@@ -144,7 +144,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 			{
 				Vec3d vec3d = path.getPosition(this);
 
-				if (vec3d.yCoord > this.posY + 0.4D)
+				if (vec3d.y > this.posY + 0.4D)
 				{
 					return 0.4F;
 				}
@@ -169,7 +169,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 
 			if (d1 < 0.010000000000000002D)
 			{
-				this.moveRelative(0.0F, 1.5F, 0.1F);
+				this.moveRelative(0.0F, 1.5F, 0.1F, 0.0f);
 			}
 		}
 
@@ -279,7 +279,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 						vec3d = path.getPosition(this);
 					}
 
-					this.calculateRotationYaw(vec3d.xCoord, vec3d.zCoord);
+					this.calculateRotationYaw(vec3d.x, vec3d.z);
 					this.startJumping();
 				}
 			}
@@ -716,9 +716,9 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		/**
 		 * Returns whether an in-progress EntityAIBase should continue executing
 		 */
-		public boolean continueExecuting()
+		public boolean shouldContinueExecuting()
 		{
-			return this.canRaid && super.continueExecuting();
+			return this.canRaid && super.shouldContinueExecuting();
 		}
 
 		/**

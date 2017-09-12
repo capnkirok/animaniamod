@@ -36,7 +36,7 @@ public class EntityAIPanicSheep extends EntityAIBase
 		EntityPlayer checkPlayer = this.theEntityCreature.world.getClosestPlayer(this.theEntityCreature.posX, this.theEntityCreature.posY, this.theEntityCreature.posZ, 20, false);
 
 
-		if (this.theEntityCreature.getAITarget() == null && !this.theEntityCreature.isBurning() && duration == 0)
+		if (this.theEntityCreature.getAttackTarget() == null && !this.theEntityCreature.isBurning() && duration == 0)
 		{
 			hitFlag = false;
 			return false;
@@ -57,9 +57,9 @@ public class EntityAIPanicSheep extends EntityAIBase
 			}
 			else
 			{
-				this.randPosX = vec3d.xCoord;
-				this.randPosY = vec3d.yCoord;
-				this.randPosZ = vec3d.zCoord;
+				this.randPosX = vec3d.x;
+				this.randPosY = vec3d.y;
+				this.randPosZ = vec3d.z;
 
 				return true;
 			}
@@ -89,7 +89,7 @@ public class EntityAIPanicSheep extends EntityAIBase
 		this.theEntityCreature.getNavigator().tryMoveToXYZ(this.randPosX, this.randPosY, this.randPosZ, this.speed);
 	}
 
-	public boolean continueExecuting()
+	public boolean shouldContinueExecuting()
 	{
 		return !this.theEntityCreature.getNavigator().noPath();
 	}

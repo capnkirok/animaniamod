@@ -53,7 +53,7 @@ public class EntityAIRodentEat extends EntityAIBase
 	}
 
 	@Override
-	public boolean continueExecuting() {
+	public boolean shouldContinueExecuting() {
 		return this.eatingGrassTimer > 0;
 	}
 

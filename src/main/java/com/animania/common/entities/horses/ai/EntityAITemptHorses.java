@@ -66,7 +66,7 @@ public class EntityAITemptHorses extends EntityAIBase
 		return stack == null ? false : this.temptItem.contains(stack.getItem());
 	}
 
-	public boolean continueExecuting()
+	public boolean shouldContinueExecuting()
 	{
 		if (this.scaredByPlayerMovement)
 		{

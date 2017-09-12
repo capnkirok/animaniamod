@@ -48,7 +48,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
-import net.minecraftforge.common.AchievementPage;
 
 public class EntityFrogs extends EntityAmphibian
 {
@@ -197,7 +196,7 @@ public class EntityFrogs extends EntityAmphibian
 	}
 
 	@Override
-	protected SoundEvent getHurtSound() {
+	protected SoundEvent getHurtSound(DamageSource source) {
 		return null;
 	}
 
@@ -211,16 +210,16 @@ public class EntityFrogs extends EntityAmphibian
 		SoundEvent soundevent = this.getAmbientSound();
 
 		if (soundevent != null)
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getAge() * 2);
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getGrowingAge() * 2);
 	}
 
 	@Override
 	public void onDeath(DamageSource cause) {
-		if (this.getCustomNameTag().equals("Pepe"))
-			if (cause.getEntity() != null && cause.getEntity() instanceof EntityPlayer) {
-				((EntityPlayer) cause.getEntity()).addStat(AnimaniaAchievements.FeelsBadMan, 1);
-				AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.FeelsBadMan);
-			}
+//		if (this.getCustomNameTag().equals("Pepe"))
+//			if (cause.getEntity() != null && cause.getEntity() instanceof EntityPlayer) {
+//				((EntityPlayer) cause.getEntity()).addStat(AnimaniaAchievements.FeelsBadMan, 1);
+//				AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.FeelsBadMan);
+//			}
 
 		super.onDeath(cause);
 	}

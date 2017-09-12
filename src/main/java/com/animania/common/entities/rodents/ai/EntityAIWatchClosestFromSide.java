@@ -53,7 +53,7 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
     }
 
     @Override
-    public boolean continueExecuting() {
+    public boolean shouldContinueExecuting() {
         return !this.closestEntity.isEntityAlive() ? false
                 : this.theWatcher.getDistanceSqToEntity(this.closestEntity) > this.maxDistanceForPlayer * this.maxDistanceForPlayer ? false
                         : this.lookTime > 0;

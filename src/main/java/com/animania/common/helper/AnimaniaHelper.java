@@ -86,13 +86,13 @@ public class AnimaniaHelper
 
 	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
-		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, theEntity.getEntityBoundingBox().expandXyz(range));
+		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, theEntity.getEntityBoundingBox().expand(range, range, range));
 		return list;
 	}
 
 	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, BlockPos pos)
 	{
-		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos).expandXyz(range));
+		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos).expand(range, range, range));
 		return list;
 	}
 
@@ -100,7 +100,7 @@ public class AnimaniaHelper
 	{
 		Vec3d vec3d = player.getPositionEyes(1f);
 		Vec3d vec3d1 = player.getLook(1f);
-		Vec3d vec3d2 = vec3d.addVector(vec3d1.xCoord * blockReachDistance, vec3d1.yCoord * blockReachDistance, vec3d1.zCoord * blockReachDistance);
+		Vec3d vec3d2 = vec3d.addVector(vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance);
 		return player.world.rayTraceBlocks(vec3d, vec3d2, false, false, true);
 	}
 

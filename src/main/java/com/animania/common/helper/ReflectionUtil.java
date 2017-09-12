@@ -5,6 +5,8 @@ import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import javax.annotation.Nullable;
+
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 /**
@@ -27,14 +29,18 @@ public class ReflectionUtil
      *            The class
      * @return The MethodHandle
      */
-    public static <T> MethodHandle findMethod(Class<T> clazz, String[] methodNames, Class<?>... methodTypes) {
-        final Method method = ReflectionHelper.findMethod(clazz, null, methodNames, methodTypes);
-        try {
-            return MethodHandles.lookup().unreflect(method);
-        } catch (IllegalAccessException e) {
-            throw new ReflectionHelper.UnableToFindMethodException(methodNames, e);
-        }
-    }
+	public static MethodHandle findMethod(final Class<?> clazz, final String methodName, @Nullable final String methodObfName, final Class<?>... parameterTypes)
+	{
+		final Method method = ReflectionHelper.findMethod(clazz, methodName, methodObfName, parameterTypes);
+		try
+		{
+			return MethodHandles.lookup().unreflect(method);
+		}
+		catch (IllegalAccessException e)
+		{
+			throw new ReflectionHelper.UnableToFindMethodException(e);
+		}
+	}
 
     /**
      * Get a {@link MethodHandle} for a field's getter.

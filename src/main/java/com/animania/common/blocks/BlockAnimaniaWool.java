@@ -19,7 +19,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,18 +37,20 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 		this.setHardness(0.8F);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setSoundType(SoundType.CLOTH);
-		GameRegistry.register(new SubtypesItemBlock(this));
+		ForgeRegistries.ITEMS.register(new SubtypesItemBlock(this));
 		this.setHarvestLevel("shears", 0);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.DORSET_BROWN));
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list)
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items)
 	{
-		for (BlockAnimaniaWool.EnumType blockstone$enumtype : BlockAnimaniaWool.EnumType.values())
-		{
-			list.add(new ItemStack(itemIn, 1, blockstone$enumtype.getMetadata()));
-		}
+		if (tab == Animania.TabAnimaniaResources)
+			for (BlockAnimaniaWool.EnumType blockstone$enumtype : BlockAnimaniaWool.EnumType.values())
+			{
+				items.add(new ItemStack(this, 1, blockstone$enumtype.getMetadata()));
+			}
 
 	}
 
@@ -56,7 +60,8 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 		ItemStack stack = player.getHeldItemMainhand();
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemShears)
 			return 0.16f;
-		else return super.getPlayerRelativeBlockHardness(state, player, worldIn, pos);
+		else
+			return super.getPlayerRelativeBlockHardness(state, player, worldIn, pos);
 	}
 
 	@Override
@@ -93,7 +98,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	}
 
 	@Override
-	public MapColor getMapColor(IBlockState state)
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
 		return ((BlockAnimaniaWool.EnumType) state.getValue(VARIANT)).getMapColor();
 	}

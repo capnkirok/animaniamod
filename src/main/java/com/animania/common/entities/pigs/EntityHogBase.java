@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.common.entities.pigs.ai.EntityAIFollowMatePigs;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
 import com.animania.common.helper.AnimaniaHelper;
@@ -29,7 +28,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.management.PreYggdrasilConverter;
-import net.minecraft.stats.AchievementList;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -185,7 +184,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	protected SoundEvent getHurtSound()
+	protected SoundEvent getHurtSound(DamageSource source)
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);
@@ -247,13 +246,13 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		super.fall(distance, damageMultiplier);
 
-		if (distance > 5.0F)
-			for (EntityPlayer entityplayer : this.getRecursivePassengersByType(EntityPlayer.class))
-				entityplayer.addStat(AchievementList.FLY_PIG);
+//		if (distance > 5.0F)
+//			for (EntityPlayer entityplayer : this.getRecursivePassengersByType(EntityPlayer.class))
+//				entityplayer.addStat(AchievementList.FLY_PIG);
 	}
 	
 	@Override
-	public void moveEntityWithHeading(float strafe, float forward)
+	public void travel(float strafe, float forward, float friction)
 	{
 		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
 
@@ -281,7 +280,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				}
 
 				this.setAIMoveSpeed(f);
-				super.moveEntityWithHeading(0.0F, 1.0F);
+				super.travel(0.0F, 1.0F, 0.0f);
 			}
 			else
 			{
@@ -305,7 +304,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		{
 			this.stepHeight = 0.5F;
 			this.jumpMovementFactor = 0.02F;
-			super.moveEntityWithHeading(strafe, forward);
+			super.travel(strafe, forward, 0.0f);
 		}
 	}
 	

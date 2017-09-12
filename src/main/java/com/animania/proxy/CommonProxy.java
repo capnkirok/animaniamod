@@ -1,6 +1,5 @@
 package com.animania.proxy;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.capabilities.CapabilitiesPlayerStorage;
 import com.animania.common.capabilities.CapabilityPlayer;
 import com.animania.common.capabilities.ICapabilityPlayer;
@@ -14,7 +13,6 @@ import com.animania.common.handler.EntityHandler;
 import com.animania.common.handler.EventsHandler;
 import com.animania.common.handler.FoodValueHandler;
 import com.animania.common.handler.ItemHandler;
-import com.animania.common.handler.OldEntityHandler;
 import com.animania.common.handler.PatreonHandler;
 import com.animania.common.handler.RecipeHandler;
 import com.animania.common.handler.TileEntityHandler;
@@ -29,20 +27,20 @@ public class CommonProxy
     public void preInit()
     {
         CapabilityManager.INSTANCE.register(ICapabilityPlayer.class, new CapabilitiesPlayerStorage(), CapabilityPlayer.class);
-        OldEntityHandler.preInit();
         EntityHandler.preInit();
         ItemHandler.preInit();
         BlockHandler.preInit();
         TileEntityHandler.preInit();
         DamageSourceHandler.preInit();
-        CompatHandler.preInit();
         PatreonHandler.initList();
         NetworkHandler.init();
 
         // EVENTS
         EventsHandler.preInit();
         UpdateHandler.init();
-        AnimaniaAchievements.init();
+        //AnimaniaAchievements.init();
+
+        CompatHandler.preInit();
 
     }
 
@@ -53,7 +51,9 @@ public class CommonProxy
         DispenserHandler.init();
         FoodValueHandler.init();
 
+
     }
+    
 
     public void registerFluidBlockRendering(Block block, String name)
     {

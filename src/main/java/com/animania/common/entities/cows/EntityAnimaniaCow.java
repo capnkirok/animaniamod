@@ -154,10 +154,10 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		this.setFed(true);
 		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
-		player.addStat(cowType.getAchievement(), 1);
-
-		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
-			player.addStat(AnimaniaAchievements.Cows, 1);
+//		player.addStat(cowType.getAchievement(), 1);
+//
+//		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
+//			player.addStat(AnimaniaAchievements.Cows, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);

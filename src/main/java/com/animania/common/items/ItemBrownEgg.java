@@ -14,6 +14,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemBrownEgg extends Item
@@ -24,7 +25,7 @@ public class ItemBrownEgg extends Item
         super();
         this.setCreativeTab(Animania.TabAnimaniaResources);
         this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-        GameRegistry.register(this);
+        ForgeRegistries.ITEMS.register(this);
         this.setUnlocalizedName(Animania.MODID + "_" + this.name);
         this.maxStackSize = 16;
     }

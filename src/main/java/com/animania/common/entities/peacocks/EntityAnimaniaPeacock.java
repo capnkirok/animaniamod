@@ -111,9 +111,9 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-		player.addStat(type.getAchievement(), 1);
-		if (player.hasAchievement(AnimaniaAchievements.IndiaBlue) && player.hasAchievement(AnimaniaAchievements.White))
-			player.addStat(AnimaniaAchievements.Peacocks, 1);
+//		player.addStat(type.getAchievement(), 1);
+//		if (player.hasAchievement(AnimaniaAchievements.IndiaBlue) && player.hasAchievement(AnimaniaAchievements.White))
+//			player.addStat(AnimaniaAchievements.Peacocks, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
@@ -509,7 +509,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	}
 
 	@Override
-	protected SoundEvent getHurtSound()
+	protected SoundEvent getHurtSound(DamageSource source)
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(2);

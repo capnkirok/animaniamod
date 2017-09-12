@@ -168,7 +168,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 		return false;
 	}
 
-	public boolean continueExecuting()
+	public boolean shouldContinueExecuting()
 	{
 
 		return this.shouldExecute();
@@ -275,7 +275,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 			{
 
 				Block nestBlockchk = temptedEntity.world.getBlockState(nestPos).getBlock();
-				List<Entity> nestClear = temptedEntity.world.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expandXyz(1));
+				List<Entity> nestClear = temptedEntity.world.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expand(1,1,1));
 
 				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
 				{

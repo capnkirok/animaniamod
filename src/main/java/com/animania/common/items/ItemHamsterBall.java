@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.animania.Animania;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
@@ -13,6 +14,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,7 +27,7 @@ public class ItemHamsterBall extends Item
 	public ItemHamsterBall(boolean hasSubtypes, String name) {
 		this.name = name;
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		GameRegistry.register(this);
+		ForgeRegistries.ITEMS.register(this);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setMaxStackSize(1);
 		this.hasSubtypes = hasSubtypes;
@@ -55,7 +58,7 @@ public class ItemHamsterBall extends Item
 	}
 
 	@Override
-	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
+	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn)
 	{
 		list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.hamsterball1"));
 		list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.hamsterball2"));

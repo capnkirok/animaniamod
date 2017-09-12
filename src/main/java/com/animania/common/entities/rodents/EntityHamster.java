@@ -160,7 +160,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.setIsTamed(true);
 		this.setTamed(true);
 
-		player.addStat(AnimaniaAchievements.Hamsters, 1);
+//		player.addStat(AnimaniaAchievements.Hamsters, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
@@ -297,7 +297,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 			}
 
-			player.addStat(AnimaniaAchievements.Hamsters, 1);
+//			player.addStat(AnimaniaAchievements.Hamsters, 1);
 			this.setInLove(player);
 			this.setFed(true);
 			this.setIsTamed(true);
@@ -364,7 +364,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 			{
 				this.addFoodStack();
-				player.addStat(AnimaniaAchievements.Hamsters, 1);
+//				player.addStat(AnimaniaAchievements.Hamsters, 1);
 				return this.interactSeedsNotTamed(itemstack, player);
 			}
 			else
@@ -407,7 +407,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 		{
 			addFoodStack();
-			player.addStat(AnimaniaAchievements.Hamsters, 1);
+//			player.addStat(AnimaniaAchievements.Hamsters, 1);
 			return interactSeedsTamed(itemstack, player);
 		}
 
@@ -420,7 +420,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		if (!entityplayer.capabilities.isCreativeMode)
 			itemstack.shrink(1);
-		entityplayer.addStat(AnimaniaAchievements.Hamsters, 1);
+//		entityplayer.addStat(AnimaniaAchievements.Hamsters, 1);
 		this.setHamsterStanding(true);
 		this.standCount = 100;
 
@@ -613,7 +613,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.looksWithInterest = false;
 		if (!this.hasPath())
 		{
-			Entity entity = this.getAITarget();
+			Entity entity = this.getAttackTarget();
 			if (entity instanceof EntityPlayer)
 			{
 				EntityPlayer entityplayer = (EntityPlayer) entity;
@@ -1093,7 +1093,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	}
 
 	@Override
-	protected SoundEvent getHurtSound()
+	protected SoundEvent getHurtSound(DamageSource source)
 	{
 		return ModSoundEvents.hamsterHurt1;
 	}

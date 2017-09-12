@@ -15,7 +15,6 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -25,14 +24,13 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -51,7 +49,7 @@ public class BlockSeeds extends Block
 		this.setCreativeTab(null);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockSeeds.EnumType.WHEAT));
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		GameRegistry.register(this);
+		ForgeRegistries.BLOCKS.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setSoundType(SoundType.PLANT);
 		this.setTickRandomly(true);
@@ -210,9 +208,9 @@ public class BlockSeeds extends Block
 	{
 		return new BlockStateContainer(this, new IProperty[] {VARIANT});
 	}
-
+	
 	@Override
-	public MapColor getMapColor(IBlockState state)
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
 		return ((BlockSeeds.EnumType)state.getValue(VARIANT)).getMapColor();
 	}

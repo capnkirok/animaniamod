@@ -200,7 +200,7 @@ public class AnimaniaTextures
 	{
 		NonNullList<ItemStack> list = NonNullList.create();
 		
-		block.getSubBlocks(Item.getItemFromBlock(block), null, list);
+		block.getSubBlocks(Animania.TabAnimaniaResources, list);
 		
 		for(int i = 0; i < list.size(); i++)
 		{

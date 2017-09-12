@@ -149,10 +149,10 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
 		this.setFed(true);
 		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
-		player.addStat(horseType.getAchievement(), 1);
+		//player.addStat(horseType.getAchievement(), 1);
 		this.setInLove(player);
 
-		player.addStat(AnimaniaAchievements.Horses, 1);
+	//	player.addStat(AnimaniaAchievements.Horses, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);

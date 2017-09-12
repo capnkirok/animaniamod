@@ -8,10 +8,6 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.goats.ai.EntityAIMateGoats;
-import com.animania.common.entities.goats.ai.EntityAIPanicGoats;
-import com.animania.common.entities.rodents.rabbits.EntityRabbitKitBase;
-import com.animania.common.entities.rodents.rabbits.RabbitType;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -35,7 +31,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
@@ -255,7 +251,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	}
 
 	@Override
-	protected SoundEvent getHurtSound()
+	protected SoundEvent getHurtSound(DamageSource source)
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);

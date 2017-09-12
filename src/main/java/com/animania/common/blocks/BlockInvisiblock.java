@@ -30,13 +30,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.UniversalBucket;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -53,7 +52,7 @@ public class BlockInvisiblock extends BlockContainer implements TOPInfoProvider
 		super(Material.WOOD);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setBlockUnbreakable();
-		GameRegistry.register(this);
+		ForgeRegistries.BLOCKS.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setCreativeTab(null);
 	}

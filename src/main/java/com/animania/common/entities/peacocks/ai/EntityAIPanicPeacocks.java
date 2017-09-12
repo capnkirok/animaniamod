@@ -35,7 +35,7 @@ public class EntityAIPanicPeacocks extends EntityAIBase
         EntityPlayer checkPlayer = this.theEntityCreature.world.getClosestPlayer(this.theEntityCreature.posX, this.theEntityCreature.posY,
                 this.theEntityCreature.posZ, 20, false);
 
-        if (this.theEntityCreature.getAITarget() == null && !this.theEntityCreature.isBurning() && this.duration == 0) {
+        if (this.theEntityCreature.getAttackTarget() == null && !this.theEntityCreature.isBurning() && this.duration == 0) {
             this.hitFlag = false;
             return false;
         }
@@ -54,9 +54,9 @@ public class EntityAIPanicPeacocks extends EntityAIBase
                 return false;
             }
             else {
-                this.randPosX = vec3d.xCoord;
-                this.randPosY = vec3d.yCoord;
-                this.randPosZ = vec3d.zCoord;
+                this.randPosX = vec3d.x;
+                this.randPosY = vec3d.y;
+                this.randPosZ = vec3d.z;
                 return true;
             }
         }
@@ -82,7 +82,7 @@ public class EntityAIPanicPeacocks extends EntityAIBase
     }
 
     @Override
-    public boolean continueExecuting() {
+    public boolean shouldContinueExecuting() {
         return !this.theEntityCreature.getNavigator().noPath();
     }
 

@@ -162,10 +162,10 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.setTamed(true);
 		this.setSitting(false);
 		this.setFerretSitting(false);
-		player.addStat(type.getAchievement(), 1);
+//		player.addStat(type.getAchievement(), 1);
 		this.entityAIEatGrass.startExecuting();
-		if (player.hasAchievement(AnimaniaAchievements.WhiteFerret) && player.hasAchievement(AnimaniaAchievements.GreyFerret))
-			player.addStat(AnimaniaAchievements.Ferrets, 1);
+//		if (player.hasAchievement(AnimaniaAchievements.WhiteFerret) && player.hasAchievement(AnimaniaAchievements.GreyFerret))
+//			player.addStat(AnimaniaAchievements.Ferrets, 1);
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY)
 				stack.setCount(stack.getCount() - 1);
@@ -376,7 +376,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	}
 
 	@Override
-	protected SoundEvent getHurtSound()
+	protected SoundEvent getHurtSound(DamageSource source)
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);

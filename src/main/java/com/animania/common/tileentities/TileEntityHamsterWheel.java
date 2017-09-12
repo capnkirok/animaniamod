@@ -15,8 +15,8 @@ import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileEntity;
 
-import cofh.api.energy.IEnergyProvider;
-import cofh.api.energy.IEnergyReceiver;
+import cofh.redstoneflux.api.IEnergyProvider;
+import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -196,7 +196,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 			pos = pos.offset(e);
 			IBlockState state = world.getBlockState(pos);
 
-			if (!state.isFullyOpaque() && !state.isFullCube() && state.getBlock() != BlockHandler.blockHamsterWheel)
+			if (!state.isOpaqueCube() && !state.isFullCube() && state.getBlock() != BlockHandler.blockHamsterWheel)
 			{
 				this.hamster.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
 				return true;
@@ -349,12 +349,12 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		if (this.isWorldRemote()) {
 			if (this.isRunning
 					&& !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)) {
-				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_hamster_wheel", this);
-				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "hamster_run", this);
+				this.getAnimationHandler().startAnimation(Animania.MODID, "anim_hamster_wheel", this);
+				this.getAnimationHandler().startAnimation(Animania.MODID, "hamster_run", this);
 			} else if (!this.isRunning
 					&& this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)) {
-				this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_hamster_wheel", this);
-				this.getAnimationHandler().clientStopAnimation(Animania.MODID, "hamster_run", this);
+				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_hamster_wheel", this);
+				this.getAnimationHandler().stopAnimation(Animania.MODID, "hamster_run", this);
 			}
 		}
 	}

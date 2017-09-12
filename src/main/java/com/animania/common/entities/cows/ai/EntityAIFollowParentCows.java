@@ -78,7 +78,7 @@ public class EntityAIFollowParentCows extends EntityAIBase
 	}
 
 	@Override
-	public boolean continueExecuting() {
+	public boolean shouldContinueExecuting() {
 		if (!this.parentAnimal.isEntityAlive())
 			return false;
 		else {

@@ -102,9 +102,9 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	{
 		this.setFed(true);
 
-		player.addStat(this.type.getAchievement(), 1);
-		if (player.hasAchievement(AnimaniaAchievements.Leghorn) && player.hasAchievement(AnimaniaAchievements.Orpington) && player.hasAchievement(AnimaniaAchievements.PlymouthRock) && player.hasAchievement(AnimaniaAchievements.RhodeIslandRed) && player.hasAchievement(AnimaniaAchievements.Wyandotte))
-			player.addStat(AnimaniaAchievements.Chickens, 1);
+//		player.addStat(this.type.getAchievement(), 1);
+//		if (player.hasAchievement(AnimaniaAchievements.Leghorn) && player.hasAchievement(AnimaniaAchievements.Orpington) && player.hasAchievement(AnimaniaAchievements.PlymouthRock) && player.hasAchievement(AnimaniaAchievements.RhodeIslandRed) && player.hasAchievement(AnimaniaAchievements.Wyandotte))
+//			player.addStat(AnimaniaAchievements.Chickens, 1);
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
 	}
@@ -346,7 +346,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	}
 
 	@Override
-	protected SoundEvent getHurtSound()
+	protected SoundEvent getHurtSound(DamageSource source)
 	{
 		return null;
 	}

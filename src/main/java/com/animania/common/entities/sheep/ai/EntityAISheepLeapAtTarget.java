@@ -45,7 +45,7 @@ public class EntityAISheepLeapAtTarget extends EntityAIBase
 			return d0 >= 0.0D && d0 <= 46.0D ? (!this.leaper.onGround ? false : this.leaper.getRNG().nextInt(20) == 0) : false;
 		}
 	}
-	public boolean continueExecuting()
+	public boolean shouldContinueExecuting()
 	{
 		return !this.leaper.onGround;
 	}
