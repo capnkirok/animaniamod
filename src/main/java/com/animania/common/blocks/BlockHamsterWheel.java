@@ -131,9 +131,9 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 		{
 			ItemStack food = te.getItemHandler().getStackInSlot(0);
 			if (food.isEmpty())
-				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF"), true);
+				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF"), true);
 			else
-				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
+				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored()  + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
 
 		}
 

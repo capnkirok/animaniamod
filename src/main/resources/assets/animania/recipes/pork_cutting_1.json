@@ -1,0 +1,19 @@
+{
+   "type": "animania:cutting_recipe",
+   "ingredients": [
+      {
+         "item": "animania:carving_knife",
+		 "data": 32767
+      },
+	  {
+		"item": "animania:raw_large_black_pork"
+	  }
+   ],
+   "result": {
+      "item": "animania:raw_large_black_bacon",
+      "data": 0,
+      "count": 5
+   },
+   "group": "pork_cutting"
+
+}
