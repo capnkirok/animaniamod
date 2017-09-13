@@ -34,7 +34,7 @@ public class JEICompat extends BlankModPlugin
 		registry.addDescription(new ItemStack(Items.WHEAT_SEEDS), "text.jei.seeds");
 		registry.addDescription(new ItemStack(ItemHandler.truffle), "text.jei.truffle");
 		registry.addDescription(new ItemStack(BlockHandler.blockNest), "text.jei.nest");
-		registry.addDescription(slopBucket, "text.jei.slop", "text.jei.slop.craft");
+		registry.addDescription(slopBucket, "text.jei.slop");
 		registry.addDescription(milkHolstein, "text.jei.milkholstein");
 		registry.addDescription(milkFriesian, "text.jei.milkfriesian");
 		registry.addDescription(milkGoat, "text.jei.milkgoat");

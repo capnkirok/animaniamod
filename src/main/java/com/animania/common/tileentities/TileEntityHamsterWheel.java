@@ -31,10 +31,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable, IEnergyProvider
+public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable
 {
 	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(TileEntityHamsterWheel.class);
 
@@ -49,11 +50,12 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	private NBTTagCompound hamsterNBT;
 	private ItemHandlerHamsterWheel itemHandler;
 	private int timer;
-	private int energy;
+	private EnergyStorage power;
 
 	public TileEntityHamsterWheel()
 	{
 		this.itemHandler = new ItemHandlerHamsterWheel();
+		this.power = new EnergyStorage(AnimaniaConfig.gameRules.hamsterWheelCapacity);
 	}
 
 	@Override
@@ -79,7 +81,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		if (isRunning)
 		{
-			energy += AnimaniaConfig.gameRules.hamsterWheelRFGeneration;
+			this.power.receiveEnergy(AnimaniaConfig.gameRules.hamsterWheelRFGeneration, false);
 			timer++;
 			this.markDirty();
 
@@ -105,21 +107,22 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		for (EnumFacing facing : EnumFacing.VALUES)
 		{
-			if (getSurroundingTE(facing) != null && ((getSurroundingTE(facing) instanceof IEnergyReceiver) || getSurroundingTE(facing).hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())))
+			TileEntity tile = getSurroundingTE(facing);
+			if (tile != null && ((tile instanceof IEnergyReceiver) || tile.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())))
 			{
-				if (getSurroundingTE(facing) instanceof IEnergyReceiver)
+				if (tile instanceof IEnergyReceiver)
 				{
 					IEnergyReceiver reciever = (IEnergyReceiver) getSurroundingTE(facing);
-					int recieved = reciever.receiveEnergy(facing.getOpposite(), energy, false);
-					energy -= recieved;
+					int recieved = reciever.receiveEnergy(facing.getOpposite(), this.getEnergy(), false);
+					this.power.extractEnergy(recieved, false);
 				}
 				else
 				{
-					IEnergyStorage energyStorage = getSurroundingTE(facing).getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
+					IEnergyStorage energyStorage = tile.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
 					if(energyStorage.canReceive())
 					{
-						int recieved = energyStorage.receiveEnergy(energy, false);
-						energy -= recieved;
+						int recieved = energyStorage.receiveEnergy(this.getEnergy(), false);
+						this.power.extractEnergy(recieved, false);
 					}
 				}
 
@@ -162,7 +165,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 	public int getEnergy()
 	{
-		return energy;
+		return power.getEnergyStored();
 	}
 
 	public void ejectHamster()
@@ -187,6 +190,13 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 			}
 		}
 	}
+	
+	
+
+	public EnergyStorage getPower()
+	{
+		return power;
+	}
 
 	private boolean findPositionForHamster()
 	{
@@ -209,7 +219,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		NBTTagCompound tag = super.writeToNBT(compound);
-		tag.setInteger("energy", energy);
+		tag.setInteger("energy", power.getEnergyStored());
 		tag.setBoolean("running", isRunning);
 		tag.setInteger("timer", this.timer);
 		NBTTagCompound hamster = new NBTTagCompound();
@@ -224,7 +234,8 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
-		this.energy = compound.getInteger("energy");
+		this.power = new EnergyStorage(AnimaniaConfig.gameRules.hamsterWheelCapacity);
+		this.power.receiveEnergy(compound.getInteger("energy"), false);
 		NBTTagCompound hamster = compound.getCompoundTag("hamster");
 		if (!hamster.equals(new NBTTagCompound()))
 			this.hamsterNBT = hamster;
@@ -272,6 +283,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		return this.writeToNBT(new NBTTagCompound());
 	}
 
+	/*
 	@Override
 	public int getEnergyStored(EnumFacing from)
 	{
@@ -281,7 +293,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	@Override
 	public int getMaxEnergyStored(EnumFacing from)
 	{
-		return AnimaniaConfig.gameRules.hamsterWheelCapacity;
+		return ;
 	}
 
 	@Override
@@ -297,7 +309,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		energy -= maxExtract;
 
 		return maxExtract;
-	}
+	} */
 
 	private TileEntity getSurroundingTE(EnumFacing facing)
 	{
@@ -317,6 +329,9 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return true;
 
+		if (capability == CapabilityEnergy.ENERGY)
+			return true;
+		
 		return super.hasCapability(capability, facing);
 	}
 
@@ -326,6 +341,9 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return (T) this.itemHandler;
+		
+		if (capability == CapabilityEnergy.ENERGY)
+			return (T) this.power;
 
 		return super.getCapability(capability, facing);
 

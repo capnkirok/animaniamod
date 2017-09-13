@@ -805,10 +805,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public void setHamsterSitting(boolean flag)
 	{
-		if (flag)
-			this.dataManager.set(EntityHamster.SITTING, Boolean.valueOf(true));
-		else
-			this.dataManager.set(EntityHamster.SITTING, Boolean.valueOf(false));
+		this.dataManager.set(EntityHamster.SITTING, Boolean.valueOf(flag));
 	}
 
 	void showHeartsOrSmokeFX(String s, int i, boolean flag)
@@ -847,10 +844,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public void setIsRiding(boolean riding)
 	{
-		if (riding)
-			this.dataManager.set(EntityHamster.RIDING, Boolean.valueOf(true));
-		else
-			this.dataManager.set(EntityHamster.RIDING, Boolean.valueOf(false));
+		this.dataManager.set(EntityHamster.RIDING, Boolean.valueOf(riding));
 	}
 
 	public boolean isHamsterStanding()
