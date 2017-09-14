@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kit_dutch"
+        },
+        "title": {
+            "translate": "advancements.animania.dutch.title"
+        },
+        "description": {
+            "translate": "advancements.animania.dutch.description"
+        }
+    },
+    "parent": "animania:animania/feed_rabbit_cottontail",
+    "criteria": {
+        "dutch_kit": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:kit_dutch"
+            }
+        },
+		"dutch_doe": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:doe_dutch"
+            }
+        },
+		 "dutch_buck": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:buck_dutch"
+            }
+        }  
+    },
+	"requirements": [["dutch_buck", "dutch_doe", "dutch_kit"]]
+
+}

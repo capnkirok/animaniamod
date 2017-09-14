@@ -4,6 +4,7 @@ import com.animania.common.capabilities.CapabilitiesPlayerStorage;
 import com.animania.common.capabilities.CapabilityPlayer;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.events.UpdateHandler;
+import com.animania.common.handler.AdvancementHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.handler.DamageSourceHandler;
@@ -41,6 +42,7 @@ public class CommonProxy
         //AnimaniaAchievements.init();
 
         CompatHandler.preInit();
+        AdvancementHandler.registerCriteria();
 
     }
 

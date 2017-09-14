@@ -1,0 +1,32 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:riding_crop"
+        },
+        "title": {
+            "translate": "advancements.animania.ride.title"
+        },
+        "description": {
+            "translate": "advancements.animania.ride.description"
+        }
+    },
+    "parent": "animania:animania/feed_horse_draft",
+    "criteria": {
+		"mare": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "animania:riding_crop"},
+				"entity": "animania:mare_draft"
+            }
+        },
+		 "stallion": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "animania:riding_crop"},
+				"entity": "animania:stallion_draft"
+            }
+        }  
+    },
+	"requirements": [["stallion", "mare"]]
+
+}

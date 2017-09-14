@@ -5,14 +5,24 @@ import java.util.List;
 
 import com.animania.Animania;
 import com.animania.network.client.TileEntitySyncPacket;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.JsonToNBT;
+import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.JsonUtils;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -21,9 +31,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class AnimaniaHelper
 {
+	
+    private static Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
 	public static ItemStack getItem(String name)
 	{
@@ -77,6 +90,53 @@ public class AnimaniaHelper
 		}
 
 	}
+	
+	  public static ItemStack getItemStack(JsonObject json)
+	    {
+	        String itemName = JsonUtils.getString(json, "item");
+
+	        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
+
+	        if (item == null)
+	            throw new JsonSyntaxException("Unknown item '" + itemName + "'");
+
+	        if (item.getHasSubtypes() && !json.has("data"))
+	            throw new JsonParseException("Missing data for item '" + itemName + "'");
+
+	        if (json.has("nbt"))
+	        {
+	            // Lets hope this works? Needs test
+	            try
+	            {
+	                JsonElement element = json.get("nbt");
+	                NBTTagCompound nbt;
+	                if(element.isJsonObject())
+	                    nbt = JsonToNBT.getTagFromJson(GSON.toJson(element));
+	                else
+	                    nbt = JsonToNBT.getTagFromJson(element.getAsString());
+
+	                NBTTagCompound tmp = new NBTTagCompound();
+	                if (nbt.hasKey("ForgeCaps"))
+	                {
+	                    tmp.setTag("ForgeCaps", nbt.getTag("ForgeCaps"));
+	                    nbt.removeTag("ForgeCaps");
+	                }
+
+	                tmp.setTag("tag", nbt);
+	                tmp.setString("id", itemName);
+	                tmp.setInteger("Count", JsonUtils.getInt(json, "count", 1));
+	                tmp.setInteger("Damage", JsonUtils.getInt(json, "data", 0));
+
+	                return new ItemStack(tmp);
+	            }
+	            catch (NBTException e)
+	            {
+	                throw new JsonSyntaxException("Invalid NBT Entry: " + e.toString());
+	            }
+	        }
+
+	        return new ItemStack(item, JsonUtils.getInt(json, "count", 1), JsonUtils.getInt(json, "data", 0));
+	    }
 
 	public static void addItem(EntityPlayer player, ItemStack stack)
 	{
