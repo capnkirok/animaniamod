@@ -12,20 +12,26 @@ import net.minecraft.world.World;
 
 public enum HorseType implements AnimaniaType
 {
-	DRAFT(EntityStallionDraftHorse.class, EntityMareDraftHorse.class, EntityFoalDraftHorse.class, AnimaniaAchievements.Horses);
+	DRAFT(EntityStallionDraftHorse.class, EntityMareDraftHorse.class, EntityFoalDraftHorse.class);
 	
 	private Class stallion;
 	private Class mare;
 	private Class foal;
 	private StatBase achievement;
 
-	private HorseType(Class stallion, Class mare, Class foal, StatBase achievement)
+	private HorseType(Class stallion, Class mare, Class foal)
 	{
 		this.stallion = stallion;
 		this.mare = mare;
 		this.foal = foal;
+	}
+
+	
+	public void setAchievement(StatBase achievement)
+	{
 		this.achievement = achievement;
 	}
+
 
 	@Override
 	public EntityStallionBase getMale(World world)

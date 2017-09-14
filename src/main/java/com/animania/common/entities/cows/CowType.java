@@ -12,11 +12,11 @@ import net.minecraft.world.World;
 
 public enum CowType implements AnimaniaType
 {
-	ANGUS(EntityBullAngus.class, EntityCowAngus.class, EntityCalfAngus.class, AnimaniaAchievements.Angus),
-	FRIESIAN(EntityBullFriesian.class, EntityCowFriesian.class, EntityCalfFriesian.class, AnimaniaAchievements.Friesian),
-	HEREFORD(EntityBullHereford.class, EntityCowHereford.class, EntityCalfHereford.class, AnimaniaAchievements.Hereford),
-	HOLSTEIN(EntityBullHolstein.class, EntityCowHolstein.class, EntityCalfHolstein.class, AnimaniaAchievements.Holstein),
-	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class, AnimaniaAchievements.Longhorn);
+	ANGUS(EntityBullAngus.class, EntityCowAngus.class, EntityCalfAngus.class),
+	FRIESIAN(EntityBullFriesian.class, EntityCowFriesian.class, EntityCalfFriesian.class),
+	HEREFORD(EntityBullHereford.class, EntityCowHereford.class, EntityCalfHereford.class),
+	HOLSTEIN(EntityBullHolstein.class, EntityCowHolstein.class, EntityCalfHolstein.class),
+	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class);
 
 
 	private Class bull;
@@ -24,11 +24,15 @@ public enum CowType implements AnimaniaType
 	private Class calf;
 	private StatBase achievement;
 
-	private CowType(Class bull, Class cow, Class calf, StatBase achievement)
+	private CowType(Class bull, Class cow, Class calf)
 	{
 		this.bull = bull;
 		this.cow = cow;
 		this.calf = calf;
+	}
+
+	public void setAchievement(StatBase achievement)
+	{
 		this.achievement = achievement;
 	}
 
