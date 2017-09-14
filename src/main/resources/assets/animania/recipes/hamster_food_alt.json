@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "animania:hamster_food",
+    "count": 3
+  },
+  "ingredients": [
+    {
+      "ore": "listAllseed",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "listAllseed",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "listAllseed",
+      "type": "forge:ore_dict"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

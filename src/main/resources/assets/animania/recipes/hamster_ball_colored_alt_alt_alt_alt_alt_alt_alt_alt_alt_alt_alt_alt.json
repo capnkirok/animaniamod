@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "animania:hamster_ball_colored",
+    "data": 12
+  },
+  "pattern": [
+    "xxx",
+    "xdx",
+    "xxx"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "d": {
+      "ore": "dyeLightBlue",
+      "type": "forge:ore_dict"
+    },
+    "x": {
+      "item": "minecraft:glass_pane"
+    }
+  }
+}

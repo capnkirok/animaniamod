@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "animania:riding_crop"
+  },
+  "pattern": [
+    "  l",
+    " s ",
+    "l  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    },
+    "l": {
+      "ore": "leather",
+      "type": "forge:ore_dict"
+    }
+  }
+}

@@ -141,7 +141,10 @@ public class DictionaryHandler
 		OreDictionary.registerOre("bread", Items.BREAD);
 		OreDictionary.registerOre("listAllsugar", Items.SUGAR);
 		OreDictionary.registerOre("listAllseed", Items.WHEAT_SEEDS);
-
+		OreDictionary.registerOre("listAllseed", Items.MELON_SEEDS);
+		OreDictionary.registerOre("listAllseed", Items.BEETROOT_SEEDS);
+		OreDictionary.registerOre("listAllseed", Items.PUMPKIN_SEEDS);
+		
 		// Additions 1.0.4.8
 		OreDictionary.registerOre("foodMeats", ItemHandler.rawAngusBeef);
 		OreDictionary.registerOre("foodMeats", ItemHandler.rawAngusSteak);

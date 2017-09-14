@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "animania:cheese_mold"
+  },
+  "pattern": [
+    "   ",
+    "pip",
+    " p "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "ore": "plankWood",
+      "type": "forge:ore_dict"
+    },
+    "i": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

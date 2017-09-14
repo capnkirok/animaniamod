@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "animania:cheese_omelette"
+  },
+  "ingredients": [
+    {
+      "item": "animania:plain_omelette"
+    },
+    {
+      "ore": "foodCheese",
+      "type": "forge:ore_dict"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

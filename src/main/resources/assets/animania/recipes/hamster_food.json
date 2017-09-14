@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "animania:hamster_food",
+    "count": 3
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:wheat_seeds"
+    },
+    {
+      "item": "minecraft:pumpkin_seeds"
+    },
+    {
+      "item": "minecraft:melon_seeds"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "animania:block_hamster_wheel"
+  },
+  "pattern": [
+    " I ",
+    "I I",
+    "SIS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:stone_slab",
+      "data": 0
+    },
+    "I": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}
