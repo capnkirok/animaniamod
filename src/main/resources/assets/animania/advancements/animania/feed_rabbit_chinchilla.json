@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kit_chinchilla"
+        },
+        "title": {
+            "translate": "advancements.animania.chinchilla.title"
+        },
+        "description": {
+            "translate": "advancements.animania.chinchilla.description"
+        }
+    },
+    "parent": "animania:animania/rabbits",
+    "criteria": {
+        "chinchilla_kit": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:kit_chinchilla"
+            }
+        },
+		"chinchilla_doe": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:doe_chinchilla"
+            }
+        },
+		 "chinchilla_buck": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:buck_chinchilla"
+            }
+        }  
+    },
+	"requirements": [["chinchilla_buck", "chinchilla_doe", "chinchilla_kit"]]
+
+}

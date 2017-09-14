@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_peachick_charcoal"
+        },
+        "title": {
+            "translate": "advancements.animania.charcoal.title"
+        },
+        "description": {
+            "translate": "advancements.animania.charcoal.description"
+        }
+    },
+    "parent": "animania:animania/feed_peacock_blue",
+    "criteria": {
+        "charcoal_peachick": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat_seeds"},
+				"entity": "animania:peachick_charcoal"
+            }
+        },
+		"charcoal_peahen": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat_seeds"},
+				"entity": "animania:peahen_charcoal"
+            }
+        },
+		 "charcoal_peacock": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat_seeds"},
+				"entity": "animania:peacock_charcoal"
+            }
+        }  
+    },
+	"requirements": [["charcoal_peacock", "charcoal_peahen", "charcoal_peachick"]]
+
+}

@@ -24,7 +24,8 @@ public class ItemHamsterBall extends Item
 {
 	private String name;
 
-	public ItemHamsterBall(boolean hasSubtypes, String name) {
+	public ItemHamsterBall(boolean hasSubtypes, String name)
+	{
 		this.name = name;
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		ForgeRegistries.ITEMS.register(this);
@@ -48,7 +49,7 @@ public class ItemHamsterBall extends Item
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
-		if(this.hasSubtypes)
+		if (this.hasSubtypes)
 		{
 			int meta = stack.getMetadata();
 			String color = EnumDyeColor.byDyeDamage(meta).getName();
@@ -64,21 +65,23 @@ public class ItemHamsterBall extends Item
 		list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.hamsterball2"));
 	}
 
-
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems)
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
 	{
-		if(this.hasSubtypes)
+		if (tab == Animania.TabAnimaniaResources)
 		{
-			for (int i = 0; i < 16; ++i)
+			if (this.hasSubtypes)
 			{
-				subItems.add(new ItemStack(itemIn, 1, i));
+				for (int i = 0; i < 16; ++i)
+				{
+					items.add(new ItemStack(this, 1, i));
+				}
 			}
+			else
+				items.add(new ItemStack(this, 1, 0));
 		}
-		else
-			subItems.add(new ItemStack(itemIn, 1, 0));
 
 	}
-
 
 }

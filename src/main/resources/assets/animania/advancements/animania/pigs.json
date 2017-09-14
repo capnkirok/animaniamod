@@ -1,0 +1,19 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_pig_random"
+        },
+        "title": {
+            "translate": "advancements.animania.pigs.title"
+        },
+        "description": {
+            "translate": "advancements.animania.pigs.description"
+        }
+    },
+    "parent": "animania:animania/root",
+    "criteria": {
+        "impossible": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}

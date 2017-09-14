@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_piglet_yorkshire"
+        },
+        "title": {
+            "translate": "advancements.animania.yorkshire.title"
+        },
+        "description": {
+            "translate": "advancements.animania.yorkshire.description"
+        }
+    },
+    "parent": "animania:animania/feed_pig_old_spot",
+    "criteria": {
+        "yorkshire_piglet": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:piglet_yorkshire"
+            }
+        },
+		"yorkshire_sow": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:sow_yorkshire"
+            }
+        },
+		 "yorkshire_hog": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:hog_yorkshire"
+            }
+        }  
+    },
+	"requirements": [["yorkshire_hog", "yorkshire_sow", "yorkshire_piglet"]]
+
+}

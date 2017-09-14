@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kit_rex"
+        },
+        "title": {
+            "translate": "advancements.animania.rex.title"
+        },
+        "description": {
+            "translate": "advancements.animania.rex.description"
+        }
+    },
+    "parent": "animania:animania/feed_rabbit_new_zealand",
+    "criteria": {
+        "rex_kit": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:kit_rex"
+            }
+        },
+		"rex_doe": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:doe_rex"
+            }
+        },
+		 "rex_buck": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:buck_rex"
+            }
+        }  
+    },
+	"requirements": [["rex_buck", "rex_doe", "rex_kit"]]
+
+}

@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_calf_angus"
+        },
+        "title": {
+            "translate": "advancements.animania.angus.title"
+        },
+        "description": {
+            "translate": "advancements.animania.angus.description"
+        }
+    },
+    "parent": "animania:animania/cows",
+    "criteria": {
+        "angus_calf": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:calf_angus"
+            }
+        },
+		"angus_cow": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:cow_angus"
+            }
+        },
+		 "angus_bull": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:bull_angus"
+            }
+        }  
+    },
+	"requirements": [["angus_bull", "angus_cow", "angus_calf"]]
+
+}

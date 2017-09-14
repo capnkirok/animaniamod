@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kit_cottontail"
+        },
+        "title": {
+            "translate": "advancements.animania.cottontail.title"
+        },
+        "description": {
+            "translate": "advancements.animania.cottontail.description"
+        }
+    },
+    "parent": "animania:animania/feed_rabbit_chinchilla",
+    "criteria": {
+        "cottontail_kit": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:kit_cottontail"
+            }
+        },
+		"cottontail_doe": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:doe_cottontail"
+            }
+        },
+		 "cottontail_buck": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:buck_cottontail"
+            }
+        }  
+    },
+	"requirements": [["cottontail_buck", "cottontail_doe", "cottontail_kit"]]
+
+}

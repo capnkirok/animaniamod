@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_piglet_duroc"
+        },
+        "title": {
+            "translate": "advancements.animania.duroc.title"
+        },
+        "description": {
+            "translate": "advancements.animania.duroc.description"
+        }
+    },
+    "parent": "animania:animania/pigs",
+    "criteria": {
+        "duroc_piglet": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:piglet_duroc"
+            }
+        },
+		"duroc_sow": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:sow_duroc"
+            }
+        },
+		 "duroc_hog": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:hog_duroc"
+            }
+        }  
+    },
+	"requirements": [["duroc_hog", "duroc_sow", "duroc_piglet"]]
+
+}

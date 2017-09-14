@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kid_pygmy"
+        },
+        "title": {
+            "translate": "advancements.animania.pygmy.title"
+        },
+        "description": {
+            "translate": "advancements.animania.pygmy.description"
+        }
+    },
+    "parent": "animania:animania/feed_goat_nigerian_dwarf",
+    "criteria": {
+        "pygmy_kid": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:kid_pygmy"
+            }
+        },
+		"pygmy_doe": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:doe_pygmy"
+            }
+        },
+		 "pygmy_buck": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:buck_pygmy"
+            }
+        }  
+    },
+	"requirements": [["pygmy_buck", "pygmy_doe", "pygmy_kid"]]
+
+}
