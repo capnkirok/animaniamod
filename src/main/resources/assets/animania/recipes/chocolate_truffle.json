@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "animania:chocolate_truffle"
+  },
+  "ingredients": [
+    {
+      "item": "animania:truffle"
+    },
+    {
+      "item": "minecraft:dye",
+      "data": 3
+    },
+    {
+      "ore": "listAllSugar",
+      "type": "forge:ore_dict"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

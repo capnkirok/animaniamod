@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "minecraft:name_tag"
+  },
+  "ingredients": [
+    {
+      "ore": "string",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "nuggetGold",
+      "type": "forge:ore_dict"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

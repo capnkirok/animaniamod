@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "animania:carving_knife"
+  },
+  "pattern": [
+    "   ",
+    "ii ",
+    "s  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    },
+    "i": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

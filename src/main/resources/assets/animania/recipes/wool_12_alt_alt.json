@@ -1,0 +1,13 @@
+{
+  "result": {
+    "item": "minecraft:wool",
+    "data": 12
+  },
+  "ingredients": [
+    {
+      "item": "animania:wool",
+      "data": 5
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

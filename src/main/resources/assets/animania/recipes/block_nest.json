@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "animania:block_nest"
+  },
+  "ingredients": [
+    {
+      "ore": "wool",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "treeLeaves",
+      "type": "forge:ore_dict"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

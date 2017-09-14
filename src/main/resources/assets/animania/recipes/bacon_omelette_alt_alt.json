@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "animania:bacon_omelette"
+  },
+  "ingredients": [
+    {
+      "item": "animania:plain_omelette"
+    },
+    {
+      "item": "animania:cooked_large_black_bacon"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

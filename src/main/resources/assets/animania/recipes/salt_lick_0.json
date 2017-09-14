@@ -1,0 +1,44 @@
+{
+  "result": {
+    "item": "animania:salt_lick",
+    "data": 0
+  },
+  "ingredients": [
+    {
+      "ore": "dustSalt",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "dustSalt",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "dustSalt",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "dustSalt",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "dustSalt",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "dustSalt",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "dustSalt",
+      "type": "forge:ore_dict"
+    },
+    {
+      "ore": "dustSalt",
+      "type": "forge:ore_dict"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

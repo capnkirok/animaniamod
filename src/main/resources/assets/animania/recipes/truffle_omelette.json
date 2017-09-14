@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "animania:truffle_omelette"
+  },
+  "ingredients": [
+    {
+      "item": "animania:plain_omelette"
+    },
+    {
+      "item": "animania:truffle"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}
