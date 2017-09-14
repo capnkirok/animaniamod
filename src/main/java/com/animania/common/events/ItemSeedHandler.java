@@ -3,7 +3,6 @@ package com.animania.common.events;
 import java.util.Random;
 
 import com.animania.common.blocks.BlockSeeds;
-import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.entities.pigs.EntityHogBase;
@@ -141,7 +140,7 @@ public class ItemSeedHandler
 		ResourceLocation loc = EntityList.getKey(target);
 		EntityEntry entry = ForgeRegistries.ENTITIES.getValue(loc);
 
-		if (player instanceof EntityPlayerMP && target instanceof AnimaniaAnimal)
+		if (player instanceof EntityPlayerMP)
 		{
 			if (entry != null)
 			{

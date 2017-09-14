@@ -37,7 +37,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	public EntityLambBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.5F, 1.5F);
+		this.setSize(0.5F, 0.5F);
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
