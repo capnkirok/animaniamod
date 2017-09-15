@@ -61,7 +61,7 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
+    public boolean continueExecuting() {
         EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
         return entitylivingbase == null ? false
                 : !entitylivingbase.isEntityAlive() ? false
@@ -119,7 +119,7 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
                     if (this.attacker.getNavigator().getPath() != null) {
                         net.minecraft.pathfinding.PathPoint finalPathPoint = this.attacker.getNavigator().getPath().getFinalPathPoint();
                         if (finalPathPoint != null
-                                && entitylivingbase.getDistanceSq(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
+                                && entitylivingbase.getDistanceSq(finalPathPoint.xCoord, finalPathPoint.yCoord, finalPathPoint.zCoord) < 1)
                             this.failedPathFindingPenalty = 0;
                         else
                             this.failedPathFindingPenalty += 10;

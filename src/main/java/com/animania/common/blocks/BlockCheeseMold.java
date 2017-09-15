@@ -5,6 +5,7 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityCheeseMold;
+import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.compat.top.providers.TOPInfoProvider;
 import com.animania.config.AnimaniaConfig;
 
@@ -21,7 +22,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -37,13 +37,14 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelFluid.FluidLoader;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 {
@@ -60,11 +61,8 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 		this.setSoundType(SoundType.WOOD);
 		this.setHardness(0.9f);
 		this.setResistance(1.2f);
-		ForgeRegistries.BLOCKS.register(this);
-		Item item = new ItemBlock(this);
-		item.setRegistryName(new ResourceLocation(Animania.MODID, "cheese_mold"));
-		
-		ForgeRegistries.ITEMS.register(item);
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlock(this), new ResourceLocation(Animania.MODID, "cheese_mold"));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.EMPTY));
 
 	}
@@ -108,11 +106,11 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 		return new BlockStateContainer(this, new IProperty[] { VARIANT });
 	}
 
-//	@Override
-//	public boolean isFullyOpaque(IBlockState state)
-//	{
-//		return false;
-//	}
+	@Override
+	public boolean isFullyOpaque(IBlockState state)
+	{
+		return false;
+	}
 
 	@Override
 	public boolean isOpaqueCube(IBlockState state)

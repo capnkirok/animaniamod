@@ -23,7 +23,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockHandler
 {
@@ -110,19 +110,14 @@ public class BlockHandler
 
 		// Itemblocks
 		BlockHandler.itemBlockMud = new ItemBlock(BlockHandler.blockMud);
-		BlockHandler.itemBlockMud.setRegistryName(BlockHandler.blockMud.getRegistryName());
-		ForgeRegistries.ITEMS.register(itemBlockMud);
+		GameRegistry.register(BlockHandler.itemBlockMud.setRegistryName(BlockHandler.blockMud.getRegistryName()));
 
 		BlockHandler.itemBlockTrough = new ItemBlock(BlockHandler.blockTrough);
-		BlockHandler.itemBlockTrough.setRegistryName(BlockHandler.blockTrough.getRegistryName());
-		ForgeRegistries.ITEMS.register(BlockHandler.itemBlockTrough);
+		GameRegistry.register(BlockHandler.itemBlockTrough.setRegistryName(BlockHandler.blockTrough.getRegistryName()));
 
 		BlockHandler.itemBlockNest = new ItemBlock(BlockHandler.blockNest);
-		BlockHandler.itemBlockNest.setRegistryName(BlockHandler.blockNest.getRegistryName());
-		ForgeRegistries.ITEMS.register(BlockHandler.itemBlockNest);
+		GameRegistry.register(BlockHandler.itemBlockNest.setRegistryName(BlockHandler.blockNest.getRegistryName()));
 
-		Item item = new ItemBlock(BlockHandler.blockHamsterWheel);
-		item.setRegistryName(new ResourceLocation(Animania.MODID, "block_hamster_wheel"));
-		ForgeRegistries.ITEMS.register(item);
+		GameRegistry.register(new ItemBlock(BlockHandler.blockHamsterWheel), new ResourceLocation(Animania.MODID, "block_hamster_wheel"));
 	}
 }

@@ -27,7 +27,7 @@ public class TileEntitySaltLickRenderer extends TileEntitySpecialRenderer<TileEn
 	}
 	
 	@Override
-	public void render(TileEntitySaltLick te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+	public void renderTileEntityAt(TileEntitySaltLick te, double x, double y, double z, float partialTicks, int destroyStage)
 	{
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x + 0.5F, (float) y, (float) z + 0.5F);

@@ -5,11 +5,11 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
@@ -66,10 +66,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.common.AchievementPage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityHedgehogBase extends EntityTameable implements TOPInfoProviderRodent, ISpawnable, AnimaniaAnimal
+public class EntityHedgehogBase extends EntityTameable implements TOPInfoProviderRodent, ISpawnable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
@@ -156,10 +157,10 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.setTamed(true);
 		this.setSitting(true);
 		this.setHedgehogSitting(true);
-//		player.addStat(type.getAchievement(), 1);
+		player.addStat(type.getAchievement(), 1);
 		this.entityAIEatGrass.startExecuting();
-//		if (player.hasAchievement(AnimaniaAchievements.Hedgehog) && player.hasAchievement(AnimaniaAchievements.AlbinoHedgehog))
-//			player.addStat(AnimaniaAchievements.Hedgehogs, 1);
+		if (player.hasAchievement(AnimaniaAchievements.Hedgehog) && player.hasAchievement(AnimaniaAchievements.AlbinoHedgehog))
+			player.addStat(AnimaniaAchievements.Hedgehogs, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY)
@@ -284,7 +285,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
+	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);
@@ -362,18 +363,18 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 				return false;
 			else
 			{
-//				if (stack.getDisplayName().equals("Sonic"))
-//				{
-//					player.addStat(AnimaniaAchievements.Sonic, 1);
-//					AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sonic);
-//					return super.processInteract(player, hand);
-//				}
-//				else if (stack.getDisplayName().equals("Sanic"))
-//				{
-//					player.addStat(AnimaniaAchievements.Sanic, 1);
-//					AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sanic);
-//					return super.processInteract(player, hand);
-//				}
+				if (stack.getDisplayName().equals("Sonic"))
+				{
+					player.addStat(AnimaniaAchievements.Sonic, 1);
+					AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sonic);
+					return super.processInteract(player, hand);
+				}
+				else if (stack.getDisplayName().equals("Sanic"))
+				{
+					player.addStat(AnimaniaAchievements.Sanic, 1);
+					AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sanic);
+					return super.processInteract(player, hand);
+				}
 				EntityLiving entityliving = this;
 				entityliving.setCustomNameTag(stack.getDisplayName());
 				entityliving.enablePersistence();

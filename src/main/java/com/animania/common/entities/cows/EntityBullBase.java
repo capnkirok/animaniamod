@@ -167,7 +167,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
+	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(2);

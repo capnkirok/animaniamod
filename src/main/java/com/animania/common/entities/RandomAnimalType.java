@@ -76,8 +76,11 @@ public class RandomAnimalType implements AnimaniaType
 		case 6:
 			return PigType.values()[rand.nextInt(PigType.values().length)].getFemale(world);
 		case 7:
+			return FerretType.values()[rand.nextInt(FerretType.values().length)].getFemale(world);
 		case 8:
+			return HamsterType.values()[rand.nextInt(HamsterType.values().length)].getFemale(world);
 		case 9:
+			return HedgehogType.values()[rand.nextInt(HedgehogType.values().length)].getFemale(world);
 		case 10:
 			return RabbitType.values()[rand.nextInt(RabbitType.values().length)].getFemale(world);
 		case 11:
@@ -107,8 +110,11 @@ public class RandomAnimalType implements AnimaniaType
 		case 6:
 			return PigType.values()[rand.nextInt(PigType.values().length)].getChild(world);
 		case 7:
+			return FerretType.values()[rand.nextInt(FerretType.values().length)].getChild(world);
 		case 8:
+			return HamsterType.values()[rand.nextInt(HamsterType.values().length)].getChild(world);
 		case 9:
+			return HedgehogType.values()[rand.nextInt(HedgehogType.values().length)].getChild(world);
 		case 10:
 			return RabbitType.values()[rand.nextInt(RabbitType.values().length)].getChild(world);
 		case 11:

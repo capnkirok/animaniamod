@@ -203,7 +203,7 @@ public class EntityAIFindWater extends EntityAIBase
 	}
 
 	@Override
-	public boolean shouldContinueExecuting() {
+	public boolean continueExecuting() {
 
 		return this.shouldExecute();
 	}

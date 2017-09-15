@@ -8,7 +8,6 @@ import com.animania.common.helper.RomanNumberHelper;
 import com.animania.common.helper.TimeHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -20,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemAnimaniaFood extends ItemFood
 {
@@ -32,7 +31,7 @@ public class ItemAnimaniaFood extends ItemFood
 	{
 		super(amount, saturation, isWolfFood);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, name));
-		ForgeRegistries.ITEMS.register(this);
+		GameRegistry.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + name);
 		this.effects = potionEffects;
 		this.name = name;
@@ -106,9 +105,8 @@ public class ItemAnimaniaFood extends ItemFood
 			}
 	}
 
-	
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean advanced)
 	{
 		if (AnimaniaConfig.gameRules.foodsGiveBonusEffects && this.effects != null)
 			for (PotionEffect effect : this.effects.clone())
@@ -120,10 +118,10 @@ public class ItemAnimaniaFood extends ItemFood
 				boolean isPositive = pot.isBeneficial();
 				String name = pot.getRegistryName().getResourcePath().replace("_", "");
 				if (isPositive)
-					tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an." + name) + " " + RomanNumberHelper.toRoman(amplifier + 1) + (!isInstant ? " (" + TimeHelper.getTime(duration) + ")" : ""));
+					list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an." + name) + " " + RomanNumberHelper.toRoman(amplifier + 1) + (!isInstant ? " (" + TimeHelper.getTime(duration) + ")" : ""));
 			}
 
-		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
 	}
 

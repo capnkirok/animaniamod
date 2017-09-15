@@ -63,7 +63,7 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 
 	}
 
-	public boolean shouldContinueExecuting()
+	public boolean continueExecuting()
 	{
 		if (targetMate != null) {
 			return this.targetMate.isEntityAlive();

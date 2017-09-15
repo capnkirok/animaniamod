@@ -5,9 +5,9 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.chickens.ai.EntityAIFindFood;
@@ -53,7 +53,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, AnimaniaAnimal
+public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
@@ -351,7 +351,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
+	protected SoundEvent getHurtSound()
 	{
 		return null;
 	}

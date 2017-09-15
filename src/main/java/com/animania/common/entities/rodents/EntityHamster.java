@@ -7,11 +7,11 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
@@ -62,7 +62,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityHamster extends EntityTameable implements TOPInfoProviderRodent, ISpawnable, AnimaniaAnimal
+public class EntityHamster extends EntityTameable implements TOPInfoProviderRodent, ISpawnable
 {
 	private static final DataParameter<Boolean> IN_BALL = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
@@ -160,7 +160,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.setIsTamed(true);
 		this.setTamed(true);
 
-//		player.addStat(AnimaniaAchievements.Hamsters, 1);
+		player.addStat(AnimaniaAchievements.Hamsters, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
@@ -297,7 +297,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 			}
 
-//			player.addStat(AnimaniaAchievements.Hamsters, 1);
+			player.addStat(AnimaniaAchievements.Hamsters, 1);
 			this.setInLove(player);
 			this.setFed(true);
 			this.setIsTamed(true);
@@ -364,7 +364,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 			{
 				this.addFoodStack();
-//				player.addStat(AnimaniaAchievements.Hamsters, 1);
+				player.addStat(AnimaniaAchievements.Hamsters, 1);
 				return this.interactSeedsNotTamed(itemstack, player);
 			}
 			else
@@ -407,7 +407,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 		{
 			addFoodStack();
-//			player.addStat(AnimaniaAchievements.Hamsters, 1);
+			player.addStat(AnimaniaAchievements.Hamsters, 1);
 			return interactSeedsTamed(itemstack, player);
 		}
 
@@ -420,7 +420,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		if (!entityplayer.capabilities.isCreativeMode)
 			itemstack.shrink(1);
-//		entityplayer.addStat(AnimaniaAchievements.Hamsters, 1);
+		entityplayer.addStat(AnimaniaAchievements.Hamsters, 1);
 		this.setHamsterStanding(true);
 		this.standCount = 100;
 
@@ -613,7 +613,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.looksWithInterest = false;
 		if (!this.hasPath())
 		{
-			Entity entity = this.getAttackTarget();
+			Entity entity = this.getAITarget();
 			if (entity instanceof EntityPlayer)
 			{
 				EntityPlayer entityplayer = (EntityPlayer) entity;
@@ -805,7 +805,10 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public void setHamsterSitting(boolean flag)
 	{
-		this.dataManager.set(EntityHamster.SITTING, Boolean.valueOf(flag));
+		if (flag)
+			this.dataManager.set(EntityHamster.SITTING, Boolean.valueOf(true));
+		else
+			this.dataManager.set(EntityHamster.SITTING, Boolean.valueOf(false));
 	}
 
 	void showHeartsOrSmokeFX(String s, int i, boolean flag)
@@ -844,7 +847,10 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public void setIsRiding(boolean riding)
 	{
-		this.dataManager.set(EntityHamster.RIDING, Boolean.valueOf(riding));
+		if (riding)
+			this.dataManager.set(EntityHamster.RIDING, Boolean.valueOf(true));
+		else
+			this.dataManager.set(EntityHamster.RIDING, Boolean.valueOf(false));
 	}
 
 	public boolean isHamsterStanding()
@@ -1087,7 +1093,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
+	protected SoundEvent getHurtSound()
 	{
 		return ModSoundEvents.hamsterHurt1;
 	}

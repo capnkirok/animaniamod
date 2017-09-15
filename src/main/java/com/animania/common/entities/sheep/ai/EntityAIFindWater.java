@@ -190,7 +190,7 @@ public class EntityAIFindWater extends EntityAIBase
 		return false;
 	}
 
-	public boolean shouldContinueExecuting()
+	public boolean continueExecuting()
 	{
 		return this.shouldExecute();
 	}

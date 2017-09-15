@@ -23,7 +23,6 @@ import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -38,7 +37,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -59,7 +57,7 @@ public class ItemEntityEgg extends Item
 		this.maxStackSize = 64;
 		this.name = this.name + "_" + atype;
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		ForgeRegistries.ITEMS.register(this);
+		GameRegistry.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.type = animal;
 		this.gender = gender;
@@ -154,12 +152,10 @@ public class ItemEntityEgg extends Item
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean par4)
 	{
-		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("item.animania_entity_egg.desc1") + " " + TextFormatting.DARK_GRAY + I18n.translateToLocal("item.animania_entity_egg.desc2"));
+		list.add(TextFormatting.GOLD + I18n.translateToLocal("item.animania_entity_egg.desc1") + " " + TextFormatting.DARK_GRAY + I18n.translateToLocal("item.animania_entity_egg.desc2"));
 	}
-	
-	
 
 	@SideOnly(Side.CLIENT)
 	public static class Color implements IItemColor

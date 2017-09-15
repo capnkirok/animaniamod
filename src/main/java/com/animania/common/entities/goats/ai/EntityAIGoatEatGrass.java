@@ -54,7 +54,7 @@ public class EntityAIGoatEatGrass extends EntityAIBase
 		this.eatingGrassTimer = 0;
 	}
 
-	public boolean shouldContinueExecuting()
+	public boolean continueExecuting()
 	{
 
 		return this.eatingGrassTimer > 0;

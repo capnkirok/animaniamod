@@ -65,7 +65,7 @@ public class EntityAIFollowMateSheep extends EntityAIBase
 
 	}
 
-	public boolean shouldContinueExecuting()
+	public boolean continueExecuting()
 	{
 		if (!this.mateAnimal.isEntityAlive())
 		{

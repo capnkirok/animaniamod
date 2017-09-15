@@ -25,7 +25,7 @@ public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntity
 	private final ModelNest               nest         = new ModelNest();
 
 	@Override
-	public void render(TileEntityNest te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+	public void renderTileEntityAt(TileEntityNest te, double x, double y, double z, float partialTicks, int destroyStage) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
 		this.renderNest(te, (float) x, (float) y, (float) z, destroyStage, partialTicks);

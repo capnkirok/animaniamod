@@ -21,6 +21,7 @@ public class AnimaniaConfig
 {
     @Config.LangKey("Animania")
 
+    public static CommonConfig.Entity         entity         = new CommonConfig.Entity();
     public static CommonConfig.GameRules      gameRules      = new CommonConfig.GameRules();
     public static CommonConfig.Drops          drops          = new CommonConfig.Drops();
     public static CommonConfig.Spawn          spawn          = new CommonConfig.Spawn();

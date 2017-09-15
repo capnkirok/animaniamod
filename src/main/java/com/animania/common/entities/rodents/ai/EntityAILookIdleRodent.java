@@ -21,7 +21,7 @@ public class EntityAILookIdleRodent extends EntityAIBase
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
+    public boolean continueExecuting() {
         return this.idleTime >= 0;
     }
 

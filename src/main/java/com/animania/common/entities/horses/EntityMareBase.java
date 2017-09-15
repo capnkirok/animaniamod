@@ -9,7 +9,12 @@ import javax.annotation.Nullable;
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.goats.EntityAnimaniaGoat;
+import com.animania.common.entities.goats.EntityKidBase;
+import com.animania.common.entities.goats.GoatType;
 import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitKitBase;
+import com.animania.common.entities.rodents.rabbits.RabbitType;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -37,7 +42,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -262,7 +266,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			}
 		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
 			player.startRiding(this);
-			//player.addStat(AnimaniaAchievements.Horseriding, 1);
+			player.addStat(AnimaniaAchievements.Horseriding, 1);
 			return true;
 		} else {
 			return super.processInteract(player, hand);
@@ -329,10 +333,9 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			 */
 		}
 	}
-	
 
 	@Override
-	public void travel(float strafe, float forward, float friction)
+	public void moveEntityWithHeading(float strafe, float forward)
 	{
 		Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
 
@@ -362,7 +365,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				}
 
 				this.setAIMoveSpeed(f);
-				super.travel(0.0F, 1.0F, 0.0f);
+				super.moveEntityWithHeading(0.0F, 1.0F);
 			}
 			else
 			{
@@ -388,7 +391,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		{
 			this.stepHeight = 1.0F;
 			this.jumpMovementFactor = 0.02F;
-			super.travel(strafe, forward, 0.0f);
+			super.moveEntityWithHeading(strafe, forward);
 		}
 	}
 
@@ -441,7 +444,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		} 
 	}
 
-	protected SoundEvent getHurtSound(DamageSource source)
+	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);

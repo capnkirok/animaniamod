@@ -184,7 +184,7 @@ public class EntityAIFindFood extends EntityAIBase
 	}
 
 	@Override
-	public boolean shouldContinueExecuting() {
+	public boolean continueExecuting() {
 
 		return this.shouldExecute();
 	}

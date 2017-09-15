@@ -6,6 +6,7 @@ import com.animania.Animania;
 import com.animania.common.entities.props.EntityWagon;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -20,7 +21,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemWagon extends Item
 {
@@ -31,7 +32,7 @@ public class ItemWagon extends Item
         //this.setCreativeTab(CreativeTabs.TRANSPORTATION);
         this.setRegistryName(Animania.MODID, "item_wagon");
         this.setUnlocalizedName("wagon");
-        ForgeRegistries.ITEMS.register(this);
+        GameRegistry.register(this);
     }
 
     /**
@@ -66,7 +67,7 @@ public class ItemWagon extends Item
             Vec3d vec3d2 = playerIn.getLook(1.0F);
             boolean flag = false;
             List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(playerIn,
-                    playerIn.getEntityBoundingBox().grow(vec3d2.x * 5.0D, vec3d2.y * 5.0D, vec3d2.z * 5.0D).grow(1.0D));
+                    playerIn.getEntityBoundingBox().addCoord(vec3d2.xCoord * 5.0D, vec3d2.yCoord * 5.0D, vec3d2.zCoord * 5.0D).expandXyz(1.0D));
 
             for (int i = 0; i < list.size(); ++i)
             {
@@ -74,9 +75,9 @@ public class ItemWagon extends Item
 
                 if (entity.canBeCollidedWith())
                 {
-                    AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().grow((double) entity.getCollisionBorderSize());
+                    AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().expandXyz((double) entity.getCollisionBorderSize());
 
-                    if (axisalignedbb.contains(vec3d))
+                    if (axisalignedbb.isVecInside(vec3d))
                     {
                         flag = true;
                     }
@@ -95,11 +96,11 @@ public class ItemWagon extends Item
             {
                 Block block = worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
                 boolean flag1 = block == Blocks.WATER || block == Blocks.FLOWING_WATER;
-                EntityWagon EntityWagon = new EntityWagon(worldIn, raytraceresult.hitVec.x,
-                        flag1 ? raytraceresult.hitVec.y - 0.12D : raytraceresult.hitVec.y, raytraceresult.hitVec.z);
+                EntityWagon EntityWagon = new EntityWagon(worldIn, raytraceresult.hitVec.xCoord,
+                        flag1 ? raytraceresult.hitVec.yCoord - 0.12D : raytraceresult.hitVec.yCoord, raytraceresult.hitVec.zCoord);
                 EntityWagon.rotationYaw = playerIn.rotationYaw;
 
-                if (!worldIn.getCollisionBoxes(EntityWagon, EntityWagon.getEntityBoundingBox().expand(-0.1D,-0.1D,-0.1D)).isEmpty())
+                if (!worldIn.getCollisionBoxes(EntityWagon, EntityWagon.getEntityBoundingBox().expandXyz(-0.1D)).isEmpty())
                 {
                     return new ActionResult(EnumActionResult.FAIL, itemstack);
                 }

@@ -7,6 +7,21 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
+import com.animania.common.entities.pigs.EntityHogDuroc;
+import com.animania.common.entities.pigs.EntityHogLargeBlack;
+import com.animania.common.entities.pigs.EntityHogLargeWhite;
+import com.animania.common.entities.pigs.EntityHogOldSpot;
+import com.animania.common.entities.pigs.EntityHogYorkshire;
+import com.animania.common.entities.pigs.EntityPigletDuroc;
+import com.animania.common.entities.pigs.EntityPigletLargeBlack;
+import com.animania.common.entities.pigs.EntityPigletLargeWhite;
+import com.animania.common.entities.pigs.EntityPigletOldSpot;
+import com.animania.common.entities.pigs.EntityPigletYorkshire;
+import com.animania.common.entities.pigs.EntitySowDuroc;
+import com.animania.common.entities.pigs.EntitySowLargeBlack;
+import com.animania.common.entities.pigs.EntitySowLargeWhite;
+import com.animania.common.entities.pigs.EntitySowOldSpot;
+import com.animania.common.entities.pigs.EntitySowYorkshire;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.block.Block;
@@ -15,6 +30,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -22,7 +38,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -38,7 +54,7 @@ public class BlockMud extends Block
 		super(Material.SAND, MapColor.BROWN);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		ForgeRegistries.BLOCKS.register(this);
+		GameRegistry.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.slipperiness = 0.6F;
 		this.setSoundType(SoundType.SLIME);

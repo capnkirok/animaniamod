@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.rodents.ai.EntityAIFollowParentRabbits;
+import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -20,7 +21,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.management.PreYggdrasilConverter;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -145,7 +145,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
+	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(2);

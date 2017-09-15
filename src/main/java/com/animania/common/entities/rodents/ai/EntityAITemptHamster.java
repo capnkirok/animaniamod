@@ -65,7 +65,7 @@ public class EntityAITemptHamster extends EntityAIBase
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
+    public boolean continueExecuting() {
         if (this.scaredByPlayerMovement) {
             if (this.temptedEntity.getDistanceSqToEntity(this.temptingPlayer) < 36.0D) {
                 if (this.temptingPlayer.getDistanceSq(this.targetX, this.targetY, this.targetZ) > 0.010000000000000002D)

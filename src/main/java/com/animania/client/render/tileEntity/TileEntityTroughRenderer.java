@@ -38,7 +38,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 	private final ModelTrough trough = new ModelTrough();
 
 	@Override
-	public void render(TileEntityTrough te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
+	public void renderTileEntityAt(TileEntityTrough te, double x, double y, double z, float partialTicks, int destroyStage)
 	{
 		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
 		this.renderTrough(te, (float) x, (float) y, (float) z, enumfacing, destroyStage, partialTicks);

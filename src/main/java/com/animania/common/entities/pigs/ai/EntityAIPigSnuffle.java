@@ -57,7 +57,7 @@ public class EntityAIPigSnuffle extends EntityAIBase
 	}
 
 	@Override
-	public boolean shouldContinueExecuting() {
+	public boolean continueExecuting() {
 		return this.eatingGrassTimer > 0;
 	}
 

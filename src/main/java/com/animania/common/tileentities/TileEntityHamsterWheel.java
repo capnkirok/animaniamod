@@ -15,8 +15,8 @@ import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileEntity;
 
-import cofh.redstoneflux.api.IEnergyProvider;
-import cofh.redstoneflux.api.IEnergyReceiver;
+import cofh.api.energy.IEnergyProvider;
+import cofh.api.energy.IEnergyReceiver;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -31,11 +31,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable
+public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable, IEnergyProvider
 {
 	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(TileEntityHamsterWheel.class);
 
@@ -50,12 +49,11 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	private NBTTagCompound hamsterNBT;
 	private ItemHandlerHamsterWheel itemHandler;
 	private int timer;
-	private EnergyStorage power;
+	private int energy;
 
 	public TileEntityHamsterWheel()
 	{
 		this.itemHandler = new ItemHandlerHamsterWheel();
-		this.power = new EnergyStorage(AnimaniaConfig.gameRules.hamsterWheelCapacity);
 	}
 
 	@Override
@@ -81,7 +79,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		if (isRunning)
 		{
-			this.power.receiveEnergy(AnimaniaConfig.gameRules.hamsterWheelRFGeneration, false);
+			energy += AnimaniaConfig.gameRules.hamsterWheelRFGeneration;
 			timer++;
 			this.markDirty();
 
@@ -107,22 +105,21 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		for (EnumFacing facing : EnumFacing.VALUES)
 		{
-			TileEntity tile = getSurroundingTE(facing);
-			if (tile != null && ((tile instanceof IEnergyReceiver) || tile.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())))
+			if (getSurroundingTE(facing) != null && ((getSurroundingTE(facing) instanceof IEnergyReceiver) || getSurroundingTE(facing).hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())))
 			{
-				if (tile instanceof IEnergyReceiver)
+				if (getSurroundingTE(facing) instanceof IEnergyReceiver)
 				{
 					IEnergyReceiver reciever = (IEnergyReceiver) getSurroundingTE(facing);
-					int recieved = reciever.receiveEnergy(facing.getOpposite(), this.getEnergy(), false);
-					this.power.extractEnergy(recieved, false);
+					int recieved = reciever.receiveEnergy(facing.getOpposite(), energy, false);
+					energy -= recieved;
 				}
 				else
 				{
-					IEnergyStorage energyStorage = tile.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
+					IEnergyStorage energyStorage = getSurroundingTE(facing).getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
 					if(energyStorage.canReceive())
 					{
-						int recieved = energyStorage.receiveEnergy(this.getEnergy(), false);
-						this.power.extractEnergy(recieved, false);
+						int recieved = energyStorage.receiveEnergy(energy, false);
+						energy -= recieved;
 					}
 				}
 
@@ -165,7 +162,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 	public int getEnergy()
 	{
-		return power.getEnergyStored();
+		return energy;
 	}
 
 	public void ejectHamster()
@@ -190,13 +187,6 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 			}
 		}
 	}
-	
-	
-
-	public EnergyStorage getPower()
-	{
-		return power;
-	}
 
 	private boolean findPositionForHamster()
 	{
@@ -206,7 +196,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 			pos = pos.offset(e);
 			IBlockState state = world.getBlockState(pos);
 
-			if (!state.isOpaqueCube() && !state.isFullCube() && state.getBlock() != BlockHandler.blockHamsterWheel)
+			if (!state.isFullyOpaque() && !state.isFullCube() && state.getBlock() != BlockHandler.blockHamsterWheel)
 			{
 				this.hamster.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
 				return true;
@@ -219,7 +209,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		NBTTagCompound tag = super.writeToNBT(compound);
-		tag.setInteger("energy", power.getEnergyStored());
+		tag.setInteger("energy", energy);
 		tag.setBoolean("running", isRunning);
 		tag.setInteger("timer", this.timer);
 		NBTTagCompound hamster = new NBTTagCompound();
@@ -234,8 +224,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
-		this.power = new EnergyStorage(AnimaniaConfig.gameRules.hamsterWheelCapacity);
-		this.power.receiveEnergy(compound.getInteger("energy"), false);
+		this.energy = compound.getInteger("energy");
 		NBTTagCompound hamster = compound.getCompoundTag("hamster");
 		if (!hamster.equals(new NBTTagCompound()))
 			this.hamsterNBT = hamster;
@@ -283,7 +272,6 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		return this.writeToNBT(new NBTTagCompound());
 	}
 
-	/*
 	@Override
 	public int getEnergyStored(EnumFacing from)
 	{
@@ -293,7 +281,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	@Override
 	public int getMaxEnergyStored(EnumFacing from)
 	{
-		return ;
+		return AnimaniaConfig.gameRules.hamsterWheelCapacity;
 	}
 
 	@Override
@@ -309,7 +297,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		energy -= maxExtract;
 
 		return maxExtract;
-	} */
+	}
 
 	private TileEntity getSurroundingTE(EnumFacing facing)
 	{
@@ -329,9 +317,6 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return true;
 
-		if (capability == CapabilityEnergy.ENERGY)
-			return true;
-		
 		return super.hasCapability(capability, facing);
 	}
 
@@ -341,9 +326,6 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return (T) this.itemHandler;
-		
-		if (capability == CapabilityEnergy.ENERGY)
-			return (T) this.power;
 
 		return super.getCapability(capability, facing);
 
@@ -367,12 +349,12 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		if (this.isWorldRemote()) {
 			if (this.isRunning
 					&& !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)) {
-				this.getAnimationHandler().startAnimation(Animania.MODID, "anim_hamster_wheel", this);
-				this.getAnimationHandler().startAnimation(Animania.MODID, "hamster_run", this);
+				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_hamster_wheel", this);
+				this.getAnimationHandler().clientStartAnimation(Animania.MODID, "hamster_run", this);
 			} else if (!this.isRunning
 					&& this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this)) {
-				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_hamster_wheel", this);
-				this.getAnimationHandler().stopAnimation(Animania.MODID, "hamster_run", this);
+				this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_hamster_wheel", this);
+				this.getAnimationHandler().clientStopAnimation(Animania.MODID, "hamster_run", this);
 			}
 		}
 	}

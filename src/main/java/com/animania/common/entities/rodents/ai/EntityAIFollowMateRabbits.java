@@ -64,7 +64,7 @@ public class EntityAIFollowMateRabbits extends EntityAIBase
 
 	}
 
-	public boolean shouldContinueExecuting()
+	public boolean continueExecuting()
 	{
 		if (!this.mateAnimal.isEntityAlive())
 		{

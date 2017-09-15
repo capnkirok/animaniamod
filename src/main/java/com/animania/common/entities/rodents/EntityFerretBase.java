@@ -5,11 +5,11 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
@@ -71,7 +71,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityFerretBase extends EntityTameable implements TOPInfoProviderRodent, ISpawnable, AnimaniaAnimal
+public class EntityFerretBase extends EntityTameable implements TOPInfoProviderRodent, ISpawnable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
@@ -162,10 +162,10 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.setTamed(true);
 		this.setSitting(false);
 		this.setFerretSitting(false);
-//		player.addStat(type.getAchievement(), 1);
+		player.addStat(type.getAchievement(), 1);
 		this.entityAIEatGrass.startExecuting();
-//		if (player.hasAchievement(AnimaniaAchievements.WhiteFerret) && player.hasAchievement(AnimaniaAchievements.GreyFerret))
-//			player.addStat(AnimaniaAchievements.Ferrets, 1);
+		if (player.hasAchievement(AnimaniaAchievements.WhiteFerret) && player.hasAchievement(AnimaniaAchievements.GreyFerret))
+			player.addStat(AnimaniaAchievements.Ferrets, 1);
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY)
 				stack.setCount(stack.getCount() - 1);
@@ -376,7 +376,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
+	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);

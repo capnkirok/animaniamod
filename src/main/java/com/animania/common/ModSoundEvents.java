@@ -4,7 +4,6 @@ import com.animania.Animania;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModSoundEvents
@@ -356,10 +355,7 @@ public class ModSoundEvents
 
 	private static SoundEvent registerSound(String soundName) {
 		final ResourceLocation soundID = new ResourceLocation(Animania.MODID, soundName);
-		SoundEvent s = new SoundEvent(soundID);
-		s.setRegistryName(soundID);
-		ForgeRegistries.SOUND_EVENTS.register(s);
-		return s;
+		return GameRegistry.register(new SoundEvent(soundID).setRegistryName(soundID));
 	}
 
 }

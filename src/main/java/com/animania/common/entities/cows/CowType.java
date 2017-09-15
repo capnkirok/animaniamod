@@ -12,22 +12,24 @@ import net.minecraft.world.World;
 
 public enum CowType implements AnimaniaType
 {
-	ANGUS(EntityBullAngus.class, EntityCowAngus.class, EntityCalfAngus.class),
-	FRIESIAN(EntityBullFriesian.class, EntityCowFriesian.class, EntityCalfFriesian.class),
-	HEREFORD(EntityBullHereford.class, EntityCowHereford.class, EntityCalfHereford.class),
-	HOLSTEIN(EntityBullHolstein.class, EntityCowHolstein.class, EntityCalfHolstein.class),
-	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class);
+	ANGUS(EntityBullAngus.class, EntityCowAngus.class, EntityCalfAngus.class, AnimaniaAchievements.Angus),
+	FRIESIAN(EntityBullFriesian.class, EntityCowFriesian.class, EntityCalfFriesian.class, AnimaniaAchievements.Friesian),
+	HEREFORD(EntityBullHereford.class, EntityCowHereford.class, EntityCalfHereford.class, AnimaniaAchievements.Hereford),
+	HOLSTEIN(EntityBullHolstein.class, EntityCowHolstein.class, EntityCalfHolstein.class, AnimaniaAchievements.Holstein),
+	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class, AnimaniaAchievements.Longhorn);
 
 
 	private Class bull;
 	private Class cow;
 	private Class calf;
+	private StatBase achievement;
 
-	private CowType(Class bull, Class cow, Class calf)
+	private CowType(Class bull, Class cow, Class calf, StatBase achievement)
 	{
 		this.bull = bull;
 		this.cow = cow;
 		this.calf = calf;
+		this.achievement = achievement;
 	}
 
 	@Override
@@ -110,6 +112,12 @@ public enum CowType implements AnimaniaType
 		else
 			return female;
 	}
+
+	public StatBase getAchievement()
+	{
+		return this.achievement;
+	}
+
 
 
 

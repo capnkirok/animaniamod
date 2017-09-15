@@ -24,7 +24,7 @@ public class BlockFluidMilk extends BlockFluidBase
     @Override
     public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
         Vec3d vec = this.getFlowVector(world, pos);
-        entity.addVelocity(vec.x / 60, vec.y / 60, vec.z / 60);
+        entity.addVelocity(vec.xCoord / 60, vec.yCoord / 60, vec.zCoord / 60);
     }
 
 }

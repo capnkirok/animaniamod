@@ -6,13 +6,17 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindFoodGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindSaltLickGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindWater;
+import com.animania.common.entities.goats.ai.EntityAIFollowMateGoats;
+import com.animania.common.entities.goats.ai.EntityAIFollowParentGoats;
 import com.animania.common.entities.goats.ai.EntityAIGoatEatGrass;
+import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
+import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.entities.goats.ai.EntityAIPanicGoats;
 import com.animania.common.entities.goats.ai.EntityAISwimmingGoats;
 import com.animania.common.entities.goats.ai.EntityAIWatchClosestGoats;
@@ -52,7 +56,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable, AnimaniaAnimal
+public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 {
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.goatFood));

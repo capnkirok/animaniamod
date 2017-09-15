@@ -25,9 +25,9 @@ public class TileEntityHamsterWheelRenderer extends TileEntitySpecialRenderer<Ti
 	private ModelCraftStudio modelHamster = new ModelCraftStudio(Animania.MODID, "hamster", 64, 32);
 
 	public static TileEntityHamsterWheelRenderer  instance;
-		
+
 	@Override
-	public void render(TileEntityHamsterWheel te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+	public void renderTileEntityAt(TileEntityHamsterWheel te, double x, double y, double z, float partialTicks, int destroyStage) {
 		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
 		
 		GlStateManager.pushMatrix();

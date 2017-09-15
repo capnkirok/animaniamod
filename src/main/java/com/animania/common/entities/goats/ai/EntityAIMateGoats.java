@@ -67,7 +67,7 @@ public class EntityAIMateGoats extends EntityAIBase
 	}
 
 	@Override
-	public boolean shouldContinueExecuting() {
+	public boolean continueExecuting() {
 		if (targetMate != null) {
 			return this.targetMate.isEntityAlive();
 		} else {

@@ -45,7 +45,7 @@ public class EntityAIGoatsLeapAtTarget extends EntityAIBase
 			return d0 >= 0.0D && d0 <= 46.0D ? (!this.leaper.onGround ? false : this.leaper.getRNG().nextInt(20) == 0) : false;
 		}
 	}
-	public boolean shouldContinueExecuting()
+	public boolean continueExecuting()
 	{
 		return !this.leaper.onGround;
 	}

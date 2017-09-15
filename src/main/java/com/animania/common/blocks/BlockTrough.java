@@ -43,17 +43,20 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class BlockTrough extends BlockContainer implements TOPInfoProvider
@@ -71,7 +74,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 		super(Material.WOOD);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(BlockTrough.FACING, EnumFacing.NORTH));
-		ForgeRegistries.BLOCKS.register(this);
+		GameRegistry.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 	}
@@ -108,7 +111,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 		{
 
 			EntityItem entityitem = (EntityItem) entityIn;
-			ItemStack stack = entityitem.getItem();
+			ItemStack stack = entityitem.getEntityItem();
 
 			// SOLIDS
 			if (!stack.isEmpty() && stack.getItem() == Items.WHEAT || isModdedFoodItem(stack))
@@ -131,7 +134,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 				IFluidHandlerItem handler = FluidUtil.getFluidHandler(stack);
 				handler.drain(1000, true);
 				ItemStack newStack = handler.getContainer();
-				entityitem.setItem(newStack);
+				entityitem.setEntityItemStack(newStack);
 
 			}
 			else if (AnimaniaHelper.hasFluid(stack, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
@@ -142,7 +145,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 				IFluidHandlerItem handler = FluidUtil.getFluidHandler(stack);
 				handler.drain(1000, true);
 				ItemStack newStack = handler.getContainer();
-				entityitem.setItem(newStack);
+				entityitem.setEntityItemStack(newStack);
 
 			}
 

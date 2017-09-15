@@ -4,10 +4,9 @@ import com.animania.Animania;
 import com.animania.client.AnimaniaTextures;
 import com.animania.client.handler.RenderHandler;
 import com.animania.common.items.ItemEntityEgg;
-import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
-import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
-import com.leviathanstudio.craftstudio.client.util.EnumRenderType;
-import com.leviathanstudio.craftstudio.client.util.EnumResourceType;
+import com.leviathanstudio.craftstudio.CSRegistryHelper;
+import com.leviathanstudio.craftstudio.client.json.EnumRenderType;
+import com.leviathanstudio.craftstudio.client.json.EnumResourceType;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -24,77 +23,80 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 public class ClientProxy extends CommonProxy
 {
 
-	@Override
-	public void preInit()
-	{
-		super.preInit();
-		RenderHandler.preInit();
-		AnimaniaTextures.registerTextures();
+    private CSRegistryHelper csRegistry = new CSRegistryHelper(Animania.MODID);
 
-	}
+    @Override
+    public void preInit()
+    {
+        super.preInit();
+        RenderHandler.preInit();
+        AnimaniaTextures.registerTextures();
 
-	@Override
-	public void init()
-	{
-		super.init();
-		RenderHandler.init();
+    }
 
-		for (Item item : ForgeRegistries.ITEMS.getValues())
-		{
-			if (item instanceof ItemEntityEgg)
-			{
-				FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(new ItemEntityEgg.Color(), item);
-			}
-		}
-	}
+    @Override
+    public void init()
+    {
+        super.init();
+        RenderHandler.init();
 
-	@Override
-	public void registerFluidBlockRendering(Block block, String name)
-	{
-		name = name.toLowerCase();
-		super.registerFluidBlockRendering(block, name);
-		FluidStateMapper mapper = new FluidStateMapper(name);
+        for (Item item : ForgeRegistries.ITEMS.getValues())
+        {
+            if (item instanceof ItemEntityEgg)
+            {
+                FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(new ItemEntityEgg.Color(), item);
+            }
+        }
+    }
 
-		Item item = Item.getItemFromBlock(block);
-		ModelBakery.registerItemVariants(item);
-		ModelLoader.setCustomMeshDefinition(item, mapper);
+    @Override
+    public void registerFluidBlockRendering(Block block, String name)
+    {
+        name = name.toLowerCase();
+        super.registerFluidBlockRendering(block, name);
+        FluidStateMapper mapper = new FluidStateMapper(name);
 
-		ModelLoader.setCustomStateMapper(block, mapper);
-	}
+        Item item = Item.getItemFromBlock(block);
+        ModelBakery.registerItemVariants(item);
+        ModelLoader.setCustomMeshDefinition(item, mapper);
 
-	public static class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition
-	{
-		public final ModelResourceLocation location;
+        ModelLoader.setCustomStateMapper(block, mapper);
+    }
 
-		public FluidStateMapper(String name)
-		{
-			this.location = new ModelResourceLocation(Animania.MODID + ":fluids", name);
-		}
+    public static class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition
+    {
+        public final ModelResourceLocation location;
 
-		@Override
-		protected ModelResourceLocation getModelResourceLocation(IBlockState state)
-		{
-			return this.location;
-		}
+        public FluidStateMapper(String name)
+        {
+            this.location = new ModelResourceLocation(Animania.MODID + ":fluids", name);
+        }
 
-		@Override
-		public ModelResourceLocation getModelLocation(ItemStack stack)
-		{
-			return this.location;
-		}
-	}
+        @Override
+        protected ModelResourceLocation getModelResourceLocation(IBlockState state)
+        {
+            return this.location;
+        }
 
-	@CraftStudioLoader
-	public static void registerCraftStudioAssets()
-	{
-		CSRegistryHelper csRegistry = new CSRegistryHelper(Animania.MODID);
+        @Override
+        public ModelResourceLocation getModelLocation(ItemStack stack)
+        {
+            return this.location;
+        }
+    }
 
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_hamster_wheel");
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "hamster");
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "wagon");
+    @Override
+    public void registerCraftStudioModels()
+    {
+        csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_hamster_wheel");
+        csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "hamster");
+        csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "wagon");
+    }
 
-		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "anim_hamster_wheel");
-		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "hamster_run");
-	}
-
+    @Override
+    public void registerCraftStudioAnimations()
+    {
+        csRegistry.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "anim_hamster_wheel");
+        csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "hamster_run");
+    }
 }

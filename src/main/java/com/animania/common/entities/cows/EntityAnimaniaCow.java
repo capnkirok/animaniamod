@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 
 import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.cows.ai.EntityAICowEatGrass;
@@ -50,7 +49,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaCow extends EntityCow implements ISpawnable, AnimaniaAnimal
+public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 {
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.cowFood));
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
@@ -155,10 +154,10 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		this.setFed(true);
 		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
-//		player.addStat(cowType.getAchievement(), 1);
-//
-//		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
-//			player.addStat(AnimaniaAchievements.Cows, 1);
+		player.addStat(cowType.getAchievement(), 1);
+
+		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
+			player.addStat(AnimaniaAchievements.Cows, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);

@@ -7,6 +7,7 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCake;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -15,11 +16,13 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -29,7 +32,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -48,11 +51,8 @@ public class BlockCheese extends Block
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setSoundType(SoundType.CLOTH);
 		this.setHardness(0.6f);
-		ForgeRegistries.BLOCKS.register(this);
-		Item item = new ItemBlock(this);
-		item.setRegistryName(new ResourceLocation(Animania.MODID, name.substring(7) + "_cheese_wheel"));
-		
-		ForgeRegistries.ITEMS.register(item);
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlock(this), new ResourceLocation(Animania.MODID, name.substring(7) + "_cheese_wheel"));
 		this.setTickRandomly(true);
 
 	}

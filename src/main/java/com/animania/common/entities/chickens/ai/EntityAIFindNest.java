@@ -184,7 +184,7 @@ public class EntityAIFindNest extends EntityAIBase
 		return false;
 	}
 
-	public boolean shouldContinueExecuting()
+	public boolean continueExecuting()
 	{
 
 		return this.shouldExecute();
@@ -308,7 +308,7 @@ public class EntityAIFindNest extends EntityAIBase
 
 				Block nestBlockchk = temptedEntity.world.getBlockState(nestPos).getBlock();
 
-				List<Entity> nestClear = temptedEntity.world.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expand(1, 1, 1));
+				List<Entity> nestClear = temptedEntity.world.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expandXyz(1));
 
 				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
 				{

@@ -5,9 +5,9 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
@@ -59,7 +59,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, ISpawnable, AnimaniaAnimal
+public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, ISpawnable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
@@ -111,9 +111,9 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-//		player.addStat(type.getAchievement(), 1);
-//		if (player.hasAchievement(AnimaniaAchievements.IndiaBlue) && player.hasAchievement(AnimaniaAchievements.White))
-//			player.addStat(AnimaniaAchievements.Peacocks, 1);
+		player.addStat(type.getAchievement(), 1);
+		if (player.hasAchievement(AnimaniaAchievements.IndiaBlue) && player.hasAchievement(AnimaniaAchievements.White))
+			player.addStat(AnimaniaAchievements.Peacocks, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
@@ -509,7 +509,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
+	protected SoundEvent getHurtSound()
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(2);

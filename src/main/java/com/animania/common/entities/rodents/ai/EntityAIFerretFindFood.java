@@ -140,7 +140,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 
 	}
 
-	public boolean shouldContinueExecuting()
+	public boolean continueExecuting()
 	{
 
 		return this.shouldExecute();

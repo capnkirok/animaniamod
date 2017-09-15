@@ -15,7 +15,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -46,7 +45,7 @@ public class EntityToad extends EntityAmphibian
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
+	protected SoundEvent getHurtSound() {
 		return null;
 	}
 
@@ -60,7 +59,7 @@ public class EntityToad extends EntityAmphibian
 		SoundEvent soundevent = this.getAmbientSound();
 
 		if (soundevent != null)
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getGrowingAge() * 2);
+			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - this.getAge() * 2);
 	}
 
 	@Override
