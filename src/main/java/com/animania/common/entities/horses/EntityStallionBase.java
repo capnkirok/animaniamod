@@ -205,7 +205,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
-		int num = 0;
+		int num = 1;
 
 		if (this.getWatered()) {
 			happy++;

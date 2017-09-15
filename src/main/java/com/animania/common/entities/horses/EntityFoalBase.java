@@ -124,7 +124,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
-		int num = 0;
+		int num = 1;
 
 		if (this.getWatered()) {
 			happy++;
