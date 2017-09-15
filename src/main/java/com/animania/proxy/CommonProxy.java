@@ -28,9 +28,14 @@ public class CommonProxy
     public void preInit()
     {
         CapabilityManager.INSTANCE.register(ICapabilityPlayer.class, new CapabilitiesPlayerStorage(), CapabilityPlayer.class);
-        EntityHandler.preInit();
+
         ItemHandler.preInit();
         BlockHandler.preInit();
+        AnimaniaAchievements.init();
+
+        OldEntityHandler.preInit();
+        EntityHandler.preInit();
+        AnimaniaAchievements.postItemInit();
         TileEntityHandler.preInit();
         DamageSourceHandler.preInit();
         PatreonHandler.initList();
@@ -39,11 +44,7 @@ public class CommonProxy
         // EVENTS
         EventsHandler.preInit();
         UpdateHandler.init();
-        //AnimaniaAchievements.init();
-
-        CompatHandler.preInit();
-        AdvancementHandler.registerCriteria();
-
+      
     }
 
     public void init()

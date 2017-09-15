@@ -22,6 +22,15 @@ public enum HedgehogType implements AnimaniaType
 		this.male = male;
 	}
 	
+	
+	
+	public void setAchievement(StatBase achievement)
+	{
+		this.achievement = achievement;
+	}
+
+
+
 	@Override
 	public EntityHedgehogBase getMale(World world)
 	{

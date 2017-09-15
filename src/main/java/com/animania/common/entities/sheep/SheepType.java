@@ -11,26 +11,34 @@ import net.minecraft.world.World;
 
 public enum SheepType implements AnimaniaType
 {
-	DORPER(EntityRamDorper.class, EntityEweDorper.class, EntityLambDorper.class, null),
-	DORSET(EntityRamDorset.class, EntityEweDorset.class, EntityLambDorset.class, null),
-	FRIESIAN(EntityRamFriesian.class, EntityEweFriesian.class, EntityLambFriesian.class, null),
-	JACOB(EntityRamJacob.class, EntityEweJacob.class, EntityLambJacob.class, null),
-	MERINO(EntityRamMerino.class, EntityEweMerino.class, EntityLambMerino.class, null),
-	SUFFOLK(EntityRamSuffolk.class, EntityEweSuffolk.class, EntityLambSuffolk.class, null);
+	DORPER(EntityRamDorper.class, EntityEweDorper.class, EntityLambDorper.class),
+	DORSET(EntityRamDorset.class, EntityEweDorset.class, EntityLambDorset.class),
+	FRIESIAN(EntityRamFriesian.class, EntityEweFriesian.class, EntityLambFriesian.class),
+	JACOB(EntityRamJacob.class, EntityEweJacob.class, EntityLambJacob.class),
+	MERINO(EntityRamMerino.class, EntityEweMerino.class, EntityLambMerino.class),
+	SUFFOLK(EntityRamSuffolk.class, EntityEweSuffolk.class, EntityLambSuffolk.class);
 	
 	private Class male;
 	private Class female;
 	private Class child;
 	private StatBase achievement;
 	
-	private SheepType(Class male, Class female, Class child, StatBase achievement)
+	private SheepType(Class male, Class female, Class child)
 	{
 		this.male = male;
 		this.female = female;
 		this.child = child;
-		this.achievement = achievement;
 	}
 	
+	
+	
+	public void setAchievement(StatBase achievement)
+	{
+		this.achievement = achievement;
+	}
+
+
+
 	@Override
 	public EntityRamBase getMale(World world)
 	{

@@ -30,6 +30,15 @@ public enum PigType implements AnimaniaType
 		this.sow = sow;
 		this.piglet = piglet;
 	}
+	
+	
+
+	public void setAchievement(StatBase achievement)
+	{
+		this.achievement = achievement;
+	}
+
+
 
 	@Override
 	public EntityHogBase getMale(World world)

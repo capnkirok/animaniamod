@@ -25,6 +25,13 @@ public enum HorseType implements AnimaniaType
 		this.foal = foal;
 	}
 
+	
+	public void setAchievement(StatBase achievement)
+	{
+		this.achievement = achievement;
+	}
+
+
 	@Override
 	public EntityStallionBase getMale(World world)
 	{

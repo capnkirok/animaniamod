@@ -11,13 +11,13 @@ import net.minecraft.world.World;
 
 public enum GoatType implements AnimaniaType
 {
-	ALPINE(EntityBuckAlpine.class, EntityDoeAlpine.class, EntityKidAlpine.class, null),
-	ANGORA(EntityBuckAngora.class, EntityDoeAngora.class, EntityKidAngora.class, null),
-	FAINTING(EntityBuckFainting.class, EntityDoeFainting.class, EntityKidFainting.class, null),
-	KIKO(EntityBuckKiko.class, EntityDoeKiko.class, EntityKidKiko.class, null),
-	KINDER(EntityBuckKinder.class, EntityDoeKinder.class, EntityKidKinder.class, null),
-	NIGERIAN_DWARF(EntityBuckNigerianDwarf.class, EntityDoeNigerianDwarf.class, EntityKidNigerianDwarf.class, null),
-	PYGMY(EntityBuckPygmy.class, EntityDoePygmy.class, EntityKidPygmy.class, null);
+	ALPINE(EntityBuckAlpine.class, EntityDoeAlpine.class, EntityKidAlpine.class),
+	ANGORA(EntityBuckAngora.class, EntityDoeAngora.class, EntityKidAngora.class),
+	FAINTING(EntityBuckFainting.class, EntityDoeFainting.class, EntityKidFainting.class),
+	KIKO(EntityBuckKiko.class, EntityDoeKiko.class, EntityKidKiko.class),
+	KINDER(EntityBuckKinder.class, EntityDoeKinder.class, EntityKidKinder.class),
+	NIGERIAN_DWARF(EntityBuckNigerianDwarf.class, EntityDoeNigerianDwarf.class, EntityKidNigerianDwarf.class),
+	PYGMY(EntityBuckPygmy.class, EntityDoePygmy.class, EntityKidPygmy.class);
 	
 
 	private Class male;
@@ -26,14 +26,22 @@ public enum GoatType implements AnimaniaType
 	private StatBase achievement;
 	
 	
-	private GoatType(Class male, Class female, Class child, StatBase achievement)
+	private GoatType(Class male, Class female, Class child)
 	{
 		this.male = male;
 		this.female = female;
 		this.child = child;
-		this.achievement = achievement;
 	}
 	
+	
+	
+	public void setAchievement(StatBase achievement)
+	{
+		this.achievement = achievement;
+	}
+
+
+
 	@Override
 	public EntityBuckBase getMale(World world)
 	{

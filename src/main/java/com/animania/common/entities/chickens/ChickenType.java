@@ -30,6 +30,11 @@ public enum ChickenType implements AnimaniaType
 		this.child = child;
 	}
 	
+	public void setAchievement(StatBase achievement)
+	{
+		this.achievement = achievement;
+	}
+
 	@Override
 	public EntityRoosterBase getMale(World world)
 	{
