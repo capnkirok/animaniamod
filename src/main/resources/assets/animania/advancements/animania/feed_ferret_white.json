@@ -1,0 +1,23 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_ferret_white"
+        },
+        "title": {
+            "translate": "advancements.animania.ferret_white.title"
+        },
+        "description": {
+            "translate": "advancements.animania.ferret_white.description"
+        }
+    },
+    "parent": "animania:animania/feed_ferret_grey",
+    "criteria": {
+        "hamster": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:egg"},
+				"entity": "animania:ferret_white"
+            }
+        }
+    }
+}

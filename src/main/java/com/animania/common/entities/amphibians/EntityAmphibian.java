@@ -2,6 +2,7 @@ package com.animania.common.entities.amphibians;
 
 import java.util.Random;
 
+import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 
@@ -30,7 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAmphibian extends EntityAnimal implements ISpawnable
+public class EntityAmphibian extends EntityAnimal implements ISpawnable, AnimaniaAnimal
 {
 
 	private int     jumpTicks;
@@ -79,7 +80,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 			if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength()) {
 				Vec3d vec3d = path.getPosition(this);
 
-				if (vec3d.yCoord > this.posY + 0.5D)
+				if (vec3d.x > this.posY + 0.5D)
 					return 0.5F;
 			}
 
@@ -101,7 +102,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 			double d1 = this.motionX * this.motionX + this.motionZ * this.motionZ;
 
 			if (d1 < 0.010000000000000002D)
-				this.moveRelative(0.0F, 1.0F, 0.1F);
+				this.moveRelative(0.0F, 1.0F, 0.1F, 0f);
 		}
 
 		if (!this.world.isRemote)
@@ -152,7 +153,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 						if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength())
 							vec3d = path.getPosition(this);
 
-						this.calculateRotationYaw(vec3d.xCoord, vec3d.zCoord);
+						this.calculateRotationYaw(vec3d.x, vec3d.z);
 						this.startJumping();
 					}
 				}
@@ -239,10 +240,10 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 	}
 
 	@Override
-	protected SoundEvent getHurtSound() {
+	protected SoundEvent getHurtSound(DamageSource source) {
 		return null;
 	}
-
+	
 	@Override
 	protected SoundEvent getDeathSound() {
 		return null;

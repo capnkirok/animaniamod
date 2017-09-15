@@ -1,0 +1,33 @@
+[
+	{
+		"name": "ANY_MILK",
+		"ingredient": 
+		[
+			{
+				"type": "animania:filled_bucket",
+				"fluid": "milk_holstein"
+			},
+			{
+				"type": "animania:filled_bucket",
+				"fluid": "milk_friesian"
+			},
+			{
+				"type": "animania:filled_bucket",
+				"fluid": "milk_sheep"
+			},
+			{
+				"type": "animania:filled_bucket",
+				"fluid": "milk_goat"
+			}
+		]
+	},
+	{
+		"name": "SLOP",
+		"ingredient":
+		{
+			"type": "animania:filled_bucket",
+			"fluid": "slop"
+		}
+	
+	}
+]

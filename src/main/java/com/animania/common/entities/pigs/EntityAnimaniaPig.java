@@ -2,8 +2,8 @@ package com.animania.common.entities.pigs;
 
 import java.util.Set;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.pigs.ai.EntityAIFindFood;
@@ -50,7 +50,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
-public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
+public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, AnimaniaAnimal
 {
 
 	protected static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
@@ -128,9 +128,9 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 			this.entityAIEatGrass.startExecuting();
 			this.eatTimer = 80;
 		}
-		player.addStat(this.pigType.getAchievement(), 1);
-		if (player.hasAchievement(AnimaniaAchievements.Duroc) && player.hasAchievement(AnimaniaAchievements.Hampshire) && player.hasAchievement(AnimaniaAchievements.LargeBlack) && player.hasAchievement(AnimaniaAchievements.LargeWhite) && player.hasAchievement(AnimaniaAchievements.OldSpot) && player.hasAchievement(AnimaniaAchievements.Yorkshire))
-			player.addStat(AnimaniaAchievements.Pigs, 1);
+//		player.addStat(this.pigType.getAchievement(), 1);
+//		if (player.hasAchievement(AnimaniaAchievements.Duroc) && player.hasAchievement(AnimaniaAchievements.Hampshire) && player.hasAchievement(AnimaniaAchievements.LargeBlack) && player.hasAchievement(AnimaniaAchievements.LargeWhite) && player.hasAchievement(AnimaniaAchievements.OldSpot) && player.hasAchievement(AnimaniaAchievements.Yorkshire))
+//			player.addStat(AnimaniaAchievements.Pigs, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY && !ItemStack.areItemStacksEqual(stack, this.slop))

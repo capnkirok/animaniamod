@@ -5,9 +5,9 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.chickens.ai.EntityAIFindFood;
@@ -51,7 +51,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
+public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, AnimaniaAnimal
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
@@ -102,9 +102,9 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	{
 		this.setFed(true);
 
-		player.addStat(this.type.getAchievement(), 1);
-		if (player.hasAchievement(AnimaniaAchievements.Leghorn) && player.hasAchievement(AnimaniaAchievements.Orpington) && player.hasAchievement(AnimaniaAchievements.PlymouthRock) && player.hasAchievement(AnimaniaAchievements.RhodeIslandRed) && player.hasAchievement(AnimaniaAchievements.Wyandotte))
-			player.addStat(AnimaniaAchievements.Chickens, 1);
+//		player.addStat(this.type.getAchievement(), 1);
+//		if (player.hasAchievement(AnimaniaAchievements.Leghorn) && player.hasAchievement(AnimaniaAchievements.Orpington) && player.hasAchievement(AnimaniaAchievements.PlymouthRock) && player.hasAchievement(AnimaniaAchievements.RhodeIslandRed) && player.hasAchievement(AnimaniaAchievements.Wyandotte))
+//			player.addStat(AnimaniaAchievements.Chickens, 1);
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
 	}
@@ -346,7 +346,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	}
 
 	@Override
-	protected SoundEvent getHurtSound()
+	protected SoundEvent getHurtSound(DamageSource source)
 	{
 		return null;
 	}

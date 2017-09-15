@@ -14,10 +14,8 @@ import com.animania.common.entities.peacocks.EntityPeachickBase;
 import com.animania.common.entities.peacocks.EntityPeacockBase;
 import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityNest;
-import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.common.tileentities.TileEntityNest.NestContent;
 import com.animania.compat.top.providers.TOPInfoProvider;
 import com.animania.config.AnimaniaConfig;
@@ -30,7 +28,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,13 +38,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeModContainer;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.UniversalBucket;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class BlockNest extends BlockContainer implements TOPInfoProvider
 {
@@ -59,7 +52,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 	{
 		super(Material.WOOD);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		GameRegistry.register(this);
+		ForgeRegistries.BLOCKS.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setTickRandomly(true);

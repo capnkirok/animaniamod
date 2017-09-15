@@ -120,7 +120,7 @@ public class EntityAIFindSaltLickCows extends EntityAIBase
 		return false;
 	}
 
-	public boolean continueExecuting()
+	public boolean shouldContinueExecuting()
 	{
 		return this.shouldExecute();
 	}

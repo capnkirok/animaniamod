@@ -8,7 +8,6 @@ import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
-import com.animania.common.tileentities.TileEntityInvisiblock;
 import com.animania.compat.top.providers.TOPInfoProvider;
 
 import mcjty.theoneprobe.api.IProbeHitData;
@@ -38,7 +37,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 {
@@ -51,7 +50,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 		super(Material.IRON, MapColor.GRAY);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-		GameRegistry.register(this);
+		ForgeRegistries.BLOCKS.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setTickRandomly(true);
@@ -66,11 +65,11 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 		return new TileEntityHamsterWheel();
 	}
 
-	@Override
-	public boolean isFullyOpaque(IBlockState state)
-	{
-		return false;
-	}
+//	@Override
+//	public boolean isFullyOpaque(IBlockState state)
+//	{
+//		return false;
+//	}
 
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
@@ -132,9 +131,9 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 		{
 			ItemStack food = te.getItemHandler().getStackInSlot(0);
 			if (food.isEmpty())
-				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF"), true);
+				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF"), true);
 			else
-				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getMaxEnergyStored(null) + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
+				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored()  + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
 
 		}
 

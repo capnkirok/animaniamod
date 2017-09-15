@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.sheep.ai.EntityAIFollowParentSheep;
-import com.animania.common.entities.sheep.ai.EntityAIPanicSheep;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -21,6 +20,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.management.PreYggdrasilConverter;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -37,7 +37,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	public EntityLambBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.5F, 0.5F);
+		this.setSize(1.5F, 1.5F);
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
@@ -141,7 +141,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	}
 
 	@Override
-	protected SoundEvent getHurtSound()
+	protected SoundEvent getHurtSound(DamageSource source)
 	{
 		Random rand = new Random();
 		int chooser = rand.nextInt(3);

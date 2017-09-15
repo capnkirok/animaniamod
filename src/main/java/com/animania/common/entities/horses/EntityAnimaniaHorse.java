@@ -5,8 +5,8 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.horses.ai.EntityAIFindFood;
@@ -49,7 +49,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
+public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, AnimaniaAnimal
 {
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.horseFood));
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
@@ -149,10 +149,10 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
 		this.setFed(true);
 		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
-		player.addStat(horseType.getAchievement(), 1);
+		//player.addStat(horseType.getAchievement(), 1);
 		this.setInLove(player);
 
-		player.addStat(AnimaniaAchievements.Horses, 1);
+	//	player.addStat(AnimaniaAchievements.Horses, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);

@@ -1,0 +1,13 @@
+{
+	"ingredients": 
+	{
+		"filled_bucket": "com.animania.common.recipes.ingredients.FilledBucketFactory",
+		"pigfood": "com.animania.common.recipes.ingredients.PigFoodIngredient$Factory"
+	},
+	"recipes": 
+	{
+		"no_bucket_recipe": "com.animania.common.recipes.NoBucketRecipe$Factory",
+		"cutting_recipe": "com.animania.common.recipes.MeatCuttingRecipe$Factory"
+
+	}
+}

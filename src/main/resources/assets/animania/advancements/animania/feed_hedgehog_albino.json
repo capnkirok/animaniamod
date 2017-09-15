@@ -1,0 +1,23 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_hedgehog_albino"
+        },
+        "title": {
+            "translate": "advancements.animania.hedgehog_albino.title"
+        },
+        "description": {
+            "translate": "advancements.animania.hedgehog_albino.description"
+        }
+    },
+    "parent": "animania:animania/feed_hedgehog",
+    "criteria": {
+        "hamster": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:egg"},
+				"entity": "animania:hedgehog_albino"
+            }
+        }
+    }
+}

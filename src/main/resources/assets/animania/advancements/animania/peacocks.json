@@ -1,0 +1,19 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_peacock_random"
+        },
+        "title": {
+            "translate": "advancements.animania.peacocks.title"
+        },
+        "description": {
+            "translate": "advancements.animania.peacocks.description"
+        }
+    },
+    "parent": "animania:animania/root",
+    "criteria": {
+        "impossible": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}

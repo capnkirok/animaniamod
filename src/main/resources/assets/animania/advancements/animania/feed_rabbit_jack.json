@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kit_jack"
+        },
+        "title": {
+            "translate": "advancements.animania.jack.title"
+        },
+        "description": {
+            "translate": "advancements.animania.jack.description"
+        }
+    },
+    "parent": "animania:animania/feed_rabbit_havana",
+    "criteria": {
+        "jack_kit": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:kit_jack"
+            }
+        },
+		"jack_doe": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:doe_jack"
+            }
+        },
+		 "jack_buck": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "carrot"},
+				"entity": "animania:buck_jack"
+            }
+        }  
+    },
+	"requirements": [["jack_buck", "jack_doe", "jack_kit"]]
+
+}

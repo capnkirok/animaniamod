@@ -165,7 +165,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	}
 	
 	 @Override
-	    protected SoundEvent getHurtSound() {
+	    protected SoundEvent getHurtSound(DamageSource source) {
 	        Random rand = new Random();
 	        int chooser = rand.nextInt(2);
 

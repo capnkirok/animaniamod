@@ -13,23 +13,21 @@ import net.minecraft.world.World;
 public enum ChickenType implements AnimaniaType
 {
 	
-	LEGHORN(EntityRoosterLeghorn.class, EntityHenLeghorn.class, EntityChickLeghorn.class, AnimaniaAchievements.Leghorn),
-	ORPINGTON(EntityRoosterOrpington.class, EntityHenOrpington.class, EntityChickOrpington.class, AnimaniaAchievements.Orpington),
-	PLYMOUTH_ROCK(EntityRoosterPlymouthRock.class, EntityHenPlymouthRock.class, EntityChickPlymouthRock.class, AnimaniaAchievements.PlymouthRock),
-	RHODE_ISLAND_RED(EntityRoosterRhodeIslandRed.class, EntityHenRhodeIslandRed.class, EntityChickRhodeIslandRed.class, AnimaniaAchievements.RhodeIslandRed),
-	WYANDOTTE(EntityRoosterWyandotte.class, EntityHenWyandotte.class, EntityChickWyandotte.class, AnimaniaAchievements.Wyandotte);
+	LEGHORN(EntityRoosterLeghorn.class, EntityHenLeghorn.class, EntityChickLeghorn.class),
+	ORPINGTON(EntityRoosterOrpington.class, EntityHenOrpington.class, EntityChickOrpington.class),
+	PLYMOUTH_ROCK(EntityRoosterPlymouthRock.class, EntityHenPlymouthRock.class, EntityChickPlymouthRock.class),
+	RHODE_ISLAND_RED(EntityRoosterRhodeIslandRed.class, EntityHenRhodeIslandRed.class, EntityChickRhodeIslandRed.class),
+	WYANDOTTE(EntityRoosterWyandotte.class, EntityHenWyandotte.class, EntityChickWyandotte.class);
 
 	private Class male;
 	private Class female;
 	private Class child;
-	private StatBase achievement;
 	
-	private ChickenType(Class male, Class female, Class child, StatBase achievement)
+	private ChickenType(Class male, Class female, Class child)
 	{
 		this.male = male;
 		this.female = female;
 		this.child = child;
-		this.achievement = achievement;
 	}
 	
 	@Override
@@ -111,11 +109,6 @@ public enum ChickenType implements AnimaniaType
 			return male;
 		else
 			return female;
-	}
-
-	public StatBase getAchievement()
-	{
-		return this.achievement;
 	}
 
 }

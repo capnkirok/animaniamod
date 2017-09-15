@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_chick_leghorn"
+        },
+        "title": {
+            "translate": "advancements.animania.leghorn.title"
+        },
+        "description": {
+            "translate": "advancements.animania.leghorn.description"
+        }
+    },
+    "parent": "animania:animania/chickens",
+    "criteria": {
+        "leghorn_chick": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat_seeds"},
+				"entity": "animania:chick_leghorn"
+            }
+        },
+		"leghorn_hen": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat_seeds"},
+				"entity": "animania:hen_leghorn"
+            }
+        },
+		 "leghorn_rooster": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat_seeds"},
+				"entity": "animania:rooster_leghorn"
+            }
+        }  
+    },
+	"requirements": [["leghorn_rooster", "leghorn_hen", "leghorn_chick"]]
+
+}

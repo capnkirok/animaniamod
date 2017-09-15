@@ -1,14 +1,8 @@
 package com.animania.common;
 
-import com.animania.common.handler.ItemHandler;
-
-import net.minecraft.init.Items;
-import net.minecraft.stats.Achievement;
-import net.minecraftforge.common.AchievementPage;
-
 public class AnimaniaAchievements
 {
-
+/*
     public static AchievementPage page;
 
     public static Achievement     Leghorn;
@@ -140,5 +134,6 @@ public class AnimaniaAchievements
                         AnimaniaAchievements.Horses, AnimaniaAchievements.Horseriding }));
 
     }
+    */
 
 }

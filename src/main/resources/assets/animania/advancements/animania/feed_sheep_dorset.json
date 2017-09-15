@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_lamb_dorset"
+        },
+        "title": {
+            "translate": "advancements.animania.dorset.title"
+        },
+        "description": {
+            "translate": "advancements.animania.dorset.description"
+        }
+    },
+    "parent": "animania:animania/feed_sheep_dorper",
+    "criteria": {
+        "dorset_lamb": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:lamb_dorset"
+            }
+        },
+		"dorset_ewe": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:ewe_dorset"
+            }
+        },
+		 "dorset_ram": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:ram_dorset"
+            }
+        }  
+    },
+	"requirements": [["dorset_ram", "dorset_ewe", "dorset_lamb"]]
+
+}

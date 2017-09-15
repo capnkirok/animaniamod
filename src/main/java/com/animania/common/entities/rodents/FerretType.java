@@ -13,17 +13,15 @@ import net.minecraft.world.World;
 public enum FerretType implements AnimaniaType
 {
 
-	GREY(EntityFerretGrey.class, AnimaniaAchievements.GreyFerret),
-	WHITE(EntityFerretWhite.class, AnimaniaAchievements.WhiteFerret);
+	GREY(EntityFerretGrey.class),
+	WHITE(EntityFerretWhite.class);
 	
 	
 	private Class male;
-	private StatBase achievement;
 	
-	private FerretType(Class male, StatBase achievement)
+	private FerretType(Class male)
 	{
 		this.male = male;
-		this.achievement = achievement;
 	}
 	
 	@Override
@@ -60,11 +58,6 @@ public enum FerretType implements AnimaniaType
 	public EntityLivingBase getChild(World world)
 	{
 		return null;
-	}
-	
-	public StatBase getAchievement()
-	{
-		return this.achievement;
 	}
 	
 }

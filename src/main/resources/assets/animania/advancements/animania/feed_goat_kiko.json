@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kid_kiko"
+        },
+        "title": {
+            "translate": "advancements.animania.kiko.title"
+        },
+        "description": {
+            "translate": "advancements.animania.kiko.description"
+        }
+    },
+    "parent": "animania:animania/feed_goat_fainting",
+    "criteria": {
+        "kiko_kid": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:kid_kiko"
+            }
+        },
+		"kiko_doe": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:doe_kiko"
+            }
+        },
+		 "kiko_buck": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:buck_kiko"
+            }
+        }  
+    },
+	"requirements": [["kiko_buck", "kiko_doe", "kiko_kid"]]
+
+}
