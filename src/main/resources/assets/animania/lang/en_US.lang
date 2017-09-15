@@ -524,6 +524,16 @@ achievement.an.indiablue=India Blue
 achievement.an.indiablue.desc=Befriend an India Blue peafowl
 achievement.an.white=White Peafowl
 achievement.an.white.desc=Befriend a White peafowl
+achievement.an.charcoal=Charcoal Peafowl
+achievement.an.charcoal.desc=Befriend a Charcoal peafowl
+achievement.an.opal=Opal Peafowl
+achievement.an.opal.desc=Befriend an Opal peafowl
+achievement.an.peach=Peach Peafowl
+achievement.an.peach.desc=Befriend a Peach peafowl
+achievement.an.purple=Purple Peafowl
+achievement.an.purple.desc=Befriend a Purple peafowl
+achievement.an.taupe=Taupe Peafowl
+achievement.an.taupe.desc=Befriend a Taupe peafowlalpine
 achievement.an.peacocks=Peafowl Whisperer
 achievement.an.peacocks.desc=Befriend all the Peafowl breeds
 
@@ -555,6 +565,59 @@ achievement.an.horses=Draft Horses
 achievement.an.horses.desc=Befriend a Draft Horse
 achievement.an.horseriding=Seabiscuit
 achievement.an.horseriding.desc=Ride a Draft Horse
+
+achievement.an.alpine=Alpine
+achievement.an.alpine.desc=Befriend an Alpine goat
+achievement.an.angora=Angora
+achievement.an.angora.desc=Befriend an Angora goat
+achievement.an.fainting=Fainting
+achievement.an.fainting.desc=Befriend a Fainting goat
+achievement.an.kiko=Kiko
+achievement.an.kiko.desc=Befriend a Kiko goat
+achievement.an.kinder=Kinder
+achievement.an.kinder.desc=Befriend a Kinder goat
+achievement.an.nigeriandwarf=Nigerian Dwarf
+achievement.an.nigeriandwarf.desc=Befriend a Nigerian Dwarf goat
+achievement.an.pygmy=Pygmy
+achievement.an.pygmy.desc=Befriend a Pygmy goat
+achievement.an.goats=Goat Whisperer
+achievement.an.goats.desc=Befriend all the Goat breeds
+
+achievement.an.chinchilla=Chinchilla
+achievement.an.chinchilla.desc=Befriend a Chinchilla rabbit
+achievement.an.cottontail=Cottontail
+achievement.an.cottontail.desc=Befriend a Cottontail rabbit
+achievement.an.dutch=Dutch
+achievement.an.dutch.desc=Befriend a Dutch rabbit
+achievement.an.havana=Havana
+achievement.an.havana.desc=Befriend a Havana rabbit
+achievement.an.jack=Jack
+achievement.an.jack.desc=Befriend a Jack rabbit
+achievement.an.lop=Lop
+achievement.an.lop.desc=Befriend a Lop rabbit
+achievement.an.newzealand=New Zealand
+achievement.an.newzealand.desc=Befriend a New Zealand rabbit
+achievement.an.rex=Rex
+achievement.an.rex.desc=Befriend a Rex rabbit
+achievement.an.rabbits=Rabbit Whisperer
+achievement.an.rabbits.desc=Befriend all the Rabbit breeds
+
+achievement.an.dorper=dorper
+achievement.an.dorper.desc=Befriend a Dorper sheep
+achievement.an.dorset=dorset
+achievement.an.dorset.desc=Befriend a Dorset sheep
+achievement.an.friesiansheep=Friesian
+achievement.an.friesiansheep.desc=Befriend a Friesian sheep
+achievement.an.jacob=jacob
+achievement.an.jacob.desc=Befriend a Jacob sheep
+achievement.an.merino=merino
+achievement.an.merino.desc=Befriend a Merino sheep
+achievement.an.suffolk=suffolk
+achievement.an.suffolk.desc=Befriend a Suffolk sheep
+achievement.an.sheep=Sheep Whisperer
+achievement.an.sheep.desc=Befriend all the Sheep breeds
+
+
 
 animania.updatetext.1=Animania Version 
 animania.updatetext.2=is now available

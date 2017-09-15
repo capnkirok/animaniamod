@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
@@ -138,8 +139,10 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		this.eatTimer = 80;
 		player.addStat(goatType.getAchievement(), 1);
 
-		//if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
-		//	player.addStat(AnimaniaAchievements.Cows, 1);
+		if (player.hasAchievement(AnimaniaAchievements.Alpine) && player.hasAchievement(AnimaniaAchievements.Angora) && player.hasAchievement(AnimaniaAchievements.Fainting) 
+				&& player.hasAchievement(AnimaniaAchievements.Kiko) && player.hasAchievement(AnimaniaAchievements.Kinder) && player.hasAchievement(AnimaniaAchievements.NigerianDwarf) 
+				&& player.hasAchievement(AnimaniaAchievements.Pygmy))
+			player.addStat(AnimaniaAchievements.Goats, 1);
 
 		if (!player.isCreative())
 			stack.shrink(1);;

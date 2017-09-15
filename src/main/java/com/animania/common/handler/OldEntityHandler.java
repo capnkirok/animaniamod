@@ -298,11 +298,11 @@ public class OldEntityHandler
 
 			EntityRegistry.addSpawn(EntityPeacockBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
 			EntityRegistry.addSpawn(EntityPeafowlBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
-			EntityRegistry.addSpawn(EntityPeachickBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks / 2, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
+			EntityRegistry.addSpawn(EntityPeachickBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
 			
 			EntityRegistry.addSpawn(EntityPeacockBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
 			EntityRegistry.addSpawn(EntityPeafowlBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
-			EntityRegistry.addSpawn(EntityPeachickBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks / 2, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
+			EntityRegistry.addSpawn(EntityPeachickBlue.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
 
 			ResourceLocation pw1 = new ResourceLocation("animania:textures/entity/peacocks/peacock_white.png");
 			EntityRegistry.registerModEntity(pw1, EntityPeacockWhite.class, "animania.PeacockWhite", AnimaniaConfig.entity.PeacockWhiteID, Animania.MODID, 64, 3, true);
@@ -315,11 +315,11 @@ public class OldEntityHandler
 
 			EntityRegistry.addSpawn(EntityPeacockWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
 			EntityRegistry.addSpawn(EntityPeafowlWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
-			EntityRegistry.addSpawn(EntityPeachickWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks / 2, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
+			EntityRegistry.addSpawn(EntityPeachickWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
 			
 			EntityRegistry.addSpawn(EntityPeacockWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
 			EntityRegistry.addSpawn(EntityPeafowlWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
-			EntityRegistry.addSpawn(EntityPeachickWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks / 2, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
+			EntityRegistry.addSpawn(EntityPeachickWhite.class, AnimaniaConfig.spawn.spawnProbabilityPeacocks, 1, 1, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
 		}
 
 		// HORSES
@@ -334,8 +334,8 @@ public class OldEntityHandler
 			ResourceLocation ho3 = new ResourceLocation("animania:textures/entity/horses/draft_horse_white.png");
 			EntityRegistry.registerModEntity(ho3, EntityFoalDraftHorse.class, "animania.FoalDraftHorse", AnimaniaConfig.entity.FoalDraftHorseID, Animania.MODID, 64, 3, true);
 
-			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 2, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
-			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 2, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
+			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 1, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 1, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
 
 
 		}

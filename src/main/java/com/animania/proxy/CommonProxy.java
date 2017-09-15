@@ -47,7 +47,6 @@ public class CommonProxy
         // EVENTS
         EventsHandler.preInit();
         UpdateHandler.init();
-        AnimaniaAchievements.init();
 
     }
 

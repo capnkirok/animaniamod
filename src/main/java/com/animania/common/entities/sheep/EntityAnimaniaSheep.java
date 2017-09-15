@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
@@ -161,12 +162,13 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-		//this.entityAIEatGrass.startExecuting();
+		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
 		player.addStat(sheepType.getAchievement(), 1);
 
-		//if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
-		//	player.addStat(AnimaniaAchievements.Cows, 1);
+		if (player.hasAchievement(AnimaniaAchievements.Dorper) && player.hasAchievement(AnimaniaAchievements.Dorset) && player.hasAchievement(AnimaniaAchievements.FriesianSheep) 
+				&& player.hasAchievement(AnimaniaAchievements.Jacob) && player.hasAchievement(AnimaniaAchievements.Merino) && player.hasAchievement(AnimaniaAchievements.Suffolk)) 
+			player.addStat(AnimaniaAchievements.Sheep, 1);
 
 		if (!player.isCreative())
 			stack.shrink(1);;

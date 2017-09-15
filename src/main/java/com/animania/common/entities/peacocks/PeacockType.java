@@ -37,14 +37,10 @@ public enum PeacockType implements AnimaniaType
 		this.achievement = achievement;
 	}
 	
-	
-	
 	public void setAchievement(StatBase achievement)
 	{
 		this.achievement = achievement;
 	}
-
-
 
 	@Override
 	public EntityPeacockBase getMale(World world)

@@ -23,6 +23,10 @@ public class RemoveVanillaSpawns
                 event.getList().remove(i);
             else if (AnimaniaConfig.gameRules.replaceVanillaPigs && event.getList().get(i).entityClass.getSimpleName().equals("EntityPig"))
                 event.getList().remove(i);
+            else if (AnimaniaConfig.gameRules.replaceVanillaSheep && event.getList().get(i).entityClass.getSimpleName().equals("EntitySheep"))
+                event.getList().remove(i);
+            else if (AnimaniaConfig.gameRules.replaceVanillaRabbits && event.getList().get(i).entityClass.getSimpleName().equals("EntityRabbit"))
+                event.getList().remove(i);
 
     }
 

@@ -112,7 +112,9 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		this.setFed(true);
 		player.addStat(type.getAchievement(), 1);
-		if (player.hasAchievement(AnimaniaAchievements.IndiaBlue) && player.hasAchievement(AnimaniaAchievements.White))
+		if (player.hasAchievement(AnimaniaAchievements.IndiaBlue) && player.hasAchievement(AnimaniaAchievements.White) && player.hasAchievement(AnimaniaAchievements.Charcoal)
+				&& player.hasAchievement(AnimaniaAchievements.Opal) && player.hasAchievement(AnimaniaAchievements.Peach) && player.hasAchievement(AnimaniaAchievements.Purple)
+				&& player.hasAchievement(AnimaniaAchievements.Taupe))
 			player.addStat(AnimaniaAchievements.Peacocks, 1);
 
 		if (!player.capabilities.isCreativeMode)
