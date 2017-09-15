@@ -322,9 +322,9 @@ public class CommonConfig
 		@Comment("Spawn limit for Goats in loaded chunks")
 		public int spawnLimitGoats = 40;
 		@Comment("Spawn limit for Sheep in loaded chunks")
-		public int     spawnLimitSheep            = 50;
+		public int     spawnLimitSheep = 50;
 		@Comment("Spawn limit for Rabbits in loaded chunks")
-		public int     spawnLimitRabbits           = 50;
+		public int     spawnLimitRabbits = 50;
 
 		@Comment("Spawn probability Cows")
 		public int spawnProbabilityCows = 12;
@@ -341,7 +341,7 @@ public class CommonConfig
 		@Comment("Spawn probability Hamsters")
 		public int spawnProbabilityHamsters = 12;
 		@Comment("Spawn probability Peacocks")
-		public int     spawnProbabilityPeacocks   = 18;
+		public int     spawnProbabilityPeacocks   = 14;
 		@Comment("Spawn probability Amphibians")
 		public int     spawnProbabilityAmphibians = 11;
 		@Comment("Spawn probability Goats")
@@ -349,7 +349,7 @@ public class CommonConfig
 		@Comment("Spawn probability Sheep")
 		public int     spawnProbabilitySheep = 12;
 		@Comment("Spawn probability Rabbits")
-		public int     spawnProbabilityRabbits = 12;
+		public int     spawnProbabilityRabbits = 10;
 		
 
 		@Comment("Number of potential Cow families per chunk")
@@ -359,13 +359,13 @@ public class CommonConfig
 		@Comment("Number of potential Chicken families per chunk")
 		public int numberChickenFamilies = 1;
 		@Comment("Number of potential Horse families per chunk")
-		public int     numberHorseFamilies      = 1;
+		public int     numberHorseFamilies = 1;
 		@Comment("Number of potential Goat families per chunk")
-		public int     numberGoatFamilies      = 1;
+		public int     numberGoatFamilies = 1;
 		@Comment("Number of potential Sheep families per chunk")
-		public int     numberSheepFamilies      = 2;
+		public int     numberSheepFamilies = 2;
 		@Comment("Number of potential Rabbit families per chunk")
-		public int     numberRabbitFamilies      = 1;
+		public int     numberRabbitFamilies = 1;
 	}
 
 	public static class CareAndFeeding

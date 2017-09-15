@@ -31,6 +31,11 @@ public enum CowType implements AnimaniaType
 		this.calf = calf;
 		this.achievement = achievement;
 	}
+	
+	public void setAchievement(StatBase achievement)
+	{
+		this.achievement = achievement;
+	}
 
 	@Override
 	public EntityBullBase getMale(World world)
