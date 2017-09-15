@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "animania:hamster_ball_clear"
+  },
+  "pattern": [
+    "xxx",
+    "x x",
+    "xxx"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "x": {
+      "item": "minecraft:glass_pane"
+    }
+  }
+}

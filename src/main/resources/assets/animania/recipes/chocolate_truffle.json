@@ -11,7 +11,7 @@
       "data": 3
     },
     {
-      "ore": "listAllSugar",
+      "ore": "listAllsugar",
       "type": "forge:ore_dict"
     }
   ],

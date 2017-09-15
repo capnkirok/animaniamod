@@ -314,7 +314,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
-		int num = 0;
+		int num = 1;
 
 		if (this.getWatered())
 			happy++;
