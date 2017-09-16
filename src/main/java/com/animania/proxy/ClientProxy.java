@@ -59,7 +59,6 @@ public class ClientProxy extends CommonProxy
         Item item = Item.getItemFromBlock(block);
         ModelBakery.registerItemVariants(item);
         ModelLoader.setCustomMeshDefinition(item, mapper);
-
         ModelLoader.setCustomStateMapper(block, mapper);
     }
 
