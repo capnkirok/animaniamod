@@ -12,15 +12,16 @@ import net.minecraft.world.World;
 
 public enum HedgehogType implements AnimaniaType
 {
-	NORMAL(EntityHedgehog.class),
-	ALBINO(EntityHedgehogAlbino.class);
+	NORMAL(EntityHedgehog.class, AnimaniaAchievements.Hedgehog),
+	ALBINO(EntityHedgehogAlbino.class, AnimaniaAchievements.AlbinoHedgehog);
 
 	private Class male;
 	private StatBase achievement;
 	
-	private HedgehogType(Class male)
+	private HedgehogType(Class male, StatBase achievement)
 	{
 		this.male = male;
+		this.achievement = achievement;
 	}
 	
 	

@@ -1,6 +1,6 @@
 package com.animania.client.models.rabbits;
 
-import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
+import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckLop;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -31,11 +31,9 @@ public class ModelLop extends ModelBase
 	ModelRenderer WhiskerL2;
 	ModelRenderer Nose;
 	ModelRenderer EarR1;
-    ModelRenderer EarR2;
-    ModelRenderer EarL1;
-    ModelRenderer EarL2;
-
-
+	ModelRenderer EarR2;
+	ModelRenderer EarL1;
+	ModelRenderer EarL2;
 
 	public ModelLop()
 	{
@@ -118,25 +116,25 @@ public class ModelLop extends ModelBase
 		Nose.setRotationPoint( 0F, 13.85954F - 15.88453F, -10.5802F + 3.429656F);
 
 		EarR1 = new ModelRenderer( this, 25, 0 );
-        EarR1.setTextureSize( 128, 128 );
-        EarR1.addBox( -1F, -1.1F, -0.7F, 2, 1, 2);
-        EarR1.setRotationPoint( -3.0F, 10.71813F - 15.88453F, -6.550904F + 3.429656F );
-        
-        EarR2 = new ModelRenderer( this, 3, 0 );
-        EarR2.setTextureSize( 128, 128 );
-        EarR2.addBox( -1.5F, -1.1F, 0F, 3, 1, 7);
-        EarR2.setRotationPoint( -3.292489F + 2.2F, 9.867092F - 10.71813F + 5.6F, -6.222733F + 6.550904F + 3.5F);
-       
-        EarL1 = new ModelRenderer( this, 25, 0 );
-        EarL1.setTextureSize( 128, 128 );
-        EarL1.addBox( -1F, -1.1F, -0.7F, 2, 1, 2);
-        EarL1.setRotationPoint( 3.0F, 10.71813F - 15.88453F, -6.550904F + 3.429656F );
-       
-        EarL2 = new ModelRenderer( this, 3, 0 );
-        EarL2.setTextureSize( 128, 128 );
-        EarL2.addBox( -1.5F, -1.1F, 0F, 3, 1, 7);
-        EarL2.setRotationPoint( 3.224298F - 2.2F, 9.938663F - 10.71813F + 5.6F, -6.207649F + 6.550904F + 3.5F );
-		
+		EarR1.setTextureSize( 128, 128 );
+		EarR1.addBox( -1F, -1.1F, -0.7F, 2, 1, 2);
+		EarR1.setRotationPoint( -3.0F, 10.71813F - 15.88453F, -6.550904F + 3.429656F );
+
+		EarR2 = new ModelRenderer( this, 3, 0 );
+		EarR2.setTextureSize( 128, 128 );
+		EarR2.addBox( -1.5F, -1.1F, 0F, 3, 1, 7);
+		EarR2.setRotationPoint( -3.292489F + 2.2F, 9.867092F - 10.71813F + 5.6F, -6.222733F + 6.550904F + 3.5F);
+
+		EarL1 = new ModelRenderer( this, 25, 0 );
+		EarL1.setTextureSize( 128, 128 );
+		EarL1.addBox( -1F, -1.1F, -0.7F, 2, 1, 2);
+		EarL1.setRotationPoint( 3.0F, 10.71813F - 15.88453F, -6.550904F + 3.429656F );
+
+		EarL2 = new ModelRenderer( this, 3, 0 );
+		EarL2.setTextureSize( 128, 128 );
+		EarL2.addBox( -1.5F, -1.1F, 0F, 3, 1, 7);
+		EarL2.setRotationPoint( 3.224298F - 2.2F, 9.938663F - 10.71813F + 5.6F, -6.207649F + 6.550904F + 3.5F );
+
 		this.Neck1.addChild(HeadBase);
 		this.Neck1.addChild(HeadFront);
 		this.Neck1.addChild(WhiskerR1);
@@ -146,7 +144,7 @@ public class ModelLop extends ModelBase
 		this.Neck1.addChild(Nose);
 		this.Neck1.addChild(EarR1);
 		this.EarR1.addChild(EarR2);
-		
+
 		this.Neck1.addChild(EarL1);
 		this.EarL1.addChild(EarL2);
 
@@ -186,23 +184,23 @@ public class ModelLop extends ModelBase
 		WhiskerL2.rotateAngleY = -1.58639F;
 		//WhiskerL2.rotateAngleZ = -0.4115601F;
 		Nose.rotateAngleX = 0.2731441F;
-		
+
 		EarR1.rotateAngleX = -0.7976383F;
-        EarR1.rotateAngleY = 1.35309F;
-        EarR1.rotateAngleZ = 0.1836136F;
-    
-        EarR2.rotateAngleX = -2.233634F;
-        //EarR2.rotateAngleY = .8F;
-        EarR2.rotateAngleZ = -3.030268F;
-    
-        EarL1.rotateAngleX = -0.7976383F;
-        EarL1.rotateAngleY = -1.35309F;
-        EarL1.rotateAngleZ = -0.1836136F;
-    
-        EarL2.rotateAngleX = -2.233634F;
-       // EarL2.rotateAngleY = 1.604991F;
-        EarL2.rotateAngleZ = 3.030268F;
-    	
+		EarR1.rotateAngleY = 1.35309F;
+		EarR1.rotateAngleZ = 0.1836136F;
+
+		EarR2.rotateAngleX = -2.233634F;
+		//EarR2.rotateAngleY = .8F;
+		EarR2.rotateAngleZ = -3.030268F;
+
+		EarL1.rotateAngleX = -0.7976383F;
+		EarL1.rotateAngleY = -1.35309F;
+		EarL1.rotateAngleZ = -0.1836136F;
+
+		EarL2.rotateAngleX = -2.233634F;
+		// EarL2.rotateAngleY = 1.604991F;
+		EarL2.rotateAngleZ = 3.030268F;
+
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
 		LowerBody.render(scale);
@@ -218,12 +216,9 @@ public class ModelLop extends ModelBase
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
+	public void setLivingAnimations(EntityLivingBase entity, float p_78086_2_, float p_78086_3_, float partialTickTime)
 	{
-		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
-
-		//this.Neck1.rotationPointY = 0F + ((EntityRabbitBuckCottontail)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 0.0F;
-		//this.headRotationAngleX = ((EntityRabbitBuckCottontail)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
 
 	}
 
@@ -234,6 +229,7 @@ public class ModelLop extends ModelBase
 		this.Neck1.rotateAngleY = par4 / (180F / (float) Math.PI);
 		this.Neck1.rotateAngleX = this.headRotationAngleX;
 
+		this.EarR2.rotateAngleX = -2.433634F + Math.abs(MathHelper.cos((par1/10) * 0.1332F) * 1.4F * par2);
 		this.Tail.rotateAngleX = (float) Math.PI / 2F;
 		//this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 
@@ -241,7 +237,7 @@ public class ModelLop extends ModelBase
 		this.BackLegL2.rotateAngleX = -1.357649F + MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
 		this.BackLegR1.rotateAngleX = 0.3186971F + MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
 		this.BackLegR2.rotateAngleX = -1.365852F + MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
-		
+
 		this.LegL1.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
 		this.LegR1.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
 	}

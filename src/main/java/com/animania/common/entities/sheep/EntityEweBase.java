@@ -204,7 +204,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
-		int num = 0;
+		int num = 1;
 
 		if (this.getWatered())
 			happy++;

@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
@@ -301,8 +302,10 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		this.eatTimer = 80;
 		player.addStat(rabbitType.getAchievement(), 1);
 
-		//if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
-		//	player.addStat(AnimaniaAchievements.Cows, 1);
+		if (player.hasAchievement(AnimaniaAchievements.Chinchilla) && player.hasAchievement(AnimaniaAchievements.Cottontail) && player.hasAchievement(AnimaniaAchievements.Dutch) 
+				&& player.hasAchievement(AnimaniaAchievements.Havana) && player.hasAchievement(AnimaniaAchievements.Jack) && player.hasAchievement(AnimaniaAchievements.Lop) 
+				&& player.hasAchievement(AnimaniaAchievements.NewZealand) && player.hasAchievement(AnimaniaAchievements.Rex))
+			player.addStat(AnimaniaAchievements.Rabbits, 1);
 
 		if (!player.isCreative())
 			stack.shrink(1);;

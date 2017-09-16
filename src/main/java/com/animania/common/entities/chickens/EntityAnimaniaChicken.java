@@ -41,6 +41,8 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.Achievement;
+import net.minecraft.stats.AchievementList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -101,12 +103,15 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-
-		player.addStat(this.type.getAchievement(), 1);
+		
+		player.addStat(this.type.getAchievement(), 1); 
+	
 		if (player.hasAchievement(AnimaniaAchievements.Leghorn) && player.hasAchievement(AnimaniaAchievements.Orpington) && player.hasAchievement(AnimaniaAchievements.PlymouthRock) && player.hasAchievement(AnimaniaAchievements.RhodeIslandRed) && player.hasAchievement(AnimaniaAchievements.Wyandotte))
 			player.addStat(AnimaniaAchievements.Chickens, 1);
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
+		
+		super.consumeItemFromStack(player, stack);
 	}
 
 	@Override
@@ -314,7 +319,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
-		int num = 0;
+		int num = 1;
 
 		if (this.getWatered())
 			happy++;

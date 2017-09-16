@@ -16,34 +16,31 @@ import net.minecraft.world.World;
 
 public enum PeacockType implements AnimaniaType
 {
-	BLUE(EntityPeacockBlue.class, EntityPeafowlBlue.class, EntityPeachickBlue.class),
-	WHITE(EntityPeacockWhite.class, EntityPeafowlWhite.class, EntityPeachickWhite.class),
-	TAUPE(EntityPeacockTaupe.class, EntityPeafowlTaupe.class, EntityPeachickTaupe.class),
-	PURPLE(EntityPeacockPurple.class, EntityPeafowlPurple.class, EntityPeachickPurple.class),
-	PEACH(EntityPeacockPeach.class, EntityPeafowlPeach.class, EntityPeachickPeach.class),
-	OPAL(EntityPeacockOpal.class, EntityPeafowlOpal.class, EntityPeachickOpal.class),
-	CHARCOAL(EntityPeacockCharcoal.class, EntityPeafowlCharcoal.class, EntityPeachickCharcoal.class);
+	BLUE(EntityPeacockBlue.class, EntityPeafowlBlue.class, EntityPeachickBlue.class, AnimaniaAchievements.IndiaBlue),
+	WHITE(EntityPeacockWhite.class, EntityPeafowlWhite.class, EntityPeachickWhite.class, AnimaniaAchievements.White),
+	TAUPE(EntityPeacockTaupe.class, EntityPeafowlTaupe.class, EntityPeachickTaupe.class, null),
+	PURPLE(EntityPeacockPurple.class, EntityPeafowlPurple.class, EntityPeachickPurple.class, null),
+	PEACH(EntityPeacockPeach.class, EntityPeafowlPeach.class, EntityPeachickPeach.class, null),
+	OPAL(EntityPeacockOpal.class, EntityPeafowlOpal.class, EntityPeachickOpal.class, null),
+	CHARCOAL(EntityPeacockCharcoal.class, EntityPeafowlCharcoal.class, EntityPeachickCharcoal.class, null);
 	
 	private Class male;
 	private Class female;
 	private Class child;
 	private StatBase achievement;
 	
-	private PeacockType(Class male, Class female, Class child)
+	private PeacockType(Class male, Class female, Class child, StatBase achievement)
 	{
 		this.male = male;
 		this.female = female;
 		this.child = child;
+		this.achievement = achievement;
 	}
-	
-	
 	
 	public void setAchievement(StatBase achievement)
 	{
 		this.achievement = achievement;
 	}
-
-
 
 	@Override
 	public EntityPeacockBase getMale(World world)

@@ -1,6 +1,10 @@
 package com.animania.common.entities.chickens;
 
+import com.animania.common.AnimaniaAchievements;
+
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -52,4 +56,5 @@ public class EntityHenLeghorn extends EntityHenBase
 				this.dropItem(Items.FEATHER, 1);
 			}
 	}
+	
 }

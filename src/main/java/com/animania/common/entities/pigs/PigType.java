@@ -12,12 +12,12 @@ import net.minecraft.world.World;
 
 public enum PigType implements AnimaniaType
 {
-	DUROC(EntityHogDuroc.class, EntitySowDuroc.class, EntityPigletDuroc.class),
-	HAMPSHIRE(EntityHogHampshire.class, EntitySowHampshire.class, EntityPigletHampshire.class),
-	LARGE_BLACK(EntityHogLargeBlack.class, EntitySowLargeBlack.class, EntityPigletLargeBlack.class),
-	LARGE_WHITE(EntityHogLargeWhite.class, EntitySowLargeWhite.class, EntityPigletLargeWhite.class),
-	OLD_SPOT(EntityHogOldSpot.class, EntitySowOldSpot.class, EntityPigletOldSpot.class),
-	YORKSHIRE(EntityHogYorkshire.class, EntitySowYorkshire.class, EntityPigletYorkshire.class);
+	DUROC(EntityHogDuroc.class, EntitySowDuroc.class, EntityPigletDuroc.class, AnimaniaAchievements.Duroc),
+	HAMPSHIRE(EntityHogHampshire.class, EntitySowHampshire.class, EntityPigletHampshire.class, AnimaniaAchievements.Hampshire),
+	LARGE_BLACK(EntityHogLargeBlack.class, EntitySowLargeBlack.class, EntityPigletLargeBlack.class, AnimaniaAchievements.LargeBlack),
+	LARGE_WHITE(EntityHogLargeWhite.class, EntitySowLargeWhite.class, EntityPigletLargeWhite.class, AnimaniaAchievements.LargeWhite),
+	OLD_SPOT(EntityHogOldSpot.class, EntitySowOldSpot.class, EntityPigletOldSpot.class, AnimaniaAchievements.OldSpot),
+	YORKSHIRE(EntityHogYorkshire.class, EntitySowYorkshire.class, EntityPigletYorkshire.class, AnimaniaAchievements.Yorkshire);
 
 
 	private Class hog;
@@ -25,11 +25,12 @@ public enum PigType implements AnimaniaType
 	private Class piglet;
 	private StatBase achievement;
 
-	private PigType(Class hog, Class sow, Class piglet)
+	private PigType(Class hog, Class sow, Class piglet, StatBase achievement)
 	{
 		this.hog = hog;
 		this.sow = sow;
 		this.piglet = piglet;
+		this.achievement = achievement;
 	}
 	
 	

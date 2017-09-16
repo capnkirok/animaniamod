@@ -359,8 +359,8 @@ public class EventReplaceSpawnAnimals
 
 			if (AnimaniaConfig.spawn.spawnAnimaniaSheep && sheepCount < AnimaniaConfig.spawn.spawnLimitSheep)
 				if (biome.equals(Type.PLAINS)) {
-					int chooser2 = rand.nextInt(2);
-					if (chooser2 == 0) {
+					boolean chooser2 = rand.nextBoolean();
+					if (chooser2) {
 						if (chooser <= 2) {
 							EntityEweDorset entity = new EntityEweDorset(worldIn);
 							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
@@ -377,7 +377,6 @@ public class EventReplaceSpawnAnimals
 							worldIn.spawnEntity(entity);
 						}
 					} else { 
-
 						if (chooser <= 2) {
 							EntityEweFriesian entity = new EntityEweFriesian(worldIn);
 							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
