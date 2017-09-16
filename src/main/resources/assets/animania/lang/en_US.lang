@@ -628,6 +628,7 @@ tooltip.an.instanthealth=Instant Health
 tooltip.an.speed=Speed Boost
 tooltip.an.absorption=Absorption
 tooltip.an.regeneration=Regeneration
+tooltip.an.resistance=Resistance
 tooltip.an.haste=Haste
 tooltip.an.healthboost=Health Boost
 tooltip.an.jumpboost=Jump Boost
