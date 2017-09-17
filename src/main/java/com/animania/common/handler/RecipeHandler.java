@@ -47,9 +47,11 @@ public class RecipeHandler
 
 
 		if (!checkDir()) {
-			
+
 			// HAMSTERS
+
 			addShapedRecipe(new ItemStack(BlockHandler.blockHamsterWheel, 1), new Object[] { " I ", "I I", "SIS", 'I', "ingotIron", 'S', new ItemStack(Blocks.STONE_SLAB) });
+			addShapedRecipe(new ItemStack(ItemHandler.hamsterBallClear), new Object[] { "xxx", "x x", "xxx", 'x', Blocks.GLASS_PANE });
 			addShapedRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 0), new Object[] { "xxx", "xdx", "xxx", 'x', Blocks.GLASS_PANE, 'd', "dyeBlack" });
 			addShapedRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 1), new Object[] { "xxx", "xdx", "xxx", 'x', Blocks.GLASS_PANE, 'd', "dyeRed" });
 			addShapedRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 2), new Object[] { "xxx", "xdx", "xxx", 'x', Blocks.GLASS_PANE, 'd', "dyeGreen" });
@@ -66,10 +68,10 @@ public class RecipeHandler
 			addShapedRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 13), new Object[] { "xxx", "xdx", "xxx", 'x', Blocks.GLASS_PANE, 'd', "dyeMagenta" });
 			addShapedRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 14), new Object[] { "xxx", "xdx", "xxx", 'x', Blocks.GLASS_PANE, 'd', "dyeOrange" });
 			addShapedRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 15), new Object[] { "xxx", "xdx", "xxx", 'x', Blocks.GLASS_PANE, 'd', "dyeWhite" });
-			
+
 			addShapelessRecipe(new ItemStack(ItemHandler.hamsterFood, 3), new Object[] { Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, Items.MELON_SEEDS });
 			addShapelessRecipe(new ItemStack(ItemHandler.hamsterFood, 3), new Object[] { "listAllseed", "listAllseed", "listAllseed" });
-		
+
 			// CARVING KNIFE
 			addShapedRecipe(new ItemStack(ItemHandler.carvingKnife, 1), new Object[] { "   ", "ii ", "s  ", 'i', "ingotIron", 's', "stickWood" });
 
@@ -97,15 +99,79 @@ public class RecipeHandler
 			addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 0), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 2));
 			addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 0), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 4));
 
-			//addShapelessRecipe(new ItemStack(ItemHandler.cheeseWedgeHolstein, 4), new Object[] { BlockHandler.blockCheeseHolstein, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) });
-			//addShapelessRecipe(new ItemStack(ItemHandler.cheeseWedgeFriesian, 4), new Object[] { BlockHandler.blockCheeseFriesian, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) });
-			//addShapelessRecipe(new ItemStack(ItemHandler.cheeseWedgeGoat, 4), new Object[] { BlockHandler.blockCheeseGoat, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) });
-			//addShapelessRecipe(new ItemStack(ItemHandler.cheeseWedgeSheep, 4), new Object[] { BlockHandler.blockCheeseSheep, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) });
+			//Custom Wool Recipes
+			//Banners
+			addShapedRecipe(new ItemStack(Items.BANNER, 1, 15), new Object[] {
+					"www","www"," s ",'w', new ItemStack(BlockHandler.blockAnimaniaWool, 1, 5), 's', "stickWood"
+			});
 
+			addShapedRecipe(new ItemStack(Items.BANNER, 1, 3), new Object[] {
+					"www","www"," s ",'w', new ItemStack(BlockHandler.blockAnimaniaWool, 1, 2), 's', "stickWood"
+			});
+
+			addShapedRecipe(new ItemStack(Items.BANNER, 1, 3), new Object[] {
+					"www","www"," s ",'w', new ItemStack(BlockHandler.blockAnimaniaWool, 1, 4), 's', "stickWood"
+			});
+
+			addShapedRecipe(new ItemStack(Items.BANNER, 1, 3), new Object[] {
+					"www","www"," s ",'w', new ItemStack(BlockHandler.blockAnimaniaWool, 1, 0), 's', "stickWood"
+			});
+
+			addShapedRecipe(new ItemStack(Items.BANNER, 1, 3), new Object[] {
+					"www","www"," s ",'w', new ItemStack(BlockHandler.blockAnimaniaWool, 1, 6), 's', "stickWood"
+			});
+
+			addShapedRecipe(new ItemStack(Items.BANNER, 1, 0), new Object[] {
+					"www","www"," s ",'w', new ItemStack(BlockHandler.blockAnimaniaWool, 1, 1), 's', "stickWood"
+			});
+
+			addShapedRecipe(new ItemStack(Items.BANNER, 1, 7), new Object[] {
+					"www","www"," s ",'w', new ItemStack(BlockHandler.blockAnimaniaWool, 1, 3), 's', "stickWood"
+			});
+
+			//Bed
+			addShapedRecipe(new ItemStack(Items.BED, 1), new Object[] {
+					"   ","www","ppp",'w', "wool", 'p', "plankWood"
+			});
+
+			//Painting
+			addShapedRecipe(new ItemStack(Items.PAINTING, 1), new Object[] {
+					"sss", "sws","sss",'w', "wool", 's', "stickWood"
+			});
+
+			//Carpet
+			addShapelessRecipe(new ItemStack(Blocks.CARPET, 3, 0), new Object[] {
+					new ItemStack(BlockHandler.blockAnimaniaWool, 1, 5), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 5)
+			});
+
+			addShapelessRecipe(new ItemStack(Blocks.CARPET, 3, 12), new Object[] {
+					new ItemStack(BlockHandler.blockAnimaniaWool, 1, 0), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 0)
+			});
+
+			addShapelessRecipe(new ItemStack(Blocks.CARPET, 3, 12), new Object[] {
+					new ItemStack(BlockHandler.blockAnimaniaWool, 1, 2), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 2)
+			});
+
+			addShapelessRecipe(new ItemStack(Blocks.CARPET, 3, 12), new Object[] {
+					new ItemStack(BlockHandler.blockAnimaniaWool, 1, 4), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 4)
+			});
+
+			addShapelessRecipe(new ItemStack(Blocks.CARPET, 3, 12), new Object[] {
+					new ItemStack(BlockHandler.blockAnimaniaWool, 1, 6), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 6)
+			});
+
+			addShapelessRecipe(new ItemStack(Blocks.CARPET, 3, 15), new Object[] {
+					new ItemStack(BlockHandler.blockAnimaniaWool, 1, 1), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 1)
+			});
+
+			addShapelessRecipe(new ItemStack(Blocks.CARPET, 3, 8), new Object[] {
+					new ItemStack(BlockHandler.blockAnimaniaWool, 1, 3), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 3)
+			});
+			
 			// Misc
 			addShapelessRecipe(new ItemStack(Items.LEAD, 1), new Object[] { "leather", "leather", "string", "string" });
 			addShapelessRecipe(new ItemStack(Items.NAME_TAG, 1), new Object[] { "string", "nuggetGold" });
-			
+
 			// Foods
 			addShapelessRecipe(new ItemStack(ItemHandler.truffleSoup, 1), new Object[] { ItemHandler.truffle, ItemHandler.truffle, Items.BOWL });
 			addShapelessRecipe(new ItemStack(ItemHandler.cheeseOmelette, 1), new Object[] { ItemHandler.plainOmelette, "foodCheese" });
@@ -119,9 +185,9 @@ public class RecipeHandler
 			addShapelessRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedHampshireBacon, ItemHandler.truffle, "foodCheese" });
 			addShapelessRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedLargeBlackBacon, ItemHandler.truffle, "foodCheese" });
 			addShapelessRecipe(new ItemStack(ItemHandler.ultimateOmelette, 1), new Object[] { ItemHandler.plainOmelette, ItemHandler.cookedPrimeBacon, ItemHandler.truffle, "foodCheese" });
-			
-			addShapelessRecipe(new ItemStack(ItemHandler.chocolateTruffle, 1), new Object[] { ItemHandler.truffle, new ItemStack(Items.DYE, 1, 3), "listAllSugar" });
-			
+
+			addShapelessRecipe(new ItemStack(ItemHandler.chocolateTruffle, 1), new Object[] { ItemHandler.truffle, new ItemStack(Items.DYE, 1, 3), "listAllsugar" });
+
 			// Blocks
 			addShapelessRecipe(new ItemStack(BlockHandler.blockMud, 2), new Object[] { Items.WATER_BUCKET, Blocks.DIRT });
 
@@ -149,11 +215,11 @@ public class RecipeHandler
 				addShapelessRecipe(new ItemStack(Items.CHICKEN), new Object[] { ItemHandler.rawWyandotteChicken });
 				addShapelessRecipe(new ItemStack(Items.CHICKEN), new Object[] { ItemHandler.rawRhodeIslandRedChicken });
 			}
-			
+
 			System.out.println("Animania recipes have been regenerated. A restart is required to reflect changes. If you enabled this in the config, you can now disable.");
-			
+
 		}
-		
+
 		// Smelting Recipes
 		GameRegistry.addSmelting(ItemHandler.rawAngusBeef, new ItemStack(ItemHandler.cookedAngusRoast, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawLonghornBeef, new ItemStack(ItemHandler.cookedLonghornRoast, 1), .3F);
@@ -188,6 +254,11 @@ public class RecipeHandler
 		GameRegistry.addSmelting(ItemHandler.brownEgg, new ItemStack(ItemHandler.plainOmelette, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.peacockEggBlue, new ItemStack(ItemHandler.plainOmelette, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.peacockEggWhite, new ItemStack(ItemHandler.plainOmelette, 1), .3F);
+		
+		GameRegistry.addSmelting(ItemHandler.rawRabbit, new ItemStack(ItemHandler.cookedRabbit, 1), .3F);
+		GameRegistry.addSmelting(ItemHandler.rawMutton, new ItemStack(ItemHandler.cookedMutton, 1), .3F);
+		GameRegistry.addSmelting(ItemHandler.rawChevon, new ItemStack(ItemHandler.cookedChevon, 1), .3F);
+		GameRegistry.addSmelting(ItemHandler.rawPrimeChevon, new ItemStack(ItemHandler.cookedPrimeChevon, 1), .3F);
 
 	}
 
@@ -273,7 +344,7 @@ public class RecipeHandler
 		json.put("ingredients", ingredients);
 		json.put("type", isOreDict ? "forge:ore_shapeless" : "minecraft:crafting_shapeless");
 		json.put("result", serializeItem(result));
-		
+
 		// names the json the same name as the output's registry name
 		// repeatedly adds _alt if a file already exists
 		// janky I know but it works
@@ -335,15 +406,15 @@ public class RecipeHandler
 		List<Map<String, Object>> json = new ArrayList<>();
 		for (String s : USED_OD_NAMES) {
 			Map<String, Object> entry = new HashMap<>();
-			
+
 			/* OLD
 			entry.put("name", s.toUpperCase(Locale.ROOT));
 			entry.put("ingredient", ImmutableMap.of("type", "forge:ore_dict", "ore", s));
-			*/
-			
+			 */
+
 			entry.put("name", s);
 			entry.put("ingredient", ImmutableMap.of("type", "forge:ore_dict", "ore", s));
-			
+
 			json.add(entry);
 		}
 
@@ -361,19 +432,19 @@ public class RecipeHandler
 
 		if (!RECIPE_DIR.exists()) {
 			RECIPE_DIR.mkdir();
-			
+
 		} 
 	}
-	
+
 	private static boolean checkDir() {
 		if (RECIPE_DIR == null) {
 			RECIPE_DIR = new File(getMcDir(), "../src/main/resources/assets/animania/recipes/");
 		}
 
 		return RECIPE_DIR.exists();
-		
+
 	}
-	
+
 
 }
 

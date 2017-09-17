@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "minecraft:bed",
+    "data": 0
+  },
+  "pattern": [
+    "   ",
+    "www",
+    "ppp"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "ore": "plankWood",
+      "type": "forge:ore_dict"
+    },
+    "w": {
+      "ore": "wool",
+      "type": "forge:ore_dict"
+    }
+  }
+}

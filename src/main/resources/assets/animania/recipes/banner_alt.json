@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "minecraft:banner",
+    "data": 3
+  },
+  "pattern": [
+    "www",
+    "www",
+    " s "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    },
+    "w": {
+      "item": "animania:wool",
+      "data": 2
+    }
+  }
+}

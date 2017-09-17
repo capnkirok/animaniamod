@@ -467,7 +467,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 
 		int happy = 0;
-		int num = 0;
+		int num = 1;
 
 		if (this.getWatered())
 			happy++;

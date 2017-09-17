@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "minecraft:carpet",
+    "data": 12,
+    "count": 3
+  },
+  "ingredients": [
+    {
+      "item": "animania:wool",
+      "data": 6
+    },
+    {
+      "item": "animania:wool",
+      "data": 6
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}
