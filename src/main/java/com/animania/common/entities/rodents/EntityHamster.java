@@ -86,7 +86,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	private int tamedTimer;
 	public int blinkTimer;
 	private long rideCount;
-	//private int rideDelay;
 	private int delayCount;
 
 	private int stackCount;
@@ -166,8 +165,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.setOwnerId(player.getPersistentID());
 		this.setIsTamed(true);
 		this.setTamed(true);
-
-		// player.addStat(AnimaniaAchievements.Hamsters, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
@@ -276,7 +273,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	{
 
 		ItemStack itemstack = player.getHeldItem(hand);
-		
+
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.NAME_TAG  && delayCount == 0) {
 			delayCount = 5;
 			if (!itemstack.hasDisplayName()) {
@@ -294,7 +291,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				return true;
 			}
 		}
-		
+
 		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && this.getGrowingAge() == 0  && delayCount == 0) {
 			delayCount = 5;
 			if (!player.capabilities.isCreativeMode) {
@@ -313,30 +310,28 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.setOwnerId(player.getPersistentID());
 			this.doPatreonCheck(player);
 			return true;
-			
+
 		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.WATER_BUCKET  && delayCount == 0) {
 			delayCount = 5;
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
-			
+
 		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking() && delayCount == 0) {
 			delayCount = 5;
 			this.setHamsterSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
-			//this.navigator.clearPathEntity();
 			return true;
-			
+
 		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isHamsterSitting() && !player.isSneaking() && delayCount == 0) {
 			delayCount = 5;
 			this.setHamsterSitting(false);
 			this.setSitting(false);
 			this.isJumping = false;
-			//this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && player.isSneaking())
+		else if (itemstack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0)
 		{
 
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
@@ -358,7 +353,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 			{
 				this.addFoodStack();
-				// player.addStat(AnimaniaAchievements.Hamsters, 1);
 				return this.interactSeedsNotTamed(itemstack, player);
 			}
 			else
@@ -375,6 +369,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			if (!player.isCreative())
 				itemstack.shrink(1);
 			return true;
+		}
 
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 		{
@@ -382,10 +377,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			// player.addStat(AnimaniaAchievements.Hamsters, 1);
 			return interactSeedsTamed(itemstack, player);
 		}
-	
-
 
 		return super.processInteract(player, hand);
+
 
 	}
 
@@ -431,37 +425,15 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		return true;
 	}
 
-	
-	private boolean interactRide(EntityPlayer entityplayer)
-	{
-		this.isRemoteMountEntity(entityplayer);
-		return true;
-	}
 
-	private void isRemoteMountEntity(Entity par1Entity)
-	{
 
-		if (!this.getIsRiding())
-		{
-			this.setIsRiding(true);
-			this.startRiding(par1Entity);
-		}
-		else if (this.getIsRiding())
-		{
-			//this.setIsRiding(false);
-			//this.dismountRidingEntity();
-		}
-
-	}
-	
-	
 	@Override
 	public boolean canRiderInteract()
 	{
 		return true;
 	}
-	
-	
+
+
 
 	private boolean interactOthersTamed()
 	{
@@ -470,10 +442,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		else if (this.isHamsterSitting())
 			this.setHamsterSitting(false);
 		this.isJumping = false;
-		this.navigator.clearPathEntity(); // TODO
-		
-		System.out.println(10);
-		
+		this.navigator.clearPathEntity();
+
 		return true;
 	}
 
@@ -530,8 +500,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (delayCount <= 0) {
 			delayCount = 0;
 		}
-		
-		
+
+
 		/*
 		if (this.isRiding())
 			this.rideCount++;
@@ -577,9 +547,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				this.rotationYaw = this.getRidingEntity().rotationYaw;
 			this.navigator.clearPathEntity();
 			this.navigator.setSpeed(0);
-			
+
 		}
-		*/
+		 */
 
 		if (this.getHealth() < 10)
 		{
@@ -843,7 +813,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public void setIsRiding(boolean riding)
 	{
-		System.out.println(riding);
 		this.dataManager.set(EntityHamster.RIDING, Boolean.valueOf(riding));
 	}
 

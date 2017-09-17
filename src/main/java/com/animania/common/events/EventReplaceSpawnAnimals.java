@@ -573,7 +573,7 @@ public class EventReplaceSpawnAnimals
 			//System.out.println(event.getEntity().posX + "  " + event.getEntity().posY + "  "+ event.getEntity().posZ);
 
 		}
-		if (AnimaniaConfig.gameRules.replaceVanillaRabbits && event.getEntity().getClass().equals(EntityRabbit.class) && !worldIn.isRemote) {
+		else if (AnimaniaConfig.gameRules.replaceVanillaRabbits && event.getEntity().getClass().equals(EntityRabbit.class) && !worldIn.isRemote) {
 			if (!event.getEntity().hasCustomName()) {
 				event.getEntity().setDead();
 				event.setCanceled(true);

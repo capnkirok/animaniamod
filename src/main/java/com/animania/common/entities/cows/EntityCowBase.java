@@ -147,6 +147,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				entityCow.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityCow);
 				entityCow.setParentUniqueId(this.entityUniqueID);
+				this.setHasKids(true);
 			}
 			else if (chooser > 2)
 			{
@@ -159,6 +160,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				entityCalf.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityCalf);
 				entityCalf.setParentUniqueId(this.entityUniqueID);
+				this.setHasKids(true);
 			}
 
 

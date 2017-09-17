@@ -135,6 +135,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				entityKid.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityKid);
 				entityKid.setParentUniqueId(this.entityUniqueID);
+				this.setHasKids(true);
 			}
 			else if (chooser > 2)
 			{
@@ -147,6 +148,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				entityKid.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityKid);
 				entityKid.setParentUniqueId(this.entityUniqueID);
+				this.setHasKids(true);
 			}
 
 			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
