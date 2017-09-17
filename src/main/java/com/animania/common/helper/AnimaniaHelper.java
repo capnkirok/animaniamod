@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.animania.Animania;
+import com.animania.common.capabilities.CapabilityRefs;
+import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.network.client.TileEntitySyncPacket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -182,6 +184,15 @@ public class AnimaniaHelper
 		}
 		
 		return list.toArray(new Item[list.size()]);
+	}
+	
+	public static void syncCap(Entity entity, ICapabilityPlayer other)
+	{
+		ICapabilityPlayer cap = entity.getCapability(CapabilityRefs.CAPS, null);
+
+		cap.setAnimal(other.getAnimal());
+		cap.setCarrying(other.isCarrying());
+		cap.setType(other.getType());
 	}
 
 }

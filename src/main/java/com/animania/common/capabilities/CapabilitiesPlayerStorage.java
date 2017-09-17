@@ -20,6 +20,13 @@ public class CapabilitiesPlayerStorage implements IStorage<ICapabilityPlayer> {
 	    CapabilityPlayerHandler.readNBT(capability, instance, (NBTTagCompound) nbt);
 	  }
 	  
+	  
+	  public ICapabilityPlayer readNBT2(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, EnumFacing side, NBTBase nbt) {
+	    CapabilityPlayerHandler.readNBT(capability, instance, (NBTTagCompound) nbt);
+	    
+	    return instance;
+	  }
+	  
 	  public class Factory implements Callable<ICapabilityPlayer> {
 	    @Override
 	    public ICapabilityPlayer call() throws Exception {

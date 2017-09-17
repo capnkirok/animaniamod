@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
@@ -32,11 +33,13 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
 import com.animania.config.AnimaniaConfig;
+import com.animania.network.client.CapSyncPacket;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -68,6 +71,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -246,30 +250,23 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking())
+		else if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking())
 		{
-			if (!this.isFerretRiding())
+
+			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
+			if (!props.isCarrying())
 			{
-				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
-				props.setMounted(true);
-				props.setPetName(this.getCustomNameTag());
-				props.setPetType("Ferret" + type.toString().toLowerCase().substring(0, 1).toUpperCase() + type.toString().toLowerCase().substring(1));
-				this.setFerretRiding(true);
+				props.setAnimal(this.writeToNBT(new NBTTagCompound()));
+				props.setCarrying(true);
+				props.setType(EntityList.getKey(this).getResourcePath());
+				this.setDead();
+				player.swingArm(EnumHand.MAIN_HAND);
+				Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
+				return true;
 			}
-			return this.interactRide(player);
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking())
-		{
-			if (this.isFerretRiding())
-			{
-				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
-				props.setMounted(false);
-				this.setFerretRiding(false);
-			}
-			return this.interactRide(player);
-		}
-		else
-			return super.processInteract(player, hand);
+		
+		return super.processInteract(player, hand);
 	}
 
 	@Override

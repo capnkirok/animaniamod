@@ -10,33 +10,25 @@ public class CapabilityPlayerHandler {
 
 	public static NBTBase writeNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance) {
 		NBTTagCompound tags = new NBTTagCompound();
-		tags.setBoolean("mounted", instance.getMounted());
-		tags.setString("petType", instance.getPetType());
-		tags.setInteger("petColor", instance.getPetColor());
-		tags.setString("petName", instance.getPetName());
-		
+		tags.setTag("animal", instance.getAnimal());
+		tags.setBoolean("carrying", instance.isCarrying());
+		tags.setString("type", instance.getType());
 		return tags;
 	}
 
 	public static void readNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, NBTTagCompound nbt) {
 
-		if (nbt.hasKey("mounted")) {
-			instance.setMounted(nbt.getBoolean("mounted"));
+		if (nbt.hasKey("animal")) {
+			instance.setAnimal(nbt.getCompoundTag("animal"));
 		}
 		
-		if (nbt.hasKey("petType")) {
-			instance.setPetType(nbt.getString("petType"));
+		if (nbt.hasKey("carrying")) {
+			instance.setCarrying(nbt.getBoolean("carrying"));
 		}
 		
-		if (nbt.hasKey("petColor")) {
-			instance.setPetColor(nbt.getInteger("petColor"));
+		if (nbt.hasKey("type")) {
+			instance.setType(nbt.getString("type"));
 		}
-		
-		if (nbt.hasKey("petName")) {
-			instance.setPetName(nbt.getString("petName"));
-		}
-		
-		
 	}
 
 	public static void onUpdate(EntityPlayer player) {
@@ -53,10 +45,16 @@ public class CapabilityPlayerHandler {
 		if (instance == null)
 			return;
 
-		if (nbt.hasKey("mounted")) {
-			instance.setMounted(nbt.getBoolean("mounted"));
+		if (nbt.hasKey("animal")) {
+			instance.setAnimal(nbt.getCompoundTag("animal"));
+		}
+		if (nbt.hasKey("carrying")) {
+			instance.setCarrying(nbt.getBoolean("carrying"));
 		}
 
+		if (nbt.hasKey("type")) {
+			instance.setType(nbt.getString("type"));
+		}
 		
 	}
 }

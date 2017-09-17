@@ -885,6 +885,7 @@ public class EventReplaceSpawnAnimals
 				}
 			}
 		} 
+		/*
 		else if (event.getEntity() instanceof EntityPlayer) {
 
 			EntityPlayer player = (EntityPlayer)event.getEntity();	
@@ -939,8 +940,8 @@ public class EventReplaceSpawnAnimals
 						props.setMounted(false);
 					}
 				}
-			}
-		}
+			} 
+		} */
 	}
 
 	public int randomSign(int value) {
