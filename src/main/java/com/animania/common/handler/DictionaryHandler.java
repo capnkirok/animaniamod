@@ -50,6 +50,10 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawPlymouthRockChicken);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawWyandotteChicken);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawRhodeIslandRedChicken);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawMutton);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawRabbit);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawChevon);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawPrimeChevon);
 		OreDictionary.registerOre("listAllbeefraw", ItemHandler.rawAngusBeef);
 		OreDictionary.registerOre("listAllbeefraw", ItemHandler.rawAngusSteak);
 		OreDictionary.registerOre("listAllbeefraw", ItemHandler.rawHerefordBeef);
@@ -87,6 +91,10 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedPlymouthRockChicken);
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedRhodeIslandRedChicken);
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedWyandotteChicken);
+		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedMutton);
+		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedRabbit);
+		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedChevon);
+		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedPrimeChevon);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedAngusRoast);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedAngusSteak);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedHerefordRoast);
@@ -129,12 +137,11 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllporkcooked", ItemHandler.cookedPrimeBacon);
 		OreDictionary.registerOre("listAllchickencooked", ItemHandler.cookedPrimeChicken);
 
-		// OreDictionary.registerOre("listBucketmilk", milkHolstein);
-		// OreDictionary.registerOre("listBucketmilk", milkFriesian);
-
 		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeFriesian);
 		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeHolstein);
-
+		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeGoat);
+		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeSheep);
+		
 		OreDictionary.registerOre("cropCarrot", Items.CARROT);
 		OreDictionary.registerOre("cropPotato", Items.POTATO);
 		OreDictionary.registerOre("cropBeet", Items.BEETROOT);
@@ -193,6 +200,14 @@ public class DictionaryHandler
 		OreDictionary.registerOre("foodMeats", ItemHandler.cookedPrimeBeef);
 		OreDictionary.registerOre("foodMeats", ItemHandler.cookedPrimeSteak);
 		OreDictionary.registerOre("foodMeats", ItemHandler.cookedFrogLegs);
+		OreDictionary.registerOre("foodMeats", ItemHandler.rawMutton);
+		OreDictionary.registerOre("foodMeats", ItemHandler.rawRabbit);
+		OreDictionary.registerOre("foodMeats", ItemHandler.rawChevon);
+		OreDictionary.registerOre("foodMeats", ItemHandler.rawPrimeChevon);
+		OreDictionary.registerOre("foodMeats", ItemHandler.cookedMutton);
+		OreDictionary.registerOre("foodMeats", ItemHandler.cookedRabbit);
+		OreDictionary.registerOre("foodMeats", ItemHandler.cookedChevon);
+		OreDictionary.registerOre("foodMeats", ItemHandler.cookedPrimeChevon);
 		OreDictionary.registerOre("listAllchickenraw", Items.CHICKEN);
 		OreDictionary.registerOre("listAllbeefraw", Items.BEEF);
 		OreDictionary.registerOre("listAllporkraw", Items.PORKCHOP);
@@ -201,8 +216,9 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllporkcooked", Items.COOKED_PORKCHOP);
 		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherBlue);
 		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherWhite);
-
+		
 		OreDictionary.registerOre("wool", new ItemStack(Blocks.WOOL, 1, Short.MAX_VALUE));
+		OreDictionary.registerOre("wool", new ItemStack(BlockHandler.blockAnimaniaWool, 1, Short.MAX_VALUE));
 
 		//Additions 1.2.1
 		OreDictionary.registerOre("dyeBlack", new ItemStack(Items.DYE, 1, 0));

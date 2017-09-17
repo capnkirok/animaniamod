@@ -92,6 +92,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	public EntityAIRodentEat entityAIEatGrass;
 	protected int damageTimer;
 	protected HedgehogType type;
+	private int delayCount;
 
 	public EntityHedgehogBase(World worldIn)
 	{
@@ -103,6 +104,8 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 80 + this.rand.nextInt(80);
+		this.delayCount = 5;
+		this.enablePersistence();
 	}
 
 	@Override
@@ -158,14 +161,10 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.setOwnerId(player.getPersistentID());
 		this.setIsTamed(true);
 		this.setTamed(true);
-		this.setSitting(true);
-		this.setHedgehogSitting(true);
-		// player.addStat(type.getAchievement(), 1);
+		this.setSitting(false);
+		this.setHedgehogSitting(false);
 		this.entityAIEatGrass.startExecuting();
-		// if (player.hasAchievement(AnimaniaAchievements.Hedgehog) &&
-		// player.hasAchievement(AnimaniaAchievements.AlbinoHedgehog))
-		// player.addStat(AnimaniaAchievements.Hedgehogs, 1);
-
+		this.setInLove(player);
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY)
 				stack.setCount(stack.getCount() - 1);
@@ -355,30 +354,21 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET && delayCount == 0)
 		{
+			delayCount = 5;
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG)
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG && delayCount == 0)
 		{
+			delayCount = 5;
 			if (!stack.hasDisplayName())
 				return false;
 			else
 			{
-				// if (stack.getDisplayName().equals("Sonic"))
-				// {
-				// player.addStat(AnimaniaAchievements.Sonic, 1);
-				// AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sonic);
-				// return super.processInteract(player, hand);
-				// }
-				// else if (stack.getDisplayName().equals("Sanic"))
-				// {
-				// player.addStat(AnimaniaAchievements.Sanic, 1);
-				// AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sanic);
-				// return super.processInteract(player, hand);
-				// }
+
 				EntityLiving entityliving = this;
 				entityliving.setCustomNameTag(stack.getDisplayName());
 				entityliving.enablePersistence();
@@ -391,25 +381,25 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 			}
 
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isHedgehogSitting() && !player.isSneaking())
+		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isHedgehogSitting() && !player.isSneaking() && delayCount == 0)
 		{
+			delayCount = 5;
 			this.setHedgehogSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
-			this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isHedgehogSitting() && !player.isSneaking())
+		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isHedgehogSitting() && !player.isSneaking() && delayCount == 0)
 		{
+			delayCount = 5;
 			this.setHedgehogSitting(false);
 			this.setSitting(false);
 			this.isJumping = false;
-			this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking())
+		else if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0)
 		{
-
+			delayCount = 5;
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 			if (!props.isCarrying())
 			{
@@ -448,6 +438,11 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
+
+		delayCount--;
+		if (delayCount <= 0) {
+			delayCount = 0;
+		}
 
 		if (this.isSitting() || this.isHedgehogSitting() || this.isRiding())
 		{

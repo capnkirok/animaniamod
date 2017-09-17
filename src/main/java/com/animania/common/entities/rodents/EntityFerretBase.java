@@ -93,6 +93,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public EntityAIRodentEat entityAIEatGrass;
 	protected int damageTimer;
 	protected FerretType type;
+	private int delayCount;
 
 	public EntityFerretBase(World worldIn)
 	{
@@ -105,6 +106,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + this.rand.nextInt(70);
 		this.enablePersistence();
+		this.delayCount = 5;
 	}
 
 	@Override
@@ -166,13 +168,11 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.setTamed(true);
 		this.setSitting(false);
 		this.setFerretSitting(false);
-//		player.addStat(type.getAchievement(), 1);
 		this.entityAIEatGrass.startExecuting();
-//		if (player.hasAchievement(AnimaniaAchievements.WhiteFerret) && player.hasAchievement(AnimaniaAchievements.GreyFerret))
-//			player.addStat(AnimaniaAchievements.Ferrets, 1);
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY)
 				stack.setCount(stack.getCount() - 1);
+		this.setInLove(player);
 	}
 
 	@Override
@@ -228,31 +228,35 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET && delayCount == 0)
 		{
+			delayCount = 5;
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isFerretSitting() && !player.isSneaking())
+		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isFerretSitting() && !player.isSneaking() && delayCount == 0)
 		{
+			delayCount = 5;
 			this.setFerretSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isFerretSitting() && !player.isSneaking())
+		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isFerretSitting() && !player.isSneaking() && delayCount == 0)
 		{
+			
+			delayCount = 5;
 			this.setFerretSitting(false);
 			this.setSitting(false);
 			this.isJumping = false;
 			this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking())
+		else if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0)
 		{
-
+			delayCount = 5;
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 			if (!props.isCarrying())
 			{
@@ -430,6 +434,11 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public void onLivingUpdate()
 	{
 
+		delayCount--;
+		if (delayCount <= 0) {
+			delayCount = 0;
+		}
+		
 		if (this.isFerretSitting() || this.isRiding())
 		{
 			if (this.getRidingEntity() != null)
