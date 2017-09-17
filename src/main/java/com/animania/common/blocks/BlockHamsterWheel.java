@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.animania.Animania;
 import com.animania.common.capabilities.CapabilityRefs;
+import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
@@ -22,6 +23,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -65,11 +67,11 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 		return new TileEntityHamsterWheel();
 	}
 
-//	@Override
-//	public boolean isFullyOpaque(IBlockState state)
-//	{
-//		return false;
-//	}
+	// @Override
+	// public boolean isFullyOpaque(IBlockState state)
+	// {
+	// return false;
+	// }
 
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
@@ -88,35 +90,39 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	{
 		TileEntityHamsterWheel te = (TileEntityHamsterWheel) world.getTileEntity(pos);
 
-		if (player.isBeingRidden() && !te.isRunning())
+		if (!te.isRunning())
 		{
-			List<Entity> passengers = player.getPassengers();
-			if (passengers.get(0) instanceof EntityHamster && ((EntityHamster) passengers.get(0)).getFed() && !((EntityHamster) passengers.get(0)).isInBall())
+
+			if (player.hasCapability(CapabilityRefs.CAPS, null))
 			{
-				if (player.hasCapability(CapabilityRefs.CAPS, null))
+				ICapabilityPlayer cap = player.getCapability(CapabilityRefs.CAPS, null);
+
+				NBTTagCompound hamsternbt = cap.getAnimal();
+
+				if (!hamsternbt.hasNoTags() && cap.isCarrying())
+
 				{
-					player.getCapability(CapabilityRefs.CAPS, null).setMounted(false);
+					EntityHamster hamster = (EntityHamster) EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, "hamster"), world);
+					hamster.readEntityFromNBT(hamsternbt);
+					if (hamster.getFed() && !hamster.isInBall())
+					{
+						te.setHamster(hamster);
+						te.markDirty();
+						cap.setAnimal(new NBTTagCompound());
+						cap.setCarrying(false);
+						cap.setType("");
+						player.swingArm(EnumHand.MAIN_HAND);
+						Random rand = new Random();
+						player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+
+						return true;
+					}
 				}
-				EntityHamster hamster = (EntityHamster) passengers.get(0);
-				NBTTagCompound hamsternbt = new NBTTagCompound();
-				hamster.writeToNBT(hamsternbt);
-
-				EntityHamster clone = new EntityHamster(world);
-				clone.readFromNBT(hamsternbt);
-
-				player.removePassengers();
-				te.setHamster(clone);
-				hamster.setDead();
-				te.markDirty();
-
-				Random rand = new Random();
-				player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
-
-				return true;
-
 			}
+
 		}
-		else if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == ItemHandler.hamsterFood)
+		
+		if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == ItemHandler.hamsterFood)
 		{
 			ItemStack held = player.getHeldItem(hand);
 			ItemStack remainder = te.getItemHandler().insertItem(0, new ItemStack(ItemHandler.hamsterFood), false);
@@ -133,7 +139,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 			if (food.isEmpty())
 				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF"), true);
 			else
-				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored()  + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
+				player.sendStatusMessage(new TextComponentString(te.getEnergy() + "/" + te.getPower().getMaxEnergyStored() + " RF, " + food.getCount() + " " + food.getDisplayName()), true);
 
 		}
 

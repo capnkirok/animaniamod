@@ -2,7 +2,10 @@ package com.animania.common.events;
 
 import java.util.Random;
 
+import com.animania.Animania;
 import com.animania.common.blocks.BlockSeeds;
+import com.animania.common.capabilities.CapabilityRefs;
+import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
@@ -13,6 +16,7 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
+import com.animania.network.client.CapSyncPacket;
 
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.entity.Entity;
@@ -23,7 +27,9 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -32,6 +38,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
@@ -146,6 +153,38 @@ public class ItemSeedHandler
 			if (entry != null)
 			{
 				AdvancementHandler.feedAnimal.trigger((EntityPlayerMP) player, stack, entry);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event)
+	{
+		EntityPlayer player = event.getEntityPlayer();
+		ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
+		World world = event.getWorld();
+
+		if (props.isCarrying() && world.getBlockState(event.getPos()).getBlock() != BlockHandler.blockHamsterWheel)
+		{
+			Entity e = null;
+
+			e = EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, props.getType()), world);
+			e.readFromNBT(props.getAnimal());
+
+			if (e != null)
+			{
+				BlockPos pos = event.getPos();
+				e.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+				if (!world.isRemote)
+					event.getWorld().spawnEntity(e);
+				props.setAnimal(new NBTTagCompound());
+				props.setCarrying(false);
+				props.setType("");
+				player.swingArm(EnumHand.MAIN_HAND);
+				Random rand = new Random();
+				player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+				event.setCanceled(true);
+				Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
 			}
 		}
 	}

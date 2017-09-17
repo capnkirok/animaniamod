@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
@@ -27,6 +28,7 @@ import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemHamsterBall;
 import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
 import com.animania.config.AnimaniaConfig;
+import com.animania.network.client.CapSyncPacket;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
@@ -61,6 +63,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class EntityHamster extends EntityTameable implements TOPInfoProviderRodent, ISpawnable, AnimaniaAnimal
 {
@@ -160,7 +163,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.setIsTamed(true);
 		this.setTamed(true);
 
-//		player.addStat(AnimaniaAchievements.Hamsters, 1);
+		// player.addStat(AnimaniaAchievements.Hamsters, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
@@ -297,7 +300,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 			}
 
-//			player.addStat(AnimaniaAchievements.Hamsters, 1);
+			// player.addStat(AnimaniaAchievements.Hamsters, 1);
 			this.setInLove(player);
 			this.setFed(true);
 			this.setIsTamed(true);
@@ -330,32 +333,20 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking())
+		else if (itemstack == ItemStack.EMPTY && this.isTamed() && player.isSneaking())
 		{
 
-			if (!this.getIsRiding())
+			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
+			if (!props.isCarrying())
 			{
-				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
-				props.setMounted(true);
-				props.setPetColor(this.getColorNumber());
-				props.setPetName(this.getCustomNameTag());
-				props.setPetType("Hamster");
-				this.setIsRiding(true);
-
+				props.setAnimal(this.writeToNBT(new NBTTagCompound()));
+				props.setCarrying(true);
+				props.setType("hamster");
+				this.setDead();
+				player.swingArm(EnumHand.MAIN_HAND);
+				Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
+				return true;
 			}
-			return this.interactRide(player);
-		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking())
-		{
-
-			if (this.getIsRiding())
-			{
-				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
-				props.setPetColor(this.getColorNumber());
-				props.setMounted(false);
-				this.setIsRiding(false);
-			}
-			return this.interactRide(player);
 
 		}
 
@@ -364,7 +355,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 			{
 				this.addFoodStack();
-//				player.addStat(AnimaniaAchievements.Hamsters, 1);
+				// player.addStat(AnimaniaAchievements.Hamsters, 1);
 				return this.interactSeedsNotTamed(itemstack, player);
 			}
 			else
@@ -407,7 +398,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 		{
 			addFoodStack();
-//			player.addStat(AnimaniaAchievements.Hamsters, 1);
+			// player.addStat(AnimaniaAchievements.Hamsters, 1);
 			return interactSeedsTamed(itemstack, player);
 		}
 
@@ -420,7 +411,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		if (!entityplayer.capabilities.isCreativeMode)
 			itemstack.shrink(1);
-//		entityplayer.addStat(AnimaniaAchievements.Hamsters, 1);
+		// entityplayer.addStat(AnimaniaAchievements.Hamsters, 1);
 		this.setHamsterStanding(true);
 		this.standCount = 100;
 
@@ -551,17 +542,14 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (this.isRiding())
 			this.rideCount++;
 
-		if (this.isRiding() && this.getRidingEntity() instanceof EntityPlayer && this.rideCount > 30)
-		{
-			EntityPlayer player = (EntityPlayer) this.getRidingEntity();
-			if (player.isSneaking())
-			{
-				player.removePassengers();
-				this.setIsRiding(false);
-				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
-				props.setMounted(false);
-			}
-		}
+		/*
+		 * if (this.isRiding() && this.getRidingEntity() instanceof EntityPlayer
+		 * && this.rideCount > 30) { EntityPlayer player = (EntityPlayer)
+		 * this.getRidingEntity(); if (player.isSneaking()) {
+		 * player.removePassengers(); this.setIsRiding(false); final
+		 * ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
+		 * props.setMounted(false); } }
+		 */
 
 		if (this.blinkTimer > -1)
 		{
@@ -876,13 +864,13 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		else
 			dropItem = null;
 
-		if (happyDrops == 2 && dropItem !=null)
+		if (happyDrops == 2 && dropItem != null)
 		{
 			dropItem.setCount(1 + lootlevel);
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 			world.spawnEntity(entityitem);
 		}
-		else if (happyDrops == 1 && dropItem !=null)
+		else if (happyDrops == 1 && dropItem != null)
 		{
 			dropItem.setCount(1 + lootlevel);
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
@@ -1128,24 +1116,24 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public void setResourceLoc()
 	{
 
-		if (this.getColorNumber() == 9) 
+		if (this.getColorNumber() == 9)
 		{
 			this.setColorNumber(8);
 		}
-		
+
 		if (this.resourceLocation == null)
 		{
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber()] + ".png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber()] + "_blink.png");
 		}
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(HamsterType.STANDARD, EntityGender.NONE));
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
@@ -1157,13 +1145,13 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	{
 		return 14603464;
 	}
-	
+
 	@Override
 	public int getSecondaryEggColor()
 	{
 		return 14317391;
 	}
-	
+
 	@Override
 	public EntityGender getEntityGender()
 	{

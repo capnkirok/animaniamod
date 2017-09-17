@@ -8,17 +8,14 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class CapabilityPlayer implements ICapabilityPlayer {
 
-	private boolean mounted;
-	private String petType;
-	private int petColor;
-	private String petName;
-	
+	private NBTTagCompound animal;
+	private boolean carrying;
+	private String type;
 	
 	public CapabilityPlayer() {
-		mounted = false;
-		petType = "";
-		petColor = 0;
-		petName = "";
+		this.animal = new NBTTagCompound();
+		this.carrying = false;
+		this.type = "";
 	}
 
 	@Override
@@ -30,46 +27,6 @@ public class CapabilityPlayer implements ICapabilityPlayer {
 	public void update() {
 		
 	}
-
-	//GETTERS
-	@Override
-	public boolean getMounted() {
-		return mounted;
-	}
-	
-	public String getPetType() {
-		return petType;
-	}
-	
-	public int getPetColor() {
-		return petColor;
-	}
-	
-	public String getPetName() {
-		return petName;
-	}
-
-	//SETTERS
-	@Override
-	public NBTBase setMounted(boolean mounted) {
-		this.mounted = mounted;
-		return CapabilityRefs.toTagInt(this.mounted? 1 : 0);
-	}
-	
-	public NBTBase setPetType(String petType) {
-		this.petType = petType;
-		return CapabilityRefs.toTagString(petType);
-	}
-	
-	public NBTBase setPetColor(int petColor) {
-		this.petColor = petColor;
-		return CapabilityRefs.toTagInt(petColor);
-	}
-	
-	public NBTBase setPetName(String petName) {
-		this.petName = petName;
-		return CapabilityRefs.toTagString(petName);
-	}
 	
 	@Override
 	public NBTTagCompound writeNBT() {
@@ -78,6 +35,42 @@ public class CapabilityPlayer implements ICapabilityPlayer {
 	@Override
 	public void readNBT(NBTTagCompound nbt) {
 		CapabilityPlayerHandler.readNBT(CapabilityRefs.CAPS, this, nbt);
+	}
+
+	@Override
+	public NBTTagCompound getAnimal()
+	{
+		return this.animal;
+	}
+
+	@Override
+	public void setAnimal(NBTTagCompound tag)
+	{
+		this.animal = tag;
+	}
+
+	@Override
+	public boolean isCarrying()
+	{
+		return this.carrying;
+	}
+
+	@Override
+	public void setCarrying(boolean carrying)
+	{
+		this.carrying = carrying;
+	}
+
+	@Override
+	public String getType()
+	{
+		return this.type;
+	}
+
+	@Override
+	public void setType(String type)
+	{
+		this.type = type;
 	}
 
 	

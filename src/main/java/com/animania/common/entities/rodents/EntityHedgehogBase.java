@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
@@ -26,11 +27,13 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
 import com.animania.config.AnimaniaConfig;
+import com.animania.network.client.CapSyncPacket;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -66,6 +69,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -156,10 +160,11 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.setTamed(true);
 		this.setSitting(true);
 		this.setHedgehogSitting(true);
-//		player.addStat(type.getAchievement(), 1);
+		// player.addStat(type.getAchievement(), 1);
 		this.entityAIEatGrass.startExecuting();
-//		if (player.hasAchievement(AnimaniaAchievements.Hedgehog) && player.hasAchievement(AnimaniaAchievements.AlbinoHedgehog))
-//			player.addStat(AnimaniaAchievements.Hedgehogs, 1);
+		// if (player.hasAchievement(AnimaniaAchievements.Hedgehog) &&
+		// player.hasAchievement(AnimaniaAchievements.AlbinoHedgehog))
+		// player.addStat(AnimaniaAchievements.Hedgehogs, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY)
@@ -198,13 +203,13 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		else
 			dropItem = null;
 
-		if (happyDrops == 2 && dropItem !=null)
+		if (happyDrops == 2 && dropItem != null)
 		{
 			dropItem.setCount(1 + lootlevel);
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 			world.spawnEntity(entityitem);
 		}
-		else if (happyDrops == 1 && dropItem !=null)
+		else if (happyDrops == 1 && dropItem != null)
 		{
 			dropItem.setCount(1 + lootlevel);
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
@@ -362,18 +367,18 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 				return false;
 			else
 			{
-//				if (stack.getDisplayName().equals("Sonic"))
-//				{
-//					player.addStat(AnimaniaAchievements.Sonic, 1);
-//					AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sonic);
-//					return super.processInteract(player, hand);
-//				}
-//				else if (stack.getDisplayName().equals("Sanic"))
-//				{
-//					player.addStat(AnimaniaAchievements.Sanic, 1);
-//					AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sanic);
-//					return super.processInteract(player, hand);
-//				}
+				// if (stack.getDisplayName().equals("Sonic"))
+				// {
+				// player.addStat(AnimaniaAchievements.Sonic, 1);
+				// AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sonic);
+				// return super.processInteract(player, hand);
+				// }
+				// else if (stack.getDisplayName().equals("Sanic"))
+				// {
+				// player.addStat(AnimaniaAchievements.Sanic, 1);
+				// AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.Sanic);
+				// return super.processInteract(player, hand);
+				// }
 				EntityLiving entityliving = this;
 				entityliving.setCustomNameTag(stack.getDisplayName());
 				entityliving.enablePersistence();
@@ -402,30 +407,22 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 			this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking())
+		else if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking())
 		{
-			if (!this.isHedgehogRiding())
+
+			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
+			if (!props.isCarrying())
 			{
-				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
-				props.setMounted(true);
-				props.setPetName(this.getCustomNameTag());
-				props.setPetType("Hedgehog" + ((type == HedgehogType.NORMAL) ? "" : type.toString().toLowerCase().substring(0, 1).toUpperCase() + type.toString().toLowerCase().substring(1)));
-				this.setHedgehogRiding(true);
+				props.setAnimal(this.writeToNBT(new NBTTagCompound()));
+				props.setCarrying(true);
+				props.setType(EntityList.getKey(this).getResourcePath());
+				this.setDead();
+				player.swingArm(EnumHand.MAIN_HAND);
+				Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
+				return true;
 			}
-			return this.interactRide(player);
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isRiding() && player.isSneaking())
-		{
-			if (this.isHedgehogRiding())
-			{
-				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
-				props.setMounted(false);
-				this.setHedgehogRiding(false);
-			}
-			return this.interactRide(player);
-		}
-		else
-			return super.processInteract(player, hand);
+		return super.processInteract(player, hand);
 	}
 
 	@Override
@@ -667,13 +664,13 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	{
 		return stack != ItemStack.EMPTY && EntityHedgehogBase.TEMPTATION_ITEMS.contains(stack.getItem());
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, EntityGender.NONE));
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
@@ -693,7 +690,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public EntityGender getEntityGender()
 	{

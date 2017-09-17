@@ -7,19 +7,14 @@ import net.minecraft.nbt.NBTTagList;
 
 public interface ICapabilityPlayer {
 
-	//Triggered Abilities
-	NBTBase setMounted(boolean mounted);
-	NBTBase setPetType(String petType);
-	NBTBase setPetColor(int petColor);
-	NBTBase setPetName(String petName);
+	public NBTTagCompound getAnimal();
+	public void setAnimal(NBTTagCompound tag);
 	
-	boolean getMounted();
-	String getPetType();
-	int getPetColor();
-	String getPetName();
+	public boolean isCarrying();
+	public void setCarrying(boolean carrying);
 	
-	
-	
+	public String getType();
+	public void setType(String type);
 	
 	void read(EntityPlayer player);
 
