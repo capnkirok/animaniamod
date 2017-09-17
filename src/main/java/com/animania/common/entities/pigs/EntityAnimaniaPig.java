@@ -21,7 +21,9 @@ import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
@@ -45,6 +47,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
@@ -128,9 +131,6 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 			this.entityAIEatGrass.startExecuting();
 			this.eatTimer = 80;
 		}
-//		player.addStat(this.pigType.getAchievement(), 1);
-//		if (player.hasAchievement(AnimaniaAchievements.Duroc) && player.hasAchievement(AnimaniaAchievements.Hampshire) && player.hasAchievement(AnimaniaAchievements.LargeBlack) && player.hasAchievement(AnimaniaAchievements.LargeWhite) && player.hasAchievement(AnimaniaAchievements.OldSpot) && player.hasAchievement(AnimaniaAchievements.Yorkshire))
-//			player.addStat(AnimaniaAchievements.Pigs, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY && !ItemStack.areItemStacksEqual(stack, this.slop))
@@ -138,6 +138,66 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 			else if (stack != ItemStack.EMPTY && ItemStack.areItemStacksEqual(stack, this.slop))
 				player.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.BUCKET));
 	}
+	
+	public void travel(float p_191986_1_, float p_191986_2_, float p_191986_3_)
+    {
+        Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
+
+        if (this.isBeingRidden() && this.canBeSteered())
+        {
+            this.rotationYaw = entity.rotationYaw;
+            this.prevRotationYaw = this.rotationYaw;
+            this.rotationPitch = entity.rotationPitch * 0.5F;
+            this.setRotation(this.rotationYaw, this.rotationPitch);
+            this.renderYawOffset = this.rotationYaw;
+            this.rotationYawHead = this.rotationYaw;
+            this.stepHeight = 1.0F;
+            this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
+
+            if (this.boosting && this.boostTime++ > this.totalBoostTime)
+            {
+                this.boosting = false;
+            }
+
+            if (this.canPassengerSteer())
+            {
+                float f = (float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
+
+                if (this.boosting)
+                {
+                    f += f * 1.15F * MathHelper.sin((float)this.boostTime / (float)this.totalBoostTime * (float)Math.PI);
+                }
+
+                this.setAIMoveSpeed(f);
+                super.travel(0.0F, 0.0F, 1.0F);
+            }
+            else
+            {
+                this.motionX = 0.0D;
+                this.motionY = 0.0D;
+                this.motionZ = 0.0D;
+            }
+
+            this.prevLimbSwingAmount = this.limbSwingAmount;
+            double d1 = this.posX - this.prevPosX;
+            double d0 = this.posZ - this.prevPosZ;
+            float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+
+            if (f1 > 1.0F)
+            {
+                f1 = 1.0F;
+            }
+
+            this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
+            this.limbSwing += this.limbSwingAmount;
+        }
+        else
+        {
+            this.stepHeight = 0.5F;
+            this.jumpMovementFactor = 0.02F;
+            super.travel(p_191986_1_, p_191986_2_, p_191986_3_);
+        }
+    }
 
 	@Override
 	public void setInLove(EntityPlayer player)
