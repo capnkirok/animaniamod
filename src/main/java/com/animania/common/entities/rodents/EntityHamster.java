@@ -441,9 +441,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		else if (this.isHamsterSitting())
 			this.setHamsterSitting(false);
 		this.isJumping = false;
-		this.navigator.clearPathEntity(); // TODO
-
-		System.out.println(10);
+		this.navigator.clearPathEntity();
 
 		return true;
 	}
@@ -800,7 +798,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public void setIsRiding(boolean riding)
 	{
-		System.out.println(riding);
 		this.dataManager.set(EntityHamster.RIDING, Boolean.valueOf(riding));
 	}
 
