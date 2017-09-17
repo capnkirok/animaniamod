@@ -164,7 +164,7 @@ public class ItemSeedHandler
 		ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 		World world = event.getWorld();
 
-		if (props.isCarrying() && world.getBlockState(event.getPos()).getBlock() != BlockHandler.blockHamsterWheel)
+		if (props.isCarrying() && player.isSneaking())
 		{
 			Entity e = null;
 

@@ -301,7 +301,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 				}
 			}
-			
+
+			// player.addStat(AnimaniaAchievements.Hamsters, 1);
 			this.setInLove(player);
 			this.setFed(true);
 			this.setIsTamed(true);
@@ -504,6 +505,20 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		/*
 		if (this.isRiding())
 			this.rideCount++;
+		
+		if (this.isRiding() && this.getRidingEntity() instanceof EntityPlayer && this.rideCount > 30)
+		{
+			EntityPlayer player = (EntityPlayer) this.getRidingEntity();
+			if (player.isSneaking())
+			{
+				player.removePassengers();
+				this.setIsRiding(false);
+				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
+				props.setMounted(false);
+			}
+		}
+		*/
+		
 
 		/*
 		 * if (this.isRiding() && this.getRidingEntity() instanceof EntityPlayer
