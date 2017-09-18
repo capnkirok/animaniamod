@@ -11,6 +11,8 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityEventHandler
 {
@@ -49,6 +51,7 @@ public class EntityEventHandler
 
     }
     
+    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event)
     {
