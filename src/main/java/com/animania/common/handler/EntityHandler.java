@@ -549,7 +549,7 @@ public class EntityHandler
 		}
 
 		// MOVING ENTITIES
-		RegistryHelper.Entities.registerEntity(EntityWagon.class, "wagon", entityID++, 40, 1, true);
+		//RegistryHelper.Entities.registerEntity(EntityWagon.class, "wagon", entityID++, 40, 1, true);
 
 	}
 
