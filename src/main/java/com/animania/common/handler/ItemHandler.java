@@ -377,7 +377,7 @@ public class ItemHandler
 	{
 		// ITEMS
 
-		// wagon = new ItemWagon();
+	//	wagon = new ItemWagon();
 
 		// Items for Animals
 		ItemHandler.hamsterFood = new AnimaniaItem("hamster_food");
@@ -707,44 +707,6 @@ public class ItemHandler
 		ItemHandler.entityeggkitrex = new ItemEntityEgg("kit_rex", RabbitType.REX, EntityGender.CHILD);
 
 		ItemHandler.entityeggrandomrabbit = new ItemEntityEgg("rabbit_random", RabbitType.LOP, EntityGender.RANDOM);
-
-	}
-
-	@SideOnly(Side.CLIENT)
-	public static void regItemEggColors()
-	{
-		if (!generatedEggs)
-		{
-			for (Item item : ForgeRegistries.ITEMS.getValues())
-			{
-				if (item instanceof ItemEntityEgg)
-				{
-					World world = Minecraft.getMinecraft().world;
-					if (item != ItemHandler.entityeggrandomanimal)
-					{
-						AnimalContainer animal = ((ItemEntityEgg) item).getAnimal();
-						EntityLivingBase entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world);
-
-						if (animal.getGender() != EntityGender.RANDOM)
-						{
-							if (entity != null)
-							{
-								if (((ISpawnable) entity).usesEggColor())
-								{
-									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true);
-									ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ((ISpawnable) entity).getPrimaryEggColor());
-									ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ((ISpawnable) entity).getSecondaryEggColor());
-								}
-								else
-									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false);
-
-							}
-						}
-					}
-				}
-			}
-			generatedEggs = true;
-		}
 
 	}
 
