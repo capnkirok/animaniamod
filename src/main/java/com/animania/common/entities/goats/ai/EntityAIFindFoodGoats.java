@@ -2,7 +2,6 @@ package com.animania.common.entities.goats.ai;
 
 import java.util.Random;
 
-import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
