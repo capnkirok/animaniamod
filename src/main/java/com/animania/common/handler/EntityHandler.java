@@ -121,7 +121,6 @@ public class EntityHandler
 		}
 
 		//GOATS
-
 		if (AnimaniaConfig.spawn.spawnAnimaniaGoats)
 		{
 			RegistryHelper.Entities.register(EntityKidAlpine.class, "kid_alpine", entityID++, 64, 3, true);

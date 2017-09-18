@@ -11,7 +11,7 @@ public class EntityDoeAlpine extends EntityDoeBase
 	{
 		super(worldIn);
 		this.goatType = GoatType.ALPINE;
-		this.setSize(1.6F, 1.3F);
+		this.setSize(1.5F, 1.3F);
 		this.dropRaw = ItemHandler.rawChevon;
 		this.dropCooked = ItemHandler.cookedChevon;
 	}

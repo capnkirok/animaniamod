@@ -99,7 +99,7 @@ item.animania_raw_frog_legs.name=Raw Frog Legs
 item.animania_cooked_frog_legs.name=Cooked Frog Legs
 
 item.animania_raw_chevon.name=Raw Chevon
-item.animania_cooked_chevon.nameRoast Chevon
+item.animania_cooked_chevon.name=Cooked Chevon
 item.animania_raw_prime_chevon.name=Raw Prime Chevon
 item.animania_cooked_prime_chevon.name=Cooked Prime Chevon
 
@@ -628,6 +628,7 @@ tooltip.an.instanthealth=Instant Health
 tooltip.an.speed=Speed Boost
 tooltip.an.absorption=Absorption
 tooltip.an.regeneration=Regeneration
+tooltip.an.resistance=Resistance
 tooltip.an.haste=Haste
 tooltip.an.healthboost=Health Boost
 tooltip.an.jumpboost=Jump Boost

@@ -50,6 +50,10 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawPlymouthRockChicken);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawWyandotteChicken);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawRhodeIslandRedChicken);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawMutton);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawRabbit);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawChevon);
+		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawPrimeChevon);
 		OreDictionary.registerOre("listAllbeefraw", ItemHandler.rawAngusBeef);
 		OreDictionary.registerOre("listAllbeefraw", ItemHandler.rawAngusSteak);
 		OreDictionary.registerOre("listAllbeefraw", ItemHandler.rawHerefordBeef);
@@ -87,6 +91,10 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedPlymouthRockChicken);
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedRhodeIslandRedChicken);
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedWyandotteChicken);
+		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedMutton);
+		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedRabbit);
+		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedChevon);
+		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedPrimeChevon);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedAngusRoast);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedAngusSteak);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedHerefordRoast);
@@ -129,11 +137,10 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllporkcooked", ItemHandler.cookedPrimeBacon);
 		OreDictionary.registerOre("listAllchickencooked", ItemHandler.cookedPrimeChicken);
 
-		// OreDictionary.registerOre("listBucketmilk", milkHolstein);
-		// OreDictionary.registerOre("listBucketmilk", milkFriesian);
-
 		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeFriesian);
 		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeHolstein);
+		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeGoat);
+		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeSheep);
 
 		OreDictionary.registerOre("cropCarrot", Items.CARROT);
 		OreDictionary.registerOre("cropPotato", Items.POTATO);

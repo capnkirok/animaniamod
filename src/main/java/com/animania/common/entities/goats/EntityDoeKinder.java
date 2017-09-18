@@ -10,7 +10,7 @@ public class EntityDoeKinder extends EntityDoeBase
 	public EntityDoeKinder(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.4F, 1.2F);
+		this.setSize(1.3F, 1.2F);
 		this.goatType = GoatType.KINDER;
 		this.dropRaw = ItemHandler.rawChevon;
 		this.dropCooked = ItemHandler.cookedChevon;
