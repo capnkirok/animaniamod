@@ -11,6 +11,7 @@ import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityAIMateRabbits extends EntityAIBase
@@ -55,6 +56,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 				this.delayCounter = 0;
 				this.resetTask();
 				return false;
+				
 			}
 
 			return this.targetMate != null;
