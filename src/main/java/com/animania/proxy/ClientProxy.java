@@ -3,6 +3,7 @@ package com.animania.proxy;
 import com.animania.Animania;
 import com.animania.client.AnimaniaTextures;
 import com.animania.client.handler.RenderHandler;
+import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEgg;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
@@ -30,7 +31,7 @@ public class ClientProxy extends CommonProxy
 		super.preInit();
 		RenderHandler.preInit();
 		AnimaniaTextures.registerTextures();
-
+		
 	}
 
 	@Override
@@ -38,6 +39,7 @@ public class ClientProxy extends CommonProxy
 	{
 		super.init();
 		RenderHandler.init();
+        ItemHandler.regItemEggColors();
 
 		for (Item item : ForgeRegistries.ITEMS.getValues())
 		{
