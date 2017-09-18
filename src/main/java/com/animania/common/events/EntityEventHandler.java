@@ -1,10 +1,13 @@
 package com.animania.common.events;
 
+import com.animania.common.handler.ItemHandler;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -44,6 +47,15 @@ public class EntityEventHandler
                 event.setCanceled(true);
         }
 
+    }
+    
+    @SubscribeEvent
+    public void onEntityJoinWorld(EntityJoinWorldEvent event)
+    {
+    	if(event.getEntity() instanceof EntityPlayerSP)
+    	{
+            ItemHandler.regItemEggColors();
+    	}
     }
 
 }
