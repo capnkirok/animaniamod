@@ -1,6 +1,8 @@
 package com.animania.common.handler;
 
+import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.entities.amphibians.AmphibianType;
 import com.animania.common.entities.chickens.ChickenType;
@@ -23,13 +25,18 @@ import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemHamsterBall;
 import com.animania.common.items.ItemRidingCrop;
 import com.animania.common.items.ItemTruffleSoup;
-import com.animania.common.items.ItemWagon;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemHandler
 {
@@ -368,7 +375,7 @@ public class ItemHandler
 	{
 		// ITEMS
 
-	//	wagon = new ItemWagon();
+		// wagon = new ItemWagon();
 
 		// Items for Animals
 		ItemHandler.hamsterFood = new AnimaniaItem("hamster_food");
@@ -699,6 +706,39 @@ public class ItemHandler
 
 		ItemHandler.entityeggrandomrabbit = new ItemEntityEgg("rabbit_random", RabbitType.LOP, EntityGender.RANDOM);
 
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static void regItemEggColors()
+	{
+		for (Item item : ForgeRegistries.ITEMS.getValues())
+		{
+			if (item instanceof ItemEntityEgg)
+			{
+				World world = Minecraft.getMinecraft().world;
+				if (item != ItemHandler.entityeggrandomanimal)
+				{
+					AnimalContainer animal = ((ItemEntityEgg) item).getAnimal();
+					EntityLivingBase entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world);
+
+					if (animal.getGender() != EntityGender.RANDOM)
+					{
+						if (entity != null)
+						{
+							if (((ISpawnable) entity).usesEggColor())
+							{
+								ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true);
+								ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ((ISpawnable) entity).getPrimaryEggColor());
+								ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ((ISpawnable) entity).getSecondaryEggColor());
+							}
+							else
+								ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false);
+
+						}
+					}
+				}
+			}
+		}
 	}
 
 }
