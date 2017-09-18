@@ -45,7 +45,7 @@ public class UpdateHandler
     private static void getNewestVersion() {
 
         try {
-            URL url = new URL("http://www.creeptech.net/animania/1.11/versionchecker.txt");
+            URL url = new URL("http://www.creeptech.net/animania/1.12/versionchecker.txt");
             Scanner s = new Scanner(url.openStream());
             UpdateHandler.newestVersion = s.next();
             s.close();
