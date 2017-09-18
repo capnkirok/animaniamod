@@ -40,6 +40,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemHandler
 {
+	public static boolean hasSetEggColors = false;
 
 	// Items
 	public static Item hamsterFood;
@@ -375,7 +376,7 @@ public class ItemHandler
 	{
 		// ITEMS
 
-		//wagon = new ItemWagon();
+		// wagon = new ItemWagon();
 
 		// Items for Animals
 		ItemHandler.hamsterFood = new AnimaniaItem("hamster_food");
@@ -707,37 +708,41 @@ public class ItemHandler
 		ItemHandler.entityeggrandomrabbit = new ItemEntityEgg("rabbit_random", RabbitType.LOP, EntityGender.RANDOM);
 
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void regItemEggColors()
 	{
-		for (Item item : ForgeRegistries.ITEMS.getValues())
+		if (!hasSetEggColors)
 		{
-			if (item instanceof ItemEntityEgg)
+			for (Item item : ForgeRegistries.ITEMS.getValues())
 			{
-				World world = Minecraft.getMinecraft().world;
-				if (item != ItemHandler.entityeggrandomanimal)
+				if (item instanceof ItemEntityEgg)
 				{
-					AnimalContainer animal = ((ItemEntityEgg) item).getAnimal();
-					EntityLivingBase entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world);
-
-					if (animal.getGender() != EntityGender.RANDOM)
+					World world = Minecraft.getMinecraft().world;
+					if (item != ItemHandler.entityeggrandomanimal)
 					{
-						if (entity != null)
-						{
-							if (((ISpawnable) entity).usesEggColor())
-							{
-								ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true);
-								ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ((ISpawnable) entity).getPrimaryEggColor());
-								ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ((ISpawnable) entity).getSecondaryEggColor());
-							}
-							else
-								ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false);
+						AnimalContainer animal = ((ItemEntityEgg) item).getAnimal();
+						EntityLivingBase entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world);
 
+						if (animal.getGender() != EntityGender.RANDOM)
+						{
+							if (entity != null)
+							{
+								if (((ISpawnable) entity).usesEggColor())
+								{
+									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true);
+									ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ((ISpawnable) entity).getPrimaryEggColor());
+									ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ((ISpawnable) entity).getSecondaryEggColor());
+								}
+								else
+									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false);
+
+							}
 						}
 					}
 				}
 			}
+			hasSetEggColors = true;
 		}
 	}
 

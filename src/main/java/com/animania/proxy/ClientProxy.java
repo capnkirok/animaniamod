@@ -39,7 +39,6 @@ public class ClientProxy extends CommonProxy
 	{
 		super.init();
 		RenderHandler.init();
-        ItemHandler.regItemEggColors();
 
 		for (Item item : ForgeRegistries.ITEMS.getValues())
 		{
