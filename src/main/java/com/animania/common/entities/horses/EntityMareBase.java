@@ -63,7 +63,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	private int totalBoostTime;
 	public int dryTimerMare;
 	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean>createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_FoalS = EntityDataManager.<Boolean>createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean>createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityMareBase.class, DataSerializers.VARINT);
 
@@ -82,7 +82,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		super.entityInit();
 		this.dataManager.register(EntityMareBase.PREGNANT, Boolean.valueOf(false));
-		this.dataManager.register(EntityMareBase.HAS_FoalS, Boolean.valueOf(false));
+		this.dataManager.register(EntityMareBase.HAS_KIDS, Boolean.valueOf(false));
 		this.dataManager.register(EntityMareBase.FERTILE, Boolean.valueOf(true));
 		this.dataManager.register(EntityMareBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(400)));
 	}
@@ -215,12 +215,12 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public boolean getHasKids()
 	{
-		return this.dataManager.get(EntityMareBase.HAS_FoalS).booleanValue();
+		return this.dataManager.get(EntityMareBase.HAS_KIDS).booleanValue();
 	}
 
 	public void setHasKids(boolean Foals)
 	{
-		this.dataManager.set(EntityMareBase.HAS_FoalS, Boolean.valueOf(Foals));
+		this.dataManager.set(EntityMareBase.HAS_KIDS, Boolean.valueOf(Foals));
 	}
 
 	@Nullable
