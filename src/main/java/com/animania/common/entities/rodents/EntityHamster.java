@@ -124,7 +124,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + this.rand.nextInt(70);
-		//this.rideDelay = 30;
 		this.delayCount = 5;
 		this.enablePersistence();
 	}
@@ -301,9 +300,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 				}
 			}
-
-			// player.addStat(AnimaniaAchievements.Hamsters, 1);
-			this.setInLove(player);
+		
 			this.setFed(true);
 			this.setIsTamed(true);
 			this.setTamed(true);
@@ -502,33 +499,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		}
 
 
-		/*
-		if (this.isRiding())
-			this.rideCount++;
-		
-		if (this.isRiding() && this.getRidingEntity() instanceof EntityPlayer && this.rideCount > 30)
-		{
-			EntityPlayer player = (EntityPlayer) this.getRidingEntity();
-			if (player.isSneaking())
-			{
-				player.removePassengers();
-				this.setIsRiding(false);
-				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
-				props.setMounted(false);
-			}
-		}
-		*/
-		
-
-		/*
-		 * if (this.isRiding() && this.getRidingEntity() instanceof EntityPlayer
-		 * && this.rideCount > 30) { EntityPlayer player = (EntityPlayer)
-		 * this.getRidingEntity(); if (player.isSneaking()) {
-		 * player.removePassengers(); this.setIsRiding(false); final
-		 * ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
-		 * props.setMounted(false); } }
-		 */
-
 		if (this.blinkTimer > -1)
 		{
 			this.blinkTimer--;
@@ -538,18 +508,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		this.setResourceLoc();
 		super.onLivingUpdate();
-
-		/*
-		if (this.getIsRiding() && this.getRidingEntity() != null || this.isHamsterSitting())
-		{
-
-			if (this.getRidingEntity() != null)
-				this.rotationYaw = this.getRidingEntity().rotationYaw;
-			this.navigator.clearPathEntity();
-			this.navigator.setSpeed(0);
-
-		}
-		 */
 
 		if (this.getHealth() < 10)
 		{

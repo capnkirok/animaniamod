@@ -11,8 +11,8 @@ public class EntityBuckAlpine extends EntityBuckBase
 	{
 		super(worldIn);
 		this.goatType = GoatType.ALPINE;
-		this.setSize(1.7F, 1.4F);
-		this.width = 1.8F;
+		this.setSize(1.6F, 1.4F);
+		this.width = 1.6F;
 		this.dropRaw = ItemHandler.rawChevon;
 		this.dropCooked = ItemHandler.cookedChevon;
 		
