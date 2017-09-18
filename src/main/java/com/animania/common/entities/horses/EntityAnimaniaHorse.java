@@ -25,15 +25,19 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -44,12 +48,13 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
+public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 {
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.horseFood));
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
@@ -118,6 +123,36 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
 	protected ResourceLocation getLootTable()
 	{
 		return null;
+	}
+
+	public boolean canJump()
+	{
+		return true;
+	}
+
+
+	@SideOnly(Side.CLIENT)
+	public void setJumpPower(int jumpPowerIn)
+	{
+
+		if (jumpPowerIn < 0)
+		{
+			jumpPowerIn = 0;
+		}
+		else
+		{
+			//do nothing
+		}
+
+		if (jumpPowerIn >= 90)
+		{
+			this.jumpPower = 1.0F;
+		}
+		else
+		{
+			this.jumpPower = 0.4F + 0.4F * (float)jumpPowerIn / 90.0F;
+		}
+
 	}
 
 	@Nullable
@@ -288,7 +323,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
 	}
 
 
-	
+
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
@@ -428,16 +463,107 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable
 	}
 
 	@Override
+	public void moveEntityWithHeading(float strafe, float forward)
+	{
+		if (this.isBeingRidden() && this.canBeSteered())
+		{
+			EntityLivingBase entitylivingbase = (EntityLivingBase)this.getControllingPassenger();
+			this.rotationYaw = entitylivingbase.rotationYaw;
+			this.prevRotationYaw = this.rotationYaw;
+			this.rotationPitch = entitylivingbase.rotationPitch * 0.5F;
+			this.setRotation(this.rotationYaw, this.rotationPitch);
+			this.renderYawOffset = this.rotationYaw;
+			this.rotationYawHead = this.renderYawOffset;
+			strafe = entitylivingbase.moveStrafing * 0.5F;
+			forward = entitylivingbase.moveForward;
+
+			if (forward <= 0.0F)
+			{
+				forward *= 0.25F;
+				this.gallopTime = 0;
+			}
+
+			if (this.onGround && this.jumpPower == 0.0F && this.isRearing())
+			{
+				strafe = 0.0F;
+				forward = 0.0F;
+			}
+
+			if (this.jumpPower > 0.0F && !this.isHorseJumping() && this.onGround)
+			{
+				this.motionY = this.getHorseJumpStrength() * (double)this.jumpPower;
+
+				if (this.isPotionActive(MobEffects.JUMP_BOOST))
+				{
+					this.motionY += (double)((float)(this.getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F);
+				}
+
+				this.setHorseJumping(true);
+				this.isAirBorne = true;
+
+				if (forward > 0.0F)
+				{
+					float f = MathHelper.sin(this.rotationYaw * 0.017453292F);
+					float f1 = MathHelper.cos(this.rotationYaw * 0.017453292F);
+					this.motionX += (double)(-0.4F * f * this.jumpPower);
+					this.motionZ += (double)(0.4F * f1 * this.jumpPower);
+					this.playSound(SoundEvents.ENTITY_HORSE_JUMP, 0.4F, 1.0F);
+				}
+
+				this.jumpPower = 0.0F;
+			}
+
+			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
+
+			if (this.canPassengerSteer())
+			{
+				this.setAIMoveSpeed((float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+				super.moveEntityWithHeading(strafe, forward);
+			}
+			else if (entitylivingbase instanceof EntityPlayer)
+			{
+				this.motionX = 0.0D;
+				this.motionY = 0.0D;
+				this.motionZ = 0.0D;
+			}
+
+			if (this.onGround)
+			{
+				this.jumpPower = 0.0F;
+				this.setHorseJumping(false);
+			}
+
+			this.prevLimbSwingAmount = this.limbSwingAmount;
+			double d1 = this.posX - this.prevPosX;
+			double d0 = this.posZ - this.prevPosZ;
+			float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+
+			if (f2 > 1.0F)
+			{
+				f2 = 1.0F;
+			}
+
+			this.limbSwingAmount += (f2 - this.limbSwingAmount) * 0.4F;
+			this.limbSwing += this.limbSwingAmount;
+		}
+		else
+		{
+			this.jumpMovementFactor = 0.02F;
+			super.moveEntityWithHeading(strafe, forward);
+		}
+	}
+
+	@Override
 	public EntityAgeable createChild(EntityAgeable ageable) {
 		return null;
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.horseType, this.gender));
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{

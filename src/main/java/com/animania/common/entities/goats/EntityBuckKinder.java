@@ -12,7 +12,7 @@ public class EntityBuckKinder extends EntityBuckBase
 		super(worldIn);
 		this.goatType = GoatType.KINDER;
 		this.setSize(1.4F, 1.2F);
-		this.width = 1.5F;
+		this.width = 1.4F;
 		this.dropRaw = ItemHandler.rawChevon;
 		this.dropCooked = ItemHandler.cookedChevon;
 	}

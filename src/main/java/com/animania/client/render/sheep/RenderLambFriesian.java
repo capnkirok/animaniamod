@@ -46,7 +46,7 @@ public class RenderLambFriesian<T extends EntityLambFriesian> extends RenderLivi
 
 	protected void preRenderScale(EntityLambFriesian entity, float f) {
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.30F + age, 0.30F + age, 0.30F + age); 
+		GL11.glScalef(0.33F + age, 0.33F + age, 0.33F + age); 
         GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 

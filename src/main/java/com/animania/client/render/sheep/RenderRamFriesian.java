@@ -45,7 +45,7 @@ public class RenderRamFriesian<T extends EntityRamFriesian> extends RenderLiving
 	}
 
 	protected void preRenderScale(EntityRamFriesian entity, float f) {
-		GL11.glScalef(0.62F, 0.62F, 0.62F);
+		GL11.glScalef(0.65F, 0.65F, 0.65F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 	}
 

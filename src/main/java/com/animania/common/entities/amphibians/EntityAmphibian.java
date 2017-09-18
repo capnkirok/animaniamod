@@ -58,6 +58,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 		this.jumpHelper = new EntityAmphibian.FrogJumpHelper(this);
 		this.moveHelper = new EntityAmphibian.FrogMoveHelper(this);
 		this.canEntityJump = canEntityJumpIn;
+		this.enablePersistence();
 	}
 
 	@Override
