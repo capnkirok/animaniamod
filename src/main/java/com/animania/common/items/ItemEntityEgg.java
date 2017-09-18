@@ -49,6 +49,9 @@ public class ItemEntityEgg extends Item
 	public EntityGender gender;
 
 	public static Map<AnimalContainer, Item> ANIMAL_EGGS = new HashMap<AnimalContainer, Item>();
+	public static Map<AnimalContainer, Integer> ANIMAL_COLOR_PRIMARY = new HashMap<AnimalContainer, Integer>();
+	public static Map<AnimalContainer, Integer> ANIMAL_COLOR_SECONDARY = new HashMap<AnimalContainer, Integer>();
+	public static Map<AnimalContainer, Boolean> ANIMAL_USES_COLOR = new HashMap<AnimalContainer, Boolean>();
 
 	public ItemEntityEgg(String atype, AnimaniaType animal, EntityGender gender)
 	{
@@ -93,23 +96,23 @@ public class ItemEntityEgg extends Item
 			{
 				entity = EntityGender.getEntity(ChickenType.values()[rand.nextInt(((ChickenType) type).values().length)], gender, world);
 			}
-			if(type instanceof GoatType)
+			if (type instanceof GoatType)
 			{
 				entity = EntityGender.getEntity(GoatType.values()[rand.nextInt(((GoatType) type).values().length)], gender, world);
 			}
-			if(type instanceof PeacockType)
+			if (type instanceof PeacockType)
 			{
 				entity = EntityGender.getEntity(PeacockType.values()[rand.nextInt(((PeacockType) type).values().length)], gender, world);
 			}
-			if(type instanceof RabbitType)
+			if (type instanceof RabbitType)
 			{
 				entity = EntityGender.getEntity(RabbitType.values()[rand.nextInt(((RabbitType) type).values().length)], gender, world);
 			}
-			if(type instanceof SheepType)
+			if (type instanceof SheepType)
 			{
 				entity = EntityGender.getEntity(SheepType.values()[rand.nextInt(((SheepType) type).values().length)], gender, world);
 			}
-			if(type instanceof RandomAnimalType)
+			if (type instanceof RandomAnimalType)
 			{
 				entity = EntityGender.getEntity(type, gender, world);
 			}
@@ -167,19 +170,18 @@ public class ItemEntityEgg extends Item
 			if (!stack.isEmpty() && stack.getItem() != ItemHandler.entityeggrandomanimal)
 			{
 				AnimalContainer animal = ((ItemEntityEgg) stack.getItem()).getAnimal();
-				EntityLivingBase entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world);
 
 				if (animal.getGender() != EntityGender.RANDOM)
 				{
-
-					if (entity != null)
+					if (ANIMAL_USES_COLOR.containsKey(animal) && ANIMAL_USES_COLOR.get(animal).booleanValue())
 					{
-						if (((ISpawnable) entity).usesEggColor())
+						switch (tintIndex)
 						{
-							if (tintIndex == 0)
-								return ((ISpawnable) entity).getPrimaryEggColor();
-							else if (tintIndex == 1)
-								return ((ISpawnable) entity).getSecondaryEggColor();
+						case 0:
+							return ANIMAL_COLOR_PRIMARY.get(animal).intValue();
+						case 1:
+							return ANIMAL_COLOR_SECONDARY.get(animal).intValue();
+
 						}
 					}
 				}
