@@ -2,8 +2,6 @@ package com.animania.common.entities.sheep.ai;
 
 import java.util.Random;
 
-import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
@@ -15,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 
-public class EntityAIFindFood extends EntityAIBase 
+public class EntityAIFindFoodSheep extends EntityAIBase 
 {
 	private final EntityCreature temptedEntity;
 	private final double speed;
@@ -28,7 +26,7 @@ public class EntityAIFindFood extends EntityAIBase
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIFindFood(EntityCreature temptedEntityIn, double speedIn)
+	public EntityAIFindFoodSheep(EntityCreature temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
@@ -42,8 +40,8 @@ public class EntityAIFindFood extends EntityAIBase
 		if (this.delayTemptCounter <= 32) {
 			return false;
 		} else if (delayTemptCounter > 32) {
-			if (temptedEntity instanceof EntityAnimaniaGoat) {
-				EntityAnimaniaGoat ech = (EntityAnimaniaGoat)temptedEntity;
+			if (temptedEntity instanceof EntityAnimaniaSheep) {
+				EntityAnimaniaSheep ech = (EntityAnimaniaSheep)temptedEntity;
 				if (ech.getFed()) {
 					this.delayTemptCounter = 0;
 					return false;		
@@ -94,8 +92,8 @@ public class EntityAIFindFood extends EntityAIBase
 				if (te != null && te.canConsume(EntityAnimaniaSheep.TEMPTATION_ITEMS, null)) {
 					te.consumeSolid(1);
 
-					if (temptedEntity instanceof EntityAnimaniaGoat) {
-						EntityAnimaniaGoat ech = (EntityAnimaniaGoat)temptedEntity;
+					if (temptedEntity instanceof EntityAnimaniaSheep) {
+						EntityAnimaniaSheep ech = (EntityAnimaniaSheep)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					} 
@@ -107,8 +105,8 @@ public class EntityAIFindFood extends EntityAIBase
 
 			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT || poschk == Blocks.YELLOW_FLOWER) {
 
-				if (temptedEntity instanceof EntityAnimaniaGoat) {
-					EntityAnimaniaGoat ech = (EntityAnimaniaGoat)temptedEntity;
+				if (temptedEntity instanceof EntityAnimaniaSheep) {
+					EntityAnimaniaSheep ech = (EntityAnimaniaSheep)temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} 

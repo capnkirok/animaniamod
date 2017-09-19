@@ -10,7 +10,7 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.sheep.ai.EntityAIFindFood;
+import com.animania.common.entities.sheep.ai.EntityAIFindFoodSheep;
 import com.animania.common.entities.sheep.ai.EntityAIFindSaltLickSheep;
 import com.animania.common.entities.sheep.ai.EntityAIFindWater;
 import com.animania.common.entities.sheep.ai.EntityAIPanicSheep;
@@ -89,7 +89,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAISheepEatGrass(this);
-		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
+		this.tasks.addTask(1, new EntityAIFindFoodSheep(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAISwimmingSheep(this));
