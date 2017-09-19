@@ -33,6 +33,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable
@@ -108,15 +109,15 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		for (EnumFacing facing : EnumFacing.VALUES)
 		{
 			TileEntity tile = getSurroundingTE(facing);
-			if (tile != null && ((tile instanceof IEnergyReceiver) || tile.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())))
+			if (tile != null)
 			{
-				if (tile instanceof IEnergyReceiver)
+				if (Loader.isModLoaded("redstoneflux") && tile instanceof IEnergyReceiver)
 				{
 					IEnergyReceiver reciever = (IEnergyReceiver) getSurroundingTE(facing);
 					int recieved = reciever.receiveEnergy(facing.getOpposite(), this.getEnergy(), false);
 					this.power.extractEnergy(recieved, false);
 				}
-				else
+				else if(tile.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) 
 				{
 					IEnergyStorage energyStorage = tile.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
 					if(energyStorage.canReceive())
