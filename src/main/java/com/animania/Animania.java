@@ -40,7 +40,7 @@ public class Animania
 	public static Animania instance;
 
 	public static final String MODID = "animania";
-	public static final String VERSION = "1.3.1";
+	public static final String VERSION = "1.3.2";
 	public static final String NAME = "Animania";
 	public static final Logger LOGGER = LogManager.getFormatterLogger("Animania");
 	public final static String ACCEPTED_VERSIONS = "[1.12,1.13)";
