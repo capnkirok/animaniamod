@@ -112,12 +112,11 @@ public class EntityHandler
 			EntityRegistry.addSpawn(EntityToad.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.JUNGLE));
 
 			RegistryHelper.Entities.register(EntityFrogs.class, "frog", entityID++, 64, 3, true);
-			RegistryHelper.Entities.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 1, EnumCreatureType.AMBIENT,
-					getBiomes(BiomeDictionary.Type.SWAMP));
-			RegistryHelper.Entities.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.AMBIENT,
-					getBiomes(BiomeDictionary.Type.RIVER));
+			RegistryHelper.Entities.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 1, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.SWAMP));
+			RegistryHelper.Entities.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.RIVER));
+			
 			RegistryHelper.Entities.register(EntityDartFrogs.class, "dartfrog", entityID++, 64, 3, true);
-			RegistryHelper.Entities.addSpawn(EntityToad.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.JUNGLE));
+			RegistryHelper.Entities.addSpawn(EntityDartFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians + 10, 1, 2, EnumCreatureType.AMBIENT, getBiomes(BiomeDictionary.Type.JUNGLE));
 		}
 
 		//GOATS
@@ -190,10 +189,10 @@ public class EntityHandler
 			RegistryHelper.Entities.register(EntityEweJacob.class, "ewe_jacob", entityID++, 64, 3, true);
 			RegistryHelper.Entities.register(EntityRamJacob.class, "ram_jacob", entityID++, 64, 3, true);
 
-			RegistryHelper.Entities.addSpawn(EntityEweDorset.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, AnimaniaConfig.spawn.numberSheepFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			//RegistryHelper.Entities.addSpawn(EntityEweDorset.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, AnimaniaConfig.spawn.numberSheepFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
 			RegistryHelper.Entities.addSpawn(EntityEweDorset.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, AnimaniaConfig.spawn.numberSheepFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.HILLS));
 			RegistryHelper.Entities.addSpawn(EntityEweFriesian.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, AnimaniaConfig.spawn.numberSheepFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
-			RegistryHelper.Entities.addSpawn(EntityEweJacob.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, AnimaniaConfig.spawn.numberSheepFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			RegistryHelper.Entities.addSpawn(EntityEweJacob.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, AnimaniaConfig.spawn.numberSheepFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
 			RegistryHelper.Entities.addSpawn(EntityEweMerino.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, AnimaniaConfig.spawn.numberSheepFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
 			RegistryHelper.Entities.addSpawn(EntityEweMerino.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, AnimaniaConfig.spawn.numberSheepFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.DRY));
 			RegistryHelper.Entities.addSpawn(EntityEweSuffolk.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, AnimaniaConfig.spawn.numberSheepFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MESA));
@@ -208,7 +207,7 @@ public class EntityHandler
 			RegistryHelper.Entities.register(EntityRabbitBuckCottontail.class, "buck_cottontail", entityID++, 64, 3, true);
 			RegistryHelper.Entities.register(EntityRabbitDoeCottontail.class, "doe_cottontail", entityID++, 64, 3, true);
 			RegistryHelper.Entities.register(EntityRabbitKitCottontail.class, "kit_cottontail", entityID++, 64, 3, true);
-			RegistryHelper.Entities.addSpawn(EntityRabbitDoeCottontail.class, AnimaniaConfig.spawn.spawnProbabilityRabbits, 1, AnimaniaConfig.spawn.numberRabbitFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			//RegistryHelper.Entities.addSpawn(EntityRabbitDoeCottontail.class, AnimaniaConfig.spawn.spawnProbabilityRabbits, 1, AnimaniaConfig.spawn.numberRabbitFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
 			RegistryHelper.Entities.addSpawn(EntityRabbitDoeCottontail.class, AnimaniaConfig.spawn.spawnProbabilityRabbits, 1, AnimaniaConfig.spawn.numberRabbitFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
 
 			RegistryHelper.Entities.register(EntityRabbitBuckChinchilla.class, "buck_chinchilla", entityID++, 64, 3, true);
@@ -239,13 +238,13 @@ public class EntityHandler
 			RegistryHelper.Entities.register(EntityRabbitBuckNewZealand.class, "buck_new_zealand", entityID++, 64, 3, true);
 			RegistryHelper.Entities.register(EntityRabbitDoeNewZealand.class, "doe_new_zealand", entityID++, 64, 3, true);
 			RegistryHelper.Entities.register(EntityRabbitKitNewZealand.class, "kit_new_zealand", entityID++, 64, 3, true);
-			RegistryHelper.Entities.addSpawn(EntityRabbitDoeNewZealand.class, AnimaniaConfig.spawn.spawnProbabilityRabbits, 1, AnimaniaConfig.spawn.numberRabbitFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			//RegistryHelper.Entities.addSpawn(EntityRabbitDoeNewZealand.class, AnimaniaConfig.spawn.spawnProbabilityRabbits, 1, AnimaniaConfig.spawn.numberRabbitFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
 			RegistryHelper.Entities.addSpawn(EntityRabbitDoeNewZealand.class, AnimaniaConfig.spawn.spawnProbabilityRabbits, 1, AnimaniaConfig.spawn.numberRabbitFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
 
 			RegistryHelper.Entities.register(EntityRabbitBuckRex.class, "buck_rex", entityID++, 64, 3, true);
 			RegistryHelper.Entities.register(EntityRabbitDoeRex.class, "doe_rex", entityID++, 64, 3, true);
 			RegistryHelper.Entities.register(EntityRabbitKitRex.class, "kit_rex", entityID++, 64, 3, true);
-			RegistryHelper.Entities.addSpawn(EntityRabbitDoeRex.class, AnimaniaConfig.spawn.spawnProbabilityRabbits, 1, AnimaniaConfig.spawn.numberRabbitFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			RegistryHelper.Entities.addSpawn(EntityRabbitDoeRex.class, AnimaniaConfig.spawn.spawnProbabilityRabbits, 1, AnimaniaConfig.spawn.numberRabbitFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
 
 			RegistryHelper.Entities.register(EntityRabbitBuckLop.class, "buck_lop", entityID++, 64, 3, true);
 			RegistryHelper.Entities.register(EntityRabbitDoeLop.class, "doe_lop", entityID++, 64, 3, true);

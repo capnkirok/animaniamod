@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import com.animania.client.models.goats.ModelDoeFainting;
 import com.animania.common.entities.goats.EntityDoeFainting;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -24,7 +25,7 @@ public class RenderDoeFainting<T extends EntityDoeFainting> extends RenderLiving
     Random                                rand             = new Random();
 
     public RenderDoeFainting(RenderManager rm) {
-        super(rm, new ModelDoeFainting(), 0.5F);
+        super(rm, new ModelDoeFainting(), 0.3F);
     }
 
     protected ResourceLocation getGoatTextures(T par1Entity) {
@@ -37,7 +38,14 @@ public class RenderDoeFainting<T extends EntityDoeFainting> extends RenderLiving
 
     protected void preRenderScale(EntityDoeFainting entity, float f) {
         GL11.glScalef(0.4F, 0.4F, 0.4F);
-        GL11.glTranslatef(0f, 0f, -0.5f);
+        if (entity.getSpooked() && entity.getSpookedTimer() < 0.94F && entity.getSpookedTimer() > 0.02F)  {
+			GlStateManager.translate(0.0F, entity.height - 1.5F, 0.0F);
+			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
+			this.renderManager.setRenderShadow(false);
+		} else {
+			GL11.glTranslatef(0f, 0f, -0.5f);
+			this.renderManager.setRenderShadow(true);
+		}
     }
 
     @Override
