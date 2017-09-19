@@ -367,6 +367,27 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				itemstack.shrink(1);
 			return true;
 		}
+		else if (!itemstack.isEmpty() && itemstack.getItem() == ItemHandler.hamsterBallClear && !isInBall())
+		{
+			setInBall(true);
+			setBallColor(16);
+			if (!player.isCreative())
+				itemstack.shrink(1);
+			return true;
+		}
+		else if (!itemstack.isEmpty() && itemstack.getItem() instanceof ItemHamsterBall && isInBall())
+		{
+			int color = this.getBallColor();
+			setInBall(false);
+			if (!player.isCreative())
+			{
+				if (color == 16)
+					AnimaniaHelper.addItem(player, new ItemStack(ItemHandler.hamsterBallClear));
+				else
+					AnimaniaHelper.addItem(player, new ItemStack(ItemHandler.hamsterBallColored, 1, color));
+			}
+			return true;
+		}
 
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 		{
