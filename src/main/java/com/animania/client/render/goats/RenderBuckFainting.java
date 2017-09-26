@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import com.animania.client.models.goats.ModelBuckFainting;
 import com.animania.common.entities.goats.EntityBuckFainting;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -24,7 +25,7 @@ public class RenderBuckFainting<T extends EntityBuckFainting> extends RenderLivi
     Random                                rand             = new Random();
 
     public RenderBuckFainting(RenderManager rm) {
-        super(rm, new ModelBuckFainting(), 0.5F);
+        super(rm, new ModelBuckFainting(), 0.35F);
     }
 
     protected ResourceLocation getGoatTextures(T par1EntityCow) {
@@ -37,7 +38,14 @@ public class RenderBuckFainting<T extends EntityBuckFainting> extends RenderLivi
 
     protected void preRenderScale(EntityBuckFainting entity, float f) {
         GL11.glScalef(0.42F, 0.42F, 0.42F);
-        GL11.glTranslatef(0f, 0f, -0.5f);
+        if (entity.getSpooked() && entity.getSpookedTimer() < 0.94F && entity.getSpookedTimer() > 0.02F)  {
+			GlStateManager.translate(0.0F, entity.height - 1.5F, 0.0F);
+			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
+			this.renderManager.setRenderShadow(false);
+		} else {
+			GL11.glTranslatef(0f, 0f, -0.5f);
+			this.renderManager.setRenderShadow(true);
+		}
     }
 
     @Override

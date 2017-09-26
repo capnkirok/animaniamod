@@ -67,6 +67,8 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	protected static final DataParameter<Optional<UUID>> RIVAL_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> SHEARED_TIMER = EntityDataManager.<Integer>createKey(EntityAnimaniaGoat.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> SPOOKED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Float> SPOOKED_TIMER = EntityDataManager.<Float>createKey(EntityAnimaniaGoat.class, DataSerializers.FLOAT);
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -122,6 +124,8 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		this.dataManager.register(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaGoat.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
+		this.dataManager.register(EntityAnimaniaGoat.SPOOKED, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaGoat.SPOOKED_TIMER, 0.0F);
 	}
 
 	@Override
@@ -146,6 +150,26 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 
 		if (!player.isCreative())
 			stack.shrink(1);;
+	}
+
+	public void setSpooked(boolean spooked)
+	{
+		this.dataManager.set(EntityAnimaniaGoat.SPOOKED, Boolean.valueOf(spooked));
+	} 
+
+	public boolean getSpooked()
+	{
+		return this.dataManager.get(EntityAnimaniaGoat.SPOOKED).booleanValue();
+	}
+
+	public Float getSpookedTimer()
+	{
+		return this.dataManager.get(EntityAnimaniaGoat.SPOOKED_TIMER).floatValue();
+	}
+
+	public void setSpookedTimer(Float timer)
+	{
+		this.dataManager.set(EntityAnimaniaGoat.SPOOKED_TIMER, Float.valueOf(timer));
 	}
 
 	@Nullable
@@ -235,6 +259,30 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 			if (this.blinkTimer == 0)
 			{
 				this.blinkTimer = 100 + this.rand.nextInt(100);
+			}
+		}
+
+		if (this.getSpooked()) {
+
+			if (this.getSpookedTimer() == 1.0F) {
+				this.setJumping(true);
+			} else {
+				this.setJumping(false);
+			}
+
+			this.getNavigator().clearPathEntity();
+			this.setNoAI(true);
+
+			this.setSpookedTimer(this.getSpookedTimer() - 0.01F);
+
+			if (this.getSpookedTimer() <= 0.04F && this.getSpookedTimer() > 0.0F) {
+				this.setJumping(true);
+			} else if (this.getSpookedTimer() <= 0.0F) {
+				this.setSpooked(false);
+				this.setSpookedTimer(0.0F);
+				this.setNoAI(false);
+				this.setJumping(false);
+
 			}
 		}
 
@@ -374,6 +422,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Sheared", this.getSheared());
+		compound.setBoolean("Spooked", this.getSpooked());
 
 	}
 
@@ -426,6 +475,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setSheared(compound.getBoolean("Sheared"));
+		this.setSpooked(compound.getBoolean("Spooked"));
 
 	}
 

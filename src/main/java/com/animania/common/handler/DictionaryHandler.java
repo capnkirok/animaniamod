@@ -205,6 +205,12 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllporkcooked", Items.COOKED_PORKCHOP);
 		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherBlue);
 		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherWhite);
+		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherCharcoal);
+		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherOpal);
+		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherPeach);
+		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherPurple);
+		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherTaupe);
+
 
 		OreDictionary.registerOre("wool", new ItemStack(Blocks.WOOL, 1, Short.MAX_VALUE));
 
