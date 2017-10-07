@@ -80,6 +80,9 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		if (isRunning)
 		{
 			energy += AnimaniaConfig.gameRules.hamsterWheelRFGeneration;
+			if(energy > AnimaniaConfig.gameRules.hamsterWheelCapacity)
+				energy = AnimaniaConfig.gameRules.hamsterWheelCapacity;
+			
 			timer++;
 			this.markDirty();
 
