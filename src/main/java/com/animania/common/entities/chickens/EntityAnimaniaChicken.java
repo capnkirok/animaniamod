@@ -41,8 +41,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.stats.Achievement;
-import net.minecraft.stats.AchievementList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -85,9 +83,11 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 		this.tasks.taskEntries.clear();
 		this.tasks.addTask(0, new EntityAISwimmingChicks(this));
 		this.tasks.addTask(1, new EntityAIPanicChickens(this, 1.4D));
-		this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
+		}
 		this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
-		this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(7, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(8, new EntityAILookIdle(this));
@@ -191,6 +191,10 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	public void onLivingUpdate()
 	{
 
+		if (this.getGrowingAge() == 0) {
+			this.setGrowingAge(1);
+		}
+		
 		super.onLivingUpdate();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
@@ -223,7 +227,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
-		if (this.fedTimer > -1)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -235,7 +239,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
 

@@ -197,6 +197,10 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 	@Override
 	public void onLivingUpdate() {
 
+		if (this.getGrowingAge() == 0) {
+			this.setGrowingAge(1);
+		}
+		
 		if (this.canEntityJump)
 			if (this.jumpTicks != this.jumpDuration)
 				++this.jumpTicks;

@@ -113,9 +113,11 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	{
 		this.aiSit = new EntityAISit(this);
 		this.tasks.addTask(0, new EntityAISwimmingRodents(this));
-		this.tasks.addTask(1, new EntityAIFindWater(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIHedgehogFindFood(this, 1.0D));
+		}
 		this.tasks.addTask(2, this.aiSit);
-		this.tasks.addTask(3, new EntityAIHedgehogFindFood(this, 1.0D));
 		this.tasks.addTask(4, new EntityAILeapAtTarget(this, 0.2F));
 		this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, true));
 		this.entityAIEatGrass = new EntityAIRodentEat(this);
@@ -452,6 +454,10 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
+		
+		if (this.getGrowingAge() == 0) {
+			this.setGrowingAge(1);
+		}
 
 		if (this.isSitting() || this.isHedgehogSitting() || this.isRiding())
 		{
@@ -471,7 +477,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
-		if (this.fedTimer > -1)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -483,7 +489,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
 

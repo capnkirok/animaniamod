@@ -72,11 +72,14 @@ public class EntityAIFindWater extends EntityAIBase
 
 			Random rand = new Random();
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
+			BlockPos currentposlower = new BlockPos(temptedEntity.posX, temptedEntity.posY - 1, temptedEntity.posZ);
+			
 			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
+			Block poschk1 = temptedEntity.world.getBlockState(currentposlower).getBlock();
 
 			Biome biomegenbase = this.temptedEntity.world.getBiome(new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ));
 
-			if (poschk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+			if ((poschk == Blocks.WATER || poschk1 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 
 				if (this.temptedEntity instanceof EntityFerretBase) {
 					EntityFerretBase entity = (EntityFerretBase) temptedEntity;

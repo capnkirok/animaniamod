@@ -61,7 +61,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	public EntityDoeBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.1F, 1.0F);
+		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;

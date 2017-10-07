@@ -525,6 +525,11 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public void onLivingUpdate()
 	{
+		
+		if (this.getGrowingAge() == 0) {
+			this.setGrowingAge(1);
+		}
+		
 		if (!this.getFertile() && this.dryTimerMare > -1) {
 			this.dryTimerMare--;
 		} else {
@@ -541,21 +546,22 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			this.setColorNumber(0);
 		}
 
-		if (this.fedTimer > -1) {
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.fedTimer--;
 
-			if (fedTimer == 0) {
+			if (this.fedTimer == 0)
 				this.setFed(false);
-			}
 		}
 
-		if (this.wateredTimer > -1) {
+		if (this.wateredTimer > -1)
+		{
 			this.wateredTimer--;
 
-			if (wateredTimer == 0) {
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
-			}
 		}
+
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();

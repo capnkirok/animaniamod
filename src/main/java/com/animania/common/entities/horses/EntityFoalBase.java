@@ -261,6 +261,10 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public void onLivingUpdate()
 	{
 		
+		if (this.getGrowingAge() == 0) {
+			this.setGrowingAge(1);
+		}
+		
 		if (this.world.isRemote)
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
@@ -270,20 +274,20 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			this.setColorNumber(0);
 		}
 
-		if (this.fedTimer > -1) {
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.fedTimer--;
 
-			if (fedTimer == 0) {
+			if (this.fedTimer == 0)
 				this.setFed(false);
-			}
 		}
 
-		if (this.wateredTimer > -1) {
+		if (this.wateredTimer > -1)
+		{
 			this.wateredTimer--;
 
-			if (wateredTimer == 0) {
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
-			}
 		}
 
 		boolean fed = this.getFed();

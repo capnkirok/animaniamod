@@ -108,12 +108,14 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	{
 		this.aiSit = new EntityAISit(this);
 		this.tasks.addTask(0, new EntityAISwimmingRodents(this));
-		this.tasks.addTask(1, new EntityAIFindWater(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFerretFindFood(this, 1.0D));
+		}
 		this.tasks.addTask(2, this.aiSit);
 		this.entityAIEatGrass = new EntityAIRodentEat(this);
 		this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.2F));
 		this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
-		this.tasks.addTask(5, new EntityAIFerretFindFood(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
 		this.tasks.addTask(7, new EntityAIPanic(this, 1.5D));
 		this.tasks.addTask(8, new EntityAIRodentEat(this));
@@ -433,6 +435,10 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public void onLivingUpdate()
 	{
 
+		if (this.getGrowingAge() == 0) {
+			this.setGrowingAge(1);
+		}
+		
 		if (this.isFerretSitting() || this.isRiding())
 		{
 			if (this.getRidingEntity() != null)
@@ -451,7 +457,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
-		if (this.fedTimer > -1)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -463,7 +469,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
 

@@ -99,7 +99,7 @@ public class RecipeHandler
 
 		// BLOCKS
 		// Nest
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BlockHandler.blockNest, 1), new Object[] { "wool", "stickWood", "treeLeaves" }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(BlockHandler.blockNest, 1), new Object[] { "blockWool", "stickWood", "treeLeaves" }));
 
 		// Trough
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BlockHandler.blockTrough, 1), new Object[] { "p p", "pip", "s s", 'p', "plankWood", 'i', "ingotIron", 's', "stickWood" }));
@@ -198,12 +198,12 @@ public class RecipeHandler
 
 		//Bed
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.BED, 1), new Object[] {
-				"   ","www","ppp",'w', "wool", 'p', "plankWood"
+				"   ","www","ppp",'w', "blockWool", 'p', "plankWood"
 		}));
 
 		//Painting
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.PAINTING, 1), new Object[] {
-				"sss", "sws","sss",'w', "wool", 's', "stickWood"
+				"sss", "sws","sss",'w', "blockWool", 's', "stickWood"
 		}));
 
 		//Carpet

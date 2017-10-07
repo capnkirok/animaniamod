@@ -102,9 +102,11 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAIRodentEat(this);
-		this.tasks.addTask(1, new EntityAIFindFoodRabbits(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIPanicRodents(this, 1.4D));
-		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.4D));
+			this.tasks.addTask(3, new EntityAIFindFoodRabbits(this, 1.4D));
+		}
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.8D));
 		this.tasks.addTask(5, new EntityAISwimmingRodents(this));
 		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
@@ -435,7 +437,10 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 	@Override
 	public void onLivingUpdate()
 	{
-
+		if (this.getGrowingAge() == 0) {
+			this.setGrowingAge(1);
+		}
+		
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -448,7 +453,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 			}
 		}
 
-		if (this.fedTimer > -1)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -460,7 +465,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
 

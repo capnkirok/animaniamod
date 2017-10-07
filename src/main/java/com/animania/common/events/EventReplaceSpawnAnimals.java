@@ -120,17 +120,22 @@ public class EventReplaceSpawnAnimals
 		Biome biome = event.getWorld().getBiome(pos);
 		World worldIn = event.getWorld();
 		Random rand = new Random();
+		List list = worldIn.loadedEntityList;
 
 		if (AnimaniaConfig.gameRules.replaceVanillaCows && event.getEntity().getClass().equals(EntityCow.class) && !worldIn.isRemote) {
 			if (!event.getEntity().hasCustomName()) {
-				event.getEntity().setDead();
 				event.setCanceled(true);
 				event.isCanceled();
 			}
 
 			int cowCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 128, event.getWorld(), event.getEntity());
-			cowCount = entities.size();
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaCow) {
+					num++;
+				}
+			}
+			cowCount = num;
 
 			if (AnimaniaConfig.spawn.spawnAnimaniaCows && cowCount < AnimaniaConfig.spawn.spawnLimitCows) {
 
@@ -228,17 +233,45 @@ public class EventReplaceSpawnAnimals
 			}
 
 		}
+		else if (event.getEntity() instanceof EntityAnimaniaCow && !worldIn.isRemote) {
+
+			int cowCount = 0;
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaCow) {
+					num++;
+				}
+			}
+			cowCount = num;
+
+			//System.out.println("Animania Cow count: " + cowCount);
+
+			if (cowCount >= AnimaniaConfig.spawn.spawnLimitCows && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
+				if (!event.getEntity().hasCustomName()) {
+					EntityAnimaniaCow checkTamed = (EntityAnimaniaCow) event.getEntity();
+					if (!checkTamed.isInLove() && checkTamed.getGrowingAge() == 0) {
+						event.setCanceled(true);
+						event.isCanceled();
+					}
+				}
+			}
+		}
 		else if (AnimaniaConfig.gameRules.replaceVanillaPigs && event.getEntity().getClass().equals(EntityPig.class) && !worldIn.isRemote) {
 
 			if (!event.getEntity().hasCustomName()) {
-				event.getEntity().setDead();
+
 				event.setCanceled(true);
 				event.isCanceled();
 			}
 
 			int pigCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 128, event.getWorld(), event.getEntity());
-			pigCount = entities.size();
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaPig) {
+					num++;
+				}
+			}
+			pigCount = num;
 
 			int chooser = 0;
 			if (worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
@@ -337,17 +370,44 @@ public class EventReplaceSpawnAnimals
 				}
 
 		}
+		else if (event.getEntity() instanceof EntityAnimaniaPig && !worldIn.isRemote) {
+
+			int pigCount = 0;
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaPig) {
+					num++;
+				}
+			}
+			pigCount = num;
+			//System.out.println("Animania Pig count: " + pigCount);
+
+			if (pigCount >= AnimaniaConfig.spawn.spawnLimitPigs && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
+				if (!event.getEntity().hasCustomName()) {
+					EntityAnimaniaPig checkTamed = (EntityAnimaniaPig) event.getEntity();
+					if (!checkTamed.isInLove() && checkTamed.getGrowingAge() == 0) {
+						event.setCanceled(true);
+						event.isCanceled();
+					}
+				}
+			}
+		}
 		else if (AnimaniaConfig.gameRules.replaceVanillaSheep && event.getEntity().getClass().equals(EntitySheep.class) && !worldIn.isRemote) {
 
 			if (!event.getEntity().hasCustomName()) {
-				event.getEntity().setDead();
+
 				event.setCanceled(true);
 				event.isCanceled();
 			}
 
 			int sheepCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 128, event.getWorld(), event.getEntity());
-			sheepCount = entities.size();
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaSheep) {
+					num++;
+				}
+			}
+			sheepCount = num;
 
 			int chooser = 0;
 			if (worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
@@ -359,8 +419,8 @@ public class EventReplaceSpawnAnimals
 
 			if (AnimaniaConfig.spawn.spawnAnimaniaSheep && sheepCount < AnimaniaConfig.spawn.spawnLimitSheep)
 				if (biome.equals(Type.PLAINS)) {
-					boolean chooser2 = rand.nextBoolean();
-					if (chooser2) {
+					int chooser2 = rand.nextInt(2);
+					if (chooser2 == 0) {
 						if (chooser <= 2) {
 							EntityEweDorset entity = new EntityEweDorset(worldIn);
 							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
@@ -377,6 +437,7 @@ public class EventReplaceSpawnAnimals
 							worldIn.spawnEntity(entity);
 						}
 					} else { 
+
 						if (chooser <= 2) {
 							EntityEweFriesian entity = new EntityEweFriesian(worldIn);
 							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
@@ -463,26 +524,54 @@ public class EventReplaceSpawnAnimals
 				}
 
 		}
+		else if (event.getEntity() instanceof EntityAnimaniaSheep && !worldIn.isRemote) {
+
+			int sheepCount = 0;
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaSheep) {
+					num++;
+				}
+			}
+			sheepCount = num;
+			//System.out.println("Animania Sheep count: " + sheepCount);
+
+			if (sheepCount >= AnimaniaConfig.spawn.spawnLimitSheep && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
+				if (!event.getEntity().hasCustomName()) {
+					EntityAnimaniaSheep checkTamed = (EntityAnimaniaSheep) event.getEntity();
+					if (!checkTamed.isInLove() && checkTamed.getGrowingAge() == 0) {
+						event.setCanceled(true);
+						event.isCanceled();
+					}
+				}
+			}
+		}
 		else if (AnimaniaConfig.gameRules.replaceVanillaChickens && event.getEntity().getClass().equals(EntityChicken.class) && !worldIn.isRemote) {
 			if (!event.getEntity().hasCustomName() && !event.getEntity().isBeingRidden()) {
 				EntityChicken bob = (EntityChicken) event.getEntity();
 				if (!bob.isChickenJockey()) { 
-					event.getEntity().setDead();
 					event.setCanceled(true);
 					event.isCanceled();
 				}
 			}
 
+
 			int chickenCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 128, event.getWorld(), event.getEntity());
-			chickenCount = entities.size();
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaChicken) {
+					num++;
+				}
+			}
+			chickenCount = num;
+
+			//System.out.println("Chicken count: " + chickenCount);
+
 			int chooser = 0;
 			if (worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
 				chooser = rand.nextInt(10);
 			else
 				chooser = rand.nextInt(5);
-
-			//System.out.println("Chicken count: " + chickenCount);
 
 			if (AnimaniaConfig.spawn.spawnAnimaniaChickens && chickenCount < AnimaniaConfig.spawn.spawnLimitChickens)
 				if (biome.equals(Type.JUNGLE)) {
@@ -569,19 +658,45 @@ public class EventReplaceSpawnAnimals
 					worldIn.spawnEntity(entity);
 				}
 
-			//System.out.println(event.getEntity().posX + "  " + event.getEntity().posY + "  "+ event.getEntity().posZ);
+		}
+		else if (event.getEntity() instanceof EntityAnimaniaChicken && !worldIn.isRemote) {
 
+			int chickenCount = 0;
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaChicken) {
+					num++;
+				}
+			}
+			chickenCount = num;
+
+			//System.out.println("Chicken count: " + chickenCount);
+
+			if (chickenCount >= AnimaniaConfig.spawn.spawnLimitChickens && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
+				if (!event.getEntity().hasCustomName()) {
+					EntityAnimaniaChicken checkTamed = (EntityAnimaniaChicken) event.getEntity();
+
+					if (!checkTamed.isInLove() && checkTamed.getGrowingAge() == 0) {
+						event.setCanceled(true);
+						event.isCanceled();
+					}
+				}
+			}
 		}
 		else if (AnimaniaConfig.gameRules.replaceVanillaRabbits && event.getEntity().getClass().equals(EntityRabbit.class) && !worldIn.isRemote) {
 			if (!event.getEntity().hasCustomName()) {
-				event.getEntity().setDead();
 				event.setCanceled(true);
 				event.isCanceled();
 			}
 
 			int rabbitCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaRabbit.class, 128, event.getWorld(), event.getEntity());
-			rabbitCount = entities.size();
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaRabbit) {
+					num++;
+				}
+			}
+			rabbitCount = num;
 
 			if (AnimaniaConfig.spawn.spawnAnimaniaRabbits && rabbitCount < AnimaniaConfig.spawn.spawnLimitRabbits) {
 
@@ -679,18 +794,44 @@ public class EventReplaceSpawnAnimals
 			}
 
 		}
+		else if (event.getEntity() instanceof EntityAnimaniaRabbit && !worldIn.isRemote) {
+
+			int rabbitCount = 0;
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaRabbit) {
+					num++;
+				}
+			}
+			rabbitCount = num;
+			//System.out.println("Animania Rabbit count: " + rabbitCount);
+
+			if (rabbitCount >= AnimaniaConfig.spawn.spawnLimitRabbits && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
+				if (!event.getEntity().hasCustomName()) {
+					EntityAnimaniaRabbit checkTamed = (EntityAnimaniaRabbit) event.getEntity();
+					if (!checkTamed.isInLove() && checkTamed.getGrowingAge() == 0) {
+						event.setCanceled(true);
+						event.isCanceled();
+					}
+				}
+			}
+		}
 		else if (event.getEntity() instanceof EntityHedgehogBase && !worldIn.isRemote) {
 
 			int hedgehogCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityHedgehogBase.class, 128, event.getWorld(), event.getEntity());
-			hedgehogCount = entities.size();
-			// System.out.println("Hedgehog count: " + hedgehogCount);
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityHedgehogBase) {
+					num++;
+				}
+			}
+			hedgehogCount = num;
+			//System.out.println("Hedgehog count: " + hedgehogCount);
 
 			if (hedgehogCount >= AnimaniaConfig.spawn.spawnLimitHedgehogs && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
 				if (!event.getEntity().hasCustomName()) {
 					EntityHedgehogBase checkTamed = (EntityHedgehogBase) event.getEntity();
-					if (!checkTamed.isInLove() && !checkTamed.isTamed()) {
-						event.getEntity().setDead();
+					if (!checkTamed.isInLove() && checkTamed.isTamed() && checkTamed.getGrowingAge() == 0) {
 						event.setCanceled(true);
 						event.isCanceled();
 					}
@@ -700,16 +841,20 @@ public class EventReplaceSpawnAnimals
 		else if (event.getEntity() instanceof EntityHamster && !worldIn.isRemote) {
 
 			int hamsterCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityHamster.class, 128, event.getWorld(), event.getEntity());
-			hamsterCount = entities.size();
-
-			// System.out.println("Hamster count: " + hamsterCount);
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityHamster) {
+					num++;
+				}
+			}
+			hamsterCount = num;
+			
+			//System.out.println("Hamster count: " + hamsterCount);
 
 			if (hamsterCount >= AnimaniaConfig.spawn.spawnLimitHamsters && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
 				if (!event.getEntity().hasCustomName()) {
 					EntityHamster checkTamed = (EntityHamster) event.getEntity();
-					if (!checkTamed.isInLove() && !checkTamed.isTamed()) {
-						event.getEntity().setDead();
+					if (!checkTamed.isInLove() && checkTamed.isTamed() && checkTamed.getGrowingAge() == 0) {
 						event.setCanceled(true);
 						event.isCanceled();
 					}
@@ -718,16 +863,20 @@ public class EventReplaceSpawnAnimals
 		else if (event.getEntity() instanceof EntityFerretBase && !worldIn.isRemote) {
 
 			int ferretCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityFerretBase.class, 128, event.getWorld(), event.getEntity());
-			ferretCount = entities.size();
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityFerretBase) {
+					num++;
+				}
+			}
+			ferretCount = num;
 
-			// System.out.println("Ferret count: " + ferretCount);
+			//System.out.println("Ferret count: " + ferretCount);
 
 			if (ferretCount >= AnimaniaConfig.spawn.spawnLimitFerrets && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
 				if (!event.getEntity().hasCustomName()) {
 					EntityFerretBase checkTamed = (EntityFerretBase) event.getEntity();
-					if (!checkTamed.isInLove() && !checkTamed.isTamed()) {
-						event.getEntity().setDead();
+					if (!checkTamed.isInLove() && checkTamed.isTamed() && checkTamed.getGrowingAge() == 0) {
 						event.setCanceled(true);
 						event.isCanceled();
 					}
@@ -738,16 +887,20 @@ public class EventReplaceSpawnAnimals
 		else if (event.getEntity() instanceof EntityAmphibian && !worldIn.isRemote) {
 
 			int amphibianCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityAmphibian.class, 128, event.getWorld(), event.getEntity());
-			amphibianCount = entities.size();
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAmphibian) {
+					num++;
+				}
+			}
+			amphibianCount = num;
 
-			//System.out.println("animal Count: " + animalCount);
+			//System.out.println("Amphibian Count: " + amphibianCount);
 
 			if (amphibianCount >= AnimaniaConfig.spawn.spawnLimitAmphibians && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
 				if (!event.getEntity().hasCustomName()) {
 					EntityAmphibian checkTamed = (EntityAmphibian) event.getEntity();
-					if (!checkTamed.isInLove()) {
-						event.getEntity().setDead();
+					if (!checkTamed.isInLove() && checkTamed.getGrowingAge() == 0) {
 						event.setCanceled(true);
 						event.isCanceled();
 					}
@@ -758,16 +911,20 @@ public class EventReplaceSpawnAnimals
 		else if (event.getEntity() instanceof EntityAnimaniaHorse && !worldIn.isRemote) {
 
 			int horseCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 128, event.getWorld(), event.getEntity());
-			horseCount = entities.size();
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaHorse) {
+					num++;
+				}
+			}
+			horseCount = num;
 
 			//System.out.println("Horse Count: " + horseCount);
 
 			if (horseCount >= AnimaniaConfig.spawn.spawnLimitHorses && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
 				if (!event.getEntity().hasCustomName()) {
 					EntityAnimaniaHorse checkTamed = (EntityAnimaniaHorse) event.getEntity();
-					if (!checkTamed.isInLove() && !checkTamed.isTame()) {
-						event.getEntity().setDead();
+					if (!checkTamed.isInLove() && checkTamed.getGrowingAge() == 0) {
 						event.setCanceled(true);
 						event.isCanceled();
 					}
@@ -779,16 +936,20 @@ public class EventReplaceSpawnAnimals
 		else if (event.getEntity() instanceof EntityAnimaniaPeacock && !worldIn.isRemote) {
 
 			int peacockCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPeacock.class, 128, event.getWorld(), event.getEntity());
-			peacockCount = entities.size();
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaPeacock) {
+					num++;
+				}
+			}
+			peacockCount = num;
 
-			// System.out.println("Peacock count: " + peacockCount);
+			//System.out.println("Peacock count: " + peacockCount);
 
 			if (peacockCount >= AnimaniaConfig.spawn.spawnLimitPeacocks && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null && !event.getEntity().hasCustomName())
 				if (!event.getEntity().hasCustomName()) {
 					EntityAnimaniaPeacock checkTamed = (EntityAnimaniaPeacock) event.getEntity();
-					if (!checkTamed.isInLove()) {
-						event.getEntity().setDead();
+					if (!checkTamed.isInLove() && checkTamed.getGrowingAge() == 0) {
 						event.setCanceled(true);
 						event.isCanceled();
 					}
@@ -798,41 +959,25 @@ public class EventReplaceSpawnAnimals
 		else if ((event.getEntity() instanceof EntityAnimaniaGoat) && !worldIn.isRemote) {
 
 			int goatCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaGoat.class, 128, event.getWorld(), event.getEntity());
-			goatCount = entities.size();
+			int num = 0;
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) instanceof EntityAnimaniaGoat) {
+					num++;
+				}
+			}
+			goatCount = num;
 
 			//System.out.println("Goat count: " + goatCount);
 
 			if (goatCount >= AnimaniaConfig.spawn.spawnLimitGoats && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
 				if (!event.getEntity().hasCustomName()) {
 					EntityAnimaniaGoat checkTamed = (EntityAnimaniaGoat) event.getEntity();
-					if (!checkTamed.isInLove()) {
-						event.getEntity().setDead();
+					if (!checkTamed.isInLove() && checkTamed.getGrowingAge() == 0) {
 						event.setCanceled(true);
 						event.isCanceled();
 					}
 				}
 			}
-		}
-		else if ((event.getEntity() instanceof EntityAnimaniaSheep) && !worldIn.isRemote) {
-
-			int sheepCount = 0;
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 128, event.getWorld(), event.getEntity());
-			sheepCount = entities.size();
-
-
-			//System.out.println("Sheep count: " + goatCount);
-
-			if (sheepCount >= AnimaniaConfig.spawn.spawnLimitSheep && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null)
-				if (!event.getEntity().hasCustomName()) {
-					EntityAnimaniaSheep checkTamed = (EntityAnimaniaSheep) event.getEntity();
-					if (!checkTamed.isInLove()) {
-						event.getEntity().setDead();
-						event.setCanceled(true);
-						event.isCanceled();
-					}
-				}
-
 		}
 		else if (event.getEntity().getClass().equals(EntityZombie.class) && AnimaniaConfig.gameRules.allowMobRiding) {
 

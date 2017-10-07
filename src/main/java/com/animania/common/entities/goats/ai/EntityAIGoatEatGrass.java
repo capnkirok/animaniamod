@@ -80,8 +80,8 @@ public class EntityAIGoatEatGrass extends EntityAIBase
 
 				if (grassEaterEntity instanceof EntityAnimaniaGoat) {
 					EntityAnimaniaGoat ech = (EntityAnimaniaGoat)grassEaterEntity;
-					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
+					ech.entityAIEatGrass.startExecuting();
 				} 
 				this.grassEaterEntity.eatGrassBonus();
 			}
@@ -99,8 +99,8 @@ public class EntityAIGoatEatGrass extends EntityAIBase
 
 					if (grassEaterEntity instanceof EntityAnimaniaGoat) {
 						EntityAnimaniaGoat ech = (EntityAnimaniaGoat)grassEaterEntity;
-						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
+						ech.entityAIEatGrass.startExecuting();
 					} 
 					this.grassEaterEntity.eatGrassBonus();
 				}

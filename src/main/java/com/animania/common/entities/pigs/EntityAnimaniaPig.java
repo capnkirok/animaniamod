@@ -99,8 +99,10 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		this.tasks.addTask(0, new EntityAISwimmingPigs(this));
 		this.tasks.addTask(1, new EntityAIFindMud(this, 1.2D));
 		this.tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
-		this.tasks.addTask(5, new EntityAIFindFood(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
+		}
 		this.tasks.addTask(7, new EntityAIPanicPigs(this, 1.5D));
 		this.tasks.addTask(9, new EntityAITempt(this, 1.2D, Items.CARROT_ON_A_STICK, false));
 		this.tasks.addTask(10, new EntityAITempt(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
@@ -451,6 +453,10 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 	public void onLivingUpdate()
 	{
 
+		if (this.getGrowingAge() == 0) {
+			this.setGrowingAge(1);
+		}
+		
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -463,7 +469,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 			}
 		}
 
-		if (this.fedTimer > -1)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -475,7 +481,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
 

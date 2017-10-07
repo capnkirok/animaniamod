@@ -82,11 +82,13 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		this.stepHeight = 1.1F;
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityHorseEatGrass(this);
-		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFindFood(this, 1.1D));
+		}
 		this.tasks.addTask(2, new EntityAIPanicHorses(this, 2.0D));
 		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
-		this.tasks.addTask(5, new EntityAIFindWater(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(7, new EntityAISwimmingHorse(this));
 		this.tasks.addTask(8, new EntityAITemptHorses(this, 1.25D, false, TEMPTATION_ITEMS));

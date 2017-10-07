@@ -124,7 +124,7 @@ public class EntityAIFindFood extends EntityAIBase
 				}
 			}
 
-			if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES || poschk == Blocks.WHEAT) {
+			if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES || poschk == Blocks.WHEAT || poschk == Blocks.TALLGRASS) {
 
 				if (temptedEntity instanceof EntityAnimaniaPig) {
 					EntityAnimaniaPig ech = (EntityAnimaniaPig)temptedEntity;
@@ -175,7 +175,7 @@ public class EntityAIFindFood extends EntityAIBase
 							}
 						}
 
-						if (blockchk == Blocks.CARROTS || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES || blockchk == Blocks.WHEAT) {
+						if (blockchk == Blocks.CARROTS || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES || blockchk == Blocks.WHEAT || blockchk == Blocks.TALLGRASS) {
 
 							foodFound = true;
 							if (rand.nextInt(20) == 0) {
@@ -270,7 +270,7 @@ public class EntityAIFindFood extends EntityAIBase
 							}
 						}
 					}
-					else if (blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES) {
+					else if (blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES || blockchk == Blocks.TALLGRASS) {
 						foodFound = true;
 						newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
