@@ -43,7 +43,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
 		this.tasks.addTask(1, new EntityAIMateRabbits(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIFollowMateRabbits(this, 1.1D));
+		//this.tasks.addTask(3, new EntityAIFollowMateRabbits(this, 1.1D));
 	}
 
 	@Override

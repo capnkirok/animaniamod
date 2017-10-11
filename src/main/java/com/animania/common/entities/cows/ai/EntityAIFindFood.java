@@ -5,6 +5,7 @@ import java.util.Random;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -97,7 +98,7 @@ public class EntityAIFindFood extends EntityAIBase
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					}
-					
+
 					return false;
 
 				}
@@ -112,7 +113,9 @@ public class EntityAIFindFood extends EntityAIBase
 					ech.setFed(true);
 				} 
 
-				temptedEntity.world.destroyBlock(currentpos, false);
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+					temptedEntity.world.destroyBlock(currentpos, false);
+				}
 
 				return false;
 			}

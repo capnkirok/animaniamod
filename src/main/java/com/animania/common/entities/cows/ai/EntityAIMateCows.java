@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.cows.EntityBullBase;
 import com.animania.common.entities.cows.EntityCalfBase;
 import com.animania.common.entities.cows.EntityCowBase;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -97,7 +99,7 @@ public class EntityAIMateCows extends EntityAIBase
 
 	private EntityAnimal getNearbyMate() {
 
-	
+
 		if (this.theAnimal instanceof EntityBullBase) {
 
 			UUID mateID = null;
@@ -107,10 +109,13 @@ public class EntityAIMateCows extends EntityAIBase
 				mateID = entity2.getMateUniqueId();
 			}
 
+
 			if (mateID != null) {
+
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityCowBase.class, 3, this.theAnimal.world, this.theAnimal);
-				
+
 				for (int k = 0; k <= entities.size() - 1; k++) {
+
 					EntityCowBase entity = (EntityCowBase)entities.get(k); 
 
 					if (entity.getPersistentID().equals(mateID) && entity.getFertile() && !entity.getPregnant()) {
@@ -131,7 +136,7 @@ public class EntityAIMateCows extends EntityAIBase
 							this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
 							entity.getLookHelper().setLookPositionWithEntity(this.theAnimal, 10.0F, entity.getVerticalFaceSpeed());
 							entity.getNavigator().tryMoveToEntityLiving(this.theAnimal, this.moveSpeed);
-							
+
 							return null;
 						}
 					}

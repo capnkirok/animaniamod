@@ -5,6 +5,7 @@ import java.util.Random;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -76,6 +77,7 @@ public class EntityAIFindWater extends EntityAIBase
 			Block poschk6 = temptedEntity.world.getBlockState(trypos6).getBlock();
 			Block poschk7 = temptedEntity.world.getBlockState(trypos7).getBlock();
 			Block poschk8 = temptedEntity.world.getBlockState(trypos8).getBlock();
+			Block poschk9 = temptedEntity.world.getBlockState(currentposlower).getBlock();
 
 			if (poschk == BlockHandler.blockTrough) {
 				//do nothing
@@ -109,23 +111,23 @@ public class EntityAIFindWater extends EntityAIBase
 
 					if (temptedEntity instanceof EntityAnimaniaGoat) {
 						EntityAnimaniaGoat ech = (EntityAnimaniaGoat)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
 						ech.setWatered(true);
+						ech.entityAIEatGrass.startExecuting();
 					} 
 
 					return false;
 
 				}
 
-			} else if ((poschk == Blocks.WATER || poschk1 == Blocks.WATER || poschk2 == Blocks.WATER || poschk3 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+			} else if ((poschk == Blocks.WATER || poschk9 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 
 				if (temptedEntity instanceof EntityAnimaniaGoat) {
 					EntityAnimaniaGoat ech = (EntityAnimaniaGoat)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
 					ech.setWatered(true);
+					ech.entityAIEatGrass.startExecuting();
 				} 
 
-				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER) {
+				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER && AnimaniaConfig.gameRules.waterRemovedAfterDrinking) {
 					this.temptedEntity.world.setBlockToAir(currentposlower);
 				}
 

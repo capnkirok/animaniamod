@@ -466,6 +466,16 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 			if (gestationTimer == 0)
 			{
 
+				List list = this.world.loadedEntityList;	
+				int pigCount = 0;
+				int num = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof EntityAnimaniaPig) {
+						num++;
+					}
+				}
+				pigCount = num;
+				
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityHogBase.class, 30, this.world, this);
 				int esize = entities.size();
@@ -473,7 +483,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				for (int k = 0; k <= esize - 1; k++) 
 				{
 					EntityHogBase entity = (EntityHogBase)entities.get(k);
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
+					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && pigCount < AnimaniaConfig.spawn.spawnLimitPigs) {
 
 						this.setInLove(null);
 						PigType maleType = ((EntityAnimaniaPig) entity).pigType;
@@ -499,7 +509,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 					}
 				}
 				
-				if (!mateFound && this.getFed() && this.getWatered()) {
+				if (!mateFound && this.getFed() && this.getWatered() && pigCount < AnimaniaConfig.spawn.spawnLimitPigs) {
 
 					this.setInLove(null);
 					PigType babyType = pigType.breed(this.pigType, this.pigType);

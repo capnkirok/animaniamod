@@ -71,12 +71,14 @@ public class EntityAIFindWater extends EntityAIBase
 			} 
 
 			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
+			BlockPos currentposlower = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY-1, this.temptedEntity.posZ);
 			Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
+			Block poschk1 = this.temptedEntity.world.getBlockState(currentposlower).getBlock();
 
 			Biome biomegenbase = this.temptedEntity.world
 					.getBiome(new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ));
 
-			if (poschk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+			if ((poschk == Blocks.WATER || poschk1 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 
 				if (this.temptedEntity instanceof EntityAnimaniaChicken) {
 					EntityAnimaniaChicken entity = (EntityAnimaniaChicken) this.temptedEntity;

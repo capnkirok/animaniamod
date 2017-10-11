@@ -107,7 +107,7 @@ public class EntityAIFindFood extends EntityAIBase
 				} 
 			}
 
-			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT || poschk == Blocks.YELLOW_FLOWER) {
+			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT || poschk == Blocks.YELLOW_FLOWER || poschk == Blocks.TALLGRASS) {
 
 				if (temptedEntity instanceof EntityAnimaniaHorse) {
 					EntityAnimaniaHorse ech = (EntityAnimaniaHorse)temptedEntity;
@@ -152,7 +152,7 @@ public class EntityAIFindFood extends EntityAIBase
 							}
 						}
 
-						if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER) {
+						if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER || blockchk == Blocks.TALLGRASS) {
 
 							foodFound = true;
 							if (rand.nextInt(20) == 0) {
@@ -252,7 +252,7 @@ public class EntityAIFindFood extends EntityAIBase
 
 							}
 						}
-					} else if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER) {
+					} else if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER || blockchk == Blocks.TALLGRASS) {
 						foodFound = true;
 						newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
 
@@ -263,7 +263,7 @@ public class EntityAIFindFood extends EntityAIBase
 							if (temptedEntity.posX < foodPos.getX()) {
 								BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
 								Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
-								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
+								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || blockchk == Blocks.TALLGRASS) {
 									i = i + 1;
 								}
 							} 
@@ -271,7 +271,7 @@ public class EntityAIFindFood extends EntityAIBase
 							if (temptedEntity.posZ < foodPos.getZ()) {
 								BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
 								Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
-								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
+								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || blockchk == Blocks.TALLGRASS) {
 									k = k + 1;
 								} 
 							}

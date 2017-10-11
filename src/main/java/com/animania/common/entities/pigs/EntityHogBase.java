@@ -50,7 +50,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
 		this.tasks.addTask(8, new EntityAIMatePigs(this, 1.0D));
-		this.tasks.addTask(9, new EntityAIFollowMatePigs(this, 1.1D));
+		//this.tasks.addTask(9, new EntityAIFollowMatePigs(this, 1.1D));
 	}
 	
 	@Override

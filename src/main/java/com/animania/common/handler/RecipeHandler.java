@@ -46,8 +46,12 @@ public class RecipeHandler
 		ItemStack milkSheep = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
 
 
+		/*
+		
 		if (!checkDir()) {
 
+		
+			
 			// HAMSTERS
 
 			addShapedRecipe(new ItemStack(BlockHandler.blockHamsterWheel, 1), new Object[] { " I ", "I I", "SIS", 'I', "ingotIron", 'S', new ItemStack(Blocks.STONE_SLAB) });
@@ -219,6 +223,7 @@ public class RecipeHandler
 			System.out.println("Animania recipes have been regenerated. A restart is required to reflect changes. If you enabled this in the config, you can now disable.");
 
 		}
+		*/
 
 		// Smelting Recipes
 		GameRegistry.addSmelting(ItemHandler.rawAngusBeef, new ItemStack(ItemHandler.cookedAngusRoast, 1), .3F);
@@ -406,11 +411,6 @@ public class RecipeHandler
 		List<Map<String, Object>> json = new ArrayList<>();
 		for (String s : USED_OD_NAMES) {
 			Map<String, Object> entry = new HashMap<>();
-
-			/* OLD
-			entry.put("name", s.toUpperCase(Locale.ROOT));
-			entry.put("ingredient", ImmutableMap.of("type", "forge:ore_dict", "ore", s));
-			 */
 
 			entry.put("name", s);
 			entry.put("ingredient", ImmutableMap.of("type", "forge:ore_dict", "ore", s));

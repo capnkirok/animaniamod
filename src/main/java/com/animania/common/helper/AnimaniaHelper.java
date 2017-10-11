@@ -6,6 +6,7 @@ import java.util.List;
 import com.animania.Animania;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.network.client.TileEntitySyncPacket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -157,7 +158,7 @@ public class AnimaniaHelper
 		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos).expand(range, range, range));
 		return list;
 	}
-
+	
 	public static RayTraceResult rayTrace(EntityPlayer player, double blockReachDistance)
 	{
 		Vec3d vec3d = player.getPositionEyes(1f);

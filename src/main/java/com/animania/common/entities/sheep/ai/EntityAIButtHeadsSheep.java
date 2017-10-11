@@ -38,7 +38,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 	public boolean shouldExecute() {
 
 		this.delayCounter++;
-		if (this.delayCounter > 250) {
+		if (this.delayCounter > 1000) {
 
 			if (this.theAnimal instanceof EntityEweBase || this.theAnimal instanceof EntityLambBase) {
 				return false;

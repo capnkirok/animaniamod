@@ -222,9 +222,9 @@ public class DictionaryHandler
 		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherPurple);
 		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherTaupe);
 		
-		OreDictionary.registerOre("wool", new ItemStack(Blocks.WOOL, 1, Short.MAX_VALUE));
-		OreDictionary.registerOre("wool", new ItemStack(BlockHandler.blockAnimaniaWool, 1, Short.MAX_VALUE));
-
+		OreDictionary.registerOre("blockWool", new ItemStack(Blocks.WOOL, 1, Short.MAX_VALUE));
+		OreDictionary.registerOre("blockWool", new ItemStack(BlockHandler.blockAnimaniaWool, 1, Short.MAX_VALUE));
+		
 		//Additions 1.2.1
 		OreDictionary.registerOre("dyeBlack", new ItemStack(Items.DYE, 1, 0));
 		OreDictionary.registerOre("dyeRed", new ItemStack(Items.DYE, 1, 1));

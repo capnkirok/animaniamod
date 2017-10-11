@@ -63,6 +63,8 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> PLAYED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaPig.class, DataSerializers.VARINT);
+	
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.pigFood));
 	protected boolean boosting;
 	protected int boostTime;
@@ -102,8 +104,10 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.tasks.addTask(0, new EntityAISwimmingPigs(this));
 		this.tasks.addTask(1, new EntityAIFindMud(this, 1.2D));
 		this.tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
-		this.tasks.addTask(5, new EntityAIFindFood(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
+		}
 		this.tasks.addTask(7, new EntityAIPanicPigs(this, 1.5D));
 		this.tasks.addTask(9, new EntityAITempt(this, 1.2D, Items.CARROT_ON_A_STICK, false));
 		this.tasks.addTask(10, new EntityAITempt(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
@@ -194,6 +198,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
         else
         {
             this.stepHeight = 0.5F;
+            p_191986_3_ = this.moveForward;
             this.jumpMovementFactor = 0.02F;
             super.travel(p_191986_1_, p_191986_2_, p_191986_3_);
         }
@@ -223,6 +228,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.dataManager.register(EntityAnimaniaPig.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaPig.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaPig.PLAYED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaPig.AGE, Integer.valueOf(0));
 	}
 
 	@Override
@@ -236,6 +242,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Played", this.getPlayed());
+		compound.setInteger("Age", this.getAge());
 
 	}
 
@@ -250,9 +257,21 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setPlayed(compound.getBoolean("Played"));
+		this.setAge(compound.getInteger("Age"));
 
 	}
 
+	public int getAge()
+	{
+		return this.dataManager.get(EntityAnimaniaPig.AGE).intValue();
+	}
+
+	public void setAge(int age)
+	{
+		this.dataManager.set(EntityAnimaniaPig.AGE, Integer.valueOf(age));
+	}
+
+	
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
@@ -510,7 +529,10 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	@Override
 	public void onLivingUpdate()
 	{
-
+		if (this.getAge() == 0) {
+			this.setAge(1);
+		}
+		
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -523,7 +545,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 			}
 		}
 
-		if (this.fedTimer > -1)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -535,11 +557,11 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
-
-		if (this.playedTimer > -1)
+		
+		if (this.playedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.playedTimer--;
 

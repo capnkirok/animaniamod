@@ -5,6 +5,7 @@ import java.util.Random;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -94,8 +95,8 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 
 					if (temptedEntity instanceof EntityAnimaniaGoat) {
 						EntityAnimaniaGoat ech = (EntityAnimaniaGoat)temptedEntity;
-						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
+						ech.entityAIEatGrass.startExecuting();
 					} 
 
 					return false;
@@ -107,11 +108,13 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 
 				if (temptedEntity instanceof EntityAnimaniaGoat) {
 					EntityAnimaniaGoat ech = (EntityAnimaniaGoat)temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
+					ech.entityAIEatGrass.startExecuting();
 				} 
 				
-				temptedEntity.world.destroyBlock(currentpos, false);
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+					temptedEntity.world.destroyBlock(currentpos, false);
+				}
 				
 				return false;
 			}

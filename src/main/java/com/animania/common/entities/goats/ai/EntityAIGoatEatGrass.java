@@ -2,6 +2,7 @@ package com.animania.common.entities.goats.ai;
 
 
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
+import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
@@ -80,8 +81,8 @@ public class EntityAIGoatEatGrass extends EntityAIBase
 
 				if (grassEaterEntity instanceof EntityAnimaniaGoat) {
 					EntityAnimaniaGoat ech = (EntityAnimaniaGoat)grassEaterEntity;
-					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
+					ech.entityAIEatGrass.startExecuting();
 				} 
 				this.grassEaterEntity.eatGrassBonus();
 			}
@@ -95,12 +96,14 @@ public class EntityAIGoatEatGrass extends EntityAIBase
 				{
 
 					this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
-					this.entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
+					if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+						this.entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
+					}
 
 					if (grassEaterEntity instanceof EntityAnimaniaGoat) {
 						EntityAnimaniaGoat ech = (EntityAnimaniaGoat)grassEaterEntity;
-						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
+						ech.entityAIEatGrass.startExecuting();
 					} 
 					this.grassEaterEntity.eatGrassBonus();
 				}
