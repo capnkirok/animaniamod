@@ -15,6 +15,7 @@ import com.animania.common.entities.chickens.ai.EntityAIFindWater;
 import com.animania.common.entities.chickens.ai.EntityAIPanicChickens;
 import com.animania.common.entities.chickens.ai.EntityAISwimmingChicks;
 import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -56,6 +57,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaChicken.class, DataSerializers.VARINT);
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
 	public boolean chickenJockey;
 	protected ResourceLocation resourceLocation;
@@ -165,6 +167,17 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 		super.entityInit();
 		this.dataManager.register(EntityAnimaniaChicken.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaChicken.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaChicken.AGE, Integer.valueOf(0));
+	}
+	
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityAnimaniaChicken.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityAnimaniaChicken.AGE, Integer.valueOf(age));
 	}
 
 	@Override
@@ -174,6 +187,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 		nbttagcompound.setBoolean("IsChickenJockey", this.chickenJockey);
 		nbttagcompound.setBoolean("Fed", this.getFed());
 		nbttagcompound.setBoolean("Watered", this.getWatered());
+		nbttagcompound.setInteger("Age", this.getAnimalAge());
 	}
 
 	@Override
@@ -185,14 +199,15 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 
 		this.setFed(nbttagcompound.getBoolean("Fed"));
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
+		this.setAnimalAge(nbttagcompound.getInteger("Age"));
 	}
 
 	@Override
 	public void onLivingUpdate()
 	{
 
-		if (this.getGrowingAge() == 0) {
-			this.setGrowingAge(1);
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
 		}
 		
 		super.onLivingUpdate();

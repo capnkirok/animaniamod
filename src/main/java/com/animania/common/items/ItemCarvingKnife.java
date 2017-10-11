@@ -26,6 +26,8 @@ public class ItemCarvingKnife extends ItemSword
         GameRegistry.register(this);
         this.setUnlocalizedName(Animania.MODID + "_" + this.name);
         this.setMaxDamage(100);
+        this.setNoRepair();
+		this.canRepair = false;
 
     }
 

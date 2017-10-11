@@ -353,6 +353,16 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 			if (gestationTimer == 0)
 			{
 
+				List list = this.world.loadedEntityList;	
+				int goatCount = 0;
+				int num = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof EntityAnimaniaGoat) {
+						num++;
+					}
+				}
+				goatCount = num;
+				
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 30, this.world, this);
 				int esize = entities.size();
@@ -360,7 +370,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				for (int k = 0; k <= esize - 1; k++)
 				{
 					EntityBuckBase entity = (EntityBuckBase) entities.get(k);
-					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID))
+					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && goatCount < AnimaniaConfig.spawn.spawnLimitGoats) 
 					{
 
 						this.setInLove(null);
@@ -388,7 +398,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 					}
 				}
 
-				if (!mateFound && this.getFed() && this.getWatered()) {
+				if (!mateFound && this.getFed() && this.getWatered() && goatCount < AnimaniaConfig.spawn.spawnLimitGoats) {
 
 					this.setInLove(null);
 					GoatType babyType = GoatType.breed(this.goatType, this.goatType);

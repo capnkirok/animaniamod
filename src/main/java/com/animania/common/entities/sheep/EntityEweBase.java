@@ -326,6 +326,16 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			if (gestationTimer == 0)
 			{
 
+				List list = this.world.loadedEntityList;	
+				int sheepCount = 0;
+				int num = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof EntityAnimaniaSheep) {
+						num++;
+					}
+				}
+				sheepCount = num;
+				
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 30, this.world, this);
 				int esize = entities.size();
@@ -333,9 +343,8 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				for (int k = 0; k <= esize - 1; k++)
 				{
 					EntityRamBase entity = (EntityRamBase) entities.get(k);
-					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID))
-					{
-
+					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && sheepCount < AnimaniaConfig.spawn.spawnLimitSheep)  {
+					
 						this.setInLove(null);
 						SheepType maleType = ((EntityAnimaniaSheep) entity).sheepType;
 						SheepType babyType = sheepType.breed(maleType, this.sheepType);
@@ -361,7 +370,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					}
 				}
 
-				if (!mateFound && this.getFed() && this.getWatered()) {
+				if (!mateFound && this.getFed() && this.getWatered() && sheepCount < AnimaniaConfig.spawn.spawnLimitSheep)  {
 
 					this.setInLove(null);
 					SheepType babyType = sheepType.breed(this.sheepType, this.sheepType);

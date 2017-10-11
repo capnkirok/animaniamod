@@ -526,8 +526,8 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public void onLivingUpdate()
 	{
 		
-		if (this.getGrowingAge() == 0) {
-			this.setGrowingAge(1);
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
 		}
 		
 		if (!this.getFertile() && this.dryTimerMare > -1) {
@@ -627,6 +627,16 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			this.setGestation(gestationTimer);
 			if (gestationTimer == 0)
 			{
+				List list = this.world.loadedEntityList;	
+				int horseCount = 0;
+				int num = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof EntityAnimaniaHorse) {
+						num++;
+					}
+				}
+				horseCount = num;
+				
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityStallionBase.class, 30, this.world, this);
 				int esize = entities.size();
@@ -634,7 +644,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				for (int k = 0; k <= esize - 1; k++) 
 				{
 					EntityStallionBase entity = (EntityStallionBase)entities.get(k);
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
+					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && horseCount < AnimaniaConfig.spawn.spawnLimitHorses) {
 
 						this.setInLove(null);
 						HorseType maleType = ((EntityAnimaniaHorse) entity).horseType;
@@ -661,7 +671,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 					}
 				}
 
-				if (!mateFound && this.getFed() && this.getWatered()) {
+				if (!mateFound && this.getFed() && this.getWatered() && horseCount < AnimaniaConfig.spawn.spawnLimitHorses) {
 
 					this.setInLove(null);
 					HorseType babyType = HorseType.breed(this.horseType, this.horseType);

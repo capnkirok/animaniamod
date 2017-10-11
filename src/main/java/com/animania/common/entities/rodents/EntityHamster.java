@@ -14,6 +14,7 @@ import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
 import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
@@ -75,6 +76,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { ItemHandler.hamsterFood });
 	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
 	private static final String[] HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou", "white", "gold" };
 
 	private int fedTimer;
@@ -214,7 +216,18 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.dataManager.register(EntityHamster.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityHamster.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityHamster.RIDING, Boolean.valueOf(false));
+		this.dataManager.register(EntityHamster.AGE, Integer.valueOf(0));
 
+	}
+	
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityHamster.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityHamster.AGE, Integer.valueOf(age));
 	}
 
 	@Override
@@ -230,6 +243,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		nbttagcompound.setBoolean("Watered", this.getWatered());
 		nbttagcompound.setBoolean("IsTamed", this.getIsTamed());
 		nbttagcompound.setBoolean("IsRiding", this.getIsRiding());
+		nbttagcompound.setInteger("Age", this.getAnimalAge());
+
 	}
 
 	@Override
@@ -246,6 +261,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
 		this.setIsTamed(nbttagcompound.getBoolean("IsTamed"));
 		this.setIsRiding(nbttagcompound.getBoolean("IsRiding"));
+		this.setAnimalAge(nbttagcompound.getInteger("Age"));
 	}
 
 	@Override
@@ -288,7 +304,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				return true;
 			}
 
-		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && this.getGrowingAge() == 0)
+		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && this.getAnimalAge() == 0)
 		{
 
 			if (!player.capabilities.isCreativeMode)
@@ -550,8 +566,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public void onLivingUpdate()
 	{
 
-		if (this.getGrowingAge() == 0) {
-			this.setGrowingAge(1);
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
 		}
 		
 		if (this.isRiding())

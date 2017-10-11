@@ -9,9 +9,9 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.rodents.ai.EntityAIFindFoodRabbits;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
-import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
 import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
 import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
@@ -40,7 +40,7 @@ import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -67,7 +67,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
+public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 {
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.rabbitFood));
@@ -75,6 +75,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaRabbit.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaRabbit.class, DataSerializers.VARINT);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaRabbit.class, DataSerializers.VARINT);
 	private static final String[] RABBIT_TEXTURES = new String[] {"black", "brown", "golden", "olive", "patch_black", "patch_brown", "patch_grey"};
 
 	protected int happyTimer;
@@ -102,7 +103,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAIRodentEat(this);
-		this.tasks.addTask(3, new EntityAIPanicRodents(this, 1.4D));
+		this.tasks.addTask(3, new EntityAIPanic(this, 2.5D));
 		if (!AnimaniaConfig.gameRules.ambianceMode) {
 			this.tasks.addTask(2, new EntityAIFindWater(this, 1.4D));
 			this.tasks.addTask(3, new EntityAIFindFoodRabbits(this, 1.4D));
@@ -111,7 +112,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		this.tasks.addTask(5, new EntityAISwimmingRodents(this));
 		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
 		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityWolf.class, 10.0F, 2.2D, 2.2D));
+		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityWolf.class, 10.0F, 3.0D, 3.5D));
 		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityMob.class, 10.0F, 2.2D, 2.2D));
 		this.tasks.addTask(10, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
@@ -229,12 +230,23 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		this.dataManager.register(EntityAnimaniaRabbit.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaRabbit.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaRabbit.MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityAnimaniaRabbit.AGE, Integer.valueOf(0));
 	}
 
 	@Override
 	protected ResourceLocation getLootTable()
 	{
 		return null;
+	}
+	
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityAnimaniaRabbit.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityAnimaniaRabbit.AGE, Integer.valueOf(age));
 	}
 
 	public void updateAITasks()
@@ -437,8 +449,8 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.getGrowingAge() == 0) {
-			this.setGrowingAge(1);
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
 		}
 		
 		if (this.world.isRemote)
@@ -567,6 +579,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setInteger("ColorNumber", getColorNumber());
+		compound.setInteger("Age", this.getAnimalAge());
 
 	}
 
@@ -594,6 +607,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 		this.setColorNumber(compound.getInteger("ColorNumber"));
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
+		this.setAnimalAge(compound.getInteger("Age"));
 
 	}
 
@@ -882,7 +896,7 @@ public class EntityAnimaniaRabbit extends EntityAnimal implements ISpawnable
 
 	private boolean isRabbitBreedingItem(Item itemIn)
 	{
-		return itemIn == Items.WHEAT || itemIn == Items.CARROT || itemIn == Items.APPLE || itemIn == Items.BEETROOT;
+		return TEMPTATION_ITEMS.contains(itemIn);
 	}
 
 	@Override

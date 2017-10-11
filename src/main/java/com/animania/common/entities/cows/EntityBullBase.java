@@ -47,7 +47,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.gender = EntityGender.MALE;
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 1.8D, false));
-		this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
+		//this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
 		this.tasks.addTask(6, new EntityAIMateCows(this, 1.0D));
 		this.mateable = true;
 	}

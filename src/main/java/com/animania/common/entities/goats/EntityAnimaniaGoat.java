@@ -9,15 +9,11 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.ai.EntityAIFindFoodGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindSaltLickGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindWater;
-import com.animania.common.entities.goats.ai.EntityAIFollowMateGoats;
-import com.animania.common.entities.goats.ai.EntityAIFollowParentGoats;
 import com.animania.common.entities.goats.ai.EntityAIGoatEatGrass;
-import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
-import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.entities.goats.ai.EntityAIPanicGoats;
 import com.animania.common.entities.goats.ai.EntityAISwimmingGoats;
 import com.animania.common.entities.goats.ai.EntityAIWatchClosestGoats;
@@ -29,18 +25,21 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -57,7 +56,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
+public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable
 {
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.goatFood));
@@ -69,6 +68,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	protected static final DataParameter<Integer> SHEARED_TIMER = EntityDataManager.<Integer>createKey(EntityAnimaniaGoat.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> SPOOKED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Float> SPOOKED_TIMER = EntityDataManager.<Float>createKey(EntityAnimaniaGoat.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaGoat.class, DataSerializers.VARINT);
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -93,12 +93,13 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
 			this.tasks.addTask(3, new EntityAIFindFoodGoats(this, 1.0D));
 		}
-		this.tasks.addTask(3, new EntityAIPanicGoats(this, 1.4D));
+		this.tasks.addTask(3, new EntityAIPanicGoats(this, 1.8D));
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAISwimmingGoats(this));
 		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
+		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityWolf.class, 10.0F, 2.2D, 2.2D));
 		this.tasks.addTask(10, new EntityAIWatchClosestGoats(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickGoats(this, 1.0));
@@ -128,6 +129,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		this.dataManager.register(EntityAnimaniaGoat.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
 		this.dataManager.register(EntityAnimaniaGoat.SPOOKED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaGoat.SPOOKED_TIMER, 0.0F);
+		this.dataManager.register(EntityAnimaniaGoat.AGE, Integer.valueOf(0));
 	}
 
 	@Override
@@ -136,6 +138,15 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		return null;
 	}
 
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityAnimaniaGoat.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityAnimaniaGoat.AGE, Integer.valueOf(age));
+	}
 
 	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
@@ -252,8 +263,8 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	public void onLivingUpdate()
 	{
 
-		if (this.getGrowingAge() == 0) {
-			this.setGrowingAge(1);
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
 		}
 		
 		if (this.world.isRemote)
@@ -366,7 +377,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack.getItem() == Items.SHEARS && !this.getSheared() && !this.isChild() && (this instanceof EntityBuckAngora || this instanceof EntityDoeAngora))   //Forge: Moved to onSheared
+		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild() && (this instanceof EntityBuckAngora || this instanceof EntityDoeAngora))   //Forge: Moved to onSheared
 		{
 			if (!this.world.isRemote)
 			{
@@ -429,6 +440,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Sheared", this.getSheared());
 		compound.setBoolean("Spooked", this.getSpooked());
+		compound.setInteger("Age", this.getAnimalAge());
 
 	}
 
@@ -482,6 +494,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setSheared(compound.getBoolean("Sheared"));
 		this.setSpooked(compound.getBoolean("Spooked"));
+		this.setAnimalAge(compound.getInteger("Age"));
 
 	}
 
@@ -527,7 +540,7 @@ public class EntityAnimaniaGoat extends EntityAnimal implements ISpawnable
 	}
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable ageable) {
+	public EntityAnimaniaGoat createChild(EntityAgeable ageable) {
 		return null;
 	}
 

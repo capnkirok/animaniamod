@@ -3,26 +3,9 @@ package com.animania.common.entities.pigs.ai;
 import java.util.Random;
 
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.pigs.EntityHogDuroc;
-import com.animania.common.entities.pigs.EntityHogHampshire;
-import com.animania.common.entities.pigs.EntityHogLargeBlack;
-import com.animania.common.entities.pigs.EntityHogLargeWhite;
-import com.animania.common.entities.pigs.EntityHogOldSpot;
-import com.animania.common.entities.pigs.EntityHogYorkshire;
-import com.animania.common.entities.pigs.EntityPigletDuroc;
-import com.animania.common.entities.pigs.EntityPigletHampshire;
-import com.animania.common.entities.pigs.EntityPigletLargeBlack;
-import com.animania.common.entities.pigs.EntityPigletLargeWhite;
-import com.animania.common.entities.pigs.EntityPigletOldSpot;
-import com.animania.common.entities.pigs.EntityPigletYorkshire;
-import com.animania.common.entities.pigs.EntitySowDuroc;
-import com.animania.common.entities.pigs.EntitySowHampshire;
-import com.animania.common.entities.pigs.EntitySowLargeBlack;
-import com.animania.common.entities.pigs.EntitySowLargeWhite;
-import com.animania.common.entities.pigs.EntitySowOldSpot;
-import com.animania.common.entities.pigs.EntitySowYorkshire;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -132,7 +115,9 @@ public class EntityAIFindFood extends EntityAIBase
 					ech.setFed(true);
 				} 
 
-				this.temptedEntity.world.destroyBlock(currentpos, false);
+				if (temptedEntity.world.getGameRules().getBoolean("mobGriefing") && AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+					temptedEntity.world.destroyBlock(currentpos, false);
+				}
 
 				return false;
 			}

@@ -51,7 +51,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public EntityFoalBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.0F, 1.4F);
+		this.setSize(1.4F, 1.8F);
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentHorses(this, 1.1D));
 		this.ageTimer = 0;
@@ -261,8 +261,8 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public void onLivingUpdate()
 	{
 		
-		if (this.getGrowingAge() == 0) {
-			this.setGrowingAge(1);
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
 		}
 		
 		if (this.world.isRemote)

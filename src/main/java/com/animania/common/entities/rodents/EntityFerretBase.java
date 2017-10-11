@@ -20,6 +20,7 @@ import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
 import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
 import com.animania.common.entities.chickens.EntityChickWyandotte;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.rodents.ai.EntityAIFerretFindFood;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
@@ -41,6 +42,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIPanic;
@@ -79,6 +81,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityFerretBase.class, DataSerializers.VARINT);
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.MUTTON, Items.EGG, ItemHandler.brownEgg, Items.CHICKEN, ItemHandler.rawWyandotteChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken, ItemHandler.rawPrimeChicken });
 	protected int fedTimer;
 	protected int wateredTimer;
@@ -132,6 +135,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
 		this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
 		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+		this.targetTasks.addTask(9, new EntityAIHurtByTarget(this, true, new Class[0]));
 	}
 
 	@Override
@@ -277,7 +281,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
-		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 2.0F);
+		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 1.0F);
 
 		if (flag)
 			this.applyEnchantments(this, entityIn);
@@ -303,9 +307,20 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.dataManager.register(EntityFerretBase.TAMED, Boolean.valueOf(false));
 		this.dataManager.register(EntityFerretBase.SITTING, Boolean.valueOf(false));
 		this.dataManager.register(EntityFerretBase.RIDING, Boolean.valueOf(false));
+		this.dataManager.register(EntityFerretBase.AGE, Integer.valueOf(0));
 
 	}
 
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityFerretBase.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityFerretBase.AGE, Integer.valueOf(age));
+	}
+	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
@@ -315,6 +330,8 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		compound.setBoolean("IsTamed", this.getIsTamed());
 		compound.setBoolean("IsSitting", this.isFerretSitting());
 		compound.setBoolean("Riding", this.isFerretRiding());
+		compound.setInteger("Age", this.getAnimalAge());
+
 
 	}
 
@@ -330,6 +347,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.setIsTamed(compound.getBoolean("IsTamed"));
 		this.setFerretSitting(compound.getBoolean("IsSitting"));
 		this.setFerretRiding(compound.getBoolean("Riding"));
+		this.setAnimalAge(compound.getInteger("Age"));
 
 	}
 
@@ -435,8 +453,8 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public void onLivingUpdate()
 	{
 
-		if (this.getGrowingAge() == 0) {
-			this.setGrowingAge(1);
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
 		}
 		
 		if (this.isFerretSitting() || this.isRiding())

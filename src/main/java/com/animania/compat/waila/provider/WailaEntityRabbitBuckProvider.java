@@ -39,7 +39,7 @@ public class WailaEntityRabbitBuckProvider extends WailaEntityAnimalProviderBase
 					}
 				}
 
-				currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
+				//currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
 
 			}
 

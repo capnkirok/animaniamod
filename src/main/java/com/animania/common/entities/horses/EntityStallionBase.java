@@ -59,7 +59,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
-		this.tasks.addTask(1, new EntityAIFollowMateHorses(this, 1.1D));
+		//this.tasks.addTask(1, new EntityAIFollowMateHorses(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
 	}
 	
@@ -325,8 +325,8 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 
 	public void onLivingUpdate()
 	{
-		if (this.getGrowingAge() == 0) {
-			this.setGrowingAge(1);
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
 		}
 		
 		if (this.world.isRemote)

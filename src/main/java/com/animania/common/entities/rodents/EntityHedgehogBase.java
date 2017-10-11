@@ -15,6 +15,8 @@ import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
+import com.animania.common.entities.chickens.EntityRoosterBase;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAIHedgehogFindFood;
 import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
@@ -35,6 +37,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -78,6 +81,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	protected static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityHedgehogBase.class, DataSerializers.VARINT);
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.CARROT, Items.BEETROOT, ItemHandler.brownEgg, Items.EGG });
 
 	protected int fedTimer;
@@ -133,6 +137,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
 		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityRoosterBase.class, 10.0F, 2.2D, 2.2D));
 	}
 
 	@Override
@@ -225,9 +230,20 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.dataManager.register(EntityHedgehogBase.TAMED, Boolean.valueOf(false));
 		this.dataManager.register(EntityHedgehogBase.SITTING, Boolean.valueOf(false));
 		this.dataManager.register(EntityHedgehogBase.RIDING, Boolean.valueOf(false));
+		this.dataManager.register(EntityHedgehogBase.AGE, Integer.valueOf(0));
 
 	}
 
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityHedgehogBase.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityHedgehogBase.AGE, Integer.valueOf(age));
+	}
+	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
@@ -237,6 +253,8 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		compound.setBoolean("IsTamed", this.getIsTamed());
 		compound.setBoolean("IsSitting", this.isHedgehogSitting());
 		compound.setBoolean("Riding", this.isHedgehogRiding());
+		compound.setInteger("Age", this.getAnimalAge());
+
 
 	}
 
@@ -249,6 +267,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.setIsTamed(compound.getBoolean("IsTamed"));
 		this.setHedgehogSitting(compound.getBoolean("IsSitting"));
 		this.setHedgehogRiding(compound.getBoolean("Riding"));
+		this.setAnimalAge(compound.getInteger("Age"));
 	}
 
 	@Override
@@ -455,8 +474,8 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	public void onLivingUpdate()
 	{
 		
-		if (this.getGrowingAge() == 0) {
-			this.setGrowingAge(1);
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
 		}
 
 		if (this.isSitting() || this.isHedgehogSitting() || this.isRiding())

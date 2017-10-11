@@ -278,6 +278,9 @@ public class CommonConfig
 		@Comment("Water blocks removed after large animal drinks")
 		public boolean waterRemovedAfterDrinking = true;
 		
+		@Comment("Plant blocks removed after animal eats")
+		public boolean plantsRemovedAfterEating = true;
+		
 		@Comment("Animals do not have to eat or drink")
 		public boolean ambianceMode = false;
 
@@ -318,28 +321,28 @@ public class CommonConfig
 		@Comment("Spawn limit for Ferrets in loaded chunks")
 		public int spawnLimitFerrets = 20;
 		@Comment("Spawn limit for Hamsters in loaded chunks")
-		public int spawnLimitHamsters = 20;
+		public int spawnLimitHamsters = 24;
 		@Comment("Spawn limit for Peacocks in loaded chunks")
-		public int spawnLimitPeacocks = 20;
+		public int spawnLimitPeacocks = 24;
 		@Comment("Spawn limit for Amphibians in loaded chunks")
-		public int spawnLimitAmphibians = 20;
+		public int spawnLimitAmphibians = 24;
 		@Comment("Spawn limit for Horses in loaded chunks")
-		public int spawnLimitHorses = 24;
+		public int spawnLimitHorses = 30;
 		@Comment("Spawn limit for Goats in loaded chunks")
 		public int spawnLimitGoats = 40;
 		@Comment("Spawn limit for Sheep in loaded chunks")
 		public int spawnLimitSheep = 40;
 		@Comment("Spawn limit for Rabbits in loaded chunks")
-		public int spawnLimitRabbits = 24;
+		public int spawnLimitRabbits = 36;
 
 		@Comment("Spawn probability Cows")
-		public int spawnProbabilityCows = 8;
+		public int spawnProbabilityCows = 6;
 		@Comment("Spawn probability Horses")
-		public int spawnProbabilityHorses = 8;
+		public int spawnProbabilityHorses = 6;
 		@Comment("Spawn probability Pigs")
-		public int spawnProbabilitySows = 8;
+		public int spawnProbabilitySows = 6;
 		@Comment("Spawn probability Hens")
-		public int spawnProbabilityHens = 8;
+		public int spawnProbabilityHens = 6;
 		@Comment("Spawn probability Hedgehogs")
 		public int spawnProbabilityHedgehogs = 8;
 		@Comment("Spawn probability Ferrets")
@@ -353,25 +356,26 @@ public class CommonConfig
 		@Comment("Spawn probability Goats")
 		public int spawnProbabilityGoats = 6;
 		@Comment("Spawn probability Sheep")
-		public int spawnProbabilitySheep = 8;
+		public int spawnProbabilitySheep = 6;
 		@Comment("Spawn probability Rabbits")
-		public int spawnProbabilityRabbits = 6;
+		public int spawnProbabilityRabbits = 4;
 		
 
 		@Comment("Number of potential Cow families per chunk")
-		public int numberCowFamilies = 2;
+		public int numberCowFamilies = 1;
 		@Comment("Number of potential Pig families per chunk")
-		public int numberPigFamilies = 2;
+		public int numberPigFamilies = 1;
 		@Comment("Number of potential Chicken families per chunk")
 		public int numberChickenFamilies = 2;
 		@Comment("Number of potential Horse families per chunk")
 		public int numberHorseFamilies = 1;
 		@Comment("Number of potential Goat families per chunk")
-		public int numberGoatFamilies = 2;
+		public int numberGoatFamilies = 1;
 		@Comment("Number of potential Sheep families per chunk")
 		public int numberSheepFamilies = 2;
 		@Comment("Number of potential Rabbit families per chunk")
 		public int numberRabbitFamilies = 1;
+
 	}
 
 	public static class CareAndFeeding
@@ -383,13 +387,13 @@ public class CommonConfig
 		@Comment("Ticks between drinking water")
 		public int waterTimer = 8000;
 		@Comment("Ticks between playing")
-		public int playTimer = 4000;
+		public int playTimer = 8000;
 		@Comment("Ticks between laying eggs")
 		public int laidTimer = 2000;
 		@Comment("Ticks between dropping feathers")
 		public int featherTimer = 12000;
 		@Comment("Ticks between birthings")
-		public int gestationTimer = 20000;
+		public int gestationTimer = 24000;
 		@Comment("Ticks before wool regrowth after shearing")
 		public int woolRegrowthTimer = 8000;
 		@Comment("Ticks between animals taking starvation damage")

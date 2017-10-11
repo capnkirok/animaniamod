@@ -1,5 +1,6 @@
 package com.animania.common.entities.rodents.rabbits;
 
+import net.minecraft.init.Items;
 import net.minecraft.world.World;
 
 public class EntityRabbitDoeChinchilla extends EntityRabbitDoeBase
@@ -9,6 +10,8 @@ public class EntityRabbitDoeChinchilla extends EntityRabbitDoeBase
 	{
 		super(worldIn);
 		this.rabbitType = RabbitType.CHINCHILLA;
+		this.dropRaw = Items.RABBIT;
+		this.dropCooked = Items.COOKED_RABBIT;
 	}
 	
 	@Override
