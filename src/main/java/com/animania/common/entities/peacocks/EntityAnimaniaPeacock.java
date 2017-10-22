@@ -101,8 +101,8 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		this.tasks.addTask(7, new EntityAILookIdle(this));
 		this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
 		this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
-		this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
-		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+		//this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
+		//this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(100);
 		this.blinkTimer = 80 + this.rand.nextInt(80);
