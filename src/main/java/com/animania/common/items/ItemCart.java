@@ -32,10 +32,7 @@ public class ItemCart extends Item
 		this.setUnlocalizedName("cart");
 		ForgeRegistries.ITEMS.register(this);
 	}
-
-	/**
-	 * Called when the equipped item is right clicked.
-	 */
+	
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
 	{
 		ItemStack itemstack = playerIn.getHeldItem(handIn);

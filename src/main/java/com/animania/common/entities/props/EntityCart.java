@@ -159,14 +159,7 @@ public class EntityCart extends AnimatedEntityBase
 			{
 				this.turnSpeed = (-this.turnSpeed);
 			}
-
-			/*
-	      if ((this.speed > 3.0D) && (!this.world.isRemote))
-	      {
-	        setPulling(null);
-	        ((WorldServer)this.world).getEntityTracker().sendToTracking(this, AstikoorPacketHandler.INSTANCE.getPacketFrom(new EntityCartUpdatePacket(-1, getEntityId())));
-	      }
-			 */
+		
 		}
 
 
