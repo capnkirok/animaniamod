@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
+import com.animania.common.entities.props.EntityCart;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -237,9 +238,8 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
-
 		ItemStack stack = player.getHeldItem(hand);
-
+		
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
 			{
 				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
@@ -261,7 +261,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			}
 		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
 			player.startRiding(this);
-			//player.addStat(AnimaniaAchievements.Horseriding, 1);
+			
 			return true;
 		} else {
 			return super.processInteract(player, hand);

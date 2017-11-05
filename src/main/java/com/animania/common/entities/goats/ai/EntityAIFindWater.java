@@ -151,7 +151,7 @@ public class EntityAIFindWater extends EntityAIBase
 
 						if (blockchk == Blocks.WATER) {
 							waterFound = true;
-							if (rand.nextInt(20) == 0) {
+							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
@@ -166,7 +166,7 @@ public class EntityAIFindWater extends EntityAIBase
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
 							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
 								waterFound = true;
-								if (rand.nextInt(20) == 0) {
+								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
@@ -305,7 +305,7 @@ public class EntityAIFindWater extends EntityAIBase
 				Block waterBlockchk = temptedEntity.world.getBlockState(waterPos).getBlock();
 				Biome biomegenbase = temptedEntity.world.getBiome(waterPos); 
 
-				if (waterBlockchk == BlockHandler.blockTrough) {
+				if (waterBlockchk == BlockHandler.blockTrough && !this.temptedEntity.hasPath()) {
 
 					if(this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX() + .7, waterPos.getY(), waterPos.getZ(), this.speed) == false) {
 						this.resetTask();
@@ -314,7 +314,7 @@ public class EntityAIFindWater extends EntityAIBase
 					}
 
 
-				} else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+				} else if (waterBlockchk == Blocks.WATER && !this.temptedEntity.hasPath() && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 					if(this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false) {
 						this.resetTask();
 					} else {

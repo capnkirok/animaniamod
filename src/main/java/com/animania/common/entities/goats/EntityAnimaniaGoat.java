@@ -9,6 +9,7 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.ai.EntityAIFindFoodGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindSaltLickGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindWater;
@@ -68,6 +69,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	protected static final DataParameter<Boolean> SPOOKED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Float> SPOOKED_TIMER = EntityDataManager.<Float>createKey(EntityAnimaniaGoat.class, DataSerializers.FLOAT);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaGoat.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -121,6 +123,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	{
 		super.entityInit();
 		this.dataManager.register(EntityAnimaniaGoat.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaGoat.HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaGoat.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaGoat.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
@@ -142,6 +145,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
+		this.setHandFed(true);
 		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
 		player.addStat(goatType.getAchievement(), 1);
@@ -180,6 +184,16 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 		this.dataManager.set(EntityAnimaniaGoat.SPOOKED_TIMER, Float.valueOf(timer));
 	}
 
+	public boolean getHandFed()
+	{
+		return this.dataManager.get(EntityAnimaniaGoat.HANDFED).booleanValue();
+	}
+
+	public void setHandFed(boolean handfed)
+	{
+		this.dataManager.set(EntityAnimaniaGoat.HANDFED, Boolean.valueOf(handfed));
+	}
+	
 	@Nullable
 	public UUID getMateUniqueId()
 	{
@@ -433,6 +447,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
 		}
 		compound.setBoolean("Fed", this.getFed());
+		compound.setBoolean("Handfed", this.getHandFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Sheared", this.getSheared());
 		compound.setBoolean("Spooked", this.getSpooked());
@@ -487,6 +502,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 		}
 
 		this.setFed(compound.getBoolean("Fed"));
+		this.setHandFed(compound.getBoolean("Handfed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setSheared(compound.getBoolean("Sheared"));
 		this.setSpooked(compound.getBoolean("Spooked"));

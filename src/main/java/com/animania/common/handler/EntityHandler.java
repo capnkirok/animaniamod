@@ -3,7 +3,6 @@ package com.animania.common.handler;
 import java.util.List;
 import java.util.Set;
 
-import com.animania.Animania;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.amphibians.AmphibianType;
 import com.animania.common.entities.amphibians.EntityDartFrogs;
@@ -108,6 +107,7 @@ import com.animania.common.entities.pigs.EntitySowLargeWhite;
 import com.animania.common.entities.pigs.EntitySowOldSpot;
 import com.animania.common.entities.pigs.EntitySowYorkshire;
 import com.animania.common.entities.pigs.PigType;
+import com.animania.common.entities.props.EntityCart;
 import com.animania.common.entities.props.EntityWagon;
 import com.animania.common.entities.rodents.EntityFerretGrey;
 import com.animania.common.entities.rodents.EntityFerretWhite;
@@ -167,7 +167,6 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -586,7 +585,8 @@ public class EntityHandler
 		}
 
 		// MOVING ENTITIES
-		//RegistryHelper.Entities.registerEntity(EntityWagon.class, "wagon", entityID++, 40, 1, true);
+		RegistryHelper.Entities.registerEntity(EntityWagon.class, "wagon", entityID++, 40, 1, true);
+		RegistryHelper.Entities.registerEntity(EntityCart.class, "cart", entityID++, 40, 1, true);
 
 	}
 

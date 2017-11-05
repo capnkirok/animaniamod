@@ -60,5 +60,5 @@ public class EntityEventHandler
             ItemHandler.regItemEggColors();
     	}
     }
-
+    
 }

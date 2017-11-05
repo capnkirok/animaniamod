@@ -108,7 +108,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 							{
 								foodFound = true;
-								if (rand.nextInt(50) == 0)
+								if (rand.nextInt(200) == 0)
 								{
 									this.delayTemptCounter = 0;
 									this.resetTask();
@@ -220,11 +220,9 @@ public class EntityAIFerretFindFood extends EntityAIBase
 		if (foodFound)
 		{
 
-			System.out.println("pathing");
-
 			Block foodBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
 
-			if (foodBlockchk == BlockHandler.blockNest)
+			if (foodBlockchk == BlockHandler.blockNest && !this.temptedEntity.hasPath())
 			{
 				TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(foodPos);
 

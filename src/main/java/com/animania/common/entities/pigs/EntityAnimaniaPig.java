@@ -6,6 +6,7 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.pigs.ai.EntityAIFindFood;
 import com.animania.common.entities.pigs.ai.EntityAIFindMud;
 import com.animania.common.entities.pigs.ai.EntityAIFindSaltLickPigs;
@@ -64,6 +65,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> PLAYED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaPig.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.pigFood));
 	protected boolean boosting;
@@ -129,6 +131,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
+		this.setHandFed(true);
 
 		if (this.entityAIEatGrass != null)
 		{
@@ -226,6 +229,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.dataManager.register(EntityAnimaniaPig.MUDTIMER, Float.valueOf(0.0F));
 		this.dataManager.register(EntityAnimaniaPig.SPLASHTIMER, Float.valueOf(0.0F));
 		this.dataManager.register(EntityAnimaniaPig.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaPig.HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaPig.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaPig.PLAYED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaPig.AGE, Integer.valueOf(0));
@@ -240,6 +244,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		compound.setFloat("MudTimer", this.getMudTimer());
 		compound.setFloat("SplashTimer", this.getSplashTimer());
 		compound.setBoolean("Fed", this.getFed());
+		compound.setBoolean("Handfed", this.getHandFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Played", this.getPlayed());
 		compound.setInteger("Age", this.getAge());
@@ -255,6 +260,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.setMudTimer(compound.getFloat("MudTimer"));
 		this.setSplashTimer(compound.getFloat("SplashTimer"));
 		this.setFed(compound.getBoolean("Fed"));
+		this.setHandFed(compound.getBoolean("Handfed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setPlayed(compound.getBoolean("Played"));
 		this.setAge(compound.getInteger("Age"));
@@ -271,6 +277,15 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.dataManager.set(EntityAnimaniaPig.AGE, Integer.valueOf(age));
 	}
 
+	public boolean getHandFed()
+	{
+		return this.dataManager.get(EntityAnimaniaPig.HANDFED).booleanValue();
+	}
+
+	public void setHandFed(boolean handfed)
+	{
+		this.dataManager.set(EntityAnimaniaPig.HANDFED, Boolean.valueOf(handfed));
+	}
 	
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)

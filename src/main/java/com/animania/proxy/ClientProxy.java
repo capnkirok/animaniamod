@@ -93,9 +93,11 @@ public class ClientProxy extends CommonProxy
 		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_hamster_wheel");
 		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "hamster");
 		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "wagon");
+		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_cart");
 
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "anim_hamster_wheel");
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "hamster_run");
+		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_cart");
 	}
 
 }

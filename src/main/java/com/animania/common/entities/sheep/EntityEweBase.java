@@ -47,7 +47,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProviderMateable
 {
 	protected ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
-	public int dryTimerEwe;
+	public int dryTimer;
 	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean>createKey(EntityEweBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean>createKey(EntityEweBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityEweBase.class, DataSerializers.BOOLEAN);
@@ -278,7 +278,13 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
-
+		if (!this.getFertile() && this.dryTimer > -1) {
+			this.dryTimer--;
+		} else {
+			this.setFertile(true);
+			this.dryTimer = AnimaniaConfig.careAndFeeding.gestationTimer/9 + rand.nextInt(50);
+		}
+		
 		if (this.blinkTimer > -1)
 		{
 			this.blinkTimer--;
@@ -357,7 +363,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 							this.world.spawnEntity(entityKid);
 						}
 						entityKid.setParentUniqueId(this.getPersistentID());
-						this.playSound(ModSoundEvents.mooCalf1, 0.50F, 1.1F);
+						this.playSound(ModSoundEvents.lambLiving1, 0.50F, 1.1F);
 
 						this.setPregnant(false);
 						this.setFertile(false);

@@ -7,6 +7,7 @@ import com.animania.Animania;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
+import com.animania.common.entities.props.EntityCart;
 import com.animania.network.client.TileEntitySyncPacket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -147,15 +148,22 @@ public class AnimaniaHelper
 			player.dropItem(stack, false);
 	}
 
+	
 	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
-		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, theEntity.getEntityBoundingBox().expand(range, range, range));
+		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
 		return list;
 	}
+	
 
 	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, BlockPos pos)
 	{
-		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos).expand(range, range, range));
+		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range));
+		return list;
+	}
+	
+	public static List getCartsInRange(Class<EntityCart> filterEntity, int range, World world, EntityPlayer theEntity) {
+		List list = world.<EntityCart>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
 		return list;
 	}
 	
@@ -195,5 +203,7 @@ public class AnimaniaHelper
 		cap.setCarrying(other.isCarrying());
 		cap.setType(other.getType());
 	}
+
+	
 
 }

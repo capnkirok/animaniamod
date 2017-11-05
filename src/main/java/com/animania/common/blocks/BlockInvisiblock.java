@@ -16,6 +16,7 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -137,9 +138,27 @@ public class BlockInvisiblock extends BlockContainer implements TOPInfoProvider
 	{
 		return BlockRenderLayer.CUTOUT;
 	}
+	
+	@Override
+	public boolean isTopSolid(IBlockState state)
+	{
+		return false;
+	}
+	
+	@Deprecated
+    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+    {
+        return BlockFaceShape.UNDEFINED;
+    }
 
 	@Override
 	public boolean isFullCube(IBlockState state)
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isFullBlock(IBlockState state)
 	{
 		return false;
 	}
@@ -171,11 +190,7 @@ public class BlockInvisiblock extends BlockContainer implements TOPInfoProvider
 
 		return block == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
-
-	public boolean isOpaqueCube()
-	{
-		return false;
-	}
+	
 
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)

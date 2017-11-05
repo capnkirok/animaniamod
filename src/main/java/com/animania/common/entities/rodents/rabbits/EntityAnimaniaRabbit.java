@@ -9,6 +9,7 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.rodents.ai.EntityAIFindFoodRabbits;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
@@ -75,6 +76,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaRabbit.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaRabbit.class, DataSerializers.VARINT);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaRabbit.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
 	private static final String[] RABBIT_TEXTURES = new String[] {"black", "brown", "golden", "olive", "patch_black", "patch_brown", "patch_grey"};
 
 	protected int happyTimer;
@@ -225,6 +227,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 			this.dataManager.register(EntityAnimaniaRabbit.COLOR_NUM, 0);
 		}
 		this.dataManager.register(EntityAnimaniaRabbit.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaRabbit.HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaRabbit.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaRabbit.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaRabbit.AGE, Integer.valueOf(0));
@@ -299,6 +302,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
+		this.setHandFed(true);
 		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
 		player.addStat(rabbitType.getAchievement(), 1);
@@ -315,6 +319,16 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 	public void setAge(int age)
 	{
 		this.dataManager.set(EntityAnimaniaRabbit.AGE, Integer.valueOf(age));
+	}
+	
+	public boolean getHandFed()
+	{
+		return this.dataManager.get(EntityAnimaniaRabbit.HANDFED).booleanValue();
+	}
+
+	public void setHandFed(boolean handfed)
+	{
+		this.dataManager.set(EntityAnimaniaRabbit.HANDFED, Boolean.valueOf(handfed));
 	}
 
 	@Nullable
@@ -569,6 +583,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
 		}
 		compound.setBoolean("Fed", this.getFed());
+		compound.setBoolean("Handfed", this.getHandFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setInteger("ColorNumber", getColorNumber());
 		compound.setInteger("Age", this.getAge());
@@ -598,6 +613,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 
 		this.setColorNumber(compound.getInteger("ColorNumber"));
 		this.setFed(compound.getBoolean("Fed"));
+		this.setHandFed(compound.getBoolean("Handfed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setAge(compound.getInteger("Age"));
 

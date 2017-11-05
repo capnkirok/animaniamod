@@ -200,7 +200,7 @@ public class EntityAIFindSaltLickGoats extends EntityAIBase
 
 				Block waterBlockchk = temptedEntity.world.getBlockState(saltPos).getBlock();
 
-				if (waterBlockchk == BlockHandler.blockSaltLick) {
+				if (waterBlockchk == BlockHandler.blockSaltLick && !this.temptedEntity.hasPath()) {
 					if(this.temptedEntity.getNavigator().tryMoveToXYZ(saltPos.getX(), saltPos.getY(), saltPos.getZ(), this.speed) == false) {
 						this.resetTask();
 					} else {

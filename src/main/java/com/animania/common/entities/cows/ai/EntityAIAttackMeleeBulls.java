@@ -101,7 +101,7 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 
         if (entitylivingbase != null) {
 
-            this.attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
+            this.attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 20.0F, 20.0F);
             double d0 = this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
             --this.delayCounter;
 

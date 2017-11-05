@@ -1,0 +1,90 @@
+{
+  "title": "Wagon",
+  "duration": 60,
+  "holdLastKeyframe": false,
+  "nodeAnimations": {
+    "FrontWeelAxe": {
+      "position": {
+        "0": [ 0, 2.090931E-06, 0.1399987 ],
+        "10": [ 0, 2.090931E-06, -1.360001 ],
+        "30": [ 0, 2.090931E-06, 0.1399987 ],
+        "50": [ 0, 2.090931E-06, -0.3600013 ]
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+        "0": [ 8.14222E-13, 0, 0 ],
+        "60": [ -8.14222E-13, -180, -180 ]
+      },
+      "stretch": {
+      }
+    },
+    "WeelsAxeBack": {
+      "position": {
+        "30": [ 0, -3.876687E-06, -0.6600018 ],
+        "50": [ 0, -3.876687E-06, 0.8399982 ]
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+        "0": [ -9.659342E-06, 0, 0 ],
+        "60": [ 9.659341E-06, 180, 180 ]
+      },
+      "stretch": {
+      }
+    },
+    "Ground": {
+      "position": {
+        "0": [ 0, 0, 0 ],
+        "10": [ 0, -0.5, 0 ],
+        "30": [ 0, 0, 0 ],
+        "50": [ 0, -0.5, 0 ]
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+        "0": [ 0, 0, 0 ],
+        "10": [ 1, 0, 0 ],
+        "30": [ -1, 0, 0 ],
+        "50": [ 0, 0, 0 ]
+      },
+      "stretch": {
+      }
+    },
+    "MaintBackSupport": {
+      "position": {
+        "0": [ 0, 0, 0 ],
+        "30": [ 0, -1, 0 ]
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+      },
+      "stretch": {
+      }
+    },
+    "MaintFrontSupport": {
+      "position": {
+        "0": [ 0, 0, 0 ],
+        "10": [ 0, -1, 0 ],
+        "30": [ 0, 0, 0 ]
+      },
+      "offsetFromPivot": {
+      },
+      "size": {
+      },
+      "rotation": {
+      },
+      "stretch": {
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 package com.animania.common.entities.horses;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
 import com.animania.common.entities.horses.ai.EntityAISwimmingHorse;
 import com.animania.common.entities.horses.ai.EntityAITemptHorses;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
+import com.animania.common.entities.props.EntityCart;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -62,6 +64,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaHorse.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
 	private static final String[] HORSE_TEXTURES = new String[] {"black", "bw1", "bw2", "grey", "red", "white"};
 
 	protected int happyTimer;
@@ -118,6 +121,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		super.entityInit();
 		this.dataManager.register(EntityAnimaniaHorse.COLOR_NUM, Integer.valueOf(rand.nextInt(6)));
 		this.dataManager.register(EntityAnimaniaHorse.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaHorse.HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaHorse.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaHorse.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaHorse.AGE, Integer.valueOf(0));
@@ -193,6 +197,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
+		this.setHandFed(true);
 		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
 		this.setInLove(player);
@@ -215,6 +220,16 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			this.setHealth(this.getHealth() + 1.0F);
 		} else
 			this.dataManager.set(EntityAnimaniaHorse.FED, Boolean.valueOf(false));
+	}
+	
+	public boolean getHandFed()
+	{
+		return this.dataManager.get(EntityAnimaniaHorse.HANDFED).booleanValue();
+	}
+
+	public void setHandFed(boolean handfed)
+	{
+		this.dataManager.set(EntityAnimaniaHorse.HANDFED, Boolean.valueOf(handfed));
 	}
 
 	public boolean getWatered()
@@ -432,7 +447,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
-
+	
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
 		{
 			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
@@ -489,6 +504,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
 		}
 		compound.setBoolean("Fed", this.getFed());
+		compound.setBoolean("Handfed", this.getHandFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setInteger("ColorNumber", getColorNumber());
 		compound.setInteger("Age", this.getAge());
@@ -519,6 +535,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 
 		this.setColorNumber(compound.getInteger("ColorNumber"));
 		this.setFed(compound.getBoolean("Fed"));
+		this.setHandFed(compound.getBoolean("Handfed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setAge(compound.getInteger("Age"));
 

@@ -6,10 +6,8 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIMateHorses;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -381,6 +379,10 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
 							{
 								mateReset = false;
+								EntityMareBase fem = (EntityMareBase) entity;
+								if (fem.getPregnant()) {
+									this.setHandFed(false);
+								}
 								break;
 							}
 						}
