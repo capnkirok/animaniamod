@@ -13,6 +13,7 @@ import com.animania.common.inventory.CartChest;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,10 +43,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.reflect.internal.Trees.This;
 
 public class EntityCart extends AnimatedEntityBase implements IInventoryChangedListener
 {
@@ -56,11 +58,11 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	public CartChest cartChest;
 	private float deltaRotation;
 	private int lerpSteps;
-    private double cartPitch;
-    private double lerpY;
-    private double lerpZ;
-    private double cartYaw;
-    private double lerpXRot;
+	private double cartPitch;
+	private double lerpY;
+	private double lerpZ;
+	private double cartYaw;
+	private double lerpXRot;
 	protected static final DataParameter<Integer> PULLER_TYPE = EntityDataManager.<Integer>createKey(EntityCart.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityCart.class, DataSerializers.VARINT);
 	private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.<Float>createKey(EntityCart.class, DataSerializers.FLOAT);
@@ -307,6 +309,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	@Override
 	public void onUpdate() {
 
+		//Dismount if sneak pressed and riding this 
 		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityPlayer && this.rideCooldown == 0) {
 			EntityPlayer player = (EntityPlayer) this.getControllingPassenger();
 			if (player.isSneaking()) {
@@ -315,6 +318,73 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				player.dismountEntity(this);
 				this.removePassengers();
 
+			}
+		}
+
+		//Dismount text
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityPlayer && this.rideCooldown > 10 && world.isRemote) {
+			EntityPlayer player = (EntityPlayer) this.getControllingPassenger();
+			player.sendStatusMessage(new TextComponentString(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
+		}
+
+		//Determine animation direction based on previous pos
+		if (this.pulled && this.puller != null && world.isRemote) {
+
+			double diffX = (this.posX - this.prevPosX);
+			double diffZ = (this.posZ - this.prevPosZ);
+
+			//System.out.println("x: " + (this.posX - this.prevPosX));
+			//System.out.println("z: " + (this.posZ - this.prevPosZ));
+			//System.out.println("yaw: " + this.cartYaw);
+
+			if ((this.cartYaw > 0 && diffX > .001) || (this.cartYaw < 0 && diffX < -.001) && this.puller instanceof EntityPlayer) {
+				System.out.println("forward");
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest_back", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest", this);
+				}
+			} else if ((this.cartYaw > 0 && diffX > .001) || (this.cartYaw < 0 && diffX < -.001) && this.puller instanceof EntityHorse) {
+				System.out.println("forward-anim");
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest_back", this);
+				}
+			} else if ((this.cartYaw > 0 && diffX < -.001) || (this.cartYaw < 0 && diffX > .001) && this.puller instanceof EntityPlayer) {
+				System.out.println("backward");
+
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest_back", this);
+				}
+			} else if ((this.cartYaw > 0 && diffX < -.001) || (this.cartYaw < 0 && diffX > .001) && this.puller instanceof EntityHorse) {
+				System.out.println("backward-anim");
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest_back", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest", this);
+				}
+
+			} 
+
+		}
+
+		//Stop Animation if not pulling or moving
+		if (this.world.isRemote) {
+			double diffX = (this.posX - this.prevPosX);
+			double diffZ = (this.posZ - this.prevPosZ);
+			if ((Math.abs(diffX) < .005 && Math.abs(diffZ) < .005 || !this.pulled) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
+			} 
+
+			if ((Math.abs(diffX) < .005 && Math.abs(diffZ) < .005 || !this.pulled) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest_back", this);
 			}
 		}
 
@@ -368,22 +438,13 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			}
 		}
 
-		if (this.pulled && this.puller != null) {
-			if (Math.abs(this.puller.motionX) < .01 && (Math.abs(this.puller.motionZ) < .01)) {
-				entityMoving = false;
-			} else {
-				entityMoving = true;
-			}
-		}
 
+		if (this.puller != null && (Math.abs(this.puller.posX - this.posX) > 4 || Math.abs(this.puller.posZ - this.posZ) > 4)) {
+			this.pulled = false;
+			this.puller = null;
+			this.setPullerType(0);
+			world.playSound(null, this.posX, this.posY, this.posZ, ModSoundEvents.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 
-		String animType = "anim_cart_chest";
-		if (this.isWorldRemote() && this.getAnimationHandler().isAnimationActive(Animania.MODID, animType, this) && !entityMoving)  {
-			this.getAnimationHandler().stopAnimation(Animania.MODID, animType, this);
-		} else if (this.isWorldRemote() && !this.getAnimationHandler().isAnimationActive(Animania.MODID, animType, this) && entityMoving)  {
-			this.getAnimationHandler().startAnimation(Animania.MODID, animType, this);
-		} else if (this.isWorldRemote() && this.getAnimationHandler().isAnimationActive(Animania.MODID, animType, this) && !this.pulled)  {
-			this.getAnimationHandler().stopAnimation(Animania.MODID, animType, this);
 		}
 
 		if (this.pulled)
@@ -397,14 +458,6 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			if (Math.abs(this.speed) < 0.01D)
 			{
 				this.speed = 0.0D;
-			}
-
-			if (this.speed > 0) {
-				//System.out.println("player: " + this.puller.motionX +", " + this.puller.motionZ);
-				//System.out.println("cart: "  + this.motionX +", " + this.motionZ);
-				//System.out.println("player: " + this.puller.posX +", " + this.puller.posZ);
-				//System.out.println("cart: "  + this.posX +", " + this.posZ);
-				//System.out.println(this.speed);
 			}
 
 			this.motionX = moveVec.x/2;
@@ -485,17 +538,17 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			this.setRotation(this.rotationYaw, this.rotationPitch);
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-    public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
-    {
-        this.cartPitch = x;
-        this.lerpY = y;
-        this.lerpZ = z;
-        this.cartYaw = (double)yaw;
-        this.lerpXRot = (double)pitch;
-        this.lerpSteps = 10;
-    }
+	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
+	{
+		this.cartPitch = x;
+		this.lerpY = y;
+		this.lerpZ = z;
+		this.cartYaw = (double)yaw;
+		this.lerpXRot = (double)pitch;
+		this.lerpSteps = 10;
+	}
 
 	public void updatePassenger(Entity passenger)
 	{
