@@ -1,6 +1,5 @@
 package com.animania.common.entities.horses;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,13 +13,15 @@ import com.animania.common.entities.horses.ai.EntityAIFindFood;
 import com.animania.common.entities.horses.ai.EntityAIFindSaltLickHorses;
 import com.animania.common.entities.horses.ai.EntityAIFindWater;
 import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
+import com.animania.common.entities.horses.ai.EntityAILookIdleHorses;
 import com.animania.common.entities.horses.ai.EntityAIMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
 import com.animania.common.entities.horses.ai.EntityAISwimmingHorse;
 import com.animania.common.entities.horses.ai.EntityAITemptHorses;
+import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
-import com.animania.common.entities.props.EntityCart;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.inventory.ContainerHorseCart;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -30,8 +31,6 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityHorse;
@@ -79,11 +78,12 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	private ResourceLocation resourceLocation;
 	private ResourceLocation resourceLocationBlink;
 	protected EntityGender gender;
+	protected ContainerHorseCart cartChest;
 
 	public EntityAnimaniaHorse(World worldIn)
 	{
 		super(worldIn);
-		this.stepHeight = 1.1F;
+		this.stepHeight = 1.2F;
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityHorseEatGrass(this);
 		if (!AnimaniaConfig.gameRules.ambianceMode) {
@@ -93,12 +93,12 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		this.tasks.addTask(2, new EntityAIPanicHorses(this, 2.0D));
 		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
-		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
+		this.tasks.addTask(6, new EntityAIWanderHorses(this, 1.0D));
 		this.tasks.addTask(7, new EntityAISwimmingHorse(this));
 		this.tasks.addTask(8, new EntityAITemptHorses(this, 1.25D, false, TEMPTATION_ITEMS));
 		this.tasks.addTask(9, this.entityAIEatGrass);
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new EntityAILookIdle(this));
+		this.tasks.addTask(11, new EntityAILookIdleHorses(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickHorses(this, 1.0));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
@@ -357,7 +357,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			if (this.canPassengerSteer())
 			{
 				this.setAIMoveSpeed((float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
-				super.travel(p_191986_1_, p_191986_2_, p_191986_3_);
+				super.travel(p_191986_1_, p_191986_2_/8, p_191986_3_);
 			}
 			else if (entitylivingbase instanceof EntityPlayer)
 			{

@@ -145,5 +145,7 @@
 "piglet2": {"animania": "master","sounds": [{"name": "animania:pigs/piglet2","stream": false}]},
 "piglet3": {"animania": "master","sounds": [{"name": "animania:pigs/piglet3","stream": false}]},
 "combo": {"animania": "master","sounds": [{"name": "animania:combo","stream": false}]},
+"hitch": {"animania": "master","sounds": [{"name": "animania:props/hitch","stream": false}]},
+"unhitch": {"animania": "master","sounds": [{"name": "animania:props/unhitch","stream": false}]},
 "zap": {"animania": "master","sounds": [{"name": "animania:zap","stream": false}]}
 }

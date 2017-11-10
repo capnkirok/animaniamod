@@ -1,5 +1,6 @@
 package com.animania.common.handler;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.events.CapabilityLoadHandler;
 import com.animania.common.events.CarryRenderer;
@@ -11,6 +12,7 @@ import com.animania.common.events.ItemSeedHandler;
 import com.animania.common.events.LoginEventHandler;
 
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class EventsHandler
 {
@@ -25,6 +27,6 @@ public class EventsHandler
         MinecraftForge.EVENT_BUS.register(new EntityEventHandler());
         MinecraftForge.EVENT_BUS.register(new CapabilityLoadHandler());
         MinecraftForge.EVENT_BUS.register(new CarryRenderer());
-
+       
     }
 }

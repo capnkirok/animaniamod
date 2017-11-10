@@ -461,6 +461,9 @@ tile.animania_salt_lick.name=Salt Lick
 entity.animania:wagon.name=Covered Wagon
 item.wagon.name=Covered Wagon
 
+entity.animania:cart.name=Horse Cart
+item.cart.name=Horse Cart
+
 tile.animania_wool_dorset_brown.name=Wool (Dorset, Brown)
 tile.animania_wool_friesian_black.name=Wool (Friesian, Black)
 tile.animania_wool_jacob.name=Wool (Jacob)

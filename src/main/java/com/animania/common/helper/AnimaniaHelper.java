@@ -17,6 +17,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -162,8 +163,9 @@ public class AnimaniaHelper
 		return list;
 	}
 	
-	public static List getCartsInRange(Class<EntityCart> filterEntity, int range, World world, EntityPlayer theEntity) {
-		List list = world.<EntityCart>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
+	public static <T extends EntityCart> List<T> getCartsInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
+	{
+		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
 		return list;
 	}
 	
