@@ -56,7 +56,7 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 						}
 					}
 					
-					probeInfo.text(I18n.translateToLocal("text.waila.matemissing"));
+					//probeInfo.text(I18n.translateToLocal("text.waila.matemissing"));
 				}
 			}
 		}

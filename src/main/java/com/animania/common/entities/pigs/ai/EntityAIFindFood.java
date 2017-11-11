@@ -23,6 +23,7 @@ import com.animania.common.entities.pigs.EntitySowOldSpot;
 import com.animania.common.entities.pigs.EntitySowYorkshire;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -124,7 +125,7 @@ public class EntityAIFindFood extends EntityAIBase
 				}
 			}
 
-			if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES || poschk == Blocks.WHEAT) {
+			if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES || poschk == Blocks.WHEAT || poschk == Blocks.TALLGRASS) {
 
 				if (temptedEntity instanceof EntityAnimaniaPig) {
 					EntityAnimaniaPig ech = (EntityAnimaniaPig)temptedEntity;
@@ -132,7 +133,9 @@ public class EntityAIFindFood extends EntityAIBase
 					ech.setFed(true);
 				} 
 
-				this.temptedEntity.world.destroyBlock(currentpos, false);
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+					temptedEntity.world.destroyBlock(currentpos, false);
+				}
 
 				return false;
 			}
@@ -159,7 +162,7 @@ public class EntityAIFindFood extends EntityAIBase
 
 							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == BlockHandler.fluidSlop) {
 								foodFound = true;
-								if (rand.nextInt(50) == 0) {
+								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
@@ -175,10 +178,10 @@ public class EntityAIFindFood extends EntityAIBase
 							}
 						}
 
-						if (blockchk == Blocks.CARROTS || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES || blockchk == Blocks.WHEAT) {
+						if (blockchk == Blocks.CARROTS || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES || blockchk == Blocks.WHEAT || blockchk == Blocks.TALLGRASS) {
 
 							foodFound = true;
-							if (rand.nextInt(20) == 0) {
+							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
@@ -270,7 +273,7 @@ public class EntityAIFindFood extends EntityAIBase
 							}
 						}
 					}
-					else if (blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES) {
+					else if (blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES || blockchk == Blocks.TALLGRASS) {
 						foodFound = true;
 						newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
@@ -304,7 +307,7 @@ public class EntityAIFindFood extends EntityAIBase
 
 			Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPos).getBlock();
 
-			if (foodBlockchk == BlockHandler.blockTrough) {
+			if (foodBlockchk == BlockHandler.blockTrough && !this.temptedEntity.hasPath()) {
 				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(foodPos);
 
 				if (te.canConsume(EntityAnimaniaPig.TEMPTATION_ITEMS, BlockHandler.fluidSlop))
@@ -314,8 +317,8 @@ public class EntityAIFindFood extends EntityAIBase
 						this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
 
 			}
-			else if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.WHEAT || foodBlockchk == Blocks.BEETROOTS
-					|| foodBlockchk == Blocks.POTATOES)
+			else if (!this.temptedEntity.hasPath() && (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.WHEAT || foodBlockchk == Blocks.BEETROOTS
+					|| foodBlockchk == Blocks.POTATOES))
 				if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed) == false)
 					this.resetTask();
 				else

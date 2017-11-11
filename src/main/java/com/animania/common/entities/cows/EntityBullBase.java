@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
-import com.animania.common.entities.cows.ai.EntityAIFollowMateCows;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -47,7 +46,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.gender = EntityGender.MALE;
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 1.8D, false));
-		this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
+		//this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
 		this.tasks.addTask(6, new EntityAIMateCows(this, 1.0D));
 		this.mateable = true;
 	}
@@ -108,14 +107,17 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
-		boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 5.0F);
+		boolean flag = false;
+		if (this.canEntityBeSeen(entityIn) && this.getDistanceToEntity(entityIn) <= 2.0F) {
+			flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 5.0F);
 
-		if (flag)
-			this.applyEnchantments(this, entityIn);
+			if (flag)
+				this.applyEnchantments(this, entityIn);
 
-		// Custom Knockback
-		if (entityIn instanceof EntityPlayer)
-			((EntityLivingBase) entityIn).knockBack(this, 1, (this.posX - entityIn.posX)/2, (this.posZ - entityIn.posZ)/2);
+			// Custom Knockback
+			if (entityIn instanceof EntityPlayer)
+				((EntityLivingBase) entityIn).knockBack(this, 1, (this.posX - entityIn.posX)/2, (this.posZ - entityIn.posZ)/2);
+		}
 
 		return flag;
 	}
@@ -220,6 +222,10 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
 							{
 								mateReset = false;
+								EntityCowBase fem = (EntityCowBase) entity;
+								if (fem.getPregnant()) {
+									this.setHandFed(false);
+								}
 								break;
 							}
 						}

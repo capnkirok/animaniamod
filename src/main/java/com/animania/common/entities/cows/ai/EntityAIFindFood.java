@@ -5,6 +5,7 @@ import java.util.Random;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -97,7 +98,7 @@ public class EntityAIFindFood extends EntityAIBase
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					}
-					
+
 					return false;
 
 				}
@@ -112,7 +113,9 @@ public class EntityAIFindFood extends EntityAIBase
 					ech.setFed(true);
 				} 
 
-				temptedEntity.world.destroyBlock(currentpos, false);
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+					temptedEntity.world.destroyBlock(currentpos, false);
+				}
 
 				return false;
 			}
@@ -138,7 +141,7 @@ public class EntityAIFindFood extends EntityAIBase
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
 							if (te != null && te.canConsume(EntityAnimaniaCow.TEMPTATION_ITEMS, null)) {
 								foodFound = true;
-								if (rand.nextInt(20) == 0) {
+								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
@@ -158,7 +161,7 @@ public class EntityAIFindFood extends EntityAIBase
 								|| blockchk == Blocks.YELLOW_FLOWER) {
 
 							foodFound = true;
-							if (rand.nextInt(20) == 0) {
+							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
@@ -287,8 +290,7 @@ public class EntityAIFindFood extends EntityAIBase
 		if (foodFound) {
 
 			Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPos).getBlock();
-			if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT
-					|| mudBlockchk == Blocks.YELLOW_FLOWER || mudBlockchk == BlockHandler.blockTrough)
+			if (!this.temptedEntity.hasPath() && (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || mudBlockchk == BlockHandler.blockTrough))
 				this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
 		}
 

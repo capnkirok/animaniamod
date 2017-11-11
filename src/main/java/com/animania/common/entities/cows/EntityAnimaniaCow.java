@@ -53,9 +53,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityAnimaniaCow extends EntityCow implements ISpawnable, AnimaniaAnimal
 {
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.cowFood));
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaCow.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaCow.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+
+
 	protected int happyTimer;
 	public int blinkTimer;
 	public int eatTimer;
@@ -76,8 +80,10 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAICowEatGrass(this);
-		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
-		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
+		}
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAISwimmingCows(this));
 		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaCow.TEMPTATION_ITEMS));
@@ -87,7 +93,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickCows(this, 1.0));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -107,8 +113,11 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 	{
 		super.entityInit();
 		this.dataManager.register(EntityAnimaniaCow.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaCow.HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaCow.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaCow.MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityAnimaniaCow.AGE, Integer.valueOf(0));
+
 
 	}
 
@@ -153,12 +162,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		}
 
 		this.setFed(true);
+		this.setHandFed(true);
 		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
-//		player.addStat(cowType.getAchievement(), 1);
-//
-//		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
-//			player.addStat(AnimaniaAchievements.Cows, 1);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
@@ -181,6 +187,16 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			this.dataManager.set(EntityAnimaniaCow.FED, Boolean.valueOf(false));
 	}
 
+	public boolean getHandFed()
+	{
+		return this.dataManager.get(EntityAnimaniaCow.HANDFED).booleanValue();
+	}
+
+	public void setHandFed(boolean handfed)
+	{
+		this.dataManager.set(EntityAnimaniaCow.HANDFED, Boolean.valueOf(handfed));
+	}
+
 	public boolean getWatered()
 	{
 		return this.dataManager.get(EntityAnimaniaCow.WATERED).booleanValue();
@@ -195,6 +211,16 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		}
 		else
 			this.dataManager.set(EntityAnimaniaCow.WATERED, Boolean.valueOf(false));
+	}
+
+	public int getAge()
+	{
+		return this.dataManager.get(EntityAnimaniaCow.AGE).intValue();
+	}
+
+	public void setAge(int age)
+	{
+		this.dataManager.set(EntityAnimaniaCow.AGE, Integer.valueOf(age));
 	}
 
 	@Override
@@ -231,11 +257,15 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 	@Override
 	public void onLivingUpdate()
 	{
-
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
-		if (this.fedTimer > -1)
+
+		if (this.getAge() == 0) {
+			this.setAge(1);
+		}
+
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -247,7 +277,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
 
@@ -344,8 +374,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 
 	private boolean isCowBreedingItem(Item itemIn)
 	{
-		return itemIn == Items.WHEAT || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
+		return TEMPTATION_ITEMS.contains(itemIn) || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
+
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
@@ -357,7 +388,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 				compound.setString("MateUUID", this.getMateUniqueId().toString());
 
 		compound.setBoolean("Fed", this.getFed());
+		compound.setBoolean("Handfed", this.getHandFed());
 		compound.setBoolean("Watered", this.getWatered());
+		compound.setInteger("Age", this.getAge());
 
 	}
 
@@ -380,7 +413,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			this.setMateUniqueId(UUID.fromString(s));
 
 		this.setFed(compound.getBoolean("Fed"));
+		this.setHandFed(compound.getBoolean("Handfed"));
 		this.setWatered(compound.getBoolean("Watered"));
+		this.setAge(compound.getInteger("Age"));
 
 	}
 

@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.pigs.ai.EntityAIFollowMatePigs;
 import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
@@ -50,7 +49,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
 		this.tasks.addTask(8, new EntityAIMatePigs(this, 1.0D));
-		this.tasks.addTask(9, new EntityAIFollowMatePigs(this, 1.1D));
+		//this.tasks.addTask(9, new EntityAIFollowMatePigs(this, 1.1D));
 	}
 	
 	@Override
@@ -335,6 +334,10 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
 							{
 								mateReset = false;
+								EntitySowBase fem = (EntitySowBase) entity;
+								if (fem.getPregnant()) {
+									this.setHandFed(false);
+								}
 								break;
 							}
 						}

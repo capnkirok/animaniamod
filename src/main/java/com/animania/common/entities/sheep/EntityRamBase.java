@@ -44,12 +44,12 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	public EntityRamBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.4F, 1.0F);
+		this.setSize(1.2F, 1.0F);
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
 		this.headbutting = true;
 		this.mateable = true;
-		this.tasks.addTask(3, new EntityAIFollowMateSheep(this, 1.1D));
+		//this.tasks.addTask(3, new EntityAIFollowMateSheep(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIMateSheep(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIButtHeadsSheep(this, 1.3D));
 	}
@@ -198,6 +198,12 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
 							{
 								mateReset = false;
+								
+								EntityEweBase ewe = (EntityEweBase) entity;
+								if (ewe.getPregnant()) {
+									this.setHandFed(false);
+								}
+								
 								break;
 							}
 						}

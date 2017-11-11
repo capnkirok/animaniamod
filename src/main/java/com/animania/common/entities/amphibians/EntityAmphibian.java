@@ -20,6 +20,10 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
@@ -33,7 +37,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityAmphibian extends EntityAnimal implements ISpawnable, AnimaniaAnimal
 {
-
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAmphibian.class, DataSerializers.VARINT);
 	private int     jumpTicks;
 	private int     jumpDuration;
 	private boolean wasOnGround, canEntityJump;
@@ -61,6 +65,14 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 		this.canEntityJump = canEntityJumpIn;
 	}
 
+	@Override
+	protected void entityInit()
+	{
+		super.entityInit();
+		this.dataManager.register(EntityAmphibian.AGE, Integer.valueOf(0));
+	}
+
+	
 	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(1, new EntityAISwimming(this));
@@ -90,9 +102,18 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 			return 0.5F;
 	}
 
-	/**
-	 * Causes this entity to do an upwards motion (jumping).
-	 */
+	
+	public int getAge()
+	{
+		return this.dataManager.get(EntityAmphibian.AGE).intValue();
+	}
+
+	public void setAge(int age)
+	{
+		this.dataManager.set(EntityAmphibian.AGE, Integer.valueOf(age));
+	}
+
+	
 	@Override
 	protected void jump() {
 		super.jump();
@@ -197,6 +218,10 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 	@Override
 	public void onLivingUpdate() {
 
+		if (this.getAge() == 0) {
+			this.setAge(1);
+		}
+		
 		if (this.canEntityJump)
 			if (this.jumpTicks != this.jumpDuration)
 				++this.jumpTicks;
@@ -254,9 +279,6 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 		return SoundCategory.NEUTRAL;
 	}
 
-	/**
-	 * Called when the entity is attacked.
-	 */
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		return this.isEntityInvulnerable(source) ? false : super.attackEntityFrom(source, amount);
@@ -265,6 +287,21 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 	@Override
 	public EntityAmphibian createChild(EntityAgeable ageable) {
 		return null;
+	}
+	
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound)
+	{
+		super.writeEntityToNBT(compound);
+		compound.setInteger("Age", this.getAge());
+
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound)
+	{
+		super.readEntityFromNBT(compound);
+		this.setAge(compound.getInteger("Age"));
 	}
 
 	@Override

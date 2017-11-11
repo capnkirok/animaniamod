@@ -1,7 +1,9 @@
 package com.animania.common.entities.pigs.ai;
 
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.ItemHelper;
+import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
@@ -73,9 +75,19 @@ public class EntityAIPigSnuffle extends EntityAIBase
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
 
 			if (EntityAIPigSnuffle.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos))) {
-
-				this.entityWorld.destroyBlock(blockpos, false);
+				
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+					this.entityWorld.destroyBlock(blockpos, false);
+				}
+				
 				this.grassEaterEntity.eatGrassBonus();
+				
+				if (grassEaterEntity instanceof EntityAnimaniaPig) {
+					EntityAnimaniaPig ech = (EntityAnimaniaPig)grassEaterEntity;
+					ech.entityAIEatGrass.startExecuting();
+					ech.setFed(true);
+				} 
+				
 			}
 			else {
 				BlockPos blockpos1 = blockpos.down();

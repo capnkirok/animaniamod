@@ -6,6 +6,7 @@ import com.animania.common.entities.rodents.EntityHedgehogBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityNest.NestContent;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -92,7 +93,9 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 					ech.setFed(true);
 				}
 
-				this.temptedEntity.world.destroyBlock(currentpos, false);
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+					temptedEntity.world.destroyBlock(currentpos, false);
+				}
 
 				return false;
 			}
@@ -122,7 +125,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 							{
 								foodFound = true;
-								if (rand.nextInt(50) == 0)
+								if (rand.nextInt(200) == 0)
 								{
 									this.delayTemptCounter = 0;
 									this.resetTask();
@@ -143,7 +146,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 						{
 
 							foodFound = true;
-							if (rand.nextInt(20) == 0)
+							if (rand.nextInt(200) == 0)
 							{
 								this.delayTemptCounter = 0;
 								this.resetTask();
@@ -285,7 +288,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 
 			Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPos).getBlock();
 
-			if (foodBlockchk == BlockHandler.blockNest)
+			if (foodBlockchk == BlockHandler.blockNest && !this.temptedEntity.hasPath())
 			{
 				TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(foodPos);
 
@@ -296,7 +299,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 						this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
 
 			}
-			else if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
+			else if (!this.temptedEntity.hasPath() && (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES))
 				if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed) == false)
 					this.resetTask();
 				else

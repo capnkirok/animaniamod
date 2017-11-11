@@ -341,7 +341,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	private boolean isCowBreedingItem(Item itemIn)
 	{
-		return itemIn == Items.WHEAT || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
+		return TEMPTATION_ITEMS.contains(itemIn) || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	@Override

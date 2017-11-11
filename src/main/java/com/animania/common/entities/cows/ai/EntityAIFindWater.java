@@ -3,23 +3,9 @@ package com.animania.common.entities.cows.ai;
 import java.util.Random;
 
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityBullAngus;
-import com.animania.common.entities.cows.EntityBullFriesian;
-import com.animania.common.entities.cows.EntityBullHereford;
-import com.animania.common.entities.cows.EntityBullHolstein;
-import com.animania.common.entities.cows.EntityBullLonghorn;
-import com.animania.common.entities.cows.EntityCalfAngus;
-import com.animania.common.entities.cows.EntityCalfFriesian;
-import com.animania.common.entities.cows.EntityCalfHereford;
-import com.animania.common.entities.cows.EntityCalfHolstein;
-import com.animania.common.entities.cows.EntityCalfLonghorn;
-import com.animania.common.entities.cows.EntityCowAngus;
-import com.animania.common.entities.cows.EntityCowFriesian;
-import com.animania.common.entities.cows.EntityCowHereford;
-import com.animania.common.entities.cows.EntityCowHolstein;
-import com.animania.common.entities.cows.EntityCowLonghorn;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -32,28 +18,29 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fluids.FluidRegistry;
 
-public class EntityAIFindWater extends EntityAIBase
+public class EntityAIFindWater extends EntityAIBase 
 {
 	private final EntityCreature temptedEntity;
-	private final double         speed;
-	private double               targetX;
-	private double               targetY;
-	private double               targetZ;
-	private double               pitch;
-	private double               yaw;
-	private EntityPlayer         temptingPlayer;
-	private int                  delayTemptCounter;
-	private boolean              isRunning;
+	private final double speed;
+	private double targetX;
+	private double targetY;
+	private double targetZ;
+	private double pitch;
+	private double yaw;
+	private EntityPlayer temptingPlayer;
+	private int delayTemptCounter;
+	private boolean isRunning;
 
-	public EntityAIFindWater(EntityCreature temptedEntityIn, double speedIn) {
+	public EntityAIFindWater(EntityCreature temptedEntityIn, double speedIn)
+	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
 		this.setMutexBits(3);
 		this.delayTemptCounter = 0;
 	}
-	
-	@Override
-	public boolean shouldExecute() {
+
+	public boolean shouldExecute()
+	{
 
 		delayTemptCounter++;
 		if (this.delayTemptCounter <= 32) {
@@ -63,12 +50,13 @@ public class EntityAIFindWater extends EntityAIBase
 				EntityAnimaniaCow ech = (EntityAnimaniaCow)temptedEntity;
 				if (ech.getWatered()) {
 					this.delayTemptCounter = 0;
-					return false;
+					return false;		
 				}
-			} 
+			}
+
 			Random rand = new Random();
 
-			Biome biomegenbase = this.temptedEntity.world.getBiome(new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ));
+			Biome biomegenbase = temptedEntity.world.getBiome(new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ)); 
 
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
 			BlockPos currentposlower = new BlockPos(temptedEntity.posX, temptedEntity.posY - 1, temptedEntity.posZ);
@@ -89,6 +77,7 @@ public class EntityAIFindWater extends EntityAIBase
 			Block poschk6 = temptedEntity.world.getBlockState(trypos6).getBlock();
 			Block poschk7 = temptedEntity.world.getBlockState(trypos7).getBlock();
 			Block poschk8 = temptedEntity.world.getBlockState(trypos8).getBlock();
+			Block poschk9 = temptedEntity.world.getBlockState(currentposlower).getBlock();
 
 			if (poschk == BlockHandler.blockTrough) {
 				//do nothing
@@ -110,32 +99,35 @@ public class EntityAIFindWater extends EntityAIBase
 				currentpos = trypos8;
 			}
 
+
 			if (poschk == BlockHandler.blockTrough || poschk1 == BlockHandler.blockTrough || poschk2 == BlockHandler.blockTrough || poschk3 == BlockHandler.blockTrough || poschk4 == BlockHandler.blockTrough || poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough || poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
 
 				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(currentpos);
 				if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
 					te.consumeLiquid(100);
 
-					if (this.temptedEntity instanceof EntityAnimaniaCow) {
-						EntityAnimaniaCow ech = (EntityAnimaniaCow) this.temptedEntity;
+					temptedEntity.world.notifyBlockUpdate(currentpos, poschk.getDefaultState(), poschk.getDefaultState(), 0);
+					temptedEntity.world.updateComparatorOutputLevel(currentpos, poschk);
+
+					if (temptedEntity instanceof EntityAnimaniaCow) {
+						EntityAnimaniaCow ech = (EntityAnimaniaCow)temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setWatered(true);
-					}
-					
+					} 
+
 					return false;
 
 				}
-			}
-			else if ((poschk == Blocks.WATER || poschk1 == Blocks.WATER || poschk2 == Blocks.WATER || poschk3 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
-					&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 
-				if (this.temptedEntity instanceof EntityAnimaniaCow) {
-					EntityAnimaniaCow ech = (EntityAnimaniaCow) this.temptedEntity;
+			} else if ((poschk == Blocks.WATER || poschk9 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+
+				if (temptedEntity instanceof EntityAnimaniaCow) {
+					EntityAnimaniaCow ech = (EntityAnimaniaCow)temptedEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setWatered(true);
-				}
-				
-				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER) {
+				} 
+
+				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER && AnimaniaConfig.gameRules.waterRemovedAfterDrinking) {
 					this.temptedEntity.world.setBlockToAir(currentposlower);
 				}
 
@@ -150,85 +142,82 @@ public class EntityAIFindWater extends EntityAIBase
 
 			BlockPos pos = new BlockPos(x, y, z);
 
-			for (int i = -16; i < 16; i++)
-				for (int j = -3; j < 3; j++)
+			for (int i = -16; i < 16; i++) {
+				for (int j = -3; j < 3; j++) {
 					for (int k = -16; k < 16; k++) {
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
 						if (blockchk == Blocks.WATER) {
 							waterFound = true;
-							if (rand.nextInt(20) == 0) {
+							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
-							}
-							else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
-									&& this.temptedEntity.motionZ == 0) {
+							} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
-							}
-							else
+							} else {
 								return true;
-						}
-						else if (blockchk == BlockHandler.blockTrough) {
+							}
+						} else if (blockchk == BlockHandler.blockTrough) {
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
 							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
 								waterFound = true;
-								if (rand.nextInt(20) == 0) {
+								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
-								}
-								else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0) {
+								} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
-								}
-								else
+								} else {
 									return true;
+								}
 							}
 						}
-
 					}
+				}
+			}
 
-			if (!waterFound)
+			if (!waterFound) {
 				this.delayTemptCounter = 0;
-			return false;
+				return false;
+			}
 		}
 
 		return false;
 	}
 
-	@Override
-	public boolean shouldContinueExecuting() {
-
+	public boolean shouldContinueExecuting()
+	{
 		return this.shouldExecute();
 	}
-	
-	@Override
-	public void startExecuting() {
+
+	public void startExecuting()
+	{	
 		this.isRunning = true;
 	}
 
-	@Override
-	public void resetTask() {
+	public void resetTask()
+	{
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigator().clearPathEntity();
 		this.isRunning = false;
 	}
 
-	@Override
-	public void updateTask() {
+	public void updateTask()
+	{
 
 		double x = this.temptedEntity.posX;
 		double y = this.temptedEntity.posY;
 		double z = this.temptedEntity.posZ;
 
 		BlockPos currentpos = new BlockPos(x, y, z);
-		Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
+		Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
 
 		if (poschk != Blocks.WATER) {
 
@@ -238,102 +227,106 @@ public class EntityAIFindWater extends EntityAIBase
 			BlockPos pos = new BlockPos(x, y, z);
 			BlockPos waterPos = new BlockPos(x, y, z);
 
-			for (int i = -16; i < 16; i++)
-				for (int j = -3; j < 3; j++)
+			for (int i = -16; i < 16; i++) {
+				for (int j = -3; j < 3; j++) {
 					for (int k = -16; k < 16; k++) {
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
-						Biome biomegenbase = this.temptedEntity.world.getBiome(pos);
+						Biome biomegenbase = temptedEntity.world.getBiome(pos); 
 
 						if (blockchk == BlockHandler.blockTrough) {
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
 							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
 								waterFound = true;
-								newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
+								newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
 
 								if (newloc < loc) {
 
 									loc = newloc;
 
-									if (this.temptedEntity.posX < waterPos.getX()) {
+									if (temptedEntity.posX < waterPos.getX()) {
 										BlockPos waterPoschk = new BlockPos(x + i + 1, y + j, z + k);
-										Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
-										if (waterBlockchk == BlockHandler.blockTrough)
+										Block waterBlockchk = temptedEntity.world.getBlockState(waterPoschk).getBlock();
+										if (waterBlockchk == BlockHandler.blockTrough ) {
 											i = i + 1;
-									}
+										}
+									} 
 
-									if (this.temptedEntity.posZ < waterPos.getZ()) {
+									if (temptedEntity.posZ < waterPos.getZ()) {
 										BlockPos waterPoschk = new BlockPos(x + i, y + j, z + k + 1);
-										Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
-										if (waterBlockchk == BlockHandler.blockTrough)
+										Block waterBlockchk = temptedEntity.world.getBlockState(waterPoschk).getBlock();
+										if (waterBlockchk == BlockHandler.blockTrough ) {
 											k = k + 1;
+										} 
 									}
 
 									waterPos = new BlockPos(x + i, y + j, z + k);
 
 								}
-
 							}
 						}
 
-						if (blockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
-								&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+						if (blockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 							waterFound = true;
-							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
+							newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
 
 							if (newloc < loc) {
 
 								loc = newloc;
 
-								if (this.temptedEntity.posX < waterPos.getX()) {
+								if (temptedEntity.posX < waterPos.getX()) {
 									BlockPos waterPoschk = new BlockPos(x + i + 1, y + j, z + k);
-									Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
-									if (waterBlockchk == Blocks.WATER)
+									Block waterBlockchk = temptedEntity.world.getBlockState(waterPoschk).getBlock();
+									if (waterBlockchk == Blocks.WATER ) {
 										i = i + 1;
-								}
+									}
+								} 
 
-								if (this.temptedEntity.posZ < waterPos.getZ()) {
+								if (temptedEntity.posZ < waterPos.getZ()) {
 									BlockPos waterPoschk = new BlockPos(x + i, y + j, z + k + 1);
-									Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
-									if (waterBlockchk == Blocks.WATER)
+									Block waterBlockchk = temptedEntity.world.getBlockState(waterPoschk).getBlock();
+									if (waterBlockchk == Blocks.WATER ) {
 										k = k + 1;
+									} 
 								}
 
 								waterPos = new BlockPos(x + i, y + j, z + k);
 
 							}
-
-						}
-
+						} 
 					}
+				}
+			}
 
 			if (waterFound) {
 
-				Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPos).getBlock();
-				Biome biomegenbase = this.temptedEntity.world.getBiome(waterPos);
+				Block waterBlockchk = temptedEntity.world.getBlockState(waterPos).getBlock();
+				Biome biomegenbase = temptedEntity.world.getBiome(waterPos); 
 
-				if (waterBlockchk == BlockHandler.blockTrough) {
-					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
+				if (waterBlockchk == BlockHandler.blockTrough && !this.temptedEntity.hasPath()) {
+
+					if(this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX() + .7, waterPos.getY(), waterPos.getZ(), this.speed) == false) {
 						this.resetTask();
-					else
-						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
+					} else {
+						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX() + .7, waterPos.getY(), waterPos.getZ(), this.speed);
+					}
 
+
+				} else if (waterBlockchk == Blocks.WATER && !this.temptedEntity.hasPath() && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+					if(this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false) {
+						this.resetTask();
+					} else {
+						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
+					}
 				}
-				else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
-						&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH))
-					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
-						this.resetTask();
-					else
-						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
 			}
-
 		}
-
 	}
 
-	public boolean isRunning() {
+	public boolean isRunning()
+	{
 		return this.isRunning;
 	}
 }

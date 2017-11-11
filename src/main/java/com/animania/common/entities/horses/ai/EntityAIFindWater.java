@@ -5,13 +5,16 @@ import java.util.Random;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -76,6 +79,7 @@ public class EntityAIFindWater extends EntityAIBase
 			Block poschk6 = temptedEntity.world.getBlockState(trypos6).getBlock();
 			Block poschk7 = temptedEntity.world.getBlockState(trypos7).getBlock();
 			Block poschk8 = temptedEntity.world.getBlockState(trypos8).getBlock();
+			Block poschk9 = temptedEntity.world.getBlockState(currentposlower).getBlock();
 
 			if (poschk == BlockHandler.blockTrough) {
 				//do nothing
@@ -117,7 +121,7 @@ public class EntityAIFindWater extends EntityAIBase
 
 				}
 
-			} else if ((poschk == Blocks.WATER || poschk1 == Blocks.WATER || poschk2 == Blocks.WATER || poschk3 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+			} else if ((poschk == Blocks.WATER || poschk9 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 
 				if (temptedEntity instanceof EntityAnimaniaHorse) {
 					EntityAnimaniaHorse ech = (EntityAnimaniaHorse)temptedEntity;
@@ -125,7 +129,7 @@ public class EntityAIFindWater extends EntityAIBase
 					ech.setWatered(true);
 				} 
 
-				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER) {
+				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER && AnimaniaConfig.gameRules.waterRemovedAfterDrinking) {
 					this.temptedEntity.world.setBlockToAir(currentposlower);
 				}
 
@@ -149,7 +153,7 @@ public class EntityAIFindWater extends EntityAIBase
 
 						if (blockchk == Blocks.WATER) {
 							waterFound = true;
-							if (rand.nextInt(20) == 0) {
+							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
@@ -164,7 +168,7 @@ public class EntityAIFindWater extends EntityAIBase
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
 							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
 								waterFound = true;
-								if (rand.nextInt(20) == 0) {
+								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
@@ -303,7 +307,7 @@ public class EntityAIFindWater extends EntityAIBase
 				Block waterBlockchk = temptedEntity.world.getBlockState(waterPos).getBlock();
 				Biome biomegenbase = temptedEntity.world.getBiome(waterPos); 
 
-				if (waterBlockchk == BlockHandler.blockTrough) {
+				if (waterBlockchk == BlockHandler.blockTrough && !this.temptedEntity.hasPath()) {
 
 					if(this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX() + .7, waterPos.getY(), waterPos.getZ(), this.speed) == false) {
 						this.resetTask();
@@ -312,7 +316,7 @@ public class EntityAIFindWater extends EntityAIBase
 					}
 
 
-				} else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+				} else if (!this.temptedEntity.hasPath() && waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 					if(this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false) {
 						this.resetTask();
 					} else {

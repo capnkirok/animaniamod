@@ -24,19 +24,22 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -56,7 +59,7 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, IShearable, AnimaniaAnimal
+public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShearable, AnimaniaAnimal
 {
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.sheepFood));
@@ -67,6 +70,9 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> SHEARED_TIMER = EntityDataManager.<Integer>createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
+	
 	private static final String[] SHEEP_TEXTURES = new String[] {"black", "white", "brown"};
 
 
@@ -89,15 +95,18 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAISheepEatGrass(this);
-		this.tasks.addTask(1, new EntityAIFindFoodSheep(this, 1.1D));
-		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFindFoodSheep(this, 1.0D));
+		}
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAISwimmingSheep(this));
-		this.tasks.addTask(6, new EntityAIPanicSheep(this, 1.4D));
+		this.tasks.addTask(6, new EntityAIPanicSheep(this, 1.8D));
 		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
+		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityWolf.class, 10.0F, 2.0D, 2.2D));
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickSheep(this, 1.0));
@@ -120,6 +129,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 	{
 		super.entityInit();
 		this.dataManager.register(EntityAnimaniaSheep.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaSheep.HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaSheep.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaSheep.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaSheep.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
@@ -137,12 +147,13 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 		} else {
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, 0);
 		}
+		this.dataManager.register(EntityAnimaniaSheep.AGE, Integer.valueOf(0));
 
 
 	}
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable ageable)
+	public EntityAnimaniaSheep createChild(EntityAgeable ageable)
 	{
 		return null;
 	}
@@ -158,15 +169,13 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-		//this.entityAIEatGrass.startExecuting();
+		this.setHandFed(true);
+		this.entityAIEatGrass.startExecuting();
 		this.eatTimer = 80;
 		player.addStat(sheepType.getAchievement(), 1);
 
-		//if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
-		//	player.addStat(AnimaniaAchievements.Cows, 1);
-
 		if (!player.isCreative())
-			stack.shrink(1);;
+			stack.shrink(1);
 	}
 
 
@@ -210,6 +219,16 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 		} else
 			this.dataManager.set(EntityAnimaniaSheep.FED, Boolean.valueOf(false));
 	}
+	
+	public boolean getHandFed()
+	{
+		return this.dataManager.get(EntityAnimaniaSheep.HANDFED).booleanValue();
+	}
+
+	public void setHandFed(boolean handfed)
+	{
+		this.dataManager.set(EntityAnimaniaSheep.HANDFED, Boolean.valueOf(handfed));
+	}
 
 	public boolean getWatered()
 	{
@@ -249,6 +268,10 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 	@Override
 	public void onLivingUpdate()
 	{
+		if (this.getAge() == 0) {
+			this.setAge(1);
+		}
+		
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -261,7 +284,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 			}
 		}
 
-		if (this.fedTimer > -1)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -273,7 +296,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
 
@@ -336,11 +359,12 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack.getItem() == Items.SHEARS && !this.getSheared() && !this.isChild())  
+		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild())  
 		{
 			if (!this.world.isRemote) {
 				this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
 			}
+			player.swingArm(hand);
 		}
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
@@ -351,7 +375,7 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 				player.dropItem(new ItemStack(Items.BUCKET), false);
 
 			this.eatTimer = 40;
-			//this.entityAIEatGrass.startExecuting();
+			this.entityAIEatGrass.startExecuting();
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
@@ -406,9 +430,11 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
 		}
 		compound.setBoolean("Fed", this.getFed());
+		compound.setBoolean("Handfed", this.getHandFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Sheared", this.getSheared());
 		compound.setInteger("ColorNumber", getColorNumber());
+		compound.setInteger("Age", this.getAge());
 
 	}
 
@@ -429,11 +455,23 @@ public class EntityAnimaniaSheep extends EntityAnimal implements ISpawnable, ISh
 		}
 		this.setColorNumber(compound.getInteger("ColorNumber"));
 		this.setFed(compound.getBoolean("Fed"));
+		this.setHandFed(compound.getBoolean("Handfed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setSheared(compound.getBoolean("Sheared"));
+		this.setAge(compound.getInteger("Age"));
 
 	}
 
+	public int getAge()
+	{
+		return this.dataManager.get(EntityAnimaniaSheep.AGE).intValue();
+	}
+
+	public void setAge(int age)
+	{
+		this.dataManager.set(EntityAnimaniaSheep.AGE, Integer.valueOf(age));
+	}
+	
 	public int getColorNumber()
 	{
 		return ((Integer)this.dataManager.get(COLOR_NUM)).intValue();

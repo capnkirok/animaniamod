@@ -37,7 +37,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	public EntityKidBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.5F, 1.5F);
+		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;

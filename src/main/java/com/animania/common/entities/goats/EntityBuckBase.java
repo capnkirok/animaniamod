@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
-import com.animania.common.entities.goats.ai.EntityAIFollowMateGoats;
 import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
 import com.animania.common.entities.goats.ai.EntityAIMateGoats;
 import com.animania.common.helper.AnimaniaHelper;
@@ -54,7 +53,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
 		this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.25F));
 		this.tasks.addTask(5, new EntityAIMateGoats(this, 1.0D));
-		this.tasks.addTask(5, new EntityAIFollowMateGoats(this, 1.0D));
+		//this.tasks.addTask(5, new EntityAIFollowMateGoats(this, 1.0D));
 	}
 
 	@Override
@@ -214,6 +213,11 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead)
 							{
 								mateReset = false;
+								
+								EntityDoeBase fem = (EntityDoeBase) entity;
+								if (fem.getPregnant()) {
+									this.setHandFed(false);
+								}
 								break;
 							}
 						}

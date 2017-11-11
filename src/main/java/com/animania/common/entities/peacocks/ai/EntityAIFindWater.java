@@ -59,11 +59,13 @@ public class EntityAIFindWater extends EntityAIBase
 
 			Random rand = new Random();
 			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
+			BlockPos currentposlower = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
 			Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
+			Block poschk1 = this.temptedEntity.world.getBlockState(currentposlower).getBlock();
 
 			Biome biomegenbase = this.temptedEntity.world.getBiome(new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ));
 
-			if (poschk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+			if ((poschk == Blocks.WATER && poschk1 == Blocks.WATER) && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 				if (this.temptedEntity instanceof EntityAnimaniaPeacock) {
 					EntityAnimaniaPeacock entity = (EntityAnimaniaPeacock) this.temptedEntity;
 					entity.setWatered(true);
@@ -118,7 +120,7 @@ public class EntityAIFindWater extends EntityAIBase
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
 							if (te != null && (te.canConsume(null, FluidRegistry.WATER))) {
 								waterFound = true;
-								if (rand.nextInt(20) == 0) {
+								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
@@ -253,7 +255,7 @@ public class EntityAIFindWater extends EntityAIBase
 						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
 
 				}
-				else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
+				else if (!this.temptedEntity.hasPath() && waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
 						&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH))
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
 						this.resetTask();

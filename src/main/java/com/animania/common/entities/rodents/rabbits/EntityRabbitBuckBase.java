@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.rodents.ai.EntityAIFollowMateRabbits;
 import com.animania.common.entities.rodents.ai.EntityAIMateRabbits;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -43,7 +42,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
 		this.tasks.addTask(1, new EntityAIMateRabbits(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIFollowMateRabbits(this, 1.1D));
+		//this.tasks.addTask(3, new EntityAIFollowMateRabbits(this, 1.1D));
 	}
 
 	@Override
@@ -166,6 +165,10 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead)
 							{
 								mateReset = false;
+								EntityRabbitDoeBase fem = (EntityRabbitDoeBase) entity;
+								if (fem.getPregnant()) {
+									this.setHandFed(false);
+								}
 								break;
 							}
 						}

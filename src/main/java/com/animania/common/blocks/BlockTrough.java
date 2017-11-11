@@ -17,16 +17,22 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
+import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BlockShulkerBox;
+import net.minecraft.block.BlockSnow;
+import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryHelper;
@@ -74,6 +80,46 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 		ForgeRegistries.BLOCKS.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
+		this.setTickRandomly(true);
+	}
+
+	@Override
+	public int tickRate(World worldIn)
+	{
+		return 6;
+	}
+
+	@Override
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	{
+
+		float f = worldIn.getBiome(pos).getFloatTemperature(pos);
+
+		if (worldIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F && worldIn.isRaining())
+		{
+			TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+
+			if (te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null) {
+				te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 100), true);
+			} else if (te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000) {
+				te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 100), true);
+			}
+
+		}
+
+
+	}
+	
+	@Deprecated
+    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+    {
+        return BlockFaceShape.UNDEFINED;
+    }
+
+	@Override
+	public boolean isTopSolid(IBlockState state)
+	{
+		return false;
 	}
 
 	@Override
@@ -88,6 +134,12 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 	 */
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isFullBlock(IBlockState state)
 	{
 		return false;
 	}
@@ -373,7 +425,37 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 			return true;
 
 		}
+		else if (AnimaniaHelper.hasFluid(heldItem, FluidRegistry.WATER) && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000)
+		{
+			te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
+			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			if (!playerIn.isCreative())
+			{
+				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
+				handler.drain(1000, true);
+				ItemStack newStack = handler.getContainer();
+				playerIn.setHeldItem(hand, newStack);
+			}
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			return true;
+
+		}
 		else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+		{
+			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
+			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			if (!playerIn.isCreative())
+			{
+				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
+				handler.drain(1000, true);
+				ItemStack newStack = handler.getContainer();
+				playerIn.setHeldItem(hand, newStack);
+			}
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			return true;
+
+		}
+		else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.fluidHandler.getFluid().getFluid() == BlockHandler.fluidSlop && te.fluidHandler.getFluid().amount < 1000)
 		{
 			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);

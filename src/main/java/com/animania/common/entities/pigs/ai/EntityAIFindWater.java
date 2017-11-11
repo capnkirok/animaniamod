@@ -23,6 +23,7 @@ import com.animania.common.entities.pigs.EntitySowOldSpot;
 import com.animania.common.entities.pigs.EntitySowYorkshire;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -104,7 +105,7 @@ public class EntityAIFindWater extends EntityAIBase
 					ech.setWatered(true);
 				} 
 
-				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER) {
+				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER && AnimaniaConfig.gameRules.waterRemovedAfterDrinking) {
 					this.temptedEntity.world.setBlockToAir(currentposlower);
 				}
 
@@ -128,7 +129,7 @@ public class EntityAIFindWater extends EntityAIBase
 
 						if (blockchk == Blocks.WATER) {
 							waterFound = true;
-							if (rand.nextInt(50) == 0) {
+							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
@@ -146,7 +147,7 @@ public class EntityAIFindWater extends EntityAIBase
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
 							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
 								waterFound = true;
-								if (rand.nextInt(20) == 0) {
+								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
 									this.resetTask();
 									return false;
@@ -299,14 +300,14 @@ public class EntityAIFindWater extends EntityAIBase
 				Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPos).getBlock();
 				Biome biomegenbase = this.temptedEntity.world.getBiome(waterPos);
 
-				if (waterBlockchk == BlockHandler.blockTrough) {
+				if (waterBlockchk == BlockHandler.blockTrough && !this.temptedEntity.hasPath()) {
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
 						this.resetTask();
 					else
 						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
 
 				}
-				else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
+				else if (waterBlockchk == Blocks.WATER && !this.temptedEntity.hasPath() && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
 						&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH))
 					if (this.temptedEntity instanceof EntityPigletYorkshire || this.temptedEntity instanceof EntityPigletDuroc
 							|| this.temptedEntity instanceof EntityPigletHampshire || this.temptedEntity instanceof EntityPigletLargeBlack

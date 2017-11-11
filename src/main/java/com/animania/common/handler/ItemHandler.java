@@ -20,11 +20,13 @@ import com.animania.common.items.AnimaniaItem;
 import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.common.items.ItemAnimaniaFoodRaw;
 import com.animania.common.items.ItemBrownEgg;
+import com.animania.common.items.ItemCart;
 import com.animania.common.items.ItemCarvingKnife;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemHamsterBall;
 import com.animania.common.items.ItemRidingCrop;
 import com.animania.common.items.ItemTruffleSoup;
+import com.animania.common.items.ItemWagon;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.Minecraft;
@@ -371,12 +373,14 @@ public class ItemHandler
 
 	// Moving Objects
 	public static Item wagon;
+	public static Item cart;
 
 	public static void preInit()
 	{
 		// ITEMS
 
-		// wagon = new ItemWagon();
+		wagon = new ItemWagon();
+		cart = new ItemCart();
 
 		// Items for Animals
 		ItemHandler.hamsterFood = new AnimaniaItem("hamster_food");

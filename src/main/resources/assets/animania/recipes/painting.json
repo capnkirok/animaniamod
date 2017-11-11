@@ -14,7 +14,7 @@
       "type": "forge:ore_dict"
     },
     "w": {
-      "ore": "wool",
+      "ore": "blockWool",
       "type": "forge:ore_dict"
     }
   }

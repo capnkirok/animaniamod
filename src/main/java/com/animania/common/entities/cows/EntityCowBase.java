@@ -205,9 +205,9 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		return this.dataManager.get(EntityCowBase.FERTILE).booleanValue();
 	}
 
-	public void setFertile(boolean preggers)
+	public void setFertile(boolean fertile)
 	{
-		this.dataManager.set(EntityCowBase.FERTILE, Boolean.valueOf(preggers));
+		this.dataManager.set(EntityCowBase.FERTILE, Boolean.valueOf(fertile));
 	}
 
 	public boolean getHasKids()
@@ -347,6 +347,16 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			if (gestationTimer == 0)
 			{
 
+				List list = this.world.loadedEntityList;	
+				int cowCount = 0;
+				int num = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof EntityAnimaniaCow) {
+						num++;
+					}
+				}
+				cowCount = num;
+				
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityBullBase.class, 30, this.world, this);
 				int esize = entities.size();
@@ -354,7 +364,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				for (int k = 0; k <= esize - 1; k++) 
 				{
 					EntityBullBase entity = (EntityBullBase)entities.get(k);
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
+					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && cowCount < AnimaniaConfig.spawn.spawnLimitCows) {
 
 						this.setInLove(null);
 						CowType maleType = ((EntityAnimaniaCow) entity).cowType;
@@ -380,7 +390,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 					}
 				}
 				
-				if (!mateFound && this.getFed() && this.getWatered()) {
+				if (!mateFound && this.getFed() && this.getWatered() && cowCount < AnimaniaConfig.spawn.spawnLimitCows) {
 
 					this.setInLove(null);
 					CowType babyType = cowType.breed(this.cowType, this.cowType);

@@ -162,9 +162,9 @@ item.animania_entity_egg_chick_wyandotte.name=Wyandotte Chick
 item.animania_entity_egg_hen_wyandotte.name=Wyandotte Hen
 item.animania_entity_egg_rooster_wyandotte.name=Wyandotte Rooster
 
-item.animania_entity_egg_piglet_yorkshire.name=Yorkshire Piglet
-item.animania_entity_egg_sow_yorkshire.name=Yorkshire Sow
-item.animania_entity_egg_hog_yorkshire.name=Yorkshire Hog
+item.animania_entity_egg_piglet_yorkshire.name=American Yorkshire Piglet
+item.animania_entity_egg_sow_yorkshire.name=American Yorkshire Sow
+item.animania_entity_egg_hog_yorkshire.name=American Yorkshire Hog
 item.animania_entity_egg_piglet_oldspot.name=Old Spot Piglet
 item.animania_entity_egg_sow_oldspot.name=Old Spot Sow
 item.animania_entity_egg_hog_oldspot.name=Old Spot Hog
@@ -326,7 +326,7 @@ entity.animania:cow_longhorn.name=Longhorn Cow
 entity.animania:calf_longhorn.name=Longhorn Calf
 
 entity.animania:hog_yorkshire.name=American Yorkshire Hog
-entity.animania:sow_yorshire.name=American Yorkshire Sow
+entity.animania:sow_yorkshire.name=American Yorkshire Sow
 entity.animania:piglet_yorkshire.name=American Yorkshire Piglet
 entity.animania:hog_old_spot.name=Old Spot Hog
 entity.animania:sow_old_spot.name=Old Spot Sow
@@ -460,6 +460,9 @@ tile.animania_salt_lick.name=Salt Lick
 
 entity.animania:wagon.name=Covered Wagon
 item.wagon.name=Covered Wagon
+
+entity.animania:cart.name=Horse Cart
+item.cart.name=Horse Cart
 
 tile.animania_wool_dorset_brown.name=Wool (Dorset, Brown)
 tile.animania_wool_friesian_black.name=Wool (Friesian, Black)
