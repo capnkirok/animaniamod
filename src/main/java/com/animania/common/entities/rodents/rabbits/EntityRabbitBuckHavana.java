@@ -1,7 +1,6 @@
 package com.animania.common.entities.rodents.rabbits;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
+import net.minecraft.init.Items;
 import net.minecraft.world.World;
 
 public class EntityRabbitBuckHavana extends EntityRabbitBuckBase
@@ -11,8 +10,8 @@ public class EntityRabbitBuckHavana extends EntityRabbitBuckBase
 	{
 		super(worldIn);
 		this.rabbitType = RabbitType.HAVANA;
-		this.dropRaw = Item.getItemFromBlock(Blocks.AIR);
-		this.dropCooked = Item.getItemFromBlock(Blocks.AIR);
+		this.dropRaw = Items.RABBIT;
+		this.dropCooked = Items.COOKED_RABBIT;
 	}
 	
 	@Override

@@ -14,6 +14,7 @@ import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
 import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
@@ -75,6 +76,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { ItemHandler.hamsterFood });
 	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
 	private static final String[] HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou", "white", "gold" };
 
 	private int fedTimer;
@@ -129,7 +131,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		this.tasks.addTask(1, new EntityAIPanicRodents(this, 1.4D));
 		this.tasks.addTask(2, new EntityAISwimmingRodents(this));
-		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+		}
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.1D));
 		this.tasks.addTask(5, new EntityAIMate(this, 1.0D));
 		this.tasks.addTask(6, new EntityAITemptHamster(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
@@ -212,7 +216,18 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.dataManager.register(EntityHamster.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityHamster.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityHamster.RIDING, Boolean.valueOf(false));
+		this.dataManager.register(EntityHamster.AGE, Integer.valueOf(0));
 
+	}
+	
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityHamster.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityHamster.AGE, Integer.valueOf(age));
 	}
 
 	@Override
@@ -228,6 +243,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		nbttagcompound.setBoolean("Watered", this.getWatered());
 		nbttagcompound.setBoolean("IsTamed", this.getIsTamed());
 		nbttagcompound.setBoolean("IsRiding", this.getIsRiding());
+		nbttagcompound.setInteger("Age", this.getAnimalAge());
+
 	}
 
 	@Override
@@ -244,6 +261,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
 		this.setIsTamed(nbttagcompound.getBoolean("IsTamed"));
 		this.setIsRiding(nbttagcompound.getBoolean("IsRiding"));
+		this.setAnimalAge(nbttagcompound.getInteger("Age"));
 	}
 
 	@Override
@@ -286,7 +304,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				return true;
 			}
 
-		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && this.getGrowingAge() == 0)
+		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && this.getAnimalAge() == 0)
 		{
 
 			if (!player.capabilities.isCreativeMode)
@@ -548,6 +566,10 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public void onLivingUpdate()
 	{
 
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
+		}
+		
 		if (this.isRiding())
 			this.rideCount++;
 
@@ -626,7 +648,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (this.isHamsterSitting() | this.isHamsterStanding() && this.getNavigator() != null)
 			this.getNavigator().clearPathEntity();
 
-		if (this.fedTimer > -1)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -638,9 +660,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
-			{
-				// this.setWatered(false);
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode) {
+				//this.setWatered(false);
 			}
 		}
 
@@ -1138,20 +1159,20 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		{
 			this.setColorNumber(8);
 		}
-		
+
 		if (this.resourceLocation == null)
 		{
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber()] + ".png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/rodents/hamster_" + EntityHamster.HAMSTER_TEXTURES[this.getColorNumber()] + "_blink.png");
 		}
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(HamsterType.STANDARD, EntityGender.NONE));
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
@@ -1163,13 +1184,13 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	{
 		return 14603464;
 	}
-	
+
 	@Override
 	public int getSecondaryEggColor()
 	{
 		return 14317391;
 	}
-	
+
 	@Override
 	public EntityGender getEntityGender()
 	{

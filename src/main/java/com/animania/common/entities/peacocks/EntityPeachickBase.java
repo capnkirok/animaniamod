@@ -19,7 +19,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 	public EntityPeachickBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.3F, 0.6F);
+		this.setSize(0.7F, 1.0F);
 		this.ageTimer = 0;
 		this.type = PeacockType.BLUE;
 		this.gender = EntityGender.CHILD;

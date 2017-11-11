@@ -23,6 +23,7 @@ import com.animania.common.entities.pigs.EntitySowOldSpot;
 import com.animania.common.entities.pigs.EntitySowYorkshire;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -104,7 +105,7 @@ public class EntityAIFindWater extends EntityAIBase
 					ech.setWatered(true);
 				} 
 
-				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER) {
+				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER && AnimaniaConfig.gameRules.waterRemovedAfterDrinking) {
 					this.temptedEntity.world.setBlockToAir(currentposlower);
 				}
 

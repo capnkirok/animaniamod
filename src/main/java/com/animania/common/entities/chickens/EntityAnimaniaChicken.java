@@ -15,6 +15,7 @@ import com.animania.common.entities.chickens.ai.EntityAIFindWater;
 import com.animania.common.entities.chickens.ai.EntityAIPanicChickens;
 import com.animania.common.entities.chickens.ai.EntityAISwimmingChicks;
 import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -41,8 +42,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.stats.Achievement;
-import net.minecraft.stats.AchievementList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -58,6 +57,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaChicken.class, DataSerializers.VARINT);
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
 	public boolean chickenJockey;
 	protected ResourceLocation resourceLocation;
@@ -85,9 +85,11 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 		this.tasks.taskEntries.clear();
 		this.tasks.addTask(0, new EntityAISwimmingChicks(this));
 		this.tasks.addTask(1, new EntityAIPanicChickens(this, 1.4D));
-		this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
+		}
 		this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
-		this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(7, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(8, new EntityAILookIdle(this));
@@ -165,6 +167,17 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 		super.entityInit();
 		this.dataManager.register(EntityAnimaniaChicken.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaChicken.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaChicken.AGE, Integer.valueOf(0));
+	}
+	
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityAnimaniaChicken.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityAnimaniaChicken.AGE, Integer.valueOf(age));
 	}
 
 	@Override
@@ -174,6 +187,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 		nbttagcompound.setBoolean("IsChickenJockey", this.chickenJockey);
 		nbttagcompound.setBoolean("Fed", this.getFed());
 		nbttagcompound.setBoolean("Watered", this.getWatered());
+		nbttagcompound.setInteger("Age", this.getAnimalAge());
 	}
 
 	@Override
@@ -185,12 +199,17 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 
 		this.setFed(nbttagcompound.getBoolean("Fed"));
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
+		this.setAnimalAge(nbttagcompound.getInteger("Age"));
 	}
 
 	@Override
 	public void onLivingUpdate()
 	{
 
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
+		}
+		
 		super.onLivingUpdate();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
@@ -223,7 +242,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
-		if (this.fedTimer > -1)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -235,7 +254,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
 

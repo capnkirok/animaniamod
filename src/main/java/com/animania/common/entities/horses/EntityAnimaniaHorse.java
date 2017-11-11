@@ -9,6 +9,7 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.horses.ai.EntityAIFindFood;
 import com.animania.common.entities.horses.ai.EntityAIFindSaltLickHorses;
 import com.animania.common.entities.horses.ai.EntityAIFindWater;
@@ -61,6 +62,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaHorse.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
 	private static final String[] HORSE_TEXTURES = new String[] {"black", "bw1", "bw2", "grey", "red", "white"};
 
 	protected int happyTimer;
@@ -82,11 +84,13 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		this.stepHeight = 1.1F;
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityHorseEatGrass(this);
-		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFindFood(this, 1.1D));
+		}
 		this.tasks.addTask(2, new EntityAIPanicHorses(this, 2.0D));
 		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
-		this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
-		this.tasks.addTask(5, new EntityAIFindWater(this, 1.0D));
+		//this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
 		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(7, new EntityAISwimmingHorse(this));
 		this.tasks.addTask(8, new EntityAITemptHorses(this, 1.25D, false, TEMPTATION_ITEMS));
@@ -117,12 +121,23 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		this.dataManager.register(EntityAnimaniaHorse.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaHorse.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaHorse.MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityAnimaniaHorse.AGE, Integer.valueOf(0));
 	}
 
 	@Override
 	protected ResourceLocation getLootTable()
 	{
 		return null;
+	}
+	
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityAnimaniaHorse.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityAnimaniaHorse.AGE, Integer.valueOf(age));
 	}
 
 	public boolean canJump()
@@ -375,7 +390,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 
 	private boolean isHorseBreedingItem(Item itemIn)
 	{
-		return itemIn == Items.WHEAT || itemIn == Items.APPLE || itemIn == Items.CARROT; 
+		return TEMPTATION_ITEMS.contains(itemIn);
 	}
 
 
@@ -389,6 +404,8 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setInteger("ColorNumber", getColorNumber());
+		compound.setInteger("Age", this.getAnimalAge());
+
 
 
 	}
@@ -417,6 +434,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		this.setColorNumber(compound.getInteger("ColorNumber"));
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
+		this.setAnimalAge(compound.getInteger("Age"));
 
 	}
 

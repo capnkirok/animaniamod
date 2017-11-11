@@ -19,6 +19,10 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
@@ -32,7 +36,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityAmphibian extends EntityAnimal implements ISpawnable
 {
-
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAmphibian.class, DataSerializers.VARINT);
 	private int     jumpTicks;
 	private int     jumpDuration;
 	private boolean wasOnGround, canEntityJump;
@@ -62,6 +66,23 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 	}
 
 	@Override
+	protected void entityInit()
+	{
+		super.entityInit();
+		this.dataManager.register(EntityAmphibian.AGE, Integer.valueOf(0));
+	}
+	
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityAmphibian.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityAmphibian.AGE, Integer.valueOf(age));
+	}
+	
+	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(1, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
@@ -72,6 +93,22 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
 	}
 
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound)
+	{
+		super.writeEntityToNBT(compound);
+		compound.setInteger("Age", this.getAnimalAge());
+
+	}
+
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound)
+	{
+		super.readEntityFromNBT(compound);
+		this.setAnimalAge(compound.getInteger("Age"));
+	}
+
+	
 	@Override
 	protected float getJumpUpwardsMotion() {
 		if (!this.isCollidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.posY + 0.5D)) {
@@ -197,6 +234,10 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 	@Override
 	public void onLivingUpdate() {
 
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
+		}
+		
 		if (this.canEntityJump)
 			if (this.jumpTicks != this.jumpDuration)
 				++this.jumpTicks;

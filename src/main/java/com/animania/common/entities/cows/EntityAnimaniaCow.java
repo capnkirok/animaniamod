@@ -9,6 +9,7 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.cows.ai.EntityAICowEatGrass;
 import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindSaltLickCows;
@@ -55,6 +56,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaCow.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaCow.class, DataSerializers.VARINT);
 	protected int happyTimer;
 	public int blinkTimer;
 	public int eatTimer;
@@ -75,8 +77,10 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAICowEatGrass(this);
-		this.tasks.addTask(1, new EntityAIFindFood(this, 1.1D));
-		this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
+		if (!AnimaniaConfig.gameRules.ambianceMode) {
+			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFindFood(this, 1.1D));
+		}
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAISwimmingCows(this));
 		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaCow.TEMPTATION_ITEMS));
@@ -108,9 +112,20 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		this.dataManager.register(EntityAnimaniaCow.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaCow.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaCow.MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityAnimaniaCow.AGE, Integer.valueOf(0));
 
 	}
 
+	public int getAnimalAge()
+	{
+		return this.dataManager.get(EntityAnimaniaCow.AGE).intValue();
+	}
+
+	public void setAnimalAge(int age)
+	{
+		this.dataManager.set(EntityAnimaniaCow.AGE, Integer.valueOf(age));
+	}
+	
 	@Override
 	protected ResourceLocation getLootTable()
 	{
@@ -231,10 +246,14 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 	public void onLivingUpdate()
 	{
 
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
+		}
+		
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
-		if (this.fedTimer > -1)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -246,7 +265,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
 
@@ -343,9 +362,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 
 	private boolean isCowBreedingItem(Item itemIn)
 	{
-		return itemIn == Items.WHEAT || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
+		return TEMPTATION_ITEMS.contains(itemIn) || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
-
+	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
@@ -357,6 +376,8 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Watered", this.getWatered());
+		compound.setInteger("Age", this.getAnimalAge());
+
 
 	}
 
@@ -380,6 +401,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 
 		this.setFed(compound.getBoolean("Fed"));
 		this.setWatered(compound.getBoolean("Watered"));
+		this.setAnimalAge(compound.getInteger("Age"));
 
 	}
 

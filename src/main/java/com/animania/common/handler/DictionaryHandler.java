@@ -30,8 +30,8 @@ public class DictionaryHandler
 		OreDictionary.registerOre("dustSalt", ItemHandler.salt);
 		OreDictionary.registerOre("itemSalt", ItemHandler.salt);
 		OreDictionary.registerOre("foodSalt", ItemHandler.salt);
-		OreDictionary.registerOre("wool", new ItemStack(BlockHandler.blockAnimaniaWool, 1, OreDictionary.WILDCARD_VALUE));
-
+		OreDictionary.registerOre("blockWool", new ItemStack(BlockHandler.blockAnimaniaWool, 1, OreDictionary.WILDCARD_VALUE));
+		
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusBeef);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusSteak);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawDurocBacon);
@@ -211,9 +211,8 @@ public class DictionaryHandler
 		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherPurple);
 		OreDictionary.registerOre("feather", ItemHandler.peacockFeatherTaupe);
 
-
-		OreDictionary.registerOre("wool", new ItemStack(Blocks.WOOL, 1, Short.MAX_VALUE));
-
+		OreDictionary.registerOre("blockWool", new ItemStack(Blocks.WOOL, 1, Short.MAX_VALUE));
+		
 		//Additions 1.2.1
 		OreDictionary.registerOre("dyeBlack", new ItemStack(Items.DYE, 1, 0));
 		OreDictionary.registerOre("dyeRed", new ItemStack(Items.DYE, 1, 1));

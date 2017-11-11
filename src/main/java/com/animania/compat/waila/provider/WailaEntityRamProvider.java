@@ -3,6 +3,8 @@ package com.animania.compat.waila.provider;
 import java.util.List;
 import java.util.UUID;
 
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.common.entities.sheep.EntityRamBase;
 import com.animania.common.helper.AnimaniaHelper;
@@ -13,6 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
@@ -24,6 +27,13 @@ public class WailaEntityRamProvider extends WailaEntityAnimalProviderBase
 		currenttip = super.getWailaBody(entity, currenttip, accessor, config);
 
 		if (accessor.getPlayer().isSneaking()) {
+			
+			if (entity instanceof ISpawnable)
+    		{
+    			if (((ISpawnable) entity).getEntityGender() == EntityGender.MALE || ((ISpawnable) entity).getEntityGender() == EntityGender.FEMALE)
+    				currenttip.add(((ISpawnable) entity).getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
+    		}
+			
 			String mate = accessor.getNBTData().getString("MateUUID");
 			World world = entity.world;
 
@@ -41,7 +51,7 @@ public class WailaEntityRamProvider extends WailaEntityAnimalProviderBase
 					}
 				}
 
-				currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
+				//currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
 
 			}
 

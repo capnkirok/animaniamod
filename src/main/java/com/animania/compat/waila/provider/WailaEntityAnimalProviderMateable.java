@@ -49,7 +49,7 @@ public class WailaEntityAnimalProviderMateable extends WailaEntityAnimalProvider
                     }
                 }
 
-                currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
+                //currenttip.add(I18n.translateToLocal("text.waila.matemissing"));
 
             }
 

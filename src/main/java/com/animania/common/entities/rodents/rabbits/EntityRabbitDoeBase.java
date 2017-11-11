@@ -347,6 +347,16 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 
 			if (gestationTimer == 0)
 			{
+				
+				List list = this.world.loadedEntityList;	
+				int rabbitCount = 0;
+				int num = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof EntityAnimaniaRabbit) {
+						num++;
+					}
+				}
+				rabbitCount = num;
 
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityRabbitBuckBase.class, 30, this.world, this);
@@ -356,7 +366,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 				{
 					EntityRabbitBuckBase entity = (EntityRabbitBuckBase)entities.get(k);
 					
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
+					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && rabbitCount < AnimaniaConfig.spawn.spawnLimitRabbits) {
 
 						this.setInLove(null);
 						RabbitType maleType = ((EntityAnimaniaRabbit) entity).rabbitType;
@@ -382,7 +392,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 					}
 				}
 				
-				if (!mateFound && this.getFed() && this.getWatered()) {
+				if (!mateFound && this.getFed() && this.getWatered() && rabbitCount < AnimaniaConfig.spawn.spawnLimitRabbits) {
 					
 					this.setInLove(null);
 					RabbitType babyType = RabbitType.breed(this.rabbitType, this.rabbitType);

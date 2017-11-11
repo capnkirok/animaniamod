@@ -3,26 +3,9 @@ package com.animania.common.entities.pigs.ai;
 import java.util.Random;
 
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.pigs.EntityHogDuroc;
-import com.animania.common.entities.pigs.EntityHogHampshire;
-import com.animania.common.entities.pigs.EntityHogLargeBlack;
-import com.animania.common.entities.pigs.EntityHogLargeWhite;
-import com.animania.common.entities.pigs.EntityHogOldSpot;
-import com.animania.common.entities.pigs.EntityHogYorkshire;
-import com.animania.common.entities.pigs.EntityPigletDuroc;
-import com.animania.common.entities.pigs.EntityPigletHampshire;
-import com.animania.common.entities.pigs.EntityPigletLargeBlack;
-import com.animania.common.entities.pigs.EntityPigletLargeWhite;
-import com.animania.common.entities.pigs.EntityPigletOldSpot;
-import com.animania.common.entities.pigs.EntityPigletYorkshire;
-import com.animania.common.entities.pigs.EntitySowDuroc;
-import com.animania.common.entities.pigs.EntitySowHampshire;
-import com.animania.common.entities.pigs.EntitySowLargeBlack;
-import com.animania.common.entities.pigs.EntitySowLargeWhite;
-import com.animania.common.entities.pigs.EntitySowOldSpot;
-import com.animania.common.entities.pigs.EntitySowYorkshire;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -124,7 +107,7 @@ public class EntityAIFindFood extends EntityAIBase
 				}
 			}
 
-			if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES || poschk == Blocks.WHEAT) {
+			if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES || poschk == Blocks.WHEAT || poschk == Blocks.TALLGRASS) {
 
 				if (temptedEntity instanceof EntityAnimaniaPig) {
 					EntityAnimaniaPig ech = (EntityAnimaniaPig)temptedEntity;
@@ -132,7 +115,9 @@ public class EntityAIFindFood extends EntityAIBase
 					ech.setFed(true);
 				} 
 
-				this.temptedEntity.world.destroyBlock(currentpos, false);
+				if (temptedEntity.world.getGameRules().getBoolean("mobGriefing") && AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+					temptedEntity.world.destroyBlock(currentpos, false);
+				}
 
 				return false;
 			}
@@ -175,7 +160,7 @@ public class EntityAIFindFood extends EntityAIBase
 							}
 						}
 
-						if (blockchk == Blocks.CARROTS || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES || blockchk == Blocks.WHEAT) {
+						if (blockchk == Blocks.CARROTS || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES || blockchk == Blocks.WHEAT || blockchk == Blocks.TALLGRASS) {
 
 							foodFound = true;
 							if (rand.nextInt(20) == 0) {
@@ -270,7 +255,7 @@ public class EntityAIFindFood extends EntityAIBase
 							}
 						}
 					}
-					else if (blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES) {
+					else if (blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES || blockchk == Blocks.TALLGRASS) {
 						foodFound = true;
 						newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 

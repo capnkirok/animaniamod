@@ -44,7 +44,7 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	public EntityPigletBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.5F, 0.5F);
+		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.pigType = PigType.YORKSHIRE;

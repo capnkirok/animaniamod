@@ -51,7 +51,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public EntityFoalBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.0F, 1.4F);
+		this.setSize(1.4F, 1.8F);
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentHorses(this, 1.1D));
 		this.ageTimer = 0;
@@ -261,6 +261,10 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public void onLivingUpdate()
 	{
 		
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
+		}
+		
 		if (this.world.isRemote)
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
@@ -270,20 +274,20 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			this.setColorNumber(0);
 		}
 
-		if (this.fedTimer > -1) {
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.fedTimer--;
 
-			if (fedTimer == 0) {
+			if (this.fedTimer == 0)
 				this.setFed(false);
-			}
 		}
 
-		if (this.wateredTimer > -1) {
+		if (this.wateredTimer > -1)
+		{
 			this.wateredTimer--;
 
-			if (wateredTimer == 0) {
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
-			}
 		}
 
 		boolean fed = this.getFed();

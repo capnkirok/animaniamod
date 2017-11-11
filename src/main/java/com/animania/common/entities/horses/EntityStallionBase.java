@@ -59,7 +59,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
-		this.tasks.addTask(1, new EntityAIFollowMateHorses(this, 1.1D));
+		//this.tasks.addTask(1, new EntityAIFollowMateHorses(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
 	}
 	
@@ -325,7 +325,10 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 
 	public void onLivingUpdate()
 	{
-
+		if (this.getAnimalAge() == 0) {
+			this.setAnimalAge(1);
+		}
+		
 		if (this.world.isRemote)
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
@@ -335,21 +338,22 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 			this.setColorNumber(0);
 		}
 
-		if (this.fedTimer > -1) {
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.fedTimer--;
 
-			if (fedTimer == 0) {
+			if (this.fedTimer == 0)
 				this.setFed(false);
-			}
 		}
 
-		if (this.wateredTimer > -1) {
+		if (this.wateredTimer > -1)
+		{
 			this.wateredTimer--;
 
-			if (wateredTimer == 0) {
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
-			}
 		}
+
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
