@@ -5,9 +5,11 @@ import java.util.Random;
 import java.util.UUID;
 
 import com.animania.common.entities.goats.EntityKidBase;
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.horses.EntityMareBase;
 import com.animania.common.entities.horses.EntityStallionBase;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -43,9 +45,21 @@ public class EntityAIMateHorses extends EntityAIBase
 
 		if (this.delayCounter > 100) {
 
-			if (this.theAnimal instanceof EntityKidBase || this.theAnimal instanceof EntityMareBase) {
+			if (this.theAnimal instanceof EntityKidBase || this.theAnimal instanceof EntityMareBase || this.theAnimal.isInWater()) {
 				this.delayCounter = 0;
 				return false;
+			}
+			
+			if (AnimaniaConfig.careAndFeeding.manualBreeding) {
+				if (this.theAnimal instanceof EntityAnimaniaHorse) {
+					EntityAnimaniaHorse thisAnimal = (EntityAnimaniaHorse) this.theAnimal;
+				
+					if (!thisAnimal.getHandFed()) {
+						this.delayCounter = 0;
+						return false;
+					}
+					
+				}
 			}
 			
 			this.targetMate = this.getNearbyMate();
@@ -112,8 +126,12 @@ public class EntityAIMateHorses extends EntityAIBase
 				
 				for (int k = 0; k <= entities.size() - 1; k++) {
 					EntityMareBase entity = (EntityMareBase)entities.get(k); 
+					boolean allowBreeding = true;
+					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
+						allowBreeding = false;
+					}
 
-					if (entity.getPersistentID().equals(mateID) && entity.getFertile() && !entity.getPregnant()) {
+					if (entity.getPersistentID().equals(mateID) && entity.getFertile() && !entity.getPregnant() && allowBreeding) {
 
 						this.courtshipTimer--;
 						if (this.courtshipTimer < 0) {
@@ -122,9 +140,10 @@ public class EntityAIMateHorses extends EntityAIBase
 							k = entities.size();
 							entity.setPregnant(true);
 							entity.setFertile(false);
+							entity.setHandFed(false);
 							delayCounter = 0;
 							return (EntityAnimal) entity;
-						} else {
+						} else if (allowBreeding) {
 							k = entities.size();
 							this.theAnimal.setInLove(null);
 							this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());
@@ -141,9 +160,13 @@ public class EntityAIMateHorses extends EntityAIBase
 
 				for (int k = 0; k <= entities.size() - 1; k++) {
 					EntityMareBase entity = (EntityMareBase)entities.get(k); 
+					boolean allowBreeding = true;
+					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
+						allowBreeding = false;
+					}
 
 					this.courtshipTimer--;
-					if (entity.getMateUniqueId() == null && this.courtshipTimer < 0 && entity.getFertile() && !entity.getPregnant()) {
+					if (entity.getMateUniqueId() == null && this.courtshipTimer < 0 && entity.getFertile() && !entity.getPregnant() && allowBreeding) {
 						((EntityStallionBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
 						entity.setMateUniqueId(this.theAnimal.getPersistentID());
 						this.theAnimal.setInLove(null);
@@ -151,9 +174,10 @@ public class EntityAIMateHorses extends EntityAIBase
 						k = entities.size();
 						entity.setPregnant(true);
 						entity.setFertile(false);
+						entity.setHandFed(false);
 						delayCounter = 0;
 						return (EntityAnimal) entity;
-					} else if (entity.getMateUniqueId() == null && !entity.getPregnant() && entity.getFertile()) {
+					} else if (entity.getMateUniqueId() == null && !entity.getPregnant() && entity.getFertile() && allowBreeding) {
 						k = entities.size();
 						this.theAnimal.setInLove(null);
 						this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());

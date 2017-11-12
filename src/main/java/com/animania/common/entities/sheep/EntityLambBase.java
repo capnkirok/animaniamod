@@ -201,19 +201,20 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 			{
 				this.ageTimer = 0;
 				float age = this.getEntityAge();
-				age = age + .01F;
+				age = age + .005F;
 				this.setEntityAge(age);
 
-				if (age >= .52 && !this.world.isRemote)
+				if (age >= .30 && !this.world.isRemote)
 				{
 					this.setDead();
-
+					int color = this.getColorNumber();
 					if (this.rand.nextInt(2) < 1)
 					{
 						EntityEweBase entitySheep = this.sheepType.getFemale(world);
 						if (entitySheep != null)
 						{
 							entitySheep.setPosition(this.posX, this.posY + .5, this.posZ);
+							entitySheep.setColorNumber(color);
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entitySheep.setCustomNameTag(name);
@@ -227,6 +228,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 						if (entitySheep != null)
 						{
 							entitySheep.setPosition(this.posX, this.posY + .5, this.posZ);
+							entitySheep.setColorNumber(color);
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entitySheep.setCustomNameTag(name);

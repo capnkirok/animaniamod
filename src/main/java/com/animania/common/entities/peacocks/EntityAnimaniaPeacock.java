@@ -253,15 +253,15 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
-		this.destPos = (float) (this.destPos + (this.onGround ? -1 : 4) * 0.3D);
+		this.destPos = (float) (this.destPos + ((this.onGround || this.isRiding()) ? -1 : 4) * 0.3D);
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
-		if (!this.onGround && this.wingRotDelta < 1.0F)
+		if (!this.onGround && !this.isRiding() && this.wingRotDelta < 1.0F)
 			this.wingRotDelta = 1.0F;
 
 		this.wingRotDelta = (float) (this.wingRotDelta * 0.9D);
 
-		if (!this.onGround && this.motionY < 0.0D)
+		if (!this.onGround && !this.isRiding() && this.motionY < 0.0D)
 			this.motionY *= 0.6D;
 
 		this.wingRotation += this.wingRotDelta * 2.0F;

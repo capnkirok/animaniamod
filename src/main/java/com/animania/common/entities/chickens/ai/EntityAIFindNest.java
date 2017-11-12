@@ -310,7 +310,7 @@ public class EntityAIFindNest extends EntityAIBase
 
 				List<Entity> nestClear = temptedEntity.world.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expandXyz(1));
 
-				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
+				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty() && !this.temptedEntity.hasPath())
 				{
 					this.temptedEntity.getNavigator().tryMoveToXYZ(nestPos.getX() + .50, nestPos.getY(), nestPos.getZ() + .50, this.speed);
 				}

@@ -238,6 +238,9 @@ public class CommonConfig
 		
 		@Comment("Remove vanilla Sheep")
 		public boolean replaceVanillaSheep     = true;
+		
+		@Comment("Remove vanilla Horses")
+		public boolean replaceVanillaHorses     = false;
 
 		@Comment("Allow eggs to be thrown")
 		public boolean allowEggThrowing = false;
@@ -394,6 +397,8 @@ public class CommonConfig
 		public int featherTimer = 12000;
 		@Comment("Ticks between birthings")
 		public int gestationTimer = 24000;
+		@Comment("Hand feed animals to initiate breeding")
+		public boolean manualBreeding = false;
 		@Comment("Ticks before wool regrowth after shearing")
 		public int woolRegrowthTimer = 8000;
 		@Comment("Ticks between animals taking starvation damage")

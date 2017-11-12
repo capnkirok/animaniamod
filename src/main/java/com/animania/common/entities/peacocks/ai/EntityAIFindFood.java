@@ -106,7 +106,7 @@ public class EntityAIFindFood extends EntityAIBase
 
 						if (blockchk == BlockHandler.blockSeeds) {
 							foodFound = true;
-							if (rand.nextInt(20) == 0) {
+							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								this.resetTask();
 								return false;
@@ -182,7 +182,7 @@ public class EntityAIFindFood extends EntityAIBase
 
 			Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPos).getBlock();
 
-			if (mudBlockchk == BlockHandler.blockSeeds)
+			if (mudBlockchk == BlockHandler.blockSeeds && !this.temptedEntity.hasPath())
 				this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX() + .5, mudPos.getY(), mudPos.getZ() + .5, this.speed);
 		}
 

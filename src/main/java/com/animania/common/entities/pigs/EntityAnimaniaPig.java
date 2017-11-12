@@ -6,7 +6,6 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.pigs.ai.EntityAIFindFood;
 import com.animania.common.entities.pigs.ai.EntityAIFindMud;
 import com.animania.common.entities.pigs.ai.EntityAIFindSaltLickPigs;
@@ -59,6 +58,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 	protected static final DataParameter<Float> SPLASHTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaPig.class, DataSerializers.FLOAT);
 	protected static final DataParameter<Float> MUDTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaPig.class, DataSerializers.FLOAT);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> PLAYED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaPig.class, DataSerializers.VARINT);
@@ -126,6 +126,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
+		this.setHandFed(true);
 
 		if (this.entityAIEatGrass != null)
 		{
@@ -165,6 +166,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		this.dataManager.register(EntityAnimaniaPig.MUDTIMER, Float.valueOf(0.0F));
 		this.dataManager.register(EntityAnimaniaPig.SPLASHTIMER, Float.valueOf(0.0F));
 		this.dataManager.register(EntityAnimaniaPig.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaPig.HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaPig.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaPig.PLAYED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaPig.AGE, Integer.valueOf(0));
@@ -179,6 +181,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		compound.setFloat("MudTimer", this.getMudTimer());
 		compound.setFloat("SplashTimer", this.getSplashTimer());
 		compound.setBoolean("Fed", this.getFed());
+		compound.setBoolean("Handfed", this.getHandFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Played", this.getPlayed());
 		compound.setInteger("Age", this.getAnimalAge());
@@ -195,6 +198,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		this.setMudTimer(compound.getFloat("MudTimer"));
 		this.setSplashTimer(compound.getFloat("SplashTimer"));
 		this.setFed(compound.getBoolean("Fed"));
+		this.setHandFed(compound.getBoolean("Handfed"));
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setPlayed(compound.getBoolean("Played"));
 		this.setAnimalAge(compound.getInteger("Age"));
@@ -363,6 +367,18 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 			this.dataManager.set(EntityAnimaniaPig.FED, Boolean.valueOf(false));
 	}
 
+	public boolean getHandFed()
+	{
+		return this.dataManager.get(EntityAnimaniaPig.HANDFED).booleanValue();
+	}
+
+	public void setHandFed(boolean handfed)
+	{
+		this.dataManager.set(EntityAnimaniaPig.HANDFED, Boolean.valueOf(handfed));
+	}
+
+	
+	
 	public void setSlopFed(boolean fed)
 	{
 		if (fed)

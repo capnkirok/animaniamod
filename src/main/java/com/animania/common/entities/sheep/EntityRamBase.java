@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
-import com.animania.common.entities.sheep.ai.EntityAIFollowMateSheep;
 import com.animania.common.entities.sheep.ai.EntityAIMateSheep;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -197,6 +196,10 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
 							{
 								mateReset = false;
+								EntityEweBase fem = (EntityEweBase) entity;
+								if (fem.getPregnant()) {
+									this.setHandFed(false);
+								}
 								break;
 							}
 						}

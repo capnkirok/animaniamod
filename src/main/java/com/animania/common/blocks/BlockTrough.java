@@ -43,19 +43,16 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -77,6 +74,34 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 		GameRegistry.register(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
+		this.setTickRandomly(true);
+	}
+
+	@Override
+	public int tickRate(World worldIn)
+	{
+		return 10;
+	}
+
+	@Override
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	{
+
+		float f = worldIn.getBiome(pos).getFloatTemperature(pos);
+
+		if (worldIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F && worldIn.isRaining())
+		{
+			TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+
+			if (te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null) {
+				te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 100), true);
+			} else if (te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000) {
+				te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 100), true);
+			}
+
+		}
+
+
 	}
 
 	@Override
@@ -376,7 +401,37 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 			return true;
 
 		}
+		else if (AnimaniaHelper.hasFluid(heldItem, FluidRegistry.WATER) && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000)
+		{
+			te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
+			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			if (!playerIn.isCreative())
+			{
+				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
+				handler.drain(1000, true);
+				ItemStack newStack = handler.getContainer();
+				playerIn.setHeldItem(hand, newStack);
+			}
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			return true;
+
+		}
 		else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+		{
+			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
+			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			if (!playerIn.isCreative())
+			{
+				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
+				handler.drain(1000, true);
+				ItemStack newStack = handler.getContainer();
+				playerIn.setHeldItem(hand, newStack);
+			}
+			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			return true;
+
+		}
+		else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.fluidHandler.getFluid().getFluid() == BlockHandler.fluidSlop && te.fluidHandler.getFluid().amount < 1000)
 		{
 			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
