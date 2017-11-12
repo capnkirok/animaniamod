@@ -44,9 +44,9 @@ public class EntityAIFindWater extends EntityAIBase
 
 		delayTemptCounter++;
 		
-		if (this.delayTemptCounter <= 32) {
+		if (this.delayTemptCounter <= 60) {
 			return false;
-		} else if (delayTemptCounter > 32) {
+		} else if (delayTemptCounter > 60) {
 			if (temptedEntity instanceof EntityAnimaniaSheep) {
 				EntityAnimaniaSheep ech = (EntityAnimaniaSheep)temptedEntity;
 				if (ech.getWatered()) {
@@ -189,7 +189,7 @@ public class EntityAIFindWater extends EntityAIBase
 				return false;
 			}
 		}
-
+		this.delayTemptCounter = 0;
 		return false;
 	}
 

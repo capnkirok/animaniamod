@@ -327,6 +327,11 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 				this.gallopTime = 0;
 			}
 
+			if (this.onGround && this.jumpPower == 0.0F && this.isRearing())
+            {
+                p_191986_1_ = 0.0F;
+                p_191986_3_ = 0.0F;
+            }
 
 			if (this.jumpPower > 0.0F && !this.isHorseJumping() && this.onGround)
 			{
@@ -388,7 +393,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		else
 		{
 			this.jumpMovementFactor = 0.02F;
-			p_191986_3_ = this.moveForward;
+			//p_191986_3_ = this.moveForward;
 			super.travel(p_191986_1_, p_191986_2_, p_191986_3_);
 
 		}

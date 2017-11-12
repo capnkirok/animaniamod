@@ -164,8 +164,8 @@ public class AnimaniaTextures
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseSheep));
 		register(Item.getItemFromBlock(BlockHandler.blockSaltLick));
 		regSpecial(BlockHandler.blockAnimaniaWool);
-		register(ItemHandler.wagon);
 		register(ItemHandler.cart);
+		//register(ItemHandler.wagon);
 		
 		
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");

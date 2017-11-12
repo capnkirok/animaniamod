@@ -372,14 +372,14 @@ public class ItemHandler
 	public static Item entityeggrandomanimal;
 
 	// Moving Objects
-	public static Item wagon;
+	//public static Item wagon;
 	public static Item cart;
 
 	public static void preInit()
 	{
 		// ITEMS
 
-		wagon = new ItemWagon();
+		//wagon = new ItemWagon();
 		cart = new ItemCart();
 
 		// Items for Animals

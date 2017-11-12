@@ -72,7 +72,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		super(worldIn);
 		this.setSize(1.6F, 2.2F);
-		this.stepHeight = 1.1F;
+		this.stepHeight = 1.2F;
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;
 	}

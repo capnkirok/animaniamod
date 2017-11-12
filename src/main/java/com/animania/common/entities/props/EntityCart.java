@@ -23,6 +23,7 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
@@ -34,6 +35,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EntitySelectors;
@@ -44,7 +46,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -56,12 +57,12 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	public Entity puller;
 	private double speed;
 	public CartChest cartChest;
-	private float deltaRotation;
+	public float deltaRotation;
 	private int lerpSteps;
 	private double cartPitch;
 	private double lerpY;
 	private double lerpZ;
-	private double cartYaw;
+	public double cartYaw;
 	private double lerpXRot;
 	protected static final DataParameter<Integer> PULLER_TYPE = EntityDataManager.<Integer>createKey(EntityCart.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityCart.class, DataSerializers.VARINT);
@@ -125,6 +126,8 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		ItemStack stack = player.getHeldItem(hand);
 		List horses = AnimaniaHelper.getEntitiesInRange(EntityHorse.class, 3, world, player);
 		List pigs = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 3, world, player);
+		List carts = AnimaniaHelper.getCartsInRange(EntityCart.class, 3, world, this);
+
 		EntityHorse horse = null;
 		EntityAnimaniaPig pig = null;
 		if (!horses.isEmpty()) {
@@ -148,6 +151,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					this.puller = null;
 					this.pulled = false;
 					this.setPullerType(0);
+					this.stopCart();
 				}
 			}
 
@@ -165,6 +169,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 				return true;
 			} else if (player.isRiding() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this) {
+				
 				this.pulled = true;
 				this.puller = player.getRidingEntity();
 				if (this.puller instanceof EntityHorse) {
@@ -175,6 +180,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				if (!world.isRemote) {
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
+
 				return true;
 			} else if (player.isRiding() && this.puller == player.getRidingEntity() && player.getRidingEntity() != this) {
 				this.pulled = false;
@@ -183,6 +189,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				if (!world.isRemote) {
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
+				stopCart();
 				return true;
 			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashedToEntity() == player)  {
 				this.pulled = true;
@@ -209,30 +216,29 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 				return true;
 			} else if (stack.isEmpty() && !player.isRiding() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote) {
-
+				
 				double diffx = Math.abs(this.posX - player.posX);
 				double diffy = Math.abs(this.posY - player.posY);
 				double diffz = Math.abs(this.posZ - player.posZ);
-				//System.out.println(diffx + " " + diffy + " " + diffz);
 
 				if (diffx > 0 && diffy < .5  && diffz > 0) {
 					this.pulled = true;
 					this.puller = player;
 					this.setPullerType(2);
 					if (!world.isRemote) {
-						world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+						world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 
 					}
 				}
 				return true;
 			} else if (stack.isEmpty() && !player.isRiding() && this.puller == player && this.getControllingPassenger() != player && !world.isRemote) {
-				//System.out.println(2);
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
 				if (!world.isRemote) {
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
+				stopCart();
 				return true;
 			} else {
 				this.pulled = false;
@@ -241,6 +247,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				if (!world.isRemote) {
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
+				stopCart();
 				return true;
 			}
 		}
@@ -320,6 +327,21 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 			}
 		}
+		
+		//Mounting a horse that is riding a cart... 
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityAnimal) {
+			
+			EntityAnimal entityanimal = (EntityAnimal) this.getControllingPassenger();
+			if (entityanimal.isBeingRidden() && entityanimal.getControllingPassenger() instanceof EntityPlayer) {
+				entityanimal.applyEntityCollision(this);
+				entityanimal.dismountRidingEntity();
+				this.dismountRidingEntity();
+				entityanimal.dismountEntity(this);
+				entityanimal.removePassengers();
+				this.removePassengers();
+			}
+			
+		}
 
 		//Dismount text
 		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityPlayer && this.rideCooldown > 10 && world.isRemote) {
@@ -332,61 +354,120 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 			double diffX = (this.posX - this.prevPosX);
 			double diffZ = (this.posZ - this.prevPosZ);
+			double movX = Math.abs(this.posX - this.prevPosX);
+			double movZ = Math.abs(this.posZ - this.prevPosZ);
 
-			//System.out.println("x: " + (this.posX - this.prevPosX));
-			//System.out.println("z: " + (this.posZ - this.prevPosZ));
-			//System.out.println("yaw: " + this.cartYaw);
+			//System.out.println("Cartyaw: " + this.cartYaw);
+			//System.out.println("motX: " + this.motionX);
+			//System.out.println("motZ: " + this.motionZ);
+			//System.out.println("moving: " + (movX + movZ));
 
-			if ((this.cartYaw > 0 && diffX > .001) || (this.cartYaw < 0 && diffX < -.001) && this.puller instanceof EntityPlayer) {
-				System.out.println("forward");
+			double moveThresh = .005D;
+
+			if ((this.cartYaw < 0 && this.motionX > .001 && this.motionZ > .001) && (movX + movZ > moveThresh)) { 
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
 					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest_back", this);
 				}
 				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest", this);
 				}
-			} else if ((this.cartYaw > 0 && diffX > .001) || (this.cartYaw < 0 && diffX < -.001) && this.puller instanceof EntityHorse) {
-				System.out.println("forward-anim");
-				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
-					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
-				}
-				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
-					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest_back", this);
-				}
-			} else if ((this.cartYaw > 0 && diffX < -.001) || (this.cartYaw < 0 && diffX > .001) && this.puller instanceof EntityPlayer) {
-				System.out.println("backward");
-
-				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
-					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
-				}
-				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
-					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest_back", this);
-				}
-			} else if ((this.cartYaw > 0 && diffX < -.001) || (this.cartYaw < 0 && diffX > .001) && this.puller instanceof EntityHorse) {
-				System.out.println("backward-anim");
+			} else if ((this.cartYaw > 0 && this.motionX < -.001 && this.motionZ < -.001) && (movX + movZ > moveThresh)) { 
 				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
 					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest_back", this);
 				}
 				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
 					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest", this);
 				}
+			} else if ((this.cartYaw > 0 && this.motionX < -.001 && this.motionZ > .001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest_back", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest", this);
+				}
+			} else if ((this.cartYaw < 0 && this.motionX > .001 && this.motionZ < -.001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest_back", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest", this);
+				}
+			} else if ((this.cartYaw < 0 && this.motionX < -.001 && this.motionZ < -.001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest_back", this);
+				}
+			} else if ((this.cartYaw > 0 && this.motionX > .001 && this.motionZ > .001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest_back", this);
+				}
+			} else if ((this.cartYaw > 0 && this.motionX > .001 && this.motionZ < -.001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest_back", this);
+				}
+			} else if ((this.cartYaw < 0 && this.motionX < -.001 && this.motionZ > .001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+					this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_cart_chest_back", this);
+				}
 
-			} 
+			}
 
+		}
+
+
+		if (this.pulled && this.puller instanceof EntityPlayer) {
+			List carts = AnimaniaHelper.getCartsInRange(EntityCart.class, 3, world, this);
+			EntityPlayer player = (EntityPlayer) this.puller;
+			
+			if (!carts.isEmpty()) {
+				if (carts.size() > 1) {
+					player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
+				}
+			}
+		}
+		
+		if (this.pulled && this.puller instanceof EntityAnimal) {
+			List carts = AnimaniaHelper.getCartsInRange(EntityCart.class, 3, world, this);
+			EntityAnimal animal = (EntityAnimal) this.puller;
+			
+			if (!carts.isEmpty()) {
+				if (carts.size() > 1) {
+					animal.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
+				}
+			}
 		}
 
 		//Stop Animation if not pulling or moving
-		if (this.world.isRemote) {
+
+		if (this.world.isRemote && this.pulled) {
 			double diffX = (this.posX - this.prevPosX);
 			double diffZ = (this.posZ - this.prevPosZ);
-			if ((Math.abs(diffX) < .005 && Math.abs(diffZ) < .005 || !this.pulled) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+
+			double movX = Math.abs(this.posX - this.prevPosX);
+			double movZ = Math.abs(this.posZ - this.prevPosZ);
+
+			double moveThresh = .008D;
+
+			if ((diffX < .005 && diffZ < .005) && (movX + movZ < moveThresh) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
 				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
 			} 
 
-			if ((Math.abs(diffX) < .005 && Math.abs(diffZ) < .005 || !this.pulled) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+			if ((diffX < .005 && diffZ < .005) && (movX + movZ < moveThresh) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
 				this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest_back", this);
 			}
 		}
+
 
 		if (this.getTimeSinceHit() > 0)
 		{
@@ -406,18 +487,21 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				if (!entities.isEmpty()) {
 					this.puller = (Entity) entities.get(0);
 					this.pulled = true;	
+					this.setPullerType(1);
 				} 
 			} else if (this.getPullerType() == 2) {
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityPlayer.class, 3, this.world, this);
 				if (!entities.isEmpty()) {
 					this.puller = (Entity) entities.get(0);
 					this.pulled = true;
+					this.setPullerType(2);
 				} 
 			} else if (this.getPullerType() == 3) {
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 3, this.world, this);
 				if (!entities.isEmpty()) {
 					this.puller = (Entity) entities.get(0);
 					this.pulled = true;
+					this.setPullerType(3);
 				} 
 
 			} else {
@@ -425,9 +509,6 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				this.setPullerType(0);
 			}
 		}
-
-
-		boolean entityMoving = false;
 
 		if (this.pulled && this.puller != null && this.puller.isRiding()) {
 			this.puller = this.puller.getRidingEntity();
@@ -438,33 +519,31 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			}
 		}
 
-
 		if (this.puller != null && (Math.abs(this.puller.posX - this.posX) > 4 || Math.abs(this.puller.posZ - this.posZ) > 4)) {
 			this.pulled = false;
 			this.puller = null;
 			this.setPullerType(0);
 			world.playSound(null, this.posX, this.posY, this.posZ, ModSoundEvents.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
-
+			stopCart();
 		}
 
 		if (this.pulled)
 		{
 
-			double angle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
-			this.rotationYaw = ((float)Math.toDegrees(angle));
+			double angle = -Math.atan2(this.puller.prevPosX - this.posX, this.puller.prevPosZ - this.posZ);
+			this.rotationYaw = (float) (((float)Math.toDegrees(angle)));
 			Vec3d moveVec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -2.5D).rotateYaw((float)-angle));
 
 			this.speed = Math.sqrt(moveVec.x * moveVec.x + moveVec.z * moveVec.z);
 			if (Math.abs(this.speed) < 0.01D)
 			{
 				this.speed = 0.0D;
-			}
-
+			} 
 			this.motionX = moveVec.x/2;
 			this.motionY = moveVec.y;
 			this.motionZ = moveVec.z/2;
 
-			double threshold = .02D;
+			double threshold = .001D;
 
 			if (Math.abs(this.motionY) < threshold) {
 				this.motionY = 0;
@@ -473,17 +552,12 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 
 
-			if ((moveVec.subtract(new Vec3d(1.0, 0.0D, 0.0D).rotateYaw((float)angle)).lengthVector() > 1.0D) && (this.posY == this.puller.posY))
+			if ((moveVec.subtract(new Vec3d(0.8, 0.0D, 0.0D).rotateYaw((float)angle)).lengthVector() > 1.0D) && (this.posY == this.puller.posY))
 			{
 				this.speed = (-this.speed);
 			}
 
 
-		}
-
-		if (!this.onGround)
-		{
-			move(MoverType.SELF, 0.0D, -0.8D, 0.0D);
 		}
 
 		List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
@@ -515,12 +589,26 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		}
 
 
+		if (!this.onGround)
+		{
+			move(MoverType.SELF, 0.0D, -0.8D, 0.0D);
+		}
+
 		super.onUpdate();
 		this.tickLerp();
 
-		//checkForItems();
 
 
+	}
+
+	public void stopCart() {
+		if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest", this)) {
+			this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest", this);
+		} 
+
+		if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_cart_chest_back", this)) {
+			this.getAnimationHandler().stopAnimation(Animania.MODID, "anim_cart_chest_back", this);
+		}
 	}
 
 	private void tickLerp()
@@ -584,6 +672,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 			if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
 			{
+
 				int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
 				passenger.setRenderYawOffset(((EntityAnimal)passenger).renderYawOffset + (float)j);
 				passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
@@ -595,7 +684,8 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	{
 		entityToUpdate.setRenderYawOffset(this.rotationYaw);
 		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
-		float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
+		//float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
+		float f1 = MathHelper.clamp(f, 0.0F, 0.0F);
 		entityToUpdate.prevRotationYaw += f1 - f;
 		entityToUpdate.rotationYaw += f1 - f;
 		entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
@@ -657,7 +747,18 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	@Nullable
 	public AxisAlignedBB getCollisionBox(Entity entityIn)
 	{
-		return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
+
+		if (entityIn == this.puller) {
+			this.puller.motionX = 0;
+			this.puller.motionZ = 0;
+			this.motionX = 0;
+			this.motionZ = 0;
+
+			return null;
+
+		} else {
+			return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
+		}
 	}
 
 	/**

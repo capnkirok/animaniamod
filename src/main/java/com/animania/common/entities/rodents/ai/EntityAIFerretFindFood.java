@@ -38,11 +38,11 @@ public class EntityAIFerretFindFood extends EntityAIBase
 	{
 		this.delayTemptCounter++;
 
-		if (this.delayTemptCounter < 40)
+		if (this.delayTemptCounter < 60)
 		{
 			return false;
 		}
-		else if (delayTemptCounter >= 40)
+		else if (delayTemptCounter >= 60)
 		{
 			if (this.temptedEntity instanceof EntityFerretBase)
 			{
@@ -136,6 +136,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 				return false;
 			}
 		}
+		this.delayTemptCounter = 0;
 		return false;
 
 	}

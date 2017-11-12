@@ -38,9 +38,9 @@ public class EntityAIFindFood extends EntityAIBase
 	public boolean shouldExecute() {
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 40) {
+		if (this.delayTemptCounter < 60) {
 			return false;
-		} else if (delayTemptCounter > 40) {
+		} else if (delayTemptCounter > 60) {
 			if (this.temptedEntity instanceof EntityAnimaniaPeacock) {
 				EntityAnimaniaPeacock entity = (EntityAnimaniaPeacock) temptedEntity;
 				if (entity.getFed()) {
@@ -127,7 +127,7 @@ public class EntityAIFindFood extends EntityAIBase
 				this.delayTemptCounter = 0;
 			return false;
 		}
-
+		this.delayTemptCounter = 0;
 		return false;
 	}
 

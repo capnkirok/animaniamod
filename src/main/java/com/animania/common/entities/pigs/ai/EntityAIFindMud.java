@@ -95,11 +95,12 @@ public class EntityAIFindMud extends EntityAIBase
 
 					}
 
-			if (!mudFound)
+			if (!mudFound) {
 				this.delayTemptCounter = 0;
-			return false;
+				return false;
+			}
 		}
-
+		this.delayTemptCounter = 0;
 		return false;
 	}
 

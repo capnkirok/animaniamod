@@ -60,9 +60,9 @@ public class EntityAIFindWater extends EntityAIBase
 	public boolean shouldExecute() {
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter <= 32) {
+		if (this.delayTemptCounter <= 60) {
 			return false;
-		} else if (delayTemptCounter > 32) {
+		} else if (delayTemptCounter > 60) {
 			if (this.temptedEntity instanceof EntityAnimaniaPig) {
 				EntityAnimaniaPig sow = (EntityAnimaniaPig) temptedEntity;
 				if (sow.getWatered()) {
@@ -92,7 +92,7 @@ public class EntityAIFindWater extends EntityAIBase
 						ech.entityAIEatGrass.startExecuting();
 						ech.setWatered(true);
 					} 
-
+					this.delayTemptCounter = 0;
 					return false;
 				}
 			}
@@ -108,7 +108,7 @@ public class EntityAIFindWater extends EntityAIBase
 				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER && AnimaniaConfig.gameRules.waterRemovedAfterDrinking) {
 					this.temptedEntity.world.setBlockToAir(currentposlower);
 				}
-
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -164,11 +164,12 @@ public class EntityAIFindWater extends EntityAIBase
 						}
 					}
 
-			if (!waterFound)
+			if (!waterFound) {
 				this.delayTemptCounter = 0;
-			return false;
+				return false;
+			}
 		}
-
+		this.delayTemptCounter = 0;
 		return false;
 	}
 

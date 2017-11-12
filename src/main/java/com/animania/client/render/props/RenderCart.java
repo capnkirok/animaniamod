@@ -29,7 +29,7 @@ public class RenderCart extends Render<EntityCart>
 	private ModelCraftStudio modelCartChest = new ModelCraftStudio(Animania.MODID, "model_cart_chest", 128, 128);
 	private RenderEntityItem itemRenderer;
 	private static EntityItem customitem = new EntityItem(null);
-
+	private int rotSkip;
 
 	public RenderCart(RenderManager manager) {
 		super(manager);
@@ -39,7 +39,7 @@ public class RenderCart extends Render<EntityCart>
 
 	public void doRender(EntityCart entity, double x, double y, double z, float entityYaw, float partialTicks)
 	{
-		
+
 		if (entity.getHasChest()) {
 			GlStateManager.pushMatrix();
 			this.setupTranslation(x, y, z);
@@ -61,24 +61,20 @@ public class RenderCart extends Render<EntityCart>
 
 	}
 
-	public void setupRotation(EntityCart p_188311_1_, float p_188311_2_, float p_188311_3_)
+	public void setupRotation(EntityCart cart, float yaw, float partialticks)
 	{
-		GlStateManager.rotate(180.0F - p_188311_2_, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(180.0F - yaw, 0.0F, 0.5F, 0.0F);
+		double yPulling = cart.puller == null ? cart.posY : cart.puller.posY;
+		double yCart = cart.posY;
 
-		float f = 0;
-		float f1 = 0;
-
-		if (f > 0.0F)
-		{
-			GlStateManager.rotate(MathHelper.sin(f) * f * f1 / 10.0F * 0, 1.0F, 0.0F, 0.0F);
-		}
-
+		float difference = (float) (yPulling-yCart);
+		GlStateManager.rotate(25 * difference, 1.0f, 0, 0);
 		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
 	}
 
 	public void setupTranslation(double p_188309_1_, double p_188309_3_, double p_188309_5_)
 	{
-		GlStateManager.translate((float)p_188309_1_, (float)p_188309_3_ + 1.6F, (float)p_188309_5_);
+		GlStateManager.translate((float)p_188309_1_, (float)p_188309_3_ + 1.5F, (float)p_188309_5_);
 	}
 
 	@Override

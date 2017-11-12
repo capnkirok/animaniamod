@@ -43,9 +43,9 @@ public class EntityAIFindWater extends EntityAIBase
 	{
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter <= 32) {
+		if (this.delayTemptCounter <= 60) {
 			return false;
-		} else if (delayTemptCounter > 32) {
+		} else if (delayTemptCounter > 60) {
 			if (temptedEntity instanceof EntityAnimaniaCow) {
 				EntityAnimaniaCow ech = (EntityAnimaniaCow)temptedEntity;
 				if (ech.getWatered()) {
@@ -115,6 +115,7 @@ public class EntityAIFindWater extends EntityAIBase
 						ech.setWatered(true);
 					} 
 
+					this.delayTemptCounter = 0;
 					return false;
 
 				}
@@ -131,6 +132,7 @@ public class EntityAIFindWater extends EntityAIBase
 					this.temptedEntity.world.setBlockToAir(currentposlower);
 				}
 
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -189,6 +191,7 @@ public class EntityAIFindWater extends EntityAIBase
 			}
 		}
 
+		this.delayTemptCounter = 0;
 		return false;
 	}
 
@@ -207,6 +210,7 @@ public class EntityAIFindWater extends EntityAIBase
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigator().clearPathEntity();
 		this.isRunning = false;
+		this.delayTemptCounter = 0;
 	}
 
 	public void updateTask()

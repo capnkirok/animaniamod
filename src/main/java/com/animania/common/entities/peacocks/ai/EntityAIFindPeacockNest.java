@@ -49,11 +49,11 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 	{
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter <= 40)
+		if (this.delayTemptCounter <= 60)
 		{
 			return false;
 		}
-		else if (delayTemptCounter > 40)
+		else if (delayTemptCounter > 60)
 		{
 
 			if (!this.temptedEntity.world.isDaytime())
@@ -161,10 +161,11 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 
 			if (!nestFound)
 			{
+				this.delayTemptCounter = 0;
 				return false;
 			}
 		}
-
+		this.delayTemptCounter = 0;
 		return false;
 	}
 
