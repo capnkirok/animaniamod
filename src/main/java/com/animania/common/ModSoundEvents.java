@@ -11,6 +11,9 @@ public class ModSoundEvents
 
 	public static SoundEvent zap;
 	public static SoundEvent combo;
+	public static SoundEvent hitch;
+	public static SoundEvent unhitch;
+
 
 	// Hamsters
 	public static SoundEvent hamsterDeath;
@@ -350,6 +353,11 @@ public class ModSoundEvents
 		ModSoundEvents.kidLiving3 = registerSound("kidLiving3");
 		ModSoundEvents.kidHurt1 = registerSound("kidhurt1");
 		ModSoundEvents.kidHurt2 = registerSound("kidhurt2");
+
+		//Props
+		ModSoundEvents.hitch = registerSound("hitch");
+		ModSoundEvents.unhitch = registerSound("unhitch");
+
 
 	}
 

@@ -1,13 +1,14 @@
 package com.animania;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.animania.common.creativeTab.TabAnimaniaEntities;
 import com.animania.common.creativeTab.TabAnimaniaResources;
+import com.animania.common.handler.GuiHandlerAnimania;
 import com.animania.proxy.CommonProxy;
 import com.leviathanstudio.craftstudio.client.json.CSReadedAnim;
 import com.leviathanstudio.craftstudio.client.json.CSReadedModel;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.event.RegistryEvent;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -39,12 +41,16 @@ public class Animania
     public static Animania     instance;
 
     public static final String MODID                = "animania";
-    public static final String VERSION              = "1.3.6.1";
+    public static final String VERSION              = "1.4.1";
     public static final String NAME                 = "Animania";
     public static final Logger LOGGER = LogManager.getFormatterLogger("Animania");
 
 	public static SimpleNetworkWrapper network;
     
+	// Gui
+	public static int horseCartGUI_ID = 0;
+	private GuiHandlerAnimania guiHandlerAnimania = new GuiHandlerAnimania();
+	
     // Tabs
     public static CreativeTabs TabAnimaniaEggs      = new TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania");
     public static CreativeTabs TabAnimaniaResources = new TabAnimaniaResources(CreativeTabs.getNextID(), "Animania");
@@ -65,6 +71,8 @@ public class Animania
     public void init(FMLInitializationEvent event)
     {
         Animania.proxy.init();
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerAnimania);
     }
 
     @EventHandler

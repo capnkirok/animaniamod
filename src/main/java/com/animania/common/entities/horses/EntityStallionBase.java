@@ -437,7 +437,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 				this.setInLove(player);
 				return true;
 			}
-		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
+		} else if (stack == ItemStack.EMPTY && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
 			player.startRiding(this);
 			player.addStat(AnimaniaAchievements.Horseriding, 1);
 			return true;

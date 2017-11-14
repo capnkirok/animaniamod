@@ -52,14 +52,14 @@ public class EntityAIFindWater extends EntityAIBase
 		this.setMutexBits(3);
 		this.delayTemptCounter = 0;
 	}
-	
+
 	@Override
 	public boolean shouldExecute() {
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter <= 32) {
+		if (this.delayTemptCounter <= 60) {
 			return false;
-		} else if (delayTemptCounter > 32) {
+		} else if (delayTemptCounter > 60) {
 			if (temptedEntity instanceof EntityAnimaniaCow) {
 				EntityAnimaniaCow ech = (EntityAnimaniaCow)temptedEntity;
 				if (ech.getWatered()) {
@@ -123,7 +123,7 @@ public class EntityAIFindWater extends EntityAIBase
 						ech.entityAIEatGrass.startExecuting();
 						ech.setWatered(true);
 					}
-					
+					this.delayTemptCounter = 0;
 					return false;
 
 				}
@@ -136,10 +136,11 @@ public class EntityAIFindWater extends EntityAIBase
 					ech.entityAIEatGrass.startExecuting();
 					ech.setWatered(true);
 				}
-				
+
 				if (this.temptedEntity.world.getBlockState(currentposlower).getBlock() == Blocks.WATER && AnimaniaConfig.gameRules.waterRemovedAfterDrinking) {
 					this.temptedEntity.world.setBlockToAir(currentposlower);
 				}
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -162,13 +163,11 @@ public class EntityAIFindWater extends EntityAIBase
 							waterFound = true;
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
 									&& this.temptedEntity.motionZ == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else
@@ -180,12 +179,10 @@ public class EntityAIFindWater extends EntityAIBase
 								waterFound = true;
 								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								}
 								else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0) {
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								}
 								else
@@ -195,9 +192,10 @@ public class EntityAIFindWater extends EntityAIBase
 
 					}
 
-			if (!waterFound)
+			if (!waterFound) {
 				this.delayTemptCounter = 0;
-			return false;
+				return false;
+			}
 		}
 
 		return false;
@@ -208,7 +206,7 @@ public class EntityAIFindWater extends EntityAIBase
 
 		return this.shouldExecute();
 	}
-	
+
 	@Override
 	public void startExecuting() {
 		this.isRunning = true;
@@ -315,17 +313,17 @@ public class EntityAIFindWater extends EntityAIBase
 				Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPos).getBlock();
 				Biome biomegenbase = this.temptedEntity.world.getBiome(waterPos);
 
-				if (waterBlockchk == BlockHandler.blockTrough && !this.temptedEntity.hasPath()) {
+				if (waterBlockchk == BlockHandler.blockTrough) {
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
-						this.resetTask();
+						this.delayTemptCounter = 0;
 					else
 						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
 
 				}
-				else if (!this.temptedEntity.hasPath() && (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN))
+				else if ((waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN))
 						&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH))
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
-						this.resetTask();
+						this.delayTemptCounter = 0;
 					else
 						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
 			}

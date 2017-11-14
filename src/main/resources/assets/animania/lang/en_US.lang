@@ -7,6 +7,7 @@ item.animania_carving_knife.name=Carving Knife
 tile.animania_cheese_mold.name=Cheese Mold
 item.animania_riding_crop.name=Riding Crop
 item.animania_salt.name=Salt
+item.animania_wheel.name=Wheel
 
 item.animania_hamster_ball_clear.name=Clear Hamster Ball
 item.animania_hamster_ball_black.name=Black Hamster Ball
@@ -461,6 +462,9 @@ tile.animania_salt_lick.name=Salt Lick
 
 entity.animania:wagon.name=Covered Wagon
 item.wagon.name=Covered Wagon
+
+entity.animania:cart.name=Horse Cart
+item.cart.name=Horse Cart
 
 tile.animania_wool_dorset_brown.name=Wool (Dorset, Brown)
 tile.animania_wool_friesian_black.name=Wool (Friesian, Black)

@@ -16,6 +16,7 @@ import com.animania.common.entities.horses.ai.EntityAIMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
 import com.animania.common.entities.horses.ai.EntityAISwimmingHorse;
 import com.animania.common.entities.horses.ai.EntityAITemptHorses;
+import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
@@ -28,7 +29,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.AbstractHorse;
@@ -90,7 +90,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		this.tasks.addTask(2, new EntityAIPanicHorses(this, 2.0D));
 		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
 		//this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
-		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
+		this.tasks.addTask(6, new EntityAIWanderHorses(this, 1.0D));
 		this.tasks.addTask(7, new EntityAISwimmingHorse(this));
 		this.tasks.addTask(8, new EntityAITemptHorses(this, 1.25D, false, TEMPTATION_ITEMS));
 		this.tasks.addTask(9, this.entityAIEatGrass);
@@ -547,7 +547,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 
 			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
 
-			if (this.canPassengerSteer())
+			if (this.canPassengerSteer() || this.getLeashed())
 			{
 				this.setAIMoveSpeed((float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				super.moveEntityWithHeading(strafe, forward);

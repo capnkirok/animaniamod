@@ -38,11 +38,11 @@ public class EntityAIFerretFindFood extends EntityAIBase
 	{
 		this.delayTemptCounter++;
 
-		if (this.delayTemptCounter < 40)
+		if (this.delayTemptCounter < 60)
 		{
 			return false;
 		}
-		else if (delayTemptCounter >= 40)
+		else if (delayTemptCounter >= 60)
 		{
 			if (this.temptedEntity instanceof EntityFerretBase)
 			{
@@ -76,6 +76,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 						ech.setFed(true);
 						ech.setWatered(true);
 					}
+					this.delayTemptCounter = 0;
 					return false;
 
 				}
@@ -111,13 +112,11 @@ public class EntityAIFerretFindFood extends EntityAIBase
 								if (rand.nextInt(200) == 0)
 								{
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								}
 								else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
 								{
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								}
 								else
@@ -136,6 +135,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 				return false;
 			}
 		}
+		
 		return false;
 
 	}
@@ -224,7 +224,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 
 			Block foodBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
 
-			if (foodBlockchk == BlockHandler.blockNest && !this.temptedEntity.hasPath())
+			if (foodBlockchk == BlockHandler.blockNest)
 			{
 				TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(foodPos);
 
@@ -232,7 +232,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 				{
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
 					{
-						this.resetTask();
+						this.delayTemptCounter = 0;
 					}
 					else
 					{

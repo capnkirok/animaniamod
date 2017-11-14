@@ -31,6 +31,11 @@ public class EntityHorseEatGrass extends EntityAIBase
 
 	public boolean shouldExecute()
 	{
+		
+		if (this.grassEaterEntity.isBeingRidden()) {
+			return false;
+		}
+		
 		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
 		{
 			return false;

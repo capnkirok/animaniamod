@@ -42,7 +42,7 @@ import com.animania.common.entities.peacocks.EntityPeafowlOpal;
 import com.animania.common.entities.peacocks.EntityPeafowlPeach;
 import com.animania.common.entities.peacocks.EntityPeafowlPurple;
 import com.animania.common.entities.peacocks.EntityPeafowlTaupe;
-import com.animania.common.entities.props.EntityWagon;
+import com.animania.common.entities.props.EntityCart;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckChinchilla;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckCottontail;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckDutch;
@@ -317,6 +317,7 @@ public class EntityHandler
 
 		//MOVING ENTITIES
 	//	RegistryHelper.Entities.register(EntityWagon.class, "wagon", entityID++, 40, 1, true);
+		RegistryHelper.Entities.register(EntityCart.class, "cart", entityID++, 40, 1, true);
 
 	}
 

@@ -116,7 +116,7 @@ public class EntityAIFindSaltLickGoats extends EntityAIBase
 			}
 
 		}
-
+		this.delayTemptCounter = 0;
 		return false;
 	}
 

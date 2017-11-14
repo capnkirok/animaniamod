@@ -4,6 +4,7 @@ import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.compat.top.providers.TOPInfoEntityProvider;
+import com.animania.config.AnimaniaConfig;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -27,16 +28,16 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 		boolean fed = tag.getBoolean("Fed");
 		boolean watered = tag.getBoolean("Watered");
 		
-		if (fed && watered)
+		if (fed && watered && !AnimaniaConfig.gameRules.ambianceMode)
 			probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.fed"));
 
-		if (fed && !watered)
+		if (fed && !watered && !AnimaniaConfig.gameRules.ambianceMode)
 			probeInfo.text(TextFormatting.YELLOW + I18n.translateToLocal("text.waila.thirsty"));
 
-		if (!fed && watered)
+		if (!fed && watered && !AnimaniaConfig.gameRules.ambianceMode)
 			probeInfo.text(TextFormatting.YELLOW + I18n.translateToLocal("text.waila.hungry"));
 
-		if (!fed && !watered)
+		if (!fed && !watered && !AnimaniaConfig.gameRules.ambianceMode)
 			probeInfo.text(TextFormatting.RED + I18n.translateToLocal("text.waila.hungry") + ", " + I18n.translateToLocal("text.waila.thirsty"));
 		
 		if (entity instanceof ISpawnable)

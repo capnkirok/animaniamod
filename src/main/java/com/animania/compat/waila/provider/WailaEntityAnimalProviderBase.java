@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.config.AnimaniaConfig;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
@@ -37,16 +38,16 @@ public class WailaEntityAnimalProviderBase implements IWailaEntityProvider
 		boolean fed = accessor.getNBTData().getBoolean("Fed");
 		boolean watered = accessor.getNBTData().getBoolean("Watered");
 		
-		if (fed && watered)
+		if (fed && watered && !AnimaniaConfig.gameRules.ambianceMode)
 			currenttip.add(I18n.translateToLocal("text.waila.fed"));
 
-		if (fed && !watered)
+		if (fed && !watered && !AnimaniaConfig.gameRules.ambianceMode)
 			currenttip.add(I18n.translateToLocal("text.waila.thirsty"));
 
-		if (!fed && watered)
+		if (!fed && watered && !AnimaniaConfig.gameRules.ambianceMode)
 			currenttip.add(I18n.translateToLocal("text.waila.hungry"));
 
-		if (!fed && !watered)
+		if (!fed && !watered && !AnimaniaConfig.gameRules.ambianceMode)
 			currenttip.add(I18n.translateToLocal("text.waila.hungry") + ", " + I18n.translateToLocal("text.waila.thirsty"));
 
 		return currenttip;

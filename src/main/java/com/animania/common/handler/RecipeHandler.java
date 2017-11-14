@@ -104,6 +104,11 @@ public class RecipeHandler
 		// Trough
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BlockHandler.blockTrough, 1), new Object[] { "p p", "pip", "s s", 'p', "plankWood", 'i', "ingotIron", 's', "stickWood" }));
 
+		// Cart
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.cart, 1), new Object[] { "spp", "pip", "w w", 'p', "plankWood", 'i', "ingotIron", 's', "stickWood", 'w', ItemHandler.wheel }));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.wheel, 1), new Object[] { " s ", "sis", " s ", 'i', "nuggetIron", 's', "stickWood" }));
+
+		
 		// Cheese Mold
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.cheeseMold, 1), new Object[] { "   ", "pip", " p ", 'p', "plankWood", 'i', "ingotIron" }));
 

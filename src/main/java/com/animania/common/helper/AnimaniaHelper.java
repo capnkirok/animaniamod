@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.animania.Animania;
+import com.animania.common.entities.props.EntityCart;
 import com.animania.network.client.TileEntitySyncPacket;
 
 import net.minecraft.entity.Entity;
@@ -97,6 +98,12 @@ public class AnimaniaHelper
 		return list;
 	}
 
+	public static <T extends EntityCart> List<T> getCartsInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
+	{
+		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
+		return list;
+	}
+	
 	public static RayTraceResult rayTrace(EntityPlayer player, double blockReachDistance)
 	{
 		Vec3d vec3d = player.getPositionEyes(1f);

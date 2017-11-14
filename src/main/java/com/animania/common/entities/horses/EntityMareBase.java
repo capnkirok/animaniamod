@@ -33,9 +33,11 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -264,7 +266,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				this.setInLove(player);
 				return true;
 			}
-		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
+		} else if (stack.getItem() == Item.getItemFromBlock(Blocks.AIR) && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
 			player.startRiding(this);
 			player.addStat(AnimaniaAchievements.Horseriding, 1);
 			return true;

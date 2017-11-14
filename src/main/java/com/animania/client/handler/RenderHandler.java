@@ -96,7 +96,7 @@ import com.animania.client.render.pigs.RenderSowLargeBlack;
 import com.animania.client.render.pigs.RenderSowLargeWhite;
 import com.animania.client.render.pigs.RenderSowOldSpot;
 import com.animania.client.render.pigs.RenderSowYorkshire;
-import com.animania.client.render.props.RenderWagon;
+import com.animania.client.render.props.RenderCart;
 import com.animania.client.render.rabbits.RenderBuckChinchilla;
 import com.animania.client.render.rabbits.RenderBuckCottontail;
 import com.animania.client.render.rabbits.RenderBuckDutch;
@@ -244,7 +244,7 @@ import com.animania.common.entities.pigs.EntitySowLargeBlack;
 import com.animania.common.entities.pigs.EntitySowLargeWhite;
 import com.animania.common.entities.pigs.EntitySowOldSpot;
 import com.animania.common.entities.pigs.EntitySowYorkshire;
-import com.animania.common.entities.props.EntityWagon;
+import com.animania.common.entities.props.EntityCart;
 import com.animania.common.entities.rodents.EntityFerretGrey;
 import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHamster;
@@ -383,6 +383,7 @@ public class RenderHandler
 
         // Props
    //     RenderingRegistry.registerEntityRenderingHandler(EntityWagon.class, RenderWagon.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityCart.class, RenderCart.FACTORY);
 
         // Goats
         RenderingRegistry.registerEntityRenderingHandler(EntityKidAlpine.class, RenderKidAlpine.FACTORY);
