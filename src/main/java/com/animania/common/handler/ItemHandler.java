@@ -62,8 +62,8 @@ public class ItemHandler
 	public static Item peacockFeatherPeach;
 	public static Item peacockFeatherPurple;
 	public static Item peacockFeatherTaupe;
-
 	public static Item ridingCrop;
+	public static Item wheel;
 
 	// Beef
 	public static Item rawHerefordBeef;
@@ -397,6 +397,7 @@ public class ItemHandler
 		ItemHandler.ridingCrop = new ItemRidingCrop();
 		ItemHandler.hamsterBallClear = new ItemHamsterBall(false, "hamster_ball_clear");
 		ItemHandler.hamsterBallColored = new ItemHamsterBall(true, "hamster_ball_colored");
+		ItemHandler.wheel = new AnimaniaItem("wheel");
 
 		// Other foods
 		ItemHandler.ultimateOmelette = new ItemAnimaniaFood(5, 2f, "super_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false), new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false), new PotionEffect(MobEffects.RESISTANCE, 600, 1, false, false));

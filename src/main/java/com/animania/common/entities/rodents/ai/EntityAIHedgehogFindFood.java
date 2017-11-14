@@ -40,11 +40,11 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 	public boolean shouldExecute()
 	{
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 40)
+		if (this.delayTemptCounter < 60)
 		{
 			return false;
 		}
-		else if (delayTemptCounter > 40)
+		else if (delayTemptCounter > 60)
 		{
 
 			if (this.temptedEntity instanceof EntityHedgehogBase)
@@ -64,8 +64,10 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 			{
 				TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(currentpos);
 
-				if (te == null ? true : te.getNestContent() == NestContent.EMPTY)
+				if (te == null ? true : te.getNestContent() == NestContent.EMPTY) {
+					this.delayTemptCounter = 0;
 					return false;
+				}
 
 				if ((te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) && te.itemHandler.getStackInSlot(0).getCount() > 0)
 				{
@@ -78,6 +80,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 						ech.setFed(true);
 						ech.setWatered(true);
 					}
+					this.delayTemptCounter = 0;
 					return false;
 
 				}
@@ -96,7 +99,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
 					temptedEntity.world.destroyBlock(currentpos, false);
 				}
-
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -128,13 +131,11 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 								if (rand.nextInt(200) == 0)
 								{
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								}
 								else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
 								{
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								}
 								else
@@ -149,13 +150,11 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 							if (rand.nextInt(200) == 0)
 							{
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
 							{
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else
@@ -163,9 +162,10 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 						}
 					}
 
-			if (!foodFound)
-				this.delayTemptCounter = 0;
-			return false;
+			if (!foodFound) {
+				this.delayTemptCounter = 0; 
+				return false;
+			}
 		}
 
 		return false;
@@ -288,20 +288,20 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 
 			Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPos).getBlock();
 
-			if (foodBlockchk == BlockHandler.blockNest && !this.temptedEntity.hasPath())
+			if (foodBlockchk == BlockHandler.blockNest)
 			{
 				TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(foodPos);
 
 				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
-						this.resetTask();
+						this.delayTemptCounter = 0;
 					else
 						this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
 
 			}
-			else if (!this.temptedEntity.hasPath() && (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES))
+			else if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
 				if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed) == false)
-					this.resetTask();
+					this.delayTemptCounter = 0;
 				else
 					this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
 		}

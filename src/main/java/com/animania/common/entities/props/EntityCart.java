@@ -55,7 +55,6 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	protected static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(EntityCart.class);
 	public boolean pulled;
 	public Entity puller;
-	private double speed;
 	public CartChest cartChest;
 	public float deltaRotation;
 	private int lerpSteps;
@@ -169,7 +168,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 				return true;
 			} else if (player.isRiding() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this) {
-				
+
 				this.pulled = true;
 				this.puller = player.getRidingEntity();
 				if (this.puller instanceof EntityHorse) {
@@ -216,7 +215,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 				return true;
 			} else if (stack.isEmpty() && !player.isRiding() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote) {
-				
+
 				double diffx = Math.abs(this.posX - player.posX);
 				double diffy = Math.abs(this.posY - player.posY);
 				double diffz = Math.abs(this.posZ - player.posZ);
@@ -327,10 +326,10 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 			}
 		}
-		
+
 		//Mounting a horse that is riding a cart... 
 		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityAnimal) {
-			
+
 			EntityAnimal entityanimal = (EntityAnimal) this.getControllingPassenger();
 			if (entityanimal.isBeingRidden() && entityanimal.getControllingPassenger() instanceof EntityPlayer) {
 				entityanimal.applyEntityCollision(this);
@@ -340,7 +339,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				entityanimal.removePassengers();
 				this.removePassengers();
 			}
-			
+
 		}
 
 		//Dismount text
@@ -426,23 +425,40 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		}
 
 
+		//Add slowness if multiple carts being pulled
 		if (this.pulled && this.puller instanceof EntityPlayer) {
 			List carts = AnimaniaHelper.getCartsInRange(EntityCart.class, 3, world, this);
 			EntityPlayer player = (EntityPlayer) this.puller;
-			
+			int totPulling = 0;
 			if (!carts.isEmpty()) {
 				if (carts.size() > 1) {
+					for (int i = 0; i < carts.size(); i++) {
+						EntityCart tempCart = (EntityCart) carts.get(i);
+						if (tempCart.pulled && tempCart.puller == player && tempCart != this) {
+							totPulling++;
+						}
+					}
+				}
+				if (totPulling > 0) {
 					player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
 				}
 			}
 		}
-		
+
 		if (this.pulled && this.puller instanceof EntityAnimal) {
 			List carts = AnimaniaHelper.getCartsInRange(EntityCart.class, 3, world, this);
 			EntityAnimal animal = (EntityAnimal) this.puller;
-			
+			int totPulling = 0;
 			if (!carts.isEmpty()) {
 				if (carts.size() > 1) {
+					for (int i = 0; i < carts.size(); i++) {
+						EntityCart tempCart = (EntityCart) carts.get(i);
+						if (tempCart.pulled && tempCart.puller == animal && tempCart != this) {
+							totPulling++;
+						}
+					}
+				}
+				if (totPulling > 0) {
 					animal.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
 				}
 			}
@@ -529,34 +545,20 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 		if (this.pulled)
 		{
+			double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
 
-			double angle = -Math.atan2(this.puller.prevPosX - this.posX, this.puller.prevPosZ - this.posZ);
-			this.rotationYaw = (float) (((float)Math.toDegrees(angle)));
-			Vec3d moveVec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -2.5D).rotateYaw((float)-angle));
 
-			this.speed = Math.sqrt(moveVec.x * moveVec.x + moveVec.z * moveVec.z);
-			if (Math.abs(this.speed) < 0.01D)
-			{
-				this.speed = 0.0D;
-			} 
-			this.motionX = moveVec.x/2;
-			this.motionY = moveVec.y;
-			this.motionZ = moveVec.z/2;
+			//this.rotationYaw = (float)Math.toDegrees(deltaAngle);
 
-			double threshold = .001D;
 
-			if (Math.abs(this.motionY) < threshold) {
-				this.motionY = 0;
-			}
 
+			//this.rotationYaw = (float)Math.toDegrees((deltaAngle + prevDeltaAngle)/2);
+
+			Vec3d vec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -2.5D).rotateYaw((float)-deltaAngle));
+			this.motionX = vec.x * 1.2;
+			this.motionY = vec.y;
+			this.motionZ = vec.z * 1.2;
 			move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-
-
-			if ((moveVec.subtract(new Vec3d(0.8, 0.0D, 0.0D).rotateYaw((float)angle)).lengthVector() > 1.0D) && (this.posY == this.puller.posY))
-			{
-				this.speed = (-this.speed);
-			}
-
 
 		}
 
@@ -589,15 +591,15 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		}
 
 
-		if (!this.onGround)
+
+		if (!this.pulled)
 		{
-			move(MoverType.SELF, 0.0D, -0.8D, 0.0D);
+			this.motionY = this.motionY - .05D;
+			move(MoverType.SELF, 0.0D, this.motionY, 0.0D);
 		}
 
 		super.onUpdate();
 		this.tickLerp();
-
-
 
 	}
 
@@ -619,7 +621,10 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			double d1 = this.posY + (this.lerpY - this.posY) / (double)this.lerpSteps;
 			double d2 = this.posZ + (this.lerpZ - this.posZ) / (double)this.lerpSteps;
 			double d3 = MathHelper.wrapDegrees(this.cartYaw - (double)this.rotationYaw);
-			this.rotationYaw = (float)((double)this.rotationYaw + d3 / (double)this.lerpSteps);
+			if (this.puller != null) {
+				double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
+				this.rotationYaw = (float)Math.toDegrees(deltaAngle);
+			}
 			this.rotationPitch = (float)((double)this.rotationPitch + (this.lerpXRot - (double)this.rotationPitch) / (double)this.lerpSteps);
 			--this.lerpSteps;
 			this.setPosition(d0, d1, d2);

@@ -98,7 +98,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 						ech.setFed(true);
 						ech.entityAIEatGrass.startExecuting();
 					} 
-
+					this.delayTemptCounter = 0;
 					return false;
 
 				} 
@@ -115,7 +115,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
 					temptedEntity.world.destroyBlock(currentpos, false);
 				}
-				
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -142,11 +142,9 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 								foodFound = true;
 								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								} else {
 									return true;
@@ -159,11 +157,9 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 							foodFound = true;
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							} else {
 								return true;
@@ -180,7 +176,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 				return false;
 			}
 		}
-		this.delayTemptCounter = 0;
+		
 		return false;
 	}
 
@@ -223,9 +219,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 					pos = new BlockPos(x + i, y + j, z + k);
 					Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
-
 					if (blockchk == BlockHandler.blockTrough) {
-
 
 						TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
 
@@ -294,11 +288,13 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 		if (foodFound) {
 
 			Block mudBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
-			if (!this.temptedEntity.hasPath() && (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || (mudBlockchk == BlockHandler.blockTrough))) {
-
+			if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || mudBlockchk == BlockHandler.blockTrough) {
 				this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
-
+			} else {
+				this.delayTemptCounter = 0;
 			}
+		} else {
+			this.delayTemptCounter = 0;
 		}
 
 	}

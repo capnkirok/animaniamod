@@ -188,7 +188,7 @@ public class CommonConfig
 		@Comment("Ticks between drinking water")
 		public int waterTimer = 8000;
 		@Comment("Ticks between playing")
-		public int playTimer = 4000;
+		public int playTimer = 12000;
 		@Comment("Ticks between laying eggs")
 		public int laidTimer = 2000;
 		@Comment("Ticks between dropping feathers")

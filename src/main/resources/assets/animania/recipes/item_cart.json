@@ -5,7 +5,7 @@
   "pattern": [
     "spp",
     "pip",
-    "p p"
+    "w w"
   ],
   "type": "forge:ore_shaped",
   "key": {
@@ -20,6 +20,9 @@
     "i": {
       "ore": "ingotIron",
       "type": "forge:ore_dict"
+    }, 
+    "w": {
+      "item": "animania:wheel"
     }
   }
 }

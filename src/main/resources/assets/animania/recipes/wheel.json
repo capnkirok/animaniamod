@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "animania:wheel"
+  },
+  "pattern": [
+    " s ",
+    "sis",
+    " s "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    },
+    "i": {
+      "ore": "nuggetIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

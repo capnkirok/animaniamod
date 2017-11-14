@@ -130,7 +130,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.22499999403953552D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28499999403953552D);
 	}
 
 	@Override
@@ -221,7 +221,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		} else
 			this.dataManager.set(EntityAnimaniaHorse.FED, Boolean.valueOf(false));
 	}
-	
+
 	public boolean getHandFed()
 	{
 		return this.dataManager.get(EntityAnimaniaHorse.HANDFED).booleanValue();
@@ -328,10 +328,10 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			}
 
 			if (this.onGround && this.jumpPower == 0.0F && this.isRearing())
-            {
-                p_191986_1_ = 0.0F;
-                p_191986_3_ = 0.0F;
-            }
+			{
+				p_191986_1_ = 0.0F;
+				p_191986_3_ = 0.0F;
+			}
 
 			if (this.jumpPower > 0.0F && !this.isHorseJumping() && this.onGround)
 			{
@@ -359,7 +359,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 
 			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
 
-			if (this.canPassengerSteer())
+			if (this.canPassengerSteer() || this.getLeashed())
 			{
 				this.setAIMoveSpeed((float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				super.travel(p_191986_1_, p_191986_2_/8, p_191986_3_);
@@ -393,7 +393,9 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		else
 		{
 			this.jumpMovementFactor = 0.02F;
-			//p_191986_3_ = this.moveForward;
+			if (!this.isBeingRidden()) {
+				p_191986_3_ = this.moveForward;
+			}
 			super.travel(p_191986_1_, p_191986_2_, p_191986_3_);
 
 		}
@@ -452,7 +454,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
-	
+
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
 		{
 			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)

@@ -110,7 +110,7 @@ public class EntityAIFindFood extends EntityAIBase
 					|| poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
 				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(currentpos);
 				if (te != null && te.canConsume(EntityAnimaniaPig.TEMPTATION_ITEMS, BlockHandler.fluidSlop)) {
-					
+
 					te.consumeSolidOrLiquid(100, 1);
 
 					if (temptedEntity instanceof EntityAnimaniaPig) {
@@ -120,6 +120,7 @@ public class EntityAIFindFood extends EntityAIBase
 						pig.setWatered(true);
 					} 
 
+					this.delayTemptCounter = 0;
 					return false;
 
 				}
@@ -136,7 +137,7 @@ public class EntityAIFindFood extends EntityAIBase
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
 					temptedEntity.world.destroyBlock(currentpos, false);
 				}
-
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -164,13 +165,11 @@ public class EntityAIFindFood extends EntityAIBase
 								foodFound = true;
 								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								}
 								else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
 										&& this.temptedEntity.motionZ == 0) {
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								}
 								else
@@ -183,13 +182,11 @@ public class EntityAIFindFood extends EntityAIBase
 							foodFound = true;
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
 									&& this.temptedEntity.motionZ == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else
@@ -197,11 +194,12 @@ public class EntityAIFindFood extends EntityAIBase
 						}
 					}
 
-			if (!foodFound)
+			if (!foodFound) {
 				this.delayTemptCounter = 0;
-			return false;
+				return false;
+			}
 		}
-		this.delayTemptCounter = 0;
+
 		return false;
 	}
 
@@ -307,20 +305,19 @@ public class EntityAIFindFood extends EntityAIBase
 
 			Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPos).getBlock();
 
-			if (foodBlockchk == BlockHandler.blockTrough && !this.temptedEntity.hasPath()) {
+			if (foodBlockchk == BlockHandler.blockTrough) {
 				TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(foodPos);
 
 				if (te.canConsume(EntityAnimaniaPig.TEMPTATION_ITEMS, BlockHandler.fluidSlop))
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
-						this.resetTask();
+						this.delayTemptCounter = 0;
 					else
 						this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
 
 			}
-			else if (!this.temptedEntity.hasPath() && (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.WHEAT || foodBlockchk == Blocks.BEETROOTS
-					|| foodBlockchk == Blocks.POTATOES))
+			else if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.WHEAT || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
 				if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed) == false)
-					this.resetTask();
+					this.delayTemptCounter = 0;
 				else
 					this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
 		}

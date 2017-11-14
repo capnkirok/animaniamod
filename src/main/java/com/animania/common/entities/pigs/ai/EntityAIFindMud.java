@@ -58,6 +58,7 @@ public class EntityAIFindMud extends EntityAIBase
 					pig.entityAIEatGrass.startExecuting();
 					pig.setPlayed(true);
 				} 
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -80,13 +81,11 @@ public class EntityAIFindMud extends EntityAIBase
 							mudFound = true;
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
 									&& this.temptedEntity.motionZ == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else
@@ -100,7 +99,7 @@ public class EntityAIFindMud extends EntityAIBase
 				return false;
 			}
 		}
-		this.delayTemptCounter = 0;
+		
 		return false;
 	}
 
@@ -189,7 +188,7 @@ public class EntityAIFindMud extends EntityAIBase
 			if (mudFound) {
 
 				Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPos).getBlock();
-				if (mudBlockchk == BlockHandler.blockMud && !this.temptedEntity.hasPath())
+				if (mudBlockchk == BlockHandler.blockMud)
 					if (this.temptedEntity instanceof EntitySowBase) {
 						EntitySowBase te = (EntitySowBase) this.temptedEntity;
 

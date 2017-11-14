@@ -94,7 +94,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 							{
 								entity.setLaid(true);
 								te.birdType = entity.type;
-								this.resetTask();
+								this.delayTemptCounter = 0;
 								te.markDirty();
 							}
 					}
@@ -109,11 +109,12 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 							{
 								entity.setLaid(true);
 								te.birdType = entity.type;
-								this.resetTask();
+								this.delayTemptCounter = 0;
 								te.markDirty();
 							}
 					}
 				}
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -165,7 +166,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 				return false;
 			}
 		}
-		this.delayTemptCounter = 0;
+		
 		return false;
 	}
 
@@ -278,7 +279,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 				Block nestBlockchk = temptedEntity.world.getBlockState(nestPos).getBlock();
 				List<Entity> nestClear = temptedEntity.world.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expand(1,1,1));
 
-				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty() && !this.temptedEntity.hasPath())
+				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
 				{
 					this.temptedEntity.getNavigator().tryMoveToXYZ(nestPos.getX() + .50, nestPos.getY(), nestPos.getZ() + .50, this.speed);
 				}
