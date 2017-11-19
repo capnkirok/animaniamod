@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 @EventBusSubscriber
-@Mod(modid = Animania.MODID, name = Animania.NAME, version = Animania.VERSION, acceptedMinecraftVersions = Animania.ACCEPTED_VERSIONS, guiFactory = "com.animania.client.gui.GuiFactoryAnimania", dependencies = "required-after:craftstudioapi;after:quark;required-after:forge@[13.20.1.2386,)")
+@Mod(modid = Animania.MODID, name = Animania.NAME, version = Animania.VERSION, guiFactory = "com.animania.client.gui.GuiFactoryAnimania", dependencies = "required-after:craftstudioapi;after:quark;after:botania;required-after:forge@[13.20.1.2386,)")
 public class Animania
 {
 
