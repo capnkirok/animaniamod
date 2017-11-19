@@ -72,8 +72,6 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 		}
 	}
 	
-	
-	
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
@@ -97,10 +95,10 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	{
 		if(world != null)
 		{
-			TileEntity te = world.getTileEntity(pos);
-			if(te != null && te instanceof TileEntitySaltLick)
+			TileEntitySaltLick te = (TileEntitySaltLick) world.getTileEntity(pos);
+			if(te != null)
 			{
-				double usesLeft = (double)((TileEntitySaltLick)te).usesLeft / (double)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
+				double usesLeft = (double)te.usesLeft / (double)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
 				return new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.625 * usesLeft , 0.8125);
 			}
 		}
@@ -112,10 +110,10 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	{
 		if(world != null)
 		{
-			TileEntity te = world.getTileEntity(pos);
-			if(te != null && te instanceof TileEntitySaltLick)
+			TileEntitySaltLick te = (TileEntitySaltLick) world.getTileEntity(pos);
+			if(te != null)
 			{
-				double usesLeft = (double)((TileEntitySaltLick)te).usesLeft / (double)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
+				double usesLeft = (double)te.usesLeft / (double)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
 				return new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.625 * usesLeft , 0.8125);
 			}
 		}

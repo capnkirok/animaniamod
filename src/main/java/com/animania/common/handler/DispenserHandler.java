@@ -79,7 +79,7 @@ public class DispenserHandler
 					return stack;
 				}
 			}
-			else if ((Loader.isModLoaded("quark") || Loader.isModLoaded("botania")) && world.getBlockState(below).getBlock() instanceof BlockFarmland)
+			else if (Loader.isModLoaded("quark") && world.getBlockState(below).getBlock() instanceof BlockFarmland)
 			{
 				if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
 				{
