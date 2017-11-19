@@ -49,11 +49,11 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 	{
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter <= 40)
+		if (this.delayTemptCounter <= 60)
 		{
 			return false;
 		}
-		else if (delayTemptCounter > 40)
+		else if (delayTemptCounter > 60)
 		{
 
 			if (!this.temptedEntity.world.isDaytime())
@@ -94,7 +94,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 							{
 								entity.setLaid(true);
 								te.birdType = entity.type;
-								this.resetTask();
+								this.delayTemptCounter = 0;
 								te.markDirty();
 							}
 					}
@@ -109,11 +109,12 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 							{
 								entity.setLaid(true);
 								te.birdType = entity.type;
-								this.resetTask();
+								this.delayTemptCounter = 0;
 								te.markDirty();
 							}
 					}
 				}
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -161,10 +162,11 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 
 			if (!nestFound)
 			{
+				this.delayTemptCounter = 0;
 				return false;
 			}
 		}
-
+		
 		return false;
 	}
 
@@ -277,7 +279,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 				Block nestBlockchk = temptedEntity.world.getBlockState(nestPos).getBlock();
 				List<Entity> nestClear = temptedEntity.world.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expand(1,1,1));
 
-				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty() && !this.temptedEntity.hasPath())
+				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
 				{
 					this.temptedEntity.getNavigator().tryMoveToXYZ(nestPos.getX() + .50, nestPos.getY(), nestPos.getZ() + .50, this.speed);
 				}

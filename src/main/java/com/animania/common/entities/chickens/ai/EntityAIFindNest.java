@@ -47,11 +47,11 @@ public class EntityAIFindNest extends EntityAIBase
 	{
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 40)
+		if (this.delayTemptCounter < 60)
 		{
 			return false;
 		}
-		else if (delayTemptCounter > 40)
+		else if (delayTemptCounter > 60)
 		{
 
 			if (!this.temptedEntity.world.isDaytime())
@@ -79,6 +79,7 @@ public class EntityAIFindNest extends EntityAIBase
 
 				if (te.itemHandler.getStackInSlot(0).getCount() >= 3)
 				{
+					this.delayTemptCounter = 0;
 					return false;
 				}
 
@@ -112,7 +113,7 @@ public class EntityAIFindNest extends EntityAIBase
 							}
 					}
 				}
-
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -177,10 +178,12 @@ public class EntityAIFindNest extends EntityAIBase
 
 			if (!nestFound)
 			{
+				this.delayTemptCounter = 0;
 				return false;
 			}
 		}
 
+		
 		return false;
 	}
 
@@ -310,7 +313,7 @@ public class EntityAIFindNest extends EntityAIBase
 
 				List<Entity> nestClear = temptedEntity.world.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expand(1, 1, 1));
 
-				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty() && !this.temptedEntity.hasPath())
+				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
 				{
 					this.temptedEntity.getNavigator().tryMoveToXYZ(nestPos.getX() + .50, nestPos.getY(), nestPos.getZ() + .50, this.speed);
 				}
@@ -320,7 +323,7 @@ public class EntityAIFindNest extends EntityAIBase
 					// nestPos.getY(), nestPos.getZ(), this.speed);
 
 				}
-
+			
 			}
 		}
 

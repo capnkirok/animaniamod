@@ -54,6 +54,7 @@ public class AnimaniaTextures
 		register(ItemHandler.peacockFeatherTaupe);
 		register(ItemHandler.ridingCrop);
 		register(ItemHandler.hamsterBallClear);
+		register(ItemHandler.wheel);
 
 		registerColored(ItemHandler.hamsterBallColored, "hamster_ball");
 
@@ -164,8 +165,8 @@ public class AnimaniaTextures
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseSheep));
 		register(Item.getItemFromBlock(BlockHandler.blockSaltLick));
 		regSpecial(BlockHandler.blockAnimaniaWool);
-		register(ItemHandler.wagon);
 		register(ItemHandler.cart);
+		//register(ItemHandler.wagon);
 		
 		
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");

@@ -49,9 +49,9 @@ public class EntityAIFindFood extends EntityAIBase
 	public boolean shouldExecute() {
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 40) {
+		if (this.delayTemptCounter < 60) {
 			return false;
-		} else if (delayTemptCounter > 40) {
+		} else if (delayTemptCounter > 60) {
 
 			if (this.temptedEntity instanceof EntityAnimaniaChicken) {
 				EntityAnimaniaChicken entity = (EntityAnimaniaChicken) temptedEntity;
@@ -96,7 +96,9 @@ public class EntityAIFindFood extends EntityAIBase
 					EntityAnimaniaChicken entity = (EntityAnimaniaChicken) this.temptedEntity;
 					entity.setFed(true);
 				}
+				this.delayTemptCounter = 0;
 				return false;
+				
 			}
 
 			double x = this.temptedEntity.posX;
@@ -140,7 +142,7 @@ public class EntityAIFindFood extends EntityAIBase
 				return false;
 			}
 		}
-
+		
 		return false;
 	}
 
@@ -195,8 +197,13 @@ public class EntityAIFindFood extends EntityAIBase
 
 			Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPos).getBlock();
 
-			if (mudBlockchk == BlockHandler.blockSeeds && !this.temptedEntity.hasPath())
+			if (mudBlockchk == BlockHandler.blockSeeds) {
 				this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX() + .5, mudPos.getY(), mudPos.getZ() + .5, this.speed);
+			} else {
+				this.delayTemptCounter = 0;
+			}
+		} else {
+			this.delayTemptCounter = 0;
 		}
 
 	}

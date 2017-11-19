@@ -38,9 +38,9 @@ public class EntityAIFindFood extends EntityAIBase
 	public boolean shouldExecute() {
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 40) {
+		if (this.delayTemptCounter < 60) {
 			return false;
-		} else if (delayTemptCounter > 40) {
+		} else if (delayTemptCounter > 60) {
 			if (this.temptedEntity instanceof EntityAnimaniaPeacock) {
 				EntityAnimaniaPeacock entity = (EntityAnimaniaPeacock) temptedEntity;
 				if (entity.getFed()) {
@@ -76,15 +76,15 @@ public class EntityAIFindFood extends EntityAIBase
 			if (poschk == BlockHandler.blockSeeds || poschk1 == BlockHandler.blockSeeds || poschk2 == BlockHandler.blockSeeds
 					|| poschk3 == BlockHandler.blockSeeds || poschk4 == BlockHandler.blockSeeds) {
 
-				
+
 				if (this.temptedEntity instanceof EntityAnimaniaPeacock) {
 					EntityAnimaniaPeacock entity = (EntityAnimaniaPeacock) this.temptedEntity;
 					entity.setFed(true);
 				}
-				
+
 				this.temptedEntity.world.destroyBlock(currentpos, false);
 				this.temptedEntity.limbSwingAmount = 50.0f;
-
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -108,13 +108,11 @@ public class EntityAIFindFood extends EntityAIBase
 							foodFound = true;
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
 									&& this.temptedEntity.motionZ == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else
@@ -123,9 +121,10 @@ public class EntityAIFindFood extends EntityAIBase
 
 					}
 
-			if (!foodFound)
+			if (!foodFound) {
 				this.delayTemptCounter = 0;
-			return false;
+				return false;
+			}
 		}
 
 		return false;
@@ -182,7 +181,7 @@ public class EntityAIFindFood extends EntityAIBase
 
 			Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPos).getBlock();
 
-			if (mudBlockchk == BlockHandler.blockSeeds && !this.temptedEntity.hasPath())
+			if (mudBlockchk == BlockHandler.blockSeeds)
 				this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX() + .5, mudPos.getY(), mudPos.getZ() + .5, this.speed);
 		}
 

@@ -38,9 +38,9 @@ public class EntityAIFindFood extends EntityAIBase
 	public boolean shouldExecute() {
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter <= 32) {
+		if (this.delayTemptCounter <= 60) {
 			return false;
-		} else if (delayTemptCounter > 32) {
+		} else if (delayTemptCounter > 60) {
 			if (temptedEntity instanceof EntityAnimaniaCow) {
 				EntityAnimaniaCow ech = (EntityAnimaniaCow)temptedEntity;
 				if (ech.getFed()) {
@@ -98,7 +98,7 @@ public class EntityAIFindFood extends EntityAIBase
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 					}
-
+					this.delayTemptCounter = 0;
 					return false;
 
 				}
@@ -116,7 +116,7 @@ public class EntityAIFindFood extends EntityAIBase
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
 					temptedEntity.world.destroyBlock(currentpos, false);
 				}
-
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -143,13 +143,11 @@ public class EntityAIFindFood extends EntityAIBase
 								foodFound = true;
 								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								}
 								else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
 										&& this.temptedEntity.motionZ == 0) {
 									this.delayTemptCounter = 0;
-									this.resetTask();
 									return false;
 								}
 								else
@@ -163,13 +161,11 @@ public class EntityAIFindFood extends EntityAIBase
 							foodFound = true;
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0
 									&& this.temptedEntity.motionZ == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							}
 							else
@@ -178,11 +174,12 @@ public class EntityAIFindFood extends EntityAIBase
 
 					}
 
-			if (!foodFound)
+			if (!foodFound) {
 				this.delayTemptCounter = 0;
-			return false;
+				return false;
+			}
 		}
-
+		
 		return false;
 	}
 
@@ -290,7 +287,7 @@ public class EntityAIFindFood extends EntityAIBase
 		if (foodFound) {
 
 			Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPos).getBlock();
-			if (!this.temptedEntity.hasPath() && (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || mudBlockchk == BlockHandler.blockTrough))
+			if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || mudBlockchk == BlockHandler.blockTrough)
 				this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
 		}
 

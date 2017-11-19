@@ -116,7 +116,7 @@ public class EntityAIFindSaltLickCows extends EntityAIBase
 			}
 
 		}
-
+		this.delayTemptCounter = 0;
 		return false;
 	}
 

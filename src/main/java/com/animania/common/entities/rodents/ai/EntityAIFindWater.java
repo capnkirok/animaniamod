@@ -41,9 +41,9 @@ public class EntityAIFindWater extends EntityAIBase
 	{
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 40) {
+		if (this.delayTemptCounter < 60) {
 			return false;
-		} else if (delayTemptCounter > 40) {
+		} else if (delayTemptCounter > 60) {
 			if (this.temptedEntity instanceof EntityFerretBase) {
 				EntityFerretBase entity = (EntityFerretBase) temptedEntity;
 				if (entity.getWatered()) {
@@ -93,7 +93,7 @@ public class EntityAIFindWater extends EntityAIBase
 					EntityAnimaniaRabbit entity = (EntityAnimaniaRabbit)temptedEntity;
 					entity.setWatered(true);
 				} 
-
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -115,11 +115,9 @@ public class EntityAIFindWater extends EntityAIBase
 							waterFound = true;
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
 								this.delayTemptCounter = 0;
-								this.resetTask();
 								return false;
 							} else {
 								return true;
@@ -135,6 +133,7 @@ public class EntityAIFindWater extends EntityAIBase
 			}
 		}
 
+		
 		return false;
 	}
 
@@ -220,10 +219,9 @@ public class EntityAIFindWater extends EntityAIBase
 				Block waterBlockchk = temptedEntity.world.getBlockState(waterPos).getBlock();
 				Biome biomegenbase = this.temptedEntity.world.getBiome(waterPos);
 
-				if (waterBlockchk == Blocks.WATER && !this.temptedEntity.hasPath() && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) 
-						&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+				if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)	&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 					if(this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false) {
-						this.resetTask();
+						this.delayTemptCounter = 0;
 					} else {
 						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
 					}

@@ -1,12 +1,24 @@
 package com.animania.common.items;
 
 import java.util.List;
+import java.util.Random;
 
 import com.animania.Animania;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.RandomAnimalType;
+import com.animania.common.entities.chickens.ChickenType;
+import com.animania.common.entities.cows.CowType;
+import com.animania.common.entities.goats.GoatType;
+import com.animania.common.entities.peacocks.PeacockType;
+import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.props.EntityCart;
+import com.animania.common.entities.rodents.rabbits.RabbitType;
+import com.animania.common.entities.sheep.SheepType;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -14,8 +26,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -32,7 +47,8 @@ public class ItemCart extends Item
 		this.setUnlocalizedName("cart");
 		ForgeRegistries.ITEMS.register(this);
 	}
-	
+
+	/*
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
 	{
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
@@ -82,7 +98,7 @@ public class ItemCart extends Item
 			if (flag)
 			{
 				return new ActionResult(EnumActionResult.PASS, itemstack);
-				
+
 			}
 			else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK)
 			{
@@ -111,4 +127,37 @@ public class ItemCart extends Item
 			}
 		}
 	}
+	 */
+
+	@Override
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	{
+		pos = pos.offset(facing);
+
+		ItemStack stack = playerIn.getHeldItem(hand);
+
+		if (world.isRemote)
+			return EnumActionResult.SUCCESS;
+
+		EntityCart entity = new EntityCart(world);
+
+
+
+		entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
+
+		if (stack.hasDisplayName())
+			((EntityCart) entity).setCustomNameTag(stack.getDisplayName());
+
+		if (!playerIn.isCreative())
+			stack.shrink(1);
+
+		Random rand = new Random();
+		world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+		entity.rotationYaw = entity.rotationYaw;
+		entity.deltaRotation = entity.rotationYaw;
+		world.spawnEntity(entity);
+		return EnumActionResult.SUCCESS;
+
+	}
+
 }
