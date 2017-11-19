@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -60,6 +62,13 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 		}
 	}
 	
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	{
+		return BlockFaceShape.UNDEFINED;
+	}
+	
 	@Override
 	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack)
 	{
@@ -95,10 +104,10 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	{
 		if(world != null)
 		{
-			TileEntitySaltLick te = (TileEntitySaltLick) world.getTileEntity(pos);
-			if(te != null)
+			TileEntity te = world.getTileEntity(pos);
+			if(te != null && te instanceof TileEntitySaltLick)
 			{
-				double usesLeft = (double)te.usesLeft / (double)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
+				double usesLeft = (double)((TileEntitySaltLick)te).usesLeft / (double)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
 				return new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.625 * usesLeft , 0.8125);
 			}
 		}
@@ -110,10 +119,10 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	{
 		if(world != null)
 		{
-			TileEntitySaltLick te = (TileEntitySaltLick) world.getTileEntity(pos);
-			if(te != null)
+			TileEntity te = world.getTileEntity(pos);
+			if(te != null && te instanceof TileEntitySaltLick)
 			{
-				double usesLeft = (double)te.usesLeft / (double)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
+				double usesLeft = (double)((TileEntitySaltLick)te).usesLeft / (double)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
 				return new AxisAlignedBB(0.1875, 0, 0.1875, 0.8125, 0.625 * usesLeft , 0.8125);
 			}
 		}
