@@ -298,13 +298,13 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	{
 		if (entityIn instanceof EntityCart)
 		{
-			if (entityIn.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY)
+			if (entityIn.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY && !this.pulled)
 			{
 				super.applyEntityCollision(entityIn);
 
 			}
 		}
-		else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY)
+		else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY && !this.pulled)
 		{
 			super.applyEntityCollision(entityIn);
 
@@ -350,16 +350,9 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 		//Determine animation direction based on previous pos
 		if (this.pulled && this.puller != null && world.isRemote) {
-
-			double diffX = (this.posX - this.prevPosX);
-			double diffZ = (this.posZ - this.prevPosZ);
+			
 			double movX = Math.abs(this.posX - this.prevPosX);
 			double movZ = Math.abs(this.posZ - this.prevPosZ);
-
-			//System.out.println("Cartyaw: " + this.cartYaw);
-			//System.out.println("motX: " + this.motionX);
-			//System.out.println("motZ: " + this.motionZ);
-			//System.out.println("moving: " + (movX + movZ));
 
 			double moveThresh = .005D;
 
@@ -547,17 +540,10 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		{
 			double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
 
-
-			//this.rotationYaw = (float)Math.toDegrees(deltaAngle);
-
-
-
-			//this.rotationYaw = (float)Math.toDegrees((deltaAngle + prevDeltaAngle)/2);
-
 			Vec3d vec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -2.5D).rotateYaw((float)-deltaAngle));
-			this.motionX = vec.x * 1.2;
+			this.motionX = vec.x/1.2;
 			this.motionY = vec.y;
-			this.motionZ = vec.z * 1.2;
+			this.motionZ = vec.z/1.2;
 			move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 
 		}
@@ -689,8 +675,10 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	{
 		entityToUpdate.setRenderYawOffset(this.rotationYaw);
 		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
-		//float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
 		float f1 = MathHelper.clamp(f, 0.0F, 0.0F);
+		if (entityToUpdate instanceof EntityPlayer) {
+			f1 = MathHelper.clamp(f, -105.0F, 105.0F);
+		}
 		entityToUpdate.prevRotationYaw += f1 - f;
 		entityToUpdate.rotationYaw += f1 - f;
 		entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
@@ -753,14 +741,17 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	public AxisAlignedBB getCollisionBox(Entity entityIn)
 	{
 
+		double movX = Math.abs(this.posX - this.prevPosX);
+		double movZ = Math.abs(this.posZ - this.prevPosZ);
+		
 		if (entityIn == this.puller) {
 			this.puller.motionX = 0;
 			this.puller.motionZ = 0;
 			this.motionX = 0;
 			this.motionZ = 0;
-
 			return null;
-
+		} else if (this.pulled) {
+			return null;
 		} else {
 			return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
 		}

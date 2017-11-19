@@ -32,7 +32,6 @@ import com.animania.common.entities.cows.EntityCalfHereford;
 import com.animania.common.entities.cows.EntityCalfHolstein;
 import com.animania.common.entities.cows.EntityCalfLonghorn;
 import com.animania.common.entities.cows.EntityCowAngus;
-import com.animania.common.entities.cows.EntityCowBase;
 import com.animania.common.entities.cows.EntityCowFriesian;
 import com.animania.common.entities.cows.EntityCowHereford;
 import com.animania.common.entities.cows.EntityCowHolstein;
@@ -85,7 +84,6 @@ import com.animania.common.entities.sheep.EntityRamDorset;
 import com.animania.common.entities.sheep.EntityRamFriesian;
 import com.animania.common.entities.sheep.EntityRamMerino;
 import com.animania.common.entities.sheep.EntityRamSuffolk;
-import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.monster.EntityPigZombie;
@@ -698,6 +696,7 @@ public class EventReplaceSpawnAnimals
 					event.setCanceled(true);
 					event.isCanceled();
 					event.getEntity().setDead();
+					//System.out.println("Removed animania chicken: " + checkTamed);
 				}
 			}
 

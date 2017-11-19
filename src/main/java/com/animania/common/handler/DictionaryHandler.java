@@ -31,7 +31,12 @@ public class DictionaryHandler
 		OreDictionary.registerOre("itemSalt", ItemHandler.salt);
 		OreDictionary.registerOre("foodSalt", ItemHandler.salt);
 		OreDictionary.registerOre("wool", new ItemStack(BlockHandler.blockAnimaniaWool, 1, OreDictionary.WILDCARD_VALUE));
-
+		OreDictionary.registerOre("listAllmilk", milkHolstein);
+		OreDictionary.registerOre("listAllmilk", milkFriesian);
+		OreDictionary.registerOre("listAllmilk", milkGoat);
+		OreDictionary.registerOre("listAllmilk", milkSheep);
+		
+		
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusBeef);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusSteak);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawDurocBacon);
