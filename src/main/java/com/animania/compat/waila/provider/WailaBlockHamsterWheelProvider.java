@@ -21,7 +21,7 @@ public class WailaBlockHamsterWheelProvider implements IWailaDataProvider
 
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        return null;
+    	return ItemStack.EMPTY;
     }
 
     @Override

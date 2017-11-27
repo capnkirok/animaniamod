@@ -249,9 +249,9 @@ public class EventReplaceSpawnAnimals
 
 			if (cowCount >= AnimaniaConfig.spawn.spawnLimitCows && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
 				if (!checkTamed.hasCustomName() && checkTamed.getAge() == 0) {
-					event.setCanceled(true);
-					event.isCanceled();
-					event.getEntity().setDead();
+					//event.setCanceled(true);
+					//event.isCanceled();
+					//event.getEntity().setDead();
 				}
 			}
 		}

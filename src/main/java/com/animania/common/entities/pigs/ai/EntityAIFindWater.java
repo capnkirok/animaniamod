@@ -187,6 +187,9 @@ public class EntityAIFindWater extends EntityAIBase
 		this.isRunning = false;
 	}
 
+	//TODO Pass the location of the water, check to the Villager Door
+	//WHILE loop checks to see if its at the position... if current position is not targeted position.... if it is targeted position then it breaks out of the loop... 
+	
 	@Override
 	public void updateTask() {
 
@@ -302,6 +305,8 @@ public class EntityAIFindWater extends EntityAIBase
 						this.delayTemptCounter = 0;
 					else
 						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
+					
+					//Set another timer ... if fails then reset... otherwise keep trying in a loop
 
 				}
 				else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)

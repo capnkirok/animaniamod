@@ -26,7 +26,11 @@ public class WailaBlockCheeseProvider implements IWailaDataProvider
 			return new ItemStack(BlockHandler.blockCheeseFriesian);
 		if(block == BlockHandler.blockCheeseHolstein)
 			return new ItemStack(BlockHandler.blockCheeseHolstein);
-		return null;
+		if(block == BlockHandler.blockCheeseSheep)
+			return new ItemStack(BlockHandler.blockCheeseSheep);
+		if(block == BlockHandler.blockCheeseGoat)
+			return new ItemStack(BlockHandler.blockCheeseGoat);
+		return ItemStack.EMPTY;
 	}
 
 	@Override

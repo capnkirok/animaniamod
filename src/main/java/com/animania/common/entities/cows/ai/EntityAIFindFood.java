@@ -294,7 +294,13 @@ public class EntityAIFindFood extends EntityAIBase
 			Block mudBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
 			if ((mudBlockchk == Blocks.RED_FLOWER || mudBlockchk instanceof BlockCrops || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || mudBlockchk == Blocks.TALLGRASS || (mudBlockchk == BlockHandler.blockTrough))) {
 
-				this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
+				
+				if(this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed) == false) {
+					this.delayTemptCounter = 0;
+				} else {
+					this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
+				}
+				
 
 			}
 		}

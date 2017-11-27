@@ -220,7 +220,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				double diffy = Math.abs(this.posY - player.posY);
 				double diffz = Math.abs(this.posZ - player.posZ);
 
-				if (diffx > 0 && diffy < .5  && diffz > 0) {
+				if (diffx > 0 && diffy < 2 && diffz > 0) {
 					this.pulled = true;
 					this.puller = player;
 					this.setPullerType(2);
