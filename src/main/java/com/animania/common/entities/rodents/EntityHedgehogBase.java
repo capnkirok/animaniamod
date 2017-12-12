@@ -17,6 +17,7 @@ import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.EntityRoosterBase;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAIHedgehogFindFood;
 import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
@@ -139,6 +140,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.tasks.addTask(12, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(13, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new EntityAILookIdle(this));
+		this.tasks.addTask(15, new EntityAnimaniaAvoidWater(this));
 		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
 		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityToad.class, false));

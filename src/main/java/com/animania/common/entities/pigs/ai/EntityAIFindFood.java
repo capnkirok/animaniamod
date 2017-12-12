@@ -11,9 +11,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class EntityAIFindFood extends EntityAIBase
 {
@@ -48,6 +50,17 @@ public class EntityAIFindFood extends EntityAIBase
 					return false;
 				}
 			} 
+			
+			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			{
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.resetTask();
+					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+				}
+				return false;
+			}
 
 			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
 			BlockPos trypos1 = new BlockPos(this.temptedEntity.posX + 1, this.temptedEntity.posY, this.temptedEntity.posZ);
@@ -118,7 +131,10 @@ public class EntityAIFindFood extends EntityAIBase
 				} 
 
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
-					temptedEntity.world.destroyBlock(currentpos, false);
+					Block destchk = temptedEntity.world.getBlockState(currentpos).getBlock();
+					if (destchk != BlockHandler.blockTrough) {
+						temptedEntity.world.destroyBlock(currentpos, false);
+					}
 				}
 				this.delayTemptCounter = 0;
 				return false;

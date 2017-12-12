@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.props.EntityCart;
+import com.animania.common.entities.props.EntityWagon;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
@@ -15,7 +16,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -45,6 +45,14 @@ public class EntityHorseEatGrass extends EntityAIBase
 		if (!carts.isEmpty()) {
 			EntityCart cart = (EntityCart) carts.get(0);
 			if (cart.pulled && cart.puller == this.grassEaterEntity) {
+				return false;
+			}
+		}
+		
+		List wagons = AnimaniaHelper.getWagonsInRange(EntityWagon.class, 3, entityWorld, this.grassEaterEntity);
+		if (!wagons.isEmpty()) {
+			EntityWagon wagon = (EntityWagon) wagons.get(0);
+			if (wagon.pulled && wagon.puller == this.grassEaterEntity) {
 				return false;
 			}
 		}

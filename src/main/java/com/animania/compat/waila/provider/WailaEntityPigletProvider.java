@@ -2,6 +2,8 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
+
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
@@ -14,7 +16,9 @@ public class WailaEntityPigletProvider extends WailaEntityAnimalProviderChild
 {
     @Override
     public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config) {
-        boolean played = accessor.getNBTData().getBoolean("Played");
+    
+    	EntityAnimaniaPig tempEnt = (EntityAnimaniaPig) entity;
+		boolean played = tempEnt.getPlayed();
 
         if (played)
             currenttip.add(I18n.translateToLocal("text.waila.played"));

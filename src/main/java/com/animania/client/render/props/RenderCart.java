@@ -27,14 +27,10 @@ public class RenderCart extends Render<EntityCart>
 	public static final Factory FACTORY = new Factory();
 	private ModelCraftStudio modelCart = new ModelCraftStudio(Animania.MODID, "model_cart", 128, 128);
 	private ModelCraftStudio modelCartChest = new ModelCraftStudio(Animania.MODID, "model_cart_chest", 128, 128);
-	private RenderEntityItem itemRenderer;
-	private static EntityItem customitem = new EntityItem(null);
-	private int rotSkip;
-
+	
 	public RenderCart(RenderManager manager) {
 		super(manager);
 		this.shadowSize = 1.0F;
-		this.itemRenderer = null;
 	}
 
 	public void doRender(EntityCart entity, double x, double y, double z, float entityYaw, float partialTicks)
@@ -90,18 +86,10 @@ public class RenderCart extends Render<EntityCart>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager) {
-
 			return new RenderCart(manager);
 		}
-
-
 	}
 
-	protected void renderCartContents(EntityCart entityCart, float partialTicks, IBlockState iblockstate)
-	{
-		GlStateManager.pushMatrix();
-		Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(iblockstate, entityCart.getBrightness());
-		GlStateManager.popMatrix();
-	}
+	
 
 }

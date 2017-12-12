@@ -16,6 +16,7 @@ import com.animania.common.entities.chickens.ai.EntityAIFindWater;
 import com.animania.common.entities.chickens.ai.EntityAIPanicChickens;
 import com.animania.common.entities.chickens.ai.EntityAISwimmingChicks;
 import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -95,7 +96,8 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 		}
 		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(7, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(8, new EntityAILookIdle(this));
+		this.tasks.addTask(8, new EntityAnimaniaAvoidWater(this));
+		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;

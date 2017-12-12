@@ -35,6 +35,7 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllmilk", milkFriesian);
 		OreDictionary.registerOre("listAllmilk", milkGoat);
 		OreDictionary.registerOre("listAllmilk", milkSheep);
+		OreDictionary.registerOre("blockMud", BlockHandler.blockMud);
 		
 		
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusBeef);
