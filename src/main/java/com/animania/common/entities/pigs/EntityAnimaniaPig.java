@@ -6,10 +6,12 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.pigs.ai.EntityAIFindFood;
 import com.animania.common.entities.pigs.ai.EntityAIFindMud;
 import com.animania.common.entities.pigs.ai.EntityAIFindSaltLickPigs;
 import com.animania.common.entities.pigs.ai.EntityAIFindWater;
+import com.animania.common.entities.pigs.ai.EntityAILookIdlePig;
 import com.animania.common.entities.pigs.ai.EntityAIPanicPigs;
 import com.animania.common.entities.pigs.ai.EntityAIPigSnuffle;
 import com.animania.common.entities.pigs.ai.EntityAISwimmingPigs;
@@ -22,7 +24,6 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -112,7 +113,8 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		this.tasks.addTask(11, this.entityAIEatGrass);
 		this.tasks.addTask(12, new EntityAIFindSaltLickPigs(this, 1.0));
 		this.tasks.addTask(13, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(14, new EntityAILookIdle(this));
+		this.tasks.addTask(14, new EntityAnimaniaAvoidWater(this));
+		this.tasks.addTask(15, new EntityAILookIdlePig(this));
 
 	}
 
@@ -555,7 +557,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		BlockPos currentpos = new BlockPos(this.posX, this.posY, this.posZ);
 		Block poschk = this.world.getBlockState(currentpos).getBlock();
 
-		if (poschk != null && poschk == BlockHandler.blockMud)
+		if (poschk != null && poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud"))
 			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 4, false, false));
 
 		if (this.happyTimer > -1)

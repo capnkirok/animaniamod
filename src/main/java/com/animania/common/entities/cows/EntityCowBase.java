@@ -10,8 +10,7 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
 import com.animania.common.entities.cows.ai.EntityAIPanicCows;
-import com.animania.common.entities.goats.EntityKidBase;
-import com.animania.common.entities.goats.GoatType;
+import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
@@ -26,6 +25,8 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -63,7 +64,9 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		this.setSize(1.4F, 1.8F);
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(5, new EntityAIMateCows(this, 1.0D));
-		this.tasks.addTask(1, new EntityAIPanicCows(this, 2.0D));
+		//this.tasks.addTask(1, new EntityAIPanicCows(this, 2.0D));
+		this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.2D, false));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;
 
@@ -186,6 +189,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(18.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
+		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
 	}
 
 	public boolean getPregnant()
@@ -220,6 +224,25 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	{
 		this.dataManager.set(EntityCowBase.HAS_KIDS, Boolean.valueOf(kids));
 	}
+	
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn)
+	{
+		boolean flag = false;
+		if (this.canEntityBeSeen(entityIn) && this.getDistanceToEntity(entityIn) <= 2.0F) {
+			flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 2.0F);
+
+			if (flag)
+				this.applyEnchantments(this, entityIn);
+
+			// Custom Knockback
+			if (entityIn instanceof EntityPlayer)
+				((EntityLivingBase) entityIn).knockBack(this, 0, (this.posX - entityIn.posX)/2, (this.posZ - entityIn.posZ)/2);
+		}
+
+		return flag;
+	}
+
 
 	@Override
 	protected SoundEvent getAmbientSound()

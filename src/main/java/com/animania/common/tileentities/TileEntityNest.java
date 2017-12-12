@@ -91,7 +91,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
 	{
 		this.readFromNBT(pkt.getNbtCompound());
-		this.world.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
+		this.world.notifyBlockUpdate(this.pos, this.getBlockType().getDefaultState(), this.getBlockType().getDefaultState(), 1);
 	}
 
 	@Override

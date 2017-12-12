@@ -286,6 +286,9 @@ public class CommonConfig
 		
 		@Comment("Animals do not have to eat or drink")
 		public boolean ambianceMode = false;
+		
+		@Comment("Can sleep using Wagon")
+		public boolean sleepAllowedWagon = true;
 
 		
 	}
@@ -314,11 +317,11 @@ public class CommonConfig
 		public boolean spawnAnimaniaRabbits    = true;
 
 		@Comment("Spawn limit for Cows in loaded chunks")
-		public int spawnLimitCows = 40;
+		public int spawnLimitCows = 30;
 		@Comment("Spawn limit for Pigs in loaded chunks")
-		public int spawnLimitPigs = 40;
+		public int spawnLimitPigs = 30;
 		@Comment("Spawn limit for Chickens in loaded chunks")
-		public int spawnLimitChickens = 40;
+		public int spawnLimitChickens = 30;
 		@Comment("Spawn limit for Hedgehogs in loaded chunks")
 		public int spawnLimitHedgehogs = 20;
 		@Comment("Spawn limit for Ferrets in loaded chunks")
@@ -332,9 +335,9 @@ public class CommonConfig
 		@Comment("Spawn limit for Horses in loaded chunks")
 		public int spawnLimitHorses = 30;
 		@Comment("Spawn limit for Goats in loaded chunks")
-		public int spawnLimitGoats = 40;
+		public int spawnLimitGoats = 30;
 		@Comment("Spawn limit for Sheep in loaded chunks")
-		public int spawnLimitSheep = 40;
+		public int spawnLimitSheep = 30;
 		@Comment("Spawn limit for Rabbits in loaded chunks")
 		public int spawnLimitRabbits = 36;
 
@@ -357,9 +360,9 @@ public class CommonConfig
 		@Comment("Spawn probability Amphibians")
 		public int spawnProbabilityAmphibians = 6;
 		@Comment("Spawn probability Goats")
-		public int spawnProbabilityGoats = 6;
+		public int spawnProbabilityGoats = 4;
 		@Comment("Spawn probability Sheep")
-		public int spawnProbabilitySheep = 6;
+		public int spawnProbabilitySheep = 4;
 		@Comment("Spawn probability Rabbits")
 		public int spawnProbabilityRabbits = 4;
 		

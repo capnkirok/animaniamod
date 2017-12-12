@@ -24,9 +24,11 @@ import com.animania.common.tileentities.TileEntityTrough;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -69,6 +71,17 @@ public class EntityAIFindWater extends EntityAIBase
 					return false;
 				}
 			} 
+			
+			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			{
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.resetTask();
+					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.xCoord, vec3d.yCoord, vec3d.zCoord, this.speed);
+				}
+				return false;
+			}
 
 			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
 			BlockPos currentposlower = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY - 1, this.temptedEntity.posZ);

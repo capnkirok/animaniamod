@@ -1,1060 +1,1082 @@
 package com.animania.common.entities.props;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.google.common.collect.Lists;
+import com.animania.Animania;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.inventory.CartChest;
+import com.animania.config.AnimaniaConfig;
+import com.leviathanstudio.craftstudio.CraftStudioApi;
+import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityWaterMob;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.IInventoryChangedListener;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.client.CPacketSteerBoat;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import scala.util.Random;
 
-public class EntityWagon extends Entity
+public class EntityWagon extends AnimatedEntityBase implements IInventoryChangedListener
 {
-    private static final DataParameter<Integer>   TIME_SINCE_HIT    = EntityDataManager.<Integer> createKey(EntityWagon.class,
-            DataSerializers.VARINT);
-    private static final DataParameter<Integer>   FORWARD_DIRECTION = EntityDataManager.<Integer> createKey(EntityWagon.class,
-            DataSerializers.VARINT);
-    private static final DataParameter<Float>     DAMAGE_TAKEN      = EntityDataManager.<Float> createKey(EntityWagon.class, DataSerializers.FLOAT);
-    private static final DataParameter<Integer>   BOAT_TYPE         = EntityDataManager.<Integer> createKey(EntityWagon.class,
-            DataSerializers.VARINT);
-    private static final DataParameter<Boolean>[] DATA_ID_PADDLE    = new DataParameter[]
-    { EntityDataManager.createKey(EntityWagon.class, DataSerializers.BOOLEAN),
-            EntityDataManager.createKey(EntityWagon.class, DataSerializers.BOOLEAN) };
-    private final float[]                         paddlePositions;
-    /** How much of current speed to retain. Value zero to one. */
-    private float                                 momentum;
-    private float                                 outOfControlTicks;
-    private float                                 deltaRotation;
-    private int                                   lerpSteps;
-    private double                                boatPitch;
-    private double                                lerpY;
-    private double                                lerpZ;
-    private double                                boatYaw;
-    private double                                lerpXRot;
-    private boolean                               leftInputDown;
-    private boolean                               rightInputDown;
-    private boolean                               forwardInputDown;
-    private boolean                               backInputDown;
-    private double                                waterLevel;
-    /**
-     * How much the boat should glide given the slippery blocks it's currently
-     * gliding over. Halved every tick.
-     */
-    private float                                 boatGlide;
-    private EntityWagon.Status                    status;
-    private EntityWagon.Status                    previousStatus;
-    private double                                lastYd;
+	protected static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(EntityWagon.class);
+	public boolean pulled;
+	public Entity puller;
+	public CartChest wagonChest;
+	public float deltaRotation;
+	private int lerpSteps;
+	private double wagonPitch;
+	private double lerpY;
+	private double lerpZ;
+	public double wagonYaw;
+	private double lerpXRot;
+	private int sleepDelay = 0;
+	private boolean sleepFlag = true;
+	private boolean allSleeping = false;
+	private int lastLighting = 60;
+	private int sleepTimer = 0;
+	public int blinkTimer;
 
-    public EntityWagon(World worldIn)
-    {
-        super(worldIn);
-        this.paddlePositions = new float[2];
-        this.preventEntitySpawning = true;
-        this.setSize(3.0F, 3.05F);
-    }
+	protected static final DataParameter<Integer> PULLER_TYPE = EntityDataManager.<Integer>createKey(EntityWagon.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer>createKey(EntityWagon.class, DataSerializers.VARINT);
+	private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.<Float>createKey(EntityWagon.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Boolean> HAS_CHEST = EntityDataManager.<Boolean>createKey(EntityWagon.class, DataSerializers.BOOLEAN);
 
-    public EntityWagon(World worldIn, double x, double y, double z)
-    {
-        this(worldIn);
-        this.setPosition(x, y, z);
-        this.motionX = 0.0D;
-        this.motionY = 0.0D;
-        this.motionZ = 0.0D;
-        this.prevPosX = x;
-        this.prevPosY = y;
-        this.prevPosZ = z;
-    }
 
-    /**
-     * returns if this entity triggers Block.onEntityWalking on the blocks they
-     * walk on. used for spiders and wolves to prevent them from trampling crops
-     */
-    protected boolean canTriggerWalking()
-    {
-        return false;
-    }
+	static {
+		EntityWagon.animHandler.addAnim(Animania.MODID, "anim_wagon", "model_wagon", true);
+		EntityWagon.animHandler.addAnim(Animania.MODID, "anim_wagon_back", "anim_wagon");
+	}
 
-    protected void entityInit()
-    {
-        this.dataManager.register(TIME_SINCE_HIT, Integer.valueOf(0));
-        this.dataManager.register(FORWARD_DIRECTION, Integer.valueOf(1));
-        this.dataManager.register(DAMAGE_TAKEN, Float.valueOf(0.0F));
-        this.dataManager.register(BOAT_TYPE, Integer.valueOf(EntityWagon.Type.OAK.ordinal()));
+	public EntityWagon(World par1World) {
+		super(par1World);
+		this.preventEntitySpawning = true;
+		this.setSize(2.5F, 1.2F);
+		this.stepHeight = 1.2F;
+		this.puller = null;
+		this.pulled = false;
+		this.initwagonChest();
+		this.blinkTimer = 15;
 
-        for (DataParameter<Boolean> dataparameter : DATA_ID_PADDLE)
-        {
-            this.dataManager.register(dataparameter, Boolean.valueOf(false));
-        }
-    }
+	}
 
-    /**
-     * Returns a boundingBox used to collide the entity with other entities and
-     * blocks. This enables the entity to be pushable on contact, like boats or
-     * minecarts.
-     */
-    @Nullable
-    public AxisAlignedBB getCollisionBox(Entity entityIn)
-    {
-        return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
-    }
+	public EntityWagon(World worldIn, double x, double y, double z)
+	{
+		this(worldIn);
+		setPosition(x, y, z);
+	}
 
-    /**
-     * Returns the collision bounding box for this entity
-     */
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox()
-    {
-        return this.getEntityBoundingBox();
-    }
+	@Override
+	public AnimationHandler getAnimationHandler() {
+		return EntityWagon.animHandler;
+	}
 
-    /**
-     * Returns true if this entity should push and be pushed by other entities
-     * when colliding.
-     */
-    public boolean canBePushed()
-    {
-        return true;
-    }
+	@Override
+	public boolean canBePushed()
+	{
+		return true;
+	}
 
-    /**
-     * Returns the Y offset from the entity's position for any entity riding
-     * this one.
-     */
-    public double getMountedYOffset()
-    {
-        return 1.3D;
-    }
+	public boolean canBeCollidedWith()
+	{
+		return !this.isDead;
+	}
 
-    /**
-     * Called when the entity is attacked.
-     */
-    public boolean attackEntityFrom(DamageSource source, float amount)
-    {
-        if (this.isEntityInvulnerable(source))
-        {
-            return false;
-        }
-        else if (!this.world.isRemote && !this.isDead)
-        {
-            if (source instanceof EntityDamageSourceIndirect && source.getEntity() != null && this.isPassenger(source.getEntity()))
+	public double getMountedYOffset()
+	{
+		return 0.9D;
+	}
+
+
+	@Override
+	public boolean canRiderInteract()
+	{
+		return true;
+	}
+
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
+	{
+		ItemStack stack = player.getHeldItem(hand);
+		List horses = AnimaniaHelper.getEntitiesInRange(EntityHorse.class, 3, world, player);
+		List wagons = AnimaniaHelper.getWagonsInRange(EntityWagon.class, 3, world, this);
+
+		EntityHorse horse = null;
+		if (!horses.isEmpty()) {
+			horse = (EntityHorse) horses.get(0);
+		} 
+
+		double diffx = this.posX - player.posX;
+		double diffy = this.posY - player.posY;
+		double diffz = this.posZ - player.posZ;
+
+		double mdiffx = Math.abs(this.posX - player.posX);
+		double mdiffy = Math.abs(this.posY - player.posY);
+		double mdiffz = Math.abs(this.posZ - player.posZ);
+
+		if (player.isSneaking()) {
+
+			//Add in check for front of cart vs. Back
+
+			if (mdiffx > 0 && mdiffx < 2.4 && mdiffy < 1.25 && mdiffz > 0 && mdiffz < 2.4) {
+				this.wagonChest.setCustomName(this.getName());
+				if (!this.world.isRemote) {
+					player.openGui(Animania.instance, Animania.coveredWagonGUI_ID, player.world, this.getEntityId(), 0, 0);
+					world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
+				}
+				return true;
+
+			} else if (!player.isRiding()) {
+				player.startRiding(this);
+
+				this.rideCooldown = 20;
+				if (this.puller == player) {
+					this.puller = null;
+					this.pulled = false;
+					this.setPullerType(0);
+					this.stopwagon();
+				}
+				return true;
+			}
+			return true;
+
+		} else if (!player.isSneaking() && AnimaniaConfig.gameRules.sleepAllowedWagon) {
+
+			if (mdiffx > 0 && mdiffx < 1 && mdiffy > 1.15 && mdiffy < 1.25 && mdiffz > 0 && mdiffz < 1.6) {
+
+				if (world.provider.canRespawnHere())
+
+				{
+					sleepFlag = false;
+					allSleeping = true; 
+					EntityPlayer player1 = null;
+					Iterator iterator = world.playerEntities.iterator();
+					while (iterator.hasNext())
+					{
+						EntityPlayer player2 = (EntityPlayer)iterator.next();
+
+						if (player2 != player)
+						{
+							if (!player2.isPlayerSleeping()) {
+								allSleeping = false; 
+							}
+						}
+					}
+
+					EntityPlayer.SleepResult player$sleepresult = trySleep(new BlockPos(player.posX, player.posY, player.posZ), player);
+
+					if (player$sleepresult == EntityPlayer.SleepResult.OK && allSleeping == true)
+					{					
+
+						sleepFlag = true;
+						sleepDelay = 0;
+
+					}
+					else
+					{
+						if (player$sleepresult == EntityPlayer.SleepResult.NOT_POSSIBLE_NOW)
+						{
+							sleepFlag = false;
+							player.sendStatusMessage(new TextComponentTranslation("tile.bed.noSleep", new Object[0]), true);
+						}
+						else if (player$sleepresult == EntityPlayer.SleepResult.NOT_SAFE)
+						{
+							sleepFlag = false;
+							player.sendStatusMessage(new TextComponentTranslation("tile.bed.notSafe", new Object[0]), true);
+
+						}
+						else if (player$sleepresult == EntityPlayer.SleepResult.NOT_POSSIBLE_HERE) 
+						{
+							sleepFlag = false;
+							player.sendStatusMessage(new TextComponentTranslation("tile.bed.notHere", new Object[0]), true);
+
+						}
+
+					}
+
+					if (player$sleepresult == EntityPlayer.SleepResult.OK)
+					{
+
+						sleepFlag = true;
+						if (!world.isRemote) {
+							player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 30, 1, false, false));
+							world.updateAllPlayersSleepingFlag(); 
+							Animania.proxy.Sleep(player);
+							player.setSpawnPoint(getPosition(), true);
+
+						}
+
+						this.sleepTimer = 120;
+
+					}
+
+				}
+
+				return true;
+
+			} else if (player.isRiding() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this) {
+
+				this.pulled = true;
+				this.puller = player.getRidingEntity();
+				if (this.puller instanceof EntityHorse) {
+					this.setPullerType(1);
+				} 
+				if (!world.isRemote) {
+					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+				}
+
+				return true;
+			} else if (player.isRiding() && this.puller == player.getRidingEntity() && player.getRidingEntity() != this) {
+				this.pulled = false;
+				this.puller = null;
+				this.setPullerType(0);
+				if (!world.isRemote) {
+					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+				}
+				stopwagon();
+				return true;
+			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashedToEntity() == player)  {
+				this.pulled = true;
+				this.puller = horse;
+				this.setPullerType(1);
+				horse.clearLeashed(true, false);
+				if (!player.isCreative()) {
+					player.inventory.addItemStackToInventory(new ItemStack(Items.LEAD, 1));
+				}
+				if (!world.isRemote) {
+					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+				}
+				return true;
+			} else if (stack.isEmpty() && !player.isRiding() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote) {
+
+				if (mdiffx > 0 && mdiffy < 2 && mdiffz > 0) {
+					this.pulled = true;
+					this.puller = player;
+					this.setPullerType(2);
+					if (!world.isRemote) {
+						world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+
+					}
+				}
+				return true;
+			} else if (stack.isEmpty() && !player.isRiding() && this.puller == player && this.getControllingPassenger() != player && !world.isRemote) {
+				this.pulled = false;
+				this.puller = null;
+				this.setPullerType(0);
+				if (!world.isRemote) {
+					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+				}
+				stopwagon();
+				return true;
+			} else {
+				this.pulled = false;
+				this.puller = null;
+				this.setPullerType(0);
+				if (!world.isRemote) {
+					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+				}
+				stopwagon();
+				return true;
+			}
+		}
+		return true;
+
+	}
+
+	private void controlBoat()
+	{
+		if (this.isBeingRidden())
+		{
+			float f = 0.0F;
+
+		}
+	}
+
+	public void setDamageTaken(float damageTaken)
+	{
+		this.dataManager.set(EntityWagon.DAMAGE_TAKEN, Float.valueOf(damageTaken));
+	}
+
+	public float getDamageTaken()
+	{
+		return ((Float)this.dataManager.get(EntityWagon.DAMAGE_TAKEN)).floatValue();
+	}
+
+	public void setHasChest(boolean hasChest)
+	{
+		this.dataManager.set(EntityWagon.HAS_CHEST, Boolean.valueOf(hasChest));
+	}
+
+	public boolean getHasChest()
+	{
+		return ((boolean)this.dataManager.get(EntityWagon.HAS_CHEST).booleanValue());
+	}
+
+
+	public void setTimeSinceHit(int timeSinceHit)
+	{
+		this.dataManager.set(EntityWagon.TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
+	}
+
+	public int getTimeSinceHit()
+	{
+		return ((Integer)this.dataManager.get(EntityWagon.TIME_SINCE_HIT)).intValue();
+	}
+
+	public void applyEntityCollision(Entity entityIn)
+	{
+		if (entityIn instanceof EntityWagon)
+		{
+			if (entityIn.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY && !this.pulled)
+			{
+				super.applyEntityCollision(entityIn);
+
+			}
+		}
+		else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY && !this.pulled)
+		{
+			super.applyEntityCollision(entityIn);
+
+		}
+	}
+
+
+	@Override
+	public void onUpdate() {
+
+		
+		if (this.blinkTimer > 0)
+		{
+			this.blinkTimer--;
+			if (this.blinkTimer == 0)
+			{
+				this.blinkTimer = 15;
+			}
+		}
+		
+		//Dismount if sneak pressed and riding this 
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityPlayer && this.rideCooldown == 0) {
+			EntityPlayer player = (EntityPlayer) this.getControllingPassenger();
+			if (player.isSneaking()) {
+				player.applyEntityCollision(this);
+				this.dismountRidingEntity();
+				player.dismountEntity(this);
+				this.removePassengers();
+
+			}
+		}
+
+		//Mounting a horse that is riding a wagon... 
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityAnimal) {
+
+			EntityAnimal entityanimal = (EntityAnimal) this.getControllingPassenger();
+			if (entityanimal.isBeingRidden() && entityanimal.getControllingPassenger() instanceof EntityPlayer) {
+				entityanimal.applyEntityCollision(this);
+				entityanimal.dismountRidingEntity();
+				this.dismountRidingEntity();
+				entityanimal.dismountEntity(this);
+				entityanimal.removePassengers();
+				this.removePassengers();
+			}
+
+		}
+
+		if (sleepTimer > 0) {
+			sleepTimer--;
+		}
+
+		//Dismount text
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityPlayer && this.rideCooldown > 10 && world.isRemote) {
+			EntityPlayer player = (EntityPlayer) this.getControllingPassenger();
+			player.sendStatusMessage(new TextComponentString(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
+		}
+
+		//Determine animation direction based on previous pos
+		if (this.pulled && this.puller != null && world.isRemote) {
+
+			double movX = Math.abs(this.puller.posX - this.puller.prevPosX);
+			double movZ = Math.abs(this.puller.posZ - this.puller.prevPosZ);
+
+			//double moveThresh = .005D;
+			double moveThresh = (movX + movZ - 1); //TODO Testing
+
+
+			if ((this.wagonYaw < 0 && this.puller.motionX > .001 && this.puller.motionZ > .001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this)) {
+					this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon_back", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this)) {
+					this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_wagon", this);
+				}
+			} else if ((this.wagonYaw > 0 && this.puller.motionX < -.001 && this.puller.motionZ < -.001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this)) {
+					this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon_back", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this)) {
+					this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_wagon", this);
+				}
+			} else if ((this.wagonYaw > 0 && this.puller.motionX < -.001 && this.puller.motionZ > .001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this)) {
+					this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon_back", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this)) {
+					this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_wagon", this);
+				}
+			} else if ((this.wagonYaw < 0 && this.puller.motionX > .001 && this.puller.motionZ < -.001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this)) {
+					this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon_back", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this)) {
+					this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_wagon", this);
+				}
+			} else if ((this.wagonYaw < 0 && this.puller.motionX < -.001 && this.puller.motionZ < -.001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this)) {
+					this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this)) {
+					this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_wagon_back", this);
+				}
+			} else if ((this.wagonYaw > 0 && this.puller.motionX > .001 && this.puller.motionZ > .001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this)) {
+					this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this)) {
+					this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_wagon_back", this);
+				}
+			} else if ((this.wagonYaw > 0 && this.puller.motionX > .001 && this.puller.motionZ < -.001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this)) {
+					this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this)) {
+					this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_wagon_back", this);
+				}
+			} else if ((this.wagonYaw < 0 && this.puller.motionX < -.001 && this.puller.motionZ > .001) && (movX + movZ > moveThresh)) { 
+				if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this)) {
+					this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon", this);
+				}
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this)) {
+					this.getAnimationHandler().clientStartAnimation(Animania.MODID, "anim_wagon_back", this);
+				}
+
+			}
+
+		}
+
+
+		//Add slowness if multiple wagons being pulled or if player
+		if (this.pulled && this.puller instanceof EntityPlayer) {
+			List wagons = AnimaniaHelper.getWagonsInRange(EntityWagon.class, 3, world, this);
+			EntityPlayer player = (EntityPlayer) this.puller;
+			int totPulling = 0;
+			if (!wagons.isEmpty()) {
+				if (wagons.size() >= 0) {
+					for (int i = 0; i < wagons.size(); i++) {
+						EntityWagon tempwagon = (EntityWagon) wagons.get(i);
+						if (tempwagon.pulled && tempwagon.puller == player) {
+							totPulling++;
+						}
+					}
+				}
+				if (totPulling > 0) {
+					player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, wagons.size() + 1, false, false));
+				}
+			}
+		}
+
+		if (this.pulled && this.puller instanceof EntityAnimal) {
+			List wagons = AnimaniaHelper.getWagonsInRange(EntityWagon.class, 3, world, this);
+			EntityAnimal animal = (EntityAnimal) this.puller;
+			int totPulling = 0;
+			if (!wagons.isEmpty()) {
+				if (wagons.size() > 1) {
+					for (int i = 0; i < wagons.size(); i++) {
+						EntityWagon tempwagon = (EntityWagon) wagons.get(i);
+						if (tempwagon.pulled && tempwagon.puller == animal && tempwagon != this) {
+							totPulling++;
+						}
+					}
+				}
+				if (totPulling > 0) {
+					animal.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, wagons.size() + 1, false, false));
+				}
+			}
+		}
+
+		//Stop Animation if not pulling or moving
+
+		if (this.world.isRemote && this.pulled) {
+			double diffX = (this.posX - this.prevPosX);
+			double diffZ = (this.posZ - this.prevPosZ);
+
+			double movX = Math.abs(this.posX - this.prevPosX);
+			double movZ = Math.abs(this.posZ - this.prevPosZ);
+
+			double moveThresh = .008D;
+
+			if ((diffX < .005 && diffZ < .005) && (movX + movZ < moveThresh) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this)) {
+				this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon", this);
+			} 
+
+			if ((diffX < .005 && diffZ < .005) && (movX + movZ < moveThresh) && this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this)) {
+				this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon_back", this);
+			}
+		}
+
+
+		if (this.getTimeSinceHit() > 0)
+		{
+			this.setTimeSinceHit(this.getTimeSinceHit() - 1);
+		}
+
+		if (this.getDamageTaken() > 0.0F)
+		{
+			this.setDamageTaken(this.getDamageTaken() - 1.0F);
+		}
+
+
+		if (!this.pulled  && this.puller == null && this.getPullerType() > 0) {
+
+			if (this.getPullerType() == 1) {
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityHorse.class, 3, this.world, this);
+				if (!entities.isEmpty()) {
+					this.puller = (Entity) entities.get(0);
+					this.pulled = true;	
+					this.setPullerType(1);
+				} 
+			} else if (this.getPullerType() == 2) {
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityPlayer.class, 3, this.world, this);
+				if (!entities.isEmpty()) {
+					this.puller = (Entity) entities.get(0);
+					this.pulled = true;
+					this.setPullerType(2);
+				} 
+			} else {
+				this.pulled = false;
+				this.setPullerType(0);
+			}
+		}
+
+		if (this.pulled && this.puller != null && this.puller.isRiding()) {
+			this.puller = this.puller.getRidingEntity();
+			if (this.puller instanceof EntityHorse) {
+				this.setPullerType(1);
+			}
+		}
+
+		if (this.puller != null && (Math.abs(this.puller.posX - this.posX) > 6 || Math.abs(this.puller.posZ - this.posZ) > 6)) {
+			this.pulled = false;
+			this.puller = null;
+			this.setPullerType(0);
+			world.playSound(null, this.posX, this.posY, this.posZ, ModSoundEvents.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+			stopwagon();
+		}
+
+		if (this.pulled)
+		{
+			double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
+
+			Vec3d vec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -3.2D).rotateYaw((float)-deltaAngle));
+			this.motionX = vec.xCoord/1.01;
+			this.motionY = vec.yCoord;
+			this.motionZ = vec.zCoord/1.01;
+			move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+		}
+
+		//TODO remove?
+		/*
+		List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
+
+		if (!list.isEmpty())
+		{
+			boolean flag = !this.world.isRemote;
+
+			for (int j = 0; j < list.size(); ++j)
+			{
+				Entity entity = list.get(j);
+
+				if (entity instanceof EntityAnimal) {
+
+					EntityAnimal entityanimal = (EntityAnimal) entity;
+					if (!entity.isPassenger(this))
+					{
+						if (flag && this.getPassengers().size() < 2 && this.puller != entity && entityanimal.getLeashed() && entityanimal.getLeashedToEntity() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer))
+						{
+							entity.startRiding(this);
+						}
+						else
+						{
+							this.applyEntityCollision(entity);
+						}
+					}
+				}
+			}
+		}
+		 */
+
+
+
+		if (!this.pulled)
+		{
+			this.motionY = this.motionY - .05D;
+			move(MoverType.SELF, 0.0D, this.motionY, 0.0D);
+		}
+
+		super.onUpdate();
+		this.tickLerp();
+
+	}
+
+	public void stopwagon() {
+		if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon", this)) {
+			this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon", this);
+		} 
+
+		if (this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_wagon_back", this)) {
+			this.getAnimationHandler().clientStopAnimation(Animania.MODID, "anim_wagon_back", this);
+		}
+	}
+
+	private void tickLerp()
+	{
+		if (this.lerpSteps > 0 && !this.canPassengerSteer())
+		{
+			double d0 = this.posX + (this.wagonPitch - this.posX) / (double)this.lerpSteps;
+			double d1 = this.posY + (this.lerpY - this.posY) / (double)this.lerpSteps;
+			double d2 = this.posZ + (this.lerpZ - this.posZ) / (double)this.lerpSteps;
+			double d3 = MathHelper.wrapDegrees(this.wagonYaw - (double)this.rotationYaw);
+			if (this.puller != null) {
+				double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
+				this.rotationYaw = (float)Math.toDegrees(deltaAngle);
+			}
+			this.rotationPitch = (float)((double)this.rotationPitch + (this.lerpXRot - (double)this.rotationPitch) / (double)this.lerpSteps);
+			--this.lerpSteps;
+			this.setPosition(d0, d1, d2);
+			this.setRotation(this.rotationYaw, this.rotationPitch);
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
+	{
+		this.wagonPitch = x;
+		this.lerpY = y;
+		this.lerpZ = z;
+		this.wagonYaw = (double)yaw;
+		this.lerpXRot = (double)pitch;
+		this.lerpSteps = 10;
+	}
+
+	public void updatePassenger(Entity passenger)
+	{
+		if (this.isPassenger(passenger))
+		{
+			float f = 0.0F;
+			float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
+			if (passenger instanceof EntityPlayer) {
+				f1 = (float)((this.isDead ? 0.009999999776482582D : 1.55D) + passenger.getYOffset());
+			}
+
+
+			if (this.getPassengers().size() > 1)
+			{
+				int i = this.getPassengers().indexOf(passenger);
+
+				if (i == 0)
+				{
+					f = 0.2F;
+				}
+				else
+				{
+					f = -0.6F;
+				}
+
+				if (passenger instanceof EntityAnimal)
+				{
+					f = (float)((double)f + 0.2D);
+				}
+
+
+			}
+
+			if (passenger instanceof EntityPlayer)
+			{
+				f = (float)((double)f + 1.8D);
+			}
+
+			Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
+			passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double)f1, this.posZ + vec3d.zCoord);
+			passenger.rotationYaw += this.deltaRotation;
+			passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
+			this.applyYawToEntity(passenger);
+
+			if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
+			{
+
+				int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
+				passenger.setRenderYawOffset(((EntityAnimal)passenger).renderYawOffset + (float)j);
+				passenger.setRotationYawHead(passenger.getRotationYawHead() + (float)j);
+			}
+		}
+	}
+
+	protected void applyYawToEntity(Entity entityToUpdate)
+	{
+		entityToUpdate.setRenderYawOffset(this.rotationYaw);
+		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
+		float f1 = MathHelper.clamp(f, 0.0F, 0.0F);
+		if (entityToUpdate instanceof EntityPlayer) {
+			f1 = MathHelper.clamp(f, -105.0F, 105.0F);
+		}
+		entityToUpdate.prevRotationYaw += f1 - f;
+		entityToUpdate.rotationYaw += f1 - f;
+		entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void applyOrientationToEntity(Entity entityToUpdate)
+	{
+		this.applyYawToEntity(entityToUpdate);
+	}
+
+
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount)
+	{
+		if (this.isEntityInvulnerable(source))
+		{
+			return false;
+		}
+		else if (!this.world.isRemote && !this.isDead)
+		{
+			if (source instanceof EntityDamageSourceIndirect && source.getSourceOfDamage() != null)
+			{
+				return false;
+			}
+			else
+			{
+
+				this.setTimeSinceHit(10);
+				this.setDamageTaken(this.getDamageTaken() + amount * 10.0F);
+				this.setBeenAttacked();
+				boolean flag = source.getSourceOfDamage() instanceof EntityPlayer && ((EntityPlayer)source.getSourceOfDamage()).capabilities.isCreativeMode;
+
+				if (flag || this.getDamageTaken() > 40.0F)
+				{
+					if (!flag && this.world.getGameRules().getBoolean("doEntityDrops"))
+					{
+						this.dropItemWithOffset(ItemHandler.wagon, 1, 0.0F);
+
+						if (this.getHasChest()) {
+							InventoryHelper.dropInventoryItems(world, this.getPosition(), wagonChest);
+							this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
+						}
+					}
+
+					this.setDead();
+				}
+
+				return true;
+			}
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+
+	@Nullable
+	public AxisAlignedBB getCollisionBox(Entity entityIn)
+	{
+
+		double movX = Math.abs(this.posX - this.prevPosX);
+		double movZ = Math.abs(this.posZ - this.prevPosZ);
+
+		if (entityIn == this.puller) {
+			this.puller.motionX = 0;
+			this.puller.motionZ = 0;
+			this.motionX = 0;
+			this.motionZ = 0;
+			return null;
+		} else if (this.pulled) {
+			return null;
+		} else {
+			return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
+		}
+	}
+
+	/**
+	 * Returns the collision bounding box for this entity
+	 */
+	@Nullable
+	public AxisAlignedBB getCollisionBoundingBox()
+	{
+		return this.getEntityBoundingBox();
+	}
+
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target)
+	{
+		if (this instanceof EntityWagon)
+		{
+			return new ItemStack(ItemHandler.wagon);
+		}
+
+		return ItemStack.EMPTY;
+	}
+
+
+	@Override
+	protected void entityInit() {
+		this.dataManager.register(EntityWagon.PULLER_TYPE, Integer.valueOf(0));
+		this.dataManager.register(EntityWagon.TIME_SINCE_HIT, Integer.valueOf(0));
+		this.dataManager.register(EntityWagon.DAMAGE_TAKEN, Float.valueOf(0.0F));
+		this.dataManager.register(EntityWagon.HAS_CHEST, Boolean.valueOf(true));
+	}
+
+	public int getPullerType()
+	{
+		return this.dataManager.get(EntityWagon.PULLER_TYPE).intValue();
+	}
+
+	public void setPullerType(int pullerType)
+	{
+
+		this.dataManager.set(EntityWagon.PULLER_TYPE, Integer.valueOf(pullerType));
+	}
+
+
+	public void writeEntityToNBT(NBTTagCompound compound)
+	{
+		compound.setInteger("PullerType", this.getPullerType());
+
+		NBTTagList nbttaglist = new NBTTagList();
+
+		for (int i = 0; i < this.wagonChest.getSizeInventory(); ++i)
+		{
+			ItemStack itemstack = this.wagonChest.getStackInSlot(i);
+
+			if (!itemstack.isEmpty())
+			{
+				NBTTagCompound nbttagcompound = new NBTTagCompound();
+				nbttagcompound.setByte("Slot", (byte)i);
+				itemstack.writeToNBT(nbttagcompound);
+				nbttaglist.appendTag(nbttagcompound);
+			}
+		}
+		compound.setBoolean("HasChest", this.getHasChest());
+
+		compound.setTag("Items", nbttaglist);
+	}
+
+	public void readEntityFromNBT(NBTTagCompound compound)
+	{
+		this.setPullerType(compound.getInteger("PullerType"));
+
+		NBTTagList nbttaglist = compound.getTagList("Items", 10);
+		this.initwagonChest();
+
+		for (int i = 0; i < nbttaglist.tagCount(); ++i)
+		{
+			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+			int j = nbttagcompound.getByte("Slot") & 255;
+
+			if (j >= 0 && j < this.wagonChest.getSizeInventory())
+			{
+				this.wagonChest.setInventorySlotContents(j, new ItemStack(nbttagcompound));
+			}
+		}
+		this.setHasChest(compound.getBoolean("HasChest"));
+	}
+
+
+
+	public int determinePullerType(Entity entity)
+	{
+		int pullerType = 0;
+		if (entity instanceof EntityHorse) {
+			pullerType = 1;
+		} else if (entity instanceof EntityPlayer){
+			pullerType = 2;
+		}
+
+		return pullerType;
+	}
+
+	public void initwagonChest()
+	{
+		CartChest horsewagonchest = this.wagonChest;
+		this.wagonChest = new CartChest("wagonChest", 54);
+		this.wagonChest.setCustomName(this.getName());
+
+		if (horsewagonchest != null)
+		{
+			horsewagonchest.removeInventoryChangeListener(this);
+			int i = Math.min(horsewagonchest.getSizeInventory(), this.wagonChest.getSizeInventory());
+
+			for (int j = 0; j < i; ++j)
+			{
+				ItemStack itemstack = horsewagonchest.getStackInSlot(j);
+
+				if (itemstack != null)
+				{
+					this.wagonChest.setInventorySlotContents(j, itemstack.copy());
+				}
+			}
+
+			horsewagonchest = null;
+
+		}
+
+		this.wagonChest.addInventoryChangeListener(this);
+
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void performHurtAnimation()
+	{
+		this.setTimeSinceHit(10);
+		this.setDamageTaken(this.getDamageTaken() * 11.0F);
+	}
+
+	@Nullable
+	public Entity getControllingPassenger()
+	{
+		List<Entity> list = this.getPassengers();
+		return list.isEmpty() ? null : (Entity)list.get(0);
+	}
+
+	public EntityPlayer.SleepResult trySleep(BlockPos bedLocation, EntityPlayer entityplayer)
+	{
+
+		World world = entityplayer.world;
+
+		EnumFacing enumfacing = EnumFacing.NORTH;
+
+		if (!world.isRemote)
+		{
+			if (entityplayer.isPlayerSleeping() || !entityplayer.isEntityAlive())
+			{
+				return EntityPlayer.SleepResult.OTHER_PROBLEM;
+			}
+
+			/*
+            if (!world.provider.isSurfaceWorld())
             {
-                return false;
+                return EntityPlayer.SleepResult.NOT_POSSIBLE_HERE;
             }
-            else
-            {
-                this.setForwardDirection(-this.getForwardDirection());
-                this.setTimeSinceHit(10);
-                this.setDamageTaken(this.getDamageTaken() + amount * 10.0F);
-                this.setBeenAttacked();
-                boolean flag = source.getEntity() instanceof EntityPlayer && ((EntityPlayer) source.getEntity()).capabilities.isCreativeMode;
+			 */
+
+			if (world.isDaytime())
+			{
+				return EntityPlayer.SleepResult.NOT_POSSIBLE_NOW;
+			}
+
+
+			double d0 = 8.0D;
+			double d1 = 5.0D;
+			List<EntityMob> list = world.<EntityMob>getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB((double)bedLocation.getX() - 8.0D, (double)bedLocation.getY() - 5.0D, (double)bedLocation.getZ() - 8.0D, (double)bedLocation.getX() + 8.0D, (double)bedLocation.getY() + 5.0D, (double)bedLocation.getZ() + 8.0D));
+
+			if (!list.isEmpty())
+			{
+				return EntityPlayer.SleepResult.NOT_SAFE;
+			}
+		}
+
+		IBlockState state = null;
+		if (world.isBlockLoaded(bedLocation)) state = world.getBlockState(bedLocation);
+		if (state != null) {
+			float f1 = 0.5F + (float)enumfacing.getFrontOffsetX() * 0.4F;
+			float f = 0.5F + (float)enumfacing.getFrontOffsetZ() * 0.4F;
+			entityplayer.setPosition((double)((float)bedLocation.getX() + f1), (double)((float)bedLocation.getY() + 0.6875F), (double)((float)bedLocation.getZ() + f));
+		}
+		else
+		{
+			entityplayer.setPosition((double)((float)bedLocation.getX() + 0.5F), (double)((float)bedLocation.getY() + 0.6875F), (double)((float)bedLocation.getZ() + 0.5F));
+		}
+
+		entityplayer.bedLocation = bedLocation;
+		entityplayer.motionX = 0.0D;
+		entityplayer.motionY = 0.0D;
+		entityplayer.motionZ = 0.0D;
+
+		if (!world.isRemote)
+		{
+			world.updateAllPlayersSleepingFlag();
+		}
+
+		return EntityPlayer.SleepResult.OK;
+	}
+
+	@Override
+	public void onInventoryChanged(IInventory invBasic) {
+		//do nothing
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getBrightnessForRender(float partialTicks)
+	{
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(this.posX), 0, MathHelper.floor(this.posZ));
+
+		Random rand = new Random();
+		long time = this.getEntityWorld().getWorldTime() % 24000;
+
+		if (this.world.isBlockLoaded(blockpos$mutableblockpos))
+		{
+			blockpos$mutableblockpos.setY(MathHelper.floor(this.posY + (double)this.getEyeHeight()));
+
+			if (rand.nextInt(32) == 0 && time > 13000 && sleepTimer == 0)  {
+				lastLighting = 85 + rand.nextInt(22);
+				return this.world.getCombinedLight(blockpos$mutableblockpos, 0) + lastLighting;
+
+			} else if (sleepTimer == 0 || time < 13000) {
+				return this.world.getCombinedLight(blockpos$mutableblockpos, 0) + lastLighting;
+			} else {
+				return 30;
+			}
+		}
+		else
+		{
+			return 0;
+		}
+	}
 
-                if (flag || this.getDamageTaken() > 40.0F)
-                {
-                    if (!flag && this.world.getGameRules().getBoolean("doEntityDrops"))
-                    {
-                        this.dropItemWithOffset(this.getItemBoat(), 1, 0.0F);
-                    }
-
-                    this.setDead();
-                }
-
-                return true;
-            }
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-    /**
-     * Applies a velocity to the entities, to push them away from eachother.
-     */
-    public void applyEntityCollision(Entity entityIn)
-    {
-        if (entityIn instanceof EntityWagon)
-        {
-            if (entityIn.getEntityBoundingBox().minY < this.getEntityBoundingBox().maxY)
-            {
-                super.applyEntityCollision(entityIn);
-            }
-        }
-        else if (entityIn.getEntityBoundingBox().minY <= this.getEntityBoundingBox().minY)
-        {
-            super.applyEntityCollision(entityIn);
-        }
-    }
-
-    public Item getItemBoat()
-    {
-        switch (this.getBoatType())
-        {
-            case OAK:
-            default:
-                return Items.BOAT;
-            case SPRUCE:
-                return Items.SPRUCE_BOAT;
-            case BIRCH:
-                return Items.BIRCH_BOAT;
-            case JUNGLE:
-                return Items.JUNGLE_BOAT;
-            case ACACIA:
-                return Items.ACACIA_BOAT;
-            case DARK_OAK:
-                return Items.DARK_OAK_BOAT;
-        }
-    }
-
-    /**
-     * Setups the entity to do the hurt animation. Only used by packets in
-     * multiplayer.
-     */
-    @SideOnly(Side.CLIENT)
-    public void performHurtAnimation()
-    {
-        this.setForwardDirection(-this.getForwardDirection());
-        this.setTimeSinceHit(10);
-        this.setDamageTaken(this.getDamageTaken() * 11.0F);
-    }
-
-    /**
-     * Returns true if other Entities should be prevented from moving through
-     * this Entity.
-     */
-    public boolean canBeCollidedWith()
-    {
-        return !this.isDead;
-    }
-
-    /**
-     * Set the position and rotation values directly without any clamping.
-     */
-    @SideOnly(Side.CLIENT)
-    public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
-    {
-        this.boatPitch = x;
-        this.lerpY = y;
-        this.lerpZ = z;
-        this.boatYaw = (double) yaw;
-        this.lerpXRot = (double) pitch;
-        this.lerpSteps = 10;
-    }
-
-    /**
-     * Gets the horizontal facing direction of this Entity, adjusted to take
-     * specially-treated entity types into account.
-     */
-    public EnumFacing getAdjustedHorizontalFacing()
-    {
-        return this.getHorizontalFacing().rotateY();
-    }
-
-    /**
-     * Called to update the entity's position/logic.
-     */
-    public void onUpdate()
-    {
-        this.previousStatus = this.status;
-        this.status = this.getBoatStatus();
-
-        if (this.status != EntityWagon.Status.UNDER_WATER && this.status != EntityWagon.Status.UNDER_FLOWING_WATER)
-        {
-            this.outOfControlTicks = 0.0F;
-        }
-        else
-        {
-            ++this.outOfControlTicks;
-        }
-
-        if (!this.world.isRemote && this.outOfControlTicks >= 60.0F)
-        {
-            this.removePassengers();
-        }
-
-        if (this.getTimeSinceHit() > 0)
-        {
-            this.setTimeSinceHit(this.getTimeSinceHit() - 1);
-        }
-
-        if (this.getDamageTaken() > 0.0F)
-        {
-            this.setDamageTaken(this.getDamageTaken() - 1.0F);
-        }
-
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-        super.onUpdate();
-        this.tickLerp();
-
-        if (this.canPassengerSteer())
-        {
-            if (this.getPassengers().size() == 0 || !(this.getPassengers().get(0) instanceof EntityPlayer))
-            {
-                this.setPaddleState(false, false);
-            }
-
-            this.updateMotion();
-
-            if (this.world.isRemote)
-            {
-                this.controlBoat();
-                this.world.sendPacketToServer(new CPacketSteerBoat(this.getPaddleState(0), this.getPaddleState(1)));
-            }
-
-            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-        }
-        else
-        {
-            this.motionX = 0.0D;
-            this.motionY = 0.0D;
-            this.motionZ = 0.0D;
-        }
-
-        for (int i = 0; i <= 1; ++i)
-        {
-            if (this.getPaddleState(i))
-            {
-                this.paddlePositions[i] = (float) ((double) this.paddlePositions[i] + 0.01D);
-            }
-            else
-            {
-                this.paddlePositions[i] = 0.0F;
-            }
-        }
-
-        this.doBlockCollisions();
-        List<Entity> list = this.world.getEntitiesInAABBexcluding(this,
-                this.getEntityBoundingBox().expand(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D),
-                EntitySelectors.<Entity> getTeamCollisionPredicate(this));
-
-        if (!list.isEmpty())
-        {
-            boolean flag = !this.world.isRemote && !(this.getControllingPassenger() instanceof EntityPlayer);
-
-            for (int j = 0; j < list.size(); ++j)
-            {
-                Entity entity = (Entity) list.get(j);
-
-                if (!entity.isPassenger(this))
-                {
-                    if (flag && this.getPassengers().size() < 2 && !entity.isRiding() && entity.width < this.width
-                            && entity instanceof EntityLivingBase && !(entity instanceof EntityWaterMob) && !(entity instanceof EntityPlayer))
-                    {
-                        entity.startRiding(this);
-                    }
-                    else
-                    {
-                        this.applyEntityCollision(entity);
-                    }
-                }
-            }
-        }
-    }
-
-    private void tickLerp()
-    {
-        if (this.lerpSteps > 0 && !this.canPassengerSteer())
-        {
-            double d0 = this.posX + (this.boatPitch - this.posX) / (double) this.lerpSteps;
-            double d1 = this.posY + (this.lerpY - this.posY) / (double) this.lerpSteps;
-            double d2 = this.posZ + (this.lerpZ - this.posZ) / (double) this.lerpSteps;
-            double d3 = MathHelper.wrapDegrees(this.boatYaw - (double) this.rotationYaw);
-            this.rotationYaw = (float) ((double) this.rotationYaw + d3 / (double) this.lerpSteps);
-            this.rotationPitch = (float) ((double) this.rotationPitch + (this.lerpXRot - (double) this.rotationPitch) / (double) this.lerpSteps);
-            --this.lerpSteps;
-            this.setPosition(d0, d1, d2);
-            this.setRotation(this.rotationYaw, this.rotationPitch);
-        }
-    }
-
-    public void setPaddleState(boolean p_184445_1_, boolean p_184445_2_)
-    {
-        this.dataManager.set(DATA_ID_PADDLE[0], Boolean.valueOf(p_184445_1_));
-        this.dataManager.set(DATA_ID_PADDLE[1], Boolean.valueOf(p_184445_2_));
-    }
-
-    @SideOnly(Side.CLIENT)
-    public float getRowingTime(int p_184448_1_, float limbSwing)
-    {
-        return this.getPaddleState(p_184448_1_) ? (float) MathHelper.clampedLerp((double) this.paddlePositions[p_184448_1_] - 0.01D,
-                (double) this.paddlePositions[p_184448_1_], (double) limbSwing) : 0.0F;
-    }
-
-    /**
-     * Determines whether the boat is in water, gliding on land, or in air
-     */
-    private EntityWagon.Status getBoatStatus()
-    {
-        EntityWagon.Status entityboat$status = this.getUnderwaterStatus();
-
-        if (entityboat$status != null)
-        {
-            this.waterLevel = this.getEntityBoundingBox().maxY;
-            return entityboat$status;
-        }
-        else if (this.checkInWater())
-        {
-            return EntityWagon.Status.IN_WATER;
-        }
-        else
-        {
-            float f = this.getBoatGlide();
-
-            if (f > 0.0F)
-            {
-                this.boatGlide = f;
-                return EntityWagon.Status.ON_LAND;
-            }
-            else
-            {
-                return EntityWagon.Status.IN_AIR;
-            }
-        }
-    }
-
-    public float getWaterLevelAbove()
-    {
-        AxisAlignedBB axisalignedbb = this.getEntityBoundingBox();
-        int i = MathHelper.floor(axisalignedbb.minX);
-        int j = MathHelper.ceil(axisalignedbb.maxX);
-        int k = MathHelper.floor(axisalignedbb.maxY);
-        int l = MathHelper.ceil(axisalignedbb.maxY - this.lastYd);
-        int i1 = MathHelper.floor(axisalignedbb.minZ);
-        int j1 = MathHelper.ceil(axisalignedbb.maxZ);
-        BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
-
-        try
-        {
-            label78:
-
-            for (int k1 = k; k1 < l; ++k1)
-            {
-                float f = 0.0F;
-                int l1 = i;
-
-                while (true)
-                {
-                    if (l1 >= j)
-                    {
-                        if (f < 1.0F)
-                        {
-                            float f2 = (float) blockpos$pooledmutableblockpos.getY() + f;
-                            return f2;
-                        }
-
-                        break;
-                    }
-
-                    for (int i2 = i1; i2 < j1; ++i2)
-                    {
-                        blockpos$pooledmutableblockpos.setPos(l1, k1, i2);
-                        IBlockState iblockstate = this.world.getBlockState(blockpos$pooledmutableblockpos);
-
-                        if (iblockstate.getMaterial() == Material.WATER)
-                        {
-                            f = Math.max(f, BlockLiquid.getBlockLiquidHeight(iblockstate, this.world, blockpos$pooledmutableblockpos));
-                        }
-
-                        if (f >= 1.0F)
-                        {
-                            continue label78;
-                        }
-                    }
-
-                    ++l1;
-                }
-            }
-
-            float f1 = (float) (l + 1);
-            return f1;
-        } finally
-        {
-            blockpos$pooledmutableblockpos.release();
-        }
-    }
-
-    /**
-     * Decides how much the boat should be gliding on the land (based on any
-     * slippery blocks)
-     */
-    public float getBoatGlide()
-    {
-        AxisAlignedBB axisalignedbb = this.getEntityBoundingBox();
-        AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(axisalignedbb.minX, axisalignedbb.minY - 0.001D, axisalignedbb.minZ, axisalignedbb.maxX,
-                axisalignedbb.minY, axisalignedbb.maxZ);
-        int i = MathHelper.floor(axisalignedbb1.minX) - 1;
-        int j = MathHelper.ceil(axisalignedbb1.maxX) + 1;
-        int k = MathHelper.floor(axisalignedbb1.minY) - 1;
-        int l = MathHelper.ceil(axisalignedbb1.maxY) + 1;
-        int i1 = MathHelper.floor(axisalignedbb1.minZ) - 1;
-        int j1 = MathHelper.ceil(axisalignedbb1.maxZ) + 1;
-        List<AxisAlignedBB> list = Lists.<AxisAlignedBB> newArrayList();
-        float f = 0.0F;
-        int k1 = 0;
-        BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
-
-        try
-        {
-            for (int l1 = i; l1 < j; ++l1)
-            {
-                for (int i2 = i1; i2 < j1; ++i2)
-                {
-                    int j2 = (l1 != i && l1 != j - 1 ? 0 : 1) + (i2 != i1 && i2 != j1 - 1 ? 0 : 1);
-
-                    if (j2 != 2)
-                    {
-                        for (int k2 = k; k2 < l; ++k2)
-                        {
-                            if (j2 <= 0 || k2 != k && k2 != l - 1)
-                            {
-                                blockpos$pooledmutableblockpos.setPos(l1, k2, i2);
-                                IBlockState iblockstate = this.world.getBlockState(blockpos$pooledmutableblockpos);
-                                iblockstate.addCollisionBoxToList(this.world, blockpos$pooledmutableblockpos, axisalignedbb1, list, this, false);
-
-                                if (!list.isEmpty())
-                                {
-                                    f += iblockstate.getBlock().slipperiness;
-                                    ++k1;
-                                }
-
-                                list.clear();
-                            }
-                        }
-                    }
-                }
-            }
-        } finally
-        {
-            blockpos$pooledmutableblockpos.release();
-        }
-
-        return f / (float) k1;
-    }
-
-    private boolean checkInWater()
-    {
-        AxisAlignedBB axisalignedbb = this.getEntityBoundingBox();
-        int i = MathHelper.floor(axisalignedbb.minX);
-        int j = MathHelper.ceil(axisalignedbb.maxX);
-        int k = MathHelper.floor(axisalignedbb.minY);
-        int l = MathHelper.ceil(axisalignedbb.minY + 0.001D);
-        int i1 = MathHelper.floor(axisalignedbb.minZ);
-        int j1 = MathHelper.ceil(axisalignedbb.maxZ);
-        boolean flag = false;
-        this.waterLevel = Double.MIN_VALUE;
-        BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
-
-        try
-        {
-            for (int k1 = i; k1 < j; ++k1)
-            {
-                for (int l1 = k; l1 < l; ++l1)
-                {
-                    for (int i2 = i1; i2 < j1; ++i2)
-                    {
-                        blockpos$pooledmutableblockpos.setPos(k1, l1, i2);
-                        IBlockState iblockstate = this.world.getBlockState(blockpos$pooledmutableblockpos);
-
-                        if (iblockstate.getMaterial() == Material.WATER)
-                        {
-                            float f = BlockLiquid.getLiquidHeight(iblockstate, this.world, blockpos$pooledmutableblockpos);
-                            this.waterLevel = Math.max((double) f, this.waterLevel);
-                            flag |= axisalignedbb.minY < (double) f;
-                        }
-                    }
-                }
-            }
-        } finally
-        {
-            blockpos$pooledmutableblockpos.release();
-        }
-
-        return flag;
-    }
-
-    /**
-     * Decides whether the boat is currently underwater.
-     */
-    @Nullable
-    private EntityWagon.Status getUnderwaterStatus()
-    {
-        AxisAlignedBB axisalignedbb = this.getEntityBoundingBox();
-        double d0 = axisalignedbb.maxY + 0.001D;
-        int i = MathHelper.floor(axisalignedbb.minX);
-        int j = MathHelper.ceil(axisalignedbb.maxX);
-        int k = MathHelper.floor(axisalignedbb.maxY);
-        int l = MathHelper.ceil(d0);
-        int i1 = MathHelper.floor(axisalignedbb.minZ);
-        int j1 = MathHelper.ceil(axisalignedbb.maxZ);
-        boolean flag = false;
-        BlockPos.PooledMutableBlockPos blockpos$pooledmutableblockpos = BlockPos.PooledMutableBlockPos.retain();
-
-        try
-        {
-            for (int k1 = i; k1 < j; ++k1)
-            {
-                for (int l1 = k; l1 < l; ++l1)
-                {
-                    for (int i2 = i1; i2 < j1; ++i2)
-                    {
-                        blockpos$pooledmutableblockpos.setPos(k1, l1, i2);
-                        IBlockState iblockstate = this.world.getBlockState(blockpos$pooledmutableblockpos);
-
-                        if (iblockstate.getMaterial() == Material.WATER
-                                && d0 < (double) BlockLiquid.getLiquidHeight(iblockstate, this.world, blockpos$pooledmutableblockpos))
-                        {
-                            if (((Integer) iblockstate.getValue(BlockLiquid.LEVEL)).intValue() != 0)
-                            {
-                                EntityWagon.Status entityboat$status = EntityWagon.Status.UNDER_FLOWING_WATER;
-                                return entityboat$status;
-                            }
-
-                            flag = true;
-                        }
-                    }
-                }
-            }
-        } finally
-        {
-            blockpos$pooledmutableblockpos.release();
-        }
-
-        return flag ? EntityWagon.Status.UNDER_WATER : null;
-    }
-
-    /**
-     * Update the boat's speed, based on momentum.
-     */
-    private void updateMotion()
-    {
-        double d0 = -0.03999999910593033D;
-        double d1 = this.hasNoGravity() ? 0.0D : -0.03999999910593033D;
-        double d2 = 0.0D;
-        this.momentum = 0.05F;
-
-        if (this.previousStatus == EntityWagon.Status.IN_AIR && this.status != EntityWagon.Status.IN_AIR && this.status != EntityWagon.Status.ON_LAND)
-        {
-            this.waterLevel = this.getEntityBoundingBox().minY + (double) this.height;
-            this.setPosition(this.posX, (double) (this.getWaterLevelAbove() - this.height) + 0.101D, this.posZ);
-            this.motionY = 0.0D;
-            this.lastYd = 0.0D;
-            this.status = EntityWagon.Status.IN_WATER;
-        }
-        else
-        {
-            if (this.status == EntityWagon.Status.IN_WATER)
-            {
-                d2 = (this.waterLevel - this.getEntityBoundingBox().minY) / (double) this.height;
-                this.momentum = 0.9F;
-            }
-            else if (this.status == EntityWagon.Status.UNDER_FLOWING_WATER)
-            {
-                d1 = -7.0E-4D;
-                this.momentum = 0.9F;
-            }
-            else if (this.status == EntityWagon.Status.UNDER_WATER)
-            {
-                d2 = 0.009999999776482582D;
-                this.momentum = 0.45F;
-            }
-            else if (this.status == EntityWagon.Status.IN_AIR)
-            {
-                this.momentum = 0.9F;
-            }
-            else if (this.status == EntityWagon.Status.ON_LAND)
-            {
-                this.momentum = this.boatGlide;
-
-                if (this.getControllingPassenger() instanceof EntityPlayer)
-                {
-                    this.boatGlide /= 2.0F;
-                }
-            }
-
-            this.motionX *= (double) this.momentum;
-            this.motionZ *= (double) this.momentum;
-            this.deltaRotation *= this.momentum;
-            this.motionY += d1;
-
-            if (d2 > 0.0D)
-            {
-                double d3 = 0.65D;
-                this.motionY += d2 * 0.06153846016296973D;
-                double d4 = 0.75D;
-                this.motionY *= 0.75D;
-            }
-        }
-    }
-
-    private void controlBoat()
-    {
-        if (this.isBeingRidden())
-        {
-            float f = 0.0F;
-
-            if (this.leftInputDown)
-            {
-                this.deltaRotation += -1.0F;
-            }
-
-            if (this.rightInputDown)
-            {
-                ++this.deltaRotation;
-            }
-
-            if (this.rightInputDown != this.leftInputDown && !this.forwardInputDown && !this.backInputDown)
-            {
-                f += 0.005F;
-            }
-
-            this.rotationYaw += this.deltaRotation;
-
-            if (this.forwardInputDown)
-            {
-                f += 0.04F;
-            }
-
-            if (this.backInputDown)
-            {
-                f -= 0.005F;
-            }
-
-            this.motionX += (double) (MathHelper.sin(-this.rotationYaw * 0.017453292F) * f);
-            this.motionZ += (double) (MathHelper.cos(this.rotationYaw * 0.017453292F) * f);
-            this.setPaddleState(this.rightInputDown && !this.leftInputDown || this.forwardInputDown,
-                    this.leftInputDown && !this.rightInputDown || this.forwardInputDown);
-        }
-    }
-
-    public void updatePassenger(Entity passenger)
-    {
-        if (this.isPassenger(passenger))
-        {
-            float f = 0.0F;
-            float f1 = (float) ((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
-
-            if (this.getPassengers().size() > 1)
-            {
-                int i = this.getPassengers().indexOf(passenger);
-
-                if (i == 0)
-                {
-                    f = 0.2F;
-                }
-                else
-                {
-                    f = -0.6F;
-                }
-
-                if (passenger instanceof EntityAnimal)
-                {
-                    f = (float) ((double) f + 0.2D);
-                }
-            }
-
-            Vec3d vec3d = (new Vec3d((double) f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
-            passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double) f1, this.posZ + vec3d.zCoord + 1.68D);
-            passenger.rotationYaw += this.deltaRotation;
-            passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
-            this.applyYawToEntity(passenger);
-
-            if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
-            {
-                int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-                passenger.setRenderYawOffset(((EntityAnimal) passenger).renderYawOffset + (float) j);
-                passenger.setRotationYawHead(passenger.getRotationYawHead() + (float) j);
-            }
-        }
-    }
-
-    /**
-     * Applies this boat's yaw to the given entity. Used to update the
-     * orientation of its passenger.
-     */
-    protected void applyYawToEntity(Entity entityToUpdate)
-    {
-        entityToUpdate.setRenderYawOffset(this.rotationYaw);
-        float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
-        float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
-        entityToUpdate.prevRotationYaw += f1 - f;
-        entityToUpdate.rotationYaw += f1 - f;
-        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
-    }
-
-    /**
-     * Applies this entity's orientation (pitch/yaw) to another entity. Used to
-     * update passenger orientation.
-     */
-    @SideOnly(Side.CLIENT)
-    public void applyOrientationToEntity(Entity entityToUpdate)
-    {
-        this.applyYawToEntity(entityToUpdate);
-    }
-
-    /**
-     * (abstract) Protected helper method to write subclass entity data to NBT.
-     */
-    protected void writeEntityToNBT(NBTTagCompound compound)
-    {
-        compound.setString("Type", this.getBoatType().getName());
-    }
-
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
-    protected void readEntityFromNBT(NBTTagCompound compound)
-    {
-        if (compound.hasKey("Type", 8))
-        {
-            this.setBoatType(EntityWagon.Type.getTypeFromString(compound.getString("Type")));
-        }
-    }
-
-    public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
-    {
-        if (player.isSneaking())
-        {
-            return false;
-        }
-        else
-        {
-            if (!this.world.isRemote && this.outOfControlTicks < 60.0F)
-            {
-                player.startRiding(this);
-            }
-
-            return true;
-        }
-    }
-
-    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
-    {
-        this.lastYd = this.motionY;
-
-        if (!this.isRiding())
-        {
-            if (onGroundIn)
-            {
-                if (this.fallDistance > 3.0F)
-                {
-                    if (this.status != EntityWagon.Status.ON_LAND)
-                    {
-                        this.fallDistance = 0.0F;
-                        return;
-                    }
-
-                    this.fall(this.fallDistance, 1.0F);
-
-                    if (!this.world.isRemote && !this.isDead)
-                    {
-                        this.setDead();
-
-                        if (this.world.getGameRules().getBoolean("doEntityDrops"))
-                        {
-                            for (int i = 0; i < 3; ++i)
-                            {
-                                this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.PLANKS), 1, this.getBoatType().getMetadata()), 0.0F);
-                            }
-
-                            for (int j = 0; j < 2; ++j)
-                            {
-                                this.dropItemWithOffset(Items.STICK, 1, 0.0F);
-                            }
-                        }
-                    }
-                }
-
-                this.fallDistance = 0.0F;
-            }
-            else if (this.world.getBlockState((new BlockPos(this)).down()).getMaterial() != Material.WATER && y < 0.0D)
-            {
-                this.fallDistance = (float) ((double) this.fallDistance - y);
-            }
-        }
-    }
-
-    public boolean getPaddleState(int p_184457_1_)
-    {
-        return ((Boolean) this.dataManager.get(DATA_ID_PADDLE[p_184457_1_])).booleanValue() && this.getControllingPassenger() != null;
-    }
-
-    /**
-     * Sets the damage taken from the last hit.
-     */
-    public void setDamageTaken(float damageTaken)
-    {
-        this.dataManager.set(DAMAGE_TAKEN, Float.valueOf(damageTaken));
-    }
-
-    /**
-     * Gets the damage taken from the last hit.
-     */
-    public float getDamageTaken()
-    {
-        return ((Float) this.dataManager.get(DAMAGE_TAKEN)).floatValue();
-    }
-
-    /**
-     * Sets the time to count down from since the last time entity was hit.
-     */
-    public void setTimeSinceHit(int timeSinceHit)
-    {
-        this.dataManager.set(TIME_SINCE_HIT, Integer.valueOf(timeSinceHit));
-    }
-
-    /**
-     * Gets the time since the last hit.
-     */
-    public int getTimeSinceHit()
-    {
-        return ((Integer) this.dataManager.get(TIME_SINCE_HIT)).intValue();
-    }
-
-    /**
-     * Sets the forward direction of the entity.
-     */
-    public void setForwardDirection(int forwardDirection)
-    {
-        this.dataManager.set(FORWARD_DIRECTION, Integer.valueOf(forwardDirection));
-    }
-
-    /**
-     * Gets the forward direction of the entity.
-     */
-    public int getForwardDirection()
-    {
-        return ((Integer) this.dataManager.get(FORWARD_DIRECTION)).intValue();
-    }
-
-    public void setBoatType(EntityWagon.Type boatType)
-    {
-        this.dataManager.set(BOAT_TYPE, Integer.valueOf(boatType.ordinal()));
-    }
-
-    public EntityWagon.Type getBoatType()
-    {
-        return EntityWagon.Type.byId(((Integer) this.dataManager.get(BOAT_TYPE)).intValue());
-    }
-
-    protected boolean canFitPassenger(Entity passenger)
-    {
-        return this.getPassengers().size() < 2;
-    }
-
-    /**
-     * For vehicles, the first passenger is generally considered the controller
-     * and "drives" the vehicle. For example, Pigs, Horses, and Boats are
-     * generally "steered" by the controlling passenger.
-     */
-    @Nullable
-    public Entity getControllingPassenger()
-    {
-        List<Entity> list = this.getPassengers();
-        return list.isEmpty() ? null : (Entity) list.get(0);
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void updateInputs(boolean p_184442_1_, boolean p_184442_2_, boolean p_184442_3_, boolean p_184442_4_)
-    {
-        this.leftInputDown = p_184442_1_;
-        this.rightInputDown = p_184442_2_;
-        this.forwardInputDown = p_184442_3_;
-        this.backInputDown = p_184442_4_;
-    }
-
-    public static enum Status
-    {
-        IN_WATER, UNDER_WATER, UNDER_FLOWING_WATER, ON_LAND, IN_AIR;
-    }
-
-    public static enum Type
-    {
-        OAK(BlockPlanks.EnumType.OAK.getMetadata(), "oak"),
-        SPRUCE(BlockPlanks.EnumType.SPRUCE.getMetadata(), "spruce"),
-        BIRCH(BlockPlanks.EnumType.BIRCH.getMetadata(), "birch"),
-        JUNGLE(BlockPlanks.EnumType.JUNGLE.getMetadata(), "jungle"),
-        ACACIA(BlockPlanks.EnumType.ACACIA.getMetadata(), "acacia"),
-        DARK_OAK(BlockPlanks.EnumType.DARK_OAK.getMetadata(), "dark_oak");
-
-        private final String name;
-        private final int    metadata;
-
-        private Type(int metadataIn, String nameIn)
-        {
-            this.name = nameIn;
-            this.metadata = metadataIn;
-        }
-
-        public String getName()
-        {
-            return this.name;
-        }
-
-        public int getMetadata()
-        {
-            return this.metadata;
-        }
-
-        public String toString()
-        {
-            return this.name;
-        }
-
-        /**
-         * Get a boat type by it's enum ordinal
-         */
-        public static EntityWagon.Type byId(int id)
-        {
-            if (id < 0 || id >= values().length)
-            {
-                id = 0;
-            }
-
-            return values()[id];
-        }
-
-        public static EntityWagon.Type getTypeFromString(String nameIn)
-        {
-            for (int i = 0; i < values().length; ++i)
-            {
-                if (values()[i].getName().equals(nameIn))
-                {
-                    return values()[i];
-                }
-            }
-
-            return values()[0];
-        }
-    }
 }

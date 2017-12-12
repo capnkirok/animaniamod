@@ -11,8 +11,10 @@ import com.animania.common.handler.BlockHandler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class EntityAIFindMud extends EntityAIBase
 {
@@ -48,11 +50,22 @@ public class EntityAIFindMud extends EntityAIBase
 					return false;
 				}
 			} 
+			
+			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			{
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.resetTask();
+					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.xCoord, vec3d.yCoord, vec3d.zCoord, this.speed);
+				}
+				return false;
+			}
 
 			Random rand = new Random();
 			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
 			Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
-			if (poschk == BlockHandler.blockMud) {
+			if (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")) {
 				if (temptedEntity instanceof EntityAnimaniaPig) {
 					EntityAnimaniaPig pig = (EntityAnimaniaPig) temptedEntity;
 					pig.entityAIEatGrass.startExecuting();
@@ -77,7 +90,7 @@ public class EntityAIFindMud extends EntityAIBase
 						pos = new BlockPos(x + i, y + j, z + k);
 						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
 
-						if (blockchk != null && blockchk == BlockHandler.blockMud) {
+						if (blockchk != null && (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().equals("tile.mud"))) {
 							mudFound = true;
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
@@ -131,7 +144,7 @@ public class EntityAIFindMud extends EntityAIBase
 
 		BlockPos currentpos = new BlockPos(x, y, z);
 		Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
-		if (poschk != BlockHandler.blockMud) {
+		if (poschk != BlockHandler.blockMud || !poschk.getUnlocalizedName().equals("tile.mud")) {
 
 			boolean mudFound = false;
 			boolean spcFlag = false;
@@ -146,7 +159,7 @@ public class EntityAIFindMud extends EntityAIBase
 
 						pos = new BlockPos(x + i, y + j, z + k);
 						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
-						if (blockchk == BlockHandler.blockMud && !this.temptedEntity.hasPath()) {
+						 if (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().contains("tile.mud")) {
 							mudFound = true;
 							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
@@ -157,7 +170,7 @@ public class EntityAIFindMud extends EntityAIBase
 								if (this.temptedEntity.posX > mudPos.getX()) {
 									BlockPos mudPoschk = new BlockPos(x + i + 1, y + j, z + k);
 									Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPoschk).getBlock();
-									if (mudBlockchk == BlockHandler.blockMud) {
+									if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) {
 										spcFlag = true;
 										i = i + 1;
 									}
@@ -166,7 +179,7 @@ public class EntityAIFindMud extends EntityAIBase
 								if (this.temptedEntity.posZ > mudPos.getZ()) {
 									BlockPos mudPoschk = new BlockPos(x + i, y + j, z + k + 1);
 									Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPoschk).getBlock();
-									if (mudBlockchk == BlockHandler.blockMud) {
+									if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) {
 										spcFlag = true;
 										k = k + 1;
 									}
@@ -189,7 +202,7 @@ public class EntityAIFindMud extends EntityAIBase
 			if (mudFound) {
 
 				Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPos).getBlock();
-				if (mudBlockchk == BlockHandler.blockMud)
+				if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) 
 					if (this.temptedEntity instanceof EntitySowBase) {
 						EntitySowBase te = (EntitySowBase) this.temptedEntity;
 

@@ -29,7 +29,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @EventBusSubscriber
-@Mod(modid = Animania.MODID, name = Animania.NAME, version = Animania.VERSION, guiFactory = "com.animania.client.gui.GuiFactoryAnimania", dependencies = "required-after:craftstudioapi;after:quark;after:botania;required-after:forge@[13.20.1.2386,)")
+@Mod(modid = Animania.MODID, name = Animania.NAME, version = Animania.VERSION, guiFactory = "com.animania.client.gui.GuiFactoryAnimania", dependencies = "required-after:craftstudioapi;after:quark;after:botania;after:biomesoplenty;required-after:forge@[13.20.1.2386,)")
 public class Animania
 {
 
@@ -41,7 +41,7 @@ public class Animania
     public static Animania     instance;
 
     public static final String MODID                = "animania";
-    public static final String VERSION              = "1.4.1";
+    public static final String VERSION              = "1.4.3";
     public static final String NAME                 = "Animania";
     public static final Logger LOGGER = LogManager.getFormatterLogger("Animania");
 
@@ -49,6 +49,7 @@ public class Animania
     
 	// Gui
 	public static int horseCartGUI_ID = 0;
+	public static int coveredWagonGUI_ID = 1;
 	private GuiHandlerAnimania guiHandlerAnimania = new GuiHandlerAnimania();
 	
     // Tabs

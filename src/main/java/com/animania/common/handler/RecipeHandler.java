@@ -39,9 +39,7 @@ public class RecipeHandler
 
 		// HAMSTERS
 		GameRegistry.addRecipe(new ShapedOreRecipe(BlockHandler.blockHamsterWheel, new Object[] { " I ", "I I", "SIS", 'I', "ingotIron", 'S', new ItemStack(Blocks.STONE_SLAB) }));
-
 		GameRegistry.addRecipe(new ItemStack(ItemHandler.hamsterBallClear), new Object[] { "xxx", "x x", "xxx", 'x', Blocks.GLASS_PANE });
-
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 0), new Object[] { "xxx", "xdx", "xxx", 'x', Blocks.GLASS_PANE, 'd', "dyeBlack" }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 1), new Object[] { "xxx", "xdx", "xxx", 'x', Blocks.GLASS_PANE, 'd', "dyeRed" }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.hamsterBallColored, 1, 2), new Object[] { "xxx", "xdx", "xxx", 'x', Blocks.GLASS_PANE, 'd', "dyeGreen" }));
@@ -104,9 +102,10 @@ public class RecipeHandler
 		// Trough
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(BlockHandler.blockTrough, 1), new Object[] { "p p", "pip", "s s", 'p', "plankWood", 'i', "ingotIron", 's', "stickWood" }));
 
-		// Cart
+		// Moving Objects
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.cart, 1), new Object[] { "spp", "pip", "w w", 'p', "plankWood", 'i', "ingotIron", 's', "stickWood", 'w', ItemHandler.wheel }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.wheel, 1), new Object[] { " s ", "sis", " s ", 'i', "nuggetIron", 's', "stickWood" }));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.wagon, 1), new Object[] { "OOP", "BPC", "WAW", 'O', "blockWool", 'P', "plankWood", 'B', Items.BED, 'C', Blocks.CHEST, 'W', ItemHandler.wheel, 'A', ItemHandler.cart }));
 
 		
 		// Cheese Mold
@@ -117,11 +116,12 @@ public class RecipeHandler
 
 		// Wool
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 12), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 0));
-		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 12), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 3));
-		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 12), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 5));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 0), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 3));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 0), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 5));
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 15), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 1));
-		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 0), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 2));
-		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 0), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 4));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 12), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 2));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 12), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 4));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.WOOL, 1, 12), new ItemStack(BlockHandler.blockAnimaniaWool, 1, 6));
 
 		GameRegistry.addRecipe(new SlopBucketRecipe1());
 		GameRegistry.addRecipe(new SlopBucketRecipe2());
@@ -266,9 +266,16 @@ public class RecipeHandler
 		}
 
 		GameRegistry.addRecipe(new MilkConversionRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkFriesian }));
-
 		GameRegistry.addRecipe(new MilkConversionRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkHolstein }));
+		GameRegistry.addRecipe(new MilkConversionRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkGoat }));
+		GameRegistry.addRecipe(new MilkConversionRecipe(new ItemStack(Items.MILK_BUCKET), new Object[] { milkSheep }));
 
+		
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.milkBottle, 4), new Object[] { milkFriesian, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.milkBottle, 4), new Object[] { milkHolstein, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.milkBottle, 4), new Object[] { milkGoat, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE }));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.milkBottle, 4), new Object[] { milkSheep, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE }));
+		
 		// Smelting Recipes
 		GameRegistry.addSmelting(ItemHandler.rawAngusBeef, new ItemStack(ItemHandler.cookedAngusRoast, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawLonghornBeef, new ItemStack(ItemHandler.cookedLonghornRoast, 1), .3F);

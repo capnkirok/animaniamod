@@ -45,20 +45,26 @@ public class RenderSowHampshire<T extends EntitySowHampshire> extends RenderLivi
         Random rand = new Random();
 
         Block blockchk = entity.world.getBlockState(pos).getBlock();
+        Block blockchk2 = entity.world.getBlockState(pos.down()).getBlock();
+    	
+        boolean mudBlock = false;
+         if (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().contains("tile.mud") || blockchk2.getUnlocalizedName().contains("tile.mud")) {
+        	mudBlock = true;
+        }
 
-        if (blockchk == BlockHandler.blockMud && !entity.getMuddy()) {
+        if (mudBlock && !entity.getMuddy()) {
             GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
             GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
             entity.setMuddy(true);
             entity.setMudTimer(1.0F);
             entity.setSplashTimer(1.0F);
         }
-        else if (entity.isWet() && entity.getMuddy() && blockchk != BlockHandler.blockMud) {
+        else if (entity.isWet() && entity.getMuddy() && !mudBlock) {
             entity.setMuddy(false);
             entity.setMudTimer(0.0F);
             entity.setSplashTimer(0.0F);
         }
-        else if (blockchk == BlockHandler.blockMud) {
+        else if (mudBlock) {
             Float splashTimer = entity.getSplashTimer();
             GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
             GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
@@ -79,8 +85,7 @@ public class RenderSowHampshire<T extends EntitySowHampshire> extends RenderLivi
                 entity.setMudTimer(mudTimer);
             }
         }
-
-    }
+	}
 
     @Override
     protected void preRenderCallback(T entityliving, float f) {

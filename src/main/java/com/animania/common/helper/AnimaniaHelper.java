@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.animania.Animania;
 import com.animania.common.entities.props.EntityCart;
+import com.animania.common.entities.props.EntityWagon;
 import com.animania.network.client.TileEntitySyncPacket;
 
 import net.minecraft.entity.Entity;
@@ -99,6 +100,12 @@ public class AnimaniaHelper
 	}
 
 	public static <T extends EntityCart> List<T> getCartsInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
+	{
+		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
+		return list;
+	}
+	
+	public static <T extends EntityWagon> List<T> getWagonsInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
 		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
 		return list;

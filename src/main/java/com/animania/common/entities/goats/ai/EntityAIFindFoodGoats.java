@@ -2,17 +2,20 @@ package com.animania.common.entities.goats.ai;
 
 import java.util.Random;
 
-import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class EntityAIFindFoodGoats extends EntityAIBase 
 {
@@ -48,6 +51,17 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 					return false;		
 				}
 			} 
+			
+			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			{
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.resetTask();
+					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.xCoord, vec3d.yCoord, vec3d.zCoord, this.speed);
+				}
+				return false;
+			}
 			
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
 			BlockPos trypos1 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ);
@@ -104,7 +118,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 				} 
 			}
 
-			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT || poschk == Blocks.YELLOW_FLOWER) {
+			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT || poschk instanceof BlockFlower) {
 
 				if (temptedEntity instanceof EntityAnimaniaGoat) {
 					EntityAnimaniaGoat ech = (EntityAnimaniaGoat)temptedEntity;
@@ -112,7 +126,12 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 					ech.setFed(true);
 				} 
 				
-				temptedEntity.world.destroyBlock(currentpos, false);
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+					Block destchk = temptedEntity.world.getBlockState(currentpos).getBlock();
+					if (destchk != BlockHandler.blockTrough) {
+						temptedEntity.world.destroyBlock(currentpos, false);
+					}
+				}
 				this.delayTemptCounter = 0;
 				return false;
 			}

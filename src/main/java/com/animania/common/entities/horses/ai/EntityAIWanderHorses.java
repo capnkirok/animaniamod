@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.animania.common.entities.props.EntityCart;
+import com.animania.common.entities.props.EntityWagon;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.EntityCreature;
@@ -30,6 +31,14 @@ public class EntityAIWanderHorses extends EntityAIWander
 			}
 		} 
 		
+		entities = AnimaniaHelper.getWagonsInRange(EntityWagon.class, 3, entity.world, entity);
+		if (!entities.isEmpty()) {
+			EntityWagon checkWagon = (EntityWagon) entities.get(0);
+			if (checkWagon.puller == entity) {
+				pullingFlag = true;
+			}
+		} 
+				
 		if (pullingFlag) {
 			return false;
 		}

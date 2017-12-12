@@ -1,5 +1,6 @@
 package com.animania.common.entities.pigs.ai;
 
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.ItemHelper;
 import com.animania.config.AnimaniaConfig;
@@ -10,7 +11,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -23,11 +23,11 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 public class EntityAIPigSnuffle extends EntityAIBase
 {
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final EntityLiving                  grassEaterEntity;
+	private final EntityAnimaniaPig             grassEaterEntity;
 	private final World                         entityWorld;
 	int                                         eatingGrassTimer;
 
-	public EntityAIPigSnuffle(EntityLiving grassEaterEntityIn) {
+	public EntityAIPigSnuffle(EntityAnimaniaPig grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);
@@ -35,6 +35,11 @@ public class EntityAIPigSnuffle extends EntityAIBase
 
 	@Override
 	public boolean shouldExecute() {
+
+		if (this.grassEaterEntity.getMuddy()) {
+			return false;
+		}
+
 		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
 			return false;
 		else {
@@ -78,7 +83,7 @@ public class EntityAIPigSnuffle extends EntityAIBase
 				if (this.entityWorld.getGameRules().getBoolean("mobGriefing") && AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
 					this.entityWorld.destroyBlock(blockpos, false);
 				}
-				
+
 				this.grassEaterEntity.eatGrassBonus();
 			}
 			else {

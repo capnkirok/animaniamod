@@ -24,8 +24,10 @@ import com.animania.common.items.ItemCart;
 import com.animania.common.items.ItemCarvingKnife;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemHamsterBall;
+import com.animania.common.items.ItemMilkBottle;
 import com.animania.common.items.ItemRidingCrop;
 import com.animania.common.items.ItemTruffleSoup;
+import com.animania.common.items.ItemWagon;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.Minecraft;
@@ -64,6 +66,7 @@ public class ItemHandler
 	public static Item peacockFeatherTaupe;
 	public static Item ridingCrop;
 	public static Item wheel;
+	public static Item milkBottle;
 	
 	// Beef
 	public static Item rawHerefordBeef;
@@ -379,7 +382,7 @@ public class ItemHandler
 	{
 		// ITEMS
 		cart = new ItemCart();
-		//wagon = new ItemWagon();
+		wagon = new ItemWagon();
 
 		// Items for Animals
 		ItemHandler.hamsterFood = new AnimaniaItem("hamster_food");
@@ -397,6 +400,7 @@ public class ItemHandler
 		ItemHandler.hamsterBallClear = new ItemHamsterBall(false, "hamster_ball_clear");
 		ItemHandler.hamsterBallColored = new ItemHamsterBall(true, "hamster_ball_colored");
 		ItemHandler.wheel = new AnimaniaItem("wheel");
+		ItemHandler.milkBottle = new ItemMilkBottle();
 
 		// Other foods
 		ItemHandler.ultimateOmelette = new ItemAnimaniaFood(5, 1f, "super_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false), new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false), new PotionEffect(MobEffects.RESISTANCE, 600, 1, false, false));

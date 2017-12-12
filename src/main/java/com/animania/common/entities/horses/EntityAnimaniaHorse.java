@@ -1,5 +1,6 @@
 package com.animania.common.entities.horses;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -9,6 +10,7 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.horses.ai.EntityAIFindFood;
 import com.animania.common.entities.horses.ai.EntityAIFindSaltLickHorses;
 import com.animania.common.entities.horses.ai.EntityAIFindWater;
@@ -18,12 +20,14 @@ import com.animania.common.entities.horses.ai.EntityAISwimmingHorse;
 import com.animania.common.entities.horses.ai.EntityAITemptHorses;
 import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
+import com.animania.common.entities.props.EntityWagon;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -49,6 +53,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -95,8 +100,9 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		this.tasks.addTask(8, new EntityAITemptHorses(this, 1.25D, false, TEMPTATION_ITEMS));
 		this.tasks.addTask(9, this.entityAIEatGrass);
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new EntityAILookIdle(this));
-		this.tasks.addTask(12, new EntityAIFindSaltLickHorses(this, 1.0));
+		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
+		this.tasks.addTask(12, new EntityAILookIdle(this));
+		this.tasks.addTask(13, new EntityAIFindSaltLickHorses(this, 1.0));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
@@ -349,7 +355,48 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		return foundStack;
 	}
 
+	@Override
+	public void updatePassenger(Entity passenger)
+	{
+		if (this.isPassenger(passenger))
+		{
+			
+			float f = 0.0F;
+			float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
+			if (passenger instanceof EntityPlayer) {
+				f1 = (float)((this.isDead ? 0.009999999776482582D : 1.6D) + passenger.getYOffset());
+			}
 
+			if (passenger instanceof EntityPlayer) {
+				
+				EntityPlayer player = (EntityPlayer) passenger;	
+				List wagons = AnimaniaHelper.getWagonsInRange(EntityWagon.class, 3, world, this);
+				
+				if (!wagons.isEmpty()) {
+					if (wagons.size() >= 0) {
+						for (int i = 0; i < wagons.size(); i++) {
+							EntityWagon tempWagon = (EntityWagon) wagons.get(i);
+							if (tempWagon.pulled && tempWagon.puller == this) {
+								
+								f = (float)((double)f + 1.82D);
+
+								Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-tempWagon.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
+								passenger.setPosition(tempWagon.posX + vec3d.xCoord, tempWagon.posY + (double)f1, tempWagon.posZ + vec3d.zCoord);
+
+							} else {
+							passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
+							}
+						}
+					}
+				} else {
+					passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
+				}
+			} else {
+				passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
+			}
+
+		}
+	}
 
 
 	@Override

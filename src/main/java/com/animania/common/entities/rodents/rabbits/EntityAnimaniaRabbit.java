@@ -9,6 +9,7 @@ import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.rodents.ai.EntityAIFindFoodRabbits;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
@@ -115,9 +116,8 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityWolf.class, 10.0F, 3.0D, 3.5D));
 		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityMob.class, 10.0F, 2.2D, 2.2D));
 		this.tasks.addTask(10, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new EntityAILookIdle(this));
-
-		//this.tasks.addTask(5, new EntityAnimaniaRabbit.AIRaidFarm(this));
+		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
+		this.tasks.addTask(12, new EntityAILookIdle(this));
 
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);

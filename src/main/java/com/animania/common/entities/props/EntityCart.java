@@ -221,7 +221,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				double diffy = Math.abs(this.posY - player.posY);
 				double diffz = Math.abs(this.posZ - player.posZ);
 
-				if (diffx > 0 && diffy < .5  && diffz > 0) {
+				if (diffx > 0 && diffy < 2  && diffz > 0) {
 					this.pulled = true;
 					this.puller = player;
 					this.setPullerType(2);
@@ -756,7 +756,8 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			this.motionZ = 0;
 
 			return null;
-
+		} else if (this.pulled) {
+			return null;
 		} else {
 			return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
 		}
