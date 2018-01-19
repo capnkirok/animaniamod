@@ -116,52 +116,45 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		if (this.world.isRemote)
 			return null;
 
-		int goatCount = 0;
-		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaGoat.class, 128, this.world, this);
-		goatCount = entities.size();
+		int chooser = this.rand.nextInt(5);
 
-		if (goatCount <= AnimaniaConfig.spawn.spawnLimitGoats)
+		if (chooser == 0)
 		{
-
-			int chooser = this.rand.nextInt(5);
-
-			if (chooser == 0)
-			{
-				EntityBuckBase entityGoat = this.goatType.getMale(world);
-				entityGoat.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityGoat);
-				entityGoat.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityGoat.getPersistentID());
-			}
-			else if (chooser == 1)
-			{
-				EntityKidBase entityKid = this.goatType.getChild(world);
-				entityKid.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityKid);
-				entityKid.setParentUniqueId(this.entityUniqueID);
-				this.setHasKids(true);
-			}
-			else if (chooser > 2)
-			{
-				EntityBuckBase entityBuck = this.goatType.getMale(world);
-				entityBuck.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityBuck);
-				entityBuck.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityBuck.getPersistentID());
-				EntityKidBase entityKid = this.goatType.getChild(world);
-				entityKid.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityKid);
-				entityKid.setParentUniqueId(this.entityUniqueID);
-				this.setHasKids(true);
-			}
-
-			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
-
-			if (this.rand.nextFloat() < 0.05F)
-				this.setLeftHanded(true);
-			else
-				this.setLeftHanded(false);
+			EntityBuckBase entityGoat = this.goatType.getMale(world);
+			entityGoat.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityGoat);
+			entityGoat.setMateUniqueId(this.entityUniqueID);
+			this.setMateUniqueId(entityGoat.getPersistentID());
 		}
+		else if (chooser == 1)
+		{
+			EntityKidBase entityKid = this.goatType.getChild(world);
+			entityKid.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityKid);
+			entityKid.setParentUniqueId(this.entityUniqueID);
+			this.setHasKids(true);
+		}
+		else if (chooser > 2)
+		{
+			EntityBuckBase entityBuck = this.goatType.getMale(world);
+			entityBuck.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityBuck);
+			entityBuck.setMateUniqueId(this.entityUniqueID);
+			this.setMateUniqueId(entityBuck.getPersistentID());
+			EntityKidBase entityKid = this.goatType.getChild(world);
+			entityKid.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityKid);
+			entityKid.setParentUniqueId(this.entityUniqueID);
+			this.setHasKids(true);
+		}
+
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
+
+		if (this.rand.nextFloat() < 0.05F)
+			this.setLeftHanded(true);
+		else
+			this.setLeftHanded(false);
+
 		return livingdata;
 	}
 
@@ -362,7 +355,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 					}
 				}
 				goatCount = num;
-				
+
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 30, this.world, this);
 				int esize = entities.size();
@@ -370,7 +363,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				for (int k = 0; k <= esize - 1; k++)
 				{
 					EntityBuckBase entity = (EntityBuckBase) entities.get(k);
-					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && goatCount < AnimaniaConfig.spawn.spawnLimitGoats) 
+					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) 
 					{
 
 						this.setInLove(null);
@@ -398,7 +391,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 					}
 				}
 
-				if (!mateFound && this.getFed() && this.getWatered() && goatCount < AnimaniaConfig.spawn.spawnLimitGoats) {
+				if (!mateFound && this.getFed() && this.getWatered()) {
 
 					this.setInLove(null);
 					GoatType babyType = GoatType.breed(this.goatType, this.goatType);

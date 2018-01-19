@@ -12,6 +12,7 @@ import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
 import com.animania.common.entities.sheep.ai.EntityAIMateSheep;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
@@ -49,9 +50,11 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.mateable = true;
 		//this.tasks.addTask(3, new EntityAIFollowMateSheep(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIMateSheep(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIButtHeadsSheep(this, 1.3D));
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+			this.tasks.addTask(3, new EntityAIButtHeadsSheep(this, 1.3D));
+		}
 	}
-	
+
 	@Override
 	protected void applyEntityAttributes()
 	{
@@ -59,7 +62,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20D);
 	}
-	
+
 	@Override
 	protected void entityInit()
 	{
@@ -67,7 +70,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.dataManager.register(EntityRamBase.FIGHTING, Boolean.valueOf(false));
 
 	}
-	
+
 	public boolean getFighting()
 	{
 		return this.dataManager.get(EntityRamBase.FIGHTING).booleanValue();
@@ -80,7 +83,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		else
 			this.dataManager.set(EntityRamBase.FIGHTING, Boolean.valueOf(false));
 	}
-	
+
 	@Nullable
 	public UUID getRivalUniqueId()
 	{
@@ -91,7 +94,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	{
 		this.dataManager.set(EntityRamBase.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
-	
+
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
@@ -154,7 +157,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		else
 			return ModSoundEvents.sheepLiving7;
 	}
-	
+
 	@Override
 	public void playLivingSound()
 	{
@@ -163,13 +166,13 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		if (soundevent != null)
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .21F);
 	}
-	
+
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.10F, 0.8F);
 	}
-	
+
 	@Override
 	public void onLivingUpdate()
 	{
@@ -211,11 +214,11 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				}
 			}
 		}
-		
+
 		super.onLivingUpdate();
 	}
-	
-	
+
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
@@ -225,8 +228,8 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		else
 			super.handleStatusUpdate(id);
 	}
-	
-	
+
+
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
@@ -244,13 +247,13 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		else
 			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
-	
+
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && (EntityAnimaniaSheep.TEMPTATION_ITEMS.contains(stack.getItem()));
 	}
-	
+
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
@@ -267,7 +270,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			}
 
 		}
-		
+
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
 

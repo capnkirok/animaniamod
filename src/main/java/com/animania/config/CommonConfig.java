@@ -287,6 +287,9 @@ public class CommonConfig
 		@Comment("Animals do not have to eat or drink")
 		public boolean ambianceMode = false;
 		
+		@Comment("Animals can attack others")
+		public boolean animalsCanAttackOthers = true;
+		
 		@Comment("Can sleep using Wagon")
 		public boolean sleepAllowedWagon = true;
 
@@ -315,66 +318,41 @@ public class CommonConfig
 		public boolean spawnAnimaniaSheep    = true;
 		@Comment("Spawn Animania Rabbits in world")
 		public boolean spawnAnimaniaRabbits    = true;
-
-		@Comment("Spawn limit for Cows in loaded chunks")
-		public int spawnLimitCows = 30;
-		@Comment("Spawn limit for Pigs in loaded chunks")
-		public int spawnLimitPigs = 30;
-		@Comment("Spawn limit for Chickens in loaded chunks")
-		public int spawnLimitChickens = 30;
-		@Comment("Spawn limit for Hedgehogs in loaded chunks")
-		public int spawnLimitHedgehogs = 20;
-		@Comment("Spawn limit for Ferrets in loaded chunks")
-		public int spawnLimitFerrets = 20;
-		@Comment("Spawn limit for Hamsters in loaded chunks")
-		public int spawnLimitHamsters = 24;
-		@Comment("Spawn limit for Peacocks in loaded chunks")
-		public int spawnLimitPeacocks = 24;
-		@Comment("Spawn limit for Amphibians in loaded chunks")
-		public int spawnLimitAmphibians = 24;
-		@Comment("Spawn limit for Horses in loaded chunks")
-		public int spawnLimitHorses = 30;
-		@Comment("Spawn limit for Goats in loaded chunks")
-		public int spawnLimitGoats = 30;
-		@Comment("Spawn limit for Sheep in loaded chunks")
-		public int spawnLimitSheep = 30;
-		@Comment("Spawn limit for Rabbits in loaded chunks")
-		public int spawnLimitRabbits = 36;
-
-		@Comment("Spawn probability Cows")
-		public int spawnProbabilityCows = 6;
-		@Comment("Spawn probability Horses")
+		
+		@Comment("Spawn probability Cows in loaded Chunks")
+		public int spawnProbabilityCows = 10;
+		@Comment("Spawn probability Horses in loaded Chunks")
 		public int spawnProbabilityHorses = 6;
-		@Comment("Spawn probability Pigs")
-		public int spawnProbabilitySows = 6;
-		@Comment("Spawn probability Hens")
-		public int spawnProbabilityHens = 6;
-		@Comment("Spawn probability Hedgehogs")
+		@Comment("Spawn probability Pigs in loaded Chunks")
+		public int spawnProbabilityPigs = 10;
+		@Comment("Spawn probability Chickens in loaded Chunks")
+		public int spawnProbabilityChickens = 10;
+		@Comment("Spawn probability Hedgehogs in loaded Chunks")
 		public int spawnProbabilityHedgehogs = 8;
-		@Comment("Spawn probability Ferrets")
+		@Comment("Spawn probability Ferrets in loaded Chunks")
 		public int spawnProbabilityFerrets = 8;
-		@Comment("Spawn probability Hamsters")
+		@Comment("Spawn probability Hamsters in loaded Chunks")
 		public int spawnProbabilityHamsters = 8;
-		@Comment("Spawn probability Peacocks")
+		@Comment("Spawn probability Peacocks in loaded Chunks")
 		public int spawnProbabilityPeacocks = 8;
-		@Comment("Spawn probability Amphibians")
+		@Comment("Spawn probability Amphibians in loaded Chunks")
 		public int spawnProbabilityAmphibians = 6;
-		@Comment("Spawn probability Goats")
-		public int spawnProbabilityGoats = 4;
-		@Comment("Spawn probability Sheep")
-		public int spawnProbabilitySheep = 4;
-		@Comment("Spawn probability Rabbits")
-		public int spawnProbabilityRabbits = 4;
+		@Comment("Spawn probability Goats in loaded Chunks")
+		public int spawnProbabilityGoats = 6;
+		@Comment("Spawn probability Sheep in loaded Chunks")
+		public int spawnProbabilitySheep = 10;
+		@Comment("Spawn probability Rabbits in loaded Chunks")
+		public int spawnProbabilityRabbits = 6;
 		
 
 		@Comment("Number of potential Cow families per chunk")
-		public int numberCowFamilies = 1;
+		public int numberCowFamilies = 2;
 		@Comment("Number of potential Pig families per chunk")
-		public int numberPigFamilies = 1;
+		public int numberPigFamilies = 2;
 		@Comment("Number of potential Chicken families per chunk")
 		public int numberChickenFamilies = 2;
 		@Comment("Number of potential Horse families per chunk")
-		public int numberHorseFamilies = 1;
+		public int numberHorseFamilies = 2;
 		@Comment("Number of potential Goat families per chunk")
 		public int numberGoatFamilies = 1;
 		@Comment("Number of potential Sheep families per chunk")
@@ -434,19 +412,34 @@ public class CommonConfig
 
 	public static class Drops
 	{
-
 		@Comment("Enable Animal Drops from Config")
 		public boolean customMobDrops = true;
 		@Comment("Enable Animals Drop their custom meat types")
 		public boolean oldMeatDrops = false;
 		@Comment("Set Custom Chicken Drop (if enabled)")
 		public String chickenDrop = "animania:raw_prime_chicken";
+		@Comment("Set Custom Chicken Secondary Drop")
+		public String chickenDrop2 = "minecraft:feather";
+		@Comment("Set Custom Chicken Secondary Drop Amount")
+		public int chickenDrop2Amount = 1;
 		@Comment("Set Custom Pig Drop (if enabled)")
 		public String pigDrop = "animania:raw_prime_pork";
+		@Comment("Set Custom Pig Secondary Drop")
+		public String pigDrop2 = "";
+		@Comment("Set Custom Pig Secondary Drop Amount")
+		public int pigDrop2Amount = 1;
 		@Comment("Set Custom Cow Drop (if enabled)")
 		public String cowDrop = "animania:raw_prime_beef";
+		@Comment("Set Custom Cow Secondary Drop")
+		public String cowDrop2 = "minecraft:leather";
+		@Comment("Set Custom Cow Secondary Drop Amount")
+		public int cowDrop2Amount = 1;
 		@Comment("Set Custom Horse Drop (if enabled)")
 		public String horseDrop = "";
+		@Comment("Set Custom Horse Secondary Drop")
+		public String horseDrop2 = "minecraft:leather";
+		@Comment("Set Custom Horse Secondary Drop Amount")
+		public int horseDrop2Amount = 1;
 		@Comment("Set Custom Blue Peacock Drop (if enabled)")
 		public String peacockBlueDrop = "animania:blue_peacock_feather";
 		@Comment("Set Custom Charcoal Peacock Drop (if enabled)")
@@ -461,30 +454,70 @@ public class CommonConfig
 		public String peacockTaupeDrop = "animania:taupe_peacock_feather";
 		@Comment("Set Custom White Peacock Drop (if enabled)")
 		public String peacockWhiteDrop = "animania:white_peacock_feather";
+		@Comment("Set Custom Peacock Secondary Drop")
+		public String peacockDrop2 = "";
+		@Comment("Set Custom Peacock Secondary Drop Amount")
+		public int peacockDrop2Amount = 1;
 		@Comment("Set Custom Ferret Drop (if enabled)")
 		public String ferretDrop = "";
+		@Comment("Set Custom Ferret Secondary Drop")
+		public String ferretDrop2 = "";
+		@Comment("Set Custom Ferret Secondary Drop Amount")
+		public int ferretDrop2Amount = 1;
 		@Comment("Set Custom Hamster Drop (if enabled)")
 		public String hamsterDrop = "animania:hamster_food";
+		@Comment("Set Custom Hamster Secondary Drop")
+		public String hamsterDrop2 = "";
+		@Comment("Set Custom Hamster Secondary Drop Amount")
+		public int hamsterDrop2Amount = 1;
 		@Comment("Set Custom Hedgehog Drop (if enabled)")
 		public String hedgehogDrop = "";
+		@Comment("Set Custom Hedgehog Secondary Drop")
+		public String hedgehogDrop2 = "";
+		@Comment("Set Custom Hedgehog Secondary Drop Amount")
+		public int hedgehogDrop2Amount = 1;
 		@Comment("Set Custom Frog Drop")
 		public String frogDrop = "animania:raw_frog_legs";
+		@Comment("Set Custom Frog Secondary Drop")
+		public String frogDrop2 = "";
+		@Comment("Set Custom frog Secondary Drop Amount")
+		public int frogDrop2Amount = 1;
 		@Comment("Set Custom Toad Drop")
 		public String toadDrop = "";
+		@Comment("Set Custom Toad Secondary Drop")
+		public String toadDrop2 = "";
+		@Comment("Set Custom Toad Secondary Drop Amount")
+		public int toadDrop2Amount = 1;
 		@Comment("Set Custom Dart Frog Drop")
 		public String dartFrogDrop = "";
+		@Comment("Set Custom Dart Frog Secondary Drop")
+		public String dartFrogDrop2 = "";
+		@Comment("Set Custom Dart Frog Secondary Drop Amount")
+		public int dartFrogDrop2Amount = 1;
 		@Comment("Set Custom Goat Drop")
 		public String goatDrop = "animania:raw_chevon";
+		@Comment("Set Custom Goat Secondary Drop")
+		public String goatDrop2 = "";
+		@Comment("Set Custom Goat Secondary Drop Amount")
+		public int goatDrop2Amount = 1;
 		@Comment("Set Custom Sheep Drop")
 		public String sheepDrop = "animania:raw_prime_mutton";
+		@Comment("Set Custom Sheep Secondary Drop")
+		public String sheepDrop2 = "";
+		@Comment("Set Custom Sheep Secondary Drop Amount")
+		public int sheepDrop2Amount = 1;
 		@Comment("Set Custom Rabbit Drop")
-		public String  rabbitDrop         = "animania:raw_prime_rabbit";
+		public String  rabbitDrop = "animania:raw_prime_rabbit";
+		@Comment("Set Custom Rabbit Secondary Drop")
+		public String rabbitDrop2 = "minecraft:rabbit_foot";
+		@Comment("Set Custom Rabbit Secondary Drop Amount")
+		public int rabbitDrop2Amount = 1;
 		@Comment("Allow Animania Chickens to drop Eggs")
 		public Boolean chickensDropEggs = false;
 		@Comment("Allow Animania Chickens to drop Feathers")
 		public Boolean chickensDropFeathers = true;
 	}
-
+	
 	public static class FoodValues
 	{
 		@Comment("Food Value Overrides")

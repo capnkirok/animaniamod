@@ -323,6 +323,12 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 			this.setAnimalAge(1);
 		}
 		
+		if (this.isBeingRidden() && !this.isAIDisabled()) {
+			this.setNoAI(true);
+		} else {
+			this.setNoAI(false);
+		}
+		
 		if (this.world.isRemote)
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
@@ -410,40 +416,6 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		}
 
 		super.onLivingUpdate();
-	}
-
-	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
-	{
-
-		ItemStack stack = player.getHeldItem(hand);
-
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
-			{
-				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				{
-					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-				}
-				else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				{
-					player.dropItem(new ItemStack(Items.BUCKET), false);
-				}
-
-				if (this.entityAIEatGrass != null) {
-					this.entityAIEatGrass.startExecuting();
-					eatTimer = 40;
-				}
-				this.setWatered(true);
-				this.setInLove(player);
-				return true;
-			}
-		} else if (stack == ItemStack.EMPTY && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
-			player.startRiding(this);
-			player.addStat(AnimaniaAchievements.Horseriding, 1);
-			return true;
-		} else {
-			return super.processInteract(player, hand);
-		}
 	}
 
 	@Override

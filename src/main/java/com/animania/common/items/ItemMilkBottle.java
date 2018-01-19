@@ -5,12 +5,16 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -33,15 +37,19 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 		if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
 		{
 			stack.shrink(1);
+			if (!worldIn.isRemote) {
+				EntityItem entityitem = new EntityItem(worldIn, entityLiving.posX + 0.5D, entityLiving.posY + 0.5D, entityLiving.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
+				worldIn.spawnEntity(entityitem);
+			}
+
+			EntityPlayer entityplayer = (EntityPlayer)entityLiving;
+			entityplayer.getFoodStats().addStats(this, stack);
+			worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+			this.onFoodEaten(stack, worldIn, entityplayer);
+			entityplayer.addStat(StatList.getObjectUseStats(this));
 		}
 
-		return new ItemStack(Items.GLASS_BOTTLE);
-	}
-
-	@Override
-	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
-	{
-
+		return stack;
 	}
 
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)

@@ -227,7 +227,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable
 		} else
 			this.dataManager.set(EntityAnimaniaGoat.FED, Boolean.valueOf(false));
 	}
-	
+
 	public boolean getHandFed()
 	{
 		return this.dataManager.get(EntityAnimaniaGoat.HANDFED).booleanValue();
@@ -281,7 +281,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable
 		if (this.getAnimalAge() == 0) {
 			this.setAnimalAge(1);
 		}
-		
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -529,7 +529,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable
 		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.goatDrop;
 			dropItem = AnimaniaHelper.getItem(drop);
-			//TODO AIR
 			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
 			{
 				drop = this.dropCooked.getRegistryName().toString();
@@ -541,19 +540,31 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable
 				dropItem = new ItemStack(this.dropCooked, 1);
 		}
 
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.goatDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
 		if (happyDrops >= 1)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
 			if ((this instanceof EntityBuckAngora || this instanceof EntityDoeAngora) && !this.getSheared())  {
 				this.dropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1).getItem(), 1 + lootlevel);
-			}		
-		} else if (happyDrops == 0)
+			}	
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.goatDrop2Amount + lootlevel);
+			}
+		} else if (happyDrops == 0) {
 			if ((this instanceof EntityBuckAngora || this instanceof EntityDoeAngora) && !this.getSheared())  {
 				this.dropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1).getItem(), 1 + lootlevel);
 			}
-
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.goatDrop2Amount + lootlevel);
+			}
+		}
 	}
 
 	@Override

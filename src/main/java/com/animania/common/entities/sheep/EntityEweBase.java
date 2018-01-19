@@ -68,53 +68,46 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 		if (this.world.isRemote)
 			return null;
+		
+		int chooser = this.rand.nextInt(5);
 
-		int sheepCount = 0;
-		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 128, this.world, this);
-		sheepCount = entities.size();
-
-		if (sheepCount <= AnimaniaConfig.spawn.spawnLimitSheep)
+		if (chooser == 0)
 		{
-
-			int chooser = this.rand.nextInt(5);
-
-			if (chooser == 0)
-			{
-				EntityRamBase entitySheep = this.sheepType.getMale(world);
-				entitySheep.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entitySheep);
-				entitySheep.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entitySheep.getPersistentID());
-			}
-			else if (chooser == 1)
-			{
-				EntityLambBase entityKid = this.sheepType.getChild(world);
-				entityKid.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityKid);
-				entityKid.setParentUniqueId(this.entityUniqueID);
-				this.setHasKids(true);
-			}
-			else if (chooser > 2)
-			{
-				EntityRamBase entityRam = this.sheepType.getMale(world);
-				entityRam.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityRam);
-				entityRam.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityRam.getPersistentID());
-				EntityLambBase entityKid = this.sheepType.getChild(world);
-				entityKid.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityKid);
-				entityKid.setParentUniqueId(this.entityUniqueID);
-				this.setHasKids(true);
-			}
-
-			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
-
-			if (this.rand.nextFloat() < 0.05F)
-				this.setLeftHanded(true);
-			else
-				this.setLeftHanded(false);
+			EntityRamBase entitySheep = this.sheepType.getMale(world);
+			entitySheep.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entitySheep);
+			entitySheep.setMateUniqueId(this.entityUniqueID);
+			this.setMateUniqueId(entitySheep.getPersistentID());
 		}
+		else if (chooser == 1)
+		{
+			EntityLambBase entityKid = this.sheepType.getChild(world);
+			entityKid.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityKid);
+			entityKid.setParentUniqueId(this.entityUniqueID);
+			this.setHasKids(true);
+		}
+		else if (chooser > 2)
+		{
+			EntityRamBase entityRam = this.sheepType.getMale(world);
+			entityRam.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityRam);
+			entityRam.setMateUniqueId(this.entityUniqueID);
+			this.setMateUniqueId(entityRam.getPersistentID());
+			EntityLambBase entityKid = this.sheepType.getChild(world);
+			entityKid.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityKid);
+			entityKid.setParentUniqueId(this.entityUniqueID);
+			this.setHasKids(true);
+		}
+
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
+
+		if (this.rand.nextFloat() < 0.05F)
+			this.setLeftHanded(true);
+		else
+			this.setLeftHanded(false);
+
 		return livingdata;
 	}
 
@@ -335,7 +328,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					}
 				}
 				sheepCount = num;
-				
+
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 30, this.world, this);
 				int esize = entities.size();
@@ -343,8 +336,8 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				for (int k = 0; k <= esize - 1; k++)
 				{
 					EntityRamBase entity = (EntityRamBase) entities.get(k);
-					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && sheepCount < AnimaniaConfig.spawn.spawnLimitSheep)  {
-					
+					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID))  {
+
 						this.setInLove(null);
 						SheepType maleType = ((EntityAnimaniaSheep) entity).sheepType;
 						SheepType babyType = sheepType.breed(maleType, this.sheepType);
@@ -370,7 +363,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					}
 				}
 
-				if (!mateFound && this.getFed() && this.getWatered() && sheepCount < AnimaniaConfig.spawn.spawnLimitSheep)  {
+				if (!mateFound && this.getFed() && this.getWatered())  {
 
 					this.setInLove(null);
 					SheepType babyType = sheepType.breed(this.sheepType, this.sheepType);

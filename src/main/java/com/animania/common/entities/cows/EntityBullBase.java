@@ -13,6 +13,7 @@ import com.animania.common.entities.cows.ai.EntityAIMateCows;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -45,7 +46,9 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.setSize(1.6F, 1.8F);
 		this.gender = EntityGender.MALE;
 		this.stepHeight = 1.1F;
-		this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 1.8D, false));
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+			this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 1.8D, false));
+		}
 		//this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
 		this.tasks.addTask(6, new EntityAIMateCows(this, 1.0D));
 		this.mateable = true;

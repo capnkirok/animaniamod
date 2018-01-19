@@ -81,7 +81,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityFerretBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> AGE = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.MUTTON, Items.EGG, ItemHandler.brownEgg, Items.CHICKEN, ItemHandler.rawWyandotteChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken, ItemHandler.rawPrimeChicken });
 	protected int fedTimer;
 	protected int wateredTimer;
@@ -127,15 +127,17 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.tasks.addTask(11, new EntityAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(12, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(13, new EntityAILookIdleRodent(this));
-		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityChickLeghorn.class, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityChickOrpington.class, false));
-		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityChickPlymouthRock.class, false));
-		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityChickRhodeIslandRed.class, false));
-		this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntityChickWyandotte.class, false));
-		this.targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
-		this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
-		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
-		this.targetTasks.addTask(9, new EntityAIHurtByTarget(this, true, new Class[0]));
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+			this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityChickLeghorn.class, false));
+			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityChickOrpington.class, false));
+			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityChickPlymouthRock.class, false));
+			this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityChickRhodeIslandRed.class, false));
+			this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntityChickWyandotte.class, false));
+			this.targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
+			this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
+			this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+			this.targetTasks.addTask(9, new EntityAIHurtByTarget(this, true, new Class[0]));
+		}
 	}
 
 	@Override
@@ -209,17 +211,31 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		else
 			dropItem = null;
 
-		if (happyDrops == 2 && dropItem !=null)
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.ferretDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.ferretDrop2Amount + lootlevel);
+			}
 		}
-		else if (happyDrops == 1 && dropItem !=null)
+		else if (happyDrops == 1)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.ferretDrop2Amount + lootlevel);
+			}
 		}
 
 	}
@@ -307,20 +323,20 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.dataManager.register(EntityFerretBase.TAMED, Boolean.valueOf(false));
 		this.dataManager.register(EntityFerretBase.SITTING, Boolean.valueOf(false));
 		this.dataManager.register(EntityFerretBase.RIDING, Boolean.valueOf(false));
-		this.dataManager.register(EntityFerretBase.AGE, Integer.valueOf(0));
+		this.dataManager.register(EntityFerretBase.AGE, Boolean.valueOf(false));
 
 	}
 
-	public int getAnimalAge()
+	public boolean getAnimalAge()
 	{
-		return this.dataManager.get(EntityFerretBase.AGE).intValue();
+		return this.dataManager.get(EntityFerretBase.AGE).booleanValue();
 	}
 
-	public void setAnimalAge(int age)
+	public void setAnimalAge(boolean age)
 	{
-		this.dataManager.set(EntityFerretBase.AGE, Integer.valueOf(age));
+		this.dataManager.set(EntityFerretBase.AGE, Boolean.valueOf(age));
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
@@ -330,7 +346,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		compound.setBoolean("IsTamed", this.getIsTamed());
 		compound.setBoolean("IsSitting", this.isFerretSitting());
 		compound.setBoolean("Riding", this.isFerretRiding());
-		compound.setInteger("Age", this.getAnimalAge());
+		compound.setBoolean("Age", this.getAnimalAge());
 
 
 	}
@@ -347,7 +363,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.setIsTamed(compound.getBoolean("IsTamed"));
 		this.setFerretSitting(compound.getBoolean("IsSitting"));
 		this.setFerretRiding(compound.getBoolean("Riding"));
-		this.setAnimalAge(compound.getInteger("Age"));
+		this.setAnimalAge(compound.getBoolean("Age"));
 
 	}
 
@@ -453,10 +469,10 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public void onLivingUpdate()
 	{
 
-		if (this.getAnimalAge() == 0) {
-			this.setAnimalAge(1);
+		if (!this.getAnimalAge()) {
+			this.setAnimalAge(true);
 		}
-		
+
 		if (this.isFerretSitting() || this.isRiding())
 		{
 			if (this.getRidingEntity() != null)
@@ -659,13 +675,13 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	{
 		return stack != ItemStack.EMPTY && EntityFerretBase.TEMPTATION_ITEMS.contains(stack.getItem());
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, EntityGender.NONE));
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
@@ -685,7 +701,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public EntityGender getEntityGender()
 	{

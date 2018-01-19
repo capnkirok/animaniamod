@@ -76,7 +76,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { ItemHandler.hamsterFood });
 	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> AGE = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final String[] HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou", "white", "gold" };
 
 	private int fedTimer;
@@ -216,18 +216,18 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.dataManager.register(EntityHamster.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityHamster.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityHamster.RIDING, Boolean.valueOf(false));
-		this.dataManager.register(EntityHamster.AGE, Integer.valueOf(0));
+		this.dataManager.register(EntityHamster.AGE, Boolean.valueOf(false));
 
 	}
-	
-	public int getAnimalAge()
+
+	public boolean getAnimalAge()
 	{
-		return this.dataManager.get(EntityHamster.AGE).intValue();
+		return this.dataManager.get(EntityHamster.AGE).booleanValue();
 	}
 
-	public void setAnimalAge(int age)
+	public void setAnimalAge(boolean age)
 	{
-		this.dataManager.set(EntityHamster.AGE, Integer.valueOf(age));
+		this.dataManager.set(EntityHamster.AGE, Boolean.valueOf(age));
 	}
 
 	@Override
@@ -243,7 +243,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		nbttagcompound.setBoolean("Watered", this.getWatered());
 		nbttagcompound.setBoolean("IsTamed", this.getIsTamed());
 		nbttagcompound.setBoolean("IsRiding", this.getIsRiding());
-		nbttagcompound.setInteger("Age", this.getAnimalAge());
+		nbttagcompound.setBoolean("Age", this.getAnimalAge());
 
 	}
 
@@ -261,7 +261,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
 		this.setIsTamed(nbttagcompound.getBoolean("IsTamed"));
 		this.setIsRiding(nbttagcompound.getBoolean("IsRiding"));
-		this.setAnimalAge(nbttagcompound.getInteger("Age"));
+		this.setAnimalAge(nbttagcompound.getBoolean("Age"));
 	}
 
 	@Override
@@ -304,7 +304,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				return true;
 			}
 
-		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && this.getAnimalAge() == 0)
+		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && !this.getAnimalAge())
 		{
 
 			if (!player.capabilities.isCreativeMode)
@@ -566,10 +566,10 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public void onLivingUpdate()
 	{
 
-		if (this.getAnimalAge() == 0) {
-			this.setAnimalAge(1);
+		if (!this.getAnimalAge()) {
+			this.setAnimalAge(true);
 		}
-		
+
 		if (this.isRiding())
 			this.rideCount++;
 
@@ -903,17 +903,31 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		else
 			dropItem = null;
 
-		if (happyDrops == 2 && dropItem !=null)
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.hamsterDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hamsterDrop2Amount + lootlevel);
+			}
 		}
-		else if (happyDrops == 1 && dropItem !=null)
+		else if (happyDrops == 1)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hamsterDrop2Amount + lootlevel);
+			}
 		}
 
 		if (this.isInBall())

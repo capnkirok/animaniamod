@@ -52,8 +52,10 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		this.tasks.addTask(6, new EntityAIFindNest(this, 1.0D));
 		this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
 		this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
-		this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
-		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+			this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
+			this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+		}
 		this.gender = EntityGender.FEMALE;
 
 	}
@@ -66,45 +68,36 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		if (this.world.isRemote)
 			return null;
 
-		int chickenCount = 0;
-		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 128, this.world, this);
-		chickenCount = entities.size();
+		int chooser = this.rand.nextInt(5);
 
-		if (chickenCount <= AnimaniaConfig.spawn.spawnLimitChickens)
+		if (chooser == 0)
 		{
-
-			int chooser = this.rand.nextInt(5);
-
-			if (chooser == 0)
-			{
-				EntityRoosterBase entityChicken = this.type.getMale(world);
-				entityChicken.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityChicken);
-			}
-			else if (chooser == 1)
-			{
-				EntityChickBase entityChicken = this.type.getChild(world);
-				entityChicken.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityChicken);
-			}
-			else if (chooser > 2)
-			{
-				EntityRoosterBase entityChicken = this.type.getMale(world);
-				entityChicken.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityChicken);
-				EntityChickBase entityChick = this.type.getChild(world);
-				entityChick.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityChick);
-			}
-
-			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
-
-			if (this.rand.nextFloat() < 0.05F)
-				this.setLeftHanded(true);
-			else
-				this.setLeftHanded(false);
-
+			EntityRoosterBase entityChicken = this.type.getMale(world);
+			entityChicken.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityChicken);
 		}
+		else if (chooser == 1)
+		{
+			EntityChickBase entityChicken = this.type.getChild(world);
+			entityChicken.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityChicken);
+		}
+		else if (chooser > 2)
+		{
+			EntityRoosterBase entityChicken = this.type.getMale(world);
+			entityChicken.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityChicken);
+			EntityChickBase entityChick = this.type.getChild(world);
+			entityChick.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityChick);
+		}
+
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
+
+		if (this.rand.nextFloat() < 0.05F)
+			this.setLeftHanded(true);
+		else
+			this.setLeftHanded(false);
 
 		return livingdata;
 	}

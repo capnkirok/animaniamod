@@ -76,46 +76,43 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 128, this.world, this);
 		pigCount = entities.size();
 
-		if (pigCount <= AnimaniaConfig.spawn.spawnLimitPigs)
+		int chooser = this.rand.nextInt(5);
+
+		if (chooser == 0)
 		{
-
-			int chooser = this.rand.nextInt(5);
-
-			if (chooser == 0)
-			{
-				EntityHogBase entityPig = this.pigType.getMale(world);
-				entityPig.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityPig);
-				entityPig.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityPig.getPersistentID());
-			}
-			else if (chooser == 1)
-			{
-				EntityPigletBase entityPig = this.pigType.getChild(world);
-				entityPig.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityPig);
-				entityPig.setParentUniqueId(this.entityUniqueID);
-			}
-			else if (chooser > 2)
-			{
-				EntityHogBase entityPig = this.pigType.getMale(world);
-				entityPig.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityPig);
-				entityPig.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityPig.getPersistentID());
-				EntityPigletBase entityPiglet = this.pigType.getChild(world);
-				entityPiglet.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityPiglet);
-				entityPiglet.setParentUniqueId(this.entityUniqueID);
-			}
-
-			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
-
-			if (this.rand.nextFloat() < 0.05F)
-				this.setLeftHanded(true);
-			else
-				this.setLeftHanded(false);
+			EntityHogBase entityPig = this.pigType.getMale(world);
+			entityPig.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityPig);
+			entityPig.setMateUniqueId(this.entityUniqueID);
+			this.setMateUniqueId(entityPig.getPersistentID());
 		}
+		else if (chooser == 1)
+		{
+			EntityPigletBase entityPig = this.pigType.getChild(world);
+			entityPig.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityPig);
+			entityPig.setParentUniqueId(this.entityUniqueID);
+		}
+		else if (chooser > 2)
+		{
+			EntityHogBase entityPig = this.pigType.getMale(world);
+			entityPig.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityPig);
+			entityPig.setMateUniqueId(this.entityUniqueID);
+			this.setMateUniqueId(entityPig.getPersistentID());
+			EntityPigletBase entityPiglet = this.pigType.getChild(world);
+			entityPiglet.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityPiglet);
+			entityPiglet.setParentUniqueId(this.entityUniqueID);
+		}
+
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
+
+		if (this.rand.nextFloat() < 0.05F)
+			this.setLeftHanded(true);
+		else
+			this.setLeftHanded(false);
+
 		return livingdata;
 	}
 
@@ -479,7 +476,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 					}
 				}
 				pigCount = num;
-				
+
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityHogBase.class, 30, this.world, this);
 				int esize = entities.size();
@@ -487,7 +484,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				for (int k = 0; k <= esize - 1; k++) 
 				{
 					EntityHogBase entity = (EntityHogBase)entities.get(k);
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && pigCount < AnimaniaConfig.spawn.spawnLimitPigs) {
+					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
 
 						this.setInLove(null);
 						PigType maleType = ((EntityAnimaniaPig) entity).pigType;
@@ -512,8 +509,8 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 					}
 				}
-				
-				if (!mateFound && this.getFed() && this.getWatered() && pigCount < AnimaniaConfig.spawn.spawnLimitPigs) {
+
+				if (!mateFound && this.getFed() && this.getWatered()) {
 
 					this.setInLove(null);
 					PigType babyType = pigType.breed(this.pigType, this.pigType);
@@ -590,23 +587,23 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		return null;
 	}
 
-	
+
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && (EntityAnimaniaPig.TEMPTATION_ITEMS.contains(stack.getItem()) || ItemStack.areItemStacksEqual(stack, this.slop));
 	}
-	
+
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
-		 
+
 		if (player.isSneaking())
 		{
-		
+
 			if (this.getMateUniqueId() != null) 
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
-			
+
 			if (this.getHasKids())
 				probeInfo.text(I18n.translateToLocal("text.waila.milkable"));
 

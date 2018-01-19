@@ -106,14 +106,14 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-		
+
 		player.addStat(this.type.getAchievement(), 1); 
-	
+
 		if (player.hasAchievement(AnimaniaAchievements.Leghorn) && player.hasAchievement(AnimaniaAchievements.Orpington) && player.hasAchievement(AnimaniaAchievements.PlymouthRock) && player.hasAchievement(AnimaniaAchievements.RhodeIslandRed) && player.hasAchievement(AnimaniaAchievements.Wyandotte))
 			player.addStat(AnimaniaAchievements.Chickens, 1);
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
-		
+
 		super.consumeItemFromStack(player, stack);
 	}
 
@@ -170,7 +170,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 		this.dataManager.register(EntityAnimaniaChicken.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaChicken.AGE, Integer.valueOf(0));
 	}
-	
+
 	public int getAnimalAge()
 	{
 		return this.dataManager.get(EntityAnimaniaChicken.AGE).intValue();
@@ -210,7 +210,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 		if (this.getAnimalAge() == 0) {
 			this.setAnimalAge(1);
 		}
-		
+
 		super.onLivingUpdate();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
@@ -489,28 +489,41 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable
 			}
 		}
 
-		if (happyDrops == 2 && dropItem != null)
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.chickenDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
-			this.dropItem(Items.FEATHER, 1);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
+			}
 		}
-		else if (happyDrops == 1 && dropItem != null)
+		else if (happyDrops == 1)
 		{
 			if (this.isBurning())
 			{
 				this.dropItem(Items.COOKED_CHICKEN, 1 + lootlevel);
-				this.dropItem(Items.FEATHER, 1 + lootlevel);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
+				}
 			}
 			else
 			{
 				this.dropItem(Items.CHICKEN, 1 + lootlevel);
-				this.dropItem(Items.FEATHER, 1 + lootlevel);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
+				}
 			}
 		}
-		else if (happyDrops == 0)
-			this.dropItem(Items.FEATHER, 1 + lootlevel);
+		else if (happyDrops == 0) {
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
+			}
+		}
 
 	}
 

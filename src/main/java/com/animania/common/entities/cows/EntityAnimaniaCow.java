@@ -128,7 +128,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 	{
 		this.dataManager.set(EntityAnimaniaCow.AGE, Integer.valueOf(age));
 	}
-	
+
 	@Override
 	protected ResourceLocation getLootTable()
 	{
@@ -209,7 +209,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		this.dataManager.set(EntityAnimaniaCow.HANDFED, Boolean.valueOf(handfed));
 	}
 
-	
+
 	public boolean getWatered()
 	{
 		return this.dataManager.get(EntityAnimaniaCow.WATERED).booleanValue();
@@ -264,7 +264,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		if (this.getAnimalAge() == 0) {
 			this.setAnimalAge(1);
 		}
-		
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -379,7 +379,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 	{
 		return TEMPTATION_ITEMS.contains(itemIn) || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
@@ -459,27 +459,43 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 			}
 		}
 
-		if (happyDrops == 2 && dropItem !=null)
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.cowDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
-			this.dropItem(Items.LEATHER, 1);
-		} else if (happyDrops == 1 && dropItem !=null)
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+			}
+		} else if (happyDrops == 1)
 		{
 			if (this.isBurning())
 			{
 				this.dropItem(Items.COOKED_BEEF, 1 + lootlevel);
-				this.dropItem(Items.LEATHER, 1 + lootlevel);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+				}
 			}
 			else
 			{
 				this.dropItem(Items.BEEF, 1 + lootlevel);
-				this.dropItem(Items.LEATHER, 1 + lootlevel);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+				}
 			}
 		}
-		else if (happyDrops == 0)
-			this.dropItem(Items.LEATHER, 1 + lootlevel);
+		else if (happyDrops == 0) {
+
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+			}
+		}
 
 	}
 

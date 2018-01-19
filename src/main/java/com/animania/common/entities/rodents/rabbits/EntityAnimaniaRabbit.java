@@ -239,7 +239,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 	{
 		return null;
 	}
-	
+
 	public int getAnimalAge()
 	{
 		return this.dataManager.get(EntityAnimaniaRabbit.AGE).intValue();
@@ -365,7 +365,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 		} else
 			this.dataManager.set(EntityAnimaniaRabbit.FED, Boolean.valueOf(false));
 	}
-	
+
 	public boolean getHandFed()
 	{
 		return this.dataManager.get(EntityAnimaniaRabbit.HANDFED).booleanValue();
@@ -417,7 +417,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 	{
 		return resourceLocationBlink;
 	}
-	
+
 
 	@Override
 	protected Item getDropItem()
@@ -465,7 +465,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 		if (this.getAnimalAge() == 0) {
 			this.setAnimalAge(1);
 		}
-		
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -652,17 +652,25 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 				dropItem = new ItemStack(this.dropCooked, 1);
 		}
 
-
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.rabbitDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
 
 		if (happyDrops >= 1)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
-			this.dropItem(Items.RABBIT_FOOT, 1 + lootlevel);
-		} else if (happyDrops == 0)
-			this.dropItem(Items.RABBIT_FOOT, 1 + lootlevel);
-
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.rabbitDrop2Amount + lootlevel);
+			}
+		} else if (happyDrops == 0) {
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.rabbitDrop2Amount + lootlevel);
+			}
+		}
 	}
 
 
@@ -944,7 +952,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public EntityGender getEntityGender()
 	{

@@ -86,6 +86,10 @@ public class ItemHandler
 	public static Item rawPrimeBeef;
 	public static Item cookedPrimeSteak;
 	public static Item cookedPrimeBeef;
+	
+	// Horse
+	public static Item rawHorse;
+	public static Item cookedHorse;
 
 	// Pork
 	public static Item rawLargeBlackPork;
@@ -484,7 +488,9 @@ public class ItemHandler
 		ItemHandler.rawFrogLegs = new ItemAnimaniaFoodRaw("raw_frog_legs");
 		ItemHandler.cookedFrogLegs = new ItemAnimaniaFood(3, 1f, "cooked_frog_legs", new PotionEffect(MobEffects.JUMP_BOOST, 1200, 2, false, false));
 
-		// Item Entity Eggs
+		// HORSE ITEMS
+		ItemHandler.rawHorse = new ItemAnimaniaFoodRaw("raw_horse");
+		ItemHandler.cookedHorse = new ItemAnimaniaFood(3, 1f, "cooked_horse", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
 
 		// GOAT ITEMS
 		ItemHandler.rawChevon = new ItemAnimaniaFoodRaw("raw_chevon");

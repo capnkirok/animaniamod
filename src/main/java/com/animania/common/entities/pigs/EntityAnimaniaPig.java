@@ -216,7 +216,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 	{
 		this.dataManager.set(EntityAnimaniaPig.AGE, Integer.valueOf(age));
 	}
-	
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
@@ -311,17 +311,32 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 			}
 		}
 
-		if (happyDrops == 3 && dropItem !=null)
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.pigDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 3)
 		{
-			dropItem.setCount(2 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(2 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
+			}
 		}
 		else if (happyDrops == 2 && dropItem !=null)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
+			}
 		}
 		else if (happyDrops == 1 && dropItem !=null)
 		{
@@ -332,6 +347,9 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 			else
 			{
 				this.dropItem(Items.PORKCHOP, 1 + lootlevel);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
 			}
 		}
 	}
@@ -379,8 +397,8 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		this.dataManager.set(EntityAnimaniaPig.HANDFED, Boolean.valueOf(handfed));
 	}
 
-	
-	
+
+
 	public void setSlopFed(boolean fed)
 	{
 		if (fed)
@@ -490,7 +508,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		if (this.getAnimalAge() == 0) {
 			this.setAnimalAge(1);
 		}
-		
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -591,13 +609,13 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 	{
 		return null;
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.pigType, this.gender));
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
@@ -617,7 +635,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public EntityGender getEntityGender()
 	{

@@ -170,7 +170,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 			{
 				if (!te.getItemHandler().getStackInSlot(0).isEmpty() && !player.isSneaking())
 				{
-					AnimaniaHelper.addItem(player, te.getItemHandler().getStackInSlot(0));
+					player.inventory.addItemStackToInventory(te.getItemHandler().getStackInSlot(0));
 					return true;
 				}
 

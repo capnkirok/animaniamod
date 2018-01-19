@@ -1,6 +1,8 @@
 package com.animania.common.entities.chickens;
 
 import com.animania.common.AnimaniaAchievements;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -46,14 +48,18 @@ public class EntityHenLeghorn extends EntityHenBase
 
 		j = happyDrops + lootlevel;
 
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.chickenDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+		
 		for (k = 0; k < j; ++k)
 			if (this.isBurning()) {
 				this.dropItem(Items.COOKED_CHICKEN, 1);
-				this.dropItem(Items.FEATHER, 1);
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
 			}
 			else {
 				this.dropItem(Items.CHICKEN, 1);
-				this.dropItem(Items.FEATHER, 1);
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
 			}
 	}
 	
