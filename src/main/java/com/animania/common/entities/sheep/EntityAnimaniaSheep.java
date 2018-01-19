@@ -73,7 +73,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
-	
+
 	private static final String[] SHEEP_TEXTURES = new String[] {"black", "white", "brown"};
 
 
@@ -221,7 +221,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		} else
 			this.dataManager.set(EntityAnimaniaSheep.FED, Boolean.valueOf(false));
 	}
-	
+
 	public boolean getHandFed()
 	{
 		return this.dataManager.get(EntityAnimaniaSheep.HANDFED).booleanValue();
@@ -273,7 +273,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		if (this.getAge() == 0) {
 			this.setAge(1);
 		}
-		
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -473,7 +473,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	{
 		this.dataManager.set(EntityAnimaniaSheep.AGE, Integer.valueOf(age));
 	}
-	
+
 	public int getColorNumber()
 	{
 		return ((Integer)this.dataManager.get(COLOR_NUM)).intValue();
@@ -563,16 +563,25 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		} else {
 			woolItem = new ItemStack(Item.getItemFromBlock(Blocks.WOOL));
 		}
-		
+
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.sheepDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
 		if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
 			woolItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
 			this.entityDropItem(woolItem, .5F);
-		
-			
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
+			}
+
+
 		} else if (happyDrops == 1)
 		{
 			if (this.isBurning())
@@ -580,15 +589,25 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 				woolItem.setCount(1 + lootlevel);
 				this.dropItem(Items.MUTTON, 1 + lootlevel);
 				this.entityDropItem(woolItem, .5F);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
+				}
 			} else
 			{
 				woolItem.setCount(1 + lootlevel);
 				this.dropItem(Items.MUTTON, 1 + lootlevel);
 				this.entityDropItem(woolItem, .5F);
-				
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
+				}
+
 			}
-		} else if (happyDrops == 0)
+		} else if (happyDrops == 0) {
 			this.entityDropItem(woolItem, .5F);
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
+			}
+		}
 
 	}
 

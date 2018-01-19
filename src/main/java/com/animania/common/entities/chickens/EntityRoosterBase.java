@@ -12,6 +12,7 @@ import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -44,12 +45,14 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 		this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.2F));
 		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));
 		this.tasks.addTask(6, new EntityAIMate(this, 1.0D));
-		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityHedgehog.class, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, false));
-		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityFerretWhite.class, false));
-		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityFerretGrey.class, false));
-		this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
-		this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+			this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityHedgehog.class, false));
+			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, false));
+			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityFerretWhite.class, false));
+			this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityFerretGrey.class, false));
+			this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
+			this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+		}
 		this.gender = EntityGender.MALE;
 	}
 
@@ -163,28 +166,28 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	{
 		this.dataManager.set(EntityRoosterBase.CROWTIMER, Integer.valueOf(timer));
 	}
-	
-	 @Override
-	    protected SoundEvent getHurtSound(DamageSource source) {
-	        Random rand = new Random();
-	        int chooser = rand.nextInt(2);
 
-	        if (chooser == 0)
-	            return ModSoundEvents.chickenHurt1;
-	        else
-	            return ModSoundEvents.chickenHurt2;
-	    }
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source) {
+		Random rand = new Random();
+		int chooser = rand.nextInt(2);
 
-	    @Override
-	    protected SoundEvent getDeathSound() {
-	        Random rand = new Random();
-	        int chooser = rand.nextInt(2);
+		if (chooser == 0)
+			return ModSoundEvents.chickenHurt1;
+		else
+			return ModSoundEvents.chickenHurt2;
+	}
 
-	        if (chooser == 0)
-	            return ModSoundEvents.chickenDeath1;
-	        else
-	            return ModSoundEvents.chickenDeath2;
-	    }
+	@Override
+	protected SoundEvent getDeathSound() {
+		Random rand = new Random();
+		int chooser = rand.nextInt(2);
+
+		if (chooser == 0)
+			return ModSoundEvents.chickenDeath1;
+		else
+			return ModSoundEvents.chickenDeath2;
+	}
 
 	@Override
 	public void playLivingSound()

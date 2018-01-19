@@ -11,6 +11,7 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -49,9 +50,20 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 		if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
 		{
 			stack.shrink(1);
+			if (!worldIn.isRemote) {
+				EntityItem entityitem = new EntityItem(worldIn, entityLiving.posX + 0.5D, entityLiving.posY + 0.5D, entityLiving.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
+				worldIn.spawnEntity(entityitem);
+			}
+			
+			EntityPlayer entityplayer = (EntityPlayer)entityLiving;
+			entityplayer.getFoodStats().addStats(this, stack);
+			worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+			this.onFoodEaten(stack, worldIn, entityplayer);
+			entityplayer.addStat(StatList.getObjectUseStats(this));
+
 		}
 
-		return new ItemStack(Items.GLASS_BOTTLE);
+		return stack;
 	}
 
 	@Override

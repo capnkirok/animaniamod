@@ -94,7 +94,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickCows(this, 1.0));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, EntityPlayer.class));
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, EntityPlayer.class));
+		}
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -457,28 +459,42 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			}
 		}
 
-		if (happyDrops == 2 && dropItem !=null)
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.cowDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
-			this.dropItem(Items.LEATHER, 1);
-		} else if (happyDrops == 1 && dropItem !=null)
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+			}
+		} else if (happyDrops == 1)
 		{
 			if (this.isBurning())
 			{
 				this.dropItem(Items.COOKED_BEEF, 1 + lootlevel);
-				this.dropItem(Items.LEATHER, 1 + lootlevel);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+				}
 			}
 			else
 			{
 				this.dropItem(Items.BEEF, 1 + lootlevel);
-				this.dropItem(Items.LEATHER, 1 + lootlevel);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+				}
 			}
 		}
-		else if (happyDrops == 0)
-			this.dropItem(Items.LEATHER, 1 + lootlevel);
-
+		else if (happyDrops == 0) {
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+			}
+		}
 	}
 
 	@Override

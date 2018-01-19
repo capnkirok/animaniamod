@@ -23,6 +23,7 @@ import com.animania.common.entities.horses.ai.EntityAITemptHorses;
 import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
 import com.animania.common.entities.props.EntityWagon;
+import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.inventory.ContainerHorseCart;
 import com.animania.common.items.ItemEntityEgg;
@@ -84,6 +85,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	private ResourceLocation resourceLocationBlink;
 	protected EntityGender gender;
 	protected ContainerHorseCart cartChest;
+	protected Item dropRaw = Items.AIR;
+	protected Item dropCooked = Items.AIR;
 
 	public EntityAnimaniaHorse(World worldIn)
 	{
@@ -144,7 +147,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	{
 		if (this.isPassenger(passenger))
 		{
-			
+
 			float f = 0.0F;
 			float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
 			if (passenger instanceof EntityPlayer) {
@@ -152,23 +155,23 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			}
 
 			if (passenger instanceof EntityPlayer) {
-				
+
 				EntityPlayer player = (EntityPlayer) passenger;	
 				List wagons = AnimaniaHelper.getWagonsInRange(EntityWagon.class, 3, world, this);
-				
+
 				if (!wagons.isEmpty()) {
 					if (wagons.size() >= 0) {
 						for (int i = 0; i < wagons.size(); i++) {
 							EntityWagon tempWagon = (EntityWagon) wagons.get(i);
 							if (tempWagon.pulled && tempWagon.puller == this) {
-								
+
 								f = (float)((double)f + 1.82D);
 
 								Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-tempWagon.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
 								passenger.setPosition(tempWagon.posX + vec3d.x, tempWagon.posY + (double)f1, tempWagon.posZ + vec3d.z);
 
 							} else {
-							passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
+								passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
 							}
 						}
 					}
@@ -497,38 +500,38 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	}
 
 
-
-
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
-		{
-			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				player.dropItem(new ItemStack(Items.BUCKET), false);
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
+			{
+				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
+				{
+					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+				}
+				else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
+				{
+					player.dropItem(new ItemStack(Items.BUCKET), false);
+				}
 
-			this.eatTimer = 40;
-			this.entityAIEatGrass.startExecuting();
-			this.setWatered(true);
-			this.setInLove(player);
+				if (this.entityAIEatGrass != null) {
+					this.entityAIEatGrass.startExecuting();
+					eatTimer = 40;
+				}
+				this.setWatered(true);
+				this.setInLove(player);
+				return true;
+			}
+		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild()) {
+			this.navigator.clearPathEntity();
+			this.mountTo(player);
 			return true;
-		} 
-		else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
-		{
-			return false;
-		}
-		else if(!stack.isEmpty() && isHorseBreedingItem(stack.getItem()))
-		{
-			consumeItemFromStack(player, stack);
+		} else {
 			return true;
+			//return super.processInteract(player, hand);
 		}
-		else
-			return super.processInteract(player, hand);
 	}
 
 	@Override
@@ -612,30 +615,37 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		} 
 
 		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops)
-		{
+		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.horseDrop;
 			dropItem = AnimaniaHelper.getItem(drop);
+			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
+			{
+				drop = this.dropCooked.getRegistryName().toString();
+				dropItem = AnimaniaHelper.getItem(drop);
+			}
 		} else {
-			dropItem = ItemStack.EMPTY;
+			dropItem = new ItemStack(this.dropRaw, 1);
+			if (this.isBurning())
+				dropItem = new ItemStack(this.dropCooked, 1);
 		}
 
-		if (happyDrops == 2 && dropItem !=null) {
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
-			this.dropItem(Items.LEATHER, 1);
-		} else if (happyDrops == 1 && dropItem !=null) {
-			if (this.isBurning())
-			{
-				this.dropItem(Items.LEATHER, 1 + lootlevel);
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.horseDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 2) {
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
 			}
-			else
-			{
-				this.dropItem(Items.LEATHER, 1 + lootlevel);
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.horseDrop2Amount + lootlevel);
 			}
+		} else if (happyDrops == 1 && dropItem2 !=null) {
+			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.horseDrop2Amount + lootlevel);
 		} else if (happyDrops == 0) {
-			this.dropItem(Items.LEATHER, 1 + lootlevel);
+			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.horseDrop2Amount + lootlevel);
 		}
 
 	}

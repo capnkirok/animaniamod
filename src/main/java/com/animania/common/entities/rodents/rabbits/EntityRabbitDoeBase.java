@@ -63,7 +63,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 		this.gender = EntityGender.FEMALE;
 	}
 
-	
+
 
 	@Override
 	protected void entityInit()
@@ -118,46 +118,43 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaRabbit.class, 128, this.world, this);
 		goatCount = entities.size();
 
-		if (goatCount <= AnimaniaConfig.spawn.spawnLimitRabbits)
+		int chooser = this.rand.nextInt(5);
+
+		if (chooser == 0)
 		{
-
-			int chooser = this.rand.nextInt(5);
-
-			if (chooser == 0)
-			{
-				EntityRabbitBuckBase entityRabbit = this.rabbitType.getMale(world);
-				entityRabbit.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityRabbit);
-				entityRabbit.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityRabbit.getPersistentID());
-			}
-			else if (chooser == 1)
-			{
-				EntityRabbitKitBase entityKid = this.rabbitType.getChild(world);
-				entityKid.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityKid);
-				entityKid.setParentUniqueId(this.entityUniqueID);
-			}
-			else if (chooser > 2)
-			{
-				EntityRabbitBuckBase entityBuck = this.rabbitType.getMale(world);
-				entityBuck.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityBuck);
-				entityBuck.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityBuck.getPersistentID());
-				EntityRabbitKitBase entityKid = this.rabbitType.getChild(world);
-				entityKid.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityKid);
-				entityKid.setParentUniqueId(this.entityUniqueID);
-			}
-
-			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
-
-			if (this.rand.nextFloat() < 0.05F)
-				this.setLeftHanded(true);
-			else
-				this.setLeftHanded(false);
+			EntityRabbitBuckBase entityRabbit = this.rabbitType.getMale(world);
+			entityRabbit.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityRabbit);
+			entityRabbit.setMateUniqueId(this.entityUniqueID);
+			this.setMateUniqueId(entityRabbit.getPersistentID());
 		}
+		else if (chooser == 1)
+		{
+			EntityRabbitKitBase entityKid = this.rabbitType.getChild(world);
+			entityKid.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityKid);
+			entityKid.setParentUniqueId(this.entityUniqueID);
+		}
+		else if (chooser > 2)
+		{
+			EntityRabbitBuckBase entityBuck = this.rabbitType.getMale(world);
+			entityBuck.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityBuck);
+			entityBuck.setMateUniqueId(this.entityUniqueID);
+			this.setMateUniqueId(entityBuck.getPersistentID());
+			EntityRabbitKitBase entityKid = this.rabbitType.getChild(world);
+			entityKid.setPosition(this.posX, this.posY, this.posZ);
+			this.world.spawnEntity(entityKid);
+			entityKid.setParentUniqueId(this.entityUniqueID);
+		}
+
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
+
+		if (this.rand.nextFloat() < 0.05F)
+			this.setLeftHanded(true);
+		else
+			this.setLeftHanded(false);
+
 		return livingdata;
 	}
 
@@ -273,7 +270,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 		else
 			return ModSoundEvents.rabbitHurt2;
 	}
-	
+
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
@@ -329,9 +326,9 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 
 					if (mateReset)
 						this.setMateUniqueId(null);
-						if (!this.getFertile() && !this.getPregnant()) {
-							this.setFertile(true);
-						}
+					if (!this.getFertile() && !this.getPregnant()) {
+						this.setFertile(true);
+					}
 
 				}
 			}
@@ -348,7 +345,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 
 			if (gestationTimer == 0)
 			{
-				
+
 				List list = this.world.loadedEntityList;	
 				int rabbitCount = 0;
 				int num = 0;
@@ -366,8 +363,8 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 				for (int k = 0; k <= esize - 1; k++) 
 				{
 					EntityRabbitBuckBase entity = (EntityRabbitBuckBase)entities.get(k);
-					
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && rabbitCount < AnimaniaConfig.spawn.spawnLimitRabbits) {
+
+					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
 
 						this.setInLove(null);
 						RabbitType maleType = ((EntityAnimaniaRabbit) entity).rabbitType;
@@ -392,9 +389,9 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 
 					}
 				}
-				
-				if (!mateFound && this.getFed() && this.getWatered() && rabbitCount < AnimaniaConfig.spawn.spawnLimitRabbits) {
-					
+
+				if (!mateFound && this.getFed() && this.getWatered()) {
+
 					this.setInLove(null);
 					RabbitType babyType = RabbitType.breed(this.rabbitType, this.rabbitType);
 					EntityRabbitKitBase entityKid = babyType.getChild(world);
@@ -402,7 +399,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 					if (!world.isRemote) {
 						this.world.spawnEntity(entityKid);
 					}
-					
+
 					entityKid.setParentUniqueId(this.getPersistentID());
 					this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
 
@@ -413,7 +410,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entityKid, entityKid);
 					MinecraftForge.EVENT_BUS.post(event);
 					mateFound = true;
-					
+
 				}
 			}
 		} else if (gestationTimer < 0){

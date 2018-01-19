@@ -243,9 +243,7 @@ public class EntityAIFindWater extends EntityAIBase
 
 						pos = new BlockPos(x + i, y + j, z + k);
 						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
-
-						Biome biomegenbase = temptedEntity.world.getBiome(pos); 
-
+											
 						if (blockchk == BlockHandler.blockTrough) {
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
 							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
@@ -278,7 +276,9 @@ public class EntityAIFindWater extends EntityAIBase
 							}
 						}
 
-						if (blockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+						Biome biomegenbase = temptedEntity.world.getBiome(pos); 
+						
+						if (blockchk == Blocks.WATER && biomegenbase != null && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 							waterFound = true;
 							newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
 
@@ -334,6 +334,8 @@ public class EntityAIFindWater extends EntityAIBase
 			}
 		}
 	}
+	
+	
 
 	public boolean isRunning()
 	{

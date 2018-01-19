@@ -221,6 +221,14 @@ public class EntityDartFrogs extends EntityAmphibian
 			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 			world.spawnEntity(entityitem);
 		}
+		
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.dartFrogDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+		
+		if (dropItem2 != null) {
+			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.dartFrogDrop2Amount + lootlevel);
+		}
 	}
 
 	private ItemStack getItem(String moditem) {

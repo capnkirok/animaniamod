@@ -66,7 +66,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	protected static final DataParameter<Boolean> PLAYED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaPig.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
-	
+
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.pigFood));
 	protected boolean boosting;
 	protected int boostTime;
@@ -146,67 +146,67 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 			else if (stack != ItemStack.EMPTY && ItemStack.areItemStacksEqual(stack, this.slop))
 				player.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.BUCKET));
 	}
-	
+
 	public void travel(float p_191986_1_, float p_191986_2_, float p_191986_3_)
-    {
-        Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
+	{
+		Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
 
-        if (this.isBeingRidden() && this.canBeSteered())
-        {
-            this.rotationYaw = entity.rotationYaw;
-            this.prevRotationYaw = this.rotationYaw;
-            this.rotationPitch = entity.rotationPitch * 0.5F;
-            this.setRotation(this.rotationYaw, this.rotationPitch);
-            this.renderYawOffset = this.rotationYaw;
-            this.rotationYawHead = this.rotationYaw;
-            this.stepHeight = 1.0F;
-            this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
+		if (this.isBeingRidden() && this.canBeSteered())
+		{
+			this.rotationYaw = entity.rotationYaw;
+			this.prevRotationYaw = this.rotationYaw;
+			this.rotationPitch = entity.rotationPitch * 0.5F;
+			this.setRotation(this.rotationYaw, this.rotationPitch);
+			this.renderYawOffset = this.rotationYaw;
+			this.rotationYawHead = this.rotationYaw;
+			this.stepHeight = 1.0F;
+			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
 
-            if (this.boosting && this.boostTime++ > this.totalBoostTime)
-            {
-                this.boosting = false;
-            }
+			if (this.boosting && this.boostTime++ > this.totalBoostTime)
+			{
+				this.boosting = false;
+			}
 
-            if (this.canPassengerSteer())
-            {
-                float f = (float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
+			if (this.canPassengerSteer())
+			{
+				float f = (float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
 
-                if (this.boosting)
-                {
-                    f += f * 1.15F * MathHelper.sin((float)this.boostTime / (float)this.totalBoostTime * (float)Math.PI);
-                }
+				if (this.boosting)
+				{
+					f += f * 1.15F * MathHelper.sin((float)this.boostTime / (float)this.totalBoostTime * (float)Math.PI);
+				}
 
-                this.setAIMoveSpeed(f);
-                super.travel(0.0F, 0.0F, 1.0F);
-            }
-            else
-            {
-                this.motionX = 0.0D;
-                this.motionY = 0.0D;
-                this.motionZ = 0.0D;
-            }
+				this.setAIMoveSpeed(f);
+				super.travel(0.0F, 0.0F, 1.0F);
+			}
+			else
+			{
+				this.motionX = 0.0D;
+				this.motionY = 0.0D;
+				this.motionZ = 0.0D;
+			}
 
-            this.prevLimbSwingAmount = this.limbSwingAmount;
-            double d1 = this.posX - this.prevPosX;
-            double d0 = this.posZ - this.prevPosZ;
-            float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+			this.prevLimbSwingAmount = this.limbSwingAmount;
+			double d1 = this.posX - this.prevPosX;
+			double d0 = this.posZ - this.prevPosZ;
+			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
-            if (f1 > 1.0F)
-            {
-                f1 = 1.0F;
-            }
+			if (f1 > 1.0F)
+			{
+				f1 = 1.0F;
+			}
 
-            this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
-            this.limbSwing += this.limbSwingAmount;
-        }
-        else
-        {
-            this.stepHeight = 0.5F;
-            p_191986_3_ = this.moveForward;
-            this.jumpMovementFactor = 0.02F;
-            super.travel(p_191986_1_, p_191986_2_, p_191986_3_);
-        }
-    }
+			this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
+			this.limbSwing += this.limbSwingAmount;
+		}
+		else
+		{
+			this.stepHeight = 0.5F;
+			p_191986_3_ = this.moveForward;
+			this.jumpMovementFactor = 0.02F;
+			super.travel(p_191986_1_, p_191986_2_, p_191986_3_);
+		}
+	}
 
 	@Override
 	public void setInLove(EntityPlayer player)
@@ -287,7 +287,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	{
 		this.dataManager.set(EntityAnimaniaPig.HANDFED, Boolean.valueOf(handfed));
 	}
-	
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
@@ -382,27 +382,47 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 			}
 		}
 
-		if (happyDrops == 3 && dropItem !=null)
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.pigDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 3)
 		{
-			dropItem.setCount(2 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(2 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
+			}
 		}
-		else if (happyDrops == 2 && dropItem !=null)
+		else if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
+			}
 		}
 		else if (happyDrops == 1 && dropItem !=null)
 		{
 			if (this.isBurning())
 			{
 				this.dropItem(Items.COOKED_PORKCHOP, 1 + lootlevel);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
+				}
 			}
 			else
 			{
 				this.dropItem(Items.PORKCHOP, 1 + lootlevel);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
+				}
 			}
 		}
 	}
@@ -548,7 +568,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		if (this.getAge() == 0) {
 			this.setAge(1);
 		}
-		
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -576,7 +596,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
-		
+
 		if (this.playedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.playedTimer--;
@@ -649,13 +669,13 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	{
 		return null;
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.pigType, this.gender));
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
@@ -675,7 +695,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public EntityGender getEntityGender()
 	{
