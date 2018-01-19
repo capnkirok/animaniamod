@@ -323,6 +323,12 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 			this.setAge(1);
 		}
 		
+		if (this.isBeingRidden() && !this.isAIDisabled()) {
+			this.setNoAI(true);
+		} else {
+			this.setNoAI(false);
+		}
+		
 		if (this.world.isRemote)
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
@@ -438,7 +444,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 				return true;
 			}
 		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
-			player.startRiding(this);
+			this.mountTo(player);
 			//player.addStat(AnimaniaAchievements.Horseriding, 1);
 			return true;
 		} else {

@@ -56,11 +56,14 @@ public class EntityAIWanderHorses extends EntityAIWander
         }
         else
         {
-            this.x = vec3d.x;
+        	this.x = vec3d.x;
             this.y = vec3d.y;
             this.z = vec3d.z;
             this.mustUpdate = false;
             return true;
+            
+            
+            
         }
     }
     

@@ -67,8 +67,8 @@ public class EntityAIFindWater extends EntityAIBase
 				return false;
 			}
 
+			
 			Random rand = new Random();
-
 			Biome biomegenbase = temptedEntity.world.getBiome(new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ)); 
 
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);

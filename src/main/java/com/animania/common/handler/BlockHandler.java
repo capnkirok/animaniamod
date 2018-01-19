@@ -23,6 +23,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class BlockHandler
@@ -56,7 +57,9 @@ public class BlockHandler
 	public static Fluid fluidMilkFriesian;
 	public static Fluid fluidMilkGoat;
 	public static Fluid fluidMilkSheep;
-
+	
+	//TODO Add own buckets
+	
 	// Item Blocks
 	public static ItemBlock itemBlockMud;
 	public static ItemBlock itemBlockSeeds;
@@ -87,6 +90,7 @@ public class BlockHandler
 		BlockHandler.blockSaltLick = new BlockSaltLick();
 		BlockHandler.blockAnimaniaWool = new BlockAnimaniaWool();
 		
+		
 		// Fluids
 		BlockHandler.fluidSlop = new FluidBase("slop").setViscosity(7000).setDensity(3000).setEmptySound(SoundEvents.BLOCK_SLIME_PLACE).setFillSound(SoundEvents.BLOCK_SLIME_FALL);
 		FluidRegistry.addBucketForFluid(BlockHandler.fluidSlop);
@@ -95,7 +99,7 @@ public class BlockHandler
 		BlockHandler.fluidMilkHolstein = new FluidBase("milk_holstein").setViscosity(1000).setDensity(500);
 		FluidRegistry.addBucketForFluid(BlockHandler.fluidMilkHolstein);
 		BlockHandler.blockMilkHolstein = new BlockFluidMilk(BlockHandler.fluidMilkHolstein, "milk_holstein");
-
+		
 		BlockHandler.fluidMilkFriesian = new FluidBase("milk_friesian").setViscosity(1000).setDensity(500);
 		FluidRegistry.addBucketForFluid(BlockHandler.fluidMilkFriesian);
 		BlockHandler.blockMilkFriesian = new BlockFluidMilk(BlockHandler.fluidMilkFriesian, "milk_friesian");

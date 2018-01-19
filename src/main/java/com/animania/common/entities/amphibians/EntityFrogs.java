@@ -253,6 +253,14 @@ public class EntityFrogs extends EntityAmphibian
 				world.spawnEntity(entityitem);
 			}
 		}
+		
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.frogDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+		
+		if (dropItem2 != null) {
+			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.frogDrop2Amount + lootlevel);
+		}
 	}
 	
 	@Override
