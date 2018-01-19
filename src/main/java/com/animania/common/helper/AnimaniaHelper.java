@@ -8,6 +8,7 @@ import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.props.EntityCart;
+import com.animania.common.entities.props.EntityWagon;
 import com.animania.network.client.TileEntitySyncPacket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -164,6 +165,12 @@ public class AnimaniaHelper
 	}
 	
 	public static <T extends EntityCart> List<T> getCartsInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
+	{
+		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
+		return list;
+	}
+	
+	public static <T extends EntityWagon> List<T> getWagonsInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
 		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
 		return list;

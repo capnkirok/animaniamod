@@ -2,6 +2,7 @@ package com.animania.common.entities.peacocks;
 
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.peacocks.ai.EntityAIFindPeacockNest;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 
@@ -9,7 +10,9 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -113,8 +116,29 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
-		return;
+		int happyDrops = 0;
+
+		if (this.getWatered())
+			happyDrops++;
+		if (this.getFed())
+			happyDrops++;
+
+				
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.peacockDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+		
+		if (happyDrops == 2 && dropItem2 !=null)
+		{
+			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.peacockDrop2Amount + lootlevel);
+		}
+		else if (happyDrops == 1 && dropItem2 !=null)
+		{
+			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.peacockDrop2Amount + lootlevel);
+		}
+
 	}
+
 	
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)

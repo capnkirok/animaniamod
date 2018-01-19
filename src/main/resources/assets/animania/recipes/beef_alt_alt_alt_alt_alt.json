@@ -1,0 +1,11 @@
+{
+  "result": {
+    "item": "minecraft:beef"
+  },
+  "ingredients": [
+    {
+      "item": "animania:raw_hereford_steak"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

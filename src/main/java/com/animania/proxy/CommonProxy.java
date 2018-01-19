@@ -28,48 +28,48 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public class CommonProxy implements IGuiHandler
 {
 
-    public void preInit()
-    {
-        CapabilityManager.INSTANCE.register(ICapabilityPlayer.class, new CapabilitiesPlayerStorage(), CapabilityPlayer.class);
-        EntityHandler.preInit();
-        ItemHandler.preInit();
-        BlockHandler.preInit();
-        TileEntityHandler.preInit();
-        DamageSourceHandler.preInit();
-        PatreonHandler.initList();
-        NetworkHandler.init();
+	public void preInit()
+	{
+		CapabilityManager.INSTANCE.register(ICapabilityPlayer.class, new CapabilitiesPlayerStorage(), CapabilityPlayer.class);
+		EntityHandler.preInit();
+		ItemHandler.preInit();
+		BlockHandler.preInit();
+		TileEntityHandler.preInit();
+		DamageSourceHandler.preInit();
+		PatreonHandler.initList();
+		NetworkHandler.init();
 
-        // EVENTS
-        EventsHandler.preInit();
-        UpdateHandler.init();
-        //AnimaniaAchievements.init();
+		// EVENTS
+		EventsHandler.preInit();
+		UpdateHandler.init();
+		//AnimaniaAchievements.init();
 
-        CompatHandler.preInit();
-        AdvancementHandler.registerCriteria();
+		CompatHandler.preInit();
+		AdvancementHandler.registerCriteria();
 
-    }
+	}
 
-    public void init()
-    {
-        DictionaryHandler.init();
-        RecipeHandler.init();
-        DispenserHandler.init();
-        FoodValueHandler.init();
+	public void init()
+	{
+		DictionaryHandler.init();
+		RecipeHandler.init();
+		DispenserHandler.init();
+		FoodValueHandler.init();
 
 
-    }
-    
+	}
 
-    public void registerFluidBlockRendering(Block block, String name)
-    {
 
-    }
+	public void registerFluidBlockRendering(Block block, String name)
+	{
 
-    public void registerCraftStudioModels()
-    {}
+	}
 
-    public void registerCraftStudioAnimations()
-    {}
+	public void registerCraftStudioModels()
+	{}
+
+	public void registerCraftStudioAnimations()
+	{}
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
@@ -81,6 +81,19 @@ public class CommonProxy implements IGuiHandler
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	//Sleep
+	public void Sleep(EntityPlayer entityplayer) {
+		long currentTime = 0;
+		int factorTime = 0;
+
+		for (int j = 0; j < entityplayer.world.getMinecraftServer().getServer().worlds.length; ++j)
+		{
+			currentTime = entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() %24000;
+			factorTime = 24000 - (int)currentTime;
+			entityplayer.world.getMinecraftServer().getServer().worlds[j].setWorldTime(entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime) ;
+		}
 	}
 
 }

@@ -8,6 +8,7 @@ tile.animania_cheese_mold.name=Cheese Mold
 item.animania_riding_crop.name=Riding Crop
 item.animania_wheel.name=Wheel
 item.animania_salt.name=Salt
+item.animania_milk_bottle.name=Bottle of Milk
 
 item.animania_hamster_ball_clear.name=Clear Hamster Ball
 item.animania_hamster_ball_black.name=Black Hamster Ball
@@ -96,11 +97,14 @@ item.animania_cooked_prime_bacon.name=Roast Prime Bacon
 item.animania_raw_prime_chicken.name=Raw Prime Chicken
 item.animania_cooked_prime_chicken.name=Roast Prime Chicken
 
+item.animania_raw_horse.name=Raw Horse
+item.animania_cooked_horse.name=Cooked Horse
+
 item.animania_raw_frog_legs.name=Raw Frog Legs
 item.animania_cooked_frog_legs.name=Cooked Frog Legs
 
 item.animania_raw_chevon.name=Raw Chevon
-item.animania_cooked_chevon.name.Roast Chevon
+item.animania_cooked_chevon.name=Roast Chevon
 item.animania_raw_prime_chevon.name=Raw Prime Chevon
 item.animania_cooked_prime_chevon.name=Cooked Prime Chevon
 
@@ -497,6 +501,7 @@ tooltip.an.healthboost=Health Boost
 tooltip.an.jumpboost=Jump Boost
 tooltip.an.strength=Strength
 tooltip.an.resistance=Resistance
+tooltip.an.removeall=Removes Potion Effects
 
 tooltip.an.ridingcrop1=Use on well fed Draft Horse to ride
 tooltip.an.ridingcrop2=While riding, hold down to increase speed

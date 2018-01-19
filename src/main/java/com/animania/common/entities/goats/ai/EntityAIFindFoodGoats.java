@@ -8,11 +8,15 @@ import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class EntityAIFindFoodGoats extends EntityAIBase 
 {
@@ -48,6 +52,17 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 					return false;		
 				}
 			} 
+			
+			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			{
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.resetTask();
+					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+				}
+				return false;
+			}
 			
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
 			BlockPos trypos1 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ);
@@ -104,7 +119,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 				} 
 			}
 
-			if (poschk == Blocks.RED_FLOWER || poschk == Blocks.CARROTS || poschk == Blocks.WHEAT || poschk == Blocks.YELLOW_FLOWER) {
+			if (poschk == Blocks.RED_FLOWER || poschk instanceof BlockCrops|| poschk == Blocks.WHEAT || poschk instanceof BlockFlower) {
 
 				if (temptedEntity instanceof EntityAnimaniaGoat) {
 					EntityAnimaniaGoat ech = (EntityAnimaniaGoat)temptedEntity;
@@ -113,7 +128,10 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 				} 
 				
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
-					temptedEntity.world.destroyBlock(currentpos, false);
+					Block destchk = temptedEntity.world.getBlockState(currentpos).getBlock();
+					if (destchk != BlockHandler.blockTrough) {
+						temptedEntity.world.destroyBlock(currentpos, false);
+					}
 				}
 				this.delayTemptCounter = 0;
 				return false;
@@ -152,7 +170,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 							}
 						}
 
-						if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER) {
+						if (blockchk == Blocks.RED_FLOWER || blockchk instanceof BlockCrops|| blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER) {
 
 							foodFound = true;
 							if (rand.nextInt(200) == 0) {
@@ -248,7 +266,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 
 							}
 						}
-					} else if (blockchk == Blocks.RED_FLOWER || blockchk == Blocks.CARROTS || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER) {
+					} else if (blockchk == Blocks.RED_FLOWER || blockchk instanceof BlockCrops|| blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER) {
 						foodFound = true;
 						newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
 
@@ -259,7 +277,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 							if (temptedEntity.posX < foodPos.getX()) {
 								BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
 								Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
-								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
+								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk instanceof BlockCrops|| mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
 									i = i + 1;
 								}
 							} 
@@ -267,7 +285,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 							if (temptedEntity.posZ < foodPos.getZ()) {
 								BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
 								Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
-								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
+								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk instanceof BlockCrops|| mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER) {
 									k = k + 1;
 								} 
 							}
@@ -288,7 +306,7 @@ public class EntityAIFindFoodGoats extends EntityAIBase
 		if (foodFound) {
 
 			Block mudBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
-			if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk == Blocks.CARROTS || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || mudBlockchk == BlockHandler.blockTrough) {
+			if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk instanceof BlockCrops|| mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || mudBlockchk == BlockHandler.blockTrough) {
 				this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
 			} else {
 				this.delayTemptCounter = 0;

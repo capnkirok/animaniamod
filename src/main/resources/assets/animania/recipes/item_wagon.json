@@ -1,0 +1,34 @@
+{
+  "result": {
+    "item": "animania:item_wagon"
+  },
+  "pattern": [
+    "OOP",
+    "BPC",
+    "WAW"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "ore": "plankWood",
+      "type": "forge:ore_dict"
+    },
+    "A": {
+      "item": "animania:item_cart"
+    },
+    "B": {
+      "item": "minecraft:bed",
+      "data": 0
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "W": {
+      "item": "animania:wheel"
+    },
+    "O": {
+      "ore": "blockWool",
+      "type": "forge:ore_dict"
+    }
+  }
+}

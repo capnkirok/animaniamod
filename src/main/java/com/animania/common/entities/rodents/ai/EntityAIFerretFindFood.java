@@ -10,8 +10,10 @@ import com.animania.common.tileentities.TileEntityNest.NestContent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
 public class EntityAIFerretFindFood extends EntityAIBase
 {
@@ -52,6 +54,17 @@ public class EntityAIFerretFindFood extends EntityAIBase
 					this.delayTemptCounter = 0;
 					return false;
 				}
+			}
+			
+			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			{
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.resetTask();
+					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+				}
+				return false;
 			}
 
 			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);

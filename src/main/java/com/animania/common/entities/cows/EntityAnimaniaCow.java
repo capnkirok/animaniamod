@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
@@ -15,6 +14,7 @@ import com.animania.common.entities.cows.ai.EntityAIFindFood;
 import com.animania.common.entities.cows.ai.EntityAIFindSaltLickCows;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -91,9 +91,12 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickCows(this, 1.0));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, EntityPlayer.class));
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, EntityPlayer.class));
+		}
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -456,28 +459,42 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			}
 		}
 
-		if (happyDrops == 2 && dropItem !=null)
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.cowDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
-			this.dropItem(Items.LEATHER, 1);
-		} else if (happyDrops == 1 && dropItem !=null)
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+			}
+		} else if (happyDrops == 1)
 		{
 			if (this.isBurning())
 			{
 				this.dropItem(Items.COOKED_BEEF, 1 + lootlevel);
-				this.dropItem(Items.LEATHER, 1 + lootlevel);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+				}
 			}
 			else
 			{
 				this.dropItem(Items.BEEF, 1 + lootlevel);
-				this.dropItem(Items.LEATHER, 1 + lootlevel);
+				if (dropItem2 != null) {
+					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+				}
 			}
 		}
-		else if (happyDrops == 0)
-			this.dropItem(Items.LEATHER, 1 + lootlevel);
-
+		else if (happyDrops == 0) {
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+			}
+		}
 	}
 
 	@Override

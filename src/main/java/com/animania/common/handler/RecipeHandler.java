@@ -45,12 +45,15 @@ public class RecipeHandler
 		ItemStack milkGoat = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
 		ItemStack milkSheep = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
 
+		
+		
 
 		/*
 		
 		if (!checkDir()) {
 
-		
+		//addShapedRecipe(new ItemStack(ItemHandler.wagon, 1), new Object[] { "OOP", "BPC", "WAW", 'O', "blockWool", 'P', "plankWood", 'B', Items.BED, 'C', Blocks.CHEST, 'W', ItemHandler.wheel, 'A', ItemHandler.cart });
+		//addShapelessRecipe(new ItemStack(ItemHandler.milkBottle, 4), new Object[] { "listAllmilk", Items.GLASS_BOTTLE, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE, Items.GLASS_BOTTLE });
 			
 			// HAMSTERS
 

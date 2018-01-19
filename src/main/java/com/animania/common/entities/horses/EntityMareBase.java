@@ -106,43 +106,40 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 128, this.world, this);
 		horseCount = entities.size();
 
-		if (horseCount <= AnimaniaConfig.spawn.spawnLimitHorses) {
+		int chooser = rand.nextInt(5);
 
-			int chooser = rand.nextInt(5);
+		if (chooser == 0) {
+			EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
+			entityHorse.setPosition(this.posX,  this.posY, this.posZ);
+			this.world.spawnEntity(entityHorse);
+			entityHorse.setMateUniqueId(this.entityUniqueID);
+			this.setMateUniqueId(entityHorse.getPersistentID());
+		} else if (chooser == 1) {
+			EntityFoalDraftHorse entityHorse = new EntityFoalDraftHorse(this.world);
+			entityHorse.setPosition(this.posX,  this.posY, this.posZ);
+			this.world.spawnEntity(entityHorse);
+			entityHorse.setParentUniqueId(this.entityUniqueID);
+		} else if (chooser > 2) {
+			EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
+			entityHorse.setPosition(this.posX,  this.posY, this.posZ);
+			this.world.spawnEntity(entityHorse);
+			entityHorse.setMateUniqueId(this.entityUniqueID);
+			this.setMateUniqueId(entityHorse.getPersistentID());
+			EntityFoalDraftHorse entityFoal = new EntityFoalDraftHorse(this.world);
+			entityFoal.setPosition(this.posX,  this.posY, this.posZ);
+			this.world.spawnEntity(entityFoal);
+			entityFoal.setParentUniqueId(this.entityUniqueID);
+		} 
 
-			if (chooser == 0) {
-				EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
-				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
-				this.world.spawnEntity(entityHorse);
-				entityHorse.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityHorse.getPersistentID());
-			} else if (chooser == 1) {
-				EntityFoalDraftHorse entityHorse = new EntityFoalDraftHorse(this.world);
-				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
-				this.world.spawnEntity(entityHorse);
-				entityHorse.setParentUniqueId(this.entityUniqueID);
-			} else if (chooser > 2) {
-				EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
-				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
-				this.world.spawnEntity(entityHorse);
-				entityHorse.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityHorse.getPersistentID());
-				EntityFoalDraftHorse entityFoal = new EntityFoalDraftHorse(this.world);
-				entityFoal.setPosition(this.posX,  this.posY, this.posZ);
-				this.world.spawnEntity(entityFoal);
-				entityFoal.setParentUniqueId(this.entityUniqueID);
-			} 
+		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
-			this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
-
-			if (this.rand.nextFloat() < 0.05F)
-			{
-				this.setLeftHanded(true);
-			}
-			else
-			{
-				this.setLeftHanded(false);
-			}
+		if (this.rand.nextFloat() < 0.05F)
+		{
+			this.setLeftHanded(true);
+		}
+		else
+		{
+			this.setLeftHanded(false);
 		}
 
 		return livingdata;
@@ -233,41 +230,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		this.dataManager.set(EntityMareBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
-
-
-	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
-	{
-		ItemStack stack = player.getHeldItem(hand);
-		
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
-			{
-				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				{
-					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-				}
-				else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				{
-					player.dropItem(new ItemStack(Items.BUCKET), false);
-				}
-
-				if (this.entityAIEatGrass != null) {
-					this.entityAIEatGrass.startExecuting();
-					eatTimer = 40;
-				}
-				this.setWatered(true);
-				this.setInLove(player);
-				return true;
-			}
-		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
-			player.startRiding(this);
-			
-			return true;
-		} else {
-			return super.processInteract(player, hand);
-		}
-	}
-
+	
 	@Override
 	public double getMountedYOffset()
 	{
@@ -328,7 +291,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			 */
 		}
 	}
-	
+
 
 	@Override
 	public void travel(float strafe, float forward, float friction)
@@ -525,6 +488,12 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			this.setAge(1);
 		}
 		
+		if (this.isBeingRidden() && !this.isAIDisabled()) {
+			this.setNoAI(true);
+		} else {
+			this.setNoAI(false);
+		}
+		
 		if (!this.getFertile() && this.dryTimerMare > -1) {
 			this.dryTimerMare--;
 		} else {
@@ -622,7 +591,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			this.setGestation(gestationTimer);
 			if (gestationTimer == 0)
 			{
-				
+
 				List list = this.world.loadedEntityList;	
 				int horseCount = 0;
 				int num = 0;
@@ -632,7 +601,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 					}
 				}
 				horseCount = num;
-				
+
 				UUID MateID = this.getMateUniqueId();
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityStallionBase.class, 30, this.world, this);
 				int esize = entities.size();
@@ -640,7 +609,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				for (int k = 0; k <= esize - 1; k++) 
 				{
 					EntityStallionBase entity = (EntityStallionBase)entities.get(k);
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID) && horseCount < AnimaniaConfig.spawn.spawnLimitHorses) {
+					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
 
 						this.setInLove(null);
 						HorseType maleType = ((EntityAnimaniaHorse) entity).horseType;
@@ -667,7 +636,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 					}
 				}
 
-				if (!mateFound && this.getFed() && this.getWatered() && horseCount < AnimaniaConfig.spawn.spawnLimitHorses) {
+				if (!mateFound && this.getFed() && this.getWatered()) {
 
 					this.setInLove(null);
 					HorseType babyType = HorseType.breed(this.horseType, this.horseType);

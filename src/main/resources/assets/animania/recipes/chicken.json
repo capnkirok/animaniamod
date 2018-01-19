@@ -1,0 +1,11 @@
+{
+  "result": {
+    "item": "minecraft:chicken"
+  },
+  "ingredients": [
+    {
+      "item": "animania:raw_orpington_chicken"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

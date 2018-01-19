@@ -9,7 +9,7 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.goats.ai.EntityAIFindFoodGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindSaltLickGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindWater;
@@ -102,6 +102,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 		this.tasks.addTask(8, this.entityAIEatGrass);
 		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityWolf.class, 10.0F, 2.2D, 2.2D));
 		this.tasks.addTask(10, new EntityAIWatchClosestGoats(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickGoats(this, 1.0));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
@@ -168,7 +169,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	{
 		return this.dataManager.get(EntityAnimaniaGoat.SPOOKED_TIMER).floatValue();
 	}
-	
+
 	public int getAge()
 	{
 		return this.dataManager.get(EntityAnimaniaGoat.AGE).intValue();
@@ -193,7 +194,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	{
 		this.dataManager.set(EntityAnimaniaGoat.HANDFED, Boolean.valueOf(handfed));
 	}
-	
+
 	@Nullable
 	public UUID getMateUniqueId()
 	{
@@ -275,7 +276,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 		if (this.getAge() == 0) {
 			this.setAge(1);
 		}
-		
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -524,7 +525,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 		if (AnimaniaConfig.drops.customMobDrops) {
 			String drop = AnimaniaConfig.drops.goatDrop;
 			dropItem = AnimaniaHelper.getItem(drop);
-			//TODO AIR
 			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
 			{
 				drop = this.dropCooked.getRegistryName().toString();
@@ -536,19 +536,31 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 				dropItem = new ItemStack(this.dropCooked, 1);
 		}
 
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.goatDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
 		if (happyDrops >= 1)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
 			if ((this instanceof EntityBuckAngora || this instanceof EntityDoeAngora) && !this.getSheared())  {
 				this.dropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1).getItem(), 1 + lootlevel);
-			}		
-		} else if (happyDrops == 0)
+			}	
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.goatDrop2Amount + lootlevel);
+			}
+		} else if (happyDrops == 0) {
 			if ((this instanceof EntityBuckAngora || this instanceof EntityDoeAngora) && !this.getSheared())  {
 				this.dropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1).getItem(), 1 + lootlevel);
 			}
-
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.goatDrop2Amount + lootlevel);
+			}
+		}
 	}
 
 	@Override

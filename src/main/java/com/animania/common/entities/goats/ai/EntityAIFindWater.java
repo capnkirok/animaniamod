@@ -10,9 +10,11 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -52,6 +54,17 @@ public class EntityAIFindWater extends EntityAIBase
 					this.delayTemptCounter = 0;
 					return false;		
 				}
+			}
+			
+			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			{
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.resetTask();
+					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+				}
+				return false;
 			}
 
 			Random rand = new Random();
@@ -230,9 +243,7 @@ public class EntityAIFindWater extends EntityAIBase
 
 						pos = new BlockPos(x + i, y + j, z + k);
 						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
-
-						Biome biomegenbase = temptedEntity.world.getBiome(pos); 
-
+											
 						if (blockchk == BlockHandler.blockTrough) {
 							TileEntityTrough te = (TileEntityTrough) this.temptedEntity.world.getTileEntity(pos);
 							if (te != null && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER) {
@@ -265,7 +276,9 @@ public class EntityAIFindWater extends EntityAIBase
 							}
 						}
 
-						if (blockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+						Biome biomegenbase = temptedEntity.world.getBiome(pos); 
+						
+						if (blockchk == Blocks.WATER && biomegenbase != null && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
 							waterFound = true;
 							newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
 
@@ -321,6 +334,8 @@ public class EntityAIFindWater extends EntityAIBase
 			}
 		}
 	}
+	
+	
 
 	public boolean isRunning()
 	{

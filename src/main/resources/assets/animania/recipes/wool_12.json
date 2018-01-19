@@ -6,7 +6,7 @@
   "ingredients": [
     {
       "item": "animania:wool",
-      "data": 0
+      "data": 2
     }
   ],
   "type": "minecraft:crafting_shapeless"

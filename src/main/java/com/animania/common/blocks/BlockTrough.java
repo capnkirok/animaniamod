@@ -88,7 +88,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 	{
 		return 6;
 	}
-
+	
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{

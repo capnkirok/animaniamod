@@ -17,6 +17,7 @@ import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.EntityRoosterBase;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAIHedgehogFindFood;
 import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
@@ -83,7 +84,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	protected static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityHedgehogBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> AGE = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.CARROT, Items.BEETROOT, ItemHandler.brownEgg, Items.EGG });
 
 	protected int fedTimer;
@@ -139,10 +140,13 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.tasks.addTask(12, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(13, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
-		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
-		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityRoosterBase.class, 10.0F, 2.0D, 2.2D));
+		this.tasks.addTask(15, new EntityAnimaniaAvoidWater(this));
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+			this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
+			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
+			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+			this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityRoosterBase.class, 10.0F, 2.0D, 2.2D));
+		}
 	}
 
 	@Override
@@ -208,17 +212,31 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		else
 			dropItem = null;
 
-		if (happyDrops == 2 && dropItem != null)
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.hedgehogDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hedgehogDrop2Amount + lootlevel);
+			}
 		}
-		else if (happyDrops == 1 && dropItem != null)
+		else if (happyDrops == 1)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hedgehogDrop2Amount + lootlevel);
+			}
 		}
 
 	}
@@ -232,7 +250,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.dataManager.register(EntityHedgehogBase.TAMED, Boolean.valueOf(false));
 		this.dataManager.register(EntityHedgehogBase.SITTING, Boolean.valueOf(false));
 		this.dataManager.register(EntityHedgehogBase.RIDING, Boolean.valueOf(false));
-		this.dataManager.register(EntityFerretBase.AGE, Integer.valueOf(0));
+		this.dataManager.register(EntityFerretBase.AGE, Boolean.valueOf(false));
 
 	}
 
@@ -245,7 +263,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		compound.setBoolean("IsTamed", this.getIsTamed());
 		compound.setBoolean("IsSitting", this.isHedgehogSitting());
 		compound.setBoolean("Riding", this.isHedgehogRiding());
-		compound.setInteger("Age", this.getAge());
+		compound.setBoolean("Age", this.getAge());
 
 	}
 
@@ -258,17 +276,17 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.setIsTamed(compound.getBoolean("IsTamed"));
 		this.setHedgehogSitting(compound.getBoolean("IsSitting"));
 		this.setHedgehogRiding(compound.getBoolean("Riding"));
-		this.setAge(compound.getInteger("Age"));
-	}
-	
-	public int getAge()
-	{
-		return this.dataManager.get(EntityHedgehogBase.AGE).intValue();
+		this.setAge(compound.getBoolean("Age"));
 	}
 
-	public void setAge(int age)
+	public boolean getAge()
 	{
-		this.dataManager.set(EntityHedgehogBase.AGE, Integer.valueOf(age));
+		return this.dataManager.get(EntityHedgehogBase.AGE).booleanValue();
+	}
+
+	public void setAge(boolean age)
+	{
+		this.dataManager.set(EntityHedgehogBase.AGE, Boolean.valueOf(age));
 	}
 
 	@Override
@@ -457,10 +475,10 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.getAge() == 0) {
-			this.setAge(1);
+		if (!this.getAge()) {
+			this.setAge(true);
 		}
-		
+
 		delayCount--;
 		if (delayCount <= 0) {
 			delayCount = 0;

@@ -1,6 +1,5 @@
 package com.animania.common.handler;
 
-import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.events.CapabilityLoadHandler;
 import com.animania.common.events.CarryRenderer;
@@ -10,9 +9,9 @@ import com.animania.common.events.EventMudDamageCanceller;
 import com.animania.common.events.EventReplaceSpawnAnimals;
 import com.animania.common.events.ItemSeedHandler;
 import com.animania.common.events.LoginEventHandler;
+import com.animania.common.events.RemoveVanillaSpawns;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class EventsHandler
 {
@@ -22,6 +21,7 @@ public class EventsHandler
         MinecraftForge.EVENT_BUS.register(new LoginEventHandler());
         MinecraftForge.EVENT_BUS.register(new ItemSeedHandler());
         MinecraftForge.EVENT_BUS.register(new EggThrowHandler());
+        MinecraftForge.EVENT_BUS.register(new RemoveVanillaSpawns());
         MinecraftForge.EVENT_BUS.register(new EventReplaceSpawnAnimals());
         MinecraftForge.EVENT_BUS.register(new EventMudDamageCanceller());
         MinecraftForge.EVENT_BUS.register(new EntityEventHandler());

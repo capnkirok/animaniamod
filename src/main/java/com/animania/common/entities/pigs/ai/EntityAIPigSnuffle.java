@@ -24,11 +24,11 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 public class EntityAIPigSnuffle extends EntityAIBase
 {
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final EntityLiving                  grassEaterEntity;
+	private final EntityAnimaniaPig             grassEaterEntity;
 	private final World                         entityWorld;
 	int                                         eatingGrassTimer;
 
-	public EntityAIPigSnuffle(EntityLiving grassEaterEntityIn) {
+	public EntityAIPigSnuffle(EntityAnimaniaPig grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);
@@ -36,6 +36,11 @@ public class EntityAIPigSnuffle extends EntityAIBase
 
 	@Override
 	public boolean shouldExecute() {
+
+		if (this.grassEaterEntity.getMuddy()) {
+			return false;
+		}
+
 		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
 			return false;
 		else {
@@ -75,19 +80,19 @@ public class EntityAIPigSnuffle extends EntityAIBase
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
 
 			if (EntityAIPigSnuffle.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos))) {
-				
+
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
 					this.entityWorld.destroyBlock(blockpos, false);
 				}
-				
+
 				this.grassEaterEntity.eatGrassBonus();
-				
+
 				if (grassEaterEntity instanceof EntityAnimaniaPig) {
 					EntityAnimaniaPig ech = (EntityAnimaniaPig)grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} 
-				
+
 			}
 			else {
 				BlockPos blockpos1 = blockpos.down();

@@ -56,7 +56,7 @@ public class RegistryHelper
 			ResourceLocation registryName = new ResourceLocation(Animania.MODID, entityName);
             EntityEntry entry = new EntityEntry(entityClass, entityName).setRegistryName(registryName);
             
-			EntityRegistry.registerModEntity(registryName, entityClass, registryName.toString(), entityID, Animania.instance, 64, 3, true);
+			EntityRegistry.registerModEntity(registryName, entityClass, registryName.toString(), entityID, Animania.instance, 64, 2, true);
 			EntityEggHandler.ENTITY_MAP.put(new AnimalContainer(type, gender), entry);
 		}
 

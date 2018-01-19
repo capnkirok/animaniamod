@@ -11,8 +11,7 @@ import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
-import com.animania.common.entities.amphibians.EntityFrogs;
-import com.animania.common.entities.amphibians.EntityToad;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.peacocks.ai.EntityAIFindFood;
 import com.animania.common.entities.peacocks.ai.EntityAIFindWater;
 import com.animania.common.entities.peacocks.ai.EntityAIPanicPeacocks;
@@ -33,7 +32,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.item.EntityItem;
@@ -96,11 +94,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		this.tasks.addTask(4, new EntityAITempt(this, 1.0D, Items.WHEAT_SEEDS, false));
 		this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(7, new EntityAILookIdle(this));
-		this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
-		this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
-		//this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
-		//this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+		this.tasks.addTask(7, new EntityAnimaniaAvoidWater(this));
+		this.tasks.addTask(11, new EntityAILookIdle(this));
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+			this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
+			this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
+		}
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(100);
 		this.blinkTimer = 80 + this.rand.nextInt(80);
@@ -232,15 +231,15 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		this.dataManager.set(EntityAnimaniaPeacock.AGE, Integer.valueOf(age));
 	}
-	
+
 	@Override
 	public void onLivingUpdate()
 	{
-		
+
 		if (this.getAge() == 0) {
 			this.setAge(1);
 		}
-		
+
 		super.onLivingUpdate();
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
@@ -424,17 +423,32 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		else
 			dropItem = new ItemStack(this.drop);
 
-		if (happyDrops == 2 && dropItem !=null)
+
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.peacockDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.peacockDrop2Amount + lootlevel);
+			}
 		}
-		else if (happyDrops == 1 && dropItem !=null)
+		else if (happyDrops == 1)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.peacockDrop2Amount + lootlevel);
+			}
 		}
 
 	}
@@ -550,13 +564,13 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		else
 			return ModSoundEvents.peacockHurt2;
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.type, this.gender));
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{
@@ -576,7 +590,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public EntityGender getEntityGender()
 	{

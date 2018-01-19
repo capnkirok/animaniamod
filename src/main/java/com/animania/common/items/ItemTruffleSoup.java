@@ -32,6 +32,7 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 	public ItemTruffleSoup() {
 		super(10, 1f, "truffle_soup", new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
 		this.setMaxStackSize(1);
+		this.setContainerItem(Items.BOWL);
 	}
 	
 	@Override

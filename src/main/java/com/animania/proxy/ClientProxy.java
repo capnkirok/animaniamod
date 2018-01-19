@@ -3,7 +3,6 @@ package com.animania.proxy;
 import com.animania.Animania;
 import com.animania.client.AnimaniaTextures;
 import com.animania.client.handler.RenderHandler;
-import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEgg;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
@@ -16,6 +15,7 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
@@ -31,7 +31,7 @@ public class ClientProxy extends CommonProxy
 		super.preInit();
 		RenderHandler.preInit();
 		AnimaniaTextures.registerTextures();
-		
+
 	}
 
 	@Override
@@ -101,6 +101,21 @@ public class ClientProxy extends CommonProxy
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_cart");
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_cart_chest");
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_wagon");
+	}
+
+	//Sleep
+	public void Sleep(EntityPlayer entityplayer) {
+
+		long currentTime = 0;
+		int factorTime = 0;
+
+		for (int j = 0; j < entityplayer.world.getMinecraftServer().getServer().worlds.length; ++j)
+		{
+			currentTime = entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() %24000;
+			factorTime = 24000 - (int)currentTime;
+			entityplayer.world.getMinecraftServer().getServer().worlds[j].setWorldTime(entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime) ;
+		}
+
 	}
 
 }

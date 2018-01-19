@@ -192,7 +192,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 		ItemStack heldItem = playerIn.getHeldItem(hand);
 		TileEntityNest te = (TileEntityNest) worldIn.getTileEntity(pos);
 
-		if (te != null && heldItem.isEmpty())
+		if (te != null && heldItem.isEmpty() && !playerIn.isSneaking())
 		{
 			ItemStack stack = te.itemHandler.extractItem(0, 1, false);
 			AnimaniaHelper.addItem(playerIn, stack);

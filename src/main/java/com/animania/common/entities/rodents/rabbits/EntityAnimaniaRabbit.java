@@ -9,7 +9,7 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.rodents.ai.EntityAIFindFoodRabbits;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
@@ -117,6 +117,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityMob.class, 10.0F, 2.2D, 2.2D));
 		this.tasks.addTask(10, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
+		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
 
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
@@ -310,7 +311,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 		if (!player.isCreative())
 			stack.shrink(1);
 	}
-	
+
 	public int getAge()
 	{
 		return this.dataManager.get(EntityAnimaniaRabbit.AGE).intValue();
@@ -320,7 +321,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 	{
 		this.dataManager.set(EntityAnimaniaRabbit.AGE, Integer.valueOf(age));
 	}
-	
+
 	public boolean getHandFed()
 	{
 		return this.dataManager.get(EntityAnimaniaRabbit.HANDFED).booleanValue();
@@ -410,7 +411,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 	{
 		return resourceLocationBlink;
 	}
-	
+
 
 	@Override
 	protected Item getDropItem()
@@ -458,7 +459,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 		if (this.getAge() == 0) {
 			this.setAge(1);
 		}
-		
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -486,7 +487,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
-		
+
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
@@ -633,7 +634,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 		if (AnimaniaConfig.drops.customMobDrops && dropRaw != Items.RABBIT && dropCooked != Items.COOKED_RABBIT && dropRaw != Item.getItemFromBlock(Blocks.AIR)) {
 			String drop = AnimaniaConfig.drops.rabbitDrop;
 			dropItem = AnimaniaHelper.getItem(drop);
-			//TODO AIR
+
 			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
 			{
 				drop = this.dropCooked.getRegistryName().toString();
@@ -645,17 +646,25 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 				dropItem = new ItemStack(this.dropCooked, 1);
 		}
 
-
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.rabbitDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
 
 		if (happyDrops >= 1)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
-			this.dropItem(Items.RABBIT_FOOT, 1 + lootlevel);
-		} else if (happyDrops == 0)
-			this.dropItem(Items.RABBIT_FOOT, 1 + lootlevel);
-
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.rabbitDrop2Amount + lootlevel);
+			}
+		} else if (happyDrops == 0) {
+			if (dropItem != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.rabbitDrop2Amount + lootlevel);
+			}
+		}
 	}
 
 
@@ -932,7 +941,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public EntityGender getEntityGender()
 	{

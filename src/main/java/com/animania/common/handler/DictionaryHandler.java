@@ -5,7 +5,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class DictionaryHandler
@@ -13,11 +16,15 @@ public class DictionaryHandler
 
 	public static void init() {
 
-		ItemStack milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
+		
+		//ItemStack milkHolstein = new ItemStack(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein).getTagCompound().
+		
+		/*
 		ItemStack milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
 		ItemStack milkGoat = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
 		ItemStack milkSheep = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
-
+		*/
+		
 		OreDictionary.registerOre("egg", ItemHandler.brownEgg);
 		OreDictionary.registerOre("egg", ItemHandler.peacockEggBlue);
 		OreDictionary.registerOre("egg", ItemHandler.peacockEggWhite);
@@ -31,7 +38,17 @@ public class DictionaryHandler
 		OreDictionary.registerOre("itemSalt", ItemHandler.salt);
 		OreDictionary.registerOre("foodSalt", ItemHandler.salt);
 		OreDictionary.registerOre("wool", new ItemStack(BlockHandler.blockAnimaniaWool, 1, OreDictionary.WILDCARD_VALUE));
-
+		
+		//OreDictionary.registerOre("listAllmilk", milkHolstein);
+		/*
+		OreDictionary.registerOre("listAllmilk", milkHolstein);
+		OreDictionary.registerOre("listAllmilk", milkFriesian);
+		OreDictionary.registerOre("listAllmilk", milkGoat);
+		OreDictionary.registerOre("listAllmilk", milkSheep);
+		*/
+		OreDictionary.registerOre("blockMud", BlockHandler.blockMud);
+		
+		
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusBeef);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawAngusSteak);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawDurocBacon);

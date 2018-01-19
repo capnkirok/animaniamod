@@ -20,7 +20,9 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -64,7 +66,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 		ForgeRegistries.BLOCKS.register(this);
 		Item item = new ItemBlock(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "cheese_mold"));
-		
+
 		ForgeRegistries.ITEMS.register(item);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.EMPTY));
 
@@ -93,7 +95,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 	{
 		return this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta));
 	}
-	
+
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
 	{
@@ -115,11 +117,11 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 		return new BlockStateContainer(this, new IProperty[] { VARIANT });
 	}
 
-//	@Override
-//	public boolean isFullyOpaque(IBlockState state)
-//	{
-//		return false;
-//	}
+	//	@Override
+	//	public boolean isFullyOpaque(IBlockState state)
+	//	{
+	//		return false;
+	//	}
 
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
@@ -179,7 +181,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 			{
 				if (!te.getItemHandler().getStackInSlot(0).isEmpty() && !player.isSneaking())
 				{
-					AnimaniaHelper.addItem(player, te.getItemHandler().getStackInSlot(0));
+					player.inventory.addItemStackToInventory(te.getItemHandler().getStackInSlot(0));
 					return true;
 				}
 

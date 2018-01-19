@@ -1,5 +1,6 @@
 # eclipse
 bin
+src/main/java/com/animania/client/models
 *.launch
 .settings
 .metadata

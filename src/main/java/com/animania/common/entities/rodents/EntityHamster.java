@@ -15,6 +15,7 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
 import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
@@ -78,7 +79,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { ItemHandler.hamsterFood });
 	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> AGE = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final String[] HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou", "white", "gold" };
 
 	private int fedTimer;
@@ -144,6 +145,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.tasks.addTask(2, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
 		this.tasks.addTask(8, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(9, new EntityAILookIdleRodent(this));
+		this.tasks.addTask(10, new EntityAnimaniaAvoidWater(this));
 
 	}
 
@@ -218,7 +220,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.dataManager.register(EntityHamster.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityHamster.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityHamster.RIDING, Boolean.valueOf(false));
-		this.dataManager.register(EntityHamster.AGE, Integer.valueOf(0));
+		this.dataManager.register(EntityHamster.AGE, Boolean.valueOf(false));
 
 	}
 
@@ -235,7 +237,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		nbttagcompound.setBoolean("Watered", this.getWatered());
 		nbttagcompound.setBoolean("IsTamed", this.getIsTamed());
 		nbttagcompound.setBoolean("IsRiding", this.getIsRiding());
-		nbttagcompound.setInteger("Age", this.getAge());
+		nbttagcompound.setBoolean("Age", this.getAge());
 	}
 
 	@Override
@@ -252,17 +254,17 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
 		this.setIsTamed(nbttagcompound.getBoolean("IsTamed"));
 		this.setIsRiding(nbttagcompound.getBoolean("IsRiding"));
-		this.setAge(nbttagcompound.getInteger("Age"));
-	}
-	
-	public int getAge()
-	{
-		return this.dataManager.get(EntityHamster.AGE).intValue();
+		this.setAge(nbttagcompound.getBoolean("Age"));
 	}
 
-	public void setAge(int age)
+	public boolean getAge()
 	{
-		this.dataManager.set(EntityHamster.AGE, Integer.valueOf(age));
+		return this.dataManager.get(EntityHamster.AGE).booleanValue();
+	}
+
+	public void setAge(boolean age)
+	{
+		this.dataManager.set(EntityHamster.AGE, Boolean.valueOf(age));
 	}
 
 	@Override
@@ -529,10 +531,10 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.getAge() == 0) {
-			this.setAge(1);
+		if (!this.getAge()) {
+			this.setAge(true);
 		}
-		
+
 		delayCount--;
 		if (delayCount <= 0) {
 			delayCount = 0;
@@ -842,17 +844,31 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		else
 			dropItem = null;
 
-		if (happyDrops == 2 && dropItem != null)
+		ItemStack dropItem2;
+		String drop2 = AnimaniaConfig.drops.hamsterDrop2;
+		dropItem2 = AnimaniaHelper.getItem(drop2);
+
+		if (happyDrops == 2)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hamsterDrop2Amount + lootlevel);
+			}
 		}
-		else if (happyDrops == 1 && dropItem != null)
+		else if (happyDrops == 1)
 		{
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
+			if (dropItem != null) {
+				dropItem.setCount(1 + lootlevel);
+				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
+				world.spawnEntity(entityitem);
+			}
+			if (dropItem2 != null) {
+				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hamsterDrop2Amount + lootlevel);
+			}
 		}
 
 		if (this.isInBall())

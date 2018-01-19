@@ -1,0 +1,11 @@
+{
+  "result": {
+    "item": "minecraft:porkchop"
+  },
+  "ingredients": [
+    {
+      "item": "animania:raw_old_spot_bacon"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}
