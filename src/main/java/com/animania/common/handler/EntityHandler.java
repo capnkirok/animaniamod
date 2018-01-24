@@ -178,6 +178,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class EntityHandler

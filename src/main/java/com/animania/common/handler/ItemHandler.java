@@ -85,6 +85,10 @@ public class ItemHandler
 	public static Item rawPrimeBeef;
 	public static Item cookedPrimeSteak;
 	public static Item cookedPrimeBeef;
+	
+	// Horse
+	public static Item rawHorse;
+	public static Item cookedHorse;
 
 	// Horse
 	public static Item rawHorse;

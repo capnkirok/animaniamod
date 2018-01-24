@@ -81,7 +81,7 @@ public class AnimaniaTextures
 		// Horse
 		register(ItemHandler.rawHorse);
 		register(ItemHandler.cookedHorse);
-
+		
 		// Beef Generics
 		register(ItemHandler.rawPrimeBeef);
 		register(ItemHandler.cookedPrimeBeef);
