@@ -90,10 +90,6 @@ public class ItemHandler
 	public static Item rawHorse;
 	public static Item cookedHorse;
 
-	// Horse
-	public static Item rawHorse;
-	public static Item cookedHorse;
-
 	// Pork
 	public static Item rawLargeBlackPork;
 	public static Item rawDurocPork;
