@@ -33,6 +33,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -504,6 +505,21 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
+
+		if (stack != stack.EMPTY && stack.getItem() == Items.NAME_TAG ) {
+			if (!stack.hasDisplayName()) {
+				return false;
+
+			} else {
+				EntityLiving entityliving = this;
+				entityliving.setCustomNameTag(stack.getDisplayName());
+				entityliving.enablePersistence();
+				if (!player.capabilities.isCreativeMode)
+					stack.setCount(stack.getCount() - 1);
+
+				return true;
+			}
+		}
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
 			{

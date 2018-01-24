@@ -7,6 +7,7 @@ import com.animania.common.entities.EntityGender;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEgg;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -36,6 +37,7 @@ public class AnimaniaTextures
 		register(ItemHandler.cheeseMold);
 		register(ItemHandler.cheeseWedgeFriesian);
 		register(ItemHandler.cheeseWedgeHolstein);
+		register(ItemHandler.cheeseWedgeJersey);
 		register(ItemHandler.cheeseWedgeGoat);
 		register(ItemHandler.cheeseWedgeSheep);
 		register(ItemHandler.truffleSoup);
@@ -79,7 +81,7 @@ public class AnimaniaTextures
 		// Horse
 		register(ItemHandler.rawHorse);
 		register(ItemHandler.cookedHorse);
-		
+
 		// Beef Generics
 		register(ItemHandler.rawPrimeBeef);
 		register(ItemHandler.cookedPrimeBeef);
@@ -158,7 +160,7 @@ public class AnimaniaTextures
 		register(ItemHandler.entityeggrandomrabbit);
 		register(ItemHandler.entityeggrandomsheep);
 
-		
+
 		// Blocks
 		register(Item.getItemFromBlock(BlockHandler.blockMud));
 		register(Item.getItemFromBlock(BlockHandler.blockTrough));
@@ -166,17 +168,21 @@ public class AnimaniaTextures
 		register(Item.getItemFromBlock(BlockHandler.blockHamsterWheel));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseFriesian));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseHolstein));
+		register(Item.getItemFromBlock(BlockHandler.blockCheeseJersey));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseGoat));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseSheep));
 		register(Item.getItemFromBlock(BlockHandler.blockSaltLick));
 		regSpecial(BlockHandler.blockAnimaniaWool);
-		register(ItemHandler.cart);
-		register(ItemHandler.wagon);
-		
-		
+		if (!AnimaniaConfig.gameRules.disableRollingVehicles) {
+			register(ItemHandler.cart);
+			register(ItemHandler.wagon);
+		}
+
+
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkFriesian, "milk_friesian");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkHolstein, "milk_holstein");
+		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkJersey, "milk_jersey");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkGoat, "milk_goat");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkSheep, "milk_sheep");
 
@@ -202,22 +208,22 @@ public class AnimaniaTextures
 		for (int meta = 0; meta < 16; meta++)
 			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name + "_" + EnumDyeColor.byDyeDamage(meta).getName(), "inventory"));
 	}
-	
+
 	public static void regSpecial(Block block)
 	{
 		NonNullList<ItemStack> list = NonNullList.create();
-		
+
 		block.getSubBlocks(Animania.TabAnimaniaResources, list);
-		
+
 		for(int i = 0; i < list.size(); i++)
 		{
 			ItemStack stack = list.get(i);
-			
+
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), stack.getMetadata(), new ModelResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName)block).getSpecialName(stack), "inventory"));
 			ModelBakery.registerItemVariants(Item.getItemFromBlock(block), new ResourceLocation(block.getRegistryName().toString() + "_" + ((IMetaBlockName)block).getSpecialName(stack)));
-		
+
 		}
-		
+
 	}
 
 	public static void registerEntityEggs()

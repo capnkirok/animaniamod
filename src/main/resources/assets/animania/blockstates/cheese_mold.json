@@ -5,6 +5,8 @@
         "variant=holstein_cheese": { "model": "animania:mold_holstein_cheese" },
         "variant=friesian_milk": { "model": "animania:mold_friesian_milk" },
         "variant=friesian_cheese": { "model": "animania:mold_friesian_cheese" },
+        "variant=jersey_milk": { "model": "animania:mold_jersey_milk" },
+        "variant=jersey_cheese": { "model": "animania:mold_jersey_cheese" },
         "variant=goat_milk": { "model": "animania:mold_goat_milk" },
         "variant=goat_cheese": { "model": "animania:mold_goat_cheese" },
         "variant=sheep_milk": { "model": "animania:mold_sheep_milk" },

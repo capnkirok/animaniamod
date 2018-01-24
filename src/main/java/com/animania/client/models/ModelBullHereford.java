@@ -3,6 +3,7 @@ package com.animania.client.models;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.common.entities.cows.EntityBullHereford;
+import com.animania.common.entities.cows.EntityBullJersey;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.model.ModelBase;
@@ -315,8 +316,13 @@ public class ModelBullHereford extends ModelBase
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        this.Head.rotationPointY = 6.0F + ((EntityBullHereford) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-        this.headRotationAngleX = ((EntityBullHereford) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        if (entitylivingbaseIn instanceof EntityBullHereford) {
+			this.Head.rotationPointY = 6.0F + ((EntityBullHereford) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = ((EntityBullHereford) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		} else if (entitylivingbaseIn instanceof EntityBullJersey) {
+			this.Head.rotationPointY = 6.0F + ((EntityBullJersey) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = ((EntityBullJersey) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		}
 
     }
 
@@ -337,7 +343,21 @@ public class ModelBullHereford extends ModelBase
                 this.Head.rotateAngleX = this.headRotationAngleX;
             }
 
-        }
+        } else if (par7 instanceof EntityBullJersey) {
+
+			EntityBullJersey eb = (EntityBullJersey) par7;
+			if (eb.getFighting()) {
+				this.Head.rotationPointY = 14.0F + ((EntityBullJersey) par7).getHeadRotationPointY(1) * 9.0F;
+				this.headRotationAngleX = ((EntityBullJersey) par7).getHeadRotationAngleX(-3);
+			}
+			else {
+				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
+				this.Head.rotateAngleY = par4 / (180F / (float) Math.PI);
+				this.Head.rotateAngleX = this.headRotationAngleX;
+			}
+
+		}
+        
         else {
             this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
             this.Head.rotateAngleY = par4 / (180F / (float) Math.PI);

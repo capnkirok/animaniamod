@@ -3,6 +3,7 @@ package com.animania.client.models;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.common.entities.cows.EntityCowHereford;
+import com.animania.common.entities.cows.EntityCowJersey;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -219,6 +220,9 @@ public class ModelCowHereford extends ModelBase
         if (entitylivingbaseIn instanceof EntityCowHereford) {
             this.head.rotationPointY = 6.0F + ((EntityCowHereford) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
             this.headRotationAngleX = ((EntityCowHereford) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        } else if (entitylivingbaseIn instanceof EntityCowJersey) {
+            this.head.rotationPointY = 6.0F + ((EntityCowJersey) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = ((EntityCowJersey) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
         }
     }
 

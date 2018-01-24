@@ -267,6 +267,8 @@ public class RecipeHandler
 		GameRegistry.addSmelting(ItemHandler.rawMutton, new ItemStack(ItemHandler.cookedMutton, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawChevon, new ItemStack(ItemHandler.cookedChevon, 1), .3F);
 		GameRegistry.addSmelting(ItemHandler.rawPrimeChevon, new ItemStack(ItemHandler.cookedPrimeChevon, 1), .3F);
+		
+		GameRegistry.addSmelting(ItemHandler.rawHorse, new ItemStack(ItemHandler.cookedHorse, 1), .3F);
 
 	}
 

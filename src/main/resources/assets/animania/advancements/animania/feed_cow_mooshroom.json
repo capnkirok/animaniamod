@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_calf_mooshroom"
+        },
+        "title": {
+            "translate": "advancements.animania.mooshroom.title"
+        },
+        "description": {
+            "translate": "advancements.animania.mooshroom.description"
+        }
+    },
+    "parent": "animania:animania/feed_cow_angus",
+    "criteria": {
+        "mooshroom_calf": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:calf_mooshroom"
+            }
+        },
+		"mooshroom_cow": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:cow_mooshroom"
+            }
+        },
+		 "mooshroom_bull": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:bull_mooshroom"
+            }
+        }  
+    },
+	"requirements": [["mooshroom_bull", "mooshroom_cow", "mooshroom_calf"]]
+
+}

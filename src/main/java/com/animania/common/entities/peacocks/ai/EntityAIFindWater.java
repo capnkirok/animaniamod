@@ -157,17 +157,12 @@ public class EntityAIFindWater extends EntityAIBase
 		return false;
 	}
 
-	@Override
-	public boolean shouldContinueExecuting() {
-
-		return this.shouldExecute();
+	public boolean shouldContinueExecuting()
+	{
+		return !this.temptedEntity.getNavigator().noPath();
 	}
+
 	
-	@Override
-	public void startExecuting() {
-		this.isRunning = true;
-	}
-
 	@Override
 	public void resetTask() {
 		this.temptingPlayer = null;
@@ -176,7 +171,7 @@ public class EntityAIFindWater extends EntityAIBase
 	}
 
 	@Override
-	public void updateTask() {
+	public void startExecuting() {
 
 		double x = this.temptedEntity.posX;
 		double y = this.temptedEntity.posY;

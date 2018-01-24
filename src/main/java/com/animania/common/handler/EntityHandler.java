@@ -28,18 +28,27 @@ import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.cows.EntityBullAngus;
 import com.animania.common.entities.cows.EntityBullFriesian;
 import com.animania.common.entities.cows.EntityBullHereford;
+import com.animania.common.entities.cows.EntityBullHighland;
 import com.animania.common.entities.cows.EntityBullHolstein;
+import com.animania.common.entities.cows.EntityBullJersey;
 import com.animania.common.entities.cows.EntityBullLonghorn;
+import com.animania.common.entities.cows.EntityBullMooshroom;
 import com.animania.common.entities.cows.EntityCalfAngus;
 import com.animania.common.entities.cows.EntityCalfFriesian;
 import com.animania.common.entities.cows.EntityCalfHereford;
+import com.animania.common.entities.cows.EntityCalfHighland;
 import com.animania.common.entities.cows.EntityCalfHolstein;
+import com.animania.common.entities.cows.EntityCalfJersey;
 import com.animania.common.entities.cows.EntityCalfLonghorn;
+import com.animania.common.entities.cows.EntityCalfMooshroom;
 import com.animania.common.entities.cows.EntityCowAngus;
 import com.animania.common.entities.cows.EntityCowFriesian;
 import com.animania.common.entities.cows.EntityCowHereford;
+import com.animania.common.entities.cows.EntityCowHighland;
 import com.animania.common.entities.cows.EntityCowHolstein;
+import com.animania.common.entities.cows.EntityCowJersey;
 import com.animania.common.entities.cows.EntityCowLonghorn;
+import com.animania.common.entities.cows.EntityCowMooshroom;
 import com.animania.common.entities.goats.EntityBuckAlpine;
 import com.animania.common.entities.goats.EntityBuckAngora;
 import com.animania.common.entities.goats.EntityBuckFainting;
@@ -169,7 +178,6 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class EntityHandler
@@ -315,6 +323,19 @@ public class EntityHandler
 		RegistryHelper.Entities.registerAnimal(EntityCowLonghorn.class, "cow_longhorn", entityID++, CowType.LONGHORN, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityBullLonghorn.class, "bull_longhorn", entityID++, CowType.LONGHORN, EntityGender.MALE);
 
+		RegistryHelper.Entities.registerAnimal(EntityCalfHighland.class, "calf_highland", entityID++, CowType.HIGHLAND, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(EntityCowHighland.class, "cow_highland", entityID++, CowType.HIGHLAND, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityBullHighland.class, "bull_highland", entityID++, CowType.HIGHLAND, EntityGender.MALE);
+
+		RegistryHelper.Entities.registerAnimal(EntityCalfJersey.class, "calf_jersey", entityID++, CowType.JERSEY, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(EntityCowJersey.class, "cow_jersey", entityID++, CowType.JERSEY, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityBullJersey.class, "bull_jersey", entityID++, CowType.JERSEY, EntityGender.MALE);
+
+		RegistryHelper.Entities.registerAnimal(EntityCalfMooshroom.class, "calf_mooshroom", entityID++, CowType.MOOSHROOM, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(EntityCowMooshroom.class, "cow_mooshroom", entityID++, CowType.MOOSHROOM, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityBullMooshroom.class, "bull_mooshroom", entityID++, CowType.MOOSHROOM, EntityGender.MALE);
+
+		
 		maxFam = AnimaniaConfig.spawn.numberCowFamilies;
 		if (maxFam < 2) {
 			maxFam = 2;
@@ -330,6 +351,14 @@ public class EntityHandler
 			EntityRegistry.addSpawn(EntityCowLonghorn.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
 			EntityRegistry.addSpawn(EntityCowHereford.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
 			EntityRegistry.addSpawn(EntityCowHereford.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.HILLS));
+			EntityRegistry.addSpawn(EntityCowHighland.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
+			EntityRegistry.addSpawn(EntityCowHighland.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.HILLS));
+			EntityRegistry.addSpawn(EntityCowJersey.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.WASTELAND));
+			EntityRegistry.addSpawn(EntityCowJersey.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.LUSH));
+			EntityRegistry.addSpawn(EntityCowMooshroom.class, AnimaniaConfig.spawn.spawnProbabilityCows + 4, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MUSHROOM));
+			EntityRegistry.addSpawn(EntityCowMooshroom.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MAGICAL));
+			EntityRegistry.addSpawn(EntityCowMooshroom.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, maxFam, EnumCreatureType.CREATURE, Biomes.MUSHROOM_ISLAND);
+			
 		}
 
 		// AMPHIBIANS
@@ -380,7 +409,7 @@ public class EntityHandler
 			maxFam = 2;
 		}
 
-		
+
 		if (AnimaniaConfig.spawn.spawnAnimaniaGoats)
 		{	
 			RegistryHelper.Entities.addSpawn(EntityDoeAlpine.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
@@ -442,7 +471,7 @@ public class EntityHandler
 		}
 
 		// RABBITS
-		
+
 
 		RegistryHelper.Entities.registerAnimal(EntityRabbitBuckCottontail.class, "buck_cottontail", entityID++, RabbitType.COTTONTAIL, EntityGender.MALE);
 		RegistryHelper.Entities.registerAnimal(EntityRabbitDoeCottontail.class, "doe_cottontail", entityID++, RabbitType.COTTONTAIL, EntityGender.FEMALE);
@@ -480,7 +509,7 @@ public class EntityHandler
 		if (maxFam < 1) {
 			maxFam = 1;
 		}
-		
+
 		if (AnimaniaConfig.spawn.spawnAnimaniaRabbits)
 		{
 			RegistryHelper.Entities.addSpawn(EntityRabbitDoeCottontail.class, AnimaniaConfig.spawn.spawnProbabilityRabbits, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
@@ -580,9 +609,10 @@ public class EntityHandler
 		}
 
 		// MOVING ENTITIES
-		RegistryHelper.Entities.registerEntity(EntityWagon.class, "wagon", entityID++, 40, 1, true);
-		RegistryHelper.Entities.registerEntity(EntityCart.class, "cart", entityID++, 40, 1, true);
-
+		if (!AnimaniaConfig.gameRules.disableRollingVehicles) {
+			RegistryHelper.Entities.registerEntity(EntityWagon.class, "wagon", entityID++, 40, 1, true);
+			RegistryHelper.Entities.registerEntity(EntityCart.class, "cart", entityID++, 40, 1, true);
+		}
 	}
 
 	private static Biome[] getBiomes(BiomeDictionary.Type type)

@@ -25,6 +25,13 @@
 				}
 			}
 		],
+		"milk_jersey": [
+            {
+                "custom": {
+                    "fluid": "milk_jersey"
+                }
+            }
+        ],
 		"milk_goat": [
             {
                 "custom": {
