@@ -276,7 +276,7 @@ public class CommonConfig
 		public int cheeseMaturityTime = 24000;
 
 		@Comment("Food Items that can be placed in the trough")
-		public String[] troughFood = { "minecraft:wheat", "simplecorn:corncob", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem", "harvestcraft:cornitem", "minecraft:apple", "minecraft:carrot" , "minecraft:beetroot", "minecraft:potato", "minecraft:poisonous_potato"};
+		public String[] troughFood = { "minecraft:wheat", "simplecorn:corncob", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem", "harvestcraft:cornitem", "minecraft:apple", "minecraft:carrot" , "minecraft:beetroot", "minecraft:potato", "minecraft:poisonous_potato", "minecraft:wheat_seeds", "minecraft:melon_seeds", "minecraft:beetroot_seeds", "minecraft:pumpkin_seeds", "biomesoplenty:turnip_seeds"};
 	
 		@Comment("Water blocks removed after large animal drinks")
 		public boolean waterRemovedAfterDrinking = true;
@@ -289,6 +289,12 @@ public class CommonConfig
 		
 		@Comment("Animals can attack others")
 		public boolean animalsCanAttackOthers = true;
+		
+		@Comment("Disable salt creation using Cheese Mold")
+		public boolean disableSaltCreation = false;
+		
+		@Comment("Disable rolling vehicles")
+		public boolean disableRollingVehicles = false;
 		
 		@Comment("Can sleep using Wagon")
 		public boolean sleepAllowedWagon = true;
@@ -320,13 +326,13 @@ public class CommonConfig
 		public boolean spawnAnimaniaRabbits    = true;
 		
 		@Comment("Spawn probability Cows in loaded Chunks")
-		public int spawnProbabilityCows = 10;
+		public int spawnProbabilityCows = 8;
 		@Comment("Spawn probability Horses in loaded Chunks")
 		public int spawnProbabilityHorses = 6;
 		@Comment("Spawn probability Pigs in loaded Chunks")
-		public int spawnProbabilityPigs = 10;
+		public int spawnProbabilityPigs = 8;
 		@Comment("Spawn probability Chickens in loaded Chunks")
-		public int spawnProbabilityChickens = 10;
+		public int spawnProbabilityChickens = 8;
 		@Comment("Spawn probability Hedgehogs in loaded Chunks")
 		public int spawnProbabilityHedgehogs = 8;
 		@Comment("Spawn probability Ferrets in loaded Chunks")
@@ -340,7 +346,7 @@ public class CommonConfig
 		@Comment("Spawn probability Goats in loaded Chunks")
 		public int spawnProbabilityGoats = 6;
 		@Comment("Spawn probability Sheep in loaded Chunks")
-		public int spawnProbabilitySheep = 10;
+		public int spawnProbabilitySheep = 8;
 		@Comment("Spawn probability Rabbits in loaded Chunks")
 		public int spawnProbabilityRabbits = 6;
 		
@@ -391,22 +397,25 @@ public class CommonConfig
 		@Comment("Maximum uses of the salt lick")
 		public int saltLickMaxUses = 200;
 		
-		@Comment("Food Items that cows can eat")
+		@Comment("Food Items that chickens can eat (use # for meta)")
+		public String[] chickenFood = { "minecraft:wheat_seeds", "minecraft:melon_seeds", "minecraft:beetroot_seeds", "minecraft:pumpkin_seeds", "simplecorn:corncob", "biomesoplenty:turnip_seeds", "harvestcraft:cornitem"  };
+		
+		@Comment("Food Items that cows can eat (use # for meta)")
 		public String[] cowFood = { "minecraft:wheat", "simplecorn:corncob", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem", "harvestcraft:cornitem"  };
 	
-		@Comment("Food Items that goats can eat")
+		@Comment("Food Items that goats can eat (use # for meta)")
 		public String[] goatFood = { "minecraft:wheat", "minecraft:string", "minecraft:stick", "simplecorn:corncob", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem", "harvestcraft:cornitem"  };
 	
-		@Comment("Food Items that horses can eat")
+		@Comment("Food Items that horses can eat (use # for meta)")
 		public String[] horseFood = { "minecraft:wheat", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem", "minecraft:apple", "minecraft:carrot" };
 	
-		@Comment("Food Items that pigs can eat")
+		@Comment("Food Items that pigs can eat (use # for meta)")
 		public String[] pigFood = { "minecraft:carrot", "minecraft:beetroot", "minecraft:potato", "minecraft:poisonous_potato"};
 	
-		@Comment("Food Items that sheep can eat")
+		@Comment("Food Items that sheep can eat (use # for meta)")
 		public String[] sheepFood = { "minecraft:wheat", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem"};
 		
-		@Comment("Food Items that rabbits can eat")
+		@Comment("Food Items that rabbits can eat (use # for meta)")
 		public String[] rabbitFood = { "minecraft:wheat", "minecraft:carrot", "minecraft:beetroot", "minecraft:apple"};
 	}
 

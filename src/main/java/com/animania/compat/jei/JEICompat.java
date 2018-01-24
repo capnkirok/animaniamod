@@ -25,6 +25,7 @@ public class JEICompat extends BlankModPlugin
     private ItemStack slopBucket   = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
     private ItemStack milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
     private ItemStack milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
+    private ItemStack milkJersey = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkJersey);
     private ItemStack milkGoat = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
     private ItemStack milkSheep = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
 
@@ -38,6 +39,7 @@ public class JEICompat extends BlankModPlugin
         registry.addDescription(this.slopBucket, "text.jei.slop", "text.jei.slop.craft");
         registry.addDescription(this.milkHolstein, "text.jei.milkholstein");
         registry.addDescription(this.milkFriesian, "text.jei.milkfriesian");
+        registry.addDescription(this.milkFriesian, "text.jei.milkjersey");
         registry.addDescription(this.milkGoat, "text.jei.milkgoat");
         registry.addDescription(this.milkSheep, "text.jei.milksheep");
         registry.addDescription(new ItemStack(ItemHandler.salt), "text.jei.salt");

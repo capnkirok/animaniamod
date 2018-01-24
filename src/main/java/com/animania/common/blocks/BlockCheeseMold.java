@@ -146,7 +146,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 		{
 			if (!stack.isEmpty() && te != null)
 			{
-				if (AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkFriesian) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkHolstein) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkGoat) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkSheep) || AnimaniaHelper.hasFluid(stack, FluidRegistry.WATER))
+				if (AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkFriesian) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkHolstein) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkGoat) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkSheep) || AnimaniaHelper.hasFluid(stack, BlockHandler.fluidMilkJersey) || (AnimaniaHelper.hasFluid(stack, FluidRegistry.WATER) && !AnimaniaConfig.gameRules.disableSaltCreation))
 				{
 					if (te.getFluidHandler().getFluidAmount() == 0 && te.getItemHandler().getStackInSlot(0).isEmpty())
 					{
@@ -210,7 +210,9 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 		SHEEP_MILK(7, "sheep_milk"),
 		SHEEP_CHEESE(8, "sheep_cheese"),
 		WATER(9, "water"),
-		SALT(10, "salt");
+		SALT(10, "salt"),
+		JERSEY_MILK(11, "jersey_milk"),
+		JERSEY_CHEESE(12, "jersey_cheese");
 
 
 		/** Array of the Block's BlockStates */

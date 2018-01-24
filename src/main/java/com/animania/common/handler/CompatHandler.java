@@ -8,8 +8,8 @@ public class CompatHandler
 
 	public static void preInit()
 	{
-
-		FMLInterModComms.sendMessage("waila", "register", "com.animania.compat.waila.WailaCompat.registerWaila");
+		if (Loader.isModLoaded("waila"))
+			FMLInterModComms.sendMessage("waila", "register", "com.animania.compat.waila.WailaCompat.registerWaila");
 
 		if (Loader.isModLoaded("theoneprobe"))
 			FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe", "com.animania.compat.top.TOPCompat");

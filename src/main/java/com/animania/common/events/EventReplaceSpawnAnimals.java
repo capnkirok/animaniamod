@@ -3,7 +3,6 @@ package com.animania.common.events;
 import java.util.Random;
 
 import com.animania.common.entities.chickens.EntityHenLeghorn;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.cows.EntityBullFriesian;
 import com.animania.common.entities.pigs.EntityPigletYorkshire;
 import com.animania.config.AnimaniaConfig;
@@ -14,6 +13,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
@@ -33,9 +33,9 @@ public class EventReplaceSpawnAnimals
 		World worldIn = event.getWorld();
 		Random rand = new Random();
 
-		if (AnimaniaConfig.gameRules.replaceVanillaCows && event.getEntity().getClass().equals(EntityCow.class) && !worldIn.isRemote) {
+		if (AnimaniaConfig.gameRules.replaceVanillaCows && (event.getEntity().getClass().equals(EntityCow.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !worldIn.isRemote) {
 			if (!event.getEntity().hasCustomName()) {
-				System.out.println(event.getEntity().getClass().getName());
+				//System.out.println(event.getEntity().getClass().getName());
 				event.setCanceled(true);
 				//event.isCanceled();
 				//event.getEntity().setDead();

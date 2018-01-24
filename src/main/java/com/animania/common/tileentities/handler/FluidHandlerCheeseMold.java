@@ -16,7 +16,7 @@ public class FluidHandlerCheeseMold extends FluidTank
 	
 	@Override
     public boolean canFillFluidType(FluidStack fluid) {
-        return fluid.getFluid() == BlockHandler.fluidMilkFriesian || fluid.getFluid() == BlockHandler.fluidMilkHolstein || fluid.getFluid() == BlockHandler.fluidMilkSheep || fluid.getFluid() == BlockHandler.fluidMilkGoat || fluid.getFluid() == FluidRegistry.WATER;
+        return fluid.getFluid() == BlockHandler.fluidMilkFriesian || fluid.getFluid() == BlockHandler.fluidMilkHolstein || fluid.getFluid() == BlockHandler.fluidMilkJersey || fluid.getFluid() == BlockHandler.fluidMilkSheep || fluid.getFluid() == BlockHandler.fluidMilkGoat || fluid.getFluid() == FluidRegistry.WATER;
     }
 
 
