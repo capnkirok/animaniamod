@@ -3,7 +3,10 @@ package com.animania.client.models;
 import com.animania.common.entities.cows.EntityCalfAngus;
 import com.animania.common.entities.cows.EntityCalfFriesian;
 import com.animania.common.entities.cows.EntityCalfHereford;
+import com.animania.common.entities.cows.EntityCalfHighland;
 import com.animania.common.entities.cows.EntityCalfHolstein;
+import com.animania.common.entities.cows.EntityCalfJersey;
+import com.animania.common.entities.cows.EntityCalfMooshroom;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -161,6 +164,18 @@ public class ModelCalf extends ModelBase
         else if (entitylivingbaseIn instanceof EntityCalfHereford) {
             this.Head.rotationPointY = 10.0F + ((EntityCalfHereford) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = ((EntityCalfHereford) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        }
+        else if (entitylivingbaseIn instanceof EntityCalfHighland) {
+            this.Head.rotationPointY = 10.0F + ((EntityCalfHighland) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = ((EntityCalfHighland) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        }
+        else if (entitylivingbaseIn instanceof EntityCalfMooshroom) {
+            this.Head.rotationPointY = 10.0F + ((EntityCalfMooshroom) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = ((EntityCalfMooshroom) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        }
+        else if (entitylivingbaseIn instanceof EntityCalfJersey) {
+            this.Head.rotationPointY = 10.0F + ((EntityCalfJersey) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = ((EntityCalfJersey) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCalfAngus) {
             this.Head.rotationPointY = 10.0F + ((EntityCalfAngus) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;

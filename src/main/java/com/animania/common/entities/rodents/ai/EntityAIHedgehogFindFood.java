@@ -171,16 +171,10 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 
 	@Override
 	public boolean continueExecuting()
-	{
-
-		return this.shouldExecute();
-	}
-
-	@Override
-	public void startExecuting()
-	{
-		this.isRunning = true;
-	}
+    {
+        return !this.temptedEntity.getNavigator().noPath();
+    }
+	
 
 	@Override
 	public void resetTask()
@@ -192,7 +186,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 	}
 
 	@Override
-	public void updateTask()
+	public void startExecuting()
 	{
 
 		double x = this.temptedEntity.posX;

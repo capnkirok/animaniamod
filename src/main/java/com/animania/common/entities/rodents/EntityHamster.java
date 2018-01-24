@@ -158,12 +158,13 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
-
+		
 		this.setFed(true);
 		this.setOwnerId(player.getPersistentID());
 		this.setIsTamed(true);
 		this.setTamed(true);
-
+		this.setInLove(player);
+		
 		player.addStat(AnimaniaAchievements.Hamsters, 1);
 
 		if (!player.capabilities.isCreativeMode)
@@ -304,7 +305,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				return true;
 			}
 
-		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && !this.getAnimalAge())
+		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 		{
 
 			if (!player.capabilities.isCreativeMode)
@@ -316,11 +317,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			}
 
 			player.addStat(AnimaniaAchievements.Hamsters, 1);
-			this.setInLove(player);
+			
 			this.setFed(true);
 			this.setIsTamed(true);
 			this.setTamed(true);
 			this.setOwnerId(player.getPersistentID());
+			this.setInLove(player);
 
 			this.doPatreonCheck(player);
 
@@ -348,9 +350,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isRiding() && player.isSneaking())
+		else if (itemstack == ItemStack.EMPTY && !this.isRiding() && player.isSneaking()) //TODO Removed tamed
 		{
-
+			
 			if (!this.getIsRiding())
 			{
 				final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
@@ -569,7 +571,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (!this.getAnimalAge()) {
 			this.setAnimalAge(true);
 		}
-
+		
 		if (this.isRiding())
 			this.rideCount++;
 
