@@ -17,8 +17,10 @@ public class RemoveVanillaSpawns
 	public void onEntitySpawn(WorldEvent.PotentialSpawns event) {
 		List spawns = event.getList();
 		for (int i = event.getList().size() - 1; i >= 0; i--) {
-			if (AnimaniaConfig.gameRules.replaceVanillaCows && event.getList().get(i).entityClass.getName().contains("net.minecraft.entity.passive.EntityCow") && !event.getList().get(i).entityClass.getName().contains("com.animania.common.entities.cows.EntityAnimaniaCow")) {
+			if (AnimaniaConfig.gameRules.replaceVanillaCows && event.getList().get(i).entityClass.getName().contains("net.minecraft.entity.passive.EntityCow")) {
 				event.getList().remove(i);
+			} else if (AnimaniaConfig.gameRules.replaceVanillaCows && event.getList().get(i).entityClass.getName().contains("net.minecraft.entity.passive.EntityMooshroom")) {
+					event.getList().remove(i);
 			} else if (AnimaniaConfig.gameRules.replaceVanillaChickens && event.getList().get(i).entityClass.getName().contains("net.minecraft.entity.passive.EntityChicken")) {
 				event.getList().remove(i);
 			} else if (AnimaniaConfig.gameRules.replaceVanillaPigs && event.getList().get(i).entityClass.getName().contains("net.minecraft.entity.passive.EntityPig")) {

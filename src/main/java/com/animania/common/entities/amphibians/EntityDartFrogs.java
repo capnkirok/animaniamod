@@ -114,7 +114,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	@Override
 	protected void collideWithEntity(Entity entityIn) {
 
-		if (entityIn instanceof EntityPlayer) {
+		if (entityIn instanceof EntityPlayer && entityIn != this) {
 			EntityPlayer player = (EntityPlayer) entityIn;
 			player.addPotionEffect(new PotionEffect(MobEffects.POISON, 200, 1, false, false));
 		}

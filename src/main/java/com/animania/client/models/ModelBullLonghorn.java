@@ -1,5 +1,6 @@
 package com.animania.client.models;
 
+import com.animania.common.entities.cows.EntityBullHighland;
 import com.animania.common.entities.cows.EntityBullLonghorn;
 import com.animania.config.AnimaniaConfig;
 
@@ -269,6 +270,9 @@ public class ModelBullLonghorn extends ModelBase
         if (entitylivingbaseIn instanceof EntityBullLonghorn) {
             this.Head.rotationPointY = 6.0F + ((EntityBullLonghorn) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
             this.headRotationAngleX = ((EntityBullLonghorn) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        } else if (entitylivingbaseIn instanceof EntityBullHighland) {
+            this.Head.rotationPointY = 6.0F + ((EntityBullHighland) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = ((EntityBullHighland) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
         }
     }
 
@@ -283,6 +287,18 @@ public class ModelBullLonghorn extends ModelBase
             if (eb.getFighting()) {
                 this.Head.rotationPointY = 14.0F + ((EntityBullLonghorn) par7).getHeadRotationPointY(1) * 9.0F;
                 this.headRotationAngleX = ((EntityBullLonghorn) par7).getHeadRotationAngleX(-3);
+            }
+            else {
+                this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
+                this.Head.rotateAngleY = par4 / (180F / (float) Math.PI);
+                this.Head.rotateAngleX = this.headRotationAngleX;
+            }
+        } else if (par7 instanceof EntityBullHighland) {
+
+            EntityBullHighland eb = (EntityBullHighland) par7;
+            if (eb.getFighting()) {
+                this.Head.rotationPointY = 14.0F + ((EntityBullHighland) par7).getHeadRotationPointY(1) * 9.0F;
+                this.headRotationAngleX = ((EntityBullHighland) par7).getHeadRotationAngleX(-3);
             }
             else {
                 this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);

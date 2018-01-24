@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
-import com.animania.common.entities.cows.ai.EntityAIPanicCows;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -444,11 +443,19 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 			stack.shrink(1);
 
-			if (stack.getCount() == 0)
-				player.setHeldItem(hand, this.milk.copy());
-			else if (!player.inventory.addItemStackToInventory(this.milk.copy()))
-				player.dropItem(this.milk.copy(), false);
-
+			if (stack.getCount() == 0) {
+				if (this.getCustomNameTag().trim().toLowerCase().equals("purp")) {
+					player.setHeldItem(hand, new ItemStack(Items.LAVA_BUCKET, 1));
+				} else {
+					player.setHeldItem(hand, this.milk.copy());
+				}
+			} else if (stack.getCount() > 0) {
+				if (this.getCustomNameTag().trim().toLowerCase().equals("purp")) {
+					player.dropItem(new ItemStack(Items.LAVA_BUCKET, 1), false);
+				} else {
+					player.dropItem(this.milk.copy(), false);
+				}
+			}
 			this.setWatered(false);
 
 			return true;

@@ -16,7 +16,10 @@ public enum CowType implements AnimaniaType
 	FRIESIAN(EntityBullFriesian.class, EntityCowFriesian.class, EntityCalfFriesian.class, AnimaniaAchievements.Friesian),
 	HEREFORD(EntityBullHereford.class, EntityCowHereford.class, EntityCalfHereford.class, AnimaniaAchievements.Hereford),
 	HOLSTEIN(EntityBullHolstein.class, EntityCowHolstein.class, EntityCalfHolstein.class, AnimaniaAchievements.Holstein),
-	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class, AnimaniaAchievements.Longhorn);
+	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class, AnimaniaAchievements.Longhorn),
+	HIGHLAND(EntityBullHighland.class, EntityCowHighland.class, EntityCalfHighland.class, AnimaniaAchievements.Highland),
+	JERSEY(EntityBullJersey.class, EntityCowJersey.class, EntityCalfJersey.class, AnimaniaAchievements.Jersey),
+	MOOSHROOM(EntityBullMooshroom.class, EntityCowMooshroom.class, EntityCalfMooshroom.class, AnimaniaAchievements.Mooshroom);
 
 
 	private Class bull;
