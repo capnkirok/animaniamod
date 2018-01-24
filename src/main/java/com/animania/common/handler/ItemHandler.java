@@ -67,7 +67,7 @@ public class ItemHandler
 	public static Item ridingCrop;
 	public static Item wheel;
 	public static Item milkBottle;
-
+	
 	// Beef
 	public static Item rawHerefordBeef;
 	public static Item rawLonghornBeef;
@@ -86,7 +86,7 @@ public class ItemHandler
 	public static Item rawPrimeBeef;
 	public static Item cookedPrimeSteak;
 	public static Item cookedPrimeBeef;
-
+	
 	// Horse
 	public static Item rawHorse;
 	public static Item cookedHorse;
@@ -155,8 +155,6 @@ public class ItemHandler
 	public static Item cheeseWedgeFriesian;
 	public static Item cheeseWheelHolstein;
 	public static Item cheeseWedgeHolstein;
-	public static Item cheeseWheelJersey;
-	public static Item cheeseWedgeJersey;
 	public static Item cheeseWheelGoat;
 	public static Item cheeseWedgeGoat;
 	public static Item cheeseWheelSheep;
@@ -184,18 +182,6 @@ public class ItemHandler
 	public static Item entityeggcalfhereford;
 	public static Item entityeggcowhereford;
 	public static Item entityeggbullhereford;
-
-	public static Item entityeggcalfhighland;
-	public static Item entityeggcowhighland;
-	public static Item entityeggbullhighland;
-
-	public static Item entityeggcalfjersey;
-	public static Item entityeggcowjersey;
-	public static Item entityeggbulljersey;
-
-	public static Item entityeggcalfmooshroom;
-	public static Item entityeggcowmooshroom;
-	public static Item entityeggbullmooshroom;
 
 	public static Item entityeggrandomcow;
 
@@ -399,10 +385,8 @@ public class ItemHandler
 	public static void preInit()
 	{
 		// ITEMS
-		if (!AnimaniaConfig.gameRules.disableRollingVehicles) {
-			cart = new ItemCart();
-			wagon = new ItemWagon();
-		}
+		cart = new ItemCart();
+		wagon = new ItemWagon();
 
 		// Items for Animals
 		ItemHandler.hamsterFood = new AnimaniaItem("hamster_food");
@@ -517,7 +501,6 @@ public class ItemHandler
 		// CHEESE
 		ItemHandler.cheeseWedgeFriesian = new ItemAnimaniaFood(2, 2f, "friesian_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
 		ItemHandler.cheeseWedgeHolstein = new ItemAnimaniaFood(2, 2f, "holstein_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
-		ItemHandler.cheeseWedgeJersey = new ItemAnimaniaFood(2, 2f, "jersey_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 8, 2, false, false));
 		ItemHandler.cheeseWedgeGoat = new ItemAnimaniaFood(2, 2f, "goat_cheese_wedge", new PotionEffect(MobEffects.RESISTANCE, 1200, 0, false, false));
 		ItemHandler.cheeseWedgeSheep = new ItemAnimaniaFood(2, 2f, "sheep_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 0, false, false));
 
@@ -544,18 +527,6 @@ public class ItemHandler
 		ItemHandler.entityeggcalfhereford = new ItemEntityEgg("calf_hereford", CowType.HEREFORD, EntityGender.CHILD);
 		ItemHandler.entityeggcowhereford = new ItemEntityEgg("cow_hereford", CowType.HEREFORD, EntityGender.FEMALE);
 		ItemHandler.entityeggbullhereford = new ItemEntityEgg("bull_hereford", CowType.HEREFORD, EntityGender.MALE);
-
-		ItemHandler.entityeggcalfhighland = new ItemEntityEgg("calf_highland", CowType.HIGHLAND, EntityGender.CHILD);
-		ItemHandler.entityeggcowhighland = new ItemEntityEgg("cow_highland", CowType.HIGHLAND, EntityGender.FEMALE);
-		ItemHandler.entityeggbullhighland = new ItemEntityEgg("bull_highland", CowType.HIGHLAND, EntityGender.MALE);
-
-		ItemHandler.entityeggcalfjersey = new ItemEntityEgg("calf_jersey", CowType.JERSEY, EntityGender.CHILD);
-		ItemHandler.entityeggcowjersey = new ItemEntityEgg("cow_jersey", CowType.JERSEY, EntityGender.FEMALE);
-		ItemHandler.entityeggbulljersey = new ItemEntityEgg("bull_jersey", CowType.JERSEY, EntityGender.MALE);
-
-		ItemHandler.entityeggcalfmooshroom = new ItemEntityEgg("calf_mooshroom", CowType.MOOSHROOM, EntityGender.CHILD);
-		ItemHandler.entityeggcowmooshroom = new ItemEntityEgg("cow_mooshroom", CowType.MOOSHROOM, EntityGender.FEMALE);
-		ItemHandler.entityeggbullmooshroom = new ItemEntityEgg("bull_mooshroom", CowType.MOOSHROOM, EntityGender.MALE);
 
 		ItemHandler.entityeggrandomcow = new ItemEntityEgg("cow_random", CowType.ANGUS, EntityGender.RANDOM);
 
@@ -751,43 +722,43 @@ public class ItemHandler
 		ItemHandler.entityeggrandomrabbit = new ItemEntityEgg("rabbit_random", RabbitType.LOP, EntityGender.RANDOM);
 
 	}
-
-	@SideOnly(Side.CLIENT) 
-	public static void regItemEggColors() 
-	{ 
-		if (!generatedEggs) 
-		{ 
-			for (Item item : ForgeRegistries.ITEMS.getValues()) 
-			{ 
-				if (item instanceof ItemEntityEgg) 
-				{ 
-					World world = Minecraft.getMinecraft().world; 
-					if (item != ItemHandler.entityeggrandomanimal) 
-					{ 
-						AnimalContainer animal = ((ItemEntityEgg) item).getAnimal(); 
-						EntityLivingBase entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world); 
-
-						if (animal.getGender() != EntityGender.RANDOM) 
-						{ 
-							if (entity != null) 
-							{ 
-								if (((ISpawnable) entity).usesEggColor()) 
-								{ 
-									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true); 
-									ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ((ISpawnable) entity).getPrimaryEggColor()); 
-									ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ((ISpawnable) entity).getSecondaryEggColor()); 
-								} 
-								else 
-									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false); 
-
-							} 
-						} 
-					} 
-				} 
-			} 
-			generatedEggs = true; 
-		} 
-
-	} 
+	
+	 @SideOnly(Side.CLIENT) 
+	  public static void regItemEggColors() 
+	  { 
+	    if (!generatedEggs) 
+	    { 
+	      for (Item item : ForgeRegistries.ITEMS.getValues()) 
+	      { 
+	        if (item instanceof ItemEntityEgg) 
+	        { 
+	          World world = Minecraft.getMinecraft().world; 
+	          if (item != ItemHandler.entityeggrandomanimal) 
+	          { 
+	            AnimalContainer animal = ((ItemEntityEgg) item).getAnimal(); 
+	            EntityLivingBase entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world); 
+	 
+	            if (animal.getGender() != EntityGender.RANDOM) 
+	            { 
+	              if (entity != null) 
+	              { 
+	                if (((ISpawnable) entity).usesEggColor()) 
+	                { 
+	                  ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true); 
+	                  ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ((ISpawnable) entity).getPrimaryEggColor()); 
+	                  ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ((ISpawnable) entity).getSecondaryEggColor()); 
+	                } 
+	                else 
+	                  ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false); 
+	 
+	              } 
+	            } 
+	          } 
+	        } 
+	      } 
+	      generatedEggs = true; 
+	    } 
+	 
+	  } 
 
 }

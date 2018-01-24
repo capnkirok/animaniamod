@@ -5,7 +5,6 @@ import org.lwjgl.opengl.GL11;
 import com.animania.common.entities.cows.EntityBullAngus;
 import com.animania.common.entities.cows.EntityBullFriesian;
 import com.animania.common.entities.cows.EntityBullHolstein;
-import com.animania.common.entities.cows.EntityBullMooshroom;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.model.ModelBase;
@@ -317,10 +316,6 @@ public class ModelBull extends ModelBase
         else if (entitylivingbaseIn instanceof EntityBullAngus) {
             this.Head.rotationPointY = 6.0F + ((EntityBullAngus) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
             this.headRotationAngleX = ((EntityBullAngus) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
-        }
-        else if (entitylivingbaseIn instanceof EntityBullMooshroom) {
-            this.Head.rotationPointY = 6.0F + ((EntityBullMooshroom) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-            this.headRotationAngleX = ((EntityBullMooshroom) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityBullFriesian) {
             this.Head.rotationPointY = 6.0F + ((EntityBullFriesian) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;

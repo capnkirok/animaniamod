@@ -21,7 +21,6 @@ import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAITempt;
@@ -33,7 +32,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -306,12 +304,6 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		else if (!fed || !watered)
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 
-		if (this.getCustomNameTag().toLowerCase().trim().equals("purp") && (this instanceof EntityCowFriesian || this instanceof EntityBullFriesian || this instanceof EntityCowHolstein || this instanceof EntityBullHolstein || this instanceof EntityCalfFriesian || this instanceof EntityCalfHolstein)) {
-			this.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 4, 2, false, false));
-			if (!this.isWet() && !this.isInWater())
-				this.setOnFireFromLava();
-		}
-
 		if (this.happyTimer > -1)
 		{
 			this.happyTimer--;
@@ -345,21 +337,6 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 				fighting = true;
 			}
 		}
-		
-		if (stack != stack.EMPTY && stack.getItem() == Items.NAME_TAG ) {
-			if (!stack.hasDisplayName()) {
-				return false;
-
-			} else {
-				EntityLiving entityliving = this;
-				entityliving.setCustomNameTag(stack.getDisplayName());
-				entityliving.enablePersistence();
-				if (!player.capabilities.isCreativeMode)
-					stack.setCount(stack.getCount() - 1);
-
-				return true;
-			}
-		}
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET && fighting == false)
 		{
@@ -374,51 +351,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && (this instanceof EntityCowMooshroom || this instanceof EntityBullMooshroom) && stack.getItem() == Items.SHEARS && this.getGrowingAge() >= 0) //Forge Disable, Moved to onSheared
-		{
-			this.setDead();
-			this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + (double)(this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
-
-			if (!this.world.isRemote)
-			{
-
-				if (this instanceof EntityCowMooshroom) {
-					EntityCowFriesian entitycow = new EntityCowFriesian(this.world);
-					entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-					entitycow.setHealth(this.getHealth());
-					entitycow.renderYawOffset = this.renderYawOffset;
-					if (this.hasCustomName())
-					{
-						entitycow.setCustomNameTag(this.getCustomNameTag());
-					}
-					this.world.spawnEntity(entitycow);
-				} else {
-					EntityBullFriesian entitycow = new EntityBullFriesian(this.world);
-					entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-					entitycow.setHealth(this.getHealth());
-					entitycow.renderYawOffset = this.renderYawOffset;
-					if (this.hasCustomName())
-					{
-						entitycow.setCustomNameTag(this.getCustomNameTag());
-					}
-					this.world.spawnEntity(entitycow);
-				}
-
-				for (int i = 0; i < 5; ++i)
-				{
-					this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY + (double)this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
-				}
-
-				stack.damageItem(1, player);
-				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
-			}
-
-			return true;
-		}
-		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)		
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
 		{
 			return false;
-
 		}
 		else
 			return super.processInteract(player, hand);

@@ -22,8 +22,6 @@ public class RenderBullHolstein<T extends EntityBullHolstein> extends RenderLivi
 
     private static final ResourceLocation cowTextures      = new ResourceLocation("animania:textures/entity/cows/bull_holstein.png");
     private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/bull_holstein_blink.png");
-    private static final ResourceLocation purpTextures     	= new ResourceLocation("animania:textures/entity/cows/bull_purplicious.png");
-	private static final ResourceLocation purpTexturesBlink = new ResourceLocation("animania:textures/entity/cows/bull_purplicious.png");
     Random                                rand             = new Random();
 
     public RenderBullHolstein(RenderManager rm) {
@@ -40,21 +38,12 @@ public class RenderBullHolstein<T extends EntityBullHolstein> extends RenderLivi
     }
 
     protected ResourceLocation getCowTextures(T par1EntityCow) {
+        return RenderBullHolstein.cowTextures;
+    }
 
-		if (par1EntityCow.getCustomNameTag().equals("Purp")) {
-			return RenderBullHolstein.purpTextures; 
-		} else {
-			return RenderBullHolstein.cowTextures;
-		}
-	}
-
-	protected ResourceLocation getCowTexturesBlink(T par1EntityCow) {
-		if (par1EntityCow.getCustomNameTag().equals("Purp")) {
-			return RenderBullHolstein.purpTexturesBlink; 
-		} else {
-			return RenderBullHolstein.cowTexturesBlink;
-		}
-	}
+    protected ResourceLocation getCowTexturesBlink(T par1EntityCow) {
+        return RenderBullHolstein.cowTexturesBlink;
+    }
 
     @Override
     protected ResourceLocation getEntityTexture(T entity) {

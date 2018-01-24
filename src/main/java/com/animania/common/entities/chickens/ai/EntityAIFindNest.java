@@ -200,9 +200,15 @@ public class EntityAIFindNest extends EntityAIBase
 	}
 
 	public boolean continueExecuting()
-    {
-        return !this.temptedEntity.getNavigator().noPath();
-    }
+	{
+
+		return this.shouldExecute();
+	}
+
+	public void startExecuting()
+	{
+		this.isRunning = true;
+	}
 
 	public void resetTask()
 	{
@@ -211,7 +217,7 @@ public class EntityAIFindNest extends EntityAIBase
 		this.isRunning = false;
 	}
 
-	public void startExecuting()
+	public void updateTask()
 	{
 
 		double x = this.temptedEntity.posX;

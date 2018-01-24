@@ -202,10 +202,16 @@ public class EntityAIFindFood extends EntityAIBase
 		return false;
 	}
 
-	public boolean continueExecuting()
-    {
-        return !this.temptedEntity.getNavigator().noPath();
-    }
+	@Override
+	public boolean continueExecuting() {
+
+		return this.shouldExecute();
+	}
+
+	@Override
+	public void startExecuting() {
+		this.isRunning = true;
+	}
 
 	@Override
 	public void resetTask() {
@@ -215,7 +221,7 @@ public class EntityAIFindFood extends EntityAIBase
 	}
 
 	@Override
-	public void startExecuting() {
+	public void updateTask() {
 
 		double x = this.temptedEntity.posX;
 		double y = this.temptedEntity.posY;

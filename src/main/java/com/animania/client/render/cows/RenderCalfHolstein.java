@@ -22,8 +22,6 @@ public class RenderCalfHolstein<T extends EntityCalfHolstein> extends RenderLivi
 
     private static final ResourceLocation cowTextures      = new ResourceLocation("animania:textures/entity/cows/calf_holstein.png");
     private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/calf_holstein_blink.png");
-    private static final ResourceLocation purpTextures     	= new ResourceLocation("animania:textures/entity/cows/calf_purplicious.png");
-	private static final ResourceLocation purpTexturesBlink = new ResourceLocation("animania:textures/entity/cows/calf_purplicious.png");
     Random                                rand             = new Random();
 
     public RenderCalfHolstein(RenderManager rm) {
@@ -31,22 +29,13 @@ public class RenderCalfHolstein<T extends EntityCalfHolstein> extends RenderLivi
     }
 
     protected ResourceLocation getCowTextures(T par1EntityCow) {
+        return RenderCalfHolstein.cowTextures;
+    }
 
-		if (par1EntityCow.getCustomNameTag().equals("Purp")) {
-			return RenderCalfHolstein.purpTextures; 
-		} else {
-			return RenderCalfHolstein.cowTextures;
-		}
-	}
+    protected ResourceLocation getCowTexturesBlink(T par1EntityCow) {
+        return RenderCalfHolstein.cowTexturesBlink;
+    }
 
-	protected ResourceLocation getCowTexturesBlink(T par1EntityCow) {
-		if (par1EntityCow.getCustomNameTag().equals("Purp")) {
-			return RenderCalfHolstein.purpTexturesBlink; 
-		} else {
-			return RenderCalfHolstein.cowTexturesBlink;
-		}
-	}
-	
     @Override
     protected void preRenderCallback(T entityliving, float f) {
         this.preRenderScale(entityliving, f);

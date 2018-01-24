@@ -20,10 +20,12 @@ public class SlopBucketRecipe1 implements IRecipe
     public final ArrayList<ItemStack> recipeItems  = new ArrayList();
     private int                       bucketSlotJ;
     private int                       bucketSlotI;
-    private ItemStack                 bucket       = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
-    private ItemStack                 milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
-    private ItemStack                 milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
-    private ItemStack                 milkJersey = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkJersey);
+    private ItemStack                 bucket       = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket,
+            BlockHandler.fluidSlop);
+    private ItemStack                 milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket,
+            BlockHandler.fluidMilkHolstein);
+    private ItemStack                 milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket,
+            BlockHandler.fluidMilkFriesian);
 
     public SlopBucketRecipe1() {
         this.recipeOutput = this.bucket;
@@ -48,7 +50,7 @@ public class SlopBucketRecipe1 implements IRecipe
                     veggie1 = current.copy();
                 else if (this.recipeItems.get(1).getItem() == current.getItem() && veggie2.isEmpty())
                     veggie2 = current.copy();
-                else if ((ItemStack.areItemStacksEqual(current, this.milkFriesian) || ItemStack.areItemStacksEqual(current, this.milkHolstein) || ItemStack.areItemStacksEqual(current, this.milkJersey)
+                else if ((ItemStack.areItemStacksEqual(current, this.milkFriesian) || ItemStack.areItemStacksEqual(current, this.milkHolstein)
                         || current.getItem() == Items.MILK_BUCKET) && milk.isEmpty())
                     milk = current.copy();
                 else

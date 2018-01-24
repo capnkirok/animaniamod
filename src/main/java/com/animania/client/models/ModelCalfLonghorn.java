@@ -1,6 +1,5 @@
 package com.animania.client.models;
 
-import com.animania.common.entities.cows.EntityCalfHighland;
 import com.animania.common.entities.cows.EntityCalfLonghorn;
 
 import net.minecraft.client.model.ModelBase;
@@ -150,9 +149,6 @@ public class ModelCalfLonghorn extends ModelBase
         if (entitylivingbaseIn instanceof EntityCalfLonghorn) {
             this.Head.rotationPointY = 10.0F + ((EntityCalfLonghorn) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = ((EntityCalfLonghorn) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
-        } else if (entitylivingbaseIn instanceof EntityCalfHighland) {
-            this.Head.rotationPointY = 10.0F + ((EntityCalfHighland) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = ((EntityCalfHighland) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
         }
     }
 

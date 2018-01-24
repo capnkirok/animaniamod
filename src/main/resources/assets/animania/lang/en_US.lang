@@ -117,15 +117,12 @@ tile.animania_cheese_friesian.name=Cheese Wheel (Friesian)
 item.animania_friesian_cheese_wedge.name=Cheese Wedge (Friesian)
 tile.animania_cheese_holstein.name=Cheese Wheel (Holstein)
 item.animania_holstein_cheese_wedge.name=Cheese Wedge (Holstein)
-tile.animania_cheese_jersey.name=Cheese Wheel (Jersey)
-item.animania_jersey_cheese_wedge.name=Cheese Wedge (Jersey)
 tile.animania_cheese_goat.name=Cheese Wheel (Goat)
 item.animania_goat_cheese_wedge.name=Cheese Wedge (Goat)
 tile.animania_cheese_sheep.name=Cheese Wheel (Sheep)
 item.animania_sheep_cheese_wedge.name=Cheese Wedge (Sheep)
 item.animania_holstein_bucket_milk.name=Bucket Milk (Holstein)
 item.animania_friesian_bucket_milk.name=Bucket Milk (Friesian)
-item.animania_jersey_bucket_milk.name=Bucket Milk (Jersey)
 item.animania_goat_bucket_milk.name=Bucket Milk (Goat)
 item.animania_sheep_bucket_milk.name=Bucket Milk (Sheep)
 item.animania_truffle_soup.name=Truffle Soup
@@ -152,16 +149,6 @@ item.animania_entity_egg_calf_longhorn.name=Longhorn Calf
 item.animania_entity_egg_cow_hereford.name=Hereford Cow
 item.animania_entity_egg_bull_hereford.name=Hereford Bull
 item.animania_entity_egg_calf_hereford.name=Hereford Calf
-
-item.animania_entity_egg_cow_highland.name=Highland Cow
-item.animania_entity_egg_bull_highland.name=Highland Bull
-item.animania_entity_egg_calf_highland.name=Highland Calf
-item.animania_entity_egg_cow_jersey.name=Jersey Cow
-item.animania_entity_egg_bull_jersey.name=Jersey Bull
-item.animania_entity_egg_calf_jersey.name=Jersey Calf
-item.animania_entity_egg_cow_mooshroom.name=Mooshrooom Cow
-item.animania_entity_egg_bull_mooshroom.name=Mooshrooom Bull
-item.animania_entity_egg_calf_mooshroom.name=Mooshrooom Calf
 
 item.animania_entity_egg_chick_plymouth.name=Plymouth Rock Chick
 item.animania_entity_egg_hen_plymouth.name=Plymouth Rock Hen
@@ -342,16 +329,6 @@ entity.animania.BullLonghorn.name=Longhorn Bull
 entity.animania.CowLonghorn.name=Longhorn Cow
 entity.animania.CalfLonghorn.name=Longhorn Calf
 
-entity.animania:bull_highland.name=Highland Bull
-entity.animania:cow_highland.name=Highland Cow
-entity.animania:calf_highland.name=Highland Calf
-entity.animania:bull_jersey.name=Jersey Bull
-entity.animania:cow_jersey.name=Jersey Cow
-entity.animania:calf_jersey.name=Jersey Calf
-entity.animania:bull_mooshroom.name=Mooshroom Bull
-entity.animania:cow_mooshroom.name=Mooshroom Cow
-entity.animania:calf_mooshroom.name=Mooshroom Calf
-
 entity.animania.HogYorkshire.name=American Yorkshire Hog
 entity.animania.SowYorkshire.name=American Yorkshire Sow
 entity.animania.PigletYorkshire.name=American Yorkshire Piglet
@@ -503,7 +480,6 @@ tile.animania_wool_friesian_brown.name=Wool (Friesian, Brown)
 fluid.slop=Slop
 fluid.milk_holstein=Holstein Milk
 fluid.milk_friesian=Friesian Milk
-fluid.milk_jersey=Jersey Milk
 fluid.milk_goat=Goat Milk
 fluid.milk_sheep=Sheep Milk
 
@@ -533,12 +509,6 @@ achievement.an.holstein=Holstein
 achievement.an.holstein.desc=Befriend a Holstein cow
 achievement.an.longhorn=Longhorn
 achievement.an.longhorn.desc=Befriend a Longhorn cow
-achievement.an.highland=Highland
-achievement.an.highland.desc=Feed a Highland cow
-achievement.an.jersey=Jersey
-achievement.an.jersey.desc=Feed a Jersey cow
-achievement.an.mooshroom=Mooshroom
-achievement.an.mooshroom.desc=Feed a Mooshroom cow
 achievement.an.cows=Cow Whisperer
 achievement.an.cows.desc=Befriend all the Cow breeds
 
@@ -654,6 +624,8 @@ achievement.an.suffolk.desc=Befriend a Suffolk sheep
 achievement.an.sheep=Sheep Whisperer
 achievement.an.sheep.desc=Befriend all the Sheep breeds
 
+
+
 animania.updatetext.1=Animania Version 
 animania.updatetext.2=is now available
 animania.updatetext.3=Failed to connect to see if an update to Animania is available
@@ -717,7 +689,6 @@ text.jei.nest=Nests are used by hens, because they need a place to lay their egg
 text.jei.slop=Slop is the favorite food of pigs.
 text.jei.slop.craft=To craft it, combine any bucket of milk with two different veggies. Veggies include Carrots, Potatoes, Beetroots and Bread.
 text.jei.milkholstein=Holstein Milk is obtained from Holstein Cows.
-text.jei.milkjersey=Jersey Milk is obtained from Jersey Cows.
 text.jei.milkfriesian=Friesian Milk is obtained from Friesian Cows.
 text.jei.milkgoat=Goat Milk is obtained from Does.
 text.jei.milksheep=Sheep Milk is obtained from Ewes.

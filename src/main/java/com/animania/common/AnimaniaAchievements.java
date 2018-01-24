@@ -36,10 +36,6 @@ public class AnimaniaAchievements
 	public static Achievement Hereford;
 	public static Achievement Holstein;
 	public static Achievement Longhorn;
-	public static Achievement Highland;
-	public static Achievement Jersey;
-	public static Achievement Mooshroom;
-	
 	public static Achievement Cows;
 
 	public static Achievement IndiaBlue;
@@ -111,9 +107,6 @@ public class AnimaniaAchievements
 		AnimaniaAchievements.Hereford = new Achievement("hereford", "an.hereford", 2, -2, ItemHandler.entityeggcalfhereford, (Achievement) null).registerStat();
 		AnimaniaAchievements.Holstein = new Achievement("holstein", "an.holstein", 4, -2, ItemHandler.entityeggcalfholstein, (Achievement) null).registerStat();
 		AnimaniaAchievements.Longhorn = new Achievement("longhorn", "an.longhorn", 6, -2, ItemHandler.entityeggcalflonghorn, (Achievement) null).registerStat();
-		AnimaniaAchievements.Jersey = new Achievement("jersey", "an.jersey", 6, -2, ItemHandler.entityeggcalfjersey, (Achievement) null).registerStat();
-		AnimaniaAchievements.Highland = new Achievement("highland", "an.highland", 6, -2, ItemHandler.entityeggcalfhighland, (Achievement) null).registerStat();
-		AnimaniaAchievements.Mooshroom = new Achievement("mooshroom", "an.mooshroom", 6, -2, ItemHandler.entityeggcalfmooshroom, (Achievement) null).registerStat();
 		AnimaniaAchievements.Cows = new Achievement("cows", "an.cows", 8, -2, Items.MILK_BUCKET, AnimaniaAchievements.Longhorn).registerStat();
 
 		AnimaniaAchievements.Leghorn = new Achievement("leghorn", "an.leghorn", -2, 0, ItemHandler.entityeggchickleghorn, (Achievement) null).registerStat();

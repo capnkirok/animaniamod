@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "bites=0": { "model": "animania:holstein_cheese_4" },
-        "bites=1": { "model": "animania:holstein_cheese_3" },
-        "bites=2": { "model": "animania:holstein_cheese_2" },
-        "bites=3": { "model": "animania:holstein_cheese_1" }
-    }
-}

@@ -15,7 +15,6 @@ public class DictionaryHandler
 
 		ItemStack milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
 		ItemStack milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
-		ItemStack milkJersey = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkJersey);
 		ItemStack milkGoat = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
 		ItemStack milkSheep = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
 
@@ -55,7 +54,6 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawRabbit);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawChevon);
 		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawPrimeChevon);
-		OreDictionary.registerOre("listAllmeatraw", ItemHandler.rawHorse);
 		OreDictionary.registerOre("listAllbeefraw", ItemHandler.rawAngusBeef);
 		OreDictionary.registerOre("listAllbeefraw", ItemHandler.rawAngusSteak);
 		OreDictionary.registerOre("listAllbeefraw", ItemHandler.rawHerefordBeef);
@@ -97,7 +95,6 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedRabbit);
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedChevon);
 		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedPrimeChevon);
-		OreDictionary.registerOre("listAllmeatcooked", ItemHandler.cookedHorse);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedAngusRoast);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedAngusSteak);
 		OreDictionary.registerOre("listAllbeefcooked", ItemHandler.cookedHerefordRoast);
@@ -200,8 +197,6 @@ public class DictionaryHandler
 		OreDictionary.registerOre("foodMeats", ItemHandler.cookedPrimeBeef);
 		OreDictionary.registerOre("foodMeats", ItemHandler.cookedPrimeSteak);
 		OreDictionary.registerOre("foodMeats", ItemHandler.cookedFrogLegs);
-		OreDictionary.registerOre("foodMeats", ItemHandler.rawHorse);
-		OreDictionary.registerOre("foodMeats", ItemHandler.cookedHorse);
 		OreDictionary.registerOre("listAllchickenraw", Items.CHICKEN);
 		OreDictionary.registerOre("listAllbeefraw", Items.BEEF);
 		OreDictionary.registerOre("listAllporkraw", Items.PORKCHOP);

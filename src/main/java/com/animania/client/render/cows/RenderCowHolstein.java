@@ -18,59 +18,48 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving<T>
 {
-	public static final Factory           FACTORY          = new Factory();
+    public static final Factory           FACTORY          = new Factory();
 
-	private static final ResourceLocation cowTextures      	= new ResourceLocation("animania:textures/entity/cows/cow_holstein.png");
-	private static final ResourceLocation cowTexturesBlink 	= new ResourceLocation("animania:textures/entity/cows/cow_holstein_blink.png");
-	private static final ResourceLocation purpTextures     	= new ResourceLocation("animania:textures/entity/cows/cow_purplicious.png");
-	private static final ResourceLocation purpTexturesBlink = new ResourceLocation("animania:textures/entity/cows/cow_purplicious.png");
-	Random                                rand             = new Random();
+    private static final ResourceLocation cowTextures      = new ResourceLocation("animania:textures/entity/cows/cow_holstein.png");
+    private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/cow_holstein_blink.png");
+    Random                                rand             = new Random();
 
-	public RenderCowHolstein(RenderManager rm) {
-		super(rm, new ModelCow(), 0.5F);
-	}
+    public RenderCowHolstein(RenderManager rm) {
+        super(rm, new ModelCow(), 0.5F);
+    }
 
-	protected ResourceLocation getCowTextures(T par1EntityCow) {
+    protected ResourceLocation getCowTextures(EntityCowHolstein par1EntityCow) {
+        return RenderCowHolstein.cowTextures;
+    }
 
-		if (par1EntityCow.getCustomNameTag().equals("Purp")) {
-			return RenderCowHolstein.purpTextures; 
-		} else {
-			return RenderCowHolstein.cowTextures;
-		}
-	}
+    protected ResourceLocation getCowTexturesBlink(EntityCowHolstein par1EntityCow) {
+        return RenderCowHolstein.cowTexturesBlink;
+    }
 
-	protected ResourceLocation getCowTexturesBlink(T par1EntityCow) {
-		if (par1EntityCow.getCustomNameTag().equals("Purp")) {
-			return RenderCowHolstein.purpTexturesBlink; 
-		} else {
-			return RenderCowHolstein.cowTexturesBlink;
-		}
-	}
+    protected void preRenderScale(EntityCowHolstein entity, float f) {
+        GL11.glScalef(1.24F, 1.24F, 1.24F);
+    }
 
-	protected void preRenderScale(EntityCowHolstein entity, float f) {
-		GL11.glScalef(1.24F, 1.24F, 1.24F);
-	}
+    @Override
+    protected void preRenderCallback(T entityliving, float f) {
+        this.preRenderScale(entityliving, f);
+    }
 
-	@Override
-	protected void preRenderCallback(T entityliving, float f) {
-		this.preRenderScale(entityliving, f);
-	}
+    @Override
+    protected ResourceLocation getEntityTexture(T entity) {
+        int blinkTimer = entity.blinkTimer;
 
-	@Override
-	protected ResourceLocation getEntityTexture(T entity) {
-		int blinkTimer = entity.blinkTimer;
+        if (blinkTimer < 7 && blinkTimer >= 0)
+            return this.getCowTexturesBlink(entity);
+        else
+            return this.getCowTextures(entity);
+    }
 
-		if (blinkTimer < 7 && blinkTimer >= 0)
-			return this.getCowTexturesBlink(entity);
-		else
-			return this.getCowTextures(entity);
-	}
-
-	static class Factory<T extends EntityCowHolstein> implements IRenderFactory<T>
-	{
-		@Override
-		public Render<? super T> createRenderFor(RenderManager manager) {
-			return new RenderCowHolstein(manager);
-		}
-	}
+    static class Factory<T extends EntityCowHolstein> implements IRenderFactory<T>
+    {
+        @Override
+        public Render<? super T> createRenderFor(RenderManager manager) {
+            return new RenderCowHolstein(manager);
+        }
+    }
 }
