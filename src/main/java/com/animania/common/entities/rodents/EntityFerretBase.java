@@ -2,6 +2,7 @@ package com.animania.common.entities.rodents;
 
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -20,7 +21,6 @@ import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
 import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
 import com.animania.common.entities.chickens.EntityChickWyandotte;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.rodents.ai.EntityAIFerretFindFood;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
@@ -33,6 +33,7 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
@@ -76,7 +77,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityFerretBase extends EntityTameable implements TOPInfoProviderRodent, ISpawnable
 {
 
-	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
@@ -92,6 +93,11 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public EntityAIRodentEat entityAIEatGrass;
 	protected int damageTimer;
 	protected FerretType type;
+	private boolean isFed;
+	private boolean isWatered;
+	private boolean isTamed;
+	private boolean isSitting;
+	
 
 	public EntityFerretBase(World worldIn)
 	{
@@ -153,6 +159,13 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected boolean canDespawn()
 	{
 		return false;
+	}
+	
+	
+	@Override
+	public void setPosition(double x, double y, double z)
+	{
+		super.setPosition(x, y, z);
 	}
 
 	@Override
@@ -324,17 +337,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.dataManager.register(EntityFerretBase.SITTING, Boolean.valueOf(false));
 		this.dataManager.register(EntityFerretBase.RIDING, Boolean.valueOf(false));
 		this.dataManager.register(EntityFerretBase.AGE, Boolean.valueOf(false));
-
-	}
-
-	public boolean getAnimalAge()
-	{
-		return this.dataManager.get(EntityFerretBase.AGE).booleanValue();
-	}
-
-	public void setAnimalAge(boolean age)
-	{
-		this.dataManager.set(EntityFerretBase.AGE, Boolean.valueOf(age));
 	}
 
 	@Override
@@ -347,8 +349,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		compound.setBoolean("IsSitting", this.isFerretSitting());
 		compound.setBoolean("Riding", this.isFerretRiding());
 		compound.setBoolean("Age", this.getAnimalAge());
-
-
 	}
 
 	/**
@@ -364,7 +364,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.setFerretSitting(compound.getBoolean("IsSitting"));
 		this.setFerretRiding(compound.getBoolean("Riding"));
 		this.setAnimalAge(compound.getBoolean("Age"));
-
 	}
 
 	@Override
@@ -440,6 +439,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			this.playSound(soundevent, this.getSoundVolume() - .3F, this.getSoundPitch());
 	}
 
+		
 	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
@@ -468,10 +468,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	@Override
 	public void onLivingUpdate()
 	{
-
-		if (!this.getAnimalAge()) {
-			this.setAnimalAge(true);
-		}
 
 		if (this.isFerretSitting() || this.isRiding())
 		{
@@ -563,7 +559,8 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 		super.onLivingUpdate();
 	}
-
+	
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
@@ -574,9 +571,29 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			super.handleStatusUpdate(id);
 	}
 
+	public boolean getAnimalAge()
+	{
+		try {
+			return (this.getBoolFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void setAnimalAge(boolean age)
+	{
+		this.dataManager.set(EntityFerretBase.AGE, Boolean.valueOf(age));
+	}
+	
 	public boolean isFerretSitting()
 	{
-		return this.dataManager.get(EntityFerretBase.SITTING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(SITTING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFerretSitting(boolean flag)
@@ -589,7 +606,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean isFerretRiding()
 	{
-		return this.dataManager.get(EntityFerretBase.RIDING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(RIDING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFerretRiding(boolean flag)
@@ -602,7 +624,13 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean getFed()
 	{
-		return this.dataManager.get(EntityFerretBase.FED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FED));
+		}
+		catch (Exception e) {
+			return false;
+		}
+		
 	}
 
 	public void setFed(boolean fed)
@@ -619,7 +647,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean getWatered()
 	{
-		return this.dataManager.get(EntityFerretBase.WATERED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(WATERED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setWatered(boolean watered)
@@ -635,7 +668,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean getIsTamed()
 	{
-		return this.dataManager.get(EntityFerretBase.TAMED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(TAMED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setIsTamed(boolean fed)
@@ -708,4 +746,79 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		return EntityGender.NONE;
 	}
 
+	// ==================================================
+	//     Data Manager Trapper (borrowed from Lycanites)
+	// ==================================================
+
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public byte getByteFromDataManager(DataParameter<Byte> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public int getIntFromDataManager(DataParameter<Integer> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public float getFloatFromDataManager(DataParameter<Float> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public String getStringFromDataManager(DataParameter<String> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return Optional.absent();
+		}
+	}
 }

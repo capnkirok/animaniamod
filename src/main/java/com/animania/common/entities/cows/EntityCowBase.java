@@ -13,6 +13,7 @@ import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -106,7 +107,12 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public int getGestation()
 	{
-		return this.dataManager.get(EntityCowBase.GESTATION_TIMER).intValue();
+		try {
+			return (this.getIntFromDataManager(GESTATION_TIMER));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setGestation(int gestation)
@@ -127,36 +133,53 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		if (this.world.isRemote)
 			return null;
 
-		int chooser = this.rand.nextInt(5);
+		List list = this.world.loadedEntityList;
 
-		if (chooser == 0)
-		{
-			EntityBullBase entityCow = this.cowType.getMale(world);
-			entityCow.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityCow);
-			entityCow.setMateUniqueId(this.entityUniqueID);
-			this.setMateUniqueId(entityCow.getPersistentID());
+		int currentCount = 0;
+		int num = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) instanceof EntityAnimaniaCow) {
+				num++;
+			}
 		}
-		else if (chooser == 1)
-		{
-			EntityCalfBase entityCow = this.cowType.getChild(world);
-			entityCow.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityCow);
-			entityCow.setParentUniqueId(this.entityUniqueID);
-			this.setHasKids(true);
-		}
-		else if (chooser > 2)
-		{
-			EntityBullBase entityCow = this.cowType.getMale(world);
-			entityCow.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityCow);
-			entityCow.setMateUniqueId(this.entityUniqueID);
-			this.setMateUniqueId(entityCow.getPersistentID());
-			EntityCalfBase entityCalf = this.cowType.getChild(world);
-			entityCalf.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityCalf);
-			entityCalf.setParentUniqueId(this.entityUniqueID);
-			this.setHasKids(true);
+		currentCount = num;
+
+		if (currentCount <= AnimaniaConfig.spawn.spawnLimitCows) {
+
+			int chooser = this.rand.nextInt(5);
+
+			if (chooser == 0)
+			{
+				EntityBullBase entityCow = this.cowType.getMale(world);
+				entityCow.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityCow);
+				entityCow.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityCow.getPersistentID());
+			}
+			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			{
+				EntityCalfBase entityCow = this.cowType.getChild(world);
+				entityCow.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityCow);
+				entityCow.setParentUniqueId(this.entityUniqueID);
+				this.setHasKids(true);
+			}
+			else if (chooser > 2)
+			{
+				EntityBullBase entityCow = this.cowType.getMale(world);
+				entityCow.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityCow);
+				entityCow.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityCow.getPersistentID());
+
+				if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
+					EntityCalfBase entityCalf = this.cowType.getChild(world);
+					entityCalf.setPosition(this.posX, this.posY, this.posZ);
+					this.world.spawnEntity(entityCalf);
+					entityCalf.setParentUniqueId(this.entityUniqueID);
+					this.setHasKids(true);
+				}
+			}
 		}
 
 
@@ -182,7 +205,12 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public boolean getPregnant()
 	{
-		return this.dataManager.get(EntityCowBase.PREGNANT).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(PREGNANT));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setPregnant(boolean preggers)
@@ -195,7 +223,12 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public boolean getFertile()
 	{
-		return this.dataManager.get(EntityCowBase.FERTILE).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FERTILE));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFertile(boolean preggers)
@@ -205,7 +238,12 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public boolean getHasKids()
 	{
-		return this.dataManager.get(EntityCowBase.HAS_KIDS).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(HAS_KIDS));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHasKids(boolean kids)

@@ -1,18 +1,23 @@
 package com.animania.common.entities.chickens;
 
+import java.util.UUID;
+
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
@@ -100,6 +105,8 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityHen.setCustomNameTag(name);
+							
+							entityHen.setAnimalAge(1);
 							this.world.spawnEntity(entityHen);
 							this.playSound(ModSoundEvents.chickenHurt1, 0.50F, 1.1F);
 						}
@@ -113,6 +120,8 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityRooster.setCustomNameTag(name);
+							
+							entityRooster.setAnimalAge(1);
 							this.world.spawnEntity(entityRooster);
 							this.playSound(ModSoundEvents.chickenCrow1, 0.50F, 1.1F);
 						}
@@ -127,7 +136,12 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityChickBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setEntityAge(float age)

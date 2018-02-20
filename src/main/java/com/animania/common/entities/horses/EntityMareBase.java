@@ -6,16 +6,9 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityKidBase;
-import com.animania.common.entities.goats.GoatType;
 import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
-import com.animania.common.entities.rodents.rabbits.EntityRabbitKitBase;
-import com.animania.common.entities.rodents.rabbits.RabbitType;
-import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
@@ -33,18 +26,13 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -69,7 +57,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	private int totalBoostTime;
 	public int dryTimerMare;
 	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean>createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_FoalS = EntityDataManager.<Boolean>createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_FOALS = EntityDataManager.<Boolean>createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityMareBase.class, DataSerializers.VARINT);
 
@@ -88,7 +76,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		super.entityInit();
 		this.dataManager.register(EntityMareBase.PREGNANT, Boolean.valueOf(false));
-		this.dataManager.register(EntityMareBase.HAS_FoalS, Boolean.valueOf(false));
+		this.dataManager.register(EntityMareBase.HAS_FOALS, Boolean.valueOf(false));
 		this.dataManager.register(EntityMareBase.FERTILE, Boolean.valueOf(true));
 		this.dataManager.register(EntityMareBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(400)));
 	}
@@ -100,38 +88,53 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		this.tasks.addTask(3, new EntityAIPanicHorses(this, 2.0D));
 	}
 
+	@Override
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{
-
-		if (this.world.isRemote) {
+		if (this.world.isRemote)
 			return null;
+
+		List list = this.world.loadedEntityList;
+
+		int currentCount = 0;
+		int num = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) instanceof EntityAnimaniaHorse) {
+				num++;
+			}
 		}
+		currentCount = num;
 
-		int chooser = rand.nextInt(5);
+		if (currentCount <= AnimaniaConfig.spawn.spawnLimitHorses) {
 
-		if (chooser == 0) {
-			EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
-			entityHorse.setPosition(this.posX,  this.posY, this.posZ);
-			this.world.spawnEntity(entityHorse);
-			entityHorse.setMateUniqueId(this.entityUniqueID);
-			this.setMateUniqueId(entityHorse.getPersistentID());
-		} else if (chooser == 1) {
-			EntityFoalDraftHorse entityHorse = new EntityFoalDraftHorse(this.world);
-			entityHorse.setPosition(this.posX,  this.posY, this.posZ);
-			this.world.spawnEntity(entityHorse);
-			entityHorse.setParentUniqueId(this.entityUniqueID);
-		} else if (chooser > 2) {
-			EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
-			entityHorse.setPosition(this.posX,  this.posY, this.posZ);
-			this.world.spawnEntity(entityHorse);
-			entityHorse.setMateUniqueId(this.entityUniqueID);
-			this.setMateUniqueId(entityHorse.getPersistentID());
-			EntityFoalDraftHorse entityFoal = new EntityFoalDraftHorse(this.world);
-			entityFoal.setPosition(this.posX,  this.posY, this.posZ);
-			this.world.spawnEntity(entityFoal);
-			entityFoal.setParentUniqueId(this.entityUniqueID);
-		} 
+			int chooser = rand.nextInt(5);
+
+			if (chooser == 0) {
+				EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
+				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
+				this.world.spawnEntity(entityHorse);
+				entityHorse.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityHorse.getPersistentID());
+			} else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding) {
+				EntityFoalDraftHorse entityHorse = new EntityFoalDraftHorse(this.world);
+				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
+				this.world.spawnEntity(entityHorse);
+				entityHorse.setParentUniqueId(this.entityUniqueID);
+			} else if (chooser > 2) {
+				EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
+				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
+				this.world.spawnEntity(entityHorse);
+				entityHorse.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityHorse.getPersistentID());
+				if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
+					EntityFoalDraftHorse entityFoal = new EntityFoalDraftHorse(this.world);
+					entityFoal.setPosition(this.posX,  this.posY, this.posZ);
+					this.world.spawnEntity(entityFoal);
+					entityFoal.setParentUniqueId(this.entityUniqueID);
+				}
+			} 
+		}
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
@@ -181,7 +184,12 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public int getGestation()
 	{
-		return this.dataManager.get(EntityMareBase.GESTATION_TIMER).intValue();
+		try {
+			return (this.getIntFromDataManager(GESTATION_TIMER));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setGestation(int gestation)
@@ -191,7 +199,12 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public boolean getPregnant()
 	{
-		return this.dataManager.get(EntityMareBase.PREGNANT).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(PREGNANT));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setPregnant(boolean preggers)
@@ -204,7 +217,12 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public boolean getFertile()
 	{
-		return this.dataManager.get(EntityMareBase.FERTILE).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FERTILE));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFertile(boolean fertile)
@@ -214,18 +232,31 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public boolean getHasKids()
 	{
-		return this.dataManager.get(EntityMareBase.HAS_FoalS).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(HAS_FOALS));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHasKids(boolean Foals)
 	{
-		this.dataManager.set(EntityMareBase.HAS_FoalS, Boolean.valueOf(Foals));
+		this.dataManager.set(EntityMareBase.HAS_FOALS, Boolean.valueOf(Foals));
 	}
 
 	@Nullable
 	public UUID getMateUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityMareBase.MATE_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityMareBase.MATE_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setMateUniqueId(@Nullable UUID uniqueId)
@@ -489,7 +520,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		if (this.getAnimalAge() == 0) {
 			this.setAnimalAge(1);
 		}
-		
+
 		if (this.isBeingRidden() && !this.isAIDisabled()) {
 			this.setNoAI(true);
 		} else {

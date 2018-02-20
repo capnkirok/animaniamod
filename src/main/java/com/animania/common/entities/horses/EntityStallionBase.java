@@ -14,6 +14,7 @@ import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -25,6 +26,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -424,6 +426,4 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		return null;
 	}
 
-
-	
 }

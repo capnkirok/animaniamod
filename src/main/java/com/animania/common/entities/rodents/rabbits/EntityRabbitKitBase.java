@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.rodents.ai.EntityAIFollowParentRabbits;
-import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -102,7 +101,15 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	@Nullable
 	public UUID getParentUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityRabbitKitBase.PARENT_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityRabbitKitBase.PARENT_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setParentUniqueId(@Nullable UUID uniqueId)
@@ -179,7 +186,12 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityRabbitKitBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setEntityAge(float age)
@@ -210,27 +222,31 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 
 					if (this.rand.nextInt(2) < 1)
 					{
-						EntityRabbitDoeBase entityGoat = this.rabbitType.getFemale(world);
-						if (entityGoat != null)
+						EntityRabbitDoeBase entityRabbit = this.rabbitType.getFemale(world);
+						if (entityRabbit != null)
 						{
-							entityGoat.setPosition(this.posX, this.posY + .5, this.posZ);
+							entityRabbit.setPosition(this.posX, this.posY + .5, this.posZ);
 							String name = this.getCustomNameTag();
 							if (name != "")
-								entityGoat.setCustomNameTag(name);
-							this.world.spawnEntity(entityGoat);
+								entityRabbit.setCustomNameTag(name);
+							
+							entityRabbit.setAnimalAge(1);
+							this.world.spawnEntity(entityRabbit);
 							this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
 						}
 					}
 					else
 					{
-						EntityRabbitBuckBase entityGoat = this.rabbitType.getMale(world);
-						if (entityGoat != null)
+						EntityRabbitBuckBase entityRabbit = this.rabbitType.getMale(world);
+						if (entityRabbit != null)
 						{
-							entityGoat.setPosition(this.posX, this.posY + .5, this.posZ);
+							entityRabbit.setPosition(this.posX, this.posY + .5, this.posZ);
 							String name = this.getCustomNameTag();
 							if (name != "")
-								entityGoat.setCustomNameTag(name);
-							this.world.spawnEntity(entityGoat);
+								entityRabbit.setCustomNameTag(name);
+							
+							entityRabbit.setAnimalAge(1);
+							this.world.spawnEntity(entityRabbit);
 							this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
 						}
 					}

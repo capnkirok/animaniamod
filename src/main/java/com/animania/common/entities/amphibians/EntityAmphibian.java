@@ -72,6 +72,18 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable
 		this.dataManager.register(EntityAmphibian.AGE, Integer.valueOf(0));
 	}
 	
+	@Override
+	protected boolean canDespawn()
+	{
+		return false;
+	}
+	
+	@Override
+	public void setPosition(double x, double y, double z)
+	{
+		super.setPosition(x, y, z);
+	}
+	
 	public int getAnimalAge()
 	{
 		return this.dataManager.get(EntityAmphibian.AGE).intValue();

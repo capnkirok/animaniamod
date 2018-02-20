@@ -326,13 +326,13 @@ public class CommonConfig
 		public boolean spawnAnimaniaRabbits    = true;
 		
 		@Comment("Spawn probability Cows in loaded Chunks")
-		public int spawnProbabilityCows = 8;
+		public int spawnProbabilityCows = 6;
 		@Comment("Spawn probability Horses in loaded Chunks")
 		public int spawnProbabilityHorses = 6;
 		@Comment("Spawn probability Pigs in loaded Chunks")
 		public int spawnProbabilityPigs = 8;
 		@Comment("Spawn probability Chickens in loaded Chunks")
-		public int spawnProbabilityChickens = 8;
+		public int spawnProbabilityChickens = 6;
 		@Comment("Spawn probability Hedgehogs in loaded Chunks")
 		public int spawnProbabilityHedgehogs = 8;
 		@Comment("Spawn probability Ferrets in loaded Chunks")
@@ -352,19 +352,44 @@ public class CommonConfig
 		
 
 		@Comment("Number of potential Cow families per chunk")
-		public int numberCowFamilies = 2;
+		public int numberCowFamilies = 1;
 		@Comment("Number of potential Pig families per chunk")
-		public int numberPigFamilies = 2;
+		public int numberPigFamilies = 1;
 		@Comment("Number of potential Chicken families per chunk")
-		public int numberChickenFamilies = 2;
+		public int numberChickenFamilies = 1;
 		@Comment("Number of potential Horse families per chunk")
-		public int numberHorseFamilies = 2;
+		public int numberHorseFamilies = 1;
 		@Comment("Number of potential Goat families per chunk")
 		public int numberGoatFamilies = 1;
 		@Comment("Number of potential Sheep families per chunk")
-		public int numberSheepFamilies = 2;
+		public int numberSheepFamilies = 1;
 		@Comment("Number of potential Rabbit families per chunk")
 		public int numberRabbitFamilies = 1;
+		
+		@Comment("Spawn limit for Cows in loaded chunks")
+		public int spawnLimitCows = 40;
+		@Comment("Spawn limit for Pigs in loaded chunks")
+		public int spawnLimitPigs = 40;
+		@Comment("Spawn limit for Chickens in loaded chunks")
+		public int spawnLimitChickens = 40;
+		@Comment("Spawn limit for Hedgehogs in loaded chunks")
+		public int spawnLimitHedgehogs = 40;
+		@Comment("Spawn limit for Ferrets in loaded chunks")
+		public int spawnLimitFerrets = 40;
+		@Comment("Spawn limit for Hamsters in loaded chunks")
+		public int spawnLimitHamsters = 40;
+		@Comment("Spawn limit for Peacocks in loaded chunks")
+		public int spawnLimitPeacocks = 40;
+		@Comment("Spawn limit for Amphibians in loaded chunks")
+		public int spawnLimitAmphibians = 40;
+		@Comment("Spawn limit for Horses in loaded chunks")
+		public int spawnLimitHorses = 40;
+		@Comment("Spawn limit for Goats in loaded chunks")
+		public int spawnLimitGoats = 40;
+		@Comment("Spawn limit for Sheep in loaded chunks")
+		public int spawnLimitSheep = 40;
+		@Comment("Spawn limit for Rabbits in loaded chunks")
+		public int spawnLimitRabbits = 40;
 
 	}
 

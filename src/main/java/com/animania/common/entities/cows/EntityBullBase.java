@@ -14,6 +14,7 @@ import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -23,12 +24,14 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -81,7 +84,12 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	public boolean getFighting()
 	{
-		return this.dataManager.get(EntityBullBase.FIGHTING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FIGHTING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFighting(boolean fighting)
@@ -305,6 +313,5 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
-
 
 }

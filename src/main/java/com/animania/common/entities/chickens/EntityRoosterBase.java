@@ -1,6 +1,7 @@
 package com.animania.common.entities.chickens;
 
 import java.util.Random;
+import java.util.UUID;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
@@ -13,6 +14,7 @@ import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,6 +24,7 @@ import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -29,6 +32,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
@@ -149,7 +153,13 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 	public int getCrowDuration()
 	{
-		return this.dataManager.get(EntityRoosterBase.CROWDURATION).intValue();
+		try {
+			return (this.getIntFromDataManager(CROWDURATION));
+		}
+		catch (Exception e) {
+			return 0;
+		}
+		
 	}
 
 	public void setCrowDuration(int duration)
@@ -159,7 +169,12 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 	public int getTimeUntilNextCrow()
 	{
-		return this.dataManager.get(EntityRoosterBase.CROWTIMER).intValue();
+		try {
+			return (this.getIntFromDataManager(CROWTIMER));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setTimeUntilNextCrow(int timer)

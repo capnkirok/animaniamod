@@ -131,7 +131,15 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	@Nullable
 	public UUID getMateUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityHogBase.MATE_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityHogBase.MATE_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setMateUniqueId(@Nullable UUID uniqueId)

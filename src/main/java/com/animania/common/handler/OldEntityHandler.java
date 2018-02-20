@@ -129,7 +129,7 @@ public class OldEntityHandler
 
 		if (AnimaniaConfig.spawn.spawnAnimaniaCows) {	
 			EntityRegistry.addSpawn(EntityCowHolstein.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, AnimaniaConfig.spawn.numberCowFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
-			EntityRegistry.addSpawn(EntityCowFriesian.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, AnimaniaConfig.spawn.numberCowFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			EntityRegistry.addSpawn(EntityCowFriesian.class, AnimaniaConfig.spawn.spawnProbabilityCows/2, 1, AnimaniaConfig.spawn.numberCowFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
 			EntityRegistry.addSpawn(EntityCowAngus.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, AnimaniaConfig.spawn.numberCowFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
 			EntityRegistry.addSpawn(EntityCowAngus.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, AnimaniaConfig.spawn.numberCowFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MESA));
 			EntityRegistry.addSpawn(EntityCowAngus.class, AnimaniaConfig.spawn.spawnProbabilityCows, 1, AnimaniaConfig.spawn.numberCowFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.LUSH));
@@ -187,7 +187,7 @@ public class OldEntityHandler
 		if (AnimaniaConfig.spawn.spawnAnimaniaChickens) {
 			EntityRegistry.addSpawn(EntityHenPlymouthRock.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, AnimaniaConfig.spawn.numberChickenFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
 			EntityRegistry.addSpawn(EntityHenPlymouthRock.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, AnimaniaConfig.spawn.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.EXTREME_HILLS);
-			EntityRegistry.addSpawn(EntityHenLeghorn.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, AnimaniaConfig.spawn.numberChickenFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			EntityRegistry.addSpawn(EntityHenLeghorn.class, AnimaniaConfig.spawn.spawnProbabilityChickens/2, 1, AnimaniaConfig.spawn.numberChickenFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
 			//EntityRegistry.addSpawn(EntityHenLeghorn.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, AnimaniaConfig.spawn.numberChickenFamilies, EnumCreatureType.CREATURE, Biomes.PLAINS);
 			EntityRegistry.addSpawn(EntityHenOrpington.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, AnimaniaConfig.spawn.numberChickenFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
 			EntityRegistry.addSpawn(EntityHenOrpington.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, AnimaniaConfig.spawn.numberChickenFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
@@ -251,7 +251,7 @@ public class OldEntityHandler
 		EntityRegistry.registerModEntity(ph3, EntityPigletHampshire.class, "animania.PigletHampshire", AnimaniaConfig.entity.PigletHampshireID, Animania.MODID, 64, 2, true);
 
 		if (AnimaniaConfig.spawn.spawnAnimaniaPigs) {	
-			EntityRegistry.addSpawn(EntitySowYorkshire.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, AnimaniaConfig.spawn.numberPigFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			EntityRegistry.addSpawn(EntitySowYorkshire.class, AnimaniaConfig.spawn.spawnProbabilityPigs/2, 1, AnimaniaConfig.spawn.numberPigFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
 			EntityRegistry.addSpawn(EntitySowOldSpot.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, AnimaniaConfig.spawn.numberPigFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
 			EntityRegistry.addSpawn(EntitySowLargeBlack.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, AnimaniaConfig.spawn.numberPigFamilies, EnumCreatureType.CREATURE, Biomes.BIRCH_FOREST);
 			EntityRegistry.addSpawn(EntitySowLargeBlack.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, AnimaniaConfig.spawn.numberPigFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
@@ -336,7 +336,7 @@ public class OldEntityHandler
 		EntityRegistry.registerModEntity(ho3, EntityFoalDraftHorse.class, "animania.FoalDraftHorse", AnimaniaConfig.entity.FoalDraftHorseID, Animania.MODID, 64, 2, true);
 
 		if (AnimaniaConfig.spawn.spawnAnimaniaHorses) {
-			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 1, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses/2, 1, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
 			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 1, AnimaniaConfig.spawn.numberHorseFamilies, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
 		}
 

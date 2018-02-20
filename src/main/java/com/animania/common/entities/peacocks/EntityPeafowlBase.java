@@ -1,10 +1,13 @@
 package com.animania.common.entities.peacocks;
 
+import java.util.UUID;
+
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.peacocks.ai.EntityAIFindPeacockNest;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -18,6 +21,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
@@ -63,7 +67,12 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 
 	public int getLaidTimer()
 	{
-		return this.dataManager.get(EntityPeafowlBase.LAID_TIMER).intValue();
+		try {
+			return this.getIntFromDataManager(LAID_TIMER);
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setLaidTimer(int laidtimer)
@@ -90,7 +99,12 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 
 	public boolean getLaid()
 	{
-		return this.dataManager.get(EntityPeafowlBase.LAID).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(LAID));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setLaid(boolean laid)
@@ -154,5 +168,5 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 		}
 		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
-
+	
 }

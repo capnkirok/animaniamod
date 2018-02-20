@@ -137,6 +137,12 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(3.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.34000001192092896D);
 	}
+	
+	@Override
+	public void setPosition(double x, double y, double z)
+	{
+		super.setPosition(x, y, z);
+	}
 
 	protected float getJumpUpwardsMotion()
 	{
@@ -242,7 +248,12 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 
 	public int getAnimalAge()
 	{
-		return this.dataManager.get(EntityAnimaniaRabbit.AGE).intValue();
+		try {
+			return (this.getIntFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setAnimalAge(int age)
@@ -352,7 +363,12 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 
 	public boolean getFed()
 	{
-		return this.dataManager.get(EntityAnimaniaRabbit.FED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFed(boolean fed)
@@ -368,7 +384,12 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 
 	public boolean getHandFed()
 	{
-		return this.dataManager.get(EntityAnimaniaRabbit.HANDFED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(HANDFED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHandFed(boolean handfed)
@@ -379,7 +400,12 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 
 	public boolean getWatered()
 	{
-		return this.dataManager.get(EntityAnimaniaRabbit.WATERED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(WATERED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setWatered(boolean watered)
@@ -400,7 +426,12 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 
 	public int getColorNumber()
 	{
-		return ((Integer)this.dataManager.get(COLOR_NUM)).intValue();
+		try {
+			return (this.getIntFromDataManager(COLOR_NUM));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setColorNumber(int color)
@@ -959,4 +990,79 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable
 		return this.gender;
 	}
 
+	// ==================================================
+	//     Data Manager Trapper (borrowed from Lycanites)
+	// ==================================================
+
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public byte getByteFromDataManager(DataParameter<Byte> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public int getIntFromDataManager(DataParameter<Integer> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public float getFloatFromDataManager(DataParameter<Float> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public String getStringFromDataManager(DataParameter<String> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return Optional.absent();
+		}
+	}
 }

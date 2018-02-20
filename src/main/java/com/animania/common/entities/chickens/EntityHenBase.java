@@ -1,6 +1,7 @@
 package com.animania.common.entities.chickens;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -15,6 +16,7 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -29,12 +31,14 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -76,7 +80,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 			entityChicken.setPosition(this.posX, this.posY, this.posZ);
 			this.world.spawnEntity(entityChicken);
 		}
-		else if (chooser == 1)
+		else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
 		{
 			EntityChickBase entityChicken = this.type.getChild(world);
 			entityChicken.setPosition(this.posX, this.posY, this.posZ);
@@ -87,9 +91,11 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 			EntityRoosterBase entityChicken = this.type.getMale(world);
 			entityChicken.setPosition(this.posX, this.posY, this.posZ);
 			this.world.spawnEntity(entityChicken);
-			EntityChickBase entityChick = this.type.getChild(world);
-			entityChick.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityChick);
+			if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
+				EntityChickBase entityChick = this.type.getChild(world);
+				entityChick.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityChick);
+			}
 		}
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
@@ -163,7 +169,12 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 	public int getLaidTimer()
 	{
-		return this.dataManager.get(EntityHenBase.LAID_TIMER).intValue();
+		try {
+			return (this.getIntFromDataManager(LAID_TIMER));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setLaidTimer(int laidtimer)
@@ -195,7 +206,12 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 	public boolean getLaid()
 	{
-		return this.dataManager.get(EntityHenBase.LAID).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(LAID));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setLaid(boolean laid)

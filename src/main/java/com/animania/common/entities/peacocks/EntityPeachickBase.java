@@ -1,14 +1,19 @@
 package com.animania.common.entities.peacocks;
 
+import java.util.UUID;
+
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityPeachickBase extends EntityAnimaniaPeacock
@@ -85,6 +90,8 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityFowl.setCustomNameTag(name);
+							
+							entityFowl.setAnimalAge(1);
 							this.world.spawnEntity(entityFowl);
 							this.playSound(ModSoundEvents.peacock1, 0.50F, 1.1F);
 						}
@@ -98,6 +105,8 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityPeacock.setCustomNameTag(name);
+							
+							entityPeacock.setAnimalAge(1);
 							this.world.spawnEntity(entityPeacock);
 							this.playSound(ModSoundEvents.peacock8, 0.50F, 1.1F);
 						}
@@ -111,7 +120,12 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityPeachickBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setEntityAge(float age)

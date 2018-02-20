@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.sheep.ai.EntityAIFollowParentSheep;
-import com.animania.common.entities.sheep.ai.EntityAIPanicSheep;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -102,7 +101,15 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	@Nullable
 	public UUID getParentUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityLambBase.PARENT_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityLambBase.PARENT_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setParentUniqueId(@Nullable UUID uniqueId)
@@ -179,7 +186,12 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityLambBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setEntityAge(float age)
@@ -218,6 +230,8 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entitySheep.setCustomNameTag(name);
+							
+							entitySheep.setAnimalAge(1);
 							this.world.spawnEntity(entitySheep);
 							this.playSound(ModSoundEvents.sheepLiving1, 0.50F, 1.1F);
 						}
@@ -232,6 +246,8 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entitySheep.setCustomNameTag(name);
+							
+							entitySheep.setAnimalAge(1);
 							this.world.spawnEntity(entitySheep);
 							this.playSound(ModSoundEvents.sheepLiving2, 0.50F, 1.1F);
 						}

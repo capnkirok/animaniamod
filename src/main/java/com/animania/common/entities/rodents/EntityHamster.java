@@ -164,6 +164,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.setIsTamed(true);
 		this.setTamed(true);
 		this.setInLove(player);
+		this.doPatreonCheck(player);
 		
 		player.addStat(AnimaniaAchievements.Hamsters, 1);
 
@@ -181,7 +182,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public void setPosition(double x, double y, double z)
 	{
 		super.setPosition(x, y, z);
-		// System.out.println(x + "-" + y + "-" + z);
 	}
 
 	@Override
@@ -223,7 +223,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getAnimalAge()
 	{
-		return this.dataManager.get(EntityHamster.AGE).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setAnimalAge(boolean age)
@@ -317,13 +322,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			}
 
 			player.addStat(AnimaniaAchievements.Hamsters, 1);
-			
+			this.setInLove(player);
 			this.setFed(true);
 			this.setIsTamed(true);
 			this.setTamed(true);
 			this.setOwnerId(player.getPersistentID());
-			this.setInLove(player);
-
+			
 			this.doPatreonCheck(player);
 
 			return true;
@@ -725,7 +729,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getFed()
 	{
-		return this.dataManager.get(EntityHamster.FED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFed(boolean fed)
@@ -742,7 +751,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getWatered()
 	{
-		return this.dataManager.get(EntityHamster.WATERED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(WATERED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setWatered(boolean watered)
@@ -771,9 +785,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		}
 		if (this.rand.nextInt(10) == 5)
 			this.ticksExisted++;
-
-		// Animania.mDebug("worldObj.isRemote="+worldObj.isRemote+"
-		// posX="+posX+" posY="+posY+" poxZ="+posZ);
 	}
 
 	public float getInterestedAngle(float f)
@@ -794,7 +805,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean isInBall()
 	{
-		return this.dataManager.get(EntityHamster.IN_BALL).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(IN_BALL));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setInBall(boolean ball)
@@ -813,7 +829,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public int getBallColor()
 	{
-		return this.dataManager.get(EntityHamster.BALL_COLOR).intValue();
+		try {
+			return (this.getIntFromDataManager(BALL_COLOR));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setBallColor(int color)
@@ -823,7 +844,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean isHamsterSitting()
 	{
-		return this.dataManager.get(EntityHamster.SITTING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(SITTING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHamsterSitting(boolean flag)
@@ -852,7 +878,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getIsTamed()
 	{
-		return this.dataManager.get(EntityHamster.TAMED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(TAMED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setIsTamed(boolean tamed)
@@ -865,7 +896,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getIsRiding()
 	{
-		return this.dataManager.get(EntityHamster.RIDING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(RIDING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setIsRiding(boolean riding)
@@ -1013,7 +1049,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public int getColorNumber()
 	{
-		return this.dataManager.get(EntityHamster.COLOR_NUM).intValue();
+		try {
+			return (this.getIntFromDataManager(COLOR_NUM));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setColorNumber(int color)
@@ -1213,4 +1254,79 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		return EntityGender.NONE;
 	}
 
+	// ==================================================
+	//     Data Manager Trapper (borrowed from Lycanites)
+	// ==================================================
+
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public byte getByteFromDataManager(DataParameter<Byte> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public int getIntFromDataManager(DataParameter<Integer> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public float getFloatFromDataManager(DataParameter<Float> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public String getStringFromDataManager(DataParameter<String> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return Optional.absent();
+		}
+	}
 }

@@ -12,6 +12,7 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -32,6 +33,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
@@ -68,7 +70,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 		if (this.world.isRemote)
 			return null;
-		
+
 		int chooser = this.rand.nextInt(5);
 
 		if (chooser == 0)
@@ -79,7 +81,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			entitySheep.setMateUniqueId(this.entityUniqueID);
 			this.setMateUniqueId(entitySheep.getPersistentID());
 		}
-		else if (chooser == 1)
+		else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
 		{
 			EntityLambBase entityKid = this.sheepType.getChild(world);
 			entityKid.setPosition(this.posX, this.posY, this.posZ);
@@ -94,11 +96,13 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			this.world.spawnEntity(entityRam);
 			entityRam.setMateUniqueId(this.entityUniqueID);
 			this.setMateUniqueId(entityRam.getPersistentID());
-			EntityLambBase entityKid = this.sheepType.getChild(world);
-			entityKid.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityKid);
-			entityKid.setParentUniqueId(this.entityUniqueID);
-			this.setHasKids(true);
+			if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
+				EntityLambBase entityKid = this.sheepType.getChild(world);
+				entityKid.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityKid);
+				entityKid.setParentUniqueId(this.entityUniqueID);
+				this.setHasKids(true);
+			}
 		}
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
@@ -154,7 +158,12 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 	public int getGestation()
 	{
-		return this.dataManager.get(EntityEweBase.GESTATION_TIMER).intValue();
+		try {
+			return (this.getIntFromDataManager(GESTATION_TIMER));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setGestation(int gestation)
@@ -164,7 +173,12 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 	public boolean getPregnant()
 	{
-		return this.dataManager.get(EntityEweBase.PREGNANT).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(PREGNANT));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setPregnant(boolean preggers)
@@ -177,7 +191,12 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 	public boolean getFertile()
 	{
-		return this.dataManager.get(EntityEweBase.FERTILE).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FERTILE));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFertile(boolean fertile)
@@ -187,7 +206,12 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 	public boolean getHasKids()
 	{
-		return this.dataManager.get(EntityEweBase.HAS_KIDS).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(HAS_KIDS));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHasKids(boolean kids)
@@ -270,6 +294,13 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
+		
+		if (!this.getFertile() && this.dryTimerEwe > -1) {
+			this.dryTimerEwe--;
+		} else {
+			this.setFertile(true);
+			this.dryTimerEwe = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
+		}
 
 		if (this.blinkTimer > -1)
 		{
@@ -507,4 +538,5 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
+
 }

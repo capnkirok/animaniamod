@@ -56,7 +56,15 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	@Nullable
 	public UUID getMateUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityRabbitBuckBase.MATE_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityRabbitBuckBase.MATE_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setMateUniqueId(@Nullable UUID uniqueId)
@@ -225,5 +233,6 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	{
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
+
 
 }

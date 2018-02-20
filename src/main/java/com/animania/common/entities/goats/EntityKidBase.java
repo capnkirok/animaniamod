@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.goats.ai.EntityAIFollowParentGoats;
-import com.animania.common.entities.goats.ai.EntityAIPanicGoats;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
@@ -103,7 +102,15 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Nullable
 	public UUID getParentUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityKidBase.PARENT_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityKidBase.PARENT_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setParentUniqueId(@Nullable UUID uniqueId)
@@ -181,7 +188,12 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityKidBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setEntityAge(float age)
@@ -218,6 +230,8 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityGoat.setCustomNameTag(name);
+							
+							entityGoat.setAnimalAge(1);
 							this.world.spawnEntity(entityGoat);
 							this.playSound(ModSoundEvents.goatLiving1, 0.50F, 1.1F);
 						}
@@ -231,6 +245,8 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityGoat.setCustomNameTag(name);
+							
+							entityGoat.setAnimalAge(1);
 							this.world.spawnEntity(entityGoat);
 							this.playSound(ModSoundEvents.goatLiving2, 0.50F, 1.1F);
 						}

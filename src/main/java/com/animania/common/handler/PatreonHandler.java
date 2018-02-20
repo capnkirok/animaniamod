@@ -35,7 +35,7 @@ public class PatreonHandler
 		patreonUUIDS.add("2ea31456-53d4-4eee-b034-5126fc45e1c7"); //akirakujo
 		patreonUUIDS.add("eef69763-af9d-4ce6-bef7-cd9bc839004c"); //ScottRadish
 		patreonUUIDS.add("de8fc838-7468-4c5f-8f48-012808e079e1"); //Volfster
-		
+		patreonUUIDS.add("0b667a5c-9c03-4b8b-8cf4-ba3b31e09934"); //SilentWolf
 		
 	}
 	

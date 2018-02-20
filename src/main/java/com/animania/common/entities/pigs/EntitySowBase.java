@@ -8,9 +8,6 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.goats.EntityKidBase;
-import com.animania.common.entities.goats.GoatType;
-import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
 import com.animania.config.AnimaniaConfig;
@@ -38,7 +35,6 @@ import net.minecraft.stats.AchievementList;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -68,42 +64,53 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{
-
 		if (this.world.isRemote)
 			return null;
 
-		int pigCount = 0;
-		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 128, this.world, this);
-		pigCount = entities.size();
+		List list = this.world.loadedEntityList;
 
-		int chooser = this.rand.nextInt(5);
+		int currentCount = 0;
+		int num = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) instanceof EntityAnimaniaPig) {
+				num++;
+			}
+		}
+		currentCount = num;
 
-		if (chooser == 0)
-		{
-			EntityHogBase entityPig = this.pigType.getMale(world);
-			entityPig.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityPig);
-			entityPig.setMateUniqueId(this.entityUniqueID);
-			this.setMateUniqueId(entityPig.getPersistentID());
-		}
-		else if (chooser == 1)
-		{
-			EntityPigletBase entityPig = this.pigType.getChild(world);
-			entityPig.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityPig);
-			entityPig.setParentUniqueId(this.entityUniqueID);
-		}
-		else if (chooser > 2)
-		{
-			EntityHogBase entityPig = this.pigType.getMale(world);
-			entityPig.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityPig);
-			entityPig.setMateUniqueId(this.entityUniqueID);
-			this.setMateUniqueId(entityPig.getPersistentID());
-			EntityPigletBase entityPiglet = this.pigType.getChild(world);
-			entityPiglet.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityPiglet);
-			entityPiglet.setParentUniqueId(this.entityUniqueID);
+		if (currentCount <= AnimaniaConfig.spawn.spawnLimitPigs) {
+
+			int chooser = this.rand.nextInt(5);
+
+			if (chooser == 0)
+			{
+				EntityHogBase entityPig = this.pigType.getMale(world);
+				entityPig.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityPig);
+				entityPig.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityPig.getPersistentID());
+			}
+			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			{
+				EntityPigletBase entityPig = this.pigType.getChild(world);
+				entityPig.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityPig);
+				entityPig.setParentUniqueId(this.entityUniqueID);
+			}
+			else if (chooser > 2)
+			{
+				EntityHogBase entityPig = this.pigType.getMale(world);
+				entityPig.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityPig);
+				entityPig.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityPig.getPersistentID());
+				if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
+					EntityPigletBase entityPiglet = this.pigType.getChild(world);
+					entityPiglet.setPosition(this.posX, this.posY, this.posZ);
+					this.world.spawnEntity(entityPiglet);
+					entityPiglet.setParentUniqueId(this.entityUniqueID);
+				}
+			}
 		}
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
@@ -203,7 +210,12 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	public int getGestation()
 	{
-		return this.dataManager.get(EntitySowBase.GESTATION_TIMER).intValue();
+		try {
+			return (this.getIntFromDataManager(GESTATION_TIMER));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setGestation(int gestation)
@@ -213,7 +225,12 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	public boolean getPregnant()
 	{
-		return this.dataManager.get(EntitySowBase.PREGNANT).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(PREGNANT));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setPregnant(boolean preggers)
@@ -226,7 +243,12 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	public boolean getFertile()
 	{
-		return this.dataManager.get(EntitySowBase.FERTILE).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FERTILE));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFertile(boolean fertile)
@@ -236,7 +258,12 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	public boolean getHasKids()
 	{
-		return this.dataManager.get(EntitySowBase.HAS_KIDS).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(HAS_KIDS));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHasKids(boolean kids)
@@ -247,7 +274,15 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	@Nullable
 	public UUID getMateUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntitySowBase.MATE_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntitySowBase.MATE_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setMateUniqueId(@Nullable UUID uniqueId)

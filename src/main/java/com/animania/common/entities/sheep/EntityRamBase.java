@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.cows.EntityCalfBase;
 import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
 import com.animania.common.entities.sheep.ai.EntityAIMateSheep;
 import com.animania.common.helper.AnimaniaHelper;
@@ -73,7 +74,12 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 	public boolean getFighting()
 	{
-		return this.dataManager.get(EntityRamBase.FIGHTING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FIGHTING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFighting(boolean fighting)
@@ -87,7 +93,15 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	@Nullable
 	public UUID getRivalUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityRamBase.RIVAL_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityRamBase.RIVAL_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setRivalUniqueId(@Nullable UUID uniqueId)
