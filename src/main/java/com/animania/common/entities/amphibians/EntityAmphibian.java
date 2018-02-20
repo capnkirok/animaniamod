@@ -1,10 +1,15 @@
 package com.animania.common.entities.amphibians;
 
+import java.util.List;
 import java.util.Random;
+
+import javax.annotation.Nullable;
 
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.cows.EntityBullBase;
+import com.animania.common.entities.cows.EntityCalfBase;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
@@ -16,6 +21,7 @@ import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -31,6 +37,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -71,7 +78,18 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 		super.entityInit();
 		this.dataManager.register(EntityAmphibian.AGE, Integer.valueOf(0));
 	}
-
+	
+	@Override
+	protected boolean canDespawn()
+	{
+		return false;
+	}
+	
+	@Override
+	public void setPosition(double x, double y, double z)
+	{
+		super.setPosition(x, y, z);
+	}
 	
 	@Override
 	protected void initEntityAI() {

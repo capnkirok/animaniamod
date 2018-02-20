@@ -9,6 +9,7 @@ import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.ai.EntityAIFindNest;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
@@ -60,32 +61,47 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{
-
 		if (this.world.isRemote)
 			return null;
 
-		int chooser = this.rand.nextInt(5);
+		List list = this.world.loadedEntityList;
 
-		if (chooser == 0)
-		{
-			EntityRoosterBase entityChicken = this.type.getMale(world);
-			entityChicken.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityChicken);
+		int currentCount = 0;
+		int num = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) instanceof EntityAnimaniaChicken) {
+				num++;
+			}
 		}
-		else if (chooser == 1)
-		{
-			EntityChickBase entityChicken = this.type.getChild(world);
-			entityChicken.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityChicken);
-		}
-		else if (chooser > 2)
-		{
-			EntityRoosterBase entityChicken = this.type.getMale(world);
-			entityChicken.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityChicken);
-			EntityChickBase entityChick = this.type.getChild(world);
-			entityChick.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityChick);
+		currentCount = num;
+
+		if (currentCount <= AnimaniaConfig.spawn.spawnLimitChickens) {
+
+			int chooser = this.rand.nextInt(5);
+
+			if (chooser == 0)
+			{
+				EntityRoosterBase entityChicken = this.type.getMale(world);
+				entityChicken.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityChicken);
+			}
+			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			{
+				EntityChickBase entityChicken = this.type.getChild(world);
+				entityChicken.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityChicken);
+			}
+			else if (chooser > 2)
+			{
+				EntityRoosterBase entityChicken = this.type.getMale(world);
+				entityChicken.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityChicken);
+				if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
+					EntityChickBase entityChick = this.type.getChild(world);
+					entityChick.setPosition(this.posX, this.posY, this.posZ);
+					this.world.spawnEntity(entityChick);
+				}
+			}
 		}
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
@@ -161,7 +177,12 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 	public int getLaidTimer()
 	{
-		return this.dataManager.get(EntityHenBase.LAID_TIMER).intValue();
+		try {
+			return (this.getIntFromDataManager(LAID_TIMER));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setLaidTimer(int laidtimer)
@@ -193,7 +214,12 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 	public boolean getLaid()
 	{
-		return this.dataManager.get(EntityHenBase.LAID).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(LAID));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setLaid(boolean laid)

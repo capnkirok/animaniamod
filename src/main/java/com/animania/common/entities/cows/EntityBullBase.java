@@ -81,7 +81,12 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	public boolean getFighting()
 	{
-		return this.dataManager.get(EntityBullBase.FIGHTING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FIGHTING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFighting(boolean fighting)

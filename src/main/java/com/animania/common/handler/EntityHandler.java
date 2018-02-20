@@ -195,14 +195,14 @@ public class EntityHandler
 		RegistryHelper.Entities.registerAnimal(EntityFoalDraftHorse.class, "foal_draft", entityID++, HorseType.DRAFT, EntityGender.CHILD);
 
 		int maxFam = AnimaniaConfig.spawn.numberHorseFamilies;
-		if (maxFam < 2) {
-			maxFam = 2;
+		if (maxFam < 1) {
+			maxFam = 1;
 		}
 
 		if (AnimaniaConfig.spawn.spawnAnimaniaHorses)
 		{
-			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
-			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
+			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			EntityRegistry.addSpawn(EntityMareDraftHorse.class, AnimaniaConfig.spawn.spawnProbabilityHorses, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
 		}
 
 		// RODENTS
@@ -250,20 +250,20 @@ public class EntityHandler
 		RegistryHelper.Entities.registerAnimal(EntityHogDuroc.class, "hog_duroc", entityID++, PigType.DUROC, EntityGender.MALE);
 
 		maxFam = AnimaniaConfig.spawn.numberPigFamilies;
-		if (maxFam < 2) {
-			maxFam = 2;
+		if (maxFam < 1) {
+			maxFam = 1;
 		}
 
 		if (AnimaniaConfig.spawn.spawnAnimaniaPigs)
 		{
-			EntityRegistry.addSpawn(EntitySowYorkshire.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
-			EntityRegistry.addSpawn(EntitySowOldSpot.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
-			EntityRegistry.addSpawn(EntitySowLargeBlack.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, Biomes.BIRCH_FOREST);
-			EntityRegistry.addSpawn(EntitySowLargeBlack.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
-			EntityRegistry.addSpawn(EntitySowLargeWhite.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
-			EntityRegistry.addSpawn(EntitySowDuroc.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
-			EntityRegistry.addSpawn(EntitySowHampshire.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
-			EntityRegistry.addSpawn(EntitySowHampshire.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, Biomes.EXTREME_HILLS, Biomes.EXTREME_HILLS_WITH_TREES);
+			EntityRegistry.addSpawn(EntitySowYorkshire.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			EntityRegistry.addSpawn(EntitySowOldSpot.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
+			EntityRegistry.addSpawn(EntitySowLargeBlack.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, maxFam, EnumCreatureType.CREATURE, Biomes.BIRCH_FOREST);
+			EntityRegistry.addSpawn(EntitySowLargeBlack.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
+			EntityRegistry.addSpawn(EntitySowLargeWhite.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
+			EntityRegistry.addSpawn(EntitySowDuroc.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
+			EntityRegistry.addSpawn(EntitySowHampshire.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
+			EntityRegistry.addSpawn(EntitySowHampshire.class, AnimaniaConfig.spawn.spawnProbabilityPigs, 1, maxFam, EnumCreatureType.CREATURE, Biomes.EXTREME_HILLS, Biomes.EXTREME_HILLS_WITH_TREES);
 		}
 
 		// CHICKENS
@@ -288,9 +288,10 @@ public class EntityHandler
 		RegistryHelper.Entities.registerAnimal(EntityRoosterWyandotte.class, "rooster_wyandotte", entityID++, ChickenType.WYANDOTTE, EntityGender.MALE);
 
 		maxFam = AnimaniaConfig.spawn.numberChickenFamilies;
-		if (maxFam < 2) {
-			maxFam = 2;
+		if (maxFam < 1) {
+			maxFam = 1;
 		}
+		
 		if (AnimaniaConfig.spawn.spawnAnimaniaChickens)
 		{
 			EntityRegistry.addSpawn(EntityHenPlymouthRock.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
@@ -338,8 +339,8 @@ public class EntityHandler
 
 		
 		maxFam = AnimaniaConfig.spawn.numberCowFamilies;
-		if (maxFam < 2) {
-			maxFam = 2;
+		if (maxFam < 1) {
+			maxFam = 1;
 		}
 
 		if (AnimaniaConfig.spawn.spawnAnimaniaCows)
@@ -371,9 +372,9 @@ public class EntityHandler
 		{
 			EntityRegistry.addSpawn(EntityToad.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
 			EntityRegistry.addSpawn(EntityToad.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
-			RegistryHelper.Entities.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
-			RegistryHelper.Entities.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.RIVER));
-			RegistryHelper.Entities.addSpawn(EntityToad.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
+			EntityRegistry.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
+			EntityRegistry.addSpawn(EntityFrogs.class, AnimaniaConfig.spawn.spawnProbabilityAmphibians, 1, 2, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.RIVER));
+			
 		}
 
 		// GOATS
@@ -406,25 +407,25 @@ public class EntityHandler
 		RegistryHelper.Entities.registerAnimal(EntityDoePygmy.class, "doe_pygmy", entityID++, GoatType.PYGMY, EntityGender.FEMALE);
 
 		maxFam = AnimaniaConfig.spawn.numberGoatFamilies;
-		if (maxFam < 2) {
-			maxFam = 2;
+		if (maxFam < 1) {
+			maxFam = 1;
 		}
 
 
 		if (AnimaniaConfig.spawn.spawnAnimaniaGoats)
 		{	
-			RegistryHelper.Entities.addSpawn(EntityDoeAlpine.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
-			RegistryHelper.Entities.addSpawn(EntityDoeAlpine.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.HILLS));
-			RegistryHelper.Entities.addSpawn(EntityDoeAngora.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
-			RegistryHelper.Entities.addSpawn(EntityDoeFainting.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
-			RegistryHelper.Entities.addSpawn(EntityDoeKiko.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
-			RegistryHelper.Entities.addSpawn(EntityDoeKiko.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.HILLS));
-			RegistryHelper.Entities.addSpawn(EntityDoeKinder.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
-			RegistryHelper.Entities.addSpawn(EntityDoeKinder.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MESA));
-			RegistryHelper.Entities.addSpawn(EntityDoeNigerianDwarf.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.DRY));
-			RegistryHelper.Entities.addSpawn(EntityDoeNigerianDwarf.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SANDY));
-			RegistryHelper.Entities.addSpawn(EntityDoePygmy.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
-			RegistryHelper.Entities.addSpawn(EntityDoePygmy.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MESA));
+			RegistryHelper.Entities.addSpawn(EntityDoeAlpine.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
+			RegistryHelper.Entities.addSpawn(EntityDoeAlpine.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.HILLS));
+			RegistryHelper.Entities.addSpawn(EntityDoeAngora.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			RegistryHelper.Entities.addSpawn(EntityDoeFainting.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			RegistryHelper.Entities.addSpawn(EntityDoeKiko.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
+			RegistryHelper.Entities.addSpawn(EntityDoeKiko.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.HILLS));
+			RegistryHelper.Entities.addSpawn(EntityDoeKinder.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
+			RegistryHelper.Entities.addSpawn(EntityDoeKinder.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MESA));
+			RegistryHelper.Entities.addSpawn(EntityDoeNigerianDwarf.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.DRY));
+			RegistryHelper.Entities.addSpawn(EntityDoeNigerianDwarf.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SANDY));
+			RegistryHelper.Entities.addSpawn(EntityDoePygmy.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
+			RegistryHelper.Entities.addSpawn(EntityDoePygmy.class, AnimaniaConfig.spawn.spawnProbabilityGoats, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MESA));
 		}
 
 		// SHEEP
@@ -454,20 +455,20 @@ public class EntityHandler
 		RegistryHelper.Entities.registerAnimal(EntityRamJacob.class, "ram_jacob", entityID++, SheepType.JACOB, EntityGender.FEMALE);
 
 		maxFam = AnimaniaConfig.spawn.numberSheepFamilies;
-		if (maxFam < 2) {
-			maxFam = 2;
+		if (maxFam < 1) {
+			maxFam = 1;
 		}
 
 		if (AnimaniaConfig.spawn.spawnAnimaniaSheep)
 		{
-			RegistryHelper.Entities.addSpawn(EntityEweDorset.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.HILLS));
-			RegistryHelper.Entities.addSpawn(EntityEweFriesian.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
-			RegistryHelper.Entities.addSpawn(EntityEweJacob.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
-			RegistryHelper.Entities.addSpawn(EntityEweMerino.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
-			RegistryHelper.Entities.addSpawn(EntityEweMerino.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.DRY));
-			RegistryHelper.Entities.addSpawn(EntityEweSuffolk.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MESA));
-			RegistryHelper.Entities.addSpawn(EntityEweSuffolk.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
-			RegistryHelper.Entities.addSpawn(EntityEweDorper.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
+			RegistryHelper.Entities.addSpawn(EntityEweDorset.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.HILLS));
+			RegistryHelper.Entities.addSpawn(EntityEweFriesian.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			RegistryHelper.Entities.addSpawn(EntityEweJacob.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
+			RegistryHelper.Entities.addSpawn(EntityEweMerino.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			RegistryHelper.Entities.addSpawn(EntityEweMerino.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.DRY));
+			RegistryHelper.Entities.addSpawn(EntityEweSuffolk.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MESA));
+			RegistryHelper.Entities.addSpawn(EntityEweSuffolk.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
+			RegistryHelper.Entities.addSpawn(EntityEweDorper.class, AnimaniaConfig.spawn.spawnProbabilitySheep, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SAVANNA));
 
 		}
 

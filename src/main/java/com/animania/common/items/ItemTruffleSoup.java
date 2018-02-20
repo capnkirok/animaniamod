@@ -7,8 +7,10 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -45,6 +47,17 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 		if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
         {
             stack.shrink(1);
+        }
+		
+		EntityPlayer entityplayer = (EntityPlayer)entityLiving;
+        entityplayer.getFoodStats().addStats(this, stack);
+        worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+        this.onFoodEaten(stack, worldIn, entityplayer);
+        entityplayer.addStat(StatList.getObjectUseStats(this));
+
+        if (entityplayer instanceof EntityPlayerMP)
+        {
+            CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP)entityplayer, stack);
         }
 		
 		return stack.getCount() <= 0 ? new ItemStack(Items.BOWL) : stack;

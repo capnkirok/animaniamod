@@ -74,7 +74,12 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 	public boolean getFighting()
 	{
-		return this.dataManager.get(EntityRamBase.FIGHTING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FIGHTING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFighting(boolean fighting)

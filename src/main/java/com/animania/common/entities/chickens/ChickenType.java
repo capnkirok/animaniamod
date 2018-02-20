@@ -4,10 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimaniaType;
 
-import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
 public enum ChickenType implements AnimaniaType

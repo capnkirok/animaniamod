@@ -127,6 +127,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	}
 
 	@Override
+	public void setPosition(double x, double y, double z)
+	{
+		super.setPosition(x, y, z);
+	}
+
+	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
@@ -183,7 +189,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public boolean getSheared()
 	{
-		return this.dataManager.get(EntityAnimaniaSheep.SHEARED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(SHEARED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setSheared(boolean sheared)
@@ -198,7 +209,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public int getWoolRegrowthTimer()
 	{
-		return this.dataManager.get(EntityAnimaniaSheep.SHEARED_TIMER).intValue();
+		try {
+			return (this.getIntFromDataManager(SHEARED_TIMER));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setWoolRegrowthTimer(int time)
@@ -208,7 +224,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public boolean getFed()
 	{
-		return this.dataManager.get(EntityAnimaniaSheep.FED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFed(boolean fed)
@@ -224,7 +245,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public boolean getHandFed()
 	{
-		return this.dataManager.get(EntityAnimaniaSheep.HANDFED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(HANDFED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHandFed(boolean handfed)
@@ -234,7 +260,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public boolean getWatered()
 	{
-		return this.dataManager.get(EntityAnimaniaSheep.WATERED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(WATERED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setWatered(boolean watered)
@@ -466,7 +497,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public int getAge()
 	{
-		return this.dataManager.get(EntityAnimaniaSheep.AGE).intValue();
+		try {
+			return (this.getIntFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setAge(int age)
@@ -476,7 +512,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public int getColorNumber()
 	{
-		return ((Integer)this.dataManager.get(COLOR_NUM)).intValue();
+		try {
+			return (this.getIntFromDataManager(COLOR_NUM));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setColorNumber(int color)
@@ -659,6 +700,82 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	public EntityGender getEntityGender()
 	{
 		return this.gender;
+	}
+
+	// ==================================================
+	//     Data Manager Trapper (borrowed from Lycanites)
+	// ==================================================
+
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public byte getByteFromDataManager(DataParameter<Byte> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public int getIntFromDataManager(DataParameter<Integer> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public float getFloatFromDataManager(DataParameter<Float> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public String getStringFromDataManager(DataParameter<String> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return Optional.absent();
+		}
 	}
 
 }

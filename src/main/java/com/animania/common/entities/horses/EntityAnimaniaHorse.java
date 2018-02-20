@@ -55,6 +55,7 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -71,7 +72,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
-	private static final String[] HORSE_TEXTURES = new String[] {"black", "bw1", "bw2", "grey", "red", "white"};
+	//private static final String[] HORSE_TEXTURES = new String[] {"black", "bw1", "bw2", "grey", "red", "white"};
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -124,6 +125,13 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	{
 		return false;
 	}
+	
+	@Override
+	public void setPosition(double x, double y, double z)
+	{
+		super.setPosition(x, y, z);
+	}
+
 
 	@Override
 	protected void entityInit()
@@ -262,7 +270,12 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 
 	public boolean getFed()
 	{
-		return this.dataManager.get(EntityAnimaniaHorse.FED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFed(boolean fed)
@@ -278,7 +291,12 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 
 	public boolean getHandFed()
 	{
-		return this.dataManager.get(EntityAnimaniaHorse.HANDFED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(HANDFED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHandFed(boolean handfed)
@@ -288,7 +306,12 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 
 	public boolean getWatered()
 	{
-		return this.dataManager.get(EntityAnimaniaHorse.WATERED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(WATERED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setWatered(boolean watered)
@@ -303,7 +326,12 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 
 	public int getAge()
 	{
-		return this.dataManager.get(EntityAnimaniaHorse.AGE).intValue();
+		try {
+			return (this.getIntFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setAge(int age)
@@ -335,7 +363,12 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 
 	public int getColorNumber()
 	{
-		return ((Integer)this.dataManager.get(COLOR_NUM)).intValue();
+		try {
+			return (this.getIntFromDataManager(COLOR_NUM));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setColorNumber(int color)
@@ -701,6 +734,82 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	public EntityGender getEntityGender()
 	{
 		return this.gender;
+	}
+
+	// ==================================================
+	//     Data Manager Trapper (borrowed from Lycanites)
+	// ==================================================
+
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public byte getByteFromDataManager(DataParameter<Byte> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public int getIntFromDataManager(DataParameter<Integer> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public float getFloatFromDataManager(DataParameter<Float> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public String getStringFromDataManager(DataParameter<String> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return Optional.absent();
+		}
 	}
 
 

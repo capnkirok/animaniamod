@@ -109,20 +109,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		{
 			
 			return true;
-			/*
-			EntityPlayer entityplayer = (EntityPlayer)entity;
-			ItemStack itemstack = entityplayer.getHeldItemMainhand();
-
-			if (itemstack != null && itemstack.getItem() == ItemHandler.ridingCrop)
-			{
-				return true;
-			}
-			else
-			{
-				itemstack = entityplayer.getHeldItemOffhand();
-				return itemstack != null && itemstack.getItem() == ItemHandler.ridingCrop;
-			}
-			*/
+	
 		}
 	}
 	

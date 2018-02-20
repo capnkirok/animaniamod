@@ -1,10 +1,10 @@
 package com.animania.common.entities.amphibians;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
@@ -64,9 +64,21 @@ public class EntityFrogs extends EntityAmphibian
 		this.dataManager.register(EntityFrogs.FROGS_TYPE, Integer.valueOf(this.rand.nextInt(2)));
 	}
 
-	/**
-	 * (abstract) Protected helper method to write subclass entity data to NBT.
-	 */
+	
+	@Override
+	@Nullable
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	{
+		livingdata = super.onInitialSpawn(difficulty, livingdata);
+		
+		if (this.world.isRemote)
+			return null;
+		
+		this.setFrogsType(this.rand.nextInt(2));
+		
+		return livingdata;
+	}
+	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
@@ -142,16 +154,6 @@ public class EntityFrogs extends EntityAmphibian
 
 		}
 		return super.processInteract(player, hand);
-	}
-
-	@Override
-	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
-		livingdata = super.onInitialSpawn(difficulty, livingdata);
-
-		this.setFrogsType(this.rand.nextInt(2));
-
-		return livingdata;
 	}
 
 	@Override

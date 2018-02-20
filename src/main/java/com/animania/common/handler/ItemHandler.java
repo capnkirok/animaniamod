@@ -428,7 +428,7 @@ public class ItemHandler
 		ItemHandler.cheeseOmelette = new ItemAnimaniaFood(5, 2f, "cheese_omelette", new PotionEffect(MobEffects.INSTANT_HEALTH, 2, 2, false, false));
 		ItemHandler.plainOmelette = new ItemAnimaniaFood(5, 2f, "plain_omelette");
 		ItemHandler.truffleSoup = new ItemTruffleSoup();
-		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
+		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", true, new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
 
 		// ITEMS produced by Animals
 		// COW ITEMS
@@ -440,7 +440,7 @@ public class ItemHandler
 		ItemHandler.rawHerefordSteak = new ItemAnimaniaFoodRaw("raw_hereford_steak", AnimaniaConfig.drops.oldMeatDrops);
 		ItemHandler.rawAngusSteak = new ItemAnimaniaFoodRaw("raw_angus_steak", AnimaniaConfig.drops.oldMeatDrops);
 
-		ItemHandler.cookedLonghornRoast = new ItemAnimaniaFood(10, 1f, "cooked_longhorn_roast", AnimaniaConfig.drops.oldMeatDrops, new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 1, false, false));
+		ItemHandler.cookedLonghornRoast = new ItemAnimaniaFood(10, 1f, "cooked_longhorn_roast", true, new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 1, false, false));
 		ItemHandler.cookedHerefordRoast = new ItemAnimaniaFood(12, 1f, "cooked_hereford_roast", AnimaniaConfig.drops.oldMeatDrops, new PotionEffect(MobEffects.INSTANT_HEALTH, 4, 1, false, false));
 		ItemHandler.cookedAngusRoast = new ItemAnimaniaFood(20, 1f, "cooked_angus_roast", AnimaniaConfig.drops.oldMeatDrops, new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 1, false, false));
 

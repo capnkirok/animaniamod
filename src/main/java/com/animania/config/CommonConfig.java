@@ -147,20 +147,46 @@ public class CommonConfig
 		public int spawnProbabilityRabbits = 6;
 	
 		@Comment("Number of potential Cow families per chunk")
-		public int numberCowFamilies = 2;
+		public int numberCowFamilies = 1;
 		@Comment("Number of potential Pig families per chunk")
-		public int numberPigFamilies = 2;
+		public int numberPigFamilies = 1;
 		@Comment("Number of potential Chicken families per chunk")
-		public int numberChickenFamilies = 2;
+		public int numberChickenFamilies = 1;
 		@Comment("Number of potential Horse families per chunk")
-		public int numberHorseFamilies = 2;
+		public int numberHorseFamilies = 1;
 		@Comment("Number of potential Goat families per chunk")
 		public int numberGoatFamilies = 1;
 		@Comment("Number of potential Sheep families per chunk")
-		public int numberSheepFamilies = 2;
+		public int numberSheepFamilies = 1;
 		@Comment("Number of potential Rabbit families per chunk")
 		public int numberRabbitFamilies = 1;
 				
+		@Comment("Spawn limit for Cows in loaded chunks")
+		public int spawnLimitCows = 40;
+		@Comment("Spawn limit for Pigs in loaded chunks")
+		public int spawnLimitPigs = 40;
+		@Comment("Spawn limit for Chickens in loaded chunks")
+		public int spawnLimitChickens = 40;
+		@Comment("Spawn limit for Hedgehogs in loaded chunks")
+		public int spawnLimitHedgehogs = 40;
+		@Comment("Spawn limit for Ferrets in loaded chunks")
+		public int spawnLimitFerrets = 40;
+		@Comment("Spawn limit for Hamsters in loaded chunks")
+		public int spawnLimitHamsters = 40;
+		@Comment("Spawn limit for Peacocks in loaded chunks")
+		public int spawnLimitPeacocks = 40;
+		@Comment("Spawn limit for Amphibians in loaded chunks")
+		public int spawnLimitAmphibians = 40;
+		@Comment("Spawn limit for Horses in loaded chunks")
+		public int spawnLimitHorses = 40;
+		@Comment("Spawn limit for Goats in loaded chunks")
+		public int spawnLimitGoats = 40;
+		@Comment("Spawn limit for Sheep in loaded chunks")
+		public int spawnLimitSheep = 40;
+		@Comment("Spawn limit for Rabbits in loaded chunks")
+		public int spawnLimitRabbits = 40;
+		
+		
 	}
 
 	public static class CareAndFeeding
@@ -269,7 +295,6 @@ public class CommonConfig
 		public String ferretDrop2 = "";
 		@Comment("Set Custom Ferret Secondary Drop Amount")
 		public int ferretDrop2Amount = 1;
-		
 		
 		@Comment("Set Custom Hamster Drop (if enabled)")
 		public String hamsterDrop = "animania:hamster_food";

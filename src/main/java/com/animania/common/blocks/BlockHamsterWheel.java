@@ -107,7 +107,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 
 				NBTTagCompound hamsternbt = cap.getAnimal();
 
-				if (!hamsternbt.hasNoTags() && cap.isCarrying())
+				if (!hamsternbt.hasNoTags() && cap.isCarrying() && cap.getType().equals("hamster"))
 
 				{
 					EntityHamster hamster = (EntityHamster) EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, "hamster"), world);

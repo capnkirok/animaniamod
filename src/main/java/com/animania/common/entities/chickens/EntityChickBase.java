@@ -100,6 +100,8 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityHen.setCustomNameTag(name);
+							
+							entityHen.setAge(1);
 							this.world.spawnEntity(entityHen);
 							this.playSound(ModSoundEvents.chickenHurt1, 0.50F, 1.1F);
 						}
@@ -113,6 +115,8 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityRooster.setCustomNameTag(name);
+							
+							entityRooster.setAge(1);
 							this.world.spawnEntity(entityRooster);
 							this.playSound(ModSoundEvents.chickenCrow1, 0.50F, 1.1F);
 						}
@@ -127,7 +131,12 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityChickBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setEntityAge(float age)
