@@ -102,7 +102,15 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	@Nullable
 	public UUID getParentUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityLambBase.PARENT_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityLambBase.PARENT_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setParentUniqueId(@Nullable UUID uniqueId)
@@ -179,7 +187,12 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityLambBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0F;
+		}
 	}
 
 	public void setEntityAge(float age)
@@ -219,6 +232,8 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entitySheep.setCustomNameTag(name);
+							
+							entitySheep.setAge(1);
 							this.world.spawnEntity(entitySheep);
 							this.playSound(ModSoundEvents.sheepLiving1, 0.50F, 1.1F);
 						}
@@ -233,6 +248,8 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entitySheep.setCustomNameTag(name);
+							
+							entitySheep.setAge(1);
 							this.world.spawnEntity(entitySheep);
 							this.playSound(ModSoundEvents.sheepLiving2, 0.50F, 1.1F);
 						}

@@ -18,7 +18,6 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -116,7 +115,15 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Nullable
 	public UUID getParentUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityCalfBase.PARENT_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityCalfBase.PARENT_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setParentUniqueId(@Nullable UUID uniqueId)
@@ -126,7 +133,12 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityCalfBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setEntityAge(float age)
@@ -264,6 +276,8 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityCow.setCustomNameTag(name);
+							
+							entityCow.setAge(1);
 							this.world.spawnEntity(entityCow);
 							this.playSound(ModSoundEvents.moo1, 0.50F, 1.1F);
 						}
@@ -277,6 +291,8 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityBull.setCustomNameTag(name);
+							
+							entityBull.setAge(1);
 							this.world.spawnEntity(entityBull);
 							this.playSound(ModSoundEvents.bullMoo1, 0.50F, 1.1F);
 						}

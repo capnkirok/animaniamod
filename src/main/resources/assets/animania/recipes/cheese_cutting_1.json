@@ -6,11 +6,11 @@
 		 "data": 32767
       },
 	  {
-		"item": "animania:friesian_cheese_wheel"
+		"item": "animania:jersey_cheese_wheel"
 	  }
    ],
    "result": {
-      "item": "animania:friesian_cheese_wedge",
+      "item": "animania:jersey_cheese_wedge",
       "data": 0,
       "count": 4
    },

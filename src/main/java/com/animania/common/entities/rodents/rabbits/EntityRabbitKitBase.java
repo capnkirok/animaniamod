@@ -33,7 +33,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityRabbitKitBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityRabbitKitBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
-	
+
 	public EntityRabbitKitBase(World worldIn)
 	{
 		super(worldIn);
@@ -43,7 +43,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		this.gender = EntityGender.CHILD;
 		this.tasks.addTask(1, new EntityAIFollowParentRabbits(this, 1.15D));
 	}
-	
+
 	@Override
 	public boolean isChild()
 	{
@@ -98,11 +98,19 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 			this.setParentUniqueId(UUID.fromString(s));
 
 	}
-	
+
 	@Nullable
 	public UUID getParentUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityRabbitKitBase.PARENT_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityRabbitKitBase.PARENT_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setParentUniqueId(@Nullable UUID uniqueId)
@@ -176,17 +184,22 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		if (soundevent != null)
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F);
 	}
-	
+
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityRabbitKitBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0F;
+		}
 	}
 
 	public void setEntityAge(float age)
 	{
 		this.dataManager.set(EntityRabbitKitBase.AGE, Float.valueOf(age));
 	}
-	
+
 	@Override
 	public void onLivingUpdate()
 	{
@@ -217,6 +230,8 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityGoat.setCustomNameTag(name);
+
+							entityGoat.setAge(1);
 							this.world.spawnEntity(entityGoat);
 							this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
 						}
@@ -230,6 +245,8 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityGoat.setCustomNameTag(name);
+
+							entityGoat.setAge(1);
 							this.world.spawnEntity(entityGoat);
 							this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
 						}
@@ -241,7 +258,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 
 		super.onLivingUpdate();
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
@@ -269,7 +286,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		else
 			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
-	
+
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{

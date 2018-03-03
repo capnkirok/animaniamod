@@ -2,6 +2,7 @@ package com.animania.common.entities.rodents;
 
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -30,6 +31,7 @@ import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
 import com.animania.config.AnimaniaConfig;
 import com.animania.network.client.CapSyncPacket;
+import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
@@ -163,6 +165,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	{
 		return false;
 	}
+	
+	@Override
+	public void setPosition(double x, double y, double z)
+	{
+		super.setPosition(x, y, z);
+	}
 
 	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
@@ -281,7 +289,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 
 	public boolean getAge()
 	{
-		return this.dataManager.get(EntityHedgehogBase.AGE).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setAge(boolean age)
@@ -596,7 +609,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 
 	public boolean isHedgehogSitting()
 	{
-		return this.dataManager.get(EntityHedgehogBase.SITTING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(SITTING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHedgehogSitting(boolean flag)
@@ -609,7 +627,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 
 	public boolean isHedgehogRiding()
 	{
-		return this.dataManager.get(EntityHedgehogBase.RIDING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(RIDING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHedgehogRiding(boolean flag)
@@ -622,7 +645,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 
 	public boolean getFed()
 	{
-		return this.dataManager.get(EntityHedgehogBase.FED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFed(boolean fed)
@@ -639,7 +667,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 
 	public boolean getWatered()
 	{
-		return this.dataManager.get(EntityHedgehogBase.WATERED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(WATERED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setWatered(boolean watered)
@@ -655,7 +688,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 
 	public boolean getIsTamed()
 	{
-		return this.dataManager.get(EntityHedgehogBase.TAMED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(TAMED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setIsTamed(boolean fed)
@@ -730,6 +768,82 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	public EntityGender getEntityGender()
 	{
 		return EntityGender.NONE;
+	}
+
+	// ==================================================
+	//     Data Manager Trapper (borrowed from Lycanites)
+	// ==================================================
+
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public byte getByteFromDataManager(DataParameter<Byte> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public int getIntFromDataManager(DataParameter<Integer> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public float getFloatFromDataManager(DataParameter<Float> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public String getStringFromDataManager(DataParameter<String> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return Optional.absent();
+		}
 	}
 
 }

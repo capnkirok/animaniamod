@@ -4,10 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimaniaType;
 
-import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
 public enum CowType implements AnimaniaType
@@ -16,8 +14,10 @@ public enum CowType implements AnimaniaType
 	FRIESIAN(EntityBullFriesian.class, EntityCowFriesian.class, EntityCalfFriesian.class),
 	HEREFORD(EntityBullHereford.class, EntityCowHereford.class, EntityCalfHereford.class),
 	HOLSTEIN(EntityBullHolstein.class, EntityCowHolstein.class, EntityCalfHolstein.class),
-	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class);
-
+	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class),
+	HIGHLAND(EntityBullHighland.class, EntityCowHighland.class, EntityCalfHighland.class),
+	JERSEY(EntityBullJersey.class, EntityCowJersey.class, EntityCalfJersey.class),
+	MOOSHROOM(EntityBullMooshroom.class, EntityCowMooshroom.class, EntityCalfMooshroom.class);
 
 	private Class bull;
 	private Class cow;

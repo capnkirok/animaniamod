@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_calf_highland"
+        },
+        "title": {
+            "translate": "advancements.animania.highland.title"
+        },
+        "description": {
+            "translate": "advancements.animania.highland.description"
+        }
+    },
+    "parent": "animania:animania/feed_cow_angus",
+    "criteria": {
+        "highland_calf": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:calf_highland"
+            }
+        },
+		"highland_cow": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:cow_highland"
+            }
+        },
+		 "highland_bull": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:bull_highland"
+            }
+        }  
+    },
+	"requirements": [["highland_bull", "highland_cow", "highland_calf"]]
+
+}

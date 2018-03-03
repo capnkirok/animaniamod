@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_calf_jersey"
+        },
+        "title": {
+            "translate": "advancements.animania.jersey.title"
+        },
+        "description": {
+            "translate": "advancements.animania.jersey.description"
+        }
+    },
+    "parent": "animania:animania/feed_cow_angus",
+    "criteria": {
+        "jersey_calf": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:calf_jersey"
+            }
+        },
+		"jersey_cow": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:cow_jersey"
+            }
+        },
+		 "jersey_bull": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:wheat"},
+				"entity": "animania:bull_jersey"
+            }
+        }  
+    },
+	"requirements": [["jersey_bull", "jersey_cow", "jersey_calf"]]
+
+}

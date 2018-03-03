@@ -1,6 +1,7 @@
 package com.animania.common.entities.pigs;
 
 import java.util.Set;
+import java.util.UUID;
 
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
@@ -20,6 +21,7 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
@@ -127,6 +129,13 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	{
 		return false;
 	}
+	
+	@Override
+	public void setPosition(double x, double y, double z)
+	{
+		super.setPosition(x, y, z);
+	}
+
 
 	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
@@ -270,7 +279,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public int getAge()
 	{
-		return this.dataManager.get(EntityAnimaniaPig.AGE).intValue();
+		try {
+			return (this.getIntFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setAge(int age)
@@ -280,7 +294,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getHandFed()
 	{
-		return this.dataManager.get(EntityAnimaniaPig.HANDFED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(HANDFED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHandFed(boolean handfed)
@@ -429,7 +448,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getSaddled()
 	{
-		return this.dataManager.get(EntityAnimaniaPig.SADDLED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(SADDLED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	/**
@@ -445,7 +469,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getFed()
 	{
-		return this.dataManager.get(EntityAnimaniaPig.FED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFed(boolean fed)
@@ -473,7 +502,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getPlayed()
 	{
-		return this.dataManager.get(EntityAnimaniaPig.PLAYED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(PLAYED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setPlayed(boolean played)
@@ -489,7 +523,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getWatered()
 	{
-		return this.dataManager.get(EntityAnimaniaPig.WATERED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(WATERED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setWatered(boolean watered)
@@ -505,7 +544,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getMuddy()
 	{
-		return this.dataManager.get(EntityAnimaniaPig.MUDDY).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(MUDDY));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setMuddy(boolean muddy)
@@ -518,7 +562,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public Float getMudTimer()
 	{
-		return this.dataManager.get(EntityAnimaniaPig.MUDTIMER).floatValue();
+		try {
+			return (this.getFloatFromDataManager(MUDTIMER));
+		}
+		catch (Exception e) {
+			return 0F;
+		}
 	}
 
 	public void setMudTimer(Float timer)
@@ -528,7 +577,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public Float getSplashTimer()
 	{
-		return this.dataManager.get(EntityAnimaniaPig.SPLASHTIMER).floatValue();
+		try {
+			return (this.getFloatFromDataManager(SPLASHTIMER));
+		}
+		catch (Exception e) {
+			return 0F;
+		}
 	}
 
 	public void setSplashTimer(Float timer)
@@ -700,6 +754,82 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	public EntityGender getEntityGender()
 	{
 		return this.gender;
+	}
+
+	// ==================================================
+	//     Data Manager Trapper (borrowed from Lycanites)
+	// ==================================================
+
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public byte getByteFromDataManager(DataParameter<Byte> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public int getIntFromDataManager(DataParameter<Integer> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public float getFloatFromDataManager(DataParameter<Float> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public String getStringFromDataManager(DataParameter<String> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return Optional.absent();
+		}
 	}
 
 }

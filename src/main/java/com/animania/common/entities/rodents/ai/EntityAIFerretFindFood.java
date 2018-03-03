@@ -156,13 +156,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 
 	public boolean shouldContinueExecuting()
 	{
-
-		return this.shouldExecute();
-	}
-
-	public void startExecuting()
-	{
-		this.isRunning = true;
+		return !this.temptedEntity.getNavigator().noPath();
 	}
 
 	public void resetTask()
@@ -172,7 +166,7 @@ public class EntityAIFerretFindFood extends EntityAIBase
 		this.isRunning = false;
 	}
 
-	public void updateTask()
+	public void startExecuting()
 	{
 		double x = this.temptedEntity.posX;
 		double y = this.temptedEntity.posY;

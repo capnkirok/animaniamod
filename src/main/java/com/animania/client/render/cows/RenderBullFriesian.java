@@ -22,6 +22,8 @@ public class RenderBullFriesian<T extends EntityBullFriesian> extends RenderLivi
 
     private static final ResourceLocation cowTextures      = new ResourceLocation("animania:textures/entity/cows/bull_friesian.png");
     private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/bull_friesian_blink.png");
+    private static final ResourceLocation purpTextures     	= new ResourceLocation("animania:textures/entity/cows/bull_purplicious.png");
+	private static final ResourceLocation purpTexturesBlink = new ResourceLocation("animania:textures/entity/cows/bull_purplicious.png");
     Random                                rand             = new Random();
 
     public RenderBullFriesian(RenderManager rm) {
@@ -38,12 +40,21 @@ public class RenderBullFriesian<T extends EntityBullFriesian> extends RenderLivi
     }
 
     protected ResourceLocation getCowTextures(T par1EntityCow) {
-        return RenderBullFriesian.cowTextures;
-    }
 
-    protected ResourceLocation getCowTexturesBlink(T par1EntityCow) {
-        return RenderBullFriesian.cowTexturesBlink;
-    }
+		if (par1EntityCow.getCustomNameTag().equals("Purp")) {
+			return RenderBullFriesian.purpTextures; 
+		} else {
+			return RenderBullFriesian.cowTextures;
+		}
+	}
+
+	protected ResourceLocation getCowTexturesBlink(T par1EntityCow) {
+		if (par1EntityCow.getCustomNameTag().equals("Purp")) {
+			return RenderBullFriesian.purpTexturesBlink; 
+		} else {
+			return RenderBullFriesian.cowTexturesBlink;
+		}
+	}
 
     @Override
     protected ResourceLocation getEntityTexture(T entity) {

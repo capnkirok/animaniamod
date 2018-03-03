@@ -111,7 +111,15 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	@Nullable
 	public UUID getParentUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityPigletBase.PARENT_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityPigletBase.PARENT_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setParentUniqueId(@Nullable UUID uniqueId)
@@ -194,7 +202,12 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityPigletBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0F;
+		}
 	}
 
 	public void setEntityAge(float age)
@@ -232,6 +245,8 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityPig.setCustomNameTag(name);
+							
+							entityPig.setAge(1);
 							this.world.spawnEntity(entityPig);
 							this.playSound(ModSoundEvents.pig1, 0.50F, 1.1F);
 						}
@@ -245,6 +260,8 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityPig.setCustomNameTag(name);
+							
+							entityPig.setAge(1);
 							this.world.spawnEntity(entityPig);
 							this.playSound(ModSoundEvents.hog1, 0.50F, 1.1F);
 						}

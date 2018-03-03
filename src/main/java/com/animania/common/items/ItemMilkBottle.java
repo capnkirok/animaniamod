@@ -9,10 +9,12 @@ import com.animania.common.helper.RomanNumberHelper;
 import com.animania.common.helper.TimeHelper;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -61,6 +63,10 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 			this.onFoodEaten(stack, worldIn, entityplayer);
 			entityplayer.addStat(StatList.getObjectUseStats(this));
 
+			if (entityplayer instanceof EntityPlayerMP)
+			{
+				CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP)entityplayer, stack);
+			}
 		}
 
 		return stack;

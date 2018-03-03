@@ -148,36 +148,52 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		if (this.world.isRemote)
 			return null;
 
-		int chooser = this.rand.nextInt(5);
+		List list = this.world.loadedEntityList;
 
-		if (chooser == 0)
-		{
-			EntityBullBase entityCow = this.cowType.getMale(world);
-			entityCow.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityCow);
-			entityCow.setMateUniqueId(this.entityUniqueID);
-			this.setMateUniqueId(entityCow.getPersistentID());
+		int currentCount = 0;
+		int num = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) instanceof EntityAnimaniaCow) {
+				num++;
+			}
 		}
-		else if (chooser == 1)
-		{
-			EntityCalfBase entityCow = this.cowType.getChild(world);
-			entityCow.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityCow);
-			entityCow.setParentUniqueId(this.entityUniqueID);
-			this.setHasKids(true);
-		}
-		else if (chooser > 2)
-		{
-			EntityBullBase entityCow = this.cowType.getMale(world);
-			entityCow.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityCow);
-			entityCow.setMateUniqueId(this.entityUniqueID);
-			this.setMateUniqueId(entityCow.getPersistentID());
-			EntityCalfBase entityCalf = this.cowType.getChild(world);
-			entityCalf.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityCalf);
-			entityCalf.setParentUniqueId(this.entityUniqueID);
-			this.setHasKids(true);
+		currentCount = num;
+
+		if (currentCount <= AnimaniaConfig.spawn.spawnLimitCows) {
+
+			int chooser = this.rand.nextInt(5);
+
+			if (chooser == 0)
+			{
+				EntityBullBase entityCow = this.cowType.getMale(world);
+				entityCow.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityCow);
+				entityCow.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityCow.getPersistentID());
+			}
+			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			{
+				EntityCalfBase entityCow = this.cowType.getChild(world);
+				entityCow.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityCow);
+				entityCow.setParentUniqueId(this.entityUniqueID);
+				this.setHasKids(true);
+			}
+			else if (chooser > 2)
+			{
+				EntityBullBase entityCow = this.cowType.getMale(world);
+				entityCow.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityCow);
+				entityCow.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityCow.getPersistentID());
+				if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
+					EntityCalfBase entityCalf = this.cowType.getChild(world);
+					entityCalf.setPosition(this.posX, this.posY, this.posZ);
+					this.world.spawnEntity(entityCalf);
+					entityCalf.setParentUniqueId(this.entityUniqueID);
+					this.setHasKids(true);
+				}
+			}
 		}
 
 
@@ -187,7 +203,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			this.setLeftHanded(true);
 		else
 			this.setLeftHanded(false);
-		
+
 		return livingdata;
 	}
 
@@ -202,7 +218,12 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public boolean getPregnant()
 	{
-		return this.dataManager.get(EntityCowBase.PREGNANT).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(PREGNANT));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setPregnant(boolean preggers)
@@ -215,7 +236,12 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public boolean getFertile()
 	{
-		return this.dataManager.get(EntityCowBase.FERTILE).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FERTILE));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFertile(boolean fertile)
@@ -225,7 +251,12 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public boolean getHasKids()
 	{
-		return this.dataManager.get(EntityCowBase.HAS_KIDS).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(HAS_KIDS));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHasKids(boolean kids)
@@ -444,10 +475,19 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 			stack.shrink(1);
 
-			if (stack.getCount() == 0)
-				player.setHeldItem(hand, this.milk.copy());
-			else if (!player.inventory.addItemStackToInventory(this.milk.copy()))
-				player.dropItem(this.milk.copy(), false);
+			if (stack.getCount() == 0) {
+				if (this.getCustomNameTag().trim().toLowerCase().equals("purp")) {
+					player.setHeldItem(hand, new ItemStack(Items.LAVA_BUCKET, 1));
+				} else {
+					player.setHeldItem(hand, this.milk.copy());
+				}
+			} else if (stack.getCount() > 0) {
+				if (this.getCustomNameTag().trim().toLowerCase().equals("purp")) {
+					player.dropItem(new ItemStack(Items.LAVA_BUCKET, 1), false);
+				} else {
+					player.dropItem(this.milk.copy(), false);
+				}
+			}
 
 			this.setWatered(false);
 

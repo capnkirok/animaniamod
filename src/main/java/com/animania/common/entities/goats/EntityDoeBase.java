@@ -108,46 +108,55 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{
-
 		if (this.world.isRemote)
 			return null;
 
-		int goatCount = 0;
-		List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaGoat.class, 128, this.world, this);
-		goatCount = entities.size();
+		List list = this.world.loadedEntityList;
 
-
-
-		int chooser = this.rand.nextInt(5);
-
-		if (chooser == 0)
-		{
-			EntityBuckBase entityGoat = this.goatType.getMale(world);
-			entityGoat.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityGoat);
-			entityGoat.setMateUniqueId(this.entityUniqueID);
-			this.setMateUniqueId(entityGoat.getPersistentID());
+		int currentCount = 0;
+		int num = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) instanceof EntityAnimaniaGoat) {
+				num++;
+			}
 		}
-		else if (chooser == 1)
-		{
-			EntityKidBase entityKid = this.goatType.getChild(world);
-			entityKid.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityKid);
-			entityKid.setParentUniqueId(this.entityUniqueID);
-			this.setHasKids(true);
-		}
-		else if (chooser > 2)
-		{
-			EntityBuckBase entityBuck = this.goatType.getMale(world);
-			entityBuck.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityBuck);
-			entityBuck.setMateUniqueId(this.entityUniqueID);
-			this.setMateUniqueId(entityBuck.getPersistentID());
-			EntityKidBase entityKid = this.goatType.getChild(world);
-			entityKid.setPosition(this.posX, this.posY, this.posZ);
-			this.world.spawnEntity(entityKid);
-			entityKid.setParentUniqueId(this.entityUniqueID);
-			this.setHasKids(true);
+		currentCount = num;
+
+		if (currentCount <= AnimaniaConfig.spawn.spawnLimitGoats) {
+
+			int chooser = this.rand.nextInt(5);
+
+			if (chooser == 0)
+			{
+				EntityBuckBase entityGoat = this.goatType.getMale(world);
+				entityGoat.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityGoat);
+				entityGoat.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityGoat.getPersistentID());
+			}
+			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			{
+				EntityKidBase entityKid = this.goatType.getChild(world);
+				entityKid.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityKid);
+				entityKid.setParentUniqueId(this.entityUniqueID);
+				this.setHasKids(true);
+			}
+			else if (chooser > 2)
+			{
+				EntityBuckBase entityBuck = this.goatType.getMale(world);
+				entityBuck.setPosition(this.posX, this.posY, this.posZ);
+				this.world.spawnEntity(entityBuck);
+				entityBuck.setMateUniqueId(this.entityUniqueID);
+				this.setMateUniqueId(entityBuck.getPersistentID());
+				if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
+					EntityKidBase entityKid = this.goatType.getChild(world);
+					entityKid.setPosition(this.posX, this.posY, this.posZ);
+					this.world.spawnEntity(entityKid);
+					entityKid.setParentUniqueId(this.entityUniqueID);
+					this.setHasKids(true);
+				}
+			}
 		}
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
@@ -162,7 +171,12 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	public int getGestation()
 	{
-		return this.dataManager.get(EntityDoeBase.GESTATION_TIMER).intValue();
+		try {
+			return (this.getIntFromDataManager(GESTATION_TIMER));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setGestation(int gestation)
@@ -172,7 +186,12 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	public boolean getPregnant()
 	{
-		return this.dataManager.get(EntityDoeBase.PREGNANT).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(PREGNANT));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setPregnant(boolean preggers)
@@ -186,7 +205,12 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	public boolean getFertile()
 	{
-		return this.dataManager.get(EntityDoeBase.FERTILE).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FERTILE));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFertile(boolean fertile)
@@ -196,7 +220,12 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	public boolean getHasKids()
 	{
-		return this.dataManager.get(EntityDoeBase.HAS_KIDS).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(HAS_KIDS));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setHasKids(boolean kids)
@@ -207,7 +236,16 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Nullable
 	public UUID getMateUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityDoeBase.MATE_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityDoeBase.MATE_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+
 	}
 
 	public void setMateUniqueId(@Nullable UUID uniqueId)

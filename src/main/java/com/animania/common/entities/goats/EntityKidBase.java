@@ -33,7 +33,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityKidBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityKidBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
-	
+
 	public EntityKidBase(World worldIn)
 	{
 		super(worldIn);
@@ -42,9 +42,9 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
 		this.tasks.addTask(3, new EntityAIFollowParentGoats(this, 1.1D));
-		
+
 	}
-	
+
 	@Override
 	public boolean isChild()
 	{
@@ -99,11 +99,19 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 			this.setParentUniqueId(UUID.fromString(s));
 
 	}
-	
+
 	@Nullable
 	public UUID getParentUniqueId()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityKidBase.PARENT_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityKidBase.PARENT_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setParentUniqueId(@Nullable UUID uniqueId)
@@ -167,7 +175,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 			return ModSoundEvents.kidHurt1;
 		else 
 			return ModSoundEvents.kidHurt2;
-		
+
 	}
 
 	@Override
@@ -178,17 +186,22 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		if (soundevent != null)
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
 	}
-	
+
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityKidBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setEntityAge(float age)
 	{
 		this.dataManager.set(EntityKidBase.AGE, Float.valueOf(age));
 	}
-	
+
 	@Override
 	public void onLivingUpdate()
 	{
@@ -218,6 +231,8 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityGoat.setCustomNameTag(name);
+
+							entityGoat.setAge(1);
 							this.world.spawnEntity(entityGoat);
 							this.playSound(ModSoundEvents.goatLiving1, 0.50F, 1.1F);
 						}
@@ -231,6 +246,8 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityGoat.setCustomNameTag(name);
+
+							entityGoat.setAge(1);
 							this.world.spawnEntity(entityGoat);
 							this.playSound(ModSoundEvents.goatLiving2, 0.50F, 1.1F);
 						}
@@ -242,7 +259,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 		super.onLivingUpdate();
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
@@ -270,7 +287,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		else
 			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
-	
+
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{

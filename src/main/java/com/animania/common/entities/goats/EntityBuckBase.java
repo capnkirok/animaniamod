@@ -76,7 +76,12 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 
 	public boolean getFighting()
 	{
-		return this.dataManager.get(EntityBuckBase.FIGHTING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FIGHTING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFighting(boolean fighting)

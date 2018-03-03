@@ -37,8 +37,8 @@ public class ItemAnimaniaFood extends ItemFood
 		this.effects = potionEffects;
 		this.name = name;
 		this.setAlwaysEdible();
-		if (creativeTab)
-			this.setCreativeTab(Animania.TabAnimaniaResources);
+		this.setCreativeTab(Animania.TabAnimaniaResources);
+		
 	}
 
 	@Override

@@ -164,11 +164,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
-
 		this.setFed(true);
 		this.setOwnerId(player.getPersistentID());
 		this.setIsTamed(true);
 		this.setTamed(true);
+		this.doPatreonCheck(player);
+		this.setInLove(player);
 
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
@@ -208,12 +209,11 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	protected void entityInit()
 	{
-		Random rand = new Random();
 		super.entityInit();
 		this.dataManager.register(EntityHamster.IN_BALL, Boolean.valueOf(false));
 		this.dataManager.register(EntityHamster.SITTING, Boolean.valueOf(false));
 		this.dataManager.register(EntityHamster.TAMED, Boolean.valueOf(false));
-		this.dataManager.register(EntityHamster.COLOR_NUM, Integer.valueOf(rand.nextInt(8)));
+		this.dataManager.register(EntityHamster.COLOR_NUM, Integer.valueOf(this.getRNG().nextInt(8)));
 		this.dataManager.register(EntityHamster.FOOD_STACK_COUNT, Integer.valueOf(0));
 		this.dataManager.register(EntityHamster.IN_LOVE, Integer.valueOf(0));
 		this.dataManager.register(EntityHamster.BALL_COLOR, Integer.valueOf(0));
@@ -244,7 +244,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readEntityFromNBT(nbttagcompound);
-
 		this.setHamsterSitting(nbttagcompound.getBoolean("IsSitting"));
 		this.setInBall(nbttagcompound.getBoolean("InBall"));
 		this.setColorNumber(nbttagcompound.getInteger("ColorNumber"));
@@ -259,7 +258,13 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getAge()
 	{
-		return this.dataManager.get(EntityHamster.AGE).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return false;
+		}
+
 	}
 
 	public void setAge(boolean age)
@@ -309,7 +314,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			}
 		}
 
-		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && this.getGrowingAge() == 0  && delayCount == 0) {
+		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && delayCount == 0) {
 			delayCount = 5;
 			if (!player.capabilities.isCreativeMode) {
 				itemstack.shrink(1);
@@ -318,7 +323,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 				}
 			}
-
+			this.setInLove(player);
 			this.setFed(true);
 			this.setIsTamed(true);
 			this.setTamed(true);
@@ -670,7 +675,13 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getFed()
 	{
-		return this.dataManager.get(EntityHamster.FED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FED));
+		}
+		catch (Exception e) {
+			return false;
+		}
+
 	}
 
 	public void setFed(boolean fed)
@@ -687,7 +698,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getWatered()
 	{
-		return this.dataManager.get(EntityHamster.WATERED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(WATERED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setWatered(boolean watered)
@@ -739,7 +755,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean isInBall()
 	{
-		return this.dataManager.get(EntityHamster.IN_BALL).booleanValue();
+		try {
+            return (this.getBoolFromDataManager(IN_BALL));
+        }
+        catch (Exception e) {
+            return false;
+        }
 	}
 
 	public void setInBall(boolean ball)
@@ -758,7 +779,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public int getBallColor()
 	{
-		return this.dataManager.get(EntityHamster.BALL_COLOR).intValue();
+		try {
+            return (this.getIntFromDataManager(BALL_COLOR));
+        }
+        catch (Exception e) {
+            return 0;
+        }
 	}
 
 	public void setBallColor(int color)
@@ -768,7 +794,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean isHamsterSitting()
 	{
-		return this.dataManager.get(EntityHamster.SITTING).booleanValue();
+		try {
+            return (this.getBoolFromDataManager(SITTING));
+        }
+        catch (Exception e) {
+            return false;
+        }
 	}
 
 	public void setHamsterSitting(boolean flag)
@@ -794,7 +825,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getIsTamed()
 	{
-		return this.dataManager.get(EntityHamster.TAMED).booleanValue();
+		try {
+            return (this.getBoolFromDataManager(TAMED));
+        }
+        catch (Exception e) {
+            return false;
+        }
 	}
 
 	public void setIsTamed(boolean tamed)
@@ -807,7 +843,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getIsRiding()
 	{
-		return this.dataManager.get(EntityHamster.RIDING).booleanValue();
+		try {
+            return (this.getBoolFromDataManager(RIDING));
+        }
+        catch (Exception e) {
+            return false;
+        }
 	}
 
 	public void setIsRiding(boolean riding)
@@ -952,7 +993,14 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public int getColorNumber()
 	{
-		return this.dataManager.get(EntityHamster.COLOR_NUM).intValue();
+		try {
+			//System.out.print(this.getIntFromDataManager(COLOR_NUM));
+            return (this.getIntFromDataManager(COLOR_NUM));
+        }
+        catch (Exception e) {
+        	//System.out.print(e);
+            return this.getRNG().nextInt(8);
+        }
 	}
 
 	public void setColorNumber(int color)
@@ -989,40 +1037,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	public EntityAgeable createChild(EntityAgeable entityanimal)
 	{
-
-		/*
-		 * EntityHamster entityhamster = (EntityHamster) entityanimal;
-		 * EntityHamster entityhamster1 = new EntityHamster(worldObj); if
-		 * (entityhamster.isHamsterTamed()) {
-		 * entityhamster1.setHamsterTamed(true);
-		 * entityhamster1.setHamsterOwner(entityhamster.getHamsterOwner()); }
-		 * entityhamster1.setHamsterColor(entityhamster.getHamsterColor());
-		 * entityhamster1.resourceLocation = entityhamster.resourceLocation;
-		 * return entityhamster1;
-		 */
 		return null;
 	}
-
-	/*
-	 * @Override public boolean isRiding() { return ridingEntity != null; }
-	 *
-	 * public boolean isRidingPlayer() { if (ridingEntity != null) { if
-	 * (ridingEntity instanceof EntityPlayerSP) return true; if
-	 * (ridingEntity.ridingEntity != null) { Entity e =
-	 * ridingEntity.ridingEntity; while(e != null) { if (e instanceof
-	 * EntityPlayerSP) return true; e = e.ridingEntity; } } } return false; }
-	 *
-	 * public float isRidingSpecial() { float f = -1.0F; if (ridingEntity !=
-	 * null) { Entity e = ridingEntity; while(e != null) { f = e.height; e =
-	 * e.ridingEntity; } } return f; }
-	 *
-	 * public boolean isRidingCreature() { if (ridingEntity != null) { if
-	 * (ridingEntity instanceof EntityCreature) return false; } return false; }
-	 *
-	 * public boolean isRidingHamster() { if (ridingEntity != null) { if
-	 * (ridingEntity instanceof EntityHamster) return true; } return false; }
-	 */
-
+	
 	@Override
 	public double getMountedYOffset()
 	{
@@ -1150,6 +1167,82 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public EntityGender getEntityGender()
 	{
 		return EntityGender.NONE;
+	}
+
+	// ==================================================
+	//     Data Manager Trapper (borrowed from Lycanites)
+	// ==================================================
+
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public byte getByteFromDataManager(DataParameter<Byte> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public int getIntFromDataManager(DataParameter<Integer> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public float getFloatFromDataManager(DataParameter<Float> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public String getStringFromDataManager(DataParameter<String> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return Optional.absent();
+		}
 	}
 
 }

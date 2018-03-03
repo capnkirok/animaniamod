@@ -85,6 +85,8 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityFowl.setCustomNameTag(name);
+							
+							entityFowl.setAge(1);
 							this.world.spawnEntity(entityFowl);
 							this.playSound(ModSoundEvents.peacock1, 0.50F, 1.1F);
 						}
@@ -98,6 +100,8 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 							String name = this.getCustomNameTag();
 							if (name != "")
 								entityPeacock.setCustomNameTag(name);
+							
+							entityPeacock.setAge(1);
 							this.world.spawnEntity(entityPeacock);
 							this.playSound(ModSoundEvents.peacock8, 0.50F, 1.1F);
 						}
@@ -111,7 +115,12 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 
 	public float getEntityAge()
 	{
-		return this.dataManager.get(EntityPeachickBase.AGE).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0F;
+		}
 	}
 
 	public void setEntityAge(float age)

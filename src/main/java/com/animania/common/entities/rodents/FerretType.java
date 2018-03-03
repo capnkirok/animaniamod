@@ -3,11 +3,9 @@ package com.animania.common.entities.rodents;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimaniaType;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
 public enum FerretType implements AnimaniaType

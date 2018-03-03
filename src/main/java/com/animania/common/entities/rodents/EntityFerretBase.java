@@ -2,6 +2,7 @@ package com.animania.common.entities.rodents;
 
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -35,6 +36,7 @@ import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
 import com.animania.config.AnimaniaConfig;
 import com.animania.network.client.CapSyncPacket;
+import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
@@ -160,6 +162,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected boolean canDespawn()
 	{
 		return false;
+	}
+	
+	@Override
+	public void setPosition(double x, double y, double z)
+	{
+		super.setPosition(x, y, z);
 	}
 
 	@Override
@@ -360,7 +368,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean getAge()
 	{
-		return this.dataManager.get(EntityFerretBase.AGE).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setAge(boolean age)
@@ -581,7 +594,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean isFerretSitting()
 	{
-		return this.dataManager.get(EntityFerretBase.SITTING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(SITTING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFerretSitting(boolean flag)
@@ -594,7 +612,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean isFerretRiding()
 	{
-		return this.dataManager.get(EntityFerretBase.RIDING).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(RIDING));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFerretRiding(boolean flag)
@@ -607,7 +630,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean getFed()
 	{
-		return this.dataManager.get(EntityFerretBase.FED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(FED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setFed(boolean fed)
@@ -624,7 +652,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean getWatered()
 	{
-		return this.dataManager.get(EntityFerretBase.WATERED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(WATERED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setWatered(boolean watered)
@@ -640,7 +673,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	public boolean getIsTamed()
 	{
-		return this.dataManager.get(EntityFerretBase.TAMED).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(TAMED));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setIsTamed(boolean fed)
@@ -711,6 +749,82 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public EntityGender getEntityGender()
 	{
 		return EntityGender.NONE;
+	}
+
+	// ==================================================
+	//     Data Manager Trapper (borrowed from Lycanites)
+	// ==================================================
+
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public byte getByteFromDataManager(DataParameter<Byte> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public int getIntFromDataManager(DataParameter<Integer> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public float getFloatFromDataManager(DataParameter<Float> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public String getStringFromDataManager(DataParameter<String> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
+
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
+		try {
+			return this.getDataManager().get(key);
+		}
+		catch (Exception e) {
+			return Optional.absent();
+		}
 	}
 
 }

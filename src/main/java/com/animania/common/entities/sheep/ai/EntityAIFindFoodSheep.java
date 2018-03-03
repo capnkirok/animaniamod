@@ -200,15 +200,9 @@ public class EntityAIFindFoodSheep extends EntityAIBase
 
 	public boolean shouldContinueExecuting()
 	{
-
-		return this.shouldExecute();
+		return !this.temptedEntity.getNavigator().noPath();
 	}
-
-	public void startExecuting()
-	{	
-		this.isRunning = true;
-	}
-
+	
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
@@ -216,8 +210,7 @@ public class EntityAIFindFoodSheep extends EntityAIBase
 		this.isRunning = false;
 	}
 
-
-	public void updateTask()
+	public void startExecuting()
 	{
 
 		double x = this.temptedEntity.posX;

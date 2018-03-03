@@ -22,6 +22,8 @@ public class RenderCalfFriesian<T extends EntityCalfFriesian> extends RenderLivi
 
     private static final ResourceLocation cowTextures      = new ResourceLocation("animania:textures/entity/cows/calf_friesian.png");
     private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/calf_friesian_blink.png");
+    private static final ResourceLocation purpTextures     	= new ResourceLocation("animania:textures/entity/cows/calf_purplicious.png");
+	private static final ResourceLocation purpTexturesBlink = new ResourceLocation("animania:textures/entity/cows/calf_purplicious.png");
     Random                                rand             = new Random();
 
     public RenderCalfFriesian(RenderManager rm) {
@@ -29,12 +31,21 @@ public class RenderCalfFriesian<T extends EntityCalfFriesian> extends RenderLivi
     }
 
     protected ResourceLocation getCowTextures(T par1EntityCow) {
-        return RenderCalfFriesian.cowTextures;
-    }
 
-    protected ResourceLocation getCowTexturesBlink(T par1EntityCow) {
-        return RenderCalfFriesian.cowTexturesBlink;
-    }
+		if (par1EntityCow.getCustomNameTag().equals("Purp")) {
+			return RenderCalfFriesian.purpTextures; 
+		} else {
+			return RenderCalfFriesian.cowTextures;
+		}
+	}
+
+	protected ResourceLocation getCowTexturesBlink(T par1EntityCow) {
+		if (par1EntityCow.getCustomNameTag().equals("Purp")) {
+			return RenderCalfFriesian.purpTexturesBlink; 
+		} else {
+			return RenderCalfFriesian.cowTexturesBlink;
+		}
+	}
 
     @Override
     protected void preRenderCallback(T entityliving, float f) {

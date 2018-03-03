@@ -52,19 +52,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.265D);
 	}
-
-
-	@Nullable
-	public UUID getMateUniqueId()
-	{
-		return (UUID) ((Optional) this.dataManager.get(EntityRabbitBuckBase.MATE_UNIQUE_ID)).orNull();
-	}
-
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityRabbitBuckBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
+	
 
 	@Override
 	protected SoundEvent getAmbientSound()

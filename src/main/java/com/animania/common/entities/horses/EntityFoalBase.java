@@ -231,7 +231,15 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Nullable
 	public UUID getParentUniqueId()
 	{
-		return (UUID)((Optional)this.dataManager.get(PARENT_UNIQUE_ID)).orNull();
+		try
+		{
+			UUID id = (UUID) ((Optional) this.dataManager.get(EntityFoalBase.PARENT_UNIQUE_ID)).orNull();
+			return id;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	public void setParentUniqueId(@Nullable UUID uniqueId)
@@ -241,7 +249,12 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public float getEntityAge()
 	{
-		return ((Float)this.dataManager.get(AGE)).floatValue();
+		try {
+			return (this.getFloatFromDataManager(AGE));
+		}
+		catch (Exception e) {
+			return 0F;
+		}
 	}
 
 	public void setEntityAge(float age)
@@ -330,6 +343,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 						if (name != "") {
 							entityHorse.setCustomNameTag(name);
 						}
+						entityHorse.setAge(1);
 						this.world.spawnEntity(entityHorse);
 						entityHorse.setColorNumber(color);
 						this.playSound(ModSoundEvents.horseliving1, 0.50F, 1.1F); 
@@ -340,6 +354,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 						if (name != "") {
 							entityHorse.setCustomNameTag(name);
 						}
+						entityHorse.setAge(1);
 						this.world.spawnEntity(entityHorse);
 						entityHorse.setColorNumber(color);
 						this.playSound(ModSoundEvents.horseliving2, 0.50F, 1.1F); 

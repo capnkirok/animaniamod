@@ -4,14 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
-import com.animania.common.AnimaniaAchievements;
 import com.animania.common.entities.AnimaniaType;
-import com.animania.common.entities.cows.CowType;
-import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.cows.EntityCalfBase;
-import com.animania.common.entities.cows.EntityCowBase;
 
-import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
 public enum PeacockType implements AnimaniaType

@@ -63,7 +63,12 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 
 	public int getLaidTimer()
 	{
-		return this.dataManager.get(EntityPeafowlBase.LAID_TIMER).intValue();
+		try {
+			return (this.getIntFromDataManager(LAID_TIMER));
+		}
+		catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public void setLaidTimer(int laidtimer)
@@ -90,7 +95,12 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 
 	public boolean getLaid()
 	{
-		return this.dataManager.get(EntityPeafowlBase.LAID).booleanValue();
+		try {
+			return (this.getBoolFromDataManager(LAID));
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 
 	public void setLaid(boolean laid)

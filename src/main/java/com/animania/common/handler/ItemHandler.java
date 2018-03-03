@@ -154,6 +154,8 @@ public class ItemHandler
 	public static Item cheeseWedgeFriesian;
 	public static Item cheeseWheelHolstein;
 	public static Item cheeseWedgeHolstein;
+	public static Item cheeseWheelJersey;
+	public static Item cheeseWedgeJersey;
 	public static Item cheeseWheelGoat;
 	public static Item cheeseWedgeGoat;
 	public static Item cheeseWheelSheep;
@@ -181,6 +183,15 @@ public class ItemHandler
 	public static Item entityeggcalfhereford;
 	public static Item entityeggcowhereford;
 	public static Item entityeggbullhereford;
+	public static Item entityeggcalfhighland;
+	public static Item entityeggcowhighland;
+	public static Item entityeggbullhighland;
+	public static Item entityeggcalfjersey;
+	public static Item entityeggcowjersey;
+	public static Item entityeggbulljersey;
+	public static Item entityeggcalfmooshroom;
+	public static Item entityeggcowmooshroom;
+	public static Item entityeggbullmooshroom;
 
 	public static Item entityeggrandomcow;
 
@@ -380,15 +391,18 @@ public class ItemHandler
 	// Moving Objects
 	public static Item cart;
 	public static Item wagon;
-	
+
 	public static void preInit()
 	{
 		// ITEMS
-		
+
 		// Moving Items
-		cart = new ItemCart();
-		wagon = new ItemWagon();
-		
+
+		if (!AnimaniaConfig.gameRules.disableRollingVehicles) {
+			cart = new ItemCart();
+			wagon = new ItemWagon();
+		}
+
 		// Items for Animals
 		ItemHandler.hamsterFood = new AnimaniaItem("hamster_food");
 		ItemHandler.truffle = new AnimaniaItem("truffle");
@@ -414,7 +428,7 @@ public class ItemHandler
 		ItemHandler.cheeseOmelette = new ItemAnimaniaFood(5, 2f, "cheese_omelette", new PotionEffect(MobEffects.INSTANT_HEALTH, 2, 2, false, false));
 		ItemHandler.plainOmelette = new ItemAnimaniaFood(5, 2f, "plain_omelette");
 		ItemHandler.truffleSoup = new ItemTruffleSoup();
-		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
+		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", true, new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
 
 		// ITEMS produced by Animals
 		// COW ITEMS
@@ -426,7 +440,7 @@ public class ItemHandler
 		ItemHandler.rawHerefordSteak = new ItemAnimaniaFoodRaw("raw_hereford_steak", AnimaniaConfig.drops.oldMeatDrops);
 		ItemHandler.rawAngusSteak = new ItemAnimaniaFoodRaw("raw_angus_steak", AnimaniaConfig.drops.oldMeatDrops);
 
-		ItemHandler.cookedLonghornRoast = new ItemAnimaniaFood(10, 1f, "cooked_longhorn_roast", AnimaniaConfig.drops.oldMeatDrops, new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 1, false, false));
+		ItemHandler.cookedLonghornRoast = new ItemAnimaniaFood(10, 1f, "cooked_longhorn_roast", true, new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 1, false, false));
 		ItemHandler.cookedHerefordRoast = new ItemAnimaniaFood(12, 1f, "cooked_hereford_roast", AnimaniaConfig.drops.oldMeatDrops, new PotionEffect(MobEffects.INSTANT_HEALTH, 4, 1, false, false));
 		ItemHandler.cookedAngusRoast = new ItemAnimaniaFood(20, 1f, "cooked_angus_roast", AnimaniaConfig.drops.oldMeatDrops, new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 1, false, false));
 
@@ -492,7 +506,7 @@ public class ItemHandler
 		// HORSE ITEMS
 		ItemHandler.rawHorse = new ItemAnimaniaFoodRaw("raw_horse");
 		ItemHandler.cookedHorse= new ItemAnimaniaFood(20, 1f, "cooked_horse", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
-	
+
 
 		// GOAT ITEMS
 		ItemHandler.rawChevon = new ItemAnimaniaFoodRaw("raw_chevon");
@@ -503,6 +517,7 @@ public class ItemHandler
 		// CHEESE
 		ItemHandler.cheeseWedgeFriesian = new ItemAnimaniaFood(2, 2f, "friesian_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
 		ItemHandler.cheeseWedgeHolstein = new ItemAnimaniaFood(2, 2f, "holstein_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
+		ItemHandler.cheeseWedgeJersey = new ItemAnimaniaFood(2, 2f, "jersey_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 2, false, false));
 		ItemHandler.cheeseWedgeGoat = new ItemAnimaniaFood(2, 2f, "goat_cheese_wedge", new PotionEffect(MobEffects.RESISTANCE, 1200, 0, false, false));
 		ItemHandler.cheeseWedgeSheep = new ItemAnimaniaFood(2, 2f, "sheep_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 0, false, false));
 
@@ -529,6 +544,18 @@ public class ItemHandler
 		ItemHandler.entityeggcalfhereford = new ItemEntityEgg("calf_hereford", CowType.HEREFORD, EntityGender.CHILD);
 		ItemHandler.entityeggcowhereford = new ItemEntityEgg("cow_hereford", CowType.HEREFORD, EntityGender.FEMALE);
 		ItemHandler.entityeggbullhereford = new ItemEntityEgg("bull_hereford", CowType.HEREFORD, EntityGender.MALE);
+		
+		ItemHandler.entityeggcalfhighland = new ItemEntityEgg("calf_highland", CowType.HIGHLAND, EntityGender.CHILD);
+		ItemHandler.entityeggcowhighland = new ItemEntityEgg("cow_highland", CowType.HIGHLAND, EntityGender.FEMALE);
+		ItemHandler.entityeggbullhighland = new ItemEntityEgg("bull_highland", CowType.HIGHLAND, EntityGender.MALE);
+		
+		ItemHandler.entityeggcalfjersey = new ItemEntityEgg("calf_jersey", CowType.JERSEY, EntityGender.CHILD);
+		ItemHandler.entityeggcowjersey = new ItemEntityEgg("cow_jersey", CowType.JERSEY, EntityGender.FEMALE);
+		ItemHandler.entityeggbulljersey = new ItemEntityEgg("bull_jersey", CowType.JERSEY, EntityGender.MALE);
+		
+		ItemHandler.entityeggcalfmooshroom = new ItemEntityEgg("calf_mooshroom", CowType.MOOSHROOM, EntityGender.CHILD);
+		ItemHandler.entityeggcowmooshroom = new ItemEntityEgg("cow_mooshroom", CowType.MOOSHROOM, EntityGender.FEMALE);
+		ItemHandler.entityeggbullmooshroom = new ItemEntityEgg("bull_mooshroom", CowType.MOOSHROOM, EntityGender.MALE);
 
 		ItemHandler.entityeggrandomcow = new ItemEntityEgg("cow_random", CowType.ANGUS, EntityGender.RANDOM);
 
