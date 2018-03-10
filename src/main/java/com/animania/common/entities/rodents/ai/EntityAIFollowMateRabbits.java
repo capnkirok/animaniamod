@@ -72,7 +72,7 @@ public class EntityAIFollowMateRabbits extends EntityAIBase
 		}
 		else
 		{
-			double d0 = this.thisAnimal.getDistanceSqToEntity(this.mateAnimal);
+			double d0 = this.thisAnimal.getDistanceSq(this.mateAnimal);
 			return d0 >= 9.0D && d0 <= 256.0D;
 		}
 	}

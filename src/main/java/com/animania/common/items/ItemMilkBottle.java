@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,15 +60,13 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 	}
 
 	@Override
-	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean advanced)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> list, ITooltipFlag flagIn)
 	{
-
 		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
 		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
 		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
 		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
->>>>>>> parent of e6c1ad0... deleting files
 
 	}
 }

@@ -116,7 +116,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
 		boolean flag = false;
-		if (this.canEntityBeSeen(entityIn) && this.getDistanceToEntity(entityIn) <= 2.0F) {
+		if (this.canEntityBeSeen(entityIn) && this.getDistance(entityIn) <= 2.0F) {
 			flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 5.0F);
 
 			if (flag)

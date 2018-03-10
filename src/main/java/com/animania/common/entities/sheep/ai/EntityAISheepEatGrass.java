@@ -46,7 +46,7 @@ public class EntityAISheepEatGrass extends EntityAIBase
 	{
 		this.eatingGrassTimer = 100;
 		this.entityWorld.setEntityState(this.grassEaterEntity, (byte)10);
-		this.grassEaterEntity.getNavigator().clearPathEntity();
+		this.grassEaterEntity.getNavigator().clearPath();
 	}
 
 	public void resetTask()

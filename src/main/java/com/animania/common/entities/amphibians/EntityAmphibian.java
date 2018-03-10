@@ -104,7 +104,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 
 	@Override
 	protected float getJumpUpwardsMotion() {
-		if (!this.isCollidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.posY + 0.5D)) {
+		if (!this.collidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.posY + 0.5D)) {
 			Path path = this.navigator.getPath();
 
 			if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength()) {

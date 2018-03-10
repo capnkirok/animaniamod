@@ -67,7 +67,7 @@ public class EntityAIFindSaltLick extends EntityAIBase
 
 	public void resetTask()
 	{
-		this.temptedEntity.getNavigator().clearPathEntity();
+		this.temptedEntity.getNavigator().clearPath();
 		this.isRunning = false;
 	}
 

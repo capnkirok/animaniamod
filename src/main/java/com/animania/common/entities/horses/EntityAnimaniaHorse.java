@@ -574,7 +574,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 				return true;
 			}
 		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild()) {
-			this.navigator.clearPathEntity();
+			this.navigator.clearPath();
 			this.mountTo(player);
 			return true;
 		} else {

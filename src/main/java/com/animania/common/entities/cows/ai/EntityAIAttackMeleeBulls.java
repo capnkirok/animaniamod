@@ -85,7 +85,7 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
                 && (((EntityPlayer) entitylivingbase).isSpectator() || ((EntityPlayer) entitylivingbase).isCreative()))
             this.attacker.setAttackTarget((EntityLivingBase) null);
 
-        this.attacker.getNavigator().clearPathEntity();
+        this.attacker.getNavigator().clearPath();
         if (this.attacker instanceof EntityBullBase) {
             EntityBullBase eb = (EntityBullBase) this.attacker;
             eb.setFighting(false);

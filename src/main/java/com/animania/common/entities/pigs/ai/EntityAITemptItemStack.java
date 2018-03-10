@@ -63,7 +63,7 @@ public class EntityAITemptItemStack extends EntityAIBase
     @Override
     public void resetTask() {
         this.temptingPlayer = null;
-        this.temptedEntity.getNavigator().clearPathEntity();
+        this.temptedEntity.getNavigator().clearPath();
         this.delayTemptCounter = 100;
         this.isRunning = false;
     }
@@ -73,8 +73,8 @@ public class EntityAITemptItemStack extends EntityAIBase
         this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, this.temptedEntity.getHorizontalFaceSpeed() + 20,
                 this.temptedEntity.getVerticalFaceSpeed());
 
-        if (this.temptedEntity.getDistanceSqToEntity(this.temptingPlayer) < 6.25D)
-            this.temptedEntity.getNavigator().clearPathEntity();
+        if (this.temptedEntity.getDistanceSq(this.temptingPlayer) < 6.25D)
+            this.temptedEntity.getNavigator().clearPath();
         else
             this.temptedEntity.getNavigator().tryMoveToEntityLiving(this.temptingPlayer, this.speed);
     }

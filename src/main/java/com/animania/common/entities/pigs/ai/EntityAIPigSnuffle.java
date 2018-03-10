@@ -55,7 +55,7 @@ public class EntityAIPigSnuffle extends EntityAIBase
 	public void startExecuting() {
 		this.eatingGrassTimer = 160;
 		this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
-		this.grassEaterEntity.getNavigator().clearPathEntity();
+		this.grassEaterEntity.getNavigator().clearPath();
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class EntityAIPigSnuffle extends EntityAIBase
 
 				Biome biomegenbase = this.entityWorld.getBiome(blockpos1);
 
-				if (BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() &&  this.grassEaterEntity.getLeashedToEntity() instanceof EntityPlayer) {
+				if (BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() &&  this.grassEaterEntity.getLeashHolder() instanceof EntityPlayer) {
 					this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
 					ItemHelper.spawnItem(entityWorld, blockpos, ItemHandler.truffle);
 				}

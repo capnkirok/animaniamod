@@ -86,7 +86,7 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 			this.theAnimal.getNavigator().tryMoveToEntityLiving(this.targetMate, this.moveSpeed);
 		} else {
 
-			thisEntity.getNavigator().clearPathEntity();
+			thisEntity.getNavigator().clearPath();
 		}
 
 	}

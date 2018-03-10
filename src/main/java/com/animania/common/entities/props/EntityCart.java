@@ -190,7 +190,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 				stopCart();
 				return true;
-			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashedToEntity() == player)  {
+			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashHolder() == player)  {
 				this.pulled = true;
 				this.puller = horse;
 				this.setPullerType(1);
@@ -202,7 +202,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
-			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && pig != null && pig.getLeashedToEntity() == player)  {
+			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && pig != null && pig.getLeashHolder() == player)  {
 				this.pulled = true;
 				this.puller = pig;
 				this.setPullerType(3);
@@ -563,7 +563,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					EntityAnimal entityanimal = (EntityAnimal) entity;
 					if (!entity.isPassenger(this))
 					{
-						if (flag && this.getPassengers().size() < 2 && this.puller != entity && entityanimal.getLeashed() && entityanimal.getLeashedToEntity() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer))
+						if (flag && this.getPassengers().size() < 2 && this.puller != entity && entityanimal.getLeashed() && entityanimal.getLeashHolder() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer))
 						{
 							entity.startRiding(this);
 						}
@@ -709,7 +709,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 				this.setTimeSinceHit(10);
 				this.setDamageTaken(this.getDamageTaken() + amount * 10.0F);
-				this.setBeenAttacked();
+				this.markVelocityChanged();
 				boolean flag = source.getTrueSource() instanceof EntityPlayer && ((EntityPlayer)source.getTrueSource()).capabilities.isCreativeMode;
 
 				if (flag || this.getDamageTaken() > 40.0F)

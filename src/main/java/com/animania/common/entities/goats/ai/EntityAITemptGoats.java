@@ -70,7 +70,7 @@ public class EntityAITemptGoats extends EntityAIBase
 	{
 		if (this.scaredByPlayerMovement)
 		{
-			if (this.temptedEntity.getDistanceSqToEntity(this.temptingPlayer) < 36.0D)
+			if (this.temptedEntity.getDistanceSq(this.temptingPlayer) < 36.0D)
 			{
 				if (this.temptingPlayer.getDistanceSq(this.targetX, this.targetY, this.targetZ) > 0.010000000000000002D)
 				{
@@ -107,16 +107,16 @@ public class EntityAITemptGoats extends EntityAIBase
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
-		this.temptedEntity.getNavigator().clearPathEntity();
+		this.temptedEntity.getNavigator().clearPath();
 		this.delayTemptCounter = 100;
 		this.isRunning = false;
 	}
 
 	public void updateTask()
 	{
-		if (this.temptedEntity.getDistanceSqToEntity(this.temptingPlayer) < 6.25D)
+		if (this.temptedEntity.getDistanceSq(this.temptingPlayer) < 6.25D)
 		{
-			this.temptedEntity.getNavigator().clearPathEntity();
+			this.temptedEntity.getNavigator().clearPath();
 		}
 		else
 		{

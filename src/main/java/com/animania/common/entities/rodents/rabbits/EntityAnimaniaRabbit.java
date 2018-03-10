@@ -146,7 +146,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 
 	protected float getJumpUpwardsMotion()
 	{
-		if (!this.isCollidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.posY + 0.4D))
+		if (!this.collidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.posY + 0.4D))
 		{
 			Path path = this.navigator.getPath();
 
@@ -268,7 +268,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 			{
 				EntityLivingBase entitylivingbase = this.getAttackTarget();
 
-				if (entitylivingbase != null && this.getDistanceSqToEntity(entitylivingbase) < 16.0D)
+				if (entitylivingbase != null && this.getDistanceSq(entitylivingbase) < 16.0D)
 				{
 					this.calculateRotationYaw(entitylivingbase.posX, entitylivingbase.posZ);
 					this.moveHelper.setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, this.moveHelper.getSpeed());

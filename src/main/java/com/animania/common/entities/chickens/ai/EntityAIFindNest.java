@@ -208,7 +208,7 @@ public class EntityAIFindNest extends EntityAIBase
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
-		this.temptedEntity.getNavigator().clearPathEntity();
+		this.temptedEntity.getNavigator().clearPath();
 		this.isRunning = false;
 	}
 

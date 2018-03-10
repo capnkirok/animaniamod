@@ -72,7 +72,7 @@ public class EntityAITemptCows extends EntityAIBase
 	@Override
 	public boolean shouldContinueExecuting() {
 		if (this.scaredByPlayerMovement) {
-			if (this.temptedEntity.getDistanceSqToEntity(this.temptingPlayer) < 36.0D) {
+			if (this.temptedEntity.getDistanceSq(this.temptingPlayer) < 36.0D) {
 				if (this.temptingPlayer.getDistanceSq(this.targetX, this.targetY, this.targetZ) > 0.010000000000000002D)
 					return false;
 
@@ -103,7 +103,7 @@ public class EntityAITemptCows extends EntityAIBase
 	@Override
 	public void resetTask() {
 		this.temptingPlayer = null;
-		this.temptedEntity.getNavigator().clearPathEntity();
+		this.temptedEntity.getNavigator().clearPath();
 		this.delayTemptCounter = 100;
 		this.isRunning = false;
 	}
@@ -113,8 +113,8 @@ public class EntityAITemptCows extends EntityAIBase
 		this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, this.temptedEntity.getHorizontalFaceSpeed() + 20,
 				this.temptedEntity.getVerticalFaceSpeed());
 
-		if (this.temptedEntity.getDistanceSqToEntity(this.temptingPlayer) < 6.25D)
-			this.temptedEntity.getNavigator().clearPathEntity();
+		if (this.temptedEntity.getDistanceSq(this.temptingPlayer) < 6.25D)
+			this.temptedEntity.getNavigator().clearPath();
 		else
 			this.temptedEntity.getNavigator().tryMoveToEntityLiving(this.temptingPlayer, this.speed);
 	}

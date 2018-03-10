@@ -335,7 +335,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 				this.setJumping(false);
 			}
 
-			this.getNavigator().clearPathEntity();
+			this.getNavigator().clearPath();
 			this.setNoAI(true);
 
 			this.setSpookedTimer(this.getSpookedTimer() - 0.01F);

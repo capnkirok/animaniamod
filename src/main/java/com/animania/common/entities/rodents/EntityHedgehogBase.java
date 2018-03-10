@@ -501,7 +501,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		{
 			if (this.getRidingEntity() != null)
 				this.rotationYaw = this.getRidingEntity().rotationYaw;
-			this.navigator.clearPathEntity();
+			this.navigator.clearPath();
 			this.navigator.setSpeed(0);
 		}
 

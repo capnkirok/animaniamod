@@ -272,7 +272,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			this.setFerretSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
-			this.navigator.clearPathEntity();
+			this.navigator.clearPath();
 			return true;
 		}
 		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isFerretSitting() && !player.isSneaking() && delayCount == 0)
@@ -282,7 +282,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			this.setFerretSitting(false);
 			this.setSitting(false);
 			this.isJumping = false;
-			this.navigator.clearPathEntity();
+			this.navigator.clearPath();
 			return true;
 		}
 		else if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0)
@@ -495,7 +495,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		{
 			if (this.getRidingEntity() != null)
 				this.rotationYaw = this.getRidingEntity().rotationYaw;
-			this.navigator.clearPathEntity();
+			this.navigator.clearPath();
 			this.navigator.setSpeed(0);
 		}
 

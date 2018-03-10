@@ -440,7 +440,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		if (this.rand.nextInt(3) == 0)
 		{
-			this.navigator.clearPathEntity();
+			this.navigator.clearPath();
 			this.isJumping = false;
 			// TODO entityToAttack = null;
 			// showHeartsOrSmokeFX("note", 1, false);
@@ -483,7 +483,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		else if (this.isHamsterSitting())
 			this.setHamsterSitting(false);
 		this.isJumping = false;
-		this.navigator.clearPathEntity();
+		this.navigator.clearPath();
 
 		return true;
 	}
@@ -567,7 +567,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			{
 				this.setHamsterStanding(true);
 				this.standCount = 30;
-				this.navigator.clearPathEntity();
+				this.navigator.clearPath();
 				this.isJumping = false;
 			}
 		}
@@ -598,7 +598,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		}
 
 		if (this.isHamsterSitting() | this.isHamsterStanding() && this.getNavigator() != null)
-			this.getNavigator().clearPathEntity();
+			this.getNavigator().clearPath();
 
 		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{

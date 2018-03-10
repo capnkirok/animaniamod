@@ -72,7 +72,7 @@ public class EntityAIFollowParentPigs extends EntityAIBase
 		if (!this.parentAnimal.isEntityAlive())
 			return false;
 		else {
-			double d0 = this.childAnimal.getDistanceSqToEntity(this.parentAnimal);
+			double d0 = this.childAnimal.getDistanceSq(this.parentAnimal);
 			return d0 >= 9.0D && d0 <= 256.0D;
 		}
 	}

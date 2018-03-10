@@ -168,7 +168,7 @@ public class ItemEntityEgg extends Item
 	public static class Color implements IItemColor
 	{
 		@Override
-		public int getColorFromItemstack(ItemStack stack, int tintIndex)
+		public int colorMultiplier(ItemStack stack, int tintIndex)
 		{
 			World world = Minecraft.getMinecraft().world;
 			if (!stack.isEmpty() && stack.getItem() != ItemHandler.entityeggrandomanimal)

@@ -93,7 +93,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{
 
-		float f = worldIn.getBiome(pos).getFloatTemperature(pos);
+		float f = worldIn.getBiome(pos).getTemperature(pos);
 
 		if (worldIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F && worldIn.isRaining())
 		{

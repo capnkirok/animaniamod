@@ -161,7 +161,7 @@ public class EntityAIFindFoodSheep extends EntityAIBase
 								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
 									return false;
-								} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
+								} else if (this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
 									this.delayTemptCounter = 0;
 									return false;
 								} else {
@@ -176,7 +176,7 @@ public class EntityAIFindFoodSheep extends EntityAIBase
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								return false;
-							} else if (this.temptedEntity.isCollidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
+							} else if (this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
 								this.delayTemptCounter = 0;
 								return false;
 							} else {
@@ -206,7 +206,7 @@ public class EntityAIFindFoodSheep extends EntityAIBase
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
-		this.temptedEntity.getNavigator().clearPathEntity();
+		this.temptedEntity.getNavigator().clearPath();
 		this.isRunning = false;
 	}
 

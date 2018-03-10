@@ -104,7 +104,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 			} else {
 				this.theAnimal.resetInLove();
 				this.resetTask();
-				this.theAnimal.getNavigator().clearPathEntity();
+				this.theAnimal.getNavigator().clearPath();
 				this.delayCounter = 0;
 			}
 		}

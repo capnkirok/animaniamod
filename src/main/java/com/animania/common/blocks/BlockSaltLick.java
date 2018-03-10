@@ -42,7 +42,7 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 		
 		this.setHardness(1.2f);
 		this.setResistance(1.7f);
-		this.isBlockContainer = true;
+		this.hasTileEntity = true;
 		Item item = new ItemSaltLick(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "salt_lick"));
 		

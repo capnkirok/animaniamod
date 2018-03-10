@@ -274,7 +274,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				}
 				stopwagon();
 				return true;
-			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashedToEntity() == player)  {
+			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashHolder() == player)  {
 				this.pulled = true;
 				this.puller = horse;
 				this.setPullerType(1);
@@ -638,7 +638,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 					EntityAnimal entityanimal = (EntityAnimal) entity;
 					if (!entity.isPassenger(this))
 					{
-						if (flag && this.getPassengers().size() < 2 && this.puller != entity && entityanimal.getLeashed() && entityanimal.getLeashedToEntity() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer))
+						if (flag && this.getPassengers().size() < 2 && this.puller != entity && entityanimal.getLeashed() && entityanimal.getLeashHolder() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer))
 						{
 							entity.startRiding(this);
 						}
@@ -796,7 +796,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 				this.setTimeSinceHit(10);
 				this.setDamageTaken(this.getDamageTaken() + amount * 10.0F);
-				this.setBeenAttacked();
+				this.markVelocityChanged();
 				boolean flag = source.getTrueSource() instanceof EntityPlayer && ((EntityPlayer)source.getTrueSource()).capabilities.isCreativeMode;
 
 				if (flag || this.getDamageTaken() > 40.0F)

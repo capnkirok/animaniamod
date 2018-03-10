@@ -162,7 +162,7 @@ public class EntityAIFindFood extends EntityAIBase
 								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
 									return false;
-								} else if (this.entity.isCollidedHorizontally && this.entity.motionX == 0 && this.entity.motionZ == 0 ) {
+								} else if (this.entity.collidedHorizontally && this.entity.motionX == 0 && this.entity.motionZ == 0 ) {
 									this.delayTemptCounter = 0;
 									return false;
 								} else {
@@ -177,7 +177,7 @@ public class EntityAIFindFood extends EntityAIBase
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								return false;
-							} else if (this.entity.isCollidedHorizontally && this.entity.motionX == 0 && this.entity.motionZ == 0 ) {
+							} else if (this.entity.collidedHorizontally && this.entity.motionX == 0 && this.entity.motionZ == 0 ) {
 								this.delayTemptCounter = 0;
 								return false;
 							} else {
@@ -312,7 +312,7 @@ public class EntityAIFindFood extends EntityAIBase
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
-		this.entity.getNavigator().clearPathEntity();
+		this.entity.getNavigator().clearPath();
 		this.isRunning = false;
 	}
 
