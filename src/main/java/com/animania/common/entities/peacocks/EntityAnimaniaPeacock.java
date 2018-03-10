@@ -349,7 +349,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 				} else if (this.type == PeacockType.PEACH) {
 					feather = ItemHandler.peacockFeatherPeach;
 				} else if (this.type == PeacockType.PURPLE) {
-					feather = ItemHandler.peacockFeatherPeach;
+					feather = ItemHandler.peacockFeatherPurple;
 				} else if (this.type == PeacockType.TAUPE) {
 					feather = ItemHandler.peacockFeatherPeach;
 				} else {
