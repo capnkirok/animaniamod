@@ -65,5 +65,9 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
 		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
+		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
+		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+>>>>>>> parent of e6c1ad0... deleting files
+
 	}
 }

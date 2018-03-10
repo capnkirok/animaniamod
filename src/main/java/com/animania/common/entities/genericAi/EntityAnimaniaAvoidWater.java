@@ -2,6 +2,10 @@ package com.animania.common.entities.genericAi;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
+<<<<<<< HEAD
+=======
+import net.minecraft.entity.EntityLiving;
+>>>>>>> parent of e6c1ad0... deleting files
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.init.Blocks;
@@ -36,7 +40,11 @@ public class EntityAnimaniaAvoidWater extends EntityAIBase
 				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.idleEntity, 10, 8);
 
 				if (vec3d != null) {
+<<<<<<< HEAD
 					this.idleEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, 1.0);
+=======
+					this.idleEntity.getNavigator().tryMoveToXYZ(vec3d.xCoord, vec3d.yCoord, vec3d.zCoord, 1.0);
+>>>>>>> parent of e6c1ad0... deleting files
 					delayCounter = 0;
 					return false;
 				}
