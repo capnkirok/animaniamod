@@ -1,6 +1,5 @@
 package com.animania.common.blocks;
 
-import java.util.List;
 import java.util.Random;
 
 import com.animania.Animania;
@@ -23,7 +22,6 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -42,6 +40,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 {
@@ -236,6 +235,23 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	protected BlockStateContainer createBlockState()
 	{
 		return new BlockStateContainer(this, new IProperty[] { FACING });
+	}
+	
+	@Override
+	public boolean hasComparatorInputOverride(IBlockState state)
+	{
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
+	{
+
+		TileEntityHamsterWheel te = (TileEntityHamsterWheel) worldIn.getTileEntity(pos);
+		if (te.getHamster() != null)
+			return 15;
+		else
+			return 0;
 	}
 
 }
