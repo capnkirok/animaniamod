@@ -225,4 +225,21 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 		return new BlockStateContainer(this, new IProperty[] { FACING });
 	}
 
+	@Override
+	public boolean hasComparatorInputOverride(IBlockState state)
+	{
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
+	{
+
+		TileEntityHamsterWheel te = (TileEntityHamsterWheel) worldIn.getTileEntity(pos);
+		if (te.getHamster() != null)
+			return 15;
+		else
+			return 0;
+	}
+
 }
