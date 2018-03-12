@@ -234,31 +234,34 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
 		{
-			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				player.dropItem(new ItemStack(Items.BUCKET), false);
-
-			if (this.entityAIEatGrass != null)
+			if (!player.isCreative())
 			{
-				this.entityAIEatGrass.startExecuting();
-				this.eatTimer = 40;
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
 			}
+
+			this.eatTimer = 40;
+			if (entityAIEatGrass != null)
+				this.entityAIEatGrass.startExecuting();
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && ItemStack.areItemStacksEqual(stack, this.slop))
+		else if (stack != ItemStack.EMPTY && AnimaniaHelper.hasFluid(stack, BlockHandler.fluidSlop))
 		{
 			if (!player.isCreative())
-				player.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.BUCKET));
-			if (this.entityAIEatGrass != null)
 			{
-				this.entityAIEatGrass.startExecuting();
-				this.eatTimer = 40;
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
 			}
+
+			this.eatTimer = 40;
+			if (entityAIEatGrass != null)
+				this.entityAIEatGrass.startExecuting();
 			this.setFed(true);
 			this.setInLove(player);
 			return true;

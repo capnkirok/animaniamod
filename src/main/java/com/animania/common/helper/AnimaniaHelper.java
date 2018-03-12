@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.animania.Animania;
+import com.animania.common.capabilities.CapabilityRefs;
+import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.props.EntityCart;
 import com.animania.common.entities.props.EntityWagon;
 import com.animania.network.client.TileEntitySyncPacket;
@@ -11,6 +13,7 @@ import com.animania.network.client.TileEntitySyncPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,6 +24,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
@@ -124,6 +129,24 @@ public class AnimaniaHelper
 		return FluidUtil.getFluidContained(stack) != null && FluidUtil.getFluidContained(stack).amount >= 1000 && FluidUtil.getFluidContained(stack).getFluid() == fluid;
 	}
 
+	public static boolean isEmptyFluidContainer(ItemStack stack)
+	{
+		return FluidUtil.getFluidHandler(stack) != null && FluidUtil.getFluidContained(stack) == null;
+	}
+	
+	public static boolean isWaterContainer(ItemStack stack)
+	{
+		return hasFluid(stack, FluidRegistry.WATER);
+	}
+	
+	public static ItemStack emptyContainer(ItemStack stack)
+	{
+		ItemStack copy = stack.copy();
+		copy.setCount(1);
+		FluidActionResult result = FluidUtil.tryEmptyContainer(copy, FluidUtil.getFluidHandler(new ItemStack(Items.BUCKET)), 1000, null, true);
+		return result.result;
+	}
+	
 	public static Item[] getItemArray(String[] names)
 	{
 		ArrayList<Item> list = new ArrayList<Item>();
@@ -137,6 +160,16 @@ public class AnimaniaHelper
 		}
 		
 		return list.toArray(new Item[list.size()]);
+	}
+	
+	public static void syncCap(Entity entity, ICapabilityPlayer other)
+	{
+		ICapabilityPlayer cap = entity.getCapability(CapabilityRefs.CAPS, null);
+
+		cap.setMounted(other.getMounted());
+		cap.setPetColor(other.getPetColor());
+		cap.setPetName(other.getPetName());
+		cap.setPetType(other.getPetType());
 	}
 
 }

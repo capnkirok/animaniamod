@@ -115,7 +115,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 
 				return true;
 
-			}
+			}	
 		}
 		else if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == ItemHandler.hamsterFood)
 		{
