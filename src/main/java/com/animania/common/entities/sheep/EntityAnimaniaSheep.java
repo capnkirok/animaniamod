@@ -299,6 +299,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	}
 
 	@Override
+	public void eatGrassBonus()
+	{
+		
+	}
+	
+	@Override
 	public void onLivingUpdate()
 	{
 		if (this.getAge() == 0) {
@@ -400,19 +406,21 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 			player.swingArm(hand);
 		}
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
 		{
-			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				player.dropItem(new ItemStack(Items.BUCKET), false);
+			if(!player.isCreative())
+			{
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
+			}
 
 			this.eatTimer = 40;
 			this.entityAIEatGrass.startExecuting();
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
-		} 
+		}
 		else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
 		{
 			return false;

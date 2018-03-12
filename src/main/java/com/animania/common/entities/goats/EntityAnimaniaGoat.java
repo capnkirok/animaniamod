@@ -445,27 +445,40 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 			player.swingArm(hand);
 			stack.damageItem(1, player);
 			this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
+			return true;
+		}
+		else if(stack.getItem() instanceof ItemShears)
+		{
+			return true;
 		}
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
 		{
-			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				player.dropItem(new ItemStack(Items.BUCKET), false);
+			if(!player.isCreative())
+			{
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
+			}
 
 			this.eatTimer = 40;
 			this.entityAIEatGrass.startExecuting();
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
-		} 
+		}
 		else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
 		{
 			return false;
 		}
 		else
 			return super.processInteract(player, hand);
+	}
+	
+	@Override
+	public void eatGrassBonus()
+	{
+		
 	}
 
 	@Override

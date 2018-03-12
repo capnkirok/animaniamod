@@ -18,6 +18,10 @@
 			{
 				"type": "animania:filled_bucket",
 				"fluid": "milk_goat"
+			},
+			{
+				"type": "animania:filled_bucket",
+				"fluid": "milk_jersey"
 			}
 		]
 	},

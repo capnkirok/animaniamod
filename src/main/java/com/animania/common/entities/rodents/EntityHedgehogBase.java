@@ -404,8 +404,15 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET && delayCount == 0)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack)  && delayCount == 0)
 		{
+			if(!player.isCreative())
+			{
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
+			}
+
 			delayCount = 5;
 			this.setWatered(true);
 			this.setInLove(player);

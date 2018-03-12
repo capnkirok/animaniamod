@@ -110,7 +110,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 
 				{
 					EntityHamster hamster = (EntityHamster) EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, "hamster"), world);
-					hamster.readEntityFromNBT(hamsternbt);
+					hamster.readFromNBT(hamsternbt);
 					if (hamster.getFed() && !hamster.isInBall())
 					{
 						te.setHamster(hamster);

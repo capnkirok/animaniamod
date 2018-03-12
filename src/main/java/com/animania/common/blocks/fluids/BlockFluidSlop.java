@@ -3,6 +3,7 @@ package com.animania.common.blocks.fluids;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -19,17 +20,17 @@ public class BlockFluidSlop extends BlockFluidBase
 {
 
     public BlockFluidSlop() {
-        super(BlockHandler.fluidSlop, new MaterialLiquid(MapColor.BROWN), "slop");
+        super(BlockHandler.fluidSlop, Material.WATER, "slop");
 
         this.quantaPerBlock = 3;
         this.renderLayer = BlockRenderLayer.TRANSLUCENT;
+       
 
     }
 
     @Override
     public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
-        if (entity instanceof EntityLivingBase)
-            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1, 3));
+       entity.setInWeb();
     }
 
     @Override
@@ -37,4 +38,9 @@ public class BlockFluidSlop extends BlockFluidBase
         return true;
     }
 
+    @Override
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    {
+    	return MapColor.BROWN;
+    }
 }

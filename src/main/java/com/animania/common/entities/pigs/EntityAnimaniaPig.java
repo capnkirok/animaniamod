@@ -108,7 +108,8 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.tasks.addTask(0, new EntityAISwimmingPigs(this));
 		this.tasks.addTask(1, new EntityAIFindMud(this, 1.2D));
 		this.tasks.addTask(2, new EntityAIWanderAvoidWater(this, 1.0D));
-		if (!AnimaniaConfig.gameRules.ambianceMode) {
+		if (!AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
 			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
 		}
@@ -129,13 +130,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	{
 		return false;
 	}
-	
+
 	@Override
 	public void setPosition(double x, double y, double z)
 	{
 		super.setPosition(x, y, z);
 	}
-
 
 	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
@@ -158,7 +158,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public void travel(float p_191986_1_, float p_191986_2_, float p_191986_3_)
 	{
-		Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
+		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
 
 		if (this.isBeingRidden() && this.canBeSteered())
 		{
@@ -178,11 +178,11 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 			if (this.canPassengerSteer())
 			{
-				float f = (float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
+				float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
 
 				if (this.boosting)
 				{
-					f += f * 1.15F * MathHelper.sin((float)this.boostTime / (float)this.totalBoostTime * (float)Math.PI);
+					f += f * 1.15F * MathHelper.sin((float) this.boostTime / (float) this.totalBoostTime * (float) Math.PI);
 				}
 
 				this.setAIMoveSpeed(f);
@@ -279,10 +279,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public int getAge()
 	{
-		try {
+		try
+		{
 			return (this.getIntFromDataManager(AGE));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
@@ -294,10 +296,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getHandFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(HANDFED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -313,18 +317,18 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
 		{
-			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				player.dropItem(new ItemStack(Items.BUCKET), false);
-
-			if (this.entityAIEatGrass != null)
+			if (!player.isCreative())
 			{
-				this.entityAIEatGrass.startExecuting();
-				this.eatTimer = 40;
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
 			}
+
+			this.eatTimer = 40;
+			if (entityAIEatGrass != null)
+				this.entityAIEatGrass.startExecuting();
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
@@ -407,39 +411,45 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 		if (happyDrops == 3)
 		{
-			if (dropItem != null) {
+			if (dropItem != null)
+			{
 				dropItem.setCount(2 + lootlevel);
 				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 				world.spawnEntity(entityitem);
 			}
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
 			}
 		}
 		else if (happyDrops == 2)
 		{
-			if (dropItem != null) {
+			if (dropItem != null)
+			{
 				dropItem.setCount(1 + lootlevel);
 				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 				world.spawnEntity(entityitem);
 			}
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
 			}
 		}
-		else if (happyDrops == 1 && dropItem !=null)
+		else if (happyDrops == 1 && dropItem != null)
 		{
 			if (this.isBurning())
 			{
 				this.dropItem(Items.COOKED_PORKCHOP, 1 + lootlevel);
-				if (dropItem2 != null) {
+				if (dropItem2 != null)
+				{
 					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
 				}
 			}
 			else
 			{
 				this.dropItem(Items.PORKCHOP, 1 + lootlevel);
-				if (dropItem2 != null) {
+				if (dropItem2 != null)
+				{
 					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
 				}
 			}
@@ -448,10 +458,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getSaddled()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(SADDLED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -469,10 +481,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(FED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -502,10 +516,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getPlayed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(PLAYED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -523,10 +539,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getWatered()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(WATERED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -544,10 +562,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public boolean getMuddy()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(MUDDY));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -562,10 +582,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public Float getMudTimer()
 	{
-		try {
+		try
+		{
 			return (this.getFloatFromDataManager(MUDTIMER));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0F;
 		}
 	}
@@ -577,10 +599,12 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 
 	public Float getSplashTimer()
 	{
-		try {
+		try
+		{
 			return (this.getFloatFromDataManager(SPLASHTIMER));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0F;
 		}
 	}
@@ -619,7 +643,8 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.getAge() == 0) {
+		if (this.getAge() == 0)
+		{
 			this.setAge(1);
 		}
 
@@ -757,77 +782,101 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	}
 
 	// ==================================================
-	//     Data Manager Trapper (borrowed from Lycanites)
+	// Data Manager Trapper (borrowed from Lycanites)
 	// ==================================================
 
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
-		try {
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
 
-	public byte getByteFromDataManager(DataParameter<Byte> key) {
-		try {
+	public byte getByteFromDataManager(DataParameter<Byte> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public int getIntFromDataManager(DataParameter<Integer> key) {
-		try {
+	public int getIntFromDataManager(DataParameter<Integer> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public float getFloatFromDataManager(DataParameter<Float> key) {
-		try {
+	public float getFloatFromDataManager(DataParameter<Float> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public String getStringFromDataManager(DataParameter<String> key) {
-		try {
+	public String getStringFromDataManager(DataParameter<String> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
-		try {
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
-		try {
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return ItemStack.EMPTY;
 		}
 	}
 
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
-		try {
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return Optional.absent();
 		}
 	}

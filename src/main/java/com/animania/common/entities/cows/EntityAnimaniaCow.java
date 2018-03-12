@@ -371,12 +371,14 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			}
 		}
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET && fighting == false)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && fighting == false)
 		{
-			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				player.dropItem(new ItemStack(Items.BUCKET), false);
+			if(!player.isCreative())
+			{
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
+			}
 
 			this.eatTimer = 40;
 			this.entityAIEatGrass.startExecuting();
@@ -425,9 +427,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
+		else if (stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack))
 		{
-			return false;
+			return true;
 		}
 		else
 			return super.processInteract(player, hand);

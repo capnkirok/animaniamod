@@ -136,7 +136,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		this.tasks.addTask(1, new EntityAIPanicRodents(this, 1.4D));
 		this.tasks.addTask(2, new EntityAISwimmingRodents(this));
-		if (!AnimaniaConfig.gameRules.ambianceMode) {
+		if (!AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
 		}
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.1D));
@@ -258,10 +259,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getAge()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(AGE));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 
@@ -296,12 +299,16 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		ItemStack itemstack = player.getHeldItem(hand);
 
-		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.NAME_TAG  && delayCount == 0) {
+		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.NAME_TAG && delayCount == 0)
+		{
 			delayCount = 5;
-			if (!itemstack.hasDisplayName()) {
+			if (!itemstack.hasDisplayName())
+			{
 				return false;
 
-			} else {
+			}
+			else
+			{
 				EntityLiving entityliving = this;
 				entityliving.setCustomNameTag(itemstack.getDisplayName());
 				entityliving.enablePersistence();
@@ -314,12 +321,15 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			}
 		}
 
-		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && delayCount == 0) {
+		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && delayCount == 0)
+		{
 			delayCount = 5;
-			if (!player.capabilities.isCreativeMode) {
+			if (!player.capabilities.isCreativeMode)
+			{
 				itemstack.shrink(1);
 
-				if (itemstack.getCount() <= 0) {
+				if (itemstack.getCount() <= 0)
+				{
 					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 				}
 			}
@@ -331,20 +341,32 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.doPatreonCheck(player);
 			return true;
 
-		} else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.WATER_BUCKET  && delayCount == 0) {
+		}
+		else if (itemstack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(itemstack)  && delayCount == 0)
+		{
+			if(!player.isCreative())
+			{
+				ItemStack emptied = AnimaniaHelper.emptyContainer(itemstack);
+				itemstack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
+			}
+
 			delayCount = 5;
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
-
-		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking() && delayCount == 0) {
+		}
+		else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking() && delayCount == 0)
+		{
 			delayCount = 5;
 			this.setHamsterSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
 			return true;
 
-		} else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isHamsterSitting() && !player.isSneaking() && delayCount == 0) {
+		}
+		else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isHamsterSitting() && !player.isSneaking() && delayCount == 0)
+		{
 			delayCount = 5;
 			this.setHamsterSitting(false);
 			this.setSitting(false);
@@ -421,7 +443,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		return super.processInteract(player, hand);
 
-
 	}
 
 	private boolean interactSeedsNotTamed(ItemStack itemstack, EntityPlayer entityplayer)
@@ -466,15 +487,11 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		return true;
 	}
 
-
-
 	@Override
 	public boolean canRiderInteract()
 	{
 		return true;
 	}
-
-
 
 	private boolean interactOthersTamed()
 	{
@@ -536,15 +553,16 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!this.getAge()) {
+		if (!this.getAge())
+		{
 			this.setAge(true);
 		}
 
 		delayCount--;
-		if (delayCount <= 0) {
+		if (delayCount <= 0)
+		{
 			delayCount = 0;
 		}
-
 
 		if (this.blinkTimer > -1)
 		{
@@ -612,8 +630,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode) {
-				//this.setWatered(false);
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
+			{
+				// this.setWatered(false);
 			}
 		}
 
@@ -675,10 +694,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(FED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 
@@ -698,10 +719,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getWatered()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(WATERED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -755,12 +778,14 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean isInBall()
 	{
-		try {
-            return (this.getBoolFromDataManager(IN_BALL));
-        }
-        catch (Exception e) {
-            return false;
-        }
+		try
+		{
+			return (this.getBoolFromDataManager(IN_BALL));
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
 	}
 
 	public void setInBall(boolean ball)
@@ -779,12 +804,14 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public int getBallColor()
 	{
-		try {
-            return (this.getIntFromDataManager(BALL_COLOR));
-        }
-        catch (Exception e) {
-            return 0;
-        }
+		try
+		{
+			return (this.getIntFromDataManager(BALL_COLOR));
+		}
+		catch (Exception e)
+		{
+			return 0;
+		}
 	}
 
 	public void setBallColor(int color)
@@ -794,12 +821,14 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean isHamsterSitting()
 	{
-		try {
-            return (this.getBoolFromDataManager(SITTING));
-        }
-        catch (Exception e) {
-            return false;
-        }
+		try
+		{
+			return (this.getBoolFromDataManager(SITTING));
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
 	}
 
 	public void setHamsterSitting(boolean flag)
@@ -825,12 +854,14 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getIsTamed()
 	{
-		try {
-            return (this.getBoolFromDataManager(TAMED));
-        }
-        catch (Exception e) {
-            return false;
-        }
+		try
+		{
+			return (this.getBoolFromDataManager(TAMED));
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
 	}
 
 	public void setIsTamed(boolean tamed)
@@ -843,12 +874,14 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getIsRiding()
 	{
-		try {
-            return (this.getBoolFromDataManager(RIDING));
-        }
-        catch (Exception e) {
-            return false;
-        }
+		try
+		{
+			return (this.getBoolFromDataManager(RIDING));
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
 	}
 
 	public void setIsRiding(boolean riding)
@@ -891,23 +924,27 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		if (happyDrops == 2)
 		{
-			if (dropItem != null) {
+			if (dropItem != null)
+			{
 				dropItem.setCount(1 + lootlevel);
 				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 				world.spawnEntity(entityitem);
 			}
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hamsterDrop2Amount + lootlevel);
 			}
 		}
 		else if (happyDrops == 1)
 		{
-			if (dropItem != null) {
+			if (dropItem != null)
+			{
 				dropItem.setCount(1 + lootlevel);
 				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 				world.spawnEntity(entityitem);
 			}
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hamsterDrop2Amount + lootlevel);
 			}
 		}
@@ -993,14 +1030,16 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public int getColorNumber()
 	{
-		try {
-			//System.out.print(this.getIntFromDataManager(COLOR_NUM));
-            return (this.getIntFromDataManager(COLOR_NUM));
-        }
-        catch (Exception e) {
-        	//System.out.print(e);
-            return this.getRNG().nextInt(8);
-        }
+		try
+		{
+			// System.out.print(this.getIntFromDataManager(COLOR_NUM));
+			return (this.getIntFromDataManager(COLOR_NUM));
+		}
+		catch (Exception e)
+		{
+			// System.out.print(e);
+			return this.getRNG().nextInt(8);
+		}
 	}
 
 	public void setColorNumber(int color)
@@ -1039,7 +1078,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	{
 		return null;
 	}
-	
+
 	@Override
 	public double getMountedYOffset()
 	{
@@ -1170,77 +1209,101 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	}
 
 	// ==================================================
-	//     Data Manager Trapper (borrowed from Lycanites)
+	// Data Manager Trapper (borrowed from Lycanites)
 	// ==================================================
 
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
-		try {
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
 
-	public byte getByteFromDataManager(DataParameter<Byte> key) {
-		try {
+	public byte getByteFromDataManager(DataParameter<Byte> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public int getIntFromDataManager(DataParameter<Integer> key) {
-		try {
+	public int getIntFromDataManager(DataParameter<Integer> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public float getFloatFromDataManager(DataParameter<Float> key) {
-		try {
+	public float getFloatFromDataManager(DataParameter<Float> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public String getStringFromDataManager(DataParameter<String> key) {
-		try {
+	public String getStringFromDataManager(DataParameter<String> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
-		try {
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
-		try {
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return ItemStack.EMPTY;
 		}
 	}
 
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
-		try {
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return Optional.absent();
 		}
 	}

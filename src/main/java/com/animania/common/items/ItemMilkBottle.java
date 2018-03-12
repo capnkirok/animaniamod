@@ -10,6 +10,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
@@ -64,9 +65,10 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 	{
 		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
 		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
-
-		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
-		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
-
 	}
+	
+	 public EnumAction getItemUseAction(ItemStack stack)
+	    {
+	        return EnumAction.DRINK;
+	    }
 }

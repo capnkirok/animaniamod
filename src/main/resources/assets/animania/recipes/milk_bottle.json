@@ -3,23 +3,27 @@
     "item": "animania:milk_bottle",
     "count": 4
   },
-  "ingredients": [
-    {
-      "ore": "listAllmilk",
-      "type": "forge:ore_dict"
-    },
-    {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "item": "minecraft:glass_bottle"
-    }
-  ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless",
+   "ingredients": [
+	[	
+      {
+         "item": "#ANY_MILK"
+      },
+	  {
+         "item": "minecraft:milk_bucket"
+      }
+	],
+	  {
+         "item": "minecraft:glass_bottle"
+      },
+	   {
+         "item": "minecraft:glass_bottle"
+      },
+	   {
+         "item": "minecraft:glass_bottle"
+      },
+	   {
+         "item": "minecraft:glass_bottle"
+      }
+   ]
 }
