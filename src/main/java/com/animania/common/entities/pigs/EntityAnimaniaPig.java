@@ -333,15 +333,18 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && ItemStack.areItemStacksEqual(stack, this.slop))
+		else if (stack != ItemStack.EMPTY && AnimaniaHelper.hasFluid(stack, BlockHandler.fluidSlop))
 		{
 			if (!player.isCreative())
-				player.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.BUCKET));
-			if (this.entityAIEatGrass != null)
 			{
-				this.entityAIEatGrass.startExecuting();
-				this.eatTimer = 40;
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
 			}
+
+			this.eatTimer = 40;
+			if (entityAIEatGrass != null)
+				this.entityAIEatGrass.startExecuting();
 			this.setFed(true);
 			this.setInLove(player);
 			return true;

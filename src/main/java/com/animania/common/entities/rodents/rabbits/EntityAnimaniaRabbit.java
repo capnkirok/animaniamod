@@ -576,19 +576,23 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
 		{
-			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				player.dropItem(new ItemStack(Items.BUCKET), false);
+			if (!player.isCreative())
+			{
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
+			}
 
 			this.eatTimer = 40;
-			this.entityAIEatGrass.startExecuting();
+			if (entityAIEatGrass != null)
+				this.entityAIEatGrass.startExecuting();
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
-		} 
+
+		}
 		else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
 		{
 			return false;

@@ -517,8 +517,8 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				else
 					return false;
 			}
-
-			filled = result.result;
+			else
+				filled = result.result;
 			stack.shrink(1);
 			AnimaniaHelper.addItem(player, filled);
 			this.setWatered(false);
