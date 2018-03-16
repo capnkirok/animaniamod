@@ -115,7 +115,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 
 				return true;
 
-			}
+			}	
 		}
 		else if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == ItemHandler.hamsterFood)
 		{
@@ -223,6 +223,23 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	protected BlockStateContainer createBlockState()
 	{
 		return new BlockStateContainer(this, new IProperty[] { FACING });
+	}
+
+	@Override
+	public boolean hasComparatorInputOverride(IBlockState state)
+	{
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
+	{
+
+		TileEntityHamsterWheel te = (TileEntityHamsterWheel) worldIn.getTileEntity(pos);
+		if (te.getHamster() != null)
+			return 15;
+		else
+			return 0;
 	}
 
 }

@@ -153,7 +153,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
 		{
 			this.setWatered(true);
 			this.setInLove(player);

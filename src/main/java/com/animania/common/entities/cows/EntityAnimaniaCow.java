@@ -81,7 +81,8 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAICowEatGrass(this);
-		if (!AnimaniaConfig.gameRules.ambianceMode) {
+		if (!AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
 			this.tasks.addTask(3, new EntityAIFindFood(this, 1.1D));
 		}
@@ -109,7 +110,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 	{
 		return false;
 	}
-	
+
 	@Override
 	public void setPosition(double x, double y, double z)
 	{
@@ -130,10 +131,12 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 
 	public int getAnimalAge()
 	{
-		try {
+		try
+		{
 			return (this.getIntFromDataManager(AGE));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
@@ -176,9 +179,11 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 
-		if (this instanceof EntityBullBase) {
+		if (this instanceof EntityBullBase)
+		{
 			EntityBullBase ebb = (EntityBullBase) this;
-			if (ebb.getFighting()) {
+			if (ebb.getFighting())
+			{
 				return;
 			}
 		}
@@ -198,10 +203,12 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 
 	public boolean getFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(FED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -220,10 +227,12 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 
 	public boolean getHandFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(HANDFED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -233,13 +242,14 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		this.dataManager.set(EntityAnimaniaCow.HANDFED, Boolean.valueOf(handfed));
 	}
 
-
 	public boolean getWatered()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(WATERED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -290,7 +300,8 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 	public void onLivingUpdate()
 	{
 
-		if (this.getAnimalAge() == 0) {
+		if (this.getAnimalAge() == 0)
+		{
 			this.setAnimalAge(1);
 		}
 
@@ -333,7 +344,8 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		else if (!fed || !watered)
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 
-		if (this.getCustomNameTag().toLowerCase().trim().equals("purp") && (this instanceof EntityCowFriesian || this instanceof EntityBullFriesian || this instanceof EntityCowHolstein || this instanceof EntityBullHolstein || this instanceof EntityCalfFriesian || this instanceof EntityCalfHolstein)) {
+		if (this.getCustomNameTag().toLowerCase().trim().equals("purp") && (this instanceof EntityCowFriesian || this instanceof EntityBullFriesian || this instanceof EntityCowHolstein || this instanceof EntityBullHolstein || this instanceof EntityCalfFriesian || this instanceof EntityCalfHolstein))
+		{
 			this.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 4, 2, false, false));
 			if (!this.isWet() && !this.isInWater())
 				this.setOnFireFromLava();
@@ -366,18 +378,24 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		EntityPlayer entityplayer = player;
 		boolean fighting = false;
 
-		if (this instanceof EntityBullBase) {
+		if (this instanceof EntityBullBase)
+		{
 			EntityBullBase ebb = (EntityBullBase) this;
-			if (ebb.getFighting()) {
+			if (ebb.getFighting())
+			{
 				fighting = true;
 			}
 		}
-		
-		if (stack != stack.EMPTY && stack.getItem() == Items.NAME_TAG ) {
-			if (!stack.hasDisplayName()) {
+
+		if (stack != stack.EMPTY && stack.getItem() == Items.NAME_TAG)
+		{
+			if (!stack.hasDisplayName())
+			{
 				return false;
 
-			} else {
+			}
+			else
+			{
 				EntityLiving entityliving = this;
 				entityliving.setCustomNameTag(stack.getDisplayName());
 				entityliving.enablePersistence();
@@ -388,28 +406,32 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 			}
 		}
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET && fighting == false)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && fighting == false)
 		{
-			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				player.dropItem(new ItemStack(Items.BUCKET), false);
+			if (!player.isCreative())
+			{
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
+			}
 
 			this.eatTimer = 40;
-			this.entityAIEatGrass.startExecuting();
+			if (entityAIEatGrass != null)
+				this.entityAIEatGrass.startExecuting();
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && (this instanceof EntityCowMooshroom || this instanceof EntityBullMooshroom) && stack.getItem() == Items.SHEARS && this.getGrowingAge() >= 0) //Forge Disable, Moved to onSheared
+		else if (stack != ItemStack.EMPTY && (this instanceof EntityCowMooshroom || this instanceof EntityBullMooshroom) && stack.getItem() == Items.SHEARS && this.getGrowingAge() >= 0) // Forge																																													// onSheared
 		{
 			this.setDead();
-			this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + (double)(this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+			this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + (double) (this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
 
 			if (!this.world.isRemote)
 			{
 
-				if (this instanceof EntityCowMooshroom) {
+				if (this instanceof EntityCowMooshroom)
+				{
 					EntityCowFriesian entitycow = new EntityCowFriesian(this.world);
 					entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
 					entitycow.setHealth(this.getHealth());
@@ -419,7 +441,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 						entitycow.setCustomNameTag(this.getCustomNameTag());
 					}
 					this.world.spawnEntity(entitycow);
-				} else {
+				}
+				else
+				{
 					EntityBullFriesian entitycow = new EntityBullFriesian(this.world);
 					entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
 					entitycow.setHealth(this.getHealth());
@@ -433,7 +457,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 
 				for (int i = 0; i < 5; ++i)
 				{
-					this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY + (double)this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
+					this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY + (double) this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
 				}
 
 				stack.damageItem(1, player);
@@ -442,10 +466,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)		
+		else if (stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack))
 		{
-			return false;
-
+			return true;
 		}
 		else
 			return super.processInteract(player, hand);
@@ -485,7 +508,6 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		compound.setBoolean("Handfed", this.getHandFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setInteger("Age", this.getAnimalAge());
-
 
 	}
 
@@ -557,34 +579,41 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 
 		if (happyDrops == 2)
 		{
-			if (dropItem != null) {
+			if (dropItem != null)
+			{
 				dropItem.setCount(1 + lootlevel);
 				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 				world.spawnEntity(entityitem);
 			}
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
 			}
-		} else if (happyDrops == 1)
+		}
+		else if (happyDrops == 1)
 		{
 			if (this.isBurning())
 			{
 				this.dropItem(Items.COOKED_BEEF, 1 + lootlevel);
-				if (dropItem2 != null) {
+				if (dropItem2 != null)
+				{
 					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
 				}
 			}
 			else
 			{
 				this.dropItem(Items.BEEF, 1 + lootlevel);
-				if (dropItem2 != null) {
+				if (dropItem2 != null)
+				{
 					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
 				}
 			}
 		}
-		else if (happyDrops == 0) {
+		else if (happyDrops == 0)
+		{
 
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
 			}
 		}
@@ -622,77 +651,101 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 	}
 
 	// ==================================================
-	//     Data Manager Trapper (borrowed from Lycanites)
+	// Data Manager Trapper (borrowed from Lycanites)
 	// ==================================================
 
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
-		try {
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
 
-	public byte getByteFromDataManager(DataParameter<Byte> key) {
-		try {
+	public byte getByteFromDataManager(DataParameter<Byte> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public int getIntFromDataManager(DataParameter<Integer> key) {
-		try {
+	public int getIntFromDataManager(DataParameter<Integer> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public float getFloatFromDataManager(DataParameter<Float> key) {
-		try {
+	public float getFloatFromDataManager(DataParameter<Float> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public String getStringFromDataManager(DataParameter<String> key) {
-		try {
+	public String getStringFromDataManager(DataParameter<String> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
-		try {
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
-		try {
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return ItemStack.EMPTY;
 		}
 	}
 
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
-		try {
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return Optional.absent();
 		}
 	}

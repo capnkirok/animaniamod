@@ -332,12 +332,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 			return true;
 		}
-		else if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.WATER_BUCKET)
+		else if (itemstack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(itemstack))
 		{
 			this.setWatered(true);
 			this.setInLove(player);
 			return true;
-		}
+		} 
 		else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking())
 		{
 			this.setHamsterSitting(true);

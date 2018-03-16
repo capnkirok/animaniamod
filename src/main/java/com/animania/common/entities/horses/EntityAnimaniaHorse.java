@@ -69,7 +69,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaHorse.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
-	private static final String[] HORSE_TEXTURES = new String[] {"black", "bw1", "bw2", "grey", "red", "white"};
+	private static final String[] HORSE_TEXTURES = new String[] { "black", "bw1", "bw2", "grey", "red", "white" };
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -92,13 +92,14 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		this.stepHeight = 1.2F;
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityHorseEatGrass(this);
-		if (!AnimaniaConfig.gameRules.ambianceMode) {
+		if (!AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
 			this.tasks.addTask(3, new EntityAIFindFood(this, 1.1D));
 		}
 		this.tasks.addTask(2, new EntityAIPanicHorses(this, 2.0D));
 		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
-		//this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
+		// this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
 		this.tasks.addTask(6, new EntityAIWanderHorses(this, 1.0D));
 		this.tasks.addTask(7, new EntityAISwimmingHorse(this));
 		this.tasks.addTask(8, new EntityAITemptHorses(this, 1.25D, false, TEMPTATION_ITEMS));
@@ -121,7 +122,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 	{
 		return false;
 	}
-	
+
 	@Override
 	public void setPosition(double x, double y, double z)
 	{
@@ -148,10 +149,12 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 
 	public int getAnimalAge()
 	{
-		try {
+		try
+		{
 			return (this.getIntFromDataManager(AGE));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
@@ -166,7 +169,6 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		return true;
 	}
 
-
 	@SideOnly(Side.CLIENT)
 	public void setJumpPower(int jumpPowerIn)
 	{
@@ -177,7 +179,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		}
 		else
 		{
-			//do nothing
+			// do nothing
 		}
 
 		if (jumpPowerIn >= 90)
@@ -186,7 +188,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		}
 		else
 		{
-			this.jumpPower = 0.4F + 0.4F * (float)jumpPowerIn / 90.0F;
+			this.jumpPower = 0.4F + 0.4F * (float) jumpPowerIn / 90.0F;
 		}
 
 	}
@@ -194,14 +196,14 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 	@Nullable
 	public UUID getMateUniqueId()
 	{
-		if(mateable)
+		if (mateable)
 		{
 			try
 			{
 				UUID id = (UUID) ((Optional) this.dataManager.get(EntityAnimaniaHorse.MATE_UNIQUE_ID)).orNull();
 				return id;
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				return null;
 			}
@@ -232,14 +234,15 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 
 	public boolean getFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(FED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
-
 
 	public void setFed(boolean fed)
 	{
@@ -248,16 +251,19 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 			this.dataManager.set(EntityAnimaniaHorse.FED, Boolean.valueOf(true));
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaHorse.FED, Boolean.valueOf(false));
 	}
 
 	public boolean getHandFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(HANDFED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -267,13 +273,14 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		this.dataManager.set(EntityAnimaniaHorse.HANDFED, Boolean.valueOf(handfed));
 	}
 
-
 	public boolean getWatered()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(WATERED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -284,10 +291,10 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		{
 			this.dataManager.set(EntityAnimaniaHorse.WATERED, Boolean.valueOf(true));
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaHorse.WATERED, Boolean.valueOf(false));
 	}
-
 
 	@Override
 	protected void updateAITasks()
@@ -316,10 +323,12 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 
 	public int getColorNumber()
 	{
-		try {
+		try
+		{
 			return (this.getIntFromDataManager(COLOR_NUM));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
@@ -339,14 +348,14 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		return resourceLocationBlink;
 	}
 
-
 	@Override
 	protected Item getDropItem()
 	{
 		return Items.LEATHER;
 	}
 
-	protected ItemStack getItem(String moditem) {
+	protected ItemStack getItem(String moditem)
+	{
 
 		ItemStack foundStack = null;
 		String item = "";
@@ -359,32 +368,43 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		sepLoc = moditem.indexOf(":");
 		metaLoc = moditem.indexOf("#");
 
-		if (!moditem.contains(":")) {
+		if (!moditem.contains(":"))
+		{
 			return new ItemStack(Blocks.AIR, 1);
 		}
 
 		mod = moditem.substring(0, sepLoc);
 
-		if (metaLoc > 0) {
-			item = moditem.substring(sepLoc+1, metaLoc);
-		} else {
+		if (metaLoc > 0)
+		{
+			item = moditem.substring(sepLoc + 1, metaLoc);
+		}
+		else
+		{
 			item = moditem;
 		}
-		if (metaLoc > 0) {
+		if (metaLoc > 0)
+		{
 			metaFlag = true;
-			metaVal = moditem.substring(metaLoc+1, moditem.length());
+			metaVal = moditem.substring(metaLoc + 1, moditem.length());
 		}
 
 		Item bob = Item.getByNameOrId(item);
 
-		if (bob != null) {
+		if (bob != null)
+		{
 
-			if (metaFlag) {
+			if (metaFlag)
+			{
 				foundStack = new ItemStack(bob, 1, Integer.parseInt(metaVal));
-			} else {
+			}
+			else
+			{
 				foundStack = new ItemStack(bob, 1);
 			}
-		} else {
+		}
+		else
+		{
 			foundStack = new ItemStack(Blocks.AIR, 1);
 		}
 
@@ -398,42 +418,53 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		{
 
 			float f = 0.0F;
-			float f1 = (float)((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
-			if (passenger instanceof EntityPlayer) {
-				f1 = (float)((this.isDead ? 0.009999999776482582D : 1.6D) + passenger.getYOffset());
+			float f1 = (float) ((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
+			if (passenger instanceof EntityPlayer)
+			{
+				f1 = (float) ((this.isDead ? 0.009999999776482582D : 1.6D) + passenger.getYOffset());
 			}
 
-			if (passenger instanceof EntityPlayer) {
+			if (passenger instanceof EntityPlayer)
+			{
 
-				EntityPlayer player = (EntityPlayer) passenger;	
+				EntityPlayer player = (EntityPlayer) passenger;
 				List wagons = AnimaniaHelper.getWagonsInRange(EntityWagon.class, 3, world, this);
 
-				if (!wagons.isEmpty()) {
-					if (wagons.size() >= 0) {
-						for (int i = 0; i < wagons.size(); i++) {
+				if (!wagons.isEmpty())
+				{
+					if (wagons.size() >= 0)
+					{
+						for (int i = 0; i < wagons.size(); i++)
+						{
 							EntityWagon tempWagon = (EntityWagon) wagons.get(i);
-							if (tempWagon.pulled && tempWagon.puller == this) {
+							if (tempWagon.pulled && tempWagon.puller == this)
+							{
 
-								f = (float)((double)f + 1.82D);
+								f = (float) ((double) f + 1.82D);
 
-								Vec3d vec3d = (new Vec3d((double)f, 0.0D, 0.0D)).rotateYaw(-tempWagon.rotationYaw * 0.017453292F - ((float)Math.PI / 2F));
-								passenger.setPosition(tempWagon.posX + vec3d.xCoord, tempWagon.posY + (double)f1, tempWagon.posZ + vec3d.zCoord);
+								Vec3d vec3d = (new Vec3d((double) f, 0.0D, 0.0D)).rotateYaw(-tempWagon.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
+								passenger.setPosition(tempWagon.posX + vec3d.xCoord, tempWagon.posY + (double) f1, tempWagon.posZ + vec3d.zCoord);
 
-							} else {
+							}
+							else
+							{
 								passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
 							}
 						}
 					}
-				} else {
+				}
+				else
+				{
 					passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
 				}
-			} else {
+			}
+			else
+			{
 				passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
 			}
 
 		}
 	}
-
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
@@ -441,32 +472,33 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 
 		ItemStack stack = player.getHeldItem(hand);
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
+		{
+			if (!player.isCreative())
 			{
-				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				{
-					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-				}
-				else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				{
-					player.dropItem(new ItemStack(Items.BUCKET), false);
-				}
-
-				if (this.entityAIEatGrass != null) {
-					this.entityAIEatGrass.startExecuting();
-					eatTimer = 40;
-				}
-				this.setWatered(true);
-				this.setInLove(player);
-				return true;
+				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
+				stack.shrink(1);
+				AnimaniaHelper.addItem(player, emptied);
 			}
-		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild()) {
+
+			this.eatTimer = 40;
+			if (entityAIEatGrass != null)
+				this.entityAIEatGrass.startExecuting();
+			this.setWatered(true);
+			this.setInLove(player);
+			return true;
+
+		}
+		else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild())
+		{
 			this.navigator.clearPathEntity();
 			this.mountTo(player);
 			return true;
-		} else {
+		}
+		else
+		{
 			return true;
-			//return super.processInteract(player, hand);
+			// return super.processInteract(player, hand);
 		}
 
 	}
@@ -481,7 +513,6 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 			super.handleStatusUpdate(id);
 	}
 
-
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != null && this.isHorseBreedingItem(stack.getItem());
@@ -492,12 +523,12 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		return TEMPTATION_ITEMS.contains(itemIn);
 	}
 
-
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
 
-		if (this.getMateUniqueId() != null) {
+		if (this.getMateUniqueId() != null)
+		{
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
 		}
 		compound.setBoolean("Fed", this.getFed());
@@ -505,8 +536,6 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setInteger("ColorNumber", getColorNumber());
 		compound.setInteger("Age", this.getAnimalAge());
-
-
 
 	}
 
@@ -539,21 +568,23 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 
 	}
 
-
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
 		int happyDrops = 0;
 
-		if (this.getWatered()) {
+		if (this.getWatered())
+		{
 			happyDrops++;
-		} 
-		if (this.getFed()) {
+		}
+		if (this.getFed())
+		{
 			happyDrops++;
-		} 
+		}
 
 		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops) {
+		if (AnimaniaConfig.drops.customMobDrops)
+		{
 			String drop = AnimaniaConfig.drops.horseDrop;
 			dropItem = AnimaniaHelper.getItem(drop);
 			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
@@ -561,7 +592,9 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 				drop = this.dropCooked.getRegistryName().toString();
 				dropItem = AnimaniaHelper.getItem(drop);
 			}
-		} else {
+		}
+		else
+		{
 			dropItem = new ItemStack(this.dropRaw, 1);
 			if (this.isBurning())
 				dropItem = new ItemStack(this.dropCooked, 1);
@@ -571,30 +604,40 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		String drop2 = AnimaniaConfig.drops.horseDrop2;
 		dropItem2 = AnimaniaHelper.getItem(drop2);
 
-		if (happyDrops == 2) {
-			if (dropItem != null) {
+		if (happyDrops == 2)
+		{
+			if (dropItem != null)
+			{
 				dropItem.setCount(1 + lootlevel);
 				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 				world.spawnEntity(entityitem);
 			}
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.horseDrop2Amount + lootlevel);
 			}
-		} else if (happyDrops == 1) {
+		}
+		else if (happyDrops == 1)
+		{
 			if (this.isBurning())
 			{
-				if (dropItem2 != null) {
+				if (dropItem2 != null)
+				{
 					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.horseDrop2Amount + lootlevel);
 				}
 			}
 			else
 			{
-				if (dropItem2 != null) {
+				if (dropItem2 != null)
+				{
 					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.horseDrop2Amount + lootlevel);
 				}
 			}
-		} else if (happyDrops == 0) {
-			if (dropItem2 != null) {
+		}
+		else if (happyDrops == 0)
+		{
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.horseDrop2Amount + lootlevel);
 			}
 		}
@@ -606,7 +649,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 	{
 		if (this.isBeingRidden() && this.canBeSteered())
 		{
-			EntityLivingBase entitylivingbase = (EntityLivingBase)this.getControllingPassenger();
+			EntityLivingBase entitylivingbase = (EntityLivingBase) this.getControllingPassenger();
 			this.rotationYaw = entitylivingbase.rotationYaw;
 			this.prevRotationYaw = this.rotationYaw;
 			this.rotationPitch = entitylivingbase.rotationPitch * 0.5F;
@@ -630,11 +673,11 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 
 			if (this.jumpPower > 0.0F && !this.isHorseJumping() && this.onGround)
 			{
-				this.motionY = this.getHorseJumpStrength() * (double)this.jumpPower;
+				this.motionY = this.getHorseJumpStrength() * (double) this.jumpPower;
 
 				if (this.isPotionActive(MobEffects.JUMP_BOOST))
 				{
-					this.motionY += (double)((float)(this.getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F);
+					this.motionY += (double) ((float) (this.getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F);
 				}
 
 				this.setHorseJumping(true);
@@ -644,8 +687,8 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 				{
 					float f = MathHelper.sin(this.rotationYaw * 0.017453292F);
 					float f1 = MathHelper.cos(this.rotationYaw * 0.017453292F);
-					this.motionX += (double)(-0.4F * f * this.jumpPower);
-					this.motionZ += (double)(0.4F * f1 * this.jumpPower);
+					this.motionX += (double) (-0.4F * f * this.jumpPower);
+					this.motionZ += (double) (0.4F * f1 * this.jumpPower);
 					this.playSound(SoundEvents.ENTITY_HORSE_JUMP, 0.4F, 1.0F);
 				}
 
@@ -656,7 +699,7 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 
 			if (this.canPassengerSteer() || this.getLeashed())
 			{
-				this.setAIMoveSpeed((float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+				this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				super.moveEntityWithHeading(strafe, forward);
 			}
 			else if (entitylivingbase instanceof EntityPlayer)
@@ -693,7 +736,8 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 	}
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable ageable) {
+	public EntityAgeable createChild(EntityAgeable ageable)
+	{
 		return null;
 	}
 
@@ -729,79 +773,102 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 		return this.gender;
 	}
 
-
 	// ==================================================
-	//     Data Manager Trapper (borrowed from Lycanites)
+	// Data Manager Trapper (borrowed from Lycanites)
 	// ==================================================
 
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
-		try {
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
 
-	public byte getByteFromDataManager(DataParameter<Byte> key) {
-		try {
+	public byte getByteFromDataManager(DataParameter<Byte> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public int getIntFromDataManager(DataParameter<Integer> key) {
-		try {
+	public int getIntFromDataManager(DataParameter<Integer> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public float getFloatFromDataManager(DataParameter<Float> key) {
-		try {
+	public float getFloatFromDataManager(DataParameter<Float> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public String getStringFromDataManager(DataParameter<String> key) {
-		try {
+	public String getStringFromDataManager(DataParameter<String> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
-		try {
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
-		try {
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return ItemStack.EMPTY;
 		}
 	}
 
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
-		try {
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return Optional.absent();
 		}
 	}
