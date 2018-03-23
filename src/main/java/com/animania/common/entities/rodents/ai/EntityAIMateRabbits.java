@@ -49,19 +49,36 @@ public class EntityAIMateRabbits extends EntityAIBase
 				this.delayCounter = 0;
 				return false;
 			}
-			
+
+			EntityAnimaniaRabbit thisAnimal = (EntityAnimaniaRabbit) this.theAnimal;
+
 			if (AnimaniaConfig.careAndFeeding.manualBreeding) {
-				if (this.theAnimal instanceof EntityAnimaniaRabbit) {
-					EntityAnimaniaRabbit thisAnimal = (EntityAnimaniaRabbit) this.theAnimal;
-				
-					if (!thisAnimal.getHandFed()) {
-						this.delayCounter = 0;
-						return false;
+
+				if (!thisAnimal.getHandFed()) {
+					this.delayCounter = 0;
+					return false;
+				}
+
+			} else {
+
+				List list = this.theWorld.loadedEntityList;
+
+				int animalCount = 0;
+				int num = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof EntityAnimaniaRabbit) {
+						num++;
 					}
-					
+				}
+				animalCount = num;
+
+				if (animalCount > AnimaniaConfig.spawn.spawnLimitRabbits && !thisAnimal.getHandFed()) {
+					this.delayCounter = 0;
+					return false;
 				}
 			}
-			
+
+
 			this.targetMate = this.getNearbyMate();
 
 			Random rand = new Random();
@@ -111,7 +128,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 
 	private EntityAnimal getNearbyMate() {
 
-	
+
 		if (this.theAnimal instanceof EntityRabbitBuckBase) {
 
 			UUID mateID = null;
@@ -123,7 +140,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 
 			if (mateID != null) {
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityRabbitDoeBase.class, 3, this.theAnimal.world, this.theAnimal);
-				
+
 				for (int k = 0; k <= entities.size() - 1; k++) {
 					EntityRabbitDoeBase entity = (EntityRabbitDoeBase)entities.get(k); 
 					boolean allowBreeding = true;
@@ -150,7 +167,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 							this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
 							entity.getLookHelper().setLookPositionWithEntity(this.theAnimal, 10.0F, entity.getVerticalFaceSpeed());
 							entity.getNavigator().tryMoveToEntityLiving(this.theAnimal, this.moveSpeed);
-							
+
 							return null;
 						}
 					}

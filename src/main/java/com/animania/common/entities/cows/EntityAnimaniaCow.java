@@ -194,7 +194,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 		this.eatTimer = 80;
 		player.addStat(cowType.getAchievement(), 1);
 
-		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn))
+		if (player.hasAchievement(AnimaniaAchievements.Angus) && player.hasAchievement(AnimaniaAchievements.Friesian) && player.hasAchievement(AnimaniaAchievements.Hereford) && player.hasAchievement(AnimaniaAchievements.Holstein) && player.hasAchievement(AnimaniaAchievements.Longhorn) && player.hasAchievement(AnimaniaAchievements.Mooshroom) && player.hasAchievement(AnimaniaAchievements.Jersey))
 			player.addStat(AnimaniaAchievements.Cows, 1);
 
 		if (!player.capabilities.isCreativeMode)
@@ -464,8 +464,9 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable
 				this.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			}
 
-			return true;
+			return super.processInteract(player, hand);
 		}
+		
 		else if (stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack))
 		{
 			return true;

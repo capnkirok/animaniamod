@@ -150,9 +150,9 @@ public class AnimaniaAchievements
 		AnimaniaAchievements.AlbinoHedgehog = new Achievement("albinohedgehog", "an.albinohedgehog", 0, 10, ItemHandler.entityegghedgehogalbino, (Achievement) null).registerStat();
 		AnimaniaAchievements.Hedgehogs = new Achievement("hedgehogs", "an.hedgehogs", 2, 10, Items.MUTTON, (Achievement) null).registerStat();
 
-		AnimaniaAchievements.Sonic = new Achievement("sonic", "an.hedgehogsonic", 10, 10, ItemHandler.entityegghedgehog, (Achievement) null).registerStat().setSpecial();
-		AnimaniaAchievements.Sanic = new Achievement("sanic", "an.hedgehogsanic", 12, 10, ItemHandler.entityegghedgehog, (Achievement) null).registerStat().setSpecial();
-		AnimaniaAchievements.FeelsBadMan = new Achievement("feelsbadman", "an.feelsbadman", 14, 10, ItemHandler.entityeggfrog, (Achievement) null).registerStat().setSpecial();
+		AnimaniaAchievements.Sonic = new Achievement("sonic", "an.hedgehogsonic", 4, 10, ItemHandler.entityegghedgehog, (Achievement) null).registerStat().setSpecial();
+		AnimaniaAchievements.Sanic = new Achievement("sanic", "an.hedgehogsanic", 6, 10, ItemHandler.entityegghedgehog, (Achievement) null).registerStat().setSpecial();
+		AnimaniaAchievements.FeelsBadMan = new Achievement("feelsbadman", "an.feelsbadman", -2, 20, ItemHandler.entityeggfrog, (Achievement) null).registerStat().setSpecial();
 
 		AnimaniaAchievements.Horses = new Achievement("horses", "an.horses", -2, 12, ItemHandler.entityeggdrafthorsestallion, (Achievement) null).registerStat();
 		AnimaniaAchievements.Horseriding = new Achievement("horseriding", "an.horseriding", 0, 12, ItemHandler.ridingCrop, (Achievement) null).registerStat();
@@ -185,15 +185,16 @@ public class AnimaniaAchievements
 		AnimaniaAchievements.Sheep = new Achievement("sheep", "an.sheep", 10, 18, Blocks.WOOL, (Achievement) null).registerStat();
 		
 		AchievementPage.registerAchievementPage(AnimaniaAchievements.page = new AchievementPage("Animania", new Achievement[] { AnimaniaAchievements.Leghorn, AnimaniaAchievements.Orpington, AnimaniaAchievements.PlymouthRock, AnimaniaAchievements.RhodeIslandRed, AnimaniaAchievements.Wyandotte, AnimaniaAchievements.Chickens, 
-				AnimaniaAchievements.Angus, AnimaniaAchievements.Friesian, AnimaniaAchievements.Hereford, AnimaniaAchievements.Holstein, AnimaniaAchievements.Longhorn, AnimaniaAchievements.Cows, 
+				AnimaniaAchievements.Angus, AnimaniaAchievements.Friesian, AnimaniaAchievements.Hereford, AnimaniaAchievements.Holstein, AnimaniaAchievements.Longhorn, AnimaniaAchievements.Jersey, AnimaniaAchievements.Mooshroom, AnimaniaAchievements.Cows, 
 				AnimaniaAchievements.Duroc, AnimaniaAchievements.Hampshire, AnimaniaAchievements.LargeBlack, AnimaniaAchievements.LargeWhite, AnimaniaAchievements.OldSpot, AnimaniaAchievements.Yorkshire, AnimaniaAchievements.Pigs, 
 				AnimaniaAchievements.IndiaBlue, AnimaniaAchievements.White, AnimaniaAchievements.Charcoal, AnimaniaAchievements.Opal, AnimaniaAchievements.Peach, AnimaniaAchievements.Purple, AnimaniaAchievements.Taupe, AnimaniaAchievements.Peacocks, 
 				AnimaniaAchievements.WhiteFerret, AnimaniaAchievements.GreyFerret, AnimaniaAchievements.Ferrets, AnimaniaAchievements.Hamsters, 
-				AnimaniaAchievements.Hedgehog, AnimaniaAchievements.AlbinoHedgehog, AnimaniaAchievements.Hedgehogs, 
+				AnimaniaAchievements.Hedgehog, AnimaniaAchievements.AlbinoHedgehog, AnimaniaAchievements.Hedgehogs, AnimaniaAchievements.Sonic, AnimaniaAchievements.Sanic,
 				AnimaniaAchievements.Horses, AnimaniaAchievements.Horseriding,
 				AnimaniaAchievements.Chinchilla, AnimaniaAchievements.Cottontail, AnimaniaAchievements.Dutch, AnimaniaAchievements.Havana, AnimaniaAchievements.Jack, AnimaniaAchievements.Lop, AnimaniaAchievements.NewZealand, AnimaniaAchievements.Rex, AnimaniaAchievements.Rabbits, 
 				AnimaniaAchievements.Alpine, AnimaniaAchievements.Angora, AnimaniaAchievements.Fainting, AnimaniaAchievements.Kiko, AnimaniaAchievements.Kinder, AnimaniaAchievements.NigerianDwarf, AnimaniaAchievements.Pygmy, AnimaniaAchievements.Goats, 
-				AnimaniaAchievements.Dorper, AnimaniaAchievements.Dorset, AnimaniaAchievements.FriesianSheep, AnimaniaAchievements.Jacob, AnimaniaAchievements.Merino, AnimaniaAchievements.Suffolk, AnimaniaAchievements.Sheep 
+				AnimaniaAchievements.Dorper, AnimaniaAchievements.Dorset, AnimaniaAchievements.FriesianSheep, AnimaniaAchievements.Jacob, AnimaniaAchievements.Merino, AnimaniaAchievements.Suffolk, AnimaniaAchievements.Sheep,
+				AnimaniaAchievements.FeelsBadMan
 						
 		}));
 
@@ -206,6 +207,8 @@ public class AnimaniaAchievements
 		CowType.HEREFORD.setAchievement(Hereford);
 		CowType.LONGHORN.setAchievement(Longhorn);
 		CowType.HOLSTEIN.setAchievement(Holstein);
+		CowType.MOOSHROOM.setAchievement(Mooshroom);
+		CowType.JERSEY.setAchievement(Jersey);
 		
 		ChickenType.LEGHORN.setAchievement(Leghorn);
 		ChickenType.ORPINGTON.setAchievement(Orpington);

@@ -182,6 +182,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	}
 
+	
 	public int getGestation()
 	{
 		try {
@@ -268,6 +269,16 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public double getMountedYOffset()
 	{
 		return (double)this.height * 0.60D;
+	}
+	
+	@Override
+	public void openGUI(EntityPlayer playerEntity)
+	{
+		if (!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)))
+		{
+			this.horseChest.setCustomName(this.getName());
+			playerEntity.openGuiHorseInventory(this, this.horseChest);
+		}
 	}
 
 

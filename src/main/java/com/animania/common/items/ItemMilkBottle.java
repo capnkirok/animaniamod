@@ -37,7 +37,7 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 
 		if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
 		{
-			stack.shrink(1);
+			
 			if (!worldIn.isRemote) {
 				EntityItem entityitem = new EntityItem(worldIn, entityLiving.posX + 0.5D, entityLiving.posY + 0.5D, entityLiving.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
 				worldIn.spawnEntity(entityitem);
@@ -48,6 +48,8 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 			worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
 			this.onFoodEaten(stack, worldIn, entityplayer);
 			entityplayer.addStat(StatList.getObjectUseStats(this));
+			
+			stack.shrink(1);
 		}
 
 		return stack;

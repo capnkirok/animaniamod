@@ -29,9 +29,6 @@ public class WailaEntitySowProvider extends WailaEntityAnimalProviderMateable
 		if (accessor.getPlayer().isSneaking())
 		{
 
-			if (thisEntity.getHasKids())
-				currenttip.add(I18n.translateToLocal("text.waila.milkable"));
-
 			if (thisEntity.getFertile() && !thisEntity.getPregnant())
 			{
 				currenttip.add(I18n.translateToLocal("text.waila.fertile1"));

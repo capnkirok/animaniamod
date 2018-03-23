@@ -338,7 +338,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.setInLove(player);
 			return true;
 		} 
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking())
+		else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking() && !this.isInBall())
 		{
 			this.setHamsterSitting(true);
 			this.setSitting(true);
@@ -346,7 +346,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isHamsterSitting() && !player.isSneaking())
+		else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isHamsterSitting() && !player.isSneaking() && !this.isInBall())
 		{
 			this.setHamsterSitting(false);
 			this.setSitting(false);
@@ -354,7 +354,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.navigator.clearPathEntity();
 			return true;
 		}
-		else if (itemstack == ItemStack.EMPTY && !this.isRiding() && player.isSneaking()) //TODO Removed tamed
+		else if (itemstack == ItemStack.EMPTY && !this.isRiding() && player.isSneaking() && !this.isInBall()) 
 		{
 			
 			if (!this.getIsRiding())
@@ -402,19 +402,16 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			setInBall(true);
 			int meta = itemstack.getMetadata();
 			setBallColor(meta);
-			if (!player.isCreative())
-				itemstack.shrink(1);
+			
+			if (this.isHamsterSitting()) {
+				this.setSitting(false);
+				this.setHamsterSitting(false);
+			}
+			itemstack.shrink(1);
+			
 			return true;
 		}
-		else if (!itemstack.isEmpty() && itemstack.getItem() == ItemHandler.hamsterBallClear && !isInBall())
-		{
-			setInBall(true);
-			setBallColor(16);
-			if (!player.isCreative())
-				itemstack.shrink(1);
-			return true;
-		}
-		else if (!itemstack.isEmpty() && itemstack.getItem() instanceof ItemHamsterBall && isInBall())
+		else if (itemstack.isEmpty() && this.isInBall())
 		{
 			int color = this.getBallColor();
 			setInBall(false);
@@ -1212,10 +1209,13 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public void setResourceLoc()
 	{
 
-		if (this.getColorNumber() == 9) 
+		if (this.getColorNumber() == 9)
 		{
 			this.setColorNumber(8);
+		} else if (this.getColorNumber() > 9) {
+			this.setColorNumber(0);
 		}
+
 
 		if (this.resourceLocation == null)
 		{

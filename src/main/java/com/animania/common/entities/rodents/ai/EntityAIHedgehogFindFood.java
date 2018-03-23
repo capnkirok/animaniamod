@@ -68,7 +68,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 					return false;
 				}
 
-				if ((te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) && te.itemHandler.getStackInSlot(0).getCount() > 0)
+				if ((te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE || te.getNestContent() == NestContent.PEACOCK_BLUE || te.getNestContent() == NestContent.PEACOCK_WHITE) && te.itemHandler.getStackInSlot(0).getCount() > 0)
 				{
 					te.itemHandler.extractItem(0, 1, false);
 					te.markDirty();
@@ -122,7 +122,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 						{
 							TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(pos);
 
-							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE || te.getNestContent() == NestContent.PEACOCK_BLUE || te.getNestContent() == NestContent.PEACOCK_WHITE) )
 							{
 								foodFound = true;
 								if (rand.nextInt(50) == 0)
@@ -212,7 +212,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 
 						TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(pos);
 
-						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE || te.getNestContent() == NestContent.PEACOCK_BLUE || te.getNestContent() == NestContent.PEACOCK_WHITE) )
 						{
 
 							foodFound = true;
@@ -283,7 +283,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 			{
 				TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(foodPos);
 
-				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE || te.getNestContent() == NestContent.PEACOCK_BLUE || te.getNestContent() == NestContent.PEACOCK_WHITE) )
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
 						this.delayTemptCounter = 0;
 					else

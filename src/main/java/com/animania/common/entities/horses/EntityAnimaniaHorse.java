@@ -455,7 +455,11 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 				}
 				else
 				{
-					passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
+					f = (float) ((double) f - 0.42D);
+
+					Vec3d vec3d = (new Vec3d((double) f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
+					passenger.setPosition(this.posX + vec3d.xCoord, this.posY + (double) f1, this.posZ + vec3d.zCoord);
+					
 				}
 			}
 			else
@@ -489,7 +493,34 @@ public class EntityAnimaniaHorse extends AbstractHorse implements ISpawnable
 			return true;
 
 		}
-		else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild())
+		else if (!this.isChild() && this.isHorseSaddled() && player.isSneaking()) {
+			this.openGUI(player);
+			return true;
+		}
+		else if (stack != ItemStack.EMPTY && this.isHorseBreedingItem(stack.getItem())) {
+			if (!player.capabilities.isCreativeMode)
+				stack.shrink(1);
+
+			this.eatTimer = 40;
+			if (this.entityAIEatGrass != null)
+				this.entityAIEatGrass.startExecuting();
+			this.setFed(true);
+			this.setInLove(player);
+			return true;
+
+		}
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.SADDLE && !this.isHorseSaddled()) {
+
+			ItemStack bob = stack.copy();
+			this.horseChest.setInventorySlotContents(0, bob);
+			this.setHorseSaddled(true);
+			stack.setCount(0);
+			this.updateHorseSlots();
+			return true;
+
+		}
+		else if (stack != null && this.isHorseSaddled() && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild())
+
 		{
 			this.navigator.clearPathEntity();
 			this.mountTo(player);

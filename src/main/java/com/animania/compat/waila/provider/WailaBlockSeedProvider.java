@@ -21,19 +21,24 @@ public class WailaBlockSeedProvider implements IWailaDataProvider
 	@Override
 	public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config)
 	{
-		switch (accessor.getBlockState().getValue(BlockSeeds.VARIANT))
-		{
-		case WHEAT:
-			return new ItemStack(Items.WHEAT_SEEDS);
-		case PUMPKIN:
-			return new ItemStack(Items.PUMPKIN_SEEDS);
-		case MELON:
-			return new ItemStack(Items.MELON_SEEDS);
-		case BEETROOT:
-			return new ItemStack(Items.BEETROOT_SEEDS);
-		default:
+		if (accessor.getBlockState() != null) {
+			switch (accessor.getBlockState().getValue(BlockSeeds.VARIANT))
+			{
+			case WHEAT:
+				return new ItemStack(Items.WHEAT_SEEDS);
+			case PUMPKIN:
+				return new ItemStack(Items.PUMPKIN_SEEDS);
+			case MELON:
+				return new ItemStack(Items.MELON_SEEDS);
+			case BEETROOT:
+				return new ItemStack(Items.BEETROOT_SEEDS);
+			default:
+				return new ItemStack(Items.WHEAT_SEEDS);
+			}
+		} else {
 			return new ItemStack(Items.WHEAT_SEEDS);
 		}
+
 
 	}
 

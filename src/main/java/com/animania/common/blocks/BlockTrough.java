@@ -89,7 +89,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 
 		float f = worldIn.getBiome(pos).getFloatTemperature(pos);
 
-		if (worldIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F && worldIn.isRaining())
+		if (worldIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F && worldIn.isRaining() && worldIn.getTopSolidOrLiquidBlock(pos).getY() == pos.getY() + 1)
 		{
 			TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 

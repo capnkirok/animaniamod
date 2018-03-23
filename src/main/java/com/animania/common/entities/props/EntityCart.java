@@ -549,9 +549,9 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
 			Vec3d vec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -2.5D).rotateYaw((float)-deltaAngle));
 
-			this.motionX = vec.xCoord * 1.2;
+			this.motionX = vec.xCoord * 1.05;
 			this.motionY = vec.yCoord;
-			this.motionZ = vec.zCoord * 1.2;
+			this.motionZ = vec.zCoord * 1.05;
 
 			move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 

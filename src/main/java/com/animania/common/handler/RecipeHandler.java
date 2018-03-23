@@ -66,9 +66,11 @@ public class RecipeHandler
 		// CARVING KNIFE
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.carvingKnife, 1), new Object[] { "   ", "ii ", "s  ", 'i', "ingotIron", 's', Items.STICK }));
 
-		// RIDING CROP
+		// Horses
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemHandler.ridingCrop, 1), new Object[] { "  l", " s ", "l  ", 'l', "leather", 's', "stickWood" }));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.SADDLE, 1), new Object[] { "lll", "iwi", "   ", 'l', "leather", 'i', "ingotIron", 'w', "blockWool" }));
 
+		
 		// BEEF Recipes
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawAngusSteak, 5), new Object[] { ItemHandler.rawAngusBeef, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ItemHandler.rawHerefordSteak, 4), new Object[] { ItemHandler.rawHerefordBeef, new ItemStack(ItemHandler.carvingKnife, 1, OreDictionary.WILDCARD_VALUE) }));

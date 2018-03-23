@@ -244,20 +244,6 @@ public class ModelBull extends ModelBase
         this.EarR.rotateAngleX = 0.2032792F;
         this.EarRa.rotateAngleX = 0.2032792F;
 
-        /*
-         * Horn1A.rotateAngleX = 2.246168E-09F; Horn1A.rotateAngleY = 1.047198F;
-         * Horn1A.rotateAngleZ = -0.08726646F; Horn1B.rotateAngleX =
-         * -0.0803136F; Horn1B.rotateAngleY = -0.1207999F; Horn1B.rotateAngleZ =
-         * -0.2959706F; Horn1C.rotateAngleX = 0.7922572F; Horn1C.rotateAngleY =
-         * -0.4584013F; Horn1C.rotateAngleZ = -0.7087464F; Horn2.rotateAngleX =
-         * 0F; Horn2.rotateAngleY = 0F; Horn2.rotateAngleZ = 0F;
-         * Horn1A1.rotateAngleX = -6.177809E-10F; Horn1A1.rotateAngleY =
-         * 2.094395F; Horn1A1.rotateAngleZ = -0.08726646F; Horn1B1.rotateAngleX
-         * = -0.07557276F; Horn1B1.rotateAngleY = 0.130027F;
-         * Horn1B1.rotateAngleZ = 0.2617994F; Horn1C1.rotateAngleX = 0.8074888F;
-         * Horn1C1.rotateAngleY = 0.4332161F; Horn1C1.rotateAngleZ = 0.6443824F;
-         */
-
         // Tail
         this.Tail.rotateAngleX = -2F;
         this.Tail.rotateAngleY = -3.141593F;
