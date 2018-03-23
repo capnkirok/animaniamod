@@ -15,25 +15,126 @@
         "angora_kid": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:kid_angora"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:kid_angora"
             }
         },
-		"angora_doe": {
+        "angora_doe": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:doe_angora"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:doe_angora"
             }
         },
-		 "angora_buck": {
+        "angora_buck": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:buck_angora"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:buck_angora"
             }
-        }  
+        },
+        "angora_kid1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:kid_angora"
+            }
+        },
+        "angora_doe1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:doe_angora"
+            }
+        },
+        "angora_buck1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:buck_angora"
+            }
+        },
+        "angora_kid2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:kid_angora"
+            }
+        },
+        "angora_doe2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:doe_angora"
+            }
+        },
+        "angora_buck2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:buck_angora"
+            }
+        },
+        "angora_kid3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:kid_angora"
+            }
+        },
+        "angora_doe3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:doe_angora"
+            }
+        },
+        "angora_buck3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:buck_angora"
+            }
+        }
     },
-	"requirements": [["angora_buck", "angora_doe", "angora_kid"]]
-
+    "requirements": [
+        [
+            "angora_buck",
+            "angora_doe",
+            "angora_kid",
+            "angora_buck1",
+            "angora_doe1",
+            "angora_kid1",
+            "angora_buck2",
+            "angora_doe2",
+            "angora_kid2",
+            "angora_buck3",
+            "angora_doe3",
+            "angora_kid3"
+        ]
+    ]
 }

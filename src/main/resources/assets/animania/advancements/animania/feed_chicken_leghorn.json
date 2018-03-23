@@ -1,39 +1,140 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_chick_leghorn"
-        },
-        "title": {
-            "translate": "advancements.animania.leghorn.title"
-        },
-        "description": {
-            "translate": "advancements.animania.leghorn.description"
-        }
-    },
-    "parent": "animania:animania/chickens",
-    "criteria": {
-        "leghorn_chick": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_chick_leghorn"
+		},
+		"title": {
+			"translate": "advancements.animania.leghorn.title"
+		},
+		"description": {
+			"translate": "advancements.animania.leghorn.description"
+		}
+	},
+	"parent": "animania:animania/chickens",
+	"criteria": {
+		"leghorn_chick": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat_seeds"
+				},
 				"entity": "animania:chick_leghorn"
-            }
-        },
+			}
+		},
 		"leghorn_hen": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat_seeds"
+				},
 				"entity": "animania:hen_leghorn"
-            }
-        },
-		 "leghorn_rooster": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
+			}
+		},
+		"leghorn_rooster": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat_seeds"
+				},
 				"entity": "animania:rooster_leghorn"
-            }
-        }  
-    },
-	"requirements": [["leghorn_rooster", "leghorn_hen", "leghorn_chick"]]
-
+			}
+		},
+		"leghorn_chick1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:melon_seeds"
+				},
+				"entity": "animania:chick_leghorn"
+			}
+		},
+		"leghorn_hen1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:melon_seeds"
+				},
+				"entity": "animania:hen_leghorn"
+			}
+		},
+		"leghorn_rooster1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:melon_seeds"
+				},
+				"entity": "animania:rooster_leghorn"
+			}
+		},
+		"leghorn_chick2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot_seeds"
+				},
+				"entity": "animania:chick_leghorn"
+			}
+		},
+		"leghorn_hen2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot_seeds"
+				},
+				"entity": "animania:hen_leghorn"
+			}
+		},
+		"leghorn_rooster2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot_seeds"
+				},
+				"entity": "animania:rooster_leghorn"
+			}
+		},
+		"leghorn_chick3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:pumpkin_seeds"
+				},
+				"entity": "animania:chick_leghorn"
+			}
+		},
+		"leghorn_hen3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:pumpkin_seeds"
+				},
+				"entity": "animania:hen_leghorn"
+			}
+		},
+		"leghorn_rooster3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:pumpkin_seeds"
+				},
+				"entity": "animania:rooster_leghorn"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"leghorn_rooster",
+			"leghorn_hen",
+			"leghorn_chick",
+			"leghorn_rooster1",
+			"leghorn_hen1",
+			"leghorn_chick1",
+			"leghorn_rooster2",
+			"leghorn_hen2",
+			"leghorn_chick2",
+			"leghorn_rooster3",
+			"leghorn_hen3",
+			"leghorn_chick3"
+		]
+	]
 }

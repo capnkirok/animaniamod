@@ -15,25 +15,156 @@
         "yorkshire_piglet": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:piglet_yorkshire"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:piglet_yorkshire"
             }
         },
-		"yorkshire_sow": {
+        "yorkshire_sow": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:sow_yorkshire"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:sow_yorkshire"
             }
         },
-		 "yorkshire_hog": {
+        "yorkshire_hog": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:hog_yorkshire"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:hog_yorkshire"
             }
-        }  
+        },
+        "yorkshire_piglet1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:piglet_yorkshire"
+            }
+        },
+        "yorkshire_sow1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:sow_yorkshire"
+            }
+        },
+        "yorkshire_hog1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:hog_yorkshire"
+            }
+        },
+        "yorkshire_piglet2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:piglet_yorkshire"
+            }
+        },
+        "yorkshire_sow2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:sow_yorkshire"
+            }
+        },
+        "yorkshire_hog2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:hog_yorkshire"
+            }
+        },
+        "yorkshire_piglet3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:piglet_yorkshire"
+            }
+        },
+        "yorkshire_sow3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:sow_yorkshire"
+            }
+        },
+        "yorkshire_hog3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:hog_yorkshire"
+            }
+        },
+        "yorkshire_piglet4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:piglet_yorkshire"
+            }
+        },
+        "yorkshire_sow4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:sow_yorkshire"
+            }
+        },
+        "yorkshire_hog4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:hog_yorkshire"
+            }
+        }
     },
-	"requirements": [["yorkshire_hog", "yorkshire_sow", "yorkshire_piglet"]]
-
+    "requirements": [
+        [
+            "yorkshire_hog",
+            "yorkshire_sow",
+            "yorkshire_piglet",
+            "yorkshire_hog1",
+            "yorkshire_sow1",
+            "yorkshire_piglet1",
+            "yorkshire_hog2",
+            "yorkshire_sow2",
+            "yorkshire_piglet2",
+            "yorkshire_hog3",
+            "yorkshire_sow3",
+            "yorkshire_piglet3",
+            "yorkshire_hog4",
+            "yorkshire_sow4",
+            "yorkshire_piglet4"
+        ]
+    ]
 }

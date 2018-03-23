@@ -36,12 +36,17 @@ public class MeatCuttingRecipe extends ShapelessOreRecipe
 			if(!stack.isEmpty() && stack.getItem() == ItemHandler.carvingKnife)
 			{
 				ItemStack newstack = stack.getItemDamage() >= stack.getMaxDamage() ? ItemStack.EMPTY : stack.copy();
-				newstack.damageItem(1, ForgeHooks.getCraftingPlayer());
+				
+				if (ForgeHooks.getCraftingPlayer() != null) {
+					newstack.damageItem(1, ForgeHooks.getCraftingPlayer());
+				} else {
+					newstack.setItemDamage(newstack.getItemDamage()-1);
+				}
 				list.set(i, newstack);
 			}
-			
+
 		}
-		
+
 		return list;
 	}
 

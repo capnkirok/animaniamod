@@ -15,25 +15,126 @@
         "taupe_peachick": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:peachick_taupe"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:peachick_taupe"
             }
         },
-		"taupe_peahen": {
+        "taupe_peahen": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:peahen_taupe"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:peahen_taupe"
             }
         },
-		 "taupe_peacock": {
+        "taupe_peacock": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:peacock_taupe"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:peacock_taupe"
             }
-        }  
+        },
+        "taupe_peachick1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:peachick_taupe"
+            }
+        },
+        "taupe_peahen1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:peahen_taupe"
+            }
+        },
+        "taupe_peacock1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:peacock_taupe"
+            }
+        },
+        "taupe_peachick2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:peachick_taupe"
+            }
+        },
+        "taupe_peahen2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:peahen_taupe"
+            }
+        },
+        "taupe_peacock2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:peacock_taupe"
+            }
+        },
+        "taupe_peachick3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:peachick_taupe"
+            }
+        },
+        "taupe_peahen3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:peahen_taupe"
+            }
+        },
+        "taupe_peacock3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:peacock_taupe"
+            }
+        }
     },
-	"requirements": [["taupe_peacock", "taupe_peahen", "taupe_peachick"]]
-
+    "requirements": [
+        [
+            "taupe_peacock",
+            "taupe_peahen",
+            "taupe_peachick",
+            "taupe_peacock1",
+            "taupe_peahen1",
+            "taupe_peachick1",
+            "taupe_peacock2",
+            "taupe_peahen2",
+            "taupe_peachick2",
+            "taupe_peacock3",
+            "taupe_peahen3",
+            "taupe_peachick3"
+        ]
+    ]
 }

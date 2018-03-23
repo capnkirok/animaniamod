@@ -1,39 +1,140 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_kit_cottontail"
-        },
-        "title": {
-            "translate": "advancements.animania.cottontail.title"
-        },
-        "description": {
-            "translate": "advancements.animania.cottontail.description"
-        }
-    },
-    "parent": "animania:animania/feed_rabbit_chinchilla",
-    "criteria": {
-        "cottontail_kit": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_kit_cottontail"
+		},
+		"title": {
+			"translate": "advancements.animania.cottontail.title"
+		},
+		"description": {
+			"translate": "advancements.animania.cottontail.description"
+		}
+	},
+	"parent": "animania:animania/feed_rabbit_chinchilla",
+	"criteria": {
+		"cottontail_kit": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:kit_cottontail"
-            }
-        },
+			}
+		},
 		"cottontail_doe": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:doe_cottontail"
-            }
-        },
-		 "cottontail_buck": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			}
+		},
+		"cottontail_buck": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:buck_cottontail"
-            }
-        }  
-    },
-	"requirements": [["cottontail_buck", "cottontail_doe", "cottontail_kit"]]
-
+			}
+		},
+		"cottontail_kit1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:kit_cottontail"
+			}
+		},
+		"cottontail_doe1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:doe_cottontail"
+			}
+		},
+		"cottontail_buck1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:buck_cottontail"
+			}
+		},
+		"cottontail_kit2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:kit_cottontail"
+			}
+		},
+		"cottontail_doe2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:doe_cottontail"
+			}
+		},
+		"cottontail_buck2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:buck_cottontail"
+			}
+		},
+		"cottontail_kit3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:kit_cottontail"
+			}
+		},
+		"cottontail_doe3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:doe_cottontail"
+			}
+		},
+		"cottontail_buck3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:buck_cottontail"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"cottontail_buck",
+			"cottontail_doe",
+			"cottontail_kit",
+			"cottontail_buck1",
+			"cottontail_doe1",
+			"cottontail_kit1",
+			"cottontail_buck2",
+			"cottontail_doe2",
+			"cottontail_kit2",
+			"cottontail_buck3",
+			"cottontail_doe3",
+			"cottontail_kit3"
+		]
+	]
 }

@@ -1,39 +1,140 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_peachick_opal"
-        },
-        "title": {
-            "translate": "advancements.animania.opal.title"
-        },
-        "description": {
-            "translate": "advancements.animania.opal.description"
-        }
-    },
-    "parent": "animania:animania/feed_peacock_charcoal",
-    "criteria": {
-        "opal_peachick": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_peachick_opal"
+		},
+		"title": {
+			"translate": "advancements.animania.opal.title"
+		},
+		"description": {
+			"translate": "advancements.animania.opal.description"
+		}
+	},
+	"parent": "animania:animania/feed_peacock_charcoal",
+	"criteria": {
+		"opal_peachick": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat_seeds"
+				},
 				"entity": "animania:peachick_opal"
-            }
-        },
+			}
+		},
 		"opal_peahen": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat_seeds"
+				},
 				"entity": "animania:peahen_opal"
-            }
-        },
-		 "opal_peacock": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
+			}
+		},
+		"opal_peacock": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat_seeds"
+				},
 				"entity": "animania:peacock_opal"
-            }
-        }  
-    },
-	"requirements": [["opal_peacock", "opal_peahen", "opal_peachick"]]
-
+			}
+		},
+		"opal_peachick1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:melon_seeds"
+				},
+				"entity": "animania:peachick_opal"
+			}
+		},
+		"opal_peahen1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:melon_seeds"
+				},
+				"entity": "animania:peahen_opal"
+			}
+		},
+		"opal_peacock1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:melon_seeds"
+				},
+				"entity": "animania:peacock_opal"
+			}
+		},
+		"opal_peachick2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot_seeds"
+				},
+				"entity": "animania:peachick_opal"
+			}
+		},
+		"opal_peahen2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot_seeds"
+				},
+				"entity": "animania:peahen_opal"
+			}
+		},
+		"opal_peacock2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot_seeds"
+				},
+				"entity": "animania:peacock_opal"
+			}
+		},
+		"opal_peachick3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:pumpkin_seeds"
+				},
+				"entity": "animania:peachick_opal"
+			}
+		},
+		"opal_peahen3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:pumpkin_seeds"
+				},
+				"entity": "animania:peahen_opal"
+			}
+		},
+		"opal_peacock3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:pumpkin_seeds"
+				},
+				"entity": "animania:peacock_opal"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"opal_peacock",
+			"opal_peahen",
+			"opal_peachick",
+			"opal_peacock1",
+			"opal_peahen1",
+			"opal_peachick1",
+			"opal_peacock2",
+			"opal_peahen2",
+			"opal_peachick2",
+			"opal_peacock3",
+			"opal_peahen3",
+			"opal_peachick3"
+		]
+	]
 }

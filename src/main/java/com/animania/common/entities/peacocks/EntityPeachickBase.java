@@ -31,6 +31,12 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 	{
 		return true;
 	}
+	
+	@Override
+	protected boolean canDespawn()
+	{
+		return false;
+	}
 
 	@Override
 	protected void entityInit()

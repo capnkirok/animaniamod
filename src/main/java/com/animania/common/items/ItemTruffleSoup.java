@@ -36,42 +36,44 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 		this.setMaxStackSize(1);
 		this.setContainerItem(Items.BOWL);
 	}
-	
+
 	@Override
 	@Nullable
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-		
+
 		if(entityLiving instanceof EntityPlayer)
 			((EntityPlayer)entityLiving).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
+
+		EntityPlayer entityplayer = (EntityPlayer)entityLiving;
+		if (entityplayer.getFoodStats() != null) {
+			entityplayer.getFoodStats().addStats(this, stack);
+		}
+		worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+		this.onFoodEaten(stack, worldIn, entityplayer);
+		entityplayer.addStat(StatList.getObjectUseStats(this));
+		
+		if (entityplayer instanceof EntityPlayerMP)
+		{
+			CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP)entityplayer, stack);
+		}
 		
 		if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
-        {
-            stack.shrink(1);
-        }
-		
-		EntityPlayer entityplayer = (EntityPlayer)entityLiving;
-        entityplayer.getFoodStats().addStats(this, stack);
-        worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-        this.onFoodEaten(stack, worldIn, entityplayer);
-        entityplayer.addStat(StatList.getObjectUseStats(this));
+		{
+			stack.shrink(1);
+		}
 
-        if (entityplayer instanceof EntityPlayerMP)
-        {
-            CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP)entityplayer, stack);
-        }
-		
 		return stack.getCount() <= 0 ? new ItemStack(Items.BOWL) : stack;
 	}
-	
+
 	@Override
 	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
 	{
-		
+
 	}
-	
+
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-    {
-        playerIn.setActiveHand(hand);
-        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
-    }
+	{
+		playerIn.setActiveHand(hand);
+		return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+	}
 }

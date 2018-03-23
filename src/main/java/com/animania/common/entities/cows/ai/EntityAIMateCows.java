@@ -49,19 +49,34 @@ public class EntityAIMateCows extends EntityAIBase
 				this.delayCounter = 0;
 				return false;
 			}
-			
+
+			EntityAnimaniaCow thisAnimal = (EntityAnimaniaCow) this.theAnimal;
+
 			if (AnimaniaConfig.careAndFeeding.manualBreeding) {
-				if (this.theAnimal instanceof EntityAnimaniaCow) {
-					EntityAnimaniaCow thisAnimal = (EntityAnimaniaCow) this.theAnimal;
-				
-					if (!thisAnimal.getHandFed()) {
-						this.delayCounter = 0;
-						return false;
+				if (!thisAnimal.getHandFed()) {
+					this.delayCounter = 0;
+					return false;
+				}
+			} else {
+
+				List list = this.theWorld.loadedEntityList;
+
+				int cowCount = 0;
+				int num = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof EntityAnimaniaCow) {
+						num++;
 					}
-					
+				}
+				cowCount = num;
+
+				if (cowCount > AnimaniaConfig.spawn.spawnLimitCows && !thisAnimal.getHandFed()) {
+					this.delayCounter = 0;
+					return false;
 				}
 			}
-			
+
+
 			this.targetMate = this.getNearbyMate();
 
 			Random rand = new Random();
@@ -144,7 +159,7 @@ public class EntityAIMateCows extends EntityAIBase
 							entity.setPregnant(true);
 							entity.setFertile(false);
 							entity.setHandFed(false);
-							
+
 							delayCounter = 0;
 							return (EntityAnimal) entity;
 						} else if (allowBreeding) {
@@ -163,14 +178,14 @@ public class EntityAIMateCows extends EntityAIBase
 
 				for (int k = 0; k <= entities.size() - 1; k++) {
 					EntityCowBase entity = (EntityCowBase)entities.get(k); 
-					
+
 					boolean allowBreeding = true;
 					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
 						allowBreeding = false;
 					}
 
 					this.courtshipTimer--;
-					
+
 					if (entity.getMateUniqueId() == null && this.courtshipTimer < 0 && entity.getFertile() && !entity.getPregnant() && allowBreeding) {
 
 						((EntityBullBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());

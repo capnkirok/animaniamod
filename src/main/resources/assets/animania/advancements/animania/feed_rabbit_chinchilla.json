@@ -1,39 +1,140 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_kit_chinchilla"
-        },
-        "title": {
-            "translate": "advancements.animania.chinchilla.title"
-        },
-        "description": {
-            "translate": "advancements.animania.chinchilla.description"
-        }
-    },
-    "parent": "animania:animania/rabbits",
-    "criteria": {
-        "chinchilla_kit": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_kit_chinchilla"
+		},
+		"title": {
+			"translate": "advancements.animania.chinchilla.title"
+		},
+		"description": {
+			"translate": "advancements.animania.chinchilla.description"
+		}
+	},
+	"parent": "animania:animania/rabbits",
+	"criteria": {
+		"chinchilla_kit": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:kit_chinchilla"
-            }
-        },
+			}
+		},
 		"chinchilla_doe": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:doe_chinchilla"
-            }
-        },
-		 "chinchilla_buck": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			}
+		},
+		"chinchilla_buck": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:buck_chinchilla"
-            }
-        }  
-    },
-	"requirements": [["chinchilla_buck", "chinchilla_doe", "chinchilla_kit"]]
-
+			}
+		},
+		"chinchilla_kit1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:kit_chinchilla"
+			}
+		},
+		"chinchilla_doe1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:doe_chinchilla"
+			}
+		},
+		"chinchilla_buck1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:buck_chinchilla"
+			}
+		},
+		"chinchilla_kit2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:kit_chinchilla"
+			}
+		},
+		"chinchilla_doe2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:doe_chinchilla"
+			}
+		},
+		"chinchilla_buck2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:buck_chinchilla"
+			}
+		},
+		"chinchilla_kit3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:kit_chinchilla"
+			}
+		},
+		"chinchilla_doe3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:doe_chinchilla"
+			}
+		},
+		"chinchilla_buck3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:buck_chinchilla"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"chinchilla_buck",
+			"chinchilla_doe",
+			"chinchilla_kit",
+			"chinchilla_buck1",
+			"chinchilla_doe1",
+			"chinchilla_kit1",
+			"chinchilla_buck2",
+			"chinchilla_doe2",
+			"chinchilla_kit2",
+			"chinchilla_buck3",
+			"chinchilla_doe3",
+			"chinchilla_kit3"
+		]
+	]
 }

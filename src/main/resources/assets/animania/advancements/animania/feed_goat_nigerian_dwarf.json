@@ -15,25 +15,126 @@
         "nigerian_dwarf_kid": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:kid_nigerian_dwarf"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:kid_nigerian_dwarf"
             }
         },
-		"nigerian_dwarf_doe": {
+        "nigerian_dwarf_doe": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:doe_nigerian_dwarf"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:doe_nigerian_dwarf"
             }
         },
-		 "nigerian_dwarf_buck": {
+        "nigerian_dwarf_buck": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:buck_nigerian_dwarf"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:buck_nigerian_dwarf"
             }
-        }  
+        },
+        "nigerian_dwarf_kid1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:kid_nigerian_dwarf"
+            }
+        },
+        "nigerian_dwarf_doe1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:doe_nigerian_dwarf"
+            }
+        },
+        "nigerian_dwarf_buck1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:buck_nigerian_dwarf"
+            }
+        },
+        "nigerian_dwarf_kid2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:kid_nigerian_dwarf"
+            }
+        },
+        "nigerian_dwarf_doe2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:doe_nigerian_dwarf"
+            }
+        },
+        "nigerian_dwarf_buck2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:buck_nigerian_dwarf"
+            }
+        },
+        "nigerian_dwarf_kid3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:kid_nigerian_dwarf"
+            }
+        },
+        "nigerian_dwarf_doe3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:doe_nigerian_dwarf"
+            }
+        },
+        "nigerian_dwarf_buck3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:buck_nigerian_dwarf"
+            }
+        }
     },
-	"requirements": [["nigerian_dwarf_buck", "nigerian_dwarf_doe", "nigerian_dwarf_kid"]]
-
+    "requirements": [
+        [
+            "nigerian_dwarf_buck",
+            "nigerian_dwarf_doe",
+            "nigerian_dwarf_kid",
+            "nigerian_dwarf_buck1",
+            "nigerian_dwarf_doe1",
+            "nigerian_dwarf_kid1",
+            "nigerian_dwarf_buck2",
+            "nigerian_dwarf_doe2",
+            "nigerian_dwarf_kid2",
+            "nigerian_dwarf_buck3",
+            "nigerian_dwarf_doe3",
+            "nigerian_dwarf_kid3"
+        ]
+    ]
 }

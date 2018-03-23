@@ -32,7 +32,7 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 			new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir +"hamster_" + "tarou.png"), 
 			new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir +"hamster_" + "white.png"), 
 			new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir +"hamster_" + "gold.png")}; 
-	
+
 	private static final ResourceLocation[] HAMSTER_TEXTURES_BLINK = new ResourceLocation[] { 
 			new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "black_blink.png"), 
 			new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir +"hamster_" + "brown_blink.png"), 
@@ -53,6 +53,7 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 		this.modelHamsterMain = new ModelHamster();
 		this.scale = 0.5F;
 		this.shadowSize = 0.15F;
+
 	}
 
 	protected void preRenderScale(EntityHamster entityliving, float f) {
@@ -64,16 +65,17 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 				EntityPlayer player = (EntityPlayer) entityliving.getRidingEntity();
 				entityliving.rotationYaw = player.rotationYaw;
 
-				if (player.isSneaking())
+				if (player.isSneaking()) {
 					GlStateManager.translate(-0.85F, entityliving.height - .07F, -0.1F);
-				else
-					GlStateManager.translate(-0.85F, entityliving.height - .17F, -0.1F);
 
+				} else {
+					GlStateManager.translate(-0.85F, entityliving.height - .17F, -0.1F);
+				}
 			}
 	}
 
-	
-	
+
+
 	@Override
 	protected void preRenderCallback(EntityHamster entityliving, float f) {
 		preRenderScale((EntityHamster)entityliving, f);
@@ -83,7 +85,7 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 	protected ResourceLocation getEntityTexture(EntityHamster entity) {
 
 		int blinkTimer = entity.blinkTimer;
-		
+
 		if (blinkTimer < 5 && blinkTimer >= 0)
 			return RenderHamster.HAMSTER_TEXTURES_BLINK[entity.getColorNumber()];
 		else

@@ -638,10 +638,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 			if (this.getMateUniqueId() != null) 
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
-
-			if (this.getHasKids())
-				probeInfo.text(I18n.translateToLocal("text.waila.milkable"));
-
+			
 			if (this.getFertile() && !this.getPregnant())
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.fertile1"));

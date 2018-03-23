@@ -15,25 +15,156 @@
         "hampshire_piglet": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:piglet_hampshire"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:piglet_hampshire"
             }
         },
-		"hampshire_sow": {
+        "hampshire_sow": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:sow_hampshire"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:sow_hampshire"
             }
         },
-		 "hampshire_hog": {
+        "hampshire_hog": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:hog_hampshire"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:hog_hampshire"
             }
-        }  
+        },
+        "hampshire_piglet1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:piglet_hampshire"
+            }
+        },
+        "hampshire_sow1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:sow_hampshire"
+            }
+        },
+        "hampshire_hog1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:hog_hampshire"
+            }
+        },
+        "hampshire_piglet2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:piglet_hampshire"
+            }
+        },
+        "hampshire_sow2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:sow_hampshire"
+            }
+        },
+        "hampshire_hog2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:hog_hampshire"
+            }
+        },
+        "hampshire_piglet3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:piglet_hampshire"
+            }
+        },
+        "hampshire_sow3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:sow_hampshire"
+            }
+        },
+        "hampshire_hog3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:hog_hampshire"
+            }
+        },
+        "hampshire_piglet4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:piglet_hampshire"
+            }
+        },
+        "hampshire_sow4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:sow_hampshire"
+            }
+        },
+        "hampshire_hog4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:hog_hampshire"
+            }
+        }
     },
-	"requirements": [["hampshire_hog", "hampshire_sow", "hampshire_piglet"]]
-
+    "requirements": [
+        [
+            "hampshire_hog",
+            "hampshire_sow",
+            "hampshire_piglet",
+            "hampshire_hog1",
+            "hampshire_sow1",
+            "hampshire_piglet1",
+            "hampshire_hog2",
+            "hampshire_sow2",
+            "hampshire_piglet2",
+            "hampshire_hog3",
+            "hampshire_sow3",
+            "hampshire_piglet3",
+            "hampshire_hog4",
+            "hampshire_sow4",
+            "hampshire_piglet4"
+        ]
+    ]
 }

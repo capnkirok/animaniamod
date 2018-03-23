@@ -272,8 +272,6 @@ public class EventReplaceSpawnAnimals
 			if (peacockCount >= AnimaniaConfig.spawn.spawnLimitPeacocks && worldIn.getClosestPlayerToEntity(event.getEntity(), 5) == null) {
 				if (!checkTamed.hasCustomName() && checkTamed.getAge() == 0) {
 					event.setCanceled(true);
-					event.isCanceled();
-					event.getEntity().setDead();
 				}
 			}
 

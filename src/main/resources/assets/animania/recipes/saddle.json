@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "minecraft:saddle",
+    "data": 0
+  },
+  "pattern": [
+    "lll",
+    "iwi",
+    "   "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "l": {
+      "ore": "leather",
+      "type": "forge:ore_dict"
+    },
+    "w": {
+      "ore": "blockWool",
+      "type": "forge:ore_dict"
+   },
+    "i": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

@@ -15,25 +15,126 @@
         "wyandotte_chick": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:chick_wyandotte"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:chick_wyandotte"
             }
         },
-		"wyandotte_hen": {
+        "wyandotte_hen": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:hen_wyandotte"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:hen_wyandotte"
             }
         },
-		 "wyandotte_rooster": {
+        "wyandotte_rooster": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:rooster_wyandotte"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:rooster_wyandotte"
             }
-        }  
+        },
+        "wyandotte_chick1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:chick_wyandotte"
+            }
+        },
+        "wyandotte_hen1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:hen_wyandotte"
+            }
+        },
+        "wyandotte_rooster1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:rooster_wyandotte"
+            }
+        },
+        "wyandotte_chick2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:chick_wyandotte"
+            }
+        },
+        "wyandotte_hen2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:hen_wyandotte"
+            }
+        },
+        "wyandotte_rooster2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:rooster_wyandotte"
+            }
+        },
+        "wyandotte_chick3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:chick_wyandotte"
+            }
+        },
+        "wyandotte_hen3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:hen_wyandotte"
+            }
+        },
+        "wyandotte_rooster3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:rooster_wyandotte"
+            }
+        }
     },
-	"requirements": [["wyandotte_rooster", "wyandotte_hen", "wyandotte_chick"]]
-
+    "requirements": [
+        [
+            "wyandotte_rooster",
+            "wyandotte_hen",
+            "wyandotte_chick",
+            "wyandotte_rooster1",
+            "wyandotte_hen1",
+            "wyandotte_chick1",
+            "wyandotte_rooster2",
+            "wyandotte_hen2",
+            "wyandotte_chick2",
+            "wyandotte_rooster3",
+            "wyandotte_hen3",
+            "wyandotte_chick3"
+        ]
+    ]
 }

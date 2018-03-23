@@ -18,7 +18,6 @@ public class EntityAISwimmingCows extends EntityAIBase
         ((PathNavigateGround) entitylivingIn.getNavigator()).setCanSwim(true);
     }
 
-  
     @Override
     public boolean shouldExecute() {
         return this.theEntity.isInWater() || this.theEntity.isInLava();

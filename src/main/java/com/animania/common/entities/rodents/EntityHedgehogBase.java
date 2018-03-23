@@ -87,7 +87,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> AGE = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
-	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.CARROT, Items.BEETROOT, ItemHandler.brownEgg, Items.EGG });
+	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.CARROT, Items.BEETROOT, ItemHandler.brownEgg, Items.EGG, ItemHandler.peacockEggBlue, ItemHandler.peacockEggWhite });
 
 	protected int fedTimer;
 	protected int wateredTimer;

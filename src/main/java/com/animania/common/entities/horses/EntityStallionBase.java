@@ -45,7 +45,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	private boolean boosting;
 	private int boostTime;
 	private int totalBoostTime;
-	
+
 	public EntityStallionBase(World worldIn)
 	{
 		super(worldIn);
@@ -56,7 +56,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		//this.tasks.addTask(1, new EntityAIFollowMateHorses(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
 	}
-	
+
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
@@ -64,24 +64,34 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
 	}
-	
+
 	@Override
 	public double getMountedYOffset()
 	{
 		return (double)this.height * 0.72D;
 	}
-	
+
+	@Override
+	public void openGUI(EntityPlayer playerEntity)
+	{
+		if (!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)))
+		{
+			this.horseChest.setCustomName(this.getName());
+			playerEntity.openGuiHorseInventory(this, this.horseChest);
+		}
+	}
+
 	public int getVerticalFaceSpeed()
 	{
 		return super.getVerticalFaceSpeed();
 	}
-	
+
 	@Nullable
 	public Entity getControllingPassenger()
 	{
 		return this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
 	}
-	
+
 	public boolean boost()
 	{
 		if (this.boosting)
@@ -107,12 +117,12 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		}
 		else
 		{
-			
+
 			return true;
-	
+
 		}
 	}
-	
+
 	@Override
 	public void travel(float strafe, float forward, float friction)
 	{
@@ -174,7 +184,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		}
 	}
 
-	
+
 
 	@Override
 	public void setInLove(EntityPlayer player)
@@ -274,15 +284,15 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 
 		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 160) - p_70894_1_) / 4.0F));
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationAngleX(float p_70890_1_)
 	{
-		
+
 		if (this.isBeingRidden()) {
 			return 0;
 		} 
-		
+
 		if (this.eatTimer > 4 && this.eatTimer <= 156)
 		{
 			float f = ((float)(this.eatTimer - 4) - p_70890_1_) / 80.0F;
@@ -293,7 +303,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 			return this.eatTimer > 0 ? ((float)Math.PI / 5F) : this.rotationPitch * 0.017453292F;
 		}
 	}
-	
+
 	public ResourceLocation getResourceLocation()
 	{
 		return resourceLocation;
@@ -309,18 +319,18 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		if (this.getAge() == 0) {
 			this.setAge(1);
 		}
-		
+
 		if (this.isBeingRidden() && !this.isAIDisabled()) {
 			this.setNoAI(true);
 		} else {
 			this.setNoAI(false);
 		}
-		
+
 		if (this.world.isRemote)
 		{
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 		}
-		
+
 		if (this.getColorNumber() > 5) {
 			this.setColorNumber(0);
 		}
@@ -430,7 +440,18 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 				this.setInLove(player);
 				return true;
 			}
-		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
+		} else if (!this.isChild() && this.isHorseSaddled()) {
+			
+			if (player.isSneaking())
+			{
+				this.openGUI(player);
+				return true;
+			} else {
+				return super.processInteract(player, hand);
+			}
+			
+		}
+		else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
 			this.mountTo(player);
 			//player.addStat(AnimaniaAchievements.Horseriding, 1);
 			return true;
@@ -446,5 +467,5 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	}
 
 
-	
+
 }

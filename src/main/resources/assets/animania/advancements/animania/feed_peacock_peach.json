@@ -15,25 +15,126 @@
         "peach_peachick": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:peachick_peach"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:peachick_peach"
             }
         },
-		"peach_peahen": {
+        "peach_peahen": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:peahen_peach"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:peahen_peach"
             }
         },
-		 "peach_peacock": {
+        "peach_peacock": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:peacock_peach"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:peacock_peach"
             }
-        }  
+        },
+        "peach_peachick1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:peachick_peach"
+            }
+        },
+        "peach_peahen1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:peahen_peach"
+            }
+        },
+        "peach_peacock1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:peacock_peach"
+            }
+        },
+        "peach_peachick2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:peachick_peach"
+            }
+        },
+        "peach_peahen2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:peahen_peach"
+            }
+        },
+        "peach_peacock2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:peacock_peach"
+            }
+        },
+        "peach_peachick3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:peachick_peach"
+            }
+        },
+        "peach_peahen3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:peahen_peach"
+            }
+        },
+        "peach_peacock3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:peacock_peach"
+            }
+        }
     },
-	"requirements": [["peach_peacock", "peach_peahen", "peach_peachick"]]
-
+    "requirements": [
+        [
+            "peach_peacock",
+            "peach_peahen",
+            "peach_peachick",
+            "peach_peacock1",
+            "peach_peahen1",
+            "peach_peachick1",
+            "peach_peacock2",
+            "peach_peahen2",
+            "peach_peachick2",
+            "peach_peacock3",
+            "peach_peahen3",
+            "peach_peachick3"
+        ]
+    ]
 }

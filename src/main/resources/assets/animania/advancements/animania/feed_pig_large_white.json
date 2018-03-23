@@ -11,29 +11,160 @@
         }
     },
     "parent": "animania:animania/feed_pig_large_black",
-    "criteria": {
+  "criteria": {
         "large_white_piglet": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:piglet_large_white"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:piglet_large_white"
             }
         },
-		"large_white_sow": {
+        "large_white_sow": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:sow_large_white"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:sow_large_white"
             }
         },
-		 "large_white_hog": {
+        "large_white_hog": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:hog_large_white"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:hog_large_white"
             }
-        }  
+        },
+        "large_white_piglet1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:piglet_large_white"
+            }
+        },
+        "large_white_sow1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:sow_large_white"
+            }
+        },
+        "large_white_hog1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:hog_large_white"
+            }
+        },
+        "large_white_piglet2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:piglet_large_white"
+            }
+        },
+        "large_white_sow2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:sow_large_white"
+            }
+        },
+        "large_white_hog2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:hog_large_white"
+            }
+        },
+        "large_white_piglet3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:piglet_large_white"
+            }
+        },
+        "large_white_sow3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:sow_large_white"
+            }
+        },
+        "large_white_hog3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:hog_large_white"
+            }
+        },
+        "large_white_piglet4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:piglet_large_white"
+            }
+        },
+        "large_white_sow4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:sow_large_white"
+            }
+        },
+        "large_white_hog4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:hog_large_white"
+            }
+        }
     },
-	"requirements": [["large_white_hog", "large_white_sow", "large_white_piglet"]]
-
+    "requirements": [
+        [
+            "large_white_hog",
+            "large_white_sow",
+            "large_white_piglet",
+            "large_white_hog1",
+            "large_white_sow1",
+            "large_white_piglet1",
+            "large_white_hog2",
+            "large_white_sow2",
+            "large_white_piglet2",
+            "large_white_hog3",
+            "large_white_sow3",
+            "large_white_piglet3",
+            "large_white_hog4",
+            "large_white_sow4",
+            "large_white_piglet4"
+        ]
+    ]
 }

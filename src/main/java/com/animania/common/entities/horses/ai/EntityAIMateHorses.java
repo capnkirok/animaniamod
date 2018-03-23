@@ -49,19 +49,33 @@ public class EntityAIMateHorses extends EntityAIBase
 				this.delayCounter = 0;
 				return false;
 			}
-			
+
+			EntityAnimaniaHorse thisAnimal = (EntityAnimaniaHorse) this.theAnimal;
+
 			if (AnimaniaConfig.careAndFeeding.manualBreeding) {
-				if (this.theAnimal instanceof EntityAnimaniaHorse) {
-					EntityAnimaniaHorse thisAnimal = (EntityAnimaniaHorse) this.theAnimal;
-				
-					if (!thisAnimal.getHandFed()) {
-						this.delayCounter = 0;
-						return false;
+				if (!thisAnimal.getHandFed()) {
+					this.delayCounter = 0;
+					return false;
+				}
+			} else {
+
+				List list = this.theWorld.loadedEntityList;
+
+				int cowCount = 0;
+				int num = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof EntityAnimaniaHorse) {
+						num++;
 					}
-					
+				}
+				cowCount = num;
+
+				if (cowCount > AnimaniaConfig.spawn.spawnLimitHorses && !thisAnimal.getHandFed()) {
+					this.delayCounter = 0;
+					return false;
 				}
 			}
-			
+
 			this.targetMate = this.getNearbyMate();
 
 			Random rand = new Random();
@@ -111,7 +125,7 @@ public class EntityAIMateHorses extends EntityAIBase
 
 	private EntityAnimal getNearbyMate() {
 
-	
+
 		if (this.theAnimal instanceof EntityStallionBase) {
 
 			UUID mateID = null;
@@ -123,10 +137,10 @@ public class EntityAIMateHorses extends EntityAIBase
 
 			if (mateID != null) {
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityMareBase.class, 3, this.theAnimal.world, this.theAnimal);
-				
+
 				for (int k = 0; k <= entities.size() - 1; k++) {
 					EntityMareBase entity = (EntityMareBase)entities.get(k); 
-					
+
 					boolean allowBreeding = true;
 					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
 						allowBreeding = false;
@@ -151,7 +165,7 @@ public class EntityAIMateHorses extends EntityAIBase
 							this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
 							entity.getLookHelper().setLookPositionWithEntity(this.theAnimal, 10.0F, entity.getVerticalFaceSpeed());
 							entity.getNavigator().tryMoveToEntityLiving(this.theAnimal, this.moveSpeed);
-							
+
 							return null;
 						}
 					}
@@ -161,7 +175,7 @@ public class EntityAIMateHorses extends EntityAIBase
 
 				for (int k = 0; k <= entities.size() - 1; k++) {
 					EntityMareBase entity = (EntityMareBase)entities.get(k); 
-					
+
 					boolean allowBreeding = true;
 					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
 						allowBreeding = false;

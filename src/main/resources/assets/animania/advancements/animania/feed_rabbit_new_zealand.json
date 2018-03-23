@@ -1,39 +1,140 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_kit_newzealand"
-        },
-        "title": {
-            "translate": "advancements.animania.new_zealand.title"
-        },
-        "description": {
-            "translate": "advancements.animania.new_zealand.description"
-        }
-    },
-    "parent": "animania:animania/feed_rabbit_lop",
-    "criteria": {
-        "new_zealand_kit": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_kit_newzealand"
+		},
+		"title": {
+			"translate": "advancements.animania.new_zealand.title"
+		},
+		"description": {
+			"translate": "advancements.animania.new_zealand.description"
+		}
+	},
+	"parent": "animania:animania/feed_rabbit_lop",
+	"criteria": {
+		"new_zealand_kit": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:kit_new_zealand"
-            }
-        },
+			}
+		},
 		"new_zealand_doe": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:doe_new_zealand"
-            }
-        },
-		 "new_zealand_buck": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			}
+		},
+		"new_zealand_buck": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:buck_new_zealand"
-            }
-        }  
-    },
-	"requirements": [["new_zealand_buck", "new_zealand_doe", "new_zealand_kit"]]
-
+			}
+		},
+		"new_zealand_kit1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:kit_new_zealand"
+			}
+		},
+		"new_zealand_doe1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:doe_new_zealand"
+			}
+		},
+		"new_zealand_buck1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:buck_new_zealand"
+			}
+		},
+		"new_zealand_kit2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:kit_new_zealand"
+			}
+		},
+		"new_zealand_doe2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:doe_new_zealand"
+			}
+		},
+		"new_zealand_buck2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:buck_new_zealand"
+			}
+		},
+		"new_zealand_kit3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:kit_new_zealand"
+			}
+		},
+		"new_zealand_doe3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:doe_new_zealand"
+			}
+		},
+		"new_zealand_buck3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:buck_new_zealand"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"new_zealand_buck",
+			"new_zealand_doe",
+			"new_zealand_kit",
+			"new_zealand_buck1",
+			"new_zealand_doe1",
+			"new_zealand_kit1",
+			"new_zealand_buck2",
+			"new_zealand_doe2",
+			"new_zealand_kit2",
+			"new_zealand_buck3",
+			"new_zealand_doe3",
+			"new_zealand_kit3"
+		]
+	]
 }

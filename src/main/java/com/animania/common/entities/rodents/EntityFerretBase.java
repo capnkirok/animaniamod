@@ -88,7 +88,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> AGE = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
-	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.MUTTON, Items.EGG, ItemHandler.brownEgg, Items.CHICKEN, ItemHandler.rawWyandotteChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken, ItemHandler.rawPrimeChicken });
+	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.MUTTON, Items.EGG, ItemHandler.rawRabbit, ItemHandler.rawMutton, ItemHandler.brownEgg, Items.RABBIT, Items.CHICKEN, ItemHandler.rawWyandotteChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken, ItemHandler.rawPrimeChicken });
 	protected int fedTimer;
 	protected int wateredTimer;
 	protected int happyTimer;

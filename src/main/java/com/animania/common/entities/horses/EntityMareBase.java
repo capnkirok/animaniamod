@@ -199,6 +199,51 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		}
 	}
 
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	{
+
+		ItemStack stack = player.getHeldItem(hand);
+
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
+			{
+				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
+				{
+					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+				}
+				else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
+				{
+					player.dropItem(new ItemStack(Items.BUCKET), false);
+				}
+
+				if (this.entityAIEatGrass != null) {
+					this.entityAIEatGrass.startExecuting();
+					eatTimer = 40;
+				}
+				this.setWatered(true);
+				this.setInLove(player);
+				return true;
+			}
+		} else if (!this.isChild() && this.isHorseSaddled()) {
+
+			if (player.isSneaking())
+			{
+				this.openGUI(player);
+				return true;
+			} else {
+				return super.processInteract(player, hand);
+			}
+
+		}
+		else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
+			this.mountTo(player);
+			//player.addStat(AnimaniaAchievements.Horseriding, 1);
+			return true;
+		} else {
+			return super.processInteract(player, hand);
+		}
+	}
+
 	public void setGestation(int gestation)
 	{
 		this.dataManager.set(EntityMareBase.GESTATION_TIMER, Integer.valueOf(gestation));
@@ -256,6 +301,16 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public double getMountedYOffset()
 	{
 		return (double)this.height * 0.60D;
+	}
+
+	@Override
+	public void openGUI(EntityPlayer playerEntity)
+	{
+		if (!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)))
+		{
+			this.horseChest.setCustomName(this.getName());
+			playerEntity.openGuiHorseInventory(this, this.horseChest);
+		}
 	}
 
 
