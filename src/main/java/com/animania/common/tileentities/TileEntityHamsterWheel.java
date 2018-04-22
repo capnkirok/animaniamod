@@ -50,6 +50,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	private ItemHandlerHamsterWheel itemHandler;
 	private int timer;
 	private int energy;
+	private int nbtSyncTimer;
 
 	public TileEntityHamsterWheel()
 	{
@@ -337,9 +338,14 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	@Override
 	public void markDirty()
 	{
-		super.markDirty();
-
-		AnimaniaHelper.sendTileEntityUpdate(this);
+		
+		//Added nbtSyncTimer to lower network usage
+		nbtSyncTimer++;
+		if (nbtSyncTimer > 50) {
+			super.markDirty();
+			AnimaniaHelper.sendTileEntityUpdate(this);
+			nbtSyncTimer = 0;
+		}
 	}
 
 	@Override

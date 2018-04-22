@@ -316,23 +316,13 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		{
 			return false;
 		}
-		else
+		else if (this.isHorseSaddled())
 		{
 			return true;
-			/*
-			EntityPlayer entityplayer = (EntityPlayer)entity;
-			ItemStack itemstack = entityplayer.getHeldItemMainhand();
-
-			if (itemstack != null && itemstack.getItem() == ItemHandler.ridingCrop)
-			{
-				return true;
-			}
-			else
-			{
-				itemstack = entityplayer.getHeldItemOffhand();
-				return itemstack != null && itemstack.getItem() == ItemHandler.ridingCrop;
-			}
-			 */
+		}
+		else
+		{
+			return false;
 		}
 	}
 
@@ -341,7 +331,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
 
-		if (this.isBeingRidden() && this.canBeSteered())
+		if (this.isHorseSaddled() && this.isBeingRidden() && this.canBeSteered())
 		{
 			this.rotationYaw = entity.rotationYaw;
 			this.prevRotationYaw = this.rotationYaw;

@@ -26,7 +26,7 @@ public class EntityAnimaniaAvoidWater extends EntityAIBase
 	public boolean shouldExecute()
 	{
 		delayCounter++;
-		if (delayCounter > 40) {
+		if (delayCounter > 120) {
 			BlockPos currentpos1 = new BlockPos(idleEntity.posX, idleEntity.posY, idleEntity.posZ);
 			BlockPos currentpos2 = new BlockPos(idleEntity.posX, idleEntity.posY - 1, idleEntity.posZ);
 			Block poschk1 = idleEntity.world.getBlockState(currentpos1).getBlock();
@@ -42,6 +42,7 @@ public class EntityAnimaniaAvoidWater extends EntityAIBase
 					return false;
 				}
 			}
+			delayCounter = 0;
 		}
 		return false;
 	}

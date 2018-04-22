@@ -11,16 +11,17 @@ public class EntityLambSuffolk extends EntityLambBase
 		this.sheepType = SheepType.SUFFOLK;
 	}
 	
+
 	@Override
 	public int getPrimaryEggColor()
 	{
-		return 16119026;
+		return 4336416;
 	}
 
 	@Override
 	public int getSecondaryEggColor()
 	{
-		return 2302755;
+		return 2757652;
 	}
 
 }
