@@ -41,7 +41,7 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 	@Nullable
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
 
-		if(entityLiving instanceof EntityPlayer)
+		if(entityLiving instanceof EntityPlayer && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 			((EntityPlayer)entityLiving).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
 
 		EntityPlayer entityplayer = (EntityPlayer)entityLiving;

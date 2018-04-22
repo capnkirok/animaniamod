@@ -126,7 +126,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	{
 		return false;
 	}
-
+	
 	@Override
 	public void setPosition(double x, double y, double z)
 	{
@@ -198,10 +198,10 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 					f = (float) ((double) f - 0.42D);
 
 					Vec3d vec3d = (new Vec3d((double) f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
-					passenger.setPosition(this.posX + vec3d.x, this.posY + (double) f1, this.posZ + vec3d.z);
+					//passenger.setPosition(this.posX + vec3d.x, this.posY + (double) f1, this.posZ + vec3d.z);
 					
 					
-					//passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
+					passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
 				}
 			}
 			else
@@ -638,7 +638,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			return true;
 
 		}
-		else if (stack != null && this.isHorseSaddled() && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild())
+		else if (stack == ItemStack.EMPTY && this.isHorseSaddled() && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild())
 
 		{
 			this.navigator.clearPath();
@@ -647,8 +647,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		}
 		else
 		{
-			return true;
-			//return super.processInteract(player, hand);
+			//return true;
+			return super.processInteract(player, hand);
 		}
 	}
 

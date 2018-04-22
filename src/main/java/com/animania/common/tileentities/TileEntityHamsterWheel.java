@@ -52,6 +52,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	private ItemHandlerHamsterWheel itemHandler;
 	private int timer;
 	private EnergyStorage power;
+	private int nbtSyncTimer;
 
 	public TileEntityHamsterWheel()
 	{
@@ -84,7 +85,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		{
 			this.power.receiveEnergy(AnimaniaConfig.gameRules.hamsterWheelRFGeneration, false);
 			timer++;
-			this.markDirty();
+			//this.markDirty();
 
 		}
 
@@ -102,7 +103,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 				isRunning = false;
 			}
 			timer = 0;
-			this.markDirty();
+			//this.markDirty();
 
 		}
 
@@ -130,7 +131,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 			}
 			this.markDirty();
 		}
-		
+
 		this.updateAnims();
 	}
 
@@ -191,8 +192,8 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 			}
 		}
 	}
-	
-	
+
+
 
 	public EnergyStorage getPower()
 	{
@@ -284,34 +285,6 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		return this.writeToNBT(new NBTTagCompound());
 	}
 
-	/*
-	@Override
-	public int getEnergyStored(EnumFacing from)
-	{
-		return energy;
-	}
-
-	@Override
-	public int getMaxEnergyStored(EnumFacing from)
-	{
-		return ;
-	}
-
-	@Override
-	public boolean canConnectEnergy(EnumFacing from)
-	{
-		return true;
-	}
-
-	@Override
-	public int extractEnergy(EnumFacing from, int maxExtract, boolean simulate)
-	{
-
-		energy -= maxExtract;
-
-		return maxExtract;
-	} */
-
 	private TileEntity getSurroundingTE(EnumFacing facing)
 	{
 		BlockPos pos = this.pos.offset(facing);
@@ -332,7 +305,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		if (capability == CapabilityEnergy.ENERGY)
 			return true;
-		
+
 		return super.hasCapability(capability, facing);
 	}
 
@@ -342,7 +315,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return (T) this.itemHandler;
-		
+
 		if (capability == CapabilityEnergy.ENERGY)
 			return (T) this.power;
 
@@ -353,9 +326,14 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	@Override
 	public void markDirty()
 	{
-		super.markDirty();
-
-		AnimaniaHelper.sendTileEntityUpdate(this);
+		
+		//Added nbtSyncTimer to lower network usage
+		nbtSyncTimer++;
+		if (nbtSyncTimer > 50) {
+			super.markDirty();
+			AnimaniaHelper.sendTileEntityUpdate(this);
+			nbtSyncTimer = 0;
+		}
 	}
 
 	@Override
@@ -363,7 +341,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	{
 		return animHandler;
 	}
-	
+
 	private void updateAnims() {
 		if (this.isWorldRemote()) {
 			if (this.isRunning

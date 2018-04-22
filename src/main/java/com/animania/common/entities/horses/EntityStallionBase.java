@@ -115,20 +115,22 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		{
 			return false;
 		}
+		else if (this.isHorseSaddled())
+		{
+			return true;
+		}
 		else
 		{
-
-			return true;
-
+			return false;
 		}
 	}
-
+	
 	@Override
 	public void travel(float strafe, float forward, float friction)
 	{
 		Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
 
-		if (this.isBeingRidden() && this.canBeSteered())
+		if (this.isHorseSaddled() && this.isBeingRidden() && this.canBeSteered())
 		{
 			this.rotationYaw = entity.rotationYaw;
 			this.prevRotationYaw = this.rotationYaw;

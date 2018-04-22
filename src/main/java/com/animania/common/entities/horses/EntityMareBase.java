@@ -348,19 +348,22 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		{
 			return false;
 		}
-		else
+		else if (this.isHorseSaddled())
 		{
 			return true;
 		}
+		else
+		{
+			return false;
+		}
 	}
-
 
 	@Override
 	public void travel(float strafe, float forward, float friction)
 	{
 		Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
 
-		if (this.isBeingRidden() && this.canBeSteered())
+		if (this.isHorseSaddled() && this.isBeingRidden() && this.canBeSteered())
 		{
 			this.rotationYaw = entity.rotationYaw;
 			this.prevRotationYaw = this.rotationYaw;
