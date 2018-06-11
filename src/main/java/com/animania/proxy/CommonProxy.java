@@ -1,5 +1,6 @@
 package com.animania.proxy;
 
+import com.animania.addons.AddonHandler;
 import com.animania.common.capabilities.CapabilitiesPlayerStorage;
 import com.animania.common.capabilities.CapabilityPlayer;
 import com.animania.common.capabilities.ICapabilityPlayer;
@@ -46,7 +47,7 @@ public class CommonProxy implements IGuiHandler
 
 		CompatHandler.preInit();
 		AdvancementHandler.registerCriteria();
-
+		AddonHandler.preInitCommon();
 	}
 
 	public void init()
@@ -56,7 +57,7 @@ public class CommonProxy implements IGuiHandler
 		DispenserHandler.init();
 		FoodValueHandler.init();
 
-
+		AddonHandler.initCommon();
 	}
 
 
