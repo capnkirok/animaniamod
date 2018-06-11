@@ -73,6 +73,14 @@ public class AddonHandler
 				e.printStackTrace();
 			}
 			
+			for(AnimaniaAddon a : loadedAddons)
+			{
+				if(a.getAddonID().equals(addon.getAddonID()))
+				{
+					throw new AddonLoadException("The addon with the id " + addon.getAddonID() + " is already installed!");
+				}
+			}
+			
 			loadedAddons.add(addon);
 			Animania.LOGGER.info("Loaded Addon " + addon.getAddonName() + " with id " + addon.getAddonID());
 		}
