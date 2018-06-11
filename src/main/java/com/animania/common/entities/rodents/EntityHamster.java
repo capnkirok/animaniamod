@@ -356,7 +356,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.setInLove(player);
 			return true;
 		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking() && delayCount == 0)
+		else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking() && delayCount == 0 && !this.isInBall())
 		{
 			delayCount = 5;
 			this.setHamsterSitting(true);
@@ -365,7 +365,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			return true;
 
 		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isHamsterSitting() && !player.isSneaking() && delayCount == 0)
+		else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isHamsterSitting() && !player.isSneaking() && delayCount == 0 && !this.isInBall())
 		{
 			delayCount = 5;
 			this.setHamsterSitting(false);
@@ -373,7 +373,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.isJumping = false;
 			return true;
 		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0)
+		else if (itemstack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0 && !this.isInBall())
 		{
 
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
@@ -388,6 +388,33 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				return true;
 			}
 
+		} 
+		
+		if (!itemstack.isEmpty() && itemstack.getItem() == ItemHandler.hamsterBallColored && !isInBall())
+		{
+			if (this.isHamsterSitting()) {
+				this.setHamsterSitting(false);
+				this.setSitting(false);
+			}
+			setInBall(true);
+			int meta = itemstack.getMetadata();
+			setBallColor(meta);
+			if (!player.isCreative())
+				itemstack.shrink(1);
+			return true;
+		}
+		else if (itemstack.isEmpty() && isInBall())
+		{
+			int color = this.getBallColor();
+			setInBall(false);
+			if (!player.isCreative())
+			{
+				if (color == 16)
+					AnimaniaHelper.addItem(player, new ItemStack(ItemHandler.hamsterBallClear));
+				else
+					AnimaniaHelper.addItem(player, new ItemStack(ItemHandler.hamsterBallColored, 1, color));
+			}
+			return true;
 		}
 
 		if (!this.getIsTamed())
@@ -403,36 +430,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		else if (!this.getIsTamed() && itemstack.getItem() == Items.LEAD)
 			return super.processInteract(player, hand);
 
-		if (!itemstack.isEmpty() && itemstack.getItem() == ItemHandler.hamsterBallColored && !isInBall())
-		{
-			setInBall(true);
-			int meta = itemstack.getMetadata();
-			setBallColor(meta);
-			if (!player.isCreative())
-				itemstack.shrink(1);
-			return true;
-		}
-		else if (!itemstack.isEmpty() && itemstack.getItem() == ItemHandler.hamsterBallClear && !isInBall())
-		{
-			setInBall(true);
-			setBallColor(16);
-			if (!player.isCreative())
-				itemstack.shrink(1);
-			return true;
-		}
-		else if (!itemstack.isEmpty() && itemstack.getItem() instanceof ItemHamsterBall && isInBall())
-		{
-			int color = this.getBallColor();
-			setInBall(false);
-			if (!player.isCreative())
-			{
-				if (color == 16)
-					AnimaniaHelper.addItem(player, new ItemStack(ItemHandler.hamsterBallClear));
-				else
-					AnimaniaHelper.addItem(player, new ItemStack(ItemHandler.hamsterBallColored, 1, color));
-			}
-			return true;
-		}
+		
 
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 		{
@@ -1169,6 +1167,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (this.getColorNumber() == 9)
 		{
 			this.setColorNumber(8);
+		} else if (this.getColorNumber() > 9) {
+			this.setColorNumber(0);
 		}
 
 		if (this.resourceLocation == null)

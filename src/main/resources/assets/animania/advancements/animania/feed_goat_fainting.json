@@ -15,25 +15,126 @@
         "fainting_kid": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:kid_fainting"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:kid_fainting"
             }
         },
-		"fainting_doe": {
+        "fainting_doe": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:doe_fainting"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:doe_fainting"
             }
         },
-		 "fainting_buck": {
+        "fainting_buck": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:buck_fainting"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:buck_fainting"
             }
-        }  
+        },
+        "fainting_kid1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:kid_fainting"
+            }
+        },
+        "fainting_doe1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:doe_fainting"
+            }
+        },
+        "fainting_buck1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:buck_fainting"
+            }
+        },
+        "fainting_kid2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:kid_fainting"
+            }
+        },
+        "fainting_doe2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:doe_fainting"
+            }
+        },
+        "fainting_buck2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:buck_fainting"
+            }
+        },
+        "fainting_kid3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:kid_fainting"
+            }
+        },
+        "fainting_doe3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:doe_fainting"
+            }
+        },
+        "fainting_buck3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:buck_fainting"
+            }
+        }
     },
-	"requirements": [["fainting_buck", "fainting_doe", "fainting_kid"]]
-
+    "requirements": [
+        [
+            "fainting_buck",
+            "fainting_doe",
+            "fainting_kid",
+            "fainting_buck1",
+            "fainting_doe1",
+            "fainting_kid1",
+            "fainting_buck2",
+            "fainting_doe2",
+            "fainting_kid2",
+            "fainting_buck3",
+            "fainting_doe3",
+            "fainting_kid3"
+        ]
+    ]
 }

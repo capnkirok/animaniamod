@@ -3,6 +3,7 @@ package com.animania.client.models;
 import com.animania.common.entities.cows.EntityCowAngus;
 import com.animania.common.entities.cows.EntityCowFriesian;
 import com.animania.common.entities.cows.EntityCowHolstein;
+import com.animania.common.entities.cows.EntityCowMooshroom;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -205,6 +206,10 @@ public class ModelCow extends ModelBase
         else if (entitylivingbaseIn instanceof EntityCowAngus) {
             this.head.rotationPointY = 6.0F + ((EntityCowAngus) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
             this.headRotationAngleX = ((EntityCowAngus) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        }
+        else if (entitylivingbaseIn instanceof EntityCowMooshroom) {
+            this.head.rotationPointY = 6.0F + ((EntityCowMooshroom) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = ((EntityCowMooshroom) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCowFriesian) {
             this.head.rotationPointY = 6.0F + ((EntityCowFriesian) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;

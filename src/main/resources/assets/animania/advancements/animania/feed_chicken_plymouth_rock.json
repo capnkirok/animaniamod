@@ -15,25 +15,126 @@
         "plymouth_rock_chick": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:chick_plymouth_rock"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:chick_plymouth_rock"
             }
         },
-		"plymouth_rock_hen": {
+        "plymouth_rock_hen": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:hen_plymouth_rock"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:hen_plymouth_rock"
             }
         },
-		 "plymouth_rock_rooster": {
+        "plymouth_rock_rooster": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:rooster_plymouth_rock"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:rooster_plymouth_rock"
             }
-        }  
+        },
+        "plymouth_rock_chick1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:chick_plymouth_rock"
+            }
+        },
+        "plymouth_rock_hen1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:hen_plymouth_rock"
+            }
+        },
+        "plymouth_rock_rooster1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:rooster_plymouth_rock"
+            }
+        },
+        "plymouth_rock_chick2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:chick_plymouth_rock"
+            }
+        },
+        "plymouth_rock_hen2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:hen_plymouth_rock"
+            }
+        },
+        "plymouth_rock_rooster2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:rooster_plymouth_rock"
+            }
+        },
+        "plymouth_rock_chick3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:chick_plymouth_rock"
+            }
+        },
+        "plymouth_rock_hen3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:hen_plymouth_rock"
+            }
+        },
+        "plymouth_rock_rooster3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:rooster_plymouth_rock"
+            }
+        }
     },
-	"requirements": [["plymouth_rock_rooster", "plymouth_rock_hen", "plymouth_rock_chick"]]
-
+    "requirements": [
+        [
+            "plymouth_rock_rooster",
+            "plymouth_rock_hen",
+            "plymouth_rock_chick",
+            "plymouth_rock_rooster1",
+            "plymouth_rock_hen1",
+            "plymouth_rock_chick1",
+            "plymouth_rock_rooster2",
+            "plymouth_rock_hen2",
+            "plymouth_rock_chick2",
+            "plymouth_rock_rooster3",
+            "plymouth_rock_hen3",
+            "plymouth_rock_chick3"
+        ]
+    ]
 }

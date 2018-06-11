@@ -25,13 +25,12 @@ public class EntityAnimaniaAvoidWater extends EntityAIBase
 	public boolean shouldExecute()
 	{
 		delayCounter++;
-		if (delayCounter > 40) {
+		if (delayCounter > 120) {
 			BlockPos currentpos1 = new BlockPos(idleEntity.posX, idleEntity.posY, idleEntity.posZ);
 			BlockPos currentpos2 = new BlockPos(idleEntity.posX, idleEntity.posY - 1, idleEntity.posZ);
 			Block poschk1 = idleEntity.world.getBlockState(currentpos1).getBlock();
 			Block poschk2 = idleEntity.world.getBlockState(currentpos2).getBlock();
-
-
+			
 			if(poschk1 == Blocks.WATER || poschk2 == Blocks.WATER) {
 				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.idleEntity, 10, 8);
 
@@ -41,6 +40,7 @@ public class EntityAnimaniaAvoidWater extends EntityAIBase
 					return false;
 				}
 			}
+			delayCounter = 0;
 		}
 		return false;
 	}

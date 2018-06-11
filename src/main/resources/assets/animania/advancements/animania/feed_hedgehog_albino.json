@@ -1,23 +1,80 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_hedgehog_albino"
-        },
-        "title": {
-            "translate": "advancements.animania.hedgehog_albino.title"
-        },
-        "description": {
-            "translate": "advancements.animania.hedgehog_albino.description"
-        }
-    },
-    "parent": "animania:animania/feed_hedgehog",
-    "criteria": {
-        "hamster": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:egg"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_hedgehog_albino"
+		},
+		"title": {
+			"translate": "advancements.animania.hedgehog_albino.title"
+		},
+		"description": {
+			"translate": "advancements.animania.hedgehog_albino.description"
+		}
+	},
+	"parent": "animania:animania/feed_hedgehog",
+	"criteria": {
+		"hedgehog1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:egg"
+				},
 				"entity": "animania:hedgehog_albino"
-            }
-        }
-    }
+			}
+		},
+		"hedgehog2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "animania:brown_egg"
+				},
+				"entity": "animania:hedgehog_albino"
+			}
+		},
+		"hedgehog3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:hedgehog_albino"
+			}
+		},
+		"hedgehog4": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
+				"entity": "animania:hedgehog_albino"
+			}
+		},
+		"hedgehog5": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "animania:peacock_egg_blue"
+				},
+				"entity": "animania:hedgehog_albino"
+			}
+		},
+		"hedgehog6": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "animania:peacock_egg_white"
+				},
+				"entity": "animania:hedgehog_albino"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"hedgehog1",
+			"hedgehog2",
+			"hedgehog3",
+			"hedgehog4",
+			"hedgehog5",
+			"hedgehog6"
+		]
+	]
 }

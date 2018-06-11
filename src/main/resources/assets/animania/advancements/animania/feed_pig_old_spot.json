@@ -11,29 +11,160 @@
         }
     },
     "parent": "animania:animania/feed_pig_large_white",
-    "criteria": {
+   "criteria": {
         "old_spot_piglet": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:piglet_old_spot"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:piglet_old_spot"
             }
         },
-		"old_spot_sow": {
+        "old_spot_sow": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:sow_old_spot"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:sow_old_spot"
             }
         },
-		 "old_spot_hog": {
+        "old_spot_hog": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "carrot"},
-				"entity": "animania:hog_old_spot"
+                "itemstack": {
+                    "item": "carrot"
+                },
+                "entity": "animania:hog_old_spot"
             }
-        }  
+        },
+        "old_spot_piglet1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:piglet_old_spot"
+            }
+        },
+        "old_spot_sow1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:sow_old_spot"
+            }
+        },
+        "old_spot_hog1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "potato"
+                },
+                "entity": "animania:hog_old_spot"
+            }
+        },
+        "old_spot_piglet2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:piglet_old_spot"
+            }
+        },
+        "old_spot_sow2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:sow_old_spot"
+            }
+        },
+        "old_spot_hog2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "poisonous_potato"
+                },
+                "entity": "animania:hog_old_spot"
+            }
+        },
+        "old_spot_piglet3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:piglet_old_spot"
+            }
+        },
+        "old_spot_sow3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:sow_old_spot"
+            }
+        },
+        "old_spot_hog3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "bread"
+                },
+                "entity": "animania:hog_old_spot"
+            }
+        },
+        "old_spot_piglet4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:piglet_old_spot"
+            }
+        },
+        "old_spot_sow4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:sow_old_spot"
+            }
+        },
+        "old_spot_hog4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "beetroot"
+                },
+                "entity": "animania:hog_old_spot"
+            }
+        }
     },
-	"requirements": [["old_spot_hog", "old_spot_sow", "old_spot_piglet"]]
-
+    "requirements": [
+        [
+            "old_spot_hog",
+            "old_spot_sow",
+            "old_spot_piglet",
+            "old_spot_hog1",
+            "old_spot_sow1",
+            "old_spot_piglet1",
+            "old_spot_hog2",
+            "old_spot_sow2",
+            "old_spot_piglet2",
+            "old_spot_hog3",
+            "old_spot_sow3",
+            "old_spot_piglet3",
+            "old_spot_hog4",
+            "old_spot_sow4",
+            "old_spot_piglet4"
+        ]
+    ]
 }

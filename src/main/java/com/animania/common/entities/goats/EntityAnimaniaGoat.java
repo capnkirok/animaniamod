@@ -126,7 +126,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 		super.setPosition(x, y, z);
 	}
 
-	
+
 	@Override
 	protected void entityInit()
 	{
@@ -270,7 +270,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	public boolean getWatered()
 	{
 		try {
-			return (this.getBoolFromDataManager(FED));
+			return (this.getBoolFromDataManager(WATERED));
 		}
 		catch (Exception e) {
 			return false;
@@ -279,12 +279,12 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 
 	public void setWatered(boolean watered)
 	{
-		if (watered)
-		{
+		if (watered) {
 			this.dataManager.set(EntityAnimaniaGoat.WATERED, Boolean.valueOf(true));
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		} else
+		} else {
 			this.dataManager.set(EntityAnimaniaGoat.WATERED, Boolean.valueOf(false));
+		}
 	}
 
 	@Override
@@ -467,18 +467,20 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 			this.setInLove(player);
 			return true;
 		}
+		/*
 		else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
 		{
 			return false;
 		}
+		 */
 		else
 			return super.processInteract(player, hand);
 	}
-	
+
 	@Override
 	public void eatGrassBonus()
 	{
-		
+
 	}
 
 	@Override

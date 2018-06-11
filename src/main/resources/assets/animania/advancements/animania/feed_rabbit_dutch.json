@@ -1,39 +1,140 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_kit_dutch"
-        },
-        "title": {
-            "translate": "advancements.animania.dutch.title"
-        },
-        "description": {
-            "translate": "advancements.animania.dutch.description"
-        }
-    },
-    "parent": "animania:animania/feed_rabbit_cottontail",
-    "criteria": {
-        "dutch_kit": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_kit_dutch"
+		},
+		"title": {
+			"translate": "advancements.animania.dutch.title"
+		},
+		"description": {
+			"translate": "advancements.animania.dutch.description"
+		}
+	},
+	"parent": "animania:animania/feed_rabbit_cottontail",
+	"criteria": {
+		"dutch_kit": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:kit_dutch"
-            }
-        },
+			}
+		},
 		"dutch_doe": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:doe_dutch"
-            }
-        },
-		 "dutch_buck": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			}
+		},
+		"dutch_buck": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:buck_dutch"
-            }
-        }  
-    },
-	"requirements": [["dutch_buck", "dutch_doe", "dutch_kit"]]
-
+			}
+		},
+		"dutch_kit1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:kit_dutch"
+			}
+		},
+		"dutch_doe1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:doe_dutch"
+			}
+		},
+		"dutch_buck1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:buck_dutch"
+			}
+		},
+		"dutch_kit2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:kit_dutch"
+			}
+		},
+		"dutch_doe2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:doe_dutch"
+			}
+		},
+		"dutch_buck2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:buck_dutch"
+			}
+		},
+		"dutch_kit3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:kit_dutch"
+			}
+		},
+		"dutch_doe3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:doe_dutch"
+			}
+		},
+		"dutch_buck3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:buck_dutch"
+			}
+		}
+	},
+	"requirements": [
+	[
+		"dutch_buck",
+		"dutch_doe",
+		"dutch_kit",
+		"dutch_buck1",
+		"dutch_doe1",
+		"dutch_kit1",
+		"dutch_buck2",
+		"dutch_doe2",
+		"dutch_kit2",
+		"dutch_buck3",
+		"dutch_doe3",
+		"dutch_kit3"
+		]
+	]
 }

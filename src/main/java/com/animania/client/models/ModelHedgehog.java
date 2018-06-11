@@ -1,5 +1,6 @@
 package com.animania.client.models;
 
+import com.animania.common.entities.rodents.EntityFerretGrey;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 
@@ -596,24 +597,16 @@ public class ModelHedgehog extends ModelBase
 
         if (entitylivingbaseIn instanceof EntityHedgehog) {
             this.Head.rotationPointY = 19.5F + ((EntityHedgehog) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 0F; // number
-                                                                                                                                  // should
-                                                                                                                                  // match
-                                                                                                                                  // model
-                                                                                                                                  // Y
-                                                                                                                                  // point
             this.headRotationAngleX = ((EntityHedgehog) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            
         }
         else if (entitylivingbaseIn instanceof EntityHedgehogAlbino) {
             this.Head.rotationPointY = 19.5F + ((EntityHedgehogAlbino) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 0F; // number
-                                                                                                                                        // should
-                                                                                                                                        // match
-                                                                                                                                        // model
-                                                                                                                                        // Y
-                                                                                                                                        // point
             this.headRotationAngleX = ((EntityHedgehogAlbino) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
-
+            
         }
-
+        
+        
     }
 
     @Override

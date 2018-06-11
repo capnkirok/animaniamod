@@ -15,25 +15,126 @@
         "pygmy_kid": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:kid_pygmy"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:kid_pygmy"
             }
         },
-		"pygmy_doe": {
+        "pygmy_doe": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:doe_pygmy"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:doe_pygmy"
             }
         },
-		 "pygmy_buck": {
+        "pygmy_buck": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:buck_pygmy"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:buck_pygmy"
             }
-        }  
+        },
+        "pygmy_kid1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:kid_pygmy"
+            }
+        },
+        "pygmy_doe1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:doe_pygmy"
+            }
+        },
+        "pygmy_buck1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:buck_pygmy"
+            }
+        },
+        "pygmy_kid2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:kid_pygmy"
+            }
+        },
+        "pygmy_doe2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:doe_pygmy"
+            }
+        },
+        "pygmy_buck2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:buck_pygmy"
+            }
+        },
+        "pygmy_kid3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:kid_pygmy"
+            }
+        },
+        "pygmy_doe3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:doe_pygmy"
+            }
+        },
+        "pygmy_buck3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:buck_pygmy"
+            }
+        }
     },
-	"requirements": [["pygmy_buck", "pygmy_doe", "pygmy_kid"]]
-
+    "requirements": [
+        [
+            "pygmy_buck",
+            "pygmy_doe",
+            "pygmy_kid",
+            "pygmy_buck1",
+            "pygmy_doe1",
+            "pygmy_kid1",
+            "pygmy_buck2",
+            "pygmy_doe2",
+            "pygmy_kid2",
+            "pygmy_buck3",
+            "pygmy_doe3",
+            "pygmy_kid3"
+        ]
+    ]
 }

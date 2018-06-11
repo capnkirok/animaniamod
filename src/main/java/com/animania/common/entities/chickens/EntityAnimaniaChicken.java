@@ -200,7 +200,6 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 
 		this.setFed(nbttagcompound.getBoolean("Fed"));
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
-		this.setWatered(nbttagcompound.getBoolean("Interacted"));
 		this.setAge(nbttagcompound.getInteger("Age"));
 	}
 

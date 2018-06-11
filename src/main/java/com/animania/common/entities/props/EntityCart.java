@@ -528,7 +528,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			}
 		}
 
-		if (this.puller != null && (Math.abs(this.puller.posX - this.posX) > 4 || Math.abs(this.puller.posZ - this.posZ) > 4)) {
+		if (this.puller != null && (Math.abs(this.puller.posX - this.posX) > 5 || Math.abs(this.puller.posZ - this.posZ) > 5)) {
 			this.pulled = false;
 			this.puller = null;
 			this.setPullerType(0);
@@ -541,9 +541,9 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
 
 			Vec3d vec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -2.5D).rotateYaw((float)-deltaAngle));
-			this.motionX = vec.x/1.2;
+			this.motionX = vec.x/1;
 			this.motionY = vec.y;
-			this.motionZ = vec.z/1.2;
+			this.motionZ = vec.z/1;
 			move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 
 		}

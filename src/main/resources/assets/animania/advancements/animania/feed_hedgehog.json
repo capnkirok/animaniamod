@@ -1,23 +1,80 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_hedgehog"
-        },
-        "title": {
-            "translate": "advancements.animania.hedgehog.title"
-        },
-        "description": {
-            "translate": "advancements.animania.hedgehog.description"
-        }
-    },
-    "parent": "animania:animania/root",
-    "criteria": {
-        "hamster": {
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_hedgehog"
+		},
+		"title": {
+			"translate": "advancements.animania.hedgehog.title"
+		},
+		"description": {
+			"translate": "advancements.animania.hedgehog.description"
+		}
+	},
+	"parent": "animania:animania/root",
+	"criteria": {
+		"hedgehog1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:egg"
+				},
+				"entity": "animania:hedgehog"
+			}
+		},
+		"hedgehog2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "animania:brown_egg"
+				},
+				"entity": "animania:hedgehog"
+			}
+		},
+		"hedgehog3": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:egg"},
-				"entity": "animania:hedgehog"
+                "itemstack": {
+                    "item": "minecraft:beetroot"
+                },
+                "entity": "animania:hedgehog"
+            }
+        },
+        "hedgehog4": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:carrot"
+                },
+                "entity": "animania:hedgehog"
+            }
+        },
+        "hedgehog5": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "animania:peacock_egg_blue"
+                },
+                "entity": "animania:hedgehog"
+            }
+        },
+        "hedgehog6": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "animania:peacock_egg_white"
+                },
+                "entity": "animania:hedgehog"
             }
         }
-    }
+    },
+	"requirements": [
+		[
+			"hedgehog1",
+			"hedgehog2",
+			"hedgehog3",
+			"hedgehog4",
+			"hedgehog5",
+			"hedgehog6"
+		]
+	]
 }

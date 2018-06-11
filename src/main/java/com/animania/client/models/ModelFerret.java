@@ -114,13 +114,7 @@ public class ModelFerret extends ModelBase
         if (entitylivingbaseIn instanceof EntityFerretGrey) {
 
             EntityFerretGrey ef = (EntityFerretGrey) entitylivingbaseIn;
-
             this.Head.rotationPointY = 14.3F + ((EntityFerretGrey) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 0F; // number
-                                                                                                                                    // should
-                                                                                                                                    // match
-                                                                                                                                    // model
-                                                                                                                                    // Y
-                                                                                                                                    // point
             this.headRotationAngleX = ((EntityFerretGrey) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
 
             if (ef.isFerretSitting()) {
@@ -137,11 +131,6 @@ public class ModelFerret extends ModelBase
         }
         else if (entitylivingbaseIn instanceof EntityFerretWhite) {
             this.Head.rotationPointY = 14.3F + ((EntityFerretWhite) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 0F; // number
-                                                                                                                                     // should
-                                                                                                                                     // match
-                                                                                                                                     // model
-                                                                                                                                     // Y
-                                                                                                                                     // point
             this.headRotationAngleX = ((EntityFerretWhite) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
 
             EntityFerretWhite ef = (EntityFerretWhite) entitylivingbaseIn;

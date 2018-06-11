@@ -1,23 +1,90 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_ferret_grey"
-        },
-        "title": {
-            "translate": "advancements.animania.ferret_grey.title"
-        },
-        "description": {
-            "translate": "advancements.animania.ferret_grey.description"
-        }
-    },
-    "parent": "animania:animania/root",
-    "criteria": {
-        "hamster": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:egg"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_ferret_grey"
+		},
+		"title": {
+			"translate": "advancements.animania.ferret_grey.title"
+		},
+		"description": {
+			"translate": "advancements.animania.ferret_grey.description"
+		}
+	},
+	"parent": "animania:animania/root",
+	"criteria": {
+		"ferret": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:egg"
+				},
 				"entity": "animania:ferret_grey"
-            }
-        }
-    }
+			}
+		},
+		"ferret2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:chicken"
+				},
+				"entity": "animania:ferret_grey"
+			}
+		},
+		"ferret3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:mutton"
+				},
+				"entity": "animania:ferret_grey"
+			}
+		},
+		"ferret4": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "animania:brown_egg"
+				},
+				"entity": "animania:ferret_grey"
+			}
+		},
+		"ferret5": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "animania:raw_prime_chicken"
+				},
+				"entity": "animania:ferret_grey"
+			}
+		},
+		"ferret6": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "animania:raw_prime_mutton"
+				},
+				"entity": "animania:ferret_grey"
+			}
+		},
+		"ferret7": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "animania:raw_prime_rabbit"
+				},
+				"entity": "animania:ferret_grey"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"ferret",
+			"ferret2",
+			"ferret3",
+			"ferret4",
+			"ferret5",
+			"ferret6",
+			"ferret7"
+		]
+	]
 }

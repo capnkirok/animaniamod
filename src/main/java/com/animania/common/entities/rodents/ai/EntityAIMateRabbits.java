@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckBase;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeBase;
@@ -49,19 +50,33 @@ public class EntityAIMateRabbits extends EntityAIBase
 				this.delayCounter = 0;
 				return false;
 			}
-			
+
+			EntityAnimaniaRabbit thisAnimal = (EntityAnimaniaRabbit) this.theAnimal;
+
 			if (AnimaniaConfig.careAndFeeding.manualBreeding) {
-				if (this.theAnimal instanceof EntityAnimaniaRabbit) {
-					EntityAnimaniaRabbit thisAnimal = (EntityAnimaniaRabbit) this.theAnimal;
-				
-					if (!thisAnimal.getHandFed()) {
-						this.delayCounter = 0;
-						return false;
+				if (!thisAnimal.getHandFed()) {
+					this.delayCounter = 0;
+					return false;
+				}
+			} else {
+
+				List list = this.theWorld.loadedEntityList;
+				int cowCount = 0;
+				int num = 0;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof EntityAnimaniaRabbit) {
+						num++;
 					}
-					
+				}
+				cowCount = num;
+
+				if (cowCount > AnimaniaConfig.spawn.spawnLimitRabbits && !thisAnimal.getHandFed()) {
+					this.delayCounter = 0;
+					return false;
 				}
 			}
-			
+
+
 			this.targetMate = this.getNearbyMate();
 
 			Random rand = new Random();
@@ -69,7 +84,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 				this.delayCounter = 0;
 				this.resetTask();
 				return false;
-				
+
 			}
 
 			return this.targetMate != null;
@@ -112,7 +127,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 
 	private EntityAnimal getNearbyMate() {
 
-	
+
 		if (this.theAnimal instanceof EntityRabbitBuckBase) {
 
 			UUID mateID = null;
@@ -124,10 +139,10 @@ public class EntityAIMateRabbits extends EntityAIBase
 
 			if (mateID != null) {
 				List entities = AnimaniaHelper.getEntitiesInRange(EntityRabbitDoeBase.class, 3, this.theAnimal.world, this.theAnimal);
-				
+
 				for (int k = 0; k <= entities.size() - 1; k++) {
 					EntityRabbitDoeBase entity = (EntityRabbitDoeBase)entities.get(k); 
-					
+
 					boolean allowBreeding = true;
 					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
 						allowBreeding = false;
@@ -152,7 +167,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 							this.theAnimal.getNavigator().tryMoveToEntityLiving(entity, this.moveSpeed);
 							entity.getLookHelper().setLookPositionWithEntity(this.theAnimal, 10.0F, entity.getVerticalFaceSpeed());
 							entity.getNavigator().tryMoveToEntityLiving(this.theAnimal, this.moveSpeed);
-							
+
 							return null;
 						}
 					}
@@ -162,7 +177,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 
 				for (int k = 0; k <= entities.size() - 1; k++) {
 					EntityRabbitDoeBase entity = (EntityRabbitDoeBase)entities.get(k); 
-					
+
 					boolean allowBreeding = true;
 					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
 						allowBreeding = false;

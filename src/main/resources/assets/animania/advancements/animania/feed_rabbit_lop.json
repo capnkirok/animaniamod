@@ -1,39 +1,140 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_kit_lop"
-        },
-        "title": {
-            "translate": "advancements.animania.lop.title"
-        },
-        "description": {
-            "translate": "advancements.animania.lop.description"
-        }
-    },
-    "parent": "animania:animania/feed_rabbit_jack",
-    "criteria": {
-        "lop_kit": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_kit_lop"
+		},
+		"title": {
+			"translate": "advancements.animania.lop.title"
+		},
+		"description": {
+			"translate": "advancements.animania.lop.description"
+		}
+	},
+	"parent": "animania:animania/feed_rabbit_jack",
+	"criteria": {
+		"lop_kit": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:kit_lop"
-            }
-        },
+			}
+		},
 		"lop_doe": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:doe_lop"
-            }
-        },
-		 "lop_buck": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			}
+		},
+		"lop_buck": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:buck_lop"
-            }
-        }  
-    },
-	"requirements": [["lop_buck", "lop_doe", "lop_kit"]]
-
+			}
+		},
+		"lop_kit1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:kit_lop"
+			}
+		},
+		"lop_doe1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:doe_lop"
+			}
+		},
+		"lop_buck1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:buck_lop"
+			}
+		},
+		"lop_kit2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:kit_lop"
+			}
+		},
+		"lop_doe2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:doe_lop"
+			}
+		},
+		"lop_buck2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:buck_lop"
+			}
+		},
+		"lop_kit3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:kit_lop"
+			}
+		},
+		"lop_doe3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:doe_lop"
+			}
+		},
+		"lop_buck3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:buck_lop"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"lop_buck",
+			"lop_doe",
+			"lop_kit",
+			"lop_buck1",
+			"lop_doe1",
+			"lop_kit1",
+			"lop_buck2",
+			"lop_doe2",
+			"lop_kit2",
+			"lop_buck3",
+			"lop_doe3",
+			"lop_kit3"
+		]
+	]
 }

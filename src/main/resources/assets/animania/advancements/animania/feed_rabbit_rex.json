@@ -1,39 +1,140 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_kit_rex"
-        },
-        "title": {
-            "translate": "advancements.animania.rex.title"
-        },
-        "description": {
-            "translate": "advancements.animania.rex.description"
-        }
-    },
-    "parent": "animania:animania/feed_rabbit_new_zealand",
-    "criteria": {
-        "rex_kit": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_kit_rex"
+		},
+		"title": {
+			"translate": "advancements.animania.rex.title"
+		},
+		"description": {
+			"translate": "advancements.animania.rex.description"
+		}
+	},
+	"parent": "animania:animania/feed_rabbit_new_zealand",
+	"criteria": {
+		"rex_kit": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:kit_rex"
-            }
-        },
+			}
+		},
 		"rex_doe": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:doe_rex"
-            }
-        },
-		 "rex_buck": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			}
+		},
+		"rex_buck": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:carrot"
+				},
 				"entity": "animania:buck_rex"
-            }
-        }  
-    },
-	"requirements": [["rex_buck", "rex_doe", "rex_kit"]]
-
+			}
+		},
+		"rex_kit1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:kit_rex"
+			}
+		},
+		"rex_doe1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:doe_rex"
+			}
+		},
+		"rex_buck1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:apple"
+				},
+				"entity": "animania:buck_rex"
+			}
+		},
+		"rex_kit2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:kit_rex"
+			}
+		},
+		"rex_doe2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:doe_rex"
+			}
+		},
+		"rex_buck2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat"
+				},
+				"entity": "animania:buck_rex"
+			}
+		},
+		"rex_kit3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:kit_rex"
+			}
+		},
+		"rex_doe3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:doe_rex"
+			}
+		},
+		"rex_buck3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot"
+				},
+				"entity": "animania:buck_rex"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"rex_buck",
+			"rex_doe",
+			"rex_kit",
+			"rex_buck1",
+			"rex_doe1",
+			"rex_kit1",
+			"rex_buck2",
+			"rex_doe2",
+			"rex_kit2",
+			"rex_buck3",
+			"rex_doe3",
+			"rex_kit3"
+		]
+	]
 }

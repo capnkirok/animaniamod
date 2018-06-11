@@ -121,6 +121,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	}
 	
 	@Override
+	protected boolean canDespawn()
+	{
+		return false;
+	}
+	
+	@Override
 	public void setPosition(double x, double y, double z)
 	{
 		super.setPosition(x, y, z);
@@ -490,12 +496,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && EntityAnimaniaPeacock.TEMPTATION_ITEMS.contains(stack.getItem());
-	}
-
-	@Override
-	protected boolean canDespawn()
-	{
-		return false;
 	}
 
 	@Override

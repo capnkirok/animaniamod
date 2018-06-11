@@ -23,7 +23,6 @@ import com.animania.common.entities.horses.ai.EntityAITemptHorses;
 import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
 import com.animania.common.entities.props.EntityWagon;
-import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.inventory.ContainerHorseCart;
 import com.animania.common.items.ItemEntityEgg;
@@ -45,6 +44,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -72,8 +72,6 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
-	// private static final String[] HORSE_TEXTURES = new String[] {"black",
-	// "bw1", "bw2", "grey", "red", "white"};
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -119,6 +117,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + rand.nextInt(80);
 		this.enablePersistence();
+		this.initHorseChest();
 
 	}
 
@@ -127,7 +126,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	{
 		return false;
 	}
-
+	
 	@Override
 	public void setPosition(double x, double y, double z)
 	{
@@ -151,7 +150,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28499999403953552D);
 	}
-
+	
 	@Override
 	public void updatePassenger(Entity passenger)
 	{
@@ -196,6 +195,12 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 				}
 				else
 				{
+					f = (float) ((double) f - 0.42D);
+
+					Vec3d vec3d = (new Vec3d((double) f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
+					//passenger.setPosition(this.posX + vec3d.x, this.posY + (double) f1, this.posZ + vec3d.z);
+					
+					
 					passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
 				}
 			}
@@ -277,7 +282,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		this.setInLove(player);
 
 		if (!player.capabilities.isCreativeMode)
-			stack.setCount(stack.getCount() - 1);
+			stack.shrink(1);
 	}
 
 	public boolean getFed()
@@ -420,7 +425,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	public void travel(float p_191986_1_, float p_191986_2_, float p_191986_3_)
 	{
 		if (this.isBeingRidden() && this.canBeSteered()) // &&
-															// this.isHorseSaddled())
+			// this.isHorseSaddled())
 		{
 			EntityLivingBase entitylivingbase = (EntityLivingBase) this.getControllingPassenger();
 			this.rotationYaw = entitylivingbase.rotationYaw;
@@ -594,6 +599,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			}
 		}
 
+
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
 		{
 			if (!player.isCreative())
@@ -610,7 +616,29 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild())
+		else if (stack != ItemStack.EMPTY && this.isHorseBreedingItem(stack.getItem())) {
+			if (!player.capabilities.isCreativeMode)
+				stack.shrink(1);
+
+			this.eatTimer = 40;
+			if (this.entityAIEatGrass != null)
+				this.entityAIEatGrass.startExecuting();
+			this.setFed(true);
+			this.setInLove(player);
+			return true;
+
+		}
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.SADDLE && !this.isHorseSaddled()) {
+			
+			ItemStack bob = stack.copy();
+			this.horseChest.setInventorySlotContents(0, bob);
+			this.setHorseSaddled(true);
+			stack.setCount(0);
+			this.updateHorseSlots();
+			return true;
+
+		}
+		else if (stack == ItemStack.EMPTY && this.isHorseSaddled() && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild())
 
 		{
 			this.navigator.clearPath();
@@ -619,8 +647,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		}
 		else
 		{
-			return true;
-			// return super.processInteract(player, hand);
+			//return true;
+			return super.processInteract(player, hand);
 		}
 	}
 
@@ -633,6 +661,23 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		else
 			super.handleStatusUpdate(id);
 	}
+	
+	public void removeItem(EntityPlayer ep, ItemStack removeitem) {
+		IInventory inv = ep.inventory;
+		for(int i=0; i < inv.getSizeInventory(); i++)
+		{
+			if(inv.getStackInSlot(i) != null)
+			{
+				ItemStack j = inv.getStackInSlot(i);
+				if(j.getItem() != null && j.getItem() == removeitem.getItem())
+				{
+					inv.setInventorySlotContents(i, null);
+					break;
+				}
+			}
+		}
+	}
+
 
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{

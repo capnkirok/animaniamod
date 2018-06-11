@@ -807,7 +807,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 						if (this.getHasChest()) {
 							InventoryHelper.dropInventoryItems(world, this.getPosition(), wagonChest);
-							this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
+							//this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
 						}
 					}
 

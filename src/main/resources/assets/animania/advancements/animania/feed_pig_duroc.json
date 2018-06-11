@@ -1,39 +1,170 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_piglet_duroc"
-        },
-        "title": {
-            "translate": "advancements.animania.duroc.title"
-        },
-        "description": {
-            "translate": "advancements.animania.duroc.description"
-        }
-    },
-    "parent": "animania:animania/pigs",
-    "criteria": {
-        "duroc_piglet": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_piglet_duroc"
+		},
+		"title": {
+			"translate": "advancements.animania.duroc.title"
+		},
+		"description": {
+			"translate": "advancements.animania.duroc.description"
+		}
+	},
+	"parent": "animania:animania/pigs",
+	"criteria": {
+		"duroc_piglet": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "carrot"
+				},
 				"entity": "animania:piglet_duroc"
-            }
-        },
+			}
+		},
 		"duroc_sow": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "carrot"
+				},
 				"entity": "animania:sow_duroc"
-            }
-        },
-		 "duroc_hog": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "carrot"},
+			}
+		},
+		"duroc_hog": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "carrot"
+				},
 				"entity": "animania:hog_duroc"
-            }
-        }  
-    },
-	"requirements": [["duroc_hog", "duroc_sow", "duroc_piglet"]]
-
+			}
+		},
+		"duroc_piglet1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "potato"
+				},
+				"entity": "animania:piglet_duroc"
+			}
+		},
+		"duroc_sow1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "potato"
+				},
+				"entity": "animania:sow_duroc"
+			}
+		},
+		"duroc_hog1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "potato"
+				},
+				"entity": "animania:hog_duroc"
+			}
+		},
+		"duroc_piglet2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "poisonous_potato"
+				},
+				"entity": "animania:piglet_duroc"
+			}
+		},
+		"duroc_sow2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "poisonous_potato"
+				},
+				"entity": "animania:sow_duroc"
+			}
+		},
+		"duroc_hog2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "poisonous_potato"
+				},
+				"entity": "animania:hog_duroc"
+			}
+		},
+		"duroc_piglet3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "bread"
+				},
+				"entity": "animania:piglet_duroc"
+			}
+		},
+		"duroc_sow3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "bread"
+				},
+				"entity": "animania:sow_duroc"
+			}
+		},
+		"duroc_hog3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "bread"
+				},
+				"entity": "animania:hog_duroc"
+			}
+		},
+		"duroc_piglet4": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "beetroot"
+				},
+				"entity": "animania:piglet_duroc"
+			}
+		},
+		"duroc_sow4": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "beetroot"
+				},
+				"entity": "animania:sow_duroc"
+			}
+		},
+		"duroc_hog4": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "beetroot"
+				},
+				"entity": "animania:hog_duroc"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"duroc_hog",
+			"duroc_sow",
+			"duroc_piglet",
+			"duroc_hog1",
+            "duroc_sow1",
+            "duroc_piglet1",
+            "duroc_hog2",
+            "duroc_sow2",
+            "duroc_piglet2",
+            "duroc_hog3",
+            "duroc_sow3",
+            "duroc_piglet3",
+            "duroc_hog4",
+            "duroc_sow4",
+            "duroc_piglet4"
+		]
+	]
 }

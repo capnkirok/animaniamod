@@ -15,25 +15,126 @@
         "kinder_kid": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:kid_kinder"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:kid_kinder"
             }
         },
-		"kinder_doe": {
+        "kinder_doe": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:doe_kinder"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:doe_kinder"
             }
         },
-		 "kinder_buck": {
+        "kinder_buck": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat"},
-				"entity": "animania:buck_kinder"
+                "itemstack": {
+                    "item": "minecraft:wheat"
+                },
+                "entity": "animania:buck_kinder"
             }
-        }  
+        },
+        "kinder_kid1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:kid_kinder"
+            }
+        },
+        "kinder_doe1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:doe_kinder"
+            }
+        },
+        "kinder_buck1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:string"
+                },
+                "entity": "animania:buck_kinder"
+            }
+        },
+        "kinder_kid2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:kid_kinder"
+            }
+        },
+        "kinder_doe2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:doe_kinder"
+            }
+        },
+        "kinder_buck2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:stick"
+                },
+                "entity": "animania:buck_kinder"
+            }
+        },
+        "kinder_kid3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:kid_kinder"
+            }
+        },
+        "kinder_doe3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:doe_kinder"
+            }
+        },
+        "kinder_buck3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:apple"
+                },
+                "entity": "animania:buck_kinder"
+            }
+        }
     },
-	"requirements": [["kinder_buck", "kinder_doe", "kinder_kid"]]
-
+    "requirements": [
+        [
+            "kinder_buck",
+            "kinder_doe",
+            "kinder_kid",
+            "kinder_buck1",
+            "kinder_doe1",
+            "kinder_kid1",
+            "kinder_buck2",
+            "kinder_doe2",
+            "kinder_kid2",
+            "kinder_buck3",
+            "kinder_doe3",
+            "kinder_kid3"
+        ]
+    ]
 }

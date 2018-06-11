@@ -1,39 +1,140 @@
 {
-    "display": {
-        "icon": {
-            "item": "animania:entity_egg_chick_orpington"
-        },
-        "title": {
-            "translate": "advancements.animania.orpington.title"
-        },
-        "description": {
-            "translate": "advancements.animania.orpington.description"
-        }
-    },
-    "parent": "animania:animania/feed_chicken_leghorn",
-    "criteria": {
-        "orpington_chick": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
+	"display": {
+		"icon": {
+			"item": "animania:entity_egg_chick_orpington"
+		},
+		"title": {
+			"translate": "advancements.animania.orpington.title"
+		},
+		"description": {
+			"translate": "advancements.animania.orpington.description"
+		}
+	},
+	"parent": "animania:animania/feed_chicken_leghorn",
+	"criteria": {
+		"orpington_chick": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat_seeds"
+				},
 				"entity": "animania:chick_orpington"
-            }
-        },
+			}
+		},
 		"orpington_hen": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat_seeds"
+				},
 				"entity": "animania:hen_orpington"
-            }
-        },
-		 "orpington_rooster": {
-            "trigger": "animania:feed_animal",
-            "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
+			}
+		},
+		"orpington_rooster": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:wheat_seeds"
+				},
 				"entity": "animania:rooster_orpington"
-            }
-        }  
-    },
-	"requirements": [["orpington_rooster", "orpington_hen", "orpington_chick"]]
-
+			}
+		},
+		"orpington_chick1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:melon_seeds"
+				},
+				"entity": "animania:chick_orpington"
+			}
+		},
+		"orpington_hen1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:melon_seeds"
+				},
+				"entity": "animania:hen_orpington"
+			}
+		},
+		"orpington_rooster1": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:melon_seeds"
+				},
+				"entity": "animania:rooster_orpington"
+			}
+		},
+		"orpington_chick2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot_seeds"
+				},
+				"entity": "animania:chick_orpington"
+			}
+		},
+		"orpington_hen2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot_seeds"
+				},
+				"entity": "animania:hen_orpington"
+			}
+		},
+		"orpington_rooster2": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:beetroot_seeds"
+				},
+				"entity": "animania:rooster_orpington"
+			}
+		},
+		"orpington_chick3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:pumpkin_seeds"
+				},
+				"entity": "animania:chick_orpington"
+			}
+		},
+		"orpington_hen3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:pumpkin_seeds"
+				},
+				"entity": "animania:hen_orpington"
+			}
+		},
+		"orpington_rooster3": {
+			"trigger": "animania:feed_animal",
+			"conditions": {
+				"itemstack": {
+					"item": "minecraft:pumpkin_seeds"
+				},
+				"entity": "animania:rooster_orpington"
+			}
+		}
+	},
+	"requirements": [
+		[
+			"orpington_rooster",
+			"orpington_hen",
+			"orpington_chick",
+			"orpington_rooster1",
+			"orpington_hen1",
+			"orpington_chick1",
+			"orpington_rooster2",
+			"orpington_hen2",
+			"orpington_chick2",
+			"orpington_rooster3",
+			"orpington_hen3",
+			"orpington_chick3"
+		]
+	]
 }

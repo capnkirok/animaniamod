@@ -15,25 +15,126 @@
         "rhode_island_red_chick": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:chick_rhode_island_red"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:chick_rhode_island_red"
             }
         },
-		"rhode_island_red_hen": {
+        "rhode_island_red_hen": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:hen_rhode_island_red"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:hen_rhode_island_red"
             }
         },
-		 "rhode_island_red_rooster": {
+        "rhode_island_red_rooster": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:rooster_rhode_island_red"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:rooster_rhode_island_red"
             }
-        }  
+        },
+        "rhode_island_red_chick1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:chick_rhode_island_red"
+            }
+        },
+        "rhode_island_red_hen1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:hen_rhode_island_red"
+            }
+        },
+        "rhode_island_red_rooster1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:rooster_rhode_island_red"
+            }
+        },
+        "rhode_island_red_chick2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:chick_rhode_island_red"
+            }
+        },
+        "rhode_island_red_hen2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:hen_rhode_island_red"
+            }
+        },
+        "rhode_island_red_rooster2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:rooster_rhode_island_red"
+            }
+        },
+        "rhode_island_red_chick3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:chick_rhode_island_red"
+            }
+        },
+        "rhode_island_red_hen3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:hen_rhode_island_red"
+            }
+        },
+        "rhode_island_red_rooster3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:rooster_rhode_island_red"
+            }
+        }
     },
-	"requirements": [["rhode_island_red_rooster", "rhode_island_red_hen", "rhode_island_red_chick"]]
-
+    "requirements": [
+        [
+            "rhode_island_red_rooster",
+            "rhode_island_red_hen",
+            "rhode_island_red_chick",
+            "rhode_island_red_rooster1",
+            "rhode_island_red_hen1",
+            "rhode_island_red_chick1",
+            "rhode_island_red_rooster2",
+            "rhode_island_red_hen2",
+            "rhode_island_red_chick2",
+            "rhode_island_red_rooster3",
+            "rhode_island_red_hen3",
+            "rhode_island_red_chick3"
+        ]
+    ]
 }

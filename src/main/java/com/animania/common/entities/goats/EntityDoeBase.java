@@ -478,7 +478,6 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				player.dropItem(this.milk.copy(), false);
 
 			this.setWatered(false);
-
 			return true;
 		}
 		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)

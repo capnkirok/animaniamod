@@ -38,17 +38,20 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 
 		if (entityLiving instanceof EntityPlayer && !((EntityPlayer)entityLiving).capabilities.isCreativeMode)
 		{
-			stack.shrink(1);
+			
 			if (!worldIn.isRemote) {
 				EntityItem entityitem = new EntityItem(worldIn, entityLiving.posX + 0.5D, entityLiving.posY + 0.5D, entityLiving.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
 				worldIn.spawnEntity(entityitem);
 			}
 
 			EntityPlayer entityplayer = (EntityPlayer)entityLiving;
-			entityplayer.getFoodStats().addStats(this, stack);
+			if (entityplayer.getFoodStats() != null) {
+				entityplayer.getFoodStats().addStats(this, stack);
+			}
 			worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
 			this.onFoodEaten(stack, worldIn, entityplayer);
 			entityplayer.addStat(StatList.getObjectUseStats(this));
+			stack.shrink(1);
 		}
 
 		return stack;
@@ -59,6 +62,12 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 		playerIn.setActiveHand(hand);
 		return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
 	}
+	
+	@Override
+	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
+	{
+		
+	}
 
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> list, ITooltipFlag flagIn)
@@ -66,9 +75,9 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
 		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 	}
-	
-	 public EnumAction getItemUseAction(ItemStack stack)
-	    {
-	        return EnumAction.DRINK;
-	    }
+
+	public EnumAction getItemUseAction(ItemStack stack)
+	{
+		return EnumAction.DRINK;
+	}
 }

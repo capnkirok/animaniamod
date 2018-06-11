@@ -508,7 +508,6 @@ fluid.milk_sheep=Sheep Milk
 tab.animania_entities.label=Animania Entities
 tab.animania_resources.label=Animania Resources
 
-
 animania.updatetext.1=Animania Version 
 animania.updatetext.2=is now available
 animania.updatetext.3=Failed to connect to see if an update to Animania is available
@@ -579,19 +578,19 @@ text.jei.salt=Salt is created by letting Water evaporate in a cheese mold.
 advancements.animania.root.title=Animania
 advancements.animania.root.desc=Animania, the realistic animals mod 
 advancements.animania.cows.title=Cows
-advancements.animania.cows.description=Animania's cows
+advancements.animania.cows.description=Animania Cows
 advancements.animania.chickens.title=Chickens
-advancements.animania.chickens.desc=Animania's chickens
+advancements.animania.chickens.desc=Animania Chickens
 advancements.animania.pigs.title=Pigs
-advancements.animania.pigs.description=Animania's pigs
+advancements.animania.pigs.description=Animania Pigs
 advancements.animania.peacocks.title=Peacocks
-advancements.animania.peacocks.description=Animania's peacocks
+advancements.animania.peacocks.description=Animania Peafowl
 advancements.animania.rabbits.title=Rabbits
-advancements.animania.rabbits.description=Animania's rabbits
+advancements.animania.rabbits.description=Animania Rabbits
 advancements.animania.sheep.title=Sheep
-advancements.animania.sheep.description=Animania's sheep
+advancements.animania.sheep.description=Animania Sheep
 advancements.animania.goats.title=Goats
-advancements.animania.goats.description=Animania's goats
+advancements.animania.goats.description=Animania Goats
 
 advancements.animania.holstein.title=Holstein
 advancements.animania.holstein.description=Feed a Holstein cow

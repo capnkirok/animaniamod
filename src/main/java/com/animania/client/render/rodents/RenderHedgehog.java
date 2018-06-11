@@ -46,6 +46,10 @@ public class RenderHedgehog<T extends EntityHedgehog> extends RenderLiving<T>
         }
         else {
             GL11.glScalef(0.6F, 0.6F, 0.6F);
+            
+            if (entity.isHedgehogSitting()) {
+            	GlStateManager.translate(0F, +.1F, .0F);
+            }
 
             if (entity.getCustomNameTag().equals("Sanic")) {
                 GL11.glRotatef(20, -1, 0, 1);

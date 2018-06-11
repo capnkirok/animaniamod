@@ -13,6 +13,7 @@ import com.animania.compat.top.providers.TOPInfoProvider;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.MapColor;
@@ -79,7 +80,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	{
 		return false;
 	}
-	
+
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
 	{
@@ -128,7 +129,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 			}
 
 		}
-		
+
 		if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() == ItemHandler.hamsterFood)
 		{
 			ItemStack held = player.getHeldItem(hand);
@@ -236,7 +237,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	{
 		return new BlockStateContainer(this, new IProperty[] { FACING });
 	}
-	
+
 	@Override
 	public boolean hasComparatorInputOverride(IBlockState state)
 	{

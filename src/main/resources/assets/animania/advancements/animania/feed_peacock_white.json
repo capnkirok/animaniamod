@@ -15,25 +15,126 @@
         "white_peachick": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:peachick_white"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:peachick_white"
             }
         },
-		"white_peahen": {
+        "white_peahen": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:peahen_white"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:peahen_white"
             }
         },
-		 "white_peacock": {
+        "white_peacock": {
             "trigger": "animania:feed_animal",
             "conditions": {
-                "itemstack": {"item": "minecraft:wheat_seeds"},
-				"entity": "animania:peacock_white"
+                "itemstack": {
+                    "item": "minecraft:wheat_seeds"
+                },
+                "entity": "animania:peacock_white"
             }
-        }  
+        },
+        "white_peachick1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:peachick_white"
+            }
+        },
+        "white_peahen1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:peahen_white"
+            }
+        },
+        "white_peacock1": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:melon_seeds"
+                },
+                "entity": "animania:peacock_white"
+            }
+        },
+        "white_peachick2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:peachick_white"
+            }
+        },
+        "white_peahen2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:peahen_white"
+            }
+        },
+        "white_peacock2": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:beetroot_seeds"
+                },
+                "entity": "animania:peacock_white"
+            }
+        },
+        "white_peachick3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:peachick_white"
+            }
+        },
+        "white_peahen3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:peahen_white"
+            }
+        },
+        "white_peacock3": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {
+                    "item": "minecraft:pumpkin_seeds"
+                },
+                "entity": "animania:peacock_white"
+            }
+        }
     },
-	"requirements": [["white_peacock", "white_peahen", "white_peachick"]]
-
+    "requirements": [
+        [
+            "white_peacock",
+            "white_peahen",
+            "white_peachick",
+            "white_peacock1",
+            "white_peahen1",
+            "white_peachick1",
+            "white_peacock2",
+            "white_peahen2",
+            "white_peachick2",
+            "white_peacock3",
+            "white_peahen3",
+            "white_peachick3"
+        ]
+    ]
 }
