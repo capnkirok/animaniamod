@@ -36,6 +36,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -185,6 +187,74 @@ public class ItemSeedHandler
 				player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
 				event.setCanceled(true);
 				Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void missingMapping(RegistryEvent.MissingMappings<Item> event)
+	{
+		for (MissingMappings.Mapping<Item> entry : event.getAllMappings())
+		{
+			if (entry.key.toString().contains("animania:entity_egg_peafowl"))
+			{
+				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("peafowl", "peahen"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("newzealand"))
+			{
+				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("newzealand", "new_zealand"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("red"))
+			{
+				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("red", "rhode_island_red"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("nigeriandwarf"))
+			{
+				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("nigeriandwarf", "nigerian_dwarf"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("largewhite"))
+			{
+				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("largewhite", "large_white"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().equals("animania:entity_egg_draft_horse_mare"))
+			{
+				ResourceLocation egg = new ResourceLocation("animania:entity_egg_mare_draft");
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().equals("animania:entity_egg_draft_horse_foal"))
+			{
+				ResourceLocation egg = new ResourceLocation("animania:entity_egg_foal_draft");
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().equals("animania:entity_egg_draft_horse_stallion"))
+			{
+				ResourceLocation egg = new ResourceLocation("animania:entity_egg_stallion_draft");
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("largeblack"))
+			{
+				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("largeblack", "large_black"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("oldspot"))
+			{
+				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("oldspot", "old_spot"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("plymouth"))
+			{
+				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("plymouth", "plymouth_rock"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+			}
+			if (entry.key.toString().equals("animania:entity_egg_dart_frog"))
+			{
+				ResourceLocation egg = new ResourceLocation("animania:entity_egg_dartfrog");
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
 			}
 		}
 	}

@@ -228,7 +228,7 @@ public class AnimaniaTextures
 
 	public static void registerEntityEggs()
 	{
-		for (Item item : ForgeRegistries.ITEMS.getValues())
+		for (Item item : ItemHandler.entityEggList)
 		{
 			if (item instanceof ItemEntityEgg)
 			{
