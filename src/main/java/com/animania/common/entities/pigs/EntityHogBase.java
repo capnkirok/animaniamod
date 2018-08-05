@@ -223,7 +223,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
+		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .2F);
 	}
 
@@ -319,6 +319,11 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	@Override
 	public void onLivingUpdate()
 	{
+		
+		
+		if (this.isBeingRidden() && this.getSleeping())
+			this.setSleeping(false);
+		
 		if (this.blinkTimer > -1)
 		{
 			this.blinkTimer--;

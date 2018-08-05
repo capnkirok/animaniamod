@@ -1,5 +1,7 @@
 package com.animania.common.entities.peacocks.ai;
 
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -32,7 +34,21 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
 
     @Override
     public boolean shouldExecute() {
-        if (this.theWatcher.getRNG().nextFloat() >= this.chance)
+       
+
+    	boolean isSleeping = false;
+		if (this.theWatcher instanceof EntityAnimaniaPeacock) {
+			EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) this.theWatcher;
+			if (entityChk.getSleeping()) {
+				isSleeping = true;
+			}
+		}
+		
+		if (!this.theWatcher.world.isDaytime() || isSleeping) {
+			return false;
+		}
+    	
+    	if (this.theWatcher.getRNG().nextFloat() >= this.chance)
             return false;
         else {
             if (this.theWatcher.getAttackTarget() != null)

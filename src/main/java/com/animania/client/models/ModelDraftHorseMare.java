@@ -556,8 +556,48 @@ public class ModelDraftHorseMare extends ModelBase
 
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
-		Body.render(scale);
+		boolean isSleeping = false;
+		EntityAnimaniaHorse ech = (EntityAnimaniaHorse) entityIn;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+		
+		float sleepTimer = ech.getSleepTimer();
 
+		if (isSleeping) {
+
+			this.FrontLeftMuscle.rotateAngleX = sleepTimer * -1.8F;
+			this.FrontLeftMuscle.render(scale * .95F);
+			this.FrontRightMuscle.rotateAngleX = sleepTimer * -1.8F;
+			this.FrontRightMuscle.render(scale * .97F);
+			this.BackLeftMuscle.rotateAngleX = sleepTimer * 1.7F;
+			this.BackLeftMuscle.render(scale * .97F);
+			this.BackRightMuscle.rotateAngleX = sleepTimer * 1.75F;
+			this.BackRightMuscle.render(scale * .95F);
+			this.HeadNode.rotateAngleY = sleepTimer * + 2.8F;
+
+			if (sleepTimer > -.28) {
+				this.Body.rotateAngleX = - (sleepTimer/3);
+			} else {
+				this.Body.rotateAngleX = (sleepTimer/3);
+			}
+
+		} else {
+
+			this.BackLeftMuscle.rotateAngleZ = 0;
+			this.BackLeftMuscle.render(scale);
+			this.BackRightMuscle.rotateAngleZ = 0;
+			this.BackRightMuscle.render(scale);
+			this.FrontLeftMuscle.rotateAngleZ = 0;
+			this.FrontLeftMuscle.render(scale);
+			this.FrontRightMuscle.rotateAngleZ = 0;
+			this.FrontRightMuscle.render(scale);
+			this.HeadNode.rotateAngleY = 0F;
+			this.Body.rotateAngleX = 0;
+
+		}
+		
+		Body.render(scale);
 		TailNode.render(scale);
 
 		BackLeftMuscle.render(scale);
@@ -626,9 +666,6 @@ public class ModelDraftHorseMare extends ModelBase
 			this.HeadNode.rotateAngleX = this.headRotationAngleX;
 		}
 		
-		//this.tailA.rotateAngleX = 1.5F;
-		//this.tailA.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-
 		this.BackLeftMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.0F * par2;
 		this.BackRightMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.0F * par2;
 		this.FrontLeftMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.0F * par2;

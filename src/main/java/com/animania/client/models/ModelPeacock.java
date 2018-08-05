@@ -1,6 +1,6 @@
 package com.animania.client.models;
 
-import java.util.Random;
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -585,28 +585,39 @@ public class ModelPeacock extends ModelBase
         this.Wing1.render(scale);
         this.Wing2.render(scale);
         this.Tail1.render(scale);
-        this.FanNodeA.render(scale / 3);
+     
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
+
+        boolean isSleeping = false;
+		EntityAnimaniaPeacock ech = (EntityAnimaniaPeacock) entityIn;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+		
+		float sleepTimer = ech.getSleepTimer();
+
+		if (isSleeping) {
+			this.FanNodeA.rotateAngleX = -1.5F;
+			this.FanNodeB.rotateAngleX = -1.5F;
+			this.FanNodeC.rotateAngleX = -1.5F;
+			this.FanNodeD.rotateAngleX = -1.5F;
+		}
+		
+		this.FanNodeA.render(scale / 3);
         this.FanNodeB.render(scale / 3);
         this.FanNodeC.render(scale / 3);
         this.FanNodeD.render(scale / 3);
-
-        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
-
+        
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwingAmount, float ageInTicks, float partialTickTime) {
+    public void setLivingAnimations(EntityLivingBase entity, float limbSwingAmount, float ageInTicks, float partialTickTime) {
 
-        super.setLivingAnimations(entitylivingbaseIn, limbSwingAmount, ageInTicks, partialTickTime);
-        Random rand = new Random();
-        if (limbSwingAmount > this.lastLimb) {
-            // this.Neck.rotateAngleX = Math.abs(((30F / (float)Math.PI)) * 1.4F
-            // * limbSwingAmount);
-        }
-        else {
-            // do nothing
-        }
+        super.setLivingAnimations(entity, limbSwingAmount, ageInTicks, partialTickTime);
+        
+       
 
+        
     }
 
     @Override
@@ -773,18 +784,12 @@ public class ModelPeacock extends ModelBase
         this.FeatherD2b.rotateAngleZ = -1.570797F;
 
         this.Wing1.rotateAngleX = -0.2947292F;
-        // Wing1a.rotateAngleX = -0.2947292F;
-        // Wing1b.rotateAngleX = -0.2947292F;
         this.Wing2.rotateAngleX = -0.2947292F;
-        // Wing2a.rotateAngleX = -0.2947292F;
-        // Wing2b.rotateAngleX = -0.2947292F;
-
+      
         this.Neck.rotateAngleX = Math.abs(headPitch / (180F / (float) Math.PI) * 1.4F * limbSwingAmount);
         this.Neck.rotateAngleX = Math.abs(netHeadYaw / (180F / (float) Math.PI));
 
         this.Body1.rotateAngleX = (float) Math.PI / 2F;
-        // this.leg1Top.rotateAngleX = ((float)Math.PI / 2F);
-        // this.leg2Top.rotateAngleX = ((float)Math.PI / 2F);
         this.leg1Top.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         this.leg2Top.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 

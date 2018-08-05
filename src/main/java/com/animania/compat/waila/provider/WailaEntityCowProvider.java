@@ -42,8 +42,7 @@ public class WailaEntityCowProvider extends WailaEntityAnimalProviderMateable
 					currenttip.add(I18n.translateToLocal("text.waila.pregnant1"));
 				}
 			} 
-
-
+			
 		}
 		return currenttip;
 	}

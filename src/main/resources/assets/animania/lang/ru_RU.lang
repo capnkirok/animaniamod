@@ -41,7 +41,6 @@ item.animania_taupe_peacock_feather.name=Серо-коричневое перо 
 item.animania_peacock_egg_blue.name=Яйцо павлина
 item.animania_peacock_egg_white.name=Яйцо павлина
 
-
 item.animania_carving_knife.desc=Используется для разделки мяса и сыров
 item.animania_cheese_mold.desc=Используется для производства сыров
 item.animania_entity_egg.desc1=Спавн
@@ -91,28 +90,33 @@ item.animania_cooked_prime_beef.name=Жареная говядина высше�
 item.animania_raw_prime_steak.name=Сырой стейк высшей категории
 item.animania_cooked_prime_steak.name=Пожаренный стейк высшей категории
 item.animania_raw_prime_pork.name=Сырая свинины высшей категории
-item.animania_cooked_prime_pork.name=Жаренная свинина высшей категории
+item.animania_cooked_prime_pork.name=Жареная свинина высшей категории
 item.animania_raw_prime_bacon.name=Сырой бекон высшей категории
 item.animania_cooked_prime_bacon.name=Бекон высшей категории
 item.animania_raw_prime_chicken.name=Сырая курица высшей категории
-item.animania_cooked_prime_chicken.name=Жаренная курица высшей категории
+item.animania_cooked_prime_chicken.name=Жареная курица высшей категории
 
 item.animania_raw_horse.name=Сырая конина
-item.animania_cooked_horse.name=Жаренная конина
+item.animania_cooked_horse.name=Жареная конина
 
 item.animania_raw_frog_legs.name=Сырые лягушачьи лапки
-item.animania_cooked_frog_legs.name=Жаренные лягушачьи лапки
+item.animania_cooked_frog_legs.name=Жареные лягушачьи лапки
 
 item.animania_raw_chevon.name=Сырая козлятина
 item.animania_cooked_chevon.name=Жареная козлятина
 item.animania_raw_prime_chevon.name=Сырая козлятина высшей категории
-item.animania_cooked_prime_chevon.name=Жаренная козлятина высшей категории
+item.animania_cooked_prime_chevon.name=Жареная козлятина высшей категории
+
+item.animania_raw_peacock.name=Сырой павлин
+item.animania_cooked_peacock.name=Жареный павлин
+item.animania_raw_prime_peacock.name=Сырой павлин высшей категории
+item.animania_cooked_prime_peacock.name=Жареный павлин высшей категории
 
 item.animania_raw_prime_rabbit.name=Сырая крольчатина высшей категории
-item.animania_cooked_prime_rabbit.name=Жаренная крольчатина высшей категории
+item.animania_cooked_prime_rabbit.name=Жареная крольчатина высшей категории
 
 item.animania_raw_prime_mutton.name=Сырая баранина высшей категории
-item.animania_cooked_prime_mutton.name=Жаренная баранина высшей категории
+item.animania_cooked_prime_mutton.name=Жареная баранина высшей категории
 
 tile.animania_cheese_friesian.name=Сырное колесо (Фризиан)
 item.animania_friesian_cheese_wedge.name=Сырный клин (Фризиан)
@@ -478,6 +482,7 @@ death.attack.pepe=%1$s был обмемен до смерти
 
 tile.animania_block_mud.name=Грязь
 tile.animania_block_seeds.name=Семена
+tile.animania_block_straw.name=Солома
 tile.animania_block_trough.name=Корыто
 tile.animania_block_nest.name=Гнездо
 tile.animania_invisiblock.name=Корыто
@@ -489,6 +494,9 @@ item.wagon.name=Крытый вагон
 
 entity.animania:cart.name=Конная повозка
 item.cart.name=Конная повозка
+
+entity.animania:tiller.name=Культиватор
+item.tiller.name=Культиватор
 
 tile.animania_wool_dorset_brown.name=Шерсть (Дорсет, Коричневая)
 tile.animania_wool_friesian_black.name=Шерсть (Фризиан, Чёрная)
@@ -508,7 +516,6 @@ fluid.milk_sheep=Овечье молоко
 tab.animania_entities.label=Animania: Сущности
 tab.animania_resources.label=Animania: Ресурсы
 
-
 animania.updatetext.1=Animania версия 
 animania.updatetext.2=сейчас доступна
 animania.updatetext.3=Не удалось подключиться, чтобы узнать, доступно ли обновление для Animania.
@@ -523,6 +530,7 @@ tooltip.an.healthboost=Увеличение регенерации
 tooltip.an.jumpboost=Увеличение прыжка
 tooltip.an.strength=Сила
 tooltip.an.resistance=Сопротивление
+tooltip.an.luck=Удача
 tooltip.an.removeall=Удаляет эффекты зелья
 
 tooltip.an.ridingcrop1=Использовать на хорошо кормящей Ломовой лошади, чтобы ездить
@@ -562,6 +570,7 @@ text.waila.fertile1=Плодородный
 text.waila.wool1=Рост шерсти
 text.waila.wool2=тиков осталось
 text.waila.wool3=Готов к стрижке
+text.waila.sleeping=Спящий
 
 text.jei.trough=Корыто может использоваться для кормления ваших животных. Щелкните правой кнопкой мыши с пшеницей, ведром воды или ведром помоев, чтобы заполнить его.
 text.jei.mud=Блоки грязи необходимы для свиней, они любят копаться в ней.

@@ -1,5 +1,8 @@
 package com.animania.common.entities.rodents.ai;
 
+import com.animania.common.entities.rodents.EntityFerretBase;
+import com.animania.common.entities.rodents.EntityHedgehogBase;
+import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
 import com.animania.common.handler.BlockHandler;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -30,7 +33,38 @@ public class EntityAIRodentEat extends EntityAIBase
 
 	@Override
 	public boolean shouldExecute() {
-		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
+		
+		if (this.grassEaterEntity instanceof EntityAnimaniaRabbit) {
+			EntityAnimaniaRabbit er = (EntityAnimaniaRabbit) this.grassEaterEntity;
+			if (er.getFed()) {
+				return false;
+			}
+			if (er.getSleeping()) {
+				return false;
+			}
+		}
+		
+		if (this.grassEaterEntity instanceof EntityFerretBase) {
+			EntityFerretBase er = (EntityFerretBase) this.grassEaterEntity;
+			if (er.getFed()) {
+				return false;
+			}
+			if (er.getSleeping()) {
+				return false;
+			}
+		}
+		
+		if (this.grassEaterEntity instanceof EntityHedgehogBase) {
+			EntityHedgehogBase er = (EntityHedgehogBase) this.grassEaterEntity;
+			if (er.getFed()) {
+				return false;
+			}
+			if (er.getSleeping()) {
+				return false;
+			}
+		}
+		
+		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 150) != 0)
 			return false;
 		else {
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);

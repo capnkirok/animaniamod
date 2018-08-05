@@ -26,6 +26,7 @@ import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemHamsterBall;
 import com.animania.common.items.ItemMilkBottle;
 import com.animania.common.items.ItemRidingCrop;
+import com.animania.common.items.ItemTiller;
 import com.animania.common.items.ItemTruffleSoup;
 import com.animania.common.items.ItemWagon;
 import com.animania.config.AnimaniaConfig;
@@ -85,7 +86,7 @@ public class ItemHandler
 	public static Item rawPrimeBeef;
 	public static Item cookedPrimeSteak;
 	public static Item cookedPrimeBeef;
-	
+
 	// Horse
 	public static Item rawHorse;
 	public static Item cookedHorse;
@@ -135,6 +136,12 @@ public class ItemHandler
 	public static Item cookedChevon;
 	public static Item rawPrimeChevon;
 	public static Item cookedPrimeChevon;
+
+	// Peacock
+	public static Item rawPeacock;
+	public static Item cookedPeacock;
+	public static Item rawPrimePeacock;
+	public static Item cookedPrimePeacock;
 
 	// Sheep
 	public static Item rawMutton;
@@ -391,6 +398,7 @@ public class ItemHandler
 	// Moving Objects
 	public static Item cart;
 	public static Item wagon;
+	public static Item tiller;
 
 	public static void preInit()
 	{
@@ -401,6 +409,7 @@ public class ItemHandler
 		if (!AnimaniaConfig.gameRules.disableRollingVehicles) {
 			cart = new ItemCart();
 			wagon = new ItemWagon();
+			tiller = new ItemTiller();
 		}
 
 		// Items for Animals
@@ -507,12 +516,17 @@ public class ItemHandler
 		ItemHandler.rawHorse = new ItemAnimaniaFoodRaw("raw_horse");
 		ItemHandler.cookedHorse= new ItemAnimaniaFood(20, 1f, "cooked_horse", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
 
-
 		// GOAT ITEMS
 		ItemHandler.rawChevon = new ItemAnimaniaFoodRaw("raw_chevon");
 		ItemHandler.cookedChevon = new ItemAnimaniaFood(3, 1f, "cooked_chevon", new PotionEffect(MobEffects.RESISTANCE, 600, 0, false, false));
 		ItemHandler.rawPrimeChevon = new ItemAnimaniaFoodRaw("raw_prime_chevon");
 		ItemHandler.cookedPrimeChevon = new ItemAnimaniaFood(3, 1f, "cooked_prime_chevon", new PotionEffect(MobEffects.RESISTANCE, 1200, 1, false, false));
+
+		// PEACOCK ITEMS
+		ItemHandler.rawPeacock = new ItemAnimaniaFoodRaw("raw_peacock");
+		ItemHandler.cookedPeacock = new ItemAnimaniaFood(3, 1f, "cooked_peacock", new PotionEffect(MobEffects.LUCK, 600, 0, false, false));
+		ItemHandler.rawPrimePeacock = new ItemAnimaniaFoodRaw("raw_prime_peacock");
+		ItemHandler.cookedPrimePeacock = new ItemAnimaniaFood(3, 1f, "cooked_prime_peacock", new PotionEffect(MobEffects.LUCK, 1200, 1, false, false));
 
 		// CHEESE
 		ItemHandler.cheeseWedgeFriesian = new ItemAnimaniaFood(2, 2f, "friesian_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
@@ -544,15 +558,15 @@ public class ItemHandler
 		ItemHandler.entityeggcalfhereford = new ItemEntityEgg("calf_hereford", CowType.HEREFORD, EntityGender.CHILD);
 		ItemHandler.entityeggcowhereford = new ItemEntityEgg("cow_hereford", CowType.HEREFORD, EntityGender.FEMALE);
 		ItemHandler.entityeggbullhereford = new ItemEntityEgg("bull_hereford", CowType.HEREFORD, EntityGender.MALE);
-		
+
 		ItemHandler.entityeggcalfhighland = new ItemEntityEgg("calf_highland", CowType.HIGHLAND, EntityGender.CHILD);
 		ItemHandler.entityeggcowhighland = new ItemEntityEgg("cow_highland", CowType.HIGHLAND, EntityGender.FEMALE);
 		ItemHandler.entityeggbullhighland = new ItemEntityEgg("bull_highland", CowType.HIGHLAND, EntityGender.MALE);
-		
+
 		ItemHandler.entityeggcalfjersey = new ItemEntityEgg("calf_jersey", CowType.JERSEY, EntityGender.CHILD);
 		ItemHandler.entityeggcowjersey = new ItemEntityEgg("cow_jersey", CowType.JERSEY, EntityGender.FEMALE);
 		ItemHandler.entityeggbulljersey = new ItemEntityEgg("bull_jersey", CowType.JERSEY, EntityGender.MALE);
-		
+
 		ItemHandler.entityeggcalfmooshroom = new ItemEntityEgg("calf_mooshroom", CowType.MOOSHROOM, EntityGender.CHILD);
 		ItemHandler.entityeggcowmooshroom = new ItemEntityEgg("cow_mooshroom", CowType.MOOSHROOM, EntityGender.FEMALE);
 		ItemHandler.entityeggbullmooshroom = new ItemEntityEgg("bull_mooshroom", CowType.MOOSHROOM, EntityGender.MALE);

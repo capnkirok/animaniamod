@@ -26,6 +26,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -41,7 +42,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
+import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -322,7 +326,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
+		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
 	}
 
@@ -382,6 +386,10 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		{
 			gestationTimer--;
 			this.setGestation(gestationTimer);
+			
+			if (gestationTimer < 200 && this.getSleeping()) {
+				this.setSleeping(false);
+			}
 
 			if (gestationTimer == 0)
 			{
@@ -461,6 +469,46 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		super.onLivingUpdate();
 	}
 
+	
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	{
+		ItemStack stack = player.getHeldItem(hand);
+		EntityPlayer entityplayer = player;
+
+		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack) && this.getHasKids())
+		{
+			player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
+
+			ItemStack one = stack.copy();
+			one.setCount(1);
+			FluidActionResult result;
+			result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(milk.copy()), 1000, player, true);
+
+			ItemStack filled;;
+			if (!result.success)
+			{
+				Item item = stack.getItem();
+				if (item == Items.BUCKET)
+					filled = milk.copy();
+				else if(Loader.isModLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
+					filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
+				else
+					return false;
+			}
+			else
+				filled = result.result;
+			stack.shrink(1);
+			AnimaniaHelper.addItem(player, filled);
+			this.setWatered(false);
+
+			return true;
+		}
+		else
+			return super.processInteract(player, hand);
+	}
+
+	/*
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
@@ -496,6 +544,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		else
 			return super.processInteract(player, hand);
 	}
+	*/
 
 	@Override
 	@SideOnly(Side.CLIENT)

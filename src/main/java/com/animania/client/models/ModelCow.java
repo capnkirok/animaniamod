@@ -1,5 +1,6 @@
 package com.animania.client.models;
 
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.cows.EntityCowAngus;
 import com.animania.common.entities.cows.EntityCowFriesian;
 import com.animania.common.entities.cows.EntityCowHolstein;
@@ -114,21 +115,16 @@ public class ModelCow extends ModelBase
         this.EarR = new ModelRenderer(this, 39, 53);
         this.EarR.setTextureSize(64, 64);
         this.EarR.addBox(-1.5F, -1F, -0.5F, 3, 2, 1);
-        // EarR.setRotationPoint(5.5F, 3.5F, -13F);
-        // head.setRotationPoint(0F, 5F, -12F);
         this.EarR.setRotationPoint(5.5F, -1.5F, 1F);
         this.EarRa = new ModelRenderer(this, 41, 50);
         this.EarRa.setTextureSize(64, 64);
         this.EarRa.addBox(-0.5F, -0.5F, -0.5F, 1, 1, 1);
-        // head.setRotationPoint(0F, 5F, -12F);
-        // EarRa.setRotationPoint(4.5F, 4.969114F, -12.69718F);
         this.EarRa.setRotationPoint(4.5F, -.04F, 0.69718F);
 
         this.TailTop = new ModelRenderer(this, 32, 49);
         this.TailTop.setTextureSize(64, 64);
         this.TailTop.addBox(-1F, -0.5F, 0F, 2, 1, 1);
         this.TailTop.setRotationPoint(0F, 4.0F, 9F);
-        // TailTop.setRotationPoint(0F, 0F, 0F);
         this.Tail = new ModelRenderer(this, 27, 51);
         this.Tail.setTextureSize(64, 64);
         this.Tail.addBox(-0.5F, -1.0F, -5.7F, 1, 1, 6);
@@ -138,16 +134,12 @@ public class ModelCow extends ModelBase
         this.TailHair1.setTextureSize(64, 64);
         this.TailHair1.addBox(-1F, 0.0F, -4F, 2, 0, 3);
         this.TailHair1.setRotationPoint(0F, -.5F, -4.64188F);
-        // Tail.setRotationPoint(0F, 4F, 9F);
-        // TailHair1.setRotationPoint(0F, 8.189776F, 10.64188F);
-
+ 
         this.TailHair2 = new ModelRenderer(this, 23, 52);
         this.TailHair2.setTextureSize(64, 64);
         this.TailHair2.addBox(-1F, 0.0F, -4F, 2, 0, 3);
         this.TailHair2.setRotationPoint(2.010928E-07F, -.5F, -4.64188F);
-        // TailHair2.setRotationPoint(2.010928E-07F, 8.189775F, 10.64188F);
-        // TailHair2.setRotationPoint(2.010928E-07F, 4.189775F, 1.64188F);
-
+ 
         this.head.addChild(this.Horn1);
         this.head.addChild(this.Horn2);
         this.head.addChild(this.Snout);
@@ -156,18 +148,13 @@ public class ModelCow extends ModelBase
         this.head.addChild(this.EarR);
         this.head.addChild(this.EarRa);
 
-        // this.Tail.addChild(this.TailTop);
         this.Tail.addChild(this.TailHair1);
         this.Tail.addChild(this.TailHair2);
 
     }
 
-    /**
-     * Sets the models various rotation angles then renders the model.
-     */
     @Override
-    public void render(Entity p_78088_1_, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_,
-            float p_78088_7_) {
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
         this.Tail.rotateAngleX = -2F;
         this.Tail.rotateAngleY = -3.141593F;
@@ -175,29 +162,64 @@ public class ModelCow extends ModelBase
         this.TailHair1.rotateAngleZ = -2.280276F;
         this.TailHair2.rotateAngleZ = 2.432113F;
 
-        this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, p_78088_7_, p_78088_1_);
+        this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
-        this.body.render(p_78088_7_);
-        this.head.render(p_78088_7_);
-        this.leg1.render(p_78088_7_);
-        this.leg2.render(p_78088_7_);
-        this.leg3.render(p_78088_7_);
-        this.leg4.render(p_78088_7_);
-        this.udder.render(p_78088_7_);
-        this.udderA.render(p_78088_7_);
-        this.udderC.render(p_78088_7_);
-        this.udderD.render(p_78088_7_);
-        this.udderB.render(p_78088_7_);
+        boolean isSleeping = false;
+		EntityAnimaniaCow ech = (EntityAnimaniaCow) entityIn;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+		float sleepTimer = ech.getSleepTimer();
 
-        this.TailTop.render(p_78088_7_);
-        this.Tail.render(p_78088_7_);
+		if (isSleeping) {
+
+			this.leg1.rotateAngleX = sleepTimer * -1.8F;
+			this.leg1.render(scale * .95F);
+			this.leg2.rotateAngleX = sleepTimer * -1.8F;
+			this.leg2.render(scale * .97F);
+			this.leg3.rotateAngleX = sleepTimer * 1.7F;
+			this.leg3.render(scale * .97F);
+			this.leg4.rotateAngleX = sleepTimer * 1.75F;
+			this.leg4.render(scale * .95F);
+			this.head.rotateAngleY = sleepTimer * -2.8F;
+
+			if (sleepTimer > -.28) {
+				this.body.rotateAngleX = (float) Math.PI / 2F - (sleepTimer/3);
+			} else {
+				this.body.rotateAngleX = (float) Math.PI / 2F + (sleepTimer/3);
+			}
+
+		} else {
+
+			this.leg1.rotateAngleZ = 0;
+			this.leg1.render(scale);
+			this.leg2.rotateAngleZ = 0;
+			this.leg2.render(scale);
+			this.leg3.rotateAngleZ = 0;
+			this.leg3.render(scale);
+			this.leg4.rotateAngleZ = 0;
+			this.leg4.render(scale);
+			this.head.rotateAngleY = 0F;
+			this.body.rotateAngleX = (float) Math.PI / 2F;
+
+		}
+
+		this.udder.render(scale);
+		this.udderA.render(scale);
+		this.udderC.render(scale);
+		this.udderD.render(scale);
+		this.udderB.render(scale);
+		this.TailTop.render(scale);
+		this.Tail.render(scale);
+		this.body.render(scale);
+		this.head.render(scale);
 
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
 
-        super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+        super.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTickTime);
 
         if (entitylivingbaseIn instanceof EntityCowHolstein) {
             this.head.rotationPointY = 6.0F + ((EntityCowHolstein) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
@@ -221,23 +243,32 @@ public class ModelCow extends ModelBase
     @Override
     public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity) {
 
-        this.head.rotateAngleX = par5 / (180F / (float) Math.PI);
-        this.head.rotateAngleY = par4 / (180F / (float) Math.PI);
-        this.head.rotateAngleX = this.headRotationAngleX;
-        this.body.rotateAngleX = (float) Math.PI / 2F;
-
         this.udder.rotateAngleX = (float) Math.PI / 2F;
         this.udderA.rotateAngleX = (float) Math.PI / 2F;
         this.udderC.rotateAngleX = (float) Math.PI / 2F;
         this.udderD.rotateAngleX = (float) Math.PI / 2F;
         this.udderB.rotateAngleX = (float) Math.PI / 2F;
 
-        this.TailTop.rotateAngleX = (float) Math.PI / 2F;
-        this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+        this.head.rotateAngleX = par5 / (180F / (float) Math.PI);
+		this.head.rotateAngleY = par4 / (180F / (float) Math.PI);
+		this.head.rotateAngleX = this.headRotationAngleX;
+        
+        boolean isSleeping = false;
 
-        this.leg1.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
-        this.leg2.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
-        this.leg3.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
-        this.leg4.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
+		EntityAnimaniaCow ech = (EntityAnimaniaCow) entity;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+
+		if (!isSleeping) {
+			this.TailTop.rotateAngleX = (float) Math.PI / 2F;
+			this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		} else {
+			this.Tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		}
+		this.leg1.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
+		this.leg2.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
+		this.leg3.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
+		this.leg4.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
     }
 }

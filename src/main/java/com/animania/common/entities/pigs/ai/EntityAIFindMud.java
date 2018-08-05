@@ -1,5 +1,6 @@
 package com.animania.common.entities.pigs.ai;
 
+import java.util.List;
 import java.util.Random;
 
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
@@ -7,9 +8,10 @@ import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.EntityPigletBase;
 import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +20,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class EntityAIFindMud extends EntityAIBase
 {
-	private final EntityCreature temptedEntity;
+	private final EntityAnimaniaPig entityIn;
 	private final double         speed;
 	private double               targetX;
 	private double               targetY;
@@ -29,8 +31,8 @@ public class EntityAIFindMud extends EntityAIBase
 	private int                  delayTemptCounter;
 	private boolean              isRunning;
 
-	public EntityAIFindMud(EntityCreature temptedEntityIn, double speedIn) {
-		this.temptedEntity = temptedEntityIn;
+	public EntityAIFindMud(EntityAnimaniaPig temptedEntityIn, double speedIn) {
+		this.entityIn = temptedEntityIn;
 		this.speed = speedIn;
 		this.setMutexBits(3);
 		this.delayTemptCounter = 0;
@@ -40,44 +42,44 @@ public class EntityAIFindMud extends EntityAIBase
 	public boolean shouldExecute() {
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 100) {
+		if (this.delayTemptCounter < AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
 			return false;
-		} else if (delayTemptCounter > 100) {
-			if (this.temptedEntity instanceof EntityAnimaniaPig) {
-				EntityAnimaniaPig pig = (EntityAnimaniaPig) temptedEntity;
-				if (pig.getPlayed()) {
-					this.delayTemptCounter = 0;
-					return false;
-				}
-			} 
-			
-			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+		} else if (delayTemptCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
+
+			if (entityIn.getPlayed()) {
+				this.delayTemptCounter = 0;
+				return false;
+			}
+
+			if (!entityIn.world.isDaytime() || entityIn.getSleeping()) {
+				this.delayTemptCounter = 0;
+				return false;
+			}
+
+			if (this.entityIn.getRNG().nextInt(100) == 0)
 			{
-				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entityIn, 20, 4);
 				if (vec3d != null) {
 					this.delayTemptCounter = 0;
 					this.resetTask();
-					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.entityIn.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
 				}
 				return false;
 			}
 
 			Random rand = new Random();
-			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
-			Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
+			BlockPos currentpos = new BlockPos(this.entityIn.posX, this.entityIn.posY, this.entityIn.posZ);
+			Block poschk = this.entityIn.world.getBlockState(currentpos).getBlock();
 			if (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")) {
-				if (temptedEntity instanceof EntityAnimaniaPig) {
-					EntityAnimaniaPig pig = (EntityAnimaniaPig) temptedEntity;
-					pig.entityAIEatGrass.startExecuting();
-					pig.setPlayed(true);
-				} 
+				EntityAnimaniaPig pig = (EntityAnimaniaPig) entityIn;
+				pig.setPlayed(true);
 				this.delayTemptCounter = 0;
 				return false;
 			}
 
-			double x = this.temptedEntity.posX;
-			double y = this.temptedEntity.posY;
-			double z = this.temptedEntity.posZ;
+			double x = this.entityIn.posX;
+			double y = this.entityIn.posY;
+			double z = this.entityIn.posZ;
 
 			boolean mudFound = false;
 
@@ -88,16 +90,18 @@ public class EntityAIFindMud extends EntityAIBase
 					for (int k = -10; k < 10; k++) {
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = this.entityIn.world.getBlockState(pos).getBlock();
 
-						if (blockchk != null && blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().equals("tile.mud")) {
+						List<EntityAnimaniaPig> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 2, entityIn.world, pos);
+
+						if (blockchk != null && (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().equals("tile.mud")) && others.size() < 2) {
 							mudFound = true;
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								return false;
 							}
-							else if (this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0
-									&& this.temptedEntity.motionZ == 0) {
+							else if (this.entityIn.collidedHorizontally && this.entityIn.motionX == 0
+									&& this.entityIn.motionZ == 0) {
 								this.delayTemptCounter = 0;
 								return false;
 							}
@@ -113,31 +117,31 @@ public class EntityAIFindMud extends EntityAIBase
 			}
 		}
 
-		
+
 		return false;
 	}
 
 	public boolean shouldContinueExecuting()
 	{
-		return !this.temptedEntity.getNavigator().noPath();
+		return !this.entityIn.getNavigator().noPath();
 	}
-	
+
 	@Override
 	public void resetTask() {
 		this.temptingPlayer = null;
-		this.temptedEntity.getNavigator().clearPath();
+		this.entityIn.getNavigator().clearPath();
 		this.isRunning = false;
 	}
 
 	@Override
 	public void startExecuting() {
 
-		double x = this.temptedEntity.posX;
-		double y = this.temptedEntity.posY;
-		double z = this.temptedEntity.posZ;
+		double x = this.entityIn.posX;
+		double y = this.entityIn.posY;
+		double z = this.entityIn.posZ;
 
 		BlockPos currentpos = new BlockPos(x, y, z);
-		Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
+		Block poschk = this.entityIn.world.getBlockState(currentpos).getBlock();
 		if (poschk != BlockHandler.blockMud || !poschk.getUnlocalizedName().equals("tile.mud")) {
 
 			boolean mudFound = false;
@@ -152,7 +156,7 @@ public class EntityAIFindMud extends EntityAIBase
 					for (int k = -10; k < 10; k++) {
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = this.entityIn.world.getBlockState(pos).getBlock();
 						if (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().equals("tile.mud")) {
 							mudFound = true;
 							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
@@ -161,18 +165,18 @@ public class EntityAIFindMud extends EntityAIBase
 
 								loc = newloc;
 
-								if (this.temptedEntity.posX > mudPos.getX()) {
+								if (this.entityIn.posX > mudPos.getX()) {
 									BlockPos mudPoschk = new BlockPos(x + i + 1, y + j, z + k);
-									Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPoschk).getBlock();
+									Block mudBlockchk = this.entityIn.world.getBlockState(mudPoschk).getBlock();
 									if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) {
 										spcFlag = true;
 										i = i + 1;
 									}
 								}
 
-								if (this.temptedEntity.posZ > mudPos.getZ()) {
+								if (this.entityIn.posZ > mudPos.getZ()) {
 									BlockPos mudPoschk = new BlockPos(x + i, y + j, z + k + 1);
-									Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPoschk).getBlock();
+									Block mudBlockchk = this.entityIn.world.getBlockState(mudPoschk).getBlock();
 									if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) {
 										spcFlag = true;
 										k = k + 1;
@@ -195,38 +199,38 @@ public class EntityAIFindMud extends EntityAIBase
 
 			if (mudFound) {
 
-				Block mudBlockchk = this.temptedEntity.world.getBlockState(mudPos).getBlock();
+				Block mudBlockchk = this.entityIn.world.getBlockState(mudPos).getBlock();
 				if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) 
-					if (this.temptedEntity instanceof EntitySowBase) {
-						EntitySowBase te = (EntitySowBase) this.temptedEntity;
+					if (this.entityIn instanceof EntitySowBase) {
+						EntitySowBase te = (EntitySowBase) this.entityIn;
 
 						if (te.getMuddy() == false) {
 							if (te.posX - mudPos.getX() < 0 && te.posZ - mudPos.getZ() < 0)
-								this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX() + 2, mudPos.getY(), mudPos.getZ() + 2, this.speed);
+								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() + 2, mudPos.getY(), mudPos.getZ() + 2, this.speed);
 							else
-								this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
+								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
 
-							this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
+							this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
 
 						}
 					}
-					else if (this.temptedEntity instanceof EntityPigletBase) {
-						EntityPigletBase te = (EntityPigletBase) this.temptedEntity;
+					else if (this.entityIn instanceof EntityPigletBase) {
+						EntityPigletBase te = (EntityPigletBase) this.entityIn;
 						if (te.getMuddy() == false)
 							if (te.posX - mudPos.getX() < 0 && te.posZ - mudPos.getZ() < 0)
-								this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX() + 2, mudPos.getY(), mudPos.getZ() + 2, this.speed);
+								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() + 2, mudPos.getY(), mudPos.getZ() + 2, this.speed);
 							else
-								this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
+								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
 					}
-					else if (this.temptedEntity instanceof EntityHogBase) {
-						EntityHogBase te = (EntityHogBase) this.temptedEntity;
+					else if (this.entityIn instanceof EntityHogBase) {
+						EntityHogBase te = (EntityHogBase) this.entityIn;
 						if (te.getMuddy() == false)
 							if (te.posX - mudPos.getX() < 0 && te.posZ - mudPos.getZ() < 0)
-								this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX() + 3, mudPos.getY(), mudPos.getZ() + 3, this.speed);
+								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() + 3, mudPos.getY(), mudPos.getZ() + 3, this.speed);
 							else if (te.posX - mudPos.getX() > 0 && te.posZ - mudPos.getZ() > 0)
-								this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
+								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
 							else
-								this.temptedEntity.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
+								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
 					}
 			}
 		}

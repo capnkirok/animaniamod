@@ -1,5 +1,6 @@
 package com.animania.client.models;
 
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.horses.EntityFoalDraftHorse;
 
 import net.minecraft.client.model.ModelBase;
@@ -416,6 +417,48 @@ public class ModelDraftHorseFoal extends ModelBase
 
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
+		boolean isSleeping = false;
+		EntityAnimaniaHorse ech = (EntityAnimaniaHorse) entityIn;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+		
+		float sleepTimer = ech.getSleepTimer();
+
+		if (isSleeping) {
+
+			this.FrontLeftMuscle.rotateAngleX = sleepTimer * -1.8F;
+			this.FrontLeftMuscle.render(scale * .95F);
+			this.FrontRightMuscle.rotateAngleX = sleepTimer * -1.8F;
+			this.FrontRightMuscle.render(scale * .97F);
+			this.BackLeftMuscle.rotateAngleX = sleepTimer * 1.7F;
+			this.BackLeftMuscle.render(scale * .97F);
+			this.BackRightMuscle.rotateAngleX = sleepTimer * 1.75F;
+			this.BackRightMuscle.render(scale * .95F);
+			this.HeadNode.rotateAngleY = sleepTimer * + 2.8F;
+
+			if (sleepTimer > -.28) {
+				this.Body.rotateAngleX = - (sleepTimer/3);
+			} else {
+				this.Body.rotateAngleX = (sleepTimer/3);
+			}
+
+		} else {
+
+			this.BackLeftMuscle.rotateAngleZ = 0;
+			this.BackLeftMuscle.render(scale);
+			this.BackRightMuscle.rotateAngleZ = 0;
+			this.BackRightMuscle.render(scale);
+			this.FrontLeftMuscle.rotateAngleZ = 0;
+			this.FrontLeftMuscle.render(scale);
+			this.FrontRightMuscle.rotateAngleZ = 0;
+			this.FrontRightMuscle.render(scale);
+			this.HeadNode.rotateAngleY = 0F;
+			this.Body.rotateAngleX = 0;
+			
+
+		}
+		
 		Body.render(scale);
 
 		TailNode.render(scale);

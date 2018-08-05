@@ -72,7 +72,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public EntityMareBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.6F, 2.2F);
+		this.setSize(1.8F, 2.2F);
 		this.stepHeight = 1.2F;
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;
@@ -235,7 +235,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			}
 
 		}
-		else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
+		else if (!player.isSneaking() && stack != null && this.isHorseSaddled() && !this.getSleeping() && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
 			this.mountTo(player);
 			//player.addStat(AnimaniaAchievements.Horseriding, 1);
 			return true;
@@ -501,7 +501,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
+		if (soundevent != null && !this.getSleeping())
 		{
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .05F);
 		}
@@ -552,6 +552,12 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		if (this.getAge() == 0) {
 			this.setAge(1);
 		}
+		
+		if (this.getLeashed() && this.getSleeping())
+			this.setSleeping(false);
+		
+		if (this.isBeingRidden() && this.getSleeping())
+			this.setSleeping(false);
 
 		if (this.isBeingRidden() && !this.isAIDisabled()) {
 			this.setNoAI(true);
@@ -639,7 +645,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			if (happyTimer == 0) {
 				happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles) {
+				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles && !this.getSleeping() && this.getHandFed()) {
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
@@ -654,6 +660,11 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		{
 			gestationTimer--;
 			this.setGestation(gestationTimer);
+			
+			if (gestationTimer < 200 && this.getSleeping()) {
+				this.setSleeping(false);
+			}
+			
 			if (gestationTimer == 0)
 			{
 

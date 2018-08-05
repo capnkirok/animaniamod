@@ -1,5 +1,6 @@
 package com.animania.common.entities.goats.ai;
 
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 
 import net.minecraft.block.Block;
@@ -42,15 +43,20 @@ public class EntityAIPanicGoats extends EntityAIBase
 			this.theEntityCreature.setJumping(true);
 		}
 		
-
 		if (this.theEntityCreature.getAttackTarget() == null && !this.theEntityCreature.isBurning() && duration == 0)
 		{
 			hitFlag = false;
 			return false;
+			
 		} else if (!this.theEntityCreature.isBurning()) {
 			
 			Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 20, 4);
 
+			EntityAnimaniaGoat entityAnimal = this.theEntityCreature;
+			if (entityAnimal.getSleeping()) {
+				entityAnimal.setSleeping(false);
+			}
+			
 			if (hitFlag == false) {
 				hitFlag = true;
 				duration = 40;
@@ -74,6 +80,10 @@ public class EntityAIPanicGoats extends EntityAIBase
 		}
 		else
 		{
+			EntityAnimaniaGoat entityAnimal = this.theEntityCreature;
+			if (entityAnimal.getSleeping()) {
+				entityAnimal.setSleeping(false);
+			}
 			
 			BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
 

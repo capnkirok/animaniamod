@@ -7,14 +7,19 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
+import com.animania.common.entities.generic.ai.EntityAILookIdle;
+import com.animania.common.entities.generic.ai.EntityAITempt;
+import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAIWatchClosest;
+import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.pigs.ai.EntityAIFindFood;
 import com.animania.common.entities.pigs.ai.EntityAIFindMud;
 import com.animania.common.entities.pigs.ai.EntityAIFindSaltLickPigs;
 import com.animania.common.entities.pigs.ai.EntityAIFindWater;
-import com.animania.common.entities.pigs.ai.EntityAILookIdlePig;
 import com.animania.common.entities.pigs.ai.EntityAIPanicPigs;
 import com.animania.common.entities.pigs.ai.EntityAIPigSnuffle;
+import com.animania.common.entities.pigs.ai.EntityAISleep;
 import com.animania.common.entities.pigs.ai.EntityAISwimmingPigs;
 import com.animania.common.entities.pigs.ai.EntityAITemptItemStack;
 import com.animania.common.handler.BlockHandler;
@@ -28,9 +33,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityPigZombie;
@@ -68,6 +70,8 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	protected static final DataParameter<Boolean> PLAYED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaPig.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaPig.class, DataSerializers.FLOAT);
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.pigFood));
 	protected boolean boosting;
@@ -114,6 +118,9 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
 		}
 		this.tasks.addTask(7, new EntityAIPanicPigs(this, 1.5D));
+		if (AnimaniaConfig.gameRules.animalsSleep) {
+			this.tasks.addTask(8, new EntityAISleep(this, 0.8));
+		}
 		this.tasks.addTask(9, new EntityAITempt(this, 1.2D, Items.CARROT_ON_A_STICK, false));
 		this.tasks.addTask(10, new EntityAITempt(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
 		this.tasks.addTask(10, new EntityAITemptItemStack(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
@@ -121,7 +128,8 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.tasks.addTask(12, new EntityAIFindSaltLickPigs(this, 1.0));
 		this.tasks.addTask(13, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new EntityAnimaniaAvoidWater(this));
-		this.tasks.addTask(15, new EntityAILookIdlePig(this));
+		this.tasks.addTask(15, new EntityAILookIdle(this));
+		this.tasks.addTask(16, new EntityAIHurtByTarget(this, false, new Class[0]));
 
 	}
 
@@ -243,6 +251,8 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.dataManager.register(EntityAnimaniaPig.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaPig.PLAYED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaPig.AGE, Integer.valueOf(0));
+		this.dataManager.register(EntityAnimaniaPig.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaPig.SLEEPTIMER, Float.valueOf(0.0F));
 	}
 
 	@Override
@@ -258,6 +268,8 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Played", this.getPlayed());
 		compound.setInteger("Age", this.getAge());
+		compound.setBoolean("Sleep", this.getSleeping());
+		compound.setFloat("SleepTimer", this.getSleepTimer());
 
 	}
 
@@ -274,6 +286,8 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.setWatered(compound.getBoolean("Watered"));
 		this.setPlayed(compound.getBoolean("Played"));
 		this.setAge(compound.getInteger("Age"));
+		this.setSleeping(compound.getBoolean("Sleep"));
+		this.setSleepTimer(compound.getFloat("SleepTimer"));
 
 	}
 
@@ -311,13 +325,52 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 		this.dataManager.set(EntityAnimaniaPig.HANDFED, Boolean.valueOf(handfed));
 	}
 
+	public boolean getSleeping()
+	{
+		try {
+			return (this.getBoolFromDataManager(SLEEPING));
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void setSleeping(boolean flag)
+	{
+		if (flag)
+		{
+			this.dataManager.set(EntityAnimaniaPig.SLEEPING, Boolean.valueOf(true));
+		}
+		else
+		{
+			this.dataManager.set(EntityAnimaniaPig.SLEEPING, Boolean.valueOf(false));
+		}
+	}
+
+	public Float getSleepTimer()
+	{
+		try
+		{
+			return (this.getFloatFromDataManager(SLEEPTIMER));
+		}
+		catch (Exception e)
+		{
+			return 0F;
+		}
+	}
+
+	public void setSleepTimer(Float timer)
+	{
+		this.dataManager.set(EntityAnimaniaPig.SLEEPTIMER, Float.valueOf(timer));
+	}
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
 		{
 			if (!player.isCreative())
 			{
@@ -333,7 +386,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && AnimaniaHelper.hasFluid(stack, BlockHandler.fluidSlop))
+		else if (stack != ItemStack.EMPTY && AnimaniaHelper.hasFluid(stack, BlockHandler.fluidSlop) && !this.getSleeping())
 		{
 			if (!player.isCreative())
 			{
@@ -646,6 +699,10 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 	@Override
 	public void onLivingUpdate()
 	{
+
+		if (this.getLeashed() && this.getSleeping())
+			this.setSleeping(false);
+
 		if (this.getAge() == 0)
 		{
 			this.setAge(1);
@@ -727,7 +784,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, Anima
 			{
 				this.happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && !this.getPlayed() && AnimaniaConfig.gameRules.showUnhappyParticles)
+				if (!this.getFed() && !this.getWatered() && !this.getPlayed() && !this.getSleeping() && this.getHandFed() && AnimaniaConfig.gameRules.showUnhappyParticles)
 				{
 					double d = this.rand.nextGaussian() * 0.02D;
 					double d1 = this.rand.nextGaussian() * 0.02D;

@@ -1,15 +1,12 @@
 package com.animania.common.entities.amphibians;
 
-import java.util.List;
 import java.util.Random;
-
-import javax.annotation.Nullable;
 
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.cows.EntityCalfBase;
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
@@ -21,7 +18,6 @@ import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -37,7 +33,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -100,6 +95,8 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 		}
 		this.tasks.addTask(3, new EntityAIWanderAvoidWater(this, 0.6D));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
+		this.tasks.addTask(5, new EntityAIAvoidEntity(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
+		this.tasks.addTask(6, new EntityAIAvoidEntity(this, EntityAnimaniaChicken.class, 10.0F, 3.0D, 3.5D));
 	}
 
 	@Override

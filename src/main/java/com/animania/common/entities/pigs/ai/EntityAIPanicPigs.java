@@ -1,5 +1,7 @@
 package com.animania.common.entities.pigs.ai;
 
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -14,7 +16,7 @@ import net.minecraft.world.World;
 
 public class EntityAIPanicPigs extends EntityAIBase
 {
-    private final EntityCreature theEntityCreature;
+    private final EntityAnimaniaPig theEntityCreature;
     protected double             speed;
     private double               randPosX;
     private double               randPosY;
@@ -22,7 +24,7 @@ public class EntityAIPanicPigs extends EntityAIBase
     private int                  duration;
     private boolean              hitFlag;
 
-    public EntityAIPanicPigs(EntityCreature creature, double speedIn) {
+    public EntityAIPanicPigs(EntityAnimaniaPig creature, double speedIn) {
         this.theEntityCreature = creature;
         this.speed = speedIn;
         this.setMutexBits(1);
@@ -39,7 +41,13 @@ public class EntityAIPanicPigs extends EntityAIBase
             return false;
         }
         else if (!this.theEntityCreature.isBurning()) {
-            Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 20, 4);
+            
+        	EntityAnimaniaPig entityChk = this.theEntityCreature;
+			if (entityChk.getSleeping()) {
+				entityChk.setSleeping(false);
+			}
+			
+        	Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 20, 4);
 
             if (this.hitFlag == false) {
                 this.hitFlag = true;
@@ -60,7 +68,13 @@ public class EntityAIPanicPigs extends EntityAIBase
             }
         }
         else {
-            BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
+            
+        	EntityAnimaniaPig entityChk = this.theEntityCreature;
+			if (entityChk.getSleeping()) {
+				entityChk.setSleeping(false);
+			}
+        	
+        	BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
 
             if (blockpos == null) {
                 this.hitFlag = false;

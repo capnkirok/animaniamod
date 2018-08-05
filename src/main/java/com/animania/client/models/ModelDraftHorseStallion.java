@@ -469,8 +469,6 @@ public class ModelDraftHorseStallion extends ModelBase
 		this.HeadNode.addChild(this.Fleco4);
 		this.HeadNode.addChild(this.Mane);
 
-		//this.HeadNode.addChild(this.Reins1);
-
 		this.BackLeftMuscle.addChild(this.BackLeftA);
 		this.BackLeftMuscle.addChild(this.BackLeftB);
 		this.BackLeftMuscle.addChild(this.BackLeftHoof);
@@ -566,8 +564,7 @@ public class ModelDraftHorseStallion extends ModelBase
 		Fleco4.rotateAngleX = 0.5235988F;
 		Mane.rotateAngleX = 0.5235988F;
 		Block2.rotateAngleX = 0.2617994F;
-
-		Reins1.rotateAngleX = 0.5235988F;
+		
 		SaddleBase2.rotateAngleZ = -0.2617994F;
 		SaddleBase3.rotateAngleZ = 0.2617994F;
 		Saddle3.rotateAngleZ = -0.2617994F;
@@ -581,20 +578,65 @@ public class ModelDraftHorseStallion extends ModelBase
 
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
+		
+		
+		
+		boolean isSleeping = false;
+		EntityAnimaniaHorse ech = (EntityAnimaniaHorse) entityIn;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+		
+		float sleepTimer = ech.getSleepTimer();
+
+		if (isSleeping) {
+
+			this.FrontLeftMuscle.rotateAngleX = sleepTimer * -1.8F;
+			this.FrontLeftMuscle.render(scale * .95F);
+			this.FrontRightMuscle.rotateAngleX = sleepTimer * -1.8F;
+			this.FrontRightMuscle.render(scale * .97F);
+			this.BackLeftMuscle.rotateAngleX = sleepTimer * 1.7F;
+			this.BackLeftMuscle.render(scale * .97F);
+			this.BackRightMuscle.rotateAngleX = sleepTimer * 1.75F;
+			this.BackRightMuscle.render(scale * .95F);
+			this.HeadNode.rotateAngleY = sleepTimer * - 2.8F;
+
+			if (sleepTimer > -.28) {
+				this.Body.rotateAngleX = - (sleepTimer/3);
+			} else {
+				this.Body.rotateAngleX = (sleepTimer/3);
+			}
+
+		} else {
+
+			this.BackLeftMuscle.rotateAngleZ = 0;
+			this.BackLeftMuscle.render(scale);
+			this.BackRightMuscle.rotateAngleZ = 0;
+			this.BackRightMuscle.render(scale);
+			this.FrontLeftMuscle.rotateAngleZ = 0;
+			this.FrontLeftMuscle.render(scale);
+			this.FrontRightMuscle.rotateAngleZ = 0;
+			this.FrontRightMuscle.render(scale);
+			this.HeadNode.rotateAngleY = 0F;
+			this.Body.rotateAngleX = 0;
+			
+
+		}
+		
 		Body.render(scale);
 		TailNode.render(scale);
-
-
 
 		BackLeftMuscle.render(scale);
 		BackRightMuscle.render(scale);
 		FrontLeftMuscle.render(scale);
 		FrontRightMuscle.render(scale);
+
+		HeadNode.render(scale);
+		
 		if (AnimaniaConfig.gameRules.showParts) {
 			Block1.render(scale);
 			Block2.render(scale);
 		}
-		HeadNode.render(scale);
 
 		if (eh.isHorseSaddled()) {
 			SaddleBase.render(scale);
@@ -654,9 +696,6 @@ public class ModelDraftHorseStallion extends ModelBase
 		} else {
 			this.HeadNode.rotateAngleX = this.headRotationAngleX;
 		}
-
-		//this.tailA.rotateAngleX = 1.5F;
-		//this.tailA.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 
 		this.BackLeftMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.0F * par2;
 		this.BackRightMuscle.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.0F * par2;

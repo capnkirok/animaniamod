@@ -1,6 +1,9 @@
 package com.animania.common.blocks;
 
+import java.util.List;
+
 import com.animania.Animania;
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.items.SubtypesItemBlock;
 
 import net.minecraft.block.SoundType;
@@ -22,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -46,11 +48,11 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items)
 	{
-		if (tab == Animania.TabAnimaniaResources)
-			for (BlockAnimaniaWool.EnumType blockstone$enumtype : BlockAnimaniaWool.EnumType.values())
-			{
-				items.add(new ItemStack(this, 1, blockstone$enumtype.getMetadata()));
-			}
+
+		for (BlockAnimaniaWool.EnumType blockstone$enumtype : BlockAnimaniaWool.EnumType.values())
+		{
+			items.add(new ItemStack(this, 1, blockstone$enumtype.getMetadata()));
+		}
 
 	}
 
@@ -209,5 +211,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 
 		return "";
 	}
+
+
 
 }

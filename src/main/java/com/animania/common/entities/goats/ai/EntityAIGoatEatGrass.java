@@ -19,20 +19,30 @@ import net.minecraft.world.World;
 public class EntityAIGoatEatGrass extends EntityAIBase
 {
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final EntityLiving grassEaterEntity;
+	private final EntityAnimaniaGoat grassEaterEntity;
 	private final World entityWorld;
 	int eatingGrassTimer;
 
 	public EntityAIGoatEatGrass(EntityLiving grassEaterEntityIn)
 	{
-		this.grassEaterEntity = grassEaterEntityIn;
+		this.grassEaterEntity = (EntityAnimaniaGoat) grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);
 	}
 
 	public boolean shouldExecute()
 	{
-		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
+		
+		if (!grassEaterEntity.world.isDaytime()) {
+			return false;
+		}
+		
+		if (this.grassEaterEntity.getFed())
+		{
+			return false;
+		}
+		
+		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 150) != 0)
 		{
 			return false;
 		}

@@ -3,18 +3,12 @@ package com.animania.common.entities.cows.ai;
 import java.util.List;
 import java.util.Random;
 
-import com.animania.common.entities.cows.EntityCalfAngus;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.cows.EntityCalfBase;
-import com.animania.common.entities.cows.EntityCalfFriesian;
-import com.animania.common.entities.cows.EntityCalfHereford;
-import com.animania.common.entities.cows.EntityCalfHolstein;
-import com.animania.common.entities.cows.EntityCalfLonghorn;
 import com.animania.common.entities.cows.EntityCowBase;
-import com.animania.common.entities.horses.EntityMareBase;
-import com.animania.common.entities.horses.EntityStallionBase;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.math.MathHelper;
@@ -22,22 +16,28 @@ import net.minecraft.util.math.MathHelper;
 public class EntityAIFollowParentCows extends EntityAIBase
 {
 	/** The child that is following its parent. */
-	EntityAnimal childAnimal;
-	EntityAnimal parentAnimal;
+	EntityAnimaniaCow childAnimal;
+	EntityAnimaniaCow parentAnimal;
 	double       moveSpeed;
 	private int  delayCounter;
 	Random       rand = new Random();
 
-	public EntityAIFollowParentCows(EntityAnimal animal, double speed) {
+	public EntityAIFollowParentCows(EntityAnimaniaCow animal, double speed) {
 		this.childAnimal = animal;
 		this.moveSpeed = speed;
 	}
 
 	@Override
 	public boolean shouldExecute() {
-
+		
 		this.delayCounter++;
-		if (this.delayCounter > 60) {
+		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
+			
+			if (childAnimal.getSleeping()) {
+				this.delayCounter = 0;
+				return false;
+			}
+			
 			if (this.childAnimal instanceof EntityCalfBase) {
 				EntityCalfBase ec = (EntityCalfBase) this.childAnimal;
 				if (ec.getParentUniqueId() == null) {
@@ -62,7 +62,7 @@ public class EntityAIFollowParentCows extends EntityAIBase
 							double z2 = Math.abs(zt - z1);
 
 							if (x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
-								this.parentAnimal = (EntityAnimal) entity;
+								this.parentAnimal = entity;
 								return true;
 							} else {
 								return false;

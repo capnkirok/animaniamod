@@ -11,21 +11,22 @@ import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.cows.ai.EntityAICowEatGrass;
 import com.animania.common.entities.cows.ai.EntityAIFindFood;
-import com.animania.common.entities.cows.ai.EntityAIFindSaltLickCows;
 import com.animania.common.entities.cows.ai.EntityAIFindWater;
+import com.animania.common.entities.cows.ai.EntityAISleep;
 import com.animania.common.entities.cows.ai.EntityAISwimmingCows;
-import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAIFindSaltLick;
+import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
+import com.animania.common.entities.generic.ai.EntityAILookIdle;
+import com.animania.common.entities.generic.ai.EntityAITempt;
+import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAIWatchClosest;
+import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,6 +60,8 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaCow.class, DataSerializers.FLOAT);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaCow.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 
@@ -92,10 +95,14 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
 		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
+		if (AnimaniaConfig.gameRules.animalsSleep) {
+			this.tasks.addTask(9, new EntityAISleep(this, 0.8));
+		}
 		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
-		this.tasks.addTask(12, new EntityAIFindSaltLickCows(this, 1.0));
+		this.tasks.addTask(12, new EntityAIFindSaltLick(this, 1.0));
+		this.tasks.addTask(13, new EntityAnimaniaAvoidWater(this));
+		this.tasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
 			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, EntityPlayer.class));
 		}
@@ -119,7 +126,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		super.setPosition(x, y, z);
 	}
 
-	
+
 	@Override
 	protected void entityInit()
 	{
@@ -127,9 +134,10 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		this.dataManager.register(EntityAnimaniaCow.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaCow.HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaCow.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaCow.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaCow.SLEEPTIMER, Float.valueOf(0.0F));
 		this.dataManager.register(EntityAnimaniaCow.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaCow.AGE, Integer.valueOf(0));
-
 
 	}
 
@@ -173,13 +181,16 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			}
 		}
 
-		this.setFed(true);
-		this.setHandFed(true);
-		this.entityAIEatGrass.startExecuting();
-		this.eatTimer = 80;
+		if (!this.getSleeping()) {
 
-		if (!player.capabilities.isCreativeMode)
-			stack.setCount(stack.getCount() - 1);
+			this.setFed(true);
+			this.setHandFed(true);
+			this.entityAIEatGrass.startExecuting();
+			this.eatTimer = 80;
+
+			if (!player.capabilities.isCreativeMode)
+				stack.setCount(stack.getCount() - 1);
+		}
 	}
 
 	public boolean getFed()
@@ -240,6 +251,46 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			this.dataManager.set(EntityAnimaniaCow.WATERED, Boolean.valueOf(false));
 	}
 
+	public boolean getSleeping()
+	{
+		try {
+			return (this.getBoolFromDataManager(SLEEPING));
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void setSleeping(boolean flag)
+	{
+		if (flag)
+		{
+			this.dataManager.set(EntityAnimaniaCow.SLEEPING, Boolean.valueOf(true));
+		}
+		else
+		{
+			this.dataManager.set(EntityAnimaniaCow.SLEEPING, Boolean.valueOf(false));
+		}
+	}
+
+	public Float getSleepTimer()
+	{
+		try
+		{
+			return (this.getFloatFromDataManager(SLEEPTIMER));
+		}
+		catch (Exception e)
+		{
+			return 0F;
+		}
+	}
+
+	public void setSleepTimer(Float timer)
+	{
+		this.dataManager.set(EntityAnimaniaCow.SLEEPTIMER, Float.valueOf(timer));
+	}
+
+
 	public int getAge()
 	{
 		try {
@@ -267,7 +318,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
+		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .2F);
 	}
 
@@ -289,6 +340,8 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
+		if (this.getLeashed() && this.getSleeping())
+			this.setSleeping(false);
 
 		if (this.getAge() == 0) {
 			this.setAge(1);
@@ -309,6 +362,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
+
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
@@ -344,7 +398,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			{
 				this.happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles)
+				if (!this.getFed() && !this.getWatered() && !this.getSleeping() && AnimaniaConfig.gameRules.showUnhappyParticles && this.getHandFed())
 				{
 					double d = this.rand.nextGaussian() * 0.001D;
 					double d1 = this.rand.nextGaussian() * 0.001D;
@@ -371,7 +425,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			}
 		}
 
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && fighting == false)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && fighting == false && !this.getSleeping())
 		{
 			if(!player.isCreative())
 			{
@@ -469,6 +523,8 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		compound.setBoolean("Fed", this.getFed());
 		compound.setBoolean("Handfed", this.getHandFed());
 		compound.setBoolean("Watered", this.getWatered());
+		compound.setBoolean("Sleep", this.getSleeping());
+		compound.setFloat("SleepTimer", this.getSleepTimer());
 		compound.setInteger("Age", this.getAge());
 
 	}
@@ -494,7 +550,10 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		this.setFed(compound.getBoolean("Fed"));
 		this.setHandFed(compound.getBoolean("Handfed"));
 		this.setWatered(compound.getBoolean("Watered"));
+		this.setSleeping(compound.getBoolean("Sleep"));
+		this.setSleepTimer(compound.getFloat("SleepTimer"));
 		this.setAge(compound.getInteger("Age"));
+
 
 	}
 
@@ -512,6 +571,11 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 		if (AnimaniaConfig.drops.customMobDrops && dropRaw != Items.BEEF && dropCooked != Items.COOKED_BEEF)
 		{
 			String drop = AnimaniaConfig.drops.cowDrop;
+
+			if (this.cowType != null && this.cowType == CowType.MOOSHROOM) {
+				drop = AnimaniaConfig.drops.mooshroomDrop;
+			}
+
 			dropItem = AnimaniaHelper.getItem(drop);
 			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
 			{
@@ -537,7 +601,17 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 
 		ItemStack dropItem2;
 		String drop2 = AnimaniaConfig.drops.cowDrop2;
+
+		if (this.cowType != null && this.cowType == CowType.MOOSHROOM) {
+			drop2 = AnimaniaConfig.drops.mooshroomDrop2;
+		}
+
 		dropItem2 = AnimaniaHelper.getItem(drop2);
+		int drop2amount = AnimaniaConfig.drops.cowDrop2Amount;
+
+		if (this.cowType != null && this.cowType == CowType.MOOSHROOM) {
+			drop2amount = AnimaniaConfig.drops.mooshroomDrop2Amount;
+		}
 
 		if (happyDrops == 2)
 		{
@@ -547,7 +621,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 				world.spawnEntity(entityitem);
 			}
 			if (dropItem2 != null) {
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+				this.dropItem(dropItem2.getItem(), drop2amount + lootlevel);
 			}
 		} else if (happyDrops == 1)
 		{
@@ -555,20 +629,20 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 			{
 				this.dropItem(Items.COOKED_BEEF, 1 + lootlevel);
 				if (dropItem2 != null) {
-					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+					this.dropItem(dropItem2.getItem(), drop2amount  + lootlevel);
 				}
 			}
 			else
 			{
 				this.dropItem(Items.BEEF, 1 + lootlevel);
 				if (dropItem2 != null) {
-					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+					this.dropItem(dropItem2.getItem(), drop2amount  + lootlevel);
 				}
 			}
 		}
 		else if (happyDrops == 0) {
-			if (dropItem2 != null) {
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.cowDrop2Amount + lootlevel);
+			if (dropItem2 != null && this.getRNG().nextBoolean()) {
+				this.dropItem(dropItem2.getItem(), drop2amount  + lootlevel);
 			}
 		}
 	}

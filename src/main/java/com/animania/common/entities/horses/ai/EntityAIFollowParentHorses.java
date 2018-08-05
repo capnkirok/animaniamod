@@ -3,9 +3,11 @@ package com.animania.common.entities.horses.ai;
 import java.util.List;
 import java.util.Random;
 
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.horses.EntityFoalBase;
 import com.animania.common.entities.horses.EntityMareBase;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -13,13 +15,13 @@ import net.minecraft.util.math.MathHelper;
 
 public class EntityAIFollowParentHorses extends EntityAIBase
 {
-	EntityAnimal childAnimal;
+	EntityAnimaniaHorse childAnimal;
 	EntityAnimal parentAnimal;
 	double moveSpeed;
 	private int delayCounter;
 	Random rand = new Random();
 
-	public EntityAIFollowParentHorses(EntityAnimal animal, double speed)
+	public EntityAIFollowParentHorses(EntityAnimaniaHorse animal, double speed)
 	{
 		this.childAnimal = animal;
 		this.moveSpeed = speed;
@@ -29,7 +31,13 @@ public class EntityAIFollowParentHorses extends EntityAIBase
 	public boolean shouldExecute()	{
 
 		this.delayCounter++;
-		if (this.delayCounter > 60) {
+		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
+			
+			if (!childAnimal.world.isDaytime() || childAnimal.getSleeping()) {
+				this.delayCounter = 0;
+				return false;
+			}
+			
 			if (this.childAnimal instanceof EntityFoalBase) {
 				EntityFoalBase ec = (EntityFoalBase) this.childAnimal;
 				if (ec.getParentUniqueId() == null) {

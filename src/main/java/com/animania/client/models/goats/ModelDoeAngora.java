@@ -1,5 +1,6 @@
 package com.animania.client.models.goats;
 
+import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.goats.EntityDoeAngora;
 
 import net.minecraft.client.model.ModelBase;
@@ -244,7 +245,7 @@ public class ModelDoeAngora extends ModelBase
 
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
-		
+
 		Body.rotateAngleX = -0.08726646F;
 		Butt.rotateAngleX = 0.01847221F;
 		Tail.rotateAngleX = -0.6475495F;
@@ -306,25 +307,79 @@ public class ModelDoeAngora extends ModelBase
 
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
+		boolean isSleeping = false;
+		EntityAnimaniaGoat ech = (EntityAnimaniaGoat) entityIn;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+		float sleepTimer = ech.getSleepTimer();
+
+		if (isSleeping) {
+
+			this.FrontLeg_L.rotateAngleX = sleepTimer * -1.8F;
+			this.FrontLeg_L.render(scale * .95F);
+			this.FrontLegWool_L.rotateAngleX = sleepTimer * -1.8F;
+			this.FrontLegWool_L.render(scale * .95F);
+
+			this.FrontLeg_R.rotateAngleX = sleepTimer * -1.8F;
+			this.FrontLeg_R.render(scale * .97F);
+			this.FrontLegWool_R.rotateAngleX = sleepTimer * -1.8F;
+			this.FrontLegWool_R.render(scale * .97F);
+
+			this.BackLeg_L.rotateAngleX = sleepTimer * 1.7F;
+			this.BackLeg_L.render(scale * .97F);
+			this.BackLegWool_L.rotateAngleX = sleepTimer * 1.7F;
+			this.BackLegWool_L.render(scale * .97F);
+
+			this.BackLeg_R.rotateAngleX = sleepTimer * 1.75F;
+			this.BackLeg_R.render(scale * .95F);
+			this.BackLegWool_R.rotateAngleX = sleepTimer * 1.75F;
+			this.BackLegWool_R.render(scale * .95F);
+
+			this.HeadNode.rotateAngleY = sleepTimer * -2.8F;
+
+			if (sleepTimer > -.28) {
+				this.Body.rotateAngleX =  - (sleepTimer/3);
+			} else {
+				this.Body.rotateAngleX =  + (sleepTimer/3);
+			}
+
+		} else {
+
+			this.BackLeg_L.rotateAngleZ = 0;
+			this.BackLeg_L.render(scale);
+			this.BackLeg_R.rotateAngleZ = 0;
+			this.BackLeg_R.render(scale);
+			this.FrontLeg_L.rotateAngleZ = 0;
+			this.FrontLeg_L.render(scale);
+			this.FrontLeg_R.rotateAngleZ = 0;
+			this.FrontLeg_R.render(scale);
+
+			this.BackLegWool_L.rotateAngleZ = 0;
+			this.BackLegWool_R.render(scale);
+			this.FrontLegWool_L.rotateAngleZ = 0;
+			this.FrontLegWool_R.render(scale);
+			this.BackLegWool_L.rotateAngleZ = 0;
+			this.BackLegWool_R.render(scale);
+			this.FrontLegWool_L.rotateAngleZ = 0;
+			this.FrontLegWool_R.render(scale);
+
+			this.HeadNode.rotateAngleY = 0F;
+			this.Body.rotateAngleX = 0F;
+
+		}
+
 		Body.render(scale);
 		Butt.render(scale);
 		Tail.render(scale);
-		BackLeg_L.render(scale);	
-		BackLeg_R.render(scale);
-		FrontLeg_L.render(scale);
-		FrontLeg_R.render(scale);  
 		Udder.render(scale);
 		Udder1.render(scale);
 		Udder2.render(scale);
 		Udder3.render(scale);
 		Udder4.render(scale);
-		
+
 		Wool1.render(scale);
 		Wool2.render(scale);
-		BackLegWool_L.render(scale);
-		BackLegWool_R.render(scale);
-		FrontLegWool_L.render(scale);
-		FrontLegWool_R.render(scale);
 		HeadNode.render(scale);
 
 	}
@@ -340,18 +395,26 @@ public class ModelDoeAngora extends ModelBase
 	}
 
 	@Override
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity scale)
+	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity)
 	{
 		float f6 = 180F / (float) Math.PI;
-
-		//this.Body.rotateAngleX = (float) Math.PI / 2F;
 
 		this.HeadNode.rotateAngleX = par5 / (180F / (float) Math.PI);
 		this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
 		this.HeadNode.rotateAngleX = this.headRotationAngleX;
 
-		//this.Tail.rotateAngleX = (float) Math.PI / 2F;
-		this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		boolean isSleeping = false;
+
+		EntityAnimaniaGoat ech = (EntityAnimaniaGoat) entity;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+
+		if (!isSleeping) {
+			this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		} else {
+			this.Tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		}
 
 		this.BackLeg_L.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
 		this.BackLegWool_L.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;

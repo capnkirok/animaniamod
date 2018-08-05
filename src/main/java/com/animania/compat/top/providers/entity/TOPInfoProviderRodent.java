@@ -23,10 +23,10 @@ public interface TOPInfoProviderRodent extends TOPInfoProviderBase
 		entity.writeToNBT(tag);
 
 		boolean sitting = tag.getBoolean("IsSitting");
-
+		
 		if (sitting)
 			probeInfo.text(TextFormatting.GRAY + I18n.translateToLocal("text.waila.sitting"));
-
+		
 		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 
 		

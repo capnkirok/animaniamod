@@ -4,6 +4,9 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.entities.rodents.EntityFerretBase;
+import com.animania.common.entities.rodents.EntityHamster;
+import com.animania.common.entities.rodents.EntityHedgehogBase;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.ai.EntityAIBase;
@@ -56,6 +59,27 @@ public class EntityAITemptRodents extends EntityAIBase
 		}
 		else
 		{
+			if (this.temptedEntity instanceof EntityHamster) {
+				EntityHamster er = (EntityHamster) this.temptedEntity;
+				if (er.getSleeping()) {
+					return false;
+				}
+			}
+
+			if (this.temptedEntity instanceof EntityFerretBase) {
+				EntityFerretBase er = (EntityFerretBase) this.temptedEntity;
+				if (er.getSleeping()) {
+					return false;
+				}
+			}
+
+			if (this.temptedEntity instanceof EntityHedgehogBase) {
+				EntityHedgehogBase er = (EntityHedgehogBase) this.temptedEntity;
+				if (er.getSleeping()) {
+					return false;
+				}
+			}
+
 			this.temptingPlayer = this.temptedEntity.world.getClosestPlayerToEntity(this.temptedEntity, 10.0D);
 			return this.temptingPlayer == null ? false : this.isTempting(this.temptingPlayer.getHeldItemMainhand()) || this.isTempting(this.temptingPlayer.getHeldItemOffhand());
 		}

@@ -119,6 +119,11 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
+		
+		if (this.getSleeping()) {
+			this.setSleeping(false);
+		}
+		
 		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 2.0F);
 
 		if (flag)

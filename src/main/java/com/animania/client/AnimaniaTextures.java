@@ -81,7 +81,7 @@ public class AnimaniaTextures
 		// Horse
 		register(ItemHandler.rawHorse);
 		register(ItemHandler.cookedHorse);
-		
+
 		// Beef Generics
 		register(ItemHandler.rawPrimeBeef);
 		register(ItemHandler.cookedPrimeBeef);
@@ -140,6 +140,12 @@ public class AnimaniaTextures
 		register(ItemHandler.rawPrimeChevon);
 		register(ItemHandler.cookedPrimeChevon);
 
+		// Goats
+		register(ItemHandler.rawPeacock);
+		register(ItemHandler.cookedPeacock);
+		register(ItemHandler.rawPrimePeacock);
+		register(ItemHandler.cookedPrimePeacock);
+
 		// Sheep
 		register(ItemHandler.rawMutton);
 		register(ItemHandler.cookedMutton);
@@ -165,6 +171,7 @@ public class AnimaniaTextures
 		register(Item.getItemFromBlock(BlockHandler.blockMud));
 		register(Item.getItemFromBlock(BlockHandler.blockTrough));
 		register(Item.getItemFromBlock(BlockHandler.blockNest));
+		register(Item.getItemFromBlock(BlockHandler.blockStraw));
 		register(Item.getItemFromBlock(BlockHandler.blockHamsterWheel));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseFriesian));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseHolstein));
@@ -176,6 +183,7 @@ public class AnimaniaTextures
 		if (!AnimaniaConfig.gameRules.disableRollingVehicles) {
 			register(ItemHandler.cart);
 			register(ItemHandler.wagon);
+			register(ItemHandler.tiller);
 		}
 
 

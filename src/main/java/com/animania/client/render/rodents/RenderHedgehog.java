@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehog;
+import com.animania.common.entities.rodents.EntityHedgehogBase;
 
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.GlStateManager;
@@ -27,7 +28,7 @@ public class RenderHedgehog<T extends EntityHedgehog> extends RenderLiving<T>
     private static final ResourceLocation SANIC_TEXTURES          = new ResourceLocation("animania:textures/entity/rodents/hedgehog_sanic.png");
 
     public RenderHedgehog(RenderManager rm) {
-        super(rm, new ModelHedgehog(), 0.3F);
+        super(rm, new ModelHedgehog(), 0.2F);
     }
 
     protected void preRenderScale(T entity, float f) {
@@ -47,13 +48,16 @@ public class RenderHedgehog<T extends EntityHedgehog> extends RenderLiving<T>
         else {
             GL11.glScalef(0.6F, 0.6F, 0.6F);
             
-            if (entity.isHedgehogSitting()) {
-            	GlStateManager.translate(0F, +.1F, .0F);
-            }
+            boolean isSleeping = false;
+        	EntityHedgehogBase entityChk = (EntityHedgehogBase) entity;
+    		isSleeping = entityChk.getSleeping();
 
             if (entity.getCustomNameTag().equals("Sanic")) {
                 GL11.glRotatef(20, -1, 0, 1);
                 GL11.glScalef(1.2F, 1.7F, 1.6F);
+            } else if (isSleeping || entity.isHedgehogSitting()) {
+        			this.shadowSize = 0;
+        			GlStateManager.translate(0F, 0.15F, 0F); 
             }
         }
 
@@ -66,10 +70,18 @@ public class RenderHedgehog<T extends EntityHedgehog> extends RenderLiving<T>
 
     @Override
     protected ResourceLocation getEntityTexture(T entity) {
+    	
+    	
+    	boolean isSleeping = false;
+    	EntityHedgehogBase entityChk = (EntityHedgehogBase) entity;
+		isSleeping = entityChk.getSleeping();
+		
         if (entity.getCustomNameTag().equals("Sonic"))
             return RenderHedgehog.SONIC_TEXTURES;
         else if (entity.getCustomNameTag().equals("Sanic"))
             return RenderHedgehog.SANIC_TEXTURES;
+        else if (isSleeping) 
+        	return RenderHedgehog.HEDGEHOG_TEXTURES_BLINK;
         else {
             int blinkTimer = entity.blinkTimer;
             if (blinkTimer < 5 && blinkTimer >= 0)

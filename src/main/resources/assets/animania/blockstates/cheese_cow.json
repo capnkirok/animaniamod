@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "bites=0": { "model": "animania:friesian_cheese_4" },
+        "bites=1": { "model": "animania:friesian_cheese_3" },
+        "bites=2": { "model": "animania:friesian_cheese_2" },
+        "bites=3": { "model": "animania:friesian_cheese_1" }
+    }
+}

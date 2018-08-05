@@ -2,7 +2,7 @@ package com.animania.common.entities.rodents.ai;
 
 import java.util.Random;
 
-import com.animania.common.entities.rodents.EntityHedgehogBase;
+import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityNest.NestContent;
@@ -11,11 +11,12 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 
-public class EntityAIHedgehogFindFood extends EntityAIBase
+public class EntityAIFerretFindNests extends EntityAIBase
 {
 	private final EntityCreature temptedEntity;
 	private final double speed;
@@ -28,7 +29,7 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIHedgehogFindFood(EntityCreature temptedEntityIn, double speedIn)
+	public EntityAIFerretFindNests(EntityCreature temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
@@ -36,33 +37,49 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 		this.delayTemptCounter = 0;
 	}
 
-	@Override
 	public boolean shouldExecute()
 	{
-		delayTemptCounter++;
-		if (this.delayTemptCounter < 60)
+		this.delayTemptCounter++;
+
+		if (this.delayTemptCounter < AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
 		{
 			return false;
 		}
-		else if (delayTemptCounter > 60)
+		else if (delayTemptCounter >= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
-
-			if (this.temptedEntity instanceof EntityHedgehogBase)
+			if (this.temptedEntity instanceof EntityFerretBase)
 			{
-				EntityHedgehogBase entity = (EntityHedgehogBase) this.temptedEntity;
+				EntityFerretBase entity = (EntityFerretBase) this.temptedEntity;
+				if (entity.getSleeping())
+				{
+					this.delayTemptCounter = 0;
+					return false;
+				}
+				
 				if (entity.getFed())
 				{
 					this.delayTemptCounter = 0;
 					return false;
 				}
 			}
+			
+			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			{
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.resetTask();
+					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+				}
+				return false;
+			}
 
-			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
-			Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
+			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
+			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
 
 			if (poschk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(currentpos);
+				TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(currentpos);
 
 				if (te == null ? true : te.getNestContent() == NestContent.EMPTY) {
 					this.delayTemptCounter = 0;
@@ -73,9 +90,10 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 				{
 					te.itemHandler.extractItem(0, 1, false);
 					te.markDirty();
-					if (this.temptedEntity instanceof EntityHedgehogBase)
+
+					if (temptedEntity instanceof EntityFerretBase)
 					{
-						EntityHedgehogBase ech = (EntityHedgehogBase) this.temptedEntity;
+						EntityFerretBase ech = (EntityFerretBase) temptedEntity;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
 						ech.setWatered(true);
@@ -84,23 +102,6 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 					return false;
 
 				}
-			}
-
-			if (poschk == Blocks.CARROTS || poschk == Blocks.BEETROOTS || poschk == Blocks.POTATOES)
-			{
-
-				if (this.temptedEntity instanceof EntityHedgehogBase)
-				{
-					EntityHedgehogBase ech = (EntityHedgehogBase) this.temptedEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setFed(true);
-				}
-
-				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
-					temptedEntity.world.destroyBlock(currentpos, false);
-				}
-				this.delayTemptCounter = 0;
-				return false;
 			}
 
 			double x = this.temptedEntity.posX;
@@ -113,17 +114,19 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 			BlockPos pos = new BlockPos(x, y, z);
 
 			for (int i = -16; i < 16; i++)
+			{
 				for (int j = -3; j < 3; j++)
+				{
 					for (int k = -16; k < 16; k++)
 					{
 
 						pos = new BlockPos(x + i, y + j, z + k);
 
-						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
 						if (blockchk == BlockHandler.blockNest)
 						{
-							TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(pos);
+							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 
 							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 							{
@@ -139,35 +142,21 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 									return false;
 								}
 								else
+								{
 									return true;
+								}
 							}
-						}
-
-						if (blockchk == Blocks.CARROTS || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES)
-						{
-
-							foodFound = true;
-							if (rand.nextInt(200) == 0)
-							{
-								this.delayTemptCounter = 0;
-								return false;
-							}
-							else if (this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0)
-							{
-								this.delayTemptCounter = 0;
-								return false;
-							}
-							else
-								return true;
 						}
 					}
+				}
+			}
 
-			if (!foodFound) {
-				this.delayTemptCounter = 0; 
+			if (!foodFound)
+			{
+				this.delayTemptCounter = 0;
 				return false;
 			}
 		}
-
 		return false;
 
 	}
@@ -177,19 +166,15 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 		return !this.temptedEntity.getNavigator().noPath();
 	}
 
-	@Override
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
 		this.temptedEntity.getNavigator().clearPath();
 		this.isRunning = false;
-
 	}
 
-	@Override
 	public void startExecuting()
 	{
-
 		double x = this.temptedEntity.posX;
 		double y = this.temptedEntity.posY;
 		double z = this.temptedEntity.posZ;
@@ -201,17 +186,17 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 		BlockPos foodPos = new BlockPos(x, y, z);
 
 		for (int i = -16; i < 16; i++)
+		{
 			for (int j = -3; j < 3; j++)
+			{
 				for (int k = -16; k < 16; k++)
 				{
 
 					pos = new BlockPos(x + i, y + j, z + k);
-					Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
-
+					Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 					if (blockchk == BlockHandler.blockNest)
 					{
-
-						TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(pos);
+						TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
 
 						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 						{
@@ -224,17 +209,17 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 
 								loc = newloc;
 
-								if (this.temptedEntity.posX < foodPos.getX())
+								if (temptedEntity.posX < foodPos.getX())
 								{
 									BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
-									Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPoschk).getBlock();
+									Block foodBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
 									i = i + 1;
 								}
 
-								if (this.temptedEntity.posZ < foodPos.getZ())
+								if (temptedEntity.posZ < foodPos.getZ())
 								{
 									BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
-									Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPoschk).getBlock();
+									Block foodBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
 									k = k + 1;
 								}
 
@@ -243,61 +228,32 @@ public class EntityAIHedgehogFindFood extends EntityAIBase
 							}
 						}
 					}
-					else if (blockchk == Blocks.CARROTS || blockchk == Blocks.BEETROOTS || blockchk == Blocks.POTATOES)
-					{
-						foodFound = true;
-						newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
-
-						if (newloc < loc)
-						{
-
-							loc = newloc;
-
-							if (this.temptedEntity.posX < foodPos.getX())
-							{
-								BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
-								Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPoschk).getBlock();
-								if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
-									i = i + 1;
-							}
-
-							if (this.temptedEntity.posZ < foodPos.getZ())
-							{
-								BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
-								Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPoschk).getBlock();
-								if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
-									k = k + 1;
-							}
-
-							foodPos = new BlockPos(x + i, y + j, z + k);
-
-						}
-					}
 				}
+			}
+		}
 
 		if (foodFound)
 		{
 
-			Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPos).getBlock();
+			Block foodBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
 
 			if (foodBlockchk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(foodPos);
+				TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(foodPos);
 
 				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
+				{
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
+					{
 						this.delayTemptCounter = 0;
+					}
 					else
+					{
 						this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
-
+					}
+				}
 			}
-			else if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
-				if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed) == false)
-					this.delayTemptCounter = 0;
-				else
-					this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
 		}
-
 	}
 
 	public boolean isRunning()

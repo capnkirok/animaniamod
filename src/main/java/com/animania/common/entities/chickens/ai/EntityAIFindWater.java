@@ -3,26 +3,11 @@ package com.animania.common.entities.chickens.ai;
 import java.util.Random;
 
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
-import com.animania.common.entities.chickens.EntityChickLeghorn;
-import com.animania.common.entities.chickens.EntityChickOrpington;
-import com.animania.common.entities.chickens.EntityChickPlymouthRock;
-import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityChickWyandotte;
-import com.animania.common.entities.chickens.EntityHenLeghorn;
-import com.animania.common.entities.chickens.EntityHenOrpington;
-import com.animania.common.entities.chickens.EntityHenPlymouthRock;
-import com.animania.common.entities.chickens.EntityHenRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityHenWyandotte;
-import com.animania.common.entities.chickens.EntityRoosterLeghorn;
-import com.animania.common.entities.chickens.EntityRoosterOrpington;
-import com.animania.common.entities.chickens.EntityRoosterPlymouthRock;
-import com.animania.common.entities.chickens.EntityRoosterRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityRoosterWyandotte;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +21,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class EntityAIFindWater extends EntityAIBase
 {
-	private final EntityCreature temptedEntity;
+	private final EntityAnimaniaChicken temptedEntity;
 	private final double         speed;
 	private double               targetX;
 	private double               targetY;
@@ -47,23 +32,26 @@ public class EntityAIFindWater extends EntityAIBase
 	private int                  delayTemptCounter;
 	private boolean              isRunning;
 
-	public EntityAIFindWater(EntityCreature temptedEntityIn, double speedIn) {
+	public EntityAIFindWater(EntityAnimaniaChicken temptedEntityIn, double speedIn) {
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
 		this.setMutexBits(3);
 		this.delayTemptCounter = 0;
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
-	 */
 	@Override
 	public boolean shouldExecute() {
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 60) {
+		if (this.delayTemptCounter < AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
 			return false;
-		} else if (delayTemptCounter > 60) {
+		} else if (delayTemptCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
+
+			if (temptedEntity.getSleeping()) {
+				this.delayTemptCounter = 0;
+				return false;
+			}
+
 			if (this.temptedEntity instanceof EntityAnimaniaChicken) {
 				EntityAnimaniaChicken entity = (EntityAnimaniaChicken) temptedEntity;
 				if (entity.getWatered()) {
@@ -71,7 +59,7 @@ public class EntityAIFindWater extends EntityAIBase
 					return false;
 				}
 			} 
-			
+
 			if (this.temptedEntity.getRNG().nextInt(100) == 0)
 			{
 				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
@@ -79,6 +67,7 @@ public class EntityAIFindWater extends EntityAIBase
 					this.delayTemptCounter = 0;
 					this.resetTask();
 					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.temptedEntity.getLookHelper().setLookPosition(vec3d.x, vec3d.y, vec3d.z, 0.0F, 0.0F);
 				}
 				return false;
 			}
@@ -173,7 +162,7 @@ public class EntityAIFindWater extends EntityAIBase
 				return false;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -246,37 +235,48 @@ public class EntityAIFindWater extends EntityAIBase
 
 							}
 						}
+					}
 
-						if (blockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
-								&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH) && !this.temptedEntity.hasPath()) {
-							waterFound = true;
-							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
+			if (!waterFound && !this.temptedEntity.hasPath()) {
+				for (int i = -10; i < 10; i++)
+					for (int j = -3; j < 3; j++)
+						for (int k = -10; k < 10; k++) {
 
-							if (newloc < loc) {
+							pos = new BlockPos(x + i, y + j, z + k);
+							Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+							Biome biomegenbase = this.temptedEntity.world.getBiome(pos);
 
-								loc = newloc;
+							if (blockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH) && !this.temptedEntity.hasPath()) {
+								waterFound = true;
+								newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
 
-								if (this.temptedEntity.posX < waterPos.getX()) {
-									BlockPos waterPoschk = new BlockPos(x + i + 1, y + j, z + k);
-									Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
-									if (waterBlockchk == Blocks.WATER)
-										i = i + 1;
+								if (newloc < loc) {
+
+									loc = newloc;
+
+									if (this.temptedEntity.posX < waterPos.getX()) {
+										BlockPos waterPoschk = new BlockPos(x + i + 1, y + j, z + k);
+										Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
+										if (waterBlockchk == Blocks.WATER)
+											i = i + 1;
+									}
+
+									if (this.temptedEntity.posZ < waterPos.getZ()) {
+										BlockPos waterPoschk = new BlockPos(x + i, y + j, z + k + 1);
+										Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
+										if (waterBlockchk == Blocks.WATER)
+											k = k + 1;
+									}
+
+									waterPos = new BlockPos(x + i, y + j, z + k);
+
 								}
-
-								if (this.temptedEntity.posZ < waterPos.getZ()) {
-									BlockPos waterPoschk = new BlockPos(x + i, y + j, z + k + 1);
-									Block waterBlockchk = this.temptedEntity.world.getBlockState(waterPoschk).getBlock();
-									if (waterBlockchk == Blocks.WATER)
-										k = k + 1;
-								}
-
-								waterPos = new BlockPos(x + i, y + j, z + k);
 
 							}
 
 						}
 
-					}
+			}
 
 			if (waterFound) {
 
@@ -284,20 +284,26 @@ public class EntityAIFindWater extends EntityAIBase
 				Biome biomegenbase = this.temptedEntity.world.getBiome(waterPos);
 
 				if (waterBlockchk == BlockHandler.blockTrough) {
-					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
+					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false) {
 						this.delayTemptCounter = 0;
-					else
-						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
+						this.temptedEntity.getLookHelper().setLookPosition(waterPos.getX(), waterPos.getY(), waterPos.getZ(), 0.0F, 0.0F);
+					} else {
+						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed); 
+						this.temptedEntity.getLookHelper().setLookPosition(waterPos.getX(), waterPos.getY(), waterPos.getZ(), 0.0F, 0.0F);
+					}
 
-				}
-				else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN)
-						&& !BiomeDictionary.hasType(biomegenbase, Type.BEACH))
-					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false)
+				} else if (waterBlockchk == Blocks.WATER && !BiomeDictionary.hasType(biomegenbase, Type.OCEAN) && !BiomeDictionary.hasType(biomegenbase, Type.BEACH)) {
+					if (this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed) == false) {
 						this.delayTemptCounter = 0;
-					else
+						this.temptedEntity.getLookHelper().setLookPosition(waterPos.getX(), waterPos.getY(), waterPos.getZ(), 0.0F, 0.0F);
+
+					} else {
 						this.temptedEntity.getNavigator().tryMoveToXYZ(waterPos.getX(), waterPos.getY(), waterPos.getZ(), this.speed);
-			} else {
-				this.delayTemptCounter = 0;
+						this.temptedEntity.getLookHelper().setLookPosition(waterPos.getX(), waterPos.getY(), waterPos.getZ(), 0.0F, 0.0F);
+					}
+				} else {
+					this.delayTemptCounter = 0;
+				}
 			}
 		}
 

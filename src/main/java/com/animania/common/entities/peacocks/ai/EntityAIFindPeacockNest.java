@@ -2,33 +2,27 @@ package com.animania.common.entities.peacocks.ai;
 
 import java.util.List;
 
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 import com.animania.common.entities.peacocks.EntityPeafowlBase;
 import com.animania.common.entities.peacocks.EntityPeafowlBlue;
-import com.animania.common.entities.peacocks.EntityPeafowlCharcoal;
-import com.animania.common.entities.peacocks.EntityPeafowlOpal;
-import com.animania.common.entities.peacocks.EntityPeafowlPeach;
-import com.animania.common.entities.peacocks.EntityPeafowlPurple;
-import com.animania.common.entities.peacocks.EntityPeafowlTaupe;
-import com.animania.common.entities.peacocks.EntityPeafowlWhite;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityNest.NestContent;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 public class EntityAIFindPeacockNest extends EntityAIBase
 {
-	private final EntityCreature temptedEntity;
+	private final EntityAnimaniaPeacock temptedEntity;
 	private final double speed;
 	private double targetX;
 	private double targetY;
@@ -39,7 +33,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIFindPeacockNest(EntityCreature temptedEntityIn, double speedIn)
+	public EntityAIFindPeacockNest(EntityAnimaniaPeacock temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
@@ -51,15 +45,14 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 	{
 
 		delayTemptCounter++;
-		if (this.delayTemptCounter <= 60)
+		if (this.delayTemptCounter <= AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
 		{
 			return false;
 		}
-		else if (delayTemptCounter > 60)
+		else if (delayTemptCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
 		{
 
-			if (!this.temptedEntity.world.isDaytime())
-			{
+			if (!temptedEntity.world.isDaytime() || temptedEntity.getSleeping()) {
 				this.delayTemptCounter = 0;
 				return false;
 			}

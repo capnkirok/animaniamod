@@ -41,7 +41,6 @@ item.animania_taupe_peacock_feather.name=褐孔雀羽毛
 item.animania_peacock_egg_blue.name=孔雀蛋
 item.animania_peacock_egg_white.name=孔雀蛋
 
-
 item.animania_carving_knife.desc=用来切肉和奶酪
 item.animania_cheese_mold.desc=用来制作奶酪
 item.animania_entity_egg.desc1=刷怪蛋
@@ -107,6 +106,11 @@ item.animania_raw_chevon.name=生一级羊肉
 item.animania_cooked_chevon.name=烤一级羊肉
 item.animania_raw_prime_chevon.name=生一级山羊肉
 item.animania_cooked_prime_chevon.name=烤一级山羊肉
+
+item.animania_raw_peacock.name=生孔雀肉
+item.animania_cooked_peacock.name=烤孔雀肉
+item.animania_raw_prime_peacock.name=生一级孔雀肉
+item.animania_cooked_prime_peacock.name=烤一级孔雀肉
 
 item.animania_raw_prime_rabbit.name=生一级兔肉
 item.animania_cooked_prime_rabbit.name=烤一级兔肉
@@ -478,6 +482,7 @@ death.attack.pepe=%1$s 因玩梗而死
 
 tile.animania_block_mud.name=污泥
 tile.animania_block_seeds.name=种子
+tile.animania_block_straw.name=干草堆
 tile.animania_block_trough.name=食槽
 tile.animania_block_nest.name=鸡窝
 tile.animania_invisiblock.name=食槽
@@ -489,6 +494,9 @@ item.wagon.name=篷车
 
 entity.animania:cart.name=马车
 item.cart.name=马车
+
+entity.animania:tiller.name=耕犁
+item.tiller.name=耕犁
 
 tile.animania_wool_dorset_brown.name=羊毛（杜泊绵羊，棕色）
 tile.animania_wool_friesian_black.name=羊毛（黑白花羊，黑色）
@@ -562,6 +570,7 @@ text.waila.fertile1=孕育
 text.waila.wool1=羊毛生长
 text.waila.wool2=剩余时间
 text.waila.wool3=距离下一次修剪
+text.waila.sleeping=睡眠
 
 text.jei.trough=食槽用于饲养动物。用小麦，水桶或者泔水桶右击即可填充它。
 text.jei.mud=污泥是猪的最爱，它们最喜欢在污泥上到处乱挖。

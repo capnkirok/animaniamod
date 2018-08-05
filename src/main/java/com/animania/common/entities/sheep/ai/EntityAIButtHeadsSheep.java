@@ -44,6 +44,11 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 				return false;
 			}
 			
+			if (!this.theAnimal.world.isDaytime()) {
+				this.delayCounter = 0;
+				return false;
+			}
+			
 			this.targetMate = this.getNearbyRival();
 
 			Random rand = new Random();

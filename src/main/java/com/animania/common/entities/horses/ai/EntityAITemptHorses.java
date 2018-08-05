@@ -4,9 +4,9 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.google.common.collect.Sets;
 
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,7 +15,7 @@ import net.minecraft.pathfinding.PathNavigateGround;
 
 public class EntityAITemptHorses extends EntityAIBase
 {
-	private final EntityCreature temptedEntity;
+	private final EntityAnimaniaHorse temptedEntity;
 	private final double speed;
 	private double targetX;
 	private double targetY;
@@ -28,12 +28,12 @@ public class EntityAITemptHorses extends EntityAIBase
 	private final Set<Item> temptItem;
 	private final boolean scaredByPlayerMovement;
 
-	public EntityAITemptHorses(EntityCreature temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn)
+	public EntityAITemptHorses(EntityAnimaniaHorse temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn)
 	{
 		this(temptedEntityIn, speedIn, scaredByPlayerMovementIn, Sets.newHashSet(new Item[] {temptItemIn}));
 	}
 
-	public EntityAITemptHorses(EntityCreature temptedEntityIn, double speedIn, boolean scaredByPlayerMovementIn, Set<Item> temptItemIn)
+	public EntityAITemptHorses(EntityAnimaniaHorse temptedEntityIn, double speedIn, boolean scaredByPlayerMovementIn, Set<Item> temptItemIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
@@ -49,6 +49,12 @@ public class EntityAITemptHorses extends EntityAIBase
 
 	public boolean shouldExecute()
 	{
+		
+		
+		if (!temptedEntity.world.isDaytime() || temptedEntity.getSleeping()) {
+			return false;
+		}
+		
 		if (this.delayTemptCounter > 0)
 		{
 			--this.delayTemptCounter;

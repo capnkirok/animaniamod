@@ -183,7 +183,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
+		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
 	}
 

@@ -14,9 +14,14 @@ import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.chickens.ai.EntityAIFindFood;
 import com.animania.common.entities.chickens.ai.EntityAIFindWater;
 import com.animania.common.entities.chickens.ai.EntityAIPanicChickens;
+import com.animania.common.entities.chickens.ai.EntityAISleep;
 import com.animania.common.entities.chickens.ai.EntityAISwimmingChicks;
 import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
-import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
+import com.animania.common.entities.generic.ai.EntityAILookIdle;
+import com.animania.common.entities.generic.ai.EntityAITempt;
+import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -28,9 +33,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
@@ -61,6 +63,8 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaChicken.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaChicken.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
 	public boolean chickenJockey;
 	protected ResourceLocation resourceLocation;
 	protected ResourceLocation resourceLocationBlink;
@@ -87,16 +91,19 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 		this.tasks.taskEntries.clear();
 		this.tasks.addTask(0, new EntityAISwimmingChicks(this));
 		this.tasks.addTask(1, new EntityAIPanicChickens(this, 1.4D));
-		this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
-
 		if (!AnimaniaConfig.gameRules.ambianceMode) {
 			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
 			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
 		}
+		this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(7, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(8, new EntityAnimaniaAvoidWater(this));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
+		if (AnimaniaConfig.gameRules.animalsSleep) {
+			this.tasks.addTask(12, new EntityAISleep(this, 0.8));
+		}
+		this.tasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -109,6 +116,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
+		this.setHandFed(true);
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
 	}
@@ -119,7 +127,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 		super.setPosition(x, y, z);
 	}
 
-	
+
 	@Override
 	public void setInLove(EntityPlayer player)
 	{
@@ -137,7 +145,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
 		{
 			if(!player.isCreative())
 			{
@@ -179,6 +187,8 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 		this.dataManager.register(EntityAnimaniaChicken.FED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaChicken.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaChicken.AGE, Integer.valueOf(0));
+		this.dataManager.register(EntityAnimaniaChicken.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaChicken.HANDFED, Boolean.valueOf(false));
 	}
 
 	@Override
@@ -187,8 +197,10 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 		super.writeEntityToNBT(nbttagcompound);
 		nbttagcompound.setBoolean("IsChickenJockey", this.chickenJockey);
 		nbttagcompound.setBoolean("Fed", this.getFed());
+		nbttagcompound.setBoolean("Handfed", this.getHandFed());
 		nbttagcompound.setBoolean("Watered", this.getWatered());
 		nbttagcompound.setInteger("Age", this.getAge());
+		nbttagcompound.setBoolean("Sleep", this.getSleeping());
 	}
 
 	@Override
@@ -199,8 +211,10 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 		this.chickenJockey = nbttagcompound.getBoolean("IsChickenJockey");
 
 		this.setFed(nbttagcompound.getBoolean("Fed"));
+		this.setHandFed(nbttagcompound.getBoolean("Handfed"));
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
 		this.setAge(nbttagcompound.getInteger("Age"));
+		this.setSleeping(nbttagcompound.getBoolean("Sleep"));
 	}
 
 	public int getAge()
@@ -223,6 +237,9 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 	{
 
 		super.onLivingUpdate();
+
+		if (this.getLeashed() && this.getSleeping())
+			this.setSleeping(false);
 
 		if (this.getAge() == 0) {
 			this.setAge(1);
@@ -302,7 +319,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 			{
 				this.happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles)
+				if (!this.getFed() && !this.getWatered() && !this.getSleeping() && AnimaniaConfig.gameRules.showUnhappyParticles)
 				{
 					double d = this.rand.nextGaussian() * 0.001D;
 					double d1 = this.rand.nextGaussian() * 0.001D;
@@ -355,6 +372,43 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 		}
 		else
 			this.dataManager.set(EntityAnimaniaChicken.WATERED, Boolean.valueOf(false));
+	}
+
+	public boolean getSleeping()
+	{
+		try {
+			return (this.getBoolFromDataManager(SLEEPING));
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void setSleeping(boolean flag)
+	{
+		if (flag)
+		{
+			this.dataManager.set(EntityAnimaniaChicken.SLEEPING, Boolean.valueOf(true));
+		}
+		else
+		{
+			this.dataManager.set(EntityAnimaniaChicken.SLEEPING, Boolean.valueOf(false));
+		}
+	}
+
+	public boolean getHandFed()
+	{
+		try {
+			return (this.getBoolFromDataManager(HANDFED));
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void setHandFed(boolean handfed)
+	{
+		this.dataManager.set(EntityAnimaniaChicken.HANDFED, Boolean.valueOf(handfed));
 	}
 
 	protected void fall(float p_70069_1_)
@@ -412,6 +466,15 @@ public class EntityAnimaniaChicken extends EntityChicken implements ISpawnable, 
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.10F, 1.4F);
+	}
+
+	@Override
+	public void playSound(SoundEvent soundIn, float volume, float pitch)
+	{
+		if (!this.isSilent() && !this.getSleeping())
+		{
+			this.world.playSound((EntityPlayer)null, this.posX, this.posY, this.posZ, soundIn, this.getSoundCategory(), volume, pitch);
+		}
 	}
 
 	@Override

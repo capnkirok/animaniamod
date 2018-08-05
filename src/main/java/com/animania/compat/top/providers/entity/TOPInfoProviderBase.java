@@ -36,6 +36,7 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 		
 		boolean fed = tag.getBoolean("Fed");
 		boolean watered = tag.getBoolean("Watered");
+		boolean sleeping = tag.getBoolean("Sleep");
 
 		if (fed && watered && !AnimaniaConfig.gameRules.ambianceMode)
 			probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.fed"));
@@ -48,6 +49,10 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 
 		if (!fed && !watered)
 			probeInfo.text(TextFormatting.RED + I18n.translateToLocal("text.waila.hungry") + ", " + I18n.translateToLocal("text.waila.thirsty"));
+		
+		if (sleeping)
+			probeInfo.text(TextFormatting.GRAY + I18n.translateToLocal("text.waila.sleeping"));
+
 
 		
 	}

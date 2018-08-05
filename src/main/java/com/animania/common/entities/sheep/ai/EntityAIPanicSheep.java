@@ -1,9 +1,10 @@
 package com.animania.common.entities.sheep.ai;
 
+import com.animania.common.entities.sheep.EntityAnimaniaSheep;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
 
 public class EntityAIPanicSheep extends EntityAIBase
 {
-	private final EntityCreature theEntityCreature;
+	private final EntityAnimaniaSheep theEntityCreature;
 	protected double speed;
 	private double randPosX;
 	private double randPosY;
@@ -22,7 +23,7 @@ public class EntityAIPanicSheep extends EntityAIBase
 	private int duration;
 	private boolean hitFlag;
 
-	public EntityAIPanicSheep(EntityCreature creature, double speedIn)
+	public EntityAIPanicSheep(EntityAnimaniaSheep creature, double speedIn)
 	{
 		this.theEntityCreature = creature;
 		this.speed = speedIn;
@@ -33,16 +34,21 @@ public class EntityAIPanicSheep extends EntityAIBase
 
 	public boolean shouldExecute()
 	{
-		EntityPlayer checkPlayer = this.theEntityCreature.world.getClosestPlayer(this.theEntityCreature.posX, this.theEntityCreature.posY, this.theEntityCreature.posZ, 20, false);
-
-
+		
+		
 		if (this.theEntityCreature.getAttackTarget() == null && !this.theEntityCreature.isBurning() && duration == 0)
 		{
 			hitFlag = false;
 			return false;
 		} else if (!this.theEntityCreature.isBurning()) {
-			Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 20, 4);
-
+			
+			EntityAnimaniaSheep entityAnimal = this.theEntityCreature;
+			if (entityAnimal.getSleeping()) {
+				entityAnimal.setSleeping(false);
+			}
+			
+			Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 40, 4);
+			
 			if (hitFlag == false) {
 				hitFlag = true;
 				duration = 40;
@@ -66,7 +72,12 @@ public class EntityAIPanicSheep extends EntityAIBase
 		}
 		else
 		{
-			BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
+			EntityAnimaniaSheep entityAnimal = this.theEntityCreature;
+			if (entityAnimal.getSleeping()) {
+				entityAnimal.setSleeping(false);
+			}
+			
+			BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 40, 4);
 
 			if (blockpos == null)
 			{

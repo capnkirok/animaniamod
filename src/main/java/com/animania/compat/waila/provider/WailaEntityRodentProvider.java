@@ -20,10 +20,14 @@ public class WailaEntityRodentProvider extends WailaEntityAnimalProviderBase
         currenttip = super.getWailaBody(entity, currenttip, accessor, config);
         boolean tamed = accessor.getNBTData().getBoolean("IsTamed");
         boolean sitting = accessor.getNBTData().getBoolean("IsSitting");
+        boolean sleeping = accessor.getNBTData().getBoolean("Sleep");
 
         if (sitting)
             currenttip.add(I18n.translateToLocal("text.waila.sitting"));
-
+        
+        if (sleeping)
+        	currenttip.add(I18n.translateToLocal("text.waila.sleeping"));
+        
         if (accessor.getPlayer().isSneaking())
             if (tamed) {
                 EntityLivingBase owner = ((EntityTameable) accessor.getEntity()).getOwner();
@@ -48,6 +52,7 @@ public class WailaEntityRodentProvider extends WailaEntityAnimalProviderBase
 
         tag.setBoolean("IsSitting", comp.getBoolean("IsSitting"));
         tag.setBoolean("IsTamed", comp.getBoolean("IsTamed"));
+        tag.setBoolean("Sleep", comp.getBoolean("Sleep"));
 
         return super.getNBTData(player, ent, tag, world);
     }

@@ -1,5 +1,6 @@
 package com.animania.common.entities.goats.ai;
 
+import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.common.entities.goats.EntityDoeBase;
 import com.animania.common.entities.goats.EntityKidBase;
@@ -24,15 +25,22 @@ public class EntityAIGoatsLeapAtTarget extends EntityAIBase
 
 	public boolean shouldExecute()
 	{
-		
+
 		if (this.leaper instanceof EntityDoeBase || this.leaper instanceof EntityKidBase) {
 			return false;
 		}
-		
+
+		if (this.leaper instanceof EntityAnimaniaGoat) {
+			EntityAnimaniaGoat entityAnimal = (EntityAnimaniaGoat) this.leaper;
+			if (entityAnimal.getSleeping()) {
+				return false;
+			}
+		}
+
 		this.leapTarget = this.leaper.getAttackTarget();
 
 		EntityBuckBase thisBuck = (EntityBuckBase)this.leaper;
-		
+
 		if (!thisBuck.getFighting() || this.leapTarget == null)
 		{
 			return false;

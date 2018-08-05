@@ -3,9 +3,11 @@ package com.animania.common.entities.pigs.ai;
 import java.util.List;
 import java.util.Random;
 
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityPigletBase;
 import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -13,13 +15,13 @@ import net.minecraft.util.math.MathHelper;
 
 public class EntityAIFollowParentPigs extends EntityAIBase
 {
-	EntityAnimal childAnimal;
-	EntityAnimal parentAnimal;
+	EntityAnimaniaPig childAnimal;
+	EntityAnimaniaPig parentAnimal;
 	double       moveSpeed;
 	private int  delayCounter;
 	Random       rand = new Random();
 
-	public EntityAIFollowParentPigs(EntityAnimal animal, double speed) {
+	public EntityAIFollowParentPigs(EntityAnimaniaPig animal, double speed) {
 		this.childAnimal = animal;
 		this.moveSpeed = speed;
 	}
@@ -28,7 +30,13 @@ public class EntityAIFollowParentPigs extends EntityAIBase
 	public boolean shouldExecute()	{
 
 		this.delayCounter++;
-		if (this.delayCounter > 60) {
+		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
+
+			if (!childAnimal.world.isDaytime() || childAnimal.getSleeping()) {
+				this.delayCounter = 0;
+				return false;
+			}
+
 			if (this.childAnimal instanceof EntityPigletBase) {
 				EntityPigletBase ec = (EntityPigletBase) this.childAnimal;
 				if (ec.getParentUniqueId() == null) {
@@ -54,7 +62,7 @@ public class EntityAIFollowParentPigs extends EntityAIBase
 							double z2 = Math.abs(zt - z1);
 
 							if (x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
-								this.parentAnimal = (EntityAnimal) entity;
+								this.parentAnimal = (EntityAnimaniaPig) entity;
 								return true;
 							} else {
 								return false;

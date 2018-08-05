@@ -49,7 +49,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	public EntityStallionBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.6F, 2.2F);
+		this.setSize(1.8F, 2.2F);
 		this.stepHeight = 1.2F;
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
@@ -124,7 +124,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 			return false;
 		}
 	}
-	
+
 	@Override
 	public void travel(float strafe, float forward, float friction)
 	{
@@ -270,7 +270,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
+		if (soundevent != null && !this.getSleeping())
 		{
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .2F);
 		}
@@ -318,9 +318,16 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 
 	public void onLivingUpdate()
 	{
+
 		if (this.getAge() == 0) {
 			this.setAge(1);
 		}
+
+		if (this.getLeashed() && this.getSleeping())
+			this.setSleeping(false);
+
+		if (this.isBeingRidden() && this.getSleeping())
+			this.setSleeping(false);
 
 		if (this.isBeingRidden() && !this.isAIDisabled()) {
 			this.setNoAI(true);
@@ -337,7 +344,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 			this.setColorNumber(0);
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && this.getHandFed() && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -345,7 +352,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 				this.setFed(false);
 		}
 
-		if (this.wateredTimer > -1)
+		if (this.wateredTimer > -1 && this.getHandFed())
 		{
 			this.wateredTimer--;
 
@@ -405,7 +412,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 			if (happyTimer == 0) {
 				happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles) {
+				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles && !this.getSleeping() && this.getHandFed()) {
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
@@ -443,7 +450,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 				return true;
 			}
 		} else if (!this.isChild() && this.isHorseSaddled()) {
-			
+
 			if (player.isSneaking())
 			{
 				this.openGUI(player);
@@ -451,9 +458,9 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 			} else {
 				return super.processInteract(player, hand);
 			}
-			
+
 		}
-		else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
+		else if (!player.isSneaking() && stack != null && this.isHorseSaddled() && !this.getSleeping() && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
 			this.mountTo(player);
 			//player.addStat(AnimaniaAchievements.Horseriding, 1);
 			return true;

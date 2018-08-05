@@ -1,6 +1,7 @@
 package com.animania.common.entities.pigs.ai;
 
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.ItemHelper;
 import com.animania.config.AnimaniaConfig;
@@ -37,7 +38,16 @@ public class EntityAIPigSnuffle extends EntityAIBase
 	@Override
 	public boolean shouldExecute() {
 
-		if (this.grassEaterEntity.getMuddy()) {
+		Block poschk = this.grassEaterEntity.world.getBlockState(this.grassEaterEntity.getPosition().down()).getBlock();
+		boolean isMuddy = false;
+		if (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")) {
+			isMuddy = true;
+		}
+		if (isMuddy) {
+			return false;
+		}
+		
+		if (!this.grassEaterEntity.world.isDaytime() || this.grassEaterEntity.getSleeping()) {
 			return false;
 		}
 

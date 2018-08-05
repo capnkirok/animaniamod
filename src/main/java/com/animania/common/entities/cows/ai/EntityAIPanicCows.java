@@ -1,5 +1,7 @@
 package com.animania.common.entities.cows.ai;
 
+import com.animania.common.entities.cows.EntityAnimaniaCow;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -14,7 +16,7 @@ import net.minecraft.world.World;
 
 public class EntityAIPanicCows extends EntityAIBase
 {
-	private final EntityCreature theEntityCreature;
+	private final EntityAnimaniaCow theEntityCreature;
 	protected double             speed;
 	private double               randPosX;
 	private double               randPosY;
@@ -22,7 +24,7 @@ public class EntityAIPanicCows extends EntityAIBase
 	private int                  duration;
 	private boolean              hitFlag;
 
-	public EntityAIPanicCows(EntityCreature creature, double speedIn) {
+	public EntityAIPanicCows(EntityAnimaniaCow creature, double speedIn) {
 		this.theEntityCreature = creature;
 		this.speed = speedIn;
 		this.setMutexBits(1);
@@ -32,16 +34,24 @@ public class EntityAIPanicCows extends EntityAIBase
 
 	@Override
 	public boolean shouldExecute() {
+		
 		EntityPlayer checkPlayer = this.theEntityCreature.world.getClosestPlayer(this.theEntityCreature.posX, this.theEntityCreature.posY,
 				this.theEntityCreature.posZ, 20, false);
-
+		
 		if (this.theEntityCreature.getAttackTarget() == null && !this.theEntityCreature.isBurning() && this.duration == 0) {
+		
 			this.hitFlag = false;
 			return false;
 		}
 		else if (!this.theEntityCreature.isBurning()) {
+			
 			Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 20, 4);
 
+			EntityAnimaniaCow entityCow = this.theEntityCreature;
+			if (entityCow.getSleeping()) {
+				entityCow.setSleeping(false);
+			}
+			
 			if (this.hitFlag == false) {
 				this.hitFlag = true;
 				this.duration = 40;
@@ -62,6 +72,12 @@ public class EntityAIPanicCows extends EntityAIBase
 			}
 		}
 		else {
+			
+			EntityAnimaniaCow entityCow = (EntityAnimaniaCow) this.theEntityCreature;
+			if (entityCow.getSleeping()) {
+				entityCow.setSleeping(false);
+			}
+			
 			BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
 
 			if (blockpos == null) {

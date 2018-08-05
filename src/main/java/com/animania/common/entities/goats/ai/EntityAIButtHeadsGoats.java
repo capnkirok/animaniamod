@@ -3,10 +3,12 @@ package com.animania.common.entities.goats.ai;
 import java.util.List;
 import java.util.Random;
 
+import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.goats.EntityBuckBase;
 import com.animania.common.entities.goats.EntityDoeBase;
 import com.animania.common.entities.goats.EntityKidBase;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -14,7 +16,7 @@ import net.minecraft.world.World;
 
 public class EntityAIButtHeadsGoats extends EntityAIBase
 {
-	private final EntityAnimal theAnimal;
+	private final EntityAnimaniaGoat theAnimal;
 	World theWorld;
 	private EntityAnimal targetMate;
 	int fightTimer;
@@ -23,7 +25,7 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 	Random rand = new Random();
 
 
-	public EntityAIButtHeadsGoats(EntityAnimal animal, double speedIn)
+	public EntityAIButtHeadsGoats(EntityAnimaniaGoat animal, double speedIn)
 	{
 		this.theAnimal = animal;
 		this.theWorld = animal.world;
@@ -38,9 +40,14 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 	public boolean shouldExecute() {
 
 		this.delayCounter++;
-		if (this.delayCounter > 1000) {
+		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings * 20) {
 
 			if (this.theAnimal instanceof EntityDoeBase || this.theAnimal instanceof EntityKidBase) {
+				return false;
+			}
+			
+			if (!this.theAnimal.world.isDaytime() || this.theAnimal.getSleeping()) {
+				this.delayCounter = 0;
 				return false;
 			}
 			

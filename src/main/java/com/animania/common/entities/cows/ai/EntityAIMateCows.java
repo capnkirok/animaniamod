@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 public class EntityAIMateCows extends EntityAIBase
 {
-	private final EntityAnimal theAnimal;
+	private final EntityAnimaniaCow theAnimal;
 	World                      theWorld;
 	private EntityAnimal       targetMate;
 	int                        courtshipTimer;
@@ -25,7 +25,7 @@ public class EntityAIMateCows extends EntityAIBase
 	private int                delayCounter;
 	private Random			   rand;
 
-	public EntityAIMateCows(EntityAnimal animal, double speedIn) {
+	public EntityAIMateCows(EntityAnimaniaCow animal, double speedIn) {
 		this.theAnimal = animal;
 		this.theWorld = animal.world;
 		this.moveSpeed = speedIn;
@@ -39,18 +39,24 @@ public class EntityAIMateCows extends EntityAIBase
 	@Override
 	public boolean shouldExecute() {
 
+		
 		this.delayCounter++;
 
 		//System.out.println(delayCounter);
 
-		if (this.delayCounter > 100) {
+		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
 
+			if (theAnimal.getSleeping()) {
+				this.delayCounter = 0;
+				return false;
+			}
+			
 			if (this.theAnimal instanceof EntityCalfBase || this.theAnimal instanceof EntityCowBase || this.theAnimal.isInWater()) {
 				this.delayCounter = 0;
 				return false;
 			}
 
-			EntityAnimaniaCow thisAnimal = (EntityAnimaniaCow) this.theAnimal;
+			EntityAnimaniaCow thisAnimal = this.theAnimal;
 
 			if (AnimaniaConfig.careAndFeeding.manualBreeding) {
 				if (!thisAnimal.getHandFed()) {
@@ -149,7 +155,7 @@ public class EntityAIMateCows extends EntityAIBase
 						allowBreeding = false;
 					}
 
-					if (entity.getPersistentID().equals(mateID) && entity.getFertile() && !entity.getPregnant() && allowBreeding) {
+					if (entity.getPersistentID().equals(mateID) && entity.getFertile() && !entity.getPregnant() && !entity.getSleeping() && allowBreeding && entity.canEntityBeSeen(entity2)) {
 
 						this.courtshipTimer--;
 						if (this.courtshipTimer < 0) {
@@ -186,7 +192,7 @@ public class EntityAIMateCows extends EntityAIBase
 
 					this.courtshipTimer--;
 
-					if (entity.getMateUniqueId() == null && this.courtshipTimer < 0 && entity.getFertile() && !entity.getPregnant() && allowBreeding) {
+					if (entity.getMateUniqueId() == null && this.courtshipTimer < 0 && entity.getFertile() && !entity.getSleeping() && !entity.getPregnant() && allowBreeding && entity.canEntityBeSeen(entity2)) {
 
 						((EntityBullBase) this.theAnimal).setMateUniqueId(entity.getPersistentID());
 						entity.setMateUniqueId(this.theAnimal.getPersistentID());
@@ -198,7 +204,7 @@ public class EntityAIMateCows extends EntityAIBase
 						entity.setFertile(false);
 						delayCounter = 0;
 						return (EntityAnimal) entity;
-					} else if (entity.getMateUniqueId() == null && !entity.getPregnant() && entity.getFertile() && allowBreeding) {
+					} else if (entity.getMateUniqueId() == null && !entity.getPregnant() && entity.getFertile() && !entity.getSleeping() && allowBreeding && entity.canEntityBeSeen(entity2)) {
 						k = entities.size();
 						this.theAnimal.setInLove(null);
 						this.theAnimal.getLookHelper().setLookPositionWithEntity(entity, 10.0F, this.theAnimal.getVerticalFaceSpeed());

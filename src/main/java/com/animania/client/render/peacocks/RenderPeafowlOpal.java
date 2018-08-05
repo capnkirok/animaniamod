@@ -3,6 +3,7 @@ package com.animania.client.render.peacocks;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelPeafowl;
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 import com.animania.common.entities.peacocks.EntityPeafowlOpal;
 import com.animania.common.handler.BlockHandler;
 
@@ -47,24 +48,45 @@ public class RenderPeafowlOpal<T extends EntityPeafowlOpal> extends RenderLiving
 		double z = entity.posZ;
 
 		BlockPos pos = new BlockPos(x, y, z);
-		
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
 
-		if (blockchk == BlockHandler.blockNest) {
-			GlStateManager.translate(0.0F, 0.45F, -0.45F);
+		Block blockchk = entity.world.getBlockState(pos).getBlock();
+        boolean isSleeping = false;
+		EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) entity;
+		if (entityChk.getSleeping()) {
+			isSleeping = true;
+		}
+		if (blockchk == BlockHandler.blockNest || isSleeping ) {
+			isSleeping = true;
 		}
 		
-    }
+		if (isSleeping ) {
+			GlStateManager.translate(-0.25F, 0.45F, -0.45F);
+			this.shadowSize = 0;
+		} else {
+			this.shadowSize = 0.3F;
+			entityChk.setSleeping(false);
+		}
 
-    @Override
-    protected ResourceLocation getEntityTexture(T entity) {
-        int blinkTimer = entity.blinkTimer;
+	}
 
-        if (blinkTimer < 5 && blinkTimer >= 0)
-            return entity.getResourceLocationBlink();
-        else
-            return entity.getResourceLocation();
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(T entity) {
+		int blinkTimer = entity.blinkTimer;
+		long currentTime = entity.world.getWorldTime() % 23999;
+		boolean isSleeping = false;
+
+		EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) entity;
+		isSleeping = entityChk.getSleeping();
+
+		if (isSleeping && currentTime < 23250) {
+			return entity.getResourceLocationBlink();
+		} else if (blinkTimer < 5 && blinkTimer >= 0) {
+			return entity.getResourceLocationBlink();
+		} else {
+			return entity.getResourceLocation();
+		}
+
+	}
 
     static class Factory<T extends EntityPeafowlOpal> implements IRenderFactory<T>
     {

@@ -3,9 +3,6 @@ package com.animania.client.render.rodents;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHamster;
-import com.animania.client.render.amphibians.RenderFrogs;
-import com.animania.client.render.horses.RenderStallionDraftHorse;
-import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.entities.rodents.EntityHamster;
 
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -14,7 +11,6 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
@@ -59,7 +55,7 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 	protected void preRenderScale(EntityHamster entityliving, float f) {
 		GL11.glScalef(this.scale * .8F, this.scale * .8F, this.scale * .8F);
 
-		if (entityliving.isRiding())
+		if (entityliving.isRiding()) {
 			if (entityliving.getRidingEntity() instanceof EntityPlayerSP) {
 
 				EntityPlayer player = (EntityPlayer) entityliving.getRidingEntity();
@@ -72,8 +68,11 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 					GlStateManager.translate(-0.85F, entityliving.height - .17F, -0.1F);
 				}
 			}
+		} else if (entityliving.getSleeping()) {
+			GlStateManager.translate(0F, 0.15F, 0F); 
+			GlStateManager.rotate(20.0F, 0.0F, 0.0F, 1.0F);
+		}
 	}
-
 
 
 	@Override
@@ -82,16 +81,21 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(EntityHamster entity) {
-
+	protected ResourceLocation getEntityTexture(T entity) {
 		int blinkTimer = entity.blinkTimer;
+		boolean isSleeping = false;
 
-		if (blinkTimer < 5 && blinkTimer >= 0)
+		EntityHamster entityChk = (EntityHamster) entity;
+		isSleeping = entityChk.getSleeping();
+		float sleepTimer = entityChk.getSleepTimer();
+
+		if (isSleeping) {
 			return RenderHamster.HAMSTER_TEXTURES_BLINK[entity.getColorNumber()];
-		else
+		} else if (blinkTimer < 7 && blinkTimer >= 0) {
+			return RenderHamster.HAMSTER_TEXTURES_BLINK[entity.getColorNumber()];
+		} else {
 			return RenderHamster.HAMSTER_TEXTURES[entity.getColorNumber()];
-
-
+		}
 	}
 
 	static class Factory<T extends EntityHamster> implements IRenderFactory<T>

@@ -5,8 +5,10 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.goats.ModelDoeKiko;
+import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.goats.EntityDoeKiko;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -24,7 +26,7 @@ public class RenderDoeKiko<T extends EntityDoeKiko> extends RenderLiving<T>
     Random                                rand             = new Random();
 
     public RenderDoeKiko(RenderManager rm) {
-        super(rm, new ModelDoeKiko(), 0.5F);
+        super(rm, new ModelDoeKiko(), 0.3F);
     }
 
     protected ResourceLocation getGoatTextures(T par1Entity) {
@@ -38,26 +40,51 @@ public class RenderDoeKiko<T extends EntityDoeKiko> extends RenderLiving<T>
     protected void preRenderScale(EntityDoeKiko entity, float f) {
         GL11.glScalef(0.42F, 0.42F, 0.42F);
         GL11.glTranslatef(0f, 0f, -0.5f);
-    }
+        boolean isSleeping = false;
+		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
+		if (entityGoat.getSleeping()) {
+			isSleeping = true;
+		}
+
+		if (isSleeping) {
+			this.shadowSize = 0;
+			float sleepTimer = entityGoat.getSleepTimer();
+			if (sleepTimer > - 0.55F) {
+				sleepTimer = sleepTimer - 0.01F;
+			}
+			entity.setSleepTimer(sleepTimer);
+
+			GlStateManager.translate(-0.25F, entity.height - 1.10F - sleepTimer, -0.25F);
+			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
+		} else {
+			this.shadowSize = .3F;
+			entityGoat.setSleeping(false);
+			entityGoat.setSleepTimer(0F);
+		}
+	}
+
+	@Override
+	protected ResourceLocation getEntityTexture(T entity) {
+		int blinkTimer = entity.blinkTimer;
+		long currentTime = entity.world.getWorldTime() % 23999;
+		boolean isSleeping = false;
+
+		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
+		isSleeping = entityGoat.getSleeping();
+		float sleepTimer = entityGoat.getSleepTimer();
+
+		if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250) {
+			return this.getGoatTexturesBlink(entity);
+		} else if (blinkTimer < 7 && blinkTimer >= 0) {
+			return this.getGoatTexturesBlink(entity);
+		} else {
+			return this.getGoatTextures(entity);
+		}
+	}
 
     @Override
     protected void preRenderCallback(T entityliving, float f) {
         this.preRenderScale(entityliving, f);
-    }
-    
-
-    /**
-     * Returns the location of an entity's texture. Doesn't seem to be called
-     * unless you call Render.bindEntityTexture.
-     */
-    @Override
-    protected ResourceLocation getEntityTexture(T entity) {
-        int blinkTimer = entity.blinkTimer;
-
-        if (blinkTimer < 7 && blinkTimer >= 0)
-            return this.getGoatTexturesBlink(entity);
-        else
-            return this.getGoatTextures(entity);
     }
 
     static class Factory<T extends EntityDoeKiko> implements IRenderFactory<T>

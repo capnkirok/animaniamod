@@ -1,9 +1,10 @@
 package com.animania.common.entities.peacocks.ai;
 
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
 
 public class EntityAIPanicPeacocks extends EntityAIBase
 {
-    private final EntityCreature theEntityCreature;
+    private final EntityAnimaniaPeacock theEntityCreature;
     protected double             speed;
     private double               randPosX;
     private double               randPosY;
@@ -22,7 +23,7 @@ public class EntityAIPanicPeacocks extends EntityAIBase
     private int                  duration;
     private boolean              hitFlag;
 
-    public EntityAIPanicPeacocks(EntityCreature creature, double speedIn) {
+    public EntityAIPanicPeacocks(EntityAnimaniaPeacock creature, double speedIn) {
         this.theEntityCreature = creature;
         this.speed = speedIn;
         this.setMutexBits(1);
@@ -42,6 +43,10 @@ public class EntityAIPanicPeacocks extends EntityAIBase
         else if (!this.theEntityCreature.isBurning()) {
             Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 20, 4);
 
+            if (this.theEntityCreature.getSleeping()) {
+				this.theEntityCreature.setSleeping(false);
+			}
+            
             if (this.hitFlag == false) {
                 this.hitFlag = true;
                 this.duration = 40;
@@ -61,7 +66,12 @@ public class EntityAIPanicPeacocks extends EntityAIBase
             }
         }
         else {
-            BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
+            
+        	if (this.theEntityCreature.getSleeping()) {
+				this.theEntityCreature.setSleeping(false);
+			}
+        	
+        	BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
 
             if (blockpos == null) {
                 this.hitFlag = false;
