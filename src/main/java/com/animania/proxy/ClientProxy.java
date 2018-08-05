@@ -1,6 +1,7 @@
 package com.animania.proxy;
 
 import com.animania.Animania;
+import com.animania.addons.AddonHandler;
 import com.animania.client.AnimaniaTextures;
 import com.animania.client.handler.RenderHandler;
 import com.animania.common.items.ItemEntityEgg;
@@ -32,6 +33,7 @@ public class ClientProxy extends CommonProxy
 		RenderHandler.preInit();
 		AnimaniaTextures.registerTextures();
 
+		AddonHandler.preInitClient();
 	}
 
 	@Override
@@ -47,6 +49,8 @@ public class ClientProxy extends CommonProxy
 				FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(new ItemEntityEgg.Color(), item);
 			}
 		}
+		
+		AddonHandler.initClient();
 	}
 
 	@Override

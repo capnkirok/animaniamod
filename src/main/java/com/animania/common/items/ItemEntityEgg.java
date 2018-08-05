@@ -155,6 +155,12 @@ public class ItemEntityEgg extends Item
 	{
 		return this.name;
 	}
+	
+	@Override
+	public String getItemStackDisplayName(ItemStack stack)
+	{
+		return I18n.translateToLocal("entity.animania:" + stack.getItem().getRegistryName().getResourcePath().replace("entity_egg_", "") + ".name");
+	}
 
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
