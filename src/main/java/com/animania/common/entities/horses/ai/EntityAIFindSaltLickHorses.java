@@ -18,7 +18,7 @@ import net.minecraft.world.biome.Biome;
 
 public class EntityAIFindSaltLickHorses extends EntityAIBase 
 {
-	private final EntityCreature temptedEntity;
+	private final EntityAnimaniaHorse temptedEntity;
 	private final double speed;
 	private double targetX;
 	private double targetY;
@@ -29,7 +29,7 @@ public class EntityAIFindSaltLickHorses extends EntityAIBase
 	private int delayTemptCounter;
 	private boolean isRunning;
 
-	public EntityAIFindSaltLickHorses(EntityCreature temptedEntityIn, double speedIn)
+	public EntityAIFindSaltLickHorses(EntityAnimaniaHorse temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
@@ -39,10 +39,16 @@ public class EntityAIFindSaltLickHorses extends EntityAIBase
 
 	public boolean shouldExecute()
 	{
-
+	
 		delayTemptCounter++;
-		//System.out.println(delayTemptCounter);
+		
 		if (delayTemptCounter >  AnimaniaConfig.careAndFeeding.saltLickTick || temptedEntity.getHealth() < temptedEntity.getMaxHealth()) {
+			
+			if (!temptedEntity.world.isDaytime() || temptedEntity.getSleeping()) {
+				this.delayTemptCounter = 0;
+				return false;
+			}
+			
 			if (temptedEntity instanceof EntityAnimaniaHorse) {
 				EntityAnimaniaHorse ech = (EntityAnimaniaHorse)temptedEntity;
 			}
@@ -113,7 +119,8 @@ public class EntityAIFindSaltLickHorses extends EntityAIBase
 						pos = new BlockPos(x + i, y + j, z + k);
 						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
-						if (blockchk == BlockHandler.blockSaltLick) {
+						if (blockchk == BlockHandler.blockSaltLick && temptedEntity.getNavigator().tryMoveToXYZ(pos.getX(), pos.getY(), pos.getZ(), 1.0)) {
+
 							waterFound = true;
 							return true;
 
@@ -125,6 +132,12 @@ public class EntityAIFindSaltLickHorses extends EntityAIBase
 
 			if (!waterFound) {
 				this.delayTemptCounter = 0;
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.resetTask();
+				}
 				return false;
 			}
 

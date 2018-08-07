@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.props.EntityCart;
 import com.animania.common.helper.AnimaniaHelper;
 
@@ -34,7 +35,20 @@ public class EntityAIWanderHorses extends EntityAIWander
 			return false;
 		}
     	
-    	
+		boolean isSleeping = false;
+		if (this.entity instanceof EntityAnimaniaHorse) {
+			EntityAnimaniaHorse entityAV = (EntityAnimaniaHorse) this.entity;
+			if (entityAV.getSleeping()) {
+				isSleeping = true;
+			}
+		}
+		
+		if (!this.entity.world.isDaytime() || isSleeping) {
+			return false;
+		}
+
+		
+		
     	if (!this.mustUpdate)
         {
             if (this.entity.getIdleTime() >= 100)

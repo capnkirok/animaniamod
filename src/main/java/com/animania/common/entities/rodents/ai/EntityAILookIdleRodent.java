@@ -1,12 +1,11 @@
 package com.animania.common.entities.rodents.ai;
 
-import net.minecraft.block.Block;
+import com.animania.common.entities.rodents.EntityFerretBase;
+import com.animania.common.entities.rodents.EntityHamster;
+import com.animania.common.entities.rodents.EntityHedgehogBase;
+
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 
 public class EntityAILookIdleRodent extends EntityAIBase
 {
@@ -22,6 +21,28 @@ public class EntityAILookIdleRodent extends EntityAIBase
 
 	@Override
 	public boolean shouldExecute() {
+		
+		if (this.idleEntity instanceof EntityHamster) {
+			EntityHamster er = (EntityHamster) this.idleEntity;
+			if (er.getSleeping()) {
+				return false;
+			}
+		}
+
+		if (this.idleEntity instanceof EntityFerretBase) {
+			EntityFerretBase er = (EntityFerretBase) this.idleEntity;
+			if (er.getSleeping()) {
+				return false;
+			}
+		}
+
+		if (this.idleEntity instanceof EntityHedgehogBase) {
+			EntityHedgehogBase er = (EntityHedgehogBase) this.idleEntity;
+			if (er.getSleeping()) {
+				return false;
+			}
+		}
+		
 		return this.idleEntity.getRNG().nextFloat() < 0.02F && !this.idleEntity.isRiding();
 	}
 

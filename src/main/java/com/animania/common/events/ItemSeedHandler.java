@@ -91,6 +91,7 @@ public class ItemSeedHandler
 			}
 
 		}
+		
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && player.isRiding())
 		{

@@ -38,6 +38,13 @@ public class EntityAILookIdleHorses extends EntityAIBase
 	 */
 	public boolean shouldExecute()
 	{
+		
+		if (!this.idleEntity.world.isDaytime()) {
+			this.delayCounter = 0;
+			return false;
+		}
+		
+		
 		boolean pullingFlag = false;
 		List entities = AnimaniaHelper.getCartsInRange(EntityCart.class, 3, idleEntity.world, idleEntity);
 		if (!entities.isEmpty()) {

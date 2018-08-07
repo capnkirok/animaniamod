@@ -18,7 +18,7 @@ import net.minecraft.world.biome.Biome;
 
 public class EntityAIFindSaltLickPigs extends EntityAIBase 
 {
-	private final EntityCreature temptedEntity;
+	private final EntityAnimaniaPig entityIn;
 	private final double speed;
 	private double targetX;
 	private double targetY;
@@ -29,9 +29,9 @@ public class EntityAIFindSaltLickPigs extends EntityAIBase
 	private int delayTemptCounter;
 	private boolean isRunning;
 
-	public EntityAIFindSaltLickPigs(EntityCreature temptedEntityIn, double speedIn)
+	public EntityAIFindSaltLickPigs(EntityAnimaniaPig temptedEntityIn, double speedIn)
 	{
-		this.temptedEntity = temptedEntityIn;
+		this.entityIn = temptedEntityIn;
 		this.speed = speedIn;
 		this.setMutexBits(3);
 		this.delayTemptCounter = 0;
@@ -42,35 +42,37 @@ public class EntityAIFindSaltLickPigs extends EntityAIBase
 
 		delayTemptCounter++;
 		//System.out.println(delayTemptCounter);
-		if (delayTemptCounter >  AnimaniaConfig.careAndFeeding.saltLickTick || temptedEntity.getHealth() < temptedEntity.getMaxHealth()) {
-			if (temptedEntity instanceof EntityAnimaniaPig) {
-				EntityAnimaniaPig ech = (EntityAnimaniaPig)temptedEntity;
+		if (delayTemptCounter >  AnimaniaConfig.careAndFeeding.saltLickTick || entityIn.getHealth() < entityIn.getMaxHealth()) {
+			
+			if (!entityIn.world.isDaytime() || entityIn.getSleeping()) {
+				this.delayTemptCounter = 0;
+				return false;
 			}
 			
-			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			if (this.entityIn.getRNG().nextInt(100) == 0)
 			{
-				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entityIn, 20, 4);
 				if (vec3d != null) {
 					this.delayTemptCounter = 0;
 					this.resetTask();
-					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.entityIn.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
 				}
 				return false;
 			}
 
 			Random rand = new Random();
 
-			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
-			BlockPos trypos1 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ);
-			BlockPos trypos2 = new BlockPos(temptedEntity.posX - 1, temptedEntity.posY, temptedEntity.posZ);
-			BlockPos trypos3 = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ + 1);
-			BlockPos trypos4 = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ - 1);
+			BlockPos currentpos = new BlockPos(entityIn.posX, entityIn.posY, entityIn.posZ);
+			BlockPos trypos1 = new BlockPos(entityIn.posX + 1, entityIn.posY, entityIn.posZ);
+			BlockPos trypos2 = new BlockPos(entityIn.posX - 1, entityIn.posY, entityIn.posZ);
+			BlockPos trypos3 = new BlockPos(entityIn.posX, entityIn.posY, entityIn.posZ + 1);
+			BlockPos trypos4 = new BlockPos(entityIn.posX, entityIn.posY, entityIn.posZ - 1);
 
-			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
-			Block poschk1 = temptedEntity.world.getBlockState(trypos1).getBlock();
-			Block poschk2 = temptedEntity.world.getBlockState(trypos2).getBlock();
-			Block poschk3 = temptedEntity.world.getBlockState(trypos3).getBlock();
-			Block poschk4 = temptedEntity.world.getBlockState(trypos4).getBlock();
+			Block poschk = entityIn.world.getBlockState(currentpos).getBlock();
+			Block poschk1 = entityIn.world.getBlockState(trypos1).getBlock();
+			Block poschk2 = entityIn.world.getBlockState(trypos2).getBlock();
+			Block poschk3 = entityIn.world.getBlockState(trypos3).getBlock();
+			Block poschk4 = entityIn.world.getBlockState(trypos4).getBlock();
 
 			if (poschk == BlockHandler.blockSaltLick) {
 				//do nothing
@@ -84,23 +86,21 @@ public class EntityAIFindSaltLickPigs extends EntityAIBase
 				currentpos = trypos4;
 			}
 
-			poschk = temptedEntity.world.getBlockState(currentpos).getBlock(); 
+			poschk = entityIn.world.getBlockState(currentpos).getBlock(); 
 
-			if (temptedEntity instanceof EntityAnimaniaPig && poschk == BlockHandler.blockSaltLick) {
-				EntityAnimaniaPig ech = (EntityAnimaniaPig)temptedEntity;
+			if (entityIn instanceof EntityAnimaniaPig && poschk == BlockHandler.blockSaltLick) {
+				EntityAnimaniaPig ech = (EntityAnimaniaPig)entityIn;
 				ech.entityAIEatGrass.startExecuting();
 				BlockSaltLick salt = (BlockSaltLick)poschk;
-				salt.useSaltLick(this.temptedEntity.world, currentpos, this.temptedEntity);
+				salt.useSaltLick(this.entityIn.world, currentpos, this.entityIn);
 				this.resetTask();
 				this.delayTemptCounter = 0;
 				return false;
-				//ech.setWatered(true);
 			} 
 
-
-			double x = this.temptedEntity.posX;
-			double y = this.temptedEntity.posY;
-			double z = this.temptedEntity.posZ;
+			double x = this.entityIn.posX;
+			double y = this.entityIn.posY;
+			double z = this.entityIn.posZ;
 
 			boolean waterFound = false;
 
@@ -111,9 +111,10 @@ public class EntityAIFindSaltLickPigs extends EntityAIBase
 					for (int k = -16; k < 16; k++) {
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = entityIn.world.getBlockState(pos).getBlock();
 
-						if (blockchk == BlockHandler.blockSaltLick) {
+						if (blockchk == BlockHandler.blockSaltLick && entityIn.getNavigator().tryMoveToXYZ(pos.getX(), pos.getY(), pos.getZ(), 1.0)) {
+
 							waterFound = true;
 							return true;
 
@@ -125,6 +126,12 @@ public class EntityAIFindSaltLickPigs extends EntityAIBase
 
 			if (!waterFound) {
 				this.delayTemptCounter = 0;
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entityIn, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.entityIn.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.resetTask();
+				}
 				return false;
 			}
 
@@ -135,25 +142,25 @@ public class EntityAIFindSaltLickPigs extends EntityAIBase
 
 	public boolean shouldContinueExecuting()
 	{
-		return !this.temptedEntity.getNavigator().noPath();
+		return !this.entityIn.getNavigator().noPath();
 	}
 	
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
-		this.temptedEntity.getNavigator().clearPath();
+		this.entityIn.getNavigator().clearPath();
 		this.isRunning = false;
 	}
 
 	public void startExecuting()
 	{
 
-		double x = this.temptedEntity.posX;
-		double y = this.temptedEntity.posY;
-		double z = this.temptedEntity.posZ;
+		double x = this.entityIn.posX;
+		double y = this.entityIn.posY;
+		double z = this.entityIn.posZ;
 
 		BlockPos currentpos = new BlockPos(x, y, z);
-		Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
+		Block poschk = entityIn.world.getBlockState(currentpos).getBlock();
 
 		if (poschk != BlockHandler.blockSaltLick) {
 
@@ -168,9 +175,9 @@ public class EntityAIFindSaltLickPigs extends EntityAIBase
 					for (int k = -16; k < 16; k++) {
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = entityIn.world.getBlockState(pos).getBlock();
 
-						Biome biomegenbase = temptedEntity.world.getBiome(pos); 
+						Biome biomegenbase = entityIn.world.getBiome(pos); 
 
 						if (blockchk == BlockHandler.blockSaltLick) {
 							waterFound = true;
@@ -180,17 +187,17 @@ public class EntityAIFindSaltLickPigs extends EntityAIBase
 
 								loc = newloc;
 
-								if (temptedEntity.posX < saltPos.getX()) {
+								if (entityIn.posX < saltPos.getX()) {
 									BlockPos saltPoschk = new BlockPos(x + i + 1, y + j, z + k);
-									Block waterBlockchk = temptedEntity.world.getBlockState(saltPoschk).getBlock();
+									Block waterBlockchk = entityIn.world.getBlockState(saltPoschk).getBlock();
 									if (waterBlockchk == BlockHandler.blockSaltLick ) {
 										i = i + 1;
 									}
 								} 
 
-								if (temptedEntity.posZ < saltPos.getZ()) {
+								if (entityIn.posZ < saltPos.getZ()) {
 									BlockPos saltPoschk = new BlockPos(x + i, y + j, z + k + 1);
-									Block waterBlockchk = temptedEntity.world.getBlockState(saltPoschk).getBlock();
+									Block waterBlockchk = entityIn.world.getBlockState(saltPoschk).getBlock();
 									if (waterBlockchk == BlockHandler.blockSaltLick ) {
 										k = k + 1;
 									} 
@@ -206,13 +213,13 @@ public class EntityAIFindSaltLickPigs extends EntityAIBase
 
 			if (waterFound) {
 
-				Block waterBlockchk = temptedEntity.world.getBlockState(saltPos).getBlock();
+				Block waterBlockchk = entityIn.world.getBlockState(saltPos).getBlock();
 
-				if (waterBlockchk == BlockHandler.blockSaltLick && !this.temptedEntity.hasPath()) {
-					if(this.temptedEntity.getNavigator().tryMoveToXYZ(saltPos.getX(), saltPos.getY(), saltPos.getZ(), this.speed) == false) {
+				if (waterBlockchk == BlockHandler.blockSaltLick && !this.entityIn.hasPath()) {
+					if(this.entityIn.getNavigator().tryMoveToXYZ(saltPos.getX(), saltPos.getY(), saltPos.getZ(), this.speed) == false) {
 						this.resetTask();
 					} else {
-						this.temptedEntity.getNavigator().tryMoveToXYZ(saltPos.getX(), saltPos.getY(), saltPos.getZ(), this.speed);
+						this.entityIn.getNavigator().tryMoveToXYZ(saltPos.getX(), saltPos.getY(), saltPos.getZ(), this.speed);
 					}
 				}
 			}

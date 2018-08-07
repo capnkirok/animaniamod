@@ -3,6 +3,7 @@ package com.animania.common.entities.sheep.ai;
 import java.util.List;
 import java.util.Random;
 
+import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityEweBase;
 import com.animania.common.entities.sheep.EntityLambBase;
 import com.animania.common.helper.AnimaniaHelper;
@@ -13,15 +14,15 @@ import net.minecraft.util.math.MathHelper;
 
 public class EntityAIFollowParentSheep extends EntityAIBase
 {
-	EntityAnimal childAnimal;
-	EntityAnimal parentAnimal;
+	EntityAnimaniaSheep childAnimal;
+	EntityAnimaniaSheep parentAnimal;
 	double moveSpeed;
 	private int delayCounter;
 	Random rand = new Random();
 
 	public EntityAIFollowParentSheep(EntityAnimal animal, double speed)
 	{
-		this.childAnimal = animal;
+		this.childAnimal = (EntityAnimaniaSheep) animal;
 		this.moveSpeed = speed;
 	}
 
@@ -36,6 +37,11 @@ public class EntityAIFollowParentSheep extends EntityAIBase
 					return false;
 				} else {
 
+					if (!this.childAnimal.world.isDaytime() || this.childAnimal.getSleeping()) {
+						this.delayCounter = 0;
+						return false;
+					}
+					
 					List entities = AnimaniaHelper.getEntitiesInRange(EntityEweBase.class, 40, this.childAnimal.world, this.childAnimal);
 
 					for (int k = 0; k <= entities.size() - 1; k++) {
@@ -55,7 +61,7 @@ public class EntityAIFollowParentSheep extends EntityAIBase
 							double z2 = Math.abs(zt - z1);
 							
 							if (x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
-								this.parentAnimal = (EntityAnimal) entity;
+								this.parentAnimal = (EntityAnimaniaSheep) entity;
 								return true;
 							} else {
 								return false;

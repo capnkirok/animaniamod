@@ -52,7 +52,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public EntityFoalBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.6F, 3.0F);
+		this.setSize(2.2F, 3.0F);
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentHorses(this, 1.1D));
 		this.ageTimer = 0;
@@ -192,7 +192,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
+		if (soundevent != null && !this.getSleeping())
 		{
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F - (this.getEntityAge() * 2));
 		}
@@ -278,6 +278,9 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		if (this.getAge() == 0) {
 			this.setAge(1);
 		}
+		
+		if (this.getLeashed() && this.getSleeping())
+			this.setSleeping(false);
 		
 		if (this.world.isRemote)
 		{
@@ -370,7 +373,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			if (happyTimer == 0) {
 				happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles) {
+				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles && !this.getSleeping() && this.getHandFed()) {
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;

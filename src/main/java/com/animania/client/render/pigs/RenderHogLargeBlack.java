@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHogLargeBlack;
 import com.animania.client.render.pigs.layers.LayerMudHogLargeBlack;
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityHogLargeBlack;
 import com.animania.common.handler.BlockHandler;
 
@@ -36,51 +37,76 @@ public class RenderHogLargeBlack<T extends EntityHogLargeBlack> extends RenderLi
 	protected void preRenderScale(T entity, float f) {
 		GL11.glScalef(1.20F, 1.20F, 1.20F);
 
-		double x = entity.posX;
-		double y = entity.posY;
-		double z = entity.posZ;
-
-		BlockPos pos = new BlockPos(x, y, z);
-		Random rand = new Random();
-
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
-		Block blockchk2 = entity.world.getBlockState(pos).getBlock();
-		boolean mudBlock = false;
-		if (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().contains("tile.mud") || blockchk2.getUnlocalizedName().contains("tile.mud")) {
-			mudBlock = true;
+		boolean isSleeping = false;
+		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
+		
+		if (entityChk.getSleeping()) {
+			isSleeping = true;
 		}
 
-		if (mudBlock && !entity.getMuddy()) {
-			GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
+		if (isSleeping) {
+			this.shadowSize = 0;
+			float sleepTimer = entityChk.getSleepTimer();
+			if (entityChk.getRNG().nextInt(2) < 1 && sleepTimer > - 0.55F) {
+				sleepTimer = sleepTimer - 0.01F;
+			}
+			entity.setSleepTimer(sleepTimer);
+
+			GlStateManager.translate(0.0F, entity.height - 1.25F, 0.0F);
 			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
-			entity.setMuddy(true);
-			entity.setMudTimer(1.0F);
-			entity.setSplashTimer(1.0F);
-		}
-		else if (entity.isWet() && entity.getMuddy() && !mudBlock) {
-			entity.setMuddy(false);
-			entity.setMudTimer(0.0F);
-			entity.setSplashTimer(0.0F);
-		}
-		else if (mudBlock) {
-			Float splashTimer = entity.getSplashTimer();
-			GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
-			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
+		} else {
+			entityChk.setSleeping(false);
+			entityChk.setSleepTimer(0F);
 
-			splashTimer = splashTimer - 0.045F;
-			entity.setSplashTimer(splashTimer);
-			if (splashTimer <= 0.0F) {
-				entity.setMuddy(true);
-				entity.setMudTimer(1.0F);
+			double x = entity.posX;
+			double y = entity.posY;
+			double z = entity.posZ;
+
+			BlockPos pos = new BlockPos(x, y, z);
+			Random rand = new Random();
+
+			Block blockchk = entity.world.getBlockState(pos).getBlock();
+			Block blockchk2 = entity.world.getBlockState(pos).getBlock();
+			boolean mudBlock = false;
+			if (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().contains("tile.mud") || blockchk2.getUnlocalizedName().contains("tile.mud")) {
+				mudBlock = true;
 			}
 
-		}
-		else if (entity.getMudTimer() > 0) {
-			entity.setMuddy(false);
-			float mudTimer = entity.getMudTimer();
-			if (rand.nextInt(3) < 1) {
-				mudTimer = mudTimer - 0.0025F;
-				entity.setMudTimer(mudTimer);
+			if (mudBlock && !entity.getMuddy()) {
+				this.shadowSize = 0;
+				GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
+				GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
+				entity.setMuddy(true);
+				entity.setMudTimer(1.0F);
+				entity.setSplashTimer(1.0F);
+			}
+			else if (entity.isWet() && entity.getMuddy() && !mudBlock) {
+				this.shadowSize = 0.5F;
+				entity.setMuddy(false);
+				entity.setMudTimer(0.0F);
+				entity.setSplashTimer(0.0F);
+			}
+			else if (mudBlock) {
+				Float splashTimer = entity.getSplashTimer();
+				GlStateManager.translate(0.0F, entity.height - 1.45F, 0.0F);
+				GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
+
+				splashTimer = splashTimer - 0.045F;
+				entity.setSplashTimer(splashTimer);
+				if (splashTimer <= 0.0F) {
+					entity.setMuddy(true);
+					entity.setMudTimer(1.0F);
+				}
+
+			}
+			else if (entity.getMudTimer() > 0) {
+				this.shadowSize = 0.5F;
+				entity.setMuddy(false);
+				float mudTimer = entity.getMudTimer();
+				if (rand.nextInt(3) < 1) {
+					mudTimer = mudTimer - 0.0025F;
+					entity.setMudTimer(mudTimer);
+				}
 			}
 		}
 
@@ -93,13 +119,22 @@ public class RenderHogLargeBlack<T extends EntityHogLargeBlack> extends RenderLi
 
 	@Override
 	protected ResourceLocation getEntityTexture(T entity) {
-
 		int blinkTimer = entity.blinkTimer;
+		long currentTime = entity.world.getWorldTime() % 23999;
+		boolean isSleeping = false;
 
-		if (blinkTimer < 7 && blinkTimer >= 0)
-			return RenderHogLargeBlack.PIG_TEXTURES_BLINK;
-		else
-			return RenderHogLargeBlack.PIG_TEXTURES;
+		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
+		isSleeping = entityChk.getSleeping();
+		float sleepTimer = entityChk.getSleepTimer();
+
+		if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250) {
+			return this.PIG_TEXTURES_BLINK;
+		} else if (blinkTimer < 7 && blinkTimer >= 0) {
+			return this.PIG_TEXTURES_BLINK;
+		} else {
+			return this.PIG_TEXTURES;
+		}
+
 	}
 
 	static class Factory<T extends EntityHogLargeBlack> implements IRenderFactory<T>

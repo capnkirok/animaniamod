@@ -3,8 +3,10 @@ package com.animania.client.render.peacocks;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelPeacock;
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 import com.animania.common.entities.peacocks.EntityPeacockOpal;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -37,17 +39,39 @@ public class RenderPeacockOpal<T extends EntityPeacockOpal> extends RenderLiving
 
     protected void preRenderScale(T entity, float f) {
         GL11.glScalef(1.0F, 1.0F, 1.0F);
-    }
+        boolean isSleeping = false;
+		EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) entity;
+		if (entityChk.getSleeping()) {
+			isSleeping = true;
+		}
+		if (isSleeping ) {
+			GlStateManager.translate(-0.25F, 0.45F, -0.45F);
+			this.shadowSize = 0;
+		} else {
+			this.shadowSize = 0.3F;
+			entityChk.setSleeping(false);
+		}
 
-    @Override
-    protected ResourceLocation getEntityTexture(T entity) {
-        int blinkTimer = entity.blinkTimer;
+	}
 
-        if (blinkTimer < 5 && blinkTimer >= 0)
-            return entity.getResourceLocationBlink();
-        else
-            return entity.getResourceLocation();
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(T entity) {
+		int blinkTimer = entity.blinkTimer;
+		long currentTime = entity.world.getWorldTime() % 23999;
+		boolean isSleeping = false;
+
+		EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) entity;
+		isSleeping = entityChk.getSleeping();
+
+		if (isSleeping && currentTime < 23250) {
+			return entity.getResourceLocationBlink();
+		} else if (blinkTimer < 5 && blinkTimer >= 0) {
+			return entity.getResourceLocationBlink();
+		} else {
+			return entity.getResourceLocation();
+		}
+
+	}
 
     static class Factory<T extends EntityPeacockOpal> implements IRenderFactory<T>
     {

@@ -3,8 +3,10 @@ package com.animania.client.render.sheep;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.sheep.ModelDorperSheep;
+import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityLambDorper;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -40,30 +42,62 @@ public class RenderLambDorper<T extends EntityLambDorper> extends RenderLiving<T
 		float age = entity.getEntityAge();
 		GL11.glScalef(0.30F + age, 0.30F + age, 0.30F + age); 
         GL11.glTranslatef(0f, 0f, -0.5f);
-	}
+        boolean isSleeping = false;
+		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
+		if (entitySheep.getSleeping()) {
+			isSleeping = true;
+		}
 
-	@Override
-	protected void preRenderCallback(T entityliving, float f) {
-		this.preRenderScale(entityliving, f);
+		if (isSleeping) {
+			this.shadowSize = 0;
+			float sleepTimer = entitySheep.getSleepTimer();
+			if (sleepTimer > - 0.55F) {
+				sleepTimer = sleepTimer - 0.01F;
+			}
+			entity.setSleepTimer(sleepTimer);
+
+			GlStateManager.translate(-0.25F, entity.height - .45F - sleepTimer, -0.25F);
+			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
+		} else {
+			this.shadowSize = 0.5F;
+			entitySheep.setSleeping(false);
+			entitySheep.setSleepTimer(0F);
+		}
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(T entity) {
 		int blinkTimer = entity.blinkTimer;
+		long currentTime = entity.world.getWorldTime() % 23999;
+		boolean isSleeping = false;
+
+		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
+		isSleeping = entitySheep.getSleeping();
+		float sleepTimer = entitySheep.getSleepTimer();
 
 		if (!entity.getSheared()) {
-			if (blinkTimer < 7 && blinkTimer >= 0) {
-				return RenderLambDorper.SHEEP_TEXTURES_BLINK[entity.getColorNumber()];
+			if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250) {
+				return this.SHEEP_TEXTURES_BLINK[entity.getColorNumber()];
+			} else if (blinkTimer < 7 && blinkTimer >= 0) {
+				return this.SHEEP_TEXTURES_BLINK[entity.getColorNumber()];
 			} else {
-				return RenderLambDorper.SHEEP_TEXTURES[entity.getColorNumber()];
+				return this.SHEEP_TEXTURES[entity.getColorNumber()];
 			}
 		} else {
-			if (blinkTimer < 7 && blinkTimer >= 0) {
-				return RenderLambDorper.SHEEP_TEXTURES_SHEARED_BLINK[entity.getColorNumber()];
+			if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250) {
+				return this.SHEEP_TEXTURES_SHEARED_BLINK[entity.getColorNumber()];
+			} else if (blinkTimer < 7 && blinkTimer >= 0) {
+				return this.SHEEP_TEXTURES_SHEARED_BLINK[entity.getColorNumber()];
 			} else {
-				return RenderLambDorper.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
+				return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
 			}
 		}
+
+	}
+
+	@Override
+	protected void preRenderCallback(T entityliving, float f) {
+		this.preRenderScale(entityliving, f);
 	}
 
 	static class Factory<T extends EntityLambDorper> implements IRenderFactory<T>

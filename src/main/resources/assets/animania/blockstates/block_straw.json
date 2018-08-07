@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "variant=straw": 
+		[
+				  { "model": "animania:block_straw" },
+		          { "model": "animania:block_straw", "y": 90 },
+		          { "model": "animania:block_straw", "y": 180 },
+		          { "model": "animania:block_straw", "y": 270 }
+				  
+		]
+
+    }
+}

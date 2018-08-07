@@ -3,10 +3,12 @@ package com.animania.client.render.chickens;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHen;
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.chickens.EntityHenRhodeIslandRed;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -44,27 +46,47 @@ public class RenderHenRhodeIslandRed<T extends EntityHenRhodeIslandRed> extends 
         GL11.glScalef(1.02F, 1.02F, 1.02F);
 
         double x = entity.posX;
-        double y = entity.posY;
-        double z = entity.posZ;
+		double y = entity.posY;
+		double z = entity.posZ;
 
-        BlockPos pos = new BlockPos(x, y, z);
+		BlockPos pos = new BlockPos(x, y, z);
 
-        Block blockchk = entity.world.getBlockState(pos).getBlock();
+		Block blockchk = entity.world.getBlockState(pos).getBlock();
 
-        if (blockchk == BlockHandler.blockNest)
-            GlStateManager.translate(-0.25F, 0.35F, -0.25F);
+		boolean isSleeping = false;
+		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) entity;
+		if (entityChk.getSleeping()) {
+			isSleeping = true;
+		}
+		
+		if (blockchk == BlockHandler.blockNest || isSleeping ) {
+			this.shadowSize = 0;
+			GlStateManager.translate(-0.25F, 0.35F, -0.25F);
+		} else {
+			this.shadowSize = 0.3F;
+			entityChk.setSleeping(false);
+		}
 
-    }
+	}
 
-    @Override
-    protected ResourceLocation getEntityTexture(T entity) {
-        int blinkTimer = entity.blinkTimer;
+	@Override
+	protected ResourceLocation getEntityTexture(T entity) {
+		int blinkTimer = entity.blinkTimer;
+		long currentTime = entity.world.getWorldTime() % 23999;
+		boolean isSleeping = false;
 
-        if (blinkTimer < 5 && blinkTimer >= 0)
-            return entity.getResourceLocationBlink();
-        else
-            return entity.getResourceLocation();
-    }
+		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) entity;
+		isSleeping = entityChk.getSleeping();
+
+		if (isSleeping && currentTime < 23250) {
+			return entity.getResourceLocationBlink();
+		} else if (blinkTimer < 5 && blinkTimer >= 0) {
+			return entity.getResourceLocationBlink();
+		} else {
+			return entity.getResourceLocation();
+		}
+
+	}
 
     static class Factory<T extends EntityHenRhodeIslandRed> implements IRenderFactory<T>
     {

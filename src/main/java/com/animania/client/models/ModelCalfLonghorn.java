@@ -1,5 +1,6 @@
 package com.animania.client.models;
 
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.cows.EntityCalfHighland;
 import com.animania.common.entities.cows.EntityCalfLonghorn;
 
@@ -120,8 +121,8 @@ public class ModelCalfLonghorn extends ModelBase
      * Sets the models various rotation angles then renders the model.
      */
     @Override
-    public void render(Entity p_78088_1_, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_,
-            float p_78088_7_) {
+    public void render(Entity entity, float p_78088_2_, float p_78088_3_, float p_78088_4_, float p_78088_5_, float p_78088_6_,
+            float scale) {
 
         this.Tail.rotateAngleX = -2F;
         this.Tail.rotateAngleY = -3.141593F;
@@ -129,16 +130,53 @@ public class ModelCalfLonghorn extends ModelBase
         this.TailHair1.rotateAngleZ = -2.280276F;
         this.TailHair2.rotateAngleZ = 2.432113F;
 
-        this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, p_78088_7_, p_78088_1_);
+        this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entity);
 
-        this.Head.render(p_78088_7_);
-        this.Body.render(p_78088_7_);
-        this.Leg0.render(p_78088_7_);
-        this.Leg1.render(p_78088_7_);
-        this.Leg2.render(p_78088_7_);
-        this.Leg3.render(p_78088_7_);
-        this.TailTop.render(p_78088_7_);
-        this.Tail.render(p_78088_7_);
+        boolean isSleeping = false;
+		EntityAnimaniaCow ech = (EntityAnimaniaCow) entity;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+		
+		float sleepTimer = ech.getSleepTimer();
+
+		if (isSleeping) {
+
+			this.Leg0.rotateAngleX = sleepTimer * -1.8F;
+			this.Leg0.render(scale * .95F);
+			this.Leg1.rotateAngleX = sleepTimer * -1.8F;
+			this.Leg1.render(scale * .97F);
+			this.Leg2.rotateAngleX = sleepTimer * 1.7F;
+			this.Leg2.render(scale * .97F);
+			this.Leg3.rotateAngleX = sleepTimer * 1.75F;
+			this.Leg3.render(scale * .95F);
+			this.Head.rotateAngleY = sleepTimer * + 2.8F;
+
+			if (sleepTimer > -.28) {
+				this.Body.rotateAngleX = (float) Math.PI / 2F - (sleepTimer/3);
+			} else {
+				this.Body.rotateAngleX = (float) Math.PI / 2F + (sleepTimer/3);
+			}
+
+		} else {
+
+			this.Leg0.rotateAngleZ = 0;
+			this.Leg0.render(scale);
+			this.Leg1.rotateAngleZ = 0;
+			this.Leg1.render(scale);
+			this.Leg2.rotateAngleZ = 0;
+			this.Leg2.render(scale);
+			this.Leg3.rotateAngleZ = 0;
+			this.Leg3.render(scale);
+			this.Head.rotateAngleY = 0F;
+			this.Body.rotateAngleX = (float) Math.PI / 2F;
+
+		}
+        
+        this.Head.render(scale);
+        this.Body.render(scale);
+        this.TailTop.render(scale);
+        this.Tail.render(scale);
 
     }
 

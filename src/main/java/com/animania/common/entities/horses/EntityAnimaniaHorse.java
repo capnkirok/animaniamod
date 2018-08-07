@@ -10,7 +10,8 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAIWatchClosest;
+import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.horses.ai.EntityAIFindFood;
 import com.animania.common.entities.horses.ai.EntityAIFindSaltLickHorses;
 import com.animania.common.entities.horses.ai.EntityAIFindWater;
@@ -18,6 +19,7 @@ import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
 import com.animania.common.entities.horses.ai.EntityAILookIdleHorses;
 import com.animania.common.entities.horses.ai.EntityAIMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
+import com.animania.common.entities.horses.ai.EntityAISleep;
 import com.animania.common.entities.horses.ai.EntityAISwimmingHorse;
 import com.animania.common.entities.horses.ai.EntityAITemptHorses;
 import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
@@ -36,7 +38,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
@@ -72,6 +73,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaHorse.class, DataSerializers.FLOAT);
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -111,7 +114,10 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
 		this.tasks.addTask(11, new EntityAILookIdleHorses(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickHorses(this, 1.0));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
+		if (AnimaniaConfig.gameRules.animalsSleep) {
+			this.tasks.addTask(13, new EntityAISleep(this, 0.8));
+		}
+		this.tasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		this.happyTimer = 60;
@@ -126,7 +132,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	{
 		return false;
 	}
-	
+
 	@Override
 	public void setPosition(double x, double y, double z)
 	{
@@ -142,6 +148,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		this.dataManager.register(EntityAnimaniaHorse.HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaHorse.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaHorse.MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityAnimaniaHorse.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaHorse.SLEEPTIMER, Float.valueOf(0.0F));
 		this.dataManager.register(EntityAnimaniaHorse.AGE, Integer.valueOf(0));
 	}
 
@@ -150,7 +158,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28499999403953552D);
 	}
-	
+
 	@Override
 	public void updatePassenger(Entity passenger)
 	{
@@ -199,8 +207,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 
 					Vec3d vec3d = (new Vec3d((double) f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
 					//passenger.setPosition(this.posX + vec3d.x, this.posY + (double) f1, this.posZ + vec3d.z);
-					
-					
+
+
 					passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
 				}
 			}
@@ -349,6 +357,45 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			this.dataManager.set(EntityAnimaniaHorse.WATERED, Boolean.valueOf(false));
 	}
 
+	public boolean getSleeping()
+	{
+		try {
+			return (this.getBoolFromDataManager(SLEEPING));
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void setSleeping(boolean flag)
+	{
+		if (flag)
+		{
+			this.dataManager.set(EntityAnimaniaHorse.SLEEPING, Boolean.valueOf(true));
+		}
+		else
+		{
+			this.dataManager.set(EntityAnimaniaHorse.SLEEPING, Boolean.valueOf(false));
+		}
+	}
+
+	public Float getSleepTimer()
+	{
+		try
+		{
+			return (this.getFloatFromDataManager(SLEEPTIMER));
+		}
+		catch (Exception e)
+		{
+			return 0F;
+		}
+	}
+
+	public void setSleepTimer(Float timer)
+	{
+		this.dataManager.set(EntityAnimaniaHorse.SLEEPTIMER, Float.valueOf(timer));
+	}
+
 	public int getAge()
 	{
 		try
@@ -378,7 +425,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
+		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .2F);
 	}
 
@@ -600,7 +647,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		}
 
 
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
 		{
 			if (!player.isCreative())
 			{
@@ -616,7 +663,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && this.isHorseBreedingItem(stack.getItem())) {
+		else if (stack != ItemStack.EMPTY && this.isHorseBreedingItem(stack.getItem()) && !this.getSleeping()) {
 			if (!player.capabilities.isCreativeMode)
 				stack.shrink(1);
 
@@ -628,8 +675,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			return true;
 
 		}
-		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.SADDLE && !this.isHorseSaddled()) {
-			
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.SADDLE && !this.isHorseSaddled() && !this.getSleeping()) {
+
 			ItemStack bob = stack.copy();
 			this.horseChest.setInventorySlotContents(0, bob);
 			this.setHorseSaddled(true);
@@ -638,7 +685,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			return true;
 
 		}
-		else if (stack == ItemStack.EMPTY && this.isHorseSaddled() && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild())
+		else if (stack == ItemStack.EMPTY && this.isHorseSaddled() && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild() && !this.getSleeping())
 
 		{
 			this.navigator.clearPath();
@@ -647,7 +694,6 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		}
 		else
 		{
-			//return true;
 			return super.processInteract(player, hand);
 		}
 	}
@@ -661,7 +707,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		else
 			super.handleStatusUpdate(id);
 	}
-	
+
 	public void removeItem(EntityPlayer ep, ItemStack removeitem) {
 		IInventory inv = ep.inventory;
 		for(int i=0; i < inv.getSizeInventory(); i++)
@@ -701,6 +747,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		compound.setBoolean("Handfed", this.getHandFed());
 		compound.setBoolean("Watered", this.getWatered());
 		compound.setInteger("ColorNumber", getColorNumber());
+		compound.setBoolean("Sleep", this.getSleeping());
+		compound.setFloat("SleepTimer", this.getSleepTimer());
 		compound.setInteger("Age", this.getAge());
 
 	}
@@ -730,6 +778,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		this.setFed(compound.getBoolean("Fed"));
 		this.setHandFed(compound.getBoolean("Handfed"));
 		this.setWatered(compound.getBoolean("Watered"));
+		this.setSleeping(compound.getBoolean("Sleep"));
+		this.setSleepTimer(compound.getFloat("SleepTimer"));
 		this.setAge(compound.getInteger("Age"));
 
 	}

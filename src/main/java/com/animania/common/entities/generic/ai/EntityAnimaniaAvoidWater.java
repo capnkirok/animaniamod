@@ -1,4 +1,6 @@
-package com.animania.common.entities.genericAi;
+package com.animania.common.entities.generic.ai;
+
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -25,7 +27,8 @@ public class EntityAnimaniaAvoidWater extends EntityAIBase
 	public boolean shouldExecute()
 	{
 		delayCounter++;
-		if (delayCounter > 120) {
+		if (delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
+		
 			BlockPos currentpos1 = new BlockPos(idleEntity.posX, idleEntity.posY, idleEntity.posZ);
 			BlockPos currentpos2 = new BlockPos(idleEntity.posX, idleEntity.posY - 1, idleEntity.posZ);
 			Block poschk1 = idleEntity.world.getBlockState(currentpos1).getBlock();
@@ -36,6 +39,8 @@ public class EntityAnimaniaAvoidWater extends EntityAIBase
 
 				if (vec3d != null) {
 					this.idleEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, 1.0);
+					this.idleEntity.getLookHelper().onUpdateLook();
+					this.idleEntity.getLookHelper().setLookPosition(vec3d.x, vec3d.y, vec3d.z, 0.0F, 0.0F);
 					delayCounter = 0;
 					return false;
 				}

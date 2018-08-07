@@ -10,6 +10,7 @@ import com.animania.common.blocks.BlockMud;
 import com.animania.common.blocks.BlockNest;
 import com.animania.common.blocks.BlockSaltLick;
 import com.animania.common.blocks.BlockSeeds;
+import com.animania.common.blocks.BlockStraw;
 import com.animania.common.blocks.BlockTrough;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 import com.animania.common.blocks.fluids.BlockFluidMilk;
@@ -23,7 +24,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class BlockHandler
@@ -33,6 +33,7 @@ public class BlockHandler
 	public static Block blockMud;
 	public static Block blockInvisiblock;
 	public static Block blockSeeds;
+	public static Block blockStraw;
 	public static BlockFluidBase blockSlop;
 	public static BlockFluidBase blockMilkHolstein;
 	public static BlockFluidBase blockMilkFriesian;
@@ -68,6 +69,7 @@ public class BlockHandler
 	public static ItemBlock itemBlockSeeds;
 	public static ItemBlock itemBlockTrough;
 	public static ItemBlock itemBlockNest;
+	public static ItemBlock itemBlockStraw;
 	public static ItemBlock itemInvisiblock;
 	
 
@@ -80,6 +82,7 @@ public class BlockHandler
 		BlockHandler.blockInvisiblock = new BlockInvisiblock().setHardness(1.0F).setResistance(1.0F);
 		BlockHandler.blockNest = new BlockNest().setHardness(1.0F).setResistance(1.0F);
 		BlockHandler.blockSeeds = new BlockSeeds();
+		BlockHandler.blockStraw = new BlockStraw();
 		BlockHandler.blockHamsterWheel = new BlockHamsterWheel();
 		BlockHandler.blockCheeseFriesian = new BlockCheese("cheese_friesian");
 		BlockHandler.blockCheeseHolstein = new BlockCheese("cheese_holstein");

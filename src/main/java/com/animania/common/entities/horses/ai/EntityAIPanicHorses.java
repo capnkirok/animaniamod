@@ -1,9 +1,10 @@
 package com.animania.common.entities.horses.ai;
 
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,7 +15,7 @@ import net.minecraft.world.World;
 
 public class EntityAIPanicHorses extends EntityAIBase
 {
-	private final EntityCreature theEntityCreature;
+	private final EntityAnimaniaHorse theEntityCreature;
 	protected double speed;
 	private double randPosX;
 	private double randPosY;
@@ -22,7 +23,7 @@ public class EntityAIPanicHorses extends EntityAIBase
 	private int duration;
 	private boolean hitFlag;
 
-	public EntityAIPanicHorses(EntityCreature creature, double speedIn)
+	public EntityAIPanicHorses(EntityAnimaniaHorse creature, double speedIn)
 	{
 		this.theEntityCreature = creature;
 		this.speed = speedIn;
@@ -34,15 +35,18 @@ public class EntityAIPanicHorses extends EntityAIBase
 	public boolean shouldExecute()
 	{
 		EntityPlayer checkPlayer = this.theEntityCreature.world.getClosestPlayer(this.theEntityCreature.posX, this.theEntityCreature.posY, this.theEntityCreature.posZ, 20, false);
-
-
-		if (this.theEntityCreature.getAttackTarget() == null && !this.theEntityCreature.isBurning() && duration == 0)
+		
+		if ((this.theEntityCreature.getAttackTarget() == null || (checkPlayer !=null && checkPlayer.isCreative())) && !this.theEntityCreature.isBurning() && this.duration == 0) 
 		{
 			hitFlag = false;
 			return false;
 		} else if (!this.theEntityCreature.isBurning()) {
 			Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 20, 4);
 
+			if (this.theEntityCreature.getSleeping()) {
+				this.theEntityCreature.setSleeping(false);
+			}
+			
 			if (hitFlag == false) {
 				hitFlag = true;
 				duration = 40;
@@ -66,6 +70,11 @@ public class EntityAIPanicHorses extends EntityAIBase
 		}
 		else
 		{
+			
+			if (this.theEntityCreature.getSleeping()) {
+				this.theEntityCreature.setSleeping(false);
+			}
+			
 			BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
 
 			if (blockpos == null)

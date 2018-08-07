@@ -1,5 +1,6 @@
 package com.animania.common.entities.chickens;
 
+import java.util.List;
 import java.util.Random;
 
 import com.animania.common.ModSoundEvents;
@@ -7,10 +8,12 @@ import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.rodents.EntityFerretGrey;
 import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 
@@ -138,6 +141,22 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 			else if (crowChooser == 2)
 				this.world.playSound(null, this.posX, this.posY, this.posZ, ModSoundEvents.chickenCrow3, SoundCategory.PLAYERS, 0.6F, 1.05F + modular);
 			this.setTimeUntilNextCrow(this.rand.nextInt(200) + 200);
+			
+			List list = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 30, world, this.getPosition());
+			
+			
+			for (int i = 0; i < list.size(); i++)
+			{
+				if (list.get(i) instanceof EntityAnimaniaCow)
+				{
+					EntityAnimaniaCow entityCow = (EntityAnimaniaCow) list.get(i);
+					if (entityCow.getSleeping() && currentTime > 24000) {
+						entityCow.setSleeping(false);
+						entityCow.setSleepTimer(0F);
+					}
+				}
+			}
+			
 
 		}
 

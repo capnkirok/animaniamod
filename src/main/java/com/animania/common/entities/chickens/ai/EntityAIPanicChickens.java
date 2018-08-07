@@ -1,5 +1,7 @@
 package com.animania.common.entities.chickens.ai;
 
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -14,15 +16,15 @@ import net.minecraft.world.World;
 
 public class EntityAIPanicChickens extends EntityAIBase
 {
-	private final EntityCreature theEntityCreature;
-	protected double             speed;
-	private double               randPosX;
-	private double               randPosY;
-	private double               randPosZ;
-	private int                  duration;
-	private boolean              hitFlag;
+	private final EntityAnimaniaChicken theEntityCreature;
+	protected double          		    speed;
+	private double          		    randPosX;
+	private double         		        randPosY;
+	private double        		        randPosZ;
+	private int           		        duration;
+	private boolean       		        hitFlag;
 
-	public EntityAIPanicChickens(EntityCreature creature, double speedIn) {
+	public EntityAIPanicChickens(EntityAnimaniaChicken creature, double speedIn) {
 		this.theEntityCreature = creature;
 		this.speed = speedIn;
 		this.setMutexBits(1);
@@ -41,6 +43,10 @@ public class EntityAIPanicChickens extends EntityAIBase
 		}
 		else if (!this.theEntityCreature.isBurning()) {
 			Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 20, 4);
+		
+			if (this.theEntityCreature.getSleeping()) {
+				this.theEntityCreature.setSleeping(false);
+			}
 
 			if (this.hitFlag == false) {
 				this.hitFlag = true;
@@ -61,6 +67,11 @@ public class EntityAIPanicChickens extends EntityAIBase
 			}
 		}
 		else {
+
+			if (this.theEntityCreature.getSleeping()) {
+				this.theEntityCreature.setSleeping(false);
+			}
+
 			BlockPos blockpos = this.getRandPos(this.theEntityCreature.world, this.theEntityCreature, 20, 4);
 
 			if (blockpos == null) {
@@ -79,6 +90,7 @@ public class EntityAIPanicChickens extends EntityAIBase
 	@Override
 	public void startExecuting() {
 		this.theEntityCreature.getNavigator().tryMoveToXYZ(this.randPosX, this.randPosY, this.randPosZ, this.speed);
+		this.theEntityCreature.getLookHelper().setLookPosition(this.randPosX, this.randPosY, this.randPosZ, 0.0F, 0.0F);
 	}
 
 	@Override

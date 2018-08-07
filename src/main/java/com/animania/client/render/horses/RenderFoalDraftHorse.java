@@ -3,8 +3,11 @@ package com.animania.client.render.horses;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelDraftHorseFoal;
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
+import com.animania.common.entities.horses.EntityFoalDraftHorse;
 import com.animania.common.entities.horses.EntityFoalDraftHorse;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -49,6 +52,47 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 
 		GL11.glScalef(0.4F + age, 0.4F + age, 0.4F + age); 
 
+		boolean isSleeping = false;
+		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
+		if (entityHorse.getSleeping()) {
+			isSleeping = true;
+		}
+
+		if (isSleeping) {
+			this.shadowSize = 0F;
+			float sleepTimer = entityHorse.getSleepTimer();
+			if (sleepTimer > - 0.55F) {
+				sleepTimer = sleepTimer - 0.01F;
+			}
+			entity.setSleepTimer(sleepTimer);
+
+			GlStateManager.translate(-0.25F, entity.height - 1.25F - sleepTimer, -0.25F);
+			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
+		} else {
+			this.shadowSize = 0.8F;
+			entityHorse.setSleeping(false);
+			entityHorse.setSleepTimer(0F);
+		}
+
+	}
+
+	@Override
+	protected ResourceLocation getEntityTexture(EntityFoalDraftHorse entity) {
+		int blinkTimer = entity.blinkTimer;
+		long currentTime = entity.world.getWorldTime() % 23999;
+		boolean isSleeping = false;
+
+		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
+		isSleeping = entityHorse.getSleeping();
+		float sleepTimer = entityHorse.getSleepTimer();
+
+		if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250) {
+			return RenderFoalDraftHorse.HORSE_TEXTURES_BLINK[entity.getColorNumber()];
+		} else if (blinkTimer < 7 && blinkTimer >= 0) {
+			return RenderFoalDraftHorse.HORSE_TEXTURES_BLINK[entity.getColorNumber()];
+		} else {
+			return RenderFoalDraftHorse.HORSE_TEXTURES[entity.getColorNumber()];
+		}
 
 	}
 
@@ -57,20 +101,7 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 	{
 		preRenderScale((EntityFoalDraftHorse)entityliving, f);
 	}
-
 	
-	@Override
-	protected ResourceLocation getEntityTexture(EntityFoalDraftHorse entity) {
-
-		int blinkTimer = entity.blinkTimer;
-
-		if (blinkTimer < 5 && blinkTimer >= 0)
-			return RenderFoalDraftHorse.HORSE_TEXTURES_BLINK[entity.getColorNumber()];
-		else
-			return RenderFoalDraftHorse.HORSE_TEXTURES[entity.getColorNumber()];
-
-
-	}
 
 	static class Factory<T extends EntityFoalDraftHorse> implements IRenderFactory<T>
 	{

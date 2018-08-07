@@ -1,5 +1,6 @@
 package com.animania.client.models.sheep;
 
+import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityEweMerino;
 import com.animania.common.entities.sheep.EntityLambMerino;
 
@@ -235,19 +236,74 @@ public class ModelMerinoEwe extends ModelBase
 
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
+		boolean isSleeping = false;
+		EntityAnimaniaSheep ech = (EntityAnimaniaSheep) entityIn;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+		float sleepTimer = ech.getSleepTimer();
+
+		if (isSleeping) {
+
+			this.LeftFrontLeg.rotateAngleX = sleepTimer * -1.8F;
+			this.LeftFrontLeg.render(scale * .95F);
+			this.LeftFrontLegWool.rotateAngleX = sleepTimer * -1.8F;
+			this.LeftFrontLegWool.render(scale * .95F);
+			
+			this.RightFrontLeg.rotateAngleX = sleepTimer * -1.8F;
+			this.RightFrontLeg.render(scale * .97F);
+			this.LeftFrontLegWool.rotateAngleX = sleepTimer * -1.8F;
+			this.RightFrontLegWool.render(scale * .97F);
+			
+			this.LeftBackLeg.rotateAngleX = sleepTimer * 1.7F;
+			this.LeftBackLeg.render(scale * .97F);
+			this.LeftFrontLegWool.rotateAngleX = sleepTimer * -1.8F;
+			this.LeftBackLegWool.render(scale * .97F);
+			
+			this.RightBackLeg.rotateAngleX = sleepTimer * 1.75F;
+			this.RightBackLeg.render(scale * .95F);
+			this.LeftFrontLegWool.rotateAngleX = sleepTimer * -1.8F;
+			this.RightBackLegWool.render(scale * .95F);
+			
+			this.HeadNode.rotateAngleY = sleepTimer * -4.5F;
+
+			if (sleepTimer > -.28) {
+				this.Body.rotateAngleX = - (sleepTimer/3);
+			} else {
+				this.Body.rotateAngleX = + (sleepTimer/3);
+			}
+
+		} else {
+
+			this.LeftBackLeg.rotateAngleZ = 0;
+			this.LeftBackLeg.render(scale);
+			this.LeftBackLegWool.rotateAngleZ = 0;
+			this.LeftBackLegWool.render(scale);
+			
+			this.RightBackLeg.rotateAngleZ = 0;
+			this.RightBackLeg.render(scale);
+			this.RightBackLegWool.rotateAngleZ = 0;
+			this.RightBackLegWool.render(scale);
+			
+			this.LeftFrontLeg.rotateAngleZ = 0;
+			this.LeftFrontLeg.render(scale);
+			this.LeftFrontLegWool.render(scale);
+			this.LeftFrontLegWool.rotateAngleZ = 0;
+			
+			this.RightFrontLeg.rotateAngleZ = 0;
+			this.RightFrontLeg.render(scale);
+			this.RightFrontLegWool.rotateAngleZ = 0;
+			this.RightFrontLegWool.render(scale);
+			
+			this.HeadNode.rotateAngleY = 0F;
+			this.Body.rotateAngleX = 0F;
+
+		}
+		
 		Body.render(scale);
 		HeadNode.render(scale);
-		RightFrontLeg.render(scale);
-		LeftFrontLeg.render(scale);
 		Hips.render(scale);
-		LeftBackLeg.render(scale);
-		RightBackLeg.render(scale);
 		Tail.render(scale);
-
-		LeftFrontLegWool.render(scale);
-		RightFrontLegWool.render(scale);
-		RightBackLegWool.render(scale);
-		LeftBackLegWool.render(scale);
 		WoolHips.render(scale);
 		WoolBody1.render(scale);
 		WoolBody2.render(scale);
@@ -278,7 +334,16 @@ public class ModelMerinoEwe extends ModelBase
 		this.HeadNode.rotateAngleY = par4 / (180F / (float) Math.PI);
 		this.HeadNode.rotateAngleX = this.headRotationAngleX;
 
-		this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		boolean isSleeping = false;
+		EntityAnimaniaSheep ech = (EntityAnimaniaSheep) entity;
+		if (ech.getSleeping()) {
+			isSleeping = true;
+		}
+		if (!isSleeping) {
+			this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		} else {
+			this.Tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		}
 
 		this.LeftBackLeg.rotateAngleX =  MathHelper.cos(par1 * 0.6662F) * 1.2F * par2; //Left Back
 		this.LeftBackLegWool.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.2F * par2;//Left Back

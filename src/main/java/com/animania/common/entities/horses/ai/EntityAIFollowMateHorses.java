@@ -3,9 +3,11 @@ package com.animania.common.entities.horses.ai;
 import java.util.List;
 
 import com.animania.common.entities.cows.EntityCowBase;
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.horses.EntityMareBase;
 import com.animania.common.entities.horses.EntityStallionBase;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -13,20 +15,27 @@ import net.minecraft.util.math.MathHelper;
 
 public class EntityAIFollowMateHorses extends EntityAIBase
 {
-	EntityAnimal thisAnimal;
+	EntityAnimaniaHorse thisAnimal;
 	EntityAnimal mateAnimal;
 	double moveSpeed;
 	private int delayCounter;
 
-	public EntityAIFollowMateHorses(EntityAnimal animal, double speed)
+	public EntityAIFollowMateHorses(EntityAnimaniaHorse animal, double speed)
 	{
 		this.thisAnimal = animal;
 		this.moveSpeed = speed;
 	}
 
 	public boolean shouldExecute() {
+		
 		this.delayCounter++;
-		if (this.delayCounter > 60)
+		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
+			
+			if (!thisAnimal.world.isDaytime() || thisAnimal.getSleeping()) {
+				this.delayCounter = 0;
+				return false;
+			}
+		
 			if (this.thisAnimal instanceof EntityStallionBase) {
 				EntityStallionBase ec = (EntityStallionBase) this.thisAnimal;
 				if (ec.getMateUniqueId() == null)

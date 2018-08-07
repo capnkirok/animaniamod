@@ -81,7 +81,11 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	{
 		super.entityInit();
 		this.dataManager.register(EntityCowBase.PREGNANT, Boolean.valueOf(false));
-		this.dataManager.register(EntityCowBase.HAS_KIDS, Boolean.valueOf(false));
+		if (AnimaniaConfig.gameRules.cowsMilkableAtSpawn) {
+			this.dataManager.register(EntityCowBase.HAS_KIDS, Boolean.valueOf(true));
+		} else {
+			this.dataManager.register(EntityCowBase.HAS_KIDS, Boolean.valueOf(false));
+		}
 		this.dataManager.register(EntityCowBase.FERTILE, Boolean.valueOf(true));
 		this.dataManager.register(EntityCowBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 	}
@@ -122,6 +126,13 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
+
+		if (this.getSleeping()) {
+			this.setSleeping(false);
+			this.setSleepTimer(0F);
+			this.jump();
+		}
+
 		boolean flag = false;
 		if (this.canEntityBeSeen(entityIn) && this.getDistance(entityIn) <= 2.0F)
 		{
@@ -141,7 +152,9 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	@Override
 	public void setInLove(EntityPlayer player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+
+		if (!this.getSleeping())
+			this.world.setEntityState(this, (byte) 18);
 	}
 
 	@Override
@@ -404,6 +417,10 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			gestationTimer--;
 			this.setGestation(gestationTimer);
 
+			if (gestationTimer < 200 && this.getSleeping()) {
+				this.setSleeping(false);
+			}
+			
 			if (gestationTimer == 0)
 			{
 

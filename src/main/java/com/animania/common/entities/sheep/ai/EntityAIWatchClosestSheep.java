@@ -1,21 +1,22 @@
 package com.animania.common.entities.sheep.ai;
 
 
+import com.animania.common.entities.sheep.EntityAnimaniaSheep;
+
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 
 public class EntityAIWatchClosestSheep extends EntityAIBase
 {
-	protected EntityLiving theWatcher;
+	protected EntityAnimaniaSheep theWatcher;
 	protected Entity closestEntity;
 	protected float maxDistanceForPlayer;
 	private int lookTime;
 	private final float chance;
 	protected Class <? extends Entity > watchedClass;
 
-	public EntityAIWatchClosestSheep(EntityLiving entitylivingIn, Class <? extends Entity > watchTargetClass, float maxDistance)
+	public EntityAIWatchClosestSheep(EntityAnimaniaSheep entitylivingIn, Class <? extends Entity > watchTargetClass, float maxDistance)
 	{
 		this.theWatcher = entitylivingIn;
 		this.watchedClass = watchTargetClass;
@@ -24,7 +25,7 @@ public class EntityAIWatchClosestSheep extends EntityAIBase
 		this.setMutexBits(2);
 	}
 
-	public EntityAIWatchClosestSheep(EntityLiving entitylivingIn, Class <? extends Entity > watchTargetClass, float maxDistance, float chanceIn)
+	public EntityAIWatchClosestSheep(EntityAnimaniaSheep entitylivingIn, Class <? extends Entity > watchTargetClass, float maxDistance, float chanceIn)
 	{
 		this.theWatcher = entitylivingIn;
 		this.watchedClass = watchTargetClass;
@@ -46,6 +47,10 @@ public class EntityAIWatchClosestSheep extends EntityAIBase
 				this.closestEntity = this.theWatcher.getAttackTarget();
 			}
 
+			if (this.theWatcher.getSleeping()) {
+				return false;
+			}
+			
 			if (this.watchedClass == EntityPlayer.class)
 			{
 				this.closestEntity = this.theWatcher.world.getClosestPlayerToEntity(this.theWatcher, (double)this.maxDistanceForPlayer);

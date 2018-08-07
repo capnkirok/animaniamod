@@ -1,0 +1,11 @@
+{
+  "result": {
+    "item": "animania:block_straw"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

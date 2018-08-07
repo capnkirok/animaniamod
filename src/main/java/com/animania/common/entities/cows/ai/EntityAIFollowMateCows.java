@@ -2,36 +2,40 @@ package com.animania.common.entities.cows.ai;
 
 import java.util.List;
 
-import com.animania.common.entities.cows.EntityBullAngus;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.cows.EntityBullFriesian;
-import com.animania.common.entities.cows.EntityBullHereford;
-import com.animania.common.entities.cows.EntityBullHolstein;
-import com.animania.common.entities.cows.EntityBullLonghorn;
 import com.animania.common.entities.cows.EntityCowBase;
 import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.util.math.MathHelper;
 
 public class EntityAIFollowMateCows extends EntityAIBase
 {
-	EntityAnimal thisAnimal;
-	EntityAnimal mateAnimal;
+	EntityAnimaniaCow thisAnimal;
+	EntityAnimaniaCow mateAnimal;
 	double       moveSpeed;
 	private int  delayCounter;
 
-	public EntityAIFollowMateCows(EntityAnimal animal, double speed) {
+	public EntityAIFollowMateCows(EntityAnimaniaCow animal, double speed) {
 		this.thisAnimal = animal;
 		this.moveSpeed = speed;
 	}
 
 	@Override
 	public boolean shouldExecute() {
+		
+		
 		this.delayCounter++;
-		if (this.delayCounter > 60)
+		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
+			
+			if (thisAnimal.getSleeping()) {
+				this.delayCounter = 0;
+				return false;
+			}
+			
 			if (this.thisAnimal instanceof EntityBullBase) {
 				EntityBullBase ec = (EntityBullBase) this.thisAnimal;
 				if (ec.getMateUniqueId() == null)
@@ -56,7 +60,7 @@ public class EntityAIFollowMateCows extends EntityAIBase
 							double z2 = Math.abs(zt - z1);
 
 							if (x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
-								this.mateAnimal = (EntityAnimal) entitycow;
+								this.mateAnimal = entitycow;
 								return true;
 							} else {
 								return false;

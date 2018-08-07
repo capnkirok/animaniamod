@@ -1,6 +1,8 @@
 package com.animania.common.entities.pigs.ai;
 
-import net.minecraft.entity.EntityCreature;
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
+import com.animania.config.AnimaniaConfig;
+
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -8,7 +10,7 @@ import net.minecraft.pathfinding.PathNavigateGround;
 
 public class EntityAITemptItemStack extends EntityAIBase
 {
-    private final EntityCreature temptedEntity;
+    private final EntityAnimaniaPig temptedEntity;
     private final double         speed;
     private double               targetX;
     private double               targetY;
@@ -20,7 +22,7 @@ public class EntityAITemptItemStack extends EntityAIBase
     private boolean              isRunning;
     private final ItemStack      temptItem;
 
-    public EntityAITemptItemStack(EntityCreature temptedEntityIn, double speedIn, ItemStack temptItemIn) {
+    public EntityAITemptItemStack(EntityAnimaniaPig temptedEntityIn, double speedIn, ItemStack temptItemIn) {
         this.temptedEntity = temptedEntityIn;
         this.speed = speedIn;
         this.temptItem = temptItemIn;
@@ -35,9 +37,12 @@ public class EntityAITemptItemStack extends EntityAIBase
         if (this.delayTemptCounter > 0) {
             --this.delayTemptCounter;
             return false;
-        }
-        else {
-            this.temptingPlayer = this.temptedEntity.world.getClosestPlayerToEntity(this.temptedEntity, 10.0D);
+        } else if (this.temptedEntity.getSleeping()) {
+        	this.delayTemptCounter = AnimaniaConfig.gameRules.ticksBetweenAIFirings;
+        	return false;
+        } else {
+     
+        	this.temptingPlayer = this.temptedEntity.world.getClosestPlayerToEntity(this.temptedEntity, 10.0D);
             return this.temptingPlayer == null ? false
                     : this.isTempting(this.temptingPlayer.getHeldItemMainhand()) || this.isTempting(this.temptingPlayer.getHeldItemOffhand());
         }
@@ -64,7 +69,7 @@ public class EntityAITemptItemStack extends EntityAIBase
     public void resetTask() {
         this.temptingPlayer = null;
         this.temptedEntity.getNavigator().clearPath();
-        this.delayTemptCounter = 100;
+        this.delayTemptCounter = AnimaniaConfig.gameRules.ticksBetweenAIFirings;
         this.isRunning = false;
     }
 

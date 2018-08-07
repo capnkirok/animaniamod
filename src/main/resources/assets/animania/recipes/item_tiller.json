@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "animania:item_tiller"
+  },
+  "pattern": [
+    "iii",
+    "pip",
+    "w w"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "p": {
+      "ore": "plankWood",
+      "type": "forge:ore_dict"
+    },
+    "i": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }, 
+    "w": {
+      "item": "animania:wheel"
+    }
+  }
+}

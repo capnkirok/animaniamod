@@ -1,5 +1,10 @@
 package com.animania.common.entities.rodents.ai;
 
+import com.animania.common.entities.rodents.EntityFerretBase;
+import com.animania.common.entities.rodents.EntityHamster;
+import com.animania.common.entities.rodents.EntityHedgehogBase;
+import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -36,6 +41,39 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
         if (this.theWatcher.isRiding())
             return false;
 
+        boolean isSleeping = false;
+		if (this.theWatcher instanceof EntityHedgehogBase) {
+			EntityHedgehogBase entityChk = (EntityHedgehogBase) this.theWatcher;
+			if (entityChk.getSleeping()) {
+				isSleeping = true;
+			}
+		}
+		
+		if (this.theWatcher instanceof EntityFerretBase) {
+			EntityFerretBase entityChk = (EntityFerretBase) this.theWatcher;
+			if (entityChk.getSleeping()) {
+				isSleeping = true;
+			}
+		}
+		
+		if (this.theWatcher instanceof EntityHamster) {
+			EntityHamster entityChk = (EntityHamster) this.theWatcher;
+			if (entityChk.getSleeping()) {
+				isSleeping = true;
+			}
+		}
+		
+		if (this.theWatcher instanceof EntityAnimaniaRabbit) {
+			EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) this.theWatcher;
+			if (entityChk.getSleeping()) {
+				isSleeping = true;
+			}
+		}
+		
+		if (isSleeping) {
+			return false;
+		}
+        
         if (this.theWatcher.getRNG().nextFloat() >= this.chance)
             return false;
         else {
@@ -72,7 +110,7 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
     @Override
     public void updateTask() {
 
-        this.theWatcher.getLookHelper().setLookPosition(this.closestEntity.posX + 20F, this.closestEntity.posY + this.closestEntity.getEyeHeight(),
+        this.theWatcher.getLookHelper().setLookPosition(this.closestEntity.posX + 10F, this.closestEntity.posY + this.closestEntity.getEyeHeight() + 5F,
                 this.closestEntity.posZ, this.theWatcher.getHorizontalFaceSpeed(), this.theWatcher.getVerticalFaceSpeed());
         --this.lookTime;
     }

@@ -12,10 +12,15 @@ import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
-import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
+import com.animania.common.entities.generic.ai.EntityAILookIdle;
+import com.animania.common.entities.generic.ai.EntityAITempt;
+import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.peacocks.ai.EntityAIFindFood;
 import com.animania.common.entities.peacocks.ai.EntityAIFindWater;
 import com.animania.common.entities.peacocks.ai.EntityAIPanicPeacocks;
+import com.animania.common.entities.peacocks.ai.EntityAISleep;
 import com.animania.common.entities.peacocks.ai.EntityAISwimmingPeacocks;
 import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
@@ -33,13 +38,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -61,11 +62,14 @@ import net.minecraft.world.World;
 
 public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, ISpawnable, AnimaniaAnimal
 {
-
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaPeacock.class, DataSerializers.VARINT);
-	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
+	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.peacockFood));
+	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaPeacock.class, DataSerializers.FLOAT);
+
 	protected ResourceLocation resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue.png");
 	protected ResourceLocation resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue_blink.png");
 	public float wingRotation;
@@ -93,15 +97,19 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
 		}
 		this.tasks.addTask(3, new EntityAIPanicPeacocks(this, 1.4D));
-		this.tasks.addTask(4, new EntityAITempt(this, 1.0D, Items.WHEAT_SEEDS, false));
+		this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
 		this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(7, new EntityAnimaniaAvoidWater(this));
+		if (AnimaniaConfig.gameRules.animalsSleep) {
+			this.tasks.addTask(8, new EntityAISleep(this, 0.8));
+		}
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
 			this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
 			this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
 		}
+		this.tasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(100);
 		this.blinkTimer = 80 + this.rand.nextInt(80);
@@ -115,17 +123,17 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-
+		this.setHandFed(true);
 		if (!player.capabilities.isCreativeMode)
 			stack.setCount(stack.getCount() - 1);
 	}
-	
+
 	@Override
 	protected boolean canDespawn()
 	{
 		return false;
 	}
-	
+
 	@Override
 	public void setPosition(double x, double y, double z)
 	{
@@ -155,7 +163,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
 		{
 			this.setWatered(true);
 			this.setInLove(player);
@@ -213,8 +221,11 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		super.entityInit();
 		this.dataManager.register(EntityAnimaniaPeacock.FED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaPeacock.HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaPeacock.WATERED, Boolean.valueOf(true));
 		this.dataManager.register(EntityAnimaniaPeacock.AGE, Integer.valueOf(0));
+		this.dataManager.register(EntityAnimaniaPeacock.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaPeacock.SLEEPTIMER, Float.valueOf(0.0F));
 	}
 
 	@Override
@@ -222,8 +233,11 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		super.writeEntityToNBT(nbttagcompound);
 		nbttagcompound.setBoolean("Fed", this.getFed());
+		nbttagcompound.setBoolean("Handfed", this.getHandFed());
 		nbttagcompound.setBoolean("Watered", this.getWatered());
 		nbttagcompound.setInteger("Age", this.getAge());
+		nbttagcompound.setBoolean("Sleep", this.getSleeping());
+		nbttagcompound.setFloat("SleepTimer", this.getSleepTimer());
 	}
 
 	@Override
@@ -231,8 +245,11 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		super.readEntityFromNBT(nbttagcompound);
 		this.setFed(nbttagcompound.getBoolean("Fed"));
+		this.setHandFed(nbttagcompound.getBoolean("Handfed"));
 		this.setWatered(nbttagcompound.getBoolean("Watered"));
 		this.setAge(nbttagcompound.getInteger("Age"));
+		this.setSleeping(nbttagcompound.getBoolean("Sleep"));
+		this.setSleepTimer(nbttagcompound.getFloat("SleepTimer"));
 
 	}
 
@@ -251,9 +268,68 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		this.dataManager.set(EntityAnimaniaPeacock.AGE, Integer.valueOf(age));
 	}
 
+	public boolean getSleeping()
+	{
+		try {
+			return (this.getBoolFromDataManager(SLEEPING));
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void setSleeping(boolean flag)
+	{
+		if (flag)
+		{
+			this.dataManager.set(EntityAnimaniaPeacock.SLEEPING, Boolean.valueOf(true));
+		}
+		else
+		{
+			this.dataManager.set(EntityAnimaniaPeacock.SLEEPING, Boolean.valueOf(false));
+		}
+	}
+
+	public boolean getHandFed()
+	{
+		try {
+			return (this.getBoolFromDataManager(HANDFED));
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void setHandFed(boolean handfed)
+	{
+		this.dataManager.set(EntityAnimaniaPeacock.HANDFED, Boolean.valueOf(handfed));
+	}
+
+
+	public Float getSleepTimer()
+	{
+		try
+		{
+			return (this.getFloatFromDataManager(SLEEPTIMER));
+		}
+		catch (Exception e)
+		{
+			return 0F;
+		}
+	}
+
+	public void setSleepTimer(Float timer)
+	{
+		this.dataManager.set(EntityAnimaniaPeacock.SLEEPTIMER, Float.valueOf(timer));
+	}
+
+
 	@Override
 	public void onLivingUpdate()
 	{
+
+		if (this.getLeashed() && this.getSleeping())
+			this.setSleeping(false);
 
 		if (this.getAge() == 0) {
 			this.setAge(1);
@@ -326,7 +402,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 			{
 				this.happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles)
+				if (!this.getFed() && !this.getWatered() && !this.getSleeping() && AnimaniaConfig.gameRules.showUnhappyParticles)
 				{
 					double d = this.rand.nextGaussian() * 0.001D;
 					double d1 = this.rand.nextGaussian() * 0.001D;
@@ -452,11 +528,10 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		else
 			dropItem = new ItemStack(this.drop);
 
-
 		ItemStack dropItem2;
 		String drop2 = AnimaniaConfig.drops.peacockDrop2;
 		dropItem2 = AnimaniaHelper.getItem(drop2);
-
+		
 		if (happyDrops == 2)
 		{
 			if (dropItem != null) {

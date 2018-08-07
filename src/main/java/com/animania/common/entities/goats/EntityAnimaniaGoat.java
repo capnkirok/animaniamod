@@ -9,12 +9,18 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAIAvoidEntity;
+import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
+import com.animania.common.entities.generic.ai.EntityAILookIdle;
+import com.animania.common.entities.generic.ai.EntityAITempt;
+import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
 import com.animania.common.entities.goats.ai.EntityAIFindFoodGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindSaltLickGoats;
 import com.animania.common.entities.goats.ai.EntityAIFindWater;
 import com.animania.common.entities.goats.ai.EntityAIGoatEatGrass;
 import com.animania.common.entities.goats.ai.EntityAIPanicGoats;
+import com.animania.common.entities.goats.ai.EntityAISleep;
 import com.animania.common.entities.goats.ai.EntityAISwimmingGoats;
 import com.animania.common.entities.goats.ai.EntityAIWatchClosestGoats;
 import com.animania.common.handler.ItemHandler;
@@ -25,11 +31,6 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityWolf;
@@ -51,6 +52,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -71,6 +73,9 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	protected static final DataParameter<Float> SPOOKED_TIMER = EntityDataManager.<Float>createKey(EntityAnimaniaGoat.class, DataSerializers.FLOAT);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaGoat.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaGoat.class, DataSerializers.FLOAT);
+
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -99,18 +104,21 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAISwimmingGoats(this));
 		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
-		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityWolf.class, 10.0F, 2.2D, 2.2D));
+		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityWolf.class, 20.0F, 2.2D, 2.2D));
 		this.tasks.addTask(10, new EntityAIWatchClosestGoats(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickGoats(this, 1.0));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
+		if (AnimaniaConfig.gameRules.animalsSleep) {
+			this.tasks.addTask(13, new EntityAISleep(this, 0.8));
+		}
+		this.tasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 100 + this.rand.nextInt(100);
+		this.setPosition(0.0D, 0.0D, 0.0D); //TODO Try
 		this.enablePersistence();
 	}
 
@@ -121,10 +129,16 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	}
 
 	@Override
-	public void setPosition(double x, double y, double z)
+	public void setPosition(double x, double y, double z) //TODO Try
 	{
-		super.setPosition(x, y, z);
+		this.posX = x;
+		this.posY = y;
+		this.posZ = z;
+		float f = this.width / 2.0F;
+		float f1 = this.height;
+		this.setEntityBoundingBox(new AxisAlignedBB(x - (double)f, y, z - (double)f, x + (double)f, y + (double)f1, z + (double)f));
 	}
+
 
 
 	@Override
@@ -141,6 +155,8 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 		this.dataManager.register(EntityAnimaniaGoat.SPOOKED, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaGoat.SPOOKED_TIMER, 0.0F);
 		this.dataManager.register(EntityAnimaniaGoat.AGE, Integer.valueOf(0));
+		this.dataManager.register(EntityAnimaniaGoat.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaGoat.SLEEPTIMER, Float.valueOf(0.0F));
 	}
 
 	@Override
@@ -207,6 +223,46 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	{
 		this.dataManager.set(EntityAnimaniaGoat.SPOOKED_TIMER, Float.valueOf(timer));
 	}
+
+	public boolean getSleeping()
+	{
+		try {
+			return (this.getBoolFromDataManager(SLEEPING));
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void setSleeping(boolean flag)
+	{
+		if (flag)
+		{
+			this.dataManager.set(EntityAnimaniaGoat.SLEEPING, Boolean.valueOf(true));
+		}
+		else
+		{
+			this.dataManager.set(EntityAnimaniaGoat.SLEEPING, Boolean.valueOf(false));
+		}
+	}
+
+	public Float getSleepTimer()
+	{
+		try
+		{
+			return (this.getFloatFromDataManager(SLEEPTIMER));
+		}
+		catch (Exception e)
+		{
+			return 0F;
+		}
+	}
+
+	public void setSleepTimer(Float timer)
+	{
+		this.dataManager.set(EntityAnimaniaGoat.SLEEPTIMER, Float.valueOf(timer));
+	}
+
 
 	public boolean getHandFed()
 	{
@@ -394,7 +450,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 			{
 				this.happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles)
+				if (!this.getFed() && !this.getWatered() && !this.getSleeping() && this.getHandFed() && AnimaniaConfig.gameRules.showUnhappyParticles)
 				{
 					double d = this.rand.nextGaussian() * 0.001D;
 					double d1 = this.rand.nextGaussian() * 0.001D;
@@ -445,6 +501,9 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 			player.swingArm(hand);
 			stack.damageItem(1, player);
 			this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
+			if (this.getSleeping()) {
+				this.setSleeping(false);
+			}
 			return true;
 		}
 		else if(stack.getItem() instanceof ItemShears)
@@ -452,7 +511,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 			return true;
 		}
 
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack))
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
 		{
 			if(!player.isCreative())
 			{

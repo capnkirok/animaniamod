@@ -1,21 +1,6 @@
 package com.animania.common.entities.cows.ai;
 
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityBullAngus;
-import com.animania.common.entities.cows.EntityBullFriesian;
-import com.animania.common.entities.cows.EntityBullHereford;
-import com.animania.common.entities.cows.EntityBullHolstein;
-import com.animania.common.entities.cows.EntityBullLonghorn;
-import com.animania.common.entities.cows.EntityCalfAngus;
-import com.animania.common.entities.cows.EntityCalfFriesian;
-import com.animania.common.entities.cows.EntityCalfHereford;
-import com.animania.common.entities.cows.EntityCalfHolstein;
-import com.animania.common.entities.cows.EntityCalfLonghorn;
-import com.animania.common.entities.cows.EntityCowAngus;
-import com.animania.common.entities.cows.EntityCowFriesian;
-import com.animania.common.entities.cows.EntityCowHereford;
-import com.animania.common.entities.cows.EntityCowHolstein;
-import com.animania.common.entities.cows.EntityCowLonghorn;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -32,14 +17,13 @@ import net.minecraft.world.World;
 
 public class EntityAICowEatGrass extends EntityAIBase
 {
-	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE,
-			Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final EntityLiving                  grassEaterEntity;
+	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+	private final EntityAnimaniaCow                  grassEaterEntity;
 	private final World                         entityWorld;
 	public int                                  eatingGrassTimer;
 
 	public EntityAICowEatGrass(EntityLiving grassEaterEntityIn) {
-		this.grassEaterEntity = grassEaterEntityIn;
+		this.grassEaterEntity = (EntityAnimaniaCow) grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);
 	}
@@ -47,7 +31,18 @@ public class EntityAICowEatGrass extends EntityAIBase
 	@Override
 	public boolean shouldExecute() {
 
-		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
+
+		if (this.grassEaterEntity.getSleeping())
+		{
+			return false;
+		}
+		
+		if (this.grassEaterEntity.getFed())
+		{
+			return false;
+		}
+
+		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 150) != 0)
 			return false;
 		else {
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);

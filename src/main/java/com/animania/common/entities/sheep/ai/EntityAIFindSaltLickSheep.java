@@ -8,7 +8,6 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +17,7 @@ import net.minecraft.world.biome.Biome;
 
 public class EntityAIFindSaltLickSheep extends EntityAIBase 
 {
-	private final EntityCreature temptedEntity;
+	private final EntityAnimaniaSheep temptedEntity;
 	private final double speed;
 	private double targetX;
 	private double targetY;
@@ -29,7 +28,7 @@ public class EntityAIFindSaltLickSheep extends EntityAIBase
 	private int delayTemptCounter;
 	private boolean isRunning;
 
-	public EntityAIFindSaltLickSheep(EntityCreature temptedEntityIn, double speedIn)
+	public EntityAIFindSaltLickSheep(EntityAnimaniaSheep temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
@@ -45,6 +44,11 @@ public class EntityAIFindSaltLickSheep extends EntityAIBase
 		if (delayTemptCounter >  AnimaniaConfig.careAndFeeding.saltLickTick || temptedEntity.getHealth() < temptedEntity.getMaxHealth()) {
 			if (temptedEntity instanceof EntityAnimaniaSheep) {
 				EntityAnimaniaSheep ech = (EntityAnimaniaSheep)temptedEntity;
+			}
+			
+			if (temptedEntity.getSleeping()) {
+				this.delayTemptCounter = 0;
+				return false;
 			}
 			
 			if (this.temptedEntity.getRNG().nextInt(100) == 0)
@@ -113,7 +117,8 @@ public class EntityAIFindSaltLickSheep extends EntityAIBase
 						pos = new BlockPos(x + i, y + j, z + k);
 						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
 
-						if (blockchk == BlockHandler.blockSaltLick) {
+						if (blockchk == BlockHandler.blockSaltLick && temptedEntity.getNavigator().tryMoveToXYZ(pos.getX(), pos.getY(), pos.getZ(), 1.0)) {
+
 							waterFound = true;
 							return true;
 
@@ -125,6 +130,12 @@ public class EntityAIFindSaltLickSheep extends EntityAIBase
 
 			if (!waterFound) {
 				this.delayTemptCounter = 0;
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				if (vec3d != null) {
+					this.delayTemptCounter = 0;
+					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.resetTask();
+				}
 				return false;
 			}
 

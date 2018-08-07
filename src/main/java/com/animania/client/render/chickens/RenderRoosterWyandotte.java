@@ -3,12 +3,18 @@ package com.animania.client.render.chickens;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelRooster;
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.chickens.EntityRoosterWyandotte;
+import com.animania.common.handler.BlockHandler;
 
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
@@ -37,17 +43,41 @@ public class RenderRoosterWyandotte<T extends EntityRoosterWyandotte> extends Re
 
     protected void preRenderScale(T entity, float f) {
         GL11.glScalef(1.09F, 1.09F, 1.09F);
-    }
+       
+		boolean isSleeping = false;
+		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) entity;
+		if (entityChk.getSleeping()) {
+			isSleeping = true;
+		}
+		
+		if (isSleeping ) {
+			GlStateManager.translate(-0.25F, 0.35F, -0.25F); 
+			this.shadowSize = 0;
+		} else {
+			this.shadowSize = 0.32F;
+			entityChk.setSleeping(false);
+		}
 
-    @Override
-    protected ResourceLocation getEntityTexture(T entity) {
-        int blinkTimer = entity.blinkTimer;
+	}
 
-        if (blinkTimer < 5 && blinkTimer >= 0)
-            return entity.getResourceLocationBlink();
-        else
-            return entity.getResourceLocation();
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(T entity) {
+		int blinkTimer = entity.blinkTimer;
+		long currentTime = entity.world.getWorldTime() % 23999;
+		boolean isSleeping = false;
+
+		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) entity;
+		isSleeping = entityChk.getSleeping();
+
+		if (isSleeping && currentTime < 23250) {
+			return entity.getResourceLocationBlink();
+		} else if (blinkTimer < 5 && blinkTimer >= 0) {
+			return entity.getResourceLocationBlink();
+		} else {
+			return entity.getResourceLocation();
+		}
+
+	}
 
     static class Factory<T extends EntityRoosterWyandotte> implements IRenderFactory<T>
     {

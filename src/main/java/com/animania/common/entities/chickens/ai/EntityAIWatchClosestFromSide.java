@@ -1,5 +1,7 @@
 package com.animania.common.entities.chickens.ai;
 
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -32,6 +34,20 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
 
     @Override
     public boolean shouldExecute() {
+    	
+    	
+    	boolean isSleeping = false;
+		if (this.theWatcher instanceof EntityAnimaniaChicken) {
+			EntityAnimaniaChicken entityCow = (EntityAnimaniaChicken) this.theWatcher;
+			if (entityCow.getSleeping()) {
+				isSleeping = true;
+			}
+		}
+		
+		if (!this.theWatcher.world.isDaytime() || isSleeping) {
+			return false;
+		}
+    	
         if (this.theWatcher.getRNG().nextFloat() >= this.chance)
             return false;
         else {
@@ -68,7 +84,7 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
     @Override
     public void updateTask() {
 
-        this.theWatcher.getLookHelper().setLookPosition(this.closestEntity.posX + 20F, this.closestEntity.posY + this.closestEntity.getEyeHeight(),
+        this.theWatcher.getLookHelper().setLookPosition(this.closestEntity.posX, this.closestEntity.posY + this.closestEntity.getEyeHeight() + 5F,
                 this.closestEntity.posZ, this.theWatcher.getHorizontalFaceSpeed(), this.theWatcher.getVerticalFaceSpeed());
         --this.lookTime;
     }

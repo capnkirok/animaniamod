@@ -2,6 +2,7 @@ package com.animania.common.entities.chickens.ai;
 
 import java.util.List;
 
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.chickens.EntityHenBase;
 import com.animania.common.entities.chickens.EntityHenLeghorn;
 import com.animania.common.entities.chickens.EntityHenOrpington;
@@ -10,8 +11,10 @@ import com.animania.common.entities.chickens.EntityHenRhodeIslandRed;
 import com.animania.common.entities.chickens.EntityHenWyandotte;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityNest.NestContent;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -26,7 +29,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class EntityAIFindNest extends EntityAIBase
 {
-	private final EntityCreature temptedEntity;
+	private final EntityAnimaniaChicken temptedEntity;
 	private final double speed;
 	private double targetX;
 	private double targetY;
@@ -37,7 +40,7 @@ public class EntityAIFindNest extends EntityAIBase
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIFindNest(EntityCreature temptedEntityIn, double speedIn)
+	public EntityAIFindNest(EntityAnimaniaChicken temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
@@ -47,17 +50,17 @@ public class EntityAIFindNest extends EntityAIBase
 
 	public boolean shouldExecute()
 	{
-
+		
 		delayTemptCounter++;
-		if (this.delayTemptCounter < 60)
+		
+		if (this.delayTemptCounter < AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
 		{
 			return false;
 		}
-		else if (delayTemptCounter > 60)
+		else if (delayTemptCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
 		{
-
-			if (!this.temptedEntity.world.isDaytime())
-			{
+			
+			if (!temptedEntity.world.isDaytime() || temptedEntity.getSleeping()) {
 				this.delayTemptCounter = 0;
 				return false;
 			}
@@ -79,6 +82,7 @@ public class EntityAIFindNest extends EntityAIBase
 					this.delayTemptCounter = 0;
 					this.resetTask();
 					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.temptedEntity.getLookHelper().setLookPosition(vec3d.x, vec3d.y, vec3d.z, 0.0F, 0.0F);
 				}
 				return false;
 			}
@@ -147,8 +151,10 @@ public class EntityAIFindNest extends EntityAIBase
 
 						pos = new BlockPos(x + i, y + j, z + k);
 						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
+						
+						List<EntityAnimaniaChicken> others = AnimaniaHelper.getEntitiesInRange(EntityHenBase.class, 3, temptedEntity.world, pos);
 
-						if (blockchk == BlockHandler.blockNest)
+						if (blockchk == BlockHandler.blockNest && others.size() == 0)
 						{
 
 							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
@@ -323,6 +329,8 @@ public class EntityAIFindNest extends EntityAIBase
 				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
 				{
 					this.temptedEntity.getNavigator().tryMoveToXYZ(nestPos.getX() + .50, nestPos.getY(), nestPos.getZ() + .50, this.speed);
+					this.temptedEntity.getLookHelper().setLookPosition(nestPos.getX(), nestPos.getY(), nestPos.getZ(), 10.0F, 10.0F);
+					
 				}
 				else
 				{

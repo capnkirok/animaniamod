@@ -20,7 +20,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class EntityAIFindFoodRabbits extends EntityAIBase 
 {
-	private final EntityCreature temptedEntity;
+	private final EntityAnimaniaRabbit entityIn;
 	private final double speed;
 	private double targetX;
 	private double targetY;
@@ -31,9 +31,9 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIFindFoodRabbits(EntityCreature temptedEntityIn, double speedIn)
+	public EntityAIFindFoodRabbits(EntityAnimaniaRabbit temptedEntityIn, double speedIn)
 	{
-		this.temptedEntity = temptedEntityIn;
+		this.entityIn = temptedEntityIn;
 		this.speed = speedIn;
 		this.setMutexBits(3);
 		this.delayTemptCounter = 0;
@@ -42,47 +42,50 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 	public boolean shouldExecute()
 	{
 		delayTemptCounter++;
-		
-		if (this.delayTemptCounter <= 60) {
+
+		if (this.delayTemptCounter <= AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
 			return false;
-		} else if (delayTemptCounter > 60) {
-			if (temptedEntity instanceof EntityAnimaniaRabbit) {
-				EntityAnimaniaRabbit ech = (EntityAnimaniaRabbit)temptedEntity;
-				if (ech.getFed()) {
-					this.delayTemptCounter = 0;
-					return false;		
-				}
-			} 
-			
-			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+		} else if (delayTemptCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
+
+			if (entityIn.getSleeping()) {
+				this.delayTemptCounter = 0;
+				return false;
+			}
+
+			if (entityIn.getFed()) {
+				this.delayTemptCounter = 0;
+				return false;		
+			}
+
+			if (this.entityIn.getRNG().nextInt(100) == 0)
 			{
-				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entityIn, 20, 4);
 				if (vec3d != null) {
 					this.delayTemptCounter = 0;
 					this.resetTask();
-					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.entityIn.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
 				}
 				return false;
 			}
-			
-			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
-			BlockPos trypos1 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ);
-			BlockPos trypos2 = new BlockPos(temptedEntity.posX - 1, temptedEntity.posY, temptedEntity.posZ);
-			BlockPos trypos3 = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ + 1);
-			BlockPos trypos4 = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ - 1);
-			BlockPos trypos5 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ + 1);
-			BlockPos trypos6 = new BlockPos(temptedEntity.posX - 1, temptedEntity.posY, temptedEntity.posZ - 1);
-			BlockPos trypos7 = new BlockPos(temptedEntity.posX - 1, temptedEntity.posY, temptedEntity.posZ + 1);
-			BlockPos trypos8 = new BlockPos(temptedEntity.posX + 1, temptedEntity.posY, temptedEntity.posZ - 1);
-			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
-			Block poschk1 = temptedEntity.world.getBlockState(trypos1).getBlock();
-			Block poschk2 = temptedEntity.world.getBlockState(trypos2).getBlock();
-			Block poschk3 = temptedEntity.world.getBlockState(trypos3).getBlock();
-			Block poschk4 = temptedEntity.world.getBlockState(trypos4).getBlock();
-			Block poschk5 = temptedEntity.world.getBlockState(trypos5).getBlock();
-			Block poschk6 = temptedEntity.world.getBlockState(trypos6).getBlock();
-			Block poschk7 = temptedEntity.world.getBlockState(trypos7).getBlock();
-			Block poschk8 = temptedEntity.world.getBlockState(trypos8).getBlock();
+
+			BlockPos currentpos = new BlockPos(entityIn.posX, entityIn.posY, entityIn.posZ);
+			BlockPos trypos1 = new BlockPos(entityIn.posX + 1, entityIn.posY, entityIn.posZ);
+			BlockPos trypos2 = new BlockPos(entityIn.posX - 1, entityIn.posY, entityIn.posZ);
+			BlockPos trypos3 = new BlockPos(entityIn.posX, entityIn.posY, entityIn.posZ + 1);
+			BlockPos trypos4 = new BlockPos(entityIn.posX, entityIn.posY, entityIn.posZ - 1);
+			BlockPos trypos5 = new BlockPos(entityIn.posX + 1, entityIn.posY, entityIn.posZ + 1);
+			BlockPos trypos6 = new BlockPos(entityIn.posX - 1, entityIn.posY, entityIn.posZ - 1);
+			BlockPos trypos7 = new BlockPos(entityIn.posX - 1, entityIn.posY, entityIn.posZ + 1);
+			BlockPos trypos8 = new BlockPos(entityIn.posX + 1, entityIn.posY, entityIn.posZ - 1);
+			Block poschk = entityIn.world.getBlockState(currentpos).getBlock();
+			Block poschk1 = entityIn.world.getBlockState(trypos1).getBlock();
+			Block poschk2 = entityIn.world.getBlockState(trypos2).getBlock();
+			Block poschk3 = entityIn.world.getBlockState(trypos3).getBlock();
+			Block poschk4 = entityIn.world.getBlockState(trypos4).getBlock();
+			Block poschk5 = entityIn.world.getBlockState(trypos5).getBlock();
+			Block poschk6 = entityIn.world.getBlockState(trypos6).getBlock();
+			Block poschk7 = entityIn.world.getBlockState(trypos7).getBlock();
+			Block poschk8 = entityIn.world.getBlockState(trypos8).getBlock();
 
 			if (poschk == BlockHandler.blockTrough) {
 				//do nothing
@@ -105,14 +108,15 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 			}
 
 			if (poschk == BlockHandler.blockTrough || poschk1 == BlockHandler.blockTrough || poschk2 == BlockHandler.blockTrough || poschk3 == BlockHandler.blockTrough || poschk4 == BlockHandler.blockTrough || poschk5 == BlockHandler.blockTrough || poschk6 == BlockHandler.blockTrough || poschk7 == BlockHandler.blockTrough || poschk8 == BlockHandler.blockTrough) {
-				TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(currentpos);
+				TileEntityTrough te = (TileEntityTrough) entityIn.world.getTileEntity(currentpos);
 				if (te != null && te.canConsume(EntityAnimaniaRabbit.TEMPTATION_ITEMS, null)) {
 					te.consumeSolid(1);
 
-					if (temptedEntity instanceof EntityAnimaniaRabbit) {
-						EntityAnimaniaRabbit ech = (EntityAnimaniaRabbit)temptedEntity;
+					if (entityIn instanceof EntityAnimaniaRabbit) {
+						EntityAnimaniaRabbit ech = (EntityAnimaniaRabbit)entityIn;
 						ech.entityAIEatGrass.startExecuting();
 						ech.setFed(true);
+						ech.setHandFed(true);
 					} 
 					this.delayTemptCounter = 0;
 					return false;
@@ -122,25 +126,25 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 
 			if (poschk == Blocks.RED_FLOWER || poschk instanceof BlockCrops || poschk == Blocks.WHEAT || poschk instanceof BlockFlower || poschk == Blocks.TALLGRASS) {
 
-				if (temptedEntity instanceof EntityAnimaniaRabbit) {
-					EntityAnimaniaRabbit ech = (EntityAnimaniaRabbit)temptedEntity;
+				if (entityIn instanceof EntityAnimaniaRabbit) {
+					EntityAnimaniaRabbit ech = (EntityAnimaniaRabbit)entityIn;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
 				} 
-				
+
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
-					Block destchk = temptedEntity.world.getBlockState(currentpos).getBlock();
+					Block destchk = entityIn.world.getBlockState(currentpos).getBlock();
 					if (destchk != BlockHandler.blockTrough) {
-						temptedEntity.world.destroyBlock(currentpos, false);
+						entityIn.world.destroyBlock(currentpos, false);
 					}
 				}
 				this.delayTemptCounter = 0;
 				return false;
 			}
 
-			double x = this.temptedEntity.posX;
-			double y = this.temptedEntity.posY;
-			double z = this.temptedEntity.posZ;
+			double x = this.entityIn.posX;
+			double y = this.entityIn.posY;
+			double z = this.entityIn.posZ;
 
 			boolean foodFound = false;
 			Random rand = new Random();
@@ -153,16 +157,16 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 
 						pos = new BlockPos(x + i, y + j, z + k);
 
-						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = entityIn.world.getBlockState(pos).getBlock();
 
 						if (blockchk == BlockHandler.blockTrough) {
-							TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
+							TileEntityTrough te = (TileEntityTrough) entityIn.world.getTileEntity(pos);
 							if (te != null && te.canConsume(EntityAnimaniaRabbit.TEMPTATION_ITEMS, null)) {
 								foodFound = true;
 								if (rand.nextInt(200) == 0) {
 									this.delayTemptCounter = 0;
 									return false;
-								} else if (this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
+								} else if (this.entityIn.collidedHorizontally && this.entityIn.motionX == 0 && this.entityIn.motionZ == 0 ) {
 									this.delayTemptCounter = 0;
 									return false;
 								} else {
@@ -177,7 +181,7 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 							if (rand.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								return false;
-							} else if (this.temptedEntity.collidedHorizontally && this.temptedEntity.motionX == 0 && this.temptedEntity.motionZ == 0 ) {
+							} else if (this.entityIn.collidedHorizontally && this.entityIn.motionX == 0 && this.entityIn.motionZ == 0 ) {
 								this.delayTemptCounter = 0;
 								return false;
 							} else {
@@ -195,19 +199,19 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 				return false;
 			}
 		}
-		
+
 		return false;
 	}
 
 	public boolean shouldContinueExecuting()
 	{
-		return !this.temptedEntity.getNavigator().noPath();
+		return !this.entityIn.getNavigator().noPath();
 	}
-	
+
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
-		this.temptedEntity.getNavigator().clearPath();
+		this.entityIn.getNavigator().clearPath();
 		this.isRunning = false;
 	}
 
@@ -215,9 +219,9 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 	public void startExecuting()
 	{
 
-		double x = this.temptedEntity.posX;
-		double y = this.temptedEntity.posY;
-		double z = this.temptedEntity.posZ;
+		double x = this.entityIn.posX;
+		double y = this.entityIn.posY;
+		double z = this.entityIn.posZ;
 
 		boolean foodFound = false;
 		int loc = 24;
@@ -230,13 +234,13 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 				for (int k = -16; k < 16; k++) {
 
 					pos = new BlockPos(x + i, y + j, z + k);
-					Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
+					Block blockchk = entityIn.world.getBlockState(pos).getBlock();
 
 
 					if (blockchk == BlockHandler.blockTrough) {
 
 
-						TileEntityTrough te = (TileEntityTrough) temptedEntity.world.getTileEntity(pos);
+						TileEntityTrough te = (TileEntityTrough) entityIn.world.getTileEntity(pos);
 
 						if (te != null && te.canConsume(EntityAnimaniaRabbit.TEMPTATION_ITEMS, null)) {
 
@@ -247,15 +251,15 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 
 								loc = newloc;
 
-								if (temptedEntity.posX < foodPos.getX()) {
+								if (entityIn.posX < foodPos.getX()) {
 									BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
-									Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
+									Block mudBlockchk = entityIn.world.getBlockState(foodPoschk).getBlock();
 									i = i + 1;
 								} 
 
-								if (temptedEntity.posZ < foodPos.getZ()) {
+								if (entityIn.posZ < foodPos.getZ()) {
 									BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
-									Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
+									Block mudBlockchk = entityIn.world.getBlockState(foodPoschk).getBlock();
 									k = k + 1;
 								}
 
@@ -263,35 +267,7 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 
 							}
 						}
-					} else if (blockchk == Blocks.RED_FLOWER || blockchk instanceof BlockCrops || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER || blockchk == Blocks.TALLGRASS) {
-						foodFound = true;
-						newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
-
-						if (newloc < loc) {
-
-							loc = newloc;
-
-							if (temptedEntity.posX < foodPos.getX()) {
-								BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
-								Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
-								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk instanceof BlockCrops || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || blockchk == Blocks.TALLGRASS) {
-									i = i + 1;
-								}
-							} 
-
-							if (temptedEntity.posZ < foodPos.getZ()) {
-								BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
-								Block mudBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
-								if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk instanceof BlockCrops || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || blockchk == Blocks.TALLGRASS) {
-									k = k + 1;
-								} 
-							}
-
-							foodPos = new BlockPos(x + i, y + j, z + k);
-
-						}
-
-					}
+					} 
 
 				}
 
@@ -300,14 +276,63 @@ public class EntityAIFindFoodRabbits extends EntityAIBase
 
 		}
 
+		if (!foodFound) {
+
+			for (int i = -16; i < 16; i++) {
+				for (int j = -3; j < 3; j++) {
+					for (int k = -16; k < 16; k++) {
+
+						pos = new BlockPos(x + i, y + j, z + k);
+						Block blockchk = entityIn.world.getBlockState(pos).getBlock();
+
+						if (blockchk == Blocks.RED_FLOWER || blockchk instanceof BlockCrops || blockchk == Blocks.WHEAT || blockchk == Blocks.YELLOW_FLOWER || blockchk == Blocks.TALLGRASS) {
+							foodFound = true;
+							newloc = Math.abs(i)  +  Math.abs(j) +  Math.abs(k);
+
+							if (newloc < loc) {
+
+								loc = newloc;
+
+								if (entityIn.posX < foodPos.getX()) {
+									BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
+									Block mudBlockchk = entityIn.world.getBlockState(foodPoschk).getBlock();
+									if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk instanceof BlockCrops || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || blockchk == Blocks.TALLGRASS) {
+										i = i + 1;
+									}
+								} 
+
+								if (entityIn.posZ < foodPos.getZ()) {
+									BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
+									Block mudBlockchk = entityIn.world.getBlockState(foodPoschk).getBlock();
+									if (mudBlockchk == Blocks.RED_FLOWER || mudBlockchk instanceof BlockCrops || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || blockchk == Blocks.TALLGRASS) {
+										k = k + 1;
+									} 
+								}
+
+								foodPos = new BlockPos(x + i, y + j, z + k);
+
+							}
+
+						}
+					}
+				}
+			}
+		}
+
 		if (foodFound) {
 
-			Block mudBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
-			if ((mudBlockchk == Blocks.RED_FLOWER || mudBlockchk instanceof BlockCrops || mudBlockchk == Blocks.WHEAT || mudBlockchk == Blocks.YELLOW_FLOWER || mudBlockchk == Blocks.TALLGRASS || (mudBlockchk == BlockHandler.blockTrough))) {
-
-				this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
-
-			}
+			Block foodBlockchk = entityIn.world.getBlockState(foodPos).getBlock();
+			if (foodBlockchk == Blocks.RED_FLOWER || foodBlockchk instanceof BlockCrops|| foodBlockchk == Blocks.WHEAT || foodBlockchk == Blocks.YELLOW_FLOWER || foodBlockchk == BlockHandler.blockTrough) {
+				if(this.entityIn.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed) == false) {
+					this.entityIn.getLookHelper().setLookPosition(foodPos.getX(), foodPos.getY(), foodPos.getZ(), 0.0F, 0.0F);
+					this.resetTask();
+				} else {
+					this.entityIn.getNavigator().tryMoveToXYZ(foodPos.getX(), foodPos.getY(), foodPos.getZ(), this.speed);
+					this.entityIn.getLookHelper().setLookPosition(foodPos.getX(), foodPos.getY(), foodPos.getZ(), 0.0F, 0.0F);
+				}
+			} 
+		} else {
+			delayTemptCounter = 0;
 		}
 
 	}

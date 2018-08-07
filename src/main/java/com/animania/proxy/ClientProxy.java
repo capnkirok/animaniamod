@@ -99,12 +99,14 @@ public class ClientProxy extends CommonProxy
 		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_wagon");
 		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_cart");
 		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_cart_chest");
+		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_tiller");
 
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "anim_hamster_wheel");
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "hamster_run");
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_cart");
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_cart_chest");
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_wagon");
+		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_tiller");
 	}
 
 	//Sleep

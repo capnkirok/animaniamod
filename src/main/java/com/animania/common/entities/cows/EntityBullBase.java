@@ -73,7 +73,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public void setInLove(EntityPlayer player)
 	{
-		if (!this.getFighting()) {
+		if (!this.getFighting() && !this.getSleeping()) {
 			this.world.setEntityState(this, (byte) 18);
 		}
 	}
@@ -106,6 +106,11 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount)
 	{
+		
+		if (this.getSleeping()) {
+			this.setSleeping(false);
+		}
+		
 		if (this.isEntityInvulnerable(source))
 			return false;
 		else
@@ -283,7 +288,6 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-
 		compound.setBoolean("Fighting", this.getFighting());
 
 	}

@@ -160,6 +160,7 @@ public class DictionaryHandler
 		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeHolstein);
 		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeGoat);
 		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeSheep);
+		OreDictionary.registerOre("foodCheese", ItemHandler.cheeseWedgeJersey);
 		
 		OreDictionary.registerOre("cropCarrot", Items.CARROT);
 		OreDictionary.registerOre("cropPotato", Items.POTATO);

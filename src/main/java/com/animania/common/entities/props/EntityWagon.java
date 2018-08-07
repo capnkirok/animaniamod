@@ -602,7 +602,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 			}
 		}
 
-		if (this.puller != null && (Math.abs(this.puller.posX - this.posX) > 6 || Math.abs(this.puller.posZ - this.posZ) > 6)) {
+		if (this.puller != null && (Math.abs(this.puller.posX - this.posX) > 7 || Math.abs(this.puller.posZ - this.posZ) > 7)) {
 			this.pulled = false;
 			this.puller = null;
 			this.setPullerType(0);
@@ -615,9 +615,9 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 			double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
 
 			Vec3d vec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -3.2D).rotateYaw((float)-deltaAngle));
-			this.motionX = vec.x/1.01;
+			this.motionX = vec.x/1;
 			this.motionY = vec.y;
-			this.motionZ = vec.z/1.01;
+			this.motionZ = vec.z/1;
 			move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 		}
 

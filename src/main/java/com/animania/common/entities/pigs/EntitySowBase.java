@@ -361,7 +361,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
+		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
 	}
 
@@ -454,6 +454,9 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 			this.setFertile(true);
 			this.dryTimerSow = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
 		}
+		
+		if (this.isBeingRidden() && this.getSleeping())
+			this.setSleeping(false);
 
 		if (this.blinkTimer > -1)
 		{
@@ -499,6 +502,11 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		{
 			gestationTimer--;
 			this.setGestation(gestationTimer);
+			
+			if (gestationTimer < 200 && this.getSleeping()) {
+				this.setSleeping(false);
+			}
+			
 			if (gestationTimer == 0)
 			{
 

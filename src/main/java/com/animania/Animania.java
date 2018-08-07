@@ -37,12 +37,11 @@ public class Animania
 	public static Animania instance;
 
 	public static final String MODID = "animania";
-	public static final String VERSION = "1.4.7";
+	public static final String VERSION = "1.5.1.1";
 	public static final String NAME = "Animania";
 	public static final Logger LOGGER = LogManager.getFormatterLogger("Animania");
 	public final static String ACCEPTED_VERSIONS = "[1.12,1.13)";
-	//public static final String DEPENDENCIES = "required-after:craftstudioapi;after:quark;after:botania;after:biomesoplenty;required-after:forge@[14.23.2.2611,)";
-	public static final String DEPENDENCIES = "required-after:craftstudioapi;after:quark;after:botania;after:biomesoplenty;required-after:forge@[13.20.1.2386,)";
+	public static final String DEPENDENCIES = "required-after:craftstudioapi;after:harvestcraft;after:natura;after:quark;after:botania;after:biomesoplenty;required-after:forge@[13.20.1.2386,)";
 	
 	
 	public static SimpleNetworkWrapper network;
@@ -50,6 +49,7 @@ public class Animania
 	//GUI
 	public static int horseCartGUI_ID = 0;
 	public static int coveredWagonGUI_ID = 1;
+	public static int tillerGUI_ID = 2;
 	private GuiHandlerAnimania guiHandlerAnimania = new GuiHandlerAnimania();
 	
 	// Tabs

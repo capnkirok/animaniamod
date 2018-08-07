@@ -22,15 +22,21 @@ import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
 import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
 import com.animania.common.entities.chickens.EntityChickWyandotte;
-import com.animania.common.entities.genericAi.EntityAnimaniaAvoidWater;
-import com.animania.common.entities.rodents.ai.EntityAIFerretFindFood;
+import com.animania.common.entities.generic.ai.EntityAIFollowOwner;
+import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
+import com.animania.common.entities.generic.ai.EntityAINearestAttackableTarget;
+import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
+import com.animania.common.entities.rodents.ai.EntityAIFerretFindNests;
+import com.animania.common.entities.rodents.ai.EntityAIFindFoodFerrets;
 import com.animania.common.entities.rodents.ai.EntityAIFindWater;
 import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
+import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
 import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
+import com.animania.common.entities.rodents.ai.EntityAISleepFerrets;
 import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
 import com.animania.common.entities.rodents.ai.EntityAITemptRodents;
 import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
-import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
@@ -46,18 +52,12 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIFollowOwner;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAISit;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -88,7 +88,9 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> AGE = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
-	protected static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.MUTTON, Items.EGG, ItemHandler.rawRabbit, ItemHandler.rawMutton, ItemHandler.brownEgg, Items.RABBIT, Items.CHICKEN, ItemHandler.rawWyandotteChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawRhodeIslandRedChicken, ItemHandler.rawOrpingtonChicken, ItemHandler.rawPrimeChicken });
+	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityFerretBase.class, DataSerializers.FLOAT);
+	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.ferretFood));
 	protected int fedTimer;
 	protected int wateredTimer;
 	protected int happyTimer;
@@ -106,7 +108,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.setSize(.75F, .40F);
 		this.stepHeight = 1.1F;
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
+		this.wateredTimer = (AnimaniaConfig.careAndFeeding.waterTimer * 2) + this.rand.nextInt(200);
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + this.rand.nextInt(70);
@@ -120,22 +122,26 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.aiSit = new EntityAISit(this);
 		this.tasks.addTask(0, new EntityAISwimmingRodents(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode) {
-			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
-			this.tasks.addTask(3, new EntityAIFerretFindFood(this, 1.0D));
+			this.tasks.addTask(1, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(2, new EntityAIFerretFindNests(this, 1.0D));
+			this.tasks.addTask(3, new EntityAIFindFoodFerrets(this, 1.0D));
 		}
-		this.tasks.addTask(2, this.aiSit);
+		this.tasks.addTask(4, this.aiSit);
 		this.entityAIEatGrass = new EntityAIRodentEat(this);
-		this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.2F));
-		this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, true));
-		this.tasks.addTask(6, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(7, new EntityAIPanic(this, 1.5D));
-		this.tasks.addTask(8, new EntityAIRodentEat(this));
-		this.tasks.addTask(9, new EntityAITemptRodents(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
-		this.tasks.addTask(10, this.entityAIEatGrass);
-		this.tasks.addTask(11, new EntityAIWanderAvoidWater(this, 1.2D));
-		this.tasks.addTask(12, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(13, new EntityAILookIdleRodent(this));
-		this.tasks.addTask(14, new EntityAnimaniaAvoidWater(this));
+		this.tasks.addTask(5, new EntityAILeapAtTarget(this, 0.2F));
+		this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.0D, true));
+		this.tasks.addTask(7, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(8, new EntityAIPanicRodents(this, 1.5D));
+		this.tasks.addTask(9, new EntityAIRodentEat(this));
+		this.tasks.addTask(10, new EntityAITemptRodents(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
+		this.tasks.addTask(11, this.entityAIEatGrass);
+		this.tasks.addTask(12, new EntityAIWanderAvoidWater(this, 1.2D));
+		this.tasks.addTask(13, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(14, new EntityAILookIdleRodent(this));
+		this.tasks.addTask(15, new EntityAnimaniaAvoidWater(this));
+		if (AnimaniaConfig.gameRules.animalsSleep) {
+			this.tasks.addTask(15, new EntityAISleepFerrets(this, 0.8));
+		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
 			this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityChickLeghorn.class, false));
 			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityChickOrpington.class, false));
@@ -145,8 +151,8 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			this.targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
 			this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
 			this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
-			this.targetTasks.addTask(9, new EntityAIHurtByTarget(this, true, new Class[0]));
 		}
+		this.targetTasks.addTask(9, new EntityAIHurtByTarget(this, false, new Class[0]));
 	}
 
 	@Override
@@ -163,7 +169,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	{
 		return false;
 	}
-	
+
 	@Override
 	public void setPosition(double x, double y, double z)
 	{
@@ -180,16 +186,21 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-		this.setOwnerId(player.getPersistentID());
-		this.setIsTamed(true);
-		this.setTamed(true);
+		if (!this.isTamed()) {
+			this.setOwnerId(player.getPersistentID());
+			this.setIsTamed(true);
+			this.setTamed(true);
+			this.setInLove(player);
+		}
+
 		this.setSitting(false);
 		this.setFerretSitting(false);
 		this.entityAIEatGrass.startExecuting();
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY)
 				stack.setCount(stack.getCount() - 1);
-		this.setInLove(player);
+
+		delayCount = 10;
 	}
 
 	@Override
@@ -259,7 +270,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && delayCount == 0)
+		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && delayCount == 0 && !this.getSleeping())
 		{
 			if(!player.isCreative())
 			{
@@ -273,7 +284,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isFerretSitting() && !player.isSneaking() && delayCount == 0)
+		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isFerretSitting() && !player.isSneaking() && delayCount == 0 && !this.getSleeping())
 		{
 			delayCount = 5;
 			this.setFerretSitting(true);
@@ -282,7 +293,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			this.navigator.clearPath();
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isFerretSitting() && !player.isSneaking() && delayCount == 0)
+		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isFerretSitting() && !player.isSneaking() && delayCount == 0 && !this.getSleeping())
 		{
 
 			delayCount = 5;
@@ -292,7 +303,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			this.navigator.clearPath();
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0)
+		else if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0 && !this.getSleeping())
 		{
 			delayCount = 5;
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
@@ -341,7 +352,8 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.dataManager.register(EntityFerretBase.SITTING, Boolean.valueOf(false));
 		this.dataManager.register(EntityFerretBase.RIDING, Boolean.valueOf(false));
 		this.dataManager.register(EntityFerretBase.AGE, Boolean.valueOf(false));
-
+		this.dataManager.register(EntityFerretBase.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityFerretBase.SLEEPTIMER, Float.valueOf(0.0F));
 	}
 
 	@Override
@@ -354,6 +366,8 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		compound.setBoolean("IsSitting", this.isFerretSitting());
 		compound.setBoolean("Riding", this.isFerretRiding());
 		compound.setBoolean("Age", this.getAge());
+		compound.setBoolean("Sleep", this.getSleeping());
+		compound.setFloat("SleepTimer", this.getSleepTimer());
 
 	}
 
@@ -370,6 +384,8 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.setFerretSitting(compound.getBoolean("IsSitting"));
 		this.setFerretRiding(compound.getBoolean("Riding"));
 		this.setAge(compound.getBoolean("Age"));
+		this.setSleeping(compound.getBoolean("Sleep"));
+		this.setSleepTimer(compound.getFloat("SleepTimer"));
 
 	}
 
@@ -387,6 +403,46 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	{
 		this.dataManager.set(EntityFerretBase.AGE, Boolean.valueOf(age));
 	}
+
+	public boolean getSleeping()
+	{
+		try {
+			return (this.getBoolFromDataManager(SLEEPING));
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	public void setSleeping(boolean flag)
+	{
+		if (flag)
+		{
+			this.dataManager.set(EntityFerretBase.SLEEPING, Boolean.valueOf(true));
+		}
+		else
+		{
+			this.dataManager.set(EntityFerretBase.SLEEPING, Boolean.valueOf(false));
+		}
+	}
+
+	public Float getSleepTimer()
+	{
+		try
+		{
+			return (this.getFloatFromDataManager(SLEEPTIMER));
+		}
+		catch (Exception e)
+		{
+			return 0F;
+		}
+	}
+
+	public void setSleepTimer(Float timer)
+	{
+		this.dataManager.set(EntityFerretBase.SLEEPTIMER, Float.valueOf(timer));
+	}
+
 
 	@Override
 	public boolean canBeLeashedTo(EntityPlayer player)
@@ -457,7 +513,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	{
 		SoundEvent soundevent = this.getAmbientSound();
 
-		if (soundevent != null)
+		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume() - .3F, this.getSoundPitch());
 	}
 
@@ -559,7 +615,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			{
 				this.happyTimer = 60;
 
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles)
+				if (!this.getFed() && !this.getWatered() && !this.getSleeping() && this.getIsTamed() && AnimaniaConfig.gameRules.showUnhappyParticles)
 				{
 					double d = this.rand.nextGaussian() * 0.001D;
 					double d1 = this.rand.nextGaussian() * 0.001D;
@@ -581,7 +637,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 					double d = this.rand.nextGaussian() * 0.02D;
 					double d1 = this.rand.nextGaussian() * 0.02D;
 					double d2 = this.rand.nextGaussian() * 0.02D;
-					this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + this.rand.nextFloat() * this.width - this.width, this.posY + 1D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1, d2);
+					//this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + this.rand.nextFloat() * this.width - this.width, this.posY + 1D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1, d2);
 				}
 			}
 		}
