@@ -1,0 +1,39 @@
+package com.animania.addons.catsdogs.common.handler;
+
+import java.util.List;
+import java.util.Set;
+
+import com.google.common.collect.Lists;
+
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+
+public class CatsDogsAddonEntityHandler
+{
+	
+	/**
+	 * Register Entities
+	 */
+	public static void preInit()
+	{
+
+	}
+	
+	
+	
+	private static Biome[] getBiomes(BiomeDictionary.Type type)
+	{
+		List<Biome> criteriaMet = Lists.newArrayList();
+		for (Biome b : Biome.REGISTRY)
+		{
+			Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(b);
+			if (types.contains(type))
+			{
+				criteriaMet.add(b);
+			}
+		}
+
+		return criteriaMet.toArray(new Biome[criteriaMet.size()]);
+	}
+
+}
