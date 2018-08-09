@@ -26,6 +26,7 @@ import com.animania.common.items.ItemBrownEgg;
 import com.animania.common.items.ItemCart;
 import com.animania.common.items.ItemCarvingKnife;
 import com.animania.common.items.ItemEntityEgg;
+import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.common.items.ItemHamsterBall;
 import com.animania.common.items.ItemMilkBottle;
 import com.animania.common.items.ItemRidingCrop;
@@ -36,6 +37,7 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -347,7 +349,7 @@ public class ItemHandler
 		{
 			for (Item item : entityEggList)
 			{
-				if (item instanceof ItemEntityEgg)
+				if (item instanceof ItemEntityEgg && !(item instanceof ItemEntityEggAnimated))
 				{
 					World world = Minecraft.getMinecraft().world;
 					if (item != ItemHandler.entityeggrandomanimal)
@@ -371,6 +373,7 @@ public class ItemHandler
 							}
 						}
 					}
+					
 				}
 			}
 			hasSetEggColors = true;

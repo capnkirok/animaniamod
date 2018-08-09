@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "animania:entity_egg_piglet_largeblack"
+            "item": "animania:entity_egg_piglet_large_black"
         },
         "title": {
             "translate": "advancements.animania.large_black.title"

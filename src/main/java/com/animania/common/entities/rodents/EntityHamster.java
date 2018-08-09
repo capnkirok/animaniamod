@@ -152,7 +152,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.tasks.addTask(9, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(10, new EntityAILookIdleRodent(this));
 		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
-		if (AnimaniaConfig.gameRules.animalsSleep) {
+		if (AnimaniaConfig.gameRules.animalsSleep)
+		{
 			this.tasks.addTask(12, new EntityAISleepHamsters(this, 0.8));
 		}
 		this.tasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -290,10 +291,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getSleeping()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(SLEEPING));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -327,7 +330,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.dataManager.set(EntityHamster.SLEEPTIMER, Float.valueOf(timer));
 	}
 
-
 	@Override
 	protected boolean canDespawn()
 	{
@@ -345,7 +347,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	{
 		return this.yOffset;
 	}
-	
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
@@ -395,9 +397,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			return true;
 
 		}
-		else if (itemstack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(itemstack)  && delayCount == 0 && !this.getSleeping())
+		else if (itemstack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(itemstack) && delayCount == 0 && !this.getSleeping())
 		{
-			if(!player.isCreative())
+			if (!player.isCreative())
 			{
 				ItemStack emptied = AnimaniaHelper.emptyContainer(itemstack);
 				itemstack.shrink(1);
@@ -441,11 +443,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				return true;
 			}
 
-		} 
+		}
 
 		if (!itemstack.isEmpty() && itemstack.getItem() == ItemHandler.hamsterBallColored && !isInBall() && !this.getSleeping())
 		{
-			if (this.isHamsterSitting()) {
+			if (this.isHamsterSitting())
+			{
 				this.setHamsterSitting(false);
 				this.setSitting(false);
 			}
@@ -482,8 +485,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		}
 		else if (!this.getIsTamed() && itemstack.getItem() == Items.LEAD)
 			return super.processInteract(player, hand);
-
-
 
 		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
 		{
@@ -574,7 +575,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			if (itemstack != null)
 				return false;
 		}
-		
+
 		return super.canBeCollidedWith();
 	}
 
@@ -736,7 +737,11 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 					double d = this.rand.nextGaussian() * 0.02D;
 					double d1 = this.rand.nextGaussian() * 0.02D;
 					double d2 = this.rand.nextGaussian() * 0.02D;
-					//this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + this.rand.nextFloat() * this.width - this.width, this.posY + 1D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1, d2);
+					// this.world.spawnParticle(EnumParticleTypes.HEART,
+					// this.posX + this.rand.nextFloat() * this.width -
+					// this.width, this.posY + 1D + this.rand.nextFloat() *
+					// this.height, this.posZ + this.rand.nextFloat() *
+					// this.width - this.width, d, d1, d2);
 				}
 			}
 		}
@@ -1220,7 +1225,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (this.getColorNumber() == 9)
 		{
 			this.setColorNumber(8);
-		} else if (this.getColorNumber() > 9) {
+		}
+		else if (this.getColorNumber() > 9)
+		{
 			this.setColorNumber(0);
 		}
 

@@ -107,7 +107,9 @@ public class CommonConfig
 		
 		@Comment("Tamed animals teleport to player)")
 		public boolean tamedAnimalsTeleport = false;
-		
+	
+		@Comment("Fancy entity spawn eggs")
+		public boolean fancyEggs = false;
 	}
 
 	public static class Spawn

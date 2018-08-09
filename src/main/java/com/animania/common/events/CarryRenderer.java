@@ -1,9 +1,13 @@
 package com.animania.common.events;
 
 import com.animania.Animania;
+import com.animania.client.models.item.AnimatedEggModelWrapper;
+import com.animania.client.render.item.RenderAnimatedEgg;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.rodents.EntityHamster;
+import com.animania.common.handler.ItemHandler;
+import com.animania.common.items.ItemEntityEggAnimated;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -12,15 +16,21 @@ import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -165,6 +175,35 @@ public class CarryRenderer
 			}
 		}
 
+	}
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onModelBake(ModelBakeEvent event)
+	{
+		for (Item item : ItemHandler.entityEggList)
+		{
+			if (item instanceof ItemEntityEggAnimated)
+			{
+				IBakedModel model = event.getModelRegistry().getObject(new ModelResourceLocation("animania:fancy_egg", "inventory"));
+				RenderAnimatedEgg.wrapperModel = new AnimatedEggModelWrapper(model);
+				event.getModelRegistry().putObject(new ModelResourceLocation("animania:fancy_egg", "inventory"), RenderAnimatedEgg.wrapperModel);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onModelRegistryReady(ModelRegistryEvent event)
+	{
+		for (Item item : ItemHandler.entityEggList)
+		{
+			if (item instanceof ItemEntityEggAnimated)
+			{
+				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("animania:fancy_egg", "inventory"));
+				item.setTileEntityItemStackRenderer(new RenderAnimatedEgg());
+			}
+		}
 	}
 	
 }

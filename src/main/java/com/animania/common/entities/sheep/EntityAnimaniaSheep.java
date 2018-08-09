@@ -77,7 +77,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaSheep.class, DataSerializers.FLOAT);
 
-	private static final String[] SHEEP_TEXTURES = new String[] {"black", "white", "brown"};
+	private static final String[] SHEEP_TEXTURES = new String[] { "black", "white", "brown" };
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -98,7 +98,8 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new EntityAISheepEatGrass(this);
-		if (!AnimaniaConfig.gameRules.ambianceMode) {
+		if (!AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
 			this.tasks.addTask(3, new EntityAIFindFoodSheep(this, 1.0D));
 		}
@@ -114,7 +115,8 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		this.tasks.addTask(11, new EntityAILookIdle(this));
 		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickSheep(this, 1.0));
-		if (AnimaniaConfig.gameRules.animalsSleep) {
+		if (AnimaniaConfig.gameRules.animalsSleep)
+		{
 			this.tasks.addTask(13, new EntityAISleep(this, 0.8));
 		}
 		this.tasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -151,19 +153,29 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		this.dataManager.register(EntityAnimaniaSheep.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
 		this.dataManager.register(EntityAnimaniaSheep.SLEEPING, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaSheep.SLEEPTIMER, Float.valueOf(0.0F));
-		if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian || this instanceof EntityLambFriesian) {
+
+		if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian || this instanceof EntityLambFriesian)
+		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(3)));
-		} else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset || this instanceof EntityLambDorset) {
+		}
+		else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset || this instanceof EntityLambDorset)
+		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
-		} else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino || this instanceof EntityLambMerino) {
+		}
+		else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino || this instanceof EntityLambMerino)
+		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
-		} else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk || this instanceof EntityLambSuffolk) {
+		}
+		else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk || this instanceof EntityLambSuffolk)
+		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
-		} else {
+		}
+		else
+		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, 0);
 		}
-		this.dataManager.register(EntityAnimaniaSheep.AGE, Integer.valueOf(0));
 
+		this.dataManager.register(EntityAnimaniaSheep.AGE, Integer.valueOf(0));
 
 	}
 
@@ -179,7 +191,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		return null;
 	}
 
-
 	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
@@ -193,13 +204,14 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 			stack.shrink(1);
 	}
 
-
 	public boolean getSheared()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(SHEARED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -210,16 +222,19 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		{
 			this.dataManager.set(EntityAnimaniaSheep.SHEARED, Boolean.valueOf(true));
 			this.setWoolRegrowthTimer(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500));
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaSheep.SHEARED, Boolean.valueOf(false));
 	}
 
 	public int getWoolRegrowthTimer()
 	{
-		try {
+		try
+		{
 			return (this.getIntFromDataManager(SHEARED_TIMER));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
@@ -231,10 +246,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public boolean getSleeping()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(SLEEPING));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -270,10 +287,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public boolean getFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(FED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -285,16 +304,19 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 			this.dataManager.set(EntityAnimaniaSheep.FED, Boolean.valueOf(true));
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaSheep.FED, Boolean.valueOf(false));
 	}
 
 	public boolean getHandFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(HANDFED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -306,10 +328,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public boolean getWatered()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(WATERED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -320,7 +344,8 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		{
 			this.dataManager.set(EntityAnimaniaSheep.WATERED, Boolean.valueOf(true));
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		} else
+		}
+		else
 			this.dataManager.set(EntityAnimaniaSheep.WATERED, Boolean.valueOf(false));
 	}
 
@@ -337,7 +362,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		return 0.4F;
 	}
 
-
 	@Override
 	protected Item getDropItem()
 	{
@@ -353,7 +377,8 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.getAge() == 0) {
+		if (this.getAge() == 0)
+		{
 			this.setAge(1);
 		}
 
@@ -388,7 +413,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
-
 		if (!fed && !watered)
 		{
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
@@ -402,7 +426,8 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 				this.damageTimer++;
 			}
 
-		} else if (!fed || !watered)
+		}
+		else if (!fed || !watered)
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 
 		if (this.happyTimer > -1)
@@ -423,20 +448,20 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		}
 
 		boolean sheared = this.getSheared();
-		if (sheared) {
+		if (sheared)
+		{
 			int shearedTimer = this.getWoolRegrowthTimer();
 			shearedTimer--;
 			this.setWoolRegrowthTimer(shearedTimer);
-			if (shearedTimer < 0) {
+			if (shearedTimer < 0)
+			{
 				this.setSheared(false);
 
 			}
 		}
 
-
 		super.onLivingUpdate();
 	}
-
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
@@ -444,20 +469,22 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild())  
+		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild())
 		{
-			if (!this.world.isRemote) {
+			if (!this.world.isRemote)
+			{
 				this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
 			}
 			player.swingArm(hand);
-			if (this.getSleeping()) {
+			if (this.getSleeping())
+			{
 				this.setSleeping(false);
 			}
 		}
 
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
 		{
-			if(!player.isCreative())
+			if (!player.isCreative())
 			{
 				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
 				stack.shrink(1);
@@ -470,14 +497,13 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 			this.setInLove(player);
 			return true;
 		}
-		else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && !this.getSleeping())
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && !this.getSleeping())
 		{
 			return false;
 		}
 		else
 			return super.processInteract(player, hand);
 	}
-
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -492,14 +518,14 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	@Nullable
 	public UUID getMateUniqueId()
 	{
-		if(mateable)
+		if (mateable)
 		{
 			try
 			{
 				UUID id = (UUID) ((Optional) this.dataManager.get(EntityAnimaniaSheep.MATE_UNIQUE_ID)).orNull();
 				return id;
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				return null;
 			}
@@ -516,7 +542,8 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null) {
+		if (this.getMateUniqueId() != null)
+		{
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
 		}
 		compound.setBoolean("Fed", this.getFed());
@@ -558,10 +585,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public int getAge()
 	{
-		try {
+		try
+		{
 			return (this.getIntFromDataManager(AGE));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
@@ -573,10 +602,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	public int getColorNumber()
 	{
-		try {
+		try
+		{
 			return (this.getIntFromDataManager(COLOR_NUM));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
@@ -606,7 +637,8 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 				drop = this.dropCooked.getRegistryName().toString();
 				dropItem = AnimaniaHelper.getItem(drop);
 			}
-		} else
+		}
+		else
 		{
 			dropItem = new ItemStack(this.dropRaw, 1);
 			if (this.isBurning())
@@ -614,10 +646,14 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		}
 
 		ItemStack woolItem = new ItemStack(Blocks.WOOL, 1);
-		if (this.getSheared()) {
+		if (this.getSheared())
+		{
 			woolItem = ItemStack.EMPTY;
-		} else if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian) {
-			switch (this.getColorNumber()) {
+		}
+		else if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian)
+		{
+			switch (this.getColorNumber())
+			{
 			case 0:
 				woolItem = new ItemStack(BlockHandler.blockAnimaniaWool, 1, 1);
 				break;
@@ -627,9 +663,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 			case 2:
 				woolItem = new ItemStack(BlockHandler.blockAnimaniaWool, 1, 2);
 				break;
-			}	
-		} else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk) {
-			switch (this.getColorNumber()) {
+			}
+		}
+		else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk)
+		{
+			switch (this.getColorNumber())
+			{
 			case 0:
 				woolItem = new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1);
 				break;
@@ -637,8 +676,11 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 				woolItem = new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 6);
 				break;
 			}
-		} else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset) {
-			switch (this.getColorNumber()) {
+		}
+		else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset)
+		{
+			switch (this.getColorNumber())
+			{
 			case 0:
 				woolItem = new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1);
 				break;
@@ -646,23 +688,31 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 				woolItem = new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 0);
 				break;
 			}
-		} else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino ) {
-			switch (this.getColorNumber()) {
+		}
+		else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino)
+		{
+			switch (this.getColorNumber())
+			{
 			case 0:
 				woolItem = new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 5);
 				break;
 			case 1:
 				woolItem = new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 4);
 				break;
-			}	
-		} else if (this instanceof EntityRamJacob || this instanceof EntityEweJacob) {
-			switch (this.getColorNumber()) {
+			}
+		}
+		else if (this instanceof EntityRamJacob || this instanceof EntityEweJacob)
+		{
+			switch (this.getColorNumber())
+			{
 			case 0:
 				woolItem = new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 3);
 				break;
-			}	
+			}
 
-		} else {
+		}
+		else
+		{
 			woolItem = new ItemStack(Item.getItemFromBlock(Blocks.WOOL));
 		}
 
@@ -672,41 +722,49 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 		if (happyDrops == 2)
 		{
-			if (dropItem != null) {
+			if (dropItem != null)
+			{
 				dropItem.setCount(1 + lootlevel);
 				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 				world.spawnEntity(entityitem);
 			}
 			woolItem.setCount(1 + lootlevel);
 			this.entityDropItem(woolItem, .5F);
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
 			}
 
-
-		} else if (happyDrops == 1)
+		}
+		else if (happyDrops == 1)
 		{
 			if (this.isBurning())
 			{
 				woolItem.setCount(1 + lootlevel);
 				this.dropItem(Items.MUTTON, 1 + lootlevel);
 				this.entityDropItem(woolItem, .5F);
-				if (dropItem2 != null) {
+				if (dropItem2 != null)
+				{
 					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
 				}
-			} else
+			}
+			else
 			{
 				woolItem.setCount(1 + lootlevel);
 				this.dropItem(Items.MUTTON, 1 + lootlevel);
 				this.entityDropItem(woolItem, .5F);
-				if (dropItem2 != null) {
+				if (dropItem2 != null)
+				{
 					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
 				}
 
 			}
-		} else if (happyDrops == 0) {
+		}
+		else if (happyDrops == 0)
+		{
 			this.entityDropItem(woolItem, .5F);
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
 			}
 		}
@@ -739,23 +797,25 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		return 0;
 	}
 
-
 	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
-		if (!this.getSheared() && !this.isChild()) {
+	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)
+	{
+		if (!this.getSheared() && !this.isChild())
+		{
 			return true;
-		} else {
+		}
+		else
+		{
 			return false;
 		}
 	}
 
-
 	@Override
-	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	@Override
 	public EntityGender getEntityGender()
@@ -764,77 +824,101 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	}
 
 	// ==================================================
-	//     Data Manager Trapper (borrowed from Lycanites)
+	// Data Manager Trapper (borrowed from Lycanites)
 	// ==================================================
 
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
-		try {
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
 
-	public byte getByteFromDataManager(DataParameter<Byte> key) {
-		try {
+	public byte getByteFromDataManager(DataParameter<Byte> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public int getIntFromDataManager(DataParameter<Integer> key) {
-		try {
+	public int getIntFromDataManager(DataParameter<Integer> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public float getFloatFromDataManager(DataParameter<Float> key) {
-		try {
+	public float getFloatFromDataManager(DataParameter<Float> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public String getStringFromDataManager(DataParameter<String> key) {
-		try {
+	public String getStringFromDataManager(DataParameter<String> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
-		try {
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
-		try {
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return ItemStack.EMPTY;
 		}
 	}
 
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
-		try {
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return Optional.absent();
 		}
 	}

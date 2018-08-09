@@ -17,57 +17,72 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderFrogs<T extends EntityFrogs> extends RenderLiving<T>
 {// RenderPlayer
-    public static final Factory             FACTORY        = new Factory();
-    
-    // Need to move in main class
-    private static final String             modid          = "animania", frogsBaseDir = "textures/entity/amphibians/frogs/";
-    private static final ResourceLocation   PEPE_TEXTURE   = new ResourceLocation("animania:textures/entity/amphibians/frogs/pepe_frog.png");
-    private static final ResourceLocation[] FROGS_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderFrogs.modid, RenderFrogs.frogsBaseDir + "default_frog.png"), new ResourceLocation(RenderFrogs.modid, RenderFrogs.frogsBaseDir + "green_frog.png") };
+	public static final Factory FACTORY = new Factory();
 
-    public RenderFrogs(RenderManager rendermanagerIn) {
-        super(rendermanagerIn, new ModelFrog(), 0.05F);
-    }
+	// Need to move in main class
+	private static final String modid = "animania", frogsBaseDir = "textures/entity/amphibians/frogs/";
+	private static final ResourceLocation PEPE_TEXTURE = new ResourceLocation("animania:textures/entity/amphibians/frogs/pepe_frog.png");
+	private static final ResourceLocation[] FROGS_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderFrogs.modid, RenderFrogs.frogsBaseDir + "default_frog.png"), new ResourceLocation(RenderFrogs.modid, RenderFrogs.frogsBaseDir + "green_frog.png") };
 
-    /**
-     * Allows the render to do state modifications necessary before the model is
-     * rendered.
-     */
-    @Override
-    protected void preRenderCallback(T entityIn, float partialTickTime) {
+	public RenderFrogs(RenderManager rendermanagerIn)
+	{
+		super(rendermanagerIn, new ModelFrog(), 0.05F);
+	}
 
-    	if (entityIn.getCustomNameTag().equals("Pepe")) {
+	/**
+	 * Allows the render to do state modifications necessary before the model is
+	 * rendered.
+	 */
+	@Override
+	protected void preRenderCallback(T entityIn, float partialTickTime)
+	{
+
+		if (entityIn.getCustomNameTag().equals("Pepe"))
+		{
 			GlStateManager.scale(0.5D, 0.5D, 0.5D);
-		} else {
+		}
+		else
+		{
 			GlStateManager.scale(0.3D, 0.3D, 0.3D);
 		}
-    	
-        float f1 = 1.2F;
-        float f2 = (entityIn.prevSquishFactor + (entityIn.squishFactor - entityIn.prevSquishFactor) * partialTickTime) / (f1 * 0.5F + 1.0F);
-        float f3 = 1.0F / (f2 + 1.0F);
-        GL11.glScalef(f3 * f1, 1.0F / f3 * f1, f3 * f1);
 
-    }
+		float f1 = 1.2F;
+		float f2 = (entityIn.prevSquishFactor + (entityIn.squishFactor - entityIn.prevSquishFactor) * partialTickTime) / (f1 * 0.5F + 1.0F);
+		float f3 = 1.0F / (f2 + 1.0F);
+		GL11.glScalef(f3 * f1, 1.0F / f3 * f1, f3 * f1);
 
-    @Override
-    protected ResourceLocation getEntityTexture(T entity) {
+	}
 
-        if (entity.getCustomNameTag().equals("Pepe"))
-            return RenderFrogs.PEPE_TEXTURE;
-        else
-            switch (entity.getFrogsType()) {
-                case 0:
-                default:
-                    return RenderFrogs.FROGS_TEXTURES[0];
-                case 1:
-                    return RenderFrogs.FROGS_TEXTURES[1];
-            }
-    }
+	@Override
+	protected ResourceLocation getEntityTexture(T entity)
+	{
 
-    public static class Factory<T extends EntityFrogs> implements IRenderFactory<T>
-    {
-        @Override
-        public Render<? super T> createRenderFor(RenderManager manager) {
-            return new RenderFrogs(manager);
-        }
-    }
+		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+		{
+			return FROGS_TEXTURES[0];
+		}
+		else
+		{
+			if (entity.getCustomNameTag().equals("Pepe"))
+				return RenderFrogs.PEPE_TEXTURE;
+			else
+				switch (entity.getFrogsType())
+				{
+				case 0:
+				default:
+					return RenderFrogs.FROGS_TEXTURES[0];
+				case 1:
+					return RenderFrogs.FROGS_TEXTURES[1];
+				}
+		}
+	}
+
+	public static class Factory<T extends EntityFrogs> implements IRenderFactory<T>
+	{
+		@Override
+		public Render<? super T> createRenderFor(RenderManager manager)
+		{
+			return new RenderFrogs(manager);
+		}
+	}
 }

@@ -52,35 +52,38 @@ import net.minecraft.world.World;
 public class EntityFrogs extends EntityAmphibian
 {
 
-	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer> createKey(EntityFrogs.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer>createKey(EntityFrogs.class, DataSerializers.VARINT);
 
-	public EntityFrogs(World worldIn) {
+	public EntityFrogs(World worldIn)
+	{
 		super(worldIn, true);
 	}
 
 	@Override
-	protected void entityInit() {
+	protected void entityInit()
+	{
 		super.entityInit();
+
 		this.dataManager.register(EntityFrogs.FROGS_TYPE, Integer.valueOf(this.rand.nextInt(2)));
 	}
 
-	
 	@Override
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
-		
+
 		if (this.world.isRemote)
 			return null;
-		
+
 		this.setFrogsType(this.rand.nextInt(2));
-		
+
 		return livingdata;
 	}
-	
+
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
+	public void writeEntityToNBT(NBTTagCompound compound)
+	{
 		super.writeEntityToNBT(compound);
 		compound.setInteger("FrogsType", this.getFrogsType());
 	}
@@ -89,26 +92,33 @@ public class EntityFrogs extends EntityAmphibian
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
+	public void readEntityFromNBT(NBTTagCompound compound)
+	{
 		super.readEntityFromNBT(compound);
 		this.setFrogsType(compound.getInteger("FrogsType"));
 	}
 
-	public int getFrogsType() {
+	public int getFrogsType()
+	{
 		return this.dataManager.get(EntityFrogs.FROGS_TYPE).intValue();
 	}
 
-	public void setFrogsType(int frogsId) {
+	public void setFrogsType(int frogsId)
+	{
 		this.dataManager.set(EntityFrogs.FROGS_TYPE, Integer.valueOf(frogsId));
 	}
 
 	@Override
-	protected void initEntityAI() {
+	protected void initEntityAI()
+	{
 		this.tasks.addTask(1, new EntityAISwimming(this));
-		if (!this.getCustomNameTag().equals("Pepe")) {
+		if (!this.getCustomNameTag().equals("Pepe"))
+		{
 			this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
 			this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 6.0F, 1.5D, 1.5D));
-		} else if (this.getCustomNameTag().equals("Pepe")) {
+		}
+		else if (this.getCustomNameTag().equals("Pepe"))
+		{
 			this.tasks.taskEntries.clear();
 			this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
 			this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
@@ -129,22 +139,26 @@ public class EntityFrogs extends EntityAmphibian
 
 		ItemStack stack = player.getHeldItem(hand);
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG) {
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG)
+		{
 			if (!stack.hasDisplayName())
 			{
 				return false;
 			}
-			else 
+			else
 			{
-				EntityLiving entityliving = (EntityLiving)this;
+				EntityLiving entityliving = (EntityLiving) this;
 				entityliving.setCustomNameTag(stack.getDisplayName());
 
 				entityliving.enablePersistence();
-				if (!player.capabilities.isCreativeMode) {
-					stack.shrink(1);;
+				if (!player.capabilities.isCreativeMode)
+				{
+					stack.shrink(1);
+					;
 				}
 
-				if (stack.getDisplayName().equals("Pepe")) {
+				if (stack.getDisplayName().equals("Pepe"))
+				{
 					this.initEntityAI();
 					this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 					this.setHealth(20);
@@ -157,11 +171,13 @@ public class EntityFrogs extends EntityAmphibian
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound() {
+	protected SoundEvent getAmbientSound()
+	{
 
 		Random rand = new Random();
 		int chooser = rand.nextInt(4);
-		if (this.getCustomNameTag().equals("Pepe") && 0.1 > Math.random()) {
+		if (this.getCustomNameTag().equals("Pepe") && 0.1 > Math.random())
+		{
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 5, 4, true, false));
 			return ModSoundEvents.reeee;
 
@@ -188,27 +204,30 @@ public class EntityFrogs extends EntityAmphibian
 			this.applyEnchantments(this, entityIn);
 		}
 
-		//Custom Knockback		
-		if (entityIn instanceof EntityPlayer) {
+		// Custom Knockback
+		if (entityIn instanceof EntityPlayer)
+		{
 			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
 		}
-
 
 		return flag;
 	}
 
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
+	protected SoundEvent getHurtSound(DamageSource source)
+	{
 		return null;
 	}
 
 	@Override
-	protected SoundEvent getDeathSound() {
+	protected SoundEvent getDeathSound()
+	{
 		return null;
 	}
 
 	@Override
-	public void playLivingSound() {
+	public void playLivingSound()
+	{
 		SoundEvent soundevent = this.getAmbientSound();
 
 		if (soundevent != null)
@@ -216,72 +235,81 @@ public class EntityFrogs extends EntityAmphibian
 	}
 
 	@Override
-	public void onDeath(DamageSource cause) {
-//		if (this.getCustomNameTag().equals("Pepe"))
-//			if (cause.getEntity() != null && cause.getEntity() instanceof EntityPlayer) {
-//				((EntityPlayer) cause.getEntity()).addStat(AnimaniaAchievements.FeelsBadMan, 1);
-//				AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.FeelsBadMan);
-//			}
+	public void onDeath(DamageSource cause)
+	{
+		// if (this.getCustomNameTag().equals("Pepe"))
+		// if (cause.getEntity() != null && cause.getEntity() instanceof
+		// EntityPlayer) {
+		// ((EntityPlayer)
+		// cause.getEntity()).addStat(AnimaniaAchievements.FeelsBadMan, 1);
+		// AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.FeelsBadMan);
+		// }
 
 		super.onDeath(cause);
 	}
 
 	@Override
-	protected void playStepSound(BlockPos pos, Block blockIn) {
+	protected void playStepSound(BlockPos pos, Block blockIn)
+	{
 		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.04F, 1.1F);
 	}
 
 	@Override
-	protected float getSoundVolume() {
+	protected float getSoundVolume()
+	{
 		return 0.4F;
 	}
 
 	@Override
-	protected void dropFewItems(boolean hit, int lootlevel) {
+	protected void dropFewItems(boolean hit, int lootlevel)
+	{
 
 		ItemStack dropItem;
 		String drop = AnimaniaConfig.drops.frogDrop;
 		dropItem = AnimaniaHelper.getItem(drop);
 
-		if (dropItem != null) {
-			if (this.isBurning() && drop.equals("animania:raw_frog_legs")) {
+		if (dropItem != null)
+		{
+			if (this.isBurning() && drop.equals("animania:raw_frog_legs"))
+			{
 				drop = "animania:cooked_frog_legs";
 				dropItem = AnimaniaHelper.getItem(drop);
 			}
 
-			if (this.rand.nextInt(3) < 1) {
+			if (this.rand.nextInt(3) < 1)
+			{
 				dropItem.setCount(1 + lootlevel);
 				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 				world.spawnEntity(entityitem);
 			}
 		}
-		
+
 		ItemStack dropItem2;
 		String drop2 = AnimaniaConfig.drops.frogDrop2;
 		dropItem2 = AnimaniaHelper.getItem(drop2);
-		
-		if (dropItem2 != null) {
+
+		if (dropItem2 != null)
+		{
 			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.frogDrop2Amount + lootlevel);
 		}
 	}
-	
+
 	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(AmphibianType.FROG, EntityGender.NONE));
 	}
-	
+
 	@Override
 	public int getPrimaryEggColor()
 	{
 		return 1860371;
 	}
-	
+
 	@Override
 	public int getSecondaryEggColor()
 	{
 		return 1793554;
 	}
-
 
 }

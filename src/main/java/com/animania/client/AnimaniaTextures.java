@@ -7,6 +7,7 @@ import com.animania.common.entities.EntityGender;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEgg;
+import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -18,7 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class AnimaniaTextures
 {
@@ -238,7 +238,7 @@ public class AnimaniaTextures
 	{
 		for (Item item : ItemHandler.entityEggList)
 		{
-			if (item instanceof ItemEntityEgg)
+			if (item instanceof ItemEntityEgg && !(item instanceof ItemEntityEggAnimated))
 			{
 				AnimalContainer animal = ((ItemEntityEgg) item).getAnimal();
 				EntityGender gender = animal.getGender();

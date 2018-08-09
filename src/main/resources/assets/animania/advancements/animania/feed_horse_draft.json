@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "animania:entity_egg_draft_horse_foal"
+            "item": "animania:entity_egg_foal_draft"
         },
         "title": {
             "translate": "advancements.animania.draft.title"
@@ -60,14 +60,14 @@
                 "itemstack": {"item": "minecraft:carrot"},
 				"entity": "animania:stallion_draft"
             }
-        },   
+        },
          "stallion1": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {"item": "minecraft:wheat"},
                 "entity": "animania:stallion_draft"
             }
-        },   
+        },
          "stallion2": {
             "trigger": "animania:feed_animal",
             "conditions": {
