@@ -114,7 +114,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
 		this.tasks.addTask(11, new EntityAILookIdleHorses(this));
 		this.tasks.addTask(12, new EntityAIFindSaltLickHorses(this, 1.0));
-		if (AnimaniaConfig.gameRules.animalsSleep) {
+		if (AnimaniaConfig.gameRules.animalsSleep)
+		{
 			this.tasks.addTask(13, new EntityAISleep(this, 0.8));
 		}
 		this.tasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -206,8 +207,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 					f = (float) ((double) f - 0.42D);
 
 					Vec3d vec3d = (new Vec3d((double) f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
-					//passenger.setPosition(this.posX + vec3d.x, this.posY + (double) f1, this.posZ + vec3d.z);
-
+					// passenger.setPosition(this.posX + vec3d.x, this.posY +
+					// (double) f1, this.posZ + vec3d.z);
 
 					passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
 				}
@@ -359,10 +360,12 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 
 	public boolean getSleeping()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(SLEEPING));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -472,7 +475,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 	public void travel(float p_191986_1_, float p_191986_2_, float p_191986_3_)
 	{
 		if (this.isBeingRidden() && this.canBeSteered()) // &&
-			// this.isHorseSaddled())
+		// this.isHorseSaddled())
 		{
 			EntityLivingBase entitylivingbase = (EntityLivingBase) this.getControllingPassenger();
 			this.rotationYaw = entitylivingbase.rotationYaw;
@@ -646,7 +649,6 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			}
 		}
 
-
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
 		{
 			if (!player.isCreative())
@@ -663,7 +665,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && this.isHorseBreedingItem(stack.getItem()) && !this.getSleeping()) {
+		else if (stack != ItemStack.EMPTY && this.isHorseBreedingItem(stack.getItem()) && !this.getSleeping())
+		{
 			if (!player.capabilities.isCreativeMode)
 				stack.shrink(1);
 
@@ -675,7 +678,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			return true;
 
 		}
-		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.SADDLE && !this.isHorseSaddled() && !this.getSleeping()) {
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.SADDLE && !this.isHorseSaddled() && !this.getSleeping())
+		{
 
 			ItemStack bob = stack.copy();
 			this.horseChest.setInventorySlotContents(0, bob);
@@ -708,14 +712,15 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			super.handleStatusUpdate(id);
 	}
 
-	public void removeItem(EntityPlayer ep, ItemStack removeitem) {
+	public void removeItem(EntityPlayer ep, ItemStack removeitem)
+	{
 		IInventory inv = ep.inventory;
-		for(int i=0; i < inv.getSizeInventory(); i++)
+		for (int i = 0; i < inv.getSizeInventory(); i++)
 		{
-			if(inv.getStackInSlot(i) != null)
+			if (inv.getStackInSlot(i) != null)
 			{
 				ItemStack j = inv.getStackInSlot(i);
-				if(j.getItem() != null && j.getItem() == removeitem.getItem())
+				if (j.getItem() != null && j.getItem() == removeitem.getItem())
 				{
 					inv.setInventorySlotContents(i, null);
 					break;
@@ -723,7 +728,6 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			}
 		}
 	}
-
 
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{

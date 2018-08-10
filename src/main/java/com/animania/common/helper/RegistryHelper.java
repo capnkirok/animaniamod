@@ -7,6 +7,8 @@ import com.animania.common.entities.EntityGender;
 import com.animania.common.handler.EntityEggHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEgg;
+import com.animania.common.items.ItemEntityEggAnimated;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLiving;
@@ -53,7 +55,7 @@ public class RegistryHelper
 		 * @param sendsVelocityUpdates
 		 *            Whether to send velocity information packets as well
 		 */
-		public static void registerAnimal(Class<? extends net.minecraft.entity.Entity> entityClass, String entityName, int entityID, AnimaniaType type, EntityGender gender, boolean registerEgg)
+		public static void registerAnimal(Class<? extends net.minecraft.entity.Entity> entityClass, String entityName, int entityID, AnimaniaType type, EntityGender gender, boolean registerEgg, boolean fancyEgg)
 		{
 			ResourceLocation registryName = new ResourceLocation(Animania.MODID, entityName);
 			EntityEntry entry = new EntityEntry(entityClass, entityName).setRegistryName(registryName);
@@ -61,14 +63,21 @@ public class RegistryHelper
 			EntityRegistry.registerModEntity(registryName, entityClass, registryName.toString(), entityID, Animania.instance, 64, 2, true);
 			EntityEggHandler.ENTITY_MAP.put(new AnimalContainer(type, gender), entry);
 			if (registerEgg)
-				ItemHandler.entityEggList.add(new ItemEntityEgg(entityName, type, gender));
+				if (fancyEgg)
+					ItemHandler.entityEggList.add(new ItemEntityEggAnimated(entityName, type, gender));
+				else
+					ItemHandler.entityEggList.add(new ItemEntityEgg(entityName, type, gender));
 		}
-		
+
+		public static void registerAnimal(Class<? extends net.minecraft.entity.Entity> entityClass, String entityName, int entityID, AnimaniaType type, EntityGender gender, boolean registerEgg)
+		{
+			registerAnimal(entityClass, entityName, entityID, type, gender, registerEgg, false);
+		}
+
 		public static void registerAnimal(Class<? extends net.minecraft.entity.Entity> entityClass, String entityName, int entityID, AnimaniaType type, EntityGender gender)
 		{
-			registerAnimal(entityClass, entityName, entityID, type, gender, true);
+			registerAnimal(entityClass, entityName, entityID, type, gender, true, AnimaniaConfig.gameRules.fancyEggs);
 		}
-		
 
 		/**
 		 * Register an entity with the specified tracking values and spawn egg

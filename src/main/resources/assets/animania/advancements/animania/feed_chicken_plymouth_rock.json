@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "animania:entity_egg_chick_plymouth"
+            "item": "animania:entity_egg_chick_plymouth_rock"
         },
         "title": {
             "translate": "advancements.animania.plymouth_rock.title"
