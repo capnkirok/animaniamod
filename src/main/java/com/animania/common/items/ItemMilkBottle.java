@@ -68,16 +68,16 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 	{
 		
 	}
-
-	@Override
-	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> list, ITooltipFlag flagIn)
-	{
-		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
-		list.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
-	}
-
+	
 	public EnumAction getItemUseAction(ItemStack stack)
 	{
 		return EnumAction.DRINK;
+
+	}
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+	{
+		tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));
+		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+
 	}
 }
