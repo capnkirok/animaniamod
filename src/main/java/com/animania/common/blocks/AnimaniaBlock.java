@@ -1,6 +1,7 @@
 package com.animania.common.blocks;
 
 import com.animania.Animania;
+import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -19,7 +20,7 @@ public class AnimaniaBlock extends Block
 		this.setRegistryName(Animania.MODID + ":" + name);
 		this.setUnlocalizedName(Animania.MODID + "_" + name);
 
-		ForgeRegistries.BLOCKS.register(this);
+		BlockHandler.blocks.add(this);
 		Item item = new ItemBlock(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		ForgeRegistries.ITEMS.register(item);
@@ -31,7 +32,7 @@ public class AnimaniaBlock extends Block
 		this.setRegistryName(Animania.MODID + ":" + name);
 		this.setUnlocalizedName(Animania.MODID + "_" + name);
 
-		ForgeRegistries.BLOCKS.register(this);
+		BlockHandler.blocks.add(this);
 		if (itemblock)
 		{
 			Item item = new ItemBlock(this);

@@ -49,7 +49,7 @@ public class BlockCheese extends Block
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setSoundType(SoundType.CLOTH);
 		this.setHardness(0.6f);
-		ForgeRegistries.BLOCKS.register(this);
+		BlockHandler.blocks.add(this);
 		Item item = new ItemBlock(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, name.substring(7) + "_cheese_wheel"));
 		

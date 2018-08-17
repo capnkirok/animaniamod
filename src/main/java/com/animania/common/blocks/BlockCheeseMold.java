@@ -63,7 +63,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 		this.setSoundType(SoundType.WOOD);
 		this.setHardness(0.9f);
 		this.setResistance(1.2f);
-		ForgeRegistries.BLOCKS.register(this);
+		BlockHandler.blocks.add(this);
 		Item item = new ItemBlock(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "cheese_mold"));
 

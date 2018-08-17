@@ -50,7 +50,7 @@ public class BlockSeeds extends Block
 		this.setCreativeTab(null);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockSeeds.EnumType.WHEAT));
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		ForgeRegistries.BLOCKS.register(this);
+		BlockHandler.blocks.add(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setSoundType(SoundType.PLANT);
 		this.setTickRandomly(true);

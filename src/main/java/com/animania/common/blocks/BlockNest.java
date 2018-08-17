@@ -53,7 +53,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 	{
 		super(Material.WOOD);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		ForgeRegistries.BLOCKS.register(this);
+		BlockHandler.blocks.add(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setTickRandomly(true);
