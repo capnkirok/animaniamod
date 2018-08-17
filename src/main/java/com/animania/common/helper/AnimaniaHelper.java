@@ -34,6 +34,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -257,6 +258,16 @@ public class AnimaniaHelper
 		return null;
 	}
 
+	public static Type[] getBiomeTypes(String[] types)
+	{
+		Type[] bt = new Type[types.length];
+		for (int i = 0; i < types.length; i++)
+		{
+			String s = types[i].toUpperCase();
+			bt[i] = Type.getType(s);
+		}
+		return bt;
+	}
 	
 
 }

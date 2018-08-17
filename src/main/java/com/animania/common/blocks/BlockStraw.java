@@ -52,7 +52,7 @@ public class BlockStraw extends Block
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockStraw.EnumType.STRAW));
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setCreativeTab(Animania.TabAnimaniaResources);
-		ForgeRegistries.BLOCKS.register(this);
+		BlockHandler.blocks.add(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setSoundType(SoundType.PLANT);
 		this.setTickRandomly(true);

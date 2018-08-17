@@ -11,12 +11,8 @@ import com.animania.common.entities.amphibians.AmphibianType;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.goats.GoatType;
-import com.animania.common.entities.horses.HorseType;
 import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.entities.pigs.PigType;
-import com.animania.common.entities.rodents.FerretType;
-import com.animania.common.entities.rodents.HamsterType;
-import com.animania.common.entities.rodents.HedgehogType;
 import com.animania.common.entities.rodents.rabbits.RabbitType;
 import com.animania.common.entities.sheep.SheepType;
 import com.animania.common.items.AnimaniaItem;
@@ -28,6 +24,7 @@ import com.animania.common.items.ItemCarvingKnife;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.common.items.ItemHamsterBall;
+import com.animania.common.items.ItemJar;
 import com.animania.common.items.ItemMilkBottle;
 import com.animania.common.items.ItemRidingCrop;
 import com.animania.common.items.ItemTiller;
@@ -37,13 +34,11 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -72,6 +67,7 @@ public class ItemHandler
 	public static Item ridingCrop;
 	public static Item wheel;
 	public static Item milkBottle;
+	public static Item honeyJar;
 
 	// Beef
 	public static Item rawHerefordBeef;
@@ -231,6 +227,7 @@ public class ItemHandler
 		ItemHandler.plainOmelette = new ItemAnimaniaFood(5, 2f, "plain_omelette");
 		ItemHandler.truffleSoup = new ItemTruffleSoup();
 		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", true, new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
+		ItemHandler.honeyJar = new ItemJar();
 
 		// ITEMS produced by Animals
 		// COW ITEMS

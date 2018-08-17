@@ -77,7 +77,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 		super(Material.WOOD);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(BlockTrough.FACING, EnumFacing.NORTH));
-		ForgeRegistries.BLOCKS.register(this);
+		BlockHandler.blocks.add(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setTickRandomly(true);

@@ -1,6 +1,7 @@
 package com.animania.common.blocks.fluids;
 
 import com.animania.Animania;
+import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -11,7 +12,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class BlockFluidBase extends BlockFluidClassic
 {
@@ -22,7 +22,7 @@ public class BlockFluidBase extends BlockFluidClassic
         this.setUnlocalizedName(name);
         this.setHardness(100.0F);
         this.setRegistryName(new ResourceLocation(Animania.MODID, name));
-        ForgeRegistries.BLOCKS.register(this);
+        BlockHandler.blocks.add(this);
 
     }
     

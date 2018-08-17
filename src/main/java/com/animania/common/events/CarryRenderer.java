@@ -32,6 +32,7 @@ import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -203,6 +204,18 @@ public class CarryRenderer
 				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation("animania:fancy_egg", "inventory"));
 				item.setTileEntityItemStackRenderer(new RenderAnimatedEgg());
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public void onTick(TickEvent event)
+	{
+		if (event.side == Side.CLIENT)
+		{
+			RenderAnimatedEgg.renderTimer += 0.0005f;
+			if (RenderAnimatedEgg.renderTimer > 1f)
+				RenderAnimatedEgg.renderTimer = 0;
 		}
 	}
 	

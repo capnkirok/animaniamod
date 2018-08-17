@@ -27,6 +27,7 @@ public class EventsHandler
         MinecraftForge.EVENT_BUS.register(new EntityEventHandler());
         MinecraftForge.EVENT_BUS.register(new CapabilityLoadHandler());
         MinecraftForge.EVENT_BUS.register(new CarryRenderer());
-       
+        MinecraftForge.EVENT_BUS.register(new BlockHandler());
+
     }
 }
