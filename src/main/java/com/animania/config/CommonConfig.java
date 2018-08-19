@@ -117,6 +117,23 @@ public class CommonConfig
 		@Comment("Frequency of Beehives (1-10)")
 		public int beehiveSpawningFrequency = 5;
 		
+		public boolean fancyEggs = false;
+		
+		@Comment("Honey creation rate for wild hives")
+		public int hiveWildHoneyRate = 450;
+		
+		@Comment("Honey creation rate for playermade hives")
+		public int hivePlayermadeHoneyRate = 250;
+		
+		@Comment("Valid Biome Types for hive. Types can be seen here:\nhttps://github.com/MinecraftForge/MinecraftForge/blob/1.12.x/src/main/java/net/minecraftforge/common/BiomeDictionary.java")
+		public String[] hiveValidBiomeTypes = new String[]
+		{
+				"JUNGLE",
+				"CONIFEROUS",
+				"LUSH",
+				"FOREST",
+				"PLAINS",
+		};
 	}
 
 	public static class Spawn

@@ -1,35 +1,23 @@
 package com.animania.client.render.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
 
 import com.animania.client.models.item.AnimatedEggModelWrapper;
 import com.animania.common.items.ItemEntityEggAnimated;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.client.model.pipeline.LightUtil;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -38,6 +26,7 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 
 	public static AnimatedEggModelWrapper wrapperModel;
 	public static TransformType transformType;
+	public static float renderTimer = 0;
 
 	@Override
 	public void renderByItem(ItemStack stack, float partialTicks)
@@ -57,49 +46,92 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 
 			GlStateManager.pushMatrix();
 			RenderHelper.enableStandardItemLighting();
-			
-			
+
 			float height = entity.height;
 			float width = entity.width;
 
 			float size = width * height;
-			float appliedScale = 1/ size;
-			
-			appliedScale = Math.min(appliedScale, 1.4f);
-			appliedScale = Math.max(appliedScale, 0.65f);
-
-			GlStateManager.scale(appliedScale, appliedScale, appliedScale);
-			
-			GlStateManager.translate(0.95 + -appliedScale * 0.42, -0.5F, 0.5F);
 
 			GlStateManager.pushMatrix();
 
 			switch (transformType)
 			{
 			case GROUND:
+				GlStateManager.translate(0.5, 0, 0.5);
+				if (height > width)
+					GlStateManager.scale(1 / height, 1 / height, 1 / height);
+				else if (width > height)
+					GlStateManager.scale(1 / width, 1 / width, 1 / width);
+				else
+					GlStateManager.scale(1 / Math.sqrt(size), 1 / Math.sqrt(size), 1 / Math.sqrt(size));
+
+				
 				break;
 			case FIXED:
-				GlStateManager.scale(0.6f, 0.6f, 0.6f);
 				GlStateManager.rotate(90, 0.0f, 1.0f, 0f);
-				GlStateManager.translate(0, 1, 0);
+				GlStateManager.translate(-0.5, 0, 0.5);
+				
+				if (height > width)
+					GlStateManager.scale(0.8 / height, 0.8 / height, 0.8 / height);
+				else if (width > height)
+					GlStateManager.scale(0.8 / width, 0.8 / width, 0.8 / width);
+				else
+					GlStateManager.scale(0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size));
+
+			
+				
 				break;
 			case GUI:
-				GlStateManager.scale((100 - size) * 0.006, (100 - size) * 0.006, (100 - size) * 0.006);
-				GlStateManager.translate(0.0, height / 2 + -(height / 2) + 1.1, width - 0.1 < 0.7 ? width - 0.55 + (0.1 - (width - 0.0)) : width - 1.4);
-				GlStateManager.rotate(30f, 0.5f, 1.0f, 0f);
+				GlStateManager.translate(0.5, 0.1, 0);
+				if (height > width)
+					GlStateManager.scale(0.8 / height, 0.8 / height, 0.8 / height);
+				else if (width > height)
+					GlStateManager.scale(0.8 / width, 0.8 / width, 0.8 / width);
+				else
+					GlStateManager.scale(0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size));
+
+				
+
+				GlStateManager.rotate(360 * renderTimer, 0, 1f, 0);
 				break;
 			case THIRD_PERSON_LEFT_HAND:
 			case THIRD_PERSON_RIGHT_HAND:
-				GlStateManager.scale((100 - size) * 0.008, (100 - size) * 0.008, (100 - size) * 0.008);
-				GlStateManager.translate(0.0, height / 2 + -(height / 2) + 0.8, width - 0.1 < 0.7 ? width - 0.55 + (0.1 - (width - 0.0)) : width - 1.4);
-				GlStateManager.rotate(180, 0f, 1f, 0f);
-				GlStateManager.rotate(-90, 1f, 0f, 0f);
+				
+				GlStateManager.rotate(180, 0, 1f, 0);
+				GlStateManager.rotate(-90, 1f, 0, 0);
+				GlStateManager.translate(-0.5, 0, 0.2);
+				
+				if (height > width)
+					GlStateManager.scale(0.8 / height, 0.8 / height, 0.8 / height);
+				else if (width > height)
+					GlStateManager.scale(0.8 / width, 0.8 / width, 0.8 / width);
+				else
+					GlStateManager.scale(0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size));
+
+			
 				break;
 			case FIRST_PERSON_RIGHT_HAND:
 				GlStateManager.rotate(-90.0f, 0f, 1f, 0f);
+				if (height > width)
+					GlStateManager.scale(0.8 / height, 0.8 / height, 0.8 / height);
+				else if (width > height)
+					GlStateManager.scale(0.8 / width, 0.8 / width, 0.8 / width);
+				else
+					GlStateManager.scale(0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size));
+
+				
 				break;
 			case FIRST_PERSON_LEFT_HAND:
 				GlStateManager.rotate(90.0f, 0f, 1f, 0f);
+				GlStateManager.translate(0, 0, 1);
+				if (height > width)
+					GlStateManager.scale(0.8 / height, 0.8 / height, 0.8 / height);
+				else if (width > height)
+					GlStateManager.scale(0.8 / width, 0.8 / width, 0.8 / width);
+				else
+					GlStateManager.scale(0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size));
+				
+				
 			default:
 				break;
 			}

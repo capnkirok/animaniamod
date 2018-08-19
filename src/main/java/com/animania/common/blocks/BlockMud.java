@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
+import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.block.Block;
@@ -22,7 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -38,7 +38,7 @@ public class BlockMud extends Block
 		super(Material.SAND, MapColor.BROWN);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		ForgeRegistries.BLOCKS.register(this);
+		BlockHandler.blocks.add(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.slipperiness = 0.6F;
 		this.setSoundType(SoundType.SLIME);

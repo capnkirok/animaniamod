@@ -45,6 +45,13 @@
 					"fluid": "milk_sheep"
 				}
 			}
-		]
+		],
+		"honey": [
+			{
+				"custom": {
+			"fluid": "honey"
+			}
+		}
+	]
 	}
 }
