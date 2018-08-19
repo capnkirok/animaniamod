@@ -109,7 +109,14 @@ public class CommonConfig
 		public boolean tamedAnimalsTeleport = false;
 	
 		@Comment("Fancy entity spawn eggs")
-		public boolean fancyEggs = false;
+		public boolean fancyEggs = true;
+		
+		@Comment("Allow Beehives during world gen")
+		public boolean beehiveSpawning = true;
+		
+		@Comment("Frequency of Beehives (1-10)")
+		public int beehiveSpawningFrequency = 5;
+		
 	}
 
 	public static class Spawn

@@ -5,6 +5,7 @@ import com.animania.common.events.CapabilityLoadHandler;
 import com.animania.common.events.CarryRenderer;
 import com.animania.common.events.EggThrowHandler;
 import com.animania.common.events.EntityEventHandler;
+import com.animania.common.events.EventBeehiveDecorator;
 import com.animania.common.events.EventMudDamageCanceller;
 import com.animania.common.events.EventReplaceSpawnAnimals;
 import com.animania.common.events.ItemSeedHandler;
@@ -27,6 +28,7 @@ public class EventsHandler
         MinecraftForge.EVENT_BUS.register(new EntityEventHandler());
         MinecraftForge.EVENT_BUS.register(new CapabilityLoadHandler());
         MinecraftForge.EVENT_BUS.register(new CarryRenderer());
+        MinecraftForge.TERRAIN_GEN_BUS.register(new EventBeehiveDecorator());
        
     }
 }
