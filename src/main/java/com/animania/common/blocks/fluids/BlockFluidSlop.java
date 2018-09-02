@@ -13,25 +13,25 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockFluidSlop extends BlockFluidBase
 {
 
-    public BlockFluidSlop() {
+    public BlockFluidSlop() 
+    {
         super(BlockHandler.fluidSlop, Material.WATER, "slop");
-
         this.quantaPerBlock = 3;
         this.renderLayer = BlockRenderLayer.TRANSLUCENT;
-       
-
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
-       entity.setInWeb();
-    }
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+		Vec3d vec = this.getFlowVector(world, pos);
+		entity.addVelocity(vec.x / 500, vec.y / 500, vec.z / 500);
+	}
 
     @Override
     public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {

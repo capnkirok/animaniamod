@@ -4,19 +4,24 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.blocks.BlockHive;
-import com.animania.common.blocks.BlockHive.HiveVariant;
+import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.handler.FluidHandlerBeehive;
 import com.animania.config.AnimaniaConfig;
+import com.leviathanstudio.craftstudio.CraftStudioApi;
+import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
+import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileEntity;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -24,12 +29,23 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
-public class TileEntityHive extends TileEntity implements ITickable
+public class TileEntityHive extends AnimatedTileEntity implements ITickable
 {
+
+	private static AnimationHandler animHandler = CraftStudioApi.getNewAnimationHandler(TileEntityHive.class);
+
+	static
+	{
+		animHandler.addAnim(Animania.MODID, "anim_bees_wild", "model_wild_hive", true);
+		animHandler.addAnim(Animania.MODID, "anim_bees", "model_bee_hive", true);
+
+	}
 
 	public int nextHoney = 400;
 	public FluidHandlerBeehive fluidHandler;
 	private Random rand = new Random();
+	private boolean isRunning;
+	private int nbtSyncTimer;
 
 	public TileEntityHive()
 	{
@@ -39,6 +55,7 @@ public class TileEntityHive extends TileEntity implements ITickable
 	@Override
 	public void update()
 	{
+		super.update();
 
 		nextHoney--;
 		if (nextHoney < 1)
@@ -49,20 +66,23 @@ public class TileEntityHive extends TileEntity implements ITickable
 				if (BiomeDictionary.hasType(b, t))
 					isCorrectBiome = true;
 
+
 			if (isCorrectBiome)
 			{
 				int filled = fluidHandler.fill(new FluidStack(BlockHandler.fluidHoney, 25), true);
 
 				if (this.getBlockType() == BlockHandler.blockHive)
-					if (this.world.getBlockState(pos).getValue(BlockHive.VARIANT) == HiveVariant.WILD)
-						nextHoney = AnimaniaConfig.gameRules.hiveWildHoneyRate + rand.nextInt(100);
-					else
-						nextHoney = AnimaniaConfig.gameRules.hivePlayermadeHoneyRate + rand.nextInt(100);
+					nextHoney = AnimaniaConfig.gameRules.hivePlayermadeHoneyRate + rand.nextInt(100);
+				else 
+					nextHoney = AnimaniaConfig.gameRules.hiveWildHoneyRate + rand.nextInt(100);
+
 
 				if (filled > 0)
 					this.markDirty();
 			}
 		}
+
+		this.updateAnims();
 	}
 
 	@Override
@@ -110,20 +130,18 @@ public class TileEntityHive extends TileEntity implements ITickable
 	}
 
 	@Override
-	public void markDirty()
-	{
-		super.markDirty();
-
-		AnimaniaHelper.sendTileEntityUpdate(this);
-	}
-
-	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
 	{
 		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
 			return true;
 
 		return super.hasCapability(capability, facing);
+	}
+
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
+	{
+		return (oldState.getBlock() != newState.getBlock());
 	}
 
 	@Override
@@ -136,4 +154,53 @@ public class TileEntityHive extends TileEntity implements ITickable
 		return super.getCapability(capability, facing);
 
 	}
+
+	public boolean isRunning()
+	{
+		return isRunning;
+	}
+
+	public void setRunning(boolean isRunning)
+	{
+		this.isRunning = isRunning;
+	}
+
+	public Block getHiveType()
+	{
+		return this.world.getBlockState(pos).getBlock();
+	}
+
+	@Override
+	public void markDirty()
+	{
+		nbtSyncTimer++;
+		if (nbtSyncTimer > 50) {
+			super.markDirty();
+			AnimaniaHelper.sendTileEntityUpdate(this);
+			nbtSyncTimer = 0;
+		}
+	}
+
+	@Override
+	public AnimationHandler<TileEntityHive> getAnimationHandler()
+	{
+		return animHandler;
+	}
+
+	private void updateAnims() {
+
+		if (this.isWorldRemote()) {
+
+			if (this.world.getBlockState(pos).getBlock() == BlockHandler.blockWildHive) {
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_bees_wild", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_bees_wild", this);
+				}
+			} else {
+				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_bees", this)) {
+					this.getAnimationHandler().startAnimation(Animania.MODID, "anim_bees", this);
+				}
+			}
+		}
+	}
+
 }

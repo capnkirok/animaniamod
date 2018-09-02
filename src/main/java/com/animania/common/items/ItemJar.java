@@ -10,13 +10,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 
 public class ItemJar extends AnimaniaItem
 {
@@ -24,6 +20,7 @@ public class ItemJar extends AnimaniaItem
 	public ItemJar()
 	{
 		super("honey_jar");
+		this.setMaxStackSize(4);
 	}
 
 	@Override

@@ -1,6 +1,16 @@
 package com.animania.config;
 
+import com.animania.common.entities.chickens.EntityHenLeghorn;
+import com.animania.common.entities.chickens.EntityHenOrpington;
+import com.animania.common.entities.chickens.EntityHenPlymouthRock;
+import com.animania.common.entities.chickens.EntityHenRhodeIslandRed;
+import com.animania.common.entities.chickens.EntityHenWyandotte;
+
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.init.Biomes;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.config.Config.Comment;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class CommonConfig
 {
@@ -109,7 +119,13 @@ public class CommonConfig
 		public boolean tamedAnimalsTeleport = false;
 	
 		@Comment("Fancy entity spawn eggs")
-		public boolean fancyEggs = false;
+		public boolean fancyEggs = true;
+		
+		@Comment("Allow Beehives during world gen")
+		public boolean beehiveSpawning = true;
+		
+		@Comment("Frequency of Beehives (1-10)")
+		public int beehiveSpawningFrequency = 5;
 		
 		@Comment("Honey creation rate for wild hives")
 		public int hiveWildHoneyRate = 450;
@@ -218,9 +234,49 @@ public class CommonConfig
 		@Comment("Spawn limit for Rabbits in loaded chunks")
 		public int spawnLimitRabbits = 40;
 		
-		
 	}
 
+	public static class SpawnLocations
+	{
+		@Comment("Valid Biome Types for Plymouth Rock Chicken ")
+		public String[] chickenPlymouthRockBiomeTypes = new String[]
+		{
+				"MOUNTAIN",
+				"EXTREME_HILLS",
+		};
+		@Comment("Valid Biome Types for Leghorn Chicken ")
+		public String[] chickenLeghornBiomeTypes = new String[]
+		{
+				"PLAINS",
+		};
+		@Comment("Valid Biome Types for Orpington Chicken ")
+		public String[] chickenOrpingtonBiomeTypes = new String[]
+		{
+				"JUNGLE",
+				"SWAMP",
+		};
+		@Comment("Valid Biome Types for Wyandotte Chicken ")
+		public String[] chickenWyandotteBiomeTypes = new String[]
+		{
+				"FOREST",
+		};
+		@Comment("Valid Biome Types for Rhode Island Red Chicken ")
+		public String[] chickenRhodeIslandRedBiomeTypes = new String[]
+		{
+				"FOREST",
+		};
+		
+		/*
+		 * EntityRegistry.addSpawn(EntityHenPlymouthRock.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
+			EntityRegistry.addSpawn(EntityHenPlymouthRock.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, Biomes.EXTREME_HILLS);
+			EntityRegistry.addSpawn(EntityHenLeghorn.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
+			EntityRegistry.addSpawn(EntityHenOrpington.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
+			EntityRegistry.addSpawn(EntityHenOrpington.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
+			EntityRegistry.addSpawn(EntityHenWyandotte.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
+			EntityRegistry.addSpawn(EntityHenRhodeIslandRed.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
+		 */
+	}
+	
 	public static class CareAndFeeding
 	{
 		@Comment("Ticks before next incremental growth")

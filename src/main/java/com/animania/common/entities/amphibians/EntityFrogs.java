@@ -126,7 +126,6 @@ public class EntityFrogs extends EntityAmphibian
 			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFerretBase.class, true));
 			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityHedgehog.class, true));
 			this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, true));
-
 		}
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
 		this.tasks.addTask(5, new EntityAIWander(this, 0.6D));
@@ -154,7 +153,6 @@ public class EntityFrogs extends EntityAmphibian
 				if (!player.capabilities.isCreativeMode)
 				{
 					stack.shrink(1);
-					;
 				}
 
 				if (stack.getDisplayName().equals("Pepe"))

@@ -70,12 +70,6 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 		return new TileEntityHamsterWheel();
 	}
 
-	// @Override
-	// public boolean isFullyOpaque(IBlockState state)
-	// {
-	// return false;
-	// }
-
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
 	{

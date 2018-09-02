@@ -88,6 +88,9 @@ public class RecipeHandler
 		
 		GameRegistry.addSmelting(ItemHandler.rawHorse, new ItemStack(ItemHandler.cookedHorse, 1), .3F);
 
+		GameRegistry.addSmelting(ItemHandler.rawPeacock, new ItemStack(ItemHandler.cookedPeacock, 1), .3F);
+		GameRegistry.addSmelting(ItemHandler.rawPrimePeacock, new ItemStack(ItemHandler.cookedPrimePeacock, 1), .3F);
+		
 	}
 
 

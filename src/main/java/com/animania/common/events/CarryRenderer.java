@@ -103,7 +103,7 @@ public class CarryRenderer
 				GlStateManager.disableTexture2D();
 				GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
 
-				
+
 
 			}
 		}
@@ -177,7 +177,7 @@ public class CarryRenderer
 		}
 
 	}
-	
+
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onModelBake(ModelBakeEvent event)
@@ -206,7 +206,8 @@ public class CarryRenderer
 			}
 		}
 	}
-	
+
+
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onTick(TickEvent event)
@@ -218,5 +219,6 @@ public class CarryRenderer
 				RenderAnimatedEgg.renderTimer = 0;
 		}
 	}
-	
+
+
 }

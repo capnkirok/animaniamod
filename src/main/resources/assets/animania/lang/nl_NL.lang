@@ -6,6 +6,9 @@ item.animania_bucket_slop.name=Emmer Voer
 item.animania_carving_knife.name=Vleesmes
 tile.animania_cheese_mold.name=Kaasvorm
 item.animania_riding_crop.name=Rijzweep
+item.animania_wheel.name=Wiel
+item.animania_salt.name=Zout
+item.animania_milk_bottle.name=Melkfles
 
 item.animania_hamster_ball_clear.name=Heldere Hamsterbal
 item.animania_hamster_ball_black.name=Zwarte Hamsterbal
@@ -32,6 +35,7 @@ item.animania_opal_peacock_feather.name=Opaal Pauwenveer
 item.animania_peach_peacock_feather.name=Perzik Pauwenveer
 item.animania_purple_peacock_feather.name=Paarse Pauwenveer
 item.animania_taupe_peacock_feather.name=Taupe Pauwenveer
+
 item.animania_peacock_egg_blue.name=Pauwenei
 item.animania_peacock_egg_white.name=Pauwenei
 
@@ -90,6 +94,9 @@ item.animania_cooked_prime_bacon.name=Gebraden Eersteklas Spek
 item.animania_raw_prime_chicken.name=Rauwe Eersteklas Kip
 item.animania_cooked_prime_chicken.name=Gebraden Eersteklas Kip
 
+item.animania_raw_horse.name=Rauw Paardenvlees
+item.animania_cooked_horse.name=Gebraden Paardenvlees
+
 item.animania_raw_frog_legs.name=Rauwe Kikkerbillen
 item.animania_cooked_frog_legs.name=Gebraden Kikkerbillen
 
@@ -97,6 +104,11 @@ item.animania_raw_chevon.name=Rauw Geitenvlees
 item.animania_cooked_chevon.name=Gebraden Geitenvlees
 item.animania_raw_prime_chevon.name=Rauw Eersteklas Geitenvlees
 item.animania_cooked_prime_chevon.name=Gebraden Eersteklas Geitenvlees
+
+item.animania_raw_peacock.name=Rauw Pauwenvlees
+item.animania_cooked_peacock.name=Gebraden Pauwenvlees
+item.animania_raw_prime_peacock.name=Rauw Eersteklas Pauwenvlees
+item.animania_cooked_prime_peacock.name=Gebraden Eersteklas Pauwenvlees
 
 item.animania_raw_prime_rabbit.name=Rauw Eersteklas Konijnenvlees
 item.animania_cooked_prime_rabbit.name=Gebraden Eersteklas Konijnenvlees
@@ -108,14 +120,17 @@ tile.animania_cheese_friesian.name=Kaaswiel (Friesian)
 item.animania_friesian_cheese_wedge.name=Stuk Kaas (Friesian)
 tile.animania_cheese_holstein.name=Kaaswiel (Holstein)
 item.animania_holstein_cheese_wedge.name=Stuk Kaas (Holstein)
-item.animania_holstein_bucket_milk.name=Emmer Melk (Holstein)
-item.animania_friesian_bucket_milk.name=Emmer Melk (Friesian)
-item.animania_goat_bucket_milk.name=Emmer Melk (Geit)
-item.animania_sheep_bucket_milk.name=Emmer Melk (Shaap)
+tile.animania_cheese_jersey.name=Kaaswiel (Jersey)
+item.animania_jersey_cheese_wedge.name=Stuk Kaas (Jersey)
 tile.animania_cheese_goat.name=Kaaswiel (Geit)
 item.animania_goat_cheese_wedge.name=Stuk Kaas (Geit)
 tile.animania_cheese_sheep.name=Kaaswiel (Schaap)
 item.animania_sheep_cheese_wedge.name=Stuk Kaas (Schaap)
+item.animania_holstein_bucket_milk.name=Emmer Melk (Holstein)
+item.animania_friesian_bucket_milk.name=Emmer Melk (Friesian)
+item.animania_jersey_bucket_milk.name=Emmer Melk (Jersey)
+item.animania_goat_bucket_milk.name=Emmer Melk (Geit)
+item.animania_sheep_bucket_milk.name=Emmer Melk (Shaap)
 item.animania_truffle_soup.name=Truffel Soep
 item.animania_chocolate_truffle.name=Chocolade Truffel
 
@@ -125,167 +140,15 @@ item.animania_cheese_omelette.name=Kaas Omelet
 item.animania_truffle_omelette.name=Truffel Omelet
 item.animania_super_omelette.name=Super Omelet
 
-item.animania_entity_egg_cow_holstein.name=Holstein Koe
-item.animania_entity_egg_bull_holstein.name=Holstein Stier
-item.animania_entity_egg_calf_holstein.name=Holstein Kalf
-item.animania_entity_egg_cow_friesian.name=Friesian Koe
-item.animania_entity_egg_bull_friesian.name=Friesian Stier
-item.animania_entity_egg_calf_friesian.name=Friesian Kalf
-item.animania_entity_egg_cow_angus.name=Angus Koe
-item.animania_entity_egg_bull_angus.name=Angus Stier
-item.animania_entity_egg_calf_angus.name=Angus Kalf
-item.animania_entity_egg_cow_longhorn.name=Longhorn Koe
-item.animania_entity_egg_bull_longhorn.name=Longhorn Stier
-item.animania_entity_egg_calf_longhorn.name=Longhorn Kalf
-item.animania_entity_egg_cow_hereford.name=Hereford Koe
-item.animania_entity_egg_bull_hereford.name=Hereford Stier
-item.animania_entity_egg_calf_hereford.name=Hereford Kalf
-
-item.animania_entity_egg_chick_plymouth.name=Plymouth Rock Kuiken
-item.animania_entity_egg_hen_plymouth.name=Plymouth Rock Kip
-item.animania_entity_egg_rooster_plymouth.name=Plymouth Rock Haan
-item.animania_entity_egg_chick_red.name=Rhode Island Red Kuiken
-item.animania_entity_egg_hen_red.name=Rhode Island Red Kip
-item.animania_entity_egg_rooster_red.name=Rhode Island Red Haan
-item.animania_entity_egg_chick_leghorn.name=Leghorn Kuiken
-item.animania_entity_egg_hen_leghorn.name=Leghorn Kip
-item.animania_entity_egg_rooster_leghorn.name=Leghorn Haan
-item.animania_entity_egg_chick_orpington.name=Orpington Kuiken
-item.animania_entity_egg_hen_orpington.name=Orpington Kip
-item.animania_entity_egg_rooster_orpington.name=Orpington Haan
-item.animania_entity_egg_chick_wyandotte.name=Wyandotte Kuiken
-item.animania_entity_egg_hen_wyandotte.name=Wyandotte Kip
-item.animania_entity_egg_rooster_wyandotte.name=Wyandotte Haan
-
-item.animania_entity_egg_piglet_yorkshire.name=American Yorkshire Big
-item.animania_entity_egg_sow_yorkshire.name=American Yorkshire Zeug
-item.animania_entity_egg_hog_yorkshire.name=Ameican Yorkshire Beer
-item.animania_entity_egg_piglet_oldspot.name=Old Spot Big
-item.animania_entity_egg_sow_oldspot.name=Old Spot Zeug
-item.animania_entity_egg_hog_oldspot.name=Old Spot Beer
-item.animania_entity_egg_piglet_duroc.name=Duroc Big
-item.animania_entity_egg_sow_duroc.name=Duroc Zeug
-item.animania_entity_egg_hog_duroc.name=Duroc Beer
-item.animania_entity_egg_piglet_largeblack.name=Large Black Big
-item.animania_entity_egg_sow_largeblack.name=Large Black Zeug
-item.animania_entity_egg_hog_largeblack.name=Large Black Beer
-item.animania_entity_egg_piglet_largewhite.name=Large White Big
-item.animania_entity_egg_sow_largewhite.name=Large White Zeug
-item.animania_entity_egg_hog_largewhite.name=Large White Beer
-item.animania_entity_egg_piglet_hampshire.name=Hampshire Big
-item.animania_entity_egg_sow_hampshire.name=Hampshire Zeug
-item.animania_entity_egg_hog_hampshire.name=Hampshire Beer
-
-item.animania_entity_egg_hamster.name=Hamster
-item.animania_entity_egg_ferret_white.name=Witte Fret
-item.animania_entity_egg_ferret_grey.name=Grijze Fret
-item.animania_entity_egg_hedgehog.name=Egel
-item.animania_entity_egg_hedgehog_albino.name=Albino Egel
-
-item.animania_entity_egg_peacock_blue.name=Blauwe Pauwhaan
-item.animania_entity_egg_peafowl_blue.name=Blauwe Pauwhen
-item.animania_entity_egg_peachick_blue.name=Bauwe Pauwkuiken
-item.animania_entity_egg_peacock_white.name=Witte Pauwhaan 
-item.animania_entity_egg_peafowl_white.name=Witte Pauwhen
-item.animania_entity_egg_peachick_white.name=Witte Pauwkuiken
-item.animania_entity_egg_peacock_charcoal.name=Houtskool Pauwhaan
-item.animania_entity_egg_peafowl_charcoal.name=Houtskooltskool Pauwhen
-item.animania_entity_egg_peachick_charcoal.name=Houtskool Pauwkuiken
-item.animania_entity_egg_peacock_opal.name=Opaal Pauwhaan 
-item.animania_entity_egg_peafowl_opal.name=Opaal Pauwhen
-item.animania_entity_egg_peachick_opal.name=Opaal Pauwkuiken
-item.animania_entity_egg_peacock_peach.name=Perzik Pauwhaan
-item.animania_entity_egg_peafowl_peach.name=Perzik Pauwhen
-item.animania_entity_egg_peachick_peach.name=Perzik Pauwkuiken
-item.animania_entity_egg_peacock_purple.name=Paarse Pauwhaan
-item.animania_entity_egg_peafowl_purple.name=Paarse Pauwhen
-item.animania_entity_egg_peachick_purple.name=Paarse Pauwkuiken
-item.animania_entity_egg_peacock_taupe.name=Taupe Pauwhaan
-item.animania_entity_egg_peafowl_taupe.name=Taupe Pauwhen
-item.animania_entity_egg_peachick_taupe.name=Taupe Pauwkuiken
-
-item.animania_entity_egg_cow_random.name=Willekeurige Koe
-item.animania_entity_egg_pig_random.name=Willekeurig Varken
-item.animania_entity_egg_chicken_random.name=Willekeurige Kip
-item.animania_entity_egg_goat_random.name=Willekeurige Geit
-item.animania_entity_egg_peacock_random.name=Willekeurige Pauw
-item.animania_entity_egg_random.name=Willekeurig Dier
-item.animania_entity_egg_rabbit_random.name=Willekeurig Konijn
-item.animania_entity_egg_sheep_random.name=Willekeurig Schaap
-
-item.animania_entity_egg_frog.name=Kikker
-item.animania_entity_egg_toad.name=Pad
-item.animania_entity_egg_dart_frog.name=Pijlgifkikker
-
-item.animania_entity_egg_draft_horse_mare.name=Werkpaard Merrie
-item.animania_entity_egg_draft_horse_stallion.name=Werkpaard Hengst
-item.animania_entity_egg_draft_horse_foal.name=Werkpaard Veulen
-
-item.animania_entity_egg_buck_alpine.name=Alpine Bok 
-item.animania_entity_egg_doe_alpine.name=Alpine Sik
-item.animania_entity_egg_kid_alpine.name=Alpine Lam
-item.animania_entity_egg_buck_angora.name=Angora Bok 
-item.animania_entity_egg_doe_angora.name=Angora Sik
-item.animania_entity_egg_kid_angora.name=Angora Lam
-item.animania_entity_egg_buck_fainting.name=Fainting Bok 
-item.animania_entity_egg_doe_fainting.name=Fainting Sik
-item.animania_entity_egg_kid_fainting.name=Fainting Lam
-item.animania_entity_egg_buck_kiko.name=Kiko Bok 
-item.animania_entity_egg_doe_kiko.name=Kiko Sik
-item.animania_entity_egg_kid_kiko.name=Kiko Lam
-item.animania_entity_egg_buck_kinder.name=Kinder Bok 
-item.animania_entity_egg_doe_kinder.name=Kinder Sik
-item.animania_entity_egg_kid_kinder.name=Kinder Lam
-item.animania_entity_egg_buck_nigeriandwarf.name=Nigerian Dwarf Bok 
-item.animania_entity_egg_doe_nigeriandwarf.name=Nigerian Dwarf Sik
-item.animania_entity_egg_kid_nigeriandwarf.name=Nigerian Dwarf Lam
-item.animania_entity_egg_buck_pygmy.name=Pygmy Bok 
-item.animania_entity_egg_doe_pygmy.name=Pygmy Sik
-item.animania_entity_egg_kid_pygmy.name=Pygmy Lam
-
-item.animania_entity_egg_ram_friesian.name=Friesian Ram
-item.animania_entity_egg_ewe_friesian.name=Friesian Ooi
-item.animania_entity_egg_lamb_friesian.name=Friesian Lam
-item.animania_entity_egg_ram_suffolk.name=Suffolk Ram
-item.animania_entity_egg_ewe_suffolk.name=Suffolk Ooi
-item.animania_entity_egg_lamb_suffolk.name=Suffolk Lam
-item.animania_entity_egg_ram_dorset.name=Dorset Ram
-item.animania_entity_egg_ewe_dorset.name=Dorset Ooi
-item.animania_entity_egg_lamb_dorset.name=Dorset Lam
-item.animania_entity_egg_ram_dorper.name=Dorper Ram
-item.animania_entity_egg_ewe_dorper.name=Dorper Ooi
-item.animania_entity_egg_lamb_dorper.name=Dorper Lam
-item.animania_entity_egg_ram_merino.name=Merino Ram
-item.animania_entity_egg_ewe_merino.name=Merino Ooi
-item.animania_entity_egg_lamb_merino.name=Merino Lam
-item.animania_entity_egg_ram_jacob.name=Jacob Ram
-item.animania_entity_egg_ewe_jacob.name=Jacob Ooi
-item.animania_entity_egg_lamb_jacob.name=Jacob Lam
-
-item.animania_entity_egg_buck_cottontail.name=Cottontail Rammelaar
-item.animania_entity_egg_doe_cottontail.name=Cottontail Voedster
-item.animania_entity_egg_kit_cottontail.name=Cottontail Lamprei
-item.animania_entity_egg_buck_chinchilla.name=Chinchilla Rammelaar
-item.animania_entity_egg_doe_chinchilla.name=Chinchilla Voedster
-item.animania_entity_egg_kit_chinchilla.name=Chinchilla Lamprei
-item.animania_entity_egg_buck_dutch.name=Dutch Rammelaar
-item.animania_entity_egg_doe_dutch.name=Dutch Voedster
-item.animania_entity_egg_kit_dutch.name=Dutch Lamprei
-item.animania_entity_egg_buck_havana.name=Havana Rammelaar
-item.animania_entity_egg_doe_havana.name=Havana Voedster
-item.animania_entity_egg_kit_havana.name=Havana Lamprei
-item.animania_entity_egg_buck_jack.name=Jack Rammelaar
-item.animania_entity_egg_doe_jack.name=Jack Voedster
-item.animania_entity_egg_kit_jack.name=Jack Lamprei
-item.animania_entity_egg_buck_lop.name=Lop Rammelaar
-item.animania_entity_egg_doe_lop.name=Lop Voedster
-item.animania_entity_egg_kit_lop.name=Lop Lamprei
-item.animania_entity_egg_buck_newzealand.name=New Zealand Rammelaar
-item.animania_entity_egg_doe_newzealand.name=New Zealand Voedster
-item.animania_entity_egg_kit_newzealand.name=New Zealand Lamprei
-item.animania_entity_egg_buck_rex.name=Rex Rammelaar
-item.animania_entity_egg_doe_rex.name=Rex Voedster
-item.animania_entity_egg_kit_rex.name=Rex Lamprei
+entity.animania:cow_random.name=Willekeurige Koe
+entity.animania:pig_random.name=Willekeurig Varken
+entity.animania:chicken_random.name=Willekeurige Kip
+entity.animania:goat_random.name=Willekeurige Geit
+entity.animania:peacock_random.name=Willekeurige Pauw
+entity.animania:random.name=Willekeurig Dier
+entity.animania:rabbit_random.name=Willekeurig Konijn
+entity.animania:sheep_random.name=Willekeurig Schaap
+entity.animania:dart_frog.name=Pijlgifkikker
 
 entity.animania:chick_rhode_island_red.name=Rhode Island Red Kuiken
 entity.animania:hen_rhode_island_red.name=Rhode Island Red Hen
@@ -318,6 +181,15 @@ entity.animania:calf_hereford.name=Hereford Kalf
 entity.animania:bull_longhorn.name=Longhorn Stier
 entity.animania:cow_longhorn.name=Longhorn Koe
 entity.animania:calf_longhorn.name=Longhorn Kalf
+entity.animania:bull_highland.name=Highland Stier
+entity.animania:cow_highland.name=Highland Koe
+entity.animania:calf_highland.name=Highland Kalf
+entity.animania:bull_jersey.name=Jersey Stier
+entity.animania:cow_jersey.name=Jersey Koe
+entity.animania:calf_jersey.name=Jersey Kalf
+entity.animania:bull_mooshroom.name=Mooshroom Stier
+entity.animania:cow_mooshroom.name=Mooshroom Koe
+entity.animania:calf_mooshroom.name=Mooshroom kalf
 
 entity.animania:hog_yorkshire.name=American Yorkshire Beer
 entity.animania:sow_yorkshire.name=American Yorkshire Zeug
@@ -440,16 +312,27 @@ entity.animania:kit_new_zealand.name=New Zealand Lamprei
 entity.animania:buck_rex.name=Rex Rammelaar
 entity.animania:doe_rex.name=Rex Voedster
 entity.animania:kit_rex.name=Rex Lamprei
+
 death.attack.bull=%1$s was doorboord
 death.attack.pepe=%1$s was doodgememed
 
 tile.animania_block_mud.name=Modder
 tile.animania_block_seeds.name=Zaden
+tile.animania_block_straw.name=Stro
 tile.animania_block_trough.name=Trog
 tile.animania_block_nest.name=Nest
 tile.animania_invisiblock.name=Trog
 tile.animania_block_hamster_wheel.name=Hamsterwiel
 tile.animania_salt_lick.name=Zoutsteen
+
+entity.animania:wagon.name=Covered Wagon
+item.wagon.name=Covered Wagon
+
+entity.animania:cart.name=Horse Cart
+item.cart.name=Horse Cart
+
+entity.animania:tiller.name=Tiller
+item.tiller.name=Tiller
 
 tile.animania_wool_dorset_brown.name=Wol (Dorset, Brown)
 tile.animania_wool_friesian_black.name=Wol (Friesian, Black)
@@ -462,6 +345,7 @@ tile.animania_wool_friesian_brown.name=Wol (Friesian, Brown)
 fluid.slop=Voer
 fluid.milk_holstein=Holstein Melk
 fluid.milk_friesian=Friesian Melk
+fluid.milk_jersey=Jersey Melk
 fluid.milk_goat=Geitenmelk
 fluid.milk_sheep=Schapenmelk
 
@@ -473,17 +357,17 @@ animania.updatetext.2=is nu beschikbaar
 animania.updatetext.3=Kon niet verbinden om te zien of er een Animania update beschikbaar is
 animania.update.download=["Klik om: [",{"text":"Download","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Klik om de laatst beschikbaare downloadbestanden te zien,"color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]
 
-tooltip.an.cheeseomelette=Directe Gezondheid
-tooltip.an.baconomelette=Kracht (30 seconden)
-tooltip.an.truffleomelette=Regeneratie (30 seconden)
 tooltip.an.instanthealth=Directe Gezondheid
-tooltip.an.chocolatetruffle=Snelheids Boost (1 minuut)
+tooltip.an.speed=Springboost
 tooltip.an.absorption=Absorptie
 tooltip.an.regeneration=Regeneratie
 tooltip.an.haste=Haast
-tooltip.an.healthboost=Gezondhieds Boost
-tooltip.an.jumping=Spring Boost
+tooltip.an.healthboost=Gezondhiedsboost
+tooltip.an.jumpboost=Spring Boost
+tooltip.an.strength=Kracht
 tooltip.an.resistance=Weerstand
+tooltip.an.luck=Geluk
+tooltip.an.removeall=Verwijder alle toverdrank effecten
 
 tooltip.an.ridingcrop1=Gebruik dit op een goed gevoerd werkpaard om te berijden
 tooltip.an.ridingcrop2=Inhouden om sneller te gaan tijdens het rijden
@@ -522,6 +406,7 @@ text.waila.fertile1=Vruchtbaar
 text.waila.wool1=Wolgroei
 text.waila.wool2=tiks resterend
 text.waila.wool3=Klaar om te scheren
+text.waila.sleeping=In slaap
 
 text.jei.trough=De trog kan gebruikt worden om je dieren te voeren. Rechts-klik er op met Graan, een Emmer Water of een Emmer Voer om hem te vullen.
 text.jei.mud=Modder blokken zijn essentieel voor varkens, ze houden er van om er doorheen te rollen.
@@ -531,9 +416,11 @@ text.jei.nest=Nesten worden door hennen gebruikt omdat ze een plek nodig hebben 
 text.jei.slop=Voer is het favoriete voer voor varkens.
 text.jei.milkholstein=Holstein Melk wordt verkregen van Holstein Koeien.
 text.jei.milkfriesian=Friesian Melk wordt verkregen van Friesian Koeien.
+text.jei.milkjersey=Jersey Melk wordt verkregen van Jersey Koeien.
 text.jei.milkgoat=Geitenmelk wordt verkregen van Sikken.
 text.jei.milksheep=Schapenmelk wordt verkregen van Ooien.
 text.jei.salt=Zout wordt verkregen door water te laten verdampen in een kaasvorm.
+
 advancements.animania.root.title=Animania
 advancements.animania.root.desc=Animania, de realistische dieren mod 
 advancements.animania.cows.title=Koeien
@@ -561,6 +448,12 @@ advancements.animania.friesian.title=Friesian
 advancements.animania.friesian.description=Voer een Friesian koe
 advancements.animania.angus.title=Angus
 advancements.animania.angus.description=Voer een Angus koe
+advancements.animania.highland.title=Highland
+advancements.animania.highland.description=Voer een Highland koe
+advancements.animania.jersey.title=Jersey
+advancements.animania.jersey.description=Voer een Jersey koe
+advancements.animania.mooshroom.title=Mooshroom
+advancements.animania.mooshroom.description=Voer een Mooshroom koe
 
 advancements.animania.leghorn.title=Leghorn
 advancements.animania.leghorn.description=Voer een Leghorn Kip
