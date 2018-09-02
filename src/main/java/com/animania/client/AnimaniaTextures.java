@@ -61,7 +61,7 @@ public class AnimaniaTextures
 		register(ItemHandler.hamsterBallClear);
 		register(ItemHandler.wheel);
 		register(ItemHandler.milkBottle);
-		// register(ItemHandler.honeyJar);
+		register(ItemHandler.honeyJar);
 
 		registerColored(ItemHandler.hamsterBallColored, "hamster_ball");
 
@@ -182,6 +182,8 @@ public class AnimaniaTextures
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseGoat));
 		register(Item.getItemFromBlock(BlockHandler.blockCheeseSheep));
 		register(Item.getItemFromBlock(BlockHandler.blockSaltLick));
+		register(Item.getItemFromBlock(BlockHandler.blockHive));
+		register(Item.getItemFromBlock(BlockHandler.blockWildHive));
 		regSpecial(BlockHandler.blockAnimaniaWool);
 		if (!AnimaniaConfig.gameRules.disableRollingVehicles)
 		{

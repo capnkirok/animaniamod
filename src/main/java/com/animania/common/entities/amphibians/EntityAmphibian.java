@@ -73,19 +73,19 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 		super.entityInit();
 		this.dataManager.register(EntityAmphibian.AGE, Integer.valueOf(0));
 	}
-	
+
 	@Override
 	protected boolean canDespawn()
 	{
 		return false;
 	}
-	
+
 	@Override
 	public void setPosition(double x, double y, double z)
 	{
 		super.setPosition(x, y, z);
 	}
-	
+
 	@Override
 	protected void initEntityAI() {
 		this.tasks.addTask(1, new EntityAISwimming(this));
@@ -117,7 +117,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 			return 0.5F;
 	}
 
-	
+
 	public int getAge()
 	{
 		return this.dataManager.get(EntityAmphibian.AGE).intValue();
@@ -128,7 +128,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 		this.dataManager.set(EntityAmphibian.AGE, Integer.valueOf(age));
 	}
 
-	
+
 	@Override
 	protected void jump() {
 		super.jump();
@@ -237,6 +237,16 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 			this.setAge(1);
 		}
 		
+	
+		
+		if (this.getCustomNameTag().equals("Pepe") && this.getMaxHealth() != 20.0D)
+		{
+			this.initEntityAI();
+			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+			this.setHealth(20);
+		}
+
+		
 		if (this.canEntityJump)
 			if (this.jumpTicks != this.jumpDuration)
 				++this.jumpTicks;
@@ -283,7 +293,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return null;
 	}
-	
+
 	@Override
 	protected SoundEvent getDeathSound() {
 		return null;
@@ -303,7 +313,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 	public EntityAmphibian createChild(EntityAgeable ageable) {
 		return null;
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
@@ -436,7 +446,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, Animani
 	{
 		return null;
 	}
-	
+
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target)
 	{

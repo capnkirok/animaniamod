@@ -227,6 +227,7 @@ public class ItemHandler
 		ItemHandler.plainOmelette = new ItemAnimaniaFood(5, 2f, "plain_omelette");
 		ItemHandler.truffleSoup = new ItemTruffleSoup();
 		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", true, new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
+		
 		ItemHandler.honeyJar = new ItemJar();
 
 		// ITEMS produced by Animals

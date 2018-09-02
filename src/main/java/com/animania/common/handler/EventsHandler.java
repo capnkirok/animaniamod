@@ -29,7 +29,6 @@ public class EventsHandler
         MinecraftForge.EVENT_BUS.register(new CapabilityLoadHandler());
         MinecraftForge.EVENT_BUS.register(new CarryRenderer());
         MinecraftForge.TERRAIN_GEN_BUS.register(new EventBeehiveDecorator());
-       
         MinecraftForge.EVENT_BUS.register(new BlockHandler());
 
     }

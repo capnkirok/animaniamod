@@ -156,6 +156,7 @@ import com.animania.client.render.sheep.RenderRamJacob;
 import com.animania.client.render.sheep.RenderRamMerino;
 import com.animania.client.render.sheep.RenderRamSuffolk;
 import com.animania.client.render.tileEntity.TileEntityHamsterWheelRenderer;
+import com.animania.client.render.tileEntity.TileEntityHiveRenderer;
 import com.animania.client.render.tileEntity.TileEntityNestRenderer;
 import com.animania.client.render.tileEntity.TileEntitySaltLickRenderer;
 import com.animania.client.render.tileEntity.TileEntityTroughRenderer;
@@ -315,6 +316,7 @@ import com.animania.common.entities.sheep.EntityRamJacob;
 import com.animania.common.entities.sheep.EntityRamMerino;
 import com.animania.common.entities.sheep.EntityRamSuffolk;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
+import com.animania.common.tileentities.TileEntityHive;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntitySaltLick;
 import com.animania.common.tileentities.TileEntityTrough;
@@ -568,6 +570,7 @@ public class RenderHandler
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTrough.class, new TileEntityTroughRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHamsterWheel.class, new TileEntityHamsterWheelRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySaltLick.class, new TileEntitySaltLickRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHive.class, new TileEntityHiveRenderer());
 
 	}
 }

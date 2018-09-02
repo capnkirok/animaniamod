@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "animania:bee_hive"
+  },
+  "pattern": [
+    "www",
+    "whw",
+    "www"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "w": {
+      "ore": "plankWood",
+      "type": "forge:ore_dict"
+    },
+    "h": {
+      "item": "animania:wild_hive"
+    }
+  }
+}

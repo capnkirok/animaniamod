@@ -16,6 +16,7 @@ import com.animania.common.blocks.BlockSaltLick;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.blocks.BlockStraw;
 import com.animania.common.blocks.BlockTrough;
+import com.animania.common.blocks.BlockWildHive;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 import com.animania.common.blocks.fluids.BlockFluidHoney;
 import com.animania.common.blocks.fluids.BlockFluidMilk;
@@ -27,7 +28,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -56,6 +56,7 @@ public class BlockHandler
 	public static Block blockCheeseSheep;
 	public static Block blockAnimaniaWool;
 	public static Block blockHive;
+	public static Block blockWildHive;
 
 	// TileEntity blocks
 	public static Block blockTrough;
@@ -111,6 +112,7 @@ public class BlockHandler
 		BlockHandler.blockSaltLick = new BlockSaltLick();
 		BlockHandler.blockAnimaniaWool = new BlockAnimaniaWool();
 		BlockHandler.blockHive = new BlockHive();
+		BlockHandler.blockWildHive = new BlockWildHive();
 
 		// Fluids
 		BlockHandler.fluidSlop = new FluidBase("slop").setViscosity(7000).setDensity(3000).setEmptySound(SoundEvents.BLOCK_SLIME_PLACE).setFillSound(SoundEvents.BLOCK_SLIME_FALL);
@@ -137,6 +139,11 @@ public class BlockHandler
 		FluidRegistry.addBucketForFluid(BlockHandler.fluidMilkSheep);
 		BlockHandler.blockMilkSheep = new BlockFluidMilk(BlockHandler.fluidMilkSheep, "milk_sheep");
 
+		BlockHandler.fluidHoney = new FluidBase("animania_honey").setViscosity(7000).setDensity(3000);
+		FluidRegistry.addBucketForFluid(BlockHandler.fluidHoney);
+		BlockHandler.blockHoney = new BlockFluidHoney();
+		
+		/*
 		if (FluidRegistry.getFluid("honey") == null)
 		{
 			BlockHandler.fluidHoney = new FluidBase("honey").setViscosity(5000).setDensity(500);
@@ -147,6 +154,7 @@ public class BlockHandler
 		{
 			BlockHandler.fluidHoney = FluidRegistry.getFluid("honey");
 		}
+		*/
 		
 		// Itemblocks
 		BlockHandler.itemBlockMud = new ItemBlock(BlockHandler.blockMud);

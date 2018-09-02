@@ -35,12 +35,12 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-public class BlockHive extends BlockContainer
+public class BlockWildHive extends BlockContainer
 {
-	private String name = "block_hive";
+	private String name = "block_wild_hive";
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
 	
-	public BlockHive()
+	public BlockWildHive()
 	{
 		super(Material.LEAVES, MapColor.YELLOW);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
@@ -51,7 +51,7 @@ public class BlockHive extends BlockContainer
 		this.setResistance(0.3f);
 		BlockHandler.blocks.add(this);
 		Item item = new ItemBlock(this);
-		item.setRegistryName(new ResourceLocation(Animania.MODID, "bee_hive"));
+		item.setRegistryName(new ResourceLocation(Animania.MODID, "wild_hive"));
 		ForgeRegistries.ITEMS.register(item);
 		
 	}
@@ -177,7 +177,6 @@ public class BlockHive extends BlockContainer
 		return rot;
 	}
 
-
 	@Override
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
@@ -187,7 +186,7 @@ public class BlockHive extends BlockContainer
 	@Override
 	protected BlockStateContainer createBlockState()
 	{
-		return new BlockStateContainer(this, new IProperty[] {FACING });
+		return new BlockStateContainer(this, new IProperty[] { FACING });
 	}
 
 	@Override
