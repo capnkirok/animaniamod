@@ -198,9 +198,7 @@ public class AnimaniaTextures
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkJersey, "milk_jersey");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkGoat, "milk_goat");
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockMilkSheep, "milk_sheep");
-
-		if (BlockHandler.blockHoney != null)
-			Animania.proxy.registerFluidBlockRendering(BlockHandler.blockHoney, "honey");
+		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockHoney, "honey");
 
 	}
 

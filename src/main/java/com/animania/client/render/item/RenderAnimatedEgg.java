@@ -138,11 +138,11 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 
 			renderEntityStatic(entity);
 
-			RenderHelper.enableStandardItemLighting();
+//			RenderHelper.enableStandardItemLighting();
 			GlStateManager.popMatrix();
 			GlStateManager.popMatrix();
 
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, pbx, pby);
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240f, 240f);
 		}
 	}
 
@@ -175,7 +175,6 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 			this.setLightmapDisabled(false);
 
 		Minecraft.getMinecraft().getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, f, 0.0F, true);
-		this.setLightmapDisabled(true);
 
 	}
 

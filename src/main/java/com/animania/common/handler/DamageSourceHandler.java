@@ -8,10 +8,13 @@ public class DamageSourceHandler
     // DamageSource
     public static DamageSource bullDamage;
     public static DamageSource pepeDamage;
+    public static DamageSource beeDamage;
 
     public static void preInit() {
         // DAMAGE
         DamageSourceHandler.bullDamage = new DamageSource("bull").setDamageBypassesArmor();
         DamageSourceHandler.pepeDamage = new DamageSource("pepe");
+        DamageSourceHandler.beeDamage = new DamageSource("animania_bee");
+
     }
 }

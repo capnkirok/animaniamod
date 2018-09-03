@@ -24,7 +24,7 @@ import com.animania.common.items.ItemCarvingKnife;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.common.items.ItemHamsterBall;
-import com.animania.common.items.ItemJar;
+import com.animania.common.items.ItemHoneyBottle;
 import com.animania.common.items.ItemMilkBottle;
 import com.animania.common.items.ItemRidingCrop;
 import com.animania.common.items.ItemTiller;
@@ -228,7 +228,7 @@ public class ItemHandler
 		ItemHandler.truffleSoup = new ItemTruffleSoup();
 		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", true, new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
 		
-		ItemHandler.honeyJar = new ItemJar();
+		ItemHandler.honeyJar = new ItemHoneyBottle();
 
 		// ITEMS produced by Animals
 		// COW ITEMS

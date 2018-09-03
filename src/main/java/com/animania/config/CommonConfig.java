@@ -142,6 +142,8 @@ public class CommonConfig
 				"FOREST",
 				"PLAINS",
 		};
+		
+		
 	}
 
 	public static class Spawn

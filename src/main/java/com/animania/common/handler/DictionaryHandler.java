@@ -38,7 +38,9 @@ public class DictionaryHandler
 		OreDictionary.registerOre("itemSalt", ItemHandler.salt);
 		OreDictionary.registerOre("foodSalt", ItemHandler.salt);
 		OreDictionary.registerOre("wool", new ItemStack(BlockHandler.blockAnimaniaWool, 1, OreDictionary.WILDCARD_VALUE));
-		
+		OreDictionary.registerOre("foodHoney", ItemHandler.honeyJar);
+		OreDictionary.registerOre("foodHoneydrop", ItemHandler.honeyJar);
+
 		//OreDictionary.registerOre("listAllmilk", milkHolstein);
 		/*
 		OreDictionary.registerOre("listAllmilk", milkHolstein);
