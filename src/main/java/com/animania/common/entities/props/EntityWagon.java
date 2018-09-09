@@ -621,38 +621,6 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 			move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 		}
 
-		//TODO remove?
-		/*
-		List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
-
-		if (!list.isEmpty())
-		{
-			boolean flag = !this.world.isRemote;
-
-			for (int j = 0; j < list.size(); ++j)
-			{
-				Entity entity = list.get(j);
-
-				if (entity instanceof EntityAnimal) {
-
-					EntityAnimal entityanimal = (EntityAnimal) entity;
-					if (!entity.isPassenger(this))
-					{
-						if (flag && this.getPassengers().size() < 2 && this.puller != entity && entityanimal.getLeashed() && entityanimal.getLeashHolder() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer))
-						{
-							entity.startRiding(this);
-						}
-						else
-						{
-							this.applyEntityCollision(entity);
-						}
-					}
-				}
-			}
-		}
-		 */
-
-
 
 		if (!this.pulled)
 		{
@@ -832,10 +800,6 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		double movZ = Math.abs(this.posZ - this.prevPosZ);
 
 		if (entityIn == this.puller) {
-			this.puller.motionX = 0;
-			this.puller.motionZ = 0;
-			this.motionX = 0;
-			this.motionZ = 0;
 			return null;
 		} else if (this.pulled) {
 			return null;

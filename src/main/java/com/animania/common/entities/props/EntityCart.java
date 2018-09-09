@@ -123,9 +123,42 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
+		boolean isPulling = false;
 		List horses = AnimaniaHelper.getEntitiesInRange(EntityHorse.class, 3, world, player);
 		List pigs = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 3, world, player);
 		List carts = AnimaniaHelper.getCartsInRange(EntityCart.class, 3, world, this);
+		List wagons = AnimaniaHelper.getWagonsInRange(EntityWagon.class, 3, world, this);
+		List tillers = AnimaniaHelper.getTillersInRange(EntityTiller.class, 3, world, this);
+
+		if (!carts.isEmpty()) {
+			for (int i = 0; i < carts.size(); i++) {
+				EntityCart tempCart = (EntityCart) carts.get(i);
+				if (tempCart.pulled && tempCart.puller == player.getRidingEntity()) {
+					isPulling = true;
+				}
+			}
+		}
+		
+		if (!wagons.isEmpty()) {
+			for (int i = 0; i < wagons.size(); i++) {
+				EntityWagon tempWagon = (EntityWagon) wagons.get(i);
+				if (tempWagon.pulled && tempWagon.puller == player.getRidingEntity()) {
+					isPulling = true;
+				}
+			}
+		}
+		
+		if (!tillers.isEmpty()) {
+			for (int i = 0; i < tillers.size(); i++) {
+				EntityTiller tempTiller = (EntityTiller) tillers.get(i);
+				if (tempTiller.pulled && tempTiller.puller == player.getRidingEntity()) {
+					isPulling = true;
+				}
+			}
+		}
+		
+		//TODO
+		System.out.println(isPulling);
 
 		EntityHorse horse = null;
 		EntityAnimaniaPig pig = null;
@@ -167,7 +200,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.PLAYERS, 0.7F, 1.0F);
 				}
 				return true;
-			} else if (player.isRiding() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this) {
+			} else if (player.isRiding() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this && !isPulling) {
 
 				this.pulled = true;
 				this.puller = player.getRidingEntity();
@@ -190,7 +223,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 				stopCart();
 				return true;
-			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashHolder() == player)  {
+			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && horse != null && horse.getLeashHolder() == player && !isPulling)  {
 				this.pulled = true;
 				this.puller = horse;
 				this.setPullerType(1);
@@ -202,7 +235,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
-			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && pig != null && pig.getLeashHolder() == player)  {
+			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && pig != null && pig.getLeashHolder() == player && !isPulling)  {
 				this.pulled = true;
 				this.puller = pig;
 				this.setPullerType(3);
@@ -214,7 +247,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSoundEvents.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isRiding() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote) {
+			} else if (stack.isEmpty() && !player.isRiding() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote && !isPulling) {
 
 				double diffx = Math.abs(this.posX - player.posX);
 				double diffy = Math.abs(this.posY - player.posY);
@@ -350,7 +383,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 		//Determine animation direction based on previous pos
 		if (this.pulled && this.puller != null && world.isRemote) {
-			
+
 			double movX = Math.abs(this.posX - this.prevPosX);
 			double movZ = Math.abs(this.posZ - this.prevPosZ);
 
@@ -421,6 +454,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		//Add slowness if multiple carts being pulled
 		if (this.pulled && this.puller instanceof EntityPlayer) {
 			List carts = AnimaniaHelper.getCartsInRange(EntityCart.class, 3, world, this);
+
 			EntityPlayer player = (EntityPlayer) this.puller;
 			int totPulling = 0;
 			if (!carts.isEmpty()) {
@@ -438,23 +472,56 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			}
 		}
 
+		//TODO didn't work
+
 		if (this.pulled && this.puller instanceof EntityAnimal) {
 			List carts = AnimaniaHelper.getCartsInRange(EntityCart.class, 3, world, this);
+			List wagons = AnimaniaHelper.getWagonsInRange(EntityWagon.class, 3, world, this);
+			List tillers = AnimaniaHelper.getTillersInRange(EntityTiller.class, 3, world, this);
+
 			EntityAnimal animal = (EntityAnimal) this.puller;
-			int totPulling = 0;
-			if (!carts.isEmpty()) {
-				if (carts.size() > 1) {
-					for (int i = 0; i < carts.size(); i++) {
-						EntityCart tempCart = (EntityCart) carts.get(i);
-						if (tempCart.pulled && tempCart.puller == animal && tempCart != this) {
-							totPulling++;
+
+			//System.out.println(carts.size() + wagons.size() + tillers.size());
+
+			if (carts.size() + wagons.size() + tillers.size() > 1) {
+
+				if (!carts.isEmpty()) {
+					if (carts.size() > 1) {
+						for (int i = 0; i < carts.size(); i++) {
+							EntityCart tempCart = (EntityCart) carts.get(i);
+							if (tempCart.pulled && tempCart.puller == animal && tempCart != this) {
+								tempCart.pulled = false;
+								tempCart.puller = null;
+							}
 						}
 					}
 				}
-				if (totPulling > 0) {
-					animal.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, carts.size() + 1, false, false));
+
+				if (!wagons.isEmpty()) {
+					if (wagons.size() > 1) {
+						for (int i = 0; i < wagons.size(); i++) {
+							EntityWagon tempWagon = (EntityWagon) wagons.get(i);
+							if (tempWagon.pulled && tempWagon.puller == animal) {
+								tempWagon.pulled = false;
+								tempWagon.puller = null;
+							}
+						}
+					}
+				}
+
+				if (!tillers.isEmpty()) {	
+					if (tillers.size() > 1) {
+						for (int i = 0; i < tillers.size(); i++) {
+							EntityTiller tempTiller = (EntityTiller) tillers.get(i);
+							if (tempTiller.pulled && tempTiller.puller == animal) {
+								tempTiller.pulled = false;
+								tempTiller.puller = null;
+							}
+						}
+					}
 				}
 			}
+
 		}
 
 		//Stop Animation if not pulling or moving
@@ -541,9 +608,9 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
 
 			Vec3d vec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -2.5D).rotateYaw((float)-deltaAngle));
-			this.motionX = vec.x/1;
+			this.motionX = vec.x;
 			this.motionY = vec.y;
-			this.motionZ = vec.z/1;
+			this.motionZ = vec.z;
 			move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 
 		}
@@ -603,6 +670,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	{
 		if (this.lerpSteps > 0 && !this.canPassengerSteer())
 		{
+
 			double d0 = this.posX + (this.cartPitch - this.posX) / (double)this.lerpSteps;
 			double d1 = this.posY + (this.lerpY - this.posY) / (double)this.lerpSteps;
 			double d2 = this.posZ + (this.lerpZ - this.posZ) / (double)this.lerpSteps;
@@ -743,12 +811,8 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 		double movX = Math.abs(this.posX - this.prevPosX);
 		double movZ = Math.abs(this.posZ - this.prevPosZ);
-		
+
 		if (entityIn == this.puller) {
-			this.puller.motionX = 0;
-			this.puller.motionZ = 0;
-			this.motionX = 0;
-			this.motionZ = 0;
 			return null;
 		} else if (this.pulled) {
 			return null;
@@ -757,9 +821,6 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		}
 	}
 
-	/**
-	 * Returns the collision bounding box for this entity
-	 */
 	@Nullable
 	public AxisAlignedBB getCollisionBoundingBox()
 	{
