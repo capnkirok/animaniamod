@@ -1,5 +1,7 @@
 package com.animania.common.helper;
 
+import java.lang.reflect.Method;
+
 import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaType;
@@ -11,6 +13,7 @@ import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.ResourceLocation;
@@ -20,6 +23,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class RegistryHelper
 {
@@ -63,10 +67,13 @@ public class RegistryHelper
 			EntityRegistry.registerModEntity(registryName, entityClass, registryName.toString(), entityID, Animania.instance, 64, 2, true);
 			EntityEggHandler.ENTITY_MAP.put(new AnimalContainer(type, gender), entry);
 			if (registerEgg)
+			{
 				if (fancyEgg)
 					ItemHandler.entityEggList.add(new ItemEntityEggAnimated(entityName, type, gender));
 				else
 					ItemHandler.entityEggList.add(new ItemEntityEgg(entityName, type, gender));
+				
+			}
 		}
 
 		public static void registerAnimal(Class<? extends net.minecraft.entity.Entity> entityClass, String entityName, int entityID, AnimaniaType type, EntityGender gender, boolean registerEgg)

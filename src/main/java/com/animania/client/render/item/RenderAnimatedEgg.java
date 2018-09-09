@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 import com.animania.client.models.item.AnimatedEggModelWrapper;
 import com.animania.common.items.ItemEntityEggAnimated;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -65,12 +66,11 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 				else
 					GlStateManager.scale(1 / Math.sqrt(size), 1 / Math.sqrt(size), 1 / Math.sqrt(size));
 
-				
 				break;
 			case FIXED:
 				GlStateManager.rotate(90, 0.0f, 1.0f, 0f);
 				GlStateManager.translate(-0.5, 0, 0.5);
-				
+
 				if (height > width)
 					GlStateManager.scale(0.8 / height, 0.8 / height, 0.8 / height);
 				else if (width > height)
@@ -78,8 +78,6 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 				else
 					GlStateManager.scale(0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size));
 
-			
-				
 				break;
 			case GUI:
 				GlStateManager.translate(0.5, 0.1, 0);
@@ -90,17 +88,19 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 				else
 					GlStateManager.scale(0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size));
 
-				
+				if (AnimaniaConfig.gameRules.fancyEggsRotate)
+					GlStateManager.rotate(360 * renderTimer, 0, 1f, 0);
+				else
+					GlStateManager.rotate(20, 0.5f, 1f, 0);
 
-				GlStateManager.rotate(360 * renderTimer, 0, 1f, 0);
 				break;
 			case THIRD_PERSON_LEFT_HAND:
 			case THIRD_PERSON_RIGHT_HAND:
-				
+
 				GlStateManager.rotate(180, 0, 1f, 0);
 				GlStateManager.rotate(-90, 1f, 0, 0);
 				GlStateManager.translate(-0.5, 0, 0.2);
-				
+
 				if (height > width)
 					GlStateManager.scale(0.8 / height, 0.8 / height, 0.8 / height);
 				else if (width > height)
@@ -108,7 +108,6 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 				else
 					GlStateManager.scale(0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size));
 
-			
 				break;
 			case FIRST_PERSON_RIGHT_HAND:
 				GlStateManager.rotate(-90.0f, 0f, 1f, 0f);
@@ -119,7 +118,6 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 				else
 					GlStateManager.scale(0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size));
 
-				
 				break;
 			case FIRST_PERSON_LEFT_HAND:
 				GlStateManager.rotate(90.0f, 0f, 1f, 0f);
@@ -130,15 +128,14 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 					GlStateManager.scale(0.8 / width, 0.8 / width, 0.8 / width);
 				else
 					GlStateManager.scale(0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size), 0.8 / Math.sqrt(size));
-				
-				
+
 			default:
 				break;
 			}
 
 			renderEntityStatic(entity);
 
-//			RenderHelper.enableStandardItemLighting();
+			// RenderHelper.enableStandardItemLighting();
 			GlStateManager.popMatrix();
 			GlStateManager.popMatrix();
 

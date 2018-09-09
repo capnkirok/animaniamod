@@ -10,8 +10,6 @@ public interface AnimaniaAddon
 	
 	public void initCommon();
 
-	
-	
 	public void preInitClient();
 	
 	public void initClient();
