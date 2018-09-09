@@ -143,19 +143,6 @@ public class BlockHandler
 		FluidRegistry.addBucketForFluid(BlockHandler.fluidHoney);
 		BlockHandler.blockHoney = new BlockFluidHoney();
 		
-		/*
-		if (FluidRegistry.getFluid("honey") == null)
-		{
-			BlockHandler.fluidHoney = new FluidBase("honey").setViscosity(5000).setDensity(500);
-			FluidRegistry.addBucketForFluid(BlockHandler.fluidHoney);
-			BlockHandler.blockHoney = new BlockFluidHoney();
-		}
-		else
-		{
-			BlockHandler.fluidHoney = FluidRegistry.getFluid("honey");
-		}
-		*/
-		
 		// Itemblocks
 		BlockHandler.itemBlockMud = new ItemBlock(BlockHandler.blockMud);
 		BlockHandler.itemBlockMud.setRegistryName(BlockHandler.blockMud.getRegistryName());

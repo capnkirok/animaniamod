@@ -1,11 +1,13 @@
 package com.animania.common.tileentities;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.handler.FluidHandlerBeehive;
 import com.animania.config.AnimaniaConfig;
@@ -15,6 +17,7 @@ import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileE
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -79,6 +82,19 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 
 				if (filled > 0)
 					this.markDirty();
+			}
+		}
+		
+		if(this.blockType == BlockHandler.blockWildHive)
+		{
+			if(this.rand.nextInt(10) == 0)
+			{
+				List<EntityPlayer> players = AnimaniaHelper.getEntitiesInRange(EntityPlayer.class, 2, this.world, pos);
+				for(EntityPlayer p : players)
+				{
+					if(rand.nextInt(3) == 0)
+						p.attackEntityFrom(DamageSourceHandler.beeDamage, 2.5f);
+				}
 			}
 		}
 

@@ -3,9 +3,9 @@ package com.animania.common.events;
 import com.animania.common.handler.ItemHandler;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -51,13 +51,12 @@ public class EntityEventHandler
 
     }
     
-    @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onEntityJoinWorld(EntityJoinWorldEvent event)
     {
-    	if(event.getEntity() instanceof EntityPlayerSP)
+    	if(event.getEntity() instanceof EntityPlayer)
     	{
-            ItemHandler.regItemEggColors();
+            ItemHandler.regItemEggColors(event.getWorld());
     	}
     }
     

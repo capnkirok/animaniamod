@@ -10,7 +10,7 @@ item.animania_riding_crop.name=Riding Crop
 item.animania_wheel.name=Wheel
 item.animania_salt.name=Salt
 item.animania_milk_bottle.name=Bottle of Milk
-item.animania_honey_jar.name=Jar of Honey
+item.animania_honey_bottle.name=Bottle of Honey
 
 item.animania_hamster_ball_clear.name=Clear Hamster Ball
 item.animania_hamster_ball_black.name=Black Hamster Ball
@@ -317,6 +317,7 @@ entity.animania:kit_rex.name=Rex Kit
 
 death.attack.bull=%1$s was gored to death
 death.attack.pepe=%1$s was memed to death
+death.attack.animania_bee=%1$s wasgstung to death
 
 tile.animania_block_mud.name=Mud
 tile.animania_block_seeds.name=Seeds
@@ -425,6 +426,8 @@ text.jei.milkjersey=Jersey Milk is obtained from Jersey Cows.
 text.jei.milkgoat=Goat Milk is obtained from Does.
 text.jei.milksheep=Sheep Milk is obtained from Ewes.
 text.jei.salt=Salt is created by letting Water evaporate in a cheese mold.
+
+text.cheesemold.milk=You cannot make cheese using vanilla milk! Use any Animania milk!
 
 advancements.animania.root.title=Animania
 advancements.animania.root.desc=Animania, the realistic animals mod

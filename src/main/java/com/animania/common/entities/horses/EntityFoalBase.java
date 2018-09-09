@@ -16,6 +16,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -365,7 +366,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 				}
 			}
-
+			
 		}
 		
 		if (this.happyTimer > -1) {

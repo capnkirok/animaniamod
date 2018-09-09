@@ -121,6 +121,9 @@ public class CommonConfig
 		@Comment("Fancy entity spawn eggs")
 		public boolean fancyEggs = true;
 		
+		@Comment("If fancy entity eggs rotate or not")
+		public boolean fancyEggsRotate = false;
+		
 		@Comment("Allow Beehives during world gen")
 		public boolean beehiveSpawning = true;
 		
@@ -142,6 +145,8 @@ public class CommonConfig
 				"FOREST",
 				"PLAINS",
 		};
+		
+		
 	}
 
 	public static class Spawn

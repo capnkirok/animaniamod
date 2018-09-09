@@ -1,5 +1,7 @@
 package com.animania.common.handler;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +24,8 @@ import com.animania.common.items.ItemBrownEgg;
 import com.animania.common.items.ItemCart;
 import com.animania.common.items.ItemCarvingKnife;
 import com.animania.common.items.ItemEntityEgg;
-import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.common.items.ItemHamsterBall;
-import com.animania.common.items.ItemJar;
+import com.animania.common.items.ItemHoneyBottle;
 import com.animania.common.items.ItemMilkBottle;
 import com.animania.common.items.ItemRidingCrop;
 import com.animania.common.items.ItemTiller;
@@ -32,15 +33,16 @@ import com.animania.common.items.ItemTruffleSoup;
 import com.animania.common.items.ItemWagon;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class ItemHandler
 {
@@ -228,7 +230,7 @@ public class ItemHandler
 		ItemHandler.truffleSoup = new ItemTruffleSoup();
 		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", true, new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
 		
-		ItemHandler.honeyJar = new ItemJar();
+		ItemHandler.honeyJar = new ItemHoneyBottle();
 
 		// ITEMS produced by Animals
 		// COW ITEMS
@@ -340,16 +342,14 @@ public class ItemHandler
 	}
 	
 	
-	@SideOnly(Side.CLIENT)
-	public static void regItemEggColors()
+	public static void regItemEggColors(World world)
 	{
 		if (!hasSetEggColors)
 		{
 			for (Item item : entityEggList)
 			{
-				if (item instanceof ItemEntityEgg && !(item instanceof ItemEntityEggAnimated))
+				if (item instanceof ItemEntityEgg)
 				{
-					World world = Minecraft.getMinecraft().world;
 					if (item != ItemHandler.entityeggrandomanimal)
 					{
 						AnimalContainer animal = ((ItemEntityEgg) item).getAnimal();
@@ -364,6 +364,8 @@ public class ItemHandler
 									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true);
 									ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ((ISpawnable) entity).getPrimaryEggColor());
 									ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ((ISpawnable) entity).getSecondaryEggColor());
+									
+									EntityList.ENTITY_EGGS.put(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), new EntityEggInfo(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), ((ISpawnable) entity).getPrimaryEggColor(), ((ISpawnable) entity).getSecondaryEggColor()));
 								}
 								else
 									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false);
@@ -374,6 +376,20 @@ public class ItemHandler
 					
 				}
 			}
+			
+			if(Loader.isModLoaded("thermalexpansion"))
+			{
+				try
+				{
+					Class itemMorb = Class.forName("cofh.thermalexpansion.item.ItemMorb");
+					Method parseMorbs = ReflectionHelper.findMethod(itemMorb, "parseMorbs", null);
+					parseMorbs.invoke(itemMorb);
+				}
+				catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+				{
+				}
+			}
+			
 			hasSetEggColors = true;
 		}
 	}

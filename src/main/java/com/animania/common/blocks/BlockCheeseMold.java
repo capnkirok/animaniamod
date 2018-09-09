@@ -174,7 +174,11 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 							return true;
 						}
 					}
+					
 				}
+				
+				if(stack.getItem() == Items.MILK_BUCKET)
+					player.sendStatusMessage(new TextComponentString(I18n.translateToLocal("text.cheesemold.milk")), true);
 			}
 
 			if (te != null)

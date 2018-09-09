@@ -97,12 +97,11 @@ public class CarryRenderer
 				GlStateManager.scale(1, 1, 1);
 				GlStateManager.popMatrix();
 
-				RenderHelper.disableStandardItemLighting();
-				GlStateManager.disableRescaleNormal();
-				GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-				GlStateManager.disableTexture2D();
-				GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-
+//				RenderHelper.disableStandardItemLighting();
+//				GlStateManager.disableRescaleNormal();
+//				GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+//				GlStateManager.disableTexture2D();
+//				GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
 
 
 			}

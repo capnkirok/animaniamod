@@ -2,10 +2,12 @@ package com.animania.common.blocks;
 
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.ItemHandler;
 import com.animania.common.tileentities.TileEntityHive;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -16,6 +18,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -42,7 +45,8 @@ public class BlockHive extends BlockContainer
 	
 	public BlockHive()
 	{
-		super(Material.LEAVES, MapColor.YELLOW);
+		super(Material.WOOD, MapColor.YELLOW);
+		this.setSoundType(SoundType.WOOD);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
@@ -53,7 +57,11 @@ public class BlockHive extends BlockContainer
 		Item item = new ItemBlock(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "bee_hive"));
 		ForgeRegistries.ITEMS.register(item);
-		
+	}
+	
+	public BlockHive(Material mat, MapColor color)
+	{
+		super(mat, color);
 	}
 	
 	@Override
@@ -113,11 +121,43 @@ public class BlockHive extends BlockContainer
 				}
 
 				world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
-
 				return true;
 
 			}
+			else if(!heldItem.isEmpty() && heldItem.getItem() == Items.GLASS_BOTTLE && hive.fluidHandler.getFluid() != null && hive.fluidHandler.getFluid().amount >= 1000)
+			{
+				FluidStack fluidStack = hive.fluidHandler.drain(1000, true);
+				ItemStack honeyBottle = new ItemStack(ItemHandler.honeyJar);
+				
+				if (!player.isCreative())
+				{
+					IFluidHandlerItem handler;
+					if (heldItem.getCount() >= 1)
+					{
+						ItemStack heldItem1 = honeyBottle.copy();
+						heldItem1.setCount(1);
+						handler = FluidUtil.getFluidHandler(heldItem1);
 
+						handler.fill(fluidStack, true);
+						ItemStack newstack = handler.getContainer();
+
+						if (heldItem.getCount() > 1)
+						{
+							heldItem.shrink(1);
+							player.inventory.addItemStackToInventory(newstack);
+						}
+						else
+							player.setHeldItem(hand, newstack);
+
+						return true;
+					}
+
+				}
+
+				world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
+				return true;
+			}
+			
 			if (!world.isRemote && player.isSneaking() && hand == EnumHand.MAIN_HAND)
 			{
 				int honey = hive.fluidHandler.getFluidAmount();
@@ -130,53 +170,22 @@ public class BlockHive extends BlockContainer
 		return true;
 	}
 
-	// Yeah, I know it's ugly, but it's the only way that it works... //Looks like Purp code :)
-	@Override
 	public IBlockState getStateFromMeta(int meta)
-	{
-		switch (meta)
-		{
-		case 0:
-			return getDefaultState().withProperty(FACING, EnumFacing.NORTH);
-		case 1:
-			return getDefaultState().withProperty(FACING, EnumFacing.EAST);
-		case 2:
-			return getDefaultState().withProperty(FACING, EnumFacing.SOUTH);
-		case 3:
-			return getDefaultState().withProperty(FACING, EnumFacing.WEST);
-		case 4:
-			return getDefaultState().withProperty(FACING, EnumFacing.NORTH);
-		default:
-			return getDefaultState().withProperty(FACING, EnumFacing.NORTH);
-		}
+    {
+        EnumFacing enumfacing = EnumFacing.getFront(meta);
 
-	}
-	
-	@Override
-	public int getMetaFromState(IBlockState state)
-	{
-		int rot = 0;
+        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+        {
+            enumfacing = EnumFacing.NORTH;
+        }
 
-		switch (state.getValue(FACING))
-		{
-		case NORTH:
-			rot = 2;
-			break;
-		case EAST:
-			rot = 1;
-			break;
-		case SOUTH:
-			rot = 3;
-			break;
-		case WEST:
-			rot = 4;
-			break;
-		default:
-			break;
-		}
-		return rot;
-	}
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
 
+    public int getMetaFromState(IBlockState state)
+    {
+        return ((EnumFacing)state.getValue(FACING)).getIndex();
+    }
 
 	@Override
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
