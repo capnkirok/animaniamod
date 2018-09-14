@@ -3,14 +3,13 @@ package com.animania;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.animania.addons.AddonHandler.AddonRegistryEvent;
 import com.animania.common.creativeTab.TabAnimaniaEntities;
 import com.animania.common.creativeTab.TabAnimaniaResources;
+import com.animania.common.handler.AddonHandler;
 import com.animania.common.handler.GuiHandlerAnimania;
 import com.animania.proxy.CommonProxy;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -60,13 +59,13 @@ public class Animania
 	public void construction(FMLConstructionEvent event)
 	{
 		FluidRegistry.enableUniversalBucket();
-		MinecraftForge.EVENT_BUS.post(new AddonRegistryEvent());
 	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Animania.proxy.preInit();
+		AddonHandler.loadAddons(event.getAsmData());
 	}
 
 	@EventHandler

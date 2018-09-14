@@ -1,9 +1,9 @@
 package com.animania.proxy;
 
 import com.animania.Animania;
-import com.animania.addons.AddonHandler;
 import com.animania.client.AnimaniaTextures;
 import com.animania.client.handler.RenderHandler;
+import com.animania.common.handler.AddonHandler;
 import com.animania.common.items.ItemEntityEgg;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;

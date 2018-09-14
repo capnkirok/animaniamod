@@ -14,7 +14,7 @@ public interface AnimaniaAddon
 	
 	public void initClient();
 
-
+	
 	public String getVersion();
 	
 	public String getAddonID();

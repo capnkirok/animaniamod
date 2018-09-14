@@ -1,22 +1,17 @@
 package com.animania.addons.template;
 
-import com.animania.Animania;
-import com.animania.addons.AddonHandler;
 import com.animania.addons.AnimaniaAddon;
+import com.animania.addons.LoadAddon;
 import com.animania.addons.template.client.TemplateAddonRenderHandler;
 import com.animania.addons.template.common.handler.TemplateAddonBlockHandler;
 import com.animania.addons.template.common.handler.TemplateAddonCraftingHandler;
 import com.animania.addons.template.common.handler.TemplateAddonEntityHandler;
 import com.animania.addons.template.common.handler.TemplateAddonItemHandler;
-import com.animania.addons.AddonHandler.AddonRegistryEvent;
 
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-@EventBusSubscriber(modid = Animania.MODID)
+@LoadAddon
 public class TemplateAddon implements AnimaniaAddon
 {
-
+	
 	@Override
 	public void preInitCommon()
 	{
@@ -73,10 +68,5 @@ public class TemplateAddon implements AnimaniaAddon
 		return "[1.12,1.13)";
 	}
 	
-	@SubscribeEvent
-	public static void register(AddonRegistryEvent event)
-	{
-		//event.register(new TestAddon());
-	}
-
+	
 }
