@@ -775,10 +775,6 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		double movZ = Math.abs(this.posZ - this.prevPosZ);
 
 		if (entityIn == this.puller) {
-			this.puller.motionX = 0;
-			this.puller.motionZ = 0;
-			this.motionX = 0;
-			this.motionZ = 0;
 			return null;
 		} else if (this.pulled) {
 			return null;

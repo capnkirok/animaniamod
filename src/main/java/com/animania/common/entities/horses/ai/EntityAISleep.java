@@ -193,23 +193,15 @@ public class EntityAISleep extends EntityAIBase
 
 						List<EntityAnimaniaHorse> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 2, entityIn.world, pos);
 
-
 						if (blockchk == bedBlock && others.size() < 2) {
-
 							prefBedFound = true;
 							bedFound = true;
 							return true;
-
-
 						}
-
 						if (!prefBedFound && blockchk instanceof BlockGrass && others.size() < 2) {
-
 							bedFound = true;
 							return true;
-
 						}
-
 					}
 				}
 			}
