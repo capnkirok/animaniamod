@@ -1,5 +1,6 @@
 package com.animania.common.entities.generic.ai;
 
+import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
@@ -19,7 +20,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EntitySelectors;
 
-public class EntityAIWatchClosest extends EntityAIBase
+public class GenericAIWatchClosest extends EntityAIBase
 {
     protected EntityLiving entity;
     /** The closest entity which is being watched by this one. */
@@ -30,7 +31,7 @@ public class EntityAIWatchClosest extends EntityAIBase
     private final float chance;
     protected Class <? extends Entity > watchedClass;
 
-    public EntityAIWatchClosest(EntityLiving entityIn, Class <? extends Entity > watchTargetClass, float maxDistance)
+    public GenericAIWatchClosest(EntityLiving entityIn, Class <? extends Entity > watchTargetClass, float maxDistance)
     {
         this.entity = entityIn;
         this.watchedClass = watchTargetClass;
@@ -39,7 +40,7 @@ public class EntityAIWatchClosest extends EntityAIBase
         this.setMutexBits(2);
     }
 
-    public EntityAIWatchClosest(EntityLiving entityIn, Class <? extends Entity > watchTargetClass, float maxDistance, float chanceIn)
+    public GenericAIWatchClosest(EntityLiving entityIn, Class <? extends Entity > watchTargetClass, float maxDistance, float chanceIn)
     {
         this.entity = entityIn;
         this.watchedClass = watchTargetClass;
@@ -55,73 +56,20 @@ public class EntityAIWatchClosest extends EntityAIBase
     {
         
     	boolean isSleeping = false;
-		if (this.entity instanceof EntityAnimaniaCow) {
-			EntityAnimaniaCow entityCow = (EntityAnimaniaCow) this.entity;
-			if (entityCow.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.entity instanceof EntityAnimaniaHorse) {
-			EntityAnimaniaHorse entityAV = (EntityAnimaniaHorse) this.entity;
-			if (entityAV.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.entity instanceof EntityAnimaniaGoat) {
-			EntityAnimaniaGoat entityAV = (EntityAnimaniaGoat) this.entity;
-			if (entityAV.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.entity  instanceof EntityAnimaniaPig) {
-			EntityAnimaniaPig entityChk = (EntityAnimaniaPig) this.entity ;
-			Block poschk = entityChk.world.getBlockState(entityChk.getPosition().down()).getBlock();
-			boolean isMuddy = false;
-			if (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")) {
-				isMuddy = true;
-			}
-			if (entityChk.getSleeping() || isMuddy) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.entity  instanceof EntityAnimaniaSheep) {
-			EntityAnimaniaSheep entityChk = (EntityAnimaniaSheep) this.entity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.entity  instanceof EntityAnimaniaRabbit) {
-			EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) this.entity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.entity  instanceof EntityHedgehogBase) {
-			EntityHedgehogBase entityChk = (EntityHedgehogBase) this.entity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.entity  instanceof EntityFerretBase) {
-			EntityFerretBase entityChk = (EntityFerretBase) this.entity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.entity  instanceof EntityHamster) {
-			EntityHamster entityChk = (EntityHamster) this.entity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
+    	
+    	if(this.entity instanceof ISleeping)
+    	{
+    		if(((ISleeping) entity).getSleeping())
+    		{
+    			isSleeping = true;
+    		}
+    		
+    		if(entity instanceof EntityAnimaniaPig)
+    		{
+    			if(entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud)
+    				isSleeping = true;
+    		}
+    	}
 
 		if (isSleeping) {
 			return false;

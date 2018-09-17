@@ -10,7 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAnimaniaAvoidWater extends EntityAIBase
+public class GenericAIAvoidWater extends EntityAIBase
 {
 	private final EntityCreature idleEntity;
 	private double lookX;
@@ -18,7 +18,7 @@ public class EntityAnimaniaAvoidWater extends EntityAIBase
 	private int idleTime;
 	private int delayCounter = 0;
 
-	public EntityAnimaniaAvoidWater(EntityCreature entitylivingIn)
+	public GenericAIAvoidWater(EntityCreature entitylivingIn)
 	{
 		this.idleEntity = entitylivingIn;
 		this.setMutexBits(3);

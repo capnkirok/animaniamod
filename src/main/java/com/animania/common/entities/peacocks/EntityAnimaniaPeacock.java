@@ -7,21 +7,25 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
+import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IFoodEating;
+import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
-import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
-import com.animania.common.entities.generic.ai.EntityAILookIdle;
-import com.animania.common.entities.generic.ai.EntityAITempt;
-import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
-import com.animania.common.entities.peacocks.ai.EntityAIFindFood;
-import com.animania.common.entities.peacocks.ai.EntityAIFindWater;
-import com.animania.common.entities.peacocks.ai.EntityAIPanicPeacocks;
-import com.animania.common.entities.peacocks.ai.EntityAISleep;
-import com.animania.common.entities.peacocks.ai.EntityAISwimmingPeacocks;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -60,7 +64,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, ISpawnable, AnimaniaAnimal
+public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, ISpawnable, AnimaniaAnimal, ISleeping, IFoodEating
 {
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
@@ -91,25 +95,28 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		super(worldIn);
 
-		this.tasks.addTask(0, new EntityAISwimmingPeacocks(this));
-		if (!AnimaniaConfig.gameRules.ambianceMode) {
-			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
-			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
+		this.tasks.addTask(0, new GenericAISwim(this));
+		if (!AnimaniaConfig.gameRules.ambianceMode)
+		{
+			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaPeacock>(this, 1.0D, null, EntityAnimaniaPeacock.class, true));
+			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaPeacock>(this, 1.0D, null, true));
 		}
-		this.tasks.addTask(3, new EntityAIPanicPeacocks(this, 1.4D));
-		this.tasks.addTask(4, new EntityAITempt(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
-		this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
+		this.tasks.addTask(3, new GenericAIPanic(this, 1.4D));
+		this.tasks.addTask(4, new GenericAITempt(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
+		this.tasks.addTask(5, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(6, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(7, new EntityAnimaniaAvoidWater(this));
-		if (AnimaniaConfig.gameRules.animalsSleep) {
-			this.tasks.addTask(8, new EntityAISleep(this, 0.8));
+		this.tasks.addTask(7, new GenericAIAvoidWater(this));
+		if (AnimaniaConfig.gameRules.animalsSleep)
+		{
+			this.tasks.addTask(8, new GenericAISleep<EntityAnimaniaPeacock>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.peacockBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.peacockBed2), EntityAnimaniaPeacock.class));
 		}
-		this.tasks.addTask(11, new EntityAILookIdle(this));
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+		this.tasks.addTask(11, new GenericAILookIdle(this));
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
+		{
 			this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
 			this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
 		}
-		this.tasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.tasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(100);
 		this.blinkTimer = 80 + this.rand.nextInt(80);
@@ -255,10 +262,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 	public int getAge()
 	{
-		try {
+		try
+		{
 			return (this.getIntFromDataManager(AGE));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
@@ -270,10 +279,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 	public boolean getSleeping()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(SLEEPING));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -292,10 +303,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 	public boolean getHandFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(HANDFED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -304,7 +317,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		this.dataManager.set(EntityAnimaniaPeacock.HANDFED, Boolean.valueOf(handfed));
 	}
-
 
 	public Float getSleepTimer()
 	{
@@ -323,7 +335,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		this.dataManager.set(EntityAnimaniaPeacock.SLEEPTIMER, Float.valueOf(timer));
 	}
 
-
 	@Override
 	public void onLivingUpdate()
 	{
@@ -331,7 +342,8 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		if (this.getLeashed() && this.getSleeping())
 			this.setSleeping(false);
 
-		if (this.getAge() == 0) {
+		if (this.getAge() == 0)
+		{
 			this.setAge(1);
 		}
 
@@ -374,7 +386,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 				this.setWatered(false);
 		}
 
-
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 
@@ -412,27 +423,43 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 			}
 		}
 
-		if (this instanceof EntityPeacockBase && AnimaniaConfig.drops.chickensDropFeathers) {
+		if (this instanceof EntityPeacockBase && AnimaniaConfig.drops.chickensDropFeathers)
+		{
 			this.featherCounter--;
-			if (featherCounter <= 0) {
+			if (featherCounter <= 0)
+			{
 				featherCounter = AnimaniaConfig.careAndFeeding.featherTimer;
 				Item feather = null;
-				if (this.type == PeacockType.BLUE) {
+				if (this.type == PeacockType.BLUE)
+				{
 					feather = ItemHandler.peacockFeatherBlue;
-				} else if (this.type == PeacockType.CHARCOAL) {
+				}
+				else if (this.type == PeacockType.CHARCOAL)
+				{
 					feather = ItemHandler.peacockFeatherCharcoal;
-				} else if (this.type == PeacockType.OPAL) {
+				}
+				else if (this.type == PeacockType.OPAL)
+				{
 					feather = ItemHandler.peacockFeatherOpal;
-				} else if (this.type == PeacockType.PEACH) {
+				}
+				else if (this.type == PeacockType.PEACH)
+				{
 					feather = ItemHandler.peacockFeatherPeach;
-				} else if (this.type == PeacockType.PURPLE) {
+				}
+				else if (this.type == PeacockType.PURPLE)
+				{
 					feather = ItemHandler.peacockFeatherPurple;
-				} else if (this.type == PeacockType.TAUPE) {
+				}
+				else if (this.type == PeacockType.TAUPE)
+				{
 					feather = ItemHandler.peacockFeatherTaupe;
-				} else {
+				}
+				else
+				{
 					feather = ItemHandler.peacockFeatherWhite;
 				}
-				if (feather !=null && !world.isRemote) {
+				if (feather != null && !world.isRemote)
+				{
 					ItemStack bob = new ItemStack(feather, 1);
 					EntityItem entityitem = new EntityItem(world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, bob);
 					world.spawnEntity(entityitem);
@@ -444,10 +471,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 	public boolean getFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(FED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -466,10 +495,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 	public boolean getWatered()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(WATERED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -531,26 +562,30 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		ItemStack dropItem2;
 		String drop2 = AnimaniaConfig.drops.peacockDrop2;
 		dropItem2 = AnimaniaHelper.getItem(drop2);
-		
+
 		if (happyDrops == 2)
 		{
-			if (dropItem != null) {
+			if (dropItem != null)
+			{
 				dropItem.setCount(1 + lootlevel);
 				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 				world.spawnEntity(entityitem);
 			}
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.peacockDrop2Amount + lootlevel);
 			}
 		}
 		else if (happyDrops == 1)
 		{
-			if (dropItem != null) {
+			if (dropItem != null)
+			{
 				dropItem.setCount(1 + lootlevel);
 				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
 				world.spawnEntity(entityitem);
 			}
-			if (dropItem2 != null) {
+			if (dropItem2 != null)
+			{
 				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.peacockDrop2Amount + lootlevel);
 			}
 		}
@@ -696,79 +731,129 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	}
 
 	// ==================================================
-	//     Data Manager Trapper (borrowed from Lycanites)
+	// Data Manager Trapper (borrowed from Lycanites)
 	// ==================================================
 
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
-		try {
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
 
-	public byte getByteFromDataManager(DataParameter<Byte> key) {
-		try {
+	public byte getByteFromDataManager(DataParameter<Byte> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public int getIntFromDataManager(DataParameter<Integer> key) {
-		try {
+	public int getIntFromDataManager(DataParameter<Integer> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public float getFloatFromDataManager(DataParameter<Float> key) {
-		try {
+	public float getFloatFromDataManager(DataParameter<Float> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public String getStringFromDataManager(DataParameter<String> key) {
-		try {
+	public String getStringFromDataManager(DataParameter<String> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
-		try {
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
-		try {
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return ItemStack.EMPTY;
 		}
 	}
 
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
-		try {
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return Optional.absent();
 		}
+	}
+
+	@Override
+	public Set<Item> getFoodItems()
+	{
+		return TEMPTATION_ITEMS;
+	}
+
+	@Override
+	public void setSleepingPos(BlockPos pos)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public BlockPos getSleepingPos()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Class[] getFoodBlocks()
+	{
+		return new Class[] { BlockSeeds.class };
 	}
 
 }

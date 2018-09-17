@@ -2,6 +2,7 @@ package com.animania.common.entities.generic.ai;
 
 import java.util.Set;
 
+import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
@@ -13,6 +14,7 @@ import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.entities.rodents.EntityHedgehogBase;
 import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
+import com.animania.common.handler.BlockHandler;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.EntityCreature;
@@ -22,7 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 
-public class EntityAITempt extends EntityAIBase
+public class GenericAITempt extends EntityAIBase
 {
     /** The entity using this AI that is tempted by the player. */
     private final EntityCreature temptedEntity;
@@ -50,12 +52,12 @@ public class EntityAITempt extends EntityAIBase
     /** Whether the entity using this AI will be scared by the tempter's sudden movement. */
     private final boolean scaredByPlayerMovement;
 
-    public EntityAITempt(EntityCreature temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn)
+    public GenericAITempt(EntityCreature temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn)
     {
         this(temptedEntityIn, speedIn, scaredByPlayerMovementIn, Sets.newHashSet(temptItemIn));
     }
 
-    public EntityAITempt(EntityCreature temptedEntityIn, double speedIn, boolean scaredByPlayerMovementIn, Set<Item> temptItemIn)
+    public GenericAITempt(EntityCreature temptedEntityIn, double speedIn, boolean scaredByPlayerMovementIn, Set<Item> temptItemIn)
     {
         this.temptedEntity = temptedEntityIn;
         this.speed = speedIn;
@@ -75,82 +77,14 @@ public class EntityAITempt extends EntityAIBase
     public boolean shouldExecute()
     {
     	boolean isSleeping = false;
-		if (this.temptedEntity instanceof EntityAnimaniaCow) {
-			EntityAnimaniaCow entityCow = (EntityAnimaniaCow) this.temptedEntity;
-			if (entityCow.getSleeping()) {
-				isSleeping = true;
-			}
-		}
 		
-		if (this.temptedEntity instanceof EntityAnimaniaChicken) {
-			EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) this.temptedEntity;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.temptedEntity instanceof EntityAnimaniaHorse) {
-			EntityAnimaniaHorse entityChk = (EntityAnimaniaHorse) this.temptedEntity;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.temptedEntity instanceof EntityAnimaniaGoat) {
-			EntityAnimaniaGoat entityChk = (EntityAnimaniaGoat) this.temptedEntity;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.temptedEntity instanceof EntityAnimaniaPeacock) {
-			EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) this.temptedEntity;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.temptedEntity  instanceof EntityAnimaniaPig) {
-			EntityAnimaniaPig entityChk = (EntityAnimaniaPig) this.temptedEntity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.temptedEntity  instanceof EntityAnimaniaSheep) {
-			EntityAnimaniaSheep entityChk = (EntityAnimaniaSheep) this.temptedEntity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.temptedEntity  instanceof EntityAnimaniaRabbit) {
-			EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) this.temptedEntity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.temptedEntity  instanceof EntityHedgehogBase) {
-			EntityHedgehogBase entityChk = (EntityHedgehogBase) this.temptedEntity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.temptedEntity  instanceof EntityFerretBase) {
-			EntityFerretBase entityChk = (EntityFerretBase) this.temptedEntity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (this.temptedEntity  instanceof EntityHamster) {
-			EntityHamster entityChk = (EntityHamster) this.temptedEntity ;
-			if (entityChk.getSleeping()) {
-				isSleeping = true;
-			}
-		}
+    	if(this.temptedEntity instanceof ISleeping)
+    	{
+    		if(((ISleeping) temptedEntity).getSleeping())
+    		{
+    			isSleeping = true;
+    		}
+    	}
 
 		if (isSleeping) {
 			return false;

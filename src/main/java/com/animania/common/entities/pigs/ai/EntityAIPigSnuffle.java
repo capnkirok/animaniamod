@@ -25,92 +25,107 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 public class EntityAIPigSnuffle extends EntityAIBase
 {
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final EntityAnimaniaPig             grassEaterEntity;
-	private final World                         entityWorld;
-	int                                         eatingGrassTimer;
+	private final EntityAnimaniaPig grassEaterEntity;
+	private final World entityWorld;
+	int eatingGrassTimer;
 
-	public EntityAIPigSnuffle(EntityAnimaniaPig grassEaterEntityIn) {
+	public EntityAIPigSnuffle(EntityAnimaniaPig grassEaterEntityIn)
+	{
 		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);
 	}
 
 	@Override
-	public boolean shouldExecute() {
+	public boolean shouldExecute()
+	{
 
 		Block poschk = this.grassEaterEntity.world.getBlockState(this.grassEaterEntity.getPosition().down()).getBlock();
 		boolean isMuddy = false;
-		if (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")) {
+		if (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud"))
+		{
 			isMuddy = true;
 		}
-		if (isMuddy) {
+		if (isMuddy)
+		{
 			return false;
 		}
-		
-		if (!this.grassEaterEntity.world.isDaytime() || this.grassEaterEntity.getSleeping()) {
+
+		if (!this.grassEaterEntity.world.isDaytime() || this.grassEaterEntity.getSleeping())
+		{
 			return false;
 		}
 
 		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
 			return false;
-		else {
+		else
+		{
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
-			return EntityAIPigSnuffle.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true
-					: this.entityWorld.getBlockState(blockpos.down()).getBlock() != Blocks.WATER
-					&& this.entityWorld.getBlockState(blockpos.down()).getBlock() != Blocks.LAVA;
+			return EntityAIPigSnuffle.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true : this.entityWorld.getBlockState(blockpos.down()).getBlock() != Blocks.WATER && this.entityWorld.getBlockState(blockpos.down()).getBlock() != Blocks.LAVA;
 		}
 	}
 
 	@Override
-	public void startExecuting() {
+	public void startExecuting()
+	{
 		this.eatingGrassTimer = 160;
 		this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
 		this.grassEaterEntity.getNavigator().clearPath();
 	}
 
 	@Override
-	public void resetTask() {
+	public void resetTask()
+	{
 		this.eatingGrassTimer = 0;
 	}
 
 	@Override
-	public boolean shouldContinueExecuting() {
+	public boolean shouldContinueExecuting()
+	{
 		return this.eatingGrassTimer > 0;
 	}
 
-	public int getEatingGrassTimer() {
+	public int getEatingGrassTimer()
+	{
 		return this.eatingGrassTimer;
 	}
 
 	@Override
-	public void updateTask() {
+	public void updateTask()
+	{
 		this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);
 
-		if (this.eatingGrassTimer == 4) {
+		if (this.eatingGrassTimer == 4)
+		{
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
 
-			if (EntityAIPigSnuffle.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos))) {
+			if (EntityAIPigSnuffle.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)))
+			{
 
-				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
+				{
 					this.entityWorld.destroyBlock(blockpos, false);
 				}
 
 				this.grassEaterEntity.eatGrassBonus();
 
-				if (grassEaterEntity instanceof EntityAnimaniaPig) {
-					EntityAnimaniaPig ech = (EntityAnimaniaPig)grassEaterEntity;
+				if (grassEaterEntity instanceof EntityAnimaniaPig)
+				{
+					EntityAnimaniaPig ech = (EntityAnimaniaPig) grassEaterEntity;
 					ech.entityAIEatGrass.startExecuting();
 					ech.setFed(true);
-				} 
+				}
 
 			}
-			else {
+			else
+			{
 				BlockPos blockpos1 = blockpos.down();
 				Block chkblock = this.entityWorld.getBlockState(blockpos1).getBlock();
 
 				Biome biomegenbase = this.entityWorld.getBiome(blockpos1);
 
-				if (BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() &&  this.grassEaterEntity.getLeashHolder() instanceof EntityPlayer) {
+				if (BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() && this.grassEaterEntity.getLeashHolder() instanceof EntityPlayer)
+				{
 					this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
 					ItemHelper.spawnItem(entityWorld, blockpos, ItemHandler.truffle);
 				}

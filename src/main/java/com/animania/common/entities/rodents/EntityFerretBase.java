@@ -13,6 +13,8 @@ import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IFoodEating;
+import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.ISpawnable;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
@@ -22,21 +24,22 @@ import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
 import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
 import com.animania.common.entities.chickens.EntityChickWyandotte;
-import com.animania.common.entities.generic.ai.EntityAIFollowOwner;
-import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
-import com.animania.common.entities.generic.ai.EntityAINearestAttackableTarget;
-import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIEatGrass;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAINearestAttackableTarget;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.entities.rodents.ai.EntityAIFerretFindNests;
-import com.animania.common.entities.rodents.ai.EntityAIFindFoodFerrets;
-import com.animania.common.entities.rodents.ai.EntityAIFindWater;
-import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
-import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
 import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
-import com.animania.common.entities.rodents.ai.EntityAISleepFerrets;
-import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
-import com.animania.common.entities.rodents.ai.EntityAITemptRodents;
-import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
@@ -79,7 +82,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityFerretBase extends EntityTameable implements TOPInfoProviderRodent, ISpawnable, AnimaniaAnimal
+public class EntityFerretBase extends EntityTameable implements TOPInfoProviderRodent, ISpawnable, AnimaniaAnimal, ISleeping, IFoodEating
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
@@ -97,7 +100,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected int tamedTimer;
 	public int blinkTimer;
 	public int eatTimer;
-	public EntityAIRodentEat entityAIEatGrass;
+	public GenericAIEatGrass entityAIEatGrass;
 	protected int damageTimer;
 	protected FerretType type;
 	private int delayCount;
@@ -120,39 +123,39 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected void initEntityAI()
 	{
 		this.aiSit = new EntityAISit(this);
-		this.tasks.addTask(0, new EntityAISwimmingRodents(this));
+		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
+		this.tasks.addTask(0, new GenericAISwim(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode) {
-			this.tasks.addTask(1, new EntityAIFindWater(this, 1.0D));
+			this.tasks.addTask(1, new GenericAIFindWater(this, 1.0D, entityAIEatGrass, EntityFerretBase.class, true));
 			this.tasks.addTask(2, new EntityAIFerretFindNests(this, 1.0D));
-			this.tasks.addTask(3, new EntityAIFindFoodFerrets(this, 1.0D));
+			this.tasks.addTask(3, new GenericAIFindFood(this, 1.0D, entityAIEatGrass, false));
 		}
 		this.tasks.addTask(4, this.aiSit);
-		this.entityAIEatGrass = new EntityAIRodentEat(this);
 		this.tasks.addTask(5, new EntityAILeapAtTarget(this, 0.2F));
 		this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.0D, true));
-		this.tasks.addTask(7, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(8, new EntityAIPanicRodents(this, 1.5D));
+		this.tasks.addTask(7, new GenericAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(8, new GenericAIPanic(this, 1.5D));
 		this.tasks.addTask(9, new EntityAIRodentEat(this));
-		this.tasks.addTask(10, new EntityAITemptRodents(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
+		this.tasks.addTask(10, new GenericAITempt(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
 		this.tasks.addTask(11, this.entityAIEatGrass);
-		this.tasks.addTask(12, new EntityAIWanderAvoidWater(this, 1.2D));
-		this.tasks.addTask(13, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(14, new EntityAILookIdleRodent(this));
-		this.tasks.addTask(15, new EntityAnimaniaAvoidWater(this));
+		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
+		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(14, new GenericAILookIdle(this));
+		this.tasks.addTask(15, new GenericAIAvoidWater(this));
 		if (AnimaniaConfig.gameRules.animalsSleep) {
-			this.tasks.addTask(15, new EntityAISleepFerrets(this, 0.8));
+			this.tasks.addTask(15, new GenericAISleep(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.ferretBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.ferretBed2), EntityFerretBase.class));
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
-			this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityChickLeghorn.class, false));
-			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityChickOrpington.class, false));
-			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityChickPlymouthRock.class, false));
-			this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityChickRhodeIslandRed.class, false));
-			this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntityChickWyandotte.class, false));
-			this.targetTasks.addTask(6, new EntityAINearestAttackableTarget(this, EntitySilverfish.class, false));
-			this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget(this, EntityChickLeghorn.class, false));
+			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget(this, EntityChickOrpington.class, false));
+			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget(this, EntityChickPlymouthRock.class, false));
+			this.targetTasks.addTask(4, new GenericAINearestAttackableTarget(this, EntityChickRhodeIslandRed.class, false));
+			this.targetTasks.addTask(5, new GenericAINearestAttackableTarget(this, EntityChickWyandotte.class, false));
+			this.targetTasks.addTask(6, new GenericAINearestAttackableTarget(this, EntitySilverfish.class, false));
+			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget(this, EntityFrogs.class, false));
+			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget(this, EntityToad.class, false));
 		}
-		this.targetTasks.addTask(9, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(9, new GenericAIHurtByTarget(this, false, new Class[0]));
 	}
 
 	@Override
@@ -888,6 +891,38 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		catch (Exception e) {
 			return Optional.absent();
 		}
+	}
+
+	@Override
+	public void setHandFed(boolean handfed)
+	{
+		setFed(handfed);
+	}
+
+	@Override
+	public boolean getHandFed()
+	{
+		return getFed();
+	}
+
+	@Override
+	public Set<Item> getFoodItems()
+	{
+		return TEMPTATION_ITEMS;
+	}
+
+	@Override
+	public void setSleepingPos(BlockPos pos)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public BlockPos getSleepingPos()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

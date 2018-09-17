@@ -9,21 +9,24 @@ import javax.annotation.Nullable;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IFoodEating;
+import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.generic.ai.EntityAIAvoidEntity;
-import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
-import com.animania.common.entities.generic.ai.EntityAILookIdle;
-import com.animania.common.entities.generic.ai.EntityAITempt;
-import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.EntityAIWatchClosest;
-import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
-import com.animania.common.entities.sheep.ai.EntityAIFindFoodSheep;
-import com.animania.common.entities.sheep.ai.EntityAIFindSaltLickSheep;
-import com.animania.common.entities.sheep.ai.EntityAIFindWater;
-import com.animania.common.entities.sheep.ai.EntityAIPanicSheep;
-import com.animania.common.entities.sheep.ai.EntityAISheepEatGrass;
-import com.animania.common.entities.sheep.ai.EntityAISleep;
-import com.animania.common.entities.sheep.ai.EntityAISwimmingSheep;
+import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIEatGrass;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
@@ -61,7 +64,7 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShearable, AnimaniaAnimal
+public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShearable, AnimaniaAnimal, ISleeping, IFoodEating
 {
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.sheepFood));
@@ -88,7 +91,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	public SheepType sheepType;
 	protected Item dropRaw = Items.MUTTON;
 	protected Item dropCooked = Items.COOKED_MUTTON;
-	public EntityAISheepEatGrass entityAIEatGrass;
+	public GenericAIEatGrass entityAIEatGrass;
 	protected boolean mateable = false;
 	protected boolean headbutting = false;
 	protected EntityGender gender;
@@ -97,30 +100,30 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	{
 		super(worldIn);
 		this.tasks.taskEntries.clear();
-		this.entityAIEatGrass = new EntityAISheepEatGrass(this);
+		this.entityAIEatGrass = new GenericAIEatGrass(this);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
-			this.tasks.addTask(3, new EntityAIFindFoodSheep(this, 1.0D));
+			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaSheep>(this, 1.0D, entityAIEatGrass, EntityAnimaniaSheep.class));
+			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaSheep>(this, 1.0D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new EntityAISwimmingSheep(this));
-		this.tasks.addTask(6, new EntityAIPanicSheep(this, 2.2D));
-		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
-		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
-		this.tasks.addTask(6, new EntityAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
+		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
+		this.tasks.addTask(5, new GenericAISwim(this));
+		this.tasks.addTask(6, new GenericAIPanic(this, 2.2D));
+		this.tasks.addTask(7, new GenericAITempt(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
+		this.tasks.addTask(6, new GenericAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
+		this.tasks.addTask(6, new GenericAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityWolf.class, 24.0F, 2.0D, 2.2D));
-		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new EntityAILookIdle(this));
-		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
-		this.tasks.addTask(12, new EntityAIFindSaltLickSheep(this, 1.0));
+		this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityWolf.class, 24.0F, 2.0D, 2.2D));
+		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(11, new GenericAILookIdle(this));
+		this.tasks.addTask(11, new GenericAIAvoidWater(this));
+		this.tasks.addTask(12, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(13, new EntityAISleep(this, 0.8));
+			this.tasks.addTask(13, new GenericAISleep<EntityAnimaniaSheep>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.sheepBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.sheepBed2), EntityAnimaniaSheep.class));
 		}
-		this.tasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
+		this.tasks.addTask(14, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(1, new GenericAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -921,6 +924,26 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		{
 			return Optional.absent();
 		}
+	}
+
+	@Override
+	public Set<Item> getFoodItems()
+	{
+		return TEMPTATION_ITEMS;
+	}
+
+	@Override
+	public void setSleepingPos(BlockPos pos)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public BlockPos getSleepingPos()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -27,31 +27,31 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 
-public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends EntityAITarget
+public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extends EntityAITarget
 {
     protected final Class<T> targetClass;
     private final int targetChance;
     /** Instance of EntityAINearestAttackableTargetSorter. */
-    protected final EntityAINearestAttackableTarget.Sorter sorter;
+    protected final GenericAINearestAttackableTarget.Sorter sorter;
     protected final Predicate <? super T > targetEntitySelector;
     protected T targetEntity;
 
-    public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, boolean checkSight)
+    public GenericAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, boolean checkSight)
     {
         this(creature, classTarget, checkSight, false);
     }
 
-    public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, boolean checkSight, boolean onlyNearby)
+    public GenericAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, boolean checkSight, boolean onlyNearby)
     {
         this(creature, classTarget, 10, checkSight, onlyNearby, (Predicate)null);
     }
 
-    public EntityAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, @Nullable final Predicate <? super T > targetSelector)
+    public GenericAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, @Nullable final Predicate <? super T > targetSelector)
     {
         super(creature, checkSight, onlyNearby);
         this.targetClass = classTarget;
         this.targetChance = chance;
-        this.sorter = new EntityAINearestAttackableTarget.Sorter(creature);
+        this.sorter = new GenericAINearestAttackableTarget.Sorter(creature);
         this.setMutexBits(1);
         this.targetEntitySelector = new Predicate<T>()
         {
@@ -67,7 +67,7 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
                 }
                 else
                 {
-                    return !EntitySelectors.NOT_SPECTATING.apply(p_apply_1_) ? false : EntityAINearestAttackableTarget.this.isSuitableTarget(p_apply_1_, false);
+                    return !EntitySelectors.NOT_SPECTATING.apply(p_apply_1_) ? false : GenericAINearestAttackableTarget.this.isSuitableTarget(p_apply_1_, false);
                 }
             }
         };
@@ -138,9 +138,9 @@ public class EntityAINearestAttackableTarget<T extends EntityLivingBase> extends
                     if (itemstack.getItem() == Items.SKULL)
                     {
                         int i = itemstack.getItemDamage();
-                        boolean flag = EntityAINearestAttackableTarget.this.taskOwner instanceof EntitySkeleton && i == 0;
-                        boolean flag1 = EntityAINearestAttackableTarget.this.taskOwner instanceof EntityZombie && i == 2;
-                        boolean flag2 = EntityAINearestAttackableTarget.this.taskOwner instanceof EntityCreeper && i == 4;
+                        boolean flag = GenericAINearestAttackableTarget.this.taskOwner instanceof EntitySkeleton && i == 0;
+                        boolean flag1 = GenericAINearestAttackableTarget.this.taskOwner instanceof EntityZombie && i == 2;
+                        boolean flag2 = GenericAINearestAttackableTarget.this.taskOwner instanceof EntityCreeper && i == 4;
 
                         if (flag || flag1 || flag2)
                         {

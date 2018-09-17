@@ -20,7 +20,7 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase
+public class GenericAIAvoidEntity<T extends Entity> extends EntityAIBase
 {
     private final Predicate<Entity> canBeSeenSelector;
     /** The entity we are attached to */
@@ -37,12 +37,12 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase
     private final Class<T> classToAvoid;
     private final Predicate <? super T > avoidTargetSelector;
 
-    public EntityAIAvoidEntity(EntityCreature entityIn, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
+    public GenericAIAvoidEntity(EntityCreature entityIn, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
     {
         this(entityIn, classToAvoidIn, Predicates.alwaysTrue(), avoidDistanceIn, farSpeedIn, nearSpeedIn);
     }
 
-    public EntityAIAvoidEntity(EntityCreature entityIn, Class<T> classToAvoidIn, Predicate <? super T > avoidTargetSelectorIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
+    public GenericAIAvoidEntity(EntityCreature entityIn, Class<T> classToAvoidIn, Predicate <? super T > avoidTargetSelectorIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
     {
         this.canBeSeenSelector = new Predicate<Entity>()
         {

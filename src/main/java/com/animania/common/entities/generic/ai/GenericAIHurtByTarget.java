@@ -17,14 +17,14 @@ import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.util.math.AxisAlignedBB;
 
-public class EntityAIHurtByTarget extends EntityAITarget
+public class GenericAIHurtByTarget extends EntityAITarget
 {
 	private final boolean entityCallsForHelp;
 	/** Store the previous revengeTimer value */
 	private int revengeTimerOld;
 	private final Class<?>[] excludedReinforcementTypes;
 
-	public EntityAIHurtByTarget(EntityCreature creatureIn, boolean entityCallsForHelpIn, Class<?>... excludedReinforcementTypes)
+	public GenericAIHurtByTarget(EntityCreature creatureIn, boolean entityCallsForHelpIn, Class<?>... excludedReinforcementTypes)
 	{
 		super(creatureIn, true);
 		this.entityCallsForHelp = entityCallsForHelpIn;

@@ -17,9 +17,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -82,6 +84,21 @@ public class AnimaniaHelper
 
 		return stack;
 
+	}
+	
+	public static Block getBlock(String name)
+	{
+		if(name.contains("#"))
+		{
+			name = name.substring(0, name.indexOf("#"));
+		}
+		
+		Block b = Block.getBlockFromName(name);
+		
+		if(b == null)
+			return Blocks.AIR;
+		
+		return b;
 	}
 	
 	public static void sendTileEntityUpdate(TileEntity tile)

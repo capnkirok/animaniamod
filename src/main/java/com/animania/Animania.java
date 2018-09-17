@@ -64,8 +64,8 @@ public class Animania
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		Animania.proxy.preInit();
 		AddonHandler.loadAddons(event.getAsmData());
+		Animania.proxy.preInit();
 	}
 
 	@EventHandler

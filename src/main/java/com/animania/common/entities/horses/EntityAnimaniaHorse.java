@@ -9,21 +9,24 @@ import javax.annotation.Nullable;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IFoodEating;
+import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.generic.ai.EntityAIWatchClosest;
-import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
-import com.animania.common.entities.horses.ai.EntityAIFindFood;
-import com.animania.common.entities.horses.ai.EntityAIFindSaltLickHorses;
-import com.animania.common.entities.horses.ai.EntityAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
 import com.animania.common.entities.horses.ai.EntityAILookIdleHorses;
 import com.animania.common.entities.horses.ai.EntityAIMateHorses;
-import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
-import com.animania.common.entities.horses.ai.EntityAISleep;
-import com.animania.common.entities.horses.ai.EntityAISwimmingHorse;
-import com.animania.common.entities.horses.ai.EntityAITemptHorses;
 import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.props.EntityWagon;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.inventory.ContainerHorseCart;
@@ -64,7 +67,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, AnimaniaAnimal
+public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, AnimaniaAnimal, IFoodEating, ISleeping
 {
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.horseFood));
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
@@ -100,23 +103,23 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		this.entityAIEatGrass = new EntityHorseEatGrass(this);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
-			this.tasks.addTask(3, new EntityAIFindFood(this, 1.0D));
+			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, EntityAnimaniaHorse.class));
+			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(2, new EntityAIPanicHorses(this, 2.0D));
+		this.tasks.addTask(2, new GenericAIPanic(this, 2.0D));
 		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
 		this.tasks.addTask(6, new EntityAIWanderHorses(this, 1.0D));
-		this.tasks.addTask(7, new EntityAISwimmingHorse(this));
-		this.tasks.addTask(8, new EntityAITemptHorses(this, 1.25D, false, TEMPTATION_ITEMS));
+		this.tasks.addTask(7, new GenericAISwim(this));
+		this.tasks.addTask(8, new GenericAITempt(this, 1.25D, false, TEMPTATION_ITEMS));
 		this.tasks.addTask(9, this.entityAIEatGrass);
-		this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
+		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(11, new GenericAIAvoidWater(this));
 		this.tasks.addTask(11, new EntityAILookIdleHorses(this));
-		this.tasks.addTask(12, new EntityAIFindSaltLickHorses(this, 1.0));
+		this.tasks.addTask(12, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(13, new EntityAISleep(this, 0.8));
+			this.tasks.addTask(13, new GenericAISleep<EntityAnimaniaHorse>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.horseBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.horseBed2), EntityAnimaniaHorse.class));
 		}
 		this.tasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
@@ -984,6 +987,26 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		{
 			return Optional.absent();
 		}
+	}
+
+	@Override
+	public void setSleepingPos(BlockPos pos)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public BlockPos getSleepingPos()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Item> getFoodItems()
+	{
+		return TEMPTATION_ITEMS;
 	}
 
 }

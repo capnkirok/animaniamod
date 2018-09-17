@@ -1,6 +1,12 @@
-package com.animania.common.entities.cows.ai;
+package com.animania.common.entities.generic.ai;
 
+import com.animania.common.entities.IFoodEating;
+import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
+import com.animania.common.entities.pigs.EntityAnimaniaPig;
+import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.ItemHelper;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -9,53 +15,71 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 
-public class EntityAICowEatGrass extends EntityAIBase
+public class GenericAIEatGrass extends EntityAIBase
 {
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final EntityAnimaniaCow grassEaterEntity;
+	private final EntityCreature grassEaterEntity;
 	private final World entityWorld;
 	public int eatingGrassTimer;
-
-	public EntityAICowEatGrass(EntityLiving grassEaterEntityIn)
+	public boolean eatsGrass;
+	
+	public GenericAIEatGrass(EntityCreature grassEaterEntityIn, boolean eatsGrass)
 	{
-		this.grassEaterEntity = (EntityAnimaniaCow) grassEaterEntityIn;
+		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
+		this.eatsGrass = eatsGrass;
 		this.setMutexBits(7);
 	}
+	
+	public GenericAIEatGrass(EntityCreature grassEaterEntityIn)
+	{
+		this(grassEaterEntityIn, true);
+	}
+	
 
 	@Override
 	public boolean shouldExecute()
 	{
 
-		if (this.grassEaterEntity.getSleeping())
+		if (grassEaterEntity instanceof IFoodEating)
 		{
-			return false;
+			if (((IFoodEating)grassEaterEntity).getFed())
+			{
+				return false;
+			}
 		}
 
-		if (this.grassEaterEntity.getFed())
+		if (grassEaterEntity instanceof ISleeping)
 		{
-			return false;
+			if (!this.grassEaterEntity.world.isDaytime() || ((ISleeping) this.grassEaterEntity).getSleeping())
+			{
+				return false;
+			}
 		}
 
-		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 150) != 0)
+		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 1000) != 0)
 			return false;
 		else
 		{
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
-			return EntityAICowEatGrass.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true : this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS;
+			return IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true : this.entityWorld.getBlockState(blockpos.down()).getBlock() != Blocks.WATER && this.entityWorld.getBlockState(blockpos.down()).getBlock() != Blocks.LAVA;
 		}
 	}
 
 	@Override
 	public void startExecuting()
 	{
-		this.eatingGrassTimer = 100;
+		this.eatingGrassTimer = 160;
 		this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
 		this.grassEaterEntity.getNavigator().clearPath();
 	}
@@ -69,7 +93,6 @@ public class EntityAICowEatGrass extends EntityAIBase
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-
 		return this.eatingGrassTimer > 0;
 	}
 
@@ -87,19 +110,23 @@ public class EntityAICowEatGrass extends EntityAIBase
 		{
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
 
-			if (EntityAICowEatGrass.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)))
+			if (IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) && eatsGrass)
 			{
 
-				if (this.grassEaterEntity instanceof EntityAnimaniaCow)
+				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
 				{
-					EntityAnimaniaCow ech = (EntityAnimaniaCow) this.grassEaterEntity;
-					ech.entityAIEatGrass.startExecuting();
-					ech.setFed(true);
+					this.entityWorld.destroyBlock(blockpos, false);
 				}
 
 				this.grassEaterEntity.eatGrassBonus();
+
+				if (grassEaterEntity instanceof IFoodEating)
+				{
+					this.startExecuting();
+					((IFoodEating) grassEaterEntity).setFed(true);
+				}
 			}
-			else
+			else if(eatsGrass)
 			{
 				BlockPos blockpos1 = blockpos.down();
 
@@ -113,11 +140,10 @@ public class EntityAICowEatGrass extends EntityAIBase
 						this.entityWorld.setBlockState(blockpos1, Blocks.DIRT.getDefaultState(), 2);
 					}
 
-					if (this.grassEaterEntity instanceof EntityAnimaniaCow)
+					if (grassEaterEntity instanceof IFoodEating)
 					{
-						EntityAnimaniaCow ech = (EntityAnimaniaCow) this.grassEaterEntity;
-						ech.entityAIEatGrass.startExecuting();
-						ech.setFed(true);
+						this.startExecuting();
+						((IFoodEating) grassEaterEntity).setFed(true);
 					}
 
 					this.grassEaterEntity.eatGrassBonus();

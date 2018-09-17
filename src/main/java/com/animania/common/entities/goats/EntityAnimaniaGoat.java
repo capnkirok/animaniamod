@@ -8,21 +8,23 @@ import javax.annotation.Nullable;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IFoodEating;
+import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.generic.ai.EntityAIAvoidEntity;
-import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
-import com.animania.common.entities.generic.ai.EntityAILookIdle;
-import com.animania.common.entities.generic.ai.EntityAITempt;
-import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
-import com.animania.common.entities.goats.ai.EntityAIFindFoodGoats;
-import com.animania.common.entities.goats.ai.EntityAIFindSaltLickGoats;
-import com.animania.common.entities.goats.ai.EntityAIFindWater;
-import com.animania.common.entities.goats.ai.EntityAIGoatEatGrass;
+import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIEatGrass;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.entities.goats.ai.EntityAIPanicGoats;
-import com.animania.common.entities.goats.ai.EntityAISleep;
-import com.animania.common.entities.goats.ai.EntityAISwimmingGoats;
-import com.animania.common.entities.goats.ai.EntityAIWatchClosestGoats;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
@@ -59,7 +61,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, AnimaniaAnimal
+public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, AnimaniaAnimal, ISleeping, IFoodEating
 {
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.goatFood));
@@ -86,7 +88,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	public GoatType goatType;
 	protected Item dropRaw = ItemHandler.rawChevon;
 	protected Item dropCooked = ItemHandler.cookedChevon;
-	public EntityAIGoatEatGrass entityAIEatGrass;
+	public GenericAIEatGrass entityAIEatGrass;
 	protected boolean mateable = false;
 	protected boolean headbutting = false;
 	protected EntityGender gender;
@@ -95,25 +97,25 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	{
 		super(worldIn);
 		this.tasks.taskEntries.clear();
-		this.entityAIEatGrass = new EntityAIGoatEatGrass(this);
+		this.entityAIEatGrass = new GenericAIEatGrass(this);
 		this.tasks.addTask(3, new EntityAIPanicGoats(this, 1.4D));
 		if (!AnimaniaConfig.gameRules.ambianceMode) {
-			this.tasks.addTask(2, new EntityAIFindWater(this, 1.0D));
-			this.tasks.addTask(3, new EntityAIFindFoodGoats(this, 1.0D));
+			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaGoat>(this, 1.0D, entityAIEatGrass, EntityAnimaniaGoat.class));
+			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaGoat>(this, 1.0D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new EntityAISwimmingGoats(this));
-		this.tasks.addTask(7, new EntityAITempt(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
+		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
+		this.tasks.addTask(5, new GenericAISwim(this));
+		this.tasks.addTask(7, new GenericAITempt(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
 		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new EntityAIAvoidEntity(this, EntityWolf.class, 20.0F, 2.2D, 2.2D));
-		this.tasks.addTask(10, new EntityAIWatchClosestGoats(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
-		this.tasks.addTask(11, new EntityAILookIdle(this));
-		this.tasks.addTask(12, new EntityAIFindSaltLickGoats(this, 1.0));
+		this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityWolf.class, 20.0F, 2.2D, 2.2D));
+		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(11, new GenericAIAvoidWater(this));
+		this.tasks.addTask(11, new GenericAILookIdle(this));
+		this.tasks.addTask(12, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep) {
-			this.tasks.addTask(13, new EntityAISleep(this, 0.8));
+			this.tasks.addTask(13, new GenericAISleep<EntityAnimaniaGoat>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.goatBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.goatBed2), EntityAnimaniaGoat.class));
 		}
-		this.tasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.tasks.addTask(14, new GenericAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -796,6 +798,26 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 		catch (Exception e) {
 			return Optional.absent();
 		}
+	}
+
+	@Override
+	public Set<Item> getFoodItems()
+	{
+		return TEMPTATION_ITEMS;
+	}
+
+	@Override
+	public void setSleepingPos(BlockPos pos)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public BlockPos getSleepingPos()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

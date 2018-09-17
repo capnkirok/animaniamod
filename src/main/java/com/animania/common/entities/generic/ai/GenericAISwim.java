@@ -1,4 +1,4 @@
-package com.animania.common.entities.cows.ai;
+package com.animania.common.entities.generic.ai;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
@@ -8,11 +8,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.math.BlockPos;
 
-public class EntityAISwimmingCows extends EntityAIBase
+public class GenericAISwim extends EntityAIBase
 {
     private final EntityLiving theEntity;
 
-    public EntityAISwimmingCows(EntityLiving entitylivingIn) {
+    public GenericAISwim(EntityLiving entitylivingIn) {
         this.theEntity = entitylivingIn;
         this.setMutexBits(4);
         ((PathNavigateGround) entitylivingIn.getNavigator()).setCanSwim(true);

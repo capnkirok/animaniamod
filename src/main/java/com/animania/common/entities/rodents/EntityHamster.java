@@ -14,19 +14,21 @@ import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaAnimal;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IFoodEating;
+import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.generic.ai.EntityAIFollowOwner;
-import com.animania.common.entities.generic.ai.EntityAIHurtByTarget;
-import com.animania.common.entities.generic.ai.EntityAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.EntityAnimaniaAvoidWater;
-import com.animania.common.entities.rodents.ai.EntityAIFindFoodHamsters;
-import com.animania.common.entities.rodents.ai.EntityAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
-import com.animania.common.entities.rodents.ai.EntityAIPanicRodents;
 import com.animania.common.entities.rodents.ai.EntityAISleepHamsters;
-import com.animania.common.entities.rodents.ai.EntityAISwimmingRodents;
-import com.animania.common.entities.rodents.ai.EntityAITemptHamster;
-import com.animania.common.entities.rodents.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.handler.PatreonHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -68,7 +70,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
-public class EntityHamster extends EntityTameable implements TOPInfoProviderRodent, ISpawnable, AnimaniaAnimal
+public class EntityHamster extends EntityTameable implements TOPInfoProviderRodent, ISpawnable, AnimaniaAnimal, ISleeping, IFoodEating
 {
 	private static final DataParameter<Boolean> IN_BALL = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
@@ -138,25 +140,25 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	protected void initEntityAI()
 	{
 
-		this.tasks.addTask(1, new EntityAIPanicRodents(this, 1.4D));
-		this.tasks.addTask(2, new EntityAISwimmingRodents(this));
+		this.tasks.addTask(1, new GenericAIPanic(this, 1.4D));
+		this.tasks.addTask(2, new GenericAISwim(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(3, new EntityAIFindWater(this, 1.0D));
-			this.tasks.addTask(4, new EntityAIFindFoodHamsters(this, 1.0D));
+			this.tasks.addTask(3, new GenericAIFindWater(this, 1.0D, null, EntityHamster.class, true));
+			this.tasks.addTask(4, new GenericAIFindFood(this, 1.0D, null, false));
 		}
 		this.tasks.addTask(5, new EntityAIFleeSun(this, 1.0D));
-		this.tasks.addTask(6, new EntityAIWanderAvoidWater(this, 1.1D));
-		this.tasks.addTask(7, new EntityAITemptHamster(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
-		this.tasks.addTask(8, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(9, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(6, new GenericAIWanderAvoidWater(this, 1.1D));
+		this.tasks.addTask(7, new GenericAITempt(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
+		this.tasks.addTask(8, new GenericAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(9, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(10, new EntityAILookIdleRodent(this));
-		this.tasks.addTask(11, new EntityAnimaniaAvoidWater(this));
+		this.tasks.addTask(11, new GenericAIAvoidWater(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(12, new EntityAISleepHamsters(this, 0.8));
 		}
-		this.tasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.tasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
 
 	}
 
@@ -1366,6 +1368,38 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		{
 			return Optional.absent();
 		}
+	}
+
+	@Override
+	public void setHandFed(boolean handfed)
+	{
+		this.setFed(handfed);
+	}
+
+	@Override
+	public boolean getHandFed()
+	{
+		return this.getFed();
+	}
+
+	@Override
+	public Set<Item> getFoodItems()
+	{
+		return TEMPTATION_ITEMS;
+	}
+
+	@Override
+	public void setSleepingPos(BlockPos pos)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public BlockPos getSleepingPos()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
