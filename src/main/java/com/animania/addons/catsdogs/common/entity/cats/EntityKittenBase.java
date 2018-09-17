@@ -34,13 +34,14 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	protected int ageTimer;
 
 	
-	public EntityKittenBase(World worldIn)
+	public EntityKittenBase(World worldIn, CatType type)
 	{
 		super(worldIn);
 		this.setSize(0.8f, 0.8f);
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
+		this.type = type;
 		this.tasks.addTask(1, new GenericAIFollowParents<EntityKittenBase, EntityQueenBase>(this, 1.1D, EntityQueenBase.class));
 
 
