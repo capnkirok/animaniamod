@@ -158,6 +158,13 @@ public class DictionaryHandler
 		OreDictionary.registerOre("listAllseed", Items.BEETROOT_SEEDS);
 		OreDictionary.registerOre("listAllseed", Items.PUMPKIN_SEEDS);
 		
+		//Bacon
+		OreDictionary.registerOre("foodBaconCooked", ItemHandler.cookedDurocBacon);
+		OreDictionary.registerOre("foodBaconCooked", ItemHandler.cookedHampshireBacon);
+		OreDictionary.registerOre("foodBaconCooked", ItemHandler.cookedLargeBlackBacon);
+		OreDictionary.registerOre("foodBaconCooked", ItemHandler.cookedOldSpotBacon);
+		OreDictionary.registerOre("foodBaconCooked", ItemHandler.cookedPrimeBacon);
+
 		// Additions 1.0.4.8
 		OreDictionary.registerOre("foodMeats", ItemHandler.rawAngusBeef);
 		OreDictionary.registerOre("foodMeats", ItemHandler.rawAngusSteak);

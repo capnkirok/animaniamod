@@ -141,6 +141,7 @@ item.animania_bacon_omelette.name=Bacon Omelette
 item.animania_cheese_omelette.name=Cheese Omelette
 item.animania_truffle_omelette.name=Truffle Omelette
 item.animania_super_omelette.name=Super Omelette
+item.animania_animania_manual.name=Animania Manual
 
 entity.animania:cow_random.name=Random Cow
 entity.animania:pig_random.name=Random Pig
@@ -567,3 +568,25 @@ advancements.animania.ride.title=Seabiscuit
 advancements.animania.ride.description=Ride a Draft Horse
 advancements.animania.pepe.title=Pepe
 advancements.animania.pepe.description=A classic
+
+manual.startpage.title=Animania Manual
+manual.startpage.content=Content
+manual.contents.mainpage=Main Page
+manual.entities.entities.title=Animals
+manual.crafting.shapeless=Shapeless
+manual.blocks.blocks.title=Blocks
+manual.entities.pullabes.title=Pullables
+manual.items.items.title=Items
+manual.items.food.title=Food
+manual.basic.and=and
+
+
+manual.cows.meat.1= cows are meat cows. While the females still give milk, it is inferior to the milk of milk cows. Therefore, it cannot be made into cheese. When killed, they drop these items:
+manual.cows.meat.2=They drop more if they are well fed.
+manual.cows.milk.1= cows are milk cows. Their high-quality milk can be used to make tasty cheese! When killed, like meat cows, they drop
+manual.cows.milk.2=but they also drop
+manual.cows.others=The cows and calves look like this:
+manual.cows.jersey.1= cows are very special. They can be bred for both meat and dairy. Their milk can be used for making cheese, and they drop these items:
+manual.cows.mooshroom.1= cows are very similar to milk cows, but the liquid they produce is not milk but mushroom stew. Therefore you also need a bowl to milk them. They can be turned into Friesian cows by right clicking them with shears. Like milk cows, they drop
+manual.cows.general.1=Cows are some of the popular animals on farms, and for good reason. They produce milk, meat and leather. Like most mammals, cows sleep during the night. They can be attached to leashes by the player. These are their food items:
+manual.cows.general.2=Be careful when attacking bulls, as they will fight back viciously!

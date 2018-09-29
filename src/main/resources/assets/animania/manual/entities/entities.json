@@ -1,0 +1,9 @@
+{
+  "name" : "manual.entities.entities.title",
+  "contents" : [
+    "§lmanual.entities.entities.title",
+    "@link@animania:manual/contents.json#← manual.startpage.content",
+    " ",
+    "@link@animania:manual/entities/cows/cows.json#- advancements.animania.cows.title"
+  ]
+}

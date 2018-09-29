@@ -1,0 +1,15 @@
+{
+  "name" : "advancements.animania.hereford.title",
+  "contents" : [
+    "§ladvancements.animania.hereford.title",
+    "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
+    "@entity@animania:bull_hereford",
+    "advancements.animania.hereford.title",
+    "@text@manual.cows.meat.1#prevline",
+    "@configitem@general.drops;cowDrop,general.drops;cowDrop2",
+    "manual.cows.meat.2",
+    "manual.cows.others",
+    "@entity@animania:cow_hereford",
+    "@entity@animania:calf_hereford"
+  ]
+}

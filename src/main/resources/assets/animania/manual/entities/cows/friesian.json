@@ -1,0 +1,17 @@
+{
+  "name" : "advancements.animania.friesian.title",
+  "contents" : [
+    "§ladvancements.animania.friesian.title",
+    "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
+    "@entity@animania:bull_friesian",
+    "advancements.animania.friesian.title",
+    "@text@manual.cows.milk.1#prevline",
+    "@configitem@general.drops;cowDrop2",
+    "manual.cows.milk.2",
+    "@item@minecraft:beef",
+    "manual.cows.meat.2",
+    "manual.cows.others",
+    "@entity@animania:cow_friesian",
+    "@entity@animania:calf_friesian"
+  ]
+}

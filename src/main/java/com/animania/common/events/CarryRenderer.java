@@ -8,6 +8,8 @@ import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEggAnimated;
+import com.animania.manual.components.CraftingComponent;
+import com.animania.manual.resources.ManualResourceLoader;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
@@ -190,6 +192,8 @@ public class CarryRenderer
 				event.getModelRegistry().putObject(new ModelResourceLocation("animania:fancy_egg", "inventory"), RenderAnimatedEgg.wrapperModel);
 			}
 		}
+		
+		ManualResourceLoader.loadResources();
 	}
 
 	@SubscribeEvent
@@ -209,13 +213,17 @@ public class CarryRenderer
 
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
-	public void onTick(TickEvent event)
+	public void onTick(TickEvent.ClientTickEvent event)
 	{
 		if (event.side == Side.CLIENT)
 		{
-			RenderAnimatedEgg.renderTimer += 0.0005f;
+			RenderAnimatedEgg.renderTimer += 0.004f;
 			if (RenderAnimatedEgg.renderTimer > 1f)
 				RenderAnimatedEgg.renderTimer = 0;
+			
+			CraftingComponent.ITEM_TIMER++;
+			if(CraftingComponent.ITEM_TIMER > 26)
+				CraftingComponent.ITEM_TIMER = 0;
 		}
 	}
 

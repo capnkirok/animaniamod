@@ -7,9 +7,13 @@ import com.animania.common.creativeTab.TabAnimaniaEntities;
 import com.animania.common.creativeTab.TabAnimaniaResources;
 import com.animania.common.handler.AddonHandler;
 import com.animania.common.handler.GuiHandlerAnimania;
+import com.animania.manual.components.CraftingComponent;
 import com.animania.proxy.CommonProxy;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -59,19 +63,20 @@ public class Animania
 	public void construction(FMLConstructionEvent event)
 	{
 		FluidRegistry.enableUniversalBucket();
+		
 	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		AddonHandler.loadAddons(event.getAsmData());
-		Animania.proxy.preInit();
+		Animania.proxy.preInit(event);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		Animania.proxy.init();
+		Animania.proxy.init(event);
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerAnimania);
 	}
@@ -79,6 +84,7 @@ public class Animania
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e)
 	{
+		Animania.proxy.postInit(e);
 	}
 
 }

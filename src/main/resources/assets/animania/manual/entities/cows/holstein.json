@@ -1,0 +1,17 @@
+{
+  "name" : "advancements.animania.holstein.title",
+  "contents" : [
+    "§ladvancements.animania.holstein.title",
+    "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
+    "@entity@animania:bull_holstein",
+    "advancements.animania.holstein.title",
+    "@text@manual.cows.milk.1#prevline",
+    "@configitem@general.drops;cowDrop2",
+    "manual.cows.milk.2",
+    "@item@minecraft:beef",
+    "manual.cows.meat.2",
+    "manual.cows.others",
+    "@entity@animania:cow_holstein",
+    "@entity@animania:calf_holstein"
+  ]
+}

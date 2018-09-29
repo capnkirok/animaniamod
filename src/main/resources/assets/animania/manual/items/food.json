@@ -1,0 +1,8 @@
+{
+  "name" : "manual.items.food.title",
+  "contents" : [
+    "§lmanual.items.food.title",
+    "@link@animania:manual/contents.json#← manual.startpage.content",
+    " "
+  ]
+}

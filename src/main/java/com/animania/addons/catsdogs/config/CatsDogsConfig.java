@@ -9,7 +9,6 @@ import net.minecraftforge.common.config.Config.Name;
 @Config(modid = Animania.MODID)
 public class CatsDogsConfig
 {
-	@Name("Cats and Dogs")
 	public static CatsDogsConfig.Settings catsdogs = new CatsDogsConfig.Settings();
 
 	

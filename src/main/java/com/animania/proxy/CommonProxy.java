@@ -18,18 +18,22 @@ import com.animania.common.handler.ItemHandler;
 import com.animania.common.handler.PatreonHandler;
 import com.animania.common.handler.RecipeHandler;
 import com.animania.common.handler.TileEntityHandler;
+import com.animania.manual.resources.ManualResourceLoader;
 import com.animania.network.NetworkHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class CommonProxy implements IGuiHandler
 {
 
-	public void preInit()
+	public void preInit(FMLPreInitializationEvent event)
 	{
 		CapabilityManager.INSTANCE.register(ICapabilityPlayer.class, new CapabilitiesPlayerStorage(), CapabilityPlayer.class);
 		EntityHandler.preInit();
@@ -48,9 +52,10 @@ public class CommonProxy implements IGuiHandler
 		CompatHandler.preInit();
 		AdvancementHandler.registerCriteria();
 		AddonHandler.preInitCommon();
+
 	}
 
-	public void init()
+	public void init(FMLInitializationEvent event)
 	{
 		DictionaryHandler.init();
 		RecipeHandler.init();
@@ -60,6 +65,9 @@ public class CommonProxy implements IGuiHandler
 		AddonHandler.initCommon();
 	}
 
+	public void postInit(FMLPostInitializationEvent event)
+	{
+	}
 
 	public void registerFluidBlockRendering(Block block, String name)
 	{

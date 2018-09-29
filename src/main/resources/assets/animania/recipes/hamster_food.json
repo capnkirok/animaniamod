@@ -5,14 +5,17 @@
   },
   "ingredients": [
     {
-      "item": "minecraft:wheat_seeds"
+      "ore": "listAllseed",
+      "type": "forge:ore_dict"
     },
     {
-      "item": "minecraft:pumpkin_seeds"
+      "ore": "listAllseed",
+      "type": "forge:ore_dict"
     },
     {
-      "item": "minecraft:melon_seeds"
+      "ore": "listAllseed",
+      "type": "forge:ore_dict"
     }
   ],
-  "type": "minecraft:crafting_shapeless"
+  "type": "forge:ore_shapeless"
 }

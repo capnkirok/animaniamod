@@ -5,6 +5,7 @@ import com.animania.client.AnimaniaTextures;
 import com.animania.client.handler.RenderHandler;
 import com.animania.common.handler.AddonHandler;
 import com.animania.common.items.ItemEntityEgg;
+import com.animania.manual.resources.ManualResourceLoader;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
 import com.leviathanstudio.craftstudio.client.util.EnumRenderType;
@@ -21,15 +22,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class ClientProxy extends CommonProxy
 {
 
 	@Override
-	public void preInit()
+	public void preInit(FMLPreInitializationEvent event)
 	{
-		super.preInit();
+		super.preInit(event);
 		RenderHandler.preInit();
 		AnimaniaTextures.registerTextures();
 
@@ -37,9 +41,9 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public void init()
+	public void init(FMLInitializationEvent event)
 	{
-		super.init();
+		super.init(event);
 		RenderHandler.init();
 
 		for (Item item : ForgeRegistries.ITEMS.getValues())
@@ -51,6 +55,13 @@ public class ClientProxy extends CommonProxy
 		}
 		
 		AddonHandler.initClient();
+	}
+	
+	@Override
+	public void postInit(FMLPostInitializationEvent event)
+	{
+		super.postInit(event);
+		ManualResourceLoader.loadResources();
 	}
 
 	@Override

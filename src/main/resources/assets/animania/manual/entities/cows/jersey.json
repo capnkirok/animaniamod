@@ -1,0 +1,15 @@
+{
+  "name" : "advancements.animania.jersey.title",
+  "contents" : [
+    "§ladvancements.animania.jersey.title",
+    "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
+    "@entity@animania:bull_jersey",
+    "advancements.animania.jersey.title",
+    "@text@manual.cows.jersey.1#prevline",
+    "@configitem@general.drops;cowDrop,general.drops;cowDrop2",
+    "manual.cows.meat.2",
+    "manual.cows.others",
+    "@entity@animania:cow_jersey",
+    "@entity@animania:calf_jersey"
+  ]
+}

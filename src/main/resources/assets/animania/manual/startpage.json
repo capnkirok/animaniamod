@@ -1,0 +1,10 @@
+{
+  "name" : "manual.startpage.title",
+  "isFirstPage" : true,
+  "contents" : [
+    "§lmanual.startpage.title",
+    "@image@animania:textures/animania_logo1.png",
+    " ",
+    "@link@animania:manual/contents.json#- manual.startpage.content"
+    ]
+}

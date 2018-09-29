@@ -1,12 +1,10 @@
 {
   "result": {
-    "item": "animania:hamster_food",
-    "count": 3
+    "item": "animania:animania_manual"
   },
   "ingredients": [
     {
-      "ore": "listAllseed",
-      "type": "forge:ore_dict"
+      "item": "minecraft:book"
     },
     {
       "ore": "listAllseed",

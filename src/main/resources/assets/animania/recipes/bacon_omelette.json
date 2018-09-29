@@ -7,8 +7,9 @@
       "item": "animania:plain_omelette"
     },
     {
-      "item": "animania:cooked_duroc_bacon"
+      "ore": "foodBaconCooked",
+      "type": "forge:ore_dict"
     }
   ],
-  "type": "minecraft:crafting_shapeless"
+  "type": "forge:ore_shapeless"
 }

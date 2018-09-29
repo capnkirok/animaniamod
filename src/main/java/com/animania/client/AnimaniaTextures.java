@@ -62,6 +62,7 @@ public class AnimaniaTextures
 		register(ItemHandler.wheel);
 		register(ItemHandler.milkBottle);
 		register(ItemHandler.honeyJar);
+		register(ItemHandler.animaniaManual);
 
 		registerColored(ItemHandler.hamsterBallColored, "hamster_ball");
 

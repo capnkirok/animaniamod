@@ -26,6 +26,7 @@ import com.animania.common.items.ItemCarvingKnife;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemHamsterBall;
 import com.animania.common.items.ItemHoneyBottle;
+import com.animania.common.items.ItemManual;
 import com.animania.common.items.ItemMilkBottle;
 import com.animania.common.items.ItemRidingCrop;
 import com.animania.common.items.ItemTiller;
@@ -70,6 +71,7 @@ public class ItemHandler
 	public static Item wheel;
 	public static Item milkBottle;
 	public static Item honeyJar;
+	public static Item animaniaManual;
 
 	// Beef
 	public static Item rawHerefordBeef;
@@ -220,6 +222,7 @@ public class ItemHandler
 		ItemHandler.hamsterBallColored = new ItemHamsterBall(true, "hamster_ball_colored");
 		ItemHandler.wheel = new AnimaniaItem("wheel");
 		ItemHandler.milkBottle = new ItemMilkBottle();
+		ItemHandler.animaniaManual = new ItemManual();
 
 		// Other foods
 		ItemHandler.ultimateOmelette = new ItemAnimaniaFood(5, 2f, "super_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false), new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false), new PotionEffect(MobEffects.RESISTANCE, 600, 1, false, false));

@@ -1,0 +1,15 @@
+{
+  "name" : "advancements.animania.angus.title",
+  "contents" : [
+    "§ladvancements.animania.angus.title",
+    "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
+    "@entity@animania:bull_angus",
+    "advancements.animania.angus.title",
+    "@text@manual.cows.meat.1#prevline",
+    "@configitem@general.drops;cowDrop,general.drops;cowDrop2",
+    "manual.cows.meat.2",
+    "manual.cows.others",
+    "@entity@animania:cow_angus",
+    "@entity@animania:calf_angus"
+  ]
+}
