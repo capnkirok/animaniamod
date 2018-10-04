@@ -3,8 +3,6 @@ package com.animania.common.events;
 import java.util.Random;
 
 import com.animania.Animania;
-import com.animania.client.models.item.AnimatedEggModelWrapper;
-import com.animania.client.render.item.RenderAnimatedEgg;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
@@ -13,17 +11,15 @@ import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.EntitySowBase;
+import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.handler.AdvancementHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.config.AnimaniaConfig;
 import com.animania.network.client.CapSyncPacket;
 
 import net.minecraft.block.BlockFarmland;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,6 +27,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -40,9 +37,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
@@ -51,8 +45,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSeedHandler
 {
@@ -166,6 +158,12 @@ public class ItemSeedHandler
 			{
 				AdvancementHandler.feedAnimal.trigger((EntityPlayerMP) player, stack, entry);
 			}
+		}
+		
+		if(stack.getItem() instanceof ItemDye && target instanceof EntityAnimaniaSheep)
+		{
+			if(!((EntityAnimaniaSheep)target).isDyeable())
+				event.setCanceled(true);
 		}
 	}
 

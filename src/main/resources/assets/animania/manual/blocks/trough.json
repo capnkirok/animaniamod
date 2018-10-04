@@ -1,0 +1,14 @@
+{
+  "name" : "tile.animania_block_trough.name",
+  "contents" : [
+    "§ltile.animania_block_trough.name",
+    "@link@animania:manual/blocks/blocks.json#← manual.blocks.blocks.title",
+    " ",
+    "manual.blocks.trough.1",
+    "@link@animania:manual/items/slop.json#fluid.slop#prevline",
+    "@text@manual.blocks.trough.2#prevline",
+    "@configitem@general.gamerules;troughFood",
+    "manual.blocks.trough.3",
+    "@crafting@animania:block_trough"
+  ]
+}

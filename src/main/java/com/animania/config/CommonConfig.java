@@ -1,16 +1,7 @@
 package com.animania.config;
 
-import com.animania.common.entities.chickens.EntityHenLeghorn;
-import com.animania.common.entities.chickens.EntityHenOrpington;
-import com.animania.common.entities.chickens.EntityHenPlymouthRock;
-import com.animania.common.entities.chickens.EntityHenRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityHenWyandotte;
-
-import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.init.Biomes;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.config.Config.Comment;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.common.config.Config.RequiresMcRestart;
 
 public class CommonConfig
 {
@@ -110,7 +101,7 @@ public class CommonConfig
 		public boolean disableRollingVehicles = false;
 		
 		@Comment("Food Items that can be placed in the trough (use # for meta)")
-		public String[] troughFood = { "minecraft:wheat", "simplecorn:corncob", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem", "harvestcraft:cornitem", "minecraft:apple", "minecraft:carrot" , "minecraft:beetroot", "minecraft:potato", "minecraft:poisonous_potato", "minecraft:wheat_seeds", "minecraft:melon_seeds", "minecraft:beetroot_seeds", "minecraft:pumpkin_seeds", "biomesoplenty:turnip_seeds", "minecraft:apple", "minecraft:egg", "animania:brown_egg"};
+		public String[] troughFood = {"minecraft:wheat", "simplecorn:corncob", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem", "harvestcraft:cornitem", "minecraft:apple", "minecraft:carrot" , "minecraft:beetroot", "minecraft:potato", "minecraft:poisonous_potato", "minecraft:wheat_seeds", "minecraft:melon_seeds", "minecraft:beetroot_seeds", "minecraft:pumpkin_seeds", "biomesoplenty:turnip_seeds", "minecraft:egg", "animania:brown_egg"};
 		
 		@Comment("AI Tick Countdown Timer (increase for higher performance)")
 		public int ticksBetweenAIFirings = 100;
@@ -131,10 +122,10 @@ public class CommonConfig
 		public int beehiveSpawningFrequency = 5;
 		
 		@Comment("Honey creation rate for wild hives")
-		public int hiveWildHoneyRate = 450;
+		public int hiveWildHoneyRate = 700;
 		
 		@Comment("Honey creation rate for playermade hives")
-		public int hivePlayermadeHoneyRate = 250;
+		public int hivePlayermadeHoneyRate = 450;
 		
 		@Comment("Valid Biome Types for hive. Types can be seen here:\nhttps://github.com/MinecraftForge/MinecraftForge/blob/1.12.x/src/main/java/net/minecraftforge/common/BiomeDictionary.java")
 		public String[] hiveValidBiomeTypes = new String[]
@@ -146,6 +137,9 @@ public class CommonConfig
 				"PLAINS",
 		};
 		
+		@RequiresMcRestart
+		@Comment("Eat animania food anytime")
+		public boolean eatFoodAnytime = false;
 		
 	}
 

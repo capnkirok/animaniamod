@@ -45,7 +45,7 @@ public class EntityRamFriesian extends EntityRamBase
 			woolDrops.add(new ItemStack((BlockHandler.blockAnimaniaWool), i, 1));
 			break;
 		case 1:
-			woolDrops.add(new ItemStack((Blocks.WOOL), i));
+			woolDrops.add(new ItemStack((Blocks.WOOL), i, this.getDyeColor().getMetadata()));
 			break;
 		case 2:
 			woolDrops.add(new ItemStack((BlockHandler.blockAnimaniaWool), i, 2));
@@ -55,6 +55,18 @@ public class EntityRamFriesian extends EntityRamBase
 		this.setSheared(true);
 
 		return woolDrops;
+	}
+	
+	@Override
+	public boolean isDyeable()
+	{
+		switch (this.getColorNumber())
+		{
+		case 1:
+			return true;
+		default:
+			return false;
+		}
 	}
 
 

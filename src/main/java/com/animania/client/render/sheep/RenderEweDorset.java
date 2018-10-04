@@ -3,6 +3,7 @@ package com.animania.client.render.sheep;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.sheep.ModelDorsetEwe;
+import com.animania.client.models.sheep.ModelMerinoEwe;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityEweDorper;
 import com.animania.common.entities.sheep.EntityEweDorset;
@@ -11,6 +12,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
@@ -123,6 +126,23 @@ public class RenderEweDorset<T extends EntityEweDorset> extends RenderLiving<T>
 	protected void preRenderCallback(T entityliving, float f)
 	{
 		this.preRenderScale(entityliving, f);
+		if (entityliving.hasCustomName() && "jeb_".equals(entityliving.getCustomNameTag()) && entityliving.isDyeable())
+		{
+			int i1 = 25;
+			int i = entityliving.ticksExisted / 25 + entityliving.getEntityId();
+			int j = EnumDyeColor.values().length;
+			int k = i % j;
+			int l = (i + 1) % j;
+			float q = ((float) (entityliving.ticksExisted % 25) + f) / 25.0F;
+			float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
+			float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
+			((ModelDorsetEwe) this.mainModel).setWoolColor(afloat1[0] * (1.0F - q) + afloat2[0] * q, afloat1[1] * (1.0F - q) + afloat2[1] * q, afloat1[2] * (1.0F - q) + afloat2[2] * q);
+		}
+		else
+		{
+			float[] rgb = entityliving.getDyeColor().getColorComponentValues();
+			((ModelDorsetEwe) this.mainModel).setWoolColor(rgb[0], rgb[1], rgb[2]);
+		}
 	}
 
 	static class Factory<T extends EntityEweDorset> implements IRenderFactory<T>

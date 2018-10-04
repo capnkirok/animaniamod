@@ -150,7 +150,7 @@ public class BlockStraw extends Block
 	{
 		BlockPos blockposlower = pos.down();
 		
-		if (worldIn.getBlockState(blockposlower).getBlock() == BlockHandler.blockStraw || !worldIn.getBlockState(blockposlower).getBlock().isFullBlock(getDefaultState()) || !worldIn.getBlockState(blockposlower).getBlock().isOpaqueCube(getDefaultState())) {
+		if (worldIn.getBlockState(blockposlower).getBlock() == BlockHandler.blockStraw || !worldIn.getBlockState(blockposlower).getBlock().isFullBlock(worldIn.getBlockState(blockposlower)) || !worldIn.getBlockState(blockposlower).getBlock().isOpaqueCube(worldIn.getBlockState(blockposlower))) {
 			return false;
 		}
 

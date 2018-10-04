@@ -1,0 +1,10 @@
+{
+  "name" : "tile.animania_block_mud.name",
+  "contents" : [
+    "§ltile.animania_block_mud.name",
+    "@link@animania:manual/blocks/blocks.json#← manual.blocks.blocks.title",
+    " ",
+    "manual.blocks.mud.1",
+    "@crafting@animania:block_mud"
+  ]
+}

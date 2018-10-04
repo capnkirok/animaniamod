@@ -5,6 +5,7 @@ import com.animania.client.AnimaniaTextures;
 import com.animania.client.handler.RenderHandler;
 import com.animania.common.handler.AddonHandler;
 import com.animania.common.items.ItemEntityEgg;
+import com.animania.manual.gui.GuiManual;
 import com.animania.manual.resources.ManualResourceLoader;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
@@ -13,6 +14,7 @@ import com.leviathanstudio.craftstudio.client.util.EnumResourceType;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -123,6 +125,12 @@ public class ClientProxy extends CommonProxy
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_wagon");
 		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_tiller");
 		
+	}
+	
+	public void openManualGui(ItemStack stack)
+	{
+		GuiManual manual = GuiManual.getInstance(stack);
+		Minecraft.getMinecraft().displayGuiScreen(manual);
 	}
 
 	//Sleep

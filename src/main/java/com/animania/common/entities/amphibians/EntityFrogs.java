@@ -126,6 +126,8 @@ public class EntityFrogs extends EntityAmphibian
 			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFerretBase.class, true));
 			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityHedgehog.class, true));
 			this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, true));
+			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+			this.setHealth(20);
 		}
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
 		this.tasks.addTask(5, new EntityAIWander(this, 0.6D));

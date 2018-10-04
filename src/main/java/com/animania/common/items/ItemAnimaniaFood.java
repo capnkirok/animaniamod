@@ -36,9 +36,10 @@ public class ItemAnimaniaFood extends ItemFood
 		this.setUnlocalizedName(Animania.MODID + "_" + name);
 		this.effects = potionEffects;
 		this.name = name;
-		this.setAlwaysEdible();
+		if (AnimaniaConfig.gameRules.eatFoodAnytime)
+			this.setAlwaysEdible();
 		this.setCreativeTab(Animania.TabAnimaniaResources);
-		
+
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class ItemAnimaniaFood extends ItemFood
 		else
 			return super.getHealAmount(stack);
 	}
-	
+
 	@Override
 	public float getSaturationModifier(ItemStack stack)
 	{
@@ -106,7 +107,6 @@ public class ItemAnimaniaFood extends ItemFood
 			}
 	}
 
-	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
@@ -123,7 +123,8 @@ public class ItemAnimaniaFood extends ItemFood
 					tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an." + name) + " " + RomanNumberHelper.toRoman(amplifier + 1) + (!isInstant ? " (" + TimeHelper.getTime(duration) + ")" : ""));
 			}
 
-		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+		if (AnimaniaConfig.gameRules.eatFoodAnytime)
+			tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
 	}
 

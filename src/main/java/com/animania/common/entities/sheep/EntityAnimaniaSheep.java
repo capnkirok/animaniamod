@@ -26,7 +26,6 @@ import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
@@ -43,7 +42,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -79,6 +80,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaSheep.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Integer> DYE_COLOR = EntityDataManager.<Integer>createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
 
 	private static final String[] SHEEP_TEXTURES = new String[] { "black", "white", "brown" };
 
@@ -95,6 +97,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	protected boolean mateable = false;
 	protected boolean headbutting = false;
 	protected EntityGender gender;
+	protected EnumDyeColor color;
 
 	public EntityAnimaniaSheep(World worldIn)
 	{
@@ -156,6 +159,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		this.dataManager.register(EntityAnimaniaSheep.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
 		this.dataManager.register(EntityAnimaniaSheep.SLEEPING, Boolean.valueOf(false));
 		this.dataManager.register(EntityAnimaniaSheep.SLEEPTIMER, Float.valueOf(0.0F));
+		this.dataManager.register(EntityAnimaniaSheep.DYE_COLOR, Integer.valueOf(EnumDyeColor.WHITE.getMetadata()));
 
 		if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian || this instanceof EntityLambFriesian)
 		{
@@ -197,14 +201,17 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	@Override
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
-		this.setFed(true);
-		this.setHandFed(true);
-		this.entityAIEatGrass.startExecuting();
-		this.eatTimer = 80;
-		player.addStat(sheepType.getAchievement(), 1);
+		if (!this.getSleeping())
+		{
+			this.setFed(true);
+			this.setHandFed(true);
+			this.entityAIEatGrass.startExecuting();
+			this.eatTimer = 80;
+			player.addStat(sheepType.getAchievement(), 1);
 
-		if (!player.isCreative())
-			stack.shrink(1);
+			if (!player.isCreative())
+				stack.shrink(1);
+		}
 	}
 
 	public boolean getSheared()
@@ -377,6 +384,31 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 
 	}
 
+	public boolean isDyeable()
+	{
+		return false;
+	}
+
+	public EnumDyeColor getDyeColor()
+	{
+		if (color == null)
+		{
+			color = EnumDyeColor.byMetadata(this.getDyeColorNum());
+		}
+
+		return color;
+	}
+
+	public int getDyeColorNum()
+	{
+		return this.getIntFromDataManager(EntityAnimaniaSheep.DYE_COLOR);
+	}
+
+	public void setDyeColorNum(int col)
+	{
+		this.dataManager.set(EntityAnimaniaSheep.DYE_COLOR, new Integer(col));
+	}
+
 	@Override
 	public void onLivingUpdate()
 	{
@@ -485,6 +517,22 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 			}
 		}
 
+		if (stack.getItem() instanceof ItemDye && !this.isChild() && !this.getSheared())
+		{
+			if (isDyeable())
+			{
+				if (!player.isCreative())
+					stack.shrink(1);
+
+				EnumDyeColor col = EnumDyeColor.byDyeDamage(stack.getItemDamage());
+				this.color = col;
+				this.setDyeColorNum(col.getMetadata());
+				return true;
+			}
+			else
+				return false;
+		}
+
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
 		{
 			if (!player.isCreative())
@@ -536,9 +584,27 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		return null;
 	}
 
+	@Override
+	public void setInLove(EntityPlayer player)
+	{
+		if (!this.getSleeping())
+			this.world.setEntityState(this, (byte) 18);
+	}
+	
 	public void setMateUniqueId(@Nullable UUID uniqueId)
 	{
 		this.dataManager.set(EntityAnimaniaSheep.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+	}
+	
+	@Override
+	public boolean isBreedingItem(@Nullable ItemStack stack)
+	{
+		return mateable && (stack != ItemStack.EMPTY && this.isSheepBreedingItem(stack.getItem()));
+	}
+
+	private boolean isSheepBreedingItem(Item itemIn)
+	{
+		return TEMPTATION_ITEMS.contains(itemIn) || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
 
 	@Override
@@ -557,6 +623,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		compound.setInteger("Age", this.getAge());
 		compound.setBoolean("Sleep", this.getSleeping());
 		compound.setFloat("SleepTimer", this.getSleepTimer());
+		compound.setInteger("DyeColor", this.getDyeColorNum());
 
 	}
 
@@ -583,7 +650,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 		this.setAge(compound.getInteger("Age"));
 		this.setSleeping(compound.getBoolean("Sleep"));
 		this.setSleepTimer(compound.getFloat("SleepTimer"));
-
+		this.setDyeColorNum(compound.getInteger("DyeColor"));
 	}
 
 	public int getAge()
@@ -936,7 +1003,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements ISpawnable, IShe
 	public void setSleepingPos(BlockPos pos)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

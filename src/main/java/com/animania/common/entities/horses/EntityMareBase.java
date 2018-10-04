@@ -559,11 +559,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		if (this.isBeingRidden() && this.getSleeping())
 			this.setSleeping(false);
 
-		if (this.isBeingRidden() && !this.isAIDisabled()) {
-			this.setNoAI(true);
-		} else {
-			this.setNoAI(false);
-		}
 
 		if (!this.getFertile() && this.dryTimerMare > -1) {
 			this.dryTimerMare--;

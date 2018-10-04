@@ -1,0 +1,16 @@
+{
+  "name" : "tile.animania_block_hamster_wheel.name",
+  "contents" : [
+    "§ltile.animania_block_hamster_wheel.name",
+    "@link@animania:manual/blocks/blocks.json#← manual.blocks.blocks.title",
+    " ",
+    "manual.blocks.hamster_wheel.1",
+    "@config@general.gamerules;hamsterWheelUseTime#prevline",
+    "@text@manual.blocks.hamster_wheel.2#prevline",
+    "@config@general.gamerules;hamsterWheelRFGeneration#prevline",
+    "@text@manual.blocks.hamster_wheel.3#prevline",
+    "@config@general.gamerules;hamsterWheelCapacity#prevline",
+    "@text@manual.blocks.hamster_wheel.4#prevline",
+    "@crafting@animania:block_hamster_wheel"
+  ]
+}

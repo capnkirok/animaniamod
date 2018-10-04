@@ -6,6 +6,7 @@ import java.util.List;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -19,7 +20,7 @@ public class EntityEweMerino extends EntityEweBase
 		super(worldIn);
 		this.sheepType = SheepType.MERINO;
 	}
-	
+
 	@Override
 	public int getPrimaryEggColor()
 	{
@@ -33,15 +34,20 @@ public class EntityEweMerino extends EntityEweBase
 	}
 
 	@Override
-	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+	{
 
 		int i = 1 + this.rand.nextInt(2);
 
 		List<ItemStack> woolDrops = new ArrayList<ItemStack>();
 
-		switch (this.getColorNumber()) {
+		switch (this.getColorNumber())
+		{
 		case 0:
-			woolDrops.add(new ItemStack((BlockHandler.blockAnimaniaWool), i, 5));
+			if (this.getDyeColor() == EnumDyeColor.WHITE)
+				woolDrops.add(new ItemStack((BlockHandler.blockAnimaniaWool), i, 5));
+			else
+				woolDrops.add(new ItemStack((Blocks.WOOL), i, this.getDyeColor().getMetadata()));
 			break;
 		case 1:
 			woolDrops.add(new ItemStack((BlockHandler.blockAnimaniaWool), i, 4));
@@ -52,5 +58,16 @@ public class EntityEweMerino extends EntityEweBase
 
 		return woolDrops;
 	}
-	
+
+	@Override
+	public boolean isDyeable()
+	{
+		switch (this.getColorNumber())
+		{
+		case 0:
+			return true;
+		default:
+			return false;
+		}
+	}
 }

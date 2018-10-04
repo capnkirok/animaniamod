@@ -1,7 +1,5 @@
 package com.animania.manual.components;
 
-import com.animania.manual.gui.GuiManual;
-
 public interface IManualComponent
 {
 	public void init();

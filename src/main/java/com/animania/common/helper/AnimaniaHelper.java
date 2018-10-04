@@ -1,7 +1,6 @@
 package com.animania.common.helper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.animania.Animania;
@@ -20,6 +19,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -106,6 +106,30 @@ public class AnimaniaHelper
 			return Blocks.AIR;
 
 		return b;
+	}
+
+	public static IBlockState getBlockState(String name)
+	{
+		int meta = 0;
+		if (name.contains("#"))
+		{
+			try
+			{
+				meta = Integer.parseInt(name.substring(name.indexOf("#")).replace("#", ""));
+			}
+			catch (Exception e)
+			{
+			}
+			
+			name = name.substring(0, name.indexOf("#"));
+		}
+
+		Block b = Block.getBlockFromName(name);
+
+		if (b == null)
+			return Blocks.AIR.getDefaultState();
+
+		return b.getStateFromMeta(meta);
 	}
 
 	public static void sendTileEntityUpdate(TileEntity tile)
@@ -321,7 +345,7 @@ public class AnimaniaHelper
 
 	public static Object getConfigValue(String configName)
 	{
-		
+
 		Configuration config = AnimaniaConfig.EventHandler.getConfiguration();
 		if (config != null)
 		{

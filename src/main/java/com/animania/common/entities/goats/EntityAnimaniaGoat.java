@@ -185,6 +185,17 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	{
 		this.dataManager.set(EntityAnimaniaGoat.SPOOKED, Boolean.valueOf(spooked));
 	} 
+	
+	@Override
+	public boolean isBreedingItem(@Nullable ItemStack stack)
+	{
+		return mateable && (stack != ItemStack.EMPTY && this.isGoatBreedingItem(stack.getItem()));
+	}
+
+	private boolean isGoatBreedingItem(Item itemIn)
+	{
+		return TEMPTATION_ITEMS.contains(itemIn) || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
+	}
 
 	public boolean getSpooked()
 	{
@@ -542,6 +553,14 @@ public class EntityAnimaniaGoat extends EntitySheep implements ISpawnable, Anima
 	public void eatGrassBonus()
 	{
 
+	}
+	
+	@Override
+	public void setInLove(EntityPlayer player)
+	{
+
+		if (!this.getSleeping())
+			this.world.setEntityState(this, (byte) 18);
 	}
 
 	@Override

@@ -43,7 +43,7 @@ public class ItemComponent implements IManualComponent
 
 		this.mc = Minecraft.getMinecraft();
 
-		this.objectHeight = 16 + manual.LINE_Y_OFFSET;
+		this.objectHeight = 16;
 		this.objectWidth = 0;
 		for (int i = 0; i < stacks.length; i++)
 		{

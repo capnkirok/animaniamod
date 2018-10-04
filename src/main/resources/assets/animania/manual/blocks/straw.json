@@ -1,0 +1,10 @@
+{
+  "name" : "tile.animania_block_straw.name",
+  "contents" : [
+    "§ltile.animania_block_straw.name",
+    "@link@animania:manual/blocks/blocks.json#← manual.blocks.blocks.title",
+    " ",
+    "manual.blocks.straw.1",
+    "@crafting@animania:block_straw"
+  ]
+}

@@ -133,7 +133,6 @@ public class GuiHandlerAnimania implements IGuiHandler
 
 			}
 			break;
-
 		}
 
 		return null;

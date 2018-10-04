@@ -2,6 +2,7 @@ package com.animania.common.entities.generic.ai;
 
 import com.animania.common.entities.IFoodEating;
 import com.animania.common.entities.ISleeping;
+import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.handler.BlockHandler;
@@ -129,11 +130,13 @@ public class GenericAIEatGrass extends EntityAIBase
 			else if(eatsGrass)
 			{
 				BlockPos blockpos1 = blockpos.down();
-
-				if (this.entityWorld.getBlockState(blockpos1).getBlock() == Blocks.GRASS)
+				Block blockBelow = this.entityWorld.getBlockState(blockpos1).getBlock();
+				
+				
+				if (blockBelow == Blocks.GRASS || ((grassEaterEntity instanceof EntityAnimaniaCow && ((EntityAnimaniaCow)grassEaterEntity).cowType == CowType.MOOSHROOM) ? blockBelow == Blocks.MYCELIUM : false))
 				{
 
-					this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(Blocks.GRASS));
+					this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(blockBelow));
 
 					if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
 					{

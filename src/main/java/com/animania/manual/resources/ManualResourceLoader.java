@@ -113,10 +113,10 @@ public class ManualResourceLoader
 					if (c.isPermitted())
 					{
 						m.manualContent.put(c.getId(), c);
-						m.currentTopic = firstTopic;
-						m.lastTopic = firstTopic;
 					}
 				}
+				m.currentTopic = firstTopic;
+				m.lastTopic = firstTopic;
 			}
 		}
 		catch (Exception e)
@@ -129,73 +129,83 @@ public class ManualResourceLoader
 	{
 		try
 		{
-		JsonParser parser = new JsonParser();
-		JsonElement e = (JsonElement) parser.parse(new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)));
-		if (e.isJsonObject())
-		{
-			JsonObject obj = e.getAsJsonObject();
-
-			boolean firstPage = false;
-			if (obj.has("isFirstPage"))
-				firstPage = obj.get("isFirstPage").getAsBoolean();
-
-			String requiredModid = Animania.MODID;
-			if (obj.has("requiredModid"))
-				requiredModid = obj.get("requiredModid").getAsString();
-
-			String name = "UNTITLED";
-			if (obj.has("name"))
-				name = AnimaniaHelper.translateWithFormattingCodes(obj.get("name").getAsString());
-
-			if (obj.has("contents"))
+			JsonParser parser = new JsonParser();
+			JsonElement e = (JsonElement) parser.parse(new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8)));
+			if (e.isJsonObject())
 			{
-				JsonArray contents = obj.get("contents").getAsJsonArray();
+				JsonObject obj = e.getAsJsonObject();
 
-				List<IManualComponent> components = new ArrayList<IManualComponent>();
-				List<ManualPage> pages = new ArrayList<ManualPage>();
+				boolean firstPage = false;
+				if (obj.has("isFirstPage"))
+					firstPage = obj.get("isFirstPage").getAsBoolean();
 
-				for (int i = 0; i < contents.size(); i++)
+				String requiredModid = Animania.MODID;
+				if (obj.has("requiredModid"))
+					requiredModid = obj.get("requiredModid").getAsString();
+
+				String name = "UNTITLED";
+				if (obj.has("name"))
+					name = AnimaniaHelper.translateWithFormattingCodes(obj.get("name").getAsString());
+
+				if (obj.has("contents"))
 				{
-					JsonElement content = contents.get(i);
-					List<IManualComponent> c = getComponentFromString(content.getAsString(), components);
-					components.addAll(c);
-				}
+					JsonArray contents = obj.get("contents").getAsJsonArray();
 
-				int height = 0;
-				for (int k = 0; k < components.size(); k++)
-				{
-					IManualComponent c = components.get(k);
-					height += c.getObjectHeight();
-					if (height > GuiManual.MANUAL_MAX_Y)
+					List<IManualComponent> components = new ArrayList<IManualComponent>();
+					List<ManualPage> pages = new ArrayList<ManualPage>();
+
+					for (int i = 0; i < contents.size(); i++)
 					{
-						List<IManualComponent> splitComponents = new ArrayList<IManualComponent>();
-						for (int j = 0; j < k; j++)
-						{
-							splitComponents.add(components.get(0));
-							components.remove(0);
-						}
-						regerenatePositions(components);
-						ManualPage page = new ManualPage(splitComponents);
-						pages.add(page);
-						height = 0;
-						k = 0;
+						JsonElement content = contents.get(i);
+						List<IManualComponent> c = getComponentFromString(content.getAsString(), components);
+						components.addAll(c);
 					}
+
+					IManualComponent prevComponent = null;
+
+					int height = 0;
+					for (int k = 0; k < components.size(); k++)
+					{
+						IManualComponent c = components.get(k);
+						if (prevComponent != null)
+						{
+							if (c.getY() == prevComponent.getY() && c.getObjectHeight() == prevComponent.getObjectHeight())
+								height -= (c.getObjectHeight() + GuiManual.LINE_Y_OFFSET);
+						}
+						height += c.getObjectHeight() + GuiManual.LINE_Y_OFFSET;
+
+						prevComponent = c;
+						if (height > GuiManual.MANUAL_MAX_Y)
+						{
+							List<IManualComponent> splitComponents = new ArrayList<IManualComponent>();
+							for (int j = 0; j < k; j++)
+							{
+								splitComponents.add(components.get(0));
+								components.remove(0);
+							}
+							regerenatePositions(components);
+							ManualPage page = new ManualPage(splitComponents);
+							pages.add(page);
+							height = 0;
+							height += c.getObjectHeight() + GuiManual.LINE_Y_OFFSET;
+							k = 0;
+						}
+					}
+
+					ManualPage finalPage = new ManualPage(components);
+					pages.add(finalPage);
+
+					ManualTopic topic = new ManualTopic(loc, firstPage, name, pages);
+					topic.setRequiredModid(requiredModid);
+
+					if (firstPage)
+						firstTopic = topic;
+					topics.add(topic);
 				}
 
-				ManualPage finalPage = new ManualPage(components);
-				pages.add(finalPage);
-
-				ManualTopic topic = new ManualTopic(loc, firstPage, name, pages);
-				topic.setRequiredModid(requiredModid);
-
-				if (firstPage)
-					firstTopic = topic;
-				topics.add(topic);
 			}
-
 		}
-		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			errored = true;
@@ -206,6 +216,9 @@ public class ManualResourceLoader
 	{
 		int offsetY = 0;
 
+		int prevPosY = 0;
+		int prevHeight = 0;
+
 		for (int i = 0; i < components.size(); i++)
 		{
 
@@ -214,8 +227,17 @@ public class ManualResourceLoader
 
 			if (lastComponent != null)
 			{
-				offsetY = lastComponent.getY() + lastComponent.getObjectHeight() + GuiManual.LINE_Y_OFFSET;
+				if (prevPosY == thisComponent.getY() && prevHeight == thisComponent.getObjectHeight())
+				{
+					offsetY = lastComponent.getY();
+				}
+				else
+					offsetY = lastComponent.getY() + lastComponent.getObjectHeight() + GuiManual.LINE_Y_OFFSET;
+
 			}
+			prevPosY = thisComponent.getY();
+			prevHeight = thisComponent.getObjectHeight();
+
 			thisComponent.setY(offsetY);
 		}
 	}
@@ -263,7 +285,7 @@ public class ManualResourceLoader
 				{
 					IManualComponent c = getTextComp(display, otherComponents, true).get(0);
 					link.setX(c.getX()).setY(c.getY());
-					if (Minecraft.getMinecraft().fontRenderer.getStringWidth(s) > GuiManual.MANUAL_MAX_X - link.getX())
+					if (Minecraft.getMinecraft().fontRenderer.getStringWidth(display) > GuiManual.MANUAL_MAX_X - link.getX())
 						link.setX(0).setY(offsetY + GuiManual.LINE_Y_OFFSET);
 				}
 				return getList(link);
@@ -333,13 +355,13 @@ public class ManualResourceLoader
 			Object configObject = AnimaniaHelper.getConfigValue(s);
 			if (configObject != null && configObject instanceof String[] || configObject instanceof String)
 			{
-				if(configObject instanceof String)
+				if (configObject instanceof String)
 				{
 					ItemStack stack = StringParser.getItemStack((String) configObject);
-					ItemComponent i = new ItemComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, new ItemStack[]{stack});
+					ItemComponent i = new ItemComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, new ItemStack[] { stack });
 					return getList(i);
 				}
-				
+
 				String[] items = (String[]) configObject;
 				ItemStack[] stacks = AnimaniaHelper.getItemStackArray(items);
 				if (stacks.length > 6)
@@ -384,21 +406,48 @@ public class ManualResourceLoader
 			}
 
 			Object o = AnimaniaHelper.getConfigValue(s);
+			if (o instanceof Number)
+			{
+				double d = ((Number) o).doubleValue();
+				d *= 100;
+				d = Math.round(d);
+				d /= 100;
+
+				if (d == (int) d)
+					o = (int) d;
+				else
+					o = d;
+			}
+			if(o.getClass().isArray())
+			{
+				o = Arrays.toString((Object[])o).replace("[", "").replace("]", "");
+			}
+			
 			String display = o + "";
 
 			if (display.isEmpty())
 				return Collections.EMPTY_LIST;
 
-			ConfigComponent c = new ConfigComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, display);
-
-			if (prevLine)
+			List<IManualComponent> textComps = getTextComp(display, otherComponents, prevLine);
+			
+			List<IManualComponent> configComps = new ArrayList<IManualComponent>();
+			
+//			ConfigComponent c = new ConfigComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, display, s);
+			for(IManualComponent comp : textComps)
 			{
-				IManualComponent textComp = getTextComp(display, otherComponents, true).get(0);
-				c.setX(textComp.getX()).setY(textComp.getY());
-				if (Minecraft.getMinecraft().fontRenderer.getStringWidth(display) > GuiManual.MANUAL_MAX_X - c.getX())
-					c.setX(0).setY(offsetY + GuiManual.LINE_Y_OFFSET);
+				String displ = ((TextComponent)comp).toString();
+				configComps.add(new ConfigComponent(comp.getX(), comp.getY(), displ, s));
 			}
-			return getList(c);
+//			if (prevLine)
+//			{
+//				IManualComponent textComp = getTextComp(display, otherComponents, true).get(0);
+//				c.setX(textComp.getX()).setY(textComp.getY());
+//				if (Minecraft.getMinecraft().fontRenderer.getStringWidth(display) > GuiManual.MANUAL_MAX_X - c.getX())
+//					c.setX(0).setY(offsetY + GuiManual.LINE_Y_OFFSET);
+//			}
+//			return getList(c);
+			
+			return configComps;
 		}
 		else if (s.startsWith("@configitemname@"))
 		{
@@ -419,11 +468,11 @@ public class ManualResourceLoader
 				return Collections.EMPTY_LIST;
 
 			ItemStack stack = StringParser.getItemStack(itemname);
-			if(stack.isEmpty())
+			if (stack.isEmpty())
 				return Collections.EMPTY_LIST;
-			
+
 			String display = stack.getDisplayName();
-			
+
 			TextComponent c = new TextComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, display);
 
 			if (prevLine)
@@ -479,33 +528,42 @@ public class ManualResourceLoader
 		if (offsetX >= GuiManual.MANUAL_MAX_X)
 			offsetX = 0;
 
-		if (fr.getStringWidth(s) > GuiManual.MANUAL_MAX_X - offsetX)
+		int strWidth = fr.getStringWidth(s);
+		if (strWidth > GuiManual.MANUAL_MAX_X - offsetX)
 		{
-			List<String> wrappedStrings = fr.listFormattedStringToWidth(s, GuiManual.MANUAL_MAX_X - offsetX);
-			String firstWrapped = wrappedStrings.get(0);
-			s = s.replace(firstWrapped, "");
+			String firstWrapped = "";
+			List<String> wrappedStrings;
+			if (fr.getStringWidth(s.split(" ")[0]) < GuiManual.MANUAL_MAX_X - offsetX)
+			{
+				wrappedStrings = fr.listFormattedStringToWidth(s, GuiManual.MANUAL_MAX_X - offsetX);
+				firstWrapped = wrappedStrings.get(0);
+				s = s.replace(firstWrapped, "");
+			}
 			String format = fr.getFormatFromString(s);
 			wrappedStrings = fr.listFormattedStringToWidth(format + s, GuiManual.MANUAL_MAX_X);
 			List<IManualComponent> comps = new ArrayList<IManualComponent>();
 
-			if (fr.getStringWidth(firstWrapped) > GuiManual.MANUAL_MAX_X - offsetX)
+			if (!firstWrapped.isEmpty())
 			{
-				if (!otherComponents.isEmpty())
+				if (fr.getStringWidth(firstWrapped) > GuiManual.MANUAL_MAX_X - offsetX)
 				{
-					IManualComponent lastComponent = otherComponents.get(otherComponents.size() - 1);
-					offsetY = lastComponent.getY() + lastComponent.getObjectHeight();
-				}
+					if (!otherComponents.isEmpty())
+					{
+						IManualComponent lastComponent = otherComponents.get(otherComponents.size() - 1);
+						offsetY = lastComponent.getY() + lastComponent.getObjectHeight();
+					}
 
-				TextComponent first = new TextComponent(0, offsetY, firstWrapped);
-				comps.add(first);
-				offsetX = 0;
-			}
-			else
-			{
-				TextComponent first = new TextComponent(offsetX, offsetY, firstWrapped);
-				offsetY = first.getY() + first.getObjectHeight();
-				comps.add(first);
-				offsetX = 0;
+					TextComponent first = new TextComponent(0, offsetY, firstWrapped);
+					comps.add(first);
+					offsetX = 0;
+				}
+				else
+				{
+					TextComponent first = new TextComponent(offsetX, offsetY, firstWrapped);
+					offsetY = first.getY() + first.getObjectHeight();
+					comps.add(first);
+					offsetX = 0;
+				}
 			}
 
 			for (String str : wrappedStrings)

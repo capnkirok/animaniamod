@@ -31,20 +31,22 @@ public class EntityEweFriesian extends EntityEweBase
 	{
 		return 4013373;
 	}
-	
+
 	@Override
-	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+	{
 
 		int i = 1 + this.rand.nextInt(2);
 
 		List<ItemStack> woolDrops = new ArrayList<ItemStack>();
 
-		switch (this.getColorNumber()) {
+		switch (this.getColorNumber())
+		{
 		case 0:
 			woolDrops.add(new ItemStack((BlockHandler.blockAnimaniaWool), i, 1));
 			break;
 		case 1:
-			woolDrops.add(new ItemStack((Blocks.WOOL), i));
+			woolDrops.add(new ItemStack((Blocks.WOOL), i, this.getDyeColor().getMetadata()));
 			break;
 		case 2:
 			woolDrops.add(new ItemStack((BlockHandler.blockAnimaniaWool), i, 2));
@@ -55,5 +57,17 @@ public class EntityEweFriesian extends EntityEweBase
 
 		return woolDrops;
 	}
-	
+
+	@Override
+	public boolean isDyeable()
+	{
+		switch (this.getColorNumber())
+		{
+		case 1:
+			return true;
+		default:
+			return false;
+		}
+	}
+
 }

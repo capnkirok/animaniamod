@@ -112,7 +112,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 				double multi = 0.34 * (1 - ((double) fluid.amount / (double) 1000));
 				GlStateManager.translate(0.0, multi, 0.0);
 				this.bindTexture(loc);
-				trough.renderFluid(0.0625f, sprite.getIconHeight() * sprite.getFrameCount());
+				trough.renderFluid(0.0625f, sprite.getIconWidth(), sprite.getIconHeight() * sprite.getFrameCount());
 			}
 
 		}

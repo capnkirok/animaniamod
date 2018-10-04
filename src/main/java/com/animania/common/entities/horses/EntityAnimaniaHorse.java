@@ -55,7 +55,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.management.PreYggdrasilConverter;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -163,6 +165,30 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.28499999403953552D);
 	}
 
+	@Override
+	public void onLivingUpdate()
+	{
+		boolean fed = this.getFed();
+		boolean watered = this.getWatered();
+
+		if (!fed && !watered)
+		{
+			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
+			if (AnimaniaConfig.gameRules.animalsStarve)
+			{
+				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer)
+				{
+					this.attackEntityFrom(DamageSource.STARVE, 4f);
+					this.damageTimer = 0;
+				}
+				this.damageTimer++;
+			}
+
+		}
+		
+		super.onLivingUpdate();
+	}
+	
 	@Override
 	public void updatePassenger(Entity passenger)
 	{

@@ -40,7 +40,7 @@ public class GuiManual extends GuiScreen
 	public static final int LINE_X_OFFSET = Minecraft.getMinecraft().fontRenderer.getStringWidth(" ");
 
 	public static final int MANUAL_MAX_X = 114;
-	public static final int MANUAL_MAX_Y = 140;
+	public static final int MANUAL_MAX_Y = 154;
 
 	public int guiLeft;
 	public int guiTop;

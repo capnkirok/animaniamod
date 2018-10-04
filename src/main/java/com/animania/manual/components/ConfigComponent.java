@@ -3,11 +3,14 @@ package com.animania.manual.components;
 import com.animania.manual.gui.GuiManual;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 public class ConfigComponent implements IManualComponent
 {
 	private String text;
+	private String configOption;
 	private GuiManual manual;
 	private int x;
 	private int y;
@@ -20,7 +23,7 @@ public class ConfigComponent implements IManualComponent
 
 	private Minecraft mc;
 
-	public ConfigComponent(int x, int y, String text)
+	public ConfigComponent(int x, int y, String text, String configOption)
 	{
 		this.manual = GuiManual.INSTANCE;
 		this.absoluteX = x + GuiManual.START_OFFSET_X;
@@ -34,6 +37,8 @@ public class ConfigComponent implements IManualComponent
 
 		this.objectHeight = mc.fontRenderer.FONT_HEIGHT;
 		this.objectWidth = mc.fontRenderer.getStringWidth(text);
+
+		this.configOption = configOption;
 	}
 
 	@Override
@@ -45,8 +50,33 @@ public class ConfigComponent implements IManualComponent
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
 		boolean isBool = text.equalsIgnoreCase("true") || text.equalsIgnoreCase("false");
-				
-		mc.fontRenderer.drawString((isBool ? (Boolean.valueOf(text) ? TextFormatting.GREEN : TextFormatting.RED) : TextFormatting.AQUA) + text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
+
+		mc.fontRenderer.drawString((isBool ? (Boolean.valueOf(text) ? TextFormatting.GREEN : TextFormatting.RED) : TextFormatting.DARK_PURPLE) + text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
+	}
+
+	@Override
+	public void drawLater(int mouseX, int mouseY, float partialTicks)
+	{
+		if (manual.isHovering(this, mouseX, mouseY))
+		{
+			String c = configOption.replace("general.", "");
+			String[] split = c.split("[.;]");
+
+			String tooltip = "Config: ";
+
+			for (int i = 0; i < split.length; i++)
+			{
+				if (i != split.length - 1)
+					tooltip += I18n.translateToLocal("animania.category." + split[i]) + " \u2192 ";
+				else
+					tooltip += split[i];
+			}
+
+			GlStateManager.pushMatrix();
+			manual.drawHoveringText(tooltip, mouseX, mouseY);
+			GlStateManager.disableLighting();
+			GlStateManager.popMatrix();
+		}
 	}
 
 	@Override

@@ -18,11 +18,11 @@ import com.animania.common.handler.ItemHandler;
 import com.animania.common.handler.PatreonHandler;
 import com.animania.common.handler.RecipeHandler;
 import com.animania.common.handler.TileEntityHandler;
-import com.animania.manual.resources.ManualResourceLoader;
 import com.animania.network.NetworkHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -79,6 +79,10 @@ public class CommonProxy implements IGuiHandler
 
 	public void registerCraftStudioAnimations()
 	{}
+	
+	public void openManualGui(ItemStack stack)
+	{
+	}
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {

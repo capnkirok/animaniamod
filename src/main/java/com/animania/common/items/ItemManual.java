@@ -1,9 +1,8 @@
 package com.animania.common.items;
 
-import com.animania.manual.gui.GuiManual;
+import com.animania.Animania;
 import com.animania.manual.resources.ManualResourceLoader;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -33,8 +32,7 @@ public class ItemManual extends AnimaniaItem
 			{
 				if (!ManualResourceLoader.errored)
 				{
-					GuiManual manual = GuiManual.getInstance(stack);
-					Minecraft.getMinecraft().displayGuiScreen(manual);
+					Animania.proxy.openManualGui(stack);
 				}
 				else
 					player.sendMessage(new TextComponentString(TextFormatting.RED + "Error while building the book! Please double-check your json files!"));

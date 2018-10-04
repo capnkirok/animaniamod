@@ -43,7 +43,7 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 	@Override
 	public void update()
 	{
-		if (world.getBlockState(pos).getBlock() != Blocks.AIR)
+		if (world.getBlockState(pos).getBlock() == BlockHandler.blockCheeseMold)
 		{
 
 			if (this.fluidHandler.getFluid() != null && this.fluidHandler.getFluid().amount >= 1000 && progress < AnimaniaConfig.gameRules.cheeseMaturityTime && this.itemHandler.getStackInSlot(0).isEmpty())

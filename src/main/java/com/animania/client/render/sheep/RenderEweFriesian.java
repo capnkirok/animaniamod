@@ -10,6 +10,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
@@ -29,9 +31,11 @@ public class RenderEweFriesian<T extends EntityEweFriesian> extends RenderLiving
 
 	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED_BLINK = new ResourceLocation[] { new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "black_sheared_blink.png"), new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "white_sheared_blink.png"), new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "brown_sheared_blink.png") };
 
+	private static ModelFriesianSheep model = new ModelFriesianSheep();
+
 	public RenderEweFriesian(RenderManager rm)
 	{
-		super(rm, new ModelFriesianSheep(), 0.5F);
+		super(rm, model, 0.5F);
 	}
 
 	protected void preRenderScale(EntityEweFriesian entity, float f)
@@ -118,9 +122,29 @@ public class RenderEweFriesian<T extends EntityEweFriesian> extends RenderLiving
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
+	protected void preRenderCallback(T entityliving, float partial)
 	{
-		this.preRenderScale(entityliving, f);
+		this.preRenderScale(entityliving, partial);
+
+		if (entityliving.hasCustomName() && "jeb_".equals(entityliving.getCustomNameTag()) && entityliving.isDyeable())
+		{
+			int i1 = 25;
+			int i = entityliving.ticksExisted / 25 + entityliving.getEntityId();
+			int j = EnumDyeColor.values().length;
+			int k = i % j;
+			int l = (i + 1) % j;
+			float f = ((float) (entityliving.ticksExisted % 25) + partial) / 25.0F;
+			float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
+			float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
+			model.setWoolColor(afloat1[0] * (1.0F - f) + afloat2[0] * f, afloat1[1] * (1.0F - f) + afloat2[1] * f, afloat1[2] * (1.0F - f) + afloat2[2] * f);
+		
+		}
+		else
+		{
+			float[] rgb = entityliving.getDyeColor().getColorComponentValues();
+			model.setWoolColor(rgb[0], rgb[1], rgb[2]);
+		}
+
 	}
 
 	static class Factory<T extends EntityEweFriesian> implements IRenderFactory<T>

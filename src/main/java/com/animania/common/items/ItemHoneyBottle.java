@@ -88,7 +88,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 	{
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
-		if (playerIn.canEat(true))
+		if (playerIn.canEat(AnimaniaConfig.gameRules.eatFoodAnytime))
 		{
 			playerIn.setActiveHand(handIn);
 			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
@@ -111,7 +111,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 				entityplayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 1));
 
 			entityplayer.addStat(StatList.getObjectUseStats(this));
-			worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+			worldIn.playSound((EntityPlayer) null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
 
 			if (entityplayer instanceof EntityPlayerMP)
 			{
@@ -133,20 +133,21 @@ public class ItemHoneyBottle extends AnimaniaItem
 			int duration = 100;
 			int amplifier = 1;
 			String name = pot.getRegistryName().getResourcePath().replace("_", "");
-			
+
 			tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an." + name) + " " + RomanNumberHelper.toRoman(amplifier + 1) + " (" + TimeHelper.getTime(duration) + ")");
 		}
 
-		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
+		if (AnimaniaConfig.gameRules.eatFoodAnytime)
+			tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("tooltip.an.edibleanytime"));
 
 	}
-	
+
 	@Override
 	public boolean hasContainerItem()
 	{
 		return true;
 	}
-	
+
 	@Override
 	public Item getContainerItem()
 	{

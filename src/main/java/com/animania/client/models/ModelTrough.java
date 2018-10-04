@@ -195,7 +195,7 @@ public class ModelTrough extends ModelBase
 		this.setRotationAngles(0.0F, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 	}
 	
-	public void renderFluid(float scale, int textureHeight)
+	public void renderFluid(float scale, int textureWidth, int textureHeight)
 	{
 		this.Water1.render(scale);
 	}

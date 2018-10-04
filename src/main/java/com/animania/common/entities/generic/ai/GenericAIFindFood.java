@@ -154,7 +154,6 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating> extends E
 					entity.setLiquidFed(true);
 					entity.setFed(true);
 					entity.setHandFed(true);
-					entity.setWatered(true);
 
 					this.foodDelay = 0;
 					return false;
