@@ -6,14 +6,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.handler.BlockHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -49,7 +41,16 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IMateable;
+import com.animania.common.handler.BlockHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+
+public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable, IMateable
 {
 	protected ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
 	public int dryTimerDoe;

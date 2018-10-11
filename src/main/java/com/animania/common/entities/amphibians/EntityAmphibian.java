@@ -2,12 +2,6 @@ package com.animania.common.entities.amphibians;
 
 import java.util.Random;
 
-import com.animania.common.entities.AnimaniaAnimal;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.chickens.EntityAnimaniaChicken;
-import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
-
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -37,7 +31,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAmphibian extends EntityAnimal implements ISpawnable, AnimaniaAnimal
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IAnimaniaAnimal;
+import com.animania.common.entities.IGendered;
+import com.animania.common.entities.ISpawnable;
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
+
+public class EntityAmphibian extends EntityAnimal implements ISpawnable, IAnimaniaAnimal, IGendered
 {
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAmphibian.class, DataSerializers.VARINT);
 	private int     jumpTicks;

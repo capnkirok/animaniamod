@@ -1,19 +1,11 @@
 package com.animania.common.entities.cows;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
-
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
-import com.animania.common.entities.cows.ai.EntityAIMateCows;
-import com.animania.common.handler.DamageSourceHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -22,6 +14,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -35,10 +29,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProviderMateable
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IMateable;
+import com.animania.common.entities.ISterilizable;
+import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.handler.DamageSourceHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+
+public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
 
-	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean> createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
 
 	public EntityBullBase(World worldIn)
 	{
@@ -46,12 +52,15 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.setSize(1.6F, 1.8F);
 		this.gender = EntityGender.MALE;
 		this.stepHeight = 1.1F;
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+		this.mateable = true;
+
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
+		{
 			this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 1.8D, false));
 		}
-		//this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
-		this.tasks.addTask(6, new EntityAIMateCows(this, 1.0D));
-		this.mateable = true;
+		// this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
+		if (!getSterilized())
+			this.tasks.addTask(3, new GenericAIMate<EntityBullBase, EntityCowBase>(this, 1.0D, EntityCowBase.class, EntityCalfBase.class, EntityAnimaniaCow.class));
 	}
 
 	@Override
@@ -68,23 +77,26 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	{
 		super.entityInit();
 		this.dataManager.register(EntityBullBase.FIGHTING, Boolean.valueOf(false));
+		this.dataManager.register(EntityBullBase.STERILIZED, Boolean.valueOf(false));
+
 	}
 
 	@Override
 	public void setInLove(EntityPlayer player)
 	{
-		if (!this.getFighting() && !this.getSleeping()) {
+		if (!this.getFighting() && !this.getSleeping())
+		{
 			this.world.setEntityState(this, (byte) 18);
 		}
 	}
 
-
 	public boolean getFighting()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(FIGHTING));
-		}
-		catch (Exception e) {
+		} catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -106,11 +118,12 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount)
 	{
-		
-		if (this.getSleeping()) {
+
+		if (this.getSleeping())
+		{
 			this.setSleeping(false);
 		}
-		
+
 		if (this.isEntityInvulnerable(source))
 			return false;
 		else
@@ -121,7 +134,8 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
 		boolean flag = false;
-		if (this.canEntityBeSeen(entityIn) && this.getDistance(entityIn) <= 2.0F) {
+		if (this.canEntityBeSeen(entityIn) && this.getDistance(entityIn) <= 2.0F)
+		{
 			flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 5.0F);
 
 			if (flag)
@@ -129,7 +143,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 			// Custom Knockback
 			if (entityIn instanceof EntityPlayer)
-				((EntityLivingBase) entityIn).knockBack(this, 1, (this.posX - entityIn.posX)/2, (this.posZ - entityIn.posZ)/2);
+				((EntityLivingBase) entityIn).knockBack(this, 1, (this.posX - entityIn.posX) / 2, (this.posZ - entityIn.posZ) / 2);
 		}
 
 		return flag;
@@ -207,7 +221,6 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 			return ModSoundEvents.cowDeath2;
 	}
 
-
 	@Override
 	public void onLivingUpdate()
 	{
@@ -236,7 +249,8 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 							{
 								mateReset = false;
 								EntityCowBase fem = (EntityCowBase) entity;
-								if (fem.getPregnant()) {
+								if (fem.getPregnant())
+								{
 									this.setHandFed(false);
 								}
 								break;
@@ -254,15 +268,14 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		super.onLivingUpdate();
 	}
 
-
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
 
 		if (!this.getFighting())
 			return this.eatTimer <= 0 ? 0.0F : this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F;
-			else
-				return 0.0F;
+		else
+			return 0.0F;
 
 	}
 
@@ -283,7 +296,6 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		return null;
 	}
 
-
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
@@ -291,7 +303,6 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		compound.setBoolean("Fighting", this.getFighting());
 
 	}
-
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
@@ -309,11 +320,54 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		if (player.isSneaking())
 		{
 
-			if (this.getMateUniqueId() != null) 
+			if (this.getMateUniqueId() != null)
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
 
+	@Override
+	public boolean getSterilized()
+	{
+		return this.getBoolFromDataManager(STERILIZED);
+	}
+
+	@Override
+	public void setSterilized(boolean sterilized)
+	{
+		this.dataManager.set(EntityBullBase.STERILIZED, Boolean.valueOf(sterilized));
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	{
+		compound.setBoolean("Sterilized", getSterilized());
+		return super.writeToNBT(compound);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound compound)
+	{
+		this.setSterilized(compound.getBoolean("Sterilized"));
+		super.readFromNBT(compound);
+	}
+
+	@Override
+	public void sterilize()
+	{
+		Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
+		while (it.hasNext())
+		{
+			EntityAITaskEntry entry = it.next();
+			EntityAIBase ai = entry.action;
+			if (ai instanceof GenericAIMate || ai instanceof EntityAIAttackMeleeBulls)
+			{
+				entry.using = false;
+				ai.resetTask();
+				it.remove();
+			}
+		}		
+		setSterilized(true);
+	}
 
 }

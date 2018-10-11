@@ -3,35 +3,6 @@ package com.animania.common.entities.pigs;
 import java.util.Set;
 import java.util.UUID;
 
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IFoodEating;
-import com.animania.common.entities.ISleeping;
-import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIFindFood;
-import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
-import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
-import com.animania.common.entities.generic.ai.GenericAILookIdle;
-import com.animania.common.entities.generic.ai.GenericAIPanic;
-import com.animania.common.entities.generic.ai.GenericAISleep;
-import com.animania.common.entities.generic.ai.GenericAISwim;
-import com.animania.common.entities.generic.ai.GenericAITempt;
-import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.pigs.ai.EntityAIFindMud;
-import com.animania.common.entities.pigs.ai.EntityAIPigSnuffle;
-import com.animania.common.entities.pigs.ai.EntityAITemptItemStack;
-import com.animania.common.handler.BlockHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.items.ItemEntityEgg;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -62,7 +33,32 @@ import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.UniversalBucket;
 
-public class EntityAnimaniaPig extends EntityAnimal implements ISpawnable, AnimaniaAnimal, IFoodEating, ISleeping
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IAnimaniaAnimalBase;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.pigs.ai.EntityAIFindMud;
+import com.animania.common.entities.pigs.ai.EntityAIPigSnuffle;
+import com.animania.common.entities.pigs.ai.EntityAITemptItemStack;
+import com.animania.common.handler.BlockHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
+
+public class EntityAnimaniaPig extends EntityAnimal implements IAnimaniaAnimalBase
 {
 
 	protected static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);

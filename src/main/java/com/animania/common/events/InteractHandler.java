@@ -2,23 +2,6 @@ package com.animania.common.events;
 
 import java.util.Random;
 
-import com.animania.Animania;
-import com.animania.common.blocks.BlockSeeds;
-import com.animania.common.capabilities.CapabilityRefs;
-import com.animania.common.capabilities.ICapabilityPlayer;
-import com.animania.common.entities.AnimaniaAnimal;
-import com.animania.common.entities.horses.EntityMareDraftHorse;
-import com.animania.common.entities.horses.EntityStallionDraftHorse;
-import com.animania.common.entities.pigs.EntityHogBase;
-import com.animania.common.entities.pigs.EntitySowBase;
-import com.animania.common.entities.sheep.EntityAnimaniaSheep;
-import com.animania.common.handler.AdvancementHandler;
-import com.animania.common.handler.BlockHandler;
-import com.animania.common.handler.ItemHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.config.AnimaniaConfig;
-import com.animania.network.client.CapSyncPacket;
-
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -32,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +30,25 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-public class ItemSeedHandler
+import com.animania.Animania;
+import com.animania.common.blocks.BlockSeeds;
+import com.animania.common.capabilities.CapabilityRefs;
+import com.animania.common.capabilities.ICapabilityPlayer;
+import com.animania.common.entities.IAnimaniaAnimal;
+import com.animania.common.entities.ISterilizable;
+import com.animania.common.entities.horses.EntityMareDraftHorse;
+import com.animania.common.entities.horses.EntityStallionDraftHorse;
+import com.animania.common.entities.pigs.EntityHogBase;
+import com.animania.common.entities.pigs.EntitySowBase;
+import com.animania.common.entities.sheep.EntityAnimaniaSheep;
+import com.animania.common.handler.AdvancementHandler;
+import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
+import com.animania.network.client.CapSyncPacket;
+
+public class InteractHandler
 {
 	@SubscribeEvent
 	public void notify(PlayerInteractEvent.RightClickItem event)
@@ -104,8 +106,7 @@ public class ItemSeedHandler
 				{
 					stack.damageItem(1, player);
 				}
-			}
-			else if (player.getRidingEntity() instanceof EntityHogBase)
+			} else if (player.getRidingEntity() instanceof EntityHogBase)
 			{
 				EntityHogBase ep = (EntityHogBase) player.getRidingEntity();
 				ep.boost();
@@ -114,8 +115,7 @@ public class ItemSeedHandler
 					stack.damageItem(1, player);
 				}
 			}
-		}
-		else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && player.isRiding())
+		} else if (stack != null && stack.getItem() == ItemHandler.ridingCrop && player.isRiding())
 		{
 			if (player.getRidingEntity() instanceof EntityStallionDraftHorse)
 			{
@@ -152,18 +152,27 @@ public class ItemSeedHandler
 		ResourceLocation loc = EntityList.getKey(target);
 		EntityEntry entry = ForgeRegistries.ENTITIES.getValue(loc);
 
-		if (player instanceof EntityPlayerMP && target instanceof AnimaniaAnimal)
+		if (player instanceof EntityPlayerMP && target instanceof IAnimaniaAnimal)
 		{
 			if (entry != null)
 			{
 				AdvancementHandler.feedAnimal.trigger((EntityPlayerMP) player, stack, entry);
 			}
 		}
-		
-		if(stack.getItem() instanceof ItemDye && target instanceof EntityAnimaniaSheep)
+
+		if (stack.getItem() instanceof ItemDye && target instanceof EntityAnimaniaSheep)
 		{
-			if(!((EntityAnimaniaSheep)target).isDyeable())
+			if (!((EntityAnimaniaSheep) target).isDyeable())
 				event.setCanceled(true);
+		}
+
+		if (stack.getItem() == ItemHandler.carvingKnife && target instanceof ISterilizable && !((ISterilizable) target).getSterilized())
+		{
+			if (!target.world.isRemote)
+				((net.minecraft.world.WorldServer) target.world).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, false, target.posX, target.posY + (double) (target.height / 2.0F), target.posZ, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+	        target.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
+			stack.damageItem(1, player);
+			((ISterilizable) target).sterilize();
 		}
 	}
 
@@ -266,7 +275,5 @@ public class ItemSeedHandler
 			}
 		}
 	}
-
-	
 
 }

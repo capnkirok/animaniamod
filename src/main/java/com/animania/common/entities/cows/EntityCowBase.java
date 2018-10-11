@@ -6,14 +6,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.cows.ai.EntityAIMateCows;
-import com.animania.common.handler.DamageSourceHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -47,13 +39,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fluids.FluidActionResult;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderMateable
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IMateable;
+import com.animania.common.entities.cows.ai.EntityAIMateCows;
+import com.animania.common.handler.DamageSourceHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+
+public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable
 {
 
 	public int dryTimer;

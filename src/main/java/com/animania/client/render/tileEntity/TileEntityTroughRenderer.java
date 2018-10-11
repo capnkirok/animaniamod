@@ -111,6 +111,8 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 				ResourceLocation loc = new ResourceLocation(fluid.getFluid().getStill().getResourceDomain() + ":textures/" + fluid.getFluid().getStill().getResourcePath() + ".png");
 				double multi = 0.34 * (1 - ((double) fluid.amount / (double) 1000));
 				GlStateManager.translate(0.0, multi, 0.0);
+				GlStateManager.enableAlpha();
+				GlStateManager.enableBlend();
 				this.bindTexture(loc);
 				trough.renderFluid(0.0625f, sprite.getIconWidth(), sprite.getIconHeight() * sprite.getFrameCount());
 			}

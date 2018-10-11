@@ -1,6 +1,6 @@
 package com.animania.common.events;
 
-import com.animania.common.entities.AnimaniaAnimal;
+import com.animania.common.entities.IAnimaniaAnimal;
 import com.animania.common.entities.ISleeping;
 import com.animania.common.handler.ItemHandler;
 import com.animania.config.AnimaniaConfig;
@@ -46,7 +46,7 @@ public class EntityEventHandler
 		EntityLivingBase entity = event.getEntityLiving();
 		DamageSource source = event.getSource();
 
-		if (entity instanceof EntityLivingBase && entity instanceof AnimaniaAnimal)
+		if (entity instanceof EntityLivingBase && entity instanceof IAnimaniaAnimal)
 		{
 			EntityLivingBase animal = (EntityLivingBase) entity;
 
@@ -70,5 +70,5 @@ public class EntityEventHandler
 			ItemHandler.regItemEggColors(event.getWorld());
 		}
 	}
-
+	
 }

@@ -429,28 +429,28 @@ public class EntityHandler
 		// SHEEP
 
 		RegistryHelper.Entities.registerAnimal(EntityLambFriesian.class, "lamb_friesian", entityID++, SheepType.FRIESIAN, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityEweFriesian.class, "ewe_friesian", entityID++, SheepType.FRIESIAN, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRamFriesian.class, "ram_friesian", entityID++, SheepType.FRIESIAN, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityEweFriesian.class, "ewe_friesian", entityID++, SheepType.FRIESIAN, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityRamFriesian.class, "ram_friesian", entityID++, SheepType.FRIESIAN, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityLambSuffolk.class, "lamb_suffolk", entityID++, SheepType.SUFFOLK, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityEweSuffolk.class, "ewe_suffolk", entityID++, SheepType.SUFFOLK, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRamSuffolk.class, "ram_suffolk", entityID++, SheepType.SUFFOLK, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityEweSuffolk.class, "ewe_suffolk", entityID++, SheepType.SUFFOLK, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityRamSuffolk.class, "ram_suffolk", entityID++, SheepType.SUFFOLK, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityLambDorper.class, "lamb_dorper", entityID++, SheepType.DORPER, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityEweDorper.class, "ewe_dorper", entityID++, SheepType.DORPER, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRamDorper.class, "ram_dorper", entityID++, SheepType.DORPER, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityEweDorper.class, "ewe_dorper", entityID++, SheepType.DORPER, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityRamDorper.class, "ram_dorper", entityID++, SheepType.DORPER, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityLambDorset.class, "lamb_dorset", entityID++, SheepType.DORSET, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityEweDorset.class, "ewe_dorset", entityID++, SheepType.DORSET, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRamDorset.class, "ram_dorset", entityID++, SheepType.DORSET, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityEweDorset.class, "ewe_dorset", entityID++, SheepType.DORSET, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityRamDorset.class, "ram_dorset", entityID++, SheepType.DORSET, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityLambMerino.class, "lamb_merino", entityID++, SheepType.MERINO, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityEweMerino.class, "ewe_merino", entityID++, SheepType.MERINO, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRamMerino.class, "ram_merino", entityID++, SheepType.MERINO, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityEweMerino.class, "ewe_merino", entityID++, SheepType.MERINO, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityRamMerino.class, "ram_merino", entityID++, SheepType.MERINO, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityLambJacob.class, "lamb_jacob", entityID++, SheepType.JACOB, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityEweJacob.class, "ewe_jacob", entityID++, SheepType.JACOB, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRamJacob.class, "ram_jacob", entityID++, SheepType.JACOB, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityEweJacob.class, "ewe_jacob", entityID++, SheepType.JACOB, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(EntityRamJacob.class, "ram_jacob", entityID++, SheepType.JACOB, EntityGender.MALE);
 
 		maxFam = AnimaniaConfig.spawn.numberSheepFamilies;
 		if (maxFam < 1) {

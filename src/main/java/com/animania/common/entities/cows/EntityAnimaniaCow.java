@@ -5,30 +5,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IFoodEating;
-import com.animania.common.entities.ISleeping;
-import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.generic.ai.GenericAIEatGrass;
-import com.animania.common.entities.generic.ai.GenericAIFindFood;
-import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
-import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
-import com.animania.common.entities.generic.ai.GenericAILookIdle;
-import com.animania.common.entities.generic.ai.GenericAISleep;
-import com.animania.common.entities.generic.ai.GenericAISwim;
-import com.animania.common.entities.generic.ai.GenericAITempt;
-import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.items.ItemEntityEgg;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
@@ -55,7 +31,28 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaCow extends EntityCow implements ISpawnable, AnimaniaAnimal, ISleeping, IFoodEating
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IAnimaniaAnimalBase;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIEatGrass;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
+
+public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 {
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.cowFood));
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaCow.class, DataSerializers.VARINT);
@@ -411,7 +408,7 @@ public class EntityAnimaniaCow extends EntityCow implements ISpawnable, Animania
 
 		super.onLivingUpdate();
 	}
-
+	
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{

@@ -6,35 +6,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IFoodEating;
-import com.animania.common.entities.ISleeping;
-import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIFindFood;
-import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
-import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIPanic;
-import com.animania.common.entities.generic.ai.GenericAISleep;
-import com.animania.common.entities.generic.ai.GenericAISwim;
-import com.animania.common.entities.generic.ai.GenericAITempt;
-import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
-import com.animania.common.entities.horses.ai.EntityAILookIdleHorses;
-import com.animania.common.entities.horses.ai.EntityAIMateHorses;
-import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
-import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.props.EntityWagon;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.inventory.ContainerHorseCart;
-import com.animania.common.items.ItemEntityEgg;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
@@ -69,7 +40,32 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, AnimaniaAnimal, IFoodEating, ISleeping
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IAnimaniaAnimalBase;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
+import com.animania.common.entities.horses.ai.EntityAILookIdleHorses;
+import com.animania.common.entities.horses.ai.EntityAIMateHorses;
+import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
+import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
+import com.animania.common.entities.props.EntityWagon;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.inventory.ContainerHorseCart;
+import com.animania.common.items.ItemEntityEgg;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
+
+public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalBase
 {
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.horseFood));
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
@@ -109,7 +105,6 @@ public class EntityAnimaniaHorse extends EntityHorse implements ISpawnable, Anim
 			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, true));
 		}
 		this.tasks.addTask(2, new GenericAIPanic(this, 2.0D));
-		this.tasks.addTask(3, new EntityAIMateHorses(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
 		this.tasks.addTask(6, new EntityAIWanderHorses(this, 1.0D));
 		this.tasks.addTask(7, new GenericAISwim(this));

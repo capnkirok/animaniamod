@@ -139,7 +139,8 @@ public class CommonConfig
 		
 		@RequiresMcRestart
 		@Comment("Eat animania food anytime")
-		public boolean eatFoodAnytime = false;
+		public boolean eatFoodAnytime = true;
+		
 		
 	}
 
@@ -403,6 +404,9 @@ public class CommonConfig
 		
 		@Comment("Sheep Bed Block Backup")
 		public String sheepBed2 = "minecraft:grass";
+		
+		@Comment("Animals won't breed if there are more than the specified amount of animals of their type in a 15 block range.")
+		public int entityBreedingLimit = 20;
 		
 	}
 

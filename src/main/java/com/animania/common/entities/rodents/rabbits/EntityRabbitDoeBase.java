@@ -6,13 +6,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -44,7 +37,14 @@ import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IMateable;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+
+public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable
 {
 
 	public int dryTimerDoe;
