@@ -23,7 +23,6 @@ import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.rodents.ai.EntityAIPanicRabbits;
 import com.animania.common.entities.rodents.ai.EntityAISleepRabbits;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
@@ -829,7 +828,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements ISpawnable, An
 		}
 	}
 
-	static class AIPanic extends EntityAIPanicRabbits
+	static class AIPanic extends GenericAIPanic
 	{
 		private final EntityAnimaniaRabbit theEntity;
 

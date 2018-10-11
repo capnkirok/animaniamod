@@ -26,7 +26,6 @@ import com.animania.common.entities.horses.ai.EntityAILookIdleHorses;
 import com.animania.common.entities.horses.ai.EntityAIMateHorses;
 import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
 import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.props.EntityWagon;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.inventory.ContainerHorseCart;

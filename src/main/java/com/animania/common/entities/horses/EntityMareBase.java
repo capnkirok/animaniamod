@@ -8,14 +8,9 @@ import javax.annotation.Nullable;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.horses.ai.EntityAIPanicHorses;
-import com.animania.common.entities.props.EntityCart;
-import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -92,7 +87,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	protected void initEntityAI()
 	{
 		super.initEntityAI();
-		this.tasks.addTask(3, new EntityAIPanicHorses(this, 2.0D));
 	}
 
 	@Override

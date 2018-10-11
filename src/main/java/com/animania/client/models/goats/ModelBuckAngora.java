@@ -2,6 +2,7 @@ package com.animania.client.models.goats;
 
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.goats.EntityBuckAngora;
+import com.animania.config.AnimaniaConfig;
 import com.animania.common.entities.goats.EntityBuckAngora;
 
 import net.minecraft.client.model.ModelBase;
@@ -382,9 +383,10 @@ public class ModelBuckAngora extends ModelBase
 		Body.render(scale);
 		Butt.render(scale);
 		Tail.render(scale);
-		Reproductive1.render(scale);
-		Reproductive2.render(scale);
-
+		if (AnimaniaConfig.gameRules.showParts) {
+			Reproductive1.render(scale);
+			Reproductive2.render(scale);
+		}
 		Wool1.render(scale);
 		Wool2.render(scale);
 		HeadNode.render(scale);
