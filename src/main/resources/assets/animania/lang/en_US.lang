@@ -388,6 +388,7 @@ animania.category.spawn=Spawn
 animania.category.entity=Entities
 animania.category.careandfeeding=Care and Feeding
 animania.category.drops=Drops
+animania.category.spawnlocations=Spawn Locations
 animania.category.forbiddentiles=Forbidden Tile Entities
 animania.category.foodvalues=Food Value Overrides
 animania.category.catsdogs=Cats and Dogs

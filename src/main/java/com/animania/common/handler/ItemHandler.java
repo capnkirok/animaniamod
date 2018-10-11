@@ -207,7 +207,6 @@ public class ItemHandler
 
 		// Items for Animals
 		ItemHandler.hamsterFood = new AnimaniaItem("hamster_food");
-		ItemHandler.truffle = new AnimaniaItem("truffle");
 		ItemHandler.carvingKnife = new ItemCarvingKnife(ToolMaterial.IRON);
 		ItemHandler.salt = new AnimaniaItem("salt");
 		ItemHandler.peacockFeatherBlue = new AnimaniaItem("blue_peacock_feather");
@@ -230,6 +229,7 @@ public class ItemHandler
 		ItemHandler.baconOmelette = new ItemAnimaniaFood(5, 2f, "bacon_omelette", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
 		ItemHandler.cheeseOmelette = new ItemAnimaniaFood(5, 2f, "cheese_omelette", new PotionEffect(MobEffects.INSTANT_HEALTH, 2, 2, false, false));
 		ItemHandler.plainOmelette = new ItemAnimaniaFood(5, 2f, "plain_omelette");
+		ItemHandler.truffle = new ItemAnimaniaFood(2, 2f, "truffle");
 		ItemHandler.truffleSoup = new ItemTruffleSoup();
 		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", true, new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
 		
