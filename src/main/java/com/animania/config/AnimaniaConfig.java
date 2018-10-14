@@ -2,8 +2,10 @@ package com.animania.config;
 
 import java.io.File;
 import java.lang.invoke.MethodHandle;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.stream.Stream;
 
 import com.animania.Animania;
 import com.animania.common.helper.ReflectionUtil;
@@ -39,7 +41,7 @@ public class AnimaniaConfig
 		/**
 		 * The {@link Configuration} instance.
 		 */
-		private static Configuration      configuration;
+		private static List<Configuration> configuration;
 
 		/**
 		 * Get the {@link Configuration} instance from {@link ConfigManager}.
@@ -49,19 +51,26 @@ public class AnimaniaConfig
 		 *
 		 * @return The Configuration instance
 		 */
-		public static Configuration getConfiguration() {
+		public static List<Configuration> getConfiguration()
+		{
 			if (EventHandler.configuration == null)
-				try {
-					final String fileName = Animania.MODID + ".cfg";
-
+				try
+				{
+					
+					List<Configuration> cfgs = new ArrayList<Configuration>();
+					
 					@SuppressWarnings("unchecked")
 					final Map<String, Configuration> configsMap = (Map<String, Configuration>) EventHandler.CONFIGS_GETTER.invokeExact();
 
-					final Optional<Map.Entry<String, Configuration>> entryOptional = configsMap.entrySet().stream()
-							.filter(entry -> fileName.equals(new File(entry.getKey()).getName())).findFirst();
+					final Stream<Map.Entry<String, Configuration>> entries = configsMap.entrySet().stream().filter(entry -> entry.getKey().substring(entry.getKey().lastIndexOf(File.separator), entry.getKey().length()-1).contains(Animania.MODID));
 
-					entryOptional.ifPresent(stringConfigurationEntry -> EventHandler.configuration = stringConfigurationEntry.getValue());
-				} catch (Throwable throwable) {
+					entries.forEach(entry -> cfgs.add(entry.getValue()));
+//					entries.ifPresent(stringConfigurationEntry -> EventHandler.configuration = stringConfigurationEntry.getValue());
+				
+					configuration = cfgs;
+				}
+				catch (Throwable throwable)
+				{
 					throwable.printStackTrace();
 				}
 
@@ -76,10 +85,12 @@ public class AnimaniaConfig
 		 *            The event
 		 */
 		@SubscribeEvent
-		public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-
-			if (event.getModID().equals(Animania.MODID)) {
+		public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
+		{
+			if (event.getModID().equals(Animania.MODID))
+			{
 				ConfigManager.load(Animania.MODID, Config.Type.INSTANCE);
+				Animania.proxy.reloadManual();
 			}
 		}
 	}

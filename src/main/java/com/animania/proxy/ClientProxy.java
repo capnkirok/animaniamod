@@ -79,6 +79,12 @@ public class ClientProxy extends CommonProxy
 
 		ModelLoader.setCustomStateMapper(block, mapper);
 	}
+	
+	@Override
+	public void reloadManual()
+	{
+		ManualResourceLoader.loadResources();
+	}
 
 	public static class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition
 	{

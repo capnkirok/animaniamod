@@ -112,7 +112,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 			{
 				TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(fluid.getFluid().getStill().toString());
 				ResourceLocation loc = new ResourceLocation(fluid.getFluid().getStill().getResourceDomain() + ":textures/" + fluid.getFluid().getStill().getResourcePath() + ".png");
-				double multi = 0.34 * (1 - ((double) fluid.amount / (double) 1000));
+				double multi = 0.3122 * (1 - ((double) fluid.amount / (double) 1000));
 				GlStateManager.pushMatrix();
 				GlStateManager.translate(0.4, 1, -0.3);
 				GlStateManager.translate(0.0, multi, 0.0);
@@ -167,15 +167,8 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		
-//		bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-//		bufferbuilder.pos((double) (xCoord + 0), (double) (yCoord + heightIn), (double) 0).tex((double) textureSprite.getMinU(), (double) textureSprite.getMaxV()).endVertex();
-//		bufferbuilder.pos((double) (xCoord + widthIn), (double) (yCoord + heightIn), (double) 0).tex((double) textureSprite.getMaxU(), (double) textureSprite.getMaxV()).endVertex();
-//		bufferbuilder.pos((double) (xCoord + widthIn), (double) (yCoord + 0), (double) 0).tex((double) textureSprite.getMaxU(), (double) textureSprite.getMinV()).endVertex();
-//		bufferbuilder.pos((double) (xCoord + 0), (double) (yCoord + 0), (double) 0).tex((double) textureSprite.getMinU(), (double) textureSprite.getMinV()).endVertex();
 
 		double m = 0.015625;
-
 		
 		double u0 = textureSprite.getMinU();
 		double u1 = u0 + m * width;

@@ -120,7 +120,7 @@ public class AnimaniaHelper
 			catch (Exception e)
 			{
 			}
-			
+
 			name = name.substring(0, name.indexOf("#"));
 		}
 
@@ -346,54 +346,66 @@ public class AnimaniaHelper
 	public static Object getConfigValue(String configName)
 	{
 
-		Configuration config = AnimaniaConfig.EventHandler.getConfiguration();
-		if (config != null)
+		List<Configuration> configs = AnimaniaConfig.EventHandler.getConfiguration();
+		for (Configuration config : configs)
 		{
-			String[] firstSplit = configName.split(",");
-			String[] output = new String[firstSplit.length];
-			if (firstSplit.length > 1)
+			if (config != null)
 			{
-				for (int i = 0; i < firstSplit.length; i++)
+				String[] firstSplit = configName.split(",");
+				String[] output = new String[firstSplit.length];
+				boolean doReturn = false;
+				if (firstSplit.length > 1)
 				{
-					String conf = firstSplit[i];
-					String[] split2 = conf.split(";");
-					if (split2.length > 1)
+					for (int i = 0; i < firstSplit.length; i++)
 					{
-						Property prop = config.getCategory(split2[0]).get(split2[1]);
-						if (prop != null)
+						String conf = firstSplit[i];
+						String[] split2 = conf.split(";");
+						if (split2.length > 1)
 						{
-							output[i] = prop.getString();
+							if (config.hasCategory(split2[0]) && config.getCategory(split2[0]).containsKey(split2[1]))
+							{
+								Property prop = config.getCategory(split2[0]).get(split2[1]);
+								if (prop != null)
+								{
+									output[i] = prop.getString();
+									doReturn = true;
+								}
+							}
 						}
 					}
+					if (doReturn)
+						return output;
 				}
-				return output;
-			}
 
-			String[] split = configName.split(";");
-			if (split.length > 1)
-			{
-				Property prop = config.getCategory(split[0]).get(split[1]);
-				if (prop != null)
+				String[] split = configName.split(";");
+				if (split.length > 1)
 				{
-					if (prop.isBooleanList())
-						return prop.getBooleanList();
-					if (prop.isBooleanValue())
-						return prop.getBoolean();
-					if (prop.isDoubleList())
-						return prop.getDoubleList();
-					if (prop.isDoubleValue())
-						return prop.getDouble();
-					if (prop.isIntList())
-						return prop.getIntList();
-					if (prop.isIntValue())
-						return prop.getInt();
-					if (prop.isList())
-						return prop.getStringList();
-					if (prop.isLongValue())
-						return prop.getLong();
+					if (config.hasCategory(split[0]) && config.getCategory(split[0]).containsKey(split[1]))
+					{
+						Property prop = config.getCategory(split[0]).get(split[1]);
+						if (prop != null)
+						{
+							if (prop.isBooleanList())
+								return prop.getBooleanList();
+							if (prop.isBooleanValue())
+								return prop.getBoolean();
+							if (prop.isDoubleList())
+								return prop.getDoubleList();
+							if (prop.isDoubleValue())
+								return prop.getDouble();
+							if (prop.isIntList())
+								return prop.getIntList();
+							if (prop.isIntValue())
+								return prop.getInt();
+							if (prop.isList())
+								return prop.getStringList();
+							if (prop.isLongValue())
+								return prop.getLong();
 
-					if (prop.getString() != null)
-						return prop.getString();
+							if (prop.getString() != null)
+								return prop.getString();
+						}
+					}
 				}
 			}
 		}

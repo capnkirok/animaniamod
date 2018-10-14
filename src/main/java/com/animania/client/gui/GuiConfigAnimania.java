@@ -1,5 +1,6 @@
 package com.animania.client.gui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.animania.Animania;
@@ -15,35 +16,45 @@ import net.minecraftforge.fml.client.config.IConfigElement;
 
 public class GuiConfigAnimania extends GuiConfig
 {
-    private static final String LANG_PREFIX = Animania.MODID + ".category.";
+	private static final String LANG_PREFIX = Animania.MODID + ".category.";
 
-    public GuiConfigAnimania(GuiScreen parent) {
-        super(parent, getConfigElements(), "animania", false, false, "Animania Configuration");
-    }
+	public GuiConfigAnimania(GuiScreen parent)
+	{
+		super(parent, getConfigElements(), "animania", false, false, "Animania Configuration");
+	}
 
-    private static List<IConfigElement> getConfigElements() {
+	private static List<IConfigElement> getConfigElements()
+	{
 
-        final Configuration configuration = AnimaniaConfig.EventHandler.getConfiguration();
+		final List<Configuration> configuration = AnimaniaConfig.EventHandler.getConfiguration();
 
-        final ConfigCategory topLevelCategory = configuration.getCategory(Configuration.CATEGORY_GENERAL);
-        topLevelCategory.getChildren()
-                .forEach(configCategory -> configCategory.setLanguageKey(GuiConfigAnimania.LANG_PREFIX + configCategory.getName()));
+		List<IConfigElement> configElements = new ArrayList<IConfigElement>();
 
-        return new ConfigElement(topLevelCategory).getChildElements();
-    }
+		for (Configuration cfg : configuration)
+		{
+			ConfigCategory topLevelCategory = cfg.getCategory(Configuration.CATEGORY_GENERAL);
+			topLevelCategory.getChildren().forEach(configCategory -> configCategory.setLanguageKey(GuiConfigAnimania.LANG_PREFIX + configCategory.getName()));
+			configElements.addAll(new ConfigElement(topLevelCategory).getChildElements());
+		}
 
-    @Override
-    public void initGui() {
-        super.initGui();
-    }
+		return configElements;
+	}
 
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
-    }
+	@Override
+	public void initGui()
+	{
+		super.initGui();
+	}
 
-    @Override
-    protected void actionPerformed(GuiButton button) {
-        super.actionPerformed(button);
-    }
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks)
+	{
+		super.drawScreen(mouseX, mouseY, partialTicks);
+	}
+
+	@Override
+	protected void actionPerformed(GuiButton button)
+	{
+		super.actionPerformed(button);
+	}
 }

@@ -6,7 +6,7 @@ import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Config.Comment;
 import net.minecraftforge.common.config.Config.Name;
 
-//@Config(modid = Animania.MODID)
+@Config(modid = Animania.MODID, name = "animania_cats_dogs")
 public class CatsDogsConfig
 {
 	public static CatsDogsConfig.Settings catsdogs = new CatsDogsConfig.Settings();
