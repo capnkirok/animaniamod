@@ -6,17 +6,8 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.horses.ai.EntityAIFollowParentHorses;
-import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -39,7 +30,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProviderBase
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IChild;
+import com.animania.common.entities.horses.ai.EntityAIFollowParentHorses;
+import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
+
+public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProviderBase, IChild
 {	
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityFoalBase.class, DataSerializers.VARINT);
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] {Items.WHEAT, Items.APPLE, Items.CARROT});

@@ -2,6 +2,7 @@ package com.animania.client.models.goats;
 
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.goats.EntityBuckAlpine;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -327,8 +328,10 @@ public class ModelBuckAlpine extends ModelBase
 		Body.render(scale);
 		Butt.render(scale);
 		Tail.render(scale);
-		Reproductive1.render(scale);
-		Reproductive2.render(scale);
+		if (AnimaniaConfig.gameRules.showParts) {
+			Reproductive1.render(scale);
+			Reproductive2.render(scale);
+		}
 		HeadNode.render(scale);
 
 	}
@@ -385,14 +388,14 @@ public class ModelBuckAlpine extends ModelBase
 			this.Tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}
 
-		
+
 		this.BackLeg_L.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
 		this.BackLeg_R.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
 		this.FrontLeg_L.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
 		this.FrontLeg_R.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
 
-		
-	
+
+
 	}
 
 }

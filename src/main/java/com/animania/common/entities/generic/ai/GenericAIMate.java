@@ -4,16 +4,17 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-import com.animania.common.entities.IFoodEating;
-import com.animania.common.entities.IMateable;
-import com.animania.common.entities.ISleeping;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.config.AnimaniaConfig;
-
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
+
+import com.animania.common.entities.IFoodEating;
+import com.animania.common.entities.IMateable;
+import com.animania.common.entities.ISleeping;
+import com.animania.common.entities.ISterilizable;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.config.AnimaniaConfig;
 
 public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & ISleeping, O extends EntityCreature & IMateable & IFoodEating & ISleeping> extends EntityAIBase
 {
@@ -28,10 +29,8 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 	private Class female;
 	private Class child;
 	private Class base;
-
-	private int spawnLimit;
 	
-	public GenericAIMate(T animal, double speedIn, Class other, Class child, Class base, int spawnLimit)
+	public GenericAIMate(T animal, double speedIn, Class other, Class child, Class base)
 	{
 		this.entity = animal;
 		this.theWorld = animal.world;
@@ -43,9 +42,8 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 		this.female = other;
 		this.child = child;
 		this.base = base;
-		this.spawnLimit = spawnLimit;
 	}
-
+	
 	@Override
 	public boolean shouldExecute()
 	{
@@ -56,7 +54,15 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 
 		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
-
+			if(entity instanceof ISterilizable)
+			{
+				if(((ISterilizable) entity).getSterilized())
+				{
+					this.delayCounter = 0;
+					return false;
+				}
+			}
+			
 			if (entity instanceof ISleeping)
 			{
 				if (!entity.world.isDaytime() || ((ISleeping) entity).getSleeping())
@@ -72,6 +78,13 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 				return false;
 			}
 
+			List similarAnimalsInRange = AnimaniaHelper.getEntitiesInRange(base, 15, theWorld, entity);
+			if(similarAnimalsInRange.size() >= AnimaniaConfig.careAndFeeding.entityBreedingLimit)
+			{
+				this.delayCounter = 0;
+				return false;
+			}
+			
 			if (AnimaniaConfig.careAndFeeding.manualBreeding)
 			{
 				if (entity instanceof IFoodEating && !((IFoodEating) entity).getHandFed())
@@ -80,27 +93,7 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 					return false;
 				}
 			}
-			else
-			{
-
-				List list = this.theWorld.loadedEntityList;
-				int cowCount = 0;
-				int num = 0;
-				for (int i = 0; i < list.size(); i++)
-				{
-					if (base.isInstance(list.get(i)))
-					{
-						num++;
-					}
-				}
-				cowCount = num;
-
-				if (cowCount > spawnLimit && (entity instanceof IFoodEating && !((IFoodEating) entity).getHandFed()))
-				{
-					this.delayCounter = 0;
-					return false;
-				}
-			}
+			
 
 			this.targetMate = this.getNearbyMate();
 

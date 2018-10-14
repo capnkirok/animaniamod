@@ -139,7 +139,8 @@ public class CommonConfig
 		
 		@RequiresMcRestart
 		@Comment("Eat animania food anytime")
-		public boolean eatFoodAnytime = false;
+		public boolean eatFoodAnytime = true;
+		
 		
 	}
 
@@ -265,15 +266,6 @@ public class CommonConfig
 				"FOREST",
 		};
 		
-		/*
-		 * EntityRegistry.addSpawn(EntityHenPlymouthRock.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.MOUNTAIN));
-			EntityRegistry.addSpawn(EntityHenPlymouthRock.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, Biomes.EXTREME_HILLS);
-			EntityRegistry.addSpawn(EntityHenLeghorn.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.PLAINS));
-			EntityRegistry.addSpawn(EntityHenOrpington.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.JUNGLE));
-			EntityRegistry.addSpawn(EntityHenOrpington.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.SWAMP));
-			EntityRegistry.addSpawn(EntityHenWyandotte.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
-			EntityRegistry.addSpawn(EntityHenRhodeIslandRed.class, AnimaniaConfig.spawn.spawnProbabilityChickens, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(BiomeDictionary.Type.FOREST));
-		 */
 	}
 	
 	public static class CareAndFeeding
@@ -283,7 +275,7 @@ public class CommonConfig
 		@Comment("Ticks between feedings")
 		public int feedTimer = 12000;
 		@Comment("Ticks between drinking water")
-		public int waterTimer = 8000;
+		public int waterTimer = 400; //TODO Testing
 		@Comment("Ticks between playing")
 		public int playTimer = 12000;
 		@Comment("Ticks between laying eggs")
@@ -403,6 +395,9 @@ public class CommonConfig
 		
 		@Comment("Sheep Bed Block Backup")
 		public String sheepBed2 = "minecraft:grass";
+		
+		@Comment("Animals won't breed if there are more than the specified amount of animals of their type in a 15 block range.")
+		public int entityBreedingLimit = 20;
 		
 	}
 

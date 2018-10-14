@@ -6,35 +6,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.ModSoundEvents;
-import com.animania.common.blocks.BlockSeeds;
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IFoodEating;
-import com.animania.common.entities.ISleeping;
-import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.amphibians.EntityAmphibian;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIFindFood;
-import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
-import com.animania.common.entities.generic.ai.GenericAILookIdle;
-import com.animania.common.entities.generic.ai.GenericAIPanic;
-import com.animania.common.entities.generic.ai.GenericAISleep;
-import com.animania.common.entities.generic.ai.GenericAISwim;
-import com.animania.common.entities.generic.ai.GenericAITempt;
-import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
-import com.animania.common.entities.horses.EntityAnimaniaHorse;
-import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
-import com.animania.common.handler.ItemHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.items.ItemEntityEgg;
-import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -64,7 +35,32 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, ISpawnable, AnimaniaAnimal, ISleeping, IFoodEating
+import com.animania.common.ModSoundEvents;
+import com.animania.common.blocks.BlockSeeds;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IAnimaniaAnimalBase;
+import com.animania.common.entities.amphibians.EntityAmphibian;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
+import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
+import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
+
+public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, IAnimaniaAnimalBase
 {
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);

@@ -6,44 +6,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.Animania;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.capabilities.CapabilityRefs;
-import com.animania.common.capabilities.ICapabilityPlayer;
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaAnimal;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IFoodEating;
-import com.animania.common.entities.ISleeping;
-import com.animania.common.entities.ISpawnable;
-import com.animania.common.entities.amphibians.EntityAmphibian;
-import com.animania.common.entities.amphibians.EntityFrogs;
-import com.animania.common.entities.amphibians.EntityToad;
-import com.animania.common.entities.chickens.EntityRoosterBase;
-import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIEatGrass;
-import com.animania.common.entities.generic.ai.GenericAIFindFood;
-import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
-import com.animania.common.entities.generic.ai.GenericAILookIdle;
-import com.animania.common.entities.generic.ai.GenericAINearestAttackableTarget;
-import com.animania.common.entities.generic.ai.GenericAIPanic;
-import com.animania.common.entities.generic.ai.GenericAISwim;
-import com.animania.common.entities.generic.ai.GenericAITempt;
-import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.rodents.ai.EntityAIHedgehogFindNests;
-import com.animania.common.entities.rodents.ai.EntityAISleepHedgehogs;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.items.ItemEntityEgg;
-import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
-import com.animania.config.AnimaniaConfig;
-import com.animania.network.client.CapSyncPacket;
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -81,7 +43,42 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityHedgehogBase extends EntityTameable implements TOPInfoProviderRodent, ISpawnable, AnimaniaAnimal, IFoodEating, ISleeping
+import com.animania.Animania;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.capabilities.CapabilityRefs;
+import com.animania.common.capabilities.ICapabilityPlayer;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IAnimaniaAnimalBase;
+import com.animania.common.entities.amphibians.EntityAmphibian;
+import com.animania.common.entities.amphibians.EntityFrogs;
+import com.animania.common.entities.amphibians.EntityToad;
+import com.animania.common.entities.chickens.EntityRoosterBase;
+import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIEatGrass;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAINearestAttackableTarget;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.rodents.ai.EntityAIHedgehogFindNests;
+import com.animania.common.entities.rodents.ai.EntityAISleepHedgehogs;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
+import com.animania.compat.top.providers.entity.TOPInfoProviderRodent;
+import com.animania.config.AnimaniaConfig;
+import com.animania.network.client.CapSyncPacket;
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
+
+public class EntityHedgehogBase extends EntityTameable implements TOPInfoProviderRodent, IAnimaniaAnimalBase
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);

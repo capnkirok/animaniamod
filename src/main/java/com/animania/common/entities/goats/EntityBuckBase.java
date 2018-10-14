@@ -1,20 +1,11 @@
 package com.animania.common.entities.goats;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
-
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
-import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
-import com.animania.common.entities.goats.ai.EntityAIMateGoats;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -23,9 +14,12 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -38,10 +32,28 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IMateable;
+import com.animania.common.entities.ISterilizable;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
+import com.animania.common.entities.cows.EntityBullBase;
+import com.animania.common.entities.cows.EntityCalfBase;
+import com.animania.common.entities.cows.EntityCowBase;
+import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
+import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+
+public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
 
-	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBuckBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean> createKey(EntityBuckBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityBuckBase.class, DataSerializers.BOOLEAN);
 
 	public EntityBuckBase(World worldIn)
 	{
@@ -51,12 +63,15 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.mateable = true;
 		this.headbutting = true;
 		this.gender = EntityGender.MALE;
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
+		{
 			this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
 			this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.25F));
 		}
-		this.tasks.addTask(5, new EntityAIMateGoats(this, 1.0D));
-		//this.tasks.addTask(5, new EntityAIFollowMateGoats(this, 1.0D));
+
+		if (!getSterilized())
+			this.tasks.addTask(5, new GenericAIMate<EntityBuckBase, EntityDoeBase>(this, 1.0D, EntityDoeBase.class, EntityKidBase.class, EntityAnimaniaGoat.class));
+		// this.tasks.addTask(5, new EntityAIFollowMateGoats(this, 1.0D));
 	}
 
 	@Override
@@ -72,14 +87,17 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	{
 		super.entityInit();
 		this.dataManager.register(EntityBuckBase.FIGHTING, Boolean.valueOf(false));
+		this.dataManager.register(EntityBuckBase.STERILIZED, Boolean.valueOf(false));
+
 	}
 
 	public boolean getFighting()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(FIGHTING));
-		}
-		catch (Exception e) {
+		} catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -91,7 +109,6 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		else
 			this.dataManager.set(EntityBuckBase.FIGHTING, Boolean.valueOf(false));
 	}
-
 
 	@Nullable
 	public UUID getMateUniqueId()
@@ -114,7 +131,6 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	{
 		this.dataManager.set(EntityBuckBase.RIVAL_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
-
 
 	@Override
 	protected SoundEvent getAmbientSound()
@@ -223,7 +239,8 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 								mateReset = false;
 
 								EntityDoeBase fem = (EntityDoeBase) entity;
-								if (fem.getPregnant()) {
+								if (fem.getPregnant())
+								{
 									this.setHandFed(false);
 								}
 								break;
@@ -238,10 +255,8 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 			}
 		}
 
-
 		super.onLivingUpdate();
 	}
-
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -252,7 +267,6 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		else
 			super.handleStatusUpdate(id);
 	}
-
 
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
@@ -267,8 +281,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		{
 			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
 			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
-		}
-		else
+		} else
 			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
 
@@ -286,16 +299,62 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 
 			if (this.getSheared() && this instanceof EntityBuckAngora)
 			{
-				if (this.getWoolRegrowthTimer() > 0) {
+				if (this.getWoolRegrowthTimer() > 0)
+				{
 					int bob = this.getWoolRegrowthTimer();
-					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
-				} 
-			}  else if (!this.getSheared() && this instanceof EntityBuckAngora) {
+					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")");
+				}
+			} else if (!this.getSheared() && this instanceof EntityBuckAngora)
+			{
 				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
 			}
 
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+	}
+
+	@Override
+	public boolean getSterilized()
+	{
+		return this.getBoolFromDataManager(STERILIZED);
+	}
+
+	@Override
+	public void setSterilized(boolean sterilized)
+	{
+		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	{
+		compound.setBoolean("Sterilized", getSterilized());
+		return super.writeToNBT(compound);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound compound)
+	{
+		this.setSterilized(compound.getBoolean("Sterilized"));
+		super.readFromNBT(compound);
+	}
+
+	@Override
+	public void sterilize()
+	{
+		Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
+		while (it.hasNext())
+		{
+			EntityAITaskEntry entry = it.next();
+			EntityAIBase ai = entry.action;
+			if (ai instanceof GenericAIMate || ai instanceof EntityAIAttackMeleeBulls || ai instanceof EntityAIGoatsLeapAtTarget)
+			{
+				entry.using = false;
+				ai.resetTask();
+				it.remove();
+			}
+		}
+		setSterilized(true);
 	}
 
 }

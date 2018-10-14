@@ -1,21 +1,15 @@
 package com.animania.addons.catsdogs.common.entity.cats;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.addons.catsdogs.config.CatsDogsConfig;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IMateable;
-import com.animania.common.entities.generic.ai.GenericAIMate;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.google.common.base.Optional;
-
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -26,9 +20,22 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderMateable, IMateable
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IMateable;
+import com.animania.common.entities.ISterilizable;
+import com.animania.common.entities.cows.EntityBullBase;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.entities.pigs.EntityHogBase;
+import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.google.common.base.Optional;
+
+public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityTomBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityTomBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityTomBase.class, DataSerializers.BOOLEAN);
 
 	public EntityTomBase(World worldIn, CatType type)
 	{
@@ -37,7 +44,9 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
 		this.type = type;
-		this.tasks.addTask(8, new GenericAIMate<EntityTomBase, EntityQueenBase>(this, 1.0D, EntityQueenBase.class, EntityKittenBase.class, EntityAnimaniaCat.class, CatsDogsConfig.catsdogs.spawnLimitCats));
+
+		if (!getSterilized())
+			this.tasks.addTask(8, new GenericAIMate<EntityTomBase, EntityQueenBase>(this, 1.0D, EntityQueenBase.class, EntityKittenBase.class, EntityAnimaniaCat.class));
 	}
 
 	@Override
@@ -45,13 +54,14 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	{
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+		this.dataManager.register(STERILIZED, Boolean.valueOf(false));
 	}
 
 	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 
@@ -89,8 +99,7 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 		{
 			UUID id = (UUID) ((Optional) this.dataManager.get(MATE_UNIQUE_ID)).orNull();
 			return id;
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			return null;
 		}
@@ -219,11 +228,55 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 		}
 		super.onLivingUpdate();
 	}
-	
+
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && (TEMPTATION_ITEMS.contains(stack.getItem()));
+	}
+
+	@Override
+	public boolean getSterilized()
+	{
+		return this.getBoolFromDataManager(STERILIZED);
+	}
+
+	@Override
+	public void setSterilized(boolean sterilized)
+	{
+		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	{
+		compound.setBoolean("Sterilized", getSterilized());
+		return super.writeToNBT(compound);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound compound)
+	{
+		this.setSterilized(compound.getBoolean("Sterilized"));
+		super.readFromNBT(compound);
+	}
+
+	@Override
+	public void sterilize()
+	{
+		Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
+		while (it.hasNext())
+		{
+			EntityAITaskEntry entry = it.next();
+			EntityAIBase ai = entry.action;
+			if (ai instanceof GenericAIMate)
+			{
+				entry.using = false;
+				ai.resetTask();
+				it.remove();
+			}
+		}
+		setSterilized(true);
 	}
 
 }

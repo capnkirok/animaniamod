@@ -5,14 +5,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.cows.ai.EntityAIFollowParentCows;
-import com.animania.common.entities.cows.ai.EntityAIPanicCows;
-import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -34,7 +26,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProviderChild
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IChild;
+import com.animania.common.entities.cows.ai.EntityAIFollowParentCows;
+import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+
+public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProviderChild, IChild
 {
 
 	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityCalfBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -47,7 +47,6 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.setSize(1.6F, 3.6F);
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
-		this.tasks.addTask(1, new EntityAIPanicCows(this, 2.0D));
 		this.ageTimer = 0;
 		this.cowType = CowType.FRIESIAN;
 		this.gender = EntityGender.CHILD;

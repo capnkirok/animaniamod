@@ -5,21 +5,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.animania.Animania;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.chickens.ChickenType;
-import com.animania.common.entities.chickens.EntityChickBase;
-import com.animania.common.entities.chickens.EntityRoosterBase;
-import com.animania.common.entities.peacocks.EntityPeachickBase;
-import com.animania.common.entities.peacocks.EntityPeacockBase;
-import com.animania.common.entities.peacocks.PeacockType;
-import com.animania.common.handler.BlockHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.TileEntityNest;
-import com.animania.common.tileentities.TileEntityNest.NestContent;
-import com.animania.compat.top.providers.TOPInfoProvider;
-import com.animania.config.AnimaniaConfig;
-
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -41,7 +26,23 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+
+import com.animania.Animania;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.chickens.ChickenType;
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
+import com.animania.common.entities.chickens.EntityChickBase;
+import com.animania.common.entities.chickens.EntityRoosterBase;
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
+import com.animania.common.entities.peacocks.EntityPeachickBase;
+import com.animania.common.entities.peacocks.EntityPeacockBase;
+import com.animania.common.entities.peacocks.PeacockType;
+import com.animania.common.handler.BlockHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.tileentities.TileEntityNest;
+import com.animania.common.tileentities.TileEntityNest.NestContent;
+import com.animania.compat.top.providers.TOPInfoProvider;
+import com.animania.config.AnimaniaConfig;
 
 public class BlockNest extends BlockContainer implements TOPInfoProvider
 {
@@ -80,7 +81,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 	{
 		return false;
 	}
-	
+
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
 	{
@@ -111,35 +112,43 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 
 			if (te.getBirdType() instanceof ChickenType)
 			{
-				for (EntityRoosterBase rooster : roosters)
+				List<EntityAnimaniaChicken> nearbyChickens = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 15, worldIn, pos);
+				if (nearbyChickens.size() < AnimaniaConfig.careAndFeeding.entityBreedingLimit)
 				{
-					if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
+					for (EntityRoosterBase rooster : roosters)
 					{
-						ChickenType chickType = ChickenType.breed(rooster.type, (ChickenType) te.getBirdType());
-						EntityChickBase chick = chickType.getChild(worldIn);
-						chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
-						worldIn.spawnEntity(chick);
-						chick.playSound(ModSoundEvents.chickenCluck1, 0.50F, 1.4F);
-						te.removeItem();
-						te.markDirty();
-						break;
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
+						{
+							ChickenType chickType = ChickenType.breed(rooster.type, (ChickenType) te.getBirdType());
+							EntityChickBase chick = chickType.getChild(worldIn);
+							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+							worldIn.spawnEntity(chick);
+							chick.playSound(ModSoundEvents.chickenCluck1, 0.50F, 1.4F);
+							te.removeItem();
+							te.markDirty();
+							break;
+						}
 					}
 				}
 			}
 			if (te.getBirdType() instanceof PeacockType)
 			{
-				for (EntityPeacockBase peacock : peacocks)
+				List<EntityAnimaniaPeacock> nearbyPeacocks = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPeacock.class, 15, worldIn, pos);
+				if (nearbyPeacocks.size() < AnimaniaConfig.careAndFeeding.entityBreedingLimit)
 				{
-					if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
+					for (EntityPeacockBase peacock : peacocks)
 					{
-						PeacockType chickType = PeacockType.breed(peacock.type, (PeacockType) te.getBirdType());
-						EntityPeachickBase chick = chickType.getChild(worldIn);
-						chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
-						worldIn.spawnEntity(chick);
-						chick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
-						te.removeItem();
-						te.markDirty();
-						break;
+						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
+						{
+							PeacockType chickType = PeacockType.breed(peacock.type, (PeacockType) te.getBirdType());
+							EntityPeachickBase chick = chickType.getChild(worldIn);
+							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
+							worldIn.spawnEntity(chick);
+							chick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
+							te.removeItem();
+							te.markDirty();
+							break;
+						}
 					}
 				}
 			}

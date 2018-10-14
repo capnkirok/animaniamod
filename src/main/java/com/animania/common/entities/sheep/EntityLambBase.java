@@ -5,13 +5,6 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.sheep.ai.EntityAIFollowParentSheep;
-import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,7 +20,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProviderChild
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IChild;
+import com.animania.common.entities.sheep.ai.EntityAIFollowParentSheep;
+import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+
+public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProviderChild, IChild
 {
 
 	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityLambBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);

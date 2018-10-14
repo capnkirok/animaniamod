@@ -2,6 +2,7 @@ package com.animania.client.models.goats;
 
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.goats.EntityBuckPygmy;
+import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -283,8 +284,10 @@ public class ModelBuckPygmy extends ModelBase
 		Body.render(scale);
 		Butt.render(scale);
 		Tail.render(scale);
-		Reproductive1.render(scale);
-		Reproductive2.render(scale);
+		if (AnimaniaConfig.gameRules.showParts) {
+			Reproductive1.render(scale);
+			Reproductive2.render(scale);
+		}
 		HeadNode.render(scale);
 
 	}

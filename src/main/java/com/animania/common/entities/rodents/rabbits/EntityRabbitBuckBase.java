@@ -1,17 +1,11 @@
 package com.animania.common.entities.rodents.rabbits;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
-
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.rodents.ai.EntityAIMateRabbits;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -20,9 +14,15 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -31,8 +31,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IMateable;
+import com.animania.common.entities.ISterilizable;
+import com.animania.common.entities.cows.EntityBullBase;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+
+public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityRabbitBuckBase.class, DataSerializers.BOOLEAN);
 
 	public EntityRabbitBuckBase(World worldIn)
 	{
@@ -41,10 +51,21 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
-		this.tasks.addTask(1, new EntityAIMateRabbits(this, 1.0D));
-		//this.tasks.addTask(3, new EntityAIFollowMateRabbits(this, 1.1D));
+
+		if (!getSterilized())
+			this.tasks.addTask(6, new GenericAIMate<EntityRabbitBuckBase, EntityRabbitDoeBase>(this, 1.0D, EntityRabbitDoeBase.class, EntityRabbitKitBase.class, EntityAnimaniaRabbit.class));
+		// this.tasks.addTask(3, new EntityAIFollowMateRabbits(this, 1.1D));
 	}
 
+
+	@Override
+	protected void entityInit()
+	{
+		super.entityInit();
+		this.dataManager.register(STERILIZED, Boolean.valueOf(false));
+
+	}
+	
 	@Override
 	protected void applyEntityAttributes()
 	{
@@ -52,7 +73,6 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.265D);
 	}
-	
 
 	@Override
 	protected SoundEvent getAmbientSound()
@@ -154,7 +174,8 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 							{
 								mateReset = false;
 								EntityRabbitDoeBase fem = (EntityRabbitDoeBase) entity;
-								if (fem.getPregnant()) {
+								if (fem.getPregnant())
+								{
 									this.setHandFed(false);
 								}
 								break;
@@ -169,10 +190,8 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 			}
 		}
 
-
 		super.onLivingUpdate();
 	}
-
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -183,7 +202,6 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		else
 			super.handleStatusUpdate(id);
 	}
-
 
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
@@ -198,8 +216,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		{
 			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
 			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
-		}
-		else
+		} else
 			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
 
@@ -213,6 +230,50 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+	}
+
+	@Override
+	public boolean getSterilized()
+	{
+		return this.getBoolFromDataManager(STERILIZED);
+	}
+
+	@Override
+	public void setSterilized(boolean sterilized)
+	{
+		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	{
+		compound.setBoolean("Sterilized", getSterilized());
+		return super.writeToNBT(compound);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound compound)
+	{
+		this.setSterilized(compound.getBoolean("Sterilized"));
+		super.readFromNBT(compound);
+	}
+
+	@Override
+	public void sterilize()
+	{
+		Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
+		while (it.hasNext())
+		{
+			EntityAITaskEntry entry = it.next();
+			EntityAIBase ai = entry.action;
+			if (ai instanceof GenericAIMate)
+			{
+				entry.using = false;
+				ai.resetTask();
+				it.remove();
+			}
+		}
+		setSterilized(true);
 	}
 
 }

@@ -1,23 +1,19 @@
 package com.animania.common.entities.pigs;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.pigs.ai.EntityAIMatePigs;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
-import com.google.common.base.Optional;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -36,11 +32,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderPig
-{
-	
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityHogBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.IMateable;
+import com.animania.common.entities.ISterilizable;
+import com.animania.common.entities.cows.EntityBullBase;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
+import com.google.common.base.Optional;
 
+public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderPig, IMateable, ISterilizable
+{
+
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityHogBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityHogBase.class, DataSerializers.BOOLEAN);
 
 	public EntityHogBase(World worldIn)
 	{
@@ -48,10 +54,12 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
-		this.tasks.addTask(8, new EntityAIMatePigs(this, 1.0D));
-		//this.tasks.addTask(9, new EntityAIFollowMatePigs(this, 1.1D));
+
+		if (!getSterilized())
+			this.tasks.addTask(3, new GenericAIMate<EntityHogBase, EntitySowBase>(this, 1.0D, EntitySowBase.class, EntityPigletBase.class, EntityAnimaniaPig.class));
+		// this.tasks.addTask(9, new EntityAIFollowMatePigs(this, 1.1D));
 	}
-	
+
 	@Override
 	protected void applyEntityAttributes()
 	{
@@ -59,7 +67,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(14.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.265D);
 	}
-	
+
 	@Override
 	@Nullable
 	public Entity getControllingPassenger()
@@ -93,15 +101,16 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 			}
 		}
 	}
-	
+
 	@Override
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityHogBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(EntityHogBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.dataManager.register(EntityHogBase.STERILIZED, Boolean.valueOf(false));
 
 	}
-	
+
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
@@ -115,7 +124,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-		
+
 		String s;
 
 		if (compound.hasKey("MateUUID", 8))
@@ -127,7 +136,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		}
 
 	}
-	
+
 	@Nullable
 	public UUID getMateUniqueId()
 	{
@@ -135,8 +144,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		{
 			UUID id = (UUID) ((Optional) this.dataManager.get(EntityHogBase.MATE_UNIQUE_ID)).orNull();
 			return id;
-		}
-		catch(Exception e)
+		} catch (Exception e)
 		{
 			return null;
 		}
@@ -146,8 +154,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		this.dataManager.set(EntityHogBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
-	
-	
+
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
@@ -217,7 +224,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		else
 			return ModSoundEvents.pig3;
 	}
-	
+
 	@Override
 	public void playLivingSound()
 	{
@@ -232,32 +239,33 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		this.playSound(SoundEvents.ENTITY_PIG_STEP, 0.10F, 0.8F);
 	}
-	
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);
-		
+
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && !this.isBeingRidden() && this.getWatered() && this.getFed())
 		{
 			player.startRiding(this);
 			return true;
 		}
-		
+
 		return super.processInteract(player, hand);
 	}
-	
+
 	@Override
 	public void fall(float distance, float damageMultiplier)
 	{
 		super.fall(distance, damageMultiplier);
 
-//		if (distance > 5.0F)
-//			for (EntityPlayer entityplayer : this.getRecursivePassengersByType(EntityPlayer.class))
-//				entityplayer.addStat(AchievementList.FLY_PIG);
+		// if (distance > 5.0F)
+		// for (EntityPlayer entityplayer :
+		// this.getRecursivePassengersByType(EntityPlayer.class))
+		// entityplayer.addStat(AchievementList.FLY_PIG);
 	}
-	
+
 	@Override
 	public void travel(float strafe, float forward, float friction)
 	{
@@ -288,8 +296,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 				this.setAIMoveSpeed(f);
 				super.travel(0.0F, 1.0F, 0.0f);
-			}
-			else
+			} else
 			{
 				this.motionX = 0.0D;
 				this.motionY = 0.0D;
@@ -306,24 +313,21 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 			this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
 			this.limbSwing += this.limbSwingAmount;
-		}
-		else
+		} else
 		{
 			this.stepHeight = 0.5F;
 			this.jumpMovementFactor = 0.02F;
 			super.travel(strafe, forward, 0.0f);
 		}
 	}
-	
-	
+
 	@Override
 	public void onLivingUpdate()
 	{
-		
-		
+
 		if (this.isBeingRidden() && this.getSleeping())
 			this.setSleeping(false);
-		
+
 		if (this.blinkTimer > -1)
 		{
 			this.blinkTimer--;
@@ -348,7 +352,8 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 							{
 								mateReset = false;
 								EntitySowBase fem = (EntitySowBase) entity;
-								if (fem.getPregnant()) {
+								if (fem.getPregnant())
+								{
 									this.setHandFed(false);
 								}
 								break;
@@ -362,10 +367,10 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				}
 			}
 		}
-		
+
 		super.onLivingUpdate();
 	}
-	
+
 	public boolean boost()
 	{
 		if (this.boosting)
@@ -378,8 +383,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 			return true;
 		}
 	}
-	
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
@@ -403,8 +407,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		{
 			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
 			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
-		}
-		else
+		} else
 			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
 
@@ -422,6 +425,50 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && (EntityAnimaniaPig.TEMPTATION_ITEMS.contains(stack.getItem()) || ItemStack.areItemStacksEqual(stack, this.slop));
+	}
+
+	@Override
+	public boolean getSterilized()
+	{
+		return this.getBoolFromDataManager(STERILIZED);
+	}
+
+	@Override
+	public void setSterilized(boolean sterilized)
+	{
+		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	{
+		compound.setBoolean("Sterilized", getSterilized());
+		return super.writeToNBT(compound);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound compound)
+	{
+		this.setSterilized(compound.getBoolean("Sterilized"));
+		super.readFromNBT(compound);
+	}
+
+	@Override
+	public void sterilize()
+	{
+		Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
+		while (it.hasNext())
+		{
+			EntityAITaskEntry entry = it.next();
+			EntityAIBase ai = entry.action;
+			if (ai instanceof GenericAIMate)
+			{
+				entry.using = false;
+				ai.resetTask();
+				it.remove();
+			}
+		}
+		setSterilized(true);
 	}
 
 }

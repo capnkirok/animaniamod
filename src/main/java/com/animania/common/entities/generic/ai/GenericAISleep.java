@@ -29,9 +29,9 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Entity
 
 	private Block bedBlock;
 	private Block bedBlock2;
-	
+
 	private Class parentClass;
-	
+
 	public GenericAISleep(T entity, double speedIn, Block bed1, Block bed2, Class parentClass)
 	{
 		this.entity = entity;
@@ -61,6 +61,13 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Entity
 					entity.setSleeping(false);
 					this.delayTemptCounter = 0;
 				}
+				return false;
+			}
+			
+			if (entity.getSleeping() && entity.isBurning())
+			{
+				entity.setSleeping(false);
+				this.delayTemptCounter = 0;
 				return false;
 			}
 
@@ -190,7 +197,7 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Entity
 						Block blockchk = entity.world.getBlockState(pos).getBlock();
 
 						List others = AnimaniaHelper.getEntitiesInRange(parentClass, 2, entity.world, pos);
-						
+
 						if (blockchk == bedBlock && others.size() < 2)
 						{
 							prefBedFound = true;

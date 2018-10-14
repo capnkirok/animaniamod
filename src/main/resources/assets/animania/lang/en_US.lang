@@ -388,6 +388,7 @@ animania.category.spawn=Spawn
 animania.category.entity=Entities
 animania.category.careandfeeding=Care and Feeding
 animania.category.drops=Drops
+animania.category.spawnlocations=Spawn Locations
 animania.category.forbiddentiles=Forbidden Tile Entities
 animania.category.foodvalues=Food Value Overrides
 animania.category.catsdogs=Cats and Dogs
@@ -415,6 +416,7 @@ text.waila.wool1=Wool growth
 text.waila.wool2=ticks remaining
 text.waila.wool3=Ready for shearing
 text.waila.sleeping=Sleeping
+text.waila.sterilized=Sterilized
 
 text.jei.trough=The trough can be used to feed your animals. Right click it with Wheat, a Water Bucket or a Slop Bucket to fill it up.
 text.jei.mud=Mud blocks are essential for pigs, they love to dig around in it.
