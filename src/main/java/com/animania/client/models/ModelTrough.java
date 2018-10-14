@@ -173,6 +173,8 @@ public class ModelTrough extends ModelBase
 		this.Water3.setTextureSize(128, 64);
 		this.Water3.addBox(-14F, -0.5F, -4F, 28, 1, 8);
 		this.Water3.setRotationPoint(8F, 20F, 0F);
+		
+		this.Water1 = new ModelRenderer(this, 0, 0);
 
 	}
 
@@ -192,8 +194,8 @@ public class ModelTrough extends ModelBase
 	
 	public void renderFluid(float scale, int textureWidth, int textureHeight)
 	{
-		this.Water1 = new ModelRenderer(this, 0, 0);
 		this.Water1.setTextureSize(textureWidth, textureHeight);
+		this.Water1.cubeList.clear();
 		this.Water1.addBox(-14F, -0.5F, -4F, 28, 1, 8);
 		this.Water1.setRotationPoint(8F, 16F, 0F);
 		this.Water1.render(scale);

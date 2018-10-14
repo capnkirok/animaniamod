@@ -7,25 +7,28 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import org.lwjgl.opengl.GL11;
+
 import com.animania.client.models.ModelTrough;
 import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.common.tileentities.TileEntityTrough.TroughContent;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -110,11 +113,17 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 				TextureAtlasSprite sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(fluid.getFluid().getStill().toString());
 				ResourceLocation loc = new ResourceLocation(fluid.getFluid().getStill().getResourceDomain() + ":textures/" + fluid.getFluid().getStill().getResourcePath() + ".png");
 				double multi = 0.34 * (1 - ((double) fluid.amount / (double) 1000));
+				GlStateManager.pushMatrix();
+				GlStateManager.translate(0.4, 1, -0.3);
 				GlStateManager.translate(0.0, multi, 0.0);
+				GlStateManager.rotate(90, 1f, 0f, 0f);
 				GlStateManager.enableAlpha();
 				GlStateManager.enableBlend();
-				this.bindTexture(loc);
-				trough.renderFluid(0.0625f, sprite.getIconWidth(), sprite.getIconHeight() * sprite.getFrameCount());
+				
+				drawTextureAtlasSprite(0, 0, sprite, 0.6, 1);
+				drawTextureAtlasSprite(-0.8, 0, sprite, 0.6, 0.8);
+
+				GlStateManager.popMatrix();
 			}
 
 		}
@@ -151,6 +160,36 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 			GlStateManager.popMatrix();
 			GlStateManager.matrixMode(5888);
 		}
+	}
+
+	private static void drawTextureAtlasSprite(double xCoord, double yCoord, TextureAtlasSprite textureSprite, double height, double width)
+	{
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder bufferbuilder = tessellator.getBuffer();
+		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		
+//		bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+//		bufferbuilder.pos((double) (xCoord + 0), (double) (yCoord + heightIn), (double) 0).tex((double) textureSprite.getMinU(), (double) textureSprite.getMaxV()).endVertex();
+//		bufferbuilder.pos((double) (xCoord + widthIn), (double) (yCoord + heightIn), (double) 0).tex((double) textureSprite.getMaxU(), (double) textureSprite.getMaxV()).endVertex();
+//		bufferbuilder.pos((double) (xCoord + widthIn), (double) (yCoord + 0), (double) 0).tex((double) textureSprite.getMaxU(), (double) textureSprite.getMinV()).endVertex();
+//		bufferbuilder.pos((double) (xCoord + 0), (double) (yCoord + 0), (double) 0).tex((double) textureSprite.getMinU(), (double) textureSprite.getMinV()).endVertex();
+
+		double m = 0.015625;
+
+		
+		double u0 = textureSprite.getMinU();
+		double u1 = u0 + m * width;
+		double v0 = textureSprite.getMinV();
+		double v1 = v0 + m * height;
+		
+		
+		bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
+		bufferbuilder.pos(xCoord, yCoord, 0).tex(u1, v1).normal(0, 0, 1).endVertex();
+		bufferbuilder.pos(xCoord + width, yCoord, 0).tex(u0, v1).normal(0, 0, 1).endVertex();
+		bufferbuilder.pos(xCoord + width, yCoord + height, 0).tex(u0, v0).normal(0, 0, 1).endVertex();
+		bufferbuilder.pos(xCoord, yCoord + height, 0).tex(u1, v0).normal(0, 0, 1).endVertex();
+		Tessellator.getInstance().draw();
+		
 	}
 
 	/**
