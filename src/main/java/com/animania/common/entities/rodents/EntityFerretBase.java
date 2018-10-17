@@ -46,7 +46,6 @@ import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IAnimaniaAnimalBase;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
@@ -69,6 +68,7 @@ import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.rodents.ai.EntityAIFerretFindNests;
 import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
 import com.animania.common.helper.AnimaniaHelper;
@@ -922,4 +922,9 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		return null;
 	}
 
+	@Override
+	public int getBlinkTimer()
+	{
+		return blinkTimer;
+	}
 }

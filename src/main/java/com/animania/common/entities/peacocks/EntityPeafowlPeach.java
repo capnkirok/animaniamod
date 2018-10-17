@@ -14,6 +14,7 @@ public class EntityPeafowlPeach extends EntityPeafowlBase
 		this.type = PeacockType.PEACH;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peafowl_peach.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_peach_blink.png");
+		this.lidCol = 0x7F5A41;
 	}
 	
 	@Override

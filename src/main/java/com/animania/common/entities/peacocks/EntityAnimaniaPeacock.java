@@ -39,7 +39,6 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IAnimaniaAnimalBase;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
@@ -51,6 +50,7 @@ import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.peacocks.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -86,7 +86,9 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	protected Item drop = null;
 	private int featherCounter;
 	protected EntityGender gender;
-
+	public int lidCol;
+	
+	
 	public EntityAnimaniaPeacock(World worldIn)
 	{
 		super(worldIn);
@@ -316,14 +318,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 	public Float getSleepTimer()
 	{
-		try
-		{
-			return (this.getFloatFromDataManager(SLEEPTIMER));
-		}
-		catch (Exception e)
-		{
-			return 0F;
-		}
+		return -100f;
 	}
 
 	public void setSleepTimer(Float timer)
@@ -850,6 +845,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	public Class[] getFoodBlocks()
 	{
 		return new Class[] { BlockSeeds.class };
+	}
+	
+	@Override
+	public int getBlinkTimer()
+	{
+		return blinkTimer;
 	}
 
 }

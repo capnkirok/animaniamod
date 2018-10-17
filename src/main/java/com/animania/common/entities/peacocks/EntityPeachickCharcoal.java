@@ -11,7 +11,8 @@ public class EntityPeachickCharcoal extends EntityPeachickBase
 		super(worldIn);
 		this.type = PeacockType.CHARCOAL;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peachick_charcoal.png");
-		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_charcoal_blink.png");
+		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png");
+		this.lidCol = 0x646464;
 	}
 	
 	@Override

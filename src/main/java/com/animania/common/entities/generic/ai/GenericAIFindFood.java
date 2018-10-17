@@ -4,8 +4,8 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.entities.IFoodEating;
-import com.animania.common.entities.ISleeping;
+import com.animania.common.entities.interfaces.IFoodEating;
+import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.config.AnimaniaConfig;

@@ -38,7 +38,6 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IAnimaniaAnimalBase;
 import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
 import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
@@ -50,6 +49,7 @@ import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -84,7 +84,8 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	protected Item oldDropRaw = Items.CHICKEN;
 	protected Item oldDropCooked = Items.COOKED_CHICKEN;
 	public EntityGender gender;
-
+	public int lidCol;
+	
 	public EntityAnimaniaChicken(World worldIn)
 	{
 		super(worldIn);
@@ -725,6 +726,12 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 			return Optional.absent();
 		}
 	}
+	
+	@Override
+	public int getBlinkTimer()
+	{
+		return blinkTimer;
+	}
 
 	@Override
 	public Set<Item> getFoodItems()
@@ -748,6 +755,18 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	public Class[] getFoodBlocks()
 	{
 		return new Class[]{BlockSeeds.class};
+	}
+
+	@Override
+	public Float getSleepTimer()
+	{
+		return -100f;
+	}
+
+	@Override
+	public void setSleepTimer(Float timer)
+	{
+		
 	}
 
 }

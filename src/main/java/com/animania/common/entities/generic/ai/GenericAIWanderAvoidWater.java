@@ -3,11 +3,11 @@ package com.animania.common.entities.generic.ai;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
+import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.rodents.EntityFerretBase;

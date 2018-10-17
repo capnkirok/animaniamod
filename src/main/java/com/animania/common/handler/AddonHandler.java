@@ -1,22 +1,32 @@
 package com.animania.common.handler;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import com.animania.Animania;
+import com.animania.addons.AddonResourcePack;
 import com.animania.addons.AnimaniaAddon;
 import com.animania.addons.LoadAddon;
 import com.animania.addons.template.TemplateAddon;
 import com.animania.common.helper.AnimaniaHelper;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.IResourcePack;
+import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
 import net.minecraftforge.fml.common.discovery.ASMDataTable.ASMData;
 import net.minecraftforge.fml.common.versioning.ArtifactVersion;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import net.minecraftforge.fml.common.versioning.InvalidVersionSpecificationException;
 import net.minecraftforge.fml.common.versioning.VersionRange;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class AddonHandler
 {
@@ -85,8 +95,8 @@ public class AddonHandler
 	{
 		if (addon == null)
 			return;
-		
-		if(addon instanceof TemplateAddon)
+
+		if (addon instanceof TemplateAddon)
 			return;
 
 		try
@@ -117,6 +127,8 @@ public class AddonHandler
 		}
 
 		loadedAddons.add(addon);
+		addAddonResourcePack(addon);
+		
 		Animania.LOGGER.info("Loaded Addon " + addon.getAddonName() + " with id " + addon.getAddonID() + " and Class " + addon.getClass().getName());
 	}
 
@@ -125,6 +137,29 @@ public class AddonHandler
 		public AddonLoadException(String message)
 		{
 			super(message);
+		}
+	}
+
+	private static void addAddonResourcePack(AnimaniaAddon addon)
+	{
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+		{
+			List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "field_110449_ao", "defaultResourcePacks");
+			File animania = Loader.instance().activeModContainer().getSource();
+			
+			IResourcePack pack = null;
+			if(animania.isDirectory())
+				pack = new AddonResourcePack.Folder(addon);
+			else 
+				pack = new AddonResourcePack.Jar(addon);
+			
+			packs.add(pack);	
+			IResourceManager res = Minecraft.getMinecraft().getResourceManager();
+			if(res instanceof SimpleReloadableResourceManager)
+			{
+				((SimpleReloadableResourceManager) res).reloadResourcePack(pack);
+			}
+			
 		}
 	}
 }

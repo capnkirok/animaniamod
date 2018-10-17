@@ -3,6 +3,7 @@ package com.animania.client.render.horses;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelDraftHorseStallion;
+import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
 
@@ -23,11 +24,16 @@ public class RenderStallionDraftHorse<T extends EntityStallionDraftHorse> extend
 
 	private static final ResourceLocation[] HORSE_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "black.png"), new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "bw1.png"), new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "bw2.png"), new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "grey.png"), new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "red.png"), new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "white.png") };
 
-	private static final ResourceLocation[] HORSE_TEXTURES_BLINK = new ResourceLocation[] { new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "black_blink.png"), new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "bw1_blink.png"), new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "bw2_blink.png"), new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "grey_blink.png"), new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "red_blink.png"), new ResourceLocation(RenderStallionDraftHorse.modid, RenderStallionDraftHorse.horseBaseDir + "draft_horse_" + "white_blink.png") };
+	private static ResourceLocation BLINK = new ResourceLocation("animania:textures/entity/horses/horse_blink.png");
+
+	private static final int[] BLINK_COLORS = new int[] { 0x1B1B1B, 0x181818, 0x171717, 0x797979, 0x8F3514, 0xC1C1C1 };
+
+	private LayerBlinking blinkingLayer;
 
 	public RenderStallionDraftHorse(RenderManager rm)
 	{
 		super(rm, new ModelDraftHorseStallion(), 0.8F);
+		this.addLayer(blinkingLayer = new LayerBlinking(this, BLINK, 0));
 	}
 
 	protected void preRenderScale(EntityStallionDraftHorse entity, float f)
@@ -65,40 +71,19 @@ public class RenderStallionDraftHorse<T extends EntityStallionDraftHorse> extend
 	@Override
 	protected ResourceLocation getEntityTexture(EntityStallionDraftHorse entity)
 	{
-		int blinkTimer = entity.blinkTimer;
-		long currentTime = entity.world.getWorldTime() % 23999;
-		boolean isSleeping = false;
-
-		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
-		isSleeping = entityHorse.getSleeping();
-		float sleepTimer = entityHorse.getSleepTimer();
-
 		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
 		{
 			return RenderStallionDraftHorse.HORSE_TEXTURES[0];
 		}
-		else
-		{
-			if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250)
-			{
-				return RenderStallionDraftHorse.HORSE_TEXTURES_BLINK[entity.getColorNumber()];
-			}
-			else if (blinkTimer < 7 && blinkTimer >= 0)
-			{
-				return RenderStallionDraftHorse.HORSE_TEXTURES_BLINK[entity.getColorNumber()];
-			}
-			else
-			{
-				return RenderStallionDraftHorse.HORSE_TEXTURES[entity.getColorNumber()];
-			}
-		}
 
+		return RenderStallionDraftHorse.HORSE_TEXTURES[entity.getColorNumber()];
 	}
 
 	@Override
 	protected void preRenderCallback(EntityStallionDraftHorse entityliving, float f)
 	{
 		preRenderScale((EntityStallionDraftHorse) entityliving, f);
+		blinkingLayer.setColors(BLINK_COLORS[entityliving.getColorNumber()], BLINK_COLORS[entityliving.getColorNumber()]);
 	}
 
 	static class Factory<T extends EntityStallionDraftHorse> implements IRenderFactory<T>

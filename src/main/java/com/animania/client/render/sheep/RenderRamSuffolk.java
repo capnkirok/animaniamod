@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.sheep.ModelMerinoEwe;
 import com.animania.client.models.sheep.ModelSuffolkRam;
+import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityRamSuffolk;
 
@@ -26,15 +27,13 @@ public class RenderRamSuffolk<T extends EntityRamSuffolk> extends RenderLiving<T
 
 	private static final ResourceLocation[] SHEEP_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "white_ram.png"), new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "brown_ram.png") };
 
-	private static final ResourceLocation[] SHEEP_TEXTURES_BLINK = new ResourceLocation[] { new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "white_ram_blink.png"), new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "brown_ram_blink.png") };
-
+	private static final ResourceLocation SHEEP_TEXTURE_BLINK = new ResourceLocation("animania:textures/entity/sheep/sheep_blink.png");
 	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = new ResourceLocation[] { new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "white_ram_sheared.png"), new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "brown_ram_sheared.png") };
-
-	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED_BLINK = new ResourceLocation[] { new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "white_ram_sheared_blink.png"), new ResourceLocation(RenderRamSuffolk.modid, RenderRamSuffolk.SheepBaseDir + "sheep_suffolk_" + "brown_ram_sheared_blink.png") };
 
 	public RenderRamSuffolk(RenderManager rm)
 	{
 		super(rm, new ModelSuffolkRam(), 0.5F);
+		this.addLayer(new LayerBlinking(this, SHEEP_TEXTURE_BLINK, 0x1D1D1D));
 	}
 
 	protected void preRenderScale(EntityRamSuffolk entity, float f)
@@ -72,59 +71,26 @@ public class RenderRamSuffolk<T extends EntityRamSuffolk> extends RenderLiving<T
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		int blinkTimer = entity.blinkTimer;
-		long currentTime = entity.world.getWorldTime() % 23999;
-		boolean isSleeping = false;
-
-		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
-		isSleeping = entitySheep.getSleeping();
-		float sleepTimer = entitySheep.getSleepTimer();
-
 		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
 		{
 			return SHEEP_TEXTURES[0];
 		}
+
+		if (!entity.getSheared())
+		{
+			return this.SHEEP_TEXTURES[entity.getColorNumber()];
+		}
 		else
 		{
-			if (!entity.getSheared())
-			{
-				if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250)
-				{
-					return this.SHEEP_TEXTURES_BLINK[entity.getColorNumber()];
-				}
-				else if (blinkTimer < 7 && blinkTimer >= 0)
-				{
-					return this.SHEEP_TEXTURES_BLINK[entity.getColorNumber()];
-				}
-				else
-				{
-					return this.SHEEP_TEXTURES[entity.getColorNumber()];
-				}
-			}
-			else
-			{
-				if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250)
-				{
-					return this.SHEEP_TEXTURES_SHEARED_BLINK[entity.getColorNumber()];
-				}
-				else if (blinkTimer < 7 && blinkTimer >= 0)
-				{
-					return this.SHEEP_TEXTURES_SHEARED_BLINK[entity.getColorNumber()];
-				}
-				else
-				{
-					return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
-				}
-			}
+			return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
 		}
-
 	}
 
 	@Override
 	protected void preRenderCallback(T entityliving, float f)
 	{
 		this.preRenderScale(entityliving, f);
-		
+
 		if (entityliving.hasCustomName() && "jeb_".equals(entityliving.getCustomNameTag()) && entityliving.isDyeable())
 		{
 			int i1 = 25;

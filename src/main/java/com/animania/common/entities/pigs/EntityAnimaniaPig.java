@@ -35,7 +35,6 @@ import net.minecraftforge.fluids.UniversalBucket;
 
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IAnimaniaAnimalBase;
 import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
@@ -48,6 +47,7 @@ import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.pigs.ai.EntityAIFindMud;
 import com.animania.common.entities.pigs.ai.EntityAIPigSnuffle;
 import com.animania.common.entities.pigs.ai.EntityAITemptItemStack;
@@ -976,4 +976,9 @@ public class EntityAnimaniaPig extends EntityAnimal implements IAnimaniaAnimalBa
 		return BlockHandler.fluidSlop;
 	}
 
+	@Override
+	public int getBlinkTimer()
+	{
+		return blinkTimer;
+	}
 }

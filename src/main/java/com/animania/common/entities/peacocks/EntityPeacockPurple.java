@@ -15,6 +15,7 @@ public class EntityPeacockPurple extends EntityPeacockBase
 		this.drop = ItemHandler.peacockFeatherPurple;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_purple.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_purple_blink.png");
+		this.lidCol = 0x846F75;
 	}
 	
 	@Override

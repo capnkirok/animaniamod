@@ -3,9 +3,9 @@ package com.animania.common.entities.generic.ai;
 import java.util.List;
 import java.util.Random;
 
-import com.animania.common.entities.IChild;
-import com.animania.common.entities.IMateable;
-import com.animania.common.entities.ISleeping;
+import com.animania.common.entities.interfaces.IChild;
+import com.animania.common.entities.interfaces.IMateable;
+import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityPigletBase;
 import com.animania.common.entities.pigs.EntitySowBase;

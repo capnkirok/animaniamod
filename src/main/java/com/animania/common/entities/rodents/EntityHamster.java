@@ -44,7 +44,6 @@ import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IAnimaniaAnimalBase;
 import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
@@ -55,6 +54,7 @@ import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.rodents.ai.EntityAILookIdleRodent;
 import com.animania.common.entities.rodents.ai.EntityAISleepHamsters;
 import com.animania.common.handler.ItemHandler;
@@ -1397,6 +1397,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public int getBlinkTimer()
+	{
+		return blinkTimer;
 	}
 
 }

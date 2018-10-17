@@ -1,7 +1,7 @@
 package com.animania.common.events;
 
-import com.animania.common.entities.IAnimaniaAnimal;
-import com.animania.common.entities.ISleeping;
+import com.animania.common.entities.interfaces.IAnimaniaAnimal;
+import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.common.handler.ItemHandler;
 import com.animania.config.AnimaniaConfig;
 

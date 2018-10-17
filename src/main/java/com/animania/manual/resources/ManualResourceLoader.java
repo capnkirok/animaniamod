@@ -1,6 +1,7 @@
 package com.animania.manual.resources;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -12,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -41,7 +43,6 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
-import scala.actors.threadpool.Arrays;
 
 public class ManualResourceLoader
 {
@@ -123,6 +124,16 @@ public class ManualResourceLoader
 		{
 			Animania.LOGGER.error(e);
 		}
+		
+		if(filesystem != null)
+			try
+			{
+				filesystem.close();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 	}
 
 	public static void readJson(InputStream stream, ResourceLocation loc)

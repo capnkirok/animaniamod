@@ -5,6 +5,7 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.rabbits.ModelLop;
+import com.animania.client.render.layer.LayerBlinking;
 import com.animania.client.render.rabbits.RenderBuckLop.Factory;
 import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckLop;
@@ -28,11 +29,16 @@ public class RenderBuckLop<T extends EntityRabbitBuckLop> extends RenderLiving<T
 
 	private static final ResourceLocation[] RABBIT_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "black.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "brown.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "golden.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "olive.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "patch_black.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "patch_brown.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "patch_grey.png") };
 
-	private static final ResourceLocation[] RABBIT_TEXTURES_BLINK = new ResourceLocation[] { new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "black_blink.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "brown_blink.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "golden_blink.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "olive_blink.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "patch_black_blink.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "patch_brown_blink.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "patch_grey_blink.png") };
+	private static int[] EYE_COLORS = new int[]{0x404040, 0x816D60, 0xD0A675, 0x7F6C5B, 0xF6F4F4, 0xF6F4F4, 0xF6F4F4};
+	
+	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
 
+	private LayerBlinking blinkingLayer;
+	
 	public RenderBuckLop(RenderManager rm)
 	{
 		super(rm, new ModelLop(), 0.25F);
+		this.addLayer(blinkingLayer = new LayerBlinking(this, rabbitTexturesBlink, 0));
 	}
 
 	protected void preRenderScale(EntityRabbitBuckLop entity, float f)
@@ -67,38 +73,18 @@ public class RenderBuckLop<T extends EntityRabbitBuckLop> extends RenderLiving<T
 	protected void preRenderCallback(T entityliving, float f)
 	{
 		this.preRenderScale(entityliving, f);
+		this.blinkingLayer.setColors(EYE_COLORS[entityliving.getColorNumber()], EYE_COLORS[entityliving.getColorNumber()]);
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		int blinkTimer = entity.blinkTimer;
-
-		boolean isSleeping = false;
-
-		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
-		isSleeping = entityChk.getSleeping();
-		float sleepTimer = entityChk.getSleepTimer();
-
 		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
 		{
 			return RABBIT_TEXTURES[0];
 		}
-		else
-		{
-			if (isSleeping)
-			{
-				return this.RABBIT_TEXTURES_BLINK[entity.getColorNumber()];
-			}
-			else if (blinkTimer < 7 && blinkTimer >= 0)
-			{
-				return this.RABBIT_TEXTURES_BLINK[entity.getColorNumber()];
-			}
-			else
-			{
-				return this.RABBIT_TEXTURES[entity.getColorNumber()];
-			}
-		}
+
+		return this.RABBIT_TEXTURES[entity.getColorNumber()];
 	}
 
 	static class Factory<T extends EntityRabbitBuckLop> implements IRenderFactory<T>

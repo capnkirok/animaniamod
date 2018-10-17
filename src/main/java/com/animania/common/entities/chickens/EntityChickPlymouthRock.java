@@ -11,7 +11,8 @@ public class EntityChickPlymouthRock extends EntityChickBase
 		super(worldIn);
 		this.type = ChickenType.PLYMOUTH_ROCK;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_specked.png");
-		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_specked_blink.png");
+		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_blink.png");
+		this.lidCol = 0xD2D7E2;
 
 	}
 	

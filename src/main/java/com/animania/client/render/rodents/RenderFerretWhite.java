@@ -3,6 +3,7 @@ package com.animania.client.render.rodents;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelFerret;
+import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.entities.rodents.EntityFerretWhite;
 
@@ -20,19 +21,24 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderFerretWhite<T extends EntityFerretWhite> extends RenderLiving<T>
 {
-	public static final Factory           FACTORY               = new Factory();
+	public static final Factory FACTORY = new Factory();
 
-	private static final ResourceLocation FERRET_TEXTURES       = new ResourceLocation("animania:textures/entity/rodents/ferret_white.png");
-	private static final ResourceLocation FERRET_TEXTURES_BLINK = new ResourceLocation("animania:textures/entity/rodents/ferret_white_blink.png");
+	private static final ResourceLocation FERRET_TEXTURES = new ResourceLocation("animania:textures/entity/rodents/ferret_white.png");
+	private static final ResourceLocation FERRET_TEXTURES_BLINK = new ResourceLocation("animania:textures/entity/rodents/ferret_blink.png");
 
-	public RenderFerretWhite(RenderManager rm) {
+	public RenderFerretWhite(RenderManager rm)
+	{
 		super(rm, new ModelFerret(), 0.2F);
+		this.addLayer(new LayerBlinking(this, FERRET_TEXTURES_BLINK, 0xC9C8B7));
 	}
 
-	protected void preRenderScale(T entity, float f) {
-		if (entity.isRiding()) {
+	protected void preRenderScale(T entity, float f)
+	{
+		if (entity.isRiding())
+		{
 
-			if (entity.getRidingEntity() instanceof EntityPlayerSP) {
+			if (entity.getRidingEntity() instanceof EntityPlayerSP)
+			{
 				GL11.glScalef(0.3F, 0.3F, 0.3F);
 				EntityPlayer player = (EntityPlayer) entity.getRidingEntity();
 				entity.rotationYaw = player.rotationYaw;
@@ -43,47 +49,42 @@ public class RenderFerretWhite<T extends EntityFerretWhite> extends RenderLiving
 
 			}
 
-		} else if (entity.getSleeping()) {
+		}
+		else if (entity.getSleeping())
+		{
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0F, 0.20F, 0F); 
+			GlStateManager.translate(0F, 0.20F, 0F);
 			GlStateManager.rotate(-10.0F, 0.0F, 0.0F, 1.0F);
-		} else {
+		}
+		else
+		{
 			GL11.glScalef(0.5F, 0.5F, 0.5F);
 		}
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f) {
+	protected void preRenderCallback(T entityliving, float f)
+	{
 		this.preRenderScale(entityliving, f);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(T entity) {
-		int blinkTimer = entity.blinkTimer;
-		boolean isSleeping = false;
-
-		EntityFerretBase entityChk = (EntityFerretBase) entity;
-		isSleeping = entityChk.getSleeping();
-		float sleepTimer = entityChk.getSleepTimer();
-
-		if (isSleeping) {
-			return this.FERRET_TEXTURES_BLINK;
-		} else if (blinkTimer < 7 && blinkTimer >= 0) {
-			return this.FERRET_TEXTURES_BLINK;
-		} else {
-			return this.FERRET_TEXTURES;
-		}
+	protected ResourceLocation getEntityTexture(T entity)
+	{
+		return this.FERRET_TEXTURES;
 	}
 
 	@Override
-	public ModelFerret getMainModel() {
+	public ModelFerret getMainModel()
+	{
 		return (ModelFerret) super.getMainModel();
 	}
 
 	static class Factory<T extends EntityFerretWhite> implements IRenderFactory<T>
 	{
 		@Override
-		public Render<? super T> createRenderFor(RenderManager manager) {
+		public Render<? super T> createRenderFor(RenderManager manager)
+		{
 			return new RenderFerretWhite(manager);
 		}
 	}

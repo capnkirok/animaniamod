@@ -14,6 +14,7 @@ public class EntityPeafowlPurple extends EntityPeafowlBase
 		this.type = PeacockType.PURPLE;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peafowl_purple.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_purple_blink.png");
+		this.lidCol = 0x846F75;
 	}
 	
 	@Override

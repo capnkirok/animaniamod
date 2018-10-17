@@ -3,6 +3,7 @@ package com.animania.client.render.sheep;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.sheep.ModelJacobSheep;
+import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityEweJacob;
 
@@ -23,15 +24,13 @@ public class RenderEweJacob<T extends EntityEweJacob> extends RenderLiving<T>
 
 	private static final ResourceLocation[] SHEEP_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderEweJacob.modid, RenderEweJacob.SheepBaseDir + "sheep_jacob.png") };
 
-	private static final ResourceLocation[] SHEEP_TEXTURES_BLINK = new ResourceLocation[] { new ResourceLocation(RenderEweJacob.modid, RenderEweJacob.SheepBaseDir + "sheep_jacob_blink.png") };
-
+	private static final ResourceLocation SHEEP_TEXTURE_BLINK = new ResourceLocation("animania:textures/entity/sheep/sheep_blink.png");
 	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = new ResourceLocation[] { new ResourceLocation(RenderEweJacob.modid, RenderEweJacob.SheepBaseDir + "sheep_jacob_sheared.png") };
-
-	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED_BLINK = new ResourceLocation[] { new ResourceLocation(RenderEweJacob.modid, RenderEweJacob.SheepBaseDir + "sheep_jacob_sheared_blink.png") };
 
 	public RenderEweJacob(RenderManager rm)
 	{
 		super(rm, new ModelJacobSheep(), 0.5F);
+		this.addLayer(new LayerBlinking(this, SHEEP_TEXTURE_BLINK, 0x353535));
 	}
 
 	protected void preRenderScale(EntityEweJacob entity, float f)
@@ -69,52 +68,19 @@ public class RenderEweJacob<T extends EntityEweJacob> extends RenderLiving<T>
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		int blinkTimer = entity.blinkTimer;
-		long currentTime = entity.world.getWorldTime() % 23999;
-		boolean isSleeping = false;
-
-		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
-		isSleeping = entitySheep.getSleeping();
-		float sleepTimer = entitySheep.getSleepTimer();
-
 		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
 		{
 			return SHEEP_TEXTURES[0];
 		}
+
+		if (!entity.getSheared())
+		{
+			return this.SHEEP_TEXTURES[entity.getColorNumber()];
+		}
 		else
 		{
-			if (!entity.getSheared())
-			{
-				if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250)
-				{
-					return this.SHEEP_TEXTURES_BLINK[entity.getColorNumber()];
-				}
-				else if (blinkTimer < 7 && blinkTimer >= 0)
-				{
-					return this.SHEEP_TEXTURES_BLINK[entity.getColorNumber()];
-				}
-				else
-				{
-					return this.SHEEP_TEXTURES[entity.getColorNumber()];
-				}
-			}
-			else
-			{
-				if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250)
-				{
-					return this.SHEEP_TEXTURES_SHEARED_BLINK[entity.getColorNumber()];
-				}
-				else if (blinkTimer < 7 && blinkTimer >= 0)
-				{
-					return this.SHEEP_TEXTURES_SHEARED_BLINK[entity.getColorNumber()];
-				}
-				else
-				{
-					return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
-				}
-			}
+			return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
 		}
-
 	}
 
 	@Override

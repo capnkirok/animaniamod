@@ -5,6 +5,7 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.goats.ModelBuckAngora;
+import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.goats.EntityBuckAngora;
 
@@ -20,54 +21,70 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderBuckAngora<T extends EntityBuckAngora> extends RenderLiving<T>
 {
-	public static final Factory           FACTORY          = new Factory();
-	private static final ResourceLocation goatTextures      = new ResourceLocation("animania:textures/entity/goats/buck_angora.png");
-	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/buck_angora_blink.png");
-	private static final ResourceLocation goatTexturesSheared      = new ResourceLocation("animania:textures/entity/goats/buck_angora_sheared.png");
-	private static final ResourceLocation goatTexturesShearedBlink = new ResourceLocation("animania:textures/entity/goats/buck_angora_sheared_blink.png");
-	Random                                rand             = new Random();
+	public static final Factory FACTORY = new Factory();
+	private static final ResourceLocation goatTextures = new ResourceLocation("animania:textures/entity/goats/buck_angora.png");
+	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/angora_blink.png");
+	private static final ResourceLocation goatTexturesSheared = new ResourceLocation("animania:textures/entity/goats/buck_angora_sheared.png");
+	private static final ResourceLocation goatTexturesShearedBlink = new ResourceLocation("animania:textures/entity/goats/angora_blink.png");
+	Random rand = new Random();
 
-	public RenderBuckAngora(RenderManager rm) {
+	public RenderBuckAngora(RenderManager rm)
+	{
 		super(rm, new ModelBuckAngora(), 0.5F);
+		this.addLayer(new LayerBlinking(this, goatTexturesBlink, 0xCAC4B7));
 	}
 
-	protected ResourceLocation getGoatTextures(T entity) {
-		if (entity.getSheared()) {
+	protected ResourceLocation getGoatTextures(T entity)
+	{
+		if (entity.getSheared())
+		{
 			return RenderBuckAngora.goatTexturesSheared;
-		} else {
+		}
+		else
+		{
 			return RenderBuckAngora.goatTextures;
 		}
 	}
 
-	protected ResourceLocation getGoatTexturesBlink(T entity) {
-		if (entity.getSheared()) {
+	protected ResourceLocation getGoatTexturesBlink(T entity)
+	{
+		if (entity.getSheared())
+		{
 			return RenderBuckAngora.goatTexturesShearedBlink;
-		} else {
+		}
+		else
+		{
 			return RenderBuckAngora.goatTexturesBlink;
 		}
 	}
 
-	protected void preRenderScale(EntityBuckAngora entity, float f) {
+	protected void preRenderScale(EntityBuckAngora entity, float f)
+	{
 		GL11.glScalef(0.64F, 0.64F, 0.64F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-        boolean isSleeping = false;
+		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
-		if (entityGoat.getSleeping()) {
+		if (entityGoat.getSleeping())
+		{
 			isSleeping = true;
 		}
 
-		if (isSleeping) {
+		if (isSleeping)
+		{
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();
-			if (sleepTimer > - 0.55F) {
+			if (sleepTimer > -0.55F)
+			{
 				sleepTimer = sleepTimer - 0.01F;
 			}
 			entity.setSleepTimer(sleepTimer);
 
 			GlStateManager.translate(-0.25F, entity.height - 1.45F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		} else {
+		}
+		else
+		{
 			this.shadowSize = 0.5F;
 			entityGoat.setSleeping(false);
 			entityGoat.setSleepTimer(0F);
@@ -75,33 +92,22 @@ public class RenderBuckAngora<T extends EntityBuckAngora> extends RenderLiving<T
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(T entity) {
-		int blinkTimer = entity.blinkTimer;
-		long currentTime = entity.world.getWorldTime() % 23999;
-		boolean isSleeping = false;
-
-		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
-		isSleeping = entityGoat.getSleeping();
-		float sleepTimer = entityGoat.getSleepTimer();
-
-		if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250) {
-			return this.getGoatTexturesBlink(entity);
-		} else if (blinkTimer < 7 && blinkTimer >= 0) {
-			return this.getGoatTexturesBlink(entity);
-		} else {
-			return this.getGoatTextures(entity);
-		}
+	protected ResourceLocation getEntityTexture(T entity)
+	{
+		return this.getGoatTextures(entity);
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f) {
+	protected void preRenderCallback(T entityliving, float f)
+	{
 		this.preRenderScale(entityliving, f);
 	}
 
 	static class Factory<T extends EntityBuckAngora> implements IRenderFactory<T>
 	{
 		@Override
-		public Render<? super T> createRenderFor(RenderManager manager) {
+		public Render<? super T> createRenderFor(RenderManager manager)
+		{
 			return new RenderBuckAngora(manager);
 		}
 

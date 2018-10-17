@@ -2,9 +2,9 @@ package com.animania.common.entities.generic.ai;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.cows.EntityBullBase;
 import com.animania.common.entities.cows.EntityCowBase;
+import com.animania.common.entities.interfaces.ISleeping;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

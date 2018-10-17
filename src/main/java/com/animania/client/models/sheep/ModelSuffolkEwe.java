@@ -1,5 +1,6 @@
 package com.animania.client.models.sheep;
 
+import com.animania.client.models.IColoredModel;
 import com.animania.client.models.ModelRendererColored;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityEweSuffolk;
@@ -12,7 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
 
-public class ModelSuffolkEwe extends ModelBase
+public class ModelSuffolkEwe extends ModelBase implements IColoredModel
 {	
 	private float headRotationAngleX;
 	public ModelRenderer HeadNode = new ModelRenderer(this, 0, 0);

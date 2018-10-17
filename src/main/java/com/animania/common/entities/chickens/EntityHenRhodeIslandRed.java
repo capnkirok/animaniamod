@@ -13,11 +13,12 @@ public class EntityHenRhodeIslandRed extends EntityHenBase
 		super(worldIn);
 		this.type = ChickenType.RHODE_ISLAND_RED;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/hen_red.png");
-		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/hen_red_blink.png");
+		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png");
 		this.oldDropRaw = ItemHandler.rawRhodeIslandRedChicken;
 		this.oldDropCooked = ItemHandler.cookedRhodeIslandRedChicken;
 		this.dropRaw = ItemHandler.rawPrimeChicken;
 		this.dropCooked = ItemHandler.cookedPrimeChicken;
+		this.lidCol = 0x9F4931;
 	}
 	
 	@Override

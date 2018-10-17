@@ -22,10 +22,10 @@ import net.minecraft.world.World;
 
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IMateable;
-import com.animania.common.entities.ISterilizable;
 import com.animania.common.entities.cows.EntityBullBase;
 import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.entities.interfaces.IMateable;
+import com.animania.common.entities.interfaces.ISterilizable;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
 import com.animania.common.helper.AnimaniaHelper;

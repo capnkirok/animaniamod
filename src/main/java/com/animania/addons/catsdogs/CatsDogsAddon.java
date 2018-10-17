@@ -8,6 +8,8 @@ import com.animania.addons.catsdogs.common.handler.CatsDogsAddonCraftingHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonEntityHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonItemHandler;
 
+import net.minecraftforge.fml.common.Loader;
+
 @LoadAddon
 public class CatsDogsAddon implements AnimaniaAddon
 {

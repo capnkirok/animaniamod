@@ -11,7 +11,8 @@ public class EntityChickOrpington extends EntityChickBase
 		super(worldIn);
 		this.type = ChickenType.ORPINGTON;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_golden.png");
-		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_golden_blink.png");
+		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_blink.png");
+		this.lidCol = 0xF6C132;
 	}
 	
 	@Override

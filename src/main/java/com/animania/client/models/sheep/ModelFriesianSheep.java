@@ -1,5 +1,6 @@
 package com.animania.client.models.sheep;
 
+import com.animania.client.models.IColoredModel;
 import com.animania.client.models.ModelRendererColored;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityEweFriesian;
@@ -8,12 +9,11 @@ import com.animania.common.entities.sheep.EntityRamFriesian;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
 
-public class ModelFriesianSheep extends ModelBase
+public class ModelFriesianSheep extends ModelBase implements IColoredModel
 {
 	private float headRotationAngleX;
 	public ModelRenderer HeadNode = new ModelRenderer(this, 0, 0);
@@ -22,7 +22,7 @@ public class ModelFriesianSheep extends ModelBase
 	ModelRenderer RightFrontLeg;
 	ModelRendererColored RightFrontLegWool;
 	ModelRenderer Hips;
-	ModelRendererColored RightBackLeg;
+	ModelRenderer RightBackLeg;
 	ModelRendererColored RightBackLegWool;
 	ModelRenderer Tail;
 	ModelRendererColored WoolBody1;
@@ -76,7 +76,7 @@ public class ModelFriesianSheep extends ModelBase
 		Hips.setTextureSize(128, 128);
 		Hips.addBox(-4F, -1F, 0F, 8, 12, 11);
 		Hips.setRotationPoint(0F, 2.675018F, 1.651946F + 7F);
-		RightBackLeg = new ModelRendererColored(this, 107, 26);
+		RightBackLeg = new ModelRenderer(this, 107, 26);
 		RightBackLeg.setTextureSize(128, 128);
 		RightBackLeg.addBox(-1.5F, -0.5F, -1.5F, 3, 18, 3);
 		RightBackLeg.setRotationPoint(-4.5F, 7.543364F, 9.238067F + 7F);
@@ -302,6 +302,7 @@ public class ModelFriesianSheep extends ModelBase
 
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
+		
 		boolean isSleeping = false;
 		EntityAnimaniaSheep ech = (EntityAnimaniaSheep) entityIn;
 		if (ech.getSleeping())
@@ -313,25 +314,30 @@ public class ModelFriesianSheep extends ModelBase
 		if (isSleeping)
 		{
 
+			
 			this.LeftFrontLeg.rotateAngleX = sleepTimer * -1.8F;
 			this.LeftFrontLeg.render(scale * .95F);
 			this.LeftFrontLegWool.rotateAngleX = sleepTimer * -1.8F;
 			LeftFrontLegWool.render(scale * .95F);
 
+			
 			this.RightFrontLeg.rotateAngleX = sleepTimer * -1.8F;
 			this.RightFrontLeg.render(scale * .97F);
-			this.LeftFrontLegWool.rotateAngleX = sleepTimer * -1.8F;
+			this.RightFrontLegWool.rotateAngleX = sleepTimer * -1.8F;
 			RightFrontLegWool.render(scale * .97F);
 
+			
 			this.LeftBackLeg.rotateAngleX = sleepTimer * 1.7F;
 			this.LeftBackLeg.render(scale * .97F);
-			this.LeftFrontLegWool.rotateAngleX = sleepTimer * -1.8F;
+			this.LeftBackLegWool.rotateAngleX = sleepTimer * 1.8F;
 			LeftBackLegWool.render(scale * .97F);
 
+			
 			this.RightBackLeg.rotateAngleX = sleepTimer * 1.75F;
 			this.RightBackLeg.render(scale * .95F);
-			this.LeftFrontLegWool.rotateAngleX = sleepTimer * -1.8F;
+			this.RightBackLegWool.rotateAngleX = sleepTimer * 1.8F;
 			RightBackLegWool.render(scale * .95F);
+
 
 			this.HeadNode.rotateAngleY = sleepTimer * -4.5F;
 

@@ -36,7 +36,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IAnimaniaAnimalBase;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
 import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
@@ -51,6 +50,7 @@ import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
@@ -834,6 +834,12 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int getBlinkTimer()
+	{
+		return blinkTimer;
 	}
 
 }

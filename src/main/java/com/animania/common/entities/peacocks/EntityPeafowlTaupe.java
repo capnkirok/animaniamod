@@ -14,6 +14,7 @@ public class EntityPeafowlTaupe extends EntityPeafowlBase
 		this.type = PeacockType.TAUPE;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peafowl_taupe.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_taupe_blink.png");
+		this.lidCol = 0xA7988E;
 	}
 	
 	@Override

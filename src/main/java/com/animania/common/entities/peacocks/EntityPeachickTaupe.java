@@ -11,7 +11,8 @@ public class EntityPeachickTaupe extends EntityPeachickBase
 		super(worldIn);
 		this.type = PeacockType.TAUPE;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peachick_taupe.png");
-		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_taupe_blink.png");
+		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png");
+		this.lidCol = 0xA7988E;
 	}
 	
 	@Override

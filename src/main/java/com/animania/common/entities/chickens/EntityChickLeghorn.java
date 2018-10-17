@@ -11,7 +11,8 @@ public class EntityChickLeghorn extends EntityChickBase
 		super(worldIn);
 		this.type = ChickenType.LEGHORN;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_white.png");
-		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_white_blink.png");
+		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_blink.png");
+		this.lidCol = 0xFACA65;
 	}
 	
 	@Override

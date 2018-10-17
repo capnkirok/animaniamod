@@ -20,7 +20,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 
 	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityChickBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
-
+	
 	public EntityChickBase(World worldIn)
 	{
 		super(worldIn);

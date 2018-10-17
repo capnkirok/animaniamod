@@ -15,6 +15,8 @@ public class EntityPeacockTaupe extends EntityPeacockBase
 		this.drop = ItemHandler.peacockFeatherTaupe;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_taupe.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_taupe_blink.png");
+		this.lidCol = 0xA7988E;
+
 	}
 	
 	@Override

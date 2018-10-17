@@ -2,7 +2,7 @@ package com.animania.common.entities.generic.ai;
 
 import java.util.List;
 
-import com.animania.common.entities.ISleeping;
+import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;

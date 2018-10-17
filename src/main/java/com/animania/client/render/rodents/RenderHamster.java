@@ -3,6 +3,7 @@ package com.animania.client.render.rodents;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHamster;
+import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.rodents.EntityHamster;
 
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -20,8 +21,9 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 	private static final String modid = "animania", hamsterBaseDir = "textures/entity/rodents/";
 	private static final ResourceLocation[] HAMSTER_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "black.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "brown.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "darkbrown.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "darkgray.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "gray.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "plum.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "tarou.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "white.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "gold.png") };
 
-	private static final ResourceLocation[] HAMSTER_TEXTURES_BLINK = new ResourceLocation[] { new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "black_blink.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "brown_blink.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "darkbrown_blink.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "darkgray_blink.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "gray_blink.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "plum_blink.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "tarou_blink.png"), new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "white_blink.png"),
-			new ResourceLocation(RenderHamster.modid, RenderHamster.hamsterBaseDir + "hamster_" + "gold_blink.png") };
+	private static final int[] EYE_COLORS = new int[] {0xDEDEDE, 0xDB703B, 0xEBCFC2, 0x97918F, 0xA8A8A8, 0xAF797D, 0xFFD7AD, 0xEFEFEF, 0xD39013};
+
+	private LayerBlinking blinking;
 
 	private float scale;
 	protected ModelHamster modelHamsterMain;
@@ -32,7 +34,7 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 		this.modelHamsterMain = new ModelHamster();
 		this.scale = 0.5F;
 		this.shadowSize = 0.15F;
-
+		this.addLayer(blinking = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/rodents/hamster_blink.png"), 0));
 	}
 
 	protected void preRenderScale(EntityHamster entityliving, float f)
@@ -69,37 +71,18 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 	protected void preRenderCallback(EntityHamster entityliving, float f)
 	{
 		preRenderScale((EntityHamster) entityliving, f);
+		this.blinking.setColors(EYE_COLORS[entityliving.getColorNumber()], EYE_COLORS[entityliving.getColorNumber()]);
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		int blinkTimer = entity.blinkTimer;
-		boolean isSleeping = false;
-
-		EntityHamster entityChk = (EntityHamster) entity;
-		isSleeping = entityChk.getSleeping();
-		float sleepTimer = entityChk.getSleepTimer();
-
 		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
 		{
 			return HAMSTER_TEXTURES[0];
 		}
-		else
-		{
-			if (isSleeping)
-			{
-				return RenderHamster.HAMSTER_TEXTURES_BLINK[entity.getColorNumber()];
-			}
-			else if (blinkTimer < 7 && blinkTimer >= 0)
-			{
-				return RenderHamster.HAMSTER_TEXTURES_BLINK[entity.getColorNumber()];
-			}
-			else
-			{
-				return RenderHamster.HAMSTER_TEXTURES[entity.getColorNumber()];
-			}
-		}
+
+		return RenderHamster.HAMSTER_TEXTURES[entity.getColorNumber()];
 	}
 
 	static class Factory<T extends EntityHamster> implements IRenderFactory<T>

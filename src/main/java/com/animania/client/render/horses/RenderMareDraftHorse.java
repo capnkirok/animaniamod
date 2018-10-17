@@ -3,6 +3,7 @@ package com.animania.client.render.horses;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelDraftHorseMare;
+import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 
@@ -24,11 +25,16 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 
 	private static final ResourceLocation[] HORSE_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "black.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "bw1.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "bw2.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "grey.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "red.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "white.png") };
 
-	private static final ResourceLocation[] HORSE_TEXTURES_BLINK = new ResourceLocation[] { new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "black_blink.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "bw1_blink.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "bw2_blink.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "grey_blink.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "red_blink.png"), new ResourceLocation(RenderMareDraftHorse.modid, RenderMareDraftHorse.horseBaseDir + "draft_horse_" + "white_blink.png") };
+	private static ResourceLocation BLINK = new ResourceLocation("animania:textures/entity/horses/horse_blink.png");
+
+	private static final int[] BLINK_COLORS = new int[] { 0x1B1B1B, 0x181818, 0x171717, 0x797979, 0x8F3514, 0xC1C1C1 };
+
+	private LayerBlinking blinkingLayer;
 
 	public RenderMareDraftHorse(RenderManager rm)
 	{
 		super(rm, new ModelDraftHorseMare(), 0.8F);
+		this.addLayer(blinkingLayer = new LayerBlinking(this, BLINK, 0));
 	}
 
 	protected void preRenderScale(EntityMareDraftHorse entity, float f)
@@ -66,39 +72,19 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 	@Override
 	protected ResourceLocation getEntityTexture(EntityMareDraftHorse entity)
 	{
-		int blinkTimer = entity.blinkTimer;
-		long currentTime = entity.world.getWorldTime() % 23999;
-		boolean isSleeping = false;
-
-		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
-		isSleeping = entityHorse.getSleeping();
-		float sleepTimer = entityHorse.getSleepTimer();
 		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
 		{
-			return RenderMareDraftHorse.HORSE_TEXTURES[0];
-		}
-		else
-		{
-			if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250)
-			{
-				return RenderMareDraftHorse.HORSE_TEXTURES_BLINK[entity.getColorNumber()];
-			}
-			else if (blinkTimer < 7 && blinkTimer >= 0)
-			{
-				return RenderMareDraftHorse.HORSE_TEXTURES_BLINK[entity.getColorNumber()];
-			}
-			else
-			{
-				return RenderMareDraftHorse.HORSE_TEXTURES[entity.getColorNumber()];
-			}
+			return HORSE_TEXTURES[0];
 		}
 
+		return HORSE_TEXTURES[entity.getColorNumber()];
 	}
 
 	@Override
 	protected void preRenderCallback(EntityMareDraftHorse entityliving, float f)
 	{
 		preRenderScale((EntityMareDraftHorse) entityliving, f);
+		blinkingLayer.setColors(BLINK_COLORS[entityliving.getColorNumber()], BLINK_COLORS[entityliving.getColorNumber()]);
 	}
 
 	static class Factory<T extends EntityMareDraftHorse> implements IRenderFactory<T>

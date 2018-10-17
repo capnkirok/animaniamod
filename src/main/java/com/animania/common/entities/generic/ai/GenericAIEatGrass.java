@@ -1,9 +1,9 @@
 package com.animania.common.entities.generic.ai;
 
-import com.animania.common.entities.IFoodEating;
-import com.animania.common.entities.ISleeping;
 import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
+import com.animania.common.entities.interfaces.IFoodEating;
+import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;

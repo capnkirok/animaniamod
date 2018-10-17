@@ -49,7 +49,6 @@ import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.IAnimaniaAnimalBase;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
@@ -68,6 +67,7 @@ import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.rodents.ai.EntityAIHedgehogFindNests;
 import com.animania.common.entities.rodents.ai.EntityAISleepHedgehogs;
 import com.animania.common.helper.AnimaniaHelper;
@@ -993,4 +993,9 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		return TEMPTATION_ITEMS;
 	}
 
+	@Override
+	public int getBlinkTimer()
+	{
+		return blinkTimer;
+	}
 }

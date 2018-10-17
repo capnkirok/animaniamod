@@ -3,6 +3,7 @@ package com.animania.client.render.sheep;
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.sheep.ModelFriesianSheep;
+import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityEweFriesian;
 
@@ -25,17 +26,19 @@ public class RenderEweFriesian<T extends EntityEweFriesian> extends RenderLiving
 
 	private static final ResourceLocation[] SHEEP_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "black.png"), new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "white.png"), new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "brown.png") };
 
-	private static final ResourceLocation[] SHEEP_TEXTURES_BLINK = new ResourceLocation[] { new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "black_blink.png"), new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "white_blink.png"), new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "brown_blink.png") };
-
+	private static final ResourceLocation SHEEP_TEXTURE_BLINK = new ResourceLocation("animania:textures/entity/sheep/sheep_blink.png");
 	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED = new ResourceLocation[] { new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "black_sheared.png"), new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "white_sheared.png"), new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "brown_sheared.png") };
 
-	private static final ResourceLocation[] SHEEP_TEXTURES_SHEARED_BLINK = new ResourceLocation[] { new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "black_sheared_blink.png"), new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "white_sheared_blink.png"), new ResourceLocation(RenderEweFriesian.modid, RenderEweFriesian.SheepBaseDir + "sheep_friesian_" + "brown_sheared_blink.png") };
+	private static int[] EYE_COLORS = new int[] { 0x282828, 0xEDEDED, 0x282828 };
+
+	private LayerBlinking blinking;
 
 	private static ModelFriesianSheep model = new ModelFriesianSheep();
 
 	public RenderEweFriesian(RenderManager rm)
 	{
 		super(rm, model, 0.5F);
+		this.addLayer(blinking = new LayerBlinking(this, SHEEP_TEXTURE_BLINK, 0));
 	}
 
 	protected void preRenderScale(EntityEweFriesian entity, float f)
@@ -73,59 +76,26 @@ public class RenderEweFriesian<T extends EntityEweFriesian> extends RenderLiving
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		int blinkTimer = entity.blinkTimer;
-		long currentTime = entity.world.getWorldTime() % 23999;
-		boolean isSleeping = false;
-
-		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
-		isSleeping = entitySheep.getSleeping();
-		float sleepTimer = entitySheep.getSleepTimer();
-
 		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
 		{
 			return SHEEP_TEXTURES[0];
 		}
+
+		if (!entity.getSheared())
+		{
+			return this.SHEEP_TEXTURES[entity.getColorNumber()];
+		}
 		else
 		{
-			if (!entity.getSheared())
-			{
-				if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250)
-				{
-					return this.SHEEP_TEXTURES_BLINK[entity.getColorNumber()];
-				}
-				else if (blinkTimer < 7 && blinkTimer >= 0)
-				{
-					return this.SHEEP_TEXTURES_BLINK[entity.getColorNumber()];
-				}
-				else
-				{
-					return this.SHEEP_TEXTURES[entity.getColorNumber()];
-				}
-			}
-			else
-			{
-				if (isSleeping && sleepTimer <= -0.55F && currentTime < 23250)
-				{
-					return this.SHEEP_TEXTURES_SHEARED_BLINK[entity.getColorNumber()];
-				}
-				else if (blinkTimer < 7 && blinkTimer >= 0)
-				{
-					return this.SHEEP_TEXTURES_SHEARED_BLINK[entity.getColorNumber()];
-				}
-				else
-				{
-					return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
-				}
-			}
+			return this.SHEEP_TEXTURES_SHEARED[entity.getColorNumber()];
 		}
-
 	}
 
 	@Override
 	protected void preRenderCallback(T entityliving, float partial)
 	{
 		this.preRenderScale(entityliving, partial);
-
+		this.blinking.setColors(EYE_COLORS[entityliving.getColorNumber()], EYE_COLORS[entityliving.getColorNumber()]);
 		if (entityliving.hasCustomName() && "jeb_".equals(entityliving.getCustomNameTag()) && entityliving.isDyeable())
 		{
 			int i1 = 25;
@@ -137,7 +107,7 @@ public class RenderEweFriesian<T extends EntityEweFriesian> extends RenderLiving
 			float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
 			float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
 			model.setWoolColor(afloat1[0] * (1.0F - f) + afloat2[0] * f, afloat1[1] * (1.0F - f) + afloat2[1] * f, afloat1[2] * (1.0F - f) + afloat2[2] * f);
-		
+
 		}
 		else
 		{

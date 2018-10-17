@@ -14,6 +14,7 @@ public class EntityPeafowlOpal extends EntityPeafowlBase
 		this.type = PeacockType.OPAL;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peafowl_opal.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_opal_blink.png");
+		this.lidCol = 0xBFB3AC;
 	}
 	
 	@Override

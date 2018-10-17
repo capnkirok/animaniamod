@@ -11,7 +11,8 @@ public class EntityPeachickPurple extends EntityPeachickBase
 		super(worldIn);
 		this.type = PeacockType.PURPLE;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peachick_purple.png");
-		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_purple_blink.png");
+		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png");
+		this.lidCol = 0x8B794D;
 	}
 	
 	@Override

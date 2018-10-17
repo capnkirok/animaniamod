@@ -11,7 +11,8 @@ public class EntityChickRhodeIslandRed extends EntityChickBase
 		super(worldIn);
 		this.type = ChickenType.RHODE_ISLAND_RED;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_red.png");
-		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_red_blink.png");
+		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_blink.png");
+		this.lidCol = 0xF6C132;
 	}
 	
 	@Override

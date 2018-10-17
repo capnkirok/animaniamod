@@ -11,7 +11,8 @@ public class EntityChickWyandotte extends EntityChickBase
 		super(worldIn);
 		this.type = ChickenType.WYANDOTTE;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_brown.png");
-		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_brown_blink.png");
+		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_blink.png");
+		this.lidCol = 0x492A1E;
 	}
 	
 	@Override

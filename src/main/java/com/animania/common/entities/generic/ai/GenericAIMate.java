@@ -9,10 +9,10 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
-import com.animania.common.entities.IFoodEating;
-import com.animania.common.entities.IMateable;
-import com.animania.common.entities.ISleeping;
-import com.animania.common.entities.ISterilizable;
+import com.animania.common.entities.interfaces.IFoodEating;
+import com.animania.common.entities.interfaces.IMateable;
+import com.animania.common.entities.interfaces.ISleeping;
+import com.animania.common.entities.interfaces.ISterilizable;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
