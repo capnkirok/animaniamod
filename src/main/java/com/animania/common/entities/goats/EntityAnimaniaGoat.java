@@ -112,7 +112,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 		if (AnimaniaConfig.gameRules.animalsSleep) {
 			this.tasks.addTask(13, new GenericAISleep<EntityAnimaniaGoat>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.goatBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.goatBed2), EntityAnimaniaGoat.class));
 		}
-		this.tasks.addTask(14, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(14, new GenericAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;

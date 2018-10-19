@@ -130,7 +130,7 @@ public class EntityAnimaniaPig extends EntityAnimal implements IAnimaniaAnimalBa
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new GenericAIAvoidWater(this));
 		this.tasks.addTask(15, new GenericAILookIdle(this));
-		this.tasks.addTask(16, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(16, new GenericAIHurtByTarget(this, false, new Class[0]));
 
 	}
 

@@ -103,7 +103,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		this.tasks.addTask(11, new GenericAILookIdle(this));
 		this.tasks.addTask(12, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
 		this.tasks.addTask(13, new GenericAIAvoidWater(this));
-		this.tasks.addTask(14, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(14, new GenericAIHurtByTarget(this, false, new Class[0]));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
 			this.targetTasks.addTask(1, new GenericAIHurtByTarget(this, false, EntityPlayer.class));
 		}

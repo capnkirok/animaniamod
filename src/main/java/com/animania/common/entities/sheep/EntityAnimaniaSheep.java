@@ -122,7 +122,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		{
 			this.tasks.addTask(13, new GenericAISleep<EntityAnimaniaSheep>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.sheepBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.sheepBed2), EntityAnimaniaSheep.class));
 		}
-		this.tasks.addTask(14, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(14, new GenericAIHurtByTarget(this, false, new Class[0]));
 		this.targetTasks.addTask(1, new GenericAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);

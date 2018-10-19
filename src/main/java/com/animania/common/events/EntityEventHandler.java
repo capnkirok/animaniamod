@@ -59,6 +59,12 @@ public class EntityEventHandler
 			if (((ISleeping)entity).getSleeping())
 				event.setCanceled(true);
 		}
+		
+		if (entity instanceof ISleeping)
+		{
+			if (((ISleeping)entity).getSleeping())
+				((ISleeping) entity).setSleeping(false);
+		}
 
 	}
 

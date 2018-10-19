@@ -1,5 +1,6 @@
 package com.animania.common.entities.amphibians;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -180,9 +181,13 @@ public class EntityFrogs extends EntityAmphibian
 		{
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 5, 4, true, false));
 			return ModSoundEvents.reeee;
-
 		}
-
+		
+		if(Math.random() < 0.3 &&  this.getCustomNameTag().equalsIgnoreCase("me_irl") && Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY)
+		{
+			return ModSoundEvents.oooohhh;
+		}
+			
 		if (chooser == 0)
 			return ModSoundEvents.frogLiving1;
 		else if (chooser == 1)

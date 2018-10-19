@@ -5,8 +5,32 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIEatGrass;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
+import com.animania.common.entities.rodents.ai.EntityAISleepRabbits;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarrot;
+import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -44,28 +68,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIEatGrass;
-import com.animania.common.entities.generic.ai.GenericAIFindFood;
-import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
-import com.animania.common.entities.generic.ai.GenericAILookIdle;
-import com.animania.common.entities.generic.ai.GenericAIPanic;
-import com.animania.common.entities.generic.ai.GenericAISwim;
-import com.animania.common.entities.generic.ai.GenericAITempt;
-import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
-import com.animania.common.entities.rodents.ai.EntityAISleepRabbits;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.items.ItemEntityEgg;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
 
 public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnimalBase
 {
@@ -110,7 +112,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(2, new GenericAIFindWater(this, 1.4D, entityAIEatGrass, EntityAnimaniaRabbit.class, true));
-			this.tasks.addTask(3, new GenericAIFindFood(this, 1.4D, entityAIEatGrass, false));
+			this.tasks.addTask(3, new GenericAIFindFood(this, 1.4D, entityAIEatGrass, true));
 		}
 		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.8D));
 		this.tasks.addTask(5, new GenericAISwim(this));
@@ -125,7 +127,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		{
 			this.tasks.addTask(12, new EntityAISleepRabbits(this, 0.8));
 		}
-		this.tasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
 		this.targetTasks.addTask(1, new GenericAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
@@ -1198,6 +1200,12 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	public int getBlinkTimer()
 	{
 		return blinkTimer;
+	}
+	
+	@Override
+	public Class[] getFoodBlocks()
+	{
+		return new Class[]{BlockCarrot.class, BlockTallGrass.class, BlockFlower.class};
 	}
 
 }

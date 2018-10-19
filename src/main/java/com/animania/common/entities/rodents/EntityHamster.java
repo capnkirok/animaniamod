@@ -155,7 +155,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		{
 			this.tasks.addTask(12, new EntityAISleepHamsters(this, 0.8));
 		}
-		this.tasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
 
 	}
 

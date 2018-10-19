@@ -196,16 +196,21 @@ public class TileEntityTrough extends TileEntity implements ITickable
 	
 	public boolean canConsume(@Nullable Set<Item> fooditems, @Nullable Fluid fluid)
 	{
+		return canConsume(fluid == null ? null : new FluidStack(fluid, 0), fooditems);
+	}
+	
+	public boolean canConsume(@Nullable FluidStack fluid, @Nullable Set<Item> fooditems)
+	{
 		if(fooditems != null && !this.itemHandler.getStackInSlot(0).isEmpty())
 		{
 			ItemStack stack = this.itemHandler.getStackInSlot(0);
 			return fooditems.contains(stack.getItem());
 		}
 		
-		if(fluid != null && this.fluidHandler.getFluid() != null)
+		if(fluid != null && this.fluidHandler.getFluid() != null && fluid.getFluid() == this.fluidHandler.getFluid().getFluid())
 		{
 			FluidStack fluidstack = this.fluidHandler.getFluid();
-			return fluidstack.getFluid() == fluid;
+			return fluidstack.getFluid() == fluid.getFluid() && fluidstack.amount >= fluid.amount;
 		}
 		
 		return false;

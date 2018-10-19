@@ -1,5 +1,6 @@
 package com.animania.proxy;
 
+import com.animania.addons.AnimaniaAddon;
 import com.animania.common.capabilities.CapabilitiesPlayerStorage;
 import com.animania.common.capabilities.CapabilityPlayer;
 import com.animania.common.capabilities.ICapabilityPlayer;
@@ -81,6 +82,10 @@ public class CommonProxy implements IGuiHandler
 	{}
 	
 	public void openManualGui(ItemStack stack)
+	{
+	}
+	
+	public void addAddonResourcePack(AnimaniaAddon addon)
 	{
 	}
 

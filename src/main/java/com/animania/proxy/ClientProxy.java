@@ -1,6 +1,11 @@
 package com.animania.proxy;
 
+import java.io.File;
+import java.util.List;
+
 import com.animania.Animania;
+import com.animania.addons.AddonResourcePack;
+import com.animania.addons.AnimaniaAddon;
 import com.animania.client.AnimaniaTextures;
 import com.animania.client.handler.RenderHandler;
 import com.animania.common.handler.AddonHandler;
@@ -19,15 +24,20 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.IResourcePack;
+import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class ClientProxy extends CommonProxy
 {
@@ -152,6 +162,26 @@ public class ClientProxy extends CommonProxy
 			entityplayer.world.getMinecraftServer().getServer().worlds[j].setWorldTime(entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime) ;
 		}
 
+	}
+	
+	@Override
+	public void addAddonResourcePack(AnimaniaAddon addon)
+	{
+		List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "field_110449_ao", "defaultResourcePacks");
+		File animania = Loader.instance().activeModContainer().getSource();
+		
+		IResourcePack pack = null;
+		if(animania.isDirectory())
+			pack = new AddonResourcePack.Folder(addon);
+		else 
+			pack = new AddonResourcePack.Jar(addon);
+		
+		packs.add(pack);	
+		IResourceManager res = Minecraft.getMinecraft().getResourceManager();
+		if(res instanceof SimpleReloadableResourceManager)
+		{
+			((SimpleReloadableResourceManager) res).reloadResourcePack(pack);
+		}
 	}
 
 }

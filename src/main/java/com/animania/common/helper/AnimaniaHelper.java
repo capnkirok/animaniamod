@@ -134,7 +134,7 @@ public class AnimaniaHelper
 
 	public static void sendTileEntityUpdate(TileEntity tile)
 	{
-		if (tile.getWorld() != null && !tile.getWorld().isRemote)
+		if (tile != null && tile.getWorld() != null && !tile.getWorld().isRemote)
 		{
 			NBTTagCompound compound = new NBTTagCompound();
 			compound = tile.writeToNBT(compound);

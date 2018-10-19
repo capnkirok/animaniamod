@@ -2,6 +2,7 @@ package com.animania.common.entities.interfaces;
 
 import java.util.Set;
 
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.IGrowable;
 import net.minecraft.item.Item;
@@ -36,6 +37,6 @@ public interface IFoodEating
 	
 	default Class[] getFoodBlocks()
 	{
-		return new Class[]{BlockCrops.class, IGrowable.class, IPlantable.class};
+		return new Class[]{BlockCrops.class, IPlantable.class, BlockBush.class};
 	}
 }

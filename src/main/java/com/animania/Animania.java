@@ -7,15 +7,10 @@ import com.animania.common.creativeTab.TabAnimaniaEntities;
 import com.animania.common.creativeTab.TabAnimaniaResources;
 import com.animania.common.handler.AddonHandler;
 import com.animania.common.handler.GuiHandlerAnimania;
-import com.animania.manual.components.CraftingComponent;
 import com.animania.proxy.CommonProxy;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;

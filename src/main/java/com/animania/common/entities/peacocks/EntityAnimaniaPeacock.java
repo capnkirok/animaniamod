@@ -114,7 +114,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 			this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
 			this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
 		}
-		this.tasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(100);
 		this.blinkTimer = 80 + this.rand.nextInt(80);

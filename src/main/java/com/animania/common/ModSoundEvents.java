@@ -55,6 +55,7 @@ public class ModSoundEvents
 	public static SoundEvent dartfrogLiving3;
 	public static SoundEvent dartfrogLiving4;
 	public static SoundEvent reeee;
+	public static SoundEvent oooohhh;
 
 	// Chickens
 	public static SoundEvent chickenCrow1;
@@ -234,6 +235,7 @@ public class ModSoundEvents
 		ModSoundEvents.dartfrogLiving3 = registerSound("dartfrogLiving3");
 		ModSoundEvents.dartfrogLiving4 = registerSound("dartfrogLiving4");
 		ModSoundEvents.reeee = registerSound("reeee");
+		ModSoundEvents.oooohhh = registerSound("ooooohh");
 
 		// Chickens
 		ModSoundEvents.chickenCrow1 = registerSound("crow1");

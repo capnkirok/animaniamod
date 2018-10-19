@@ -157,7 +157,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget(this, EntityToad.class, false));
 			this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityRoosterBase.class, 16.0F, 2.0D, 2.2D));
 		}
-		this.tasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
 	}
 
 	@Override

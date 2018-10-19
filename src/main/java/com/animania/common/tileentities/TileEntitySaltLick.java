@@ -2,6 +2,7 @@ package com.animania.common.tileentities;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.handler.FluidHandlerCheeseMold;
 import com.animania.common.tileentities.handler.ItemHandlerCheeseMold;
 import com.animania.config.AnimaniaConfig;
@@ -43,6 +44,14 @@ public class TileEntitySaltLick extends TileEntity
 	public NBTTagCompound getUpdateTag()
 	{
 		return this.writeToNBT(new NBTTagCompound());
+	}
+	
+	@Override
+	public void markDirty()
+	{
+		super.markDirty();
+		
+		AnimaniaHelper.sendTileEntityUpdate(this);
 	}
 
 	@Override

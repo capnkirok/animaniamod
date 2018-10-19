@@ -1,5 +1,7 @@
 package com.animania.client.render.amphibians;
 
+import java.util.Calendar;
+
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelFrog;
@@ -23,6 +25,7 @@ public class RenderFrogs<T extends EntityFrogs> extends RenderLiving<T>
 	private static final String modid = "animania", frogsBaseDir = "textures/entity/amphibians/frogs/";
 	private static final ResourceLocation PEPE_TEXTURE = new ResourceLocation("animania:textures/entity/amphibians/frogs/pepe_frog.png");
 	private static final ResourceLocation[] FROGS_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderFrogs.modid, RenderFrogs.frogsBaseDir + "default_frog.png"), new ResourceLocation(RenderFrogs.modid, RenderFrogs.frogsBaseDir + "green_frog.png") };
+	private static final ResourceLocation WEDNESDAY_TEXTURE = new ResourceLocation("animania:textures/misc/entities/frog_white.png");
 
 	public RenderFrogs(RenderManager rendermanagerIn)
 	{
@@ -65,6 +68,8 @@ public class RenderFrogs<T extends EntityFrogs> extends RenderLiving<T>
 		{
 			if (entity.getCustomNameTag().equals("Pepe"))
 				return RenderFrogs.PEPE_TEXTURE;
+			else if(entity.getCustomNameTag().equalsIgnoreCase("me_irl") && Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY)
+				return WEDNESDAY_TEXTURE;
 			else
 				switch (entity.getFrogsType())
 				{

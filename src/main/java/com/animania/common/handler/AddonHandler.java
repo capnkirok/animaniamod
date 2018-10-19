@@ -142,24 +142,6 @@ public class AddonHandler
 
 	private static void addAddonResourcePack(AnimaniaAddon addon)
 	{
-		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
-		{
-			List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "field_110449_ao", "defaultResourcePacks");
-			File animania = Loader.instance().activeModContainer().getSource();
-			
-			IResourcePack pack = null;
-			if(animania.isDirectory())
-				pack = new AddonResourcePack.Folder(addon);
-			else 
-				pack = new AddonResourcePack.Jar(addon);
-			
-			packs.add(pack);	
-			IResourceManager res = Minecraft.getMinecraft().getResourceManager();
-			if(res instanceof SimpleReloadableResourceManager)
-			{
-				((SimpleReloadableResourceManager) res).reloadResourcePack(pack);
-			}
-			
-		}
+		Animania.proxy.addAddonResourcePack(addon);
 	}
 }

@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -43,6 +44,13 @@ public class GenericAIPanic<T extends EntityCreature> extends EntityAIBase
 			return false;
 		}
 
+		
+		if(this.entity.getRevengeTarget() instanceof EntityPlayer)
+		{
+			if(((EntityPlayer)this.entity.getRevengeTarget()).isCreative())
+				return false;
+		}
+		
 		if (this.entity.getRevengeTarget() == null && !this.entity.isBurning())
 		{
 			return false;
