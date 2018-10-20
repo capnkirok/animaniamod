@@ -16,8 +16,6 @@ public class EntityCowHolstein extends EntityCowBase
 		super(world);
 		this.cowType = CowType.HOLSTEIN;
 		this.milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
-		this.dropRaw = Items.BEEF;
-		this.dropCooked = Items.COOKED_BEEF;
 	}
 	
 	@Override

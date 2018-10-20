@@ -124,33 +124,6 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	}
 	
 	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
-		int happyDrops = 0;
-
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-				
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.peacockDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-		
-		if (happyDrops == 2 && dropItem2 !=null)
-		{
-			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.peacockDrop2Amount + lootlevel);
-		}
-		else if (happyDrops == 1 && dropItem2 !=null)
-		{
-			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.peacockDrop2Amount + lootlevel);
-		}
-
-	}
-
-	
-	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())

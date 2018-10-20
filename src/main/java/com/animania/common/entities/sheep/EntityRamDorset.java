@@ -19,8 +19,6 @@ public class EntityRamDorset extends EntityRamBase
 	{
 		super(worldIn);
 		this.sheepType = SheepType.DORSET;
-		this.dropRaw = ItemHandler.rawMutton;
-		this.dropCooked = ItemHandler.cookedMutton;
 	}
 
 	@Override

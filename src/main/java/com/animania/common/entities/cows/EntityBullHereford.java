@@ -11,10 +11,6 @@ public class EntityBullHereford extends EntityBullBase
 	{
 		super(world);
 		this.cowType = CowType.HEREFORD;
-		this.dropRaw = ItemHandler.rawPrimeBeef;
-		this.dropCooked = ItemHandler.cookedPrimeBeef;
-		this.oldDropRaw = ItemHandler.rawHerefordBeef;
-		this.oldDropCooked = ItemHandler.cookedHerefordRoast;
 	}
 	
 	@Override

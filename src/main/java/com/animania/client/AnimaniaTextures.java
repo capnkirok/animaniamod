@@ -66,22 +66,6 @@ public class AnimaniaTextures
 
 		registerColored(ItemHandler.hamsterBallColored, "hamster_ball");
 
-		// Beef
-		register(ItemHandler.rawAngusBeef);
-		register(ItemHandler.rawHerefordBeef);
-		register(ItemHandler.rawLonghornBeef);
-
-		register(ItemHandler.cookedAngusRoast);
-		register(ItemHandler.cookedHerefordRoast);
-		register(ItemHandler.cookedLonghornRoast);
-
-		register(ItemHandler.rawAngusSteak);
-		register(ItemHandler.rawHerefordSteak);
-		register(ItemHandler.rawLonghornSteak);
-
-		register(ItemHandler.cookedAngusSteak);
-		register(ItemHandler.cookedHerefordSteak);
-		register(ItemHandler.cookedLonghornSteak);
 
 		// Horse
 		register(ItemHandler.rawHorse);
@@ -93,26 +77,6 @@ public class AnimaniaTextures
 		register(ItemHandler.rawPrimeSteak);
 		register(ItemHandler.cookedPrimeSteak);
 
-		// Pork
-		register(ItemHandler.rawLargeBlackPork);
-		register(ItemHandler.rawDurocPork);
-		register(ItemHandler.rawOldSpotPork);
-		register(ItemHandler.rawHampshirePork);
-
-		register(ItemHandler.rawLargeBlackBacon);
-		register(ItemHandler.rawDurocBacon);
-		register(ItemHandler.rawOldSpotBacon);
-		register(ItemHandler.rawHampshireBacon);
-
-		register(ItemHandler.cookedLargeBlackRoast);
-		register(ItemHandler.cookedDurocRoast);
-		register(ItemHandler.cookedOldSpotRoast);
-		register(ItemHandler.cookedHampshireRoast);
-
-		register(ItemHandler.cookedLargeBlackBacon);
-		register(ItemHandler.cookedDurocBacon);
-		register(ItemHandler.cookedOldSpotBacon);
-		register(ItemHandler.cookedHampshireBacon);
 
 		// Pork Generics
 		register(ItemHandler.rawPrimePork);
@@ -120,16 +84,6 @@ public class AnimaniaTextures
 		register(ItemHandler.rawPrimeBacon);
 		register(ItemHandler.cookedPrimeBacon);
 
-		// Chicken
-		register(ItemHandler.rawOrpingtonChicken);
-		register(ItemHandler.rawPlymouthRockChicken);
-		register(ItemHandler.rawWyandotteChicken);
-		register(ItemHandler.rawRhodeIslandRedChicken);
-
-		register(ItemHandler.cookedOrpingtonChicken);
-		register(ItemHandler.cookedPlymouthRockChicken);
-		register(ItemHandler.cookedWyandotteChicken);
-		register(ItemHandler.cookedRhodeIslandRedChicken);
 
 		// Chicken Generics
 		register(ItemHandler.rawPrimeChicken);
@@ -152,12 +106,12 @@ public class AnimaniaTextures
 		register(ItemHandler.cookedPrimePeacock);
 
 		// Sheep
-		register(ItemHandler.rawMutton);
-		register(ItemHandler.cookedMutton);
+		register(ItemHandler.rawPrimeMutton);
+		register(ItemHandler.cookedPrimeMutton);
 
 		// Rabbit
-		register(ItemHandler.rawRabbit);
-		register(ItemHandler.cookedRabbit);
+		register(ItemHandler.rawPrimeRabbit);
+		register(ItemHandler.cookedPrimeRabbit);
 
 		// EGGS
 		registerEntityEggs();

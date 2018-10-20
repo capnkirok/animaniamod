@@ -11,10 +11,6 @@ public class EntitySowOldSpot extends EntitySowBase
 	{
 		super(world);
 		this.pigType = PigType.OLD_SPOT;
-		this.oldDropRaw = ItemHandler.rawOldSpotPork;
-		this.oldDropCooked = ItemHandler.cookedOldSpotRoast;
-		this.dropRaw = ItemHandler.rawPrimePork;
-		this.dropCooked = ItemHandler.cookedPrimePork;
 	}
 	
 	@Override

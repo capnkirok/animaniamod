@@ -11,8 +11,6 @@ public class EntityRabbitDoeRex extends EntityRabbitDoeBase
 	{
 		super(worldIn);
 		this.rabbitType = RabbitType.REX;
-		this.dropRaw = ItemHandler.rawRabbit;
-		this.dropCooked = ItemHandler.cookedRabbit;
 	}
 	
 	@Override

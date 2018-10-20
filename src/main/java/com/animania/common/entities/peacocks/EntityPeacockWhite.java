@@ -12,7 +12,6 @@ public class EntityPeacockWhite extends EntityPeacockBase
 	{
 		super(worldIn);
 		this.type = PeacockType.WHITE;
-		this.drop = ItemHandler.peacockFeatherWhite;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_white.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_white_blink.png");
 		this.lidCol = 0xCCCCCC;

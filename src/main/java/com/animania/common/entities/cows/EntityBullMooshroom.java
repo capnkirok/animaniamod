@@ -1,6 +1,9 @@
 package com.animania.common.entities.cows;
 
+import com.animania.Animania;
+
 import net.minecraft.init.Items;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class EntityBullMooshroom extends EntityBullBase
@@ -10,8 +13,6 @@ public class EntityBullMooshroom extends EntityBullBase
 	{
 		super(world);
 		this.cowType = CowType.MOOSHROOM;
-		this.dropRaw = Items.BEEF;
-		this.dropCooked = Items.COOKED_BEEF;
 	}
 	
 	@Override
@@ -24,6 +25,12 @@ public class EntityBullMooshroom extends EntityBullBase
 	public int getSecondaryEggColor()
 	{
 		return 12627887;
+	}
+	
+	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return new ResourceLocation(Animania.MODID, "cow_mooshroom");
 	}
 
 

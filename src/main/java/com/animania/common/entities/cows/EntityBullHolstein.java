@@ -10,8 +10,6 @@ public class EntityBullHolstein extends EntityBullBase
 	{
 		super(world);
 		this.cowType = CowType.HOLSTEIN;
-		this.dropRaw = Items.BEEF;
-		this.dropCooked = Items.COOKED_BEEF;
 	}
 	
 	@Override

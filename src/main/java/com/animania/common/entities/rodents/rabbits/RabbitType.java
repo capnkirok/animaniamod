@@ -12,27 +12,29 @@ import net.minecraft.world.World;
 public enum RabbitType implements AnimaniaType
 {
 
-	LOP(EntityRabbitBuckLop.class, EntityRabbitDoeLop.class, EntityRabbitKitLop.class, null),
-	REX(EntityRabbitBuckRex.class, EntityRabbitDoeRex.class, EntityRabbitKitRex.class, null),
-	DUTCH(EntityRabbitBuckDutch.class, EntityRabbitDoeDutch.class, EntityRabbitKitDutch.class, null),
-	HAVANA(EntityRabbitBuckHavana.class, EntityRabbitDoeHavana.class, EntityRabbitKitHavana.class, null),
-	NEW_ZEALAND(EntityRabbitBuckNewZealand.class, EntityRabbitDoeNewZealand.class, EntityRabbitKitNewZealand.class, null),
-	JACK(EntityRabbitBuckJack.class, EntityRabbitDoeJack.class, EntityRabbitKitJack.class, null),
-	COTTONTAIL(EntityRabbitBuckCottontail.class, EntityRabbitDoeCottontail.class, EntityRabbitKitCottontail.class, null),
-	CHINCHILLA(EntityRabbitBuckChinchilla.class, EntityRabbitDoeChinchilla.class, EntityRabbitKitChinchilla.class, null);
+	LOP(EntityRabbitBuckLop.class, EntityRabbitDoeLop.class, EntityRabbitKitLop.class, null, false),
+	REX(EntityRabbitBuckRex.class, EntityRabbitDoeRex.class, EntityRabbitKitRex.class, null, true),
+	DUTCH(EntityRabbitBuckDutch.class, EntityRabbitDoeDutch.class, EntityRabbitKitDutch.class, null, false),
+	HAVANA(EntityRabbitBuckHavana.class, EntityRabbitDoeHavana.class, EntityRabbitKitHavana.class, null, false),
+	NEW_ZEALAND(EntityRabbitBuckNewZealand.class, EntityRabbitDoeNewZealand.class, EntityRabbitKitNewZealand.class, null, true),
+	JACK(EntityRabbitBuckJack.class, EntityRabbitDoeJack.class, EntityRabbitKitJack.class, null, false),
+	COTTONTAIL(EntityRabbitBuckCottontail.class, EntityRabbitDoeCottontail.class, EntityRabbitKitCottontail.class, null, false),
+	CHINCHILLA(EntityRabbitBuckChinchilla.class, EntityRabbitDoeChinchilla.class, EntityRabbitKitChinchilla.class, null, true);
 	
 	
 	private Class male;
 	private Class female;
 	private Class child;
 	private StatBase achievement;
+	public boolean isPrime;
 	
-	private RabbitType(Class male, Class female, Class child, StatBase achievement)
+	private RabbitType(Class male, Class female, Class child, StatBase achievement, boolean prime)
 	{
 		this.male = male;
 		this.female = female;
 		this.child = child;
 		this.achievement = achievement;
+		this.isPrime = prime;
 	}
 	
 	@Override

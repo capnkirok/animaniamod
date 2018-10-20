@@ -12,8 +12,7 @@ public class EntityRabbitDoeLop extends EntityRabbitDoeBase
 	{
 		super(worldIn);
 		this.rabbitType = RabbitType.LOP;
-		this.dropRaw = Items.RABBIT;
-		this.dropCooked = Items.COOKED_RABBIT;
+
 	}
 	
 	@Override

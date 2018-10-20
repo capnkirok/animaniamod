@@ -23,7 +23,7 @@ public final class TabAnimaniaResources extends CreativeTabs
 
     @Override
     public ItemStack getTabIconItem() {
-        return new ItemStack(ItemHandler.cookedAngusSteak, 1);
+        return new ItemStack(ItemHandler.cookedPrimeSteak, 1);
     }
 
     @Override

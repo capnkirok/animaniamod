@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -54,6 +55,8 @@ public class GuiManual extends GuiScreen
 	public ManualTopic currentTopic = ManualResourceLoader.firstTopic;
 	public ManualTopic lastTopic = ManualResourceLoader.firstTopic;
 
+	public boolean isPrevTopic = false;
+	
 	public Map<ResourceLocation, ManualTopic> manualContent = new HashMap<ResourceLocation, ManualTopic>();
 
 	public static GuiManual INSTANCE = new GuiManual();
@@ -63,6 +66,10 @@ public class GuiManual extends GuiScreen
 	private GuiButton buttonNextPage;
 	private GuiButton buttonPreviousPage;
 
+	private GuiButton buttonPrevTopic;
+	private GuiButton buttonThisTopic;
+	
+	
 	private GuiManual()
 	{
 	}
@@ -121,6 +128,8 @@ public class GuiManual extends GuiScreen
 		int i = (this.width - 192) / 2;
 		this.buttonNextPage = this.addButton(new NextPageButton(0, this.guiLeft + 155, this.guiTop + 164, true));
 		this.buttonPreviousPage = this.addButton(new NextPageButton(1, this.guiLeft + 7, this.guiTop + 164, false));
+		this.buttonPrevTopic = this.addButton(new PrevPageButton(2, this.guiLeft + 9, this.guiTop + 178, false));
+		this.buttonThisTopic = this.addButton(new PrevPageButton(3, this.guiLeft + 159, this.guiTop + 178, true));
 		updateButtons();
 
 		initComponents();
@@ -158,6 +167,8 @@ public class GuiManual extends GuiScreen
 	{
 		this.buttonNextPage.visible = ((pageIndex == currentTopic.getPages().size() - 1) ? false : true);
 		this.buttonPreviousPage.visible = (pageIndex == 0 ? false : true);
+		this.buttonPrevTopic.visible = !isPrevTopic;
+		this.buttonThisTopic.visible = isPrevTopic;
 	}
 
 	@Override
@@ -174,6 +185,23 @@ public class GuiManual extends GuiScreen
 			case 1:
 				pageIndex--;
 				initComponents();
+				break;
+			case 2:
+				ManualTopic temp = this.currentTopic;
+				this.currentTopic = this.lastTopic;
+				this.lastTopic = temp;
+				this.isPrevTopic = true;
+				pageIndex = 0;
+				initComponents();
+				break;
+			case 3:
+				ManualTopic temp2 = this.currentTopic;
+				this.currentTopic = this.lastTopic;
+				this.lastTopic = temp2;
+				this.isPrevTopic = false;
+				pageIndex = 0;
+				initComponents();
+				break;
 			}
 		}
 
@@ -200,10 +228,9 @@ public class GuiManual extends GuiScreen
 			{
 				boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-				mc.getTextureManager().bindTexture(TEXTURE);
 				int i = 0;
 				int j = 227;
-
+				
 				if (flag)
 				{
 					i += 23;
@@ -214,10 +241,69 @@ public class GuiManual extends GuiScreen
 					j += 13;
 				}
 
+				mc.getTextureManager().bindTexture(TEXTURE);
 				this.drawTexturedModalRect(this.x, this.y, i, j, 23, 13);
+				
+				if(flag)
+				{
+					GlStateManager.pushMatrix();
+					GuiManual.INSTANCE.drawHoveringText(I18n.translateToLocal(this.isForward ? "manual.page.next" : "manual.page.previous"), mouseX, mouseY);
+					GlStateManager.disableLighting();
+					GlStateManager.popMatrix();
+				}
 			}
 		}
 	}
+	
+	@SideOnly(Side.CLIENT)
+	static class PrevPageButton extends GuiButton
+	{
+		private final boolean isForward;
+
+		public PrevPageButton(int buttonId, int x, int y, boolean isForward)
+		{
+			super(buttonId, x, y, 18, 11, "");
+			this.isForward = isForward;
+		}
+
+		/**
+		 * Draws this button to the screen.
+		 */
+		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
+		{
+			if (this.visible)
+			{
+				boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				int i = 48;
+				int j = 229;
+
+
+				if (flag)
+				{
+					i += 22;
+				}
+
+				if (!this.isForward)
+				{
+					j += 13;
+				}
+
+				mc.getTextureManager().bindTexture(TEXTURE);
+				this.drawTexturedModalRect(this.x, this.y, i, j, 18, 11);
+				
+				if(flag)
+				{
+					GlStateManager.pushMatrix();
+					GuiManual.INSTANCE.drawHoveringText(I18n.translateToLocal("manual.topic.previous"), mouseX, mouseY);
+					GlStateManager.disableLighting();
+					GlStateManager.popMatrix();
+				}
+				
+			}
+		}
+	}
+	
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException

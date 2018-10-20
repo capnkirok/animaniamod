@@ -14,8 +14,7 @@ public class EntityDoeFainting extends EntityDoeBase
 		super(worldIn);
 		this.setSize(1.1F, 1.0F);
 		this.goatType = GoatType.FAINTING;
-		this.dropRaw = ItemHandler.rawChevon;
-		this.dropCooked = ItemHandler.cookedChevon;
+
 	}
 	
 	@Override

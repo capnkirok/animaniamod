@@ -1,8 +1,10 @@
 package com.animania.common.entities.cows;
 
+import com.animania.Animania;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.handler.ItemHandler;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class EntityBullAngus extends EntityBullBase
@@ -12,10 +14,6 @@ public class EntityBullAngus extends EntityBullBase
 	{
 		super(world);
 		this.cowType = CowType.ANGUS;
-		this.dropRaw = ItemHandler.rawPrimeBeef;
-		this.dropCooked = ItemHandler.cookedPrimeBeef;
-		this.oldDropRaw = ItemHandler.rawAngusBeef;
-		this.oldDropCooked = ItemHandler.cookedAngusRoast;
 	}
 	
 	@Override
@@ -29,5 +27,6 @@ public class EntityBullAngus extends EntityBullBase
 	{
 		return 2304560;
 	}
+
 
 }

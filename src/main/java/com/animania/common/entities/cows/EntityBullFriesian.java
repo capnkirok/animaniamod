@@ -10,8 +10,6 @@ public class EntityBullFriesian extends EntityBullBase
 	{
 		super(world);
 		this.cowType = CowType.FRIESIAN;
-		this.dropRaw = Items.BEEF;
-		this.dropCooked = Items.COOKED_BEEF;
 	}
 	
 	@Override

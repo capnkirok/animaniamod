@@ -5,7 +5,7 @@
     "@link@animania:manual/blocks/blocks.json#← manual.blocks.blocks.title",
     " ",
     "manual.blocks.bee_hive.1",
-    "@link@animania:manual/items/honey.json#fluid.animania_honey#prevline",
+    "@link@animania:manual/items/food/honey.json#fluid.animania_honey#prevline",
     "@text@manual.blocks.bee_hive.2#prevline",
     "@image@animania:textures/images/bee_nest.png",
     "manual.blocks.bee_hive.3",

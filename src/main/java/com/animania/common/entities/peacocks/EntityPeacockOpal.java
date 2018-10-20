@@ -12,7 +12,6 @@ public class EntityPeacockOpal extends EntityPeacockBase
 	{
 		super(worldIn);
 		this.type = PeacockType.OPAL;
-		this.drop = ItemHandler.peacockFeatherOpal;
 		this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_opal.png");
 		this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_opal_blink.png");
 		this.lidCol = 0x495163;

@@ -14,8 +14,7 @@ public class EntityRabbitBuckDutch extends EntityRabbitBuckBase
 	{
 		super(worldIn);
 		this.rabbitType = RabbitType.DUTCH;
-		this.dropRaw = Items.RABBIT;
-		this.dropCooked = Items.COOKED_RABBIT;
+
 	}
 	
 	@Override

@@ -572,6 +572,10 @@ advancements.animania.ride.description=Ride a Draft Horse
 advancements.animania.pepe.title=Pepe
 advancements.animania.pepe.description=A classic
 
+manual.page.next=Next Page
+manual.page.previous=Previous page
+manual.topic.previous=Previous Topic
+
 manual.startpage.title=Animania Manual
 manual.startpage.content=Content
 manual.contents.mainpage=Main Page
@@ -582,6 +586,7 @@ manual.entities.pullabes.title=Pullables
 manual.items.items.title=Items
 manual.items.food.title=Food
 manual.basic.and=and
+manual.beehive_nest=bee hives or nests.
 
 manual.blocks.trough.1=The trough is one of the most important blocks to keep your farm healthy. They are used to provide your animals with food and water. Troughs can be filled with Water,
 manual.blocks.trough.2=and the following items:
@@ -604,6 +609,9 @@ manual.blocks.bee_hive.6=To collect the honey, right click the block with an emt
 manual.blocks.wool.1=Some animania sheep have their own wool blocks. The wool behaves like normal wool and can be used decoratively or in crafting.
 manual.blocks.mud.1=Mud is needed for pigs to be fully happy. When there is a large enough patch of mud around, pigs will lay around inside it. Mud is crafted like this:
 manual.blocks.straw.1=Straw is the favorite sleeping block for most animals. Using straw, you can control where animals lie down to sleep. It is crafted like this:
+
+manual.food.honey.1=Honey is generated using
+manual.food.honey.2=To collect the honey, right click the hive or nest with an empty bottle. The honey can be consumed or used to make sugar.
 
 manual.cows.meat.1= cows are meat cows. While the females still give milk, it is inferior to the milk of milk cows. Therefore, it cannot be made into cheese. When killed, they drop these items:
 manual.cows.meat.2=They drop more if they are well fed.

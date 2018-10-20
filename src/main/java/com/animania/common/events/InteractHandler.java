@@ -213,66 +213,136 @@ public class InteractHandler
 	{
 		for (MissingMappings.Mapping<Item> entry : event.getAllMappings())
 		{
-			if (entry.key.toString().contains("animania:entity_egg_peafowl"))
+			
+			String key = entry.key.toString();
+			
+			if (key.contains("animania:entity_egg_peafowl"))
 			{
-				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("peafowl", "peahen"));
+				ResourceLocation egg = new ResourceLocation(key.replace("peafowl", "peahen"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
+			}
+			if (key.contains("animania:entity_egg_") && key.contains("newzealand"))
+			{
+				ResourceLocation egg = new ResourceLocation(key.replace("newzealand", "new_zealand"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
+			}
+			if (key.contains("animania:entity_egg_") && key.contains("red"))
+			{
+				ResourceLocation egg = new ResourceLocation(key.replace("red", "rhode_island_red"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
+			}
+			if (key.contains("animania:entity_egg_") && key.contains("nigeriandwarf"))
+			{
+				ResourceLocation egg = new ResourceLocation(key.replace("nigeriandwarf", "nigerian_dwarf"));
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
 			}
-			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("newzealand"))
+			if (key.contains("animania:entity_egg_") && key.contains("largewhite"))
 			{
-				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("newzealand", "new_zealand"));
+				ResourceLocation egg = new ResourceLocation(key.replace("largewhite", "large_white"));
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
 			}
-			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("red"))
-			{
-				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("red", "rhode_island_red"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-			}
-			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("nigeriandwarf"))
-			{
-				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("nigeriandwarf", "nigerian_dwarf"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-			}
-			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("largewhite"))
-			{
-				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("largewhite", "large_white"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-			}
-			if (entry.key.toString().equals("animania:entity_egg_draft_horse_mare"))
+			if (key.equals("animania:entity_egg_draft_horse_mare"))
 			{
 				ResourceLocation egg = new ResourceLocation("animania:entity_egg_mare_draft");
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
 			}
-			if (entry.key.toString().equals("animania:entity_egg_draft_horse_foal"))
+			if (key.equals("animania:entity_egg_draft_horse_foal"))
 			{
 				ResourceLocation egg = new ResourceLocation("animania:entity_egg_foal_draft");
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
 			}
-			if (entry.key.toString().equals("animania:entity_egg_draft_horse_stallion"))
+			if (key.equals("animania:entity_egg_draft_horse_stallion"))
 			{
 				ResourceLocation egg = new ResourceLocation("animania:entity_egg_stallion_draft");
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
 			}
-			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("largeblack"))
+			if (key.contains("animania:entity_egg_") && key.contains("largeblack"))
 			{
-				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("largeblack", "large_black"));
+				ResourceLocation egg = new ResourceLocation(key.replace("largeblack", "large_black"));
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
 			}
-			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("oldspot"))
+			if (key.contains("animania:entity_egg_") && key.contains("oldspot"))
 			{
-				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("oldspot", "old_spot"));
+				ResourceLocation egg = new ResourceLocation(key.replace("oldspot", "old_spot"));
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
 			}
-			if (entry.key.toString().contains("animania:entity_egg_") && entry.key.toString().contains("plymouth"))
+			if (key.contains("animania:entity_egg_") && key.contains("plymouth"))
 			{
-				ResourceLocation egg = new ResourceLocation(entry.key.toString().replace("plymouth", "plymouth_rock"));
+				ResourceLocation egg = new ResourceLocation(key.replace("plymouth", "plymouth_rock"));
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
 			}
-			if (entry.key.toString().equals("animania:entity_egg_dart_frog"))
+			if (key.equals("animania:entity_egg_dart_frog"))
 			{
 				ResourceLocation egg = new ResourceLocation("animania:entity_egg_dartfrog");
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
 			}
+			if(key.matches("animania:raw_(.*?)_beef"))
+			{
+				entry.remap(ItemHandler.rawPrimeBeef);
+				continue;
+			}
+			if(key.matches("animania:raw_(.*?)_steak"))
+			{
+				entry.remap(ItemHandler.rawPrimeSteak);
+				continue;
+			}
+			if(key.matches("animania:cooked_(.*?)_steak"))
+			{
+				entry.remap(ItemHandler.cookedPrimeSteak);
+				continue;
+			}
+			if(key.equals("animania:cooked_large_black_roast") || key.equals("animania:cooked_duroc_roast") || key.equals("animania:cooked_old_spot_roast") || key.equals("animania:cooked_hampshire_roast") || key.equals("animania:cooked_large_black_bacon"))
+			{
+				entry.remap(ItemHandler.cookedPrimePork);
+				continue;
+			}
+			if(key.matches("animania:cooked_(.*?)_roast"))
+			{
+				entry.remap(ItemHandler.cookedPrimeBeef);
+				continue;
+			}
+			if(key.matches("animania:cooked_(.*?)_steak"))
+			{
+				entry.remap(ItemHandler.cookedPrimeSteak);
+				continue;
+			}
+			if(key.matches("animania:raw_(.*?)_pork"))
+			{
+				entry.remap(ItemHandler.rawPrimePork);
+				continue;
+			}
+			if(key.matches("animania:raw_(.*?)_bacon"))
+			{
+				entry.remap(ItemHandler.rawPrimeBacon);
+				continue;
+			}
+			if(key.matches("animania:cooked_(.*?)_bacon"))
+			{
+				entry.remap(ItemHandler.cookedPrimeBacon);
+				continue;
+			}
+			if(key.matches("animania:raw_(.*?)_chicken"))
+			{
+				entry.remap(ItemHandler.rawPrimeChicken);
+				continue;
+			}
+			if(key.matches("animania:cooked_(.*?)_chicken"))
+			{
+				entry.remap(ItemHandler.cookedPrimeChicken);
+				continue;
+			}
+			
 		}
 	}
 

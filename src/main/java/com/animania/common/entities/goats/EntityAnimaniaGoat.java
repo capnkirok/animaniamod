@@ -34,6 +34,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
@@ -83,8 +84,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	protected int wateredTimer;
 	protected int damageTimer;
 	public GoatType goatType;
-	protected Item dropRaw = ItemHandler.rawChevon;
-	protected Item dropCooked = ItemHandler.cookedChevon;
 	public GenericAIEatGrass entityAIEatGrass;
 	protected boolean mateable = false;
 	protected boolean headbutting = false;
@@ -161,7 +160,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	@Override
 	protected ResourceLocation getLootTable()
 	{
-		return null;
+		return this instanceof EntityKidBase ? null : this.goatType.isPrime ? new ResourceLocation(Animania.MODID, "goat_prime") : new ResourceLocation(Animania.MODID, "goat_regular");
 	}
 
 
@@ -651,57 +650,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 
 	}
 
-	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
-		int happyDrops = 0;
-
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops) {
-			String drop = AnimaniaConfig.drops.goatDrop;
-			dropItem = AnimaniaHelper.getItem(drop);
-			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
-			{
-				drop = this.dropCooked.getRegistryName().toString();
-				dropItem = AnimaniaHelper.getItem(drop);
-			}
-		} else {
-			dropItem = new ItemStack(this.dropRaw, 1);
-			if (this.isBurning())
-				dropItem = new ItemStack(this.dropCooked, 1);
-		}
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.goatDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-
-		if (happyDrops >= 1)
-		{
-			if (dropItem != null) {
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if ((this instanceof EntityBuckAngora || this instanceof EntityDoeAngora) && !this.getSheared())  {
-				this.dropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1).getItem(), 1 + lootlevel);
-			}	
-			if (dropItem2 != null) {
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.goatDrop2Amount + lootlevel);
-			}
-		} else if (happyDrops == 0) {
-			if ((this instanceof EntityBuckAngora || this instanceof EntityDoeAngora) && !this.getSheared())  {
-				this.dropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1).getItem(), 1 + lootlevel);
-			}
-			if (dropItem2 != null) {
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.goatDrop2Amount + lootlevel);
-			}
-		}
-	}
 
 	@Override
 	public EntityAnimaniaGoat createChild(EntityAgeable ageable) {

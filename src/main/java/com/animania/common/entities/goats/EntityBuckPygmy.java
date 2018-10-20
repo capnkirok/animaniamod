@@ -11,8 +11,7 @@ public class EntityBuckPygmy extends EntityBuckBase
 	{
 		super(worldIn);
 		this.goatType = GoatType.PYGMY;
-		this.dropRaw = ItemHandler.rawChevon;
-		this.dropCooked = ItemHandler.cookedChevon;
+
 	}
 
 	@Override

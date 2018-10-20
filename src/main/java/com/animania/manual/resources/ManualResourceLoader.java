@@ -290,16 +290,18 @@ public class ManualResourceLoader
 				ResourceLocation loc = new ResourceLocation(linkLoc);
 				String display = s.substring(s.indexOf("#") + 1);
 				display = AnimaniaHelper.translateWithFormattingCodes(display);
-				LinkComponent link = new LinkComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, display, loc);
-
-				if (prevLine)
+				
+				List<IManualComponent> textComps = getTextComp(display, otherComponents, prevLine);
+				
+				List<IManualComponent> linkComps = new ArrayList<IManualComponent>();
+				
+				for(IManualComponent comp : textComps)
 				{
-					IManualComponent c = getTextComp(display, otherComponents, true).get(0);
-					link.setX(c.getX()).setY(c.getY());
-					if (Minecraft.getMinecraft().fontRenderer.getStringWidth(display) > GuiManual.MANUAL_MAX_X - link.getX())
-						link.setX(0).setY(offsetY + GuiManual.LINE_Y_OFFSET);
+					String displ = ((TextComponent)comp).toString();
+					linkComps.add(new LinkComponent(comp.getX(), comp.getY(), displ, loc));
 				}
-				return getList(link);
+				
+				return linkComps;
 			}
 		}
 		else if (s.startsWith("@image@"))
@@ -443,20 +445,11 @@ public class ManualResourceLoader
 			
 			List<IManualComponent> configComps = new ArrayList<IManualComponent>();
 			
-//			ConfigComponent c = new ConfigComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, display, s);
 			for(IManualComponent comp : textComps)
 			{
 				String displ = ((TextComponent)comp).toString();
 				configComps.add(new ConfigComponent(comp.getX(), comp.getY(), displ, s));
 			}
-//			if (prevLine)
-//			{
-//				IManualComponent textComp = getTextComp(display, otherComponents, true).get(0);
-//				c.setX(textComp.getX()).setY(textComp.getY());
-//				if (Minecraft.getMinecraft().fontRenderer.getStringWidth(display) > GuiManual.MANUAL_MAX_X - c.getX())
-//					c.setX(0).setY(offsetY + GuiManual.LINE_Y_OFFSET);
-//			}
-//			return getList(c);
 			
 			return configComps;
 		}

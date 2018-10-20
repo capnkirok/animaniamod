@@ -12,8 +12,6 @@ public class EntityRabbitBuckRex extends EntityRabbitBuckBase
 	{
 		super(worldIn);
 		this.rabbitType = RabbitType.REX;
-		this.dropRaw = ItemHandler.rawRabbit;
-		this.dropCooked = ItemHandler.cookedRabbit;
 	}
 	
 	@Override

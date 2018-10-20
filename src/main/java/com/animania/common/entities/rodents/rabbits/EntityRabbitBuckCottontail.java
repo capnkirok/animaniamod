@@ -10,8 +10,7 @@ public class EntityRabbitBuckCottontail extends EntityRabbitBuckBase
 	{
 		super(worldIn);
 		this.rabbitType = RabbitType.COTTONTAIL;
-		this.dropRaw = Items.RABBIT;
-		this.dropCooked = Items.COOKED_RABBIT;
+
 	}
 	
 	@Override

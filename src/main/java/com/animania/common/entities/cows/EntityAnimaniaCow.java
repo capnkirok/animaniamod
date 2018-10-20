@@ -5,6 +5,29 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIEatGrass;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.items.ItemEntityEgg;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,28 +54,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIEatGrass;
-import com.animania.common.entities.generic.ai.GenericAIFindFood;
-import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
-import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
-import com.animania.common.entities.generic.ai.GenericAILookIdle;
-import com.animania.common.entities.generic.ai.GenericAIPanic;
-import com.animania.common.entities.generic.ai.GenericAISleep;
-import com.animania.common.entities.generic.ai.GenericAISwim;
-import com.animania.common.entities.generic.ai.GenericAITempt;
-import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.items.ItemEntityEgg;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
-
 public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 {
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.cowFood));
@@ -73,10 +74,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	protected int damageTimer;
 	public GenericAIEatGrass entityAIEatGrass;
 	public CowType cowType;
-	protected Item dropRaw = Items.BEEF;
-	protected Item dropCooked = Items.COOKED_BEEF;
-	protected Item oldDropRaw = Items.BEEF;
-	protected Item oldDropCooked = Items.COOKED_BEEF;
 	protected boolean mateable = false;
 	protected EntityGender gender;
 
@@ -139,12 +136,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		this.dataManager.register(EntityAnimaniaCow.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaCow.AGE, Integer.valueOf(0));
 
-	}
-
-	@Override
-	protected ResourceLocation getLootTable()
-	{
-		return null;
 	}
 
 	@Nullable
@@ -327,11 +318,11 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	{
 		return 0.4F;
 	}
-
+	
 	@Override
-	protected Item getDropItem()
+	protected ResourceLocation getLootTable()
 	{
-		return Items.LEATHER;
+		return this instanceof EntityCalfBase ? null : this.cowType.isPrime ? new ResourceLocation(Animania.MODID, "cow_prime") : new ResourceLocation(Animania.MODID, "cow_regular");
 	}
 
 	@Override
@@ -555,96 +546,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		this.setAge(compound.getInteger("Age"));
 
 
-	}
-
-	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
-		int happyDrops = 0;
-
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops && dropRaw != Items.BEEF && dropCooked != Items.COOKED_BEEF)
-		{
-			String drop = AnimaniaConfig.drops.cowDrop;
-
-			if (this.cowType != null && this.cowType == CowType.MOOSHROOM) {
-				drop = AnimaniaConfig.drops.mooshroomDrop;
-			}
-
-			dropItem = AnimaniaHelper.getItem(drop);
-			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
-			{
-				drop = this.dropCooked.getRegistryName().toString();
-				dropItem = AnimaniaHelper.getItem(drop);
-			}
-		}
-		else
-		{
-			if (AnimaniaConfig.drops.oldMeatDrops)
-			{
-				dropItem = new ItemStack(this.oldDropRaw, 1);
-				if (this.isBurning())
-					dropItem = new ItemStack(this.oldDropCooked, 1);
-			}
-			else
-			{
-				dropItem = new ItemStack(this.dropRaw, 1);
-				if (this.isBurning())
-					dropItem = new ItemStack(this.dropCooked, 1);
-			}
-		}
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.cowDrop2;
-
-		if (this.cowType != null && this.cowType == CowType.MOOSHROOM) {
-			drop2 = AnimaniaConfig.drops.mooshroomDrop2;
-		}
-
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-		int drop2amount = AnimaniaConfig.drops.cowDrop2Amount;
-
-		if (this.cowType != null && this.cowType == CowType.MOOSHROOM) {
-			drop2amount = AnimaniaConfig.drops.mooshroomDrop2Amount;
-		}
-
-		if (happyDrops == 2)
-		{
-			if (dropItem != null) {
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null) {
-				this.dropItem(dropItem2.getItem(), drop2amount + lootlevel);
-			}
-		} else if (happyDrops == 1)
-		{
-			if (this.isBurning())
-			{
-				this.dropItem(Items.COOKED_BEEF, 1 + lootlevel);
-				if (dropItem2 != null) {
-					this.dropItem(dropItem2.getItem(), drop2amount  + lootlevel);
-				}
-			}
-			else
-			{
-				this.dropItem(Items.BEEF, 1 + lootlevel);
-				if (dropItem2 != null) {
-					this.dropItem(dropItem2.getItem(), drop2amount  + lootlevel);
-				}
-			}
-		}
-		else if (happyDrops == 0) {
-			if (dropItem2 != null && this.getRNG().nextBoolean()) {
-				this.dropItem(dropItem2.getItem(), drop2amount  + lootlevel);
-			}
-		}
 	}
 
 	@Override

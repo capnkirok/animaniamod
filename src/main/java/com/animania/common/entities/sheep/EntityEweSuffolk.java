@@ -19,8 +19,6 @@ public class EntityEweSuffolk extends EntityEweBase
 	{
 		super(worldIn);
 		this.sheepType = SheepType.SUFFOLK;
-		this.dropRaw = ItemHandler.rawMutton;
-		this.dropCooked = ItemHandler.cookedMutton;
 	}
 
 	@Override

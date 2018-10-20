@@ -12,8 +12,7 @@ public class EntityBuckKiko extends EntityBuckBase
 		super(worldIn);
 		this.goatType = GoatType.KIKO;
 		this.setSize(1.2F, 1.0F);
-		this.dropRaw = ItemHandler.rawChevon;
-		this.dropCooked = ItemHandler.cookedChevon;
+
 	}
 	
 	@Override

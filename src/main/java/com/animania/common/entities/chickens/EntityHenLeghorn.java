@@ -31,34 +31,4 @@ public class EntityHenLeghorn extends EntityHenBase
 	{
 		return 14869218;
 	}
-	
-	@Override
-	protected void dropFewItems(boolean hit, int lootlevel) {
-
-		int happyDrops = 0;
-
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-		int j;
-		int k;
-
-		j = happyDrops + lootlevel;
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.chickenDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-		
-		for (k = 0; k < j; ++k)
-			if (this.isBurning()) {
-				this.dropItem(Items.COOKED_CHICKEN, 1);
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
-			}
-			else {
-				this.dropItem(Items.CHICKEN, 1);
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
-			}
-	}
 }

@@ -6,13 +6,37 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.common.entities.AnimalContainer;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISwim;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
+import com.animania.common.entities.horses.ai.EntityAILookIdleHorses;
+import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
+import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
+import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
+import com.animania.common.entities.props.EntityWagon;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.inventory.ContainerHorseCart;
+import com.animania.common.items.ItemEntityEgg;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -39,30 +63,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIFindFood;
-import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
-import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIPanic;
-import com.animania.common.entities.generic.ai.GenericAISleep;
-import com.animania.common.entities.generic.ai.GenericAISwim;
-import com.animania.common.entities.generic.ai.GenericAITempt;
-import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.horses.ai.EntityAIFollowMateHorses;
-import com.animania.common.entities.horses.ai.EntityAILookIdleHorses;
-import com.animania.common.entities.horses.ai.EntityAIWanderHorses;
-import com.animania.common.entities.horses.ai.EntityHorseEatGrass;
-import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
-import com.animania.common.entities.props.EntityWagon;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.inventory.ContainerHorseCart;
-import com.animania.common.items.ItemEntityEgg;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
 
 public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalBase
 {
@@ -247,7 +247,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	@Override
 	protected ResourceLocation getLootTable()
 	{
-		return null;
+		return this instanceof EntityFoalBase ? null : new ResourceLocation(Animania.MODID, "horse");
 	}
 
 	@Override
@@ -487,13 +487,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	{
 		return resourceLocationBlink;
 	}
-
-	@Override
-	protected Item getDropItem()
-	{
-		return Items.LEATHER;
-	}
-
+	
 	@Override
 	public void travel(float p_191986_1_, float p_191986_2_, float p_191986_3_)
 	{
@@ -812,66 +806,6 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	}
 
 	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
-		int happyDrops = 0;
-
-		if (this.getWatered())
-		{
-			happyDrops++;
-		}
-		if (this.getFed())
-		{
-			happyDrops++;
-		}
-
-		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops)
-		{
-			String drop = AnimaniaConfig.drops.horseDrop;
-			dropItem = AnimaniaHelper.getItem(drop);
-			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
-			{
-				drop = this.dropCooked.getRegistryName().toString();
-				dropItem = AnimaniaHelper.getItem(drop);
-			}
-		}
-		else
-		{
-			dropItem = new ItemStack(this.dropRaw, 1);
-			if (this.isBurning())
-				dropItem = new ItemStack(this.dropCooked, 1);
-		}
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.horseDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-
-		if (happyDrops == 2)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.horseDrop2Amount + lootlevel);
-			}
-		}
-		else if (happyDrops == 1 && dropItem2 != null)
-		{
-			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.horseDrop2Amount + lootlevel);
-		}
-		else if (happyDrops == 0)
-		{
-			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.horseDrop2Amount + lootlevel);
-		}
-
-	}
-
-	@Override
 	public EntityAgeable createChild(EntityAgeable ageable)
 	{
 		return null;
@@ -913,6 +847,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	// Data Manager Trapper (borrowed from Lycanites)
 	// ==================================================
 
+	
+	
 	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
 	{
 		try

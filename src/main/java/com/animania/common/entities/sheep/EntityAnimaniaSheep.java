@@ -38,6 +38,7 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
@@ -88,8 +89,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	protected int wateredTimer;
 	protected int damageTimer;
 	public SheepType sheepType;
-	protected Item dropRaw = Items.MUTTON;
-	protected Item dropCooked = Items.COOKED_MUTTON;
 	public GenericAIEatGrass entityAIEatGrass;
 	protected boolean mateable = false;
 	protected boolean headbutting = false;
@@ -192,7 +191,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	@Override
 	protected ResourceLocation getLootTable()
 	{
-		return null;
+		return this instanceof EntityLambBase ? null : this.sheepType.isPrime ? new ResourceLocation(Animania.MODID, "sheep_prime") : new ResourceLocation(Animania.MODID, "sheep_regular");
 	}
 
 	@Override
@@ -685,160 +684,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	}
 
 	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
-		int happyDrops = 0;
-
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops && dropRaw != Items.MUTTON && dropCooked != Items.COOKED_MUTTON)
-		{
-			String drop = AnimaniaConfig.drops.sheepDrop;
-			dropItem = AnimaniaHelper.getItem(drop);
-			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
-			{
-				drop = this.dropCooked.getRegistryName().toString();
-				dropItem = AnimaniaHelper.getItem(drop);
-			}
-		}
-		else
-		{
-			dropItem = new ItemStack(this.dropRaw, 1);
-			if (this.isBurning())
-				dropItem = new ItemStack(this.dropCooked, 1);
-		}
-
-		ItemStack woolItem = new ItemStack(Blocks.WOOL, 1);
-		if (this.getSheared())
-		{
-			woolItem = ItemStack.EMPTY;
-		}
-		else if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian)
-		{
-			switch (this.getColorNumber())
-			{
-			case 0:
-				woolItem = new ItemStack(BlockHandler.blockAnimaniaWool, 1, 1);
-				break;
-			case 1:
-				woolItem = new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1);
-				break;
-			case 2:
-				woolItem = new ItemStack(BlockHandler.blockAnimaniaWool, 1, 2);
-				break;
-			}
-		}
-		else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk)
-		{
-			switch (this.getColorNumber())
-			{
-			case 0:
-				woolItem = new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1);
-				break;
-			case 1:
-				woolItem = new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 6);
-				break;
-			}
-		}
-		else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset)
-		{
-			switch (this.getColorNumber())
-			{
-			case 0:
-				woolItem = new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1);
-				break;
-			case 1:
-				woolItem = new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 0);
-				break;
-			}
-		}
-		else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino)
-		{
-			switch (this.getColorNumber())
-			{
-			case 0:
-				woolItem = new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 5);
-				break;
-			case 1:
-				woolItem = new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 4);
-				break;
-			}
-		}
-		else if (this instanceof EntityRamJacob || this instanceof EntityEweJacob)
-		{
-			switch (this.getColorNumber())
-			{
-			case 0:
-				woolItem = new ItemStack(Item.getItemFromBlock(BlockHandler.blockAnimaniaWool), 1, 3);
-				break;
-			}
-
-		}
-		else
-		{
-			woolItem = new ItemStack(Item.getItemFromBlock(Blocks.WOOL));
-		}
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.sheepDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-
-		if (happyDrops == 2)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			woolItem.setCount(1 + lootlevel);
-			this.entityDropItem(woolItem, .5F);
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
-			}
-
-		}
-		else if (happyDrops == 1)
-		{
-			if (this.isBurning())
-			{
-				woolItem.setCount(1 + lootlevel);
-				this.dropItem(Items.MUTTON, 1 + lootlevel);
-				this.entityDropItem(woolItem, .5F);
-				if (dropItem2 != null)
-				{
-					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
-				}
-			}
-			else
-			{
-				woolItem.setCount(1 + lootlevel);
-				this.dropItem(Items.MUTTON, 1 + lootlevel);
-				this.entityDropItem(woolItem, .5F);
-				if (dropItem2 != null)
-				{
-					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
-				}
-
-			}
-		}
-		else if (happyDrops == 0)
-		{
-			this.entityDropItem(woolItem, .5F);
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.sheepDrop2Amount + lootlevel);
-			}
-		}
-
-	}
-
-	@Override
 	public Item getSpawnEgg()
 	{
 		return ItemEntityEgg.ANIMAL_EGGS.get(new AnimalContainer(this.sheepType, this.gender));
@@ -880,7 +725,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	@Override
 	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 

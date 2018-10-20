@@ -13,8 +13,7 @@ public class EntityBuckNigerianDwarf extends EntityBuckBase
 		this.goatType = GoatType.NIGERIAN_DWARF;
 		this.setSize(1.2F, 1.2F);
 		this.width = 1.2F;
-		this.dropRaw = ItemHandler.rawChevon;
-		this.dropCooked = ItemHandler.cookedChevon;
+
 	}
 	
 	@Override

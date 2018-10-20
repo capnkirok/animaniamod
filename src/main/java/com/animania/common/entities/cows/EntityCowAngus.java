@@ -11,10 +11,6 @@ public class EntityCowAngus extends EntityCowBase
 	{
 		super(world);
 		this.cowType = CowType.ANGUS;
-		this.dropRaw = ItemHandler.rawPrimeBeef;
-		this.dropCooked = ItemHandler.cookedPrimeBeef;
-		this.oldDropRaw = ItemHandler.rawAngusBeef;
-		this.oldDropCooked = ItemHandler.cookedAngusRoast;
 	}
 	
 	@Override

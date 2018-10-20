@@ -19,8 +19,7 @@ public class EntityBuckAngora extends EntityBuckBase implements IShearable
 		this.goatType = GoatType.ANGORA;
 		this.setSize(1.6F, 1.4F);
 		this.width = 1.6F;
-		this.dropRaw = ItemHandler.rawChevon;
-		this.dropCooked = ItemHandler.cookedChevon;
+
 	}
 	
 	@Override

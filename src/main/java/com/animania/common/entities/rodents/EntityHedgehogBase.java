@@ -34,6 +34,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -217,55 +218,9 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	}
 
 	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
+	protected ResourceLocation getLootTable()
 	{
-		int happyDrops = 0;
-
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops)
-		{
-			String drop = AnimaniaConfig.drops.hedgehogDrop;
-			dropItem = AnimaniaHelper.getItem(drop);
-		}
-		else
-			dropItem = null;
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.hedgehogDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-
-		if (happyDrops == 2)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hedgehogDrop2Amount + lootlevel);
-			}
-		}
-		else if (happyDrops == 1)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hedgehogDrop2Amount + lootlevel);
-			}
-		}
-
+		return new ResourceLocation(Animania.MODID, "hedgehog");
 	}
 
 	@Override

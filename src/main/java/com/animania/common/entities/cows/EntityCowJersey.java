@@ -15,8 +15,7 @@ public class EntityCowJersey extends EntityCowBase
 		super(world);
 		this.cowType = CowType.JERSEY;
 		this.milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkJersey);
-		this.dropRaw = ItemHandler.rawPrimeBeef;
-		this.dropCooked = ItemHandler.cookedPrimeBeef;
+
 	}
 	
 	@Override

@@ -19,8 +19,6 @@ public class EntityRamDorper extends EntityRamBase
 	{
 		super(worldIn);
 		this.sheepType = SheepType.DORPER;
-		this.dropRaw = ItemHandler.rawMutton;
-		this.dropCooked = ItemHandler.cookedMutton;
 	}
 
 	@Override

@@ -12,8 +12,7 @@ public class EntityRabbitDoeHavana extends EntityRabbitDoeBase
 	{
 		super(worldIn);
 		this.rabbitType = RabbitType.HAVANA;
-		this.dropRaw = Items.RABBIT;
-		this.dropCooked = Items.COOKED_RABBIT;
+
 	}
 	
 	@Override

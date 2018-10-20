@@ -2,6 +2,7 @@ package com.animania.common.entities.amphibians;
 
 import java.util.Random;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
@@ -16,6 +17,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -54,6 +56,12 @@ public class EntityToad extends EntityAmphibian
 	protected SoundEvent getDeathSound() {
 		return null;
 	}
+	
+	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return new ResourceLocation(Animania.MODID, "toad");
+	}
 
 	@Override
 	public void playLivingSound() {
@@ -71,28 +79,6 @@ public class EntityToad extends EntityAmphibian
 	@Override
 	protected float getSoundVolume() {
 		return 0.4F;
-	}
-
-	@Override
-	protected void dropFewItems(boolean hit, int lootlevel) {
-
-		ItemStack dropItem;
-		String drop = AnimaniaConfig.drops.toadDrop;
-		dropItem = AnimaniaHelper.getItem(drop);
-		if (dropItem != null) {
-			dropItem.setCount(1 + lootlevel);
-			EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-			world.spawnEntity(entityitem);
-		}
-		
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.toadDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-		
-		if (dropItem2 != null) {
-			this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.toadDrop2Amount + lootlevel);
-		}
-
 	}
 
 	private ItemStack getItem(String moditem) {

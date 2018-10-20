@@ -11,10 +11,7 @@ public class EntityBullJersey extends EntityBullBase
 	{
 		super(world);
 		this.cowType = CowType.JERSEY;
-		this.dropRaw = ItemHandler.rawPrimeBeef;
-		this.dropCooked = ItemHandler.cookedPrimeBeef;
-		this.oldDropRaw = ItemHandler.rawPrimeBeef;
-		this.oldDropCooked = ItemHandler.cookedPrimeBeef;
+
 	}
 	
 	@Override

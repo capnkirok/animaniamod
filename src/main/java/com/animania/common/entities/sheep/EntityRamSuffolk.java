@@ -19,8 +19,6 @@ public class EntityRamSuffolk extends EntityRamBase
 	{
 		super(worldIn);
 		this.sheepType = SheepType.SUFFOLK;
-		this.dropRaw = ItemHandler.rawMutton;
-		this.dropCooked = ItemHandler.cookedMutton;
 	}
 
 	@Override

@@ -10,8 +10,6 @@ public class EntitySowYorkshire extends EntitySowBase
 	{
 		super(world);
 		this.pigType = PigType.YORKSHIRE;
-		this.dropRaw = Items.PORKCHOP;
-		this.dropCooked = Items.COOKED_PORKCHOP;
 	}
 
 	@Override

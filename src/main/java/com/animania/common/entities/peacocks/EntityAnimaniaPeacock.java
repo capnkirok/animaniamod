@@ -35,6 +35,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.AnimalContainer;
@@ -83,7 +84,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	public int blinkTimer;
 	protected int damageTimer;
 	public PeacockType type;
-	protected Item drop = null;
 	private int featherCounter;
 	protected EntityGender gender;
 	public int lidCol;
@@ -327,6 +327,13 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	}
 
 	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return this instanceof EntityPeachickBase ? null : new ResourceLocation(Animania.MODID, "peacocks/peacock_" + this.type.toString().toLowerCase());
+	}
+	
+	
+	@Override
 	public void onLivingUpdate()
 	{
 
@@ -414,7 +421,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 			}
 		}
 
-		if (this instanceof EntityPeacockBase && AnimaniaConfig.drops.chickensDropFeathers)
+		if (this instanceof EntityPeacockBase && AnimaniaConfig.gameRules.chickensDropFeathers)
 		{
 			this.featherCounter--;
 			if (featherCounter <= 0)
@@ -472,6 +479,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		}
 	}
 
+
 	public void setFed(boolean fed)
 	{
 		if (fed)
@@ -509,78 +517,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 	protected void fall(float p_70069_1_)
 	{
-	}
-
-	@Override
-	protected Item getDropItem()
-	{
-		return this.drop;
-	}
-
-	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
-		int happyDrops = 0;
-
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops)
-		{
-			String drop = "";
-			if (type == PeacockType.BLUE)
-				drop = AnimaniaConfig.drops.peacockBlueDrop;
-			if (type == PeacockType.WHITE)
-				drop = AnimaniaConfig.drops.peacockWhiteDrop;
-			if (type == PeacockType.CHARCOAL)
-				drop = AnimaniaConfig.drops.peacockCharcoalDrop;
-			if (type == PeacockType.OPAL)
-				drop = AnimaniaConfig.drops.peacockOpalDrop;
-			if (type == PeacockType.PEACH)
-				drop = AnimaniaConfig.drops.peacockPeachDrop;
-			if (type == PeacockType.PURPLE)
-				drop = AnimaniaConfig.drops.peacockPurpleDrop;
-			if (type == PeacockType.TAUPE)
-				drop = AnimaniaConfig.drops.peacockTaupeDrop;
-			dropItem = AnimaniaHelper.getItem(drop);
-		}
-		else
-			dropItem = new ItemStack(this.drop);
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.peacockDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-
-		if (happyDrops == 2)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.peacockDrop2Amount + lootlevel);
-			}
-		}
-		else if (happyDrops == 1)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.peacockDrop2Amount + lootlevel);
-			}
-		}
-
 	}
 
 	@Override

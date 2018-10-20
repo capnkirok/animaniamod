@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
@@ -40,7 +41,6 @@ import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntityWolf;
@@ -90,8 +90,6 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	protected int wateredTimer;
 	protected int damageTimer;
 	public RabbitType rabbitType;
-	protected Item dropRaw = Items.RABBIT;
-	protected Item dropCooked = Items.COOKED_RABBIT;
 	public GenericAIEatGrass entityAIEatGrass;
 	protected boolean mateable = false;
 	protected EntityGender gender;
@@ -259,7 +257,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	@Override
 	protected ResourceLocation getLootTable()
 	{
-		return null;
+		return this instanceof EntityRabbitKitBase ? null : this.rabbitType.isPrime ? new ResourceLocation(Animania.MODID, "rabbit_prime") : new ResourceLocation(Animania.MODID, "rabbit_prime");
 	}
 
 	public void updateAITasks()
@@ -727,72 +725,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 
 	}
 
-	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
-		int happyDrops = 0;
-
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops && dropRaw != Items.RABBIT && dropCooked != Items.COOKED_RABBIT && dropRaw != Item.getItemFromBlock(Blocks.AIR))
-		{
-			String drop = AnimaniaConfig.drops.rabbitDrop;
-			dropItem = AnimaniaHelper.getItem(drop);
-
-			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
-			{
-				drop = this.dropCooked.getRegistryName().toString();
-				dropItem = AnimaniaHelper.getItem(drop);
-			}
-		}
-		else
-		{
-			dropItem = new ItemStack(this.dropRaw, 1);
-			if (this.isBurning())
-				dropItem = new ItemStack(this.dropCooked, 1);
-		}
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.rabbitDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-		ItemStack dropItem3;
-		String drop3 = AnimaniaConfig.drops.rabbitDrop3;
-		dropItem3 = AnimaniaHelper.getItem(drop3);
-
-		if (happyDrops >= 1)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.rabbitDrop2Amount + lootlevel);
-			}
-			if (dropItem3 != null)
-			{
-				this.dropItem(dropItem3.getItem(), AnimaniaConfig.drops.rabbitDrop3Amount + lootlevel);
-			}
-		}
-		else if (happyDrops == 0)
-		{
-			if (dropItem2 != null && rand.nextBoolean())
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.rabbitDrop2Amount + lootlevel);
-			}
-			if (dropItem3 != null && rand.nextBoolean())
-			{
-				this.dropItem(dropItem3.getItem(), AnimaniaConfig.drops.rabbitDrop3Amount + lootlevel);
-			}
-		}
-
-	}
+	
 
 	static class AIAvoidEntity<T extends Entity> extends GenericAIAvoidEntity<T>
 	{

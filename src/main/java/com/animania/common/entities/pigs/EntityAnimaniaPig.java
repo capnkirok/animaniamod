@@ -25,6 +25,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -33,6 +34,7 @@ import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.UniversalBucket;
 
+import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
@@ -87,10 +89,6 @@ public class EntityAnimaniaPig extends EntityAnimal implements IAnimaniaAnimalBa
 	protected int damageTimer;
 	protected ItemStack slop;
 	protected PigType pigType;
-	protected Item dropRaw = Items.PORKCHOP;
-	protected Item dropCooked = Items.COOKED_PORKCHOP;
-	protected Item oldDropRaw = Items.PORKCHOP;
-	protected Item oldDropCooked = Items.COOKED_PORKCHOP;
 	protected EntityGender gender;
 
 	public EntityAnimaniaPig(World worldIn)
@@ -410,8 +408,15 @@ public class EntityAnimaniaPig extends EntityAnimal implements IAnimaniaAnimalBa
 	}
 
 	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return this instanceof EntityPigletBase ? null : this.pigType.isPrime ? new ResourceLocation(Animania.MODID, "pig_prime") : new ResourceLocation(Animania.MODID, "pig_regular");
+	}
+	
+	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source)
 	{
+		super.dropLoot(wasRecentlyHit, lootingModifier, source);
 		this.dropFewItems(wasRecentlyHit, lootingModifier);
 		this.dropEquipment(wasRecentlyHit, lootingModifier);
 	}
@@ -423,96 +428,6 @@ public class EntityAnimaniaPig extends EntityAnimal implements IAnimaniaAnimalBa
 
 		if (this.getSaddled())
 			this.dropItem(Items.SADDLE, 1);
-	}
-
-	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
-		int happyDrops = 0;
-
-		if (this.getPlayed())
-			happyDrops++;
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops && dropRaw != Items.PORKCHOP && dropCooked != Items.COOKED_PORKCHOP)
-		{
-			String drop = AnimaniaConfig.drops.pigDrop;
-			dropItem = AnimaniaHelper.getItem(drop);
-			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
-			{
-				drop = this.dropCooked.getRegistryName().toString();
-				dropItem = AnimaniaHelper.getItem(drop);
-			}
-		}
-		else
-		{
-			if (AnimaniaConfig.drops.oldMeatDrops)
-			{
-				dropItem = new ItemStack(this.oldDropRaw, 1);
-				if (this.isBurning())
-					dropItem = new ItemStack(this.oldDropCooked, 1);
-			}
-			else
-			{
-				dropItem = new ItemStack(this.dropRaw, 1);
-				if (this.isBurning())
-					dropItem = new ItemStack(this.dropCooked, 1);
-			}
-		}
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.pigDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-
-		if (happyDrops == 3)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(2 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
-			}
-		}
-		else if (happyDrops == 2)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
-			}
-		}
-		else if (happyDrops == 1 && dropItem != null)
-		{
-			if (this.isBurning())
-			{
-				this.dropItem(Items.COOKED_PORKCHOP, 1 + lootlevel);
-				if (dropItem2 != null)
-				{
-					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
-				}
-			}
-			else
-			{
-				this.dropItem(Items.PORKCHOP, 1 + lootlevel);
-				if (dropItem2 != null)
-				{
-					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.pigDrop2Amount + lootlevel);
-				}
-			}
-		}
 	}
 
 	public boolean getSaddled()

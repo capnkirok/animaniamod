@@ -90,6 +90,7 @@ public class LinkComponent implements IManualComponent
 			manual.lastTopic = manual.currentTopic;
 			manual.currentTopic = t;
 			manual.pageIndex = 0;
+			manual.isPrevTopic = false;
 			manual.updateButtons();
 			manual.initComponents();
 		}

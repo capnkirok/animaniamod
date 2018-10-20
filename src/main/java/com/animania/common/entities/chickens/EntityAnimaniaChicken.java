@@ -79,10 +79,6 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	private int featherTimer;
 	protected int damageTimer;
 	public ChickenType type;
-	protected Item dropRaw = Items.CHICKEN;
-	protected Item dropCooked = Items.COOKED_CHICKEN;
-	protected Item oldDropRaw = Items.CHICKEN;
-	protected Item oldDropCooked = Items.COOKED_CHICKEN;
 	public EntityGender gender;
 	public int lidCol;
 	
@@ -253,7 +249,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 
 		this.fallDistance = 0;
 
-		if (!this.world.isRemote && !this.isChild() && AnimaniaConfig.drops.chickensDropFeathers && !this.isChickenJockey() && --this.featherTimer <= 0)
+		if (!this.world.isRemote && !this.isChild() && AnimaniaConfig.gameRules.chickensDropFeathers && !this.isChickenJockey() && --this.featherTimer <= 0)
 		{
 			this.playSound(ModSoundEvents.chickenCluck2, 0.5F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
 			this.dropItem(Items.FEATHER, 1);
@@ -540,83 +536,6 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	{
 		this.dropFewItems(wasRecentlyHit, lootingModifier);
 		this.dropEquipment(wasRecentlyHit, lootingModifier);
-	}
-
-	@Override
-	protected void dropFewItems(boolean hit, int lootlevel)
-	{
-		int happyDrops = 0;
-
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-		ItemStack dropItem;
-
-		if (AnimaniaConfig.drops.customMobDrops)
-		{
-			String drop = AnimaniaConfig.drops.chickenDrop;
-			dropItem = AnimaniaHelper.getItem(drop);
-			if (this.isBurning() && drop.equals(this.dropRaw.getRegistryName().toString()))
-			{
-				drop = this.dropCooked.getRegistryName().toString();
-				dropItem = AnimaniaHelper.getItem(drop);
-			}
-		}
-		else
-		{
-			if (AnimaniaConfig.drops.oldMeatDrops)
-			{
-				dropItem = new ItemStack(this.oldDropRaw, 1);
-				if (this.isBurning())
-					dropItem = new ItemStack(this.oldDropCooked, 1);
-			}
-			else
-			{
-				dropItem = new ItemStack(this.dropRaw, 1);
-				if (this.isBurning())
-					dropItem = new ItemStack(this.dropCooked, 1);
-			}
-		}
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.chickenDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-
-		if (happyDrops == 2)
-		{
-			if (dropItem != null) {
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null) {
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
-			}
-		}
-		else if (happyDrops == 1)
-		{
-			if (this.isBurning())
-			{
-				this.dropItem(Items.COOKED_CHICKEN, 1 + lootlevel);
-				if (dropItem2 != null) {
-					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
-				}
-			}
-			else
-			{
-				this.dropItem(Items.CHICKEN, 1 + lootlevel);
-				if (dropItem2 != null) {
-					this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
-				}
-			}
-		}
-		else if (happyDrops == 0) {
-			if (dropItem2 != null) {
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.chickenDrop2Amount + lootlevel);
-			}
-		}
 	}
 
 	@Override

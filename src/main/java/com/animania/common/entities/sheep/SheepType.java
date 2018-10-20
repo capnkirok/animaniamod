@@ -11,24 +11,26 @@ import net.minecraft.world.World;
 
 public enum SheepType implements AnimaniaType
 {
-	DORPER(EntityRamDorper.class, EntityEweDorper.class, EntityLambDorper.class, null),
-	DORSET(EntityRamDorset.class, EntityEweDorset.class, EntityLambDorset.class, null),
-	FRIESIAN(EntityRamFriesian.class, EntityEweFriesian.class, EntityLambFriesian.class, null),
-	JACOB(EntityRamJacob.class, EntityEweJacob.class, EntityLambJacob.class, null),
-	MERINO(EntityRamMerino.class, EntityEweMerino.class, EntityLambMerino.class, null),
-	SUFFOLK(EntityRamSuffolk.class, EntityEweSuffolk.class, EntityLambSuffolk.class, null);
+	DORPER(EntityRamDorper.class, EntityEweDorper.class, EntityLambDorper.class, null, true),
+	DORSET(EntityRamDorset.class, EntityEweDorset.class, EntityLambDorset.class, null, true),
+	FRIESIAN(EntityRamFriesian.class, EntityEweFriesian.class, EntityLambFriesian.class, null, false),
+	JACOB(EntityRamJacob.class, EntityEweJacob.class, EntityLambJacob.class, null, false),
+	MERINO(EntityRamMerino.class, EntityEweMerino.class, EntityLambMerino.class, null, false),
+	SUFFOLK(EntityRamSuffolk.class, EntityEweSuffolk.class, EntityLambSuffolk.class, null, true);
 	
 	private Class male;
 	private Class female;
 	private Class child;
 	private StatBase achievement;
+	public boolean isPrime;
 	
-	private SheepType(Class male, Class female, Class child, StatBase achievement)
+	private SheepType(Class male, Class female, Class child, StatBase achievement, boolean prime)
 	{
 		this.male = male;
 		this.female = female;
 		this.child = child;
 		this.achievement = achievement;
+		this.isPrime = prime;
 	}
 	
 	@Override

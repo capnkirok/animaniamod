@@ -957,53 +957,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
-		int happyDrops = 0;
-
-		if (this.getWatered())
-			happyDrops++;
-		if (this.getFed())
-			happyDrops++;
-
-		ItemStack dropItem;
-		if (AnimaniaConfig.drops.customMobDrops)
-		{
-			String drop = AnimaniaConfig.drops.hamsterDrop;
-			dropItem = AnimaniaHelper.getItem(drop);
-		}
-		else
-			dropItem = null;
-
-		ItemStack dropItem2;
-		String drop2 = AnimaniaConfig.drops.hamsterDrop2;
-		dropItem2 = AnimaniaHelper.getItem(drop2);
-
-		if (happyDrops == 2)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hamsterDrop2Amount + lootlevel);
-			}
-		}
-		else if (happyDrops == 1)
-		{
-			if (dropItem != null)
-			{
-				dropItem.setCount(1 + lootlevel);
-				EntityItem entityitem = new EntityItem(this.world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, dropItem);
-				world.spawnEntity(entityitem);
-			}
-			if (dropItem2 != null)
-			{
-				this.dropItem(dropItem2.getItem(), AnimaniaConfig.drops.hamsterDrop2Amount + lootlevel);
-			}
-		}
-
 		if (this.isInBall())
 		{
 			int color = this.getBallColor();
@@ -1013,7 +966,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				this.entityDropItem(new ItemStack(ItemHandler.hamsterBallColored, 1, color), 0f);
 
 		}
-
+	}
+	
+	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return new ResourceLocation(Animania.MODID, "hamster");
 	}
 
 	private ItemStack getItem(String moditem)
@@ -1389,7 +1347,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public void setSleepingPos(BlockPos pos)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -1398,7 +1356,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public int getBlinkTimer()
 	{

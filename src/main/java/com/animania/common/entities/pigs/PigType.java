@@ -10,23 +10,25 @@ import net.minecraft.world.World;
 
 public enum PigType implements AnimaniaType
 {
-	DUROC(EntityHogDuroc.class, EntitySowDuroc.class, EntityPigletDuroc.class),
-	HAMPSHIRE(EntityHogHampshire.class, EntitySowHampshire.class, EntityPigletHampshire.class),
-	LARGE_BLACK(EntityHogLargeBlack.class, EntitySowLargeBlack.class, EntityPigletLargeBlack.class),
-	LARGE_WHITE(EntityHogLargeWhite.class, EntitySowLargeWhite.class, EntityPigletLargeWhite.class),
-	OLD_SPOT(EntityHogOldSpot.class, EntitySowOldSpot.class, EntityPigletOldSpot.class),
-	YORKSHIRE(EntityHogYorkshire.class, EntitySowYorkshire.class, EntityPigletYorkshire.class);
+	DUROC(EntityHogDuroc.class, EntitySowDuroc.class, EntityPigletDuroc.class, true),
+	HAMPSHIRE(EntityHogHampshire.class, EntitySowHampshire.class, EntityPigletHampshire.class, true),
+	LARGE_BLACK(EntityHogLargeBlack.class, EntitySowLargeBlack.class, EntityPigletLargeBlack.class, true),
+	LARGE_WHITE(EntityHogLargeWhite.class, EntitySowLargeWhite.class, EntityPigletLargeWhite.class, false),
+	OLD_SPOT(EntityHogOldSpot.class, EntitySowOldSpot.class, EntityPigletOldSpot.class, true),
+	YORKSHIRE(EntityHogYorkshire.class, EntitySowYorkshire.class, EntityPigletYorkshire.class, false);
 
 
 	private Class hog;
 	private Class sow;
 	private Class piglet;
+	public boolean isPrime;
 
-	private PigType(Class hog, Class sow, Class piglet)
+	private PigType(Class hog, Class sow, Class piglet, boolean isPrime)
 	{
 		this.hog = hog;
 		this.sow = sow;
 		this.piglet = piglet;
+		this.isPrime = isPrime;
 	}
 
 	@Override

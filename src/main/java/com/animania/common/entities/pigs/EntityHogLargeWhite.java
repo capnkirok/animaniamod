@@ -10,8 +10,6 @@ public class EntityHogLargeWhite extends EntityHogBase
 	{
 		super(world);
 		this.pigType = PigType.LARGE_WHITE;
-		this.dropRaw = Items.PORKCHOP;
-		this.dropCooked = Items.COOKED_PORKCHOP;
 	}
 	
 	@Override

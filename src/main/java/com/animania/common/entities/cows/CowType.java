@@ -10,24 +10,26 @@ import net.minecraft.world.World;
 
 public enum CowType implements AnimaniaType
 {
-	ANGUS(EntityBullAngus.class, EntityCowAngus.class, EntityCalfAngus.class),
-	FRIESIAN(EntityBullFriesian.class, EntityCowFriesian.class, EntityCalfFriesian.class),
-	HEREFORD(EntityBullHereford.class, EntityCowHereford.class, EntityCalfHereford.class),
-	HOLSTEIN(EntityBullHolstein.class, EntityCowHolstein.class, EntityCalfHolstein.class),
-	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class),
-	HIGHLAND(EntityBullHighland.class, EntityCowHighland.class, EntityCalfHighland.class),
-	JERSEY(EntityBullJersey.class, EntityCowJersey.class, EntityCalfJersey.class),
-	MOOSHROOM(EntityBullMooshroom.class, EntityCowMooshroom.class, EntityCalfMooshroom.class);
+	ANGUS(EntityBullAngus.class, EntityCowAngus.class, EntityCalfAngus.class, true),
+	FRIESIAN(EntityBullFriesian.class, EntityCowFriesian.class, EntityCalfFriesian.class, false),
+	HEREFORD(EntityBullHereford.class, EntityCowHereford.class, EntityCalfHereford.class, true),
+	HOLSTEIN(EntityBullHolstein.class, EntityCowHolstein.class, EntityCalfHolstein.class, false),
+	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class, true),
+	HIGHLAND(EntityBullHighland.class, EntityCowHighland.class, EntityCalfHighland.class, true),
+	JERSEY(EntityBullJersey.class, EntityCowJersey.class, EntityCalfJersey.class, true),
+	MOOSHROOM(EntityBullMooshroom.class, EntityCowMooshroom.class, EntityCalfMooshroom.class, false);
 
 	private Class bull;
 	private Class cow;
 	private Class calf;
-
-	private CowType(Class bull, Class cow, Class calf)
+	public boolean isPrime;
+	
+	private CowType(Class bull, Class cow, Class calf, boolean prime)
 	{
 		this.bull = bull;
 		this.cow = cow;
 		this.calf = calf;
+		this.isPrime = prime;
 	}
 
 	@Override

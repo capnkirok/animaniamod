@@ -1,5 +1,6 @@
 package com.animania.common.entities.cows;
 
+import com.animania.Animania;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.item.EntityItem;
@@ -11,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
@@ -23,8 +25,6 @@ public class EntityCowMooshroom extends EntityCowBase
 	{
 		super(world);
 		this.cowType = CowType.MOOSHROOM;
-		this.dropRaw = Items.BEEF;
-		this.dropCooked = Items.COOKED_BEEF;
 	}
 	
 	
@@ -62,6 +62,12 @@ public class EntityCowMooshroom extends EntityCowBase
 	public int getSecondaryEggColor()
 	{
 		return 12627887;
+	}
+	
+	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return new ResourceLocation(Animania.MODID, "cow_mooshroom");
 	}
 
 }

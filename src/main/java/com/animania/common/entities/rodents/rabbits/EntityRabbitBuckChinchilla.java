@@ -11,8 +11,6 @@ public class EntityRabbitBuckChinchilla extends EntityRabbitBuckBase
 	{
 		super(worldIn);
 		this.rabbitType = RabbitType.CHINCHILLA;
-		this.dropRaw = ItemHandler.rawRabbit;
-		this.dropCooked = ItemHandler.cookedRabbit;
 	}
 	
 	@Override

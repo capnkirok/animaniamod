@@ -16,8 +16,6 @@ public class EntityCowFriesian extends EntityCowBase
 		super(world);
 		this.cowType = CowType.FRIESIAN;
 		this.milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
-		this.dropRaw = Items.BEEF;
-		this.dropCooked = Items.COOKED_BEEF;
 	}
 	
 	@Override

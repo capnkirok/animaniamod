@@ -19,8 +19,6 @@ public class EntityEweDorset extends EntityEweBase
 	{
 		super(worldIn);
 		this.sheepType = SheepType.DORSET;
-		this.dropRaw = ItemHandler.rawMutton;
-		this.dropCooked = ItemHandler.cookedMutton;
 	}
 	
 	@Override
