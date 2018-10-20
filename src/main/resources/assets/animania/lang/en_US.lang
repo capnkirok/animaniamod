@@ -433,6 +433,8 @@ text.jei.salt=Salt is created by letting Water evaporate in a cheese mold.
 
 text.cheesemold.milk=You cannot make cheese using vanilla milk! Use any Animania milk!
 
+text.error.invalidbiometype= biome type not found. Please review valid Biome Types in BiomeDictionary.
+
 advancements.animania.root.title=Animania
 advancements.animania.root.desc=Animania, the realistic animals mod
 advancements.animania.cows.title=Cows

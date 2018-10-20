@@ -43,7 +43,7 @@ public class EventBeehiveDecorator {
 				}
 			}
 
-			if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && (event.getType() == EventType.TREE) && event.getRand().nextInt(10) < frequencyBeehives && isCorrectBiome) { 
+			if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && (event.getType() == EventType.TREE) && event.getRand().nextInt(500) < frequencyBeehives && isCorrectBiome) { 
 
 				int x = event.getPos().getX() + 8;
 				int z = event.getPos().getZ() + 8;
