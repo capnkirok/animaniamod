@@ -257,7 +257,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	@Override
 	protected ResourceLocation getLootTable()
 	{
-		return this instanceof EntityRabbitKitBase ? null : this.rabbitType.isPrime ? new ResourceLocation(Animania.MODID, "rabbit_prime") : new ResourceLocation(Animania.MODID, "rabbit_prime");
+		return this instanceof EntityRabbitKitBase ? null : this.rabbitType.isPrime ? new ResourceLocation(Animania.MODID, "rabbit_prime") : new ResourceLocation(Animania.MODID, "rabbit_regular");
 	}
 
 	public void updateAITasks()

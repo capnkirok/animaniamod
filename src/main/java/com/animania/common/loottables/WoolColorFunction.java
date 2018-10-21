@@ -11,6 +11,7 @@ import com.google.gson.JsonSerializationContext;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
@@ -29,12 +30,14 @@ public class WoolColorFunction extends LootFunction
 
 		if (e instanceof EntityAnimaniaSheep)
 		{
+			boolean isSheared = ((EntityAnimaniaSheep) e).getSheared();
+			
 			List<ItemStack> stacks = ((EntityAnimaniaSheep) e).onSheared(ItemStack.EMPTY, e.world, e.getPosition(), 0);
 			if (stacks != null && !stacks.isEmpty())
 			{
-				if(((EntityAnimaniaSheep) e).getSheared())
+				if (isSheared)
 					return ItemStack.EMPTY;
-				
+
 				ItemStack s = stacks.get(0);
 				s.setCount(1);
 				return s;
