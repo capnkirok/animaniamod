@@ -509,12 +509,6 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		return resourceLocationBlink;
 	}
 
-	@Override
-	protected Item getDropItem()
-	{
-		return Items.RABBIT_FOOT;
-	}
-
 	private void calculateRotationYaw(double x, double z)
 	{
 		this.rotationYaw = (float) (MathHelper.atan2(z - this.posZ, x - this.posX) * (180D / Math.PI)) - 90.0F;

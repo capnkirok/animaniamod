@@ -157,10 +157,10 @@ public class GuiManual extends GuiScreen
 		for (IManualComponent c : p.getComponents())
 			c.draw(mouseX, mouseY, partialTicks);
 
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		
 		for (IManualComponent c : p.getComponents())
 			c.drawLater(mouseX, mouseY, partialTicks);
-
-		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
 	public void updateButtons()

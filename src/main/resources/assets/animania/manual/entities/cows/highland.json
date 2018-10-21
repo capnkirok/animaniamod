@@ -6,7 +6,7 @@
     "@entity@animania:bull_highland",
     "advancements.animania.highland.title",
     "@text@manual.cows.meat.1#prevline",
-    "@configitem@general.drops;cowDrop,general.drops;cowDrop2",
+    "@entitydrops@animania:cow_prime",
     "manual.cows.meat.2",
     "manual.cows.others",
     "@entity@animania:cow_highland",

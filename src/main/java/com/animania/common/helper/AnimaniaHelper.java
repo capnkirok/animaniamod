@@ -1,5 +1,7 @@
 package com.animania.common.helper;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +15,16 @@ import com.animania.config.AnimaniaConfig;
 import com.animania.network.client.TileEntitySyncPacket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -327,7 +332,7 @@ public class AnimaniaHelper
 			String s = types[i].toUpperCase();
 			bt[i] = Type.getType(s);
 		}
-		
+
 		return bt;
 	}
 
@@ -447,6 +452,40 @@ public class AnimaniaHelper
 		}
 
 		return recipes;
+	}
+
+	public static ItemStack[] getItemsForLoottable(ResourceLocation table)
+	{
+		List<ItemStack> stacks = new ArrayList<ItemStack>();
+		
+		table = new ResourceLocation(table.getResourceDomain(), "loot_tables/" + table.getResourcePath() + ".json");
+		
+		try
+		{
+			InputStream stream = Minecraft.getMinecraft().getResourceManager().getResource(table).getInputStream();
+			JsonParser parser = new JsonParser();
+			JsonObject base = (JsonObject) parser.parse(new InputStreamReader(stream));
+			JsonArray pools = base.getAsJsonArray("pools");
+			for(int i = 0; i < pools.size(); i++)
+			{
+				JsonArray entries = pools.get(i).getAsJsonObject().getAsJsonArray("entries");
+				for(int k = 0; k < entries.size(); k++)
+				{
+					String name = entries.get(k).getAsJsonObject().get("name").getAsString();
+					Item item = Item.getByNameOrId(name);
+					if(item != null)
+					{
+						stacks.add(new ItemStack(item));
+					}
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return stacks.toArray(new ItemStack[stacks.size()]);
 	}
 
 }

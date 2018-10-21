@@ -361,6 +361,38 @@ public class ManualResourceLoader
 			ItemComponent i = new ItemComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, stacks);
 			return getList(i);
 		}
+		else if (s.startsWith("@entitydrops@"))
+		{
+			s = s.replace("@entitydrops@", "");
+			ItemStack[] stacks = AnimaniaHelper.getItemsForLoottable(new ResourceLocation(s));
+			if (stacks.length > 6)
+			{
+				List<IManualComponent> itemComps = new ArrayList<IManualComponent>();
+				List<ItemStack[]> splitStacks = new ArrayList<ItemStack[]>();
+
+				while (stacks.length > 6)
+				{
+					ItemStack[] sA = new ItemStack[6];
+					System.arraycopy(stacks, 0, sA, 0, 6);
+					splitStacks.add(sA);
+					ItemStack[] rest = new ItemStack[stacks.length - 6];
+					System.arraycopy(stacks, 6, rest, 0, stacks.length - 6);
+					stacks = rest;
+				}
+				if (stacks.length > 0)
+					splitStacks.add(stacks);
+
+				for (ItemStack[] split : splitStacks)
+				{
+					ItemComponent iC = new ItemComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, split);
+					itemComps.add(iC);
+					offsetY = iC.getY() + iC.getObjectHeight();
+				}
+				return itemComps;
+			}
+			ItemComponent i = new ItemComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, stacks);
+			return getList(i);
+		}
 		else if (s.startsWith("@configitem@"))
 		{
 			s = s.replace("@configitem@", "");

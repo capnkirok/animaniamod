@@ -575,7 +575,7 @@ advancements.animania.pepe.title=Pepe
 advancements.animania.pepe.description=A classic
 
 manual.page.next=Next Page
-manual.page.previous=Previous page
+manual.page.previous=Previous Page
 manual.topic.previous=Previous Topic
 
 manual.startpage.title=Animania Manual
@@ -589,6 +589,7 @@ manual.items.items.title=Items
 manual.items.food.title=Food
 manual.basic.and=and
 manual.beehive_nest=bee hives or nests.
+manual.meats=Animal Meats
 
 manual.blocks.trough.1=The trough is one of the most important blocks to keep your farm healthy. They are used to provide your animals with food and water. Troughs can be filled with Water,
 manual.blocks.trough.2=and the following items:
@@ -614,13 +615,15 @@ manual.blocks.straw.1=Straw is the favorite sleeping block for most animals. Usi
 
 manual.food.honey.1=Honey is generated using
 manual.food.honey.2=To collect the honey, right click the hive or nest with an empty bottle. The honey can be consumed or used to make sugar.
+manual.food.meats.1=Most animals in Animania drop meats by default. Certain breeds drop prime meat variants. All raw meats can be cooked to increase their nutritional value. Cooked meats (animania food in general) will give you special potion effects, if the "foodsGiveBonusEffects" config option is enabled. Currently, it is set to
+manual.food.meats.2=These are all the available meats:
+manual.food.meats.3=Some meats can also be cut into smaller sizes:
 
 manual.cows.meat.1= cows are meat cows. While the females still give milk, it is inferior to the milk of milk cows. Therefore, it cannot be made into cheese. When killed, they drop these items:
 manual.cows.meat.2=They drop more if they are well fed.
-manual.cows.milk.1= cows are milk cows. Their high-quality milk can be used to make tasty cheese! When killed, like meat cows, they drop
-manual.cows.milk.2=but they also drop
+manual.cows.milk.1= cows are milk cows. Their high-quality milk can be used to make tasty cheese! When killed, like meat cows, they drop these items:
 manual.cows.others=The cows and calves look like this:
 manual.cows.jersey.1= cows are very special. They can be bred for both meat and dairy. Their milk can be used for making cheese, and they drop these items:
-manual.cows.mooshroom.1= cows are very similar to milk cows, but the liquid they produce is not milk but mushroom stew. Therefore you also need a bowl to milk them. They can be turned into Friesian cows by right clicking them with shears. Like milk cows, they drop
+manual.cows.mooshroom.1= cows are very similar to milk cows, but the liquid they produce is not milk but mushroom stew. Therefore you also need a bowl to milk them. They can be turned into Friesian cows by right clicking them with shears. They drop these items:
 manual.cows.general.1=Cows are some of the popular animals on farms, and for good reason. They produce milk, meat and leather. Like most mammals, cows sleep during the night. They can be attached to leashes by the player. These are their food items:
 manual.cows.general.2=Be careful when attacking bulls, as they will fight back viciously!
