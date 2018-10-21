@@ -327,6 +327,7 @@ public class AnimaniaHelper
 			String s = types[i].toUpperCase();
 			bt[i] = Type.getType(s);
 		}
+		
 		return bt;
 	}
 
