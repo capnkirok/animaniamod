@@ -27,8 +27,8 @@ public class EventBeehiveDecorator {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onWorldDecoration(DecorateBiomeEvent.Decorate event) {
 
-		if (AnimaniaConfig.gameRules.beehiveSpawning) {
-			int frequencyBeehives = AnimaniaConfig.gameRules.beehiveSpawningFrequency;
+		if (AnimaniaConfig.gameRules.hiveSpawning) {
+			int frequencyBeehives = AnimaniaConfig.gameRules.hiveSpawningFrequency;
 			if (frequencyBeehives < 0) {
 				frequencyBeehives = 0;
 			} else if (frequencyBeehives > 10) {
@@ -43,7 +43,7 @@ public class EventBeehiveDecorator {
 				}
 			}
 
-			if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && (event.getType() == EventType.TREE) && event.getRand().nextInt(500) < frequencyBeehives && isCorrectBiome) { 
+			if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && (event.getType() == EventType.TREE) && event.getRand().nextInt(200) < frequencyBeehives && isCorrectBiome) { 
 
 				int x = event.getPos().getX() + 8;
 				int z = event.getPos().getZ() + 8;
