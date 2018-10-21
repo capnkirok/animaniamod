@@ -116,10 +116,10 @@ public class CommonConfig
 		public boolean fancyEggsRotate = false;
 
 		@Comment("Allow Beehives during world gen")
-		public boolean beehiveSpawning = true;
+		public boolean hiveSpawning = true;
 
 		@Comment("Frequency of Beehives (1-10)")
-		public int beehiveSpawningFrequency = 3;
+		public int hiveSpawningFrequency = 3;
 
 		@Comment("Honey creation rate for wild hives")
 		public int hiveWildHoneyRate = 700;
@@ -483,7 +483,7 @@ public class CommonConfig
 		@Comment("BiomeDictionary types for spawning Dorper Sheep")
 		public String[] sheepDorperBiomeTypes = new String[]
 				{
-						"SANVANNA",
+						"SAVANNA",
 				};
 
 		//RABBITS
@@ -522,7 +522,7 @@ public class CommonConfig
 		@Comment("BiomeDictionary types for spawning Rex Rabbits")
 		public String[] rabbitRexBiomeTypes = new String[]
 				{
-						"SANVANNA",
+						"SAVANNA",
 				};
 		@Comment("BiomeDictionary types for spawning Lop Rabbits")
 		public String[] rabbitLopBiomeTypes = new String[]
@@ -585,7 +585,7 @@ public class CommonConfig
 		@Comment("Ticks between feedings")
 		public int feedTimer = 12000;
 		@Comment("Ticks between drinking water")
-		public int waterTimer = 400; //TODO Testing
+		public int waterTimer = 12000; 
 		@Comment("Ticks between playing")
 		public int playTimer = 12000;
 		@Comment("Ticks between laying eggs")
