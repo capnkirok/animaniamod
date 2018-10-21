@@ -34,6 +34,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.AnimalContainer;
@@ -169,6 +170,12 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		return this.resourceLocationBlink;
 	}
 
+	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return this instanceof EntityChickBase ? null : this.type.isPrime ? new ResourceLocation(Animania.MODID, "chicken_prime") : new ResourceLocation(Animania.MODID, "chicken_regular");
+	}
+	
 	@Override
 	protected void applyEntityAttributes()
 	{
@@ -523,19 +530,6 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	public EntityChicken createChild(EntityAgeable ageable)
 	{
 		return null;
-	}
-
-	@Override
-	protected Item getDropItem()
-	{
-		return Items.FEATHER;
-	}
-
-	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source)
-	{
-		this.dropFewItems(wasRecentlyHit, lootingModifier);
-		this.dropEquipment(wasRecentlyHit, lootingModifier);
 	}
 
 	@Override
