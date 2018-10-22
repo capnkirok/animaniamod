@@ -34,16 +34,6 @@ public class RenderKitCottontail<T extends EntityRabbitKitCottontail> extends Re
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x896E58));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderKitCottontail.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderKitCottontail.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitKitCottontail entity, float f)
 	{
 		float age = entity.getEntityAge();

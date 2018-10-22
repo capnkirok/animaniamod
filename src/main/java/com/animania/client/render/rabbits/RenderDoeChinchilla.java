@@ -34,16 +34,6 @@ public class RenderDoeChinchilla<T extends EntityRabbitDoeChinchilla> extends Re
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x9E9E9E));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderDoeChinchilla.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderDoeChinchilla.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitDoeChinchilla entity, float f)
 	{
 		GL11.glScalef(0.59F, 0.59F, 0.59F);

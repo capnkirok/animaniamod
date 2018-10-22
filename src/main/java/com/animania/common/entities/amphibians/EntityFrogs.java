@@ -66,7 +66,6 @@ public class EntityFrogs extends EntityAmphibian
 	protected void entityInit()
 	{
 		super.entityInit();
-
 		this.dataManager.register(EntityFrogs.FROGS_TYPE, Integer.valueOf(this.rand.nextInt(2)));
 	}
   

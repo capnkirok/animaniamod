@@ -34,16 +34,6 @@ public class RenderKitRex<T extends EntityRabbitKitRex> extends RenderLiving<T>
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x574133));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderKitRex.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderKitRex.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitKitRex entity, float f)
 	{
 		float age = entity.getEntityAge();

@@ -34,16 +34,6 @@ public class RenderDoeHavana<T extends EntityRabbitDoeHavana> extends RenderLivi
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x404040));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderDoeHavana.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderDoeHavana.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitDoeHavana entity, float f)
 	{
 		GL11.glScalef(0.56F, 0.56F, 0.56F);

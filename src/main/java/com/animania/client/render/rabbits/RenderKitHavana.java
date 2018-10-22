@@ -34,16 +34,6 @@ public class RenderKitHavana<T extends EntityRabbitKitHavana> extends RenderLivi
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x404040));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderKitHavana.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderKitHavana.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitKitHavana entity, float f)
 	{
 		float age = entity.getEntityAge();

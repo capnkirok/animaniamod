@@ -33,17 +33,7 @@ public class RenderBuckChinchilla<T extends EntityRabbitBuckChinchilla> extends 
 		super(rm, new ModelChinchilla(), 0.25F);
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x9E9E9E));
 	}
-
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderBuckChinchilla.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderBuckChinchilla.rabbitTexturesBlink;
-	}
-
+	
 	protected void preRenderScale(EntityRabbitBuckChinchilla entity, float f)
 	{
 		GL11.glScalef(0.57F, 0.57F, 0.57F);

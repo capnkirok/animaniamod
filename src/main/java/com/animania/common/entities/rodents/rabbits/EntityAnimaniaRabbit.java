@@ -21,7 +21,11 @@ import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
+import com.animania.common.entities.rodents.EntityFerretBase;
+import com.animania.common.entities.rodents.EntityHedgehog;
+import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.entities.rodents.ai.EntityAISleepRabbits;
+import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -35,10 +39,15 @@ import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIMoveToBlock;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.monster.EntityMob;
@@ -106,27 +115,40 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
-		this.tasks.addTask(3, new GenericAIPanic(this, 2.5D));
+
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(2, new GenericAIFindWater(this, 1.4D, entityAIEatGrass, EntityAnimaniaRabbit.class, true));
 			this.tasks.addTask(3, new GenericAIFindFood(this, 1.4D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.8D));
-		this.tasks.addTask(5, new GenericAISwim(this));
-		this.tasks.addTask(7, new GenericAITempt(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
-		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityWolf.class, 24.0F, 3.0D, 3.5D));
-		this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
-		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new GenericAILookIdle(this));
-		this.tasks.addTask(11, new GenericAIAvoidWater(this));
-		if (AnimaniaConfig.gameRules.animalsSleep)
-		{
-			this.tasks.addTask(12, new EntityAISleepRabbits(this, 0.8));
+
+		if (!this.getCustomNameTag().equals("Killer")) {
+			this.tasks.addTask(3, new GenericAIPanic(this, 2.5D));
+			this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.8D));
+			this.tasks.addTask(5, new GenericAISwim(this));
+			this.tasks.addTask(7, new GenericAITempt(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
+			this.tasks.addTask(8, this.entityAIEatGrass);
+			this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityWolf.class, 24.0F, 3.0D, 3.5D));
+			this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
+			this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+			this.tasks.addTask(11, new GenericAILookIdle(this));
+			this.tasks.addTask(11, new GenericAIAvoidWater(this));
+			this.targetTasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
+			if (AnimaniaConfig.gameRules.animalsSleep)
+			{
+				this.tasks.addTask(12, new EntityAISleepRabbits(this, 0.8));
+			}
+		} else {
+			this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.7F));
+			this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
+			this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
+			this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
+			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+			this.setHealth(50);	
 		}
-		this.targetTasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(1, new GenericAIHurtByTarget(this, true, EntityPlayer.class));
+
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -136,6 +158,19 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		this.jumpHelper = new EntityAnimaniaRabbit.RabbitJumpHelper(this);
 		this.moveHelper = new EntityAnimaniaRabbit.RabbitMoveHelper(this);
 		this.setMovementSpeed(0.0D);
+	}
+
+	protected void resetAI() {
+
+		this.tasks.taskEntries.clear();
+		this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.7F));
+		this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
+		this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+		this.setHealth(50);
 	}
 
 	protected void applyEntityAttributes()
@@ -149,6 +184,47 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	public void setPosition(double x, double y, double z)
 	{
 		super.setPosition(x, y, z);
+	}
+
+	@Override
+	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
+	{
+		super.setAttackTarget(entitylivingbaseIn);
+	}
+
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount)
+	{
+
+		if (this.getSleeping())
+		{
+			this.setSleeping(false);
+		}
+
+		if (this.isEntityInvulnerable(source))
+			return false;
+		else
+			return super.attackEntityFrom(source, amount);
+	}
+
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn)
+	{
+		boolean flag = entityIn.attackEntityFrom(DamageSourceHandler.killerRabbitDamage, 5.0F);
+		entityIn.attackEntityFrom(DamageSourceHandler.killerRabbitDamage, 5.0F);
+
+		if (flag)
+		{
+			this.applyEnchantments(this, entityIn);
+		}
+
+		// Custom Knockback
+		if (entityIn instanceof EntityPlayer)
+		{
+			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+		}
+
+		return flag;
 	}
 
 	protected float getJumpUpwardsMotion()
@@ -635,8 +711,36 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
+
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG)
 		{
+			if (!stack.hasDisplayName())
+			{
+				return false;
+			}
+			else
+			{
+				EntityLiving entityliving = (EntityLiving) this;
+				entityliving.setCustomNameTag(stack.getDisplayName());
+
+				entityliving.enablePersistence();
+				if (!player.capabilities.isCreativeMode)
+				{
+					stack.shrink(1);
+				}
+
+				if (stack.getDisplayName().equals("Killer"))
+				{
+					this.resetAI();
+					this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+					this.setHealth(50);
+				}
+
+			}
+
+
+		} else if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping()) {
+
 			if (!player.isCreative())
 			{
 				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
@@ -651,13 +755,12 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.setInLove(player);
 			return true;
 
-		}
-		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && !this.getSleeping())
-		{
+		} else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && !this.getSleeping()) {
 			return false;
-		}
-		else
+		} else {
 			return super.processInteract(player, hand);
+		}
+		return super.processInteract(player, hand);
 	}
 
 	@Override
@@ -719,7 +822,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 
 	}
 
-	
+
 
 	static class AIAvoidEntity<T extends Entity> extends GenericAIAvoidEntity<T>
 	{
@@ -737,7 +840,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		public boolean shouldExecute()
 		{
 			return true; // this.entityInstance.getRabbitType() != 99 &&
-							// super.shouldExecute();
+			// super.shouldExecute();
 		}
 	}
 
@@ -1122,13 +1225,13 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public int getBlinkTimer()
 	{
 		return blinkTimer;
 	}
-	
+
 	@Override
 	public Class[] getFoodBlocks()
 	{

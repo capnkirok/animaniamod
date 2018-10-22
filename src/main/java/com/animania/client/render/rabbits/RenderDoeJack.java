@@ -33,17 +33,7 @@ public class RenderDoeJack<T extends EntityRabbitDoeJack> extends RenderLiving<T
 		super(rm, new ModelJack(), 0.25F);
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x938375));
 	}
-
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderDoeJack.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderDoeJack.rabbitTexturesBlink;
-	}
-
+	
 	protected void preRenderScale(EntityRabbitDoeJack entity, float f)
 	{
 		GL11.glScalef(0.57F, 0.57F, 0.57F);
