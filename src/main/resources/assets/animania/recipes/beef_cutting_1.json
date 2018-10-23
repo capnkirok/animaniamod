@@ -6,13 +6,13 @@
 		 "data": 32767
       },
 	  {
-		"item": "animania:raw_angus_beef"
+		"item": "animania:raw_prime_beef"
 	  }
    ],
    "result": {
-      "item": "animania:raw_angus_steak",
+      "item": "animania:raw_prime_steak",
       "data": 0,
-      "count": 5
+      "count": 4
    },
    "group": "beef_cutting"
 }

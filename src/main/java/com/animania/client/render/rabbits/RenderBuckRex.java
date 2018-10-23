@@ -34,16 +34,6 @@ public class RenderBuckRex<T extends EntityRabbitBuckRex> extends RenderLiving<T
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x574133));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderBuckRex.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderBuckRex.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitBuckRex entity, float f)
 	{
 		GL11.glScalef(0.54F, 0.54F, 0.54F);

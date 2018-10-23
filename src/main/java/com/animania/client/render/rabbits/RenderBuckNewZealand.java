@@ -26,6 +26,7 @@ public class RenderBuckNewZealand<T extends EntityRabbitBuckNewZealand> extends 
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_new_zealand.png");
 	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
+	private static final ResourceLocation killerRabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_killer.png");
 	Random rand = new Random();
 
 	public RenderBuckNewZealand(RenderManager rm)
@@ -34,19 +35,15 @@ public class RenderBuckNewZealand<T extends EntityRabbitBuckNewZealand> extends 
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0xF4F2F2));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderBuckNewZealand.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderBuckNewZealand.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitBuckNewZealand entity, float f)
 	{
-		GL11.glScalef(0.57F, 0.57F, 0.57F);
+
+		if (entity.getCustomNameTag().equals("Killer")) {
+			GlStateManager.scale(0.7D, 0.7D, 0.7D);
+		} else {	
+			GL11.glScalef(0.57F, 0.57F, 0.57F);
+		}
+		
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		double x = entity.posX;
 		double y = entity.posY;
@@ -81,7 +78,11 @@ public class RenderBuckNewZealand<T extends EntityRabbitBuckNewZealand> extends 
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.rabbitTextures;
+		if (entity.getCustomNameTag().trim().equals("Killer")) {
+			return RenderBuckNewZealand.killerRabbitTextures;
+		} else {
+			return RenderBuckNewZealand.rabbitTextures;
+		}
 	}
 
 	static class Factory<T extends EntityRabbitBuckNewZealand> implements IRenderFactory<T>

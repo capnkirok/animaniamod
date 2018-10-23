@@ -34,16 +34,6 @@ public class RenderBuckJack<T extends EntityRabbitBuckJack> extends RenderLiving
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x938375));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderBuckJack.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderBuckJack.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitBuckJack entity, float f)
 	{
 		GL11.glScalef(0.56F, 0.56F, 0.56F);

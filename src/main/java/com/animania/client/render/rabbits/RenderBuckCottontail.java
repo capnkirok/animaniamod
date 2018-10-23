@@ -35,16 +35,6 @@ public class RenderBuckCottontail<T extends EntityRabbitBuckCottontail> extends 
 		
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderBuckCottontail.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderBuckCottontail.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitBuckCottontail entity, float f)
 	{
 		GL11.glScalef(0.52F, 0.52F, 0.52F);

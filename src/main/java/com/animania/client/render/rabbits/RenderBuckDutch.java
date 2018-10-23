@@ -34,16 +34,6 @@ public class RenderBuckDutch<T extends EntityRabbitBuckDutch> extends RenderLivi
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x404040));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderBuckDutch.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderBuckDutch.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitBuckDutch entity, float f)
 	{
 		GL11.glScalef(0.52F, 0.52F, 0.52F);

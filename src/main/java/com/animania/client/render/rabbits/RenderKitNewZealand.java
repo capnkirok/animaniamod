@@ -35,16 +35,6 @@ public class RenderKitNewZealand<T extends EntityRabbitKitNewZealand> extends Re
 
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderKitNewZealand.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderKitNewZealand.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitKitNewZealand entity, float f)
 	{
 		float age = entity.getEntityAge();

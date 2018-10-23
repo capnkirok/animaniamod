@@ -34,16 +34,6 @@ public class RenderKitChinchilla<T extends EntityRabbitKitChinchilla> extends Re
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x9E9E9E));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderKitChinchilla.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderKitChinchilla.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitKitChinchilla entity, float f)
 	{
 		float age = entity.getEntityAge();

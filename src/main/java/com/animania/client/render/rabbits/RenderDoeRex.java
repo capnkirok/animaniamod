@@ -34,16 +34,6 @@ public class RenderDoeRex<T extends EntityRabbitDoeRex> extends RenderLiving<T>
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x574133));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderDoeRex.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderDoeRex.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitDoeRex entity, float f)
 	{
 		GL11.glScalef(0.58F, 0.58F, 0.58F);

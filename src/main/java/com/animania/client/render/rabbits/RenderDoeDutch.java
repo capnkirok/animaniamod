@@ -34,16 +34,6 @@ public class RenderDoeDutch<T extends EntityRabbitDoeDutch> extends RenderLiving
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x404040));
 	}
 
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderDoeDutch.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderDoeDutch.rabbitTexturesBlink;
-	}
-
 	protected void preRenderScale(EntityRabbitDoeDutch entity, float f)
 	{
 		GL11.glScalef(0.53F, 0.53F, 0.53F);

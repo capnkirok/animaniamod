@@ -319,6 +319,7 @@ entity.animania:kit_rex.name=Rex Kit
 death.attack.bull=%1$s was gored to death
 death.attack.pepe=%1$s was memed to death
 death.attack.animania_bee=%1$s wasgstung to death
+death.attack.killer_rabbit=%1$s didn't listen to the warnings
 
 tile.animania_block_mud.name=Mud
 tile.animania_block_seeds.name=Seeds

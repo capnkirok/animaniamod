@@ -33,17 +33,7 @@ public class RenderBuckHavana<T extends EntityRabbitBuckHavana> extends RenderLi
 		super(rm, new ModelHavana(), 0.25F);
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x404040));
 	}
-
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderBuckHavana.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderBuckHavana.rabbitTexturesBlink;
-	}
-
+	
 	protected void preRenderScale(EntityRabbitBuckHavana entity, float f)
 	{
 		GL11.glScalef(0.52F, 0.52F, 0.52F);

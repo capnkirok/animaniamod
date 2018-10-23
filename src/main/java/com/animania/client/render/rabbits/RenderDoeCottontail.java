@@ -33,17 +33,7 @@ public class RenderDoeCottontail<T extends EntityRabbitDoeCottontail> extends Re
 		super(rm, new ModelCottontail(), 0.25F);
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x896E58));
 	}
-
-	protected ResourceLocation getRabbitTextures(T par1EntityCow)
-	{
-		return RenderDoeCottontail.rabbitTextures;
-	}
-
-	protected ResourceLocation getRabbitTexturesBlink(T par1EntityCow)
-	{
-		return RenderDoeCottontail.rabbitTexturesBlink;
-	}
-
+	
 	protected void preRenderScale(EntityRabbitDoeCottontail entity, float f)
 	{
 		GL11.glScalef(0.56F, 0.56F, 0.56F);
