@@ -1,5 +1,6 @@
 package com.animania.common.entities.sheep;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -7,6 +8,8 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityWolf;
@@ -35,12 +38,14 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
 import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
@@ -49,12 +54,14 @@ import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
 import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
 import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -94,6 +101,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	protected boolean headbutting = false;
 	protected EntityGender gender;
 	protected EnumDyeColor color;
+	protected boolean hasRemovedBOP = false;
 
 	public EntityAnimaniaSheep(World worldIn)
 	{
@@ -128,6 +136,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		this.happyTimer = 60;
 		this.blinkTimer = 100 + this.rand.nextInt(100);
 		this.enablePersistence();
+
 	}
 
 	@Override
@@ -408,6 +417,33 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	@Override
 	public void onLivingUpdate()
 	{
+		if (!hasRemovedBOP)
+		{
+			if (Loader.isModLoaded("biomesoplenty"))
+			{
+				Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
+				while (it.hasNext())
+				{
+					EntityAITaskEntry entry = it.next();
+					EntityAIBase ai = entry.action;
+					try
+					{
+						if (Class.forName("biomesoplenty.common.entities.ai.EntityAIEatBOPGrass").isInstance(ai))
+						{
+							entry.using = false;
+							ai.resetTask();
+							it.remove();
+						}
+					}
+					catch (Exception e)
+					{
+					}
+				}
+				
+				hasRemovedBOP = true;
+			}
+		}
+
 		if (this.getAge() == 0)
 		{
 			this.setAge(1);
@@ -586,12 +622,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		if (!this.getSleeping())
 			this.world.setEntityState(this, (byte) 18);
 	}
-	
+
 	public void setMateUniqueId(@Nullable UUID uniqueId)
 	{
 		this.dataManager.set(EntityAnimaniaSheep.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
-	
+
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
@@ -853,7 +889,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public int getBlinkTimer()
 	{

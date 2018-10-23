@@ -1,0 +1,12 @@
+{
+  "name" : "manual.horses",
+  "contents" : [
+    "§lmanual.horses",
+    "@link@animania:manual/entities/entities.json#← manual.entities.entities.title",
+    " ",
+    "@link@animania:manual/entities/horses/draft.json#- advancements.animania.draft.title",
+    " ",
+    "manual.horses.general.3",
+    "@configitem@general.careandfeeding;horseFood"
+    ]
+}

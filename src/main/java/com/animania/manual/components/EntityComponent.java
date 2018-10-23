@@ -76,7 +76,7 @@ public class EntityComponent implements IManualComponent
 					this.multiplier = (float) (17.5 / width);
 				else
 					this.multiplier = (float) (17.5 / Math.sqrt(size));
-				
+								
 				e.setPosition(-2, -2, -2);
 				this.entity = e;
 			}
@@ -99,7 +99,7 @@ public class EntityComponent implements IManualComponent
 		int size = 10;
 		
 		GlStateManager.scale(multiplier, multiplier, multiplier);
-		GlStateManager.translate((manual.guiLeft + absoluteX + manual.MANUAL_MAX_X/2)/(multiplier), (manual.guiTop + absoluteY + 27)/(multiplier), 30);
+		GlStateManager.translate((manual.guiLeft + absoluteX + manual.MANUAL_MAX_X/2)/(multiplier), (manual.guiTop + absoluteY + 27)/(multiplier), 2);
 		GlStateManager.rotate(180, 0f, 0, 1f);
 		GlStateManager.rotate(360 * RenderAnimatedEgg.renderTimer, 0, 1f, 0);
 		renderEntityStatic(entity);
@@ -125,7 +125,7 @@ public class EntityComponent implements IManualComponent
 	@Override
 	public void onLeftClick()
 	{
-
+		this.init();
 	}
 
 	@Override

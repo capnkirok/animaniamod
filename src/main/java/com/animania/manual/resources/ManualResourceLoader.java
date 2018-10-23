@@ -361,9 +361,9 @@ public class ManualResourceLoader
 			ItemComponent i = new ItemComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, stacks);
 			return getList(i);
 		}
-		else if (s.startsWith("@entitydrops@"))
+		else if (s.startsWith("@loottable@"))
 		{
-			s = s.replace("@entitydrops@", "");
+			s = s.replace("@loottable@", "");
 			ItemStack[] stacks = AnimaniaHelper.getItemsForLoottable(new ResourceLocation(s));
 			if (stacks.length > 6)
 			{
@@ -575,7 +575,7 @@ public class ManualResourceLoader
 				firstWrapped = wrappedStrings.get(0);
 				s = s.replace(firstWrapped, "");
 			}
-			String format = fr.getFormatFromString(s);
+			String format = fr.getFormatFromString(firstWrapped.isEmpty() ? s : firstWrapped);
 			wrappedStrings = fr.listFormattedStringToWidth(format + s, GuiManual.MANUAL_MAX_X);
 			List<IManualComponent> comps = new ArrayList<IManualComponent>();
 

@@ -1,0 +1,10 @@
+{
+  "name" : "manual.peacockfeathers",
+  "contents" : [
+    "§lmanual.peacockfeathers",
+    "@link@animania:manual/items/items.json#← manual.items.items.title",
+    " ",
+    "manual.items.peacockfeathers.1",
+    "@item@animania:blue_peacock_feather,animania:white_peacock_feather,animania:charcoal_peacock_feather,animania:opal_peacock_feather,animania:peach_peacock_feather,animania:purple_peacock_feather,animania:taupe_peacock_feather"
+  ]
+}

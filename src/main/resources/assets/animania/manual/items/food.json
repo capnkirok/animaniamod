@@ -5,7 +5,13 @@
     "@link@animania:manual/contents.json#← manual.startpage.content",
     " ",
     "@link@animania:manual/items/food/honey.json#- fluid.animania_honey",
-    "@link@animania:manual/items/food/meats.json#- manual.meats"
+    "@link@animania:manual/items/food/meats.json#- manual.meats",
+    "@link@animania:manual/items/food/omelettes.json#- manual.omelettes",
+    "@link@animania:manual/items/food/cheese.json#- manual.cheese",
+    "@link@animania:manual/items/food/truffles.json#- manual.truffles",
+    "@link@animania:manual/items/food/milk.json#- manual.milk",
+    "@link@animania:manual/items/food/salt.json#- item.animania_salt.name",
+    "@link@animania:manual/items/food/eggs.json#- manual.eggs"
 
   ]
 }

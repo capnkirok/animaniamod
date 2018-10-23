@@ -113,6 +113,8 @@ public class CraftingComponent implements IManualComponent
 		{
 			mc.fontRenderer.drawString(I18n.translateToLocal("manual.crafting.shapeless"), posX + 57, posY + 2, 0);
 		}
+		
+		GlStateManager.disableLighting();
 	}
 
 	@Override

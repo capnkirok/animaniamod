@@ -3,6 +3,11 @@
   "contents" : [
     "§lmanual.items.items.title",
     "@link@animania:manual/contents.json#← manual.startpage.content",
-    " "
+    " ",
+    "@link@animania:manual/items/animalfood.json#- manual.animalfood",
+    "@link@animania:manual/items/peacockfeathers.json#- manual.peacockfeathers",
+    "@link@animania:manual/items/tools.json#- manual.tools",
+    "@link@animania:manual/items/hamster_balls.json#- manual.hamster_balls",
+    "@link@animania:manual/items/crafting_components.json#- manual.crafting_components"
   ]
 }

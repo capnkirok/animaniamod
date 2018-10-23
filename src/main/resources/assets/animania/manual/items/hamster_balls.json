@@ -1,0 +1,10 @@
+{
+  "name" : "manual.hamster_balls",
+  "contents" : [
+    "§lmanual.hamster_balls",
+    "@link@animania:manual/items/items.json#← manual.items.items.title",
+    " ",
+    "manual.items.hamster_balls.1",
+    "@crafting@animania:hamster_ball_clear,animania:hamster_ball_colored#0,animania:hamster_ball_colored#1,animania:hamster_ball_colored#2,animania:hamster_ball_colored#3,animania:hamster_ball_colored#4,animania:hamster_ball_colored#5,animania:hamster_ball_colored#6,animania:hamster_ball_colored#7,animania:hamster_ball_colored#8,animania:hamster_ball_colored#9,animania:hamster_ball_colored#10,animania:hamster_ball_colored#11,animania:hamster_ball_colored#12,animania:hamster_ball_colored#13,animania:hamster_ball_colored#14,animania:hamster_ball_colored#15"
+  ]
+}

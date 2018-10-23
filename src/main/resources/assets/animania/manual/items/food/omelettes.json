@@ -1,0 +1,13 @@
+{
+  "name" : "manual.omelettes",
+  "contents" : [
+    "§lmanual.omelettes",
+    "@link@animania:manual/items/food.json#← manual.items.food.title",
+    " ",
+    "manual.food.omelettes.1",
+    "@crafting@animania:cheese_omelette",
+    "@crafting@animania:bacon_omelette",
+    "@crafting@animania:truffle_omelette",
+    "@crafting@animania:super_omelette"
+  ]
+}

@@ -38,7 +38,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 
 	public TileEntityNest()
 	{
-		this.itemHandler = new ItemHandlerNest();
+		this.itemHandler = new ItemHandlerNest(this);
 	}
 
 	public NestContent getNestContent()
@@ -66,7 +66,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
-		this.itemHandler = new ItemHandlerNest();
+		this.itemHandler = new ItemHandlerNest(this);
 		this.itemHandler.deserializeNBT(compound.getCompoundTag("items"));
 		try
 		{
@@ -86,6 +86,9 @@ public class TileEntityNest extends TileEntity implements ITickable
 		{
 		}
 	}
+	
+
+
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)

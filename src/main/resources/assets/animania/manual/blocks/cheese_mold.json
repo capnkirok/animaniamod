@@ -5,8 +5,10 @@
     "@link@animania:manual/blocks/blocks.json#← manual.blocks.blocks.title",
     " ",
     "manual.blocks.cheese_mold.1",
-    "@config@general.gamerules;cheeseMaturityTime#prevline",
+    "@link@animania:manual/items/food/cheese.json#manual.cheese",
     "@text@manual.blocks.cheese_mold.2#prevline",
+    "@config@general.gamerules;cheeseMaturityTime#prevline",
+    "@text@manual.blocks.cheese_mold.3#prevline",
     "@crafting@animania:cheese_mold"
   ]
 }

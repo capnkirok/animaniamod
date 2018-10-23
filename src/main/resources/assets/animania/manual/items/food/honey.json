@@ -3,6 +3,7 @@
   "contents" : [
     "§lfluid.animania_honey",
     "@link@animania:manual/items/food.json#← manual.items.food.title",
+    " ",
     "manual.food.honey.1",
     "@link@animania:manual/blocks/bee_hive.json#manual.beehive_nest#prevline",
     "@text@manual.food.honey.2#prevline",

@@ -4,6 +4,9 @@
     "§lmanual.entities.entities.title",
     "@link@animania:manual/contents.json#← manual.startpage.content",
     " ",
-    "@link@animania:manual/entities/cows/cows.json#- advancements.animania.cows.title"
+    "@link@animania:manual/entities/cows/cows.json#- advancements.animania.cows.title",
+    "@link@animania:manual/entities/horses/horses.json#- manual.horses",
+    "@link@animania:manual/entities/pets/pets.json#- manual.pets"
+
   ]
 }

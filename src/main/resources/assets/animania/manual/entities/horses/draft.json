@@ -1,0 +1,13 @@
+{
+  "name" : "advancements.animania.draft.title",
+  "contents" : [
+    "§ladvancements.animania.draft.title",
+    "@link@animania:manual/entities/horses/horses.json#← manual.horses",
+    "@entity@animania:stallion_draft",
+    "manual.horses.general.1",
+    "@loottable@animania:horse",
+    "manual.horses.general.2",
+    "@entity@animania:mare_draft",
+    "@entity@animania:foal_draft"
+  ]
+}

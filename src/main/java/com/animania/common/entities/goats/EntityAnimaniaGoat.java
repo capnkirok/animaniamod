@@ -1,11 +1,14 @@
 package com.animania.common.entities.goats;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityWolf;
@@ -31,6 +34,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -88,6 +92,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	protected boolean mateable = false;
 	protected boolean headbutting = false;
 	protected EntityGender gender;
+	private boolean hasRemovedBOP;
 
 	public EntityAnimaniaGoat(World worldIn)
 	{
@@ -375,7 +380,33 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	@Override
 	public void onLivingUpdate()
 	{
-
+		if (!hasRemovedBOP)
+		{
+			if (Loader.isModLoaded("biomesoplenty"))
+			{
+				Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
+				while (it.hasNext())
+				{
+					EntityAITaskEntry entry = it.next();
+					EntityAIBase ai = entry.action;
+					try
+					{
+						if (Class.forName("biomesoplenty.common.entities.ai.EntityAIEatBOPGrass").isInstance(ai))
+						{
+							entry.using = false;
+							ai.resetTask();
+							it.remove();
+						}
+					}
+					catch (Exception e)
+					{
+					}
+				}
+				
+				hasRemovedBOP = true;
+			}
+		}
+		
 		if (this.getAge() == 0) {
 			this.setAge(1);
 		}

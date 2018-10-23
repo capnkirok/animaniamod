@@ -1,0 +1,13 @@
+{
+  "name" : "manual.hedgehogs",
+  "contents" : [
+    "§lmanual.hedgehogs",
+    "@link@animania:manual/entities/pets/pets.json#← manual.pets",
+    "manual.hedgehogs.1",
+    "@entity@animania:hedgehog",
+    "@entity@animania:hedgehog_albino",
+    "manual.ferrets.2",
+    "@configitem@general.careandfeeding;hedgehogFood",
+    "manual.pets.pickup"
+  ]
+}

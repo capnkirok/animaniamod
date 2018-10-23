@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -65,6 +66,8 @@ public class EntityEventHandler
 			if (((ISleeping)entity).getSleeping())
 				((ISleeping) entity).setSleeping(false);
 		}
+		
+		
 
 	}
 
@@ -74,6 +77,18 @@ public class EntityEventHandler
 		if (event.getEntity() instanceof EntityPlayer)
 		{
 			ItemHandler.regItemEggColors(event.getWorld());
+		}
+	}
+	
+	@SubscribeEvent
+	public void onLivingUpdate(LivingUpdateEvent event)
+	{
+		EntityLivingBase entity = event.getEntityLiving();
+		
+		if (entity instanceof ISleeping && entity instanceof EntityAnimal)
+		{
+			if (((ISleeping)entity).getSleeping() && ((EntityAnimal) entity).getLeashed())
+				((ISleeping) entity).setSleeping(false);
 		}
 	}
 	

@@ -1,0 +1,16 @@
+{
+  "name" : "manual.hamsters",
+  "contents" : [
+    "§lmanual.hamsters",
+    "@link@animania:manual/entities/pets/pets.json#← manual.pets",
+    "@entity@animania:hamster",
+    "manual.hamsters.1",
+    "@configitem@general.careandfeeding;hamsterFood",
+    "manual.hamsters.2",
+    "@link@animania:manual/items/hamster_balls.json#manual.hamster_balls#prevline",
+    "@text@manual.hamsters.3#prevline",
+    "@link@animania:manual/blocks/hamster_wheel.json#tile.animania_block_hamster_wheel.name#prevline",
+    "@text@manual.hamsters.4#prevline",
+    "@text@manual.pets.pickup#prevline"
+  ]
+}

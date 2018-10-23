@@ -6,6 +6,7 @@ import com.animania.common.entities.rodents.EntityHamster;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
@@ -256,6 +257,7 @@ public class ModelHamster extends ModelBase
             GL11.glPushMatrix();
             GL11.glScalef(0.5F, 0.5F, 0.5F);
         }
+        
         this.hamsterHead.renderWithRotation(par7);
         this.hamsterNose.renderWithRotation(par7);
         this.hamsterEarRight.renderWithRotation(par7);
@@ -275,10 +277,13 @@ public class ModelHamster extends ModelBase
         if (this.isChild)
             GL11.glPopMatrix();
 
+        GlStateManager.color(1,1,1);
+        
         if (((EntityHamster) par1Entity).isInBall()) {
             this.ball.color = ((EntityHamster) par1Entity).getBallColor();
             this.ball.render(par7);
         }
+  
     }
 
     @Override

@@ -6,7 +6,7 @@
     "@entity@animania:bull_friesian",
     "advancements.animania.friesian.title",
     "@text@manual.cows.milk.1#prevline",
-    "@entitydrops@animania:cow_regular",
+    "@loottable@animania:cow_regular",
     "manual.cows.meat.2",
     "manual.cows.others",
     "@entity@animania:cow_friesian",

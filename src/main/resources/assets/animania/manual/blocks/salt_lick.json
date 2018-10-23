@@ -5,7 +5,7 @@
     "@link@animania:manual/blocks/blocks.json#← manual.blocks.blocks.title",
     " ",
     "manual.blocks.salt_lick.1",
-    "@link@animania:manual/items/salt.json#item.animania_salt.name#prevline",
+    "@link@animania:manual/items/food/salt.json#item.animania_salt.name#prevline",
     "@text@manual.blocks.salt_lick.2#prevline",
     "@crafting@animania:salt_lick"
   ]

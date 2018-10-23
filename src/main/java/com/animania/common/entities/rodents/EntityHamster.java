@@ -458,6 +458,20 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				itemstack.shrink(1);
 			return true;
 		}
+		if (!itemstack.isEmpty() && itemstack.getItem() == ItemHandler.hamsterBallClear && !isInBall() && !this.getSleeping())
+		{
+			if (this.isHamsterSitting())
+			{
+				this.setHamsterSitting(false);
+				this.setSitting(false);
+			}
+			setInBall(true);
+			int meta = itemstack.getMetadata();
+			setBallColor(16);
+			if (!player.isCreative())
+				itemstack.shrink(1);
+			return true;
+		}
 		else if (itemstack.isEmpty() && isInBall() && !this.getSleeping())
 		{
 			int color = this.getBallColor();

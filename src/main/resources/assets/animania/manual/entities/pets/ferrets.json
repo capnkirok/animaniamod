@@ -1,0 +1,13 @@
+{
+  "name" : "manual.ferrets",
+  "contents" : [
+    "§lmanual.ferrets",
+    "@link@animania:manual/entities/pets/pets.json#← manual.pets",
+    "manual.ferrets.1",
+    "@entity@animania:ferret_grey",
+    "@entity@animania:ferret_white",
+    "manual.ferrets.2",
+    "@configitem@general.careandfeeding;ferretFood",
+    "manual.pets.pickup"
+  ]
+}
