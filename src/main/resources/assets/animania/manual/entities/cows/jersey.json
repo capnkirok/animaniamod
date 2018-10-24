@@ -8,6 +8,10 @@
     "@text@manual.cows.jersey.1#prevline",
     "@loottable@animania:cow_prime",
     "manual.cows.meat.2",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;cowJerseyBiomeTypes",
+    " ",
     "manual.cows.others",
     "@entity@animania:cow_jersey",
     "@entity@animania:calf_jersey"

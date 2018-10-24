@@ -8,6 +8,10 @@
     "@text@manual.cows.mooshroom.1#prevline",
     "@loottable@animania:cow_mooshroom",
     "manual.cows.meat.2",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;cowMooshroomBiomeTypes",
+    " ",
     "manual.cows.others",
     "@entity@animania:cow_mooshroom",
     "@entity@animania:calf_mooshroom"
