@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.yorkshire.title",
+  "contents" : [
+    "§ladvancements.animania.yorkshire.title",
+    "@link@animania:manual/entities/pigs/pigs.json#← advancements.animania.pigs.title",
+    "@entity@animania:hog_yorkshire",
+    "advancements.animania.yorkshire.title",
+    "@text@manual.pigs.meat.2#prevline",
+    "@loottable@animania:pig_regular",
+    " ",
+    "@text@manual.pigs.meat.3",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;pigYorkshireBiomeTypes",
+    " ",
+    "manual.pigs.others",
+    "@entity@animania:sow_yorkshire",
+    "@entity@animania:piglet_yorkshire"
+  ]
+}

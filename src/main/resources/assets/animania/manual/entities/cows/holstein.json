@@ -8,6 +8,10 @@
     "@text@manual.cows.milk.1#prevline",
     "@loottable@animania:cow_regular",
     "manual.cows.meat.2",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;cowHolsteinBiomeTypes",
+    " ",
     "manual.cows.others",
     "@entity@animania:cow_holstein",
     "@entity@animania:calf_holstein"

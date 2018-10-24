@@ -6,6 +6,10 @@
     "manual.hedgehogs.1",
     "@entity@animania:hedgehog",
     "@entity@animania:hedgehog_albino",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;hedgehogBiomeTypes",
+    " ",
     "manual.ferrets.2",
     "@configitem@general.careandfeeding;hedgehogFood",
     "manual.pets.pickup"

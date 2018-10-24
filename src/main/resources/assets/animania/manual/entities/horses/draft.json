@@ -6,6 +6,10 @@
     "@entity@animania:stallion_draft",
     "manual.horses.general.1",
     "@loottable@animania:horse",
+     " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;draftHorseBiomeTypes",
+    " ",
     "manual.horses.general.2",
     "@entity@animania:mare_draft",
     "@entity@animania:foal_draft"

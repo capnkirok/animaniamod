@@ -8,6 +8,10 @@
     "@text@manual.cows.meat.1#prevline",
     "@loottable@animania:cow_prime",
     "manual.cows.meat.2",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;cowHerefordBiomeTypes",
+    " ",
     "manual.cows.others",
     "@entity@animania:cow_hereford",
     "@entity@animania:calf_hereford"

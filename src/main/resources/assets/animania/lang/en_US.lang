@@ -606,11 +606,23 @@ manual.pets=Pets
 manual.ferrets=Ferrets
 manual.hamsters=Hamsters
 manual.hedgehogs=Hedgehogs
+manual.pigs=Pigs
+manual.chickens=Chickens
+manual.goats=Goats
+manual.rabbits=Rabbits
+manual.sheep=Sheep
+manual.amphibians=Amphibians
+manual.frogs=Frogs
+manual.dart_frogs=Dart Frogs
+manual.toads=Toads
+manual.horses=Horses
+manual.biometypes=They are found in these Biome Types:
+
 
 manual.blocks.trough.1=The trough is one of the most important blocks to keep your farm healthy. They are used to provide your animals with food and water. Troughs can be filled with Water,
 manual.blocks.trough.2=and the following items:
 manual.blocks.trough.3=Troughs are the most effective way to feed your animals, as they prefer eating from the trough than eating grass from the ground. The trough can be fully automated with pipes from other mods or with hoppers. You can even drop items inside of it! You can right click with an empty hand to get the items out of the trough. The trough is crafted like this:
-manual.blocks.salt_lick.1=Salt licks are essential for cows, goats, sheep, pigs and horses. If they are hurt, they can be healed by licking the salt lick. They are healed by one heart each time they lick it. The salt lick can be used 200 times and you will see it decrease in size over time. To craft it you need
+manual.blocks.salt_lick.1=Salt licks are essential for cows, goats, sheep, pigs and horses. If they are hurt, they can heal themselves by licking the salt lick. They are healed by one heart each time they lick it. The salt lick can be used 200 times and you will see it decrease in size over time. To craft it you need
 manual.blocks.salt_lick.2=and it's used in this recipe:
 manual.blocks.cheese_mold.1=The cheese mold is used to make tasty
 manual.blocks.cheese_mold.2=from high quality milk. For that reason, it doesn't accept vanilla milk. To use it, right click the mold with a bucket of animania milk. Depending on what milk you inserted, other cheese will be created. It takes
@@ -653,7 +665,7 @@ manual.items.tools.2=The riding crop can be used to ride faster on draft horses.
 manual.items.hamster_balls.1=You can use hamster balls for your hamsters to have fun! To place the hamster inside the ball, right click the hamster with it. To remove it, right click the hamster again.
 manual.items.crafting_components.1=These items are only used as crafting components and have no other use.
 
-manual.cows.meat.1= cows are meat cows. While the females still give milk, it is inferior to the milk of milk cows. Therefore, it cannot be made into cheese. When killed, they drop these items:
+manual.cows.meat.1= cows are meat cows. While the females still give milk, it is inferior to the milk of milk cows, and cannot be made into cheese. When killed, they drop these items:
 manual.cows.meat.2=They drop more if they are well fed.
 manual.cows.milk.1= cows are milk cows. Their high-quality milk can be used to make tasty cheese! When killed, like meat cows, they drop these items:
 manual.cows.others=The cows and calves look like this:
@@ -672,3 +684,10 @@ manual.pets.pickup=They can be picked up and put on your shoulder by shift-right
 manual.ferrets.1=Ferrets exist in two different colors: Grey and White.
 manual.ferrets.2=They attack small animals like chicks and frogs and eat eggs from nests, so protect your chickens! They can be tamed and fed using the following items:
 manual.hedgehogs.1=Hedgehogs exist in two different variants: Normal and Albino.
+manual.pigs.general.1=Pigs are versatile farm animals. They drop nutritious meat and can find Truffles in forest biomes when on a Lead. These are their food items:
+manual.pigs.general.2=Pigs love to play in Mud. They can also be ridden if you have a Carrot on a Stick (no Saddle required).
+manual.pigs.meat.1= pigs are prime meat pigs. When killed, they drop these items:
+manual.pigs.meat.2= pigs are regular meat pigs. When killed, they drop these items:
+manual.pigs.meat.3=They drop more if they are well fed.
+manual.pigs.others=The sows and piglets look like this:
+

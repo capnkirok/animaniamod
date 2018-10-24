@@ -6,6 +6,10 @@
     "manual.ferrets.1",
     "@entity@animania:ferret_grey",
     "@entity@animania:ferret_white",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;ferretGrayBiomeTypes",
+    " ",
     "manual.ferrets.2",
     "@configitem@general.careandfeeding;ferretFood",
     "manual.pets.pickup"

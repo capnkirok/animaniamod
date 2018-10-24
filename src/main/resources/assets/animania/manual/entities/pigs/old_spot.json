@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.old_spot.title",
+  "contents" : [
+    "§ladvancements.animania.old_spot.title",
+    "@link@animania:manual/entities/pigs/pigs.json#← advancements.animania.pigs.title",
+    "@entity@animania:hog_old_spot",
+    "advancements.animania.old_spot.title",
+    "@text@manual.pigs.meat.1#prevline",
+    "@loottable@animania:pig_prime",
+    " ",
+    "@text@manual.pigs.meat.3",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;pigOldSpotBiomeTypes",
+    " ",
+    "manual.pigs.others",
+    "@entity@animania:sow_old_spot",
+    "@entity@animania:piglet_old_spot"
+  ]
+}
