@@ -8,7 +8,8 @@
     "@link@animania:manual/entities/horses/horses.json#- manual.horses",
     "@link@animania:manual/entities/pets/pets.json#- manual.pets",
     "@link@animania:manual/entities/pigs/pigs.json#- manual.pigs",
-    "@link@animania:manual/entities/chickens/chickens.json#- advancements.animania.chickens.title"
+    "@link@animania:manual/entities/chickens/chickens.json#- advancements.animania.chickens.title",
+    "@link@animania:manual/entities/sheep/sheep.json#- advancements.animania.sheep.title"
 
 
   ]

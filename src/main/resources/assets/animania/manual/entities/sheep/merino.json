@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.merino.title",
+  "contents" : [
+    "§ladvancements.animania.merino.title",
+    "@link@animania:manual/entities/sheep/sheep.json#← advancements.animania.sheep.title",
+    "@entity@animania:ram_merino",
+    "advancements.animania.merino.title",
+    "@text@manual.sheep.normal.1#prevline",
+    "@loottable@animania:sheep_regular",
+     " ",
+    "@text@manual.cows.meat.2",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;sheepMerinoBiomeTypes",
+    " ",
+    "manual.sheep.others",
+    "@entity@animania:ewe_merino",
+    "@entity@animania:lamb_merino"
+  ]
+}

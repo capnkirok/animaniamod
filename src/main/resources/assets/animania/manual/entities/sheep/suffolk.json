@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.suffolk.title",
+  "contents" : [
+    "§ladvancements.animania.suffolk.title",
+    "@link@animania:manual/entities/sheep/sheep.json#← advancements.animania.sheep.title",
+    "@entity@animania:ram_suffolk",
+    "advancements.animania.suffolk.title",
+    "@text@manual.sheep.meat.1#prevline",
+    "@loottable@animania:sheep_prime",
+     " ",
+    "@text@manual.cows.meat.2",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;sheepSuffolkBiomeTypes",
+    " ",
+    "manual.sheep.others",
+    "@entity@animania:ewe_suffolk",
+    "@entity@animania:lamb_suffolk"
+  ]
+}
