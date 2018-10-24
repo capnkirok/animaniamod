@@ -36,6 +36,8 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
@@ -475,7 +477,10 @@ public class AnimaniaHelper
 					Item item = Item.getByNameOrId(name);
 					if(item != null)
 					{
-						stacks.add(new ItemStack(item));
+						ItemStack stack = new ItemStack(item);
+						if(item == Item.getItemFromBlock(Blocks.WOOL))
+							stack = addTooltipToStack(stack, I18n.translateToLocal("manual.blocks.wool.colored"));
+						stacks.add(stack);
 					}
 				}
 			}
@@ -488,4 +493,16 @@ public class AnimaniaHelper
 		return stacks.toArray(new ItemStack[stacks.size()]);
 	}
 
+	public static ItemStack addTooltipToStack(ItemStack stack, String tooltip)
+	{
+		NBTTagCompound tag = stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
+		NBTTagCompound display = new NBTTagCompound();
+		NBTTagList lore = new NBTTagList();
+		lore.appendTag(new NBTTagString(TextFormatting.GRAY + tooltip));
+		display.setTag("Lore", lore);
+		tag.setTag("display", display);
+		stack.setTagCompound(tag);
+		return stack;
+	}
+	
 }

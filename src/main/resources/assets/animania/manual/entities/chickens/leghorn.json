@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.leghorn.title",
+  "contents" : [
+    "§ladvancements.animania.leghorn.title",
+    "@link@animania:manual/entities/chickens/chickens.json#← advancements.animania.chickens.title",
+    "@entity@animania:rooster_leghorn",
+    "advancements.animania.leghorn.title",
+    "@text@manual.chickens.normal.1#prevline",
+    "@loottable@animania:chicken_regular",
+     " ",
+    "@text@manual.cows.meat.2",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;chickenLeghornBiomeTypes",
+    " ",
+    "manual.chickens.others",
+    "@entity@animania:hen_leghorn",
+    "@entity@animania:chick_leghorn"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.plymouth_rock.title",
+  "contents" : [
+    "§ladvancements.animania.plymouth_rock.title",
+    "@link@animania:manual/entities/chickens/chickens.json#← advancements.animania.chickens.title",
+    "@entity@animania:rooster_plymouth_rock",
+    "advancements.animania.plymouth_rock.title",
+    "@text@manual.chickens.meat.1#prevline",
+    "@loottable@animania:chicken_prime",
+     " ",
+    "@text@manual.cows.meat.2",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;chickenPlymouthRockBiomeTypes",
+    " ",
+    "manual.chickens.others",
+    "@entity@animania:hen_plymouth_rock",
+    "@entity@animania:chick_plymouth_rock"
+  ]
+}

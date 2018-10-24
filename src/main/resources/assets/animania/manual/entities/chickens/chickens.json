@@ -4,17 +4,15 @@
     "§ladvancements.animania.chickens.title",
     "@link@animania:manual/entities/entities.json#← manual.entities.entities.title",
     " ",
-    "@link@animania:manual/entities/cows/angus.json#- advancements.animania.angus.title",
-    "@link@animania:manual/entities/cows/friesian.json#- advancements.animania.friesian.title",
-    "@link@animania:manual/entities/cows/hereford.json#- advancements.animania.hereford.title",
-    "@link@animania:manual/entities/cows/highland.json#- advancements.animania.highland.title",
-    "@link@animania:manual/entities/cows/holstein.json#- advancements.animania.holstein.title",
-    "@link@animania:manual/entities/cows/jersey.json#- advancements.animania.jersey.title",
-    "@link@animania:manual/entities/cows/longhorn.json#- advancements.animania.longhorn.title",
-    "@link@animania:manual/entities/cows/mooshroom.json#- advancements.animania.mooshroom.title",
+    "@link@animania:manual/entities/chickens/leghorn.json#- advancements.animania.leghorn.title",
+    "@link@animania:manual/entities/chickens/orpington.json#- advancements.animania.orpington.title",
+    "@link@animania:manual/entities/chickens/plymouth_rock.json#- advancements.animania.plymouth_rock.title",
+    "@link@animania:manual/entities/chickens/rhode_island_red.json#- advancements.animania.rhode_island_red.title",
+    "@link@animania:manual/entities/chickens/wyandotte.json#- advancements.animania.wyandotte.title",
     " ",
-    "manual.cows.general.1",
-    "@configitem@general.careandfeeding;cowFood",
-    "manual.cows.general.2"
+    "manual.chickens.general.1",
+    "@configitem@general.careandfeeding;chickenFood",
+    " ",
+    "manual.chickens.general.2"
   ]
 }

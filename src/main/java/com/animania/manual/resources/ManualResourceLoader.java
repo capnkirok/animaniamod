@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.animania.Animania;
 import com.animania.common.helper.AnimaniaHelper;
@@ -573,7 +574,7 @@ public class ManualResourceLoader
 			{
 				wrappedStrings = fr.listFormattedStringToWidth(s, GuiManual.MANUAL_MAX_X - offsetX);
 				firstWrapped = wrappedStrings.get(0);
-				s = s.replace(firstWrapped, "");
+				s = s.replaceFirst(Pattern.quote(firstWrapped), "");
 			}
 			String format = fr.getFormatFromString(firstWrapped.isEmpty() ? s : firstWrapped);
 			wrappedStrings = fr.listFormattedStringToWidth(format + s, GuiManual.MANUAL_MAX_X);
@@ -601,11 +602,26 @@ public class ManualResourceLoader
 					offsetX = 0;
 				}
 			}
+			else
+			{
+				if (!otherComponents.isEmpty())
+				{
+					IManualComponent lastComponent = otherComponents.get(otherComponents.size() - 1);
+					offsetY = lastComponent.getY() + lastComponent.getObjectHeight();
+				}
+			}
 
 			for (String str : wrappedStrings)
 			{
 				if (str.isEmpty())
 					continue;
+				
+//				if (!otherComponents.isEmpty())
+//				{
+//					IManualComponent lastComponent = otherComponents.get(otherComponents.size() - 1);
+//					offsetY = lastComponent.getY() + lastComponent.getObjectHeight();
+//				}
+				
 				TextComponent comp = new TextComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, str);
 				offsetY = comp.getY() + comp.getObjectHeight();
 				comps.add(comp);
