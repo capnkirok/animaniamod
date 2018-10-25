@@ -8,7 +8,7 @@
     "@text@manual.chickens.meat.1#prevline",
     "@loottable@animania:chicken_prime",
      " ",
-    "@text@manual.cows.meat.2",
+    "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
     "@config@general.spawnlocations;chickenPlymouthRockBiomeTypes",

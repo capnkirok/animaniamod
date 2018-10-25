@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.new_zealand.title",
+  "contents" : [
+    "§ladvancements.animania.new_zealand.title",
+    "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "@entity@animania:buck_new_zealand",
+    "advancements.animania.new_zealand.title",
+    "@text@manual.rabbits.meat.1#prevline",
+    "@loottable@animania:rabbit_prime",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;rabbitNewZealandBiomeTypes",
+    " ",
+    "manual.rabbits.others",
+    "@entity@animania:doe_new_zealand",
+    "@entity@animania:kit_new_zealand"
+  ]
+}

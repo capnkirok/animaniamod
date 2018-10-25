@@ -7,7 +7,7 @@
     "advancements.animania.friesian.title",
     "@text@manual.cows.milk.1#prevline",
     "@loottable@animania:cow_regular",
-    "manual.cows.meat.2",
+    "manual.meat.dropmore",
     " ",
     "manual.biometypes",
     "@config@general.spawnlocations;cowFriesianBiomeTypes",

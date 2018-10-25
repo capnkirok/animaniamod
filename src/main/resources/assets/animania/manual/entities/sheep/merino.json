@@ -8,7 +8,7 @@
     "@text@manual.sheep.normal.1#prevline",
     "@loottable@animania:sheep_regular",
      " ",
-    "@text@manual.cows.meat.2",
+    "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
     "@config@general.spawnlocations;sheepMerinoBiomeTypes",

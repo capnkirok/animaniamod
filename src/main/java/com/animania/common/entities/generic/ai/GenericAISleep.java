@@ -23,6 +23,8 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 
 	private Class parentClass;
 	
+	private int searchFail = 0;
+	
 	public GenericAISleep(T entity, double speedIn, Block bed1, Block bed2, Class parentClass)
 	{
 		super(entity, speedIn, 16, EnumFacing.UP);
@@ -87,6 +89,7 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 		{
 			entity.setSleeping(true);
 			entity.setSleepingPos(entity.getPosition());
+			searchFail = 0;
 			
 			this.delay = 0;
 		}
@@ -99,12 +102,24 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 	}
 	
 	@Override
+	public void resetTask()
+	{
+		super.resetTask();
+		searchFail = 0;
+	}
+	
+	@Override
 	protected boolean shouldMoveTo(World worldIn, BlockPos pos)
 	{
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		
-		if(block == this.bedBlock || block == this.bedBlock2)
+		if(block == this.bedBlock)
+			return true;
+		
+		searchFail++;
+		
+		if(block == this.bedBlock2 && searchFail > 300)
 			return true;
 			
 		return false;

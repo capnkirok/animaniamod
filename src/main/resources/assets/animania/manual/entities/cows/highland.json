@@ -7,7 +7,7 @@
     "advancements.animania.highland.title",
     "@text@manual.cows.meat.1#prevline",
     "@loottable@animania:cow_prime",
-    "manual.cows.meat.2",
+    "manual.meat.dropmore",
     " ",
     "manual.biometypes",
     "@config@general.spawnlocations;cowHiglandBiomeTypes",

@@ -8,7 +8,7 @@
     "@text@manual.sheep.meat.1#prevline",
     "@loottable@animania:sheep_prime",
      " ",
-    "@text@manual.cows.meat.2",
+    "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
     "@config@general.spawnlocations;sheepSuffolkBiomeTypes",

@@ -134,7 +134,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	 * {@link net.minecraft.entity.ai.EntityAIMoveToBlock#shouldMoveTo(World, BlockPos)
 	 * EntityAIMoveToBlock#shouldMoveTo(World, BlockPos)}) can be found.
 	 */
-	private boolean searchForDestination()
+	protected boolean searchForDestination()
 	{
 		int i = this.searchRange;
 		int j = 1;

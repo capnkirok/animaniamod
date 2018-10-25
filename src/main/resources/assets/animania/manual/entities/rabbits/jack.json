@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.jack.title",
+  "contents" : [
+    "§ladvancements.animania.jack.title",
+    "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "@entity@animania:buck_jack",
+    "advancements.animania.jack.title",
+    "@text@manual.rabbits.normal.1#prevline",
+    "@loottable@animania:rabbit_regular",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;rabbitJackBiomeTypes",
+    " ",
+    "manual.rabbits.others",
+    "@entity@animania:doe_jack",
+    "@entity@animania:kit_jack"
+  ]
+}

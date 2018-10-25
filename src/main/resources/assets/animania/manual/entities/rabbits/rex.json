@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.rex.title",
+  "contents" : [
+    "§ladvancements.animania.rex.title",
+    "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "@entity@animania:buck_rex",
+    "advancements.animania.rex.title",
+    "@text@manual.rabbits.meat.1#prevline",
+    "@loottable@animania:rabbit_prime",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;rabbitRexBiomeTypes",
+    " ",
+    "manual.rabbits.others",
+    "@entity@animania:doe_rex",
+    "@entity@animania:kit_rex"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.dutch.title",
+  "contents" : [
+    "§ladvancements.animania.dutch.title",
+    "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "@entity@animania:buck_dutch",
+    "advancements.animania.dutch.title",
+    "@text@manual.rabbits.normal.1#prevline",
+    "@loottable@animania:rabbit_regular",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;rabbitDutchBiomeTypes",
+    " ",
+    "manual.rabbits.others",
+    "@entity@animania:doe_dutch",
+    "@entity@animania:kit_dutch"
+  ]
+}
