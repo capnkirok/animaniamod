@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.merino.title",
   "contents" : [
-    "§ladvancements.animania.merino.title",
     "@link@animania:manual/entities/sheep/sheep.json#← advancements.animania.sheep.title",
+    "§ladvancements.animania.merino.title",
     "@entity@animania:ram_merino",
     "advancements.animania.merino.title",
     "@text@manual.sheep.normal.1#prevline",

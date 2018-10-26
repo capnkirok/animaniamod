@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.pigs.title",
   "contents" : [
-    "§ladvancements.animania.pigs.title",
     "@link@animania:manual/entities/entities.json#← manual.entities.entities.title",
+    "§ladvancements.animania.pigs.title",
     " ",
     "@link@animania:manual/entities/pigs/duroc.json#- advancements.animania.duroc.title",
     "@link@animania:manual/entities/pigs/hampshire.json#- advancements.animania.hampshire.title",

@@ -1,8 +1,8 @@
 {
   "name" : "tile.animania_salt_lick.name",
   "contents" : [
-    "§ltile.animania_salt_lick.name",
     "@link@animania:manual/blocks/blocks.json#← manual.blocks.blocks.title",
+    "§ltile.animania_salt_lick.name",
     " ",
     "manual.blocks.salt_lick.1",
     "@link@animania:manual/items/food/salt.json#item.animania_salt.name#prevline",

@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.friesian.title",
   "contents" : [
-    "§ladvancements.animania.friesian.title",
     "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
+    "§ladvancements.animania.friesian.title",
     "@entity@animania:bull_friesian",
     "advancements.animania.friesian.title",
     "@text@manual.cows.milk.1#prevline",

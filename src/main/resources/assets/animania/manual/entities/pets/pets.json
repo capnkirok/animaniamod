@@ -1,8 +1,8 @@
 {
   "name" : "manual.pets",
   "contents" : [
-    "§lmanual.pets",
     "@link@animania:manual/entities/entities.json#← manual.entities.entities.title",
+    "§lmanual.pets",
     " ",
     "@link@animania:manual/entities/pets/hamsters.json#- manual.hamsters",
     "@link@animania:manual/entities/pets/ferrets.json#- manual.ferrets",

@@ -1,8 +1,8 @@
 {
   "name" : "tile.animania_cheese_mold.name",
   "contents" : [
-    "§ltile.animania_cheese_mold.name",
     "@link@animania:manual/blocks/blocks.json#← manual.blocks.blocks.title",
+    "§ltile.animania_cheese_mold.name",
     " ",
     "manual.blocks.cheese_mold.1",
     "@link@animania:manual/items/food/cheese.json#manual.cheese",

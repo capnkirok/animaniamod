@@ -1,8 +1,8 @@
 {
   "name" : "manual.animalfood",
   "contents" : [
-    "§lmanual.animalfood",
     "@link@animania:manual/items/items.json#← manual.items.items.title",
+    "§lmanual.animalfood",
     " ",
     "manual.items.animalfood.1",
     "@crafting@animania:slop",

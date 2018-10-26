@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.dutch.title",
   "contents" : [
-    "§ladvancements.animania.dutch.title",
     "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "§ladvancements.animania.dutch.title",
     "@entity@animania:buck_dutch",
     "advancements.animania.dutch.title",
     "@text@manual.rabbits.normal.1#prevline",

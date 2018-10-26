@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.suffolk.title",
   "contents" : [
-    "§ladvancements.animania.suffolk.title",
     "@link@animania:manual/entities/sheep/sheep.json#← advancements.animania.sheep.title",
+    "§ladvancements.animania.suffolk.title",
     "@entity@animania:ram_suffolk",
     "advancements.animania.suffolk.title",
     "@text@manual.sheep.meat.1#prevline",

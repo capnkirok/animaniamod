@@ -1,8 +1,8 @@
 {
   "name" : "manual.blocks.blocks.title",
   "contents" : [
-    "§lmanual.blocks.blocks.title",
     "@link@animania:manual/contents.json#← manual.startpage.content",
+    "§lmanual.blocks.blocks.title",
     " ",
     "@link@animania:manual/blocks/trough.json#- tile.animania_block_trough.name",
     "@link@animania:manual/blocks/salt_lick.json#- tile.animania_salt_lick.name",

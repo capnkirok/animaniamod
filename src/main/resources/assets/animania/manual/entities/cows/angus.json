@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.angus.title",
   "contents" : [
-    "§ladvancements.animania.angus.title",
     "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
+    "§ladvancements.animania.angus.title",
     "@entity@animania:bull_angus",
     "advancements.animania.angus.title",
     "@text@manual.cows.meat.1#prevline",

@@ -1,8 +1,8 @@
 {
   "name" : "manual.meats",
   "contents" : [
-    "§lmanual.meats",
     "@link@animania:manual/items/food.json#← manual.items.food.title",
+    "§lmanual.meats",
     " ",
     "manual.food.meats.1",
     "@config@general.gamerules;foodsGiveBonusEffects#prevline",

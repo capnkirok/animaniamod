@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.holstein.title",
   "contents" : [
-    "§ladvancements.animania.holstein.title",
     "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
+    "§ladvancements.animania.holstein.title",
     "@entity@animania:bull_holstein",
     "advancements.animania.holstein.title",
     "@text@manual.cows.milk.1#prevline",

@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.old_spot.title",
   "contents" : [
-    "§ladvancements.animania.old_spot.title",
     "@link@animania:manual/entities/pigs/pigs.json#← advancements.animania.pigs.title",
+    "§ladvancements.animania.old_spot.title",
     "@entity@animania:hog_old_spot",
     "advancements.animania.old_spot.title",
     "@text@manual.pigs.meat.1#prevline",

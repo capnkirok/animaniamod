@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.cottontail.title",
   "contents" : [
-    "§ladvancements.animania.cottontail.title",
     "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "§ladvancements.animania.cottontail.title",
     "@entity@animania:buck_cottontail",
     "advancements.animania.cottontail.title",
     "@text@manual.rabbits.normal.1#prevline",

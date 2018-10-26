@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.duroc.title",
   "contents" : [
-    "§ladvancements.animania.duroc.title",
     "@link@animania:manual/entities/pigs/pigs.json#← advancements.animania.pigs.title",
+    "§ladvancements.animania.duroc.title",
     "@entity@animania:hog_duroc",
     "advancements.animania.duroc.title",
     "@text@manual.pigs.meat.1#prevline",

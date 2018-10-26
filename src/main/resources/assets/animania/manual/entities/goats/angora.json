@@ -1,0 +1,21 @@
+{
+  "name" : "advancements.animania.angora.title",
+  "contents" : [
+    "@link@animania:manual/entities/goats/goats.json#← advancements.animania.goats.title",
+    "§ladvancements.animania.angora.title",
+    "@entity@animania:buck_angora",
+    "advancements.animania.angora.title",
+    "@text@manual.goats.normal.1#prevline",
+    "@loottable@animania:goat_regular",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;goatAngoraBiomeTypes",
+    " ",
+    "manual.goats.angora",
+    "manual.goats.others",
+    "@entity@animania:doe_angora",
+    "@entity@animania:kid_angora"
+  ]
+}

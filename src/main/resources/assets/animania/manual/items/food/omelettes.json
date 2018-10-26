@@ -1,8 +1,8 @@
 {
   "name" : "manual.omelettes",
   "contents" : [
-    "§lmanual.omelettes",
     "@link@animania:manual/items/food.json#← manual.items.food.title",
+    "§lmanual.omelettes",
     " ",
     "manual.food.omelettes.1",
     "@crafting@animania:cheese_omelette",

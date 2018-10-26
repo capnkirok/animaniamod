@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.rex.title",
   "contents" : [
-    "§ladvancements.animania.rex.title",
     "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "§ladvancements.animania.rex.title",
     "@entity@animania:buck_rex",
     "advancements.animania.rex.title",
     "@text@manual.rabbits.meat.1#prevline",

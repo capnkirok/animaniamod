@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.wyandotte.title",
   "contents" : [
-    "§ladvancements.animania.wyandotte.title",
     "@link@animania:manual/entities/chickens/chickens.json#← advancements.animania.chickens.title",
+    "§ladvancements.animania.wyandotte.title",
     "@entity@animania:rooster_wyandotte",
     "advancements.animania.wyandotte.title",
     "@text@manual.chickens.meat.1#prevline",

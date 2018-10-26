@@ -1,8 +1,8 @@
 {
   "name" : "manual.entities.entities.title",
   "contents" : [
-    "§lmanual.entities.entities.title",
     "@link@animania:manual/contents.json#← manual.startpage.content",
+    "§lmanual.entities.entities.title",
     " ",
     "@link@animania:manual/entities/cows/cows.json#- advancements.animania.cows.title",
     "@link@animania:manual/entities/horses/horses.json#- manual.horses",
@@ -11,7 +11,9 @@
     "@link@animania:manual/entities/chickens/chickens.json#- advancements.animania.chickens.title",
     "@link@animania:manual/entities/sheep/sheep.json#- advancements.animania.sheep.title",
     "@link@animania:manual/entities/rabbits/rabbits.json#- advancements.animania.rabbits.title",
-    "@link@animania:manual/entities/amphibians/amphibians.json#- manual.amphibians"
+    "@link@animania:manual/entities/amphibians/amphibians.json#- manual.amphibians",
+    "@link@animania:manual/entities/goats/goats.json#- advancements.animania.goats.title",
+    "@link@animania:manual/entities/peacocks/peacocks.json#- advancements.animania.peacocks.title"
 
 
   ]

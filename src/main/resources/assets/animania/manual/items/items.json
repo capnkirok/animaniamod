@@ -1,8 +1,8 @@
 {
   "name" : "manual.items.items.title",
   "contents" : [
-    "§lmanual.items.items.title",
     "@link@animania:manual/contents.json#← manual.startpage.content",
+    "§lmanual.items.items.title",
     " ",
     "@link@animania:manual/items/animalfood.json#- manual.animalfood",
     "@link@animania:manual/items/peacockfeathers.json#- manual.peacockfeathers",

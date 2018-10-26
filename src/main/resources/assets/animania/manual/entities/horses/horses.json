@@ -1,8 +1,8 @@
 {
   "name" : "manual.horses",
   "contents" : [
-    "§lmanual.horses",
     "@link@animania:manual/entities/entities.json#← manual.entities.entities.title",
+    "§lmanual.horses",
     " ",
     "@link@animania:manual/entities/horses/draft.json#- advancements.animania.draft.title",
     " ",

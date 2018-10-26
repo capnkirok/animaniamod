@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.large_black.title",
   "contents" : [
-    "§ladvancements.animania.large_black.title",
     "@link@animania:manual/entities/pigs/pigs.json#← advancements.animania.pigs.title",
+    "§ladvancements.animania.large_black.title",
     "@entity@animania:hog_large_black",
     "advancements.animania.large_black.title",
     "@text@manual.pigs.meat.1#prevline",

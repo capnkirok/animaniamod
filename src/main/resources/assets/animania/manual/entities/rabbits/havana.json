@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.havana.title",
   "contents" : [
-    "§ladvancements.animania.havana.title",
     "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "§ladvancements.animania.havana.title",
     "@entity@animania:buck_havana",
     "advancements.animania.havana.title",
     "@text@manual.rabbits.normal.1#prevline",

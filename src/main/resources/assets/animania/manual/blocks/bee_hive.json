@@ -1,8 +1,8 @@
 {
   "name" : "tile.animania_block_hive.name",
   "contents" : [
-    "§ltile.animania_block_hive.name",
     "@link@animania:manual/blocks/blocks.json#← manual.blocks.blocks.title",
+    "§ltile.animania_block_hive.name",
     " ",
     "manual.blocks.bee_hive.1",
     "@link@animania:manual/items/food/honey.json#fluid.animania_honey#prevline",

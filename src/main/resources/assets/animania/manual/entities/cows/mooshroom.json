@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.mooshroom.title",
   "contents" : [
-    "§ladvancements.animania.mooshroom.title",
     "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
+    "§ladvancements.animania.mooshroom.title",
     "@entity@animania:bull_mooshroom",
     "advancements.animania.mooshroom.title",
     "@text@manual.cows.mooshroom.1#prevline",

@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.draft.title",
   "contents" : [
-    "§ladvancements.animania.draft.title",
     "@link@animania:manual/entities/horses/horses.json#← manual.horses",
+    "§ladvancements.animania.draft.title",
     "@entity@animania:stallion_draft",
     "manual.horses.general.1",
     "@loottable@animania:horse",

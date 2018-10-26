@@ -1,0 +1,22 @@
+{
+  "name" : "advancements.animania.purple.title",
+  "contents" : [
+    "@link@animania:manual/entities/peacocks/peacocks.json#← advancements.animania.peacocks.title",
+    "§ladvancements.animania.purple.title",
+    "@entity@animania:peacock_purple",
+    "advancements.animania.purple.title",
+    "@text@manual.peacocks.meat.1#prevline",
+    "@loottable@animania:peacocks/peacock_purple",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.peacocks.malefeathers",
+    " ",
+    "manual.biometypes",
+    "@config@general.spawnlocations;peacockPurpleBiomeTypes",
+    " ",
+    "manual.peacocks.others",
+    "@entity@animania:peahen_purple",
+    "@entity@animania:purpleick_purple"
+  ]
+}

@@ -1,8 +1,8 @@
 {
   "name" : "manual.hamsters",
   "contents" : [
-    "§lmanual.hamsters",
     "@link@animania:manual/entities/pets/pets.json#← manual.pets",
+    "§lmanual.hamsters",
     "@entity@animania:hamster",
     "manual.hamsters.1",
     "@configitem@general.careandfeeding;hamsterFood",

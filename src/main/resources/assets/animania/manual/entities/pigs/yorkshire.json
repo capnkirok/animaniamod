@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.yorkshire.title",
   "contents" : [
-    "§ladvancements.animania.yorkshire.title",
     "@link@animania:manual/entities/pigs/pigs.json#← advancements.animania.pigs.title",
+    "§ladvancements.animania.yorkshire.title",
     "@entity@animania:hog_yorkshire",
     "advancements.animania.yorkshire.title",
     "@text@manual.pigs.meat.2#prevline",

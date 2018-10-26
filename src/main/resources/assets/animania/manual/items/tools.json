@@ -1,8 +1,8 @@
 {
   "name" : "manual.tools",
   "contents" : [
-    "§lmanual.tools",
     "@link@animania:manual/items/items.json#← manual.items.items.title",
+    "§lmanual.tools",
     " ",
     "manual.items.tools.1",
     "@crafting@animania:carving_knife",

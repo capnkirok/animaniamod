@@ -1,8 +1,8 @@
 {
   "name" : "manual.items.food.title",
   "contents" : [
-    "§lmanual.items.food.title",
     "@link@animania:manual/contents.json#← manual.startpage.content",
+    "§lmanual.items.food.title",
     " ",
     "@link@animania:manual/items/food/honey.json#- fluid.animania_honey",
     "@link@animania:manual/items/food/meats.json#- manual.meats",

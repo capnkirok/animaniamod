@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.dorper.title",
   "contents" : [
-    "§ladvancements.animania.dorper.title",
     "@link@animania:manual/entities/sheep/sheep.json#← advancements.animania.sheep.title",
+    "§ladvancements.animania.dorper.title",
     "@entity@animania:ram_dorper",
     "advancements.animania.dorper.title",
     "@text@manual.sheep.meat.1#prevline",

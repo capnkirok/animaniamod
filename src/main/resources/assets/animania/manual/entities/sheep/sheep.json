@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.sheep.title",
   "contents" : [
-    "§ladvancements.animania.sheep.title",
     "@link@animania:manual/entities/entities.json#← manual.entities.entities.title",
+    "§ladvancements.animania.sheep.title",
     " ",
     "@link@animania:manual/entities/sheep/friesian.json#- advancements.animania.sheep_friesian.title",
     "@link@animania:manual/entities/sheep/suffolk.json#- advancements.animania.suffolk.title",

@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.orpington.title",
   "contents" : [
-    "§ladvancements.animania.orpington.title",
     "@link@animania:manual/entities/chickens/chickens.json#← advancements.animania.chickens.title",
+    "§ladvancements.animania.orpington.title",
     "@entity@animania:rooster_orpington",
     "advancements.animania.orpington.title",
     "@text@manual.chickens.meat.1#prevline",

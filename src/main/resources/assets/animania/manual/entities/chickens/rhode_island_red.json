@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.rhode_island_red.title",
   "contents" : [
-    "§ladvancements.animania.rhode_island_red.title",
     "@link@animania:manual/entities/chickens/chickens.json#← advancements.animania.chickens.title",
+    "§ladvancements.animania.rhode_island_red.title",
     "@entity@animania:rooster_rhode_island_red",
     "advancements.animania.rhode_island_red.title",
     "@text@manual.chickens.meat.1#prevline",

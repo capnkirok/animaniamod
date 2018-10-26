@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.goats.title",
+  "contents" : [
+    "@link@animania:manual/entities/entities.json#← manual.entities.entities.title",
+    "§ladvancements.animania.goats.title",
+    " ",
+    "@link@animania:manual/entities/goats/alpine.json#- advancements.animania.alpine.title",
+    "@link@animania:manual/entities/goats/angora.json#- advancements.animania.angora.title",
+    "@link@animania:manual/entities/goats/fainting.json#- advancements.animania.fainting.title",
+    "@link@animania:manual/entities/goats/kiko.json#- advancements.animania.kiko.title",
+    "@link@animania:manual/entities/goats/kinder.json#- advancements.animania.kinder.title",
+    "@link@animania:manual/entities/goats/nigerian_dwarf.json#- advancements.animania.nigerian_dwarf.title",
+    "@link@animania:manual/entities/goats/pygmy.json#- advancements.animania.pygmy.title",
+    " ",
+    "manual.goats.general.1",
+    "@configitem@general.careandfeeding;goatFood",
+    " ",
+    "manual.goats.general.2"
+  ]
+}

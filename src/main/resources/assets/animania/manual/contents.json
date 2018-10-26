@@ -1,8 +1,8 @@
 {
   "name" : "manual.startpage.content",
   "contents" : [
-    "§lmanual.startpage.content",
     "@link@animania:manual/startpage.json#← manual.contents.mainpage",
+    "§lmanual.startpage.content",
     " ",
     "@link@animania:manual/entities/entities.json#- manual.entities.entities.title",
     "@link@animania:manual/entities/pullables/pullables.json#- manual.entities.pullabes.title",

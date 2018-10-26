@@ -1,8 +1,8 @@
 {
   "name" : "manual.ferrets",
   "contents" : [
-    "§lmanual.ferrets",
     "@link@animania:manual/entities/pets/pets.json#← manual.pets",
+    "§lmanual.ferrets",
     "manual.ferrets.1",
     "@entity@animania:ferret_grey",
     "@entity@animania:ferret_white",

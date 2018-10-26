@@ -1,8 +1,8 @@
 {
   "name" : "manual.milk",
   "contents" : [
-    "§lmanual.milk",
     "@link@animania:manual/items/food.json#← manual.items.food.title",
+    "§lmanual.milk",
     " ",
     "manual.food.milk.1",
     "@crafting@animania:milk_bottle"

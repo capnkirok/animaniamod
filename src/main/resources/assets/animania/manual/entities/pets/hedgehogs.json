@@ -1,8 +1,8 @@
 {
   "name" : "manual.hedgehogs",
   "contents" : [
-    "§lmanual.hedgehogs",
     "@link@animania:manual/entities/pets/pets.json#← manual.pets",
+    "§lmanual.hedgehogs",
     "manual.hedgehogs.1",
     "@entity@animania:hedgehog",
     "@entity@animania:hedgehog_albino",

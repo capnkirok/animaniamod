@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.plymouth_rock.title",
   "contents" : [
-    "§ladvancements.animania.plymouth_rock.title",
     "@link@animania:manual/entities/chickens/chickens.json#← advancements.animania.chickens.title",
+    "§ladvancements.animania.plymouth_rock.title",
     "@entity@animania:rooster_plymouth_rock",
     "advancements.animania.plymouth_rock.title",
     "@text@manual.chickens.meat.1#prevline",

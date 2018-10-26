@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.new_zealand.title",
   "contents" : [
-    "§ladvancements.animania.new_zealand.title",
     "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "§ladvancements.animania.new_zealand.title",
     "@entity@animania:buck_new_zealand",
     "advancements.animania.new_zealand.title",
     "@text@manual.rabbits.meat.1#prevline",

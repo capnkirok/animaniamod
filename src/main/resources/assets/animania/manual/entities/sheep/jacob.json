@@ -1,8 +1,8 @@
 {
   "name" : "advancements.animania.jacob.title",
   "contents" : [
-    "§ladvancements.animania.jacob.title",
     "@link@animania:manual/entities/sheep/sheep.json#← advancements.animania.sheep.title",
+    "§ladvancements.animania.jacob.title",
     "@entity@animania:ram_jacob",
     "advancements.animania.jacob.title",
     "@text@manual.sheep.normal.1#prevline",

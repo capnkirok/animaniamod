@@ -1,8 +1,8 @@
 {
   "name" : "manual.truffles",
   "contents" : [
-    "§lmanual.truffles",
     "@link@animania:manual/items/food.json#← manual.items.food.title",
+    "§lmanual.truffles",
     " ",
     "manual.food.truffles.1",
     "@image@animania:textures/images/truffles.png",
