@@ -181,6 +181,7 @@ public class ClientProxy extends CommonProxy
 		if(res instanceof SimpleReloadableResourceManager)
 		{
 			((SimpleReloadableResourceManager) res).reloadResourcePack(pack);
+			Minecraft.getMinecraft().getLanguageManager().onResourceManagerReload(res);
 		}
 	}
 

@@ -30,5 +30,8 @@ public interface IMateable
 	public void setMateUniqueId(UUID id);
 
 	
-	public void setInLove(EntityPlayer player);
+	default void setInLove(EntityPlayer player)
+	{
+		
+	}
 }

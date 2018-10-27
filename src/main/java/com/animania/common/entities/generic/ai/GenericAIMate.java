@@ -195,7 +195,7 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 					else if (allowBreeding)
 					{
 						k = entities.size();
-						this.entity.setInLove(null);
+						((IMateable)entity).setInLove(null);
 						this.entity.getLookHelper().setLookPositionWithEntity(female, 10.0F, this.entity.getVerticalFaceSpeed());
 						this.entity.getNavigator().tryMoveToEntityLiving(female, this.moveSpeed);
 						female.getLookHelper().setLookPositionWithEntity(this.entity, 10.0F, female.getVerticalFaceSpeed());

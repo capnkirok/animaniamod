@@ -1,6 +1,7 @@
 package com.animania.manual.resources;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.animania.Animania;
+import com.animania.addons.AddonResourcePack;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.helper.StringParser;
 import com.animania.manual.components.ConfigComponent;
@@ -41,9 +43,11 @@ import com.google.gson.JsonParser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.IResource;
+import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class ManualResourceLoader
 {
@@ -51,18 +55,13 @@ public class ManualResourceLoader
 	private static List<ManualTopic> topics = new ArrayList<ManualTopic>();
 	public static ManualTopic firstTopic = null;
 
-	public static void loadResources()
+	private static List<ResourceLocation> allManualFiles = new ArrayList<ResourceLocation>();
+
+	private static void fetchManualFiles()
 	{
-		topics.clear();
-		firstTopic = null;
-		errored = false;
-		GuiManual.INSTANCE.manualContent.clear();
-		GuiManual.INSTANCE.lastTopic = null;
-		GuiManual.INSTANCE.currentTopic = null;
-		GuiManual.INSTANCE.pageIndex = 0;
-
+		allManualFiles.clear();
+		
 		FileSystem filesystem = null;
-
 		URL url = Animania.class.getResource("/assets/animania/manual/");
 		try
 		{
@@ -99,34 +98,18 @@ public class ManualResourceLoader
 
 						ResourceLocation loc = new ResourceLocation(Animania.MODID, resLoc.replace("\\", "/"));
 
-						List<IResource> resources = Minecraft.getMinecraft().getResourceManager().getAllResources(loc);
-						if (resources.isEmpty())
-							continue;
-
-						InputStream stream = resources.get(resources.size() - 1).getInputStream();
-
-						readJson(stream, loc);
+						allManualFiles.add(loc);
 					}
 				}
-
-				GuiManual m = GuiManual.INSTANCE;
-				for (ManualTopic c : topics)
-				{
-					if (c.isPermitted())
-					{
-						m.manualContent.put(c.getId(), c);
-					}
-				}
-				m.currentTopic = firstTopic;
-				m.lastTopic = firstTopic;
 			}
 		}
 		catch (Exception e)
 		{
 			Animania.LOGGER.error(e);
 		}
-		
-		if(filesystem != null)
+
+		if (filesystem != null)
+		{
 			try
 			{
 				filesystem.close();
@@ -135,6 +118,62 @@ public class ManualResourceLoader
 			{
 				e.printStackTrace();
 			}
+		}
+		
+		
+		List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "field_110449_ao", "defaultResourcePacks");
+
+		for(IResourcePack pack : packs)
+		{
+			if(pack instanceof AddonResourcePack.Jar)
+				allManualFiles.addAll(((AddonResourcePack.Jar) pack).manualFiles);
+			
+			if(pack instanceof AddonResourcePack.Folder)
+				allManualFiles.addAll(((AddonResourcePack.Folder) pack).manualFiles);
+		}
+	}
+
+	public static void loadResources()
+	{
+		topics.clear();
+		firstTopic = null;
+		errored = false;
+		GuiManual.INSTANCE.manualContent.clear();
+		GuiManual.INSTANCE.lastTopic = null;
+		GuiManual.INSTANCE.currentTopic = null;
+		GuiManual.INSTANCE.pageIndex = 0;
+
+		fetchManualFiles();
+		
+		for (ResourceLocation loc : allManualFiles)
+		{
+			try
+			{
+				List<IResource> resources = Minecraft.getMinecraft().getResourceManager().getAllResources(loc);
+				if (resources.isEmpty())
+					continue;
+
+				InputStream stream = resources.get(resources.size() - 1).getInputStream();
+
+				readJson(stream, loc);
+			}
+			catch (Exception e)
+			{
+				Animania.LOGGER.error(e);
+			}
+		}
+
+		GuiManual m = GuiManual.INSTANCE;
+		for (ManualTopic c : topics)
+		{
+			if (c.isPermitted())
+			{
+				m.manualContent.put(c.getId(), c);
+			}
+		}
+		m.currentTopic = firstTopic;
+		m.lastTopic = firstTopic;
+
 	}
 
 	public static void readJson(InputStream stream, ResourceLocation loc)
@@ -291,17 +330,17 @@ public class ManualResourceLoader
 				ResourceLocation loc = new ResourceLocation(linkLoc);
 				String display = s.substring(s.indexOf("#") + 1);
 				display = AnimaniaHelper.translateWithFormattingCodes(display);
-				
+
 				List<IManualComponent> textComps = getTextComp(display, otherComponents, prevLine);
-				
+
 				List<IManualComponent> linkComps = new ArrayList<IManualComponent>();
-				
-				for(IManualComponent comp : textComps)
+
+				for (IManualComponent comp : textComps)
 				{
-					String displ = ((TextComponent)comp).toString();
+					String displ = ((TextComponent) comp).toString();
 					linkComps.add(new LinkComponent(comp.getX(), comp.getY(), displ, loc));
 				}
-				
+
 				return linkComps;
 			}
 		}
@@ -464,26 +503,26 @@ public class ManualResourceLoader
 				else
 					o = d;
 			}
-			if(o.getClass().isArray())
+			if (o.getClass().isArray())
 			{
-				o = Arrays.toString((Object[])o).replace("[", "").replace("]", "");
+				o = Arrays.toString((Object[]) o).replace("[", "").replace("]", "");
 			}
-			
+
 			String display = o + "";
 
 			if (display.isEmpty())
 				return Collections.EMPTY_LIST;
 
 			List<IManualComponent> textComps = getTextComp(display, otherComponents, prevLine);
-			
+
 			List<IManualComponent> configComps = new ArrayList<IManualComponent>();
-			
-			for(IManualComponent comp : textComps)
+
+			for (IManualComponent comp : textComps)
 			{
-				String displ = ((TextComponent)comp).toString();
+				String displ = ((TextComponent) comp).toString();
 				configComps.add(new ConfigComponent(comp.getX(), comp.getY(), displ, s));
 			}
-			
+
 			return configComps;
 		}
 		else if (s.startsWith("@configitemname@"))
@@ -615,13 +654,15 @@ public class ManualResourceLoader
 			{
 				if (str.isEmpty())
 					continue;
-				
-//				if (!otherComponents.isEmpty())
-//				{
-//					IManualComponent lastComponent = otherComponents.get(otherComponents.size() - 1);
-//					offsetY = lastComponent.getY() + lastComponent.getObjectHeight();
-//				}
-				
+
+				// if (!otherComponents.isEmpty())
+				// {
+				// IManualComponent lastComponent =
+				// otherComponents.get(otherComponents.size() - 1);
+				// offsetY = lastComponent.getY() +
+				// lastComponent.getObjectHeight();
+				// }
+
 				TextComponent comp = new TextComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, str);
 				offsetY = comp.getY() + comp.getObjectHeight();
 				comps.add(comp);

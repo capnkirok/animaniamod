@@ -1,14 +1,17 @@
 package com.animania.addons;
 
-import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -19,12 +22,10 @@ import javax.annotation.Nullable;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 
 import com.animania.Animania;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import net.minecraft.client.resources.FileResourcePack;
 import net.minecraft.client.resources.FolderResourcePack;
-import net.minecraft.client.resources.ResourcePackFileNotFoundException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 
@@ -35,6 +36,8 @@ public class AddonResourcePack
 
 		private AnimaniaAddon addon;
 		private ZipFile resourcePackZipFile;
+
+		public List<ResourceLocation> manualFiles = new ArrayList<ResourceLocation>();
 
 		public Jar(AnimaniaAddon addon)
 		{
@@ -47,9 +50,9 @@ public class AddonResourcePack
 
 			try
 			{
-				String classpath = addon.getClass().getResource(addon.getClass().getSimpleName() + ".class").getFile();							
-				classpath = classpath.substring(0, classpath.indexOf("!"));			
-				classpath = classpath.substring(classpath.lastIndexOf("/"), classpath.length());				
+				String classpath = addon.getClass().getResource(addon.getClass().getSimpleName() + ".class").getFile();
+				classpath = classpath.substring(0, classpath.indexOf("!"));
+				classpath = classpath.substring(classpath.lastIndexOf("/"), classpath.length());
 
 				String path = ".\\mods\\" + classpath;
 
@@ -64,7 +67,6 @@ public class AddonResourcePack
 			}
 		}
 
-		
 		@Override
 		public String getPackName()
 		{
@@ -89,6 +91,8 @@ public class AddonResourcePack
 		{
 			ZipFile zipfile;
 
+			this.manualFiles.clear();
+			
 			try
 			{
 				zipfile = this.getResourcePackZipFile();
@@ -109,6 +113,13 @@ public class AddonResourcePack
 				if (s.startsWith("assets/" + addon.getAddonID() + "/"))
 				{
 					String[] list = s.split("/");
+
+					if (s.contains("/manual/") && s.endsWith(".json"))
+					{
+						String resLoc = s.substring(s.indexOf("manual"), s.length());
+						ResourceLocation loc = new ResourceLocation(Animania.MODID, resLoc.replace("\\", "/"));
+						manualFiles.add(loc);
+					}
 
 					if (list.length == 3)
 					{
@@ -133,9 +144,10 @@ public class AddonResourcePack
 		protected InputStream getInputStreamByName(String resourceName) throws IOException
 		{
 
-			if (resourceName.equals("pack.mcmeta"))
+			
+			if (resourceName.contains("pack.mcmeta"))
 			{
-				return Animania.class.getResourceAsStream("/addons.mcmeta");
+				return Animania.class.getResourceAsStream("addons.mcmeta");
 			}
 
 			resourceName = resourceName.replace("assets/", "assets/" + addon.getAddonID() + "/");
@@ -160,6 +172,7 @@ public class AddonResourcePack
 	{
 
 		private AnimaniaAddon addon;
+		public List<ResourceLocation> manualFiles = new ArrayList<ResourceLocation>();
 
 		public Folder(AnimaniaAddon addon)
 		{
@@ -183,10 +196,10 @@ public class AddonResourcePack
 		@Override
 		protected InputStream getInputStreamByName(String resourceName) throws IOException
 		{
-
+			
 			if (resourceName.equals("pack.mcmeta"))
 			{
-				return Animania.class.getResourceAsStream("/addons.mcmeta");
+				return Animania.class.getResourceAsStream("addons.mcmeta");
 			}
 
 			resourceName = resourceName.replace("assets/", "assets/" + addon.getAddonID() + "/");
@@ -227,8 +240,31 @@ public class AddonResourcePack
 			Set<String> set = Sets.<String>newHashSet();
 			File file1 = new File(this.resourcePackFile, "assets/" + addon.getAddonID() + "/");
 
+			this.manualFiles.clear();
+			
 			if (file1.isDirectory())
 			{
+				Iterator<Path> it;
+				try
+				{
+					it = Files.walk(file1.toPath()).iterator();
+
+					while (it.hasNext())
+					{
+						String s = it.next().toString();
+						if (s.contains("manual") && s.endsWith(".json"))
+						{
+							String resLoc = s.substring(s.indexOf("manual"), s.length());
+							ResourceLocation loc = new ResourceLocation(Animania.MODID, resLoc.replace("\\", "/"));
+							manualFiles.add(loc);
+						}
+					}
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+
 				for (File file2 : file1.listFiles((FileFilter) DirectoryFileFilter.DIRECTORY))
 				{
 					String s = getRelativeName(file1, file2);

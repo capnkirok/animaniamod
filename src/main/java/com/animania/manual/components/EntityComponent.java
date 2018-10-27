@@ -177,28 +177,6 @@ public class EntityComponent implements IManualComponent
 	@SideOnly(Side.CLIENT)
 	private void renderEntityStatic(Entity entity)
 	{
-//		if (entity.ticksExisted == 0)
-//		{
-//			entity.lastTickPosX = entity.posX;
-//			entity.lastTickPosY = entity.posY;
-//			entity.lastTickPosZ = entity.posZ;
-//		}
-//
-//		float f = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw);
-//		int i = this.getBrightnessForRender(entity, Minecraft.getMinecraft().player);
-//
-//		if (entity.isBurning())
-//		{
-//			i = 15728880;
-//		}
-//
-//		int j = i % 65536;
-//		int k = i / 65536;
-//		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, j, k);
-//		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-//
-//		this.setLightmapDisabled(true);
-
 		Minecraft.getMinecraft().getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, 0, 0.0F, true);
 
 	}

@@ -1,0 +1,9 @@
+{
+  "name" : "manual.addons",
+  "contents" : [
+    "@link@animania:manual/contents.json#← manual.startpage.content",
+    "§lmanual.addons",
+    " ",
+    "@link@animania:manual/catsdogs/catsdogs.json#- manual.catsdogs$catsdogs"
+  ]
+}
