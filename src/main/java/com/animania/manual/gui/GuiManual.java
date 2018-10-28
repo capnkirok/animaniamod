@@ -83,6 +83,13 @@ public class GuiManual extends GuiScreen
 			{
 				INSTANCE.currentTopic = INSTANCE.manualContent.get(new ResourceLocation(tag.getString("currentTopic")));
 				INSTANCE.lastTopic = INSTANCE.manualContent.get(new ResourceLocation(tag.getString("lastTopic")));
+				
+				if(INSTANCE.currentTopic == null)
+					INSTANCE.currentTopic = ManualResourceLoader.firstTopic;
+
+				if(INSTANCE.lastTopic == null)
+					INSTANCE.lastTopic = ManualResourceLoader.firstTopic;
+
 			}
 			else
 			{
