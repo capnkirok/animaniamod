@@ -1,5 +1,6 @@
 package com.animania.common.entities.generic.ai;
 
+import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -27,15 +28,27 @@ public class GenericAIAvoidWater extends EntityAIBase
 	public boolean shouldExecute()
 	{
 		delayCounter++;
+		
 		if (delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
+			
+			
+			if (idleEntity instanceof ISleeping)
+			{
+				if (!idleEntity.world.isDaytime() || ((ISleeping) idleEntity).getSleeping())
+				{
+					this.delayCounter = 0;
+					return false;
+				}
+			}
 		
 			BlockPos currentpos1 = new BlockPos(idleEntity.posX, idleEntity.posY, idleEntity.posZ);
 			BlockPos currentpos2 = new BlockPos(idleEntity.posX, idleEntity.posY - 1, idleEntity.posZ);
 			Block poschk1 = idleEntity.world.getBlockState(currentpos1).getBlock();
 			Block poschk2 = idleEntity.world.getBlockState(currentpos2).getBlock();
 			
-			if(poschk1 == Blocks.WATER || poschk2 == Blocks.WATER) {
-				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.idleEntity, 10, 8);
+			if((poschk1 == Blocks.WATER || poschk2 == Blocks.WATER) && !idleEntity.hasPath()) {
+				
+				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.idleEntity, 20, 8);
 
 				if (vec3d != null) {
 					this.idleEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, 1.0);

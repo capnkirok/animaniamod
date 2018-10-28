@@ -36,7 +36,11 @@ public class RenderBuckRex<T extends EntityRabbitBuckRex> extends RenderLiving<T
 
 	protected void preRenderScale(EntityRabbitBuckRex entity, float f)
 	{
-		GL11.glScalef(0.54F, 0.54F, 0.54F);
+		if (entity.getCustomNameTag().equals("Killer")) {
+			GlStateManager.scale(0.7D, 0.7D, 0.7D);
+		} else {	
+			GL11.glScalef(0.54F, 0.54F, 0.54F);
+		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		double x = entity.posX;
 		double y = entity.posY;

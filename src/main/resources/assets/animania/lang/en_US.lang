@@ -248,7 +248,7 @@ entity.animania:foal_draft.name=Draft Horse Foal
 
 entity.animania:frog.name=Frog
 entity.animania:toad.name=Toad
-entity.animania:dartfrog.name=Tree Frog
+entity.animania:dartfrog.name=Dart Frog
 
 entity.animania:buck_alpine.name=Alpine Buck
 entity.animania:doe_alpine.name=Alpine Doe
@@ -598,7 +598,7 @@ manual.milk=Milk
 manual.eggs=Eggs
 manual.animalfood=Animal Food
 manual.peacockfeathers=Peacock Feathers
-manual.tools=Animania Tools
+manual.tools=Tools
 manual.hamster_balls=Hamster Balls
 manual.crafting_components=Crafting Components
 manual.horses=Horses
@@ -662,8 +662,7 @@ manual.food.eggs.1=Animania adds three new types of eggs. They are all effective
 manual.items.animalfood.1=Animania adds new types of food for certain animals. Pigs love Slop, which needs to be placed in a trough.
 manual.items.animalfood.2=Hamsters need to be tamed and fed using hamster food:
 manual.items.peacockfeathers.1=Animania adds feathers for peacocks. These feathers can be used like vanilla feathers in crafting recipes.
-manual.items.tools.1=Animania adds a few different types of tools. The Carving knife is used to cut up meats to smaller sizes. It can also be used to sterilize male animals, by right clicking them with the knife.
-manual.items.tools.2=The riding crop can be used to ride faster on draft horses.
+manual.items.tools.1=The Carving Knife is used to cut up meats and cheeses to smaller sizes. It can also be used to sterilize male animals, by right clicking the male animal with the knife.
 manual.items.hamster_balls.1=You can use hamster balls for your hamsters to have fun! To place the hamster inside the ball, right click the hamster with it. To remove it, right click the hamster again.
 manual.items.crafting_components.1=These items are only used as crafting components and have no other use.
 

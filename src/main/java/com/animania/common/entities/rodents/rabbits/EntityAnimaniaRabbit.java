@@ -13,7 +13,6 @@ import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
 import com.animania.common.entities.generic.ai.GenericAISwim;
@@ -21,9 +20,6 @@ import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
-import com.animania.common.entities.rodents.EntityFerretBase;
-import com.animania.common.entities.rodents.EntityHedgehog;
-import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.entities.rodents.ai.EntityAISleepRabbits;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -43,10 +39,17 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAITarget;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.ai.EntityAIWander;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
@@ -133,7 +136,6 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 			this.tasks.addTask(11, new GenericAILookIdle(this));
 			this.tasks.addTask(11, new GenericAIAvoidWater(this));
-			this.targetTasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
 			if (AnimaniaConfig.gameRules.animalsSleep)
 			{
 				this.tasks.addTask(12, new EntityAISleepRabbits(this, 0.8));
@@ -626,6 +628,16 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.setAge(1);
 		}
 
+		if (this.getCustomNameTag().equals("Killer"))  {
+			for (Object a : this.tasks.taskEntries.toArray())
+			{
+				EntityAIBase ai = ((EntityAITaskEntry) a).action;
+				if (ai instanceof GenericAIPanic) {
+					this.resetAI();
+				}
+			}
+		}
+
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -1089,14 +1101,12 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	@Override
 	public int getPrimaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getSecondaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

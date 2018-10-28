@@ -15,6 +15,7 @@ import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 
 import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.block.BlockTallGrass;
@@ -323,7 +324,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 				lastPos = pos;
 				this.world.setBlockState(this.getPosition().down(), Blocks.FARMLAND.getStateFromMeta(7));
 				
-				if (this.world.getBlockState(this.getPosition()).getBlock() instanceof BlockTallGrass) {
+				if (this.world.getBlockState(this.getPosition()).getBlock() instanceof BlockTallGrass || this.world.getBlockState(this.getPosition()).getBlock() instanceof BlockDoublePlant) {
 					this.world.destroyBlock(this.getPosition(), false);
 				} else if (this.world.getBlockState(this.getPosition()).getBlock() instanceof BlockCrops) {
 						//do nothing

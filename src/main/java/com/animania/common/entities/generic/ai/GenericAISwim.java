@@ -1,43 +1,56 @@
 package com.animania.common.entities.generic.ai;
 
+import com.animania.common.entities.interfaces.ISleeping;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.math.BlockPos;
 
 public class GenericAISwim extends EntityAIBase
 {
-    private final EntityLiving theEntity;
+    private final EntityLiving entity;
 
-    public GenericAISwim(EntityLiving entitylivingIn) {
-        this.theEntity = entitylivingIn;
+    public GenericAISwim(EntityLiving entityIn) {
+    	this.entity = entityIn;
         this.setMutexBits(4);
-        ((PathNavigateGround) entitylivingIn.getNavigator()).setCanSwim(true);
+
+        if (entityIn.getNavigator() instanceof PathNavigateGround)
+        {
+            ((PathNavigateGround)entityIn.getNavigator()).setCanSwim(true);
+        }
+        else if (entityIn.getNavigator() instanceof PathNavigateFlying)
+        {
+            ((PathNavigateFlying)entityIn.getNavigator()).setCanFloat(true);
+        }
+     
     }
 
     @Override
     public boolean shouldExecute() {
-        return this.theEntity.isInWater() || this.theEntity.isInLava();
+    	
+    	return this.entity.isInWater() || this.entity.isInLava();
     }
 
     @Override
     public void updateTask() {
-        if (this.theEntity.getRNG().nextFloat() < 0.9F) {
+        if (this.entity.getRNG().nextFloat() < 0.8F) {
 
-        	BlockPos poschk = new BlockPos(this.theEntity.posX + this.theEntity.motionX/1.5, this.theEntity.posY+.1F, this.theEntity.posZ + this.theEntity.motionZ/1.5);
+        	BlockPos poschk = new BlockPos(this.entity.posX + this.entity.motionX/1.5, this.entity.posY+.1F, this.entity.posZ + this.entity.motionZ/1.5);
 
-			Block blockchk = this.theEntity.world.getBlockState(poschk).getBlock();
+			Block blockchk = this.entity.world.getBlockState(poschk).getBlock();
 
-			if (this.theEntity.isPushedByWater()) {
-				this.theEntity.move(MoverType.SELF, this.theEntity.motionX, this.theEntity.motionY + .3, this.theEntity.motionZ);	
+			if (this.entity.isPushedByWater()) {
+				this.entity.move(MoverType.SELF, this.entity.motionX, this.entity.motionY + .3F, this.entity.motionZ);	
 			} else if (blockchk != Blocks.WATER) {
-				this.theEntity.move(MoverType.SELF, this.theEntity.motionX, this.theEntity.motionY + .3, this.theEntity.motionZ);	
-				this.theEntity.getJumpHelper().setJumping();
+				this.entity.move(MoverType.SELF, this.entity.motionX, this.entity.motionY + .3F, this.entity.motionZ);	
+				this.entity.getJumpHelper().setJumping();
 			} else {
-				this.theEntity.move(MoverType.SELF, this.theEntity.motionX, this.theEntity.motionX + .3F, this.theEntity.motionZ);	
+				this.entity.move(MoverType.SELF, this.entity.motionX, this.entity.motionX + .3F, this.entity.motionZ);	
 			}
         }
     }

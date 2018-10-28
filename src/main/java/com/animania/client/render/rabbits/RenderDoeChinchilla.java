@@ -26,6 +26,7 @@ public class RenderDoeChinchilla<T extends EntityRabbitDoeChinchilla> extends Re
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_chinchilla.png");
 	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
+	private static final ResourceLocation killerRabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_killer.png");
 	Random rand = new Random();
 
 	public RenderDoeChinchilla(RenderManager rm)
@@ -36,7 +37,11 @@ public class RenderDoeChinchilla<T extends EntityRabbitDoeChinchilla> extends Re
 
 	protected void preRenderScale(EntityRabbitDoeChinchilla entity, float f)
 	{
-		GL11.glScalef(0.59F, 0.59F, 0.59F);
+		if (entity.getCustomNameTag().equals("Killer")) {
+			GlStateManager.scale(0.7D, 0.7D, 0.7D);
+		} else {	
+			GL11.glScalef(0.59F, 0.59F, 0.59F);
+		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
 		double x = entity.posX;
@@ -72,7 +77,11 @@ public class RenderDoeChinchilla<T extends EntityRabbitDoeChinchilla> extends Re
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.rabbitTextures;
+		if (entity.getCustomNameTag().trim().equals("Killer")) {
+			return RenderDoeChinchilla.killerRabbitTextures;
+		} else {
+			return RenderDoeChinchilla.rabbitTextures;
+		}
 	}
 
 	static class Factory<T extends EntityRabbitDoeChinchilla> implements IRenderFactory<T>

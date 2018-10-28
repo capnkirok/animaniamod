@@ -65,6 +65,10 @@ public class EntityAISleepRabbits extends EntityAIBase
 				return false;
 			}
 
+			if (entityIn.getCustomNameTag().equals("Killer")) {
+				this.delayTemptCounter = 0;
+				return false;
+			}
 
 			if (entityIn instanceof EntityAnimaniaRabbit) {
 				EntityAnimaniaRabbit ech = (EntityAnimaniaRabbit)entityIn;

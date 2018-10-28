@@ -47,7 +47,11 @@ public class RenderRoosterBase<T extends EntityRoosterBase> extends RenderLiving
 
 	protected void preRenderScale(T entity, float f)
 	{
-		GL11.glScalef(1.0F, 1.0F, 1.0F);
+		if (entity.getCustomNameTag().equals("Ducktonio")) {
+			GL11.glScalef(1.5F, 1.5F, 1.5F);
+		} {
+			GL11.glScalef(1.0F, 1.0F, 1.0F);
+		}
 
 		boolean isSleeping = false;
 		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) entity;
@@ -72,7 +76,14 @@ public class RenderRoosterBase<T extends EntityRoosterBase> extends RenderLiving
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return entity.getResourceLocation();
+		
+		if (entity.getCustomNameTag().equals("Ducktonio")) {
+			return new ResourceLocation("animania:textures/entity/chickens/rooster_antonio.png");
+		} else {
+			return entity.getResourceLocation();
+		}
+		
+		
 	}
 
 	static class Factory<T extends EntityRoosterBase> implements IRenderFactory<T>

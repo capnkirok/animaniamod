@@ -1,12 +1,9 @@
 package com.animania.client.render.rabbits;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.rabbits.ModelLop;
 import com.animania.client.render.layer.LayerBlinking;
-import com.animania.client.render.rabbits.RenderBuckLop.Factory;
 import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckLop;
 
@@ -28,11 +25,9 @@ public class RenderBuckLop<T extends EntityRabbitBuckLop> extends RenderLiving<T
 	private static final String modid = "animania", rabbitBaseDir = "textures/entity/rabbits/";
 
 	private static final ResourceLocation[] RABBIT_TEXTURES = new ResourceLocation[] { new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "black.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "brown.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "golden.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "olive.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "patch_black.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "patch_brown.png"), new ResourceLocation(RenderBuckLop.modid, RenderBuckLop.rabbitBaseDir + "rabbit_lop_" + "patch_grey.png") };
-
 	private static int[] EYE_COLORS = new int[]{0x404040, 0x816D60, 0xD0A675, 0x7F6C5B, 0xF6F4F4, 0xF6F4F4, 0xF6F4F4};
-	
 	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
-
+	private static final ResourceLocation killerRabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_killer.png");
 	private LayerBlinking blinkingLayer;
 	
 	public RenderBuckLop(RenderManager rm)
@@ -43,7 +38,11 @@ public class RenderBuckLop<T extends EntityRabbitBuckLop> extends RenderLiving<T
 
 	protected void preRenderScale(EntityRabbitBuckLop entity, float f)
 	{
-		GL11.glScalef(0.47F, 0.47F, 0.47F);
+		if (entity.getCustomNameTag().equals("Killer")) {
+			GlStateManager.scale(0.7D, 0.7D, 0.7D);
+		} else {	
+			GL11.glScalef(0.47F, 0.47F, 0.47F);
+		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		double x = entity.posX;
 		double y = entity.posY;
@@ -79,12 +78,17 @@ public class RenderBuckLop<T extends EntityRabbitBuckLop> extends RenderLiving<T
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
-		{
-			return RABBIT_TEXTURES[0];
-		}
+		if (entity.getCustomNameTag().trim().equals("Killer")) {
+			return RenderBuckLop.killerRabbitTextures;
+		} else {
+			if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+			{
+				return RABBIT_TEXTURES[0];
+			}
 
-		return this.RABBIT_TEXTURES[entity.getColorNumber()];
+			return this.RABBIT_TEXTURES[entity.getColorNumber()];
+		}
+		
 	}
 
 	static class Factory<T extends EntityRabbitBuckLop> implements IRenderFactory<T>

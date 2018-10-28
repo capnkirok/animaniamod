@@ -26,6 +26,7 @@ public class RenderDoeRex<T extends EntityRabbitDoeRex> extends RenderLiving<T>
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_rex.png");
 	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
+	private static final ResourceLocation killerRabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_killer.png");
 	Random rand = new Random();
 
 	public RenderDoeRex(RenderManager rm)
@@ -36,7 +37,11 @@ public class RenderDoeRex<T extends EntityRabbitDoeRex> extends RenderLiving<T>
 
 	protected void preRenderScale(EntityRabbitDoeRex entity, float f)
 	{
-		GL11.glScalef(0.58F, 0.58F, 0.58F);
+		if (entity.getCustomNameTag().equals("Killer")) {
+			GlStateManager.scale(0.7D, 0.7D, 0.7D);
+		} else {	
+			GL11.glScalef(0.58F, 0.58F, 0.58F);
+		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
 		double x = entity.posX;
@@ -72,7 +77,11 @@ public class RenderDoeRex<T extends EntityRabbitDoeRex> extends RenderLiving<T>
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		return this.rabbitTextures;
+		if (entity.getCustomNameTag().trim().equals("Killer")) {
+			return RenderDoeRex.killerRabbitTextures;
+		} else {
+			return RenderDoeRex.rabbitTextures;
+		}
 	}
 
 	static class Factory<T extends EntityRabbitDoeRex> implements IRenderFactory<T>
