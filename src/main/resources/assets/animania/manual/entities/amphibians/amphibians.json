@@ -4,9 +4,9 @@
     "@link@animania:manual/entities/entities.json#← manual.entities.entities.title",
     "§lmanual.amphibians",
     " ",
+    "@link@animania:manual/entities/amphibians/dart_frogs.json#- manual.dart_frogs",
     "@link@animania:manual/entities/amphibians/frogs.json#- manual.frogs",
     "@link@animania:manual/entities/amphibians/toads.json#- manual.toads",
-    "@link@animania:manual/entities/amphibians/dart_frogs.json#- manual.dart_frogs",
     " ",
     "manual.amphibians.general.1"
   ]
