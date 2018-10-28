@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/goats/goats.json#← advancements.animania.goats.title",
     "§ladvancements.animania.kiko.title",
-    "@entity@animania:buck_kiko",
+    "@entity@animania:buck_kiko,animania:doe_kiko,animania:kid_kiko",
     "advancements.animania.kiko.title",
     "@text@manual.goats.meat.1#prevline",
     "@loottable@animania:goat_prime",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;goatKikoBiomeTypes",
-    " ",
-    "manual.goats.others",
-    "@entity@animania:doe_kiko",
-    "@entity@animania:kid_kiko"
+    "@config@general.spawnlocations;goatKikoBiomeTypes"
   ]
 }

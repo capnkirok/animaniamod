@@ -33,15 +33,20 @@ public class EntityComponent implements IManualComponent
 	private int objectWidth = GuiManual.MANUAL_MAX_X - 4;
 	private int objectHeight = 35;
 
-	private ResourceLocation entityLoc;
+	private ResourceLocation[] entityLoc;
 
 	private Minecraft mc;
 
-	private float multiplier = 1;
-	
-	private Entity entity;
+	private float[] multiplier;
 
-	public EntityComponent(int x, int y, ResourceLocation entity)
+	private Entity[] entities;
+
+	public static int renderTimer = 0;
+	private int index = 0;
+
+	private Entity currentEntity;
+
+	public EntityComponent(int x, int y, ResourceLocation... entities)
 	{
 		this.manual = GuiManual.INSTANCE;
 		this.absoluteX = x + GuiManual.START_OFFSET_X;
@@ -50,73 +55,100 @@ public class EntityComponent implements IManualComponent
 		this.x = x;
 		this.y = y;
 
-		this.entityLoc = entity;
+		this.entityLoc = entities;
+
+		this.entities = new Entity[entities.length];
+		this.multiplier = new float[entities.length];
 
 		this.mc = Minecraft.getMinecraft();
-		
-		
 	}
 
 	@Override
 	public void init()
 	{
-		try
+		for (int i = 0; i < entityLoc.length; i++)
 		{
-			World world = mc.world;
-			Entity e = EntityList.createEntityByIDFromName(entityLoc, world);
-			if (e != null)
+			try
 			{
-				float height = e.height;
-				float width = e.width;
-				float size = width * height;
+				World world = mc.world;
+				Entity e = EntityList.createEntityByIDFromName(entityLoc[i], world);
+				if (e != null)
+				{
+					float height = e.height;
+					float width = e.width;
+					float size = width * height;
 
-				if (height > width)
-					this.multiplier = (float) (17.5 / height);
-				else if (width > height)
-					this.multiplier = (float) (17.5 / width);
-				else
-					this.multiplier = (float) (17.5 / Math.sqrt(size));
-								
-				e.setPosition(-2, -2, -2);
-				this.entity = e;
+					if (height > width)
+						this.multiplier[i] = (float) (17.5 / height);
+					else if (width > height)
+						this.multiplier[i] = (float) (17.5 / width);
+					else
+						this.multiplier[i] = (float) (17.5 / Math.sqrt(size));
+
+					e.setPosition(-2, -2, -2);
+					this.entities[i] = e;
+				}
+			}
+			catch (Exception e)
+			{
+				Animania.LOGGER.error(e);
 			}
 		}
-		catch (Exception e)
-		{
-			Animania.LOGGER.error(e);
-		}
+
+		this.currentEntity = entities[0];
 	}
 
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
+
 		int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1, 1, 1);
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
 		RenderHelper.enableStandardItemLighting();
-		
+
 		int size = 10;
-		
-		GlStateManager.scale(multiplier, multiplier, multiplier);
-		GlStateManager.translate((manual.guiLeft + absoluteX + manual.MANUAL_MAX_X/2)/(multiplier), (manual.guiTop + absoluteY + 27)/(multiplier), 2);
+
+		GlStateManager.scale(multiplier[index], multiplier[index], multiplier[index]);
+		GlStateManager.translate((manual.guiLeft + absoluteX + manual.MANUAL_MAX_X / 2) / (multiplier[index]), (manual.guiTop + absoluteY + 27) / (multiplier[index]), 2);
 		GlStateManager.rotate(180, 0f, 0, 1f);
 		GlStateManager.rotate(360 * RenderAnimatedEgg.renderTimer, 0, 1f, 0);
-		renderEntityStatic(entity);
+		renderEntityStatic(currentEntity);
 		GlStateManager.disableLighting();
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240f, 240f);
 		GlStateManager.popMatrix();
-		
 
 	}
-	
+
+	private void updateRenderEntity()
+	{
+		if (!GuiScreen.isShiftKeyDown())
+		{
+			if (renderTimer >= 79)
+			{
+				index++;
+				if (index == entityLoc.length)
+					index = 0;
+			}
+
+			currentEntity = entities[index];
+		}
+	}
+
+	@Override
+	public void update()
+	{
+		updateRenderEntity();
+	}
+
 	@Override
 	public void drawLater(int mouseX, int mouseY, float partialTicks)
 	{
-		if(manual.isHovering(this, mouseX, mouseY))
+		if (manual.isHovering(this, mouseX, mouseY))
 		{
 			GlStateManager.pushMatrix();
-			manual.drawHoveringText(I18n.translateToLocal("entity." + entityLoc + ".name"), mouseX, mouseY);
+			manual.drawHoveringText(I18n.translateToLocal("entity." + entityLoc[index] + ".name"), mouseX, mouseY);
 			GlStateManager.disableLighting();
 			GlStateManager.popMatrix();
 		}

@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/goats/goats.json#← advancements.animania.goats.title",
     "§ladvancements.animania.angora.title",
-    "@entity@animania:buck_angora",
+    "@entity@animania:buck_angora,animania:doe_angora,animania:kid_angora",
     "advancements.animania.angora.title",
     "@text@manual.goats.normal.1#prevline",
     "@loottable@animania:goat_regular",
@@ -13,9 +13,6 @@
     "manual.biometypes",
     "@config@general.spawnlocations;goatAngoraBiomeTypes",
     " ",
-    "manual.goats.angora",
-    "manual.goats.others",
-    "@entity@animania:doe_angora",
-    "@entity@animania:kid_angora"
+    "manual.goats.angora"
   ]
 }

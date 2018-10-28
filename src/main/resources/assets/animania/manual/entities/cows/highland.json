@@ -3,17 +3,13 @@
   "contents" : [
     "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
     "§ladvancements.animania.highland.title",
-    "@entity@animania:bull_highland",
+    "@entity@animania:bull_highland,animania:cow_highland,animania:calf_highland",
     "advancements.animania.highland.title",
     "@text@manual.cows.meat.1#prevline",
     "@loottable@animania:cow_prime",
     "manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;cowHiglandBiomeTypes",
-    " ",
-    "manual.cows.others",
-    "@entity@animania:cow_highland",
-    "@entity@animania:calf_highland"
+    "@config@general.spawnlocations;cowHiglandBiomeTypes"
   ]
 }

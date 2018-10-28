@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/peafowl/peafowl.json#← advancements.animania.peafowl.title",
     "§ladvancements.animania.white.title",
-    "@entity@animania:peacock_white",
+    "@entity@animania:peacock_white,animania:peahen_white,animania:peachick_white",
     "advancements.animania.white.title",
     "@text@manual.peafowl.meat.1#prevline",
     "@loottable@animania:peacocks/peacock_white",
@@ -13,10 +13,6 @@
     "manual.peafowl.malefeathers",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;peacockWhiteBiomeTypes",
-    " ",
-    "manual.peafowl.others",
-    "@entity@animania:peahen_white",
-    "@entity@animania:whiteick_white"
+    "@config@general.spawnlocations;peafowlWhiteBiomeTypes"
   ]
 }

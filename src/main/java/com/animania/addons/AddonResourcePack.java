@@ -147,7 +147,7 @@ public class AddonResourcePack
 			
 			if (resourceName.contains("pack.mcmeta"))
 			{
-				return Animania.class.getResourceAsStream("addons.mcmeta");
+				return Animania.class.getResourceAsStream("/addons.mcmeta");
 			}
 
 			resourceName = resourceName.replace("assets/", "assets/" + addon.getAddonID() + "/");
@@ -199,7 +199,7 @@ public class AddonResourcePack
 			
 			if (resourceName.equals("pack.mcmeta"))
 			{
-				return Animania.class.getResourceAsStream("addons.mcmeta");
+				return Animania.class.getResourceAsStream("/addons.mcmeta");
 			}
 
 			resourceName = resourceName.replace("assets/", "assets/" + addon.getAddonID() + "/");

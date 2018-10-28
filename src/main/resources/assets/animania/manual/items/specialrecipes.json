@@ -6,12 +6,12 @@
     "manual.specialrecipes.1",
     " ",
     "item.leash.name",
-    "@crafting@minecraft:lead",
+    "@crafting@animania:lead",
     " ",
     "item.nameTag.name",
-    "@crafting@minecraft:name_tag",
+    "@crafting@animania:name_tag",
     " ",
     "item.saddle.name",
-    "@crafting@minecraft:saddle"
+    "@crafting@animania:saddle"
   ]
 }

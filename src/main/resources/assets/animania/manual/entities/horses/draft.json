@@ -3,15 +3,11 @@
   "contents" : [
     "@link@animania:manual/entities/horses/horses.json#← manual.horses",
     "§ladvancements.animania.draft.title",
-    "@entity@animania:stallion_draft",
+    "@entity@animania:stallion_draft,animania:mare_draft,animania:foal_draft",
     "manual.horses.general.1",
     "@loottable@animania:horse",
      " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;draftHorseBiomeTypes",
-    " ",
-    "manual.horses.general.2",
-    "@entity@animania:mare_draft",
-    "@entity@animania:foal_draft"
+    "@config@general.spawnlocations;draftHorseBiomeTypes"
   ]
 }

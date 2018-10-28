@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/goats/goats.json#← advancements.animania.goats.title",
     "§ladvancements.animania.pygmy.title",
-    "@entity@animania:buck_pygmy",
+    "@entity@animania:buck_pygmy,animania:doe_pygmy,animania:kid_pygmy",
     "advancements.animania.pygmy.title",
     "@text@manual.goats.meat.1#prevline",
     "@loottable@animania:goat_prime",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;goatpygmyBiomeTypes",
-    " ",
-    "manual.goats.others",
-    "@entity@animania:doe_pygmy",
-    "@entity@animania:kid_pygmy"
+    "@config@general.spawnlocations;goatpygmyBiomeTypes"
   ]
 }

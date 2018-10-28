@@ -354,7 +354,11 @@ public class ManualResourceLoader
 		else if (s.startsWith("@entity@"))
 		{
 			s = s.replace("@entity@", "");
-			ResourceLocation loc = new ResourceLocation(s);
+			
+			String[] locs = s.split(",");
+			
+			ResourceLocation[] loc = AnimaniaHelper.getResourceLocations(locs);
+			
 			EntityComponent i = new EntityComponent(0, offsetY + GuiManual.LINE_Y_OFFSET, loc);
 			return getList(i);
 		}

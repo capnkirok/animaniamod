@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/chickens/chickens.json#← advancements.animania.chickens.title",
     "§ladvancements.animania.rhode_island_red.title",
-    "@entity@animania:rooster_rhode_island_red",
+    "@entity@animania:rooster_rhode_island_red,animania:hen_rhode_island_red,animania:chick_rhode_island_red",
     "advancements.animania.rhode_island_red.title",
     "@text@manual.chickens.meat.1#prevline",
     "@loottable@animania:chicken_prime",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;chickenRhodeIslandRedBiomeTypes",
-    " ",
-    "manual.chickens.others",
-    "@entity@animania:hen_rhode_island_red",
-    "@entity@animania:chick_rhode_island_red"
+    "@config@general.spawnlocations;chickenRhodeIslandRedBiomeTypes"
   ]
 }

@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/goats/goats.json#← advancements.animania.goats.title",
     "§ladvancements.animania.nigerian_dwarf.title",
-    "@entity@animania:buck_nigerian_dwarf",
+    "@entity@animania:buck_nigerian_dwarf,animania:doe_nigerian_dwarf,animania:kid_nigerian_dwarf",
     "advancements.animania.nigerian_dwarf.title",
     "@text@manual.goats.normal.1#prevline",
     "@loottable@animania:goat_regular",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;goatNigerianDwarfBiomeTypes",
-    " ",
-    "manual.goats.others",
-    "@entity@animania:doe_nigerian_dwarf",
-    "@entity@animania:kid_nigerian_dwarf"
+    "@config@general.spawnlocations;goatNigerianDwarfBiomeTypes"
   ]
 }

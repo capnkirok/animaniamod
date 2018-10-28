@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/peafowl/peafowl.json#← advancements.animania.peafowl.title",
     "§ladvancements.animania.charcoal.title",
-    "@entity@animania:peacock_charcoal",
+    "@entity@animania:peacock_charcoal,animania:peahen_charcoal,animania:peachick_charcoal",
     "advancements.animania.charcoal.title",
     "@text@manual.peafowl.normal.1#prevline",
     "@loottable@animania:peacocks/peacock_charcoal",
@@ -13,10 +13,6 @@
     "manual.peafowl.malefeathers",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;peacockCharcoalBiomeTypes",
-    " ",
-    "manual.peafowl.others",
-    "@entity@animania:peahen_charcoal",
-    "@entity@animania:peachick_charcoal"
+    "@config@general.spawnlocations;peafowlCharcoalBiomeTypes"
   ]
 }

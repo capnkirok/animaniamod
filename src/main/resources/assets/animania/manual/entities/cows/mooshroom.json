@@ -3,17 +3,13 @@
   "contents" : [
     "@link@animania:manual/entities/cows/cows.json#← advancements.animania.cows.title",
     "§ladvancements.animania.mooshroom.title",
-    "@entity@animania:bull_mooshroom",
+    "@entity@animania:bull_mooshroom,animania:cow_mooshroom,animania:calf_mooshroom",
     "advancements.animania.mooshroom.title",
     "@text@manual.cows.mooshroom.1#prevline",
     "@loottable@animania:cow_mooshroom",
     "manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;cowMooshroomBiomeTypes",
-    " ",
-    "manual.cows.others",
-    "@entity@animania:cow_mooshroom",
-    "@entity@animania:calf_mooshroom"
+    "@config@general.spawnlocations;cowMooshroomBiomeTypes"
   ]
 }

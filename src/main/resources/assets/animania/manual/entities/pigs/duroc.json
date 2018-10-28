@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/pigs/pigs.json#← advancements.animania.pigs.title",
     "§ladvancements.animania.duroc.title",
-    "@entity@animania:hog_duroc",
+    "@entity@animania:hog_duroc,animania:sow_duroc,animania:piglet_duroc",
     "advancements.animania.duroc.title",
     "@text@manual.pigs.meat.1#prevline",
     "@loottable@animania:pig_prime",
@@ -11,10 +11,6 @@
     "@text@manual.pigs.meat.3",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;pigDurocBiomeTypes",
-    " ",
-    "manual.pigs.others",
-    "@entity@animania:sow_duroc",
-    "@entity@animania:piglet_duroc"
+    "@config@general.spawnlocations;pigDurocBiomeTypes"
   ]
 }

@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
     "§ladvancements.animania.dutch.title",
-    "@entity@animania:buck_dutch",
+    "@entity@animania:buck_dutch,animania:doe_dutch,animania:kit_dutch",
     "advancements.animania.dutch.title",
     "@text@manual.rabbits.normal.1#prevline",
     "@loottable@animania:rabbit_regular",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;rabbitDutchBiomeTypes",
-    " ",
-    "manual.rabbits.others",
-    "@entity@animania:doe_dutch",
-    "@entity@animania:kit_dutch"
+    "@config@general.spawnlocations;rabbitDutchBiomeTypes"
   ]
 }

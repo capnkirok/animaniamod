@@ -505,4 +505,15 @@ public class AnimaniaHelper
 		return stack;
 	}
 	
+	public static ResourceLocation[] getResourceLocations(String... strings)
+	{
+		ResourceLocation[] res = new ResourceLocation[strings.length];
+		for(int i = 0; i < strings.length; i++)
+		{
+			res[i] = new ResourceLocation(strings[i]);
+		}
+		
+		return res;
+	}
+	
 }

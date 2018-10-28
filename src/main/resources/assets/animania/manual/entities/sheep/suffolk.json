@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/sheep/sheep.json#← advancements.animania.sheep.title",
     "§ladvancements.animania.suffolk.title",
-    "@entity@animania:ram_suffolk",
+    "@entity@animania:ram_suffolk,animania:ewe_suffolk,animania:lamb_suffolk",
     "advancements.animania.suffolk.title",
     "@text@manual.sheep.meat.1#prevline",
     "@loottable@animania:sheep_prime",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;sheepSuffolkBiomeTypes",
-    " ",
-    "manual.sheep.others",
-    "@entity@animania:ewe_suffolk",
-    "@entity@animania:lamb_suffolk"
+    "@config@general.spawnlocations;sheepSuffolkBiomeTypes"
   ]
 }

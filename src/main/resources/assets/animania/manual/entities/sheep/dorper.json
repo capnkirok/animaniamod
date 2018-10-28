@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/sheep/sheep.json#← advancements.animania.sheep.title",
     "§ladvancements.animania.dorper.title",
-    "@entity@animania:ram_dorper",
+    "@entity@animania:ram_dorper,animania:ewe_dorper,animania:lamb_dorper",
     "advancements.animania.dorper.title",
     "@text@manual.sheep.meat.1#prevline",
     "@loottable@animania:sheep_prime",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;sheepDorperBiomeTypes",
-    " ",
-    "manual.sheep.others",
-    "@entity@animania:ewe_dorper",
-    "@entity@animania:lamb_dorper"
+    "@config@general.spawnlocations;sheepDorperBiomeTypes"
   ]
 }

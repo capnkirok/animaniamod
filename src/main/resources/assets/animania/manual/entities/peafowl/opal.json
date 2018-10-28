@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/peafowl/peafowl.json#← advancements.animania.peafowl.title",
     "§ladvancements.animania.opal.title",
-    "@entity@animania:peacock_opal",
+    "@entity@animania:peacock_opal,animania:peahen_opal,animania:peachick_opal",
     "advancements.animania.opal.title",
     "@text@manual.peafowl.normal.1#prevline",
     "@loottable@animania:peacocks/peacock_opal",
@@ -13,10 +13,6 @@
     "manual.peafowl.malefeathers",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;peacockOpalBiomeTypes",
-    " ",
-    "manual.peafowl.others",
-    "@entity@animania:peahen_opal",
-    "@entity@animania:peachick_opal"
+    "@config@general.spawnlocations;peafowlOpalBiomeTypes"
   ]
 }

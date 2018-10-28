@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/goats/goats.json#← advancements.animania.goats.title",
     "§ladvancements.animania.alpine.title",
-    "@entity@animania:buck_alpine",
+    "@entity@animania:buck_alpine,animania:doe_alpine,animania:kid_alpine",
     "advancements.animania.alpine.title",
     "@text@manual.goats.meat.1#prevline",
     "@loottable@animania:goat_prime",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;goatAlpineBiomeTypes",
-    " ",
-    "manual.goats.others",
-    "@entity@animania:doe_alpine",
-    "@entity@animania:kid_alpine"
+    "@config@general.spawnlocations;goatAlpineBiomeTypes"
   ]
 }

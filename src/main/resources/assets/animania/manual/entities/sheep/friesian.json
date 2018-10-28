@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/sheep/sheep.json#← advancements.animania.sheep.title",
     "§ladvancements.animania.sheep_friesian.title",
-    "@entity@animania:ram_friesian",
+    "@entity@animania:ram_friesian,animania:ewe_friesian,animania:lamb_friesian",
     "advancements.animania.sheep_friesian.title",
     "@text@manual.sheep.normal.1#prevline",
     "@loottable@animania:sheep_regular",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;sheepFriesianBiomeTypes",
-    " ",
-    "manual.sheep.others",
-    "@entity@animania:ewe_friesian",
-    "@entity@animania:lamb_friesian"
+    "@config@general.spawnlocations;sheepFriesianBiomeTypes"
   ]
 }

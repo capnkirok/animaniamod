@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/goats/goats.json#← advancements.animania.goats.title",
     "§ladvancements.animania.kinder.title",
-    "@entity@animania:buck_kinder",
+    "@entity@animania:buck_kinder,animania:doe_kinder,animania:kid_kinder",
     "advancements.animania.kinder.title",
     "@text@manual.goats.normal.1#prevline",
     "@loottable@animania:goat_regular",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;goatKinderBiomeTypes",
-    " ",
-    "manual.goats.others",
-    "@entity@animania:doe_kinder",
-    "@entity@animania:kid_kinder"
+    "@config@general.spawnlocations;goatKinderBiomeTypes"
   ]
 }

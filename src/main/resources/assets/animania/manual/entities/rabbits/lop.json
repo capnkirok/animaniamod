@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
     "§ladvancements.animania.lop.title",
-    "@entity@animania:buck_lop",
+    "@entity@animania:buck_lop,animania:doe_lop,animania:kit_lop",
     "advancements.animania.lop.title",
     "@text@manual.rabbits.normal.1#prevline",
     "@loottable@animania:rabbit_regular",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;rabbitLopBiomeTypes",
-    " ",
-    "manual.rabbits.others",
-    "@entity@animania:doe_lop",
-    "@entity@animania:kit_lop"
+    "@config@general.spawnlocations;rabbitLopBiomeTypes"
   ]
 }

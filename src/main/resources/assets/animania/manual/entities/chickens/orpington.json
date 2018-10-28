@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/chickens/chickens.json#← advancements.animania.chickens.title",
     "§ladvancements.animania.orpington.title",
-    "@entity@animania:rooster_orpington",
+    "@entity@animania:rooster_orpington,animania:hen_orpington,animania:chick_orpington",
     "advancements.animania.orpington.title",
     "@text@manual.chickens.meat.1#prevline",
     "@loottable@animania:chicken_prime",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;chickenOrpingtonBiomeTypes",
-    " ",
-    "manual.chickens.others",
-    "@entity@animania:hen_orpington",
-    "@entity@animania:chick_orpington"
+    "@config@general.spawnlocations;chickenOrpingtonBiomeTypes"
   ]
 }

@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
     "§ladvancements.animania.cottontail.title",
-    "@entity@animania:buck_cottontail",
+    "@entity@animania:buck_cottontail,animania:doe_cottontail,animania:kit_cottontail",
     "advancements.animania.cottontail.title",
     "@text@manual.rabbits.normal.1#prevline",
     "@loottable@animania:rabbit_regular",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;rabbitCottontailBiomeTypes",
-    " ",
-    "manual.rabbits.others",
-    "@entity@animania:doe_cottontail",
-    "@entity@animania:kit_cottontail"
+    "@config@general.spawnlocations;rabbitCottontailBiomeTypes"
   ]
 }

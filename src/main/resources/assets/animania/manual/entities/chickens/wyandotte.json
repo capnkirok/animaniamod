@@ -3,7 +3,7 @@
   "contents" : [
     "@link@animania:manual/entities/chickens/chickens.json#← advancements.animania.chickens.title",
     "§ladvancements.animania.wyandotte.title",
-    "@entity@animania:rooster_wyandotte",
+    "@entity@animania:rooster_wyandotte,animania:hen_wyandotte,animania:chick_wyandotte",
     "advancements.animania.wyandotte.title",
     "@text@manual.chickens.meat.1#prevline",
     "@loottable@animania:chicken_prime",
@@ -11,10 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;chickenWyandotteBiomeTypes",
-    " ",
-    "manual.chickens.others",
-    "@entity@animania:hen_wyandotte",
-    "@entity@animania:chick_wyandotte"
+    "@config@general.spawnlocations;chickenWyandotteBiomeTypes"
   ]
 }

@@ -9,6 +9,7 @@ import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.manual.components.CraftingComponent;
+import com.animania.manual.components.EntityComponent;
 import com.animania.manual.resources.ManualResourceLoader;
 
 import net.minecraft.client.Minecraft;
@@ -224,6 +225,11 @@ public class CarryRenderer
 			CraftingComponent.ITEM_TIMER++;
 			if(CraftingComponent.ITEM_TIMER > 26)
 				CraftingComponent.ITEM_TIMER = 0;
+			
+			if(EntityComponent.renderTimer >= 80)
+				EntityComponent.renderTimer = 0;
+			EntityComponent.renderTimer++;
+			
 		}
 	}
 
