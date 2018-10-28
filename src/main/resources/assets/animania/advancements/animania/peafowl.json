@@ -4,10 +4,10 @@
             "item": "animania:entity_egg_peacock_random"
         },
         "title": {
-            "translate": "advancements.animania.peacocks.title"
+            "translate": "advancements.animania.peafowl.title"
         },
         "description": {
-            "translate": "advancements.animania.peacocks.description"
+            "translate": "advancements.animania.peafowl.description"
         }
     },
     "parent": "animania:animania/root",

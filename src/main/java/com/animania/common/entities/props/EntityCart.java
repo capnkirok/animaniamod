@@ -157,9 +157,6 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			}
 		}
 		
-		//TODO
-		System.out.println(isPulling);
-
 		EntityHorse horse = null;
 		EntityAnimaniaPig pig = null;
 		if (!horses.isEmpty()) {

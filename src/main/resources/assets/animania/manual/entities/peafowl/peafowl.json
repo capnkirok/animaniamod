@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.peacocks.title",
+  "contents" : [
+    "@link@animania:manual/entities/entities.json#← manual.entities.entities.title",
+    "§ladvancements.animania.peafowl.title",
+    " ",
+    "@link@animania:manual/entities/peafowl/blue.json#- advancements.animania.blue.title",
+    "@link@animania:manual/entities/peafowl/charcoal.json#- advancements.animania.charcoal.title",
+    "@link@animania:manual/entities/peafowl/opal.json#- advancements.animania.opal.title",
+    "@link@animania:manual/entities/peafowl/peach.json#- advancements.animania.peach.title",
+    "@link@animania:manual/entities/peafowl/purple.json#- advancements.animania.purple.title",
+    "@link@animania:manual/entities/peafowl/taupe.json#- advancements.animania.taupe.title",
+    "@link@animania:manual/entities/peafowl/white.json#- advancements.animania.white.title",
+    " ",
+    "manual.peafowl.general.1",
+    "@configitem@general.careandfeeding;peacockFood",
+    " ",
+    "manual.peafowl.general.2"
+  ]
+}

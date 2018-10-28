@@ -12,6 +12,8 @@
     " ",
     "manual.ferrets.2",
     "@configitem@general.careandfeeding;ferretFood",
-    "manual.pets.pickup"
+    "manual.pets.pickup",
+     " ",
+    "@text@manual.pets.sit"
   ]
 }

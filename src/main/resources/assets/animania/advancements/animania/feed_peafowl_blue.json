@@ -10,7 +10,7 @@
 			"translate": "advancements.animania.blue.description"
 		}
 	},
-	"parent": "animania:animania/peacocks",
+	"parent": "animania:animania/peafowl",
 	"criteria": {
 		"blue_peachick": {
 			"trigger": "animania:feed_animal",

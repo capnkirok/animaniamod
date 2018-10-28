@@ -1,0 +1,17 @@
+{
+  "name" : "manual.specialrecipes",
+  "contents" : [
+    "@link@animania:manual/items/items.json#← manual.items.items.title",
+    "§lmanual.specialrecipes",
+    "manual.specialrecipes.1",
+    " ",
+    "item.leash.name",
+    "@crafting@minecraft:lead",
+    " ",
+    "item.nameTag.name",
+    "@crafting@minecraft:name_tag",
+    " ",
+    "item.saddle.name",
+    "@crafting@minecraft:saddle"
+  ]
+}

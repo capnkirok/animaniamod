@@ -10,7 +10,7 @@
 			"translate": "advancements.animania.opal.description"
 		}
 	},
-	"parent": "animania:animania/feed_peacock_charcoal",
+	"parent": "animania:animania/feed_peafowl_charcoal",
 	"criteria": {
 		"opal_peachick": {
 			"trigger": "animania:feed_animal",

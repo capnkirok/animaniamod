@@ -15,6 +15,9 @@
     "@text@manual.hamsters.3#prevline",
     "@link@animania:manual/blocks/hamster_wheel.json#tile.animania_block_hamster_wheel.name#prevline",
     "@text@manual.hamsters.4#prevline",
-    "@text@manual.pets.pickup#prevline"
+    " ",
+    "@text@manual.pets.pickup#prevline",
+     " ",
+    "@text@manual.pets.sit"
   ]
 }

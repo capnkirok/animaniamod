@@ -1,0 +1,14 @@
+{
+  "name" : "manual.equipment.title",
+  "contents" : [
+    "@link@animania:manual/entities/equipment.json#← manual.equipment.title",
+    "§lmanual.tiller.title",
+    "@entity@animania:tiller",
+    "@text@manual.tiller.1",
+    "@crafting@animania:item_tiller",
+     " ",
+    "@text@manual.tiller.2",
+     " ",
+    "@text@manual.tiller.3"
+   ]
+}

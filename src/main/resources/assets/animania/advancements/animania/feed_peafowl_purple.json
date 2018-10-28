@@ -1,140 +1,140 @@
 {
     "display": {
         "icon": {
-            "item": "animania:entity_egg_peachick_charcoal"
+            "item": "animania:entity_egg_peachick_purple"
         },
         "title": {
-            "translate": "advancements.animania.charcoal.title"
+            "translate": "advancements.animania.purple.title"
         },
         "description": {
-            "translate": "advancements.animania.charcoal.description"
+            "translate": "advancements.animania.purple.description"
         }
     },
-    "parent": "animania:animania/feed_peacock_blue",
+    "parent": "animania:animania/feed_peafowl_peach",
     "criteria": {
-        "charcoal_peachick": {
+        "purple_peachick": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:wheat_seeds"
                 },
-                "entity": "animania:peachick_charcoal"
+                "entity": "animania:peachick_purple"
             }
         },
-        "charcoal_peahen": {
+        "purple_peahen": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:wheat_seeds"
                 },
-                "entity": "animania:peahen_charcoal"
+                "entity": "animania:peahen_purple"
             }
         },
-        "charcoal_peacock": {
+        "purple_peacock": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:wheat_seeds"
                 },
-                "entity": "animania:peacock_charcoal"
+                "entity": "animania:peacock_purple"
             }
         },
-        "charcoal_peachick1": {
+        "purple_peachick1": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:melon_seeds"
                 },
-                "entity": "animania:peachick_charcoal"
+                "entity": "animania:peachick_purple"
             }
         },
-        "charcoal_peahen1": {
+        "purple_peahen1": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:melon_seeds"
                 },
-                "entity": "animania:peahen_charcoal"
+                "entity": "animania:peahen_purple"
             }
         },
-        "charcoal_peacock1": {
+        "purple_peacock1": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:melon_seeds"
                 },
-                "entity": "animania:peacock_charcoal"
+                "entity": "animania:peacock_purple"
             }
         },
-        "charcoal_peachick2": {
+        "purple_peachick2": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:beetroot_seeds"
                 },
-                "entity": "animania:peachick_charcoal"
+                "entity": "animania:peachick_purple"
             }
         },
-        "charcoal_peahen2": {
+        "purple_peahen2": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:beetroot_seeds"
                 },
-                "entity": "animania:peahen_charcoal"
+                "entity": "animania:peahen_purple"
             }
         },
-        "charcoal_peacock2": {
+        "purple_peacock2": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:beetroot_seeds"
                 },
-                "entity": "animania:peacock_charcoal"
+                "entity": "animania:peacock_purple"
             }
         },
-        "charcoal_peachick3": {
+        "purple_peachick3": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:pumpkin_seeds"
                 },
-                "entity": "animania:peachick_charcoal"
+                "entity": "animania:peachick_purple"
             }
         },
-        "charcoal_peahen3": {
+        "purple_peahen3": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:pumpkin_seeds"
                 },
-                "entity": "animania:peahen_charcoal"
+                "entity": "animania:peahen_purple"
             }
         },
-        "charcoal_peacock3": {
+        "purple_peacock3": {
             "trigger": "animania:feed_animal",
             "conditions": {
                 "itemstack": {
                     "item": "minecraft:pumpkin_seeds"
                 },
-                "entity": "animania:peacock_charcoal"
+                "entity": "animania:peacock_purple"
             }
         }
     },
     "requirements": [
         [
-            "charcoal_peacock",
-            "charcoal_peahen",
-            "charcoal_peachick",
-            "charcoal_peacock1",
-            "charcoal_peahen1",
-            "charcoal_peachick1",
-            "charcoal_peacock2",
-            "charcoal_peahen2",
-            "charcoal_peachick2",
-            "charcoal_peacock3",
-            "charcoal_peahen3",
-            "charcoal_peachick3"
+            "purple_peacock",
+            "purple_peahen",
+            "purple_peachick",
+            "purple_peacock1",
+            "purple_peahen1",
+            "purple_peachick1",
+            "purple_peacock2",
+            "purple_peahen2",
+            "purple_peachick2",
+            "purple_peacock3",
+            "purple_peahen3",
+            "purple_peachick3"
         ]
     ]
 }

@@ -14,6 +14,7 @@
     "@config@general.spawnlocations;goatFaintingBiomeTypes",
     " ",
     "manual.goats.fainting",
+    " ",
     "manual.goats.others",
     "@entity@animania:doe_fainting",
     "@entity@animania:kid_fainting"

@@ -1,0 +1,16 @@
+{
+  "name" : "manual.equipment.title",
+  "contents" : [
+    "@link@animania:manual/entities/equipment.json#← manual.equipment.title",
+    "§lmanual.cart.title",
+    "@entity@animania:cart",
+    "@text@manual.cart.1",
+    "@crafting@animania:item_cart",
+     " ",
+    "@text@manual.cart.2",
+     " ",
+    "@text@manual.cart.3",
+    " ",
+    "@text@manual.cart.4"
+   ]
+}
