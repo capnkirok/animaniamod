@@ -168,12 +168,13 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-		double m = 0.015625;
-		
+		double u = textureSprite.getMaxU() - textureSprite.getMinU();
+		double v = textureSprite.getMaxV() - textureSprite.getMinV();
+
 		double u0 = textureSprite.getMinU();
-		double u1 = u0 + m * width;
+		double u1 = u0 + u * width;
 		double v0 = textureSprite.getMinV();
-		double v1 = v0 + m * height;
+		double v1 = v0 + v * height;
 		
 		
 		bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);

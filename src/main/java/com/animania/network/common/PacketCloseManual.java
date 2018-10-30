@@ -57,15 +57,18 @@ public class PacketCloseManual implements IMessage, IMessageHandler<PacketCloseM
 			{
 				ItemStack main = player.getHeldItemMainhand();
 				ItemStack off = player.getHeldItemOffhand();
-
-				NBTTagCompound tag = new NBTTagCompound();
+				ItemStack stack = ItemStack.EMPTY;
+				
+				if (main.getItem() == ItemHandler.animaniaManual)
+					stack = main;
+				else if (main.getItem() == ItemHandler.animaniaManual)
+					stack = off;
+				
+				NBTTagCompound tag = stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
 				tag.setString("currentTopic", message.currentTopic);
 				tag.setString("lastTopic", message.lastTopic);
 
-				if (main.getItem() == ItemHandler.animaniaManual)
-					main.setTagCompound(tag);
-				else if (main.getItem() == ItemHandler.animaniaManual)
-					main.setTagCompound(tag);
+				stack.setTagCompound(tag);
 			}
 		});
 

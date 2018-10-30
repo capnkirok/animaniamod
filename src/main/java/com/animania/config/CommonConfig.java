@@ -109,6 +109,7 @@ public class CommonConfig
 		@Comment("Tamed animals teleport to player)")
 		public boolean tamedAnimalsTeleport = false;
 
+		@RequiresMcRestart
 		@Comment("Fancy entity spawn eggs")
 		public boolean fancyEggs = true;
 
