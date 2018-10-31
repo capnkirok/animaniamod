@@ -6,6 +6,7 @@ import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaType;
 import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.handler.EntityEggHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEgg;
@@ -75,6 +76,8 @@ public class RegistryHelper
 					ItemHandler.entityEggList.add(new ItemEntityEgg(entityName, type, gender));
 				
 			}
+			
+			RandomAnimalType.addType(type.getClass());
 		}
 
 		public static void registerAnimal(Class<? extends net.minecraft.entity.Entity> entityClass, String entityName, int entityID, AnimaniaType type, EntityGender gender, boolean registerEgg)

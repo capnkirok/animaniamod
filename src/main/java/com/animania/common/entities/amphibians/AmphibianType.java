@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.animania.common.entities.AnimaniaType;
 import com.animania.common.entities.pigs.EntityHogBase;
+import com.animania.common.entities.sheep.SheepType;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
@@ -16,11 +17,13 @@ public enum AmphibianType implements AnimaniaType
 	TOAD(EntityToad.class);
 	
 	private Class male;
+	
 	private AmphibianType(Class male)
 	{
 		this.male = male;
 	}
 	
+
 	@Override
 	public EntityAmphibian getMale(World world)
 	{
@@ -58,5 +61,7 @@ public enum AmphibianType implements AnimaniaType
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 }

@@ -111,7 +111,7 @@ public class CommonConfig
 
 		@RequiresMcRestart
 		@Comment("Fancy entity spawn eggs")
-		public boolean fancyEggs = true;
+		public boolean fancyEggs = false;
 
 		@Comment("If fancy entity eggs rotate or not")
 		public boolean fancyEggsRotate = false;
