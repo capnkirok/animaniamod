@@ -78,17 +78,8 @@ public class GenericAITempt extends EntityAIBase
     {
     	boolean isSleeping = false;
 		
-    	if(this.temptedEntity instanceof ISleeping)
-    	{
-    		if(((ISleeping) temptedEntity).getSleeping())
-    		{
-    			isSleeping = true;
-    		}
-    	}
-
-		if (isSleeping) {
-			return false;
-		}
+    	if(this.temptedEntity instanceof ISleeping && ((ISleeping) temptedEntity).getSleeping())
+    		return false;
     	
     	if (this.delayTemptCounter > 0)
         {

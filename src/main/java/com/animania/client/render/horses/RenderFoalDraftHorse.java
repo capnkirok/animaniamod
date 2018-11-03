@@ -45,14 +45,8 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 
 		GL11.glScalef(0.4F + age, 0.4F + age, 0.4F + age);
 
-		boolean isSleeping = false;
 		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
 		if (entityHorse.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0F;
 			float sleepTimer = entityHorse.getSleepTimer();

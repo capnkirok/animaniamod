@@ -64,7 +64,7 @@ public class GenericAIWatchClosest extends EntityAIBase
     			isSleeping = true;
     		}
     		
-    		if(entity instanceof EntityAnimaniaPig)
+    		else if(entity instanceof EntityAnimaniaPig)
     		{
     			if(entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud)
     				isSleeping = true;

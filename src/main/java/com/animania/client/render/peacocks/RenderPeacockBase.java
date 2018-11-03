@@ -49,14 +49,8 @@ public class RenderPeacockBase<T extends EntityPeacockBase> extends RenderLiving
 	{
 		GL11.glScalef(1.0F, 1.0F, 1.0F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) entity;
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			GlStateManager.translate(-0.25F, 0.45F, -0.45F);
 			this.shadowSize = 0;

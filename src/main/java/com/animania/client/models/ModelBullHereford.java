@@ -371,14 +371,8 @@ public class ModelBullHereford extends ModelBase
 			this.Head.rotateAngleX = this.headRotationAngleX;
 		}
 
-		boolean isSleeping = false;
-
 		EntityAnimaniaCow ech = (EntityAnimaniaCow) entity;
-		if (ech.getSleeping()) {
-			isSleeping = true;
-		}
-
-		if (!isSleeping) {
+		if (!ech.getSleeping()) {
 			this.TailTop.rotateAngleX = (float) Math.PI / 2F;
 			this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		} else {

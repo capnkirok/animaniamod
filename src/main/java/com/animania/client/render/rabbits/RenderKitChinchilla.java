@@ -45,14 +45,8 @@ public class RenderKitChinchilla<T extends EntityRabbitKitChinchilla> extends Re
 		double z = entity.posZ;
 		BlockPos pos = new BlockPos(x, y, z);
 		Block blockchk = entity.world.getBlockState(pos).getBlock();
-		boolean isSleeping = false;
 		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			GlStateManager.translate(-.25F, 0.1F, -.25F);

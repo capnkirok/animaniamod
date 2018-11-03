@@ -44,13 +44,8 @@ public class RenderKidAlpine<T extends EntityKidAlpine> extends RenderLiving<T>
 		float age = entity.getEntityAge();
 		GL11.glScalef(0.33F + age, 0.33F + age, 0.33F + age); 
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
 		if (entityGoat.getSleeping()) {
-			isSleeping = true;
-		}
-
-		if (isSleeping) {
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();
 			if (sleepTimer > - 0.55F) {

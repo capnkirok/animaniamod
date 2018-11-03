@@ -49,14 +49,8 @@ public class RenderCalfJersey<T extends EntityCalfJersey> extends RenderLiving<T
 		float age = entity.getEntityAge();
 		GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age);
 
-		boolean isSleeping = false;
 		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
 		if (entityCow.getSleeping()) {
-			isSleeping = true;
-		}
-
-		if (isSleeping) {
-
 			float sleepTimer = entityCow.getSleepTimer();
 			if (sleepTimer > - 0.55F) {
 				sleepTimer = sleepTimer - 0.01F;

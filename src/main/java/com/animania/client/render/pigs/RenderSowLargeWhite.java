@@ -42,15 +42,9 @@ public class RenderSowLargeWhite<T extends EntitySowLargeWhite> extends RenderLi
 
 		GL11.glScalef(1.08F, 1.08F, 1.08F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityChk.getSleepTimer();

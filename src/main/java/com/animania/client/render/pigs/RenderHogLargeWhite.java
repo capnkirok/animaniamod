@@ -41,15 +41,9 @@ public class RenderHogLargeWhite<T extends EntityHogLargeWhite> extends RenderLi
 	{
 		GL11.glScalef(1.16F, 1.16F, 1.16F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityChk.getSleepTimer();

@@ -43,14 +43,8 @@ public class RenderLambMerino<T extends EntityLambMerino> extends RenderLiving<T
 		float age = entity.getEntityAge();
 		GL11.glScalef(0.24F + age, 0.24F + age, 0.24F + age);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		boolean isSleeping = false;
 		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
 		if (entitySheep.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entitySheep.getSleepTimer();

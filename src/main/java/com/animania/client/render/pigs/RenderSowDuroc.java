@@ -42,15 +42,9 @@ public class RenderSowDuroc<T extends EntitySowDuroc> extends RenderLiving<T>
 
 		GL11.glScalef(1.06F, 1.06F, 1.06F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityChk.getSleepTimer();

@@ -39,14 +39,8 @@ public class RenderRamDorper<T extends EntityRamDorper> extends RenderLiving<T>
 	{
 		GL11.glScalef(0.68F, 0.68F, 0.68F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		boolean isSleeping = false;
 		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
 		if (entitySheep.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entitySheep.getSleepTimer();

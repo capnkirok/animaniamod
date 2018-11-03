@@ -40,14 +40,8 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 	protected void preRenderScale(EntityMareDraftHorse entity, float f)
 	{
 		GL11.glScalef(0.72F, 0.72F, 0.72F);
-		boolean isSleeping = false;
 		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
 		if (entityHorse.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0F;
 			float sleepTimer = entityHorse.getSleepTimer();

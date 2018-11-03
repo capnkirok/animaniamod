@@ -46,14 +46,8 @@ public class RenderDoeFainting<T extends EntityDoeFainting> extends RenderLiving
 	{
 		GL11.glScalef(0.4F, 0.4F, 0.4F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
 		if (entityGoat.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (!entity.getSleeping() && entity.getSpooked() && entity.getSpookedTimer() < 0.94F && entity.getSpookedTimer() > 0.06F)
 		{
 			GlStateManager.translate(0.0F, entity.height - 1.5F, 0.0F);
 			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
@@ -66,7 +60,7 @@ public class RenderDoeFainting<T extends EntityDoeFainting> extends RenderLiving
 		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
-		if (isSleeping)
+		if (entityGoat.getSleeping())
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();

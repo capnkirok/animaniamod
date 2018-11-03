@@ -46,16 +46,9 @@ public class RenderBullJersey<T extends EntityBullJersey> extends RenderLiving<T
 	protected void preRenderScale(T entity, float f)
 	{
 		GL11.glScalef(1.4F, 1.4F, 1.4F);
-		boolean isSleeping = false;
 		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
 		if (entityCow.getSleeping())
 		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
-		{
-
 			float sleepTimer = entityCow.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{

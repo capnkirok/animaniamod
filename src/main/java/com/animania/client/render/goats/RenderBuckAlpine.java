@@ -42,13 +42,8 @@ public class RenderBuckAlpine<T extends EntityBuckAlpine> extends RenderLiving<T
     protected void preRenderScale(EntityBuckAlpine entity, float f) {
         GL11.glScalef(0.67F, 0.67F, 0.67F);
         GL11.glTranslatef(0f, 0f, -0.5f);
-        boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
 		if (entityGoat.getSleeping()) {
-			isSleeping = true;
-		}
-
-		if (isSleeping) {
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();
 			if (sleepTimer > - 0.55F) {
