@@ -1,6 +1,5 @@
 package com.animania.common.entities.peacocks;
 
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -574,8 +573,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		else
 			num = 100;
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(num);
+		int chooser = Animania.RANDOM.nextInt(num);
 
 		if (chooser == 0)
 			return ModSoundEvents.peacock1;
@@ -604,8 +602,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(2);
+		int chooser = Animania.RANDOM.nextInt(2);
 
 		if (chooser == 0)
 			return ModSoundEvents.peacockHurt1;
@@ -616,8 +613,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(2);
+		int chooser = Animania.RANDOM.nextInt(2);
 
 		if (chooser == 0)
 			return ModSoundEvents.peacockHurt1;

@@ -1,6 +1,5 @@
 package com.animania.common.entities.rodents;
 
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -342,8 +341,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		else
 			num = 40;
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(num);
+		int chooser = Animania.RANDOM.nextInt(num);
 		if (chooser == 0)
 			return ModSoundEvents.hedgehogLiving1;
 		else if (chooser == 1)
@@ -362,8 +360,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = Animania.RANDOM.nextInt(3);
 
 		if (chooser == 0)
 			return ModSoundEvents.hedgehogHurt1;

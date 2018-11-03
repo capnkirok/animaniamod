@@ -356,7 +356,6 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 		{
 			InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
 		}
-		Random rand = new Random();
 
 		super.breakBlock(worldIn, pos, state);
 	}

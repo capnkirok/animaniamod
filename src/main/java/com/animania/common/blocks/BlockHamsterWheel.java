@@ -1,7 +1,5 @@
 package com.animania.common.blocks;
 
-import java.util.Random;
-
 import com.animania.Animania;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
@@ -115,8 +113,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 						cap.setCarrying(false);
 						cap.setType("");
 						player.swingArm(EnumHand.MAIN_HAND);
-						Random rand = new Random();
-						player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+						player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
 
 						return true;
 					}

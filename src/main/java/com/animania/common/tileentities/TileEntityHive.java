@@ -1,7 +1,6 @@
 package com.animania.common.tileentities;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -46,7 +45,6 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 
 	public int nextHoney = 400;
 	public FluidHandlerBeehive fluidHandler;
-	private Random rand = new Random();
 	private boolean isRunning;
 	private int nbtSyncTimer;
 
@@ -75,9 +73,9 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 				int filled = fluidHandler.fill(new FluidStack(BlockHandler.fluidHoney, 25), true);
 
 				if (this.getBlockType() == BlockHandler.blockHive)
-					nextHoney = AnimaniaConfig.gameRules.hivePlayermadeHoneyRate + rand.nextInt(100);
+					nextHoney = AnimaniaConfig.gameRules.hivePlayermadeHoneyRate + Animania.RANDOM.nextInt(100);
 				else 
-					nextHoney = AnimaniaConfig.gameRules.hiveWildHoneyRate + rand.nextInt(100);
+					nextHoney = AnimaniaConfig.gameRules.hiveWildHoneyRate + Animania.RANDOM.nextInt(100);
 
 
 				if (filled > 0)
@@ -87,12 +85,12 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 		
 		if(this.blockType == BlockHandler.blockWildHive)
 		{
-			if(this.rand.nextInt(10) == 0)
+			if(Animania.RANDOM.nextInt(10) == 0)
 			{
 				List<EntityPlayer> players = AnimaniaHelper.getEntitiesInRange(EntityPlayer.class, 2, this.world, pos);
 				for(EntityPlayer p : players)
 				{
-					if(rand.nextInt(3) == 0)
+					if(Animania.RANDOM.nextInt(3) == 0)
 						p.attackEntityFrom(DamageSourceHandler.beeDamage, 2.5f);
 				}
 			}

@@ -1,7 +1,6 @@
 package com.animania.common.blocks;
 
 import java.util.List;
-import java.util.Random;
 
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;

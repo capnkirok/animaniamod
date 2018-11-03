@@ -1,10 +1,10 @@
 package com.animania.addons.catsdogs.common.entity.cats;
 
-import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
@@ -155,8 +155,7 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 		else
 			num = 32;
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(num);
+		int chooser = Animania.RANDOM.nextInt(num);
 
 		if (chooser == 0)
 			return ModSoundEvents.piglet1;
@@ -176,8 +175,7 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = Animania.RANDOM.nextInt(3);
 
 		if (chooser == 0)
 			return ModSoundEvents.pigletHurt1;
@@ -190,8 +188,7 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = Animania.RANDOM.nextInt(3);
 
 		if (chooser == 0)
 			return ModSoundEvents.pigletHurt1;

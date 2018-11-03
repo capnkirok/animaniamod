@@ -1,7 +1,5 @@
 package com.animania.client.render.cows;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCalf;
@@ -25,7 +23,6 @@ public class RenderCalfMooshroom<T extends EntityCalfMooshroom> extends RenderLi
 
 	private static final ResourceLocation cowTextures = new ResourceLocation("animania:textures/entity/cows/calf_mooshroom.png");
 	private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/calf_blink.png");
-	Random rand = new Random();
 
 	public RenderCalfMooshroom(RenderManager rm)
 	{

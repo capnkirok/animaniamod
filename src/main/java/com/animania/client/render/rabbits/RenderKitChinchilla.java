@@ -1,7 +1,5 @@
 package com.animania.client.render.rabbits;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.rabbits.ModelChinchilla;
@@ -26,7 +24,6 @@ public class RenderKitChinchilla<T extends EntityRabbitKitChinchilla> extends Re
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_chinchilla.png");
 	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
-	Random rand = new Random();
 
 	public RenderKitChinchilla(RenderManager rm)
 	{

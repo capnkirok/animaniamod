@@ -1,6 +1,5 @@
 package com.animania.common.entities.rodents;
 
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -426,8 +425,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		else
 			num = 40;
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(num);
+		int chooser = Animania.RANDOM.nextInt(num);
 
 		if (chooser == 0)
 			return ModSoundEvents.ferretLiving1;
@@ -449,8 +447,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = Animania.RANDOM.nextInt(3);
 
 		if (chooser == 0)
 			return ModSoundEvents.ferretHurt1;

@@ -1,9 +1,9 @@
 package com.animania.common.entities.pigs.ai;
 
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
+import com.animania.Animania;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.EntityPigletBase;
@@ -23,7 +23,6 @@ public class EntityAIMatePigs extends EntityAIBase
 	int                        			courtshipTimer;
 	double                     			moveSpeed;
 	private int                			delayCounter;
-	private Random			   			rand;
 
 	public EntityAIMatePigs(EntityAnimaniaPig animal, double speedIn) {
 		this.theAnimal = animal;
@@ -32,7 +31,6 @@ public class EntityAIMatePigs extends EntityAIBase
 		this.setMutexBits(3);
 		this.courtshipTimer = 20;
 		this.delayCounter = 0;
-		this.rand = new Random();
 
 	}
 
@@ -82,8 +80,7 @@ public class EntityAIMatePigs extends EntityAIBase
 
 			this.targetMate = (EntityAnimaniaPig) this.getNearbyMate();
 
-			Random rand = new Random();
-			if (this.targetMate != null && rand.nextInt(20) == 0) {
+			if (this.targetMate != null && Animania.RANDOM.nextInt(20) == 0) {
 				this.delayCounter = 0;
 				this.resetTask();
 				return false;

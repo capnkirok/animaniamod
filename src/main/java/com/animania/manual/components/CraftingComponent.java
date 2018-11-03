@@ -2,7 +2,6 @@ package com.animania.manual.components;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import com.animania.Animania;
 import com.animania.manual.gui.GuiManual;
@@ -160,7 +159,6 @@ public class CraftingComponent implements IManualComponent
 
 	private void updateIngredientIndices()
 	{
-		Random rand = new Random();
 		if (!GuiScreen.isShiftKeyDown())
 		{
 			if (ITEM_TIMER == 0)

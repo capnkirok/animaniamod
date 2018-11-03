@@ -1,7 +1,5 @@
 package com.animania.client.render.rabbits;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.rabbits.ModelNewZealand;
@@ -26,7 +24,6 @@ public class RenderKitNewZealand<T extends EntityRabbitKitNewZealand> extends Re
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_new_zealand.png");
 	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
-	Random rand = new Random();
 
 	public RenderKitNewZealand(RenderManager rm)
 	{

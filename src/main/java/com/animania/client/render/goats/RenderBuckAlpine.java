@@ -1,7 +1,5 @@
 package com.animania.client.render.goats;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.goats.ModelBuckAlpine;
@@ -24,7 +22,6 @@ public class RenderBuckAlpine<T extends EntityBuckAlpine> extends RenderLiving<T
     public static final Factory           FACTORY          = new Factory();
     private static final ResourceLocation goatTextures      = new ResourceLocation("animania:textures/entity/goats/buck_alpine.png");
     private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/goats_blink.png");
-    Random                                rand             = new Random();
 
     public RenderBuckAlpine(RenderManager rm) {
         super(rm, new ModelBuckAlpine(), 0.5F);

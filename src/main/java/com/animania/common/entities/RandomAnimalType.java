@@ -1,8 +1,9 @@
 package com.animania.common.entities;
 
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
+
+import com.animania.Animania;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
@@ -20,18 +21,16 @@ public class RandomAnimalType implements AnimaniaType
 	@Override
 	public EntityLivingBase getMale(World world)
 	{
-		Random rand = new Random();
-
-		Class<? extends AnimaniaType> type = types.toArray(new Class[types.size()])[rand.nextInt(types.size())];
+		Class<? extends AnimaniaType> type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
 		AnimaniaType[] breeds = type.getEnumConstants();
 
 		EntityLivingBase entity = null;
 		while (entity == null)
 		{
-			entity = breeds[rand.nextInt(breeds.length)].getMale(world);
+			entity = breeds[Animania.RANDOM.nextInt(breeds.length)].getMale(world);
 			if (entity == null)
 			{
-				type = types.toArray(new Class[types.size()])[rand.nextInt(types.size())];
+				type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
 				breeds = type.getEnumConstants();
 			}
 		}
@@ -43,18 +42,16 @@ public class RandomAnimalType implements AnimaniaType
 	@Override
 	public EntityLivingBase getFemale(World world)
 	{
-		Random rand = new Random();
-
-		Class<? extends AnimaniaType> type = types.toArray(new Class[types.size()])[rand.nextInt(types.size())];
+		Class<? extends AnimaniaType> type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
 		AnimaniaType[] breeds = type.getEnumConstants();
 
 		EntityLivingBase entity = null;
 		while (entity == null)
 		{
-			entity = breeds[rand.nextInt(breeds.length)].getFemale(world);
+			entity = breeds[Animania.RANDOM.nextInt(breeds.length)].getFemale(world);
 			if (entity == null)
 			{
-				type = types.toArray(new Class[types.size()])[rand.nextInt(types.size())];
+				type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
 				breeds = type.getEnumConstants();
 			}
 		}
@@ -65,18 +62,16 @@ public class RandomAnimalType implements AnimaniaType
 	@Override
 	public EntityLivingBase getChild(World world)
 	{
-		Random rand = new Random();
-
-		Class<? extends AnimaniaType> type = types.toArray(new Class[types.size()])[rand.nextInt(types.size())];
+		Class<? extends AnimaniaType> type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
 		AnimaniaType[] breeds = type.getEnumConstants();
 
 		EntityLivingBase entity = null;
 		while (entity == null)
 		{
-			entity = breeds[rand.nextInt(breeds.length)].getChild(world);
+			entity = breeds[Animania.RANDOM.nextInt(breeds.length)].getChild(world);
 			if (entity == null)
 			{
-				type = types.toArray(new Class[types.size()])[rand.nextInt(types.size())];
+				type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
 				breeds = type.getEnumConstants();
 			}
 		}

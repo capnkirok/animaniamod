@@ -91,15 +91,13 @@ public class BlockSeeds extends Block
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 
-		Random rand = new Random();
-
 		for (int i = 0; i < 10; i++)
 		{
 			double d0 = pos.getX() + 0.25D;
-			double d1 = pos.getY() + rand.nextDouble() * 6.0D / 16.0D;
+			double d1 = pos.getY() + Animania.RANDOM.nextDouble() * 6.0D / 16.0D;
 			double d2 = pos.getZ() + 0.25D;
 			double d3 = 0.52D;
-			double d4 = rand.nextDouble() * 0.6D - 0.3D;
+			double d4 = Animania.RANDOM.nextDouble() * 0.6D - 0.3D;
 			worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, d0, d1 + .75D, d2 + d4, 0.0D, 0.0D, 0.0D, new int[] { Block.getStateId(BlockHandler.blockSeeds.getDefaultState()) });
 
 		}

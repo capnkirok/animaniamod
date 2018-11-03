@@ -1,8 +1,9 @@
 package com.animania.common.entities;
 
+import com.animania.Animania;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
-import scala.util.Random;
 
 public enum EntityGender
 {
@@ -20,8 +21,7 @@ public enum EntityGender
 		case CHILD:
 			return type.getChild(world);
 		case RANDOM:
-			Random rand = new Random();
-			switch(rand.nextInt(3))
+			switch(Animania.RANDOM.nextInt(3))
 			{
 			case 0:
 				return type.getMale(world);

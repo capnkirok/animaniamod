@@ -2,8 +2,8 @@ package com.animania.addons.catsdogs.common.entity.cats;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Random;
 
+import com.animania.Animania;
 import com.animania.common.entities.AnimaniaType;
 import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.cows.EntityBullBase;
@@ -106,11 +106,7 @@ public enum CatType implements AnimaniaType
 
 	public static CatType breed(CatType male, CatType female)
 	{
-		Random rand = new Random();
-		if(rand.nextInt(2) == 0)
-			return male;
-		else
-			return female;
+		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
 
 }

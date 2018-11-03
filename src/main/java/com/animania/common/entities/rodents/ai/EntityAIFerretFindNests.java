@@ -1,7 +1,6 @@
 package com.animania.common.entities.rodents.ai;
 
-import java.util.Random;
-
+import com.animania.Animania;
 import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityNest;
@@ -109,7 +108,6 @@ public class EntityAIFerretFindNests extends EntityAIBase
 			double z = this.temptedEntity.posZ;
 
 			boolean foodFound = false;
-			Random rand = new Random();
 
 			BlockPos pos = new BlockPos(x, y, z);
 
@@ -131,7 +129,7 @@ public class EntityAIFerretFindNests extends EntityAIBase
 							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 							{
 								foodFound = true;
-								if (rand.nextInt(200) == 0)
+								if (Animania.RANDOM.nextInt(200) == 0)
 								{
 									this.delayTemptCounter = 0;
 									return false;

@@ -1,7 +1,5 @@
 package com.animania.client.render.rabbits;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.rabbits.ModelRex;
@@ -27,7 +25,6 @@ public class RenderDoeRex<T extends EntityRabbitDoeRex> extends RenderLiving<T>
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_rex.png");
 	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
 	private static final ResourceLocation killerRabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_killer.png");
-	Random rand = new Random();
 
 	public RenderDoeRex(RenderManager rm)
 	{

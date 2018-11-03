@@ -1,7 +1,5 @@
 package com.animania.client.models;
 
-import java.util.Random;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -217,7 +215,6 @@ public class ModelPeachick extends ModelBase
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwingAmount, float ageInTicks, float partialTickTime) {
 
         super.setLivingAnimations(entitylivingbaseIn, limbSwingAmount, ageInTicks, partialTickTime);
-        Random rand = new Random();
         if (limbSwingAmount > this.lastLimb) {
             // this.Neck.rotateAngleX = Math.abs(((30F / (float)Math.PI)) * 1.4F
             // * limbSwingAmount);

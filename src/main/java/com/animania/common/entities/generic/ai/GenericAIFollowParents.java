@@ -1,7 +1,6 @@
 package com.animania.common.entities.generic.ai;
 
 import java.util.List;
-import java.util.Random;
 
 import com.animania.common.entities.interfaces.IChild;
 import com.animania.common.entities.interfaces.IMateable;
@@ -22,7 +21,6 @@ public class GenericAIFollowParents<T extends EntityCreature & IChild & ISleepin
 	O parentAnimal;
 	double moveSpeed;
 	private int delayCounter;
-	Random rand = new Random();
 	Class mother;
 
 	public GenericAIFollowParents(T animal, double speed, Class mother)

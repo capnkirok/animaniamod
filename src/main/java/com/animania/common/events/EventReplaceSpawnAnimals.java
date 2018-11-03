@@ -1,9 +1,9 @@
 package com.animania.common.events;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
+import com.animania.Animania;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.chickens.EntityHenBase;
@@ -117,7 +117,6 @@ public class EventReplaceSpawnAnimals
 
 		BlockPos pos = new BlockPos(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
 		World worldIn = event.getWorld();
-		Random rand = new Random();
 		Biome biome = event.getWorld().getBiome(pos);
 		int chooser = 0;
 
@@ -132,7 +131,7 @@ public class EventReplaceSpawnAnimals
 			List<EntityAnimaniaCow> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 32, event.getEntity().world, pos);
 			if (others.size() < 2)
 			{
-				chooser = rand.nextInt(3);
+				chooser = Animania.RANDOM.nextInt(3);
 				
 				if (BiomeDictionary.hasType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowHolsteinBiomeTypes)[0])) {
 					if (chooser == 2) {
@@ -245,10 +244,10 @@ public class EventReplaceSpawnAnimals
 			List<EntityAnimaniaPig> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 32, event.getEntity().world, pos);
 			if (others.size() < 2)
 			{
-				chooser = rand.nextInt(3);
+				chooser = Animania.RANDOM.nextInt(3);
 
 				if (BiomeDictionary.hasType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.pigOldSpotBiomeTypes)[0])) {
-					if (rand.nextBoolean()) {
+					if (Animania.RANDOM.nextBoolean()) {
 						if (chooser == 2) {
 							EntitySowOldSpot entity = new EntitySowOldSpot(worldIn);
 							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
@@ -333,7 +332,7 @@ public class EventReplaceSpawnAnimals
 			List<EntityAnimaniaChicken> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 32, event.getEntity().world, pos);
 			if (others.size() < 2)
 			{
-				chooser = rand.nextInt(3);
+				chooser = Animania.RANDOM.nextInt(3);
 
 				if (BiomeDictionary.hasType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.chickenOrpingtonBiomeTypes)[0])) {
 					if (chooser == 2) {
@@ -417,10 +416,10 @@ public class EventReplaceSpawnAnimals
 			List<EntityAnimaniaSheep> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 32, event.getEntity().world, pos);
 			if (others.size() < 2)
 			{
-				chooser = rand.nextInt(3);
+				chooser = Animania.RANDOM.nextInt(3);
 
 				if (BiomeDictionary.hasType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.sheepDorsetBiomeTypes)[0])) {
-					int chooser2 = rand.nextInt(2);
+					int chooser2 = Animania.RANDOM.nextInt(2);
 					if (chooser2 == 0)
 					{
 						if (chooser == 2)
@@ -524,7 +523,7 @@ public class EventReplaceSpawnAnimals
 			List<EntityAnimaniaSheep> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 32, event.getEntity().world, pos);
 			if (others.size() < 2)
 			{
-				chooser = rand.nextInt(3);
+				chooser = Animania.RANDOM.nextInt(3);
 
 				if (BiomeDictionary.hasType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitCottontailBiomeTypes)[0])) {
 					if (chooser == 2) {
@@ -685,7 +684,6 @@ public class EventReplaceSpawnAnimals
 	{
 		BlockPos pos = new BlockPos(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
 		World worldIn = event.getWorld();
-		Random rand = new Random();
 		Biome biome = event.getWorld().getBiome(pos);
 		int chooser = 0;
 

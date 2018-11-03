@@ -1,7 +1,5 @@
 package com.animania.client.render.cows;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCalf;
@@ -25,7 +23,6 @@ public class RenderCalfJersey<T extends EntityCalfJersey> extends RenderLiving<T
 
     private static final ResourceLocation cowTextures      = new ResourceLocation("animania:textures/entity/cows/calf_jersey.png");
     private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/calf_blink.png");
-    Random                                rand             = new Random();
 
     public RenderCalfJersey(RenderManager rm) {
         super(rm, new ModelCalf(), 0.5F);

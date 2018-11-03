@@ -1,7 +1,5 @@
 package com.animania.client.render.cows;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelBullAngus;
@@ -25,7 +23,6 @@ public class RenderBullAngus<T extends EntityBullAngus> extends RenderLiving<T>
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation cowTextures = new ResourceLocation("animania:textures/entity/cows/bull_angus.png");
 	private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/bull_blink.png");
-	Random rand = new Random();
 
 	public RenderBullAngus(RenderManager rm)
 	{

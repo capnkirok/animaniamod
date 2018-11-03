@@ -1,7 +1,6 @@
 package com.animania.common.entities.horses.ai;
 
 import java.util.List;
-import java.util.Random;
 
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.horses.EntityFoalBase;
@@ -19,7 +18,6 @@ public class EntityAIFollowParentHorses extends EntityAIBase
 	EntityAnimal parentAnimal;
 	double moveSpeed;
 	private int delayCounter;
-	Random rand = new Random();
 
 	public EntityAIFollowParentHorses(EntityAnimaniaHorse animal, double speed)
 	{
