@@ -53,7 +53,7 @@ public class EggThrowHandler
 					double y2 = Math.abs(yt - y1);
 					double z2 = Math.abs(zt - z1);
 
-					if (entity != null && (entity instanceof EntityFerretWhite || entity instanceof EntityFerretGrey || entity instanceof EntityHedgehog) && x2 <= 3 && y2 <= 2 && z2 <= 3)
+					if (entity != null && x2 <= 3 && y2 <= 2 && z2 <= 3 && (entity instanceof EntityFerretWhite || entity instanceof EntityFerretGrey || entity instanceof EntityHedgehog))
 					{
 						event.getEntityPlayer().swingArm(event.getHand());
 						event.isCanceled();

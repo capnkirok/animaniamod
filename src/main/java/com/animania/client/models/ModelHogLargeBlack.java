@@ -218,13 +218,14 @@ public class ModelHogLargeBlack extends ModelBase
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
         if (entitylivingbaseIn instanceof EntityHogLargeBlack) {
-            this.Head.rotationPointY = 11.0F + ((EntityHogLargeBlack) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 5.5F; // number
+        	EntityHogLargeBlack entityHogLargeBlack = (EntityHogLargeBlack) entitylivingbaseIn;
+            this.Head.rotationPointY = 11.0F + entityHogLargeBlack.getHeadRotationPointY(partialTickTime) * 5.5F; // number
                                                                                                                                          // should
                                                                                                                                          // match
                                                                                                                                          // model
                                                                                                                                          // Y
                                                                                                                                          // point
-            this.headRotationAngleX = ((EntityHogLargeBlack) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogLargeBlack.getHeadRotationAngleX(partialTickTime);
         }
 
     }

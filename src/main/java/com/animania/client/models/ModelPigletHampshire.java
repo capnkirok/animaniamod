@@ -167,13 +167,14 @@ public class ModelPigletHampshire extends ModelBase
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
         if (entitylivingbaseIn instanceof EntityPigletHampshire) {
-            this.Head.rotationPointY = 17.0F + ((EntityPigletHampshire) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 3.0F; // number
+        	EntityPigletHampshire entityPigletHampshire = (EntityPigletHampshire) entitylivingbaseIn;
+            this.Head.rotationPointY = 17.0F + entityPigletHampshire.getHeadRotationPointY(partialTickTime) * 3.0F; // number
                                                                                                                                            // should
                                                                                                                                            // match
                                                                                                                                            // model
                                                                                                                                            // Y
                                                                                                                                            // point
-            this.headRotationAngleX = ((EntityPigletHampshire) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityPigletHampshire.getHeadRotationAngleX(partialTickTime);
         }
 
     }

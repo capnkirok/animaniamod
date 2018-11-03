@@ -224,11 +224,13 @@ public class ModelCowHereford extends ModelBase
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
 		if (entitylivingbaseIn instanceof EntityCowHereford) {
-			this.head.rotationPointY = 6.0F + ((EntityCowHereford) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = ((EntityCowHereford) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+			EntityCowHereford entityCowHereford = (EntityCowHereford) entitylivingbaseIn;
+			this.head.rotationPointY = 6.0F + entityCowHereford.getHeadRotationPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityCowHereford.getHeadRotationAngleX(partialTickTime);
 		} else if (entitylivingbaseIn instanceof EntityCowJersey) {
-			this.head.rotationPointY = 6.0F + ((EntityCowJersey) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = ((EntityCowJersey) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+			EntityCowJersey entityCowJersey = (EntityCowJersey) entitylivingbaseIn;
+			this.head.rotationPointY = 6.0F + entityCowJersey.getHeadRotationPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityCowJersey.getHeadRotationAngleX(partialTickTime);
 		}
 	}
 

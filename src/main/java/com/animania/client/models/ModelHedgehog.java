@@ -3,6 +3,7 @@ package com.animania.client.models;
 import com.animania.common.entities.rodents.EntityFerretGrey;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.common.entities.rodents.EntityHedgehogBase;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -595,18 +596,12 @@ public class ModelHedgehog extends ModelBase
 
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        if (entitylivingbaseIn instanceof EntityHedgehog) {
-            this.Head.rotationPointY = 19.5F + ((EntityHedgehog) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 0F; // number
-            this.headRotationAngleX = ((EntityHedgehog) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        if (entitylivingbaseIn instanceof EntityHedgehogBase) {
+        	EntityHedgehogBase entityHedgehog = (EntityHedgehogBase) entitylivingbaseIn;
+            this.Head.rotationPointY = 19.5F + entityHedgehog.getHeadRotationPointY(partialTickTime) * 0F; // number
+            this.headRotationAngleX = entityHedgehog.getHeadRotationAngleX(partialTickTime);
             
         }
-        else if (entitylivingbaseIn instanceof EntityHedgehogAlbino) {
-            this.Head.rotationPointY = 19.5F + ((EntityHedgehogAlbino) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 0F; // number
-            this.headRotationAngleX = ((EntityHedgehogAlbino) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
-            
-        }
-        
-        
     }
 
     @Override

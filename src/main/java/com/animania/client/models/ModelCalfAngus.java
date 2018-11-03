@@ -173,20 +173,24 @@ public class ModelCalfAngus extends ModelBase
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
         if (entitylivingbaseIn instanceof EntityCalfHolstein) {
-            this.Head.rotationPointY = 10.0F + ((EntityCalfHolstein) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = ((EntityCalfHolstein) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        	EntityCalfHolstein entityCalfHolstein = (EntityCalfHolstein) entitylivingbaseIn;
+            this.Head.rotationPointY = 10.0F + entityCalfHolstein.getHeadRotationPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfHolstein.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCalfFriesian) {
-            this.Head.rotationPointY = 10.0F + ((EntityCalfFriesian) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = ((EntityCalfFriesian) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        	EntityCalfFriesian entityCalfFriesian = (EntityCalfFriesian) entitylivingbaseIn;
+            this.Head.rotationPointY = 10.0F + entityCalfFriesian.getHeadRotationPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfFriesian.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCalfHereford) {
-            this.Head.rotationPointY = 10.0F + ((EntityCalfHereford) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = ((EntityCalfHereford) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        	EntityCalfHereford entityCalfHereford = (EntityCalfHereford) entitylivingbaseIn;
+            this.Head.rotationPointY = 10.0F + entityCalfHereford.getHeadRotationPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfHereford.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCalfAngus) {
-            this.Head.rotationPointY = 10.0F + ((EntityCalfAngus) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = ((EntityCalfAngus) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        	EntityCalfAngus entityCalfAngus = (EntityCalfAngus) entitylivingbaseIn;
+            this.Head.rotationPointY = 10.0F + entityCalfAngus.getHeadRotationPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfAngus.getHeadRotationAngleX(partialTickTime);
         }
     }
 

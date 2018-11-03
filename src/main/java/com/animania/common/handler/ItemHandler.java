@@ -286,11 +286,12 @@ public class ItemHandler
 							{
 								if (((ISpawnable) entity).usesEggColor())
 								{
+									ISpawnable ispawnable = (ISpawnable) entity;
 									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true);
-									ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ((ISpawnable) entity).getPrimaryEggColor());
-									ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ((ISpawnable) entity).getSecondaryEggColor());
+									ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ispawnable.getPrimaryEggColor());
+									ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ispawnable.getSecondaryEggColor());
 									
-									EntityList.ENTITY_EGGS.put(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), new EntityEggInfo(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), ((ISpawnable) entity).getPrimaryEggColor(), ((ISpawnable) entity).getSecondaryEggColor()));
+									EntityList.ENTITY_EGGS.put(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), new EntityEggInfo(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), ispawnable.getPrimaryEggColor(), ispawnable.getSecondaryEggColor()));
 								}
 								else
 									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false);

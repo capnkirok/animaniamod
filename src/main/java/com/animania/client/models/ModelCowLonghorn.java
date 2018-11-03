@@ -265,11 +265,13 @@ public class ModelCowLonghorn extends ModelBase
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
 		if (entitylivingbaseIn instanceof EntityCowLonghorn) {
-			this.head.rotationPointY = 6.0F + ((EntityCowLonghorn) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = ((EntityCowLonghorn) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+			EntityCowLonghorn entityCowLonghorn = (EntityCowLonghorn) entitylivingbaseIn;
+			this.head.rotationPointY = 6.0F + entityCowLonghorn.getHeadRotationPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityCowLonghorn.getHeadRotationAngleX(partialTickTime);
 		} else  if (entitylivingbaseIn instanceof EntityCowHighland) {
-			this.head.rotationPointY = 6.0F + ((EntityCowHighland) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = ((EntityCowHighland) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+			EntityCowHighland entityCowHighland = (EntityCowHighland) entitylivingbaseIn;
+			this.head.rotationPointY = 6.0F + entityCowHighland.getHeadRotationPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityCowHighland.getHeadRotationAngleX(partialTickTime);
 		}
 	}
 

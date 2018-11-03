@@ -274,18 +274,21 @@ public class ModelDorperSheep extends ModelBase  implements IColoredModel
 
 		if (entity instanceof EntityRamDorper)
 		{
-			this.HeadNode.rotationPointY = 4F + ((EntityRamDorper) entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityRamDorper) entity).getHeadRotationAngleX(partialTickTime);
+			EntityRamDorper entitiyRamDorper = (EntityRamDorper) entity;
+			this.HeadNode.rotationPointY = 4F + entitiyRamDorper.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entitiyRamDorper.getHeadRotationAngleX(partialTickTime);
 		}
 		else if (entity instanceof EntityEweDorper)
 		{
-			this.HeadNode.rotationPointY = 4F + ((EntityEweDorper) entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityEweDorper) entity).getHeadRotationAngleX(partialTickTime);
+			EntityEweDorper entityEveDorper = (EntityEweDorper) entity;
+			this.HeadNode.rotationPointY = 4F + entityEveDorper.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityEveDorper.getHeadRotationAngleX(partialTickTime);
 		}
 		else if (entity instanceof EntityLambDorper)
 		{
-			this.HeadNode.rotationPointY = 4F + ((EntityLambDorper) entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityLambDorper) entity).getHeadRotationAngleX(partialTickTime);
+			EntityLambDorper entityLambDorper = (EntityLambDorper) entity;
+			this.HeadNode.rotationPointY = 4F + entityLambDorper.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityLambDorper.getHeadRotationAngleX(partialTickTime);
 		}
 	}
 

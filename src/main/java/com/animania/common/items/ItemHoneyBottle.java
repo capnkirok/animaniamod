@@ -117,10 +117,10 @@ public class ItemHoneyBottle extends AnimaniaItem
 			{
 				CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP) entityplayer, stack);
 			}
+			AnimaniaHelper.addItem((EntityPlayer) entityLiving, new ItemStack(Items.GLASS_BOTTLE));
 		}
 
 		stack.shrink(1);
-		AnimaniaHelper.addItem((EntityPlayer) entityLiving, new ItemStack(Items.GLASS_BOTTLE));
 		return stack;
 	}
 

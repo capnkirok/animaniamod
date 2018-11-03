@@ -332,11 +332,13 @@ public class ModelDorsetEwe extends ModelBase  implements IColoredModel
 		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
 
 		if (entity instanceof EntityEweDorset) {
-			this.HeadNode.rotationPointY = 4F + ((EntityEweDorset)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityEweDorset)entity).getHeadRotationAngleX(partialTickTime);
+			EntityEweDorset entityEweDorset = (EntityEweDorset)entity;
+			this.HeadNode.rotationPointY = 4F + entityEweDorset.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityEweDorset.getHeadRotationAngleX(partialTickTime);
 		} else if (entity instanceof EntityLambDorset) {
-			this.HeadNode.rotationPointY = 4F + ((EntityLambDorset)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityLambDorset)entity).getHeadRotationAngleX(partialTickTime);
+			EntityLambDorset entityLambDorset = (EntityLambDorset)entity;
+			this.HeadNode.rotationPointY = 4F + entityLambDorset.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityLambDorset.getHeadRotationAngleX(partialTickTime);
 		}
 	}
 

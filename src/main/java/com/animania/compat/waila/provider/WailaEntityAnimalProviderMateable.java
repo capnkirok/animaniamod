@@ -29,8 +29,9 @@ public class WailaEntityAnimalProviderMateable extends WailaEntityAnimalProvider
             
         	if (entity instanceof IGendered)
     		{
-    			if (((IGendered) entity).getEntityGender() == EntityGender.MALE || ((IGendered) entity).getEntityGender() == EntityGender.FEMALE)
-    				currenttip.add(((IGendered) entity).getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
+        		IGendered igendered = (IGendered) entity;
+    			if (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE)
+    				currenttip.add(igendered.getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
     		}
         	
         	String mate = accessor.getNBTData().getString("MateUUID");

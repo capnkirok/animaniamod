@@ -28,8 +28,9 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 		{
 			if (entity instanceof IGendered)
 			{
-				if (((IGendered) entity).getEntityGender() == EntityGender.MALE || ((IGendered) entity).getEntityGender() == EntityGender.FEMALE)
-					probeInfo.text(((IGendered) entity).getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
+				IGendered igendered = (IGendered) entity;
+				if (igendered.getEntityGender() == EntityGender.MALE || igendered.getEntityGender() == EntityGender.FEMALE)
+					probeInfo.text(igendered.getEntityGender() == EntityGender.MALE ? TextFormatting.AQUA + "\u2642" : TextFormatting.LIGHT_PURPLE + "\u2640");
 			}
 		}
 		
