@@ -40,16 +40,9 @@ public class RenderBullFriesian<T extends EntityBullFriesian> extends RenderLivi
 	protected void preRenderScale(EntityBullFriesian entity, float f)
 	{
 		GL11.glScalef(1.3F, 1.3F, 1.3F);
-		boolean isSleeping = false;
 		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
 		if (entityCow.getSleeping())
 		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
-		{
-
 			float sleepTimer = entityCow.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{

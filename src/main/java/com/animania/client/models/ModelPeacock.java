@@ -588,15 +588,8 @@ public class ModelPeacock extends ModelBase
      
         this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
-        boolean isSleeping = false;
-		EntityAnimaniaPeacock ech = (EntityAnimaniaPeacock) entityIn;
+        EntityAnimaniaPeacock ech = (EntityAnimaniaPeacock) entityIn;
 		if (ech.getSleeping()) {
-			isSleeping = true;
-		}
-		
-		float sleepTimer = ech.getSleepTimer();
-
-		if (isSleeping) {
 			this.FanNodeA.rotateAngleX = -1.5F;
 			this.FanNodeB.rotateAngleX = -1.5F;
 			this.FanNodeC.rotateAngleX = -1.5F;

@@ -29,18 +29,8 @@ public class GenericAIWanderAvoidWater extends EntityAIWander
 
 	public boolean shouldExecute()
 	{
-		boolean isSleeping = false;
-		if(this.entity instanceof ISleeping)
-    	{
-    		if(((ISleeping) entity).getSleeping())
-    		{
-    			isSleeping = true;
-    		}
-    	}
-		
-		if (isSleeping) {
-			return false;
-		}
+		if(this.entity instanceof ISleeping && ((ISleeping) entity).getSleeping())
+    		return false;
 
 		if (!this.mustUpdate)
 		{

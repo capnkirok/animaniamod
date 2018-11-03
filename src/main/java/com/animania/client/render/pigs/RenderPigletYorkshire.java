@@ -44,15 +44,9 @@ public class RenderPigletYorkshire<T extends EntityPigletYorkshire> extends Rend
 		float age = entity.getEntityAge();
 		GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age);
 
-		boolean isSleeping = false;
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityChk.getSleepTimer();

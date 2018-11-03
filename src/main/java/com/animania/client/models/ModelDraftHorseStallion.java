@@ -581,16 +581,9 @@ public class ModelDraftHorseStallion extends ModelBase
 		
 		
 		
-		boolean isSleeping = false;
 		EntityAnimaniaHorse ech = (EntityAnimaniaHorse) entityIn;
 		if (ech.getSleeping()) {
-			isSleeping = true;
-		}
-		
-		float sleepTimer = ech.getSleepTimer();
-
-		if (isSleeping) {
-
+			float sleepTimer = ech.getSleepTimer();
 			this.FrontLeftMuscle.rotateAngleX = sleepTimer * -1.8F;
 			this.FrontLeftMuscle.render(scale * .95F);
 			this.FrontRightMuscle.rotateAngleX = sleepTimer * -1.8F;

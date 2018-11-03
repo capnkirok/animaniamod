@@ -52,14 +52,8 @@ private static int[] EYE_COLORS = new int[]{0x404040, 0x816D60, 0xD0A675, 0x7F6C
 		double z = entity.posZ;
 		BlockPos pos = new BlockPos(x, y, z);
 		Block blockchk = entity.world.getBlockState(pos).getBlock();
-		boolean isSleeping = false;
 		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			GlStateManager.translate(-.25F, 0.1F, -.25F);

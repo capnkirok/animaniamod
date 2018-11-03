@@ -46,13 +46,7 @@ public class RenderBuckFainting<T extends EntityBuckFainting> extends RenderLivi
 	{
 		GL11.glScalef(0.42F, 0.42F, 0.42F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
-		if (entityGoat.getSleeping())
-		{
-			isSleeping = true;
-		}
-
 		if (!entity.getSleeping() && entity.getSpooked() && entity.getSpookedTimer() < 0.94F && entity.getSpookedTimer() > 0.06F)
 		{
 			GlStateManager.translate(0.0F, entity.height - 1.5F, 0.0F);
@@ -65,7 +59,7 @@ public class RenderBuckFainting<T extends EntityBuckFainting> extends RenderLivi
 			this.shadowSize = 0.35F;
 		}
 
-		if (isSleeping)
+		if (entityGoat.getSleeping())
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();

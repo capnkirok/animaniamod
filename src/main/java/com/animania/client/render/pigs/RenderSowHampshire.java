@@ -42,15 +42,9 @@ public class RenderSowHampshire<T extends EntitySowHampshire> extends RenderLivi
 
 		GL11.glScalef(1.02F, 1.02F, 1.02F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityChk.getSleepTimer();

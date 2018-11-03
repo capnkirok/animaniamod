@@ -69,16 +69,9 @@ public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving
 	{
 		GL11.glScalef(1.24F, 1.24F, 1.24F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
 		if (entityCow.getSleeping())
 		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
-		{
-
 			float sleepTimer = entityCow.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{

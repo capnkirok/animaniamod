@@ -57,16 +57,13 @@ public class RenderHedgehog<T extends EntityHedgehog> extends RenderLiving<T>
 		{
 			GL11.glScalef(0.6F, 0.6F, 0.6F);
 
-			boolean isSleeping = false;
 			EntityHedgehogBase entityChk = (EntityHedgehogBase) entity;
-			isSleeping = entityChk.getSleeping();
-
 			if (entity.getCustomNameTag().equals("Sanic"))
 			{
 				GL11.glRotatef(20, -1, 0, 1);
 				GL11.glScalef(1.2F, 1.7F, 1.6F);
 			}
-			else if (isSleeping || entity.isHedgehogSitting())
+			else if (entityChk.getSleeping() || entity.isHedgehogSitting())
 			{
 				this.shadowSize = 0;
 				GlStateManager.translate(0F, 0.15F, 0F);

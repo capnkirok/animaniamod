@@ -42,13 +42,8 @@ public class RenderDoeAlpine<T extends EntityDoeAlpine> extends RenderLiving<T>
 	protected void preRenderScale(EntityDoeAlpine entity, float f) {
 		GL11.glScalef(0.6F, 0.6F, 0.6F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
 		if (entityGoat.getSleeping()) {
-			isSleeping = true;
-		}
-
-		if (isSleeping) {
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();
 			if (sleepTimer > - 0.55F) {

@@ -63,14 +63,8 @@ public class RenderBuckAngora<T extends EntityBuckAngora> extends RenderLiving<T
 		GL11.glScalef(0.64F, 0.64F, 0.64F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
 		if (entityGoat.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();
