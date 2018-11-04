@@ -40,14 +40,8 @@ public class RenderEweSuffolk<T extends EntityEweSuffolk> extends RenderLiving<T
 	{
 		GL11.glScalef(0.64F, 0.64F, 0.64F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		boolean isSleeping = false;
 		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
 		if (entitySheep.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entitySheep.getSleepTimer();

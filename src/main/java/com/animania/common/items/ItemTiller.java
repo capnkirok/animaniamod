@@ -1,7 +1,5 @@
 package com.animania.common.items;
 
-import java.util.Random;
-
 import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.props.EntityTiller;
@@ -51,8 +49,7 @@ public class ItemTiller extends Item
 		if (!playerIn.isCreative())
 			stack.shrink(1);
 
-		Random rand = new Random();
-		world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+		world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 		entity.rotationYaw = entity.rotationYaw;
 		entity.deltaRotation = entity.rotationYaw;
 		world.spawnEntity(entity);

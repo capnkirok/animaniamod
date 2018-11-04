@@ -1,7 +1,5 @@
 package com.animania.client.render.rabbits;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.rabbits.ModelNewZealand;
@@ -28,8 +26,6 @@ public class RenderDoeNewZealand<T extends EntityRabbitDoeNewZealand> extends Re
 	private static final ResourceLocation rabbitTexturesBlink = new ResourceLocation("animania:textures/entity/rabbits/rabbit_blink.png");
 	private static final ResourceLocation killerRabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_killer.png");
 	
-	Random rand = new Random();
-
 	public RenderDoeNewZealand(RenderManager rm)
 	{
 		super(rm, new ModelNewZealand(), 0.25F);
@@ -51,14 +47,8 @@ public class RenderDoeNewZealand<T extends EntityRabbitDoeNewZealand> extends Re
 		double z = entity.posZ;
 		BlockPos pos = new BlockPos(x, y, z);
 		Block blockchk = entity.world.getBlockState(pos).getBlock();
-		boolean isSleeping = false;
 		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			GlStateManager.translate(-.25F, 0.25F, -.25F);

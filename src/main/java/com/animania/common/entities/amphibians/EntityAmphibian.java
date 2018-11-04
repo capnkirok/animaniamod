@@ -1,7 +1,5 @@
 package com.animania.common.entities.amphibians;
 
-import java.util.Random;
-
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -31,6 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.animania.Animania;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.interfaces.IAnimaniaAnimal;
@@ -426,8 +425,7 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, IAniman
 			super.setMoveTo(x, y, z, speedIn);
 
 			if (speedIn > 0.0D) {
-				Random rand = new Random();
-				float distance = rand.nextFloat() / 25;
+				float distance = Animania.RANDOM.nextFloat() / 25;
 				this.nextJumpSpeed = speedIn + distance;
 			}
 		}

@@ -1,6 +1,5 @@
 package com.animania.common.entities.sheep;
 
-import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -20,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.interfaces.IChild;
@@ -137,8 +137,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 		else
 			num = 32;
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(num);
+		int chooser = Animania.RANDOM.nextInt(num);
 
 		if (chooser == 0)
 			return ModSoundEvents.lambLiving1;
@@ -152,8 +151,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = Animania.RANDOM.nextInt(3);
 
 		if (chooser == 0)
 			return ModSoundEvents.sheepHurt1;
@@ -166,8 +164,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = Animania.RANDOM.nextInt(3);
 
 		if (chooser == 0)
 			return ModSoundEvents.sheepHurt1;

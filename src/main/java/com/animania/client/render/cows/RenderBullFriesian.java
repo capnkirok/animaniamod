@@ -1,7 +1,5 @@
 package com.animania.client.render.cows;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelBull;
@@ -27,7 +25,6 @@ public class RenderBullFriesian<T extends EntityBullFriesian> extends RenderLivi
 	private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/bull_blink.png");
 	private static final ResourceLocation purpTextures = new ResourceLocation("animania:textures/entity/cows/bull_purplicious.png");
 	private static final ResourceLocation purpTexturesBlink = new ResourceLocation("animania:textures/entity/cows/bull_purplicious.png");
-	Random rand = new Random();
 
 	LayerBlinking blinkingLayer;
 	
@@ -40,16 +37,9 @@ public class RenderBullFriesian<T extends EntityBullFriesian> extends RenderLivi
 	protected void preRenderScale(EntityBullFriesian entity, float f)
 	{
 		GL11.glScalef(1.3F, 1.3F, 1.3F);
-		boolean isSleeping = false;
 		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
 		if (entityCow.getSleeping())
 		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
-		{
-
 			float sleepTimer = entityCow.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{

@@ -1,7 +1,5 @@
 package com.animania.client.render.goats;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.goats.ModelKidKiko;
@@ -24,7 +22,6 @@ public class RenderKidKiko<T extends EntityKidKiko> extends RenderLiving<T>
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation goatTextures = new ResourceLocation("animania:textures/entity/goats/kid_kiko.png");
 	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/goats_blink.png");
-	Random rand = new Random();
 
 	public RenderKidKiko(RenderManager rm)
 	{
@@ -47,14 +44,8 @@ public class RenderKidKiko<T extends EntityKidKiko> extends RenderLiving<T>
 		float age = entity.getEntityAge();
 		GL11.glScalef(0.25F + age, 0.25F + age, 0.25F + age);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
 		if (entityGoat.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();

@@ -1,7 +1,5 @@
 package com.animania.client.render.goats;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.goats.ModelBuckFainting;
@@ -24,7 +22,6 @@ public class RenderBuckFainting<T extends EntityBuckFainting> extends RenderLivi
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation goatTextures = new ResourceLocation("animania:textures/entity/goats/buck_fainting.png");
 	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/goats_blink.png");
-	Random rand = new Random();
 
 	public RenderBuckFainting(RenderManager rm)
 	{
@@ -46,13 +43,7 @@ public class RenderBuckFainting<T extends EntityBuckFainting> extends RenderLivi
 	{
 		GL11.glScalef(0.42F, 0.42F, 0.42F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
-		if (entityGoat.getSleeping())
-		{
-			isSleeping = true;
-		}
-
 		if (!entity.getSleeping() && entity.getSpooked() && entity.getSpookedTimer() < 0.94F && entity.getSpookedTimer() > 0.06F)
 		{
 			GlStateManager.translate(0.0F, entity.height - 1.5F, 0.0F);
@@ -65,7 +56,7 @@ public class RenderBuckFainting<T extends EntityBuckFainting> extends RenderLivi
 			this.shadowSize = 0.35F;
 		}
 
-		if (isSleeping)
+		if (entityGoat.getSleeping())
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();

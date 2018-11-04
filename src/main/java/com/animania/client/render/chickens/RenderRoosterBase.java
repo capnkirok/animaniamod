@@ -53,14 +53,8 @@ public class RenderRoosterBase<T extends EntityRoosterBase> extends RenderLiving
 			GL11.glScalef(1.0F, 1.0F, 1.0F);
 		}
 
-		boolean isSleeping = false;
 		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) entity;
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			GlStateManager.translate(-0.25F, 0.35F, -0.25F);
 			this.shadowSize = 0;

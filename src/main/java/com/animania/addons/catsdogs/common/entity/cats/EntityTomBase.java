@@ -2,7 +2,6 @@ package com.animania.addons.catsdogs.common.entity.cats;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -20,6 +19,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.EntityBullBase;
@@ -130,8 +130,7 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 		else
 			num = 40;
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(num);
+		int chooser = Animania.RANDOM.nextInt(num);
 
 		if (chooser == 0)
 			return ModSoundEvents.hog1;
@@ -157,8 +156,7 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = Animania.RANDOM.nextInt(3);
 
 		if (chooser == 0)
 			return ModSoundEvents.pigHurt1;
@@ -171,8 +169,7 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(3);
+		int chooser = Animania.RANDOM.nextInt(3);
 
 		if (chooser == 0)
 			return ModSoundEvents.pigHurt1;

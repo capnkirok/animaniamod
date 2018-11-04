@@ -2,7 +2,6 @@ package com.animania.common.entities.cows;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -29,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
@@ -167,8 +167,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		else
 			num = 60;
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(num);
+		int chooser = Animania.RANDOM.nextInt(num);
 		if (chooser == 0)
 			return ModSoundEvents.bullMoo1;
 		else if (chooser == 1)
@@ -198,8 +197,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(2);
+		int chooser = Animania.RANDOM.nextInt(2);
 
 		if (chooser == 0)
 			return ModSoundEvents.angryBull1;
@@ -212,13 +210,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(2);
-
-		if (chooser == 0)
-			return ModSoundEvents.cowDeath1;
-		else
-			return ModSoundEvents.cowDeath2;
+		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.cowDeath1 : ModSoundEvents.cowDeath2;
 	}
 
 	@Override

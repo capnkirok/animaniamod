@@ -39,14 +39,8 @@ public class RenderStallionDraftHorse<T extends EntityStallionDraftHorse> extend
 	protected void preRenderScale(EntityStallionDraftHorse entity, float f)
 	{
 		GL11.glScalef(0.85F, 0.85F, 0.85F);
-		boolean isSleeping = false;
 		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
 		if (entityHorse.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0F;
 			float sleepTimer = entityHorse.getSleepTimer();

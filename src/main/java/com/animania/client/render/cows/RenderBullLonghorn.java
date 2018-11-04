@@ -1,7 +1,5 @@
 package com.animania.client.render.cows;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelBullLonghorn;
@@ -25,7 +23,6 @@ public class RenderBullLonghorn<T extends EntityBullLonghorn> extends RenderLivi
 
 	private static final ResourceLocation cowTextures = new ResourceLocation("animania:textures/entity/cows/bull_longhorn.png");
 	private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/bull_blink.png");
-	Random rand = new Random();
 
 	public RenderBullLonghorn(RenderManager rm)
 	{
@@ -46,16 +43,9 @@ public class RenderBullLonghorn<T extends EntityBullLonghorn> extends RenderLivi
 	protected void preRenderScale(T entity, float f)
 	{
 		GL11.glScalef(1.5F, 1.5F, 1.5F);
-		boolean isSleeping = false;
 		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
 		if (entityCow.getSleeping())
 		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
-		{
-
 			float sleepTimer = entityCow.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{

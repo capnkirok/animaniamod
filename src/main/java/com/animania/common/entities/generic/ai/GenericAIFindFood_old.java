@@ -1,9 +1,8 @@
 package com.animania.common.entities.generic.ai;
 
-import java.util.Random;
-
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
 import com.animania.common.entities.interfaces.IFoodEating;
 import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.common.handler.BlockHandler;
@@ -189,7 +188,6 @@ public class GenericAIFindFood_old<T extends EntityCreature & IFoodEating> exten
 			double z = this.entity.posZ;
 
 			boolean foodFound = false;
-			Random rand = new Random();
 
 			BlockPos pos = new BlockPos(x, y, z);
 
@@ -210,7 +208,7 @@ public class GenericAIFindFood_old<T extends EntityCreature & IFoodEating> exten
 							if (te != null && (te.fluidHandler.getFluid() != null && entity.getFoodFluid() != null && te.fluidHandler.getFluid().getFluid() == entity.getFoodFluid()) || te.canConsume(entity.getFoodItems(), null))
 							{
 								foodFound = true;
-								if (rand.nextInt(200) == 0)
+								if (Animania.RANDOM.nextInt(200) == 0)
 								{
 									this.foodDelay = 0;
 									return false;
@@ -233,7 +231,7 @@ public class GenericAIFindFood_old<T extends EntityCreature & IFoodEating> exten
 							{
 
 								foodFound = true;
-								if (rand.nextInt(200) == 0)
+								if (Animania.RANDOM.nextInt(200) == 0)
 								{
 									this.foodDelay = 0;
 									return false;

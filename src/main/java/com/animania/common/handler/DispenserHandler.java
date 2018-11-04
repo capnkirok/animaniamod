@@ -1,7 +1,6 @@
 package com.animania.common.handler;
 
-import java.util.Random;
-
+import com.animania.Animania;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.RandomAnimalType;
@@ -120,30 +119,29 @@ public class DispenserHandler
 
 			if (item.gender == EntityGender.RANDOM)
 			{
-				Random rand = new Random();
 				if (item.type instanceof CowType)
 				{
-					entity = EntityGender.getEntity(CowType.values()[rand.nextInt(((CowType) item.type).values().length)], item.gender, world);
+					entity = EntityGender.getEntity(CowType.values()[Animania.RANDOM.nextInt(((CowType) item.type).values().length)], item.gender, world);
 				}
 				if (item.type instanceof PigType)
 				{
-					entity = EntityGender.getEntity(PigType.values()[rand.nextInt(((PigType) item.type).values().length)], item.gender, world);
+					entity = EntityGender.getEntity(PigType.values()[Animania.RANDOM.nextInt(((PigType) item.type).values().length)], item.gender, world);
 				}
 				if (item.type instanceof ChickenType)
 				{
-					entity = EntityGender.getEntity(ChickenType.values()[rand.nextInt(((ChickenType) item.type).values().length)], item.gender, world);
+					entity = EntityGender.getEntity(ChickenType.values()[Animania.RANDOM.nextInt(((ChickenType) item.type).values().length)], item.gender, world);
 				}
 				if(item.type instanceof GoatType)
 				{
-					entity = EntityGender.getEntity(GoatType.values()[rand.nextInt(((GoatType) item.type).values().length)], item.gender, world);
+					entity = EntityGender.getEntity(GoatType.values()[Animania.RANDOM.nextInt(((GoatType) item.type).values().length)], item.gender, world);
 				}
 				if(item.type instanceof PeacockType)
 				{
-					entity = EntityGender.getEntity(PeacockType.values()[rand.nextInt(((PeacockType) item.type).values().length)], item.gender, world);
+					entity = EntityGender.getEntity(PeacockType.values()[Animania.RANDOM.nextInt(((PeacockType) item.type).values().length)], item.gender, world);
 				}
 				if(item.type instanceof RabbitType)
 				{
-					entity = EntityGender.getEntity(RabbitType.values()[rand.nextInt(((RabbitType) item.type).values().length)], item.gender, world);
+					entity = EntityGender.getEntity(RabbitType.values()[Animania.RANDOM.nextInt(((RabbitType) item.type).values().length)], item.gender, world);
 				}
 				if(item.type instanceof RandomAnimalType)
 				{

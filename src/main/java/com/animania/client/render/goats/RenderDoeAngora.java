@@ -1,7 +1,5 @@
 package com.animania.client.render.goats;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.goats.ModelDoeAngora;
@@ -26,7 +24,6 @@ public class RenderDoeAngora<T extends EntityDoeAngora> extends RenderLiving<T>
 	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/angora_blink.png");
 	private static final ResourceLocation goatTexturesSheared = new ResourceLocation("animania:textures/entity/goats/buck_angora_sheared.png");
 	private static final ResourceLocation goatTexturesShearedBlink = new ResourceLocation("animania:textures/entity/goats/goats_blink.png");
-	Random rand = new Random();
 
 	public RenderDoeAngora(RenderManager rm)
 	{
@@ -62,14 +59,8 @@ public class RenderDoeAngora<T extends EntityDoeAngora> extends RenderLiving<T>
 	{
 		GL11.glScalef(0.58F, 0.58F, 0.58F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
 		if (entityGoat.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();

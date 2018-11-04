@@ -1,9 +1,8 @@
 package com.animania.client.render.pigs;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
+import com.animania.Animania;
 import com.animania.client.models.ModelSowHampshire;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.client.render.pigs.layers.LayerMudSowHampshire;
@@ -42,15 +41,9 @@ public class RenderSowHampshire<T extends EntitySowHampshire> extends RenderLivi
 
 		GL11.glScalef(1.02F, 1.02F, 1.02F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityChk.getSleepTimer();
@@ -73,7 +66,6 @@ public class RenderSowHampshire<T extends EntitySowHampshire> extends RenderLivi
 			double z = entity.posZ;
 
 			BlockPos pos = new BlockPos(x, y, z);
-			Random rand = new Random();
 
 			Block blockchk = entity.world.getBlockState(pos).getBlock();
 			Block blockchk2 = entity.world.getBlockState(pos).getBlock();
@@ -119,7 +111,7 @@ public class RenderSowHampshire<T extends EntitySowHampshire> extends RenderLivi
 				this.shadowSize = 0.5F;
 				entity.setMuddy(false);
 				float mudTimer = entity.getMudTimer();
-				if (rand.nextInt(3) < 1)
+				if (Animania.RANDOM.nextInt(3) < 1)
 				{
 					mudTimer = mudTimer - 0.0025F;
 					entity.setMudTimer(mudTimer);

@@ -1,7 +1,5 @@
 package com.animania.client.render.goats;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.goats.ModelDoeFainting;
@@ -24,7 +22,6 @@ public class RenderDoeFainting<T extends EntityDoeFainting> extends RenderLiving
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation goatTextures = new ResourceLocation("animania:textures/entity/goats/doe_fainting.png");
 	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/goats_blink.png");
-	Random rand = new Random();
 
 	public RenderDoeFainting(RenderManager rm)
 	{
@@ -46,13 +43,7 @@ public class RenderDoeFainting<T extends EntityDoeFainting> extends RenderLiving
 	{
 		GL11.glScalef(0.4F, 0.4F, 0.4F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
-		if (entityGoat.getSleeping())
-		{
-			isSleeping = true;
-		}
-
 		if (!entity.getSleeping() && entity.getSpooked() && entity.getSpookedTimer() < 0.94F && entity.getSpookedTimer() > 0.06F)
 		{
 			GlStateManager.translate(0.0F, entity.height - 1.5F, 0.0F);
@@ -66,7 +57,7 @@ public class RenderDoeFainting<T extends EntityDoeFainting> extends RenderLiving
 		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
-		if (isSleeping)
+		if (entityGoat.getSleeping())
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();

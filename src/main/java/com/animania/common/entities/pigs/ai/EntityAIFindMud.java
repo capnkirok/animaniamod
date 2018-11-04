@@ -1,8 +1,8 @@
 package com.animania.common.entities.pigs.ai;
 
 import java.util.List;
-import java.util.Random;
 
+import com.animania.Animania;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.EntityPigletBase;
@@ -67,7 +67,6 @@ public class EntityAIFindMud extends EntityAIBase
 				return false;
 			}
 
-			Random rand = new Random();
 			BlockPos currentpos = new BlockPos(this.entityIn.posX, this.entityIn.posY, this.entityIn.posZ);
 			Block poschk = this.entityIn.world.getBlockState(currentpos).getBlock();
 			if (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")) {
@@ -96,7 +95,7 @@ public class EntityAIFindMud extends EntityAIBase
 
 						if (blockchk != null && (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().equals("tile.mud")) && others.size() < 2) {
 							mudFound = true;
-							if (rand.nextInt(200) == 0) {
+							if (Animania.RANDOM.nextInt(200) == 0) {
 								this.delayTemptCounter = 0;
 								return false;
 							}

@@ -1,7 +1,5 @@
 package com.animania.client.render.goats;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.goats.ModelDoeNigerianDwarf;
@@ -24,7 +22,6 @@ public class RenderDoeNigerianDwarf<T extends EntityDoeNigerianDwarf> extends Re
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation goatTextures = new ResourceLocation("animania:textures/entity/goats/doe_nigerian.png");
 	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/goats_blink.png");
-	Random rand = new Random();
 
 	public RenderDoeNigerianDwarf(RenderManager rm)
 	{
@@ -47,14 +44,8 @@ public class RenderDoeNigerianDwarf<T extends EntityDoeNigerianDwarf> extends Re
 		GL11.glScalef(0.42F, 0.42F, 0.42F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
 		if (entityGoat.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();

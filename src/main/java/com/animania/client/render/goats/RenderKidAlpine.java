@@ -1,7 +1,5 @@
 package com.animania.client.render.goats;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.goats.ModelKidAlpine;
@@ -24,7 +22,6 @@ public class RenderKidAlpine<T extends EntityKidAlpine> extends RenderLiving<T>
 	public static final Factory           FACTORY          = new Factory();
 	private static final ResourceLocation goatTextures      = new ResourceLocation("animania:textures/entity/goats/kid_alpine.png");
 	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/goats_blink.png");
-	Random                                rand             = new Random();
 
 	public RenderKidAlpine(RenderManager rm) {
 		super(rm, new ModelKidAlpine(), 0.2F);
@@ -44,13 +41,8 @@ public class RenderKidAlpine<T extends EntityKidAlpine> extends RenderLiving<T>
 		float age = entity.getEntityAge();
 		GL11.glScalef(0.33F + age, 0.33F + age, 0.33F + age); 
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		boolean isSleeping = false;
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
 		if (entityGoat.getSleeping()) {
-			isSleeping = true;
-		}
-
-		if (isSleeping) {
 			this.shadowSize = 0;
 			float sleepTimer = entityGoat.getSleepTimer();
 			if (sleepTimer > - 0.55F) {

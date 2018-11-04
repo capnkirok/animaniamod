@@ -1,7 +1,6 @@
 package com.animania.common.entities.rodents;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -1137,8 +1136,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		else
 			num = 24;
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(num);
+		int chooser = Animania.RANDOM.nextInt(num);
 
 		if (chooser == 0)
 			return ModSoundEvents.hamsterLiving1;

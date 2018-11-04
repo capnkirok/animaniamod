@@ -1,7 +1,6 @@
 package com.animania.common.entities.rodents.ai;
 
 import java.util.List;
-import java.util.Random;
 
 import com.animania.common.entities.rodents.rabbits.EntityRabbitDoeBase;
 import com.animania.common.entities.rodents.rabbits.EntityRabbitKitBase;
@@ -18,7 +17,6 @@ public class EntityAIFollowParentRabbits extends EntityAIBase
 	EntityAnimal parentAnimal;
 	double       moveSpeed;
 	private int  delayCounter;
-	Random       rand = new Random();
 
 	public EntityAIFollowParentRabbits(EntityAnimal animal, double speed) {
 		this.childAnimal = animal;

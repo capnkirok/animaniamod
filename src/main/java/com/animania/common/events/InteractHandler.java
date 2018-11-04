@@ -1,7 +1,5 @@
 package com.animania.common.events;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -88,8 +86,7 @@ public class InteractHandler
 						if (!player.isCreative())
 							stack.shrink(1);
 
-						Random rand = new Random();
-						event.getWorld().playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ, SoundEvents.BLOCK_GRASS_FALL, SoundCategory.PLAYERS, 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+						event.getWorld().playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ, SoundEvents.BLOCK_GRASS_FALL, SoundCategory.PLAYERS, 0.2F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 					}
 				}
 			}
@@ -200,8 +197,7 @@ public class InteractHandler
 				props.setCarrying(false);
 				props.setType("");
 				player.swingArm(EnumHand.MAIN_HAND);
-				Random rand = new Random();
-				player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+				player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
 				event.setCanceled(true);
 				Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
 			}

@@ -1,7 +1,5 @@
 package com.animania.client.render.cows;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCow;
@@ -27,7 +25,6 @@ public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving
 	private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/cow_blink.png");
 	private static final ResourceLocation purpTextures = new ResourceLocation("animania:textures/entity/cows/cow_purplicious.png");
 	private static final ResourceLocation purpTexturesBlink = new ResourceLocation("animania:textures/entity/cows/cow_purplicious.png");
-	Random rand = new Random();
 
 	LayerBlinking blinkingLayer;
 
@@ -69,16 +66,9 @@ public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving
 	{
 		GL11.glScalef(1.24F, 1.24F, 1.24F);
 
-		boolean isSleeping = false;
 		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
 		if (entityCow.getSleeping())
 		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
-		{
-
 			float sleepTimer = entityCow.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{

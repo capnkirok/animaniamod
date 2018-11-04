@@ -1,9 +1,8 @@
 package com.animania.client.render.pigs;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
+import com.animania.Animania;
 import com.animania.client.models.ModelPiglet;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.client.render.pigs.layers.LayerMudPigletDuroc;
@@ -42,15 +41,9 @@ public class RenderPigletDuroc<T extends EntityPigletDuroc> extends RenderLiving
 		float age = entity.getEntityAge();
 		GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age);
 
-		boolean isSleeping = false;
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 
 		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityChk.getSleepTimer();
@@ -73,7 +66,6 @@ public class RenderPigletDuroc<T extends EntityPigletDuroc> extends RenderLiving
 			double z = entity.posZ;
 
 			BlockPos pos = new BlockPos(x, y, z);
-			Random rand = new Random();
 
 			Block blockchk = entity.world.getBlockState(pos).getBlock();
 			Block blockchk2 = entity.world.getBlockState(pos).getBlock();
@@ -117,7 +109,7 @@ public class RenderPigletDuroc<T extends EntityPigletDuroc> extends RenderLiving
 			{
 				entity.setMuddy(false);
 				float mudTimer = entity.getMudTimer();
-				if (rand.nextInt(3) < 1)
+				if (Animania.RANDOM.nextInt(3) < 1)
 				{
 					mudTimer = mudTimer - 0.0025F;
 					entity.setMudTimer(mudTimer);

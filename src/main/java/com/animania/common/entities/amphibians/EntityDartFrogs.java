@@ -1,7 +1,5 @@
 package com.animania.common.entities.amphibians;
 
-import java.util.Random;
-
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
@@ -175,8 +173,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	@Override
 	protected SoundEvent getAmbientSound() {
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(5);
+		int chooser = Animania.RANDOM.nextInt(5);
 
 		if (chooser == 0)
 			return ModSoundEvents.dartfrogLiving1;

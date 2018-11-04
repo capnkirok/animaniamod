@@ -1,9 +1,9 @@
 package com.animania.common.entities.horses.ai;
 
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
+import com.animania.Animania;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.horses.EntityFoalBase;
 import com.animania.common.entities.horses.EntityMareBase;
@@ -23,7 +23,6 @@ public class EntityAIMateHorses extends EntityAIBase
 	int                        courtshipTimer;
 	double                     moveSpeed;
 	private int                delayCounter;
-	private Random			   rand;
 
 	public EntityAIMateHorses(EntityAnimaniaHorse animal, double speedIn) {
 		this.theAnimal = animal;
@@ -32,7 +31,6 @@ public class EntityAIMateHorses extends EntityAIBase
 		this.setMutexBits(3);
 		this.courtshipTimer = 20;
 		this.delayCounter = 0;
-		this.rand = new Random();
 
 	}
 
@@ -85,8 +83,7 @@ public class EntityAIMateHorses extends EntityAIBase
 
 			this.targetMate = this.getNearbyMate();
 
-			Random rand = new Random();
-			if (this.targetMate != null && rand.nextInt(20) == 0) {
+			if (this.targetMate != null && Animania.RANDOM.nextInt(20) == 0) {
 				this.delayCounter = 0;
 				this.resetTask();
 				return false;

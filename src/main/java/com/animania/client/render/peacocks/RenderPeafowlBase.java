@@ -60,18 +60,8 @@ public class RenderPeafowlBase<T extends EntityPeafowlBase> extends RenderLiving
 		BlockPos pos = new BlockPos(x, y, z);
 
 		Block blockchk = entity.world.getBlockState(pos).getBlock();
-		boolean isSleeping = false;
 		EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) entity;
-		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
-		if (blockchk == BlockHandler.blockNest || isSleeping)
-		{
-			isSleeping = true;
-		}
-
-		if (isSleeping)
+		if (blockchk == BlockHandler.blockNest || entityChk.getSleeping())
 		{
 			GlStateManager.translate(-0.25F, 0.45F, -0.45F);
 			this.shadowSize = 0;

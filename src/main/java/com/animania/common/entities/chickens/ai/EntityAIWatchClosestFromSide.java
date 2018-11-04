@@ -34,19 +34,8 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
 
     @Override
     public boolean shouldExecute() {
-    	
-    	
-    	boolean isSleeping = false;
-		if (this.theWatcher instanceof EntityAnimaniaChicken) {
-			EntityAnimaniaChicken entityCow = (EntityAnimaniaChicken) this.theWatcher;
-			if (entityCow.getSleeping()) {
-				isSleeping = true;
-			}
-		}
-		
-		if (!this.theWatcher.world.isDaytime() || isSleeping) {
+		if (!this.theWatcher.world.isDaytime() && this.theWatcher instanceof EntityAnimaniaChicken && ((EntityAnimaniaChicken) this.theWatcher).getSleeping())
 			return false;
-		}
     	
         if (this.theWatcher.getRNG().nextFloat() >= this.chance)
             return false;

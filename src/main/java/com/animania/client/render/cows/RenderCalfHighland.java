@@ -1,7 +1,5 @@
 package com.animania.client.render.cows;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCalfLonghorn;
@@ -24,7 +22,6 @@ public class RenderCalfHighland<T extends EntityCalfHighland> extends RenderLivi
 	public static final Factory           FACTORY          = new Factory();
 	private static final ResourceLocation cowTextures      = new ResourceLocation("animania:textures/entity/cows/calf_highland.png");
 	private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/calf_blink.png");
-	Random                                rand             = new Random();
 
 	public RenderCalfHighland(RenderManager rm) {
 		super(rm, new ModelCalfLonghorn(), 0.5F);
@@ -48,14 +45,8 @@ public class RenderCalfHighland<T extends EntityCalfHighland> extends RenderLivi
 		float age = entity.getEntityAge();
 		GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age);
 
-		boolean isSleeping = false;
 		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
 		if (entityCow.getSleeping()) {
-			isSleeping = true;
-		}
-
-		if (isSleeping) {
-
 			float sleepTimer = entityCow.getSleepTimer();
 			if (sleepTimer > - 0.55F) {
 				sleepTimer = sleepTimer - 0.01F;

@@ -132,16 +132,10 @@ public class ModelCalfLonghorn extends ModelBase
 
         this.setRotationAngles(p_78088_2_, p_78088_3_, p_78088_4_, p_78088_5_, p_78088_6_, scale, entity);
 
-        boolean isSleeping = false;
-		EntityAnimaniaCow ech = (EntityAnimaniaCow) entity;
+        EntityAnimaniaCow ech = (EntityAnimaniaCow) entity;
+
 		if (ech.getSleeping()) {
-			isSleeping = true;
-		}
-		
-		float sleepTimer = ech.getSleepTimer();
-
-		if (isSleeping) {
-
+			float sleepTimer = ech.getSleepTimer();
 			this.Leg0.rotateAngleX = sleepTimer * -1.8F;
 			this.Leg0.render(scale * .95F);
 			this.Leg1.rotateAngleX = sleepTimer * -1.8F;

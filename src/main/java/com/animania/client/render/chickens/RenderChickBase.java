@@ -65,14 +65,9 @@ public class RenderChickBase<T extends EntityChickBase> extends RenderLiving<T>
 
 		Block blockchk = entity.world.getBlockState(pos).getBlock();
 
-		boolean isSleeping = false;
 		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) entity;
-		if (entityChk.getSleeping())
-		{
-			isSleeping = true;
-		}
 
-		if (blockchk == BlockHandler.blockNest || isSleeping)
+		if (blockchk == BlockHandler.blockNest || entityChk.getSleeping())
 		{
 			this.shadowSize = 0;
 			GlStateManager.translate(-.25F, 0.1F, -.25F);
