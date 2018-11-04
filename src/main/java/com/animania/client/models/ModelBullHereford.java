@@ -325,11 +325,13 @@ public class ModelBullHereford extends ModelBase
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
 		if (entitylivingbaseIn instanceof EntityBullHereford) {
-			this.Head.rotationPointY = 6.0F + ((EntityBullHereford) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = ((EntityBullHereford) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+			EntityBullHereford entityBullHereford = (EntityBullHereford) entitylivingbaseIn;
+			this.Head.rotationPointY = 6.0F + entityBullHereford.getHeadRotationPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityBullHereford.getHeadRotationAngleX(partialTickTime);
 		} else if (entitylivingbaseIn instanceof EntityBullJersey) {
-			this.Head.rotationPointY = 6.0F + ((EntityBullJersey) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = ((EntityBullJersey) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+			EntityBullJersey entityBullJersey = (EntityBullJersey) entitylivingbaseIn;
+			this.Head.rotationPointY = 6.0F + entityBullJersey.getHeadRotationPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityBullJersey.getHeadRotationAngleX(partialTickTime);
 		}
 
 	}
@@ -341,8 +343,8 @@ public class ModelBullHereford extends ModelBase
 
 			EntityBullHereford eb = (EntityBullHereford) entity;
 			if (eb.getFighting()) {
-				this.Head.rotationPointY = 14.0F + ((EntityBullHereford) entity).getHeadRotationPointY(1) * 9.0F;
-				this.headRotationAngleX = ((EntityBullHereford) entity).getHeadRotationAngleX(-3);
+				this.Head.rotationPointY = 14.0F + eb.getHeadRotationPointY(1) * 9.0F;
+				this.headRotationAngleX = eb.getHeadRotationAngleX(-3);
 			}
 			else {
 				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
@@ -354,8 +356,8 @@ public class ModelBullHereford extends ModelBase
 
 			EntityBullJersey eb = (EntityBullJersey) entity;
 			if (eb.getFighting()) {
-				this.Head.rotationPointY = 14.0F + ((EntityBullJersey) entity).getHeadRotationPointY(1) * 9.0F;
-				this.headRotationAngleX = ((EntityBullJersey) entity).getHeadRotationAngleX(-3);
+				this.Head.rotationPointY = 14.0F + eb.getHeadRotationPointY(1) * 9.0F;
+				this.headRotationAngleX = eb.getHeadRotationAngleX(-3);
 			}
 			else {
 				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);

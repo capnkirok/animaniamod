@@ -39,26 +39,28 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 	{
 
 		if (entityLiving instanceof EntityPlayer)
-			((EntityPlayer) entityLiving).clearActivePotions();
-
-		if (entityLiving instanceof EntityPlayer && !((EntityPlayer) entityLiving).capabilities.isCreativeMode)
 		{
+			EntityPlayer entityPlayer = (EntityPlayer) entityLiving;
+			entityPlayer.clearActivePotions();
 
-			if (!worldIn.isRemote)
+			if (!entityPlayer.capabilities.isCreativeMode)
 			{
-				EntityItem entityitem = new EntityItem(worldIn, entityLiving.posX + 0.5D, entityLiving.posY + 0.5D, entityLiving.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
-				worldIn.spawnEntity(entityitem);
-			}
 
-			EntityPlayer entityplayer = (EntityPlayer) entityLiving;
-			if (entityplayer.getFoodStats() != null)
-			{
-				entityplayer.getFoodStats().addStats(this, stack);
+				if (!worldIn.isRemote)
+				{
+					EntityItem entityitem = new EntityItem(worldIn, entityLiving.posX + 0.5D, entityLiving.posY + 0.5D, entityLiving.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
+					worldIn.spawnEntity(entityitem);
+				}
+
+				if (entityPlayer.getFoodStats() != null)
+				{
+					entityPlayer.getFoodStats().addStats(this, stack);
+				}
+				worldIn.playSound((EntityPlayer) null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+				this.onFoodEaten(stack, worldIn, entityPlayer);
+				entityPlayer.addStat(StatList.getObjectUseStats(this));
+				stack.shrink(1);
 			}
-			worldIn.playSound((EntityPlayer) null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-			this.onFoodEaten(stack, worldIn, entityplayer);
-			entityplayer.addStat(StatList.getObjectUseStats(this));
-			stack.shrink(1);
 		}
 
 		return stack;

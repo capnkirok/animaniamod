@@ -55,16 +55,18 @@ public class EntityEventHandler
 				event.setCanceled(true);
 		}
 
-		if (entity instanceof ISleeping && source == DamageSource.STARVE)
-		{
-			if (((ISleeping)entity).getSleeping())
-				event.setCanceled(true);
-		}
-		
 		if (entity instanceof ISleeping)
 		{
-			if (((ISleeping)entity).getSleeping())
+			ISleeping isleeping = (ISleeping)entity;
+			if(isleeping.getSleeping())
+			{
+				if (source == DamageSource.STARVE)
+				{
+					event.setCanceled(true);
+				}
+				
 				((ISleeping) entity).setSleeping(false);
+			}
 		}
 		
 		
@@ -87,8 +89,9 @@ public class EntityEventHandler
 		
 		if (entity instanceof ISleeping && entity instanceof EntityAnimal)
 		{
-			if (((ISleeping)entity).getSleeping() && ((EntityAnimal) entity).getLeashed())
-				((ISleeping) entity).setSleeping(false);
+			ISleeping isleeping = (ISleeping) entity;
+			if (isleeping.getSleeping() && ((EntityAnimal) entity).getLeashed())
+				isleeping.setSleeping(false);
 		}
 	}
 	

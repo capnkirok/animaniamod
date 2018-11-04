@@ -396,18 +396,21 @@ public class ModelFriesianSheep extends ModelBase implements IColoredModel
 
 		if (entity instanceof EntityRamFriesian)
 		{
-			this.HeadNode.rotationPointY = 4F + ((EntityRamFriesian) entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityRamFriesian) entity).getHeadRotationAngleX(partialTickTime);
+			EntityRamFriesian entityRamFriesian = (EntityRamFriesian) entity;
+			this.HeadNode.rotationPointY = 4F + entityRamFriesian.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityRamFriesian.getHeadRotationAngleX(partialTickTime);
 		}
 		else if (entity instanceof EntityEweFriesian)
 		{
-			this.HeadNode.rotationPointY = 4F + ((EntityEweFriesian) entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityEweFriesian) entity).getHeadRotationAngleX(partialTickTime);
+			EntityEweFriesian entityEweFriesian = (EntityEweFriesian) entity;
+			this.HeadNode.rotationPointY = 4F + entityEweFriesian.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityEweFriesian.getHeadRotationAngleX(partialTickTime);
 		}
 		else if (entity instanceof EntityLambFriesian)
 		{
-			this.HeadNode.rotationPointY = 4F + ((EntityLambFriesian) entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityLambFriesian) entity).getHeadRotationAngleX(partialTickTime);
+			EntityLambFriesian entityLambFriesian = (EntityLambFriesian) entity;
+			this.HeadNode.rotationPointY = 4F + entityLambFriesian.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityLambFriesian.getHeadRotationAngleX(partialTickTime);
 		}
 	}
 

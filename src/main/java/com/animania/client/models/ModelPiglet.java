@@ -170,40 +170,44 @@ public class ModelPiglet extends ModelBase
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
         if (entitylivingbaseIn instanceof EntityPigletYorkshire) {
-            this.Head.rotationPointY = 17.0F + ((EntityPigletYorkshire) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 3.0F; // number
+        	EntityPigletYorkshire entityPigletYorkshire = (EntityPigletYorkshire) entitylivingbaseIn;
+            this.Head.rotationPointY = 17.0F + entityPigletYorkshire.getHeadRotationPointY(partialTickTime) * 3.0F; // number
                                                                                                                                            // should
                                                                                                                                            // match
                                                                                                                                            // model
                                                                                                                                            // Y
                                                                                                                                            // point
-            this.headRotationAngleX = ((EntityPigletYorkshire) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityPigletYorkshire.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityPigletOldSpot) {
-            this.Head.rotationPointY = 17.0F + ((EntityPigletOldSpot) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 3.0F; // number
+        	EntityPigletOldSpot entityPigletOldSpot = (EntityPigletOldSpot) entitylivingbaseIn;
+            this.Head.rotationPointY = 17.0F + entityPigletOldSpot.getHeadRotationPointY(partialTickTime) * 3.0F; // number
                                                                                                                                          // should
                                                                                                                                          // match
                                                                                                                                          // model
                                                                                                                                          // Y
                                                                                                                                          // point
-            this.headRotationAngleX = ((EntityPigletOldSpot) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityPigletOldSpot.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityPigletDuroc) {
-            this.Head.rotationPointY = 17.0F + ((EntityPigletDuroc) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 3.0F; // number
+        	EntityPigletDuroc entityPigletDuroc = (EntityPigletDuroc) entitylivingbaseIn;
+            this.Head.rotationPointY = 17.0F + entityPigletDuroc.getHeadRotationPointY(partialTickTime) * 3.0F; // number
                                                                                                                                        // should
                                                                                                                                        // match
                                                                                                                                        // model
                                                                                                                                        // Y
                                                                                                                                        // point
-            this.headRotationAngleX = ((EntityPigletDuroc) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityPigletDuroc.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityPigletLargeWhite) {
-            this.Head.rotationPointY = 17.0F + ((EntityPigletLargeWhite) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 3.0F; // number
+        	EntityPigletLargeWhite entityPigletLargeWhite = (EntityPigletLargeWhite) entitylivingbaseIn;
+            this.Head.rotationPointY = 17.0F + entityPigletLargeWhite.getHeadRotationPointY(partialTickTime) * 3.0F; // number
                                                                                                                                             // should
                                                                                                                                             // match
                                                                                                                                             // model
                                                                                                                                             // Y
                                                                                                                                             // point
-            this.headRotationAngleX = ((EntityPigletLargeWhite) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityPigletLargeWhite.getHeadRotationAngleX(partialTickTime);
         }
 
     }

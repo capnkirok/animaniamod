@@ -224,13 +224,14 @@ public class ModelHogHampshire extends ModelBase
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
         if (entitylivingbaseIn instanceof EntityHogHampshire) {
-            this.Head.rotationPointY = 11.0F + ((EntityHogHampshire) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 5.5F; // number
+        	EntityHogHampshire entityHogHampshire = (EntityHogHampshire) entitylivingbaseIn;
+            this.Head.rotationPointY = 11.0F + entityHogHampshire.getHeadRotationPointY(partialTickTime) * 5.5F; // number
                                                                                                                                         // should
                                                                                                                                         // match
                                                                                                                                         // model
                                                                                                                                         // Y
                                                                                                                                         // point
-            this.headRotationAngleX = ((EntityHogHampshire) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogHampshire.getHeadRotationAngleX(partialTickTime);
         }
 
     }

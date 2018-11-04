@@ -222,20 +222,24 @@ public class ModelCow extends ModelBase
         super.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTickTime);
 
         if (entitylivingbaseIn instanceof EntityCowHolstein) {
-            this.head.rotationPointY = 6.0F + ((EntityCowHolstein) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-            this.headRotationAngleX = ((EntityCowHolstein) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        	EntityCowHolstein entityCowHolstein = (EntityCowHolstein) entitylivingbaseIn;
+            this.head.rotationPointY = 6.0F + entityCowHolstein.getHeadRotationPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = entityCowHolstein.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCowAngus) {
-            this.head.rotationPointY = 6.0F + ((EntityCowAngus) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-            this.headRotationAngleX = ((EntityCowAngus) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        	EntityCowAngus entityCowAngus = (EntityCowAngus) entitylivingbaseIn;
+            this.head.rotationPointY = 6.0F + entityCowAngus.getHeadRotationPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = entityCowAngus.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCowMooshroom) {
-            this.head.rotationPointY = 6.0F + ((EntityCowMooshroom) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-            this.headRotationAngleX = ((EntityCowMooshroom) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        	EntityCowMooshroom entityCowMooshroom = (EntityCowMooshroom) entitylivingbaseIn;
+            this.head.rotationPointY = 6.0F + entityCowMooshroom.getHeadRotationPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = entityCowMooshroom.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCowFriesian) {
-            this.head.rotationPointY = 6.0F + ((EntityCowFriesian) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 9.0F;
-            this.headRotationAngleX = ((EntityCowFriesian) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        	EntityCowFriesian entityCowFriesian = (EntityCowFriesian) entitylivingbaseIn;
+            this.head.rotationPointY = 6.0F + entityCowFriesian.getHeadRotationPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = entityCowFriesian.getHeadRotationAngleX(partialTickTime);
         }
 
     }

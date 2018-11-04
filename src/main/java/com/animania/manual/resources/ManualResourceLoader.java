@@ -128,7 +128,7 @@ public class ManualResourceLoader
 			if(pack instanceof AddonResourcePack.Jar)
 				allManualFiles.addAll(((AddonResourcePack.Jar) pack).manualFiles);
 			
-			if(pack instanceof AddonResourcePack.Folder)
+			else if(pack instanceof AddonResourcePack.Folder)
 				allManualFiles.addAll(((AddonResourcePack.Folder) pack).manualFiles);
 		}
 	}

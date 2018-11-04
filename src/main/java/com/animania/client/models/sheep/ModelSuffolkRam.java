@@ -422,14 +422,17 @@ public class ModelSuffolkRam extends ModelBase implements IColoredModel
 		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
 
 		if (entity instanceof EntityRamSuffolk ) {
-			this.HeadNode.rotationPointY = 4F + ((EntityRamSuffolk)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityRamSuffolk)entity).getHeadRotationAngleX(partialTickTime);
+			EntityRamSuffolk entityRamSuffolk = (EntityRamSuffolk)entity;
+			this.HeadNode.rotationPointY = 4F + entityRamSuffolk.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityRamSuffolk.getHeadRotationAngleX(partialTickTime);
 		} else if (entity instanceof EntityEweSuffolk) {
-			this.HeadNode.rotationPointY = 4F + ((EntityEweSuffolk)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityEweSuffolk)entity).getHeadRotationAngleX(partialTickTime);
+			EntityEweSuffolk entityEweSuffolk = (EntityEweSuffolk)entity;
+			this.HeadNode.rotationPointY = 4F + entityEweSuffolk.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityEweSuffolk.getHeadRotationAngleX(partialTickTime);
 		} else if (entity instanceof EntityLambSuffolk) {
-			this.HeadNode.rotationPointY = 4F + ((EntityLambSuffolk)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityLambSuffolk)entity).getHeadRotationAngleX(partialTickTime);
+			EntityLambSuffolk entityLambSuffolk = (EntityLambSuffolk)entity;
+			this.HeadNode.rotationPointY = 4F + entityLambSuffolk.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityLambSuffolk.getHeadRotationAngleX(partialTickTime);
 		}
 	}
 

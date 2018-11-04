@@ -115,11 +115,12 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 				List<EntityAnimaniaChicken> nearbyChickens = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 15, worldIn, pos);
 				if (nearbyChickens.size() < AnimaniaConfig.careAndFeeding.entityBreedingLimit)
 				{
+					ChickenType birdType = (ChickenType) te.getBirdType();
 					for (EntityRoosterBase rooster : roosters)
 					{
 						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
 						{
-							ChickenType chickType = ChickenType.breed(rooster.type, (ChickenType) te.getBirdType());
+							ChickenType chickType = ChickenType.breed(rooster.type, birdType);
 							EntityChickBase chick = chickType.getChild(worldIn);
 							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
 							worldIn.spawnEntity(chick);
@@ -136,11 +137,12 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 				List<EntityAnimaniaPeacock> nearbyPeacocks = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPeacock.class, 15, worldIn, pos);
 				if (nearbyPeacocks.size() < AnimaniaConfig.careAndFeeding.entityBreedingLimit)
 				{
+					PeacockType birdType = (PeacockType) te.getBirdType();
 					for (EntityPeacockBase peacock : peacocks)
 					{
 						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
 						{
-							PeacockType chickType = PeacockType.breed(peacock.type, (PeacockType) te.getBirdType());
+							PeacockType chickType = PeacockType.breed(peacock.type, birdType);
 							EntityPeachickBase chick = chickType.getChild(worldIn);
 							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
 							worldIn.spawnEntity(chick);

@@ -62,14 +62,18 @@ public class LayerBlinking implements LayerRenderer
 		boolean drawBlink = false;
 
 		if (entity instanceof IBlinking)
-			if ((((IBlinking) entity).getBlinkTimer() < 7 && (((IBlinking) entity).getBlinkTimer() >= 0)))
+		{
+			IBlinking iblinking = (IBlinking) entity;
+			if (iblinking.getBlinkTimer() < 7 && iblinking.getBlinkTimer() >= 0)
 				drawBlink = true;
+		}
 
 		if (entity instanceof ISleeping)
 		{
 			long currentTime = entity.world.getWorldTime() % 23999;
-			boolean isSleeping = ((ISleeping) entity).getSleeping();
-			float sleepTimer = ((ISleeping) entity).getSleepTimer();
+			ISleeping isleeping = (ISleeping) entity;
+			boolean isSleeping = isleeping.getSleeping();
+			float sleepTimer = isleeping.getSleepTimer();
 
 			if (sleepTimer == -100 || sleepTimer == 0.0 ? isSleeping && currentTime < 23250 : isSleeping && sleepTimer <= -0.55F && currentTime < 23250)
 				drawBlink = true;

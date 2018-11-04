@@ -227,40 +227,44 @@ public class ModelHog extends ModelBase
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
         if (entitylivingbaseIn instanceof EntityHogYorkshire) {
-            this.Head.rotationPointY = 11.0F + ((EntityHogYorkshire) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 5.5F; // number
+        	EntityHogYorkshire entityHogYorkshire = (EntityHogYorkshire) entitylivingbaseIn;
+            this.Head.rotationPointY = 11.0F + entityHogYorkshire.getHeadRotationPointY(partialTickTime) * 5.5F; // number
                                                                                                                                         // should
                                                                                                                                         // match
                                                                                                                                         // model
                                                                                                                                         // Y
                                                                                                                                         // point
-            this.headRotationAngleX = ((EntityHogYorkshire) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogYorkshire.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityHogOldSpot) {
-            this.Head.rotationPointY = 11.0F + ((EntityHogOldSpot) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 5.5F; // number
+        	EntityHogOldSpot entityHogOldSpot = (EntityHogOldSpot) entitylivingbaseIn;
+            this.Head.rotationPointY = 11.0F + entityHogOldSpot.getHeadRotationPointY(partialTickTime) * 5.5F; // number
                                                                                                                                       // should
                                                                                                                                       // match
                                                                                                                                       // model
                                                                                                                                       // Y
                                                                                                                                       // point
-            this.headRotationAngleX = ((EntityHogOldSpot) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogOldSpot.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityHogDuroc) {
-            this.Head.rotationPointY = 11.0F + ((EntityHogDuroc) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 5.5F; // number
+        	EntityHogDuroc entityHogDuroc = (EntityHogDuroc) entitylivingbaseIn;
+            this.Head.rotationPointY = 11.0F + entityHogDuroc.getHeadRotationPointY(partialTickTime) * 5.5F; // number
                                                                                                                                     // should
                                                                                                                                     // match
                                                                                                                                     // model
                                                                                                                                     // Y
                                                                                                                                     // point
-            this.headRotationAngleX = ((EntityHogDuroc) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogDuroc.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityHogLargeWhite) {
-            this.Head.rotationPointY = 11.0F + ((EntityHogLargeWhite) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 5.5F; // number
+        	EntityHogLargeWhite entityHogLargeWhite = (EntityHogLargeWhite) entitylivingbaseIn;
+            this.Head.rotationPointY = 11.0F + entityHogLargeWhite.getHeadRotationPointY(partialTickTime) * 5.5F; // number
                                                                                                                                          // should
                                                                                                                                          // match
                                                                                                                                          // model
                                                                                                                                          // Y
                                                                                                                                          // point
-            this.headRotationAngleX = ((EntityHogLargeWhite) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogLargeWhite.getHeadRotationAngleX(partialTickTime);
         }
 
     }

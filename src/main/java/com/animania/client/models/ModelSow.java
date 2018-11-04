@@ -210,40 +210,44 @@ public class ModelSow extends ModelBase
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
         if (entitylivingbaseIn instanceof EntitySowYorkshire) {
-            this.Head.rotationPointY = 11.0F + ((EntitySowYorkshire) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 5.5F; // number
+        	EntitySowYorkshire entitySowYorkshire = (EntitySowYorkshire) entitylivingbaseIn;
+            this.Head.rotationPointY = 11.0F + entitySowYorkshire.getHeadRotationPointY(partialTickTime) * 5.5F; // number
                                                                                                                                         // should
                                                                                                                                         // match
                                                                                                                                         // model
                                                                                                                                         // Y
                                                                                                                                         // point
-            this.headRotationAngleX = ((EntitySowYorkshire) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entitySowYorkshire.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntitySowOldSpot) {
-            this.Head.rotationPointY = 11.0F + ((EntitySowOldSpot) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 5.5F; // number
+        	EntitySowOldSpot entitySowOldSpot = (EntitySowOldSpot) entitylivingbaseIn;
+            this.Head.rotationPointY = 11.0F + entitySowOldSpot.getHeadRotationPointY(partialTickTime) * 5.5F; // number
                                                                                                                                       // should
                                                                                                                                       // match
                                                                                                                                       // model
                                                                                                                                       // Y
                                                                                                                                       // point
-            this.headRotationAngleX = ((EntitySowOldSpot) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entitySowOldSpot.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntitySowDuroc) {
-            this.Head.rotationPointY = 11.0F + ((EntitySowDuroc) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 5.5F; // number
+        	EntitySowDuroc entitySowDuroc = (EntitySowDuroc) entitylivingbaseIn;
+            this.Head.rotationPointY = 11.0F + entitySowDuroc.getHeadRotationPointY(partialTickTime) * 5.5F; // number
                                                                                                                                     // should
                                                                                                                                     // match
                                                                                                                                     // model
                                                                                                                                     // Y
                                                                                                                                     // point
-            this.headRotationAngleX = ((EntitySowDuroc) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entitySowDuroc.getHeadRotationAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntitySowLargeWhite) {
-            this.Head.rotationPointY = 11.0F + ((EntitySowLargeWhite) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 5.5F; // number
+        	EntitySowLargeWhite entitySowLargeWhite = (EntitySowLargeWhite) entitylivingbaseIn;
+            this.Head.rotationPointY = 11.0F + entitySowLargeWhite.getHeadRotationPointY(partialTickTime) * 5.5F; // number
                                                                                                                                          // should
                                                                                                                                          // match
                                                                                                                                          // model
                                                                                                                                          // Y
                                                                                                                                          // point
-            this.headRotationAngleX = ((EntitySowLargeWhite) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entitySowLargeWhite.getHeadRotationAngleX(partialTickTime);
         }
 
     }

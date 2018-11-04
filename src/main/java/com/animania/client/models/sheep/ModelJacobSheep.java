@@ -442,14 +442,17 @@ public class ModelJacobSheep extends ModelBase
 		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
 
 		if (entity instanceof EntityRamJacob ) {
-			this.HeadNode.rotationPointY = 4F + ((EntityRamJacob)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityRamJacob)entity).getHeadRotationAngleX(partialTickTime);
+			EntityRamJacob entityRamJacob = (EntityRamJacob)entity;
+			this.HeadNode.rotationPointY = 4F + entityRamJacob.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityRamJacob.getHeadRotationAngleX(partialTickTime);
 		} else if (entity instanceof EntityEweJacob) {
-			this.HeadNode.rotationPointY = 4F + ((EntityEweJacob)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityEweJacob)entity).getHeadRotationAngleX(partialTickTime);
+			EntityEweJacob entityEweJacob = (EntityEweJacob)entity;
+			this.HeadNode.rotationPointY = 4F + entityEweJacob.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityEweJacob.getHeadRotationAngleX(partialTickTime);
 		} else if (entity instanceof EntityLambJacob) {
-			this.HeadNode.rotationPointY = 4F + ((EntityLambJacob)entity).getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = ((EntityLambJacob)entity).getHeadRotationAngleX(partialTickTime);
+			EntityLambJacob entityLambJacob = (EntityLambJacob)entity;
+			this.HeadNode.rotationPointY = 4F + entityLambJacob.getHeadRotationPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityLambJacob.getHeadRotationAngleX(partialTickTime);
 		}
 	}
 

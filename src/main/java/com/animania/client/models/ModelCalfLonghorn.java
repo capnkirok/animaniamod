@@ -180,11 +180,13 @@ public class ModelCalfLonghorn extends ModelBase
         super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
         if (entitylivingbaseIn instanceof EntityCalfLonghorn) {
-            this.Head.rotationPointY = 10.0F + ((EntityCalfLonghorn) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = ((EntityCalfLonghorn) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        	EntityCalfLonghorn entityCalfLonghorn = (EntityCalfLonghorn) entitylivingbaseIn;
+            this.Head.rotationPointY = 10.0F + entityCalfLonghorn.getHeadRotationPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfLonghorn.getHeadRotationAngleX(partialTickTime);
         } else if (entitylivingbaseIn instanceof EntityCalfHighland) {
-            this.Head.rotationPointY = 10.0F + ((EntityCalfHighland) entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = ((EntityCalfHighland) entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+        	EntityCalfHighland entityCalfHighland = (EntityCalfHighland) entitylivingbaseIn;
+            this.Head.rotationPointY = 10.0F + entityCalfHighland.getHeadRotationPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfHighland.getHeadRotationAngleX(partialTickTime);
         }
         
     }
