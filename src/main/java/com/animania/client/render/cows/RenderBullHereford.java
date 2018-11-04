@@ -1,7 +1,5 @@
 package com.animania.client.render.cows;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelBullHereford;
@@ -25,7 +23,6 @@ public class RenderBullHereford<T extends EntityBullHereford> extends RenderLivi
 
 	private static final ResourceLocation cowTextures = new ResourceLocation("animania:textures/entity/cows/bull_hereford.png");
 	private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/bull_blink.png");
-	Random rand = new Random();
 
 	public RenderBullHereford(RenderManager rm)
 	{

@@ -1,8 +1,8 @@
 package com.animania.common.entities.sheep.ai;
 
 import java.util.List;
-import java.util.Random;
 
+import com.animania.Animania;
 import com.animania.common.entities.sheep.EntityEweBase;
 import com.animania.common.entities.sheep.EntityLambBase;
 import com.animania.common.entities.sheep.EntityRamBase;
@@ -20,7 +20,6 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 	int fightTimer;
 	double moveSpeed;
 	private int delayCounter;
-	Random rand = new Random();
 
 
 	public EntityAIButtHeadsSheep(EntityAnimal animal, double speedIn)
@@ -29,7 +28,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 		this.theWorld = animal.world;
 		this.moveSpeed = speedIn;
 		this.setMutexBits(3);
-		this.fightTimer = 100 + rand.nextInt(50);
+		this.fightTimer = 100 + Animania.RANDOM.nextInt(50);
 		this.delayCounter = 0;
 
 	}
@@ -51,8 +50,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 			
 			this.targetMate = this.getNearbyRival();
 
-			Random rand = new Random();
-			if (this.targetMate != null && rand.nextInt(20) == 0) {
+			if (this.targetMate != null && Animania.RANDOM.nextInt(20) == 0) {
 				this.delayCounter = 0;
 				this.resetTask();
 				return false;
@@ -136,7 +134,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 			if (foundEntity != null) {
 				
 				if (this.fightTimer < 0 && thisEntity.getFighting()) {
-					this.fightTimer = 100 + rand.nextInt(50);
+					this.fightTimer = 100 + Animania.RANDOM.nextInt(50);
 					this.targetMate = null;
 					thisEntity.setFighting(false);
 					foundEntity.setFighting(false);
@@ -159,7 +157,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 
 				} 
 			} else if (foundEntity == null || fightTimer < 0) {
-				this.fightTimer = 100 + rand.nextInt(50);
+				this.fightTimer = 100 + Animania.RANDOM.nextInt(50);
 				this.targetMate = null;
 				thisEntity.setFighting(false);
 				thisEntity.setRivalUniqueId(null);

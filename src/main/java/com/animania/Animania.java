@@ -1,5 +1,7 @@
 package com.animania;
 
+import java.util.Random;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,6 +46,7 @@ public class Animania
 	
 	
 	public static SimpleNetworkWrapper network;
+	public static Random RANDOM = new Random();
 
 	//GUI
 	public static int horseCartGUI_ID = 0;

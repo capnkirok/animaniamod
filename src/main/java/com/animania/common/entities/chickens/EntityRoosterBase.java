@@ -1,8 +1,8 @@
 package com.animania.common.entities.chickens;
 
 import java.util.List;
-import java.util.Random;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.amphibians.EntityAmphibian;
@@ -198,24 +198,12 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		Random rand = new Random();
-		int chooser = rand.nextInt(2);
-
-		if (chooser == 0)
-			return ModSoundEvents.chickenHurt1;
-		else
-			return ModSoundEvents.chickenHurt2;
+		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.chickenHurt1 : ModSoundEvents.chickenHurt2;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		Random rand = new Random();
-		int chooser = rand.nextInt(2);
-
-		if (chooser == 0)
-			return ModSoundEvents.chickenDeath1;
-		else
-			return ModSoundEvents.chickenDeath2;
+		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.chickenDeath1 : ModSoundEvents.chickenDeath2;
 	}
 
 	@Override

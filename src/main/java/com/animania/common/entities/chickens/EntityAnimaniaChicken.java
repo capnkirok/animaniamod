@@ -1,6 +1,5 @@
 package com.animania.common.entities.chickens;
 
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -436,8 +435,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		else
 			num = 24;
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(num);
+		int chooser = Animania.RANDOM.nextInt(num);
 
 		if (chooser == 0)
 			return ModSoundEvents.chickenCluck1;

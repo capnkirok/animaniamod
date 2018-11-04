@@ -1,7 +1,6 @@
 package com.animania.common.entities.generic.ai;
 
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import net.minecraft.entity.EntityCreature;
@@ -9,6 +8,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
+import com.animania.Animania;
 import com.animania.common.entities.interfaces.IFoodEating;
 import com.animania.common.entities.interfaces.IMateable;
 import com.animania.common.entities.interfaces.ISleeping;
@@ -24,7 +24,6 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 	int courtshipTimer;
 	double moveSpeed;
 	private int delayCounter;
-	private Random rand;
 
 	private Class female;
 	private Class child;
@@ -38,7 +37,6 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 		this.setMutexBits(3);
 		this.courtshipTimer = 20;
 		this.delayCounter = 0;
-		this.rand = new Random();
 		this.female = other;
 		this.child = child;
 		this.base = base;
@@ -97,8 +95,7 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 
 			this.targetMate = this.getNearbyMate();
 
-			Random rand = new Random();
-			if (this.targetMate != null && rand.nextInt(20) == 0)
+			if (this.targetMate != null && Animania.RANDOM.nextInt(20) == 0)
 			{
 				this.delayCounter = 0;
 				this.resetTask();

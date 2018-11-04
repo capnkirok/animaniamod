@@ -2,7 +2,6 @@ package com.animania.common.entities.amphibians;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -181,16 +180,14 @@ public class EntityFrogs extends EntityAmphibian
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-
-		Random rand = new Random();
-		int chooser = rand.nextInt(4);
-		if (this.getCustomNameTag().equals("Pepe") && 0.1 > Math.random())
+		int chooser = Animania.RANDOM.nextInt(4);
+		if (this.getCustomNameTag().equals("Pepe") && 0.1 > Animania.RANDOM.nextDouble())
 		{
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 5, 4, true, false));
 			return ModSoundEvents.reeee;
 		}
 		
-		if(Math.random() < 0.3 &&  this.getCustomNameTag().equalsIgnoreCase("me_irl") && Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY)
+		if(Animania.RANDOM.nextDouble() < 0.3 &&  this.getCustomNameTag().equalsIgnoreCase("me_irl") && Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY)
 		{
 			return ModSoundEvents.oooohhh;
 		}

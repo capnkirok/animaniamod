@@ -1,7 +1,5 @@
 package com.animania.client.render.props;
 
-import java.util.Random;
-
 import com.animania.Animania;
 import com.animania.common.entities.props.EntityWagon;
 import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
@@ -24,7 +22,6 @@ public class RenderWagon extends Render<EntityWagon>
 	public RenderWagon(RenderManager manager) {
 		super(manager);
 		this.shadowSize = 1.5F;
-		Random rand = new Random();
 	}
 
 	public void doRender(EntityWagon entity, double x, double y, double z, float entityYaw, float partialTicks)
@@ -62,13 +59,12 @@ public class RenderWagon extends Render<EntityWagon>
 	@Override
 	protected ResourceLocation getEntityTexture(EntityWagon entity) {
 		int blinkTimer = entity.blinkTimer;
-		Random rand = new Random();
 		
 		if (entity.world.getWorldTime() % 24000 < 13000) {
 			lastTexture = 1;
 			return this.getWagonTextures1(entity);
 		} else if (blinkTimer == 15) {
-			int bob = rand.nextInt(3);
+			int bob = Animania.RANDOM.nextInt(3);
 			if (bob == 0) {
 				lastTexture = 1;
 				return this.getWagonTextures1(entity);

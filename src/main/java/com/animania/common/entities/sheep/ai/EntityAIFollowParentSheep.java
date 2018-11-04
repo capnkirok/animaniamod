@@ -1,7 +1,6 @@
 package com.animania.common.entities.sheep.ai;
 
 import java.util.List;
-import java.util.Random;
 
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityEweBase;
@@ -18,7 +17,6 @@ public class EntityAIFollowParentSheep extends EntityAIBase
 	EntityAnimaniaSheep parentAnimal;
 	double moveSpeed;
 	private int delayCounter;
-	Random rand = new Random();
 
 	public EntityAIFollowParentSheep(EntityAnimal animal, double speed)
 	{

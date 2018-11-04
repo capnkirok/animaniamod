@@ -1,7 +1,5 @@
 package com.animania.client.models;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;

@@ -1,7 +1,5 @@
 package com.animania.client.render.rabbits;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.rabbits.ModelLop;

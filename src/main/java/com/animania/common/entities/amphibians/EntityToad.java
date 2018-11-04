@@ -1,7 +1,5 @@
 package com.animania.common.entities.amphibians;
 
-import java.util.Random;
-
 import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.AnimalContainer;
@@ -32,8 +30,7 @@ public class EntityToad extends EntityAmphibian
 	@Override
 	protected SoundEvent getAmbientSound() {
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(5);
+		int chooser = Animania.RANDOM.nextInt(5);
 
 		if (chooser == 0)
 			return ModSoundEvents.toadLiving1;

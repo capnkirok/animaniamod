@@ -2,8 +2,8 @@ package com.animania.common.entities.cows;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Random;
 
+import com.animania.Animania;
 import com.animania.common.entities.AnimaniaType;
 
 import net.minecraft.world.World;
@@ -106,11 +106,7 @@ public enum CowType implements AnimaniaType
 
 	public static CowType breed(CowType male, CowType female)
 	{
-		Random rand = new Random();
-		if(rand.nextInt(2) == 0)
-			return male;
-		else
-			return female;
+		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
 
 

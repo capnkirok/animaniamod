@@ -1,9 +1,8 @@
 package com.animania.client.render.pigs;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
+import com.animania.Animania;
 import com.animania.client.models.ModelPigletHampshire;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.client.render.pigs.RenderSowYorkshire.Factory;
@@ -72,7 +71,6 @@ public class RenderPigletHampshire<T extends EntityPigletHampshire> extends Rend
 			double z = entity.posZ;
 
 			BlockPos pos = new BlockPos(x, y, z);
-			Random rand = new Random();
 
 			Block blockchk = entity.world.getBlockState(pos).getBlock();
 			Block blockchk2 = entity.world.getBlockState(pos).getBlock();
@@ -116,7 +114,7 @@ public class RenderPigletHampshire<T extends EntityPigletHampshire> extends Rend
 			{
 				entity.setMuddy(false);
 				float mudTimer = entity.getMudTimer();
-				if (rand.nextInt(3) < 1)
+				if (Animania.RANDOM.nextInt(3) < 1)
 				{
 					mudTimer = mudTimer - 0.0025F;
 					entity.setMudTimer(mudTimer);

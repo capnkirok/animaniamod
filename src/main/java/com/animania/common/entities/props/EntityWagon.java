@@ -55,7 +55,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.util.Random;
 
 public class EntityWagon extends AnimatedEntityBase implements IInventoryChangedListener
 {
@@ -1021,15 +1020,14 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 	{
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(this.posX), 0, MathHelper.floor(this.posZ));
 
-		Random rand = new Random();
 		long time = this.getEntityWorld().getWorldTime() % 24000;
 
 		if (this.world.isBlockLoaded(blockpos$mutableblockpos))
 		{
 			blockpos$mutableblockpos.setY(MathHelper.floor(this.posY + (double)this.getEyeHeight()));
 
-			if (rand.nextInt(32) == 0 && time > 13000 && sleepTimer == 0)  {
-				lastLighting = 85 + rand.nextInt(22);
+			if (Animania.RANDOM.nextInt(32) == 0 && time > 13000 && sleepTimer == 0)  {
+				lastLighting = 85 + Animania.RANDOM.nextInt(22);
 				return this.world.getCombinedLight(blockpos$mutableblockpos, 0) + lastLighting;
 
 			} else if (sleepTimer == 0 || time < 13000) {

@@ -1,7 +1,5 @@
 package com.animania.client.render.cows;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCalf;
@@ -27,7 +25,6 @@ public class RenderCalfHolstein<T extends EntityCalfHolstein> extends RenderLivi
 	private static final ResourceLocation cowTexturesBlink = new ResourceLocation("animania:textures/entity/cows/calf_blink.png");
 	private static final ResourceLocation purpTextures = new ResourceLocation("animania:textures/entity/cows/calf_purplicious.png");
 	private static final ResourceLocation purpTexturesBlink = new ResourceLocation("animania:textures/entity/cows/calf_purplicious.png");
-	Random rand = new Random();
 
 	private LayerBlinking blinkingLayer;
 

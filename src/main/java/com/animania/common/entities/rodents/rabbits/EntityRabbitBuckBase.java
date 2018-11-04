@@ -2,7 +2,6 @@ package com.animania.common.entities.rodents.rabbits;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
@@ -31,6 +30,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.EntityBullBase;
@@ -92,8 +92,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		else
 			num = 32;
 
-		Random rand = new Random();
-		int chooser = rand.nextInt(num);
+		int chooser = Animania.RANDOM.nextInt(num);
 
 		if (chooser == 0)
 			return ModSoundEvents.rabbit1;
@@ -111,25 +110,13 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(2);
-
-		if (chooser == 0)
-			return ModSoundEvents.rabbitHurt1;
-		else
-			return ModSoundEvents.rabbitHurt2;
+		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.rabbitHurt1 : ModSoundEvents.rabbitHurt2;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		Random rand = new Random();
-		int chooser = rand.nextInt(2);
-
-		if (chooser == 0)
-			return ModSoundEvents.rabbitHurt1;
-		else
-			return ModSoundEvents.rabbitHurt2;
+		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.rabbitHurt1 : ModSoundEvents.rabbitHurt2;
 	}
 
 	@Override

@@ -2,8 +2,8 @@ package com.animania.common.entities.chickens;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Random;
 
+import com.animania.Animania;
 import com.animania.common.entities.AnimaniaType;
 
 import net.minecraft.world.World;
@@ -104,11 +104,7 @@ public enum ChickenType implements AnimaniaType
 
 	public static ChickenType breed(ChickenType male, ChickenType female)
 	{
-		Random rand = new Random();
-		if(rand.nextInt(2) == 0)
-			return male;
-		else
-			return female;
+		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
 
 }

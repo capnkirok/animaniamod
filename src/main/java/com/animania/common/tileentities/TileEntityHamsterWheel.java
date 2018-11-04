@@ -1,7 +1,5 @@
 package com.animania.common.tileentities;
 
-import java.util.Random;
-
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
@@ -177,8 +175,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 			if (findPositionForHamster())
 			{
 				world.spawnEntity(hamster);
-				Random rand = new Random();
-				hamster.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+				hamster.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
 				// this.hamster.setWatered(false);
 				this.hamster.setFed(false);
 				this.hamster = null;

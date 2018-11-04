@@ -1,7 +1,5 @@
 package com.animania.client.render.goats;
 
-import java.util.Random;
-
 import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.goats.ModelKidAngora;
@@ -24,7 +22,6 @@ public class RenderKidAngora<T extends EntityKidAngora> extends RenderLiving<T>
 	public static final Factory           FACTORY          = new Factory();
 	private static final ResourceLocation goatTextures      = new ResourceLocation("animania:textures/entity/goats/kid_angora.png");
 	private static final ResourceLocation goatTexturesBlink = new ResourceLocation("animania:textures/entity/goats/angora_blink.png");
-	Random                                rand             = new Random();
 
 	public RenderKidAngora(RenderManager rm) {
 		super(rm, new ModelKidAngora(), 0.2F);
