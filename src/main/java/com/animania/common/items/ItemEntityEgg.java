@@ -84,38 +84,13 @@ public class ItemEntityEgg extends Item
 
 		if (this.gender == EntityGender.RANDOM)
 		{
-			if (type instanceof CowType)
-			{
-				entity = EntityGender.getEntity(CowType.values()[Animania.RANDOM.nextInt(((CowType) type).values().length)], gender, world);
-			}
-			if (type instanceof PigType)
-			{
-				entity = EntityGender.getEntity(PigType.values()[Animania.RANDOM.nextInt(((PigType) type).values().length)], gender, world);
-			}
-			if (type instanceof ChickenType)
-			{
-				entity = EntityGender.getEntity(ChickenType.values()[Animania.RANDOM.nextInt(((ChickenType) type).values().length)], gender, world);
-			}
-			if(type instanceof GoatType)
-			{
-				entity = EntityGender.getEntity(GoatType.values()[Animania.RANDOM.nextInt(((GoatType) type).values().length)], gender, world);
-			}
-			if(type instanceof PeacockType)
-			{
-				entity = EntityGender.getEntity(PeacockType.values()[Animania.RANDOM.nextInt(((PeacockType) type).values().length)], gender, world);
-			}
-			if(type instanceof RabbitType)
-			{
-				entity = EntityGender.getEntity(RabbitType.values()[Animania.RANDOM.nextInt(((RabbitType) type).values().length)], gender, world);
-			}
-			if(type instanceof SheepType)
-			{
-				entity = EntityGender.getEntity(SheepType.values()[Animania.RANDOM.nextInt(((SheepType) type).values().length)], gender, world);
-			}
-			if(type instanceof RandomAnimalType)
-			{
+			Class<? extends AnimaniaType> clazz = this.type.getClass();
+			AnimaniaType[] types = clazz.getEnumConstants();
+
+			if (type instanceof RandomAnimalType)
 				entity = EntityGender.getEntity(type, gender, world);
-			}
+			else
+				entity = EntityGender.getEntity(types[Animania.RANDOM.nextInt(types.length)], gender, world);
 		}
 		else
 		{
@@ -152,7 +127,7 @@ public class ItemEntityEgg extends Item
 	{
 		return this.name;
 	}
-	
+
 	@Override
 	public String getItemStackDisplayName(ItemStack stack)
 	{
@@ -164,8 +139,6 @@ public class ItemEntityEgg extends Item
 	{
 		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("item.animania_entity_egg.desc1") + " " + TextFormatting.DARK_GRAY + I18n.translateToLocal("item.animania_entity_egg.desc2"));
 	}
-	
-	
 
 	@SideOnly(Side.CLIENT)
 	public static class Color implements IItemColor
