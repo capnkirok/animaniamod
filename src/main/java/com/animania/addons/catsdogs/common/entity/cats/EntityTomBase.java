@@ -17,7 +17,10 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
@@ -37,14 +40,13 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityTomBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityTomBase.class, DataSerializers.BOOLEAN);
 
-	public EntityTomBase(World worldIn, CatType type)
+	public EntityTomBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(1.0F, 1.0F);
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
-		this.type = type;
-
+		
 		if (!getSterilized())
 			this.tasks.addTask(8, new GenericAIMate<EntityTomBase, EntityQueenBase>(this, 1.0D, EntityQueenBase.class, EntityKittenBase.class, EntityAnimaniaCat.class));
 	}
@@ -256,6 +258,23 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	{
 		this.setSterilized(compound.getBoolean("Sterilized"));
 		super.readFromNBT(compound);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public float getHeadRotationPointY(float p_70894_1_)
+	{
+		return this.eatTimer <= 0 ? 0.0F : this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F : this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 80 - p_70894_1_) / 4.0F;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public float getHeadRotationAngleX(float p_70890_1_)
+	{
+		if (this.eatTimer > 4 && this.eatTimer <= 76)
+		{
+			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
+			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
+		} else
+			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
 
 	@Override

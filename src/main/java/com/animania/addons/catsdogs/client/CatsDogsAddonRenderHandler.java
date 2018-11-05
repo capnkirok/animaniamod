@@ -1,6 +1,9 @@
 package com.animania.addons.catsdogs.client;
 
 import com.animania.Animania;
+import com.animania.addons.catsdogs.client.render.cats.RenderTomRagdoll;
+import com.animania.addons.catsdogs.common.entity.cats.EntityTomRagdoll;
+import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -18,13 +21,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class CatsDogsAddonRenderHandler
 {
 
-	/**
-	 * Render Entities <br>
-	 * Render Items
-	 */
+	
 	public static void preInit()
 	{
-
+		//registerCraftStudioAssets();
+		renderEntitiesFactory();
+		
 	}
 
 	/**
@@ -32,6 +34,21 @@ public class CatsDogsAddonRenderHandler
 	 */
 	public static void init()
 	{
+		
+	}
+	
+	@CraftStudioLoader
+	public static void registerCraftStudioAssets()
+	{
+		//CSRegistryHelper csRegistry = new CSRegistryHelper(Animania.MODID);
+		//csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_ragdoll");
+		
+	}
+	
+	@SideOnly(Side.CLIENT)
+	static void renderEntitiesFactory()
+	{
+		RenderingRegistry.registerEntityRenderingHandler(EntityTomRagdoll.class, RenderTomRagdoll.FACTORY);
 		
 	}
 

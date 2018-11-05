@@ -5,21 +5,13 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.animania.Animania;
 import com.animania.common.entities.AnimaniaType;
-import com.animania.common.entities.cows.CowType;
-import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.cows.EntityBullMooshroom;
-import com.animania.common.entities.cows.EntityCalfBase;
-import com.animania.common.entities.cows.EntityCalfMooshroom;
-import com.animania.common.entities.cows.EntityCowBase;
-import com.animania.common.entities.cows.EntityCowMooshroom;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 
 public enum CatType implements AnimaniaType
 {
 
-	TODO(null, null, null);
+	RAGDOLL(EntityTomRagdoll.class, EntityQueenRagdoll.class, EntityKittenRagdoll.class); //TODO achievement
 
 	private Class male;
 	private Class female;
