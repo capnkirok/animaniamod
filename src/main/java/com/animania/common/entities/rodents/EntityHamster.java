@@ -12,7 +12,6 @@ import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
@@ -143,20 +142,19 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(3, new GenericAIFindWater(this, 1.0D, null, EntityHamster.class, true));
-			this.tasks.addTask(4, new GenericAIFindFood(this, 1.0D, null, false));
+			this.tasks.addTask(3, new GenericAIFindFood(this, 1.0D, null, false));
 		}
-		this.tasks.addTask(5, new EntityAIFleeSun(this, 1.0D));
-		this.tasks.addTask(6, new GenericAIWanderAvoidWater(this, 1.1D));
-		this.tasks.addTask(7, new GenericAITempt(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
-		this.tasks.addTask(8, new GenericAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(9, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(10, new EntityAILookIdleRodent(this));
-		this.tasks.addTask(11, new GenericAIAvoidWater(this));
+		this.tasks.addTask(4, new EntityAIFleeSun(this, 1.0D));
+		this.tasks.addTask(5, new GenericAIWanderAvoidWater(this, 1.1D));
+		this.tasks.addTask(6, new GenericAITempt(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
+		this.tasks.addTask(7, new GenericAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(8, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(9, new EntityAILookIdleRodent(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(12, new EntityAISleepHamsters(this, 0.8));
+			this.tasks.addTask(10, new EntityAISleepHamsters(this, 0.8));
 		}
-		this.targetTasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
 
 	}
 

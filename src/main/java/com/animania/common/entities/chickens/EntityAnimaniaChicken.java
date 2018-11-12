@@ -11,7 +11,6 @@ import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
@@ -94,12 +93,11 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		this.tasks.addTask(4, new GenericAITempt(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(7, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(8, new GenericAIAvoidWater(this));
 		this.tasks.addTask(11, new GenericAILookIdle(this));
 		if (AnimaniaConfig.gameRules.animalsSleep) {
-			this.tasks.addTask(12, new GenericAISleep<EntityAnimaniaChicken>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.chickenBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.chickenBed2), EntityAnimaniaChicken.class));
+			this.tasks.addTask(8, new GenericAISleep<EntityAnimaniaChicken>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.chickenBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.chickenBed2), EntityAnimaniaChicken.class));
 		}
-		this.targetTasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;

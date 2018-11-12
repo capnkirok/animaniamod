@@ -9,7 +9,6 @@ import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
@@ -139,7 +138,6 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
 			this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 			this.tasks.addTask(11, new GenericAILookIdle(this));
-			this.tasks.addTask(11, new GenericAIAvoidWater(this));
 			if (AnimaniaConfig.gameRules.animalsSleep)
 			{
 				this.tasks.addTask(12, new EntityAISleepRabbits(this, 0.8));

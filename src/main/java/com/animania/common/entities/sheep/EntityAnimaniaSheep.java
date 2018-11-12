@@ -49,7 +49,6 @@ import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
@@ -123,13 +122,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityWolf.class, 24.0F, 2.0D, 2.2D));
 		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(11, new GenericAILookIdle(this));
-		this.tasks.addTask(11, new GenericAIAvoidWater(this));
 		this.tasks.addTask(12, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(13, new GenericAISleep<EntityAnimaniaSheep>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.sheepBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.sheepBed2), EntityAnimaniaSheep.class));
+			this.tasks.addTask(11, new GenericAISleep<EntityAnimaniaSheep>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.sheepBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.sheepBed2), EntityAnimaniaSheep.class));
 		}
-		this.targetTasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);

@@ -16,7 +16,6 @@ import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.EntityRoosterBase;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
@@ -146,7 +145,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.tasks.addTask(13, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(14, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(15, new GenericAILookIdle(this));
-		this.tasks.addTask(16, new GenericAIAvoidWater(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(16, new EntityAISleepHedgehogs(this, 0.8));
