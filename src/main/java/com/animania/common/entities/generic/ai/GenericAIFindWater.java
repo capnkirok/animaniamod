@@ -54,36 +54,17 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends 
 	@Override
 	public boolean shouldExecute()
 	{
-		waterFindTimer++;
-
-		if (this.waterFindTimer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
-		{
+		if (++waterFindTimer <= AnimaniaConfig.careAndFeeding.saltLickTick)
 			return false;
-		}
-		else if (waterFindTimer > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
-		{
+		waterFindTimer = 0;
 
-			if (entity.getWatered())
-			{
-				this.waterFindTimer = 0;
-				return false;
-			}
+		if (entity.getWatered() ||
+				entity.isBeingRidden() ||
+				(entity instanceof ISleeping && ((ISleeping) entity).getSleeping()) ||
+				entity.getRNG().nextInt(3) != 0)
+			return false;
 
-			if (entity instanceof ISleeping)
-			{
-				if (((ISleeping) entity).getSleeping())
-				{
-					this.waterFindTimer = 0;
-					return false;
-				}
-			}
-
-			if (entity.getRNG().nextInt(3) == 0)
-				return super.shouldExecute();
-		}
-
-		return false;
-
+		return super.shouldExecute();
 	}
 
 	@Override
