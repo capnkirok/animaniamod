@@ -37,31 +37,18 @@ public class GenericAIFindSaltLick extends GenericAISearchBlock
 	@Override
 	public boolean shouldExecute()
 	{
-		delay++;
+		if (++delay <= AnimaniaConfig.careAndFeeding.saltLickTick)
+			return false;
+		delay = 0;
 
-		if (delay > AnimaniaConfig.careAndFeeding.saltLickTick || entity.getHealth() < entity.getMaxHealth())
-		{
-			this.delay = 0;
+		if (entity.getHealth() >= entity.getMaxHealth() ||
+				entity.isBeingRidden() ||
+				(entity instanceof ISleeping && ((ISleeping) entity).getSleeping()) ||
+				(entity instanceof EntityAnimaniaPig && entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud) ||
+				entity.getRNG().nextInt(3) != 0)
+			return false;
 
-			if (this.entity instanceof ISleeping)
-			{
-				if (((ISleeping) entity).getSleeping())
-				{
-					return false;
-				}
-			}
-
-			if (entity instanceof EntityAnimaniaPig)
-			{
-				if (entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud)
-					return false;
-			}
-
-			if (entity.getRNG().nextInt(3) == 0)
-				return super.shouldExecute();
-		}
-
-		return false;
+		return super.shouldExecute();
 	}
 
 	@Override
