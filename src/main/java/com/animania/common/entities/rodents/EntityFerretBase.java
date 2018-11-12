@@ -19,7 +19,6 @@ import com.animania.common.entities.chickens.EntityChickOrpington;
 import com.animania.common.entities.chickens.EntityChickPlymouthRock;
 import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
 import com.animania.common.entities.chickens.EntityChickWyandotte;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
@@ -137,7 +136,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new GenericAILookIdle(this));
-		this.tasks.addTask(15, new GenericAIAvoidWater(this));
 		if (AnimaniaConfig.gameRules.animalsSleep) {
 			this.tasks.addTask(15, new GenericAISleep(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.ferretBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.ferretBed2), EntityFerretBase.class));
 		}

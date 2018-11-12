@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
@@ -100,24 +99,23 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 		this.entityAIEatGrass = new EntityHorseEatGrass(this);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, EntityAnimaniaHorse.class));
-			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, true));
+			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, EntityAnimaniaHorse.class));
+			this.tasks.addTask(1, new GenericAIFindFood<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(2, new GenericAIPanic(this, 2.0D));
-		this.tasks.addTask(4, new EntityAIFollowMateHorses(this, 1.1D));
-		this.tasks.addTask(6, new EntityAIWanderHorses(this, 1.0D));
-		this.tasks.addTask(7, new EntityAISwimming(this));
-		this.tasks.addTask(8, new GenericAITempt(this, 1.25D, false, TEMPTATION_ITEMS));
-		this.tasks.addTask(9, this.entityAIEatGrass);
-		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new GenericAIAvoidWater(this));
-		this.tasks.addTask(11, new EntityAILookIdleHorses(this));
-		this.tasks.addTask(12, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
+		this.tasks.addTask(0, new GenericAIPanic(this, 2.0D));
+		this.tasks.addTask(2, new EntityAIFollowMateHorses(this, 1.1D));
+		this.tasks.addTask(3, new EntityAIWanderHorses(this, 1.0D));
+		this.tasks.addTask(4, new EntityAISwimming(this));
+		this.tasks.addTask(5, new GenericAITempt(this, 1.25D, false, TEMPTATION_ITEMS));
+		this.tasks.addTask(6, this.entityAIEatGrass);
+		this.tasks.addTask(7, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(8, new EntityAILookIdleHorses(this));
+		this.tasks.addTask(9, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(13, new GenericAISleep<EntityAnimaniaHorse>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.horseBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.horseBed2), EntityAnimaniaHorse.class));
+			this.tasks.addTask(10, new GenericAISleep<EntityAnimaniaHorse>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.horseBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.horseBed2), EntityAnimaniaHorse.class));
 		}
-		this.tasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.tasks.addTask(11, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		this.happyTimer = 60;
