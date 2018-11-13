@@ -113,6 +113,9 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	private boolean wasOnGround;
 	private int currentMoveTypeDuration;
 
+	private boolean mateUuidCached = false;
+	private UUID mateUUID = null;
+
 	public EntityAnimaniaRabbit(World worldIn)
 	{
 		super(worldIn);
@@ -493,9 +496,13 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	{
 		if (mateable)
 		{
+			if(this.mateUuidCached)
+				return this.mateUUID;
 			try
 			{
 				UUID id = (UUID) ((Optional) this.dataManager.get(EntityAnimaniaRabbit.MATE_UNIQUE_ID)).orNull();
+				this.mateUUID = id;
+				this.mateUuidCached = true;
 				return id;
 			}
 			catch (Exception e)
@@ -508,6 +515,8 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 
 	public void setMateUniqueId(@Nullable UUID uniqueId)
 	{
+		this.mateUUID = uniqueId;
+		this.mateUuidCached = true;
 		this.dataManager.set(EntityAnimaniaRabbit.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
