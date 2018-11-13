@@ -148,6 +148,8 @@ public class CommonConfig
 		@Comment("If chickens need to lay eggs in a nest or not")
 		public boolean chickensDropEggs = false;
 		
+		@Comment("Range that Animals search blocks (like troughs or food blocks) in")
+		public int aiBlockSearchRange = 16;
 		
 	}
 
@@ -707,7 +709,7 @@ public class CommonConfig
 		@Comment("Sheep Bed Block Backup")
 		public String sheepBed2 = "minecraft:grass";
 
-		@Comment("Animals won't breed if there are more than the specified amount of animals of their type in a 15 block range.")
+		@Comment("Animals won't breed if there are more than the specified amount of animals of their type in a 30 block range.")
 		public int entityBreedingLimit = 20;
 
 	}

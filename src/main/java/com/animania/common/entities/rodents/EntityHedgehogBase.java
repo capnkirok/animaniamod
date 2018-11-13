@@ -488,6 +488,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 				return true;
 			}
 		}
+		else if (this.isBreedingItem(stack))
+		{
+			this.consumeItemFromStack(player, stack);
+			this.setInLove(player);
+			return true;
+		}
 		return super.processInteract(player, hand);
 	}
 

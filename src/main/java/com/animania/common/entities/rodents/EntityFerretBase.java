@@ -275,7 +275,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 				return true;
 			}
 		}
-
+		else if (this.isBreedingItem(stack))
+		{
+			this.consumeItemFromStack(player, stack);
+			this.setInLove(player);
+			return true;
+		}
 		return super.processInteract(player, hand);
 	}
 

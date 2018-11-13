@@ -125,7 +125,8 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.tasks.addTask(3, new GenericAIFindFood(this, 1.4D, entityAIEatGrass, true));
 		}
 
-		if (!this.getCustomNameTag().equals("Killer")) {
+		if (!this.getCustomNameTag().equals("Killer"))
+		{
 			this.tasks.addTask(3, new GenericAIPanic(this, 2.5D));
 			this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.8D));
 			this.tasks.addTask(5, new GenericAISwim(this));
@@ -140,7 +141,9 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			{
 				this.tasks.addTask(12, new EntityAISleepRabbits(this, 0.8));
 			}
-		} else {
+		}
+		else
+		{
 			this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.7F));
 			this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
 			this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
@@ -148,7 +151,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
 			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
-			this.setHealth(50);	
+			this.setHealth(50);
 		}
 
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
@@ -162,7 +165,8 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		this.setMovementSpeed(0.0D);
 	}
 
-	protected void resetAI() {
+	protected void resetAI()
+	{
 
 		this.tasks.taskEntries.clear();
 		this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.7F));
@@ -628,11 +632,13 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.setAge(1);
 		}
 
-		if (this.getCustomNameTag().equals("Killer"))  {
+		if (this.getCustomNameTag().equals("Killer"))
+		{
 			for (Object a : this.tasks.taskEntries.toArray())
 			{
 				EntityAIBase ai = ((EntityAITaskEntry) a).action;
-				if (ai instanceof GenericAIPanic) {
+				if (ai instanceof GenericAIPanic)
+				{
 					this.resetAI();
 				}
 			}
@@ -723,7 +729,6 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG)
 		{
 			if (!stack.hasDisplayName())
@@ -750,8 +755,9 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 
 			}
 
-
-		} else if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping()) {
+		}
+		else if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
+		{
 
 			if (!player.isCreative())
 			{
@@ -767,9 +773,19 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.setInLove(player);
 			return true;
 
-		} else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && !this.getSleeping()) {
+		}
+		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && !this.getSleeping())
+		{
 			return false;
-		} else {
+		}
+		else if (this.isBreedingItem(stack))
+		{
+			this.consumeItemFromStack(player, stack);
+			this.setInLove(player);
+			return true;
+		}
+		else
+		{
 			return super.processInteract(player, hand);
 		}
 		return super.processInteract(player, hand);
@@ -833,8 +849,6 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		this.setSleepTimer(compound.getFloat("SleepTimer"));
 
 	}
-
-
 
 	static class AIAvoidEntity<T extends Entity> extends GenericAIAvoidEntity<T>
 	{
@@ -1245,7 +1259,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	@Override
 	public Class[] getFoodBlocks()
 	{
-		return new Class[]{BlockCarrot.class, BlockTallGrass.class, BlockFlower.class};
+		return new Class[] { BlockCarrot.class, BlockTallGrass.class, BlockFlower.class };
 	}
 
 }

@@ -11,6 +11,6 @@
     "@text@manual.meat.dropmore",
     " ",
     "manual.biometypes",
-    "@config@general.spawnlocations;goatpygmyBiomeTypes"
+    "@config@general.spawnlocations;goatPygmyBiomeTypes"
   ]
 }

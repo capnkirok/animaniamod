@@ -572,6 +572,12 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 			return false;
 		}
 		 */
+		else if (this.isBreedingItem(stack))
+		{
+			this.consumeItemFromStack(player, stack);
+			this.setInLove(player);
+			return true;
+		}
 		else
 			return super.processInteract(player, hand);
 	}

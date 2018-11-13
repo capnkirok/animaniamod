@@ -35,9 +35,12 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	protected List<EnumFacing> destinationOffset;
 	protected BlockPos seekingBlockPos = NO_POS;
 
+	protected BlockPos oldBlockPos = NO_POS;
+	private boolean hasSecondary;
+	
 	public static final BlockPos NO_POS = new BlockPos(-1, -1, -1);
 
-	public GenericAISearchBlock(EntityCreature creature, double speedIn, int range, EnumFacing... destinationOffset)
+	public GenericAISearchBlock(EntityCreature creature, double speedIn, int range, boolean hasSecondary, EnumFacing... destinationOffset)
 	{
 		this.creature = creature;
 		this.movementSpeed = speedIn;
@@ -46,7 +49,13 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 		for (EnumFacing f : destinationOffset)
 			this.destinationOffset.add(f);
 		this.world = creature.world;
+		this.hasSecondary = hasSecondary;
 		// this.setMutexBits(5);
+	}
+	
+	public GenericAISearchBlock(EntityCreature creature, double speedIn, int range, EnumFacing... destinationOffset)
+	{
+		this(creature, speedIn, range, false, destinationOffset);
 	}
 
 	/**
@@ -54,10 +63,10 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	 */
 	public boolean shouldExecute()
 	{
-		if (!this.seekingBlockPos.equals(NO_POS))
-			return true;
-
-		return this.searchForDestination();
+		if (this.seekingBlockPos == NO_POS)
+			return this.searchForDestination();
+		
+		return false;
 	}
 
 	/**
@@ -65,7 +74,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	 */
 	public boolean shouldContinueExecuting()
 	{
-		return this.timeoutCounter >= -this.maxStayTicks && this.timeoutCounter <= 1200 && this.shouldMoveTo(this.creature.world, this.seekingBlockPos);
+		return this.timeoutCounter >= -this.maxStayTicks && this.timeoutCounter <= 1200 && (this.shouldMoveTo(this.creature.world, this.seekingBlockPos) || (this.hasSecondary ? this.shouldMoveToSecondary(world, seekingBlockPos) : false));
 	}
 
 	/**
@@ -136,9 +145,13 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	 */
 	protected boolean searchForDestination()
 	{
-		int i = this.searchRange;
-		int j = 1;
 		BlockPos blockpos = new BlockPos(this.creature);
+
+		if (blockpos.equals(oldBlockPos))
+			return false;
+		oldBlockPos = blockpos;
+
+		int i = this.searchRange;
 
 		for (int k = 0; k <= 1; k = k > 0 ? -k : 1 - k)
 		{
@@ -175,6 +188,45 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 				}
 			}
 		}
+		
+		if(this.hasSecondary)
+		{
+			for (int k = 0; k <= 1; k = k > 0 ? -k : 1 - k)
+			{
+				for (int l = 0; l < i; ++l)
+				{
+					for (int i1 = 0; i1 <= l; i1 = i1 > 0 ? -i1 : 1 - i1)
+					{
+						for (int j1 = i1 < l && i1 > -l ? l : 0; j1 <= l; j1 = j1 > 0 ? -j1 : 1 - j1)
+						{
+							BlockPos blockpos1 = blockpos.add(i1, k - 1, j1);
+
+							if (this.shouldMoveToSecondary(this.creature.world, blockpos1))
+							{
+								Collections.shuffle(destinationOffset);
+
+								for (EnumFacing facing : destinationOffset)
+								{
+									BlockPos offsetPos = blockpos1.offset(facing);
+
+									AxisAlignedBB aabb = world.getBlockState(blockpos1).getCollisionBoundingBox(world, blockpos1);
+
+									if (aabb == Block.NULL_AABB)
+										offsetPos = blockpos1;
+
+									if (this.creature.getNavigator().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
+									{
+										this.destinationBlock = offsetPos;
+										this.seekingBlockPos = blockpos1;
+										return true;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 
 		return false;
 	}
@@ -185,31 +237,34 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 		{
 			PathPoint startPoint = new PathPoint(start.getX(), start.getY(), start.getZ());
 			PathPoint endPoint = new PathPoint(end.getX(), end.getY(), end.getZ());
-			
+
 			PathNavigate navigate = this.creature.getNavigator();
 			Method getPathFinder = ReflectionHelper.findMethod(PathNavigate.class, "getPathFinder", "func_179679_a");
 			Method getPath = ReflectionHelper.findMethod(PathFinder.class, "findPath", "func_186336_a", PathPoint.class, PathPoint.class, float.class);
-			
+
 			getPathFinder.setAccessible(true);
 			getPath.setAccessible(true);
-			
+
 			PathFinder finder = (PathFinder) getPathFinder.invoke(navigate);
-			Path p = (Path) getPath.invoke(finder, startPoint, endPoint, (float)searchRange);
-			
+			Path p = (Path) getPath.invoke(finder, startPoint, endPoint, (float) searchRange);
+
 			return p != null;
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Return true to set given position as destination
 	 */
 	protected abstract boolean shouldMoveTo(World worldIn, BlockPos pos);
 	
+	protected boolean shouldMoveToSecondary(World worldIn, BlockPos pos)
+	{
+		return false;
+	}
 
-	
 }

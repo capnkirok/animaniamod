@@ -439,7 +439,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 					{
 					}
 				}
-				
+
 				hasRemovedBOP = true;
 			}
 		}
@@ -553,12 +553,16 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		{
 			if (isDyeable())
 			{
-				if (!player.isCreative())
-					stack.shrink(1);
-
 				EnumDyeColor col = EnumDyeColor.byDyeDamage(stack.getItemDamage());
-				this.color = col;
-				this.setDyeColorNum(col.getMetadata());
+				if (this.getDyeColor() != col)
+				{
+					if (!player.isCreative())
+						stack.shrink(1);
+					
+					this.color = col;
+					this.setDyeColorNum(col.getMetadata());
+					return true;
+				}
 				return true;
 			}
 			else
@@ -566,6 +570,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		}
 
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
+
 		{
 			if (!player.isCreative())
 			{
@@ -583,6 +588,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && !this.getSleeping())
 		{
 			return false;
+		}
+		else if (this.isBreedingItem(stack))
+		{
+			this.consumeItemFromStack(player, stack);
+			this.setInLove(player);
+			return true;
 		}
 		else
 			return super.processInteract(player, hand);

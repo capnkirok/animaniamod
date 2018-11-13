@@ -1,16 +1,5 @@
 package com.animania.common.entities.generic.ai;
 
-import com.animania.common.entities.chickens.EntityAnimaniaChicken;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.horses.EntityAnimaniaHorse;
-import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
-import com.animania.common.entities.rodents.EntityFerretBase;
-import com.animania.common.entities.rodents.EntityHamster;
-import com.animania.common.entities.rodents.EntityHedgehogBase;
-import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.common.entities.sheep.EntityAnimaniaSheep;
-
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAITarget;

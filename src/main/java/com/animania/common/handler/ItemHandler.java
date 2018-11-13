@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.RandomAnimalType;
@@ -154,14 +155,15 @@ public class ItemHandler
 	public static Item tiller;
 
 	public static List<Item> entityEggList = new ArrayList<Item>();
-	
+
 	public static void preInit()
 	{
 		// ITEMS
 
 		// Moving Items
 
-		if (!AnimaniaConfig.gameRules.disableRollingVehicles) {
+		if (!AnimaniaConfig.gameRules.disableRollingVehicles)
+		{
 			cart = new ItemCart();
 			wagon = new ItemWagon();
 			tiller = new ItemTiller();
@@ -194,7 +196,7 @@ public class ItemHandler
 		ItemHandler.truffle = new ItemAnimaniaFood(2, 2f, "truffle");
 		ItemHandler.truffleSoup = new ItemTruffleSoup();
 		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", true, new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
-		
+
 		ItemHandler.honeyJar = new ItemHoneyBottle();
 
 		// ITEMS produced by Animals
@@ -232,7 +234,7 @@ public class ItemHandler
 
 		// HORSE ITEMS
 		ItemHandler.rawHorse = new ItemAnimaniaFoodRaw("raw_horse");
-		ItemHandler.cookedHorse= new ItemAnimaniaFood(20, 1f, "cooked_horse", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
+		ItemHandler.cookedHorse = new ItemAnimaniaFood(20, 1f, "cooked_horse", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
 
 		// GOAT ITEMS
 		ItemHandler.rawChevon = new ItemAnimaniaFoodRaw("raw_chevon");
@@ -265,8 +267,7 @@ public class ItemHandler
 		ItemHandler.entityeggrandomrabbit = new ItemEntityEgg("rabbit_random", RabbitType.LOP, EntityGender.RANDOM);
 
 	}
-	
-	
+
 	public static void regItemEggColors(World world)
 	{
 		if (!hasSetEggColors)
@@ -290,8 +291,15 @@ public class ItemHandler
 									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, true);
 									ItemEntityEgg.ANIMAL_COLOR_PRIMARY.put(animal, ispawnable.getPrimaryEggColor());
 									ItemEntityEgg.ANIMAL_COLOR_SECONDARY.put(animal, ispawnable.getSecondaryEggColor());
-									
-									EntityList.ENTITY_EGGS.put(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), new EntityEggInfo(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), ispawnable.getPrimaryEggColor(), ispawnable.getSecondaryEggColor()));
+
+									try
+									{
+										EntityList.ENTITY_EGGS.put(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), new EntityEggInfo(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), ispawnable.getPrimaryEggColor(), ispawnable.getSecondaryEggColor()));
+									}
+									catch (Exception e)
+									{
+										Animania.LOGGER.warn("Failed to insert entity egg for " + EntityEggHandler.getEntryFromEntity(entity).getRegistryName());
+									}
 								}
 								else
 									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false);
@@ -299,15 +307,15 @@ public class ItemHandler
 							}
 						}
 					}
-					
+
 				}
 			}
-			
-			if(Loader.isModLoaded("thermalexpansion"))
+
+			if (Loader.isModLoaded("thermalexpansion"))
 			{
 				TEMorbHandler.reloadMorbs();
 			}
-			
+
 			hasSetEggColors = true;
 		}
 	}

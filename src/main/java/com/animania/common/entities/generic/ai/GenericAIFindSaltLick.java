@@ -26,7 +26,7 @@ public class GenericAIFindSaltLick extends GenericAISearchBlock
 
 	public GenericAIFindSaltLick(EntityCreature creature, double speedIn, @Nullable EntityAIBase eatAI)
 	{
-		super(creature, speedIn, 16, EnumFacing.HORIZONTALS);
+		super(creature, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, EnumFacing.HORIZONTALS);
 		this.entity = creature;
 		this.speed = speedIn;
 		this.setMutexBits(3);

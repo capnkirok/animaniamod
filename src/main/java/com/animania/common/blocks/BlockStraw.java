@@ -86,12 +86,6 @@ public class BlockStraw extends Block
 	{
 		return BlockFaceShape.UNDEFINED;
 	}
-	
-	@Override
-	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos)
-	{
-		return true;
-	}
 
 	@Override
 	@SideOnly(Side.CLIENT)

@@ -65,7 +65,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaCow.class, DataSerializers.FLOAT);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaCow.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
-
 	protected int happyTimer;
 	public int blinkTimer;
 	public int eatTimer;
@@ -83,7 +82,8 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new GenericAIEatGrass(this);
 		this.tasks.addTask(1, new GenericAIPanic(this, 2.0D));
-		if (!AnimaniaConfig.gameRules.ambianceMode) {
+		if (!AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaCow>(this, 1.0D, entityAIEatGrass, EntityAnimaniaCow.class));
 			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaCow>(this, 1.0, entityAIEatGrass, true));
 		}
@@ -93,7 +93,8 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		this.tasks.addTask(6, new GenericAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
 		this.tasks.addTask(6, new GenericAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
-		if (AnimaniaConfig.gameRules.animalsSleep) {
+		if (AnimaniaConfig.gameRules.animalsSleep)
+		{
 			this.tasks.addTask(9, new GenericAISleep<EntityAnimaniaCow>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.cowBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.cowBed2), EntityAnimaniaCow.class));
 		}
 		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
@@ -101,7 +102,8 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		this.tasks.addTask(12, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
 		this.tasks.addTask(13, new GenericAIAvoidWater(this));
 		this.targetTasks.addTask(14, new GenericAIHurtByTarget(this, false, new Class[0]));
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
+		{
 			this.targetTasks.addTask(1, new GenericAIHurtByTarget(this, false, EntityPlayer.class));
 		}
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
@@ -122,7 +124,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	{
 		super.setPosition(x, y, z);
 	}
-
 
 	@Override
 	protected void entityInit()
@@ -165,15 +166,21 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 
-		if (this instanceof EntityBullBase) {
+		Animania.LOGGER.error("ConsumItemFromStack");
+		if (this instanceof EntityBullBase)
+		{
 			EntityBullBase ebb = (EntityBullBase) this;
-			if (ebb.getFighting()) {
+			if (ebb.getFighting())
+			{
 				return;
 			}
 		}
 
-		if (!this.getSleeping()) {
+		Animania.LOGGER.error("IsSleeping check : " + this.getSleeping());
+		if (!this.getSleeping())
+		{
 
+			Animania.LOGGER.error("Setting entity fed");
 			this.setFed(true);
 			this.setHandFed(true);
 			this.entityAIEatGrass.startExecuting();
@@ -186,10 +193,12 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 
 	public boolean getFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(FED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -208,10 +217,12 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 
 	public boolean getHandFed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(HANDFED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -223,10 +234,12 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 
 	public boolean getWatered()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(WATERED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -244,10 +257,12 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 
 	public boolean getSleeping()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(SLEEPING));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
@@ -281,13 +296,14 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		this.dataManager.set(EntityAnimaniaCow.SLEEPTIMER, Float.valueOf(timer));
 	}
 
-
 	public int getAge()
 	{
-		try {
+		try
+		{
 			return (this.getIntFromDataManager(AGE));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
@@ -318,7 +334,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	{
 		return 0.4F;
 	}
-	
+
 	@Override
 	protected ResourceLocation getLootTable()
 	{
@@ -334,7 +350,8 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		if (this.getLeashed() && this.getSleeping())
 			this.setSleeping(false);
 
-		if (this.getAge() == 0) {
+		if (this.getAge() == 0)
+		{
 			this.setAge(1);
 		}
 
@@ -353,7 +370,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
-
 
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
@@ -375,12 +391,12 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		else if (!fed || !watered)
 			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 
-		if (this.getCustomNameTag().toLowerCase().trim().equals("purp") && (this instanceof EntityCowFriesian || this instanceof EntityBullFriesian || this instanceof EntityCowHolstein || this instanceof EntityBullHolstein || this instanceof EntityCalfFriesian || this instanceof EntityCalfHolstein)) {
+		if (this.getCustomNameTag().toLowerCase().trim().equals("purp") && (this instanceof EntityCowFriesian || this instanceof EntityBullFriesian || this instanceof EntityCowHolstein || this instanceof EntityBullHolstein || this instanceof EntityCalfFriesian || this instanceof EntityCalfHolstein))
+		{
 			this.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 4, 2, false, false));
 			if (!this.isWet() && !this.isInWater())
 				this.setOnFireFromLava();
 		}
-
 
 		if (this.happyTimer > -1)
 		{
@@ -401,7 +417,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 
 		super.onLivingUpdate();
 	}
-	
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
@@ -409,16 +425,21 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		EntityPlayer entityplayer = player;
 		boolean fighting = false;
 
-		if (this instanceof EntityBullBase) {
+		if (this instanceof EntityBullBase)
+		{
 			EntityBullBase ebb = (EntityBullBase) this;
-			if (ebb.getFighting()) {
+			if (ebb.getFighting())
+			{
 				fighting = true;
 			}
 		}
 
+		Animania.LOGGER.error("Before breeding item check:" + this.getGrowingAge() + stack);
+
+		
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && fighting == false && !this.getSleeping())
 		{
-			if(!player.isCreative())
+			if (!player.isCreative())
 			{
 				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
 				stack.shrink(1);
@@ -431,15 +452,20 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack != ItemStack.EMPTY && (this instanceof EntityCowMooshroom || this instanceof EntityBullMooshroom) && stack.getItem() == Items.SHEARS && this.getGrowingAge() >= 0) //Forge Disable, Moved to onSheared
+		else if (stack != ItemStack.EMPTY && (this instanceof EntityCowMooshroom || this instanceof EntityBullMooshroom) && stack.getItem() == Items.SHEARS && this.getGrowingAge() >= 0) // Forge
+																																															// Disable,
+																																															// Moved
+																																															// to
+																																															// onSheared
 		{
 			this.setDead();
-			this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + (double)(this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+			this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + (double) (this.height / 2.0F), this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
 
 			if (!this.world.isRemote)
 			{
 
-				if (this instanceof EntityCowMooshroom) {
+				if (this instanceof EntityCowMooshroom)
+				{
 					EntityCowFriesian entitycow = new EntityCowFriesian(this.world);
 					entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
 					entitycow.setHealth(this.getHealth());
@@ -449,7 +475,9 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 						entitycow.setCustomNameTag(this.getCustomNameTag());
 					}
 					this.world.spawnEntity(entitycow);
-				} else {
+				}
+				else
+				{
 					EntityBullFriesian entitycow = new EntityBullFriesian(this.world);
 					entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
 					entitycow.setHealth(this.getHealth());
@@ -463,7 +491,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 
 				for (int i = 0; i < 5; ++i)
 				{
-					this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY + (double)this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
+					this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY + (double) this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
 				}
 
 				stack.damageItem(1, player);
@@ -476,8 +504,17 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		{
 			return true;
 		}
+		else if (this.isBreedingItem(stack))
+		{
+			this.consumeItemFromStack(player, stack);
+			this.setInLove(player);
+			return true;
+		}
 		else
+		{
+			Animania.LOGGER.error("Else processinteract");
 			return super.processInteract(player, hand);
+		}
 	}
 
 	@Override
@@ -500,7 +537,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	{
 		return TEMPTATION_ITEMS.contains(itemIn) || itemIn == Item.getItemFromBlock(Blocks.YELLOW_FLOWER) || itemIn == Item.getItemFromBlock(Blocks.RED_FLOWER);
 	}
-
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
@@ -545,7 +581,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		this.setSleepTimer(compound.getFloat("SleepTimer"));
 		this.setAge(compound.getInteger("Age"));
 
-
 	}
 
 	@Override
@@ -579,77 +614,101 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	}
 
 	// ==================================================
-	//     Data Manager Trapper (borrowed from Lycanites)
+	// Data Manager Trapper (borrowed from Lycanites)
 	// ==================================================
 
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
-		try {
+	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
 
-	public byte getByteFromDataManager(DataParameter<Byte> key) {
-		try {
+	public byte getByteFromDataManager(DataParameter<Byte> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public int getIntFromDataManager(DataParameter<Integer> key) {
-		try {
+	public int getIntFromDataManager(DataParameter<Integer> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public float getFloatFromDataManager(DataParameter<Float> key) {
-		try {
+	public float getFloatFromDataManager(DataParameter<Float> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return 0;
 		}
 	}
 
-	public String getStringFromDataManager(DataParameter<String> key) {
-		try {
+	public String getStringFromDataManager(DataParameter<String> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
-		try {
+	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return null;
 		}
 	}
 
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
-		try {
+	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return ItemStack.EMPTY;
 		}
 	}
 
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
-		try {
+	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
+	{
+		try
+		{
 			return this.getDataManager().get(key);
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return Optional.absent();
 		}
 	}

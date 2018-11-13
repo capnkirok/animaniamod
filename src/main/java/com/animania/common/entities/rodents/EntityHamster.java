@@ -504,7 +504,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			// player.addStat(AnimaniaAchievements.Hamsters, 1);
 			return interactSeedsTamed(itemstack, player);
 		}
-
+		else if (this.isBreedingItem(itemstack))
+		{
+			this.consumeItemFromStack(player, itemstack);
+			this.setInLove(player);
+			return true;
+		}
 		return super.processInteract(player, hand);
 
 	}
@@ -980,7 +985,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		}
 	}
-	
+
 	@Override
 	protected ResourceLocation getLootTable()
 	{

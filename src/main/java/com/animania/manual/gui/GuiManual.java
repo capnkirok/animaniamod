@@ -55,6 +55,8 @@ public class GuiManual extends GuiScreen
 	public ManualTopic currentTopic = ManualResourceLoader.firstTopic;
 	public ManualTopic lastTopic = ManualResourceLoader.firstTopic;
 
+	private ManualPage currentPage;
+	
 	public boolean isPrevTopic = false;
 	
 	public Map<ResourceLocation, ManualTopic> manualContent = new HashMap<ResourceLocation, ManualTopic>();
@@ -144,8 +146,10 @@ public class GuiManual extends GuiScreen
 
 	public void initComponents()
 	{
-		ManualPage p = currentTopic.getPages().get(pageIndex);
+		ManualPage p = pageIndex >= currentTopic.getPages().size() ? currentTopic.getPages().get(0) : currentTopic.getPages().get(pageIndex);
 
+		this.currentPage = p;
+		
 		for (IManualComponent c : p.getComponents())
 			c.init();
 	}
@@ -159,7 +163,7 @@ public class GuiManual extends GuiScreen
 		int marginVertical = (height - ySize) / 2;
 		drawTexturedModalRect(marginHorizontal, marginVertical, 0, 0, xSize, ySize);
 
-		ManualPage p = currentTopic.getPages().get(pageIndex);
+		ManualPage p = this.currentPage;
 
 		for (IManualComponent c : p.getComponents())
 			c.draw(mouseX, mouseY, partialTicks);
@@ -315,7 +319,7 @@ public class GuiManual extends GuiScreen
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
 	{
-		ManualPage p = currentTopic.getPages().get(pageIndex);
+		ManualPage p = this.currentPage;
 
 		for (IManualComponent c : p.getComponents())
 		{
@@ -334,7 +338,7 @@ public class GuiManual extends GuiScreen
 	@Override
 	public void updateScreen()
 	{
-		ManualPage p = currentTopic.getPages().get(pageIndex);
+		ManualPage p = this.currentPage;
 
 		for (IManualComponent c : p.getComponents())
 			c.update();

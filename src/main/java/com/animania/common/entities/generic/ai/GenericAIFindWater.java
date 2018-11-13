@@ -35,7 +35,7 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends 
 
 	public GenericAIFindWater(T entity, double speedIn, @Nullable EntityAIBase eatAI, Class parentClass, boolean halfAmount)
 	{
-		super(entity, speedIn, 16, EnumFacing.UP);
+		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, true, EnumFacing.UP);
 		this.entity = entity;
 		this.speed = speedIn;
 		this.setMutexBits(3);
@@ -84,18 +84,18 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends 
 		return false;
 
 	}
-	
+
 	@Override
 	public boolean shouldContinueExecuting()
 	{
 		return super.shouldContinueExecuting() && !entity.getWatered();
 	}
-	
+
 	@Override
 	public void updateTask()
 	{
 		super.updateTask();
-		
+
 		if (this.isAtDestination())
 		{
 			this.creature.getLookHelper().setLookPosition((double) this.seekingBlockPos.getX() + 0.5D, (double) (this.seekingBlockPos.getY()), (double) this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
@@ -108,10 +108,10 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends 
 				TileEntityTrough trough = (TileEntityTrough) world.getTileEntity(seekingBlockPos);
 				if (trough != null)
 				{
-					if(trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
+					if (trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
 					{
 						trough.consumeLiquid(halfAmount ? 50 : 100);
-						
+
 						entity.world.updateComparatorOutputLevel(seekingBlockPos, block);
 
 						if (eatAI != null)
@@ -119,10 +119,10 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends 
 						entity.setWatered(true);
 
 						this.waterFindTimer = 0;
-					}	
+					}
 				}
 			}
-			
+
 			if (block == Blocks.WATER)
 			{
 				if (eatAI != null)
@@ -137,34 +137,41 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends 
 
 				this.waterFindTimer = 0;
 			}
-			
+
 		}
 	}
-	
 
 	@Override
 	protected boolean shouldMoveTo(World worldIn, BlockPos pos)
 	{
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		
-		if(block == BlockHandler.blockTrough)
+
+		if (block == BlockHandler.blockTrough)
 		{
 			TileEntityTrough trough = (TileEntityTrough) world.getTileEntity(pos);
 			if (trough != null)
 			{
-				if(trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
+				if (trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
 					return true;
 			}
 		}
-		
+
+		return false;
+	}
+
+	@Override
+	protected boolean shouldMoveToSecondary(World worldIn, BlockPos pos)
+	{
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
 		Biome biome = world.getBiome(pos);
-		
+
 		if (block == Blocks.WATER && !BiomeDictionary.hasType(biome, Type.OCEAN) && !BiomeDictionary.hasType(biome, Type.BEACH))
 		{
 			return true;
 		}
-		
+
 		return false;
 	}
 

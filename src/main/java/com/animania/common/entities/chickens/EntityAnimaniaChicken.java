@@ -154,6 +154,12 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 			this.setInLove(player);
 			return true;
 		}
+		else if (this.isBreedingItem(stack))
+		{
+			this.consumeItemFromStack(player, stack);
+			this.setInLove(player);
+			return true;
+		}
 		else
 			return super.processInteract(player, hand);
 	}

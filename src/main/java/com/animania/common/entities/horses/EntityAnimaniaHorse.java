@@ -713,6 +713,12 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 			this.mountTo(player);
 			return true;
 		}
+		else if (this.isBreedingItem(stack))
+		{
+			this.consumeItemFromStack(player, stack);
+			this.setInLove(player);
+			return true;
+		}
 		else
 		{
 			return super.processInteract(player, hand);

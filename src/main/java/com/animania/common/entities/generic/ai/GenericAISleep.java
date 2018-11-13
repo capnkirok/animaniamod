@@ -1,5 +1,7 @@
 package com.animania.common.entities.generic.ai;
 
+import java.util.Collections;
+
 import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 
@@ -7,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -22,12 +25,10 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 	private Block bedBlock2;
 
 	private Class parentClass;
-	
-	private int searchFail = 0;
-	
+			
 	public GenericAISleep(T entity, double speedIn, Block bed1, Block bed2, Class parentClass)
 	{
-		super(entity, speedIn, 16, EnumFacing.UP);
+		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, true, EnumFacing.UP);
 		this.entity = entity;
 		this.speed = speedIn;
 		this.setMutexBits(3);
@@ -89,7 +90,6 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 		{
 			entity.setSleeping(true);
 			entity.setSleepingPos(entity.getPosition());
-			searchFail = 0;
 			
 			this.delay = 0;
 		}
@@ -105,7 +105,6 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 	public void resetTask()
 	{
 		super.resetTask();
-		searchFail = 0;
 	}
 	
 	@Override
@@ -116,13 +115,20 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 		
 		if(block == this.bedBlock)
 			return true;
+			
+		return false;
+	}
+	
+	@Override
+	protected boolean shouldMoveToSecondary(World world, BlockPos pos)
+	{
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
 		
-		searchFail++;
-		
-		if(block == this.bedBlock2 && searchFail > 300)
+		if(block == this.bedBlock2)
 			return true;
 			
 		return false;
 	}
-
+	
 }

@@ -27,7 +27,7 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating> extends G
 
 	public GenericAIFindFood(T entity, double speedIn, @Nullable EntityAIBase eatAI, boolean eatBlocks)
 	{
-		super(entity, speedIn, 16, EnumFacing.HORIZONTALS);
+		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, eatBlocks, EnumFacing.HORIZONTALS);
 		this.entity = entity;
 		this.setMutexBits(3);
 		this.foodDelay = 0;
@@ -146,6 +146,15 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating> extends G
 			}
 		}
 
+		return false;
+	}
+	
+	@Override
+	protected boolean shouldMoveToSecondary(World worldIn, BlockPos pos)
+	{
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
+		
 		if (eatBlocks)
 		{
 			if (isBlockFood(block))
@@ -153,7 +162,6 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating> extends G
 				return true;
 			}
 		}
-
 		return false;
 	}
 
