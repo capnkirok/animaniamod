@@ -15,7 +15,6 @@ import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
-import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
@@ -46,6 +45,7 @@ import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAIWander;
@@ -132,7 +132,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		{
 			this.tasks.addTask(3, new GenericAIPanic(this, 2.5D));
 			this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.8D));
-			this.tasks.addTask(5, new GenericAISwim(this));
+			this.tasks.addTask(5, new EntityAISwimming(this));
 			this.tasks.addTask(7, new GenericAITempt(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
 			this.tasks.addTask(8, this.entityAIEatGrass);
 			this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityWolf.class, 24.0F, 3.0D, 3.5D));

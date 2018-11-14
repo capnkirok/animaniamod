@@ -16,7 +16,6 @@ import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
 import com.animania.common.entities.generic.ai.GenericAISwimmingSmallCreatures;
 import com.animania.common.entities.generic.ai.GenericAITempt;
@@ -41,6 +40,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFleeSun;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -156,7 +156,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		{
 			this.tasks.addTask(12, new EntityAISleepHamsters(this, 0.8));
 		}
-		this.targetTasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
 
 	}
 

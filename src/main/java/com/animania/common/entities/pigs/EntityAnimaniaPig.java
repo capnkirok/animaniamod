@@ -10,11 +10,9 @@ import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
 import com.animania.common.entities.generic.ai.GenericAISleep;
-import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
@@ -33,6 +31,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.passive.EntityPig;
@@ -106,7 +106,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	protected void initEntityAI()
 	{
 		this.entityAIEatGrass = new EntityAIPigSnuffle(this);
-		this.tasks.addTask(0, new GenericAISwim(this));
+		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIFindMud(this, 1.2D));
 		this.tasks.addTask(2, new GenericAIWanderAvoidWater(this, 1.0D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
@@ -127,7 +127,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new GenericAIAvoidWater(this));
 		this.tasks.addTask(15, new GenericAILookIdle(this));
-		this.targetTasks.addTask(16, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(16, new EntityAIHurtByTarget(this, false, new Class[0]));
 
 	}
 
