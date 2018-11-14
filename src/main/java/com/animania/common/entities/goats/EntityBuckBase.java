@@ -58,7 +58,9 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	public EntityBuckBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.0F, 1.0F);
+		this.setSize(1.0F, 1.0F); 
+		this.width = 1.0F;
+		this.height = 1.0F;
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 		this.headbutting = true;

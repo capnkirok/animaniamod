@@ -17,7 +17,9 @@ public class EntityBuckAngora extends EntityBuckBase implements IShearable
 	{
 		super(worldIn);
 		this.goatType = GoatType.ANGORA;
-		this.setSize(1.6F, 1.4F);
+		this.setSize(1.6F, 1.4F); 
+		this.width = 1.6F;
+		this.height = 1.4F;
 		this.width = 1.6F;
 
 	}

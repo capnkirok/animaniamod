@@ -37,7 +37,9 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	public EntityKittenBase(World worldIn, CatType type)
 	{
 		super(worldIn);
-		this.setSize(0.8f, 0.8f);
+		this.setSize(0.8f, 0.8f); 
+		this.width = 0.8f;
+		this.height = 0.8f;
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;

@@ -38,7 +38,9 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	public EntityRabbitKitBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.8F, 0.8F);
+		this.setSize(0.8F, 0.8F); 
+		this.width = 0.8F;
+		this.height = 0.8F;
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;

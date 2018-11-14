@@ -115,7 +115,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		super(world);
 		this.setHealth(6);
 		this.yOffset = 0.1F;
-		this.setSize(0.5F, 0.3F);
+		this.setSize(0.5F, 0.3F); 
+		this.width = 0.5F;
+		this.height = 0.3F;
 		this.stepHeight = 1.0F;
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = (AnimaniaConfig.careAndFeeding.waterTimer * 4) + this.rand.nextInt(200);

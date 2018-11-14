@@ -49,11 +49,14 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public EntityBullBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.6F, 1.8F);
+		this.setSize(1.6F, 1.8F); 
+		this.width = 1.6F;
+		this.height = 1.8F;
 		this.gender = EntityGender.MALE;
 		this.stepHeight = 1.1F;
 		this.mateable = true;
-
+		
+		
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
 		{
 			this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 1.8D, false));

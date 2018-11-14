@@ -10,7 +10,9 @@ public class EntityDoeKinder extends EntityDoeBase
 	public EntityDoeKinder(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.4F, 1.2F);
+		this.setSize(1.4F, 1.2F); 
+		this.width = 1.4F;
+		this.height = 1.2F;
 		this.goatType = GoatType.KINDER;
 
 	}

@@ -104,7 +104,9 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	public EntityHedgehogBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.5F, 0.5F);
+		this.setSize(0.5F, 0.5F); 
+		this.width = 0.5F;
+		this.height = 0.5F;
 		this.stepHeight = 1.1F;
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = (AnimaniaConfig.careAndFeeding.waterTimer * 2) + this.rand.nextInt(200);

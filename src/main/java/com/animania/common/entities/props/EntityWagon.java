@@ -90,7 +90,9 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 	public EntityWagon(World par1World) {
 		super(par1World);
 		this.preventEntitySpawning = true;
-		this.setSize(2.5F, 1.2F);
+		this.setSize(2.5F, 1.2F); 
+		this.width = 2.5F;
+		this.height = 1.2F;
 		this.stepHeight = 1.2F;
 		this.puller = null;
 		this.pulled = false;

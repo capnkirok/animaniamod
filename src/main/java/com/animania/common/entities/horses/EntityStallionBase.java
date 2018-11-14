@@ -70,7 +70,9 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	public EntityStallionBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.8F, 2.2F);
+		this.setSize(1.8F, 2.2F); 
+		this.width = 1.8F;
+		this.height = 2.2F;
 		this.stepHeight = 1.2F;
 		this.mateable = true;
 		this.gender = EntityGender.MALE;

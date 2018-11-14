@@ -52,7 +52,9 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 	public EntityQueenBase(World worldIn, CatType type)
 	{
 		super(worldIn);
-		this.setSize(0.8F, 0.8F);
+		this.setSize(0.8F, 0.8F); 
+		this.width = 0.8F;
+		this.height = 0.8F;
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.FEMALE;
 		this.type = type;

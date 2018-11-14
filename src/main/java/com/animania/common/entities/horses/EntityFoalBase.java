@@ -53,7 +53,9 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public EntityFoalBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(2.2F, 3.0F);
+		this.setSize(2.2F, 3.0F); 
+		this.width = 2.2F;
+		this.height = 3.0F;
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentHorses(this, 1.1D));
 		this.ageTimer = 0;

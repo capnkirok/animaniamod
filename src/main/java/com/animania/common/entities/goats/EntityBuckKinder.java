@@ -11,7 +11,9 @@ public class EntityBuckKinder extends EntityBuckBase
 	{
 		super(worldIn);
 		this.goatType = GoatType.KINDER;
-		this.setSize(1.3F, 1.2F);
+		this.setSize(1.3F, 1.2F); 
+		this.width = 1.3F;
+		this.height = 1.2F;
 		this.width = 1.3F;
 
 	}

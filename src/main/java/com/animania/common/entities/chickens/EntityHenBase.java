@@ -45,7 +45,9 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	public EntityHenBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.5F, 0.7F);
+		this.setSize(0.5F, 0.7F); 
+		this.width = 0.5F;
+		this.height = 0.7F;
 		this.tasks.addTask(6, new EntityAIFindNest(this, 1.0D));
 		this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
 		this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));

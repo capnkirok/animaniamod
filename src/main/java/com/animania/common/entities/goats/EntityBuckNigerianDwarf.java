@@ -11,7 +11,9 @@ public class EntityBuckNigerianDwarf extends EntityBuckBase
 	{
 		super(worldIn);
 		this.goatType = GoatType.NIGERIAN_DWARF;
-		this.setSize(1.2F, 1.2F);
+		this.setSize(1.2F, 1.2F); 
+		this.width = 1.2F;
+		this.height = 1.2F;
 		this.width = 1.2F;
 
 	}

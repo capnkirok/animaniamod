@@ -9,7 +9,9 @@ public class EntityKidAlpine extends EntityKidBase
 	{
 		super(worldIn);
 		this.goatType = GoatType.ALPINE;
-		this.setSize(1.0F, 1.0F);
+		this.setSize(1.0F, 1.0F); 
+		this.width = 1.0F;
+		this.height = 1.0F;
 	}
 	
 	@Override

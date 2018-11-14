@@ -60,7 +60,9 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, IAniman
 	 */
 	public EntityAmphibian(World worldIn, boolean canEntityJumpIn) {
 		this(worldIn);
-		this.setSize(0.3F, 0.3F);
+		this.setSize(0.3F, 0.3F); 
+		this.width = 0.3F;
+		this.height = 0.3F;
 		this.setMovementSpeed(0.0D);
 		this.jumpHelper = new EntityAmphibian.FrogJumpHelper(this);
 		this.moveHelper = new EntityAmphibian.FrogMoveHelper(this);

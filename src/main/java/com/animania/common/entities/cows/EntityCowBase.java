@@ -66,7 +66,9 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	public EntityCowBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.4F, 1.8F);
+		this.setSize(1.4F, 1.8F); 
+		this.width = 1.4F;
+		this.height = 1.8F;
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(5, new EntityAIMateCows(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.2D, false));

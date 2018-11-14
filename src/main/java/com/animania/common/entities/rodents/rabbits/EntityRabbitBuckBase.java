@@ -47,7 +47,9 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	public EntityRabbitBuckBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.7F, 0.6F);
+		this.setSize(0.7F, 0.6F); 
+		this.width = 0.7F;
+		this.height = 0.6F;
 		this.stepHeight = 1.1F;
 		this.mateable = true;
 		this.gender = EntityGender.MALE;

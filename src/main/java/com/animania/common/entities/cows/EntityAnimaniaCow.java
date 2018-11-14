@@ -166,7 +166,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 
-		Animania.LOGGER.error("ConsumItemFromStack");
 		if (this instanceof EntityBullBase)
 		{
 			EntityBullBase ebb = (EntityBullBase) this;
@@ -176,11 +175,8 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 			}
 		}
 
-		Animania.LOGGER.error("IsSleeping check : " + this.getSleeping());
 		if (!this.getSleeping())
 		{
-
-			Animania.LOGGER.error("Setting entity fed");
 			this.setFed(true);
 			this.setHandFed(true);
 			this.entityAIEatGrass.startExecuting();
@@ -420,7 +416,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
-	{
+	{		
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 		boolean fighting = false;
@@ -433,8 +429,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 				fighting = true;
 			}
 		}
-
-		Animania.LOGGER.error("Before breeding item check:" + this.getGrowingAge() + stack);
 
 		
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && fighting == false && !this.getSleeping())
@@ -512,7 +506,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		}
 		else
 		{
-			Animania.LOGGER.error("Else processinteract");
 			return super.processInteract(player, hand);
 		}
 	}

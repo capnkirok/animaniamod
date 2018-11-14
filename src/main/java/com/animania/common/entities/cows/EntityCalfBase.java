@@ -44,7 +44,9 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public EntityCalfBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.6F, 3.6F);
+		this.setSize(1.6F, 3.6F); 
+		this.width = 1.6F;
+		this.height = 3.6F;
 		this.stepHeight = 1.1F;
 		this.tasks.addTask(1, new EntityAIFollowParentCows(this, 1.1D));
 		this.ageTimer = 0;

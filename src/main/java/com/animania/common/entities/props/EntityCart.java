@@ -78,7 +78,9 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	public EntityCart(World par1World) {
 		super(par1World);
 		this.preventEntitySpawning = true;
-		this.setSize(2.0F, 1.2F);
+		this.setSize(2.0F, 1.2F); 
+		this.width = 2.0F;
+		this.height = 1.2F;
 		this.stepHeight = 1.2F;
 		this.puller = null;
 		this.pulled = false;

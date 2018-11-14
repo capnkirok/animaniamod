@@ -43,7 +43,9 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	public EntityRoosterBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.6F, 0.8F);
+		this.setSize(0.6F, 0.8F); 
+		this.width = 0.6F;
+		this.height = 0.8F;
 		this.setTimeUntilNextCrow(this.rand.nextInt(200) + 200);
 		this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.2F));
 		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));

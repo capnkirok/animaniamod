@@ -61,7 +61,9 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	public EntityEweBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.0F, 1.0F);
+		this.setSize(1.0F, 1.0F); 
+		this.width = 1.0F;
+		this.height = 1.0F;
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.FEMALE;
 		this.mateable = true;

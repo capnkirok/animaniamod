@@ -11,7 +11,9 @@ public class EntityDoeKiko extends EntityDoeBase
 	{
 		super(worldIn);
 		this.goatType = GoatType.KIKO;
-		this.setSize(1.3F, 1.0F);
+		this.setSize(1.3F, 1.0F); 
+		this.width = 1.3F;
+		this.height = 1.0F;
 
 	}
 	
