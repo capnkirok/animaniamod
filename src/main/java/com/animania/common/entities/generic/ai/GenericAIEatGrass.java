@@ -46,33 +46,15 @@ public class GenericAIEatGrass extends GenericAISearchBlock
 	@Override
 	public boolean shouldExecute()
 	{
-		timer++;
-		if (this.timer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
-		{
+		if (++timer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
-		}
-		else if (timer > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
-		{
-			if (grassEaterEntity instanceof IFoodEating)
-			{
-				if (((IFoodEating) grassEaterEntity).getFed())
-				{
-					return false;
-				}
-			}
+		timer = 0;
+		if (grassEaterEntity instanceof ISleeping && ((ISleeping) grassEaterEntity).getSleeping())
+			return false;
 
-			if (grassEaterEntity instanceof ISleeping)
-			{
-				if (((ISleeping) this.grassEaterEntity).getSleeping())
-				{
-					return false;
-				}
-			}
+		if (this.grassEaterEntity.getRNG().nextInt(150) == 0)
+			return super.shouldExecute();
 
-			if (this.grassEaterEntity.getRNG().nextInt(150) == 0)
-				return super.shouldExecute();
-
-		}
 		return false;
 	}
 

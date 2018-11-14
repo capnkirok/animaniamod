@@ -21,7 +21,6 @@ import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
 import com.animania.common.entities.generic.ai.GenericAINearestAttackableTarget;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
@@ -49,6 +48,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIFleeSun;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAISit;
 import net.minecraft.entity.monster.EntitySilverfish;
@@ -158,7 +158,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget(this, EntityToad.class, false));
 			this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityRoosterBase.class, 16.0F, 2.0D, 2.2D));
 		}
-		this.targetTasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
 	}
 
 	@Override

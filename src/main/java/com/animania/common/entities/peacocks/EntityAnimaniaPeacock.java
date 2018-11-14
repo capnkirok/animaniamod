@@ -11,7 +11,9 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,11 +45,9 @@ import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
 import com.animania.common.entities.generic.ai.GenericAISleep;
-import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
@@ -92,7 +92,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		super(worldIn);
 
-		this.tasks.addTask(0, new GenericAISwim(this));
+		this.tasks.addTask(0, new EntityAISwimming(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaPeacock>(this, 1.0D, null, EntityAnimaniaPeacock.class, true));
@@ -113,7 +113,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 			this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
 			this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
 		}
-		this.targetTasks.addTask(13, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(100);
 		this.blinkTimer = 80 + this.rand.nextInt(80);
