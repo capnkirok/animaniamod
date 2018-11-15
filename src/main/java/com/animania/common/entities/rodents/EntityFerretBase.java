@@ -95,7 +95,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected int tamedTimer;
 	public int blinkTimer;
 	public int eatTimer;
-	public GenericAIEatGrass entityAIEatGrass;
+	public GenericAIEatGrass<EntityFerretBase> entityAIEatGrass;
 	protected int damageTimer;
 	protected FerretType type;
 	private int delayCount;
@@ -122,32 +122,32 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.aiSit = new EntityAISit(this);
 		this.tasks.addTask(0, new GenericAISwimmingSmallCreatures(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode) {
-			this.tasks.addTask(1, new GenericAIFindWater(this, 1.0D, entityAIEatGrass, EntityFerretBase.class, true));
+			this.tasks.addTask(1, new GenericAIFindWater<EntityFerretBase>(this, 1.0D, entityAIEatGrass, EntityFerretBase.class, true));
 			this.tasks.addTask(2, new EntityAIFerretFindNests(this, 1.0D));
-			this.tasks.addTask(3, new GenericAIFindFood(this, 1.0D, entityAIEatGrass, false));
+			this.tasks.addTask(3, new GenericAIFindFood<EntityFerretBase>(this, 1.0D, entityAIEatGrass, false));
 		}
 		this.tasks.addTask(4, this.aiSit);
 		this.tasks.addTask(5, new EntityAILeapAtTarget(this, 0.2F));
 		this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.0D, true));
-		this.tasks.addTask(7, new GenericAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(8, new GenericAIPanic(this, 1.5D));
+		this.tasks.addTask(7, new GenericAIFollowOwner<EntityFerretBase>(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(8, new GenericAIPanic<EntityFerretBase>(this, 1.5D));
 		this.tasks.addTask(9, new EntityAIRodentEat(this));
-		this.tasks.addTask(10, new GenericAITempt(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
+		this.tasks.addTask(10, new GenericAITempt<EntityFerretBase>(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(14, new GenericAILookIdle(this));
+		this.tasks.addTask(14, new GenericAILookIdle<EntityFerretBase>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep) {
-			this.tasks.addTask(15, new GenericAISleep(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.ferretBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.ferretBed2), EntityFerretBase.class));
+			this.tasks.addTask(15, new GenericAISleep<EntityFerretBase>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.ferretBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.ferretBed2), EntityFerretBase.class));
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
-			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget(this, EntityChickLeghorn.class, false));
-			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget(this, EntityChickOrpington.class, false));
-			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget(this, EntityChickPlymouthRock.class, false));
-			this.targetTasks.addTask(4, new GenericAINearestAttackableTarget(this, EntityChickRhodeIslandRed.class, false));
-			this.targetTasks.addTask(5, new GenericAINearestAttackableTarget(this, EntityChickWyandotte.class, false));
-			this.targetTasks.addTask(6, new GenericAINearestAttackableTarget(this, EntitySilverfish.class, false));
-			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget(this, EntityToad.class, false));
+			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget<EntityChickLeghorn>(this, EntityChickLeghorn.class, false));
+			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget<EntityChickOrpington>(this, EntityChickOrpington.class, false));
+			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget<EntityChickPlymouthRock>(this, EntityChickPlymouthRock.class, false));
+			this.targetTasks.addTask(4, new GenericAINearestAttackableTarget<EntityChickRhodeIslandRed>(this, EntityChickRhodeIslandRed.class, false));
+			this.targetTasks.addTask(5, new GenericAINearestAttackableTarget<EntityChickWyandotte>(this, EntityChickWyandotte.class, false));
+			this.targetTasks.addTask(6, new GenericAINearestAttackableTarget<EntitySilverfish>(this, EntitySilverfish.class, false));
+			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget<EntityFrogs>(this, EntityFrogs.class, false));
+			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget<EntityToad>(this, EntityToad.class, false));
 		}
 		this.targetTasks.addTask(9, new EntityAIHurtByTarget(this, false, new Class[0]));
 	}

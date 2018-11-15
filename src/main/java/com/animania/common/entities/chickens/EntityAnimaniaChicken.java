@@ -85,15 +85,15 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		super(worldIn);
 		this.tasks.taskEntries.clear();
 		this.tasks.addTask(0, new GenericAISwimmingSmallCreatures(this));
-		this.tasks.addTask(1, new GenericAIPanic(this, 1.4D));
+		this.tasks.addTask(1, new GenericAIPanic<EntityAnimaniaChicken>(this, 1.4D));
 		if (!AnimaniaConfig.gameRules.ambianceMode) {
 			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaChicken>(this, 1.0D, null, EntityAnimaniaChicken.class, true));
 			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaChicken>(this, 1.0D, null, true));
 		}
-		this.tasks.addTask(4, new GenericAITempt(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
+		this.tasks.addTask(4, new GenericAITempt<EntityAnimaniaChicken>(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(7, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new GenericAILookIdle(this));
+		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaChicken>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep) {
 			this.tasks.addTask(8, new GenericAISleep<EntityAnimaniaChicken>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.chickenBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.chickenBed2), EntityAnimaniaChicken.class));
 		}

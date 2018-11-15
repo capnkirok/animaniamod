@@ -93,12 +93,12 @@ public class EntityAmphibian extends EntityAnimal implements ISpawnable, IAniman
 		this.tasks.addTask(1, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
 		if (!this.getCustomNameTag().equals("Pepe")) {
-			this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 6.0F, 1.5D, 1.5D));
+			this.tasks.addTask(2, new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 6.0F, 1.5D, 1.5D));
 		}
 		this.tasks.addTask(3, new EntityAIWanderAvoidWater(this, 0.6D));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
-		this.tasks.addTask(5, new EntityAIAvoidEntity(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
-		this.tasks.addTask(6, new EntityAIAvoidEntity(this, EntityAnimaniaChicken.class, 10.0F, 3.0D, 3.5D));
+		this.tasks.addTask(5, new EntityAIAvoidEntity<EntityAnimaniaPeacock>(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
+		this.tasks.addTask(6, new EntityAIAvoidEntity<EntityAnimaniaChicken>(this, EntityAnimaniaChicken.class, 10.0F, 3.0D, 3.5D));
 	}
 
 	@Override

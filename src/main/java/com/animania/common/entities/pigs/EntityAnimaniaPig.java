@@ -113,18 +113,18 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 			this.tasks.addTask(3, new GenericAIFindWater<EntityAnimaniaPig>(this, 1.0D, entityAIEatGrass, EntityAnimaniaPig.class));
 			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaPig>(this, 1.0D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(4, new GenericAIPanic(this, 1.5D));
+		this.tasks.addTask(4, new GenericAIPanic<EntityAnimaniaPig>(this, 1.5D));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(8, new GenericAISleep<EntityAnimaniaPig>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.pigBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.pigBed2), EntityAnimaniaPig.class));
 		}
-		this.tasks.addTask(9, new GenericAITempt(this, 1.2D, Items.CARROT_ON_A_STICK, false));
-		this.tasks.addTask(10, new GenericAITempt(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
+		this.tasks.addTask(9, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, Items.CARROT_ON_A_STICK, false));
+		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
 		this.tasks.addTask(10, new EntityAITemptItemStack(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
 		this.tasks.addTask(11, this.entityAIEatGrass);
-		this.tasks.addTask(12, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
+		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaPig>(this, 1.0, entityAIEatGrass));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));;
-		this.tasks.addTask(15, new GenericAILookIdle(this));
+		this.tasks.addTask(15, new GenericAILookIdle<EntityAnimaniaPig>(this));
 		this.targetTasks.addTask(16, new EntityAIHurtByTarget(this, false, new Class[0]));
 
 	}

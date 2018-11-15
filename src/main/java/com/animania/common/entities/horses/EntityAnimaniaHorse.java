@@ -102,15 +102,15 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, EntityAnimaniaHorse.class));
 			this.tasks.addTask(1, new GenericAIFindFood<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(0, new GenericAIPanic(this, 2.0D));
+		this.tasks.addTask(0, new GenericAIPanic<EntityAnimaniaHorse>(this, 2.0D));
 		this.tasks.addTask(2, new EntityAIFollowMateHorses(this, 1.1D));
 		this.tasks.addTask(3, new EntityAIWanderHorses(this, 1.0D));
 		this.tasks.addTask(4, new EntityAISwimming(this));
-		this.tasks.addTask(5, new GenericAITempt(this, 1.25D, false, TEMPTATION_ITEMS));
+		this.tasks.addTask(5, new GenericAITempt<EntityAnimaniaHorse>(this, 1.25D, false, TEMPTATION_ITEMS));
 		this.tasks.addTask(6, this.entityAIEatGrass);
 		this.tasks.addTask(7, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(8, new EntityAILookIdleHorses(this));
-		this.tasks.addTask(9, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
+		this.tasks.addTask(9, new GenericAIFindSaltLick<EntityAnimaniaHorse>(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(10, new GenericAISleep<EntityAnimaniaHorse>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.horseBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.horseBed2), EntityAnimaniaHorse.class));
