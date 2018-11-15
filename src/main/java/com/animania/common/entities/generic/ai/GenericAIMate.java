@@ -61,13 +61,10 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 				}
 			}
 			
-			if (entity instanceof ISleeping)
+			if (entity.getSleeping())
 			{
-				if (!entity.world.isDaytime() || ((ISleeping) entity).getSleeping())
-				{
-					this.delayCounter = 0;
-					return false;
-				}
+				this.delayCounter = 0;
+				return false;
 			}
 
 			if (child.isInstance(this.entity) || female.isInstance(this.entity) || this.entity.isInWater())

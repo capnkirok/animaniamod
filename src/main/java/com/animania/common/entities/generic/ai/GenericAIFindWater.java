@@ -22,7 +22,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends GenericAISearchBlock
+public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleeping> extends GenericAISearchBlock
 {
 
 	private final T entity;
@@ -59,7 +59,7 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends 
 
 		if (entity.getWatered() ||
 				entity.isBeingRidden() ||
-				(entity instanceof ISleeping && ((ISleeping) entity).getSleeping()) ||
+				entity.getSleeping() ||
 				entity.getRNG().nextInt(3) != 0)
 			return false;
 

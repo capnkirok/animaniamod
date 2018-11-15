@@ -22,7 +22,7 @@ public class GenericAIPanic<T extends EntityCreature> extends EntityAIPanic
 			return false;
 		}
 
-		if (creature.isBurning() && creature instanceof ISleeping)
+		if (creature.isBurning())
 		{
 			ISleeping s = (ISleeping)creature;
 			if(s.getSleeping())

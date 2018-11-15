@@ -8,18 +8,18 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.item.Item;
 
-public class GenericAITempt extends EntityAITempt
+public class GenericAITempt<T extends EntityCreature & ISleeping> extends EntityAITempt
 {
     /** The entity using this AI that is tempted by the player. */
-    private final EntityCreature temptedEntity;
+    private final T temptedEntity;
 
-    public GenericAITempt(EntityCreature temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn)
+    public GenericAITempt(T temptedEntityIn, double speedIn, Item temptItemIn, boolean scaredByPlayerMovementIn)
     {
         super(temptedEntityIn, speedIn, temptItemIn, scaredByPlayerMovementIn);
         this.temptedEntity = temptedEntityIn;
     }
 
-    public GenericAITempt(EntityCreature temptedEntityIn, double speedIn, boolean scaredByPlayerMovementIn, Set<Item> temptItemIn)
+    public GenericAITempt(T temptedEntityIn, double speedIn, boolean scaredByPlayerMovementIn, Set<Item> temptItemIn)
     {
         super(temptedEntityIn, speedIn, scaredByPlayerMovementIn, temptItemIn);
         this.temptedEntity = temptedEntityIn;
@@ -30,7 +30,7 @@ public class GenericAITempt extends EntityAITempt
      */
     public boolean shouldExecute()
     {
-    	if(this.temptedEntity instanceof ISleeping && ((ISleeping) temptedEntity).getSleeping())
+    	if(temptedEntity.getSleeping())
     		return false;
     	
     	return super.shouldExecute();
