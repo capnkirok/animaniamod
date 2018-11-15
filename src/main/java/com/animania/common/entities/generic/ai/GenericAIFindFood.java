@@ -17,7 +17,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GenericAIFindFood<T extends EntityCreature & IFoodEating> extends GenericAISearchBlock
+public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleeping> extends GenericAISearchBlock
 {
 
 	private final T entity;
@@ -46,7 +46,7 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating> extends G
 
 		if (entity.getFed() ||
 				entity.isBeingRidden() ||
-				(entity instanceof ISleeping && ((ISleeping) entity).getSleeping()) ||
+				entity.getSleeping() ||
 				entity.getRNG().nextInt(3) != 0)
 			return false;
 

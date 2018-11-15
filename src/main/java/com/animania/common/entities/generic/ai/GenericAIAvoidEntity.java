@@ -22,7 +22,7 @@ public class GenericAIAvoidEntity<T extends Entity> extends EntityAIAvoidEntity<
 
     public boolean shouldExecute()
     {
-    	if (entity instanceof ISleeping && ((ISleeping) entity).getSleeping())
+    	if (((ISleeping) entity).getSleeping())
 			return false;
 
     	return super.shouldExecute();

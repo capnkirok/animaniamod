@@ -18,18 +18,18 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GenericAIEatGrass extends GenericAISearchBlock
+public class GenericAIEatGrass<T extends EntityCreature & ISleeping> extends GenericAISearchBlock
 {
 
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final EntityCreature grassEaterEntity;
+	private final T grassEaterEntity;
 	private final World entityWorld;
 	public int eatingGrassTimer;
 	public boolean eatsGrass;
 	private int timer;
 	private boolean isEating = false;
 
-	public GenericAIEatGrass(EntityCreature grassEaterEntityIn, boolean eatsGrass)
+	public GenericAIEatGrass(T grassEaterEntityIn, boolean eatsGrass)
 	{
 		super(grassEaterEntityIn, 1.0, 8, EnumFacing.UP);
 		this.grassEaterEntity = grassEaterEntityIn;
@@ -38,7 +38,7 @@ public class GenericAIEatGrass extends GenericAISearchBlock
 		this.setMutexBits(7);
 	}
 
-	public GenericAIEatGrass(EntityCreature grassEaterEntityIn)
+	public GenericAIEatGrass(T grassEaterEntityIn)
 	{
 		this(grassEaterEntityIn, true);
 	}
@@ -49,7 +49,7 @@ public class GenericAIEatGrass extends GenericAISearchBlock
 		if (++timer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
 		timer = 0;
-		if (grassEaterEntity instanceof ISleeping && ((ISleeping) grassEaterEntity).getSleeping())
+		if (grassEaterEntity.getSleeping())
 			return false;
 
 			if (this.grassEaterEntity.getRNG().nextInt(120) == 0)

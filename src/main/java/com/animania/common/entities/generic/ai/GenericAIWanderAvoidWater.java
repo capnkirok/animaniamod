@@ -14,7 +14,7 @@ public class GenericAIWanderAvoidWater extends EntityAIWanderAvoidWater
 
 	public boolean shouldExecute()
 	{
-		if(this.entity instanceof ISleeping && ((ISleeping) entity).getSleeping())
+		if(((ISleeping) entity).getSleeping())
     		return false;
 
 		return super.shouldExecute();

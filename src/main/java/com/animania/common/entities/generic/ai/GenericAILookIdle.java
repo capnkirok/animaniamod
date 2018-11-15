@@ -8,12 +8,12 @@ import com.animania.common.handler.BlockHandler;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAILookIdle;
 
-public class GenericAILookIdle extends EntityAILookIdle
+public class GenericAILookIdle<T extends EntityLiving & ISleeping> extends EntityAILookIdle
 {
 	/** The entity that is looking idle. */
-	private final EntityLiving entity;
+	private final T entity;
 
-	public GenericAILookIdle(EntityLiving entitylivingIn)
+	public GenericAILookIdle(T entitylivingIn)
 	{
 		super(entitylivingIn);
 		this.entity = entitylivingIn;
@@ -24,7 +24,7 @@ public class GenericAILookIdle extends EntityAILookIdle
 	 */
 	public boolean shouldExecute()
 	{
-		if ((this.entity instanceof ISleeping && ((ISleeping) this.entity).getSleeping()) ||
+		if (this.entity.getSleeping() ||
 				(this.entity instanceof EntityAnimaniaPig && entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud))
 			return false;
 

@@ -5,11 +5,11 @@ import com.animania.common.entities.interfaces.ISleeping;
 import net.minecraft.entity.ai.EntityAIFollowOwner;
 import net.minecraft.entity.passive.EntityTameable;
 
-public class GenericAIFollowOwner extends EntityAIFollowOwner
+public class GenericAIFollowOwner<T extends EntityTameable & ISleeping> extends EntityAIFollowOwner
 {
-	private final EntityTameable tameable;
+	private final T tameable;
 
-	public GenericAIFollowOwner(EntityTameable tameableIn, double followSpeedIn, float minDistIn, float maxDistIn)
+	public GenericAIFollowOwner(T tameableIn, double followSpeedIn, float minDistIn, float maxDistIn)
 	{
 		super(tameableIn, followSpeedIn, minDistIn, maxDistIn);
 		this.tameable = tameableIn;
@@ -18,7 +18,7 @@ public class GenericAIFollowOwner extends EntityAIFollowOwner
 	public boolean shouldExecute()
 	{
 
-		if (this.tameable instanceof ISleeping && ((ISleeping) this.tameable).getSleeping())
+		if (this.tameable.getSleeping())
 			return false;
 		
 		return super.shouldExecute();

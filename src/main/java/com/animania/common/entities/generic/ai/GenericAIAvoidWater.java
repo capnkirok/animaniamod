@@ -11,15 +11,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public class GenericAIAvoidWater extends EntityAIBase
+public class GenericAIAvoidWater<T extends EntityCreature & ISleeping> extends EntityAIBase
 {
-	private final EntityCreature idleEntity;
+	private final T idleEntity;
 	private double lookX;
 	private double lookZ;
 	private int idleTime;
 	private int delayCounter = 0;
 
-	public GenericAIAvoidWater(EntityCreature entitylivingIn)
+	public GenericAIAvoidWater(T entitylivingIn)
 	{
 		this.idleEntity = entitylivingIn;
 		this.setMutexBits(3);
@@ -32,13 +32,10 @@ public class GenericAIAvoidWater extends EntityAIBase
 		if (delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) {
 			
 			
-			if (idleEntity instanceof ISleeping)
+			if (!idleEntity.world.isDaytime() || idleEntity.getSleeping())
 			{
-				if (!idleEntity.world.isDaytime() || ((ISleeping) idleEntity).getSleeping())
-				{
-					this.delayCounter = 0;
-					return false;
-				}
+				this.delayCounter = 0;
+				return false;
 			}
 		
 			BlockPos currentpos1 = new BlockPos(idleEntity.posX, idleEntity.posY, idleEntity.posZ);

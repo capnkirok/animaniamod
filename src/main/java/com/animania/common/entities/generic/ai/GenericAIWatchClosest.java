@@ -41,18 +41,15 @@ public class GenericAIWatchClosest extends EntityAIWatchClosest
         
     	boolean isSleeping = false;
     	
-    	if(this.entity instanceof ISleeping)
+    	if(((ISleeping) entity).getSleeping())
     	{
-    		if(((ISleeping) entity).getSleeping())
-    		{
+    		isSleeping = true;
+    	}
+    	
+    	else if(entity instanceof EntityAnimaniaPig)
+    	{
+    		if(entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud)
     			isSleeping = true;
-    		}
-    		
-    		else if(entity instanceof EntityAnimaniaPig)
-    		{
-    			if(entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud)
-    				isSleeping = true;
-    		}
     	}
 
 		if (isSleeping) {
