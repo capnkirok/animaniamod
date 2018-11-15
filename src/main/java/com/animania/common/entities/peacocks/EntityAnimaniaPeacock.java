@@ -97,15 +97,15 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaPeacock>(this, 1.0D, null, EntityAnimaniaPeacock.class, true));
 			this.tasks.addTask(1, new GenericAIFindFood<EntityAnimaniaPeacock>(this, 1.0D, null, true));
 		}
-		this.tasks.addTask(2, new GenericAIPanic(this, 1.4D));
-		this.tasks.addTask(3, new GenericAITempt(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
+		this.tasks.addTask(2, new GenericAIPanic<EntityAnimaniaPeacock>(this, 1.4D));
+		this.tasks.addTask(3, new GenericAITempt<EntityAnimaniaPeacock>(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
 		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(6, new GenericAISleep<EntityAnimaniaPeacock>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.peacockBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.peacockBed2), EntityAnimaniaPeacock.class));
 		}
-		this.tasks.addTask(11, new GenericAILookIdle(this));
+		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaPeacock>(this));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
 			this.tasks.addTask(8, new EntityAILeapAtTarget(this, 0.2F));

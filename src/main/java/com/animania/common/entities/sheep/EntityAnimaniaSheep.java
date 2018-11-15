@@ -95,7 +95,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	protected int wateredTimer;
 	protected int damageTimer;
 	public SheepType sheepType;
-	public GenericAIEatGrass entityAIEatGrass;
+	public GenericAIEatGrass<EntityAnimaniaSheep> entityAIEatGrass;
 	protected boolean mateable = false;
 	protected boolean headbutting = false;
 	protected EntityGender gender;
@@ -106,7 +106,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	{
 		super(worldIn);
 		this.tasks.taskEntries.clear();
-		this.entityAIEatGrass = new GenericAIEatGrass(this);
+		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaSheep>(this);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaSheep>(this, 1.0D, entityAIEatGrass, EntityAnimaniaSheep.class));
@@ -114,15 +114,15 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		}
 		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAISwimming(this));
-		this.tasks.addTask(6, new GenericAIPanic(this, 2.2D));
-		this.tasks.addTask(7, new GenericAITempt(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
-		this.tasks.addTask(6, new GenericAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
-		this.tasks.addTask(6, new GenericAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
+		this.tasks.addTask(6, new GenericAIPanic<EntityAnimaniaSheep>(this, 2.2D));
+		this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
+		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
+		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityWolf.class, 24.0F, 2.0D, 2.2D));
+		this.tasks.addTask(9, new GenericAIAvoidEntity<EntityWolf>(this, EntityWolf.class, 24.0F, 2.0D, 2.2D));
 		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new GenericAILookIdle(this));
-		this.tasks.addTask(12, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
+		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaSheep>(this));
+		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaSheep>(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(11, new GenericAISleep<EntityAnimaniaSheep>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.sheepBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.sheepBed2), EntityAnimaniaSheep.class));

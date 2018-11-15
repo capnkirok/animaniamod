@@ -77,7 +77,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	protected int tamedTimer;
 	public int blinkTimer;
 	public int eatTimer;
-	public GenericAIEatGrass entityAIEatGrass;
+	public GenericAIEatGrass<EntityAnimaniaCat> entityAIEatGrass;
 	protected int damageTimer;
 	protected CatType type;
 	protected EntityGender gender;
@@ -96,34 +96,34 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	protected void initEntityAI()
 	{
 		this.aiSit = new EntityAISit(this);
-		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
+		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaCat>(this, false);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(1, new GenericAIFindWater(this, 1.0D, entityAIEatGrass, EntityAnimaniaCat.class, true));
-			this.tasks.addTask(3, new GenericAIFindFood(this, 1.0D, entityAIEatGrass, false));
+			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaCat>(this, 1.0D, entityAIEatGrass, EntityAnimaniaCat.class, true));
+			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaCat>(this, 1.0D, entityAIEatGrass, false));
 		}
 		this.tasks.addTask(4, this.aiSit);
 		this.tasks.addTask(5, new EntityAILeapAtTarget(this, 0.4F));
 		this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.5D, true));
-		this.tasks.addTask(7, new GenericAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(8, new GenericAIPanic(this, 1.5D));
-		this.tasks.addTask(10, new GenericAITempt(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS)); //TODO
+		this.tasks.addTask(7, new GenericAIFollowOwner<EntityAnimaniaCat>(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(8, new GenericAIPanic<EntityAnimaniaCat>(this, 1.5D));
+		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaCat>(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS)); //TODO
 		this.tasks.addTask(11, this.entityAIEatGrass);
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(14, new GenericAILookIdle(this));
+		this.tasks.addTask(14, new GenericAILookIdle<EntityAnimaniaCat>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(14, new GenericAISleep(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed2), EntityAnimaniaCat.class));
+			this.tasks.addTask(14, new GenericAISleep<EntityAnimaniaCat>(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed2), EntityAnimaniaCat.class));
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 		{
-			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget(this, EntityFerretBase.class, false));
-			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget(this, EntityChickBase.class, false));
-			this.targetTasks.addTask(6, new GenericAINearestAttackableTarget(this, EntitySilverfish.class, false));
-			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget(this, EntityToad.class, false));
+			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget<EntityFerretBase>(this, EntityFerretBase.class, false));
+			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget<EntityChickBase>(this, EntityChickBase.class, false));
+			this.targetTasks.addTask(6, new GenericAINearestAttackableTarget<EntitySilverfish>(this, EntitySilverfish.class, false));
+			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget<EntityFrogs>(this, EntityFrogs.class, false));
+			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget<EntityToad>(this, EntityToad.class, false));
 		}
 		this.targetTasks.addTask(9, new EntityAIHurtByTarget(this, false, new Class[0]));
 	}
@@ -323,7 +323,6 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
 
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
 		{

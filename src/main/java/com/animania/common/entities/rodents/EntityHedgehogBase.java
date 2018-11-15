@@ -95,7 +95,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	protected int tamedTimer;
 	public int blinkTimer;
 	public int eatTimer;
-	public GenericAIEatGrass entityAIEatGrass;
+	public GenericAIEatGrass<EntityHedgehogBase> entityAIEatGrass;
 	protected int damageTimer;
 	protected HedgehogType type;
 	private int delayCount;
@@ -127,34 +127,34 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	{
 		this.aiSit = new EntityAISit(this);
 		this.tasks.addTask(1, new GenericAISwimmingSmallCreatures(this));
-		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
+		this.entityAIEatGrass = new GenericAIEatGrass<EntityHedgehogBase>(this, false);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new GenericAIFindWater(this, 1.0D, entityAIEatGrass, EntityHedgehogBase.class, true));
+			this.tasks.addTask(2, new GenericAIFindWater<EntityHedgehogBase>(this, 1.0D, entityAIEatGrass, EntityHedgehogBase.class, true));
 			this.tasks.addTask(3, new EntityAIHedgehogFindNests(this, 1.0D));
-			this.tasks.addTask(4, new GenericAIFindFood(this, 1.0D, entityAIEatGrass, false));
+			this.tasks.addTask(4, new GenericAIFindFood<EntityHedgehogBase>(this, 1.0D, entityAIEatGrass, false));
 		}
 		this.tasks.addTask(5, this.aiSit);
 		this.tasks.addTask(6, new EntityAIFleeSun(this, 1.0D));
 		this.tasks.addTask(7, new EntityAILeapAtTarget(this, 0.2F));
 		this.tasks.addTask(8, new EntityAIAttackMelee(this, 1.0D, true));
-		this.tasks.addTask(9, new GenericAITempt(this, 1.2D, false, EntityHedgehogBase.TEMPTATION_ITEMS));
-		this.tasks.addTask(10, new GenericAIPanic(this, 1.5D));
-		this.tasks.addTask(11, new GenericAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(9, new GenericAITempt<EntityHedgehogBase>(this, 1.2D, false, EntityHedgehogBase.TEMPTATION_ITEMS));
+		this.tasks.addTask(10, new GenericAIPanic<EntityHedgehogBase>(this, 1.5D));
+		this.tasks.addTask(11, new GenericAIFollowOwner<EntityHedgehogBase>(this, 1.0D, 10.0F, 2.0F));
 		this.tasks.addTask(12, this.entityAIEatGrass);
 		this.tasks.addTask(13, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(14, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(15, new GenericAILookIdle(this));
+		this.tasks.addTask(15, new GenericAILookIdle<EntityHedgehogBase>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(16, new EntityAISleepHedgehogs(this, 0.8));
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
-			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget(this, EntitySilverfish.class, false));
-			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget(this, EntityToad.class, false));
-			this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityRoosterBase.class, 16.0F, 2.0D, 2.2D));
+			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget<EntitySilverfish>(this, EntitySilverfish.class, false));
+			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget<EntityFrogs>(this, EntityFrogs.class, false));
+			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget<EntityToad>(this, EntityToad.class, false));
+			this.tasks.addTask(9, new GenericAIAvoidEntity<EntityRoosterBase>(this, EntityRoosterBase.class, 16.0F, 2.0D, 2.2D));
 		}
 		this.targetTasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
 	}

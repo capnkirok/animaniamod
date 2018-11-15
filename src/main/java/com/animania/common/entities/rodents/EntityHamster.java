@@ -137,17 +137,17 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	protected void initEntityAI()
 	{
 
-		this.tasks.addTask(1, new GenericAIPanic(this, 1.4D));
+		this.tasks.addTask(1, new GenericAIPanic<EntityHamster>(this, 1.4D));
 		this.tasks.addTask(2, new GenericAISwimmingSmallCreatures(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(3, new GenericAIFindWater(this, 1.0D, null, EntityHamster.class, true));
-			this.tasks.addTask(3, new GenericAIFindFood(this, 1.0D, null, false));
+			this.tasks.addTask(3, new GenericAIFindWater<EntityHamster>(this, 1.0D, null, EntityHamster.class, true));
+			this.tasks.addTask(3, new GenericAIFindFood<EntityHamster>(this, 1.0D, null, false));
 		}
 		this.tasks.addTask(4, new EntityAIFleeSun(this, 1.0D));
 		this.tasks.addTask(5, new GenericAIWanderAvoidWater(this, 1.1D));
-		this.tasks.addTask(6, new GenericAITempt(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
-		this.tasks.addTask(7, new GenericAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(6, new GenericAITempt<EntityHamster>(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
+		this.tasks.addTask(7, new GenericAIFollowOwner<EntityHamster>(this, 1.0D, 10.0F, 2.0F));
 		this.tasks.addTask(8, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(9, new EntityAILookIdleRodent(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
