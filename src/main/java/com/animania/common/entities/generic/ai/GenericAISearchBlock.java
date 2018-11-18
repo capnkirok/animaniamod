@@ -151,7 +151,8 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 			return false;
 		oldBlockPos = blockpos;
 
-		BlockPos secondaryPos = null;
+		BlockPos secondaryDest = null;
+		BlockPos secondarySeek = null;
 
 		for (int range = 0; range < this.searchRange; ++range)
 		{
@@ -181,32 +182,33 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 								}
 							}
 						}
-						else if (this.hasSecondary && secondaryPos == null && this.shouldMoveToSecondary(this.creature.world, blockpos1))
+						else if (this.hasSecondary && secondarySeek == null && this.shouldMoveToSecondary(this.creature.world, blockpos1))
 						{
-							secondaryPos = blockpos1;
+							Collections.shuffle(destinationOffset);
+
+							for (EnumFacing facing : destinationOffset)
+							{
+								AxisAlignedBB aabb = world.getBlockState(blockpos1).getCollisionBoundingBox(world, blockpos1);
+
+								BlockPos offsetPos = aabb == Block.NULL_AABB ? blockpos1 : blockpos1.offset(facing);
+
+								if (this.creature.getNavigator().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
+								{
+									secondaryDest = offsetPos;
+									secondarySeek = blockpos1;
+								}
+							}
 						}
 					}
 				}
 			}
 		}
 
-		if(secondaryPos != null)
+		if(secondarySeek != null)
 		{
-			Collections.shuffle(destinationOffset);
-
-			for (EnumFacing facing : destinationOffset)
-			{
-				AxisAlignedBB aabb = world.getBlockState(secondaryPos).getCollisionBoundingBox(world, secondaryPos);
-
-				BlockPos offsetPos = aabb == Block.NULL_AABB ? secondaryPos : secondaryPos.offset(facing);
-
-				if (this.creature.getNavigator().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
-				{
-					this.destinationBlock = offsetPos;
-					this.seekingBlockPos = secondaryPos;
-					return true;
-				}
-			}
+			this.destinationBlock = secondaryDest;
+			this.seekingBlockPos = secondarySeek;
+			return true;
 		}
 
 		return false;
