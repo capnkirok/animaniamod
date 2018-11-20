@@ -113,13 +113,14 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.blinkTimer = 70 + this.rand.nextInt(70);
 		this.enablePersistence();
 		this.delayCount = 5;
+		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
+		this.tasks.addTask(11, this.entityAIEatGrass);
 	}
 
 	@Override
 	protected void initEntityAI()
 	{
 		this.aiSit = new EntityAISit(this);
-		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
 		this.tasks.addTask(0, new GenericAISwimmingSmallCreatures(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode) {
 			this.tasks.addTask(1, new GenericAIFindWater(this, 1.0D, entityAIEatGrass, EntityFerretBase.class, true));
@@ -133,7 +134,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.tasks.addTask(8, new GenericAIPanic(this, 1.5D));
 		this.tasks.addTask(9, new EntityAIRodentEat(this));
 		this.tasks.addTask(10, new GenericAITempt(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
-		this.tasks.addTask(11, this.entityAIEatGrass);
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new GenericAILookIdle(this));
@@ -299,7 +299,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)
-			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((EntityLivingBase) entityIn).knockBack(this, 0.3f, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
 
 		return flag;
 	}

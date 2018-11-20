@@ -69,7 +69,7 @@ public class GenericAIEatGrass extends GenericAISearchBlock
 				}
 			}
 
-			if (this.grassEaterEntity.getRNG().nextInt(150) == 0)
+			if (this.grassEaterEntity.getRNG().nextInt(120) == 0)
 				return super.shouldExecute();
 
 		}

@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import com.animania.common.entities.interfaces.IFoodEating;
 import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.tileentities.TileEntityInvisiblock;
 import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.config.AnimaniaConfig;
 
@@ -103,9 +104,9 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends 
 			IBlockState state = world.getBlockState(seekingBlockPos);
 			Block block = state.getBlock();
 
-			if (block == BlockHandler.blockTrough)
+			if (block == BlockHandler.blockTrough || block == BlockHandler.blockInvisiblock)
 			{
-				TileEntityTrough trough = (TileEntityTrough) world.getTileEntity(seekingBlockPos);
+				TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(seekingBlockPos) : ((TileEntityInvisiblock)world.getTileEntity(seekingBlockPos)).getTrough();
 				if (trough != null)
 				{
 					if (trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
@@ -137,7 +138,7 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends 
 
 				this.waterFindTimer = 0;
 			}
-
+			
 		}
 	}
 
@@ -147,9 +148,9 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating> extends 
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 
-		if (block == BlockHandler.blockTrough)
+		if (block == BlockHandler.blockTrough || block == BlockHandler.blockInvisiblock)
 		{
-			TileEntityTrough trough = (TileEntityTrough) world.getTileEntity(pos);
+			TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(pos) : ((TileEntityInvisiblock)world.getTileEntity(pos)).getTrough();
 			if (trough != null)
 			{
 				if (trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))

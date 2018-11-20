@@ -39,6 +39,7 @@ import com.animania.config.AnimaniaConfig;
 import com.animania.network.client.CapSyncPacket;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
+import com.sun.jna.platform.unix.X11.GC;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -115,6 +116,8 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.blinkTimer = 80 + this.rand.nextInt(80);
 		this.delayCount = 5;
 		this.enablePersistence();
+		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
+		this.tasks.addTask(12, this.entityAIEatGrass);
 	}
 
 	@Override
@@ -128,7 +131,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	{
 		this.aiSit = new EntityAISit(this);
 		this.tasks.addTask(1, new GenericAISwimmingSmallCreatures(this));
-		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(2, new GenericAIFindWater(this, 1.0D, entityAIEatGrass, EntityHedgehogBase.class, true));
@@ -142,7 +144,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.tasks.addTask(9, new GenericAITempt(this, 1.2D, false, EntityHedgehogBase.TEMPTATION_ITEMS));
 		this.tasks.addTask(10, new GenericAIPanic(this, 1.5D));
 		this.tasks.addTask(11, new GenericAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(12, this.entityAIEatGrass);
 		this.tasks.addTask(13, new GenericAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(14, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(15, new GenericAILookIdle(this));
@@ -190,13 +191,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 
 		this.setIsTamed(true);
 		this.setTamed(true);
-		this.setInLove(player);
 
 		this.setSitting(false);
 		this.setHedgehogSitting(false);
 
 		this.entityAIEatGrass.startExecuting();
-
+		
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY)
 				stack.setCount(stack.getCount() - 1);

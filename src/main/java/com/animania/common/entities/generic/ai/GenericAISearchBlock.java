@@ -3,7 +3,9 @@ package com.animania.common.entities.generic.ai;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
@@ -22,21 +24,18 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 {
 	protected final EntityCreature creature;
 	protected final double movementSpeed;
-	/** Controls task execution delay */
-	protected int runDelay;
-	protected int timeoutCounter;
-	protected int maxStayTicks;
-	/** Block to move to */
 	protected BlockPos destinationBlock = NO_POS;
 	private boolean isAtDestination;
 	protected final int searchRange;
-	protected World world;
-
+	protected World world;	
 	protected List<EnumFacing> destinationOffset;
 	protected BlockPos seekingBlockPos = NO_POS;
 
 	protected BlockPos oldBlockPos = NO_POS;
 	private boolean hasSecondary;
+	private int walkTries = 0;
+	private boolean isDone = false;
+	private Set<BlockPos> nonValidPositions = new HashSet<BlockPos>();
 	
 	public static final BlockPos NO_POS = new BlockPos(-1, -1, -1);
 
@@ -74,7 +73,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	 */
 	public boolean shouldContinueExecuting()
 	{
-		return this.timeoutCounter >= -this.maxStayTicks && this.timeoutCounter <= 1200 && (this.shouldMoveTo(this.creature.world, this.seekingBlockPos) || (this.hasSecondary ? this.shouldMoveToSecondary(world, seekingBlockPos) : false));
+		return destinationBlock != NO_POS && seekingBlockPos != NO_POS && !isDone && (this.shouldMoveTo(this.creature.world, this.seekingBlockPos) || (this.hasSecondary ? this.shouldMoveToSecondary(world, seekingBlockPos) : false));
 	}
 
 	/**
@@ -83,8 +82,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	public void startExecuting()
 	{
 		this.creature.getNavigator().tryMoveToXYZ((double) ((float) this.destinationBlock.getX()) + 0.5D, (double) (this.destinationBlock.getY()), (double) ((float) this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
-		this.timeoutCounter = 0;
-		this.maxStayTicks = this.creature.getRNG().nextInt(this.creature.getRNG().nextInt(1200) + 1200) + 1200;
+		this.walkTries = 0;
 	}
 
 	@Override
@@ -93,6 +91,8 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 		this.isAtDestination = false;
 		this.destinationBlock = NO_POS;
 		this.seekingBlockPos = NO_POS;
+		this.walkTries = 0;
+		this.isDone = false;
 	}
 
 	/**
@@ -102,26 +102,41 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	{
 		if (!shouldContinueExecuting())
 			this.resetTask();
-
+	
 		if (!this.destinationBlock.equals(NO_POS))
 		{
 			double distance = this.creature.getDistanceSqToCenter(this.destinationBlock);
 
-			if (distance > 1.8D)
+			if (distance > 1.95D)
 			{
 				this.isAtDestination = false;
-				this.timeoutCounter++;
+				this.walkTries++;
 
-				if (this.timeoutCounter % 40 == 0)
+				boolean isStandingStill = this.creature.prevPosX == this.creature.posX && this.creature.prevPosY == this.creature.posY && this.creature.prevPosZ == this.creature.posZ;
+				
+				if (this.walkTries % 40 == 0 || isStandingStill)
 				{
 					this.creature.getNavigator().tryMoveToXYZ((double) ((float) this.destinationBlock.getX()) + 0.5D, (double) (this.destinationBlock.getY()), (double) ((float) this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
 					this.creature.getLookHelper().setLookPosition((double) this.seekingBlockPos.getX() + 0.5D, (double) (this.seekingBlockPos.getY()), (double) this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
+				}					
+				
+				if(isStandingStill && this.walkTries > 100) 
+				{
+					this.nonValidPositions.add(seekingBlockPos);
+					this.resetTask();
+					this.searchForDestination();
 				}
 			}
 			else
 			{
 				this.isAtDestination = true;
-				this.timeoutCounter--;
+				this.walkTries = 0;
+			}
+			
+			if(this.isAtDestination)
+			{
+				this.nonValidPositions.clear();
+				this.isDone = true;
 			}
 		}
 	}
@@ -129,6 +144,11 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	protected boolean isAtDestination()
 	{
 		return this.isAtDestination;
+	}
+	
+	public void onArriveAtDestination()
+	{
+		this.nonValidPositions.clear();
 	}
 
 	@Override
@@ -163,7 +183,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 					{
 						BlockPos blockpos1 = blockpos.add(i1, k - 1, j1);
 
-						if (this.shouldMoveTo(this.creature.world, blockpos1))
+						if (this.shouldMoveTo(this.creature.world, blockpos1) && !this.nonValidPositions.contains(blockpos1))
 						{
 							Collections.shuffle(destinationOffset);
 
@@ -179,6 +199,16 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 								if (this.creature.getNavigator().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
 								{
 									this.destinationBlock = offsetPos;
+									this.seekingBlockPos = blockpos1;
+									return true;
+								}
+							}
+							
+							if(destinationOffset.isEmpty())
+							{
+								if (this.creature.getNavigator().getPathToXYZ(blockpos1.getX() + 0.5, blockpos1.getY(), blockpos1.getZ() + 0.5) != null)
+								{
+									this.destinationBlock = blockpos1;
 									this.seekingBlockPos = blockpos1;
 									return true;
 								}
@@ -201,7 +231,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 						{
 							BlockPos blockpos1 = blockpos.add(i1, k - 1, j1);
 
-							if (this.shouldMoveToSecondary(this.creature.world, blockpos1))
+							if (this.shouldMoveToSecondary(this.creature.world, blockpos1) && !this.nonValidPositions.contains(blockpos1))
 							{
 								Collections.shuffle(destinationOffset);
 
@@ -217,6 +247,16 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 									if (this.creature.getNavigator().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
 									{
 										this.destinationBlock = offsetPos;
+										this.seekingBlockPos = blockpos1;
+										return true;
+									}
+								}
+								
+								if(destinationOffset.isEmpty())
+								{
+									if (this.creature.getNavigator().getPathToXYZ(blockpos1.getX() + 0.5, blockpos1.getY(), blockpos1.getZ() + 0.5) != null)
+									{
+										this.destinationBlock = blockpos1;
 										this.seekingBlockPos = blockpos1;
 										return true;
 									}
