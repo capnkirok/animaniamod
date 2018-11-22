@@ -17,7 +17,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GenericAIFindFood<T extends EntityCreature & IFoodEating> extends GenericAISearchBlock
+public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleeping> extends GenericAISearchBlock
 {
 
 	private final T entity;
@@ -40,40 +40,17 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating> extends G
 	@Override
 	public boolean shouldExecute()
 	{
-		foodDelay++;
-		if (this.foodDelay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
-		{
+		if (++foodDelay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
-		}
+		foodDelay = 0;
 
-		else if (foodDelay > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
-		{
-			if (entity instanceof ISleeping)
-			{
-				if (((ISleeping) entity).getSleeping())
-				{
-					this.foodDelay = 0;
-					return false;
-				}
-			}
+		if (entity.getFed() ||
+				entity.isBeingRidden() ||
+				entity.getSleeping() ||
+				entity.getRNG().nextInt(3) != 0)
+			return false;
 
-			if (entity.isBeingRidden())
-			{
-				this.foodDelay = 0;
-				return false;
-			}
-
-			if (entity.getFed())
-			{
-				this.foodDelay = 0;
-				return false;
-			}
-
-			if (entity.getRNG().nextInt(3) == 0)
-				return super.shouldExecute();
-		}
-
-		return false;
+		return super.shouldExecute();
 	}
 
 	@Override

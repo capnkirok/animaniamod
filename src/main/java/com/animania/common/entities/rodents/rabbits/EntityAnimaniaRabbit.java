@@ -9,13 +9,11 @@ import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
-import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
@@ -46,6 +44,7 @@ import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAIWander;
@@ -102,7 +101,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	protected int wateredTimer;
 	protected int damageTimer;
 	public RabbitType rabbitType;
-	public GenericAIEatGrass entityAIEatGrass;
+	public GenericAIEatGrass<EntityAnimaniaRabbit> entityAIEatGrass;
 	protected boolean mateable = false;
 	protected EntityGender gender;
 	private ResourceLocation resourceLocation;
@@ -120,26 +119,25 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	{
 		super(worldIn);
 		this.tasks.taskEntries.clear();
-		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
+		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaRabbit>(this, false);
 
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new GenericAIFindWater(this, 1.4D, entityAIEatGrass, EntityAnimaniaRabbit.class, true));
-			this.tasks.addTask(3, new GenericAIFindFood(this, 1.4D, entityAIEatGrass, true));
+			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaRabbit>(this, 1.4D, entityAIEatGrass, EntityAnimaniaRabbit.class, true));
+			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaRabbit>(this, 1.4D, entityAIEatGrass, true));
 		}
 
 		if (!this.getCustomNameTag().equals("Killer"))
 		{
-			this.tasks.addTask(3, new GenericAIPanic(this, 2.5D));
+			this.tasks.addTask(3, new GenericAIPanic<EntityAnimaniaRabbit>(this, 2.5D));
 			this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.8D));
-			this.tasks.addTask(5, new GenericAISwim(this));
-			this.tasks.addTask(7, new GenericAITempt(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
+			this.tasks.addTask(5, new EntityAISwimming(this));
+			this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaRabbit>(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
 			this.tasks.addTask(8, this.entityAIEatGrass);
-			this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityWolf.class, 24.0F, 3.0D, 3.5D));
-			this.tasks.addTask(9, new GenericAIAvoidEntity(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
+			this.tasks.addTask(9, new GenericAIAvoidEntity<EntityWolf>(this, EntityWolf.class, 24.0F, 3.0D, 3.5D));
+			this.tasks.addTask(9, new GenericAIAvoidEntity<EntityMob>(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
 			this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
-			this.tasks.addTask(11, new GenericAILookIdle(this));
-			this.tasks.addTask(11, new GenericAIAvoidWater(this));
+			this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaRabbit>(this));
 			if (AnimaniaConfig.gameRules.animalsSleep)
 			{
 				this.tasks.addTask(12, new EntityAISleepRabbits(this, 0.8));
@@ -152,7 +150,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
 			this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
 			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 			this.setHealth(50);
 		}

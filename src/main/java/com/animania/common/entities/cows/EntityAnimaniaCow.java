@@ -8,16 +8,13 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.generic.ai.GenericAIAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIHurtByTarget;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
 import com.animania.common.entities.generic.ai.GenericAISleep;
-import com.animania.common.entities.generic.ai.GenericAISwim;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
@@ -28,6 +25,8 @@ import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
@@ -71,7 +70,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	protected int fedTimer;
 	protected int wateredTimer;
 	protected int damageTimer;
-	public GenericAIEatGrass entityAIEatGrass;
+	public GenericAIEatGrass<EntityAnimaniaCow> entityAIEatGrass;
 	public CowType cowType;
 	protected boolean mateable = false;
 	protected EntityGender gender;
@@ -80,31 +79,30 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	{
 		super(worldIn);
 		this.tasks.taskEntries.clear();
-		this.entityAIEatGrass = new GenericAIEatGrass(this);
-		this.tasks.addTask(1, new GenericAIPanic(this, 2.0D));
+		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaCow>(this);
+		this.tasks.addTask(1, new GenericAIPanic<EntityAnimaniaCow>(this, 2.0D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaCow>(this, 1.0D, entityAIEatGrass, EntityAnimaniaCow.class));
 			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaCow>(this, 1.0, entityAIEatGrass, true));
 		}
 		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new GenericAISwim(this));
-		this.tasks.addTask(7, new GenericAITempt(this, 1.25D, false, EntityAnimaniaCow.TEMPTATION_ITEMS));
-		this.tasks.addTask(6, new GenericAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
-		this.tasks.addTask(6, new GenericAITempt(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
+		this.tasks.addTask(5, new EntityAISwimming(this));
+		this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, false, EntityAnimaniaCow.TEMPTATION_ITEMS));
+		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, Item.getItemFromBlock(Blocks.YELLOW_FLOWER), false));
+		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, Item.getItemFromBlock(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(9, new GenericAISleep<EntityAnimaniaCow>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.cowBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.cowBed2), EntityAnimaniaCow.class));
 		}
 		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
-		this.tasks.addTask(11, new GenericAILookIdle(this));
-		this.tasks.addTask(12, new GenericAIFindSaltLick(this, 1.0, entityAIEatGrass));
-		this.tasks.addTask(13, new GenericAIAvoidWater(this));
-		this.targetTasks.addTask(14, new GenericAIHurtByTarget(this, false, new Class[0]));
+		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaCow>(this));
+		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaCow>(this, 1.0, entityAIEatGrass));
+		this.targetTasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
-			this.targetTasks.addTask(1, new GenericAIHurtByTarget(this, false, EntityPlayer.class));
+			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, EntityPlayer.class));
 		}
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);

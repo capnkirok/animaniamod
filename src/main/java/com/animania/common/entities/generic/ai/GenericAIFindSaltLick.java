@@ -16,15 +16,15 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GenericAIFindSaltLick extends GenericAISearchBlock
+public class GenericAIFindSaltLick<T extends EntityCreature & ISleeping> extends GenericAISearchBlock
 {
 
-	private final EntityCreature entity;
+	private final T entity;
 	private final double speed;
 	private EntityAIBase eatAI;
 	private int delay;
 
-	public GenericAIFindSaltLick(EntityCreature creature, double speedIn, @Nullable EntityAIBase eatAI)
+	public GenericAIFindSaltLick(T creature, double speedIn, @Nullable EntityAIBase eatAI)
 	{
 		super(creature, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, EnumFacing.HORIZONTALS);
 		this.entity = creature;
@@ -37,31 +37,18 @@ public class GenericAIFindSaltLick extends GenericAISearchBlock
 	@Override
 	public boolean shouldExecute()
 	{
-		delay++;
+		if (++delay <= AnimaniaConfig.careAndFeeding.saltLickTick)
+			return false;
+		delay = 0;
 
-		if (delay > AnimaniaConfig.careAndFeeding.saltLickTick || entity.getHealth() < entity.getMaxHealth())
-		{
-			this.delay = 0;
+		if (entity.getHealth() >= entity.getMaxHealth() ||
+				entity.isBeingRidden() ||
+				entity.getSleeping() ||
+				(entity instanceof EntityAnimaniaPig && entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud) ||
+				entity.getRNG().nextInt(3) != 0)
+			return false;
 
-			if (this.entity instanceof ISleeping)
-			{
-				if (((ISleeping) entity).getSleeping())
-				{
-					return false;
-				}
-			}
-
-			if (entity instanceof EntityAnimaniaPig)
-			{
-				if (entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud)
-					return false;
-			}
-
-			if (entity.getRNG().nextInt(3) == 0)
-				return super.shouldExecute();
-		}
-
-		return false;
+		return super.shouldExecute();
 	}
 
 	@Override

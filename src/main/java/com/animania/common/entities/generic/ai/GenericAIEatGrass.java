@@ -18,18 +18,18 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GenericAIEatGrass extends GenericAISearchBlock
+public class GenericAIEatGrass<T extends EntityCreature & ISleeping & IFoodEating> extends GenericAISearchBlock
 {
 
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final EntityCreature grassEaterEntity;
+	private final T grassEaterEntity;
 	private final World entityWorld;
 	public int eatingGrassTimer;
 	public boolean eatsGrass;
 	private int timer;
 	private boolean isEating = false;
 
-	public GenericAIEatGrass(EntityCreature grassEaterEntityIn, boolean eatsGrass)
+	public GenericAIEatGrass(T grassEaterEntityIn, boolean eatsGrass)
 	{
 		super(grassEaterEntityIn, 1.0, 8, EnumFacing.UP);
 		this.grassEaterEntity = grassEaterEntityIn;
@@ -38,7 +38,7 @@ public class GenericAIEatGrass extends GenericAISearchBlock
 		this.setMutexBits(7);
 	}
 
-	public GenericAIEatGrass(EntityCreature grassEaterEntityIn)
+	public GenericAIEatGrass(T grassEaterEntityIn)
 	{
 		this(grassEaterEntityIn, true);
 	}
@@ -46,33 +46,15 @@ public class GenericAIEatGrass extends GenericAISearchBlock
 	@Override
 	public boolean shouldExecute()
 	{
-		timer++;
-		if (this.timer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
-		{
+		if (++timer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
-		}
-		else if (timer > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
-		{
-			if (grassEaterEntity instanceof IFoodEating)
-			{
-				if (((IFoodEating) grassEaterEntity).getFed())
-				{
-					return false;
-				}
-			}
-
-			if (grassEaterEntity instanceof ISleeping)
-			{
-				if (((ISleeping) this.grassEaterEntity).getSleeping())
-				{
-					return false;
-				}
-			}
+		timer = 0;
+		if (grassEaterEntity.getSleeping() || grassEaterEntity.getFed())
+			return false;
 
 			if (this.grassEaterEntity.getRNG().nextInt(120) == 0)
 				return super.shouldExecute();
 
-		}
 		return false;
 	}
 

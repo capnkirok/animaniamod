@@ -122,7 +122,7 @@ public class EntityFrogs extends EntityAmphibian
 		if (!this.getCustomNameTag().equals("Pepe"))
 		{
 			this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
-			this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityPlayer.class, 6.0F, 1.5D, 1.5D));
+			this.tasks.addTask(2, new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 6.0F, 1.5D, 1.5D));
 		}
 		else if (this.getCustomNameTag().equals("Pepe"))
 		{
@@ -130,9 +130,9 @@ public class EntityFrogs extends EntityAmphibian
 			this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
 			this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
 			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityFerretBase.class, true));
-			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityHedgehog.class, true));
-			this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, true));
+			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityFerretBase>(this, EntityFerretBase.class, true));
+			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<EntityHedgehog>(this, EntityHedgehog.class, true));
+			this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityHedgehogAlbino>(this, EntityHedgehogAlbino.class, true));
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20);
 		}
