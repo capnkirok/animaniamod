@@ -27,7 +27,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	protected BlockPos destinationBlock = NO_POS;
 	private boolean isAtDestination;
 	protected final int searchRange;
-	protected World world;	
+	protected World world;
 	protected List<EnumFacing> destinationOffset;
 	protected BlockPos seekingBlockPos = NO_POS;
 
@@ -36,7 +36,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	private int walkTries = 0;
 	private boolean isDone = false;
 	private Set<BlockPos> nonValidPositions = new HashSet<BlockPos>();
-	
+
 	public static final BlockPos NO_POS = new BlockPos(-1, -1, -1);
 
 	public GenericAISearchBlock(EntityCreature creature, double speedIn, int range, boolean hasSecondary, EnumFacing... destinationOffset)
@@ -51,7 +51,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 		this.hasSecondary = hasSecondary;
 		// this.setMutexBits(5);
 	}
-	
+
 	public GenericAISearchBlock(EntityCreature creature, double speedIn, int range, EnumFacing... destinationOffset)
 	{
 		this(creature, speedIn, range, false, destinationOffset);
@@ -64,7 +64,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	{
 		if (this.seekingBlockPos == NO_POS)
 			return this.searchForDestination();
-		
+
 		return false;
 	}
 
@@ -102,7 +102,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	{
 		if (!shouldContinueExecuting())
 			this.resetTask();
-	
+
 		if (!this.destinationBlock.equals(NO_POS))
 		{
 			double distance = this.creature.getDistanceSqToCenter(this.destinationBlock);
@@ -113,14 +113,14 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 				this.walkTries++;
 
 				boolean isStandingStill = this.creature.prevPosX == this.creature.posX && this.creature.prevPosY == this.creature.posY && this.creature.prevPosZ == this.creature.posZ;
-				
+
 				if (this.walkTries % 40 == 0 || isStandingStill)
 				{
 					this.creature.getNavigator().tryMoveToXYZ((double) ((float) this.destinationBlock.getX()) + 0.5D, (double) (this.destinationBlock.getY()), (double) ((float) this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
 					this.creature.getLookHelper().setLookPosition((double) this.seekingBlockPos.getX() + 0.5D, (double) (this.seekingBlockPos.getY()), (double) this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
-				}					
-				
-				if(isStandingStill && this.walkTries > 100) 
+				}
+
+				if (isStandingStill && this.walkTries > 100)
 				{
 					this.nonValidPositions.add(seekingBlockPos);
 					this.resetTask();
@@ -132,8 +132,8 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 				this.isAtDestination = true;
 				this.walkTries = 0;
 			}
-			
-			if(this.isAtDestination)
+
+			if (this.isAtDestination)
 			{
 				this.nonValidPositions.clear();
 				this.isDone = true;
@@ -145,7 +145,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	{
 		return this.isAtDestination;
 	}
-	
+
 	public void onArriveAtDestination()
 	{
 		this.nonValidPositions.clear();
@@ -174,14 +174,14 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 		BlockPos secondaryDest = null;
 		BlockPos secondarySeek = null;
 		int ySearchRange = searchRange / 2;
-		if(ySearchRange < 1)
+		if (ySearchRange < 1)
 			ySearchRange = 1;
 
 		for (int range = 0; range < this.searchRange; ++range)
 		{
 			for (int y = 0; y <= ySearchRange; y = y > 0 ? -y : 1 - y)
 			{
-				for (int x = 0; x <= range; x = x > 0 ? -x : 1 -x)
+				for (int x = 0; x <= range; x = x > 0 ? -x : 1 - x)
 				{
 					for (int z = x < range && x > -range ? range : 0; z <= range; z = z > 0 ? -z : 1 - z)
 					{
@@ -190,14 +190,13 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 						if (!this.nonValidPositions.contains(blockpos1))
 						{
 							boolean shouldMoveToPrimary = this.shouldMoveTo(this.creature.world, blockpos1);
-							if(shouldMoveToPrimary || 
-									(this.hasSecondary && secondarySeek == null && this.shouldMoveToSecondary(this.creature.world, blockpos1)))
+							if (shouldMoveToPrimary || (this.hasSecondary && secondarySeek == null && this.shouldMoveToSecondary(this.creature.world, blockpos1)))
 							{
-								if(destinationOffset.isEmpty())
+								if (destinationOffset.isEmpty())
 								{
 									if (this.creature.getNavigator().getPathToXYZ(blockpos1.getX() + 0.5, blockpos1.getY(), blockpos1.getZ() + 0.5) != null)
 									{
-										if(shouldMoveToPrimary)
+										if (shouldMoveToPrimary)
 										{
 											this.destinationBlock = blockpos1;
 											this.seekingBlockPos = blockpos1;
@@ -219,7 +218,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 
 										if (this.creature.getNavigator().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
 										{
-											if(shouldMoveToPrimary)
+											if (shouldMoveToPrimary)
 											{
 												this.destinationBlock = offsetPos;
 												this.seekingBlockPos = blockpos1;
@@ -237,11 +236,11 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 			}
 		}
 
-		if(secondarySeek != null)
+		if (secondarySeek != null)
 		{
 			this.destinationBlock = secondaryDest;
- 			this.seekingBlockPos = secondarySeek;
- 			return true;
+			this.seekingBlockPos = secondarySeek;
+			return true;
 		}
 
 		return false;
@@ -277,7 +276,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	 * Return true to set given position as destination
 	 */
 	protected abstract boolean shouldMoveTo(World worldIn, BlockPos pos);
-	
+
 	protected boolean shouldMoveToSecondary(World worldIn, BlockPos pos)
 	{
 		return false;

@@ -48,12 +48,17 @@ public class GenericAIEatGrass<T extends EntityCreature & ISleeping & IFoodEatin
 	{
 		if (++timer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
-		timer = 0;
 		if (grassEaterEntity.getSleeping() || grassEaterEntity.getFed())
+		{
+			timer = 0;
 			return false;
+		}
 
-			if (this.grassEaterEntity.getRNG().nextInt(120) == 0)
-				return super.shouldExecute();
+		if (this.grassEaterEntity.getRNG().nextInt(120) == 0)
+		{
+			timer = 0;
+			return super.shouldExecute();
+		}
 
 		return false;
 	}

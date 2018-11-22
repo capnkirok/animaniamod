@@ -42,14 +42,17 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleepin
 	{
 		if (++foodDelay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
-		foodDelay = 0;
 
-		if (entity.getFed() ||
-				entity.isBeingRidden() ||
-				entity.getSleeping() ||
-				entity.getRNG().nextInt(3) != 0)
+		if (entity.getFed() || entity.isBeingRidden() || entity.getSleeping())
+		{
+			foodDelay = 0;
+			return false;
+		}
+
+		if (entity.getRNG().nextInt(3) != 0)
 			return false;
 
+		foodDelay = 0;
 		return super.shouldExecute();
 	}
 
@@ -58,7 +61,7 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleepin
 	{
 		return super.shouldContinueExecuting() && !entity.getFed();
 	}
-	
+
 	@Override
 	public void updateTask()
 	{
@@ -73,7 +76,7 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleepin
 
 			if (block == BlockHandler.blockTrough || block == BlockHandler.blockInvisiblock)
 			{
-				TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(seekingBlockPos) : ((TileEntityInvisiblock)world.getTileEntity(seekingBlockPos)).getTrough();
+				TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(seekingBlockPos) : ((TileEntityInvisiblock) world.getTileEntity(seekingBlockPos)).getTrough();
 				if (trough != null)
 				{
 					if (trough.canConsume(entity.getFoodItems(), entity.getFoodFluid()))
@@ -88,7 +91,7 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleepin
 						entity.setHandFed(true);
 
 						entity.world.updateComparatorOutputLevel(seekingBlockPos, block);
-						
+
 						this.foodDelay = 0;
 					}
 				}
@@ -103,7 +106,7 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleepin
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
 					entity.world.destroyBlock(seekingBlockPos, false);
 			}
-			
+
 			this.foodDelay = 0;
 		}
 	}
@@ -116,7 +119,7 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleepin
 
 		if (block == BlockHandler.blockTrough || block == BlockHandler.blockInvisiblock)
 		{
-			TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(pos) : ((TileEntityInvisiblock)world.getTileEntity(pos)).getTrough();
+			TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(pos) : ((TileEntityInvisiblock) world.getTileEntity(pos)).getTrough();
 			if (trough != null)
 			{
 				if (trough.canConsume(entity.getFoodItems(), entity.getFoodFluid()))
@@ -126,13 +129,13 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleepin
 
 		return false;
 	}
-	
+
 	@Override
 	protected boolean shouldMoveToSecondary(World worldIn, BlockPos pos)
 	{
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		
+
 		if (eatBlocks)
 		{
 			if (isBlockFood(block))

@@ -54,16 +54,19 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleepi
 	@Override
 	public boolean shouldExecute()
 	{
-		if (++waterFindTimer <= AnimaniaConfig.careAndFeeding.saltLickTick)
+		if (++waterFindTimer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
+
+		if (entity.getWatered() || entity.isBeingRidden() || entity.getSleeping())
+		{
+			waterFindTimer = 0;
+			return false;
+		}
+		
+		if(entity.getRNG().nextInt(3) != 0)
+			return false;
+
 		waterFindTimer = 0;
-
-		if (entity.getWatered() ||
-				entity.isBeingRidden() ||
-				entity.getSleeping() ||
-				entity.getRNG().nextInt(3) != 0)
-			return false;
-
 		return super.shouldExecute();
 	}
 
@@ -87,7 +90,7 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleepi
 
 			if (block == BlockHandler.blockTrough || block == BlockHandler.blockInvisiblock)
 			{
-				TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(seekingBlockPos) : ((TileEntityInvisiblock)world.getTileEntity(seekingBlockPos)).getTrough();
+				TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(seekingBlockPos) : ((TileEntityInvisiblock) world.getTileEntity(seekingBlockPos)).getTrough();
 				if (trough != null)
 				{
 					if (trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
@@ -119,7 +122,7 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleepi
 
 				this.waterFindTimer = 0;
 			}
-			
+
 		}
 	}
 
@@ -131,7 +134,7 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleepi
 
 		if (block == BlockHandler.blockTrough || block == BlockHandler.blockInvisiblock)
 		{
-			TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(pos) : ((TileEntityInvisiblock)world.getTileEntity(pos)).getTrough();
+			TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(pos) : ((TileEntityInvisiblock) world.getTileEntity(pos)).getTrough();
 			if (trough != null)
 			{
 				if (trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))

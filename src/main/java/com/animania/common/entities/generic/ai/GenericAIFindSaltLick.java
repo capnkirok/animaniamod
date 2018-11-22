@@ -39,15 +39,17 @@ public class GenericAIFindSaltLick<T extends EntityCreature & ISleeping> extends
 	{
 		if (++delay <= AnimaniaConfig.careAndFeeding.saltLickTick)
 			return false;
-		delay = 0;
 
-		if (entity.getHealth() >= entity.getMaxHealth() ||
-				entity.isBeingRidden() ||
-				entity.getSleeping() ||
-				(entity instanceof EntityAnimaniaPig && entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud) ||
-				entity.getRNG().nextInt(3) != 0)
+		if (entity.getHealth() >= entity.getMaxHealth() || entity.isBeingRidden() || entity.getSleeping() || (entity instanceof EntityAnimaniaPig && entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud))
+		{
+			delay = 0;
+			return false;
+		}
+		
+		if(entity.getRNG().nextInt(3) != 0)
 			return false;
 
+		delay = 0;
 		return super.shouldExecute();
 	}
 
@@ -66,7 +68,7 @@ public class GenericAIFindSaltLick<T extends EntityCreature & ISleeping> extends
 				eatAI.startExecuting();
 				BlockSaltLick salt = (BlockSaltLick) block;
 				salt.useSaltLick(world, seekingBlockPos, this.entity);
-				
+
 				this.delay = 0;
 			}
 		}
