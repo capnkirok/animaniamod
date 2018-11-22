@@ -18,7 +18,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GenericAIEatGrass<T extends EntityCreature & ISleeping> extends GenericAISearchBlock
+public class GenericAIEatGrass<T extends EntityCreature & ISleeping & IFoodEating> extends GenericAISearchBlock
 {
 
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
@@ -49,7 +49,7 @@ public class GenericAIEatGrass<T extends EntityCreature & ISleeping> extends Gen
 		if (++timer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
 		timer = 0;
-		if (grassEaterEntity.getSleeping())
+		if (grassEaterEntity.getSleeping() || grassEaterEntity.getFed())
 			return false;
 
 			if (this.grassEaterEntity.getRNG().nextInt(120) == 0)
