@@ -18,7 +18,7 @@ public class GenericAIPanic<T extends EntityCreature> extends EntityAIPanic
 	public boolean shouldExecute()
 	{
 
-		if (creature instanceof EntityCowBase || creature instanceof EntityBullBase) {
+		if (creature.getRevengeTarget() != null && (creature instanceof EntityCowBase || creature instanceof EntityBullBase)) {
 			return false;
 		}
 
