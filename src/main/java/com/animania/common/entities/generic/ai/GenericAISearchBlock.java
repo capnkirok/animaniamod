@@ -187,57 +187,48 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 					{
 						BlockPos blockpos1 = blockpos.add(x, y - 1, z);
 
-						if (this.shouldMoveTo(this.creature.world, blockpos1) && !this.nonValidPositions.contains(blockpos1))
+						if (!this.nonValidPositions.contains(blockpos1))
 						{
-							Collections.shuffle(destinationOffset);
-
-							for (EnumFacing facing : destinationOffset)
+							boolean shouldMoveToPrimary = this.shouldMoveTo(this.creature.world, blockpos1);
+							if(shouldMoveToPrimary || 
+									(this.hasSecondary && secondarySeek == null && this.shouldMoveToSecondary(this.creature.world, blockpos1)))
 							{
-								AxisAlignedBB aabb = world.getBlockState(blockpos1).getCollisionBoundingBox(world, blockpos1);
-
-								BlockPos offsetPos = aabb == Block.NULL_AABB ? blockpos1 : blockpos1.offset(facing);
-
-								if (this.creature.getNavigator().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
+								if(destinationOffset.isEmpty())
 								{
-									this.destinationBlock = offsetPos;
-									this.seekingBlockPos = blockpos1;
-									return true;
+									if (this.creature.getNavigator().getPathToXYZ(blockpos1.getX() + 0.5, blockpos1.getY(), blockpos1.getZ() + 0.5) != null)
+									{
+										if(shouldMoveToPrimary)
+										{
+											this.destinationBlock = blockpos1;
+											this.seekingBlockPos = blockpos1;
+											return true;
+										}
+										secondaryDest = blockpos1;
+										secondarySeek = blockpos1;
+									}
 								}
-							}
-							
-							if(destinationOffset.isEmpty())
-							{
-								if (this.creature.getNavigator().getPathToXYZ(blockpos1.getX() + 0.5, blockpos1.getY(), blockpos1.getZ() + 0.5) != null)
+								else
 								{
-									this.destinationBlock = blockpos1;
-									this.seekingBlockPos = blockpos1;
-									return true;
-								}
-							}
-						}
-						else if (this.hasSecondary && secondarySeek == null && this.shouldMoveToSecondary(this.creature.world, blockpos1) && !this.nonValidPositions.contains(blockpos1))
-						{
-							Collections.shuffle(destinationOffset);
+									Collections.shuffle(destinationOffset);
 
-							for (EnumFacing facing : destinationOffset)
-							{
-								AxisAlignedBB aabb = world.getBlockState(blockpos1).getCollisionBoundingBox(world, blockpos1);
+									for (EnumFacing facing : destinationOffset)
+									{
+										AxisAlignedBB aabb = world.getBlockState(blockpos1).getCollisionBoundingBox(world, blockpos1);
 
-								BlockPos offsetPos = aabb == Block.NULL_AABB ? blockpos1 : blockpos1.offset(facing);
+										BlockPos offsetPos = aabb == Block.NULL_AABB ? blockpos1 : blockpos1.offset(facing);
 
-								if (this.creature.getNavigator().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
-								{
-									secondaryDest = offsetPos;
-									secondarySeek = blockpos1;
-								}
-							}
-							
-							if(destinationOffset.isEmpty())
-							{
-								if (this.creature.getNavigator().getPathToXYZ(blockpos1.getX() + 0.5, blockpos1.getY(), blockpos1.getZ() + 0.5) != null)
-								{
-									secondaryDest = blockpos1;
-									secondarySeek = blockpos1;
+										if (this.creature.getNavigator().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
+										{
+											if(shouldMoveToPrimary)
+											{
+												this.destinationBlock = offsetPos;
+												this.seekingBlockPos = blockpos1;
+												return true;
+											}
+											secondaryDest = offsetPos;
+											secondarySeek = blockpos1;
+										}
+									}
 								}
 							}
 						}
