@@ -99,12 +99,13 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 		this.blinkTimer = 80 + this.rand.nextInt(80);
 		this.enablePersistence();
 		this.slop = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
+		this.entityAIEatGrass = new EntityAIPigSnuffle(this);
+		this.tasks.addTask(11, this.entityAIEatGrass);
 	}
 
 	@Override
 	protected void initEntityAI()
 	{
-		this.entityAIEatGrass = new EntityAIPigSnuffle(this);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIFindMud(this, 1.2D));
 		this.tasks.addTask(2, new GenericAIWanderAvoidWater(this, 1.0D));
@@ -121,7 +122,6 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 		this.tasks.addTask(9, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, Items.CARROT_ON_A_STICK, false));
 		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
 		this.tasks.addTask(10, new EntityAITemptItemStack(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
-		this.tasks.addTask(11, this.entityAIEatGrass);
 		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaPig>(this, 1.0, entityAIEatGrass));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));;
 		this.tasks.addTask(15, new GenericAILookIdle<EntityAnimaniaPig>(this));

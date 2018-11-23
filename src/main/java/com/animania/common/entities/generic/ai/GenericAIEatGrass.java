@@ -128,7 +128,7 @@ public class GenericAIEatGrass<T extends EntityCreature & ISleeping & IFoodEatin
 					{
 
 						String name = block.getRegistryName().toString();
-						if (Loader.isModLoaded("desirepaths") && ((name.contains("desirepaths:grass_worn_") && (name.endsWith("1") || name.endsWith("2") || name.endsWith("3"))) || block instanceof BlockGrass) )
+						if (Loader.isModLoaded("desirepaths") && ((name.contains("desirepaths:grass_worn_") && (name.endsWith("1") || name.endsWith("2") || name.endsWith("3"))) || block instanceof BlockGrass))
 							this.entityWorld.setBlockState(this.seekingBlockPos, Block.getBlockFromName("desirepaths:grass_worn_6").getDefaultState());
 						else
 							this.entityWorld.setBlockState(this.seekingBlockPos, Blocks.DIRT.getDefaultState(), 2);

@@ -21,7 +21,7 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 
 	private Block bedBlock;
 	private Block bedBlock2;
-			
+
 	public GenericAISleep(T entity, double speedIn, Block bed1, Block bed2, Class parentClass)
 	{
 		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, true, EnumFacing.UP);
@@ -40,9 +40,7 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 		}
 		if (entity.getSleeping())
 		{
-			if (entity.world.isDaytime() ||
-					entity.isBurning() ||
-					(entity.world.isRaining() && entity.world.canSeeSky(entity.getPosition())))
+			if (entity.world.isDaytime() || entity.isBurning() || (entity.world.isRainingAt(entity.getPosition()) && entity.world.canSeeSky(entity.getPosition())))
 			{
 				entity.setSleeping(false);
 				entity.setSleepingPos(NO_POS);
@@ -51,9 +49,9 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 			return false;
 		}
 
-		return !entity.world.isDaytime() && this.entity.getRNG().nextInt(3) == 0 ? super.shouldExecute() : false;
+		return !entity.world.isDaytime() && !entity.world.isRainingAt(entity.getPosition()) && this.entity.getRNG().nextInt(3) == 0 ? super.shouldExecute() : false;
 	}
-	
+
 	@Override
 	public void updateTask()
 	{
@@ -63,7 +61,7 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 		{
 			entity.setSleeping(true);
 			entity.setSleepingPos(entity.getPosition());
-			
+
 			this.delay = 0;
 		}
 	}
@@ -73,35 +71,35 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 	{
 		return super.shouldContinueExecuting() && !entity.getSleeping();
 	}
-	
+
 	@Override
 	public void resetTask()
 	{
 		super.resetTask();
 	}
-	
+
 	@Override
 	protected boolean shouldMoveTo(World worldIn, BlockPos pos)
 	{
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		
-		if(block == this.bedBlock)
+
+		if (block == this.bedBlock)
 			return true;
-			
+
 		return false;
 	}
-	
+
 	@Override
 	protected boolean shouldMoveToSecondary(World world, BlockPos pos)
 	{
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		
-		if(block == this.bedBlock2)
+
+		if (block == this.bedBlock2)
 			return true;
-			
+
 		return false;
 	}
-	
+
 }
