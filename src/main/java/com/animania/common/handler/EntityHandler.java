@@ -187,10 +187,12 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 public class EntityHandler
 {
 
+	public static int entityID = 0;
+
+	
 	public static void preInit()
 	{
 
-		int entityID = 0;
 
 		// HORSES
 		RegistryHelper.Entities.registerAnimal(EntityMareDraftHorse.class, "mare_draft", entityID++, HorseType.DRAFT, EntityGender.FEMALE);

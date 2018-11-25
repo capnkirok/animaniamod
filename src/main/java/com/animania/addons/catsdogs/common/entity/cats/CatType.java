@@ -10,9 +10,15 @@ import net.minecraft.world.World;
 
 public enum CatType implements AnimaniaType
 {
-
-	RAGDOLL(EntityTomRagdoll.class, EntityQueenRagdoll.class, EntityKittenRagdoll.class); //TODO achievement
-
+	OCELOT(EntityTomOcelot.class, EntityQueenOcelot.class, EntityKittenOcelot.class),
+	ASIATIC(EntityTomAsiatic.class, EntityQueenAsiatic.class, EntityKittenAsiatic.class),
+	RAGDOLL(EntityTomRagdoll.class, EntityQueenRagdoll.class, EntityKittenRagdoll.class), 
+	NORWEGIAN(EntityTomNorwegian.class, EntityQueenNorwegian.class, EntityKittenNorwegian.class), 
+	EXOTIC(EntityTomExotic.class, EntityQueenExotic.class, EntityKittenExotic.class), 
+	AMERICAN_SHORTHAIR(EntityTomAmericanShorthair.class, EntityQueenAmericanShorthair.class, EntityKittenAmericanShorthair.class), 
+	SIAMESE(EntityTomSiamese.class, EntityQueenSiamese.class, EntityKittenSiamese.class), 
+	TABBY(EntityTomTabby.class, EntityQueenTabby.class, EntityKittenTabby.class);
+	
 	private Class male;
 	private Class female;
 	private Class child;

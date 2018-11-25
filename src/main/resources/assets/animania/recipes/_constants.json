@@ -33,5 +33,14 @@
 			"fluid": "slop"
 		}
 	
+	},
+	{
+		"name": "HONEY",
+		"ingredient":
+		{
+			"type": "animania:filled_bucket",
+			"fluid": "animania_honey"
+		}
+	
 	}
 ]

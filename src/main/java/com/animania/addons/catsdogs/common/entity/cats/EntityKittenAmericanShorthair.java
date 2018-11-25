@@ -2,23 +2,23 @@ package com.animania.addons.catsdogs.common.entity.cats;
 
 import net.minecraft.world.World;
 
-public class EntityTomRagdoll extends EntityTomBase
+public class EntityKittenAmericanShorthair extends EntityKittenBase
 {
-	public EntityTomRagdoll(World worldIn)
+	public EntityKittenAmericanShorthair(World worldIn)
 	{
 		super(worldIn);
-		this.type = CatType.RAGDOLL;
+		this.type = CatType.AMERICAN_SHORTHAIR;
 	}
 
 	@Override
 	public int getPrimaryEggColor()
 	{
-		return 13948116;
+		return 0x717171;
 	}
 
 	@Override
 	public int getSecondaryEggColor()
 	{
-		return 8741209;
+		return 0x000000;
 	}
 }

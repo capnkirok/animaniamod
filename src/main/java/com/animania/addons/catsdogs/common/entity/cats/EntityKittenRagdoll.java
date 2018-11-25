@@ -2,7 +2,7 @@ package com.animania.addons.catsdogs.common.entity.cats;
 
 import net.minecraft.world.World;
 
-public class EntityKittenRagdoll extends EntityAnimaniaCat {
+public class EntityKittenRagdoll extends EntityKittenBase {
 	public EntityKittenRagdoll(World worldIn)
 	{
 		super(worldIn);

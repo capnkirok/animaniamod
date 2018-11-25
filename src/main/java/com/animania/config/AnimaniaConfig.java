@@ -25,6 +25,7 @@ public class AnimaniaConfig
 	public static CommonConfig.GameRules gameRules = new CommonConfig.GameRules();
 //	public static CommonConfig.Drops drops = new CommonConfig.Drops();
 	public static CommonConfig.Spawn spawn = new CommonConfig.Spawn();
+	@Config.RequiresMcRestart
 	public static CommonConfig.SpawnLocations spawnLocations = new CommonConfig.SpawnLocations();
 	public static CommonConfig.CareAndFeeding careAndFeeding = new CommonConfig.CareAndFeeding();
 	public static CommonConfig.FoodValues foodValues = new CommonConfig.FoodValues();

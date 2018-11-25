@@ -49,7 +49,7 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityQueenBase.class, DataSerializers.VARINT);
 	public int dryTimer;
 
-	public EntityQueenBase(World worldIn, CatType type)
+	public EntityQueenBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(0.8F, 0.8F); 
@@ -57,7 +57,6 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 		this.height = 0.8F;
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.FEMALE;
-		this.type = type;
 	}
 
 	@Override

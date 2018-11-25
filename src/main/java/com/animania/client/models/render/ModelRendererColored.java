@@ -1,9 +1,4 @@
-package com.animania.client.models;
-
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
-
-import org.lwjgl.opengl.GL11;
+package com.animania.client.models.render;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

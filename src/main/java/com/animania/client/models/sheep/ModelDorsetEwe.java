@@ -1,7 +1,7 @@
 package com.animania.client.models.sheep;
 
 import com.animania.client.models.IColoredModel;
-import com.animania.client.models.ModelRendererColored;
+import com.animania.client.models.render.ModelRendererColored;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityEweDorset;
 import com.animania.common.entities.sheep.EntityLambDorset;

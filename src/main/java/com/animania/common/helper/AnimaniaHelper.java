@@ -48,6 +48,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -516,4 +518,14 @@ public class AnimaniaHelper
 		return res;
 	}
 	
+	public static boolean hasBiomeType(Biome biome, Type... types)
+	{		
+		for(Type t : types)
+		{
+			if(BiomeDictionary.hasType(biome, t))
+				return true;
+		}
+		
+		return false;
+	}
 }
