@@ -1,4 +1,4 @@
-package com.animania.common.api.interfaces;
+package com.animania.api.interfaces;
 
 import com.animania.common.entities.EntityGender;
 

@@ -29,8 +29,8 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import com.animania.Animania;
-import com.animania.common.api.interfaces.IAnimaniaAnimal;
-import com.animania.common.api.interfaces.ISterilizable;
+import com.animania.api.interfaces.IAnimaniaAnimal;
+import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;

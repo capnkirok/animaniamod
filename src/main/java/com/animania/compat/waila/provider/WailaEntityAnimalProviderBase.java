@@ -2,7 +2,7 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
-import com.animania.common.api.interfaces.ISterilizable;
+import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;

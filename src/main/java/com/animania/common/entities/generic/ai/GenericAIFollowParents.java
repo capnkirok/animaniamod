@@ -2,9 +2,9 @@ package com.animania.common.entities.generic.ai;
 
 import java.util.List;
 
-import com.animania.common.api.interfaces.IChild;
-import com.animania.common.api.interfaces.IMateable;
-import com.animania.common.api.interfaces.ISleeping;
+import com.animania.api.interfaces.IChild;
+import com.animania.api.interfaces.IMateable;
+import com.animania.api.interfaces.ISleeping;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.EntityPigletBase;
 import com.animania.common.entities.pigs.EntitySowBase;

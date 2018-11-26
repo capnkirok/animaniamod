@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.animania.Animania;
+import com.animania.api.interfaces.ISpawnable;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.api.interfaces.ISpawnable;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.AnimaniaType;
 import com.animania.common.entities.EntityGender;
@@ -133,7 +133,7 @@ public class ItemEntityEgg extends Item
 	{
 		return I18n.translateToLocal("entity.animania:" + stack.getItem().getRegistryName().getResourcePath().replace("entity_egg_", "") + ".name");
 	}
-
+	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{

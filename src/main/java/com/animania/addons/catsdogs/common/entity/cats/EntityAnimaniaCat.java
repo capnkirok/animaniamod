@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
-import com.animania.common.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.amphibians.EntityFrogs;
@@ -31,6 +31,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -109,8 +110,8 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		}
 		this.tasks.addTask(4, this.aiSit);
 		this.tasks.addTask(5, new EntityAILeapAtTarget(this, 0.4F));
-		this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.5D, true));
-		this.tasks.addTask(7, new GenericAIFollowOwner<EntityAnimaniaCat>(this, 1.0D, 5.0F, 30.0F));
+		this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.0D, true));
+		this.tasks.addTask(7, new GenericAIFollowOwner<EntityAnimaniaCat>(this, 1.5D, 5.0F, 30.0F));
 		this.tasks.addTask(8, new GenericAIPanic<EntityAnimaniaCat>(this, 1.5D));
 		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaCat>(this, 1.2D, false, TEMPTATION_ITEMS)); // TODO
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
@@ -215,6 +216,12 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	public void setInLove(EntityPlayer player)
 	{
 		this.world.setEntityState(this, (byte) 18);
+	}
+
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn)
+	{
+		return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 2.5F);
 	}
 
 	@Override

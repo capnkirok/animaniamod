@@ -1,1 +1,26 @@
 manual.catsdogs=Cats & Dogs
+
+entity.animania:tom_ragdoll.name=Ragdoll Tom
+entity.animania:tom_american_shorthair.name=American Shorthair Tom
+entity.animania:tom_asiatic.name=Asiatic Tom
+entity.animania:tom_exotic.name=Exotic Tom
+entity.animania:tom_norwegian.name=Norwegian Tom
+entity.animania:tom_ocelot.name=Ocelot Tom
+entity.animania:tom_siamese.name=Siamese Tom
+entity.animania:tom_tabby.name=Tabby Tom
+entity.animania:queen_ragdoll.name=Ragdoll Queen
+entity.animania:queen_american_shorthair.name=American Shorthair Queen
+entity.animania:queen_asiatic.name=Asiatic Queen
+entity.animania:queen_exotic.name=Exotic Queen
+entity.animania:queen_norwegian.name=Norwegian Queen
+entity.animania:queen_ocelot.name=Ocelot Queen
+entity.animania:queen_siamese.name=Siamese Queen
+entity.animania:queen_tabby.name=Tabby Queen
+entity.animania:kitten_ragdoll.name=Ragdoll Kitten
+entity.animania:kitten_american_shorthair.name=American Shorthair Kitten
+entity.animania:kitten_asiatic.name=Asiatic Kitten
+entity.animania:kitten_exotic.name=Exotic Kitten
+entity.animania:kitten_norwegian.name=Norwegian Kitten
+entity.animania:kitten_ocelot.name=Ocelot Kitten
+entity.animania:kitten_siamese.name=Siamese Kitten
+entity.animania:kitten_tabby.name=Tabby Kitten

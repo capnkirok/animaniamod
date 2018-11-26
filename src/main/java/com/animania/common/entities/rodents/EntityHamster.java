@@ -7,8 +7,8 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
+import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;

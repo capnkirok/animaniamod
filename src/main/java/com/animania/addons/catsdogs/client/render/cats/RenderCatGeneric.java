@@ -1,8 +1,8 @@
 package com.animania.addons.catsdogs.client.render.cats;
 
 import com.animania.addons.catsdogs.common.entity.cats.EntityAnimaniaCat;
+import com.animania.api.interfaces.IChild;
 import com.animania.client.render.layer.LayerBlinking;
-import com.animania.common.api.interfaces.IChild;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;

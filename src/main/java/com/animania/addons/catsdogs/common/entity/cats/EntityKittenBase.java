@@ -5,8 +5,8 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
+import com.animania.api.interfaces.IChild;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.api.interfaces.IChild;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
 import com.animania.common.entities.pigs.EntityHogBase;

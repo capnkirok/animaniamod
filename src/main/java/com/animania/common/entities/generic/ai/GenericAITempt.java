@@ -2,7 +2,7 @@ package com.animania.common.entities.generic.ai;
 
 import java.util.Set;
 
-import com.animania.common.api.interfaces.ISleeping;
+import com.animania.api.interfaces.ISleeping;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAITempt;

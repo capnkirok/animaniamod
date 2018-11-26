@@ -1,7 +1,7 @@
 package com.animania.common.entities.generic.ai;
 
-import com.animania.common.api.interfaces.IFoodEating;
-import com.animania.common.api.interfaces.ISleeping;
+import com.animania.api.interfaces.IFoodEating;
+import com.animania.api.interfaces.ISleeping;
 import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.config.AnimaniaConfig;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.animania.Animania;
-import com.animania.common.api.interfaces.ISpawnable;
+import com.animania.api.interfaces.ISpawnable;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.RandomAnimalType;

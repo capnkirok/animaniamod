@@ -2,14 +2,14 @@ package com.animania.client.render.layer;
 
 import java.awt.Color;
 
+import com.animania.api.interfaces.IBlinking;
+import com.animania.api.interfaces.ISleeping;
 import com.animania.client.models.IColoredModel;
 import com.animania.client.models.ModelDraftHorseFoal;
 import com.animania.client.models.ModelDraftHorseMare;
 import com.animania.client.models.ModelDraftHorseStallion;
 import com.animania.client.models.ModelPiglet;
 import com.animania.client.models.ModelPigletHampshire;
-import com.animania.common.api.interfaces.IBlinking;
-import com.animania.common.api.interfaces.ISleeping;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.common.entities.sheep.EntityEweJacob;
 import com.animania.common.entities.sheep.EntityLambJacob;

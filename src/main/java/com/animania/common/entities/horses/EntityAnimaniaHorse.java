@@ -7,7 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
-import com.animania.common.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;

@@ -2,7 +2,7 @@ package com.animania.common.entities.generic.ai;
 
 import java.util.Collections;
 
-import com.animania.common.api.interfaces.ISleeping;
+import com.animania.api.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;

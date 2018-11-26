@@ -10,7 +10,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-import com.animania.common.api.interfaces.IGendered;
+import com.animania.api.interfaces.IGendered;
 import com.animania.common.entities.EntityGender;
 import com.animania.compat.top.providers.TOPInfoEntityProvider;
 import com.animania.config.AnimaniaConfig;

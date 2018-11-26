@@ -1,6 +1,6 @@
 package com.animania.common.entities.generic.ai;
 
-import com.animania.common.api.interfaces.ISleeping;
+import com.animania.api.interfaces.ISleeping;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;

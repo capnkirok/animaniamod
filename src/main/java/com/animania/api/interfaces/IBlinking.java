@@ -1,4 +1,4 @@
-package com.animania.common.api.interfaces;
+package com.animania.api.interfaces;
 
 public interface IBlinking
 {
