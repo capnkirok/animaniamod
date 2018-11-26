@@ -1,8 +1,8 @@
 package com.animania.common.entities.generic.ai;
 
+import com.animania.common.api.interfaces.ISleeping;
 import com.animania.common.entities.cows.EntityBullBase;
 import com.animania.common.entities.cows.EntityCowBase;
-import com.animania.common.entities.interfaces.ISleeping;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIPanic;

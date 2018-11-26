@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.AnimalContainer;
@@ -31,7 +32,6 @@ import com.animania.common.entities.generic.ai.GenericAISwimmingSmallCreatures;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.rodents.ai.EntityAIFerretFindNests;
 import com.animania.common.entities.rodents.ai.EntityAIRodentEat;
 import com.animania.common.helper.AnimaniaHelper;

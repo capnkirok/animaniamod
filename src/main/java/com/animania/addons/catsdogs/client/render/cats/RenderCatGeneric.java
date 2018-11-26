@@ -1,10 +1,8 @@
 package com.animania.addons.catsdogs.client.render.cats;
 
-import org.lwjgl.opengl.GL11;
-
-import com.animania.addons.catsdogs.client.models.cats.ModelCatRagdoll;
 import com.animania.addons.catsdogs.common.entity.cats.EntityAnimaniaCat;
 import com.animania.client.render.layer.LayerBlinking;
+import com.animania.common.api.interfaces.IChild;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -37,8 +35,15 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 
 	protected void preRenderScale(EntityAnimaniaCat entity, float f)
 	{
-		GL11.glScalef(scale, scale, scale);
-		GL11.glTranslatef(0f, 0f, -0.5f);
+		if (entity instanceof IChild)
+		{
+			float age = ((IChild) entity).getEntityAge();
+			GlStateManager.scale(scale + age, scale + age, scale + age);
+		}
+		else
+			GlStateManager.scale(scale, scale, scale);
+
+//		GlStateManager.translate(0f, 0f, -0.5f);
 		EntityAnimaniaCat entityCat = (EntityAnimaniaCat) entity;
 		if (entityCat.getSleeping())
 		{
@@ -80,7 +85,7 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 		int eye;
 		float scale;
 		ModelBase model;
-		
+
 		public Factory(ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeCol, float scale)
 		{
 			this.tex = texture;

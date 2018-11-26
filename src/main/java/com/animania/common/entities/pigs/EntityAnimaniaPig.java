@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.animania.Animania;
+import com.animania.common.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
@@ -15,7 +16,6 @@ import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.pigs.ai.EntityAIFindMud;
 import com.animania.common.entities.pigs.ai.EntityAIPigSnuffle;
 import com.animania.common.entities.pigs.ai.EntityAITemptItemStack;

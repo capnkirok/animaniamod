@@ -1,6 +1,6 @@
 package com.animania.common.entities.generic.ai;
 
-import com.animania.common.entities.interfaces.ISleeping;
+import com.animania.common.api.interfaces.ISleeping;
 
 import net.minecraft.entity.ai.EntityAIFollowOwner;
 import net.minecraft.entity.passive.EntityTameable;

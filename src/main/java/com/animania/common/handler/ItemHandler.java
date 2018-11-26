@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.animania.Animania;
+import com.animania.common.api.interfaces.ISpawnable;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.RandomAnimalType;
@@ -13,7 +14,6 @@ import com.animania.common.entities.amphibians.AmphibianType;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.goats.GoatType;
-import com.animania.common.entities.interfaces.ISpawnable;
 import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.rodents.rabbits.RabbitType;

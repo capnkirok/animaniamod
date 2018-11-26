@@ -1,4 +1,4 @@
-package com.animania.common.entities.interfaces;
+package com.animania.common.api.interfaces;
 
 import java.util.Set;
 

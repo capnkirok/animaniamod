@@ -1,6 +1,6 @@
 package com.animania.common.entities.generic.ai;
 
-import com.animania.common.entities.interfaces.ISleeping;
+import com.animania.common.api.interfaces.ISleeping;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 

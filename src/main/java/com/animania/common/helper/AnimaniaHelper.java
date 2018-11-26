@@ -40,6 +40,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.JsonUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -60,6 +61,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.versioning.VersionRange;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class AnimaniaHelper
 {
@@ -281,6 +283,15 @@ public class AnimaniaHelper
 			if (i != null)
 			{
 				list.add(i);
+			}
+			else
+			{
+				NonNullList<ItemStack> stacks = OreDictionary.getOres(name);
+				if(!stacks.isEmpty())
+				{
+					for(ItemStack s : stacks)
+						list.add(s.getItem());
+				}
 			}
 		}
 

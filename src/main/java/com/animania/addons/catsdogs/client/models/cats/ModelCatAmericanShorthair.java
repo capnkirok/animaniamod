@@ -1,12 +1,16 @@
 package com.animania.addons.catsdogs.client.models.cats;
 
-import net.minecraft.client.model.ModelBase;
+import javax.vecmath.Quat4f;
+import javax.vecmath.Vector3f;
 
 import com.animania.addons.catsdogs.common.entity.cats.EntityAnimaniaCat;
 import com.animania.client.models.render.ModelRendererAnimania;
+
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 
 public class ModelCatAmericanShorthair extends ModelBase
 {
@@ -239,11 +243,14 @@ public class ModelCatAmericanShorthair extends ModelBase
 		this.setRotationAngles(f1, f2, f3, f4, f5, scale, entity);
 		this.body.render(scale);
 	}
-	
+
 	@Override
-	public void setLivingAnimations(EntityLivingBase entity, float p_78086_2_, float p_78086_3_, float partialTickTime)
+	public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)
 	{
-		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
+		super.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTickTime);
+
+		EntityAnimaniaCat cat = (EntityAnimaniaCat) entity;
+
 		/*
 		 * if (entity instanceof EntityTomRagdoll) { EntityTomRagdoll eb =
 		 * (EntityTomRagdoll) entity;
@@ -253,25 +260,84 @@ public class ModelCatAmericanShorthair extends ModelBase
 		 * this.headRotationAngleX = eb.getHeadRotationAngleX(partialTickTime);
 		 * }
 		 */
+		
+		boolean sitting = cat.isSitting();
+		if(!sitting)
+		{
+			this.body.rotateAngleX = 0F;
+			this.lower_body.rotateAngleX = -0.04414810342919657F;
+			this.tail.rotateAngleX = -1.0040809373553299F;
+			this.back_leg_r1.rotateAngleX = 0.05145579700729682F;
+			this.back_leg_l1.rotateAngleX = 0.03700098014227979F;
+			this.leg_r1.rotateAngleX = 0F;
+			this.leg_l1.rotateAngleX = 0F;
+
+		}
+		
 	}
 
 	@Override
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity)
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
 	{
 
-		EntityAnimaniaCat ech = (EntityAnimaniaCat) entity;
-		
-		if (!ech.getSleeping())
+		this.head_base.rotateAngleX = headPitch * 0.001453292F + 0.7f;
+		this.head_base.rotateAngleY = netHeadYaw * 0.017453292F;
+
+//		Quat4f quat = com.leviathanstudio.craftstudio.client.util.MathHelper.quatFromEuler((headPitch * 0.001453292F + 0.7f) * (180F / (float) Math.PI), (netHeadYaw * 0.017453292F) * (180F / (float) Math.PI), head_base.rotateAngleZ * (180F / (float) Math.PI));
+//		
+//		Vector3f angles = quaternionToRad(quat);
+//		
+//		this.head_base.rotateAngleX = angles.x;
+//		this.head_base.rotateAngleY = angles.y;
+//		this.head_base.rotateAngleZ = angles.z;
+
+		EntityAnimaniaCat cat = (EntityAnimaniaCat) entity;
+
+		if (!cat.getSleeping())
 		{
-			this.tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+			this.tail.rotateAngleY = MathHelper.sin(ageInTicks * 3.141593F * 0.05F) * MathHelper.sin(ageInTicks * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}
 		else
 		{
 			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}
-		this.back_leg_l1.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
-		this.back_leg_r1.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
-		this.leg_l1.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
-		this.leg_r1.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
+		this.back_leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.back_leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		this.leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		this.leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		
+		
+		boolean sitting = cat.isSitting();
+		World world = cat.world;
+		if (sitting)
+		{
+			this.body.rotateAngleX = -0.12601277199399058F;
+			this.lower_body.rotateAngleX = -0.6898780387650506F;
+			this.tail.rotateAngleX = 0.5878635439859821F;
+			this.back_leg_r1.rotateAngleX = -0.41790512675602626F;
+			this.back_leg_l1.rotateAngleX = -0.4277452930787703F;
+			this.leg_r1.rotateAngleX = -0.050714032075199235F;
+			this.leg_l1.rotateAngleX = -0.04352676621548658F;
+		}
+		
+		
+		
+		
+	}
+	
+	public static Vector3f quaternionToRad(Quat4f q)
+	{
+	    Quat4f rotation = q;
+	    double q0 = rotation.w;
+	    double q1 = rotation.y;
+	    double q2 = rotation.x;
+	    double q3 = rotation.z;
+
+	    Vector3f radAngles = new Vector3f();
+	    radAngles.x = (float) Math.toRadians(Math.atan2(2 * (q0 * q1 + q2 * q3), 1 - 2 * (Math.pow(q1, 2) + Math.pow(q2, 2))));
+	    radAngles.y = (float) Math.toRadians(Math.asin(2 * (q0 * q2 - q3 * q1)));
+	    radAngles.z = (float) Math.toRadians(Math.atan2(2 * (q0 * q3 + q1 * q2), 1 - 2 * (Math.pow(q2, 2) + Math.pow(q3, 2))));
+
+	    return radAngles;
 	}
 }

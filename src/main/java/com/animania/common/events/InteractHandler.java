@@ -29,13 +29,13 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import com.animania.Animania;
+import com.animania.common.api.interfaces.IAnimaniaAnimal;
+import com.animania.common.api.interfaces.ISterilizable;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.horses.EntityMareDraftHorse;
 import com.animania.common.entities.horses.EntityStallionDraftHorse;
-import com.animania.common.entities.interfaces.IAnimaniaAnimal;
-import com.animania.common.entities.interfaces.ISterilizable;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;

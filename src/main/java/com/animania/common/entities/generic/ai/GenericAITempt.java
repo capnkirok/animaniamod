@@ -2,10 +2,11 @@ package com.animania.common.entities.generic.ai;
 
 import java.util.Set;
 
-import com.animania.common.entities.interfaces.ISleeping;
+import com.animania.common.api.interfaces.ISleeping;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.item.Item;
 
 public class GenericAITempt<T extends EntityCreature & ISleeping> extends EntityAITempt
@@ -31,6 +32,9 @@ public class GenericAITempt<T extends EntityCreature & ISleeping> extends Entity
     public boolean shouldExecute()
     {
     	if(temptedEntity.getSleeping())
+    		return false;
+    	
+    	if(temptedEntity instanceof EntityTameable && ((EntityTameable)temptedEntity).isSitting())
     		return false;
     	
     	return super.shouldExecute();

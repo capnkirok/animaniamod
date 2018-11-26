@@ -45,9 +45,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.api.interfaces.IMateable;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
-import com.animania.common.entities.interfaces.IMateable;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;

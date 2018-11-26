@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
+import com.animania.common.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.amphibians.EntityFrogs;
@@ -14,14 +15,15 @@ import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
-import com.animania.common.entities.generic.ai.GenericAINearestAttackableTarget;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISit;
 import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.interfaces.IAnimaniaAnimalBase;
+import com.animania.common.entities.peacocks.EntityPeachickBase;
 import com.animania.common.entities.rodents.EntityFerretBase;
+import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -32,11 +34,11 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAISit;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITargetNonTamed;
 import net.minecraft.entity.monster.EntitySilverfish;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -90,13 +92,15 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + this.rand.nextInt(80);
 		this.enablePersistence();
+		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaCat>(this, false);
+		this.tasks.addTask(11, this.entityAIEatGrass);
+
 	}
 
 	@Override
 	protected void initEntityAI()
 	{
-		this.aiSit = new EntityAISit(this);
-		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaCat>(this, false);
+		this.aiSit = new GenericAISit(this);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
@@ -106,10 +110,9 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		this.tasks.addTask(4, this.aiSit);
 		this.tasks.addTask(5, new EntityAILeapAtTarget(this, 0.4F));
 		this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.5D, true));
-		this.tasks.addTask(7, new GenericAIFollowOwner<EntityAnimaniaCat>(this, 1.0D, 10.0F, 2.0F));
+		this.tasks.addTask(7, new GenericAIFollowOwner<EntityAnimaniaCat>(this, 1.0D, 5.0F, 30.0F));
 		this.tasks.addTask(8, new GenericAIPanic<EntityAnimaniaCat>(this, 1.5D));
-		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaCat>(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS)); //TODO
-		this.tasks.addTask(11, this.entityAIEatGrass);
+		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaCat>(this, 1.2D, false, TEMPTATION_ITEMS)); // TODO
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new GenericAILookIdle<EntityAnimaniaCat>(this));
@@ -117,15 +120,10 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		{
 			this.tasks.addTask(14, new GenericAISleep<EntityAnimaniaCat>(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed2), EntityAnimaniaCat.class));
 		}
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.getIsTamed())
 		{
-			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget<EntityFerretBase>(this, EntityFerretBase.class, false));
-			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget<EntityChickBase>(this, EntityChickBase.class, false));
-			this.targetTasks.addTask(6, new GenericAINearestAttackableTarget<EntitySilverfish>(this, EntitySilverfish.class, false));
-			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget<EntityFrogs>(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget<EntityToad>(this, EntityToad.class, false));
+			this.targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntityFerretBase || entity instanceof EntityHamster || entity instanceof EntityChickBase || entity instanceof EntityPeachickBase || entity instanceof EntitySilverfish || entity instanceof EntityFrogs || entity instanceof EntityToad));
 		}
-		this.targetTasks.addTask(9, new EntityAIHurtByTarget(this, false, new Class[0]));
 	}
 
 	@Override
@@ -133,7 +131,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	{
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(18.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.15D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.5D);
 	}
 
@@ -196,7 +194,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-		if (!this.isTamed())
+		if (!this.getIsTamed())
 		{
 			this.setOwnerId(player.getPersistentID());
 			this.setIsTamed(true);
@@ -300,29 +298,29 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	{
 		this.dataManager.set(SLEEPTIMER, Float.valueOf(timer));
 	}
-	
+
 	public boolean getIsTamed()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(TAMED));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
 
-	public void setIsTamed(boolean fed)
+	public void setIsTamed(boolean tamed)
 	{
-		if (fed)
-			this.dataManager.set(TAMED, Boolean.valueOf(true));
-		else
-			this.dataManager.set(TAMED, Boolean.valueOf(false));
+		this.dataManager.set(TAMED, Boolean.valueOf(tamed));
 	}
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
+		World world = player.world;
 
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
 		{
@@ -337,20 +335,24 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 			this.setInLove(player);
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && !this.isSitting() && !player.isSneaking() && !this.getSleeping())
+		else if (stack.isEmpty() && player.getHeldItemMainhand().isEmpty() && this.getIsTamed() && !this.isSitting() && !player.isSneaking() && !this.getSleeping())
 		{
-			this.setSitting(true);
 			this.setSitting(true);
 			this.isJumping = false;
 			this.navigator.clearPath();
 			return true;
 		}
-		else if (stack == ItemStack.EMPTY && this.isTamed() && this.isSitting() && !player.isSneaking() && !this.getSleeping())
+		else if (stack.isEmpty() && player.getHeldItemMainhand().isEmpty() && this.getIsTamed() && this.isSitting() && !player.isSneaking() && !this.getSleeping())
 		{
-			this.setSitting(false);
 			this.setSitting(false);
 			this.isJumping = false;
 			this.navigator.clearPath();
+			return true;
+		}
+		else if (this.isBreedingItem(stack))
+		{
+			this.consumeItemFromStack(player, stack);
+			this.setInLove(player);
 			return true;
 		}
 
@@ -361,6 +363,12 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, DamageSource source)
 	{
 
+	}
+
+	@Override
+	public boolean isBreedingItem(ItemStack stack)
+	{
+		return TEMPTATION_ITEMS.contains(stack.getItem());
 	}
 
 	public boolean getFed()
@@ -410,24 +418,25 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 			this.dataManager.set(WATERED, Boolean.valueOf(false));
 	}
 
+	@Override
 	public boolean isSitting()
 	{
-		try {
+		try
+		{
 			return (this.getBoolFromDataManager(SITTING));
 		}
-		catch (Exception e) {
+		catch (Exception e)
+		{
 			return false;
 		}
 	}
 
+	@Override
 	public void setSitting(boolean flag)
 	{
-		if (flag)
-			this.dataManager.set(SITTING, Boolean.valueOf(true));
-		else
-			this.dataManager.set(SITTING, Boolean.valueOf(false));
+		this.dataManager.set(SITTING, Boolean.valueOf(flag));
 	}
-	
+
 	@Override
 	public void onLivingUpdate()
 	{
@@ -515,7 +524,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 
 		super.onLivingUpdate();
 	}
-	
+
 	@Override
 	public void playLivingSound()
 	{
@@ -524,7 +533,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() - .2F);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)

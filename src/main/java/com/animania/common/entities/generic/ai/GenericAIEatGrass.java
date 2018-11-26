@@ -1,9 +1,9 @@
 package com.animania.common.entities.generic.ai;
 
+import com.animania.common.api.interfaces.IFoodEating;
+import com.animania.common.api.interfaces.ISleeping;
 import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.interfaces.IFoodEating;
-import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;

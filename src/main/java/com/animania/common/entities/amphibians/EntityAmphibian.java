@@ -30,11 +30,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.Animania;
+import com.animania.common.api.interfaces.IAnimaniaAnimal;
+import com.animania.common.api.interfaces.IGendered;
+import com.animania.common.api.interfaces.ISpawnable;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
-import com.animania.common.entities.interfaces.IAnimaniaAnimal;
-import com.animania.common.entities.interfaces.IGendered;
-import com.animania.common.entities.interfaces.ISpawnable;
 import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 
 public class EntityAmphibian extends EntityAnimal implements ISpawnable, IAnimaniaAnimal, IGendered

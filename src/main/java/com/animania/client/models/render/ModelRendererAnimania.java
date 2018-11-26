@@ -3,6 +3,7 @@ package com.animania.client.models.render;
 import java.nio.FloatBuffer;
 
 import javax.vecmath.Matrix4f;
+import javax.vecmath.Quat4f;
 
 import com.leviathanstudio.craftstudio.client.util.MathHelper;
 
@@ -42,9 +43,10 @@ public class ModelRendererAnimania extends ModelRenderer
 				GlStateManager.translate(this.rotationPointX * scale, this.rotationPointY * scale, this.rotationPointZ * scale);
 				
 				Matrix4f mat = new Matrix4f();
-				mat.set(MathHelper.quatFromEuler(this.rotateAngleX * (180F / (float) Math.PI), this.rotateAngleY * (180F / (float) Math.PI), this.rotateAngleZ * (180F / (float) Math.PI)));
+				Quat4f quat = MathHelper.quatFromEuler(this.rotateAngleX * (180F / (float) Math.PI), this.rotateAngleY * (180F / (float) Math.PI), this.rotateAngleZ * (180F / (float) Math.PI));
+				mat.set(quat);
 				mat.transpose();
-				
+								
 				FloatBuffer buf = MathHelper.makeFloatBuffer(mat);				
 				GlStateManager.multMatrix(buf);
 				GlStateManager.translate(this.offsetX * scale, this.offsetY * scale, this.offsetZ * scale);

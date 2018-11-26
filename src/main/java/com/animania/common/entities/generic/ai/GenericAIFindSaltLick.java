@@ -2,8 +2,8 @@ package com.animania.common.entities.generic.ai;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.api.interfaces.ISleeping;
 import com.animania.common.blocks.BlockSaltLick;
-import com.animania.common.entities.interfaces.ISleeping;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.handler.BlockHandler;
 import com.animania.config.AnimaniaConfig;

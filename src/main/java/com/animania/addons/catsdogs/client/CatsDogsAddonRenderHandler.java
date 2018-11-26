@@ -52,7 +52,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class CatsDogsAddonRenderHandler
 {
 
-	private static ResourceLocation BLINK_CATS = new ResourceLocation("animania:textures/entity/cats/blink.png");
+	private static String CATS = "animania:textures/entity/cats/";
 	
 	
 	public static void preInit()
@@ -81,30 +81,30 @@ public class CatsDogsAddonRenderHandler
 	@SideOnly(Side.CLIENT)
 	static void renderEntitiesFactory()
 	{
-		RenderingRegistry.registerEntityRenderingHandler(EntityTomRagdoll.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), new ResourceLocation("animania:textures/entity/cats/ragdoll.png"), BLINK_CATS, 0x83786D, 0.67f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityQueenRagdoll.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), new ResourceLocation("animania:textures/entity/cats/ragdoll.png"), BLINK_CATS, 0x83786D, 0.57f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenRagdoll.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), new ResourceLocation("animania:textures/entity/cats/ragdoll.png"), BLINK_CATS, 0x83786D, 0.37f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityTomAmericanShorthair.class, new RenderCatGeneric.Factory(new ModelCatAmericanShorthair(), new ResourceLocation("animania:textures/entity/cats/american_shorthair.png"), BLINK_CATS, 0x83786D, 0.67f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityQueenAmericanShorthair.class, new RenderCatGeneric.Factory(new ModelCatAmericanShorthair(), new ResourceLocation("animania:textures/entity/cats/american_shorthair.png"), BLINK_CATS, 0x83786D, 0.57f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenAmericanShorthair.class, new RenderCatGeneric.Factory(new ModelCatAmericanShorthair(), new ResourceLocation("animania:textures/entity/cats/american_shorthair.png"), BLINK_CATS, 0x83786D, 0.37f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityTomAsiatic.class, new RenderCatGeneric.Factory(new ModelCatAsiatic(), new ResourceLocation("animania:textures/entity/cats/asiatic.png"), BLINK_CATS, 0x83786D, 0.67f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityQueenAsiatic.class, new RenderCatGeneric.Factory(new ModelCatAsiatic(), new ResourceLocation("animania:textures/entity/cats/asiatic.png"), BLINK_CATS, 0x83786D, 0.57f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenAsiatic.class, new RenderCatGeneric.Factory(new ModelCatAsiatic(), new ResourceLocation("animania:textures/entity/cats/asiatic.png"), BLINK_CATS, 0x83786D, 0.37f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityTomExotic.class, new RenderCatGeneric.Factory(new ModelCatExotic(), new ResourceLocation("animania:textures/entity/cats/exotic.png"), BLINK_CATS, 0x83786D, 0.67f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityQueenExotic.class, new RenderCatGeneric.Factory(new ModelCatExotic(), new ResourceLocation("animania:textures/entity/cats/exotic.png"), BLINK_CATS, 0x83786D, 0.57f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenExotic.class, new RenderCatGeneric.Factory(new ModelCatExotic(), new ResourceLocation("animania:textures/entity/cats/exotic.png"), BLINK_CATS, 0x83786D, 0.37f)); 
-		RenderingRegistry.registerEntityRenderingHandler(EntityTomNorwegian.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), new ResourceLocation("animania:textures/entity/cats/norwegian.png"), BLINK_CATS, 0x83786D, 0.67f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityQueenNorwegian.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), new ResourceLocation("animania:textures/entity/cats/norwegian.png"), BLINK_CATS, 0x83786D, 0.57f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenNorwegian.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), new ResourceLocation("animania:textures/entity/cats/norwegian.png"), BLINK_CATS, 0x83786D, 0.37f)); 
-		RenderingRegistry.registerEntityRenderingHandler(EntityTomOcelot.class, new RenderCatGeneric.Factory(new ModelCatOcelot(), new ResourceLocation("animania:textures/entity/cats/ocelot.png"), BLINK_CATS, 0x83786D, 0.67f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityQueenOcelot.class, new RenderCatGeneric.Factory(new ModelCatOcelot(), new ResourceLocation("animania:textures/entity/cats/ocelot.png"), BLINK_CATS, 0x83786D, 0.57f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenOcelot.class, new RenderCatGeneric.Factory(new ModelCatOcelot(), new ResourceLocation("animania:textures/entity/cats/ocelot.png"), BLINK_CATS, 0x83786D, 0.37f)); 
-		RenderingRegistry.registerEntityRenderingHandler(EntityTomSiamese.class, new RenderCatGeneric.Factory(new ModelCatSiamese(), new ResourceLocation("animania:textures/entity/cats/siamese.png"), BLINK_CATS, 0x83786D, 0.67f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityQueenSiamese.class, new RenderCatGeneric.Factory(new ModelCatSiamese(), new ResourceLocation("animania:textures/entity/cats/siamese.png"), BLINK_CATS, 0x83786D, 0.57f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenSiamese.class, new RenderCatGeneric.Factory(new ModelCatSiamese(), new ResourceLocation("animania:textures/entity/cats/siamese.png"), BLINK_CATS, 0x83786D, 0.37f)); 
-		RenderingRegistry.registerEntityRenderingHandler(EntityTomTabby.class, new RenderCatGeneric.Factory(new ModelCatTabby(), new ResourceLocation("animania:textures/entity/cats/tabby.png"), BLINK_CATS, 0x83786D, 0.67f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityQueenTabby.class, new RenderCatGeneric.Factory(new ModelCatTabby(), new ResourceLocation("animania:textures/entity/cats/tabby.png"), BLINK_CATS, 0x83786D, 0.57f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenTabby.class, new RenderCatGeneric.Factory(new ModelCatTabby(), new ResourceLocation("animania:textures/entity/cats/tabby.png"), BLINK_CATS, 0x83786D, 0.37f)); 
+		RenderingRegistry.registerEntityRenderingHandler(EntityTomRagdoll.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "ragdoll.png"), r(CATS + "blink_2.png"), 0x83786D, 0.67f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityQueenRagdoll.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "ragdoll.png"), r(CATS + "blink_2.png"), 0x83786D, 0.57f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenRagdoll.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "ragdoll.png"), r(CATS + "blink_2.png"), 0x83786D, 0.37f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityTomAmericanShorthair.class, new RenderCatGeneric.Factory(new ModelCatAmericanShorthair(), r(CATS + "american_shorthair.png"), r(CATS + "blink_1.png"), 0x7D7D7D, 0.67f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityQueenAmericanShorthair.class, new RenderCatGeneric.Factory(new ModelCatAmericanShorthair(), r(CATS + "american_shorthair.png"), r(CATS + "blink_1.png"), 0x7D7D7D, 0.57f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenAmericanShorthair.class, new RenderCatGeneric.Factory(new ModelCatAmericanShorthair(), r(CATS + "american_shorthair.png"), r(CATS + "blink_1.png"), 0x7D7D7D, 0.37f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityTomAsiatic.class, new RenderCatGeneric.Factory(new ModelCatAsiatic(), r(CATS + "asiatic.png"), r(CATS + "blink_1.png"), 0x836951, 0.67f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityQueenAsiatic.class, new RenderCatGeneric.Factory(new ModelCatAsiatic(), r(CATS + "asiatic.png"), r(CATS + "blink_1.png"), 0x836951, 0.57f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenAsiatic.class, new RenderCatGeneric.Factory(new ModelCatAsiatic(), r(CATS + "asiatic.png"), r(CATS + "blink_1.png"), 0x836951, 0.37f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityTomExotic.class, new RenderCatGeneric.Factory(new ModelCatExotic(), r(CATS + "exotic.png"), r(CATS + "blink_1.png"), 0xA75823, 0.67f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityQueenExotic.class, new RenderCatGeneric.Factory(new ModelCatExotic(), r(CATS + "exotic.png"), r(CATS + "blink_1.png"), 0xA75823, 0.57f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenExotic.class, new RenderCatGeneric.Factory(new ModelCatExotic(), r(CATS + "exotic.png"), r(CATS + "blink_1.png"), 0xA75823, 0.37f)); 
+		RenderingRegistry.registerEntityRenderingHandler(EntityTomNorwegian.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "norwegian.png"), r(CATS + "blink_2.png"), 0x4E3C30, 0.67f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityQueenNorwegian.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "norwegian.png"), r(CATS + "blink_2.png"), 0x4E3C30, 0.57f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenNorwegian.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "norwegian.png"), r(CATS + "blink_2.png"), 0x4E3C30, 0.37f)); 
+		RenderingRegistry.registerEntityRenderingHandler(EntityTomOcelot.class, new RenderCatGeneric.Factory(new ModelCatOcelot(), r(CATS + "ocelot.png"), r(CATS + "blink_1.png"), 0xA47947, 0.67f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityQueenOcelot.class, new RenderCatGeneric.Factory(new ModelCatOcelot(), r(CATS + "ocelot.png"), r(CATS + "blink_1.png"), 0xA47947, 0.57f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenOcelot.class, new RenderCatGeneric.Factory(new ModelCatOcelot(), r(CATS + "ocelot.png"), r(CATS + "blink_1.png"), 0xA47947, 0.37f)); 
+		RenderingRegistry.registerEntityRenderingHandler(EntityTomSiamese.class, new RenderCatGeneric.Factory(new ModelCatSiamese(), r(CATS + "siamese.png"), r(CATS + "blink_1.png"), 0x271D1B, 0.67f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityQueenSiamese.class, new RenderCatGeneric.Factory(new ModelCatSiamese(), r(CATS + "siamese.png"), r(CATS + "blink_1.png"), 0x271D1B, 0.57f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenSiamese.class, new RenderCatGeneric.Factory(new ModelCatSiamese(), r(CATS + "siamese.png"), r(CATS + "blink_1.png"), 0x271D1B, 0.37f)); 
+		RenderingRegistry.registerEntityRenderingHandler(EntityTomTabby.class, new RenderCatGeneric.Factory(new ModelCatTabby(), r(CATS + "tabby.png"), r(CATS + "blink_1.png"), 0x594336, 0.67f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityQueenTabby.class, new RenderCatGeneric.Factory(new ModelCatTabby(), r(CATS + "tabby.png"), r(CATS + "blink_1.png"), 0x594336, 0.57f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenTabby.class, new RenderCatGeneric.Factory(new ModelCatTabby(), r(CATS + "tabby.png"), r(CATS + "blink_1.png"), 0x594336, 0.37f)); 
 	
 	}
 
@@ -138,6 +138,11 @@ public class CatsDogsAddonRenderHandler
 	private static <T extends TileEntity> void registerTileEntityRender(Class<T> tileEntityClass, TileEntitySpecialRenderer<? super T> specialRenderer)
 	{
 		 ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, specialRenderer);
+	}
+	
+	private static ResourceLocation r(String s)
+	{
+		return new ResourceLocation(s);
 	}
 
 }
