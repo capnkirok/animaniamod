@@ -7,6 +7,7 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -57,19 +58,23 @@ public class EntityEventHandler
 
 		if (entity instanceof ISleeping)
 		{
-			ISleeping isleeping = (ISleeping)entity;
-			if(isleeping.getSleeping())
+			ISleeping isleeping = (ISleeping) entity;
+			if (isleeping.getSleeping())
 			{
 				if (source == DamageSource.STARVE)
 				{
 					event.setCanceled(true);
 				}
-				
+
 				((ISleeping) entity).setSleeping(false);
 			}
 		}
-		
-		
+
+		if (entity instanceof EntityTameable)
+		{
+			if (((EntityTameable) entity).isSitting())
+				((EntityTameable) entity).setSitting(false);
+		}
 
 	}
 
@@ -81,12 +86,12 @@ public class EntityEventHandler
 			ItemHandler.regItemEggColors(event.getWorld());
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event)
 	{
 		EntityLivingBase entity = event.getEntityLiving();
-		
+
 		if (entity instanceof ISleeping && entity instanceof EntityAnimal)
 		{
 			ISleeping isleeping = (ISleeping) entity;
@@ -94,5 +99,5 @@ public class EntityEventHandler
 				isleeping.setSleeping(false);
 		}
 	}
-	
+
 }

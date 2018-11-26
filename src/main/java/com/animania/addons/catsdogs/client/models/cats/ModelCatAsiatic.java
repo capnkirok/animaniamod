@@ -258,37 +258,65 @@ public class ModelCatAsiatic extends ModelBase
 	}
 	
 	@Override
-	public void setLivingAnimations(EntityLivingBase entity, float p_78086_2_, float p_78086_3_, float partialTickTime)
+	public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)
 	{
-		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
-		/*
-		 * if (entity instanceof EntityTomRagdoll) { EntityTomRagdoll eb =
-		 * (EntityTomRagdoll) entity;
-		 * 
-		 * this.Neck1.rotationPointY = + 7.75F +
-		 * eb.getHeadRotationPointY(partialTickTime) * 6.0F;
-		 * this.headRotationAngleX = eb.getHeadRotationAngleX(partialTickTime);
-		 * }
-		 */
+
+		EntityAnimaniaCat cat = (EntityAnimaniaCat) entity;
+
+
+		boolean sitting = cat.isSitting();
+		if (!sitting)
+		{
+			this.body.rotateAngleX = 0F;
+			this.lower_body.rotateAngleX = -0.04414810342919657F;
+			this.tail.rotateAngleX = -1.0040809373553299F;
+			this.back_leg_r1.rotateAngleX = 0.05145579700729682F;
+			this.back_leg_l1.rotateAngleX = 0.03700098014227979F;
+			this.leg_r1.rotateAngleX = 0F;
+			this.leg_l1.rotateAngleX = 0F;
+
+		}
+
+		super.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTickTime);
+
 	}
 
 	@Override
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity entity)
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
 	{
-
-		EntityAnimaniaCat ech = (EntityAnimaniaCat) entity;
+		limbSwingAmount *= 0.6;
 		
-		if (!ech.getSleeping())
+		this.neck1.rotateAngleX = headPitch * 0.001453292F - 0.7f;
+		this.neck1.rotateAngleY = netHeadYaw * 0.017453292F;
+
+		EntityAnimaniaCat cat = (EntityAnimaniaCat) entity;
+
+		if (!cat.getSleeping())
 		{
-			this.tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+			this.tail.rotateAngleY = MathHelper.sin(ageInTicks * 3.141593F * 0.05F) * MathHelper.sin(ageInTicks * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}
 		else
 		{
 			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}
-		this.back_leg_l1.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
-		this.back_leg_r1.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
-		this.leg_l1.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float) Math.PI) * 1.4F * par2;
-		this.leg_r1.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
+		this.back_leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.back_leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		this.leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+		this.leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+
+		boolean sitting = cat.isSitting();
+		if (sitting)
+		{
+			this.body.rotateAngleX = -0.12601277199399058F;
+			this.lower_body.rotateAngleX = -0.6898780387650506F;
+			this.tail.rotateAngleX = 0.5878635439859821F;
+			this.back_leg_r1.rotateAngleX = -0.41790512675602626F;
+			this.back_leg_l1.rotateAngleX = -0.4277452930787703F;
+			this.leg_r1.rotateAngleX = -0.050714032075199235F;
+			this.leg_l1.rotateAngleX = -0.04352676621548658F;
+		}
+
 	}
+	
+	
 }
