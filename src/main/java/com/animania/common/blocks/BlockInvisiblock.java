@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
+import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityInvisiblock;
 import com.animania.common.tileentities.TileEntityTrough;
@@ -36,12 +37,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.UniversalBucket;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class BlockInvisiblock extends BlockContainer implements TOPInfoProvider
+public class BlockInvisiblock extends BlockContainer implements TOPInfoProvider, IFoodProviderBlock
 {
 
 	protected static final AxisAlignedBB Invisiblock_AABB = new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.8D, 0.3D, 0.8D);

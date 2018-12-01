@@ -1,0 +1,449 @@
+{
+  "title": "Cat Tower",
+  "tree": [
+    {
+      "name": "RootNode",
+      "position": [ 0, 8, 0 ],
+      "offsetFromPivot": [ 0, 0, 0 ],
+      "size": [ 0, 0, 0 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 16, 16 ],
+      "children": [
+        {
+          "name": "Base",
+          "position": [ 0, -7, 0 ],
+          "offsetFromPivot": [ 0, 0, 0 ],
+          "size": [ 16, 2, 16 ],
+          "rotation": [ 0, 0, 0 ],
+          "texOffset": [ 28, 49 ],
+          "children": [
+            {
+              "name": "Box one 1",
+              "position": [ -6.5, 12, -2 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 1, 7, 10 ],
+              "rotation": [ 0, 0, 0 ],
+              "texOffset": [ 12, 23 ],
+              "children": [
+                {
+                  "name": "Box one 2",
+                  "position": [ 5, 0, -4.5 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 9, 1, 7 ],
+                  "rotation": [ 90, 0, 0 ],
+                  "texOffset": [ 24, 25 ],
+                  "children": []
+                },
+                {
+                  "name": "Box one 3",
+                  "position": [ 9, 0, 4.5 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 1, 1, 7 ],
+                  "rotation": [ 90, 0, 0 ],
+                  "texOffset": [ 13, 49 ],
+                  "children": []
+                },
+                {
+                  "name": "Box one 4",
+                  "position": [ 4.5, 4, 0 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 10, 1, 10 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 59, 12 ],
+                  "children": []
+                },
+                {
+                  "name": "Box one 5",
+                  "position": [ 12, -3, 0 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 5, 1, 10 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 34, 33 ],
+                  "children": []
+                },
+                {
+                  "name": "Box one 6",
+                  "position": [ 4.5, -3, 2.5 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 15, 1, 10 ],
+                  "rotation": [ 0, 89.99999, 0 ],
+                  "texOffset": [ 78, 51 ],
+                  "children": []
+                },
+                {
+                  "name": "Box one Door",
+                  "position": [ 9, 0, 3 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 1, 2, 7 ],
+                  "rotation": [ 90, 0, 0 ],
+                  "texOffset": [ 15, 40 ],
+                  "children": [
+                    {
+                      "name": "Box one Door2",
+                      "position": [ 2.384186E-07, -6, -8.940698E-07 ],
+                      "offsetFromPivot": [ 0, 0, 0 ],
+                      "size": [ 1, 2, 7 ],
+                      "rotation": [ -8.14222E-13, 0, 0 ],
+                      "texOffset": [ 24, 42 ],
+                      "children": []
+                    },
+                    {
+                      "name": "Box one Door3",
+                      "position": [ 2.384186E-07, -3, -2.5 ],
+                      "offsetFromPivot": [ 0, 0, 0 ],
+                      "size": [ 1, 4, 2 ],
+                      "rotation": [ -8.14222E-13, 0, 0 ],
+                      "texOffset": [ 33, 19 ],
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "Box one Door 2",
+                  "position": [ 1, 0, 4.5 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 1, 2, 7 ],
+                  "rotation": [ 90, -90, 0 ],
+                  "texOffset": [ 27, 33 ],
+                  "children": [
+                    {
+                      "name": "Box one Door2",
+                      "position": [ 0, -6.5, 0 ],
+                      "offsetFromPivot": [ 0, 0, 0 ],
+                      "size": [ 1, 2, 7 ],
+                      "rotation": [ -8.14222E-13, 0, 0 ],
+                      "texOffset": [ 24, 51 ],
+                      "children": []
+                    },
+                    {
+                      "name": "Box one Door4",
+                      "position": [ 0, -3.25, -2.5 ],
+                      "offsetFromPivot": [ 0, 0, 0 ],
+                      "size": [ 1, 5, 2 ],
+                      "rotation": [ -1.195283E-05, 1.195283E-05, -1.195283E-05 ],
+                      "vertexCoords": [
+                        [ -0.5, 2.25, -1 ],
+                        [ 0.5, 2.25, -1 ],
+                        [ 0.5, -2.25, -1 ],
+                        [ -0.5, -2.25, -1 ],
+                        [ 0.5, 2.25, 1 ],
+                        [ -0.5, 2.25, 1 ],
+                        [ -0.5, -2.25, 1 ],
+                        [ 0.5, -2.25, 1 ]
+                      ],
+                      "texOffset": [ 36, 33 ],
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Leg1",
+              "position": [ -6, 4, -5 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 2, 30, 2 ],
+              "rotation": [ 0, 0, 0 ],
+              "vertexCoords": [
+                [ -1, 4.5, -1 ],
+                [ 1, 4.5, -1 ],
+                [ 1, -4.5, -1 ],
+                [ -1, -4.5, -1 ],
+                [ 1, 4.5, 1 ],
+                [ -1, 4.5, 1 ],
+                [ -1, -4.5, 1 ],
+                [ 1, -4.5, 1 ]
+              ],
+              "texOffset": [ 25, 94 ],
+              "children": []
+            },
+            {
+              "name": "Leg2",
+              "position": [ 6, 10, -5 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 2, 66, 2 ],
+              "rotation": [ 0, 0, 0 ],
+              "vertexCoords": [
+                [ -1, 9.900001, -1 ],
+                [ 1, 9.900001, -1 ],
+                [ 1, -9.900001, -1 ],
+                [ -1, -9.900001, -1 ],
+                [ 1, 9.900001, 1 ],
+                [ -1, 9.900001, 1 ],
+                [ -1, -9.900001, 1 ],
+                [ 1, -9.900001, 1 ]
+              ],
+              "texOffset": [ 0, 58 ],
+              "children": []
+            },
+            {
+              "name": "Leg3",
+              "position": [ -2, 4, 5 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 2, 31, 2 ],
+              "rotation": [ 0, 0, 0 ],
+              "vertexCoords": [
+                [ -1, 4.65, -1 ],
+                [ 1, 4.65, -1 ],
+                [ 1, -4.65, -1 ],
+                [ -1, -4.65, -1 ],
+                [ 1, 4.65, 1 ],
+                [ -1, 4.65, 1 ],
+                [ -1, -4.65, 1 ],
+                [ 1, -4.65, 1 ]
+              ],
+              "texOffset": [ 9, 93 ],
+              "children": []
+            },
+            {
+              "name": "Leg4",
+              "position": [ 1, 18, 1 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 2, 15, 2 ],
+              "rotation": [ 0, 0, 0 ],
+              "vertexCoords": [
+                [ -1, 2.25, -1 ],
+                [ 1, 2.25, -1 ],
+                [ 1, -2.25, -1 ],
+                [ -1, -2.25, -1 ],
+                [ 1, 2.25, 1 ],
+                [ -1, 2.25, 1 ],
+                [ -1, -2.25, 1 ],
+                [ 1, -2.25, 1 ]
+              ],
+              "texOffset": [ 33, 109 ],
+              "children": []
+            },
+            {
+              "name": "Leg5",
+              "position": [ -1, 22, -5 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 2, 33, 2 ],
+              "rotation": [ 0, 0, 0 ],
+              "vertexCoords": [
+                [ -1, 4.95, -1 ],
+                [ 1, 4.95, -1 ],
+                [ 1, -4.95, -1 ],
+                [ -1, -4.95, -1 ],
+                [ 1, 4.95, 1 ],
+                [ -1, 4.95, 1 ],
+                [ -1, -4.95, 1 ],
+                [ 1, -4.95, 1 ]
+              ],
+              "texOffset": [ 17, 91 ],
+              "children": []
+            },
+            {
+              "name": "String",
+              "position": [ -6, 25, -5 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 2, 42, 2 ],
+              "rotation": [ 0, 0, 0 ],
+              "vertexCoords": [
+                [ -0.2, 2.1, -0.2 ],
+                [ 0.2, 2.1, -0.2 ],
+                [ 0.2, -2.1, -0.2 ],
+                [ -0.2, -2.1, -0.2 ],
+                [ 0.2, 2.1, 0.2 ],
+                [ -0.2, 2.1, 0.2 ],
+                [ -0.2, -2.1, 0.2 ],
+                [ 0.2, -2.1, 0.2 ]
+              ],
+              "texOffset": [ 110, 66 ],
+              "children": [
+                {
+                  "name": "Toy",
+                  "position": [ 0, -3, 0 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 2, 2, 2 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "vertexCoords": [
+                    [ -1.208181, 1, -1 ],
+                    [ 1.208181, 1, -1 ],
+                    [ 1.208181, -1, -1 ],
+                    [ -1.208181, -1, -1 ],
+                    [ 1.208181, 1, 1 ],
+                    [ -1.208181, 1, 1 ],
+                    [ -1.208181, -1, 1 ],
+                    [ 1.208181, -1, 1 ]
+                  ],
+                  "texOffset": [ 12, 9 ],
+                  "children": [
+                    {
+                      "name": "Toy2",
+                      "position": [ 0, 0, 0 ],
+                      "offsetFromPivot": [ 0, 0, 0 ],
+                      "size": [ 2, 2, 2 ],
+                      "rotation": [ 0, 0, 0 ],
+                      "vertexCoords": [
+                        [ -1, 1, -1.2 ],
+                        [ 1, 1, -1.2 ],
+                        [ 1, -1, -1.2 ],
+                        [ -1, -1, -1.2 ],
+                        [ 1, 1, 1.2 ],
+                        [ -1, 1, 1.2 ],
+                        [ -1, -1, 1.2 ],
+                        [ 1, -1, 1.2 ]
+                      ],
+                      "texOffset": [ 12, 9 ],
+                      "children": []
+                    },
+                    {
+                      "name": "Toy3",
+                      "position": [ 0, 0, 0 ],
+                      "offsetFromPivot": [ 0, 0, 0 ],
+                      "size": [ 2, 2, 2 ],
+                      "rotation": [ 0, 0, 0 ],
+                      "vertexCoords": [
+                        [ -1.011677, 1, -1.2 ],
+                        [ 1.011677, 1, -1.2 ],
+                        [ 1.011677, -1, -1.2 ],
+                        [ -1.011677, -1, -1.2 ],
+                        [ 1.011677, 1, 1.2 ],
+                        [ -1.011677, 1, 1.2 ],
+                        [ -1.011677, -1, 1.2 ],
+                        [ 1.011677, -1, 1.2 ]
+                      ],
+                      "texOffset": [ 12, 9 ],
+                      "children": []
+                    },
+                    {
+                      "name": "Toy4",
+                      "position": [ 0, 0, 0 ],
+                      "offsetFromPivot": [ 0, 0, 0 ],
+                      "size": [ 2, 2, 2 ],
+                      "rotation": [ 0, 0, 0 ],
+                      "vertexCoords": [
+                        [ -1, 1.2, -1 ],
+                        [ 1, 1.2, -1 ],
+                        [ 1, -1.2, -1 ],
+                        [ -1, -1.2, -1 ],
+                        [ 1, 1.2, 1 ],
+                        [ -1, 1.2, 1 ],
+                        [ -1, -1.2, 1 ],
+                        [ 1, -1.2, 1 ]
+                      ],
+                      "texOffset": [ 12, 9 ],
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Platform1",
+              "position": [ 2.5, 20.5, -2 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 10, 1, 10 ],
+              "rotation": [ 0, 0, 0 ],
+              "texOffset": [ 48, 5 ],
+              "children": [
+                {
+                  "name": "Platform1Edge1",
+                  "position": [ -4.5, 1, 0 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 1, 1, 10 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 78, 4 ],
+                  "children": []
+                },
+                {
+                  "name": "Platform1Edge2",
+                  "position": [ 4.5, 1, 0 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 1, 1, 10 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 78, 4 ],
+                  "children": []
+                },
+                {
+                  "name": "PlatformEdge3",
+                  "position": [ 0, 1, -4.5 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 10, 1, 1 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 90, 12 ],
+                  "children": []
+                },
+                {
+                  "name": "PlatformEdge4",
+                  "position": [ 0, 1, 4.5 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 10, 1, 1 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 90, 10 ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Platform2",
+              "position": [ -3.5, 27, -3 ],
+              "offsetFromPivot": [ 0, 0, 0 ],
+              "size": [ 8, 1, 8 ],
+              "rotation": [ 0, 0, 0 ],
+              "texOffset": [ 78, 18 ],
+              "children": [
+                {
+                  "name": "Platform2Edge1",
+                  "position": [ 0, 1, -3.5 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 8, 1, 1 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 84, 30 ],
+                  "children": []
+                },
+                {
+                  "name": "Platform2Edge2",
+                  "position": [ -3.5, 1, 0 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 1, 1, 8 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 83, 33 ],
+                  "children": []
+                },
+                {
+                  "name": "Platform2Edge3",
+                  "position": [ 0, 1, 3.5 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 8, 1, 1 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 84, 30 ],
+                  "children": []
+                },
+                {
+                  "name": "Platform2Edge4",
+                  "position": [ 3.5, 1, 0 ],
+                  "offsetFromPivot": [ 0, 0, 0 ],
+                  "size": [ 1, 1, 8 ],
+                  "rotation": [ 0, 0, 0 ],
+                  "texOffset": [ 83, 33 ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Ramp",
+              "position": [ 5.5, 6, 6.5 ],
+              "offsetFromPivot": [ 0, -2, 0 ],
+              "size": [ 5, 1, 20 ],
+              "rotation": [ 56.90096, 0, 0 ],
+              "vertexCoords": [
+                [ -2.5, 0.5, -5 ],
+                [ 2.5, 0.5, -5 ],
+                [ 2.5, -0.5, -5 ],
+                [ -2.5, -0.5, -5 ],
+                [ 2.5, 0.5, 5 ],
+                [ -2.5, 0.5, 5 ],
+                [ -2.5, -0.5, 5 ],
+                [ 2.5, -0.5, 5 ]
+              ],
+              "texOffset": [ 31, 68 ],
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

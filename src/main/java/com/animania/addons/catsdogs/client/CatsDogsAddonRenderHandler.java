@@ -8,6 +8,8 @@ import com.animania.addons.catsdogs.client.models.cats.ModelCatOcelot;
 import com.animania.addons.catsdogs.client.models.cats.ModelCatRagdoll;
 import com.animania.addons.catsdogs.client.models.cats.ModelCatSiamese;
 import com.animania.addons.catsdogs.client.models.cats.ModelCatTabby;
+import com.animania.addons.catsdogs.client.render.blocks.TileEntityPetBowlRenderer;
+import com.animania.addons.catsdogs.client.render.blocks.TileEntityPropRenderer;
 import com.animania.addons.catsdogs.client.render.cats.RenderCatGeneric;
 import com.animania.addons.catsdogs.common.entity.cats.EntityKittenAmericanShorthair;
 import com.animania.addons.catsdogs.common.entity.cats.EntityKittenAsiatic;
@@ -33,7 +35,12 @@ import com.animania.addons.catsdogs.common.entity.cats.EntityTomOcelot;
 import com.animania.addons.catsdogs.common.entity.cats.EntityTomRagdoll;
 import com.animania.addons.catsdogs.common.entity.cats.EntityTomSiamese;
 import com.animania.addons.catsdogs.common.entity.cats.EntityTomTabby;
+import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl;
+import com.animania.addons.catsdogs.common.tileentity.TileEntityProp;
+import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
 import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
+import com.leviathanstudio.craftstudio.client.util.EnumRenderType;
+import com.leviathanstudio.craftstudio.client.util.EnumResourceType;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -52,7 +59,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class CatsDogsAddonRenderHandler
 {
 
-	private static String CATS = "animania:textures/entity/cats/";
+	private static final String CATS = "animania:textures/entity/cats/";
 	
 	
 	public static void preInit()
@@ -67,15 +74,23 @@ public class CatsDogsAddonRenderHandler
 	 */
 	public static void init()
 	{
-		
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPetBowl.class, new TileEntityPetBowlRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityProp.class, new TileEntityPropRenderer());
 	}
 	
 	@CraftStudioLoader
 	public static void registerCraftStudioAssets()
 	{
-		//CSRegistryHelper csRegistry = new CSRegistryHelper(Animania.MODID);
-		//csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_ragdoll");
+		CSRegistryHelper csRegistry = new CSRegistryHelper(Animania.MODID);
 		
+		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_pet_bowl");
+		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_cat_bed_1");
+		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_cat_bed_2");
+		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_cat_tower");
+		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_dog_house");
+		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_dog_pillow");
+		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_litter_box");
+
 	}
 	
 	@SideOnly(Side.CLIENT)

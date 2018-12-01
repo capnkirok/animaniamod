@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
+import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityTrough;
@@ -17,10 +18,6 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDirectional;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockShulkerBox;
-import net.minecraft.block.BlockSnow;
-import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -32,7 +29,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryHelper;
@@ -59,10 +55,9 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class BlockTrough extends BlockContainer implements TOPInfoProvider
+public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoodProviderBlock
 {
 	private String name = "block_trough";
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
@@ -576,9 +571,11 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider
 
 		String[] foods = AnimaniaConfig.gameRules.troughFood;
 
-		for (int i = 0; i < foods.length; i++)
+		ItemStack[] items = AnimaniaHelper.getItemStackArray(foods);
+		
+		for (int i = 0; i < items.length; i++)
 		{
-			if (ItemStack.areItemsEqual(AnimaniaHelper.getItem(foods[i]), stack))
+			if (ItemStack.areItemsEqual(items[i], stack))
 				return true;
 		}
 

@@ -3,6 +3,8 @@ package com.animania.common.entities.generic.ai;
 import javax.annotation.Nullable;
 
 import com.animania.api.interfaces.IFoodEating;
+import com.animania.api.interfaces.IFoodProviderBlock;
+import com.animania.api.interfaces.IFoodProviderTE;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.tileentities.TileEntityInvisiblock;
@@ -14,6 +16,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -88,11 +91,12 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleepi
 			IBlockState state = world.getBlockState(seekingBlockPos);
 			Block block = state.getBlock();
 
-			if (block == BlockHandler.blockTrough || block == BlockHandler.blockInvisiblock)
+			if (block instanceof IFoodProviderBlock)
 			{
-				TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(seekingBlockPos) : ((TileEntityInvisiblock) world.getTileEntity(seekingBlockPos)).getTrough();
-				if (trough != null)
+				TileEntity te = world.getTileEntity(seekingBlockPos);
+				if (te != null && te instanceof IFoodProviderTE)
 				{
+					IFoodProviderTE trough = (IFoodProviderTE) te;
 					if (trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
 					{
 						trough.consumeLiquid(halfAmount ? 50 : 100);
@@ -126,18 +130,19 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleepi
 		}
 	}
 
+	
 	@Override
-	protected boolean shouldMoveTo(World worldIn, BlockPos pos)
+	protected boolean shouldMoveTo(World world, BlockPos pos)
 	{
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 
-		if (block == BlockHandler.blockTrough || block == BlockHandler.blockInvisiblock)
+		if (block instanceof IFoodProviderBlock)
 		{
-			TileEntityTrough trough = block == BlockHandler.blockTrough ? (TileEntityTrough) world.getTileEntity(pos) : ((TileEntityInvisiblock) world.getTileEntity(pos)).getTrough();
-			if (trough != null)
+			TileEntity te = world.getTileEntity(pos);
+			if (te != null && te instanceof IFoodProviderTE)
 			{
-				if (trough.canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
+				if (((IFoodProviderTE)te).canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
 					return true;
 			}
 		}

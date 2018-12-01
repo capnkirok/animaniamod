@@ -308,6 +308,15 @@ public class AnimaniaHelper
 			{
 				list.add(i);
 			}
+			else
+			{
+				NonNullList<ItemStack> stacks = OreDictionary.getOres(name);
+				if(!stacks.isEmpty())
+				{
+					for(ItemStack s : stacks)
+						list.add(s);
+				}
+			}
 		}
 
 		return list.toArray(new ItemStack[list.size()]);

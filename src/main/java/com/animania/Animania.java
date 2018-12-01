@@ -62,12 +62,12 @@ public class Animania
 	public void construction(FMLConstructionEvent event)
 	{
 		FluidRegistry.enableUniversalBucket();
+		AddonHandler.loadAddons(event.getASMHarvestedData());
 	}
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		AddonHandler.loadAddons(event.getAsmData());
 		Animania.proxy.preInit(event);
 	}
 

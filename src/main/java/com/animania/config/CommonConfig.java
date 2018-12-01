@@ -101,7 +101,7 @@ public class CommonConfig
 		public boolean disableRollingVehicles = false;
 
 		@Comment("Food Items that can be placed in the trough (use # for meta)")
-		public String[] troughFood = {"minecraft:wheat", "simplecorn:corncob", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem", "harvestcraft:cornitem", "minecraft:apple", "minecraft:carrot" , "minecraft:beetroot", "minecraft:potato", "minecraft:poisonous_potato", "minecraft:wheat_seeds", "minecraft:melon_seeds", "minecraft:beetroot_seeds", "minecraft:pumpkin_seeds", "biomesoplenty:turnip_seeds", "minecraft:egg", "animania:brown_egg"};
+		public String[] troughFood = {"minecraft:wheat", "simplecorn:corncob", "harvestcraft:barleyitem", "harvestcraft:oatsitem", "harvestcraft:ryeitem", "harvestcraft:cornitem", "minecraft:apple", "minecraft:carrot" , "minecraft:beetroot", "minecraft:potato", "minecraft:poisonous_potato", "minecraft:wheat_seeds", "minecraft:melon_seeds", "minecraft:beetroot_seeds", "minecraft:pumpkin_seeds", "biomesoplenty:turnip_seeds", "minecraft:egg", "animania:brown_egg", "listAllbeefraw", "minecraft:fish"};
 
 		@Comment("AI Tick Countdown Timer (increase for higher performance)")
 		public int ticksBetweenAIFirings = 100;
@@ -713,134 +713,6 @@ public class CommonConfig
 		public int entityBreedingLimit = 20;
 
 	}
-
-//	public static class Drops
-//	{
-//		@Comment("Enable Animal Drops from Config")
-//		public boolean customMobDrops = true;
-//		@Comment("Enable Animals Drop their custom meat types")
-//		public boolean oldMeatDrops = false;
-//		@Comment("Set Custom Chicken Drop (if enabled)")
-//		public String chickenDrop = "animania:raw_prime_chicken";
-//		@Comment("Set Custom Chicken Secondary Drop")
-//		public String chickenDrop2 = "minecraft:feather";
-//		@Comment("Set Custom Chicken Secondary Drop Amount")
-//		public int chickenDrop2Amount = 1;
-//		@Comment("Set Custom Pig Drop (if enabled)")
-//		public String pigDrop = "animania:raw_prime_pork";
-//		@Comment("Set Custom Pig Secondary Drop")
-//		public String pigDrop2 = "";
-//		@Comment("Set Custom Pig Secondary Drop Amount")
-//		public int pigDrop2Amount = 1;
-//		@Comment("Set Custom Cow Drop (if enabled)")
-//		public String cowDrop = "animania:raw_prime_beef";
-//		@Comment("Set Custom Cow Secondary Drop")
-//		public String cowDrop2 = "minecraft:leather";
-//		@Comment("Set Custom Cow Secondary Drop Amount")
-//		public int cowDrop2Amount = 1;
-//		@Comment("Set Custom  Mooshroom Drop (if enabled)")
-//		public String mooshroomDrop = "animania:raw_prime_beef";
-//		@Comment("Set Custom Mooshroom Secondary Drop")
-//		public String mooshroomDrop2 = "minecraft:leather";
-//		@Comment("Set Custom Mooshroom Secondary Drop Amount")
-//		public int mooshroomDrop2Amount = 1;
-//		@Comment("Set Custom Horse Drop (if enabled)")
-//		public String horseDrop = "";
-//		@Comment("Set Custom Horse Secondary Drop")
-//		public String horseDrop2 = "minecraft:leather";
-//		@Comment("Set Custom Horse Secondary Drop Amount")
-//		public int horseDrop2Amount = 1;
-//		@Comment("Set Custom Blue Peacock Drop (if enabled)")
-//		public String peacockBlueDrop = "animania:blue_peacock_feather";
-//		@Comment("Set Custom Charcoal Peacock Drop (if enabled)")
-//		public String peacockCharcoalDrop = "animania:charcoal_peacock_feather";
-//		@Comment("Set Custom Opal Peacock Drop (if enabled)")
-//		public String peacockOpalDrop = "animania:opal_peacock_feather";
-//		@Comment("Set Custom Peach Peacock Drop (if enabled)")
-//		public String peacockPeachDrop = "animania:peach_peacock_feather";
-//		@Comment("Set Custom Purple Peacock Drop (if enabled)")
-//		public String peacockPurpleDrop = "animania:purple_peacock_feather";
-//		@Comment("Set Custom Taupe Peacock Drop (if enabled)")
-//		public String peacockTaupeDrop = "animania:taupe_peacock_feather";
-//		@Comment("Set Custom White Peacock Drop (if enabled)")
-//		public String peacockWhiteDrop = "animania:white_peacock_feather";
-//		@Comment("Set Custom Peacock Secondary Drop")
-//		public String peacockDrop2 = "animania:raw_peacock";
-//		@Comment("Set Custom Peacock Secondary Drop Amount")
-//		public int peacockDrop2Amount = 1;
-//		
-//		@Comment("Set Custom Ferret Drop (if enabled)")
-//		public String ferretDrop = "";
-//		@Comment("Set Custom Ferret Secondary Drop")
-//		public String ferretDrop2 = "";
-//		@Comment("Set Custom Ferret Secondary Drop Amount")
-//		public int ferretDrop2Amount = 1;
-//		
-//		@Comment("Set Custom Hamster Drop (if enabled)")
-//		public String hamsterDrop = "animania:hamster_food";
-//		@Comment("Set Custom Hamster Secondary Drop")
-//		public String hamsterDrop2 = "";
-//		@Comment("Set Custom Hamster Secondary Drop Amount")
-//		public int hamsterDrop2Amount = 1;
-//		
-//		@Comment("Set Custom Hedgehog Drop (if enabled)")
-//		public String hedgehogDrop = "";
-//		@Comment("Set Custom Hedgehog Secondary Drop")
-//		public String hedgehogDrop2 = "";
-//		@Comment("Set Custom Hedgehog Secondary Drop Amount")
-//		public int hedgehogDrop2Amount = 1;
-//		
-//		@Comment("Set Custom Frog Drop")
-//		public String frogDrop = "animania:raw_frog_legs";
-//		@Comment("Set Custom Frog Secondary Drop")
-//		public String frogDrop2 = "";
-//		@Comment("Set Custom frog Secondary Drop Amount")
-//		public int frogDrop2Amount = 1;
-//		
-//		@Comment("Set Custom Toad Drop")
-//		public String toadDrop = "";
-//		@Comment("Set Custom Toad Secondary Drop")
-//		public String toadDrop2 = "";
-//		@Comment("Set Custom Toad Secondary Drop Amount")
-//		public int toadDrop2Amount = 1;
-//		
-//		@Comment("Set Custom Dart Frog Drop")
-//		public String dartFrogDrop = "";
-//		@Comment("Set Custom Dart Frog Secondary Drop")
-//		public String dartFrogDrop2 = "";
-//		@Comment("Set Custom Dart Frog Secondary Drop Amount")
-//		public int dartFrogDrop2Amount = 1;
-//		
-//		@Comment("Set Custom Goat Drop")
-//		public String goatDrop = "animania:raw_chevon";
-//		@Comment("Set Custom Goat Secondary Drop")
-//		public String goatDrop2 = "";
-//		@Comment("Set Custom Goat Secondary Drop Amount")
-//		public int goatDrop2Amount = 1;
-//		
-//		@Comment("Set Custom Sheep Drop")
-//		public String sheepDrop = "animania:raw_prime_mutton";
-//		@Comment("Set Custom Sheep Secondary Drop")
-//		public String sheepDrop2 = "";
-//		@Comment("Set Custom Sheep Secondary Drop Amount")
-//		public int sheepDrop2Amount = 1;
-//		
-//		@Comment("Set Custom Rabbit Drop")
-//		public String  rabbitDrop = "animania:raw_prime_rabbit";
-//		@Comment("Set Custom Rabbit Secondary Drop")
-//		public String rabbitDrop2 = "minecraft:rabbit_foot";
-//		@Comment("Set Custom Rabbit Secondary Drop Amount")
-//		public int rabbitDrop2Amount = 1;
-//		public String rabbitDrop3 = "minecraft:rabbit_hide";
-//		@Comment("Set Custom Rabbit Third Drop Amount")
-//		public int rabbitDrop3Amount = 1;
-//		
-//		
-//		@Comment("Allow Animania Chickens to drop Eggs")
-//		public Boolean chickensDropEggs = false;
-//		@Comment("Allow Animania Chickens to drop Feathers")
-//		public Boolean chickensDropFeathers = true;
-//	}
 
 	public static class FoodValues
 	{

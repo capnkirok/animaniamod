@@ -23,6 +23,7 @@ public class ModelRendererAnimania extends ModelRenderer
 	private boolean compiled;
 	private int displayList;
 
+	
 	public ModelRendererAnimania(ModelBase model, int texOffX, int texOffY)
 	{
 		super(model, texOffX, texOffY);
@@ -86,4 +87,6 @@ public class ModelRendererAnimania extends ModelRenderer
 		this.offsetY = offsetY;
 		this.offsetZ = offsetZ;
 	}
+	
+	
 }

@@ -1,0 +1,50 @@
+{
+  "title": "Cat bed",
+  "tree": [
+    {
+      "name": "Block1",
+      "position": [ -0.25, 0.5, 0 ],
+      "offsetFromPivot": [ 0, 0, 0 ],
+      "size": [ 10, 1, 15 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 1, 1 ],
+      "children": []
+    },
+    {
+      "name": "Block1",
+      "position": [ -5.5, 2, 0 ],
+      "offsetFromPivot": [ 0, 0, 0 ],
+      "size": [ 1, 4, 16 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 0, 0 ],
+      "children": []
+    },
+    {
+      "name": "Block1",
+      "position": [ 5, 2, 0 ],
+      "offsetFromPivot": [ 0, 0, 0 ],
+      "size": [ 1, 4, 16 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 0, 0 ],
+      "children": []
+    },
+    {
+      "name": "Block1",
+      "position": [ -0.25, 2, -7.5 ],
+      "offsetFromPivot": [ 0, 0, 0 ],
+      "size": [ 10, 4, 1 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ 15, 15 ],
+      "children": []
+    },
+    {
+      "name": "Block1",
+      "position": [ -0.25, 1, 0 ],
+      "offsetFromPivot": [ 0, 0, 0 ],
+      "size": [ 9, 1, 14 ],
+      "rotation": [ 0, 0, 0 ],
+      "texOffset": [ -14, -14 ],
+      "children": []
+    }
+  ]
+}

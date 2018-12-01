@@ -15,8 +15,8 @@ public class CatsDogsConfig
 	public static class Settings
 	{
 		@Comment("Food that cats can eat")
-		public static String[] catFood = new String[]
-				{
+		public String[] catFood = new String[]
+		{
 				"minecraft:fish"
 		};
 		
@@ -30,9 +30,16 @@ public class CatsDogsConfig
 		public int spawnLimitCats = 20;
 		
 		@Comment("Food that dogs can eat")
-		public static String[] dogFood = new String[]
-				{
-				"minecraft:beef"
+		public String[] dogFood = new String[]
+		{
+				"listAllbeefraw"
+		};
+		
+		@Comment("Items that can go in a pet bowl")
+		public String[] petBowlFood = new String[]
+		{
+				"minecraft:fish",
+				"listAllbeefraw"
 		};
 	}	
 	

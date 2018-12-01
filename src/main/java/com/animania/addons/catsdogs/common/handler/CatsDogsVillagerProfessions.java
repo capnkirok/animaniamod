@@ -30,7 +30,7 @@ public class CatsDogsVillagerProfessions
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<VillagerProfession> event)
 	{
-		petSeller = new VillagerProfession("animania_pet_seller", "animania:textures/entity/villager/pet_seller.png", "animania:textures/entity/villager/pet_seller_zombie.png");
+		petSeller = new VillagerProfession("animania:pet_seller", "animania:textures/entity/villager/pet_seller.png", "animania:textures/entity/villager/pet_seller_zombie.png");
 
 		VillagerCareer c = new VillagerCareer(petSeller, "pet_merchant");
 				

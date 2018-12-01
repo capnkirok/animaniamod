@@ -4,7 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 
-public class ModelRendererColored extends ModelRenderer
+public class ModelRendererColored extends ModelRendererAnimania
 {
 
 	private float r, g, b;
@@ -35,5 +35,16 @@ public class ModelRendererColored extends ModelRenderer
 			GlStateManager.color(1, 1, 1);
 		GlStateManager.popMatrix();
 	}
+	
+	@Override
+	public void renderWithRotation(float scale)
+	{
+		GlStateManager.pushMatrix();
+		if (r != -1 && g != -1 && b != -1)
+			GlStateManager.color(r, g, b);
+		super.renderWithRotation(scale);
+		if (r != -1 && g != -1 && b != -1)
+			GlStateManager.color(1, 1, 1);
+		GlStateManager.popMatrix();	}
 
 }

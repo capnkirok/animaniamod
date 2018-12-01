@@ -1,28 +1,25 @@
 package com.animania.common.tileentities;
 
-import javax.annotation.Nullable;
+import java.util.Set;
 
+import com.animania.api.interfaces.IFoodProviderTE;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.handler.FluidHandlerTrough;
-import com.animania.common.tileentities.handler.ItemHandlerTrough;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
-public class TileEntityInvisiblock extends TileEntity implements ITickable
+public class TileEntityInvisiblock extends TileEntity implements ITickable, IFoodProviderTE
 {
 
 
@@ -118,7 +115,6 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable
 	@Override
 	public void update()
 	{
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -128,6 +124,36 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable
 		super.markDirty();
 		AnimaniaHelper.sendTileEntityUpdate(getPlacedTrough());
 		
+	}
+
+	@Override
+	public boolean canConsume(Set<Item> fooditems, Fluid fluid)
+	{
+		return this.getTrough().canConsume(fooditems, fluid);
+	}
+
+	@Override
+	public boolean canConsume(FluidStack fluid, Set<Item> fooditems)
+	{
+		return this.getTrough().canConsume(fluid, fooditems);
+	}
+
+	@Override
+	public void consumeSolidOrLiquid(int liquidAmount, int itemAmount)
+	{
+		this.getTrough().consumeSolidOrLiquid(liquidAmount, itemAmount);
+	}
+
+	@Override
+	public void consumeSolid(int amount)
+	{
+		this.getTrough().consumeSolid(amount);
+	}
+
+	@Override
+	public void consumeLiquid(int amount)
+	{
+		this.getTrough().consumeLiquid(amount);		
 	}
     
    

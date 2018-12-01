@@ -36,7 +36,8 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	private int walkTries = 0;
 	private boolean isDone = false;
 	private Set<BlockPos> nonValidPositions = new HashSet<BlockPos>();
-
+	private int blacklistTimer = 0;
+	
 	public static final BlockPos NO_POS = new BlockPos(-1, -1, -1);
 
 	public GenericAISearchBlock(EntityCreature creature, double speedIn, int range, boolean hasSecondary, EnumFacing... destinationOffset)
@@ -62,6 +63,12 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	 */
 	public boolean shouldExecute()
 	{
+		if(blacklistTimer > 1200)
+		{
+			this.nonValidPositions.clear();
+			this.blacklistTimer = 0;
+		}
+		
 		if (this.seekingBlockPos == NO_POS)
 			return this.searchForDestination();
 
@@ -111,6 +118,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 			{
 				this.isAtDestination = false;
 				this.walkTries++;
+				this.blacklistTimer++;
 
 				boolean isStandingStill = this.creature.prevPosX == this.creature.posX && this.creature.prevPosY == this.creature.posY && this.creature.prevPosZ == this.creature.posZ;
 
@@ -130,12 +138,13 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 			else
 			{
 				this.isAtDestination = true;
-				this.walkTries = 0;
+				this.blacklistTimer = 0;
 			}
 
 			if (this.isAtDestination)
 			{
 				this.nonValidPositions.clear();
+				this.blacklistTimer = 0;
 				this.isDone = true;
 			}
 		}
