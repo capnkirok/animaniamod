@@ -5,6 +5,8 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.config.AnimaniaConfig;
+import com.corosus.desirepaths.DesirePaths;
+import com.corosus.desirepaths.block.BlockGrassWorn;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
@@ -127,9 +129,8 @@ public class GenericAIEatGrass<T extends EntityCreature & ISleeping & IFoodEatin
 					if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
 					{
 
-						String name = block.getRegistryName().toString();
-						if (Loader.isModLoaded("desirepaths") && ((name.contains("desirepaths:grass_worn_") && (name.endsWith("1") || name.endsWith("2") || name.endsWith("3"))) || block instanceof BlockGrass))
-							this.entityWorld.setBlockState(this.seekingBlockPos, Block.getBlockFromName("desirepaths:grass_worn_6").getDefaultState());
+						if (Loader.isModLoaded("desirepaths") && ((block instanceof BlockGrassWorn && block != DesirePaths.dirt_6) || block instanceof BlockGrass))
+							BlockGrassWorn.performWearTick(entityWorld, this.seekingBlockPos, 20F);
 						else
 							this.entityWorld.setBlockState(this.seekingBlockPos, Blocks.DIRT.getDefaultState(), 2);
 					}
