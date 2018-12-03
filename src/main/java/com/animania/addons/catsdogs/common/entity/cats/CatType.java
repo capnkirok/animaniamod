@@ -10,12 +10,12 @@ import net.minecraft.world.World;
 
 public enum CatType implements AnimaniaType
 {
+	AMERICAN_SHORTHAIR(EntityTomAmericanShorthair.class, EntityQueenAmericanShorthair.class, EntityKittenAmericanShorthair.class),
 	ASIATIC(EntityTomAsiatic.class, EntityQueenAsiatic.class, EntityKittenAsiatic.class),
 	EXOTIC(EntityTomExotic.class, EntityQueenExotic.class, EntityKittenExotic.class),
 	NORWEGIAN(EntityTomNorwegian.class, EntityQueenNorwegian.class, EntityKittenNorwegian.class),
 	OCELOT(EntityTomOcelot.class, EntityQueenOcelot.class, EntityKittenOcelot.class),
 	RAGDOLL(EntityTomRagdoll.class, EntityQueenRagdoll.class, EntityKittenRagdoll.class),
-	SHORTHAIR(EntityTomShorthair.class, EntityQueenShorthair.class, EntityKittenShorthair.class),
 	SIAMESE(EntityTomSiamese.class, EntityQueenSiamese.class, EntityKittenSiamese.class),
 	TABBY(EntityTomTabby.class, EntityQueenTabby.class, EntityKittenTabby.class);
 	
