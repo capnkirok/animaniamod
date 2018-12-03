@@ -33,11 +33,11 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 
 	protected BlockPos oldBlockPos = NO_POS;
 	private boolean hasSecondary;
-	private int walkTries = 0;
 	private boolean isDone = false;
 	private Set<BlockPos> nonValidPositions = new HashSet<BlockPos>();
 	private int blacklistTimer = 0;
-	
+	private boolean isStandingStill = false;
+
 	public static final BlockPos NO_POS = new BlockPos(-1, -1, -1);
 
 	public GenericAISearchBlock(EntityCreature creature, double speedIn, int range, boolean hasSecondary, EnumFacing... destinationOffset)
@@ -89,7 +89,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	public void startExecuting()
 	{
 		this.creature.getNavigator().tryMoveToXYZ((double) ((float) this.destinationBlock.getX()) + 0.5D, (double) (this.destinationBlock.getY()), (double) ((float) this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
-		this.walkTries = 0;
+		this.isStandingStill = false;
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 		this.isAtDestination = false;
 		this.destinationBlock = NO_POS;
 		this.seekingBlockPos = NO_POS;
-		this.walkTries = 0;
+		this.isStandingStill = false;
 		this.isDone = false;
 	}
 
@@ -117,28 +117,33 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 			if (distance > 1.95D)
 			{
 				this.isAtDestination = false;
-				this.walkTries++;
 				this.blacklistTimer++;
 
 				boolean isStandingStill = this.creature.prevPosX == this.creature.posX && this.creature.prevPosY == this.creature.posY && this.creature.prevPosZ == this.creature.posZ;
 
-				if (this.walkTries % 40 == 0)
+				if (isStandingStill)
 				{
-					this.creature.getNavigator().tryMoveToXYZ((double) ((float) this.destinationBlock.getX()) + 0.5D, (double) (this.destinationBlock.getY()), (double) ((float) this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
-					this.creature.getLookHelper().setLookPosition((double) this.seekingBlockPos.getX() + 0.5D, (double) (this.seekingBlockPos.getY()), (double) this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
+					if (this.isStandingStill)
+					{
+						this.nonValidPositions.add(seekingBlockPos);
+						this.resetTask();
+						this.searchForDestination();
+					}
+					else
+					{
+						this.creature.getNavigator().tryMoveToXYZ((double) ((float) this.destinationBlock.getX()) + 0.5D, (double) (this.destinationBlock.getY()), (double) ((float) this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+						this.creature.getLookHelper().setLookPosition((double) this.seekingBlockPos.getX() + 0.5D, (double) (this.seekingBlockPos.getY()), (double) this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
+						this.isStandingStill = true;
+					}
 				}
-
-				if (isStandingStill && this.walkTries > 100)
-				{
-					this.nonValidPositions.add(seekingBlockPos);
-					this.resetTask();
-					this.searchForDestination();
-				}
+				else
+					this.isStandingStill = false;
 			}
 			else
 			{
 				this.isAtDestination = true;
 				this.blacklistTimer = 0;
+				this.isStandingStill = false;
 			}
 
 			if (this.isAtDestination)
