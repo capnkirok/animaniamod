@@ -19,7 +19,7 @@ public class RemoveVanillaSpawns
 		for(Iterator<SpawnListEntry> iter = event.getList().iterator(); iter.hasNext(); )
 		{
 			String className = iter.next().entityClass.getName();
-			if (AnimaniaConfig.gameRules.replaceVanillaCows && (className.equals("net.minecraft.entity.passive.EntityCow") || className.contains("net.minecraft.entity.passive.EntityMooshroom")))
+			if (AnimaniaConfig.gameRules.replaceVanillaCows && (className.equals("net.minecraft.entity.passive.EntityCow") || className.equals("net.minecraft.entity.passive.EntityMooshroom")))
 				iter.remove();
 			else if (AnimaniaConfig.gameRules.replaceVanillaChickens && className.equals("net.minecraft.entity.passive.EntityChicken"))
 				iter.remove();
