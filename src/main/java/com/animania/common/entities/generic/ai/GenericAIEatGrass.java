@@ -1,7 +1,5 @@
 package com.animania.common.entities.generic.ai;
 
-import org.apache.logging.log4j.LogManager;
-
 import com.animania.api.interfaces.IFoodEating;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.entities.cows.CowType;
