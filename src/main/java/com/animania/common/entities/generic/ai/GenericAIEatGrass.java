@@ -130,7 +130,7 @@ public class GenericAIEatGrass<T extends EntityCreature & ISleeping & IFoodEatin
 						String name = block.getRegistryName().toString();
 						boolean handled = false;
 						
-						if (Loader.isModLoaded("desirepaths") && ((name.contains("desirepaths:grass_worn_") && !name.endsWith("6")) || block instanceof BlockGrass))
+						if (Loader.isModLoaded("desirepaths") && ((name.startsWith("desirepaths:grass_worn_") && !name.endsWith("6")) || block instanceof BlockGrass))
 						{
 							try {
 								ReflectionUtil.findMethod(Class.forName("com.corosus.desirepaths.block.BlockGrassWorn"), "performWearTick", null, World.class, BlockPos.class, float.class).invoke(null, this.entityWorld, this.seekingBlockPos, 20.0F);
