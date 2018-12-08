@@ -1,4 +1,4 @@
-package com.animania.addons;
+package com.animania.api.addons;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

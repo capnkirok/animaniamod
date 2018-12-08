@@ -1,12 +1,12 @@
 package com.animania.addons.template;
 
-import com.animania.addons.AnimaniaAddon;
-import com.animania.addons.LoadAddon;
 import com.animania.addons.template.client.TemplateAddonRenderHandler;
 import com.animania.addons.template.common.handler.TemplateAddonBlockHandler;
 import com.animania.addons.template.common.handler.TemplateAddonCraftingHandler;
 import com.animania.addons.template.common.handler.TemplateAddonEntityHandler;
 import com.animania.addons.template.common.handler.TemplateAddonItemHandler;
+import com.animania.api.addons.AnimaniaAddon;
+import com.animania.api.addons.LoadAddon;
 
 @LoadAddon
 public class TemplateAddon implements AnimaniaAddon

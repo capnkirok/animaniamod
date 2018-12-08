@@ -1,12 +1,12 @@
 package com.animania.addons.catsdogs;
 
-import com.animania.addons.AnimaniaAddon;
-import com.animania.addons.LoadAddon;
 import com.animania.addons.catsdogs.client.CatsDogsAddonRenderHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonBlockHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonCraftingHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonEntityHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonItemHandler;
+import com.animania.api.addons.AnimaniaAddon;
+import com.animania.api.addons.LoadAddon;
 
 import net.minecraftforge.fml.common.Loader;
 

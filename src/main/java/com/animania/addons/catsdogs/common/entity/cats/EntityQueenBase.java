@@ -10,7 +10,6 @@ import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
@@ -402,7 +401,7 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 				int num = 0;
 				for (int i = 0; i < list.size(); i++)
 				{
-					if (list.get(i) instanceof EntityAnimaniaPig)
+					if (list.get(i) instanceof EntityAnimaniaCat)
 					{
 						num++;
 					}

@@ -6,6 +6,16 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.interfaces.IMateable;
+import com.animania.api.interfaces.ISterilizable;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.EntityGender;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.google.common.base.Optional;
+
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
@@ -21,19 +31,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.animania.Animania;
-import com.animania.api.interfaces.IMateable;
-import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.generic.ai.GenericAIMate;
-import com.animania.common.entities.pigs.EntityHogBase;
-import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.google.common.base.Optional;
 
 public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderMateable, IMateable, ISterilizable
 {

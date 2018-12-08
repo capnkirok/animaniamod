@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 
 import com.animania.Animania;
+import com.animania.api.addons.AnimaniaAddon;
 import com.google.common.collect.Sets;
 
 import net.minecraft.client.resources.FileResourcePack;

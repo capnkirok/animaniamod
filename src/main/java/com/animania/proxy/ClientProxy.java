@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.animania.Animania;
 import com.animania.addons.AddonResourcePack;
-import com.animania.addons.AnimaniaAddon;
+import com.animania.api.addons.AnimaniaAddon;
 import com.animania.client.AnimaniaTextures;
 import com.animania.client.handler.RenderHandler;
 import com.animania.common.handler.AddonHandler;

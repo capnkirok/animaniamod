@@ -1,6 +1,6 @@
 package com.animania.proxy;
 
-import com.animania.addons.AnimaniaAddon;
+import com.animania.api.addons.AnimaniaAddon;
 import com.animania.common.capabilities.CapabilitiesPlayerStorage;
 import com.animania.common.capabilities.CapabilityPlayer;
 import com.animania.common.capabilities.ICapabilityPlayer;

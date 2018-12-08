@@ -125,7 +125,6 @@ public class TileEntityPetBowlRenderer extends TileEntitySpecialRenderer<TileEnt
 		bufferbuilder.pos(x + a, y + 2*a + len, 0).tex(u1 - b, v1 - 2*c - vLen).normal(0, 0, 1).endVertex();
 		bufferbuilder.pos(x, y + a + len, 0).tex(u1, v1 - c - vLen).normal(0, 0, 1).endVertex();
 		bufferbuilder.pos(x, y + a, 0).tex(u1, v1 - c).normal(0, 0, 1).endVertex();
-
 		Tessellator.getInstance().draw();
 
 	}

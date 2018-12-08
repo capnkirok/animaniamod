@@ -21,10 +21,10 @@ public class CatsDogsConfig
 		};
 		
 		@Comment("Cat Bed Block Preferred")
-		public String catBed = "animania:block_straw";
+		public String catBed = "animania:cat_bed_1";
 		
 		@Comment("Cat Bed Block Backup")
-		public String catBed2 = "minecraft:grass";
+		public String catBed2 = "minecraft:cat_bed_2";
 
 		@Comment("Spawn limit for cats")
 		public int spawnLimitCats = 20;
@@ -41,6 +41,12 @@ public class CatsDogsConfig
 				"minecraft:fish",
 				"listAllbeefraw"
 		};
+		
+		@Comment("Dog Bed Block Preferred")
+		public String dogBed = "animania:dog_pillow";
+		
+		@Comment("Dog Bed Block Backup")
+		public String dogBed2 = "minecraft:block_straw";
 	}	
 	
 }

@@ -18,6 +18,7 @@ import com.animania.common.entities.generic.ai.GenericAILookIdle;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
 import com.animania.common.entities.generic.ai.GenericAISit;
 import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAITargetNonTamed;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
@@ -37,7 +38,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAITargetNonTamed;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
@@ -123,7 +123,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.getIsTamed())
 		{
-			this.targetTasks.addTask(4, new EntityAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntityFerretBase || entity instanceof EntityHamster || entity instanceof EntityChickBase || entity instanceof EntityPeachickBase || entity instanceof EntitySilverfish || entity instanceof EntityFrogs || entity instanceof EntityToad));
+			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntityFerretBase || entity instanceof EntityHamster || entity instanceof EntityChickBase || entity instanceof EntityPeachickBase || entity instanceof EntitySilverfish || entity instanceof EntityFrogs || entity instanceof EntityToad));
 		}
 	}
 

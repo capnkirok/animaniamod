@@ -7,9 +7,9 @@ import java.util.Set;
 
 import com.animania.Animania;
 import com.animania.addons.AddonResourcePack;
-import com.animania.addons.AnimaniaAddon;
-import com.animania.addons.LoadAddon;
 import com.animania.addons.template.TemplateAddon;
+import com.animania.api.addons.AnimaniaAddon;
+import com.animania.api.addons.LoadAddon;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.client.Minecraft;

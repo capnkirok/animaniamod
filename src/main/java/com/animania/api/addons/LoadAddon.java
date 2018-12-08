@@ -1,4 +1,4 @@
-package com.animania.addons;
+package com.animania.api.addons;
 
 public @interface LoadAddon
 {
