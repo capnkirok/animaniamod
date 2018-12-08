@@ -2,6 +2,7 @@ package com.animania.addons.catsdogs.client.render.dogs;
 
 import com.animania.addons.catsdogs.common.entity.dogs.EntityAnimaniaDog;
 import com.animania.api.interfaces.IChild;
+import com.animania.api.interfaces.IVariant;
 import com.animania.client.render.layer.LayerBlinking;
 
 import net.minecraft.client.model.ModelBase;
@@ -21,6 +22,7 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 	private final ResourceLocation blink;
 	private final int eyeColor;
 	private final float scale;
+	private final LayerBlinking blinking;
 
 	public RenderDogGeneric(RenderManager rm, ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeColor, float scale)
 	{
@@ -30,7 +32,7 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 		this.eyeColor = eyeColor;
 		this.scale = scale;
 
-		this.addLayer(new LayerBlinking(this, blink, eyeColor));
+		this.addLayer(blinking = new LayerBlinking(this, blink, eyeColor));
 	}
 
 	protected void preRenderScale(EntityAnimaniaDog entity, float f)
@@ -69,12 +71,25 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
+		if(entity.getVariantCount() > 0)
+		{
+			String tex = texture.toString().replace(".png", "");
+			tex += entity.getVariant() + ".png";
+			return new ResourceLocation(tex);
+		}
+		
 		return texture;
 	}
 
 	@Override
 	protected void preRenderCallback(T entityliving, float f)
-	{
+	{	
+		if(entityliving.getVariantCount() > 0)
+		{
+			int col = entityliving.getEyeColorForVariant(entityliving.getVariant());
+			blinking.setColors(col, col);
+		}
+		
 		this.preRenderScale(entityliving, f);
 	}
 

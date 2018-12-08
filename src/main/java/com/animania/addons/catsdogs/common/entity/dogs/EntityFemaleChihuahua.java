@@ -22,4 +22,10 @@ public class EntityFemaleChihuahua extends EntityFemaleDogBase
 	{
 		return -16382716;
 	}
+	
+	@Override
+	public int getVariantCount()
+	{
+		return 2;
+	}
 }

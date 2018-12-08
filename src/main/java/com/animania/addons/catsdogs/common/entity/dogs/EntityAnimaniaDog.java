@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.api.interfaces.IVariant;
 import com.animania.common.entities.AnimalContainer;
 import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
@@ -61,7 +62,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimalBase
+public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimalBase, IVariant
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaDog.class, DataSerializers.BOOLEAN);
@@ -72,6 +73,8 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaDog.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaDog.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaDog.class, DataSerializers.FLOAT);
+	private static final DataParameter<Integer> VARIANT = EntityDataManager.<Integer>createKey(EntityAnimaniaDog.class, DataSerializers.VARINT);
+
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(CatsDogsConfig.catsdogs.dogFood));
 
 	protected int fedTimer;
@@ -152,6 +155,11 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 		this.dataManager.register(HANDFED, Boolean.valueOf(false));
 		this.dataManager.register(AGE, Integer.valueOf(0));
 		this.dataManager.register(SLEEPTIMER, Float.valueOf(0.0F));
+		if (this.getVariantCount() > 0)
+			this.dataManager.register(VARIANT, Integer.valueOf(this.rand.nextInt(this.getVariantCount())));
+		else
+			this.dataManager.register(VARIANT, Integer.valueOf(0));
+
 	}
 
 	@Override
@@ -166,6 +174,7 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 		compound.setInteger("Age", this.getAge());
 		compound.setBoolean("Sleep", this.getSleeping());
 		compound.setFloat("SleepTimer", this.getSleepTimer());
+		compound.setInteger("Variant", this.getVariant());
 
 	}
 
@@ -181,6 +190,7 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 		this.setSitting(compound.getBoolean("IsSitting"));
 		this.setSleeping(compound.getBoolean("Sleep"));
 		this.setSleepTimer(compound.getFloat("SleepTimer"));
+		this.setVariant(compound.getInteger("Variant"));
 	}
 
 	@Override
@@ -446,6 +456,18 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 	public void setSitting(boolean flag)
 	{
 		this.dataManager.set(SITTING, Boolean.valueOf(flag));
+	}
+
+	@Override
+	public int getVariant()
+	{
+		return this.getIntFromDataManager(VARIANT);
+	}
+
+	@Override
+	public void setVariant(int i)
+	{
+		this.dataManager.set(VARIANT, Integer.valueOf(i));
 	}
 
 	@Override
@@ -734,4 +756,5 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 	{
 		return this.blinkTimer;
 	}
+
 }

@@ -22,4 +22,10 @@ public class EntityPuppyWolf extends EntityPuppyBase
 	{
 		return -13488852;
 	}
+	
+	@Override
+	public int getVariantCount()
+	{
+		return 8;
+	}
 }
