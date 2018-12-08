@@ -1,5 +1,6 @@
 package com.animania.addons.catsdogs.client.render.cats;
 
+import com.animania.addons.catsdogs.common.entity.cats.CatType;
 import com.animania.addons.catsdogs.common.entity.cats.EntityAnimaniaCat;
 import com.animania.api.interfaces.IChild;
 import com.animania.client.render.layer.LayerBlinking;
@@ -24,7 +25,7 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 
 	public RenderCatGeneric(RenderManager rm, ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeColor, float scale)
 	{
-		super(rm, model, 0.5F);
+		super(rm, model, 0.2F);
 		this.texture = texture;
 		this.blink = blink;
 		this.eyeColor = eyeColor;
@@ -41,9 +42,26 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 			GlStateManager.scale(scale + age, scale + age, scale + age);
 		}
 		else
-			GlStateManager.scale(scale, scale, scale);
+			if (entity.type == CatType.SIAMESE) {
+				GlStateManager.scale(scale * .57F, scale * .57F, scale * .57F);
+			} else if (entity.type == CatType.NORWEGIAN) {
+				GlStateManager.scale(scale * .59F, scale * .59F, scale * .59F);
+			} else if (entity.type == CatType.EXOTIC) {
+				GlStateManager.scale(scale * .60F, scale * .60F, scale * .60F);
+			} else if (entity.type == CatType.AMERICAN_SHORTHAIR) {
+				GlStateManager.scale(scale * .65F, scale * .65F, scale * .65F);
+			} else if (entity.type == CatType.TABBY) {
+				GlStateManager.scale(scale * .70F, scale * .70F, scale * .70F);
+			} else if (entity.type == CatType.ASIATIC) {
+				GlStateManager.scale(scale * .78F, scale * .78F, scale * .78F);
+			} else if (entity.type == CatType.OCELOT) {
+				GlStateManager.scale(scale * .85F, scale * .85F, scale * .85F);
+			} else {
+				GlStateManager.scale(scale * .67F, scale * .67F, scale * .67F);
+			}
 
-//		GlStateManager.translate(0f, 0f, -0.5f);
+
+		//		GlStateManager.translate(0f, 0f, -0.5f);
 		EntityAnimaniaCat entityCat = (EntityAnimaniaCat) entity;
 		if (entityCat.getSleeping())
 		{
@@ -60,7 +78,7 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 		}
 		else
 		{
-			this.shadowSize = 0.5F;
+			this.shadowSize = 0.25F;
 			entityCat.setSleeping(false);
 			entityCat.setSleepTimer(0F);
 		}

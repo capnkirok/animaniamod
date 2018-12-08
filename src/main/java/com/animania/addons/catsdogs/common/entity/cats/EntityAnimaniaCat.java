@@ -82,8 +82,8 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	public int eatTimer;
 	public GenericAIEatGrass<EntityAnimaniaCat> entityAIEatGrass;
 	protected int damageTimer;
-	protected CatType type;
-	protected EntityGender gender;
+	public CatType type;
+	public EntityGender gender;
 
 	public EntityAnimaniaCat(World worldIn)
 	{

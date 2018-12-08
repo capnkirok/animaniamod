@@ -1,38 +1,18 @@
 package com.animania.common.items;
 
-import java.util.List;
-
 import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
-import com.animania.common.entities.RandomAnimalType;
-import com.animania.common.entities.chickens.ChickenType;
-import com.animania.common.entities.cows.CowType;
-import com.animania.common.entities.goats.GoatType;
-import com.animania.common.entities.peacocks.PeacockType;
-import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.props.EntityCart;
-import com.animania.common.entities.rodents.rabbits.RabbitType;
-import com.animania.common.entities.sheep.SheepType;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
