@@ -213,7 +213,7 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 				age = age + .01F;
 				this.setEntityAge(age);
 
-				if (age >= .8 && !this.world.isRemote)
+				if (age >= .6f && !this.world.isRemote)
 				{
 					this.setDead();
 
