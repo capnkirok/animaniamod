@@ -4,11 +4,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.animania.common.advancements.criterion.FeedAnimalTrigger;
+import com.animania.common.helper.ReflectionUtil;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.ICriterionTrigger;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class AdvancementHandler
 {
@@ -26,8 +26,7 @@ public class AdvancementHandler
 	{
 		Method method;
 
-		method = ReflectionHelper.findMethod(CriteriaTriggers.class, "register", "func_192118_a", ICriterionTrigger.class);
-		method.setAccessible(true);
+		method = ReflectionUtil.findMethod(CriteriaTriggers.class, "register", "func_192118_a", ICriterionTrigger.class);
 
 		try
 		{

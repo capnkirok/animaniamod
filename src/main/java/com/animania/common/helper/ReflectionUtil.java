@@ -1,9 +1,8 @@
 package com.animania.common.helper;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 
 import javax.annotation.Nullable;
 
@@ -12,12 +11,16 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 /**
  * Utility methods for reflection.
  *
- * @author Choonster
+ * @author Choonster & V10lator
  */
 public class ReflectionUtil
 {
+	@SuppressWarnings("rawtypes")
+	private static final HashMap<Class, HashMap<String, Method>> methodCache = new HashMap<Class, HashMap<String, Method>>();
+	@SuppressWarnings("rawtypes")
+	private static final HashMap<Class, HashMap<String, Field>> fieldCache = new HashMap<Class, HashMap<String, Field>>();
     /**
-     * Get a {@link MethodHandle} for a method.
+     * Get a {@link Method} from a {@link Class}.
      *
      * @param clazz
      *            The class
@@ -27,56 +30,50 @@ public class ReflectionUtil
      *            The argument types of the method
      * @param <T>
      *            The class
-     * @return The MethodHandle
+     * @return The Method
      */
-	public static MethodHandle findMethod(final Class<?> clazz, final String methodName, @Nullable final String methodObfName, final Class<?>... parameterTypes)
+	public static Method findMethod(final Class<?> clazz, final String methodName, @Nullable final String methodObfName, final Class<?>... parameterTypes)
 	{
-		final Method method = ReflectionHelper.findMethod(clazz, methodName, methodObfName, parameterTypes);
-		try
+		HashMap<String, Method> classMethods = methodCache.get(clazz);
+		if(classMethods == null)
 		{
-			return MethodHandles.lookup().unreflect(method);
+			classMethods = new HashMap<String, Method>();
+			methodCache.put(clazz, classMethods);
 		}
-		catch (IllegalAccessException e)
+		
+		Method method = classMethods.get(methodName);
+		if(method == null)
 		{
-			throw new ReflectionHelper.UnableToFindMethodException(e);
+			method = ReflectionHelper.findMethod(clazz, methodName, methodObfName, parameterTypes);
+			classMethods.put(methodName, method);
 		}
+		return method;
+		
 	}
 
     /**
-     * Get a {@link MethodHandle} for a field's getter.
+     * Get a {@link Field} from a {@link Class}.
      *
      * @param clazz
      *            The class
      * @param fieldNames
      *            The possible names of the field
-     * @return The MethodHandle
+     * @return The Field
      */
-    public static MethodHandle findFieldGetter(Class<?> clazz, String... fieldNames) {
-        final Field field = ReflectionHelper.findField(clazz, fieldNames);
-
-        try {
-            return MethodHandles.lookup().unreflectGetter(field);
-        } catch (IllegalAccessException e) {
-            throw new ReflectionHelper.UnableToAccessFieldException(fieldNames, e);
-        }
-    }
-
-    /**
-     * Get a {@link MethodHandle} for a field's setter.
-     *
-     * @param clazz
-     *            The class
-     * @param fieldNames
-     *            The possible names of the field
-     * @return The MethodHandle
-     */
-    public static MethodHandle findFieldSetter(Class<?> clazz, String... fieldNames) {
-        final Field field = ReflectionHelper.findField(clazz, fieldNames);
-
-        try {
-            return MethodHandles.lookup().unreflectSetter(field);
-        } catch (IllegalAccessException e) {
-            throw new ReflectionHelper.UnableToAccessFieldException(fieldNames, e);
-        }
+    public static Field findField(Class<?> clazz, String... fieldNames) {
+    	HashMap<String, Field> classFields = fieldCache.get(clazz);
+		if(classFields == null)
+		{
+			classFields = new HashMap<String, Field>();
+			fieldCache.put(clazz, classFields);
+		}
+		
+		Field field = classFields.get(fieldNames[0]);
+		if(field == null)
+		{
+			field = ReflectionHelper.findField(clazz, fieldNames);
+			classFields.put(fieldNames[0], field);
+		}
+		return field;
     }
 }

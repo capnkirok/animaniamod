@@ -35,11 +35,6 @@ public class AnimaniaConfig
 	{
 
 		/**
-		 * The {@link ConfigManager#CONFIGS} getter.
-		 */
-		private static final MethodHandle CONFIGS_GETTER = ReflectionUtil.findFieldGetter(ConfigManager.class, "CONFIGS");
-
-		/**
 		 * The {@link Configuration} instance.
 		 */
 		private static List<Configuration> configuration;
@@ -61,7 +56,7 @@ public class AnimaniaConfig
 					List<Configuration> cfgs = new ArrayList<Configuration>();
 					
 					@SuppressWarnings("unchecked")
-					final Map<String, Configuration> configsMap = (Map<String, Configuration>) EventHandler.CONFIGS_GETTER.invokeExact();
+					final Map<String, Configuration> configsMap = (Map<String, Configuration>) ReflectionUtil.findField(ConfigManager.class, "CONFIGS").get(null);
 
 					final Stream<Map.Entry<String, Configuration>> entries = configsMap.entrySet().stream().filter(entry -> entry.getKey().substring(entry.getKey().lastIndexOf(File.separator), entry.getKey().length()-1).contains(Animania.MODID));
 
