@@ -28,4 +28,18 @@ public class EntityPuppyLabrador extends EntityPuppyBase
 	{
 		return 3;
 	}
+	
+	@Override
+	public int getEyeColorForVariant(int variant)
+	{
+		switch(variant)
+		{
+		case 0: 
+			return 0xAA7A4C;
+		case 1:
+			return 0x1B1B1B;
+		default:
+			return 0x39211A;
+		}
+	}
 }

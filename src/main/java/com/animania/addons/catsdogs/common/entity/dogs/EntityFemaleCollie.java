@@ -28,4 +28,16 @@ public class EntityFemaleCollie extends EntityFemaleDogBase
 	{
 		return 2;
 	}
+	
+	@Override
+	public int getEyeColorForVariant(int variant)
+	{
+		switch(variant)
+		{
+		case 0: 
+			return 0x433227;
+		default:
+			return 0x1B1B1B;
+		}
+	}
 }

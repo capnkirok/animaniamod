@@ -32,7 +32,7 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 		this.eyeColor = eyeColor;
 		this.scale = scale;
 
-		this.addLayer(blinking = new LayerBlinking(this, blink, eyeColor));
+		this.addLayer(blinking = new LayerBlinking(this, blink, eyeColor, true));
 	}
 
 	protected void preRenderScale(EntityAnimaniaDog entity, float f)

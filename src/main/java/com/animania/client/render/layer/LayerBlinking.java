@@ -49,6 +49,17 @@ public class LayerBlinking implements LayerRenderer
 		this(render, blinkingTexture, col, col);
 	}
 
+	public LayerBlinking(RenderLiving render, ResourceLocation blinkingTexture, int col, boolean oneTexture)
+	{
+		this.render = render;
+		this.texture_base = blinkingTexture;
+		this.colLeft = col;
+		this.colRight = col;
+
+		this.left = texture_base;
+		this.right = texture_base;
+	}
+
 	public void setColors(int left, int right)
 	{
 		this.colLeft = left;
@@ -87,64 +98,63 @@ public class LayerBlinking implements LayerRenderer
 			Color c = new Color(colLeft);
 			rgb = c.getRGBColorComponents(rgb);
 
-			//Manual position and scale overrides, because nothing is perfect
-			
+			// Manual position and scale overrides, because nothing is perfect
+
 			if (this.render.getMainModel() instanceof ModelPiglet || this.render.getMainModel() instanceof ModelPigletHampshire)
 			{
 				GlStateManager.translate(0.0, -0.038, 0.1499);
 			}
 			else
 				GlStateManager.scale(1.0002, 1.0002, 1.0002);
-			
+
 			GlStateManager.pushMatrix();
-			
-			
+
 			if (this.render.getMainModel() instanceof ModelDraftHorseStallion)
 			{
 				GlStateManager.translate(0.0, 0, 0.0001);
 			}
-			
-			if(entity instanceof EntityAnimaniaSheep)
+
+			if (entity instanceof EntityAnimaniaSheep)
 			{
 				GlStateManager.translate(0.0, 0, 0.0001);
 			}
-			
-			if(entity instanceof EntityRamSuffolk || entity instanceof EntityRamMerino  || entity instanceof EntityRamJacob || entity instanceof EntityEweJacob || entity instanceof EntityLambJacob)
+
+			if (entity instanceof EntityRamSuffolk || entity instanceof EntityRamMerino || entity instanceof EntityRamJacob || entity instanceof EntityEweJacob || entity instanceof EntityLambJacob)
 			{
 				GlStateManager.translate(0.0, 0, -0.0001);
 			}
-			
+
 			this.render.bindTexture(left);
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.color(rgb[0], rgb[1], rgb[2], 1.0F);
-			
-			if(this.render.getMainModel() instanceof IColoredModel)
-				((IColoredModel) this.render.getMainModel()).setColor(-1f,-1f,-1f);
-			
+
+			if (this.render.getMainModel() instanceof IColoredModel)
+				((IColoredModel) this.render.getMainModel()).setColor(-1f, -1f, -1f);
+
 			this.render.getMainModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 			GlStateManager.color(1f, 1f, 1f);
 			GlStateManager.popMatrix();
 
 			GlStateManager.pushMatrix();
-			
-			if(this.render.getMainModel() instanceof ModelDraftHorseMare || this.render.getMainModel() instanceof ModelDraftHorseFoal)
-			{
-				GlStateManager.translate(0.0, 0, 0.0001);	
-			}
-			
-			if(entity instanceof EntityRamSuffolk || entity instanceof EntityRamMerino  || entity instanceof EntityRamJacob || entity instanceof EntityEweJacob || entity instanceof EntityLambJacob)
+
+			if (this.render.getMainModel() instanceof ModelDraftHorseMare || this.render.getMainModel() instanceof ModelDraftHorseFoal)
 			{
 				GlStateManager.translate(0.0, 0, 0.0001);
 			}
-			
+
+			if (entity instanceof EntityRamSuffolk || entity instanceof EntityRamMerino || entity instanceof EntityRamJacob || entity instanceof EntityEweJacob || entity instanceof EntityLambJacob)
+			{
+				GlStateManager.translate(0.0, 0, 0.0001);
+			}
+
 			c = new Color(colRight);
 			rgb = c.getRGBColorComponents(new float[3]);
 			this.render.bindTexture(right);
 			GlStateManager.color(rgb[0], rgb[1], rgb[2], 1.0F);
-			
-			if(this.render.getMainModel() instanceof IColoredModel)
-				((IColoredModel) this.render.getMainModel()).setColor(-1f,-1f,-1f);
-			
+
+			if (this.render.getMainModel() instanceof IColoredModel)
+				((IColoredModel) this.render.getMainModel()).setColor(-1f, -1f, -1f);
+
 			this.render.getMainModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 			GlStateManager.color(1f, 1f, 1f);
 			GlStateManager.popMatrix();

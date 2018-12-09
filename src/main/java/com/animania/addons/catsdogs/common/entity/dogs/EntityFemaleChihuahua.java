@@ -28,4 +28,16 @@ public class EntityFemaleChihuahua extends EntityFemaleDogBase
 	{
 		return 2;
 	}
+	
+	@Override
+	public int getEyeColorForVariant(int variant)
+	{
+		switch(variant)
+		{
+		case 0: 
+			return 0x8E5C2B;
+		default:
+			return 0xE5DAD3;
+		}
+	}
 }
