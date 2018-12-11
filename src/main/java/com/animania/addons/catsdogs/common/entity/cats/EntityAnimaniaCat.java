@@ -3,6 +3,7 @@ package com.animania.addons.catsdogs.common.entity.cats;
 import java.util.Set;
 import java.util.UUID;
 
+import com.animania.addons.catsdogs.common.entity.generic.ai.GenericAISitIdle;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.entities.AnimalContainer;
@@ -117,6 +118,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new GenericAILookIdle<EntityAnimaniaCat>(this));
+		this.tasks.addTask(14, new GenericAISitIdle(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(14, new GenericAISleep<EntityAnimaniaCat>(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed2), EntityAnimaniaCat.class));
