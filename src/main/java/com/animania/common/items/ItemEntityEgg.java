@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.animania.Animania;
+import com.animania.api.data.AnimalContainer;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.ISpawnable;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaType;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.cows.CowType;

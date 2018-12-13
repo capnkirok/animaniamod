@@ -3,7 +3,7 @@ package com.animania.common.entities.rodents;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import com.animania.common.entities.AnimaniaType;
+import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;

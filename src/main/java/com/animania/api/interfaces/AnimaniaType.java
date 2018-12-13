@@ -1,10 +1,4 @@
-package com.animania.common.entities;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
-import com.animania.common.entities.amphibians.EntityAmphibian;
-import com.animania.common.entities.cows.EntityCalfBase;
+package com.animania.api.interfaces;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;

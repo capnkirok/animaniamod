@@ -23,6 +23,12 @@ public class GenericAITargetNonTamed extends EntityAITargetNonTamed
 			if(((ISleeping) entity).getSleeping())
 				return false;
 		
+		if(entity.isTamed())
+			return false;
+		
+		if(entity.isSitting())
+			return false;
+		
 		return super.shouldExecute();
 	}
 

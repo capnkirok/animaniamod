@@ -1,8 +1,8 @@
 package com.animania.common.items;
 
 import com.animania.Animania;
-import com.animania.common.entities.AnimaniaType;
-import com.animania.common.entities.EntityGender;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;

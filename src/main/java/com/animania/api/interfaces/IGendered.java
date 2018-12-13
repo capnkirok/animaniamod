@@ -1,6 +1,6 @@
 package com.animania.api.interfaces;
 
-import com.animania.common.entities.EntityGender;
+import com.animania.api.data.EntityGender;
 
 public interface IGendered
 {

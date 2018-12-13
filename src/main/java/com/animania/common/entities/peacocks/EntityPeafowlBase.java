@@ -1,6 +1,6 @@
 package com.animania.common.entities.peacocks;
 
-import com.animania.common.entities.EntityGender;
+import com.animania.api.data.EntityGender;
 import com.animania.common.entities.peacocks.ai.EntityAIFindPeacockNest;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;

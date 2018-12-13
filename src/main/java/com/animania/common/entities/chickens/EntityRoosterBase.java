@@ -3,8 +3,8 @@ package com.animania.common.entities.chickens;
 import java.util.List;
 
 import com.animania.Animania;
+import com.animania.api.data.EntityGender;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;

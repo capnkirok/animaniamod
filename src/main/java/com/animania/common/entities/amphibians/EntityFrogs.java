@@ -6,9 +6,9 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
+import com.animania.api.data.AnimalContainer;
+import com.animania.api.data.EntityGender;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;

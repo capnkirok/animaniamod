@@ -38,10 +38,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.Animania;
+import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.cows.EntityBullBase;
 import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
 import com.animania.common.entities.generic.ai.GenericAIMate;

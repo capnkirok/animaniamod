@@ -3,7 +3,7 @@ package com.animania.addons.catsdogs.common.entity.dogs;
 import java.lang.reflect.Constructor;
 
 import com.animania.Animania;
-import com.animania.common.entities.AnimaniaType;
+import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.world.World;
 

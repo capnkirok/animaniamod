@@ -144,7 +144,7 @@ public class ModelFox extends ModelBase
 		this.chops_r.addBox(-2.0F, -1.0F, -2.5F, 4, 2, 5);
 		this.chops_r.setRotationPoint(-2.0F, 1.6101F, -1.5F);
 		this.chops_r.setOffset(-2.0F, 0.5F, -1.1F);
-		this.chops_l = new ModelRendererAnimania(this, 50, 0);
+		this.chops_l = new ModelRendererAnimania(this, 40, 0);
 		this.chops_l.setTextureSize(128, 64);
 		this.chops_l.addBox(-2.0F, -1.0F, -2.5F, 4, 2, 5);
 		this.chops_l.setRotationPoint(2.0F, 1.6101F, -1.2F);

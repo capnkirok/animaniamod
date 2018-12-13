@@ -1,6 +1,6 @@
-package com.animania.common.entities;
+package com.animania.api.data;
 
-import com.animania.common.entities.sheep.SheepType;
+import com.animania.api.interfaces.AnimaniaType;
 
 public class AnimalContainer
 {

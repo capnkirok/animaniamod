@@ -1,6 +1,7 @@
-package com.animania.common.entities;
+package com.animania.api.data;
 
 import com.animania.Animania;
+import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;

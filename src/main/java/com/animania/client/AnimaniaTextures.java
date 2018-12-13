@@ -3,9 +3,9 @@ package com.animania.client;
 import javax.annotation.Nonnull;
 
 import com.animania.Animania;
+import com.animania.api.data.AnimalContainer;
+import com.animania.api.data.EntityGender;
 import com.animania.common.blocks.IMetaBlockName;
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEgg;

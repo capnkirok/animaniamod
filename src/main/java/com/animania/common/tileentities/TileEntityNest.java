@@ -2,7 +2,7 @@ package com.animania.common.tileentities;
 
 import javax.annotation.Nullable;
 
-import com.animania.common.entities.AnimaniaType;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.handler.ItemHandler;

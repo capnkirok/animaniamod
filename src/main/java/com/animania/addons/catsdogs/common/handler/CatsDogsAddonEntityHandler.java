@@ -76,7 +76,7 @@ import com.animania.addons.catsdogs.common.entity.dogs.EntityPuppyPomeranian;
 import com.animania.addons.catsdogs.common.entity.dogs.EntityPuppyPoodle;
 import com.animania.addons.catsdogs.common.entity.dogs.EntityPuppyPug;
 import com.animania.addons.catsdogs.common.entity.dogs.EntityPuppyWolf;
-import com.animania.common.entities.EntityGender;
+import com.animania.api.data.EntityGender;
 import com.animania.common.helper.RegistryHelper;
 import com.google.common.collect.Lists;
 

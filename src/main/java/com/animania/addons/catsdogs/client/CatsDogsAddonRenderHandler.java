@@ -27,6 +27,7 @@ import com.animania.addons.catsdogs.client.render.blocks.TileEntityPetBowlRender
 import com.animania.addons.catsdogs.client.render.blocks.TileEntityPropRenderer;
 import com.animania.addons.catsdogs.client.render.cats.RenderCatGeneric;
 import com.animania.addons.catsdogs.client.render.dogs.RenderDogGeneric;
+import com.animania.addons.catsdogs.client.render.dogs.RenderFox;
 import com.animania.addons.catsdogs.common.entity.cats.EntityKittenAmericanShorthair;
 import com.animania.addons.catsdogs.common.entity.cats.EntityKittenAsiatic;
 import com.animania.addons.catsdogs.common.entity.cats.EntityKittenExotic;
@@ -208,9 +209,9 @@ public class CatsDogsAddonRenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityMaleDachshund.class, new RenderDogGeneric.Factory(new ModelDachshund(), r(DOGS + "dachshund.png"), r(DOGS + "blink_dachshund.png"), -197380, 1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFemaleDachshund.class, new RenderDogGeneric.Factory(new ModelDachshund(), r(DOGS + "dachshund.png"), r(DOGS + "blink_dachshund.png"), -197380, 1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyDachshund.class, new RenderDogGeneric.Factory(new ModelDachshund(), r(DOGS + "dachshund.png"), r(DOGS + "blink_dachshund.png"), -197380, 1f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityMaleFox.class, new RenderDogGeneric.Factory(new ModelFox(), r(DOGS + "fox.png"), r(DOGS + "blink_fox.png"), -5415620, 1f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityFemaleFox.class, new RenderDogGeneric.Factory(new ModelFox(), r(DOGS + "fox.png"), r(DOGS + "blink_fox.png"), -5415620, 1f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyFox.class, new RenderDogGeneric.Factory(new ModelFox(), r(DOGS + "fox.png"), r(DOGS + "blink_fox.png"), -5415620, 1f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityMaleFox.class, new RenderFox.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityFemaleFox.class, new RenderFox.Factory());
+		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyFox.class, new RenderFox.Factory());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMaleGermanShepherd.class, new RenderDogGeneric.Factory(new ModelGermanShepherd(), r(DOGS + "german_shepherd.png"), r(DOGS + "blink_collie.png"), -8300224, 1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFemaleGermanShepherd.class, new RenderDogGeneric.Factory(new ModelGermanShepherd(), r(DOGS + "german_shepherd.png"), r(DOGS + "blink_collie.png"), -8300224, 1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyGermanShepherd.class, new RenderDogGeneric.Factory(new ModelGermanShepherd(), r(DOGS + "german_shepherd.png"), r(DOGS + "blink_collie.png"), -8300224, 1f));

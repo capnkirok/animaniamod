@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import com.animania.Animania;
-import com.animania.common.entities.AnimaniaType;
+import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;

@@ -3,9 +3,9 @@ package com.animania.common.loottables;
 import java.util.Random;
 
 import com.animania.Animania;
+import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IFoodEating;
 import com.animania.api.interfaces.IGendered;
-import com.animania.common.entities.EntityGender;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;

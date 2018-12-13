@@ -5,9 +5,9 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
+import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;

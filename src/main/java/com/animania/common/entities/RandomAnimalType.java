@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.animania.Animania;
+import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;

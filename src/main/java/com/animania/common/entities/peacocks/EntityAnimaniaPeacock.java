@@ -37,11 +37,11 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import com.animania.Animania;
+import com.animania.api.data.AnimalContainer;
+import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.blocks.BlockSeeds;
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;

@@ -1,6 +1,6 @@
 package com.animania.common.entities.peacocks;
 
-import com.animania.common.entities.EntityGender;
+import com.animania.api.data.EntityGender;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.entity.item.EntityItem;

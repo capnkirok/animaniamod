@@ -4,7 +4,6 @@ import java.util.Set;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
-import net.minecraft.block.IGrowable;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fluids.Fluid;

@@ -1,8 +1,8 @@
 package com.animania.common.handler;
 
 import com.animania.Animania;
+import com.animania.api.data.EntityGender;
 import com.animania.common.blocks.BlockSeeds;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.entities.chickens.ChickenType;
 import com.animania.common.entities.cows.CowType;

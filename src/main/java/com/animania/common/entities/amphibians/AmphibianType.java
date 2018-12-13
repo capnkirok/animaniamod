@@ -3,7 +3,7 @@ package com.animania.common.entities.amphibians;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import com.animania.common.entities.AnimaniaType;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.entities.pigs.EntityHogBase;
 import com.animania.common.entities.sheep.SheepType;
 

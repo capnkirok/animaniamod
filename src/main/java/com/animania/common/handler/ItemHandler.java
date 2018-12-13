@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.animania.Animania;
+import com.animania.api.data.AnimalContainer;
+import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.ISpawnable;
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.entities.amphibians.AmphibianType;
 import com.animania.common.entities.chickens.ChickenType;

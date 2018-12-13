@@ -3,7 +3,7 @@ package com.animania.common.handler;
 import java.util.List;
 import java.util.Set;
 
-import com.animania.common.entities.EntityGender;
+import com.animania.api.data.EntityGender;
 import com.animania.common.entities.amphibians.AmphibianType;
 import com.animania.common.entities.amphibians.EntityDartFrogs;
 import com.animania.common.entities.amphibians.EntityFrogs;

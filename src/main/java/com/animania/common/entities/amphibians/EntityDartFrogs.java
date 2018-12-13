@@ -3,9 +3,9 @@ package com.animania.common.entities.amphibians;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
+import com.animania.api.data.AnimalContainer;
+import com.animania.api.data.EntityGender;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;

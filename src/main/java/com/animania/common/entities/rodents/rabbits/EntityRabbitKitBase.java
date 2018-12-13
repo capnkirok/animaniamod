@@ -20,9 +20,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.animania.Animania;
+import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.rodents.ai.EntityAIFollowParentRabbits;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.animania.config.AnimaniaConfig;

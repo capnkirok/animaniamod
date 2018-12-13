@@ -7,9 +7,9 @@ import java.util.List;
 
 import com.animania.Animania;
 import com.animania.addons.catsdogs.common.entity.cats.CatType;
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaType;
-import com.animania.common.entities.EntityGender;
+import com.animania.api.data.AnimalContainer;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.entity.passive.EntityVillager.ListItemForEmeralds;

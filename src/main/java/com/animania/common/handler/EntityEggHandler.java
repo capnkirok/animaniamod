@@ -3,7 +3,7 @@ package com.animania.common.handler;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.animania.common.entities.AnimalContainer;
+import com.animania.api.data.AnimalContainer;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;

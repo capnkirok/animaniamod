@@ -1,7 +1,7 @@
 package com.animania.common.entities.chickens;
 
+import com.animania.api.data.EntityGender;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 

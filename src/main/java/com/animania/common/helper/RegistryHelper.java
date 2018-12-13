@@ -3,9 +3,9 @@ package com.animania.common.helper;
 import java.lang.reflect.Method;
 
 import com.animania.Animania;
-import com.animania.common.entities.AnimalContainer;
-import com.animania.common.entities.AnimaniaType;
-import com.animania.common.entities.EntityGender;
+import com.animania.api.data.AnimalContainer;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.handler.EntityEggHandler;
 import com.animania.common.handler.ItemHandler;

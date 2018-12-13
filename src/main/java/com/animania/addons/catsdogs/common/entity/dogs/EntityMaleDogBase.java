@@ -7,10 +7,10 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
+import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.EntityGender;
 import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;

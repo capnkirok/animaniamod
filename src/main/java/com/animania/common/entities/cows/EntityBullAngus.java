@@ -1,7 +1,7 @@
 package com.animania.common.entities.cows;
 
 import com.animania.Animania;
-import com.animania.common.entities.EntityGender;
+import com.animania.api.data.EntityGender;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.util.ResourceLocation;
