@@ -4,6 +4,7 @@ import com.animania.api.interfaces.IFoodEating;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.entities.cows.CowType;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
+import com.animania.common.helper.ReflectionUtil;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -126,11 +127,21 @@ public class GenericAIEatGrass<T extends EntityCreature & ISleeping & IFoodEatin
 
 					if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
 					{
-
 						String name = block.getRegistryName().toString();
-						if (Loader.isModLoaded("desirepaths") && ((name.contains("desirepaths:grass_worn_") && (name.endsWith("1") || name.endsWith("2") || name.endsWith("3"))) || block instanceof BlockGrass))
-							this.entityWorld.setBlockState(this.seekingBlockPos, Block.getBlockFromName("desirepaths:grass_worn_6").getDefaultState());
-						else
+						boolean handled = false;
+						
+						if (Loader.isModLoaded("desirepaths") && ((name.startsWith("desirepaths:grass_worn_") && !name.endsWith("6")) || block instanceof BlockGrass))
+						{
+							try {
+								ReflectionUtil.findMethod(Class.forName("com.corosus.desirepaths.block.BlockGrassWorn"), "performWearTick", null, World.class, BlockPos.class, float.class).invoke(null, this.entityWorld, this.seekingBlockPos, 20.0F);
+								handled = true;
+							} catch (Exception e) {
+								// Do nothing as handled is still false
+								e.printStackTrace();
+							}
+						}
+						
+						if(!handled)
 							this.entityWorld.setBlockState(this.seekingBlockPos, Blocks.DIRT.getDefaultState(), 2);
 					}
 

@@ -40,28 +40,12 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 		{
 			float age = ((IChild) entity).getEntityAge();
 			GlStateManager.scale(scale + age, scale + age, scale + age);
+			this.shadowSize = (scale + age)/2;
+		} else {
+			GlStateManager.scale(scale, scale, scale);
+			this.shadowSize = scale/2;
 		}
-		else
-			if (entity.type == CatType.SIAMESE) {
-				GlStateManager.scale(scale * .57F, scale * .57F, scale * .57F);
-			} else if (entity.type == CatType.NORWEGIAN) {
-				GlStateManager.scale(scale * .59F, scale * .59F, scale * .59F);
-			} else if (entity.type == CatType.EXOTIC) {
-				GlStateManager.scale(scale * .60F, scale * .60F, scale * .60F);
-			} else if (entity.type == CatType.AMERICAN_SHORTHAIR) {
-				GlStateManager.scale(scale * .65F, scale * .65F, scale * .65F);
-			} else if (entity.type == CatType.TABBY) {
-				GlStateManager.scale(scale * .70F, scale * .70F, scale * .70F);
-			} else if (entity.type == CatType.ASIATIC) {
-				GlStateManager.scale(scale * .78F, scale * .78F, scale * .78F);
-			} else if (entity.type == CatType.OCELOT) {
-				GlStateManager.scale(scale * .85F, scale * .85F, scale * .85F);
-			} else {
-				GlStateManager.scale(scale * .67F, scale * .67F, scale * .67F);
-			}
 
-
-		//		GlStateManager.translate(0f, 0f, -0.5f);
 		EntityAnimaniaCat entityCat = (EntityAnimaniaCat) entity;
 		if (entityCat.getSleeping())
 		{
@@ -78,7 +62,6 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 		}
 		else
 		{
-			this.shadowSize = 0.25F;
 			entityCat.setSleeping(false);
 			entityCat.setSleepTimer(0F);
 		}
