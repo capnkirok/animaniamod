@@ -2,7 +2,6 @@ package com.animania.addons.catsdogs.client.render.dogs;
 
 import com.animania.addons.catsdogs.common.entity.dogs.EntityAnimaniaDog;
 import com.animania.api.interfaces.IChild;
-import com.animania.api.interfaces.IVariant;
 import com.animania.client.render.layer.LayerBlinking;
 
 import net.minecraft.client.model.ModelBase;
@@ -11,6 +10,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -73,7 +73,13 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 	{
 		if(entity.getVariantCount() > 0)
 		{
+			
+			
 			String tex = texture.toString().replace(".png", "");
+			
+			if(entity.getPosition().equals(new BlockPos(-1, -1, -1)))
+				return new ResourceLocation(tex + 0 + ".png");
+			
 			tex += entity.getVariant() + ".png";
 			return new ResourceLocation(tex);
 		}

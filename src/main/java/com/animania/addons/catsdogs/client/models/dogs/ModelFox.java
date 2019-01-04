@@ -1,9 +1,12 @@
 package com.animania.addons.catsdogs.client.models.dogs;
 
+import com.animania.addons.catsdogs.common.entity.dogs.EntityAnimaniaDog;
 import com.animania.client.models.render.ModelRendererAnimania;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.math.MathHelper;
 
 public class ModelFox extends ModelBase
 {
@@ -246,5 +249,73 @@ public class ModelFox extends ModelBase
 		this.ear_r2.rotateAngleX = 0.20943951023931956F;
 		this.setRotationAngles(f1, f2, f3, f4, f5, scale, entity);
 		this.body.render(scale);
+	}
+	
+	@Override
+	public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)
+	{
+
+		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
+
+		boolean sitting = dog.isSitting();
+		if (!sitting)
+		{
+			this.body.setRotationPoint(0.0F, 10.0F, -5.0F);
+			
+			this.body.rotateAngleX = -0.06981317007977318F;
+			this.leg_l1.rotateAngleX = 0.06981317007977318F;
+			this.lower_body.rotateAngleX = 0;
+			this.tail.rotateAngleX = -0.8730119465183116F;
+			this.tail2.rotateAngleX = -0.40761990147402366F;
+			this.back_leg_l1.rotateAngleX = 0.06981317007977318F;
+			this.back_leg_r1.rotateAngleX = 0.06981317007977318F;
+			this.head_base.rotateAngleX = 1.3328817698092894F;
+			this.leg_r1.rotateAngleX = 0.06981317007977318F;
+
+		}
+
+		super.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTickTime);
+
+	}
+	
+	@Override
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
+	{
+		limbSwingAmount *= 0.6;
+		
+		this.neck1.rotateAngleX = headPitch * 0.001453292F - 0.7f;
+		this.neck1.rotateAngleY = netHeadYaw * 0.017453292F;
+
+		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
+
+		if (!dog.getSleeping())
+		{
+			this.tail.rotateAngleY = MathHelper.sin(ageInTicks * 3.141593F * 0.05F) * MathHelper.sin(ageInTicks * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		}
+		else
+		{
+			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+		}
+		this.back_leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+		this.back_leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+		this.leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+		this.leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+
+		boolean sitting = dog.isSitting();
+		if (sitting)
+		{
+			this.body.setRotationPoint(0.0F, 12.0F, -5.0F);
+			
+			this.body.rotateAngleX = -0.10049954898833749F;
+			this.leg_l1.rotateAngleX = -0.4374388517443468F;
+			this.lower_body.rotateAngleX = -0.68513423385813F;
+			this.tail.rotateAngleX = 0.7665852593902014F;
+			this.tail2.rotateAngleX = 0.458307753610443F;
+			this.back_leg_l1.rotateAngleX = -0.43039993887105366F;
+			this.back_leg_r1.rotateAngleX = -0.4596010425861708F;
+			this.head_base.rotateAngleX = 1.1523920358728F;
+			this.leg_r1.rotateAngleX = -0.4434654736514832F;
+		}
+
 	}
 }

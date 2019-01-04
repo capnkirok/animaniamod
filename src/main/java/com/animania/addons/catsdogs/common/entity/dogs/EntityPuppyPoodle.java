@@ -22,4 +22,24 @@ public class EntityPuppyPoodle extends EntityPuppyBase
 	{
 		return -5537189;
 	}
+	
+	@Override
+	public int getVariantCount()
+	{
+		return 3;
+	}
+	
+	@Override
+	public int getEyeColorForVariant(int variant)
+	{
+		switch(variant)
+		{
+		case 0: 
+			return 0xECECEC;
+		case 1:
+			return 0x1D1D1D;
+		default:
+			return 0x874D29;
+		}
+	}
 }
