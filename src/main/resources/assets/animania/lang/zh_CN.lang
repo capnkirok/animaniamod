@@ -487,6 +487,8 @@ tile.animania_block_trough.name=食槽
 tile.animania_block_nest.name=鸡窝
 tile.animania_invisiblock.name=食槽
 tile.animania_block_hamster_wheel.name=仓鼠飞轮
+tile.animania_block_hive.name=自制蜂巢
+tile.animania_block_wild_hive.name=野生蜂巢
 tile.animania_salt_lick.name=盐舔
 
 entity.animania:wagon.name=篷车
@@ -512,6 +514,7 @@ fluid.milk_friesian=黑白花牛牛奶
 fluid.milk_jersey=娟珊牛牛奶
 fluid.milk_goat=山羊奶
 fluid.milk_sheep=羊奶
+fluid.animania_honey=蜂蜜
 
 tab.animania_entities.label=动物谷|生物
 tab.animania_resources.label=动物谷|资源
