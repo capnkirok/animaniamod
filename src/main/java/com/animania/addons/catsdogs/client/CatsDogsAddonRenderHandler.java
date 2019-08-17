@@ -227,7 +227,7 @@ public class CatsDogsAddonRenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityMaleLabrador.class, new RenderDogGeneric.Factory(new ModelLabrador(), r(DOGS + "labrador.png"), r(DOGS + "blink_collie.png"), -4153993, 1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFemaleLabrador.class, new RenderDogGeneric.Factory(new ModelLabrador(), r(DOGS + "labrador.png"), r(DOGS + "blink_collie.png"), -4153993, 1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyLabrador.class, new RenderDogGeneric.Factory(new ModelLabrador(), r(DOGS + "labrador.png"), r(DOGS + "blink_collie.png"), -4153993, 1f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityMalePomeranian.class, new RenderDogGeneric.Factory(new ModelPomeranian(), r(DOGS + "pomeranian.png"), r(DOGS + "blink_pomeranian.png"), -197380, 1f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityMalePomeranian.class, new RenderDogGeneric.Factory(new ModelPomeranian(), r(DOGS + "pomeranian.png"), r(DOGS + "blink_pomeranian.png"), -197380, 1f, 0, 0, -0.5));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFemalePomeranian.class, new RenderDogGeneric.Factory(new ModelPomeranian(), r(DOGS + "pomeranian.png"), r(DOGS + "blink_pomeranian.png"), -197380, 1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyPomeranian.class, new RenderDogGeneric.Factory(new ModelPomeranian(), r(DOGS + "pomeranian.png"), r(DOGS + "blink_pomeranian.png"), -197380, 1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMalePoodle.class, new RenderDogGeneric.Factory(new ModelPoodle(), r(DOGS + "poodle.png"), r(DOGS + "blink_poodle.png"), -658707, 1f));

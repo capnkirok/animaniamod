@@ -23,20 +23,26 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 	private final int eyeColor;
 	private final float scale;
 	private final LayerBlinking blinking;
-
-	public RenderDogGeneric(RenderManager rm, ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeColor, float scale)
+	private final double x,y,z;
+	
+	public RenderDogGeneric(RenderManager rm, ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeColor, float scale, double x, double y, double z)
 	{
 		super(rm, model, 0.5F);
 		this.texture = texture;
 		this.blink = blink;
 		this.eyeColor = eyeColor;
 		this.scale = scale;
+		this.x = x;
+		this.y = y;
+		this.z = z;
 
 		this.addLayer(blinking = new LayerBlinking(this, blink, eyeColor, true));
 	}
 
 	protected void preRenderScale(EntityAnimaniaDog entity, float f)
 	{
+		GlStateManager.translate(x, y, z);
+
 		if (entity instanceof IChild)
 		{
 			float age = ((IChild) entity).getEntityAge();
@@ -66,6 +72,7 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 			entityCat.setSleeping(false);
 			entityCat.setSleepTimer(0F);
 		}
+		
 	}
 
 	@Override
@@ -106,20 +113,29 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 		int eye;
 		float scale;
 		ModelBase model;
+		double x, y, z;
 
-		public Factory(ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeCol, float scale)
+		public Factory(ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeCol, float scale, double x, double y, double z)
 		{
 			this.tex = texture;
 			this.blink = blink;
 			this.eye = eyeCol;
 			this.scale = scale;
 			this.model = model;
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+		
+		public Factory(ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeCol, float scale)
+		{
+			this(model, texture, blink, eyeCol, scale, 0, 0, 0);
 		}
 
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)
 		{
-			return new RenderDogGeneric(manager, model, tex, blink, eye, scale);
+			return new RenderDogGeneric(manager, model, tex, blink, eye, scale, x, y, z);
 		}
 
 	}

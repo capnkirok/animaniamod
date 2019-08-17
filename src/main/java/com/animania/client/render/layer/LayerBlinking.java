@@ -23,7 +23,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
-public class LayerBlinking implements LayerRenderer
+public class LayerBlinking<E extends EntityLivingBase> implements LayerRenderer
 {
 
 	private RenderLiving render;
