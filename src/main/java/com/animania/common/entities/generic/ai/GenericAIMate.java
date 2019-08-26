@@ -73,7 +73,7 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 				return false;
 			}
 
-			List similarAnimalsInRange = AnimaniaHelper.getEntitiesInRange(base, 30, theWorld, entity);
+			List similarAnimalsInRange = AnimaniaHelper.getEntitiesInRange(base, AnimaniaConfig.gameRules.animalCapSearchRange, theWorld, entity);
 			if(similarAnimalsInRange.size() >= AnimaniaConfig.careAndFeeding.entityBreedingLimit)
 			{
 				this.delayCounter = 0;

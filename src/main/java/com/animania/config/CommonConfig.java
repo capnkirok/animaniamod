@@ -151,6 +151,9 @@ public class CommonConfig
 		@Comment("Range that Animals search blocks (like troughs or food blocks) in")
 		public int aiBlockSearchRange = 16;
 		
+		@Comment("Range that the animal cap applies for around each animal")
+		public int animalCapSearchRange = 50;
+		
 	}
 
 	public static class Spawn
@@ -710,7 +713,7 @@ public class CommonConfig
 		public String sheepBed2 = "minecraft:grass";
 
 		@Comment("Animals won't breed if there are more than the specified amount of animals of their type in a 30 block range.")
-		public int entityBreedingLimit = 20;
+		public int entityBreedingLimit = 15;
 
 	}
 
