@@ -39,6 +39,7 @@ import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
 import com.animania.config.AnimaniaConfig;
@@ -70,20 +71,12 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		if (this.world.isRemote)
 			return null;
 
-		List list = this.world.loadedEntityList;
+		List<EntityAnimaniaPig> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 64, this.world, this.getPosition());
+		
+		if (others.size() <= 4 ) {
 
-		int currentCount = 0;
-		int num = 0;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) instanceof EntityAnimaniaPig) {
-				num++;
-			}
-		}
-		currentCount = num;
 
-		if (currentCount <= AnimaniaConfig.spawn.spawnLimitPigs) {
-
-			int chooser = this.rand.nextInt(5);
+			int chooser = this.rand.nextInt(3);
 
 			if (chooser == 0)
 			{
@@ -93,7 +86,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				entityPig.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entityPig.getPersistentID());
 			}
-			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			else if (chooser == 1)
 			{
 				EntityPigletBase entityPig = this.pigType.getChild(world);
 				entityPig.setPosition(this.posX, this.posY, this.posZ);
@@ -107,7 +100,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				this.world.spawnEntity(entityPig);
 				entityPig.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entityPig.getPersistentID());
-				if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
+				if (!AnimaniaConfig.careAndFeeding.feedToBreed) {
 					EntityPigletBase entityPiglet = this.pigType.getChild(world);
 					entityPiglet.setPosition(this.posX, this.posY, this.posZ);
 					this.world.spawnEntity(entityPiglet);

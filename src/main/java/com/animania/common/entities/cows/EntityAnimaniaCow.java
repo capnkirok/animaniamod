@@ -338,18 +338,22 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.world.isRemote)
+		if (this.world.isRemote && this.getHandFed())
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
 		if (this.getLeashed() && this.getSleeping())
 			this.setSleeping(false);
+		
+		if (this.getLeashed()) {
+			this.setHandFed(true);
+		}
 
 		if (this.getAge() == 0)
 		{
 			this.setAge(1);
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && this.getHandFed() && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.fedTimer--;
 
@@ -361,7 +365,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
+			if (this.wateredTimer == 0 && this.getHandFed() && !AnimaniaConfig.gameRules.ambianceMode)
 				this.setWatered(false);
 		}
 

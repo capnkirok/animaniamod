@@ -421,10 +421,9 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 				hasRemovedBOP = true;
 			}
 		}
-
-		if (this.getAge() == 0)
-		{
-			this.setAge(1);
+		
+		if (this.getLeashed()) {
+			this.setHandFed(true);
 		}
 
 		if (this.world.isRemote)
@@ -470,7 +469,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 			}
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.fedTimer--;
 
@@ -478,7 +477,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 				this.setFed(false);
 		}
 
-		if (this.wateredTimer > -1)
+		if (this.wateredTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.wateredTimer--;
 

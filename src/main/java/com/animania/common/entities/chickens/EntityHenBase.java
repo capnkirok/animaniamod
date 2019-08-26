@@ -66,20 +66,12 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		if (this.world.isRemote)
 			return null;
 
-		List list = this.world.loadedEntityList;
+		List<EntityAnimaniaChicken> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 64, this.world, this.getPosition());
+		
+		if (others.size() <= 4 ) {
 
-		int currentCount = 0;
-		int num = 0;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) instanceof EntityAnimaniaChicken) {
-				num++;
-			}
-		}
-		currentCount = num;
 
-		if (currentCount <= AnimaniaConfig.spawn.spawnLimitChickens) {
-
-			int chooser = this.rand.nextInt(5);
+			int chooser = this.rand.nextInt(3);
 
 			if (chooser == 0)
 			{
@@ -87,23 +79,13 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 				entityChicken.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityChicken);
 			}
-			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			else if (chooser == 1)
 			{
 				EntityChickBase entityChicken = this.type.getChild(world);
 				entityChicken.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityChicken);
 			}
-			else if (chooser > 2)
-			{
-				EntityRoosterBase entityChicken = this.type.getMale(world);
-				entityChicken.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityChicken);
-				if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
-					EntityChickBase entityChick = this.type.getChild(world);
-					entityChick.setPosition(this.posX, this.posY, this.posZ);
-					this.world.spawnEntity(entityChick);
-				}
-			}
+			
 		}
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));

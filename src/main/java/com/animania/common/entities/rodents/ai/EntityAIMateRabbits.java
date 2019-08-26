@@ -51,7 +51,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 
 			EntityAnimaniaRabbit thisAnimal = (EntityAnimaniaRabbit) this.theAnimal;
 
-			if (AnimaniaConfig.careAndFeeding.manualBreeding) {
+			if (AnimaniaConfig.careAndFeeding.feedToBreed) {
 				if (!thisAnimal.getHandFed()) {
 					this.delayCounter = 0;
 					return false;
@@ -141,7 +141,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 					EntityRabbitDoeBase entity = (EntityRabbitDoeBase)entities.get(k); 
 
 					boolean allowBreeding = true;
-					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
+					if (AnimaniaConfig.careAndFeeding.feedToBreed && !entity.getHandFed()) {
 						allowBreeding = false;
 					}
 
@@ -177,7 +177,7 @@ public class EntityAIMateRabbits extends EntityAIBase
 					EntityRabbitDoeBase entity = (EntityRabbitDoeBase)entities.get(k); 
 
 					boolean allowBreeding = true;
-					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
+					if (AnimaniaConfig.careAndFeeding.feedToBreed && !entity.getHandFed()) {
 						allowBreeding = false;
 					}
 

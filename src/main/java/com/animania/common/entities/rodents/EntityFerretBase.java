@@ -503,15 +503,15 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!this.getAge()) {
-			this.setAge(true);
-		}
-
 		delayCount--;
 		if (delayCount <= 0) {
 			delayCount = 0;
 		}
 
+		if (this.getLeashed()) {
+			this.setHandFed(true);
+		}
+		
 		if (this.isFerretSitting() || this.isRiding())
 		{
 			if (this.getRidingEntity() != null)
@@ -530,7 +530,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.fedTimer--;
 
@@ -538,7 +538,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 				this.setFed(false);
 		}
 
-		if (this.wateredTimer > -1)
+		if (this.wateredTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.wateredTimer--;
 

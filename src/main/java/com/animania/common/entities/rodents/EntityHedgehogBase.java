@@ -520,11 +520,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!this.getAge())
-		{
-			this.setAge(true);
-		}
-
+		
 		delayCount--;
 		if (delayCount <= 0)
 		{
@@ -538,6 +534,10 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 			this.navigator.clearPath();
 			this.navigator.setSpeed(0);
 		}
+		
+		if (this.getLeashed()) {
+			this.setHandFed(true);
+		}
 
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
@@ -549,7 +549,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.fedTimer--;
 
@@ -561,7 +561,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 				this.setWatered(false);
 		}
 

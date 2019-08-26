@@ -56,7 +56,7 @@ public class EntityAIMateCows extends EntityAIBase
 
 			EntityAnimaniaCow thisAnimal = this.theAnimal;
 
-			if (AnimaniaConfig.careAndFeeding.manualBreeding) {
+			if (AnimaniaConfig.careAndFeeding.feedToBreed) {
 				if (!thisAnimal.getHandFed()) {
 					this.delayCounter = 0;
 					return false;
@@ -148,7 +148,7 @@ public class EntityAIMateCows extends EntityAIBase
 
 					EntityCowBase entity = (EntityCowBase)entities.get(k); 
 					boolean allowBreeding = true;
-					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
+					if (AnimaniaConfig.careAndFeeding.feedToBreed && !entity.getHandFed()) {
 						allowBreeding = false;
 					}
 
@@ -183,7 +183,7 @@ public class EntityAIMateCows extends EntityAIBase
 					EntityCowBase entity = (EntityCowBase)entities.get(k); 
 
 					boolean allowBreeding = true;
-					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
+					if (AnimaniaConfig.careAndFeeding.feedToBreed && !entity.getHandFed()) {
 						allowBreeding = false;
 					}
 

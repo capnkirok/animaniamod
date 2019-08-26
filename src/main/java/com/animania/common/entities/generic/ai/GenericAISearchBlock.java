@@ -115,7 +115,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 		{
 			double distance = this.creature.getDistanceSqToCenter(this.destinationBlock);
 
-			if (distance > 1.95D)
+			if (distance > 2.5D)
 			{
 				this.isAtDestination = false;
 				this.walkTries++;

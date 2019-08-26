@@ -57,7 +57,7 @@ public class EntityAIMateHorses extends EntityAIBase
 
 			EntityAnimaniaHorse thisAnimal = (EntityAnimaniaHorse) this.theAnimal;
 
-			if (AnimaniaConfig.careAndFeeding.manualBreeding) {
+			if (AnimaniaConfig.careAndFeeding.feedToBreed) {
 				if (!thisAnimal.getHandFed()) {
 					this.delayCounter = 0;
 					return false;
@@ -146,7 +146,7 @@ public class EntityAIMateHorses extends EntityAIBase
 					EntityMareBase entity = (EntityMareBase)entities.get(k); 
 
 					boolean allowBreeding = true;
-					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
+					if (AnimaniaConfig.careAndFeeding.feedToBreed && !entity.getHandFed()) {
 						allowBreeding = false;
 					}
 
@@ -182,7 +182,7 @@ public class EntityAIMateHorses extends EntityAIBase
 					EntityMareBase entity = (EntityMareBase)entities.get(k); 
 
 					boolean allowBreeding = true;
-					if (AnimaniaConfig.careAndFeeding.manualBreeding && !entity.getHandFed()) {
+					if (AnimaniaConfig.careAndFeeding.feedToBreed && !entity.getHandFed()) {
 						allowBreeding = false;
 					}
 

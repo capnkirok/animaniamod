@@ -159,7 +159,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 
 	@Override
 	public void onLivingUpdate()
-	{
+	{	
 		boolean fed = this.getFed();
 		boolean watered = this.getWatered();
 

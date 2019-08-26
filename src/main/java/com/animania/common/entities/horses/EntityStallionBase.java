@@ -367,6 +367,10 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 
 		if (this.isBeingRidden() && this.getSleeping())
 			this.setSleeping(false);
+		
+		if (this.getLeashed()) {
+			this.setHandFed(true);
+		}
 
 		if (this.world.isRemote)
 		{
@@ -386,7 +390,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 				this.setFed(false);
 		}
 
-		if (this.wateredTimer > -1 && this.getHandFed())
+		if (this.wateredTimer > -1 && this.getHandFed() && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.wateredTimer--;
 

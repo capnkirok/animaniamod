@@ -60,7 +60,7 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleepi
 		if (++waterFindTimer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
 
-		if (entity.getWatered() || entity.isBeingRidden() || entity.getSleeping())
+		if (entity.getWatered() || entity.isBeingRidden() || entity.getSleeping() || !entity.getHandFed())
 		{
 			waterFindTimer = 0;
 			return false;

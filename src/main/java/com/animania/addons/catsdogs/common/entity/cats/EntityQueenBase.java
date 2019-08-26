@@ -91,7 +91,7 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 				entityPig.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entityPig.getPersistentID());
 			}
-			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.feedToBreed)
 			{
 				EntityKittenBase entityPig = this.type.getChild(world);
 				entityPig.setPosition(this.posX, this.posY, this.posZ);
@@ -105,7 +105,7 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 				this.world.spawnEntity(entityPig);
 				entityPig.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entityPig.getPersistentID());
-				if (!AnimaniaConfig.careAndFeeding.manualBreeding)
+				if (!AnimaniaConfig.careAndFeeding.feedToBreed)
 				{
 					EntityKittenBase entityPiglet = this.type.getChild(world);
 					entityPiglet.setPosition(this.posX, this.posY, this.posZ);

@@ -48,6 +48,7 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.cows.ai.EntityAIMateCows;
+import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -165,23 +166,11 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		if (this.world.isRemote)
 			return null;
 
-		List list = this.world.loadedEntityList;
+		int chooser = this.rand.nextInt(3);
 
-		int currentCount = 0;
-		int num = 0;
-		for (int i = 0; i < list.size(); i++)
-		{
-			if (list.get(i) instanceof EntityAnimaniaCow)
-			{
-				num++;
-			}
-		}
-		currentCount = num;
-
-		if (currentCount <= AnimaniaConfig.spawn.spawnLimitCows)
-		{
-
-			int chooser = this.rand.nextInt(5);
+		List<EntityAnimaniaCow> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 64, this.world, this.getPosition());
+		
+		if ((others.size() <= 4 )) {
 
 			if (chooser == 0)
 			{
@@ -191,7 +180,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				entityCow.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entityCow.getPersistentID());
 			}
-			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			else if (chooser == 1)
 			{
 				EntityCalfBase entityCow = this.cowType.getChild(world);
 				entityCow.setPosition(this.posX, this.posY, this.posZ);
@@ -199,23 +188,8 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				entityCow.setParentUniqueId(this.entityUniqueID);
 				this.setHasKids(true);
 			}
-			else if (chooser > 2)
-			{
-				EntityBullBase entityCow = this.cowType.getMale(world);
-				entityCow.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityCow);
-				entityCow.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityCow.getPersistentID());
-				if (!AnimaniaConfig.careAndFeeding.manualBreeding)
-				{
-					EntityCalfBase entityCalf = this.cowType.getChild(world);
-					entityCalf.setPosition(this.posX, this.posY, this.posZ);
-					this.world.spawnEntity(entityCalf);
-					entityCalf.setParentUniqueId(this.entityUniqueID);
-					this.setHasKids(true);
-				}
-			}
 		}
+
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
@@ -408,7 +382,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			if (gestationTimer < 200 && this.getSleeping()) {
 				this.setSleeping(false);
 			}
-			
+
 			if (gestationTimer == 0)
 			{
 

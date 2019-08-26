@@ -80,7 +80,7 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 				return false;
 			}
 			
-			if (AnimaniaConfig.careAndFeeding.manualBreeding)
+			if (AnimaniaConfig.careAndFeeding.feedToBreed)
 			{
 				if (entity instanceof IFoodEating && !((IFoodEating) entity).getHandFed())
 				{
@@ -166,7 +166,7 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 				O female = (O) entities.get(k);
 
 				boolean allowBreeding = true;
-				if (AnimaniaConfig.careAndFeeding.manualBreeding && female instanceof IFoodEating && !((IFoodEating) female).getHandFed())
+				if (AnimaniaConfig.careAndFeeding.feedToBreed && female instanceof IFoodEating && !((IFoodEating) female).getHandFed())
 				{
 					allowBreeding = false;
 				}
@@ -209,7 +209,7 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 				O female = (O) entities.get(k);
 
 				boolean allowBreeding = true;
-				if (AnimaniaConfig.careAndFeeding.manualBreeding && !female.getHandFed())
+				if (AnimaniaConfig.careAndFeeding.feedToBreed && !female.getHandFed())
 				{
 					allowBreeding = false;
 				}

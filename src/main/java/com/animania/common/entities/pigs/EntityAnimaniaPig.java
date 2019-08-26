@@ -626,10 +626,9 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 
 		if (this.getLeashed() && this.getSleeping())
 			this.setSleeping(false);
-
-		if (this.getAge() == 0)
-		{
-			this.setAge(1);
+		
+		if (this.getLeashed()) {
+			this.setHandFed(true);
 		}
 
 		if (this.world.isRemote)
@@ -644,7 +643,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 			}
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.fedTimer--;
 
@@ -656,7 +655,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 				this.setWatered(false);
 		}
 
