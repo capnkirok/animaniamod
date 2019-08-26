@@ -44,6 +44,7 @@ import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -76,20 +77,12 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		if (this.world.isRemote)
 			return null;
 
-		List list = this.world.loadedEntityList;
+		List<EntityAnimaniaSheep> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 64, this.world, this.getPosition());
+		
+		if (others.size() <= 4 ) {
 
-		int currentCount = 0;
-		int num = 0;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) instanceof EntityAnimaniaSheep) {
-				num++;
-			}
-		}
-		currentCount = num;
 
-		if (currentCount <= AnimaniaConfig.spawn.spawnLimitSheep) {
-
-			int chooser = this.rand.nextInt(5);
+			int chooser = this.rand.nextInt(3);
 
 			if (chooser == 0)
 			{
@@ -99,28 +92,13 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				entitySheep.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entitySheep.getPersistentID());
 			}
-			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.feedToBreed)
 			{
 				EntityLambBase entityKid = this.sheepType.getChild(world);
 				entityKid.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityKid);
 				entityKid.setParentUniqueId(this.entityUniqueID);
 				this.setHasKids(true);
-			}
-			else if (chooser > 2)
-			{
-				EntityRamBase entityRam = this.sheepType.getMale(world);
-				entityRam.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityRam);
-				entityRam.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityRam.getPersistentID());
-				if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
-					EntityLambBase entityKid = this.sheepType.getChild(world);
-					entityKid.setPosition(this.posX, this.posY, this.posZ);
-					this.world.spawnEntity(entityKid);
-					entityKid.setParentUniqueId(this.entityUniqueID);
-					this.setHasKids(true);
-				}
 			}
 		}
 

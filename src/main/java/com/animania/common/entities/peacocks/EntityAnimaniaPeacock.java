@@ -342,6 +342,10 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 		if (this.getLeashed() && this.getSleeping())
 			this.setSleeping(false);
+		
+		if (this.getLeashed()) {
+			this.setHandFed(true);
+		}
 
 		if (this.getAge() == 0)
 		{
@@ -371,7 +375,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.fedTimer--;
 
@@ -383,7 +387,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		{
 			this.wateredTimer--;
 
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
+			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 				this.setWatered(false);
 		}
 

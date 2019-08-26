@@ -40,6 +40,7 @@ import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
@@ -115,20 +116,12 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 		if (this.world.isRemote)
 			return null;
 
-		List list = this.world.loadedEntityList;
+		List<EntityAnimaniaRabbit> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaRabbit.class, 64, this.world, this.getPosition());
+		
+		if (others.size() <= 4 ) {
 
-		int currentCount = 0;
-		int num = 0;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) instanceof EntityAnimaniaRabbit) {
-				num++;
-			}
-		}
-		currentCount = num;
 
-		if (currentCount <= AnimaniaConfig.spawn.spawnLimitRabbits) {
-
-			int chooser = this.rand.nextInt(5);
+			int chooser = this.rand.nextInt(3);
 
 			if (chooser == 0)
 			{
@@ -138,27 +131,14 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 				entityRabbit.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entityRabbit.getPersistentID());
 			}
-			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			else if (chooser == 1)
 			{
 				EntityRabbitKitBase entityKid = this.rabbitType.getChild(world);
 				entityKid.setPosition(this.posX, this.posY, this.posZ);
 				this.world.spawnEntity(entityKid);
 				entityKid.setParentUniqueId(this.entityUniqueID);
 			}
-			else if (chooser > 2)
-			{
-				EntityRabbitBuckBase entityBuck = this.rabbitType.getMale(world);
-				entityBuck.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityBuck);
-				entityBuck.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityBuck.getPersistentID());
-				if (!AnimaniaConfig.careAndFeeding.manualBreeding) {
-					EntityRabbitKitBase entityKid = this.rabbitType.getChild(world);
-					entityKid.setPosition(this.posX, this.posY, this.posZ);
-					this.world.spawnEntity(entityKid);
-					entityKid.setParentUniqueId(this.entityUniqueID);
-				}
-			}
+		
 		}
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));

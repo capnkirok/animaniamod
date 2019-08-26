@@ -6,7 +6,6 @@ import net.minecraftforge.common.config.Config.RequiresMcRestart;
 public class CommonConfig
 {
 
-
 	public static class GameRules
 	{
 
@@ -19,7 +18,7 @@ public class CommonConfig
 		@Comment("Show male parts (modesty flag)")
 		public boolean showParts = true;
 
-		@Comment("Show particles when animals are unhappy")
+		@Comment("Show particles when animals are hungry or thirsty")
 		public boolean showUnhappyParticles = true;
 
 		@Comment("Remove vanilla Cows")
@@ -133,7 +132,7 @@ public class CommonConfig
 				{
 						"JUNGLE",
 						"CONIFEROUS",
-						"LUSH",
+						"SWAMP",
 						"FOREST",
 						"PLAINS",
 				};
@@ -178,17 +177,17 @@ public class CommonConfig
 		public boolean spawnAnimaniaSheep    = true;
 		@Comment("Spawn Animania Rabbits in world")
 		public boolean spawnAnimaniaRabbits    = true;
-		@Comment("Allow Squids tp Spawn in Fresh Water")
-		public boolean spawnFreshWaterSquids    = false;
+		@Comment("Allow Squids to Spawn in Fresh Water")
+		public boolean spawnFreshWaterSquids    = true;
 
 		@Comment("Spawn probability Cows in loaded chunks")
-		public int spawnProbabilityCows = 8;
+		public int spawnProbabilityCows = 9;
 		@Comment("Spawn probability Horses in loaded chunks")
-		public int spawnProbabilityHorses = 6;
+		public int spawnProbabilityHorses = 8;
 		@Comment("Spawn probability Pigs in loaded chunks")
-		public int spawnProbabilityPigs = 8;
+		public int spawnProbabilityPigs = 9;
 		@Comment("Spawn probability Chickens in loaded chunks")
-		public int spawnProbabilityChickens = 8;
+		public int spawnProbabilityChickens = 9;
 		@Comment("Spawn probability Hedgehogs in loaded chunks")
 		public int spawnProbabilityHedgehogs = 8;
 		@Comment("Spawn probability Ferrets in loaded chunks")
@@ -198,28 +197,28 @@ public class CommonConfig
 		@Comment("Spawn probability Peacocks in loaded chunks")
 		public int spawnProbabilityPeacocks = 8;
 		@Comment("Spawn probability Amphibians in loaded chunks")
-		public int spawnProbabilityAmphibians = 6;
+		public int spawnProbabilityAmphibians = 8;
 		@Comment("Spawn probability Goats in loaded chunks")
-		public int spawnProbabilityGoats = 6;
+		public int spawnProbabilityGoats = 8;
 		@Comment("Spawn probability Sheep in loaded chunks")
 		public int spawnProbabilitySheep = 8;
 		@Comment("Spawn probability Rabbits in loaded chunks")
-		public int spawnProbabilityRabbits = 6;
+		public int spawnProbabilityRabbits = 8;
 
 		@Comment("Number of potential Cow families per chunk")
-		public int numberCowFamilies = 1;
+		public int numberCowFamilies = 2;
 		@Comment("Number of potential Pig families per chunk")
-		public int numberPigFamilies = 1;
+		public int numberPigFamilies = 2;
 		@Comment("Number of potential Chicken families per chunk")
-		public int numberChickenFamilies = 1;
+		public int numberChickenFamilies = 2;
 		@Comment("Number of potential Horse families per chunk")
-		public int numberHorseFamilies = 1;
+		public int numberHorseFamilies = 2;
 		@Comment("Number of potential Goat families per chunk")
 		public int numberGoatFamilies = 1;
 		@Comment("Number of potential Sheep families per chunk")
-		public int numberSheepFamilies = 1;
+		public int numberSheepFamilies = 3;
 		@Comment("Number of potential Rabbit families per chunk")
-		public int numberRabbitFamilies = 1;
+		public int numberRabbitFamilies = 2;
 
 		@Comment("Spawn limit for Cows in loaded chunks")
 		public int spawnLimitCows = 40;
@@ -295,7 +294,7 @@ public class CommonConfig
 				{
 						"JUNGLE",
 						"MESA",
-						"LUSH",
+						"SWAMP",
 				};
 		@Comment("BiomeDictionary types for spawning Hereford Cows")
 		public String[] cowHerefordBiomeTypes = new String[]
@@ -313,7 +312,7 @@ public class CommonConfig
 		public String[] cowJerseyBiomeTypes = new String[]
 				{
 						"WASTELAND",
-						"LUSH",
+						"SWAMP",
 				};
 		@Comment("BiomeDictionary types for spawning Longhorn Cows")
 		public String[] cowLonghornBiomeTypes = new String[]
@@ -600,8 +599,8 @@ public class CommonConfig
 		public int featherTimer = 12000;
 		@Comment("Ticks between birthings")
 		public int gestationTimer = 20000;
-		@Comment("Mammals mate/breed only after hand-feeding")
-		public boolean manualBreeding = false;
+		@Comment("Mammals mate only after hand-feeding")
+		public boolean feedToBreed = true;
 		@Comment("Ticks before wool regrowth after shearing")
 		public int woolRegrowthTimer = 8000;
 		@Comment("Ticks between animals taking starvation damage")

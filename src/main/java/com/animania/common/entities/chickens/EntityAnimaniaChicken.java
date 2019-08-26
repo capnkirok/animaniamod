@@ -247,10 +247,10 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		if (this.getLeashed() && this.getSleeping())
 			this.setSleeping(false);
 
-		if (this.getAge() == 0) {
-			this.setAge(1);
+		if (this.getLeashed()) {
+			this.setHandFed(true);
 		}
-
+		
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
 		this.destPos = (float) (this.destPos + ((this.onGround || this.isRiding()) ? -1 : 4) * 0.3D);
@@ -282,7 +282,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.fedTimer--;
 
@@ -290,7 +290,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 				this.setFed(false);
 		}
 
-		if (this.wateredTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.wateredTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.wateredTimer--;
 

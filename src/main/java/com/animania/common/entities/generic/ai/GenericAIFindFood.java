@@ -46,7 +46,7 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleepin
 		if (++foodDelay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
 
-		if (entity.getFed() || entity.isBeingRidden() || entity.getSleeping())
+		if (entity.getFed() || entity.isBeingRidden() || entity.getSleeping() || !entity.getHandFed())
 		{
 			foodDelay = 0;
 			return false;

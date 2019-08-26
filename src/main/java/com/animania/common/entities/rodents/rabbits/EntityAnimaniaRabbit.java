@@ -634,11 +634,6 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.getAge() == 0)
-		{
-			this.setAge(1);
-		}
-
 		if (this.getCustomNameTag().equals("Killer"))
 		{
 			for (Object a : this.tasks.taskEntries.toArray())
@@ -651,6 +646,10 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			}
 		}
 
+		if (this.getLeashed()) {
+			this.setHandFed(true);
+		}
+		
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -663,7 +662,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			}
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.fedTimer--;
 
@@ -671,7 +670,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 				this.setFed(false);
 		}
 
-		if (this.wateredTimer > -1)
+		if (this.wateredTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.wateredTimer--;
 

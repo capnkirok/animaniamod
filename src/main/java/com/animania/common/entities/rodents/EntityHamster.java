@@ -622,11 +622,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!this.getAge())
-		{
-			this.setAge(true);
-		}
-
 		delayCount--;
 		if (delayCount <= 0)
 		{
@@ -638,6 +633,10 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.blinkTimer--;
 			if (this.blinkTimer == 0)
 				this.blinkTimer = 80 + this.rand.nextInt(80);
+		}
+		
+		if (this.getLeashed()) {
+			this.setHandFed(true);
 		}
 
 		this.setResourceLoc();
@@ -687,7 +686,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (this.isHamsterSitting() | this.isHamsterStanding() && this.getNavigator() != null)
 			this.getNavigator().clearPath();
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.fedTimer--;
 
@@ -695,7 +694,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				this.setFed(false);
 		}
 
-		if (this.wateredTimer > -1)
+		if (this.wateredTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.wateredTimer--;
 

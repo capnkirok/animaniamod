@@ -1,11 +1,15 @@
 {
   "result": {
     "item": "animania:block_mud",
-    "count": 2
+    "count": 4
   },
   "ingredients": [
     {
       "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "minecraft:dirt",
+      "data": 0
     },
     {
       "item": "minecraft:dirt",

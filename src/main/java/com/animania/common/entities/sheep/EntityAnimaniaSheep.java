@@ -442,11 +442,10 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 			}
 		}
 
-		if (this.getAge() == 0)
-		{
-			this.setAge(1);
+		if (this.getLeashed()) {
+			this.setHandFed(true);
 		}
-
+		
 		if (this.world.isRemote)
 			this.eatTimer = Math.max(0, this.eatTimer - 1);
 
@@ -459,7 +458,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 			}
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
+		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.fedTimer--;
 
@@ -467,7 +466,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 				this.setFed(false);
 		}
 
-		if (this.wateredTimer > -1)
+		if (this.wateredTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
 		{
 			this.wateredTimer--;
 

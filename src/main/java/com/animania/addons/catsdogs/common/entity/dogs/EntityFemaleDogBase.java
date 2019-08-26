@@ -91,7 +91,7 @@ public class EntityFemaleDogBase extends EntityAnimaniaDog implements TOPInfoPro
 				entityPig.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entityPig.getPersistentID());
 			}
-			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.manualBreeding)
+			else if (chooser == 1 && !AnimaniaConfig.careAndFeeding.feedToBreed)
 			{
 				EntityPuppyBase entityPig = this.type.getChild(world);
 				entityPig.setPosition(this.posX, this.posY, this.posZ);
@@ -105,7 +105,7 @@ public class EntityFemaleDogBase extends EntityAnimaniaDog implements TOPInfoPro
 				this.world.spawnEntity(entityPig);
 				entityPig.setMateUniqueId(this.entityUniqueID);
 				this.setMateUniqueId(entityPig.getPersistentID());
-				if (!AnimaniaConfig.careAndFeeding.manualBreeding)
+				if (!AnimaniaConfig.careAndFeeding.feedToBreed)
 				{
 					EntityPuppyBase entityPiglet = this.type.getChild(world);
 					entityPiglet.setPosition(this.posX, this.posY, this.posZ);
