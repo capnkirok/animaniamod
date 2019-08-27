@@ -5,6 +5,16 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IMateable;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.handler.DamageSourceHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -43,17 +53,6 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IMateable;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.cows.ai.EntityAIMateCows;
-import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.common.handler.DamageSourceHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-
 public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable
 {
 
@@ -71,7 +70,6 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		this.width = 1.4F;
 		this.height = 1.8F;
 		this.stepHeight = 1.1F;
-		this.tasks.addTask(5, new EntityAIMateCows(this, 1.0D));
 		this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.2D, false));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
 		this.mateable = true;

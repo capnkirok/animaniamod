@@ -21,7 +21,5 @@ public interface AnimaniaAddon
 	
 	public String getAddonName();
 	
-	public String getRequiredAnimaniaVersion();
-	
-	public String getRequiredMinecraftVersion();
+	public String getDependencies();
 }

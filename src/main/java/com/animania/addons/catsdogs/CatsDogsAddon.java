@@ -24,7 +24,7 @@ public class CatsDogsAddon implements AnimaniaAddon
 	}
 
 	@Override
-	public void initCommon()
+	public void initCommon()	
 	{
 		CatsDogsAddonCraftingHandler.init();
 	}
@@ -44,7 +44,7 @@ public class CatsDogsAddon implements AnimaniaAddon
 	@Override
 	public String getVersion()
 	{
-		return "0.1";
+		return "1.0";
 	}
 
 	@Override
@@ -60,15 +60,9 @@ public class CatsDogsAddon implements AnimaniaAddon
 	}
 
 	@Override
-	public String getRequiredAnimaniaVersion()
+	public String getDependencies()
 	{
-		return "[1.4.7,)";
-	}
-
-	@Override
-	public String getRequiredMinecraftVersion()
-	{
-		return "[1.12,1.13)";
+		return "required-after:animania@[1.8.0,);required-after:minecraft@[1.12,1.13)";
 	}
 
 }

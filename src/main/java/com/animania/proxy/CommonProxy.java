@@ -42,6 +42,8 @@ public class CommonProxy implements IGuiHandler
 
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		AddonHandler.throwErrors();
+		
 		CapabilityManager.INSTANCE.register(ICapabilityPlayer.class, new CapabilitiesPlayerStorage(), CapabilityPlayer.class);
 		EntityHandler.preInit();
 		ItemHandler.preInit();

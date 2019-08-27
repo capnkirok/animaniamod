@@ -1,59 +1,62 @@
 package com.animania.common.handler;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.animania.Animania;
-import com.animania.addons.AddonResourcePack;
 import com.animania.addons.template.TemplateAddon;
 import com.animania.api.addons.AnimaniaAddon;
 import com.animania.api.addons.LoadAddon;
-import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.resources.IResourcePack;
-import net.minecraft.client.resources.SimpleReloadableResourceManager;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiErrorScreen;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraftforge.fml.client.CustomModLoadingErrorDisplayException;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.MissingModsException;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.MultipleModsErrored;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
 import net.minecraftforge.fml.common.discovery.ASMDataTable.ASMData;
 import net.minecraftforge.fml.common.versioning.ArtifactVersion;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
-import net.minecraftforge.fml.common.versioning.InvalidVersionSpecificationException;
-import net.minecraftforge.fml.common.versioning.VersionRange;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.common.versioning.DependencyParser;
+import net.minecraftforge.fml.common.versioning.DependencyParser.DependencyInfo;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class AddonHandler
 {
 
-	private static List<AnimaniaAddon> loadedAddons = new ArrayList<AnimaniaAddon>();
+	private static HashMap<String, AnimaniaAddon> loadedAddons = new HashMap<String, AnimaniaAddon>();
+	private static List<MissingModsException> missingModsExceptions = new ArrayList<MissingModsException>();
 
 	public static void preInitCommon()
 	{
-		for (AnimaniaAddon a : loadedAddons)
+
+		for (AnimaniaAddon a : loadedAddons.values())
 			a.preInitCommon();
 	}
 
 	public static void initCommon()
 	{
-		for (AnimaniaAddon a : loadedAddons)
+		for (AnimaniaAddon a : loadedAddons.values())
 			a.initCommon();
 	}
 
 	public static void preInitClient()
 	{
-		for (AnimaniaAddon a : loadedAddons)
+		for (AnimaniaAddon a : loadedAddons.values())
 			a.preInitClient();
 	}
 
 	public static void initClient()
 	{
-		for (AnimaniaAddon a : loadedAddons)
+		for (AnimaniaAddon a : loadedAddons.values())
 			a.initClient();
 	}
 
@@ -69,26 +72,54 @@ public class AddonHandler
 				Class<AnimaniaAddon> clazz = (Class<AnimaniaAddon>) Class.forName(asm.getClassName()).asSubclass(AnimaniaAddon.class);
 
 				AnimaniaAddon a = clazz.newInstance();
-				register(a);
+				loadedAddons.put(a.getAddonID(), a);
 			}
 			catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
 			{
 				Animania.LOGGER.error(e);
 			}
 		});
+
+		loadedAddons.values().forEach(addon ->
+		{
+			register(addon);
+		});
+
+	}
+
+	public static void throwErrors()
+	{
+		if (!missingModsExceptions.isEmpty())
+		{
+			MultipleModsErrored errors = new MultipleModsErrored(Collections.EMPTY_LIST, missingModsExceptions);
+
+			CustomModLoadingErrorDisplayException customEx = new CustomModLoadingErrorDisplayException("Addon Loading Errors", errors)
+			{
+
+				private GuiScreen screen;
+
+				@Override
+				public void initGui(GuiErrorScreen errorScreen, FontRenderer fontRenderer)
+				{
+					screen = errors.createGui();
+					screen.setWorldAndResolution(Minecraft.getMinecraft(), errorScreen.width, errorScreen.height);
+				}
+
+				@Override
+				public void drawScreen(GuiErrorScreen errorScreen, FontRenderer fontRenderer, int mouseRelX, int mouseRelY, float tickTime)
+				{
+					screen.drawScreen(mouseRelX, mouseRelY, tickTime);
+				}
+
+			};
+
+			throw customEx;
+		}
 	}
 
 	public static boolean isAddonLoaded(String addonID)
 	{
-		for (AnimaniaAddon a : loadedAddons)
-		{
-			if (a.getAddonID().equals(addonID))
-			{
-				return true;
-			}
-		}
-
-		return false;
+		return loadedAddons.get(addonID) != null;
 	}
 
 	private static void register(AnimaniaAddon addon)
@@ -99,45 +130,68 @@ public class AddonHandler
 		if (addon instanceof TemplateAddon)
 			return;
 
-		try
-		{
-			VersionRange animaniaVersionRange = VersionRange.createFromVersionSpec(addon.getRequiredAnimaniaVersion());
-			VersionRange minecraftVersionRange = VersionRange.createFromVersionSpec(addon.getRequiredMinecraftVersion());
-			ArtifactVersion animaniaVersion = new DefaultArtifactVersion(Animania.VERSION);
-			ArtifactVersion minecraftVersion = new DefaultArtifactVersion(MinecraftForge.MC_VERSION);
+		Map<String, ModContainer> loadedMods = Loader.instance().getIndexedModList();
+		DependencyParser parser = new DependencyParser(addon.getAddonID(), Side.SERVER);
+		DependencyInfo info = parser.parseDependencies(addon.getDependencies());
 
-			String upper = "";
-			if (!animaniaVersionRange.containsVersion(animaniaVersion))
-				throw new AddonLoadException("Animania Version must be at least " + AnimaniaHelper.getLowerBound(animaniaVersionRange) + ((upper = AnimaniaHelper.getUpperBound(animaniaVersionRange)) == null ? "" : " and at most " + upper));
-
-			if (!minecraftVersionRange.containsVersion(minecraftVersion))
-				throw new AddonLoadException("Minecraft Version must be at least " + AnimaniaHelper.getLowerBound(minecraftVersionRange) + ((upper = AnimaniaHelper.getUpperBound(minecraftVersionRange)) == null ? "" : " and at most " + upper));
-		}
-		catch (InvalidVersionSpecificationException e)
+		for (ArtifactVersion dependency : info.dependencies)
 		{
-			e.printStackTrace();
-		}
+			String modid = dependency.getLabel();
+			if (modid == null)
+				throw new RuntimeException("Modid Dependency for " + addon.getAddonID() + " cannot be null.");
 
-		for (AnimaniaAddon a : loadedAddons)
-		{
-			if (a.getAddonID().equals(addon.getAddonID()))
+			ModContainer container = loadedMods.get(modid);
+			if (container == null)
 			{
-				throw new AddonLoadException("The addon with the id " + addon.getAddonID() + " is already installed!");
+				if (isAddonLoaded(modid))
+				{
+					AnimaniaAddon depAddon = loadedAddons.get(modid);
+					ArtifactVersion addonVersion = new DefaultArtifactVersion(modid, depAddon.getVersion());
+
+					if (!dependency.containsVersion(addonVersion))
+					{
+						MissingModsException ex = new MissingModsException(addon.getAddonID(), addon.getAddonName());
+						ex.addMissingMod(dependency, addonVersion, true);
+						ex.missingMods.add(dependency);
+
+						missingModsExceptions.add(ex);
+						continue;
+					}
+				}
+				else
+				{
+					MissingModsException ex = new MissingModsException(addon.getAddonID(), addon.getAddonName());
+					ex.addMissingMod(dependency, null, true);
+					ex.missingMods.add(dependency);
+
+					missingModsExceptions.add(ex);
+					continue;
+				}
+			}
+
+			ArtifactVersion modVersion = container.getProcessedVersion();
+
+			if (!dependency.containsVersion(modVersion))
+			{
+				MissingModsException ex = new MissingModsException(addon.getAddonID(), addon.getAddonName());
+				ex.addMissingMod(dependency, modVersion, true);
+				ex.missingMods.add(dependency);
+
+				missingModsExceptions.add(ex);
 			}
 		}
 
-		loadedAddons.add(addon);
-		addAddonResourcePack(addon);
-		
-		Animania.LOGGER.info("Loaded Addon " + addon.getAddonName() + " with id " + addon.getAddonID() + " and Class " + addon.getClass().getName());
-	}
-
-	public static class AddonLoadException extends RuntimeException
-	{
-		public AddonLoadException(String message)
+		for (AnimaniaAddon a : loadedAddons.values())
 		{
-			super(message);
+			if (a.getAddonID().equals(addon.getAddonID()))
+			{
+				throw new RuntimeException("The addon with the id " + addon.getAddonID() + " is already installed!");
+			}
 		}
+
+		addAddonResourcePack(addon);
+
+		Animania.LOGGER.info("Loaded Addon " + addon.getAddonName() + " with id " + addon.getAddonID() + " and Class " + addon.getClass().getName());
 	}
 
 	private static void addAddonResourcePack(AnimaniaAddon addon)
