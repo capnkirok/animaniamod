@@ -186,6 +186,8 @@ public class GenericBehavior
 	{
 		if (!entity.getInteracted())
 			entity.setInteracted(true);
+		
+		System.out.println(entity.getClass());
 
 		ItemStack stack = player.getHeldItem(hand);
 
@@ -279,11 +281,17 @@ public class GenericBehavior
 	
 	public static SoundEvent getRandomSound(SoundEvent... sounds)
 	{
+		if(sounds == null || sounds.length == 0)
+			return null;
+		
 		return sounds[rand.nextInt(sounds.length)];
 	}
 	
 	public static <T extends EntityAnimal & IFoodEating & ISleeping> SoundEvent getAmbientSound(T entity, SoundEvent... sounds)
 	{
+		if(sounds == null || sounds.length == 0)
+			return null;
+		
 		int num = 24;
 
 		if (entity.getWatered())
