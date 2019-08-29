@@ -1,7 +1,6 @@
 package com.animania.addons.catsdogs.client.render.cats;
 
-import com.animania.addons.catsdogs.common.entity.cats.CatType;
-import com.animania.addons.catsdogs.common.entity.cats.EntityAnimaniaCat;
+import com.animania.addons.catsdogs.common.entity.felids.EntityAnimaniaCat;
 import com.animania.api.interfaces.IChild;
 import com.animania.client.render.layer.LayerBlinking;
 

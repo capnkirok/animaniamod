@@ -1,9 +1,9 @@
 package com.animania.client.models.sheep;
 
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
-import com.animania.common.entities.sheep.EntityEweJacob;
-import com.animania.common.entities.sheep.EntityLambJacob;
-import com.animania.common.entities.sheep.EntityRamJacob;
+import com.animania.common.entities.sheep.SheepJacob.EntityEweJacob;
+import com.animania.common.entities.sheep.SheepJacob.EntityLambJacob;
+import com.animania.common.entities.sheep.SheepJacob.EntityRamJacob;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

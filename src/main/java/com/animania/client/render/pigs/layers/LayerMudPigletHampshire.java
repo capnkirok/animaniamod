@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelPigletHampshire;
 import com.animania.client.render.pigs.RenderPigletHampshire;
-import com.animania.common.entities.pigs.EntityPigletHampshire;
+import com.animania.common.entities.pigs.PigHampshire.EntityPigletHampshire;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

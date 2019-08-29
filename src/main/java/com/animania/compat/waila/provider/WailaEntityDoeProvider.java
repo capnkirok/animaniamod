@@ -2,9 +2,8 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
-import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityDoeAngora;
 import com.animania.common.entities.goats.EntityDoeBase;
+import com.animania.common.entities.goats.GoatAngora.EntityDoeAngora;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;

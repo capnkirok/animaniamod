@@ -170,12 +170,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 	public int getCrowDuration()
 	{
-		try {
-			return (this.getIntFromDataManager(CROWDURATION));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getIntFromDataManager(CROWDURATION);
 	}
 
 	public void setCrowDuration(int duration)
@@ -185,12 +180,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 	public int getTimeUntilNextCrow()
 	{
-		try {
-			return (this.getIntFromDataManager(CROWTIMER));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getIntFromDataManager(CROWTIMER);
 	}
 
 	public void setTimeUntilNextCrow(int timer)

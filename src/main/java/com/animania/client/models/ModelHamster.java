@@ -230,7 +230,7 @@ public class ModelHamster extends ModelBase
             this.hamsterLegFrontLeft.setRotationPoint(2.0F, 21F + f9, -0.5F);
             this.hamsterTail.setRotationPoint(0.0F, 15F + f9, 2.0F);
         }
-        if (entityhamster.getIsTamed()) {
+        if (entityhamster.isTamed()) {
             float f3 = entityhamster.ticksExisted + f2;
             this.hamsterTail.rotateAngleZ = MathHelper.sin(f3 * 3.141593F * 0.05F) * MathHelper.sin(f3 * 3.141593F * 11F * 0.05F) * 0.15F * 3.141593F;
         }

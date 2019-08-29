@@ -1,5 +1,13 @@
 package com.animania.common.entities.amphibians;
 
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IAnimaniaAnimal;
+import com.animania.api.interfaces.IGendered;
+import com.animania.api.interfaces.ISpawnable;
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
+
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -29,15 +37,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IAnimaniaAnimal;
-import com.animania.api.interfaces.IGendered;
-import com.animania.api.interfaces.ISpawnable;
-import com.animania.common.entities.chickens.EntityAnimaniaChicken;
-import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
-
-public class EntityAmphibian extends EntityAnimal implements ISpawnable, IAnimaniaAnimal, IGendered
+public abstract class EntityAmphibian extends EntityAnimal implements ISpawnable, IAnimaniaAnimal, IGendered
 {
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAmphibian.class, DataSerializers.VARINT);
 	private int     jumpTicks;

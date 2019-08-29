@@ -1,21 +1,19 @@
 package com.animania.common.entities.amphibians;
 
 import java.util.Calendar;
-import java.util.List;
 
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.handler.DamageSourceHandler;
-import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
-import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -31,7 +29,6 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -286,6 +283,12 @@ public class EntityFrogs extends EntityAmphibian
 	public int getSecondaryEggColor()
 	{
 		return 1793554;
+	}
+	
+	@Override
+	public AnimaniaType getAnimalType()
+	{
+		return AmphibianType.FROG;
 	}
 
 }

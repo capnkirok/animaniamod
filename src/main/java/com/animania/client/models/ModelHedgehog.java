@@ -1,8 +1,5 @@
 package com.animania.client.models;
 
-import com.animania.common.entities.rodents.EntityFerretGrey;
-import com.animania.common.entities.rodents.EntityHedgehog;
-import com.animania.common.entities.rodents.EntityHedgehogAlbino;
 import com.animania.common.entities.rodents.EntityHedgehogBase;
 
 import net.minecraft.client.model.ModelBase;

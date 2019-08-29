@@ -5,9 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.animania.client.models.ModelDraftHorseFoal;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
-import com.animania.common.entities.horses.EntityFoalDraftHorse;
-import com.animania.common.entities.horses.EntityMareDraftHorse;
-import com.animania.common.entities.horses.EntityFoalDraftHorse;
+import com.animania.common.entities.horses.HorseDraft.EntityFoalDraftHorse;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

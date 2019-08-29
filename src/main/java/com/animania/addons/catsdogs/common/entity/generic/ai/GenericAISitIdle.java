@@ -1,6 +1,6 @@
 package com.animania.addons.catsdogs.common.entity.generic.ai;
 
-import com.animania.addons.catsdogs.common.entity.cats.EntityAnimaniaCat;
+import com.animania.addons.catsdogs.common.entity.felids.EntityAnimaniaCat;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;

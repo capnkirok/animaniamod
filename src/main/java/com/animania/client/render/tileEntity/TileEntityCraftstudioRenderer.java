@@ -1,8 +1,6 @@
 package com.animania.client.render.tileEntity;
 
 import com.animania.Animania;
-import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl;
-import com.animania.common.entities.rodents.EntityHamster;
 import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSTileEntitySpecialRenderer;
 

@@ -1,7 +1,5 @@
 package com.animania.common.entities.generic.ai;
 
-import java.util.Collections;
-
 import com.animania.api.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 
@@ -9,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

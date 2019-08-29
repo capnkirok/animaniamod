@@ -1,5 +1,10 @@
 package com.animania.compat.top.providers.entity;
 
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IGendered;
+import com.animania.compat.top.providers.TOPInfoEntityProvider;
+import com.animania.config.AnimaniaConfig;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -9,11 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IGendered;
-import com.animania.compat.top.providers.TOPInfoEntityProvider;
-import com.animania.config.AnimaniaConfig;
 
 public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 {

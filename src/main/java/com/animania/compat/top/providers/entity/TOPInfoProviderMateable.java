@@ -2,6 +2,9 @@ package com.animania.compat.top.providers.entity;
 
 import java.util.UUID;
 
+import com.animania.api.interfaces.ISterilizable;
+import com.animania.common.helper.AnimaniaHelper;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -11,9 +14,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-
-import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.helper.AnimaniaHelper;
 
 public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 {

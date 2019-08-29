@@ -6,6 +6,18 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IMateable;
+import com.animania.api.interfaces.ISterilizable;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -30,19 +42,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IMateable;
-import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.generic.ai.GenericAIMate;
-import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 
 public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
@@ -81,8 +80,8 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityRamBase.FIGHTING, Boolean.valueOf(false));
-		this.dataManager.register(STERILIZED, Boolean.valueOf(false));
+		this.dataManager.register(EntityRamBase.FIGHTING, false);
+		this.dataManager.register(STERILIZED, false);
 
 	}
 
@@ -100,9 +99,9 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	public void setFighting(boolean fighting)
 	{
 		if (fighting)
-			this.dataManager.set(EntityRamBase.FIGHTING, Boolean.valueOf(true));
+			this.dataManager.set(EntityRamBase.FIGHTING, true);
 		else
-			this.dataManager.set(EntityRamBase.FIGHTING, Boolean.valueOf(false));
+			this.dataManager.set(EntityRamBase.FIGHTING, false);
 	}
 
 	@Nullable

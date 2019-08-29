@@ -1,8 +1,8 @@
 package com.animania.client.models;
 
+import com.animania.common.entities.cows.CowHighland.EntityCalfHighland;
+import com.animania.common.entities.cows.CowLonghorn.EntityCalfLonghorn;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityCalfHighland;
-import com.animania.common.entities.cows.EntityCalfLonghorn;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

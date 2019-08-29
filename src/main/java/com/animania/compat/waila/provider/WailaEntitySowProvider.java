@@ -7,7 +7,6 @@ import com.animania.common.entities.pigs.EntitySowBase;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 
 public class WailaEntitySowProvider extends WailaEntityAnimalProviderMateable

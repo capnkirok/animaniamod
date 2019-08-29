@@ -1,17 +1,11 @@
 package com.animania.manual.components;
 
-import com.animania.config.AnimaniaConfig;
-import com.animania.manual.groups.ManualTopic;
 import com.animania.manual.gui.GuiManual;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
 
 public class ItemComponent implements IManualComponent
 {

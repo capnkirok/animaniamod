@@ -12,5 +12,7 @@ public interface IChild
 
 	public void setEntityAge(float age);
 	
-
+	public int getAgeTimer();
+	
+	public void setAgeTimer(int i);
 }

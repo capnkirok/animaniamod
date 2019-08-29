@@ -9,10 +9,12 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
@@ -36,7 +38,6 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFleeSun;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -45,7 +46,6 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -53,10 +53,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -68,9 +66,9 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 public class EntityHamster extends EntityTameable implements TOPInfoProviderRodent, IAnimaniaAnimalBase
 {
 	private static final DataParameter<Boolean> IN_BALL = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+//	private static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+//	private static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> FOOD_STACK_COUNT = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> IN_LOVE = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
@@ -78,9 +76,11 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.hamsterFood));
 	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> AGE = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityHamster.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityHamster.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean>createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+
 	private static final String[] HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou", "white", "gold" };
 
 	private int fedTimer;
@@ -171,20 +171,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	}
 
 	@Override
-	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
-	{
-		this.setFed(true);
-		this.setOwnerId(player.getPersistentID());
-		this.setIsTamed(true);
-		this.setTamed(true);
-		this.doPatreonCheck(player);
-		this.setInLove(player);
-
-		if (!player.capabilities.isCreativeMode)
-			stack.setCount(stack.getCount() - 1);
-	}
-
-	@Override
 	public void setInLove(EntityPlayer player)
 	{
 		this.world.setEntityState(this, (byte) 18);
@@ -218,109 +204,76 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityHamster.IN_BALL, Boolean.valueOf(false));
-		this.dataManager.register(EntityHamster.SITTING, Boolean.valueOf(false));
-		this.dataManager.register(EntityHamster.TAMED, Boolean.valueOf(false));
+		this.dataManager.register(EntityHamster.IN_BALL, false);
+//		this.dataManager.register(EntityHamster.SITTING, false);
+//		this.dataManager.register(EntityHamster.TAMED, false);
 		this.dataManager.register(EntityHamster.COLOR_NUM, Integer.valueOf(this.getRNG().nextInt(8)));
 		this.dataManager.register(EntityHamster.FOOD_STACK_COUNT, Integer.valueOf(0));
 		this.dataManager.register(EntityHamster.IN_LOVE, Integer.valueOf(0));
 		this.dataManager.register(EntityHamster.BALL_COLOR, Integer.valueOf(0));
-		this.dataManager.register(EntityHamster.FED, Boolean.valueOf(true));
-		this.dataManager.register(EntityHamster.WATERED, Boolean.valueOf(true));
-		this.dataManager.register(EntityHamster.RIDING, Boolean.valueOf(false));
-		this.dataManager.register(EntityHamster.AGE, Boolean.valueOf(false));
-		this.dataManager.register(EntityHamster.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityHamster.FED, true);
+		this.dataManager.register(EntityHamster.WATERED, true);
+		this.dataManager.register(EntityHamster.RIDING, false);
+		this.dataManager.register(EntityHamster.AGE, Integer.valueOf(0));
+		this.dataManager.register(EntityHamster.SLEEPING, false);
 		this.dataManager.register(EntityHamster.SLEEPTIMER, Float.valueOf(0.0F));
+		this.dataManager.register(INTERACTED, false);
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setBoolean("IsSitting", this.isHamsterSitting());
+		nbttagcompound.setBoolean("IsSitting", this.isSitting());
 		nbttagcompound.setBoolean("InBall", this.isInBall());
 		nbttagcompound.setInteger("ColorNumber", this.getColorNumber());
 		nbttagcompound.setInteger("foodStackCount", this.getFoodStackCount());
 		nbttagcompound.setInteger("BallColor", this.getBallColor());
-		nbttagcompound.setBoolean("Fed", this.getFed());
-		nbttagcompound.setBoolean("Watered", this.getWatered());
-		nbttagcompound.setBoolean("IsTamed", this.getIsTamed());
+		nbttagcompound.setBoolean("IsTamed", this.isTamed());
 		nbttagcompound.setBoolean("IsRiding", this.getIsRiding());
-		nbttagcompound.setBoolean("Age", this.getAge());
-		nbttagcompound.setBoolean("Sleep", this.getSleeping());
-		nbttagcompound.setFloat("SleepTimer", this.getSleepTimer());
+		
+		GenericBehavior.writeCommonNBT(nbttagcompound, this);
+		
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readEntityFromNBT(nbttagcompound);
-		this.setHamsterSitting(nbttagcompound.getBoolean("IsSitting"));
+		this.setSitting(nbttagcompound.getBoolean("IsSitting"));
 		this.setInBall(nbttagcompound.getBoolean("InBall"));
 		this.setColorNumber(nbttagcompound.getInteger("ColorNumber"));
 		this.setFoodStackCount(nbttagcompound.getInteger("foodStackCount"));
 		this.setBallColor(nbttagcompound.getInteger("BallColor"));
-		this.setFed(nbttagcompound.getBoolean("Fed"));
-		this.setWatered(nbttagcompound.getBoolean("Watered"));
-		this.setIsTamed(nbttagcompound.getBoolean("IsTamed"));
+		this.setTamed(nbttagcompound.getBoolean("IsTamed"));
 		this.setIsRiding(nbttagcompound.getBoolean("IsRiding"));
-		this.setAge(nbttagcompound.getBoolean("Age"));
-		this.setSleeping(nbttagcompound.getBoolean("Sleep"));
-		this.setSleepTimer(nbttagcompound.getFloat("SleepTimer"));
+		
+		GenericBehavior.readCommonNBT(nbttagcompound, this);
 	}
 
-	public boolean getAge()
+	public int getAge()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(AGE));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
-
+		return this.getIntFromDataManager(AGE);
 	}
 
-	public void setAge(boolean age)
+	public void setAge(int age)
 	{
-		this.dataManager.set(EntityHamster.AGE, Boolean.valueOf(age));
+		this.dataManager.set(AGE, Integer.valueOf(age));
 	}
 
 	public boolean getSleeping()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(SLEEPING));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(SLEEPING);
 	}
 
 	public void setSleeping(boolean flag)
 	{
-		if (flag)
-		{
-			this.dataManager.set(EntityHamster.SLEEPING, Boolean.valueOf(true));
-		}
-		else
-		{
-			this.dataManager.set(EntityHamster.SLEEPING, Boolean.valueOf(false));
-		}
+		this.dataManager.set(EntityHamster.SLEEPING, flag);
 	}
 
 	public Float getSleepTimer()
 	{
-		try
-		{
-			return (this.getFloatFromDataManager(SLEEPTIMER));
-		}
-		catch (Exception e)
-		{
-			return 0F;
-		}
+		return this.getFloatFromDataManager(SLEEPTIMER);
 	}
 
 	public void setSleepTimer(Float timer)
@@ -349,86 +302,19 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
-
 		ItemStack itemstack = player.getHeldItem(hand);
 
-		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.NAME_TAG && delayCount == 0 && !this.getSleeping())
+		if (this.isBreedingItem(itemstack) && !this.getSleeping())
 		{
-			delayCount = 5;
-			if (!itemstack.hasDisplayName())
-			{
-				return false;
-
-			}
-			else
-			{
-				EntityLiving entityliving = this;
-				entityliving.setCustomNameTag(itemstack.getDisplayName());
-				entityliving.enablePersistence();
-				if (!player.capabilities.isCreativeMode)
-					itemstack.setCount(itemstack.getCount() - 1);
-				this.setIsTamed(true);
-				this.setTamed(true);
-				this.setOwnerId(player.getPersistentID());
-				return true;
-			}
-		}
-
-		if (itemstack != ItemStack.EMPTY && this.isBreedingItem(itemstack) && delayCount == 0 && !this.getSleeping())
-		{
-			delayCount = 5;
-			if (!player.capabilities.isCreativeMode)
-			{
-				itemstack.shrink(1);
-
-				if (itemstack.getCount() <= 0)
-				{
-					player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
-				}
-			}
-			this.setInLove(player);
-			this.setFed(true);
-			this.setIsTamed(true);
-			this.setTamed(true);
-			this.setOwnerId(player.getPersistentID());
 			this.doPatreonCheck(player);
-			return true;
+			this.setHamsterStanding(true);
+			this.standCount = 100;
+			this.addFoodStack();
 
 		}
-		else if (itemstack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(itemstack) && delayCount == 0 && !this.getSleeping())
+		
+		if (itemstack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0 && !this.isInBall() && !this.getSleeping())
 		{
-			if (!player.isCreative())
-			{
-				ItemStack emptied = AnimaniaHelper.emptyContainer(itemstack);
-				itemstack.shrink(1);
-				AnimaniaHelper.addItem(player, emptied);
-			}
-
-			delayCount = 5;
-			this.setWatered(true);
-			this.setInLove(player);
-			return true;
-		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && !this.isHamsterSitting() && !player.isSneaking() && delayCount == 0 && !this.isInBall() && !this.getSleeping())
-		{
-			delayCount = 5;
-			this.setHamsterSitting(true);
-			this.setSitting(true);
-			this.isJumping = false;
-			return true;
-
-		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && this.isHamsterSitting() && !player.isSneaking() && delayCount == 0 && !this.isInBall() && !this.getSleeping())
-		{
-			delayCount = 5;
-			this.setHamsterSitting(false);
-			this.setSitting(false);
-			this.isJumping = false;
-			return true;
-		}
-		else if (itemstack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0 && !this.isInBall() && !this.getSleeping())
-		{
-
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 			if (!props.isCarrying())
 			{
@@ -445,9 +331,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		if (!itemstack.isEmpty() && itemstack.getItem() == ItemHandler.hamsterBallColored && !isInBall() && !this.getSleeping())
 		{
-			if (this.isHamsterSitting())
+			if (this.isSitting())
 			{
-				this.setHamsterSitting(false);
 				this.setSitting(false);
 			}
 			setInBall(true);
@@ -459,9 +344,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		}
 		if (!itemstack.isEmpty() && itemstack.getItem() == ItemHandler.hamsterBallClear && !isInBall() && !this.getSleeping())
 		{
-			if (this.isHamsterSitting())
+			if (this.isSitting())
 			{
-				this.setHamsterSitting(false);
+				this.setSitting(false);
 				this.setSitting(false);
 			}
 			setInBall(true);
@@ -485,75 +370,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			return true;
 		}
 
-		if (!this.getIsTamed())
-		{
-			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
-			{
-				this.addFoodStack();
-				return this.interactSeedsNotTamed(itemstack, player);
-			}
-			else
-				return super.processInteract(player, hand);
-		}
-		else if (!this.getIsTamed() && itemstack.getItem() == Items.LEAD)
-			return super.processInteract(player, hand);
-
-		if (itemstack != ItemStack.EMPTY && itemstack.getItem() == ItemHandler.hamsterFood)
-		{
-			addFoodStack();
-			// player.addStat(AnimaniaAchievements.Hamsters, 1);
-			return interactSeedsTamed(itemstack, player);
-		}
-		else if (this.isBreedingItem(itemstack))
-		{
-			this.consumeItemFromStack(player, itemstack);
-			this.setInLove(player);
-			return true;
-		}
-		return super.processInteract(player, hand);
-
-	}
-
-	private boolean interactSeedsNotTamed(ItemStack itemstack, EntityPlayer entityplayer)
-	{
-
-		if (!entityplayer.capabilities.isCreativeMode)
-			itemstack.shrink(1);
-		// entityplayer.addStat(AnimaniaAchievements.Hamsters, 1);
-		this.setHamsterStanding(true);
-		this.standCount = 100;
-
-		this.doPatreonCheck(entityplayer);
-
-		if (itemstack.getCount() <= 0 && entityplayer.inventory != null)
-			entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, ItemStack.EMPTY);
-
-		if (this.rand.nextInt(3) == 0)
-		{
-			this.navigator.clearPath();
-			this.isJumping = false;
-			// TODO entityToAttack = null;
-			// showHeartsOrSmokeFX("note", 1, false);
-			this.world.setEntityState(this, (byte) 7);
-
-		}
-		else
-			// showHeartsOrSmokeFX("note", 1, false);
-			this.world.setEntityState(this, (byte) 7);
-		this.heal(1);
-
-		return true;
-	}
-
-	private boolean interactSeedsTamed(ItemStack itemstack, EntityPlayer entityplayer)
-	{
-		if (!entityplayer.capabilities.isCreativeMode)
-			itemstack.shrink(1);
-		if (itemstack.getCount() <= 0)
-			entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, ItemStack.EMPTY);
-
-		this.heal(1);
-		return true;
+		return GenericBehavior.interactCommon(this, player, hand, null) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -564,10 +381,10 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	private boolean interactOthersTamed()
 	{
-		if (this.isHamsterStanding() || !this.isHamsterSitting())
-			this.setHamsterSitting(true);
-		else if (this.isHamsterSitting())
-			this.setHamsterSitting(false);
+		if (this.isHamsterStanding() || !this.isSitting())
+			this.setSitting(true);
+		else if (this.isSitting())
+			this.setSitting(false);
 		this.isJumping = false;
 		this.navigator.clearPath();
 
@@ -635,10 +452,8 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 				this.blinkTimer = 80 + this.rand.nextInt(80);
 		}
 		
-		if (this.getLeashed()) {
-			this.setHandFed(true);
-		}
-
+		GenericBehavior.livingUpdateCommon(this);
+		
 		this.setResourceLoc();
 		super.onLivingUpdate();
 
@@ -647,7 +462,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			this.eatFood();
 			this.eatCount = 5000;
 		}
-		if (!this.isHamsterStanding() && !this.isHamsterSitting() && !this.getSleeping())
+		if (!this.isHamsterStanding() && !this.isSitting() && !this.getSleeping())
 		{
 			if (this.rand.nextInt(20) == 0 && this.rand.nextInt(20) == 0)
 			{
@@ -683,63 +498,9 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			}
 		}
 
-		if (this.isHamsterSitting() | this.isHamsterStanding() && this.getNavigator() != null)
+		if (this.isSitting() | this.isHamsterStanding() && this.getNavigator() != null)
 			this.getNavigator().clearPath();
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-		{
-			this.fedTimer--;
-
-			if (this.fedTimer == 0)
-				this.setFed(false);
-		}
-
-		if (this.wateredTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-		{
-			this.wateredTimer--;
-
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
-			{
-				this.setWatered(false);
-			}
-		}
-
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-
-		if (!fed && !watered)
-		{
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			if (AnimaniaConfig.gameRules.animalsStarve)
-			{
-				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer)
-				{
-					this.attackEntityFrom(DamageSource.STARVE, 4f);
-					this.damageTimer = 0;
-				}
-				this.damageTimer++;
-			}
-
-		}
-		else if (!fed || !watered)
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-
-		if (this.happyTimer > -1)
-		{
-			this.happyTimer--;
-			if (this.happyTimer == 0)
-			{
-				this.happyTimer = 60;
-
-				if (!this.getFed() && !this.getWatered() && !this.getSleeping() && this.isTamed() && AnimaniaConfig.gameRules.showUnhappyParticles)
-				{
-					double d = this.rand.nextGaussian() * 0.001D;
-					double d1 = this.rand.nextGaussian() * 0.001D;
-					double d2 = this.rand.nextGaussian() * 0.001D;
-					this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + this.rand.nextFloat() * this.width - this.width, this.posY + 1.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1, d2);
-				}
-			}
-		}
 
 		if (this.tamedTimer > -1)
 		{
@@ -748,7 +509,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			{
 				this.tamedTimer = 120;
 
-				if (this.getIsTamed() && AnimaniaConfig.gameRules.showUnhappyParticles && !this.isRiding())
+				if (this.isTamed() && AnimaniaConfig.gameRules.showUnhappyParticles && !this.isRiding())
 				{
 					double d = this.rand.nextGaussian() * 0.02D;
 					double d1 = this.rand.nextGaussian() * 0.02D;
@@ -766,14 +527,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean getFed()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(FED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(FED);
 
 	}
 
@@ -781,35 +535,28 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	{
 		if (fed)
 		{
-			this.dataManager.set(EntityHamster.FED, Boolean.valueOf(true));
+			this.dataManager.set(EntityHamster.FED, true);
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		}
 		else
-			this.dataManager.set(EntityHamster.FED, Boolean.valueOf(false));
+			this.dataManager.set(EntityHamster.FED, false);
 	}
 
 	public boolean getWatered()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(WATERED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(WATERED);
 	}
 
 	public void setWatered(boolean watered)
 	{
 		if (watered)
 		{
-			this.dataManager.set(EntityHamster.WATERED, Boolean.valueOf(true));
+			this.dataManager.set(EntityHamster.WATERED, true);
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		}
 		else
-			this.dataManager.set(EntityHamster.WATERED, Boolean.valueOf(false));
+			this.dataManager.set(EntityHamster.WATERED, false);
 	}
 
 	@Override
@@ -850,14 +597,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	public boolean isInBall()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(IN_BALL));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(IN_BALL);
 	}
 
 	public void setInBall(boolean ball)
@@ -865,25 +605,18 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		if (ball)
 		{
 			this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.30F, 1.6F);
-			this.dataManager.set(EntityHamster.IN_BALL, Boolean.valueOf(true));
+			this.dataManager.set(EntityHamster.IN_BALL, true);
 		}
 		else
 		{
 			this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.30F, 1.3F);
-			this.dataManager.set(EntityHamster.IN_BALL, Boolean.valueOf(false));
+			this.dataManager.set(EntityHamster.IN_BALL, false);
 		}
 	}
 
 	public int getBallColor()
 	{
-		try
-		{
-			return (this.getIntFromDataManager(BALL_COLOR));
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
+		return this.getIntFromDataManager(BALL_COLOR);
 	}
 
 	public void setBallColor(int color)
@@ -891,22 +624,15 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.dataManager.set(EntityHamster.BALL_COLOR, Integer.valueOf(color));
 	}
 
-	public boolean isHamsterSitting()
-	{
-		try
-		{
-			return (this.getBoolFromDataManager(SITTING));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
-	}
-
-	public void setHamsterSitting(boolean flag)
-	{
-		this.dataManager.set(EntityHamster.SITTING, Boolean.valueOf(flag));
-	}
+//	public boolean isHamsterSitting()
+//	{
+//		return this.getBoolFromDataManager(SITTING);
+//	}
+//
+//	public void setHamsterSitting(boolean flag)
+//	{
+//		this.dataManager.set(EntityHamster.SITTING, Boolean.valueOf(flag));
+//	}
 
 	void showHeartsOrSmokeFX(String s, int i, boolean flag)
 	{
@@ -924,36 +650,22 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	}
 
-	public boolean getIsTamed()
-	{
-		try
-		{
-			return (this.getBoolFromDataManager(TAMED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
-	}
+//	public boolean getIsTamed()
+//	{
+//		return this.getBoolFromDataManager(TAMED);
+//	}
 
-	public void setIsTamed(boolean tamed)
-	{
-		if (tamed)
-			this.dataManager.set(EntityHamster.TAMED, Boolean.valueOf(true));
-		else
-			this.dataManager.set(EntityHamster.TAMED, Boolean.valueOf(false));
-	}
+//	public void setIsTamed(boolean tamed)
+//	{
+//		if (tamed)
+//			this.dataManager.set(EntityHamster.TAMED, true);
+//		else
+//			this.dataManager.set(EntityHamster.TAMED, false);
+//	}
 
 	public boolean getIsRiding()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(RIDING));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(RIDING);
 	}
 
 	public void setIsRiding(boolean riding)
@@ -1241,105 +953,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		return EntityGender.NONE;
 	}
 
-	// ==================================================
-	// Data Manager Trapper (borrowed from Lycanites)
-	// ==================================================
-
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
-	}
-
-	public byte getByteFromDataManager(DataParameter<Byte> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public int getIntFromDataManager(DataParameter<Integer> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public float getFloatFromDataManager(DataParameter<Float> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public String getStringFromDataManager(DataParameter<String> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return ItemStack.EMPTY;
-		}
-	}
-
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return Optional.absent();
-		}
-	}
+	
 
 	@Override
 	public void setHandFed(boolean handfed)
@@ -1377,6 +991,90 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	public int getBlinkTimer()
 	{
 		return blinkTimer;
+	}
+	
+
+	@Override
+	public void setBlinkTimer(int i)
+	{
+		blinkTimer = i;
+	}
+	
+	@Override
+	public int getEatTimer()
+	{
+		return 0;
+	}
+
+	@Override
+	public void setEatTimer(int i)
+	{
+	}
+
+	@Override
+	public int getFedTimer()
+	{
+		return fedTimer;
+	}
+
+	@Override
+	public void setFedTimer(int i)
+	{
+		fedTimer = i;
+	}
+	
+	@Override
+	public void setInteracted(boolean interacted)
+	{
+		this.dataManager.set(INTERACTED, interacted);
+	}
+
+	@Override
+	public boolean getInteracted()
+	{
+		return this.getBoolFromDataManager(INTERACTED);
+	}
+
+	@Override
+	public int getWaterTimer()
+	{
+		return wateredTimer;
+	}
+
+	@Override
+	public void setWaterTimer(int i)
+	{
+		wateredTimer = i;
+	}
+
+	@Override
+	public int getDamageTimer()
+	{
+		return damageTimer;
+	}
+
+	@Override
+	public void setDamageTimer(int i)
+	{
+		damageTimer = i;
+	}
+	
+	@Override
+	public int getHappyTimer()
+	{
+		return happyTimer;
+	}
+	
+	@Override
+	public void setHappyTimer(int i)
+	{
+		happyTimer = i;
+	}
+	
+	@Override
+	public AnimaniaType getAnimalType()
+	{
+		return HamsterType.STANDARD;
 	}
 
 }

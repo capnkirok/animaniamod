@@ -1,7 +1,7 @@
 package com.animania.client.models;
 
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
-import com.animania.common.entities.horses.EntityStallionDraftHorse;
+import com.animania.common.entities.horses.HorseDraft.EntityStallionDraftHorse;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.model.ModelBase;

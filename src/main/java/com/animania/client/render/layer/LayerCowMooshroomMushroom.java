@@ -1,15 +1,13 @@
 package com.animania.client.render.layer;
 
 import com.animania.client.render.cows.RenderCowMooshroom;
-import com.animania.common.entities.cows.EntityCowMooshroom;
+import com.animania.common.entities.cows.CowMooshroom.EntityCowMooshroom;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderMooshroom;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

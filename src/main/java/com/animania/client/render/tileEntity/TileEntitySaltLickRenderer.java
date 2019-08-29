@@ -1,8 +1,6 @@
 package com.animania.client.render.tileEntity;
 
-import com.animania.client.models.ModelNest;
 import com.animania.client.models.blocks.ModelSaltLick;
-import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntitySaltLick;
 import com.animania.config.AnimaniaConfig;
 
@@ -10,7 +8,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
 public class TileEntitySaltLickRenderer extends TileEntitySpecialRenderer<TileEntitySaltLick>

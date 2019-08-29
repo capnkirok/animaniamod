@@ -2,12 +2,10 @@ package com.animania.client.render.goats;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.client.models.ModelBullAngus;
 import com.animania.client.models.goats.ModelBuckKinder;
 import com.animania.client.render.layer.LayerBlinking;
-import com.animania.common.entities.cows.EntityBullAngus;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityBuckKinder;
+import com.animania.common.entities.goats.GoatKinder.EntityBuckKinder;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

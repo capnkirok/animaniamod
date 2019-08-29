@@ -1,6 +1,5 @@
 package com.animania.common.events;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 

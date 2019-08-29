@@ -1,8 +1,10 @@
 package com.animania.common.entities.peacocks;
 
+import java.util.UUID;
+
 import com.animania.api.data.EntityGender;
-import com.animania.common.ModSoundEvents;
-import com.animania.config.AnimaniaConfig;
+import com.animania.api.interfaces.IChild;
+import com.animania.common.entities.generic.GenericBehavior;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -11,7 +13,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityPeachickBase extends EntityAnimaniaPeacock
+public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 {
 	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityPeachickBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
@@ -67,70 +69,28 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 	@Override
 	public void onLivingUpdate()
 	{
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-		this.growingAge = -24000;
-		this.ageTimer++;
-		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
-			if (fed && watered)
-			{
-				this.ageTimer = 0;
-				float age = this.getEntityAge();
-				age = age + .01F;
-				this.setEntityAge(age);
-
-				if (age >= .4 && !this.world.isRemote)
-				{
-
-					this.setDead();
-
-					if (this.rand.nextInt(2) < 1)
-					{
-						EntityPeafowlBase entityFowl = type.getFemale(world);
-						if (entityFowl != null)
-						{
-							entityFowl.setPosition(this.posX, this.posY + .5, this.posZ);
-							String name = this.getCustomNameTag();
-							if (name != "")
-								entityFowl.setCustomNameTag(name);
-							
-							entityFowl.setAge(1);
-							this.world.spawnEntity(entityFowl);
-							this.playSound(ModSoundEvents.peacock1, 0.50F, 1.1F);
-						}
-					}
-					else
-					{
-						EntityPeacockBase entityPeacock = type.getMale(world);
-						if (entityPeacock != null)
-						{
-							entityPeacock.setPosition(this.posX, this.posY + .5, this.posZ);
-							String name = this.getCustomNameTag();
-							if (name != "")
-								entityPeacock.setCustomNameTag(name);
-							
-							entityPeacock.setAge(1);
-							this.world.spawnEntity(entityPeacock);
-							this.playSound(ModSoundEvents.peacock8, 0.50F, 1.1F);
-						}
-					}
-
-				}
-			}
+		GenericBehavior.livingUpdateChild(this, null);
 
 		super.onLivingUpdate();
 	}
 
 	public float getEntityAge()
 	{
-		try {
-			return (this.getFloatFromDataManager(AGE));
-		}
-		catch (Exception e) {
-			return 0F;
-		}
+		return this.getFloatFromDataManager(AGE);
 	}
 
+	@Override
+	public int getAgeTimer()
+	{
+		return ageTimer;
+	}
+
+	@Override
+	public void setAgeTimer(int i)
+	{
+		ageTimer = i;
+	}
+	
 	public void setEntityAge(float age)
 	{
 		this.dataManager.set(EntityPeachickBase.AGE, Float.valueOf(age));
@@ -149,6 +109,18 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock
 	protected void dropFewItems(boolean hit, int lootlevel)
 	{
 		return;
+	}
+
+	@Override
+	public UUID getParentUniqueId()
+	{
+		return null;
+	}
+
+	@Override
+	public void setParentUniqueId(UUID id)
+	{
+		
 	}
 
 }

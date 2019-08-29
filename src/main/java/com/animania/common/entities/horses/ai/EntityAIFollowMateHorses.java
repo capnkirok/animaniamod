@@ -2,7 +2,6 @@ package com.animania.common.entities.horses.ai;
 
 import java.util.List;
 
-import com.animania.common.entities.cows.EntityCowBase;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
 import com.animania.common.entities.horses.EntityMareBase;
 import com.animania.common.entities.horses.EntityStallionBase;

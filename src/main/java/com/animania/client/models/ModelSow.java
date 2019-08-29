@@ -1,9 +1,9 @@
 package com.animania.client.models;
 
-import com.animania.common.entities.pigs.EntitySowDuroc;
-import com.animania.common.entities.pigs.EntitySowLargeWhite;
-import com.animania.common.entities.pigs.EntitySowOldSpot;
-import com.animania.common.entities.pigs.EntitySowYorkshire;
+import com.animania.common.entities.pigs.PigDuroc.EntitySowDuroc;
+import com.animania.common.entities.pigs.PigLargeWhite.EntitySowLargeWhite;
+import com.animania.common.entities.pigs.PigOldSpot.EntitySowOldSpot;
+import com.animania.common.entities.pigs.PigYorkshire.EntitySowYorkshire;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

@@ -1,8 +1,5 @@
 package com.animania.common.tileentities.handler;
 
-import com.animania.common.blocks.BlockTrough;
-
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 

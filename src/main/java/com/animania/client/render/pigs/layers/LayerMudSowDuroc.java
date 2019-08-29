@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelSow;
 import com.animania.client.render.pigs.RenderSowDuroc;
-import com.animania.common.entities.pigs.EntitySowDuroc;
+import com.animania.common.entities.pigs.PigDuroc.EntitySowDuroc;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

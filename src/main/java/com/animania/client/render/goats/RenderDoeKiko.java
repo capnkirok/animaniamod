@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.animania.client.models.goats.ModelDoeKiko;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityDoeKiko;
+import com.animania.common.entities.goats.GoatKiko.EntityDoeKiko;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

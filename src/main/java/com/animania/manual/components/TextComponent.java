@@ -1,13 +1,8 @@
 package com.animania.manual.components;
 
-import java.io.IOException;
-
-import com.animania.Animania;
 import com.animania.manual.gui.GuiManual;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
 
 public class TextComponent implements IManualComponent
 {

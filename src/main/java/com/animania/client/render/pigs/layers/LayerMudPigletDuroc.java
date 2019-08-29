@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelPiglet;
 import com.animania.client.render.pigs.RenderPigletDuroc;
-import com.animania.common.entities.pigs.EntityPigletDuroc;
+import com.animania.common.entities.pigs.PigDuroc.EntityPigletDuroc;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

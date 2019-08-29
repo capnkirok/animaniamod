@@ -6,7 +6,6 @@ import com.animania.client.models.ModelChick;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.chickens.EntityChickBase;
-import com.animania.common.entities.chickens.EntityChickLeghorn;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;

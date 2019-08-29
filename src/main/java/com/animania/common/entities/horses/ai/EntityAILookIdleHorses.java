@@ -7,13 +7,8 @@ import com.animania.common.entities.props.EntityCart;
 import com.animania.common.entities.props.EntityWagon;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 
 public class EntityAILookIdleHorses extends EntityAIBase
 {

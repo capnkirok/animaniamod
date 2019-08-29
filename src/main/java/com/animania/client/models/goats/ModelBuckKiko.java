@@ -1,9 +1,8 @@
 package com.animania.client.models.goats;
 
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityBuckKiko;
+import com.animania.common.entities.goats.GoatKiko.EntityBuckKiko;
 import com.animania.config.AnimaniaConfig;
-import com.animania.common.entities.goats.EntityBuckKiko;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

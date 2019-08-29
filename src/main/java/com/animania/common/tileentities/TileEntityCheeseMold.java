@@ -11,7 +11,6 @@ import com.animania.common.tileentities.handler.ItemHandlerCheeseMold;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;

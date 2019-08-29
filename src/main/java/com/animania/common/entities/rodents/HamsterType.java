@@ -4,7 +4,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import com.animania.api.interfaces.AnimaniaType;
-import com.animania.common.entities.amphibians.EntityAmphibian;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;

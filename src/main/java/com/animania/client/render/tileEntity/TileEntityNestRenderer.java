@@ -1,17 +1,13 @@
 package com.animania.client.render.tileEntity;
 
-import javax.annotation.Nullable;
-
 import com.animania.client.models.ModelNest;
 import com.animania.common.tileentities.TileEntityNest;
-import com.mojang.authlib.GameProfile;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

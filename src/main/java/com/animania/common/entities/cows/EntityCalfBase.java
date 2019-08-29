@@ -8,9 +8,9 @@ import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
-import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
@@ -36,7 +36,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProviderChild, IChild
 {
-
 	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityCalfBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityCalfBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
@@ -44,7 +43,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public EntityCalfBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.6F, 3.6F); 
+		this.setSize(1.6F, 3.6F);
 		this.width = 1.6F;
 		this.height = 3.6F;
 		this.stepHeight = 1.1F;
@@ -116,15 +115,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Nullable
 	public UUID getParentUniqueId()
 	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntityCalfBase.PARENT_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
+		return getUUIDFromDataManager(PARENT_UNIQUE_ID);
 	}
 
 	public void setParentUniqueId(@Nullable UUID uniqueId)
@@ -134,14 +125,21 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	public float getEntityAge()
 	{
-		try {
-			return (this.getFloatFromDataManager(AGE));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getFloatFromDataManager(AGE);
 	}
 
+	@Override
+	public int getAgeTimer()
+	{
+		return ageTimer;
+	}
+
+	@Override
+	public void setAgeTimer(int i)
+	{
+		ageTimer = i;
+	}
+	
 	public void setEntityAge(float age)
 	{
 		this.dataManager.set(EntityCalfBase.AGE, Float.valueOf(age));
@@ -218,86 +216,12 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public void onLivingUpdate()
 	{
-		
-		this.growingAge = -24000;
-		
-		if (this.world.isRemote)
-			this.eatTimer = Math.max(0, this.eatTimer - 1);
-
-		if (this.blinkTimer > -1)
+		GenericBehavior.livingUpdateChild(this, entity ->
 		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-				this.blinkTimer = 100 + this.rand.nextInt(100);
-		}
-
-		if (this.fedTimer > -1)
-		{
-			this.fedTimer--;
-
-			if (this.fedTimer == 0)
-				this.setFed(false);
-		}
-
-		if (this.wateredTimer > -1)
-		{
-			this.wateredTimer--;
-
-			if (this.wateredTimer == 0)
-				this.setWatered(false);
-		}
-
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-
-		this.ageTimer++;
-		
-		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
-			if (fed && watered)
-			{
-				this.ageTimer = 0;
-				float age = this.getEntityAge();
-				age = age + .01F;
-				this.setEntityAge(age);
-				this.setSize(1.2F + age, 1.8F + age);
-
-				if (age >= 0.85 && !this.world.isRemote)
-				{
-					this.setDead();
-
-					if (this.rand.nextInt(2) < 1)
-					{
-						EntityCowBase entityCow = this.cowType.getFemale(world);
-						if (entityCow != null)
-						{
-							entityCow.setPosition(this.posX, this.posY + .5, this.posZ);
-							String name = this.getCustomNameTag();
-							if (name != "")
-								entityCow.setCustomNameTag(name);
-							
-							entityCow.setAge(1);
-							this.world.spawnEntity(entityCow);
-							this.playSound(ModSoundEvents.moo1, 0.50F, 1.1F);
-						}
-					}
-					else
-					{
-						EntityBullBase entityBull = this.cowType.getMale(world);
-						if (entityBull != null)
-						{
-							entityBull.setPosition(this.posX, this.posY + .5, this.posZ);
-							String name = this.getCustomNameTag();
-							if (name != "")
-								entityBull.setCustomNameTag(name);
-							
-							entityBull.setAge(1);
-							this.world.spawnEntity(entityBull);
-							this.playSound(ModSoundEvents.bullMoo1, 0.50F, 1.1F);
-						}
-					}
-
-				}
-			}
+			float age = entity.getEntityAge();
+			age = age + .01F;
+			entity.setSize(1.2F + age, 1.8F + age);
+		});
 
 		super.onLivingUpdate();
 	}

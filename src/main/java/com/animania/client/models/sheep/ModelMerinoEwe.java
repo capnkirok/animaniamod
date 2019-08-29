@@ -3,8 +3,8 @@ package com.animania.client.models.sheep;
 import com.animania.client.models.IColoredModel;
 import com.animania.client.models.render.ModelRendererColored;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
-import com.animania.common.entities.sheep.EntityEweMerino;
-import com.animania.common.entities.sheep.EntityLambMerino;
+import com.animania.common.entities.sheep.SheepMerino.EntityEweMerino;
+import com.animania.common.entities.sheep.SheepMerino.EntityLambMerino;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

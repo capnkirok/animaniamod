@@ -1,7 +1,6 @@
 package com.animania.network.client;
 
 import com.animania.common.capabilities.CapabilitiesPlayerStorage;
-import com.animania.common.capabilities.CapabilityPlayerProvider;
 import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 

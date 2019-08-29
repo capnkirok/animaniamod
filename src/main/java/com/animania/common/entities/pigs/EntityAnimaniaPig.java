@@ -1,12 +1,13 @@
 package com.animania.common.entities.pigs;
 
 import java.util.Set;
-import java.util.UUID;
 
 import com.animania.Animania;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
@@ -23,7 +24,6 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
@@ -48,7 +48,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -72,6 +71,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaPig.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.pigFood));
 	protected boolean boosting;
@@ -139,25 +139,6 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	public void setPosition(double x, double y, double z)
 	{
 		super.setPosition(x, y, z);
-	}
-
-	@Override
-	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
-	{
-		this.setFed(true);
-		this.setHandFed(true);
-
-		if (this.entityAIEatGrass != null)
-		{
-			this.entityAIEatGrass.startExecuting();
-			this.eatTimer = 80;
-		}
-
-		if (!player.capabilities.isCreativeMode)
-			if (stack != ItemStack.EMPTY && !ItemStack.areItemStacksEqual(stack, this.slop))
-				stack.shrink(1);
-			else if (stack != ItemStack.EMPTY && ItemStack.areItemStacksEqual(stack, this.slop))
-				player.setHeldItem(EnumHand.MAIN_HAND, new ItemStack(Items.BUCKET));
 	}
 
 	public void travel(float p_191986_1_, float p_191986_2_, float p_191986_3_)
@@ -238,65 +219,47 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaPig.SADDLED, Boolean.valueOf(false));
-		this.dataManager.register(EntityAnimaniaPig.MUDDY, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaPig.SADDLED, false);
+		this.dataManager.register(EntityAnimaniaPig.MUDDY, false);
 		this.dataManager.register(EntityAnimaniaPig.MUDTIMER, Float.valueOf(0.0F));
 		this.dataManager.register(EntityAnimaniaPig.SPLASHTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(EntityAnimaniaPig.FED, Boolean.valueOf(true));
-		this.dataManager.register(EntityAnimaniaPig.HANDFED, Boolean.valueOf(false));
-		this.dataManager.register(EntityAnimaniaPig.WATERED, Boolean.valueOf(true));
-		this.dataManager.register(EntityAnimaniaPig.PLAYED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaPig.FED, true);
+		this.dataManager.register(EntityAnimaniaPig.HANDFED, false);
+		this.dataManager.register(EntityAnimaniaPig.WATERED, true);
+		this.dataManager.register(EntityAnimaniaPig.PLAYED, true);
 		this.dataManager.register(EntityAnimaniaPig.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityAnimaniaPig.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaPig.SLEEPING, false);
 		this.dataManager.register(EntityAnimaniaPig.SLEEPTIMER, Float.valueOf(0.0F));
+		this.dataManager.register(INTERACTED, false);
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
+		GenericBehavior.writeCommonNBT(compound, this);
 		compound.setBoolean("Saddle", this.getSaddled());
 		compound.setBoolean("Muddy", this.getMuddy());
 		compound.setFloat("MudTimer", this.getMudTimer());
 		compound.setFloat("SplashTimer", this.getSplashTimer());
-		compound.setBoolean("Fed", this.getFed());
-		compound.setBoolean("Handfed", this.getHandFed());
-		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Played", this.getPlayed());
-		compound.setInteger("Age", this.getAge());
-		compound.setBoolean("Sleep", this.getSleeping());
-		compound.setFloat("SleepTimer", this.getSleepTimer());
-
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
+		GenericBehavior.readCommonNBT(compound, this);
 		this.setSaddled(compound.getBoolean("Saddle"));
 		this.setMuddy(compound.getBoolean("Muddy"));
 		this.setMudTimer(compound.getFloat("MudTimer"));
 		this.setSplashTimer(compound.getFloat("SplashTimer"));
-		this.setFed(compound.getBoolean("Fed"));
-		this.setHandFed(compound.getBoolean("Handfed"));
-		this.setWatered(compound.getBoolean("Watered"));
 		this.setPlayed(compound.getBoolean("Played"));
-		this.setAge(compound.getInteger("Age"));
-		this.setSleeping(compound.getBoolean("Sleep"));
-		this.setSleepTimer(compound.getFloat("SleepTimer"));
-
 	}
 
 	public int getAge()
 	{
-		try
-		{
-			return (this.getIntFromDataManager(AGE));
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
+		return this.getIntFromDataManager(AGE);
 	}
 
 	public void setAge(int age)
@@ -306,14 +269,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 
 	public boolean getHandFed()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(HANDFED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(HANDFED);
 	}
 
 	public void setHandFed(boolean handfed)
@@ -323,38 +279,17 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 
 	public boolean getSleeping()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(SLEEPING));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(SLEEPING);
 	}
 
 	public void setSleeping(boolean flag)
 	{
-		if (flag)
-		{
-			this.dataManager.set(EntityAnimaniaPig.SLEEPING, Boolean.valueOf(true));
-		}
-		else
-		{
-			this.dataManager.set(EntityAnimaniaPig.SLEEPING, Boolean.valueOf(false));
-		}
+		this.dataManager.set(EntityAnimaniaPig.SLEEPING, flag);
 	}
 
 	public Float getSleepTimer()
 	{
-		try
-		{
-			return (this.getFloatFromDataManager(SLEEPTIMER));
-		}
-		catch (Exception e)
-		{
-			return 0F;
-		}
+		return this.getFloatFromDataManager(SLEEPTIMER);
 	}
 
 	public void setSleepTimer(Float timer)
@@ -368,23 +303,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
-		{
-			if (!player.isCreative())
-			{
-				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
-				stack.shrink(1);
-				AnimaniaHelper.addItem(player, emptied);
-			}
-
-			this.eatTimer = 40;
-			if (entityAIEatGrass != null)
-				this.entityAIEatGrass.startExecuting();
-			this.setWatered(true);
-			this.setInLove(player);
-			return true;
-		}
-		else if(!stack.isEmpty() && stack.getItem() == Items.SADDLE)
+		if(!stack.isEmpty() && stack.getItem() == Items.SADDLE)
 			return true;
 		else if (stack != ItemStack.EMPTY && AnimaniaHelper.hasFluid(stack, BlockHandler.fluidSlop) && !this.getSleeping())
 		{
@@ -403,14 +322,8 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 			this.setInLove(player);
 			return true;
 		}
-		else if (this.isBreedingItem(stack))
-		{
-			this.consumeItemFromStack(player, stack);
-			this.setInLove(player);
-			return true;
-		}
-		else
-			return super.processInteract(player, hand);
+		
+		return GenericBehavior.interactCommon(this, entityplayer, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -438,14 +351,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 
 	public boolean getSaddled()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(SADDLED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(SADDLED);
 	}
 
 	/**
@@ -454,122 +360,87 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	public void setSaddled(boolean saddled)
 	{
 		if (saddled)
-			this.dataManager.set(EntityAnimaniaPig.SADDLED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaPig.SADDLED, true);
 		else
-			this.dataManager.set(EntityAnimaniaPig.SADDLED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaPig.SADDLED, false);
 	}
 
 	public boolean getFed()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(FED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(FED);
 	}
 
 	public void setFed(boolean fed)
 	{
 		if (fed)
 		{
-			this.dataManager.set(EntityAnimaniaPig.FED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaPig.FED, true);
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaPig.FED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaPig.FED, false);
 	}
 
 	public void setSlopFed(boolean fed)
 	{
 		if (fed)
 		{
-			this.dataManager.set(EntityAnimaniaPig.FED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaPig.FED, true);
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaPig.FED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaPig.FED, false);
 	}
 
 	public boolean getPlayed()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(PLAYED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(PLAYED);
 	}
 
 	public void setPlayed(boolean played)
 	{
 		if (played)
 		{
-			this.dataManager.set(EntityAnimaniaPig.PLAYED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaPig.PLAYED, true);
 			this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + this.rand.nextInt(100);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaPig.PLAYED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaPig.PLAYED, false);
 	}
 
 	public boolean getWatered()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(WATERED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(WATERED);
 	}
 
 	public void setWatered(boolean watered)
 	{
 		if (watered)
 		{
-			this.dataManager.set(EntityAnimaniaPig.WATERED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaPig.WATERED, true);
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaPig.WATERED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaPig.WATERED, false);
 	}
 
 	public boolean getMuddy()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(MUDDY));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(MUDDY);
 	}
 
 	public void setMuddy(boolean muddy)
 	{
 		if (muddy)
-			this.dataManager.set(EntityAnimaniaPig.MUDDY, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaPig.MUDDY, true);
 		else
-			this.dataManager.set(EntityAnimaniaPig.MUDDY, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaPig.MUDDY, false);
 	}
 
 	public Float getMudTimer()
 	{
-		try
-		{
-			return (this.getFloatFromDataManager(MUDTIMER));
-		}
-		catch (Exception e)
-		{
-			return 0F;
-		}
+		return this.getFloatFromDataManager(MUDTIMER);
 	}
 
 	public void setMudTimer(Float timer)
@@ -579,14 +450,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 
 	public Float getSplashTimer()
 	{
-		try
-		{
-			return (this.getFloatFromDataManager(SPLASHTIMER));
-		}
-		catch (Exception e)
-		{
-			return 0F;
-		}
+		return this.getFloatFromDataManager(SPLASHTIMER);
 	}
 
 	public void setSplashTimer(Float timer)
@@ -623,41 +487,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	@Override
 	public void onLivingUpdate()
 	{
-
-		if (this.getLeashed() && this.getSleeping())
-			this.setSleeping(false);
-		
-		if (this.getLeashed()) {
-			this.setHandFed(true);
-		}
-
-		if (this.world.isRemote)
-			this.eatTimer = Math.max(0, this.eatTimer - 1);
-
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 100 + this.rand.nextInt(100);
-			}
-		}
-
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-		{
-			this.fedTimer--;
-
-			if (this.fedTimer == 0)
-				this.setFed(false);
-		}
-
-		if (this.wateredTimer > -1)
-		{
-			this.wateredTimer--;
-
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-				this.setWatered(false);
-		}
+		GenericBehavior.livingUpdateCommon(this);
 
 		if (this.playedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode)
 		{
@@ -673,49 +503,13 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 			this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + this.rand.nextInt(100);
 		}
 
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
 		boolean played = this.getPlayed();
-
-		if (!fed && !watered)
-		{
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			if (AnimaniaConfig.gameRules.animalsStarve)
-			{
-				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer)
-				{
-					this.attackEntityFrom(DamageSource.STARVE, 4f);
-					this.damageTimer = 0;
-				}
-				this.damageTimer++;
-			}
-
-		}
-		else if (!fed || !watered)
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 
 		BlockPos currentpos = new BlockPos(this.posX, this.posY, this.posZ);
 		Block poschk = this.world.getBlockState(currentpos).getBlock();
 
 		if (poschk != null && (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")))
 			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 4, false, false));
-
-		if (this.happyTimer > -1)
-		{
-			this.happyTimer--;
-			if (this.happyTimer == 0)
-			{
-				this.happyTimer = 60;
-
-				if (!this.getFed() && !this.getWatered() && !this.getPlayed() && !this.getSleeping() && this.getHandFed() && AnimaniaConfig.gameRules.showUnhappyParticles)
-				{
-					double d = this.rand.nextGaussian() * 0.02D;
-					double d1 = this.rand.nextGaussian() * 0.02D;
-					double d2 = this.rand.nextGaussian() * 0.02D;
-					this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + this.rand.nextFloat() * this.width - this.width, this.posY + 1.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1, d2);
-				}
-			}
-		}
 
 		super.onLivingUpdate();
 	}
@@ -763,106 +557,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	{
 		return this.gender;
 	}
-
-	// ==================================================
-	// Data Manager Trapper (borrowed from Lycanites)
-	// ==================================================
-
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
-	}
-
-	public byte getByteFromDataManager(DataParameter<Byte> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public int getIntFromDataManager(DataParameter<Integer> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public float getFloatFromDataManager(DataParameter<Float> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public String getStringFromDataManager(DataParameter<String> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return ItemStack.EMPTY;
-		}
-	}
-
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return Optional.absent();
-		}
-	}
+	
 
 	@Override
 	public void setSleepingPos(BlockPos pos)
@@ -900,5 +595,90 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	public int getBlinkTimer()
 	{
 		return blinkTimer;
+	}
+	
+
+	@Override
+	public void setBlinkTimer(int i)
+	{
+		blinkTimer = i;
+	}
+	
+	@Override
+	public int getEatTimer()
+	{
+		return eatTimer;
+	}
+
+	@Override
+	public void setEatTimer(int i)
+	{
+		eatTimer = i;
+	}
+
+	@Override
+	public int getFedTimer()
+	{
+		return fedTimer;
+	}
+
+	@Override
+	public void setFedTimer(int i)
+	{
+		fedTimer = i;
+	}
+	
+	@Override
+	public void setInteracted(boolean interacted)
+	{
+		this.dataManager.set(INTERACTED, interacted);
+	}
+
+	@Override
+	public boolean getInteracted()
+	{
+		return this.getBoolFromDataManager(INTERACTED);
+	}
+
+	@Override
+	public int getWaterTimer()
+	{
+		return wateredTimer;
+	}
+
+	@Override
+	public void setWaterTimer(int i)
+	{
+		wateredTimer = i;
+	}
+
+	@Override
+	public int getDamageTimer()
+	{
+		return damageTimer;
+	}
+
+	@Override
+	public void setDamageTimer(int i)
+	{
+		damageTimer = i;
+	}
+	
+	@Override
+	public int getHappyTimer()
+	{
+		return happyTimer;
+	}
+	
+	@Override
+	public void setHappyTimer(int i)
+	{
+		happyTimer = i;
+	}
+	
+	@Override
+	public AnimaniaType getAnimalType()
+	{
+		return pigType;
 	}
 }

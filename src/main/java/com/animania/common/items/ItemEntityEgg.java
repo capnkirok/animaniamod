@@ -8,16 +8,8 @@ import com.animania.Animania;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
-import com.animania.api.interfaces.ISpawnable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.RandomAnimalType;
-import com.animania.common.entities.chickens.ChickenType;
-import com.animania.common.entities.cows.CowType;
-import com.animania.common.entities.goats.GoatType;
-import com.animania.common.entities.peacocks.PeacockType;
-import com.animania.common.entities.pigs.PigType;
-import com.animania.common.entities.rodents.rabbits.RabbitType;
-import com.animania.common.entities.sheep.SheepType;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.client.Minecraft;
@@ -38,7 +30,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

@@ -3,8 +3,8 @@ package com.animania.common.items;
 import java.util.List;
 
 import com.animania.Animania;
-import com.animania.common.entities.horses.EntityMareDraftHorse;
-import com.animania.common.entities.horses.EntityStallionDraftHorse;
+import com.animania.common.entities.horses.HorseDraft.EntityMareDraftHorse;
+import com.animania.common.entities.horses.HorseDraft.EntityStallionDraftHorse;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +20,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

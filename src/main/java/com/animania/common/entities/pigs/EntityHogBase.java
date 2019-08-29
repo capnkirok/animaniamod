@@ -6,6 +6,16 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IMateable;
+import com.animania.api.interfaces.ISterilizable;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
+import com.google.common.base.Optional;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -30,17 +40,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IMateable;
-import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.generic.ai.GenericAIMate;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
-import com.google.common.base.Optional;
 
 public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderPig, IMateable, ISterilizable
 {
@@ -109,7 +108,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		super.entityInit();
 		this.dataManager.register(EntityHogBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
-		this.dataManager.register(EntityHogBase.STERILIZED, Boolean.valueOf(false));
+		this.dataManager.register(EntityHogBase.STERILIZED, false);
 
 	}
 

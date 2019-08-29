@@ -812,7 +812,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		this.dataManager.register(EntityTiller.PULLER_TYPE, Integer.valueOf(0));
 		this.dataManager.register(EntityTiller.TIME_SINCE_HIT, Integer.valueOf(0));
 		this.dataManager.register(EntityTiller.DAMAGE_TAKEN, Float.valueOf(0.0F));
-		this.dataManager.register(EntityTiller.HAS_CHEST, Boolean.valueOf(true));
+		this.dataManager.register(EntityTiller.HAS_CHEST, true);
 	}
 
 	public int getPullerType()

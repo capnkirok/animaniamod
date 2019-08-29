@@ -4,6 +4,15 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IChild;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.GenericBehavior;
+import com.animania.common.entities.goats.ai.EntityAIFollowParentGoats;
+import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
+import com.google.common.base.Optional;
+
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,15 +27,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IChild;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.goats.ai.EntityAIFollowParentGoats;
-import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 
 public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProviderChild, IChild
 {
@@ -189,14 +189,21 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	public float getEntityAge()
 	{
-		try {
-			return (this.getFloatFromDataManager(AGE));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getFloatFromDataManager(AGE);
 	}
 
+	@Override
+	public int getAgeTimer()
+	{
+		return ageTimer;
+	}
+
+	@Override
+	public void setAgeTimer(int i)
+	{
+		ageTimer = i;
+	}
+	
 	public void setEntityAge(float age)
 	{
 		this.dataManager.set(EntityKidBase.AGE, Float.valueOf(age));
@@ -205,57 +212,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	@Override
 	public void onLivingUpdate()
 	{
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-		this.growingAge = -24000;
-		this.ageTimer++;
-		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
-		{
-			if (fed && watered)
-			{
-				this.ageTimer = 0;
-				float age = this.getEntityAge();
-				age = age + .01F;
-				this.setEntityAge(age);
-
-				if (age >= .28 && !this.world.isRemote)
-				{
-					this.setDead();
-
-					if (this.rand.nextInt(2) < 1)
-					{
-						EntityDoeBase entityGoat = this.goatType.getFemale(world);
-						if (entityGoat != null)
-						{
-							entityGoat.setPosition(this.posX, this.posY + .5, this.posZ);
-							String name = this.getCustomNameTag();
-							if (name != "")
-								entityGoat.setCustomNameTag(name);
-
-							entityGoat.setAge(1);
-							this.world.spawnEntity(entityGoat);
-							this.playSound(ModSoundEvents.goatLiving1, 0.50F, 1.1F);
-						}
-					}
-					else
-					{
-						EntityBuckBase entityGoat = this.goatType.getMale(world);
-						if (entityGoat != null)
-						{
-							entityGoat.setPosition(this.posX, this.posY + .5, this.posZ);
-							String name = this.getCustomNameTag();
-							if (name != "")
-								entityGoat.setCustomNameTag(name);
-
-							entityGoat.setAge(1);
-							this.world.spawnEntity(entityGoat);
-							this.playSound(ModSoundEvents.goatLiving2, 0.50F, 1.1F);
-						}
-					}
-
-				}
-			}
-		}
+		GenericBehavior.livingUpdateChild(this, null);
 
 		super.onLivingUpdate();
 	}

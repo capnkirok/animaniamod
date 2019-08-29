@@ -7,7 +7,7 @@ import com.animania.client.models.ModelHogHampshire;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.client.render.pigs.layers.LayerMudHogHampshire;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.pigs.EntityHogHampshire;
+import com.animania.common.entities.pigs.PigHampshire.EntityHogHampshire;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;

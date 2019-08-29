@@ -1,0 +1,79 @@
+package com.animania.common.entities.cows;
+
+import net.minecraft.world.World;
+
+public class CowHighland
+{
+
+	public static class EntityBullHighland extends EntityBullBase
+	{
+
+		public EntityBullHighland(World world)
+		{
+			super(world);
+			this.cowType = CowType.HIGHLAND;
+
+		}
+
+		@Override
+		public int getPrimaryEggColor()
+		{
+			return 8340777;
+		}
+
+		@Override
+		public int getSecondaryEggColor()
+		{
+			return 2760475;
+		}
+
+	}
+
+	public static class EntityCowHighland extends EntityCowBase
+	{
+
+		public EntityCowHighland(World world)
+		{
+			super(world);
+			this.cowType = CowType.HIGHLAND;
+
+		}
+
+		@Override
+		public int getPrimaryEggColor()
+		{
+			return 8340777;
+		}
+
+		@Override
+		public int getSecondaryEggColor()
+		{
+			return 2760475;
+		}
+
+	}
+
+	public static class EntityCalfHighland extends EntityCalfBase
+	{
+
+		public EntityCalfHighland(World world)
+		{
+			super(world);
+			this.cowType = CowType.HIGHLAND;
+		}
+
+		@Override
+		public int getPrimaryEggColor()
+		{
+			return 8340777;
+		}
+
+		@Override
+		public int getSecondaryEggColor()
+		{
+			return 2760475;
+		}
+
+	}
+
+}

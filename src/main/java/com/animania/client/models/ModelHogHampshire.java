@@ -1,6 +1,6 @@
 package com.animania.client.models;
 
-import com.animania.common.entities.pigs.EntityHogHampshire;
+import com.animania.common.entities.pigs.PigHampshire.EntityHogHampshire;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.model.ModelBase;

@@ -1,6 +1,6 @@
 package com.animania.client.models;
 
-import com.animania.common.entities.pigs.EntitySowLargeBlack;
+import com.animania.common.entities.pigs.PigLargeBlack.EntitySowLargeBlack;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

@@ -4,8 +4,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCalf;
 import com.animania.client.render.layer.LayerBlinking;
+import com.animania.common.entities.cows.CowMooshroom.EntityCalfMooshroom;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityCalfMooshroom;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

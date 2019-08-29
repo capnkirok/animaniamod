@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.animania.client.models.goats.ModelDoePygmy;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityDoePygmy;
+import com.animania.common.entities.goats.GoatPygmy.EntityDoePygmy;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

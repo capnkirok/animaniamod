@@ -5,6 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.common.entities.horses.HorseDraft.EntityFoalDraftHorse;
+import com.animania.common.entities.horses.HorseDraft.EntityMareDraftHorse;
+import com.animania.common.entities.horses.HorseDraft.EntityStallionDraftHorse;
 
 import net.minecraft.world.World;
 

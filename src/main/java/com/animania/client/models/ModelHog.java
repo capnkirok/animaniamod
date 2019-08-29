@@ -1,9 +1,9 @@
 package com.animania.client.models;
 
-import com.animania.common.entities.pigs.EntityHogDuroc;
-import com.animania.common.entities.pigs.EntityHogLargeWhite;
-import com.animania.common.entities.pigs.EntityHogOldSpot;
-import com.animania.common.entities.pigs.EntityHogYorkshire;
+import com.animania.common.entities.pigs.PigDuroc.EntityHogDuroc;
+import com.animania.common.entities.pigs.PigLargeWhite.EntityHogLargeWhite;
+import com.animania.common.entities.pigs.PigOldSpot.EntityHogOldSpot;
+import com.animania.common.entities.pigs.PigYorkshire.EntityHogYorkshire;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.model.ModelBase;

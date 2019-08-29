@@ -3,8 +3,6 @@ package com.animania.common.tileentities;
 import javax.annotation.Nullable;
 
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.handler.FluidHandlerCheeseMold;
-import com.animania.common.tileentities.handler.ItemHandlerCheeseMold;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.init.Blocks;

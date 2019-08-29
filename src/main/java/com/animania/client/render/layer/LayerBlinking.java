@@ -11,11 +11,11 @@ import com.animania.client.models.ModelDraftHorseStallion;
 import com.animania.client.models.ModelPiglet;
 import com.animania.client.models.ModelPigletHampshire;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
-import com.animania.common.entities.sheep.EntityEweJacob;
-import com.animania.common.entities.sheep.EntityLambJacob;
-import com.animania.common.entities.sheep.EntityRamJacob;
-import com.animania.common.entities.sheep.EntityRamMerino;
-import com.animania.common.entities.sheep.EntityRamSuffolk;
+import com.animania.common.entities.sheep.SheepJacob.EntityEweJacob;
+import com.animania.common.entities.sheep.SheepJacob.EntityLambJacob;
+import com.animania.common.entities.sheep.SheepJacob.EntityRamJacob;
+import com.animania.common.entities.sheep.SheepMerino.EntityRamMerino;
+import com.animania.common.entities.sheep.SheepSuffolk.EntityRamSuffolk;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;

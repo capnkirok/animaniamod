@@ -4,8 +4,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCowHereford;
 import com.animania.client.render.layer.LayerBlinking;
+import com.animania.common.entities.cows.CowJersey.EntityCowJersey;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityCowJersey;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

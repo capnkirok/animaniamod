@@ -5,6 +5,30 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.common.entities.cows.CowAngus.EntityBullAngus;
+import com.animania.common.entities.cows.CowAngus.EntityCalfAngus;
+import com.animania.common.entities.cows.CowAngus.EntityCowAngus;
+import com.animania.common.entities.cows.CowFriesian.EntityBullFriesian;
+import com.animania.common.entities.cows.CowFriesian.EntityCalfFriesian;
+import com.animania.common.entities.cows.CowFriesian.EntityCowFriesian;
+import com.animania.common.entities.cows.CowHereford.EntityBullHereford;
+import com.animania.common.entities.cows.CowHereford.EntityCalfHereford;
+import com.animania.common.entities.cows.CowHereford.EntityCowHereford;
+import com.animania.common.entities.cows.CowHighland.EntityBullHighland;
+import com.animania.common.entities.cows.CowHighland.EntityCalfHighland;
+import com.animania.common.entities.cows.CowHighland.EntityCowHighland;
+import com.animania.common.entities.cows.CowHolstein.EntityBullHolstein;
+import com.animania.common.entities.cows.CowHolstein.EntityCalfHolstein;
+import com.animania.common.entities.cows.CowHolstein.EntityCowHolstein;
+import com.animania.common.entities.cows.CowJersey.EntityBullJersey;
+import com.animania.common.entities.cows.CowJersey.EntityCalfJersey;
+import com.animania.common.entities.cows.CowJersey.EntityCowJersey;
+import com.animania.common.entities.cows.CowLonghorn.EntityBullLonghorn;
+import com.animania.common.entities.cows.CowLonghorn.EntityCalfLonghorn;
+import com.animania.common.entities.cows.CowLonghorn.EntityCowLonghorn;
+import com.animania.common.entities.cows.CowMooshroom.EntityBullMooshroom;
+import com.animania.common.entities.cows.CowMooshroom.EntityCalfMooshroom;
+import com.animania.common.entities.cows.CowMooshroom.EntityCowMooshroom;
 
 import net.minecraft.world.World;
 

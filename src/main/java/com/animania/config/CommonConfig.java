@@ -153,6 +153,9 @@ public class CommonConfig
 		@Comment("Range that the animal cap applies for around each animal")
 		public int animalCapSearchRange = 50;
 		
+		@Comment("Animals that are spawned in the world and have never been interacted with (put on a leash, fed by hand, trough) will not eat or breed.")
+		public boolean requireAnimalInteractionForAI = true;
+		
 	}
 
 	public static class Spawn

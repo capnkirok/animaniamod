@@ -1,13 +1,9 @@
 package com.animania.common.items.handler;
 
-import javax.annotation.Nullable;
-
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 

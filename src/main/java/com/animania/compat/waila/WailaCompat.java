@@ -8,7 +8,6 @@ import com.animania.common.blocks.BlockInvisiblock;
 import com.animania.common.blocks.BlockNest;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.blocks.BlockTrough;
-import com.animania.common.blocks.BlockWildHive;
 import com.animania.common.entities.chickens.EntityChickBase;
 import com.animania.common.entities.chickens.EntityHenBase;
 import com.animania.common.entities.chickens.EntityRoosterBase;

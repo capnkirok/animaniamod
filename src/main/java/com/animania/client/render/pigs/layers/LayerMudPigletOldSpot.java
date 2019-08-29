@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelSow;
 import com.animania.client.render.pigs.RenderPigletOldSpot;
-import com.animania.common.entities.pigs.EntityPigletOldSpot;
+import com.animania.common.entities.pigs.PigOldSpot.EntityPigletOldSpot;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

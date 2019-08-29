@@ -13,7 +13,7 @@ public class DamageSourceHandler
 
 	public static void preInit() {
 		// DAMAGE
-		DamageSourceHandler.bullDamage = new DamageSource("bull").setDamageBypassesArmor();
+		DamageSourceHandler.bullDamage = new DamageSource("bull");
 		DamageSourceHandler.pepeDamage = new DamageSource("pepe");
 		DamageSourceHandler.beeDamage = new DamageSource("animania_bee");
 		DamageSourceHandler.killerRabbitDamage = new DamageSource("killer_rabbit");

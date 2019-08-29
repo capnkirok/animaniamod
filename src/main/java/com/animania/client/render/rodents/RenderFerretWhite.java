@@ -4,7 +4,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelFerret;
 import com.animania.client.render.layer.LayerBlinking;
-import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.entities.rodents.EntityFerretWhite;
 
 import net.minecraft.client.entity.EntityPlayerSP;

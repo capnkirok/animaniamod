@@ -4,10 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import com.animania.api.interfaces.AnimaniaType;
-import com.animania.common.entities.pigs.EntityHogBase;
-import com.animania.common.entities.sheep.SheepType;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 
 public enum AmphibianType implements AnimaniaType

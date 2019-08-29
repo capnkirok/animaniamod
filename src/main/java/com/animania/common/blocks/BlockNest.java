@@ -5,6 +5,23 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.chickens.ChickenType;
+import com.animania.common.entities.chickens.EntityAnimaniaChicken;
+import com.animania.common.entities.chickens.EntityChickBase;
+import com.animania.common.entities.chickens.EntityRoosterBase;
+import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
+import com.animania.common.entities.peacocks.EntityPeachickBase;
+import com.animania.common.entities.peacocks.EntityPeacockBase;
+import com.animania.common.entities.peacocks.PeacockType;
+import com.animania.common.handler.BlockHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.common.tileentities.TileEntityNest;
+import com.animania.common.tileentities.TileEntityNest.NestContent;
+import com.animania.compat.top.providers.TOPInfoProvider;
+import com.animania.config.AnimaniaConfig;
+
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -26,23 +43,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import com.animania.Animania;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.chickens.ChickenType;
-import com.animania.common.entities.chickens.EntityAnimaniaChicken;
-import com.animania.common.entities.chickens.EntityChickBase;
-import com.animania.common.entities.chickens.EntityRoosterBase;
-import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
-import com.animania.common.entities.peacocks.EntityPeachickBase;
-import com.animania.common.entities.peacocks.EntityPeacockBase;
-import com.animania.common.entities.peacocks.PeacockType;
-import com.animania.common.handler.BlockHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.common.tileentities.TileEntityNest;
-import com.animania.common.tileentities.TileEntityNest.NestContent;
-import com.animania.compat.top.providers.TOPInfoProvider;
-import com.animania.config.AnimaniaConfig;
 
 public class BlockNest extends BlockContainer implements TOPInfoProvider
 {

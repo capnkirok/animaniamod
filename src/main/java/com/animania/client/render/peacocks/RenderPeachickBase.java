@@ -6,7 +6,6 @@ import com.animania.client.models.ModelPeachick;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 import com.animania.common.entities.peacocks.EntityPeachickBase;
-import com.animania.common.entities.peacocks.EntityPeachickBlue;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;

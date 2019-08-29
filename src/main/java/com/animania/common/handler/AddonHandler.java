@@ -66,12 +66,15 @@ public class AddonHandler
 
 		asmData.forEach((asm) ->
 		{
-
 			try
 			{
 				Class<AnimaniaAddon> clazz = (Class<AnimaniaAddon>) Class.forName(asm.getClassName()).asSubclass(AnimaniaAddon.class);
 
 				AnimaniaAddon a = clazz.newInstance();
+				
+				if(loadedAddons.containsKey(a.getAddonID()))
+					throw new RuntimeException("The addon with the id " + a.getAddonID() + " is already installed!");
+				
 				loadedAddons.put(a.getAddonID(), a);
 			}
 			catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
@@ -178,14 +181,6 @@ public class AddonHandler
 				ex.missingMods.add(dependency);
 
 				missingModsExceptions.add(ex);
-			}
-		}
-
-		for (AnimaniaAddon a : loadedAddons.values())
-		{
-			if (a.getAddonID().equals(addon.getAddonID()))
-			{
-				throw new RuntimeException("The addon with the id " + addon.getAddonID() + " is already installed!");
 			}
 		}
 

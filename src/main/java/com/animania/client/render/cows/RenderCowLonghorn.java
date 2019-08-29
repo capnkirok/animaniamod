@@ -4,8 +4,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelCowLonghorn;
 import com.animania.client.render.layer.LayerBlinking;
+import com.animania.common.entities.cows.CowLonghorn.EntityCowLonghorn;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityCowLonghorn;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

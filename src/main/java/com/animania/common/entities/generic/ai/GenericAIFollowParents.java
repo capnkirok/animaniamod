@@ -5,9 +5,6 @@ import java.util.List;
 import com.animania.api.interfaces.IChild;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISleeping;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.pigs.EntityPigletBase;
-import com.animania.common.entities.pigs.EntitySowBase;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 

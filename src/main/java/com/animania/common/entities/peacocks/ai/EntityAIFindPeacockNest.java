@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
 import com.animania.common.entities.peacocks.EntityPeafowlBase;
-import com.animania.common.entities.peacocks.EntityPeafowlBlue;
+import com.animania.common.entities.peacocks.PeafowlBlue.EntityPeafowlBlue;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.tileentities.TileEntityNest;

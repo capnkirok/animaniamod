@@ -5,14 +5,13 @@ import org.lwjgl.opengl.GL11;
 import com.animania.client.models.ModelCow;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.client.render.layer.LayerCowMooshroomMushroom;
+import com.animania.common.entities.cows.CowMooshroom.EntityCowMooshroom;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityCowMooshroom;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.layers.LayerMooshroomMushroom;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;

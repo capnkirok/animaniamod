@@ -5,11 +5,7 @@ import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHedgehog;
 import com.animania.common.handler.ItemHandler;
 import com.animania.config.AnimaniaConfig;
-import com.animania.manual.gui.GuiManual;
-import com.animania.manual.resources.ManualResourceLoader;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

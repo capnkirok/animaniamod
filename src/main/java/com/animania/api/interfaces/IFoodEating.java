@@ -22,6 +22,10 @@ public interface IFoodEating
 	
 	public boolean getHandFed();
 	
+	public void setInteracted(boolean interacted);
+	
+	public boolean getInteracted();
+	
 	public Set<Item> getFoodItems();
 	
 	default Fluid getFoodFluid()
@@ -38,4 +42,24 @@ public interface IFoodEating
 	{
 		return new Class[]{BlockCrops.class, IPlantable.class, BlockBush.class};
 	}
+	
+	public int getEatTimer();
+	
+	public void setEatTimer(int i);
+	
+	public int getFedTimer();
+	
+	public void setFedTimer(int i);
+	
+	public int getWaterTimer();
+	
+	public void setWaterTimer(int i);
+
+	public int getDamageTimer();
+	
+	public void setDamageTimer(int i);
+	
+	public int getHappyTimer();
+	
+	public void setHappyTimer(int i);
 }

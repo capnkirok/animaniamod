@@ -4,7 +4,6 @@ import java.util.Random;
 
 import com.animania.Animania;
 import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IFoodEating;
 import com.animania.api.interfaces.IGendered;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;

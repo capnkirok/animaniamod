@@ -1,10 +1,10 @@
 package com.animania.client.models;
 
-import com.animania.common.entities.chickens.EntityRoosterLeghorn;
-import com.animania.common.entities.chickens.EntityRoosterOrpington;
-import com.animania.common.entities.chickens.EntityRoosterPlymouthRock;
-import com.animania.common.entities.chickens.EntityRoosterRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityRoosterWyandotte;
+import com.animania.common.entities.chickens.ChickenLeghorn.EntityRoosterLeghorn;
+import com.animania.common.entities.chickens.ChickenOrpington.EntityRoosterOrpington;
+import com.animania.common.entities.chickens.ChickenPlymouthRock.EntityRoosterPlymouthRock;
+import com.animania.common.entities.chickens.ChickenRhodeIslandRed.EntityRoosterRhodeIslandRed;
+import com.animania.common.entities.chickens.ChickenWyandotte.EntityRoosterWyandotte;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

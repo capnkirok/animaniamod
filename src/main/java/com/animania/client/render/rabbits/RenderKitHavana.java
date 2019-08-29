@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.animania.client.models.rabbits.ModelHavana;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.common.entities.rodents.rabbits.EntityRabbitKitHavana;
+import com.animania.common.entities.rodents.rabbits.RabbitHavana.EntityRabbitKitHavana;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;

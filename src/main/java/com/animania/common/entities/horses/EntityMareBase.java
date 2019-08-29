@@ -5,6 +5,16 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IMateable;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.horses.HorseDraft.EntityFoalDraftHorse;
+import com.animania.common.entities.horses.HorseDraft.EntityStallionDraftHorse;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -41,15 +51,6 @@ import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IMateable;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-
 public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable, IMateable
 {	
 
@@ -81,9 +82,9 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityMareBase.PREGNANT, Boolean.valueOf(false));
-		this.dataManager.register(EntityMareBase.HAS_KIDS, Boolean.valueOf(false));
-		this.dataManager.register(EntityMareBase.FERTILE, Boolean.valueOf(true));
+		this.dataManager.register(EntityMareBase.PREGNANT, false);
+		this.dataManager.register(EntityMareBase.HAS_KIDS, false);
+		this.dataManager.register(EntityMareBase.FERTILE, true);
 		this.dataManager.register(EntityMareBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(400)));
 	}
 
@@ -169,12 +170,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public int getGestation()
 	{
-		try {
-			return (this.getIntFromDataManager(GESTATION_TIMER));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getIntFromDataManager(GESTATION_TIMER);
 	}
 
 	@Override
@@ -229,12 +225,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public boolean getPregnant()
 	{
-		try {
-			return (this.getBoolFromDataManager(PREGNANT));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(PREGNANT);
 	}
 
 	public void setPregnant(boolean preggers)
@@ -247,12 +238,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public boolean getFertile()
 	{
-		try {
-			return (this.getBoolFromDataManager(FERTILE));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(FERTILE);
 	}
 
 	public void setFertile(boolean fertile)
@@ -262,12 +248,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public boolean getHasKids()
 	{
-		try {
-			return (this.getBoolFromDataManager(HAS_KIDS));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(HAS_KIDS);
 	}
 
 	public void setHasKids(boolean Foals)
@@ -530,10 +511,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		
 		if (this.isBeingRidden() && this.getSleeping())
 			this.setSleeping(false);
-
-		if (this.getLeashed()) {
-			this.setHandFed(true);
-		}
+	
 
 		if (!this.getFertile() && this.dryTimerMare > -1) {
 			this.dryTimerMare--;
@@ -542,39 +520,8 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			this.dryTimerMare = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
 		}
 
-		if (this.world.isRemote)
-		{
-			this.eatTimer = Math.max(0, this.eatTimer - 1);
-		}
-
 		if (this.getColorNumber() > 5) {
 			this.setColorNumber(0);
-		}
-
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-		{
-			this.fedTimer--;
-
-			if (this.fedTimer == 0)
-				this.setFed(false);
-		}
-
-		if (this.wateredTimer > -1)
-		{
-			this.wateredTimer--;
-
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-				this.setWatered(false);
-		}
-
-
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-
-		if (!fed || !watered) {
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-		} else if (!fed && !watered) {
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 		}
 
 		if (this.blinkTimer > -1) {
@@ -606,20 +553,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 					if (mateReset)
 						this.setMateUniqueId(null);
 
-				}
-			}
-		}
-
-		if (this.happyTimer > -1) {
-			this.happyTimer--;
-			if (happyTimer == 0) {
-				happyTimer = 60;
-
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles && !this.getSleeping() && this.getHandFed()) {
-					double d = rand.nextGaussian() * 0.001D;
-					double d1 = rand.nextGaussian() * 0.001D;
-					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double)(rand.nextFloat() * width)) - (double)width, posY + 1.5D + (double)(rand.nextFloat() * height), (posZ + (double)(rand.nextFloat() * width)) - (double)width, d, d1, d2);
 				}
 			}
 		}

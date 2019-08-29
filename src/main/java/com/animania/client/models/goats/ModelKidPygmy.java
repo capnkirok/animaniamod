@@ -1,7 +1,7 @@
 package com.animania.client.models.goats;
 
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityKidPygmy;
+import com.animania.common.entities.goats.GoatPygmy.EntityKidPygmy;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

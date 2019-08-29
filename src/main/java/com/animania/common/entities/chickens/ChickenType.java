@@ -5,6 +5,21 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.common.entities.chickens.ChickenLeghorn.EntityChickLeghorn;
+import com.animania.common.entities.chickens.ChickenLeghorn.EntityHenLeghorn;
+import com.animania.common.entities.chickens.ChickenLeghorn.EntityRoosterLeghorn;
+import com.animania.common.entities.chickens.ChickenOrpington.EntityChickOrpington;
+import com.animania.common.entities.chickens.ChickenOrpington.EntityHenOrpington;
+import com.animania.common.entities.chickens.ChickenOrpington.EntityRoosterOrpington;
+import com.animania.common.entities.chickens.ChickenPlymouthRock.EntityChickPlymouthRock;
+import com.animania.common.entities.chickens.ChickenPlymouthRock.EntityHenPlymouthRock;
+import com.animania.common.entities.chickens.ChickenPlymouthRock.EntityRoosterPlymouthRock;
+import com.animania.common.entities.chickens.ChickenRhodeIslandRed.EntityChickRhodeIslandRed;
+import com.animania.common.entities.chickens.ChickenRhodeIslandRed.EntityHenRhodeIslandRed;
+import com.animania.common.entities.chickens.ChickenRhodeIslandRed.EntityRoosterRhodeIslandRed;
+import com.animania.common.entities.chickens.ChickenWyandotte.EntityChickWyandotte;
+import com.animania.common.entities.chickens.ChickenWyandotte.EntityHenWyandotte;
+import com.animania.common.entities.chickens.ChickenWyandotte.EntityRoosterWyandotte;
 
 import net.minecraft.world.World;
 

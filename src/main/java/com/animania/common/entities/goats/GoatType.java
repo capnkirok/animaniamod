@@ -5,6 +5,27 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.common.entities.goats.GoatAlpine.EntityBuckAlpine;
+import com.animania.common.entities.goats.GoatAlpine.EntityDoeAlpine;
+import com.animania.common.entities.goats.GoatAlpine.EntityKidAlpine;
+import com.animania.common.entities.goats.GoatAngora.EntityBuckAngora;
+import com.animania.common.entities.goats.GoatAngora.EntityDoeAngora;
+import com.animania.common.entities.goats.GoatAngora.EntityKidAngora;
+import com.animania.common.entities.goats.GoatFainting.EntityBuckFainting;
+import com.animania.common.entities.goats.GoatFainting.EntityDoeFainting;
+import com.animania.common.entities.goats.GoatFainting.EntityKidFainting;
+import com.animania.common.entities.goats.GoatKiko.EntityBuckKiko;
+import com.animania.common.entities.goats.GoatKiko.EntityDoeKiko;
+import com.animania.common.entities.goats.GoatKiko.EntityKidKiko;
+import com.animania.common.entities.goats.GoatKinder.EntityBuckKinder;
+import com.animania.common.entities.goats.GoatKinder.EntityDoeKinder;
+import com.animania.common.entities.goats.GoatKinder.EntityKidKinder;
+import com.animania.common.entities.goats.GoatNigerianDwarf.EntityBuckNigerianDwarf;
+import com.animania.common.entities.goats.GoatNigerianDwarf.EntityDoeNigerianDwarf;
+import com.animania.common.entities.goats.GoatNigerianDwarf.EntityKidNigerianDwarf;
+import com.animania.common.entities.goats.GoatPygmy.EntityBuckPygmy;
+import com.animania.common.entities.goats.GoatPygmy.EntityDoePygmy;
+import com.animania.common.entities.goats.GoatPygmy.EntityKidPygmy;
 
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;

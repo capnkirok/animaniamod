@@ -3,11 +3,6 @@ package com.animania.common.entities.generic.ai;
 import java.util.List;
 import java.util.UUID;
 
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.world.World;
-
 import com.animania.Animania;
 import com.animania.api.interfaces.IFoodEating;
 import com.animania.api.interfaces.IMateable;
@@ -15,6 +10,11 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
+
+import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.world.World;
 
 public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & ISleeping, O extends EntityCreature & IMateable & IFoodEating & ISleeping> extends EntityAIBase
 {

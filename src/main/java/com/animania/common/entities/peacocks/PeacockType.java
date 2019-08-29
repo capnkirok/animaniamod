@@ -5,6 +5,27 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.common.entities.peacocks.PeafowlBlue.EntityPeachickBlue;
+import com.animania.common.entities.peacocks.PeafowlBlue.EntityPeacockBlue;
+import com.animania.common.entities.peacocks.PeafowlBlue.EntityPeafowlBlue;
+import com.animania.common.entities.peacocks.PeafowlCharcoal.EntityPeachickCharcoal;
+import com.animania.common.entities.peacocks.PeafowlCharcoal.EntityPeacockCharcoal;
+import com.animania.common.entities.peacocks.PeafowlCharcoal.EntityPeafowlCharcoal;
+import com.animania.common.entities.peacocks.PeafowlOpal.EntityPeachickOpal;
+import com.animania.common.entities.peacocks.PeafowlOpal.EntityPeacockOpal;
+import com.animania.common.entities.peacocks.PeafowlOpal.EntityPeafowlOpal;
+import com.animania.common.entities.peacocks.PeafowlPeach.EntityPeachickPeach;
+import com.animania.common.entities.peacocks.PeafowlPeach.EntityPeacockPeach;
+import com.animania.common.entities.peacocks.PeafowlPeach.EntityPeafowlPeach;
+import com.animania.common.entities.peacocks.PeafowlPurple.EntityPeachickPurple;
+import com.animania.common.entities.peacocks.PeafowlPurple.EntityPeacockPurple;
+import com.animania.common.entities.peacocks.PeafowlPurple.EntityPeafowlPurple;
+import com.animania.common.entities.peacocks.PeafowlTaupe.EntityPeachickTaupe;
+import com.animania.common.entities.peacocks.PeafowlTaupe.EntityPeacockTaupe;
+import com.animania.common.entities.peacocks.PeafowlTaupe.EntityPeafowlTaupe;
+import com.animania.common.entities.peacocks.PeafowlWhite.EntityPeachickWhite;
+import com.animania.common.entities.peacocks.PeafowlWhite.EntityPeacockWhite;
+import com.animania.common.entities.peacocks.PeafowlWhite.EntityPeafowlWhite;
 
 import net.minecraft.world.World;
 

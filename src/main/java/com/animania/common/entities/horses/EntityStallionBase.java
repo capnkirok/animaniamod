@@ -6,9 +6,16 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import mcjty.theoneprobe.api.IProbeHitEntityData;
-import mcjty.theoneprobe.api.IProbeInfo;
-import mcjty.theoneprobe.api.ProbeMode;
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IMateable;
+import com.animania.api.interfaces.ISterilizable;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -36,24 +43,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IMateable;
-import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
-import com.animania.common.entities.generic.ai.GenericAIMate;
-import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityBuckBase;
-import com.animania.common.entities.goats.EntityDoeBase;
-import com.animania.common.entities.goats.EntityKidBase;
-import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
-import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
 
 public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
@@ -92,7 +81,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	@Override
 	protected void entityInit()
 	{
-		this.dataManager.register(STERILIZED, Boolean.valueOf(false));
+		this.dataManager.register(STERILIZED, false);
 		super.entityInit();
 	}
 
@@ -357,56 +346,15 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	public void onLivingUpdate()
 	{
 
-		if (this.getAge() == 0)
-		{
-			this.setAge(1);
-		}
-
 		if (this.getLeashed() && this.getSleeping())
 			this.setSleeping(false);
 
 		if (this.isBeingRidden() && this.getSleeping())
 			this.setSleeping(false);
-		
-		if (this.getLeashed()) {
-			this.setHandFed(true);
-		}
-
-		if (this.world.isRemote)
-		{
-			this.eatTimer = Math.max(0, this.eatTimer - 1);
-		}
 
 		if (this.getColorNumber() > 5)
 		{
 			this.setColorNumber(0);
-		}
-
-		if (this.fedTimer > -1 && this.getHandFed() && !AnimaniaConfig.gameRules.ambianceMode)
-		{
-			this.fedTimer--;
-
-			if (this.fedTimer == 0)
-				this.setFed(false);
-		}
-
-		if (this.wateredTimer > -1 && this.getHandFed() && !AnimaniaConfig.gameRules.ambianceMode)
-		{
-			this.wateredTimer--;
-
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
-				this.setWatered(false);
-		}
-
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-
-		if (!fed || !watered)
-		{
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-		} else if (!fed && !watered)
-		{
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
 		}
 
 		if (this.blinkTimer > -1)
@@ -445,23 +393,6 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 					if (mateReset)
 						this.setMateUniqueId(null);
 
-				}
-			}
-		}
-
-		if (this.happyTimer > -1)
-		{
-			this.happyTimer--;
-			if (happyTimer == 0)
-			{
-				happyTimer = 60;
-
-				if (!this.getFed() && !this.getWatered() && AnimaniaConfig.gameRules.showUnhappyParticles && !this.getSleeping() && this.getHandFed())
-				{
-					double d = rand.nextGaussian() * 0.001D;
-					double d1 = rand.nextGaussian() * 0.001D;
-					double d2 = rand.nextGaussian() * 0.001D;
-					world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (posX + (double) (rand.nextFloat() * width)) - (double) width, posY + 1.5D + (double) (rand.nextFloat() * height), (posZ + (double) (rand.nextFloat() * width)) - (double) width, d, d1, d2);
 				}
 			}
 		}

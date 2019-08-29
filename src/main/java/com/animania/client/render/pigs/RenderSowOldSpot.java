@@ -7,7 +7,7 @@ import com.animania.client.models.ModelSow;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.client.render.pigs.layers.LayerMudSowOldSpot;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.pigs.EntitySowOldSpot;
+import com.animania.common.entities.pigs.PigOldSpot.EntitySowOldSpot;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;

@@ -60,7 +60,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.versioning.VersionRange;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class AnimaniaHelper
@@ -329,23 +328,6 @@ public class AnimaniaHelper
 		cap.setAnimal(other.getAnimal());
 		cap.setCarrying(other.isCarrying());
 		cap.setType(other.getType());
-	}
-
-	public static String getLowerBound(VersionRange range)
-	{
-		if (range == null)
-			return null;
-
-		return range.getLowerBoundString();
-	}
-
-	public static String getUpperBound(VersionRange range)
-	{
-		if (range == null)
-			return null;
-		if (!range.isUnboundedAbove())
-			return range.getRestrictions().get(range.getRestrictions().size() - 1).getUpperBound().getVersionString();
-		return null;
 	}
 
 	public static Type[] getBiomeTypes(String[] types)

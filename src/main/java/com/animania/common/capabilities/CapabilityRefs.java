@@ -1,5 +1,7 @@
 package com.animania.common.capabilities;
 
+import com.animania.Animania;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagInt;
@@ -9,8 +11,6 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
-
-import com.animania.Animania;
 
 public class CapabilityRefs {
 

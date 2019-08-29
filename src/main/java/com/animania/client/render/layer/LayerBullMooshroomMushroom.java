@@ -1,7 +1,7 @@
 package com.animania.client.render.layer;
 
 import com.animania.client.render.cows.RenderBullMooshroom;
-import com.animania.common.entities.cows.EntityBullMooshroom;
+import com.animania.common.entities.cows.CowMooshroom.EntityBullMooshroom;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;

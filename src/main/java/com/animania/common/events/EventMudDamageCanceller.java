@@ -1,10 +1,10 @@
 package com.animania.common.events;
 
-import com.animania.common.entities.chickens.EntityChickLeghorn;
-import com.animania.common.entities.chickens.EntityChickOrpington;
-import com.animania.common.entities.chickens.EntityChickPlymouthRock;
-import com.animania.common.entities.chickens.EntityChickRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityChickWyandotte;
+import com.animania.common.entities.chickens.ChickenLeghorn.EntityChickLeghorn;
+import com.animania.common.entities.chickens.ChickenOrpington.EntityChickOrpington;
+import com.animania.common.entities.chickens.ChickenPlymouthRock.EntityChickPlymouthRock;
+import com.animania.common.entities.chickens.ChickenRhodeIslandRed.EntityChickRhodeIslandRed;
+import com.animania.common.entities.chickens.ChickenWyandotte.EntityChickWyandotte;
 import com.animania.common.entities.rodents.EntityFerretGrey;
 import com.animania.common.entities.rodents.EntityFerretWhite;
 import com.animania.common.entities.rodents.EntityHamster;

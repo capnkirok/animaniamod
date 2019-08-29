@@ -7,8 +7,6 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.capabilities.CapabilityRefs;
-import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.inventory.CartChest;
@@ -25,14 +23,12 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -835,7 +831,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		this.dataManager.register(EntityWagon.PULLER_TYPE, Integer.valueOf(0));
 		this.dataManager.register(EntityWagon.TIME_SINCE_HIT, Integer.valueOf(0));
 		this.dataManager.register(EntityWagon.DAMAGE_TAKEN, Float.valueOf(0.0F));
-		this.dataManager.register(EntityWagon.HAS_CHEST, Boolean.valueOf(true));
+		this.dataManager.register(EntityWagon.HAS_CHEST, true);
 	}
 
 	public int getPullerType()

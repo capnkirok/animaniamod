@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.animania.client.models.goats.ModelKidAngora;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityKidAngora;
+import com.animania.common.entities.goats.GoatAngora.EntityKidAngora;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

@@ -1,9 +1,9 @@
 package com.animania.addons.catsdogs.client.models.cats;
 
-import net.minecraft.client.model.ModelBase;
-
-import com.animania.addons.catsdogs.common.entity.cats.EntityAnimaniaCat;
+import com.animania.addons.catsdogs.common.entity.felids.EntityAnimaniaCat;
 import com.animania.client.models.render.ModelRendererAnimania;
+
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.MathHelper;

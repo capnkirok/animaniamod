@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.animania.Animania;
-import com.animania.addons.catsdogs.common.entity.cats.CatType;
+import com.animania.addons.catsdogs.common.entity.felids.CatType;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
@@ -18,7 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerCareer;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
 

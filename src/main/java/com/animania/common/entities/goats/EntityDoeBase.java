@@ -5,6 +5,17 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IMateable;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.goats.GoatAngora.EntityDoeAngora;
+import com.animania.common.handler.BlockHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -40,17 +51,6 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IMateable;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.handler.BlockHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
-
 public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable, IMateable
 {
 	protected ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
@@ -75,9 +75,9 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityDoeBase.PREGNANT, Boolean.valueOf(false));
-		this.dataManager.register(EntityDoeBase.HAS_KIDS, Boolean.valueOf(false));
-		this.dataManager.register(EntityDoeBase.FERTILE, Boolean.valueOf(true));
+		this.dataManager.register(EntityDoeBase.PREGNANT, false);
+		this.dataManager.register(EntityDoeBase.HAS_KIDS, false);
+		this.dataManager.register(EntityDoeBase.FERTILE, true);
 		this.dataManager.register(EntityDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 	}
 
@@ -156,12 +156,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	public int getGestation()
 	{
-		try {
-			return (this.getIntFromDataManager(GESTATION_TIMER));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getIntFromDataManager(GESTATION_TIMER);
 	}
 
 	public void setGestation(int gestation)
@@ -171,12 +166,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	public boolean getPregnant()
 	{
-		try {
-			return (this.getBoolFromDataManager(PREGNANT));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(PREGNANT);
 	}
 
 	public void setPregnant(boolean preggers)
@@ -190,12 +180,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	public boolean getFertile()
 	{
-		try {
-			return (this.getBoolFromDataManager(FERTILE));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(FERTILE);
 	}
 
 	public void setFertile(boolean fertile)
@@ -205,12 +190,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	public boolean getHasKids()
 	{
-		try {
-			return (this.getBoolFromDataManager(HAS_KIDS));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(HAS_KIDS);
 	}
 
 	public void setHasKids(boolean kids)

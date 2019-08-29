@@ -1,9 +1,11 @@
 package com.animania.common.entities.chickens;
 
+import java.util.UUID;
+
 import com.animania.api.data.EntityGender;
-import com.animania.common.ModSoundEvents;
+import com.animania.api.interfaces.IChild;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
-import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.item.Item;
@@ -15,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
+public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoProviderBase, IChild
 {
 
 	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityChickBase.class, DataSerializers.FLOAT);
@@ -74,58 +76,12 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	{
 		
 		this.timeUntilNextEgg = 1000;
-		
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-		
-		this.growingAge = -24000;
 
-		this.ageTimer++;
-		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
-			if (fed && watered)
-			{
-				this.ageTimer = 0;
-				float age = this.getEntityAge();
-				age = age + .01F;
-				this.setEntityAge(age);
-
-				if (age >= .4 && !this.world.isRemote)
-				{
-					this.setDead();
-
-					if (this.rand.nextInt(2) < 1)
-					{
-						EntityHenBase entityHen = type.getFemale(world);
-						if (entityHen != null)
-						{
-							entityHen.setPosition(this.posX, this.posY + .5, this.posZ);
-							String name = this.getCustomNameTag();
-							if (name != "")
-								entityHen.setCustomNameTag(name);
-							
-							entityHen.setAge(1);
-							this.world.spawnEntity(entityHen);
-							this.playSound(ModSoundEvents.chickenHurt1, 0.50F, 1.1F);
-						}
-					}
-					else
-					{
-						EntityRoosterBase entityRooster = type.getMale(world);
-						if (entityRooster != null)
-						{
-							entityRooster.setPosition(this.posX, this.posY + .5, this.posZ);
-							String name = this.getCustomNameTag();
-							if (name != "")
-								entityRooster.setCustomNameTag(name);
-							
-							entityRooster.setAge(1);
-							this.world.spawnEntity(entityRooster);
-							this.playSound(ModSoundEvents.chickenCrow1, 0.50F, 1.1F);
-						}
-					}
-
-				}
-			}
+		GenericBehavior.livingUpdateChild(this, entity ->
+		{
+			float age = entity.getEntityAge();
+			age = age + .01F;
+		});
 
 		super.onLivingUpdate();
 		
@@ -133,14 +89,21 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 
 	public float getEntityAge()
 	{
-		try {
-			return (this.getFloatFromDataManager(AGE));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getFloatFromDataManager(AGE);
 	}
 
+	@Override
+	public int getAgeTimer()
+	{
+		return ageTimer;
+	}
+
+	@Override
+	public void setAgeTimer(int i)
+	{
+		ageTimer = i;
+	}
+	
 	public void setEntityAge(float age)
 	{
 		this.dataManager.set(EntityChickBase.AGE, Float.valueOf(age));
@@ -165,6 +128,18 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	protected Item getDropItem()
 	{
 		return null;
+	}
+
+	@Override
+	public UUID getParentUniqueId()
+	{
+		return null;
+	}
+
+	@Override
+	public void setParentUniqueId(UUID id)
+	{
+		
 	}
 
 }

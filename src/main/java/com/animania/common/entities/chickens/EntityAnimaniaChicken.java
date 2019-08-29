@@ -8,10 +8,12 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.chickens.ai.EntityAIWatchClosestFromSide;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
@@ -35,7 +37,6 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -43,10 +44,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -63,6 +62,8 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaChicken.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean>createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
+
 	public boolean chickenJockey;
 	protected ResourceLocation resourceLocation;
 	protected ResourceLocation resourceLocationBlink;
@@ -107,15 +108,6 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	}
 
 	@Override
-	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
-	{
-		this.setFed(true);
-		this.setHandFed(true);
-		if (!player.capabilities.isCreativeMode)
-			stack.setCount(stack.getCount() - 1);
-	}
-
-	@Override
 	public void setPosition(double x, double y, double z)
 	{
 		super.setPosition(x, y, z);
@@ -136,30 +128,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
-		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
-
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
-		{
-			if(!player.isCreative())
-			{
-				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
-				stack.shrink(1);
-				AnimaniaHelper.addItem(player, emptied);
-			}
-
-			this.setWatered(true);
-			this.setInLove(player);
-			return true;
-		}
-		else if (this.isBreedingItem(stack))
-		{
-			this.consumeItemFromStack(player, stack);
-			this.setInLove(player);
-			return true;
-		}
-		else
-			return super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, player, hand, null) ? true : super.processInteract(player, hand);
 	}
 
 	public ResourceLocation getResourceLocation()
@@ -190,11 +159,12 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaChicken.FED, Boolean.valueOf(true));
-		this.dataManager.register(EntityAnimaniaChicken.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaChicken.FED, true);
+		this.dataManager.register(EntityAnimaniaChicken.WATERED, true);
 		this.dataManager.register(EntityAnimaniaChicken.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityAnimaniaChicken.SLEEPING, Boolean.valueOf(false));
-		this.dataManager.register(EntityAnimaniaChicken.HANDFED, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaChicken.SLEEPING, false);
+		this.dataManager.register(EntityAnimaniaChicken.HANDFED, false);
+		this.dataManager.register(INTERACTED, false);
 	}
 
 	@Override
@@ -202,11 +172,8 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	{
 		super.writeEntityToNBT(nbttagcompound);
 		nbttagcompound.setBoolean("IsChickenJockey", this.chickenJockey);
-		nbttagcompound.setBoolean("Fed", this.getFed());
-		nbttagcompound.setBoolean("Handfed", this.getHandFed());
-		nbttagcompound.setBoolean("Watered", this.getWatered());
-		nbttagcompound.setInteger("Age", this.getAge());
-		nbttagcompound.setBoolean("Sleep", this.getSleeping());
+
+		GenericBehavior.writeCommonNBT(nbttagcompound, this);
 	}
 
 	@Override
@@ -216,21 +183,13 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 
 		this.chickenJockey = nbttagcompound.getBoolean("IsChickenJockey");
 
-		this.setFed(nbttagcompound.getBoolean("Fed"));
-		this.setHandFed(nbttagcompound.getBoolean("Handfed"));
-		this.setWatered(nbttagcompound.getBoolean("Watered"));
-		this.setAge(nbttagcompound.getInteger("Age"));
-		this.setSleeping(nbttagcompound.getBoolean("Sleep"));
+		
+		GenericBehavior.readCommonNBT(nbttagcompound, this);
 	}
 
 	public int getAge()
 	{
-		try {
-			return (this.getIntFromDataManager(AGE));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getIntFromDataManager(AGE);
 	}
 
 	public void setAge(int age)
@@ -243,13 +202,8 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	{
 
 		super.onLivingUpdate();
-
-		if (this.getLeashed() && this.getSleeping())
-			this.setSleeping(false);
-
-		if (this.getLeashed()) {
-			this.setHandFed(true);
-		}
+		
+		GenericBehavior.livingUpdateCommon(this);
 		
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
@@ -274,142 +228,54 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 			this.motionY *= 0.6D;
 
 		this.wingRotation += this.wingRotDelta * 2.0F;
-
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-				this.blinkTimer = 100 + this.rand.nextInt(100);
-		}
-
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-		{
-			this.fedTimer--;
-
-			if (this.fedTimer == 0)
-				this.setFed(false);
-		}
-
-		if (this.wateredTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-		{
-			this.wateredTimer--;
-
-			if (this.wateredTimer == 0)
-				this.setWatered(false);
-		}
-
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-
-		if (!fed && !watered)
-		{
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			if (AnimaniaConfig.gameRules.animalsStarve)
-			{
-				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer)
-				{
-					this.attackEntityFrom(DamageSource.STARVE, 4f);
-					this.damageTimer = 0;
-				}
-				this.damageTimer++;
-			}
-
-		}
-		else if (!fed || !watered)
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-
-		if (this.happyTimer > -1)
-		{
-			this.happyTimer--;
-			if (this.happyTimer == 0)
-			{
-				this.happyTimer = 60;
-
-				if (!this.getFed() && !this.getWatered() && !this.getSleeping() && AnimaniaConfig.gameRules.showUnhappyParticles)
-				{
-					double d = this.rand.nextGaussian() * 0.001D;
-					double d1 = this.rand.nextGaussian() * 0.001D;
-					double d2 = this.rand.nextGaussian() * 0.001D;
-					this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + this.rand.nextFloat() * this.width - this.width, this.posY + 1.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1, d2);
-				}
-			}
-		}
-
 	}
 
 	public boolean getFed()
 	{
-		try {
-			return (this.getBoolFromDataManager(FED));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(FED);
 	}
 
 	public void setFed(boolean fed)
 	{
 		if (fed)
 		{
-			this.dataManager.set(EntityAnimaniaChicken.FED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaChicken.FED, true);
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaChicken.FED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaChicken.FED, false);
 	}
 
 	public boolean getWatered()
 	{
-		try {
-			return (this.getBoolFromDataManager(WATERED));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(WATERED);
 	}
 
 	public void setWatered(boolean watered)
 	{
 		if (watered)
 		{
-			this.dataManager.set(EntityAnimaniaChicken.WATERED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaChicken.WATERED, true);
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaChicken.WATERED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaChicken.WATERED, false);
 	}
 
 	public boolean getSleeping()
 	{
-		try {
-			return (this.getBoolFromDataManager(SLEEPING));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(SLEEPING);
 	}
 
 	public void setSleeping(boolean flag)
 	{
-		if (flag)
-		{
-			this.dataManager.set(EntityAnimaniaChicken.SLEEPING, Boolean.valueOf(true));
-		}
-		else
-		{
-			this.dataManager.set(EntityAnimaniaChicken.SLEEPING, Boolean.valueOf(false));
-		}
+		this.dataManager.set(EntityAnimaniaChicken.SLEEPING, flag);
 	}
 
 	public boolean getHandFed()
 	{
-		try {
-			return (this.getBoolFromDataManager(HANDFED));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(HANDFED);
 	}
 
 	public void setHandFed(boolean handfed)
@@ -565,86 +431,19 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		return this.gender;
 	}
 
-	// ==================================================
-	//     Data Manager Trapper (borrowed from Lycanites)
-	// ==================================================
-
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key) {
-		try {
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e) {
-			return false;
-		}
-	}
-
-	public byte getByteFromDataManager(DataParameter<Byte> key) {
-		try {
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e) {
-			return 0;
-		}
-	}
-
-	public int getIntFromDataManager(DataParameter<Integer> key) {
-		try {
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e) {
-			return 0;
-		}
-	}
-
-	public float getFloatFromDataManager(DataParameter<Float> key) {
-		try {
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e) {
-			return 0;
-		}
-	}
-
-	public String getStringFromDataManager(DataParameter<String> key) {
-		try {
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e) {
-			return null;
-		}
-	}
-
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key) {
-		try {
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e) {
-			return null;
-		}
-	}
-
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key) {
-		try {
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e) {
-			return ItemStack.EMPTY;
-		}
-	}
-
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key) {
-		try {
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e) {
-			return Optional.absent();
-		}
-	}
+	
 	
 	@Override
 	public int getBlinkTimer()
 	{
 		return blinkTimer;
+	}
+	
+
+	@Override
+	public void setBlinkTimer(int i)
+	{
+		blinkTimer = i;
 	}
 
 	@Override
@@ -683,4 +482,80 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		
 	}
 
+	@Override
+	public int getEatTimer()
+	{
+		return 0;
+	}
+
+	@Override
+	public void setEatTimer(int i)
+	{
+	}
+
+	@Override
+	public int getFedTimer()
+	{
+		return fedTimer;
+	}
+
+	@Override
+	public void setFedTimer(int i)
+	{
+		fedTimer = i;
+	}
+	
+	@Override
+	public void setInteracted(boolean interacted)
+	{
+		this.dataManager.set(INTERACTED, interacted);
+	}
+
+	@Override
+	public boolean getInteracted()
+	{
+		return this.getBoolFromDataManager(INTERACTED);
+	}
+
+	@Override
+	public int getWaterTimer()
+	{
+		return wateredTimer;
+	}
+
+	@Override
+	public void setWaterTimer(int i)
+	{
+		wateredTimer = i;
+	}
+
+	@Override
+	public int getDamageTimer()
+	{
+		return damageTimer;
+	}
+
+	@Override
+	public void setDamageTimer(int i)
+	{
+		damageTimer = i;
+	}
+	
+	@Override
+	public int getHappyTimer()
+	{
+		return happyTimer;
+	}
+	
+	@Override
+	public void setHappyTimer(int i)
+	{
+		happyTimer = i;
+	}
+
+	@Override
+	public AnimaniaType getAnimalType()
+	{
+		return type;
+	}
 }

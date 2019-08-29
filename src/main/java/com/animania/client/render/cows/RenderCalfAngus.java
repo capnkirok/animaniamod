@@ -2,11 +2,10 @@ package com.animania.client.render.cows;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.client.models.ModelCalf;
 import com.animania.client.models.ModelCalfAngus;
 import com.animania.client.render.layer.LayerBlinking;
+import com.animania.common.entities.cows.CowAngus.EntityCalfAngus;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityCalfAngus;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

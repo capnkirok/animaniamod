@@ -843,7 +843,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		this.dataManager.register(EntityCart.PULLER_TYPE, Integer.valueOf(0));
 		this.dataManager.register(EntityCart.TIME_SINCE_HIT, Integer.valueOf(0));
 		this.dataManager.register(EntityCart.DAMAGE_TAKEN, Float.valueOf(0.0F));
-		this.dataManager.register(EntityCart.HAS_CHEST, Boolean.valueOf(false));
+		this.dataManager.register(EntityCart.HAS_CHEST, false);
 	}
 
 	public int getPullerType()

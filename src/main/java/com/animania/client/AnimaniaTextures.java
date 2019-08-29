@@ -1,7 +1,5 @@
 package com.animania.client;
 
-import javax.annotation.Nonnull;
-
 import com.animania.Animania;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
@@ -13,7 +11,6 @@ import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.EnumDyeColor;

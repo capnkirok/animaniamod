@@ -1,7 +1,6 @@
 package com.animania.addons.catsdogs.client.models.dogs;
 
-import com.animania.addons.catsdogs.common.entity.cats.EntityAnimaniaCat;
-import com.animania.addons.catsdogs.common.entity.dogs.EntityAnimaniaDog;
+import com.animania.addons.catsdogs.common.entity.canids.EntityAnimaniaDog;
 import com.animania.client.models.render.ModelRendererAnimania;
 
 import net.minecraft.client.model.ModelBase;

@@ -25,8 +25,8 @@ public class GenericAIEatGrass<T extends EntityCreature & ISleeping & IFoodEatin
 {
 
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final T grassEaterEntity;
-	private final World entityWorld;
+	protected final T grassEaterEntity;
+	protected final World entityWorld;
 	public int eatingGrassTimer;
 	public boolean eatsGrass;
 	private int timer;

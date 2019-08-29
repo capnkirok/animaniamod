@@ -6,6 +6,18 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IMateable;
+import com.animania.api.interfaces.ISterilizable;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.handler.DamageSourceHandler;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -28,35 +40,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IMateable;
-import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
-import com.animania.common.entities.generic.ai.GenericAIMate;
-import com.animania.common.handler.DamageSourceHandler;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-
 public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
 
-	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean> createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
 
 	public EntityBullBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.6F, 1.8F); 
+		this.setSize(1.6F, 1.8F);
 		this.width = 1.6F;
 		this.height = 1.8F;
 		this.gender = EntityGender.MALE;
 		this.stepHeight = 1.1F;
 		this.mateable = true;
-		
-		
+
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
 		{
 			this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 1.8D, false));
@@ -79,8 +78,8 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityBullBase.FIGHTING, Boolean.valueOf(false));
-		this.dataManager.register(EntityBullBase.STERILIZED, Boolean.valueOf(false));
+		this.dataManager.register(EntityBullBase.FIGHTING, false);
+		this.dataManager.register(EntityBullBase.STERILIZED, false);
 
 	}
 
@@ -98,7 +97,8 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		try
 		{
 			return (this.getBoolFromDataManager(FIGHTING));
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			return false;
 		}
@@ -106,10 +106,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	public void setFighting(boolean fighting)
 	{
-		if (fighting)
-			this.dataManager.set(EntityBullBase.FIGHTING, Boolean.valueOf(true));
-		else
-			this.dataManager.set(EntityBullBase.FIGHTING, Boolean.valueOf(false));
+		this.dataManager.set(EntityBullBase.FIGHTING, fighting);
 	}
 
 	@Override
@@ -121,7 +118,6 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount)
 	{
-
 		if (this.getSleeping())
 		{
 			this.setSleeping(false);
@@ -281,7 +277,8 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		{
 			float f = (this.eatTimer - 4 - p_70890_1_) / 64.0F;
 			return (float) Math.PI / 5F + (float) Math.PI * 7F / 100F * MathHelper.sin(f * 28.7F);
-		} else
+		}
+		else
 			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
 
@@ -361,7 +358,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 				ai.resetTask();
 				it.remove();
 			}
-		}		
+		}
 		setSterilized(true);
 	}
 

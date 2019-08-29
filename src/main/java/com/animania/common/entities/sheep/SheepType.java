@@ -5,6 +5,24 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.common.entities.sheep.SheepDorper.EntityEweDorper;
+import com.animania.common.entities.sheep.SheepDorper.EntityLambDorper;
+import com.animania.common.entities.sheep.SheepDorper.EntityRamDorper;
+import com.animania.common.entities.sheep.SheepDorset.EntityEweDorset;
+import com.animania.common.entities.sheep.SheepDorset.EntityLambDorset;
+import com.animania.common.entities.sheep.SheepDorset.EntityRamDorset;
+import com.animania.common.entities.sheep.SheepFriesian.EntityEweFriesian;
+import com.animania.common.entities.sheep.SheepFriesian.EntityLambFriesian;
+import com.animania.common.entities.sheep.SheepFriesian.EntityRamFriesian;
+import com.animania.common.entities.sheep.SheepJacob.EntityEweJacob;
+import com.animania.common.entities.sheep.SheepJacob.EntityLambJacob;
+import com.animania.common.entities.sheep.SheepJacob.EntityRamJacob;
+import com.animania.common.entities.sheep.SheepMerino.EntityEweMerino;
+import com.animania.common.entities.sheep.SheepMerino.EntityLambMerino;
+import com.animania.common.entities.sheep.SheepMerino.EntityRamMerino;
+import com.animania.common.entities.sheep.SheepSuffolk.EntityEweSuffolk;
+import com.animania.common.entities.sheep.SheepSuffolk.EntityLambSuffolk;
+import com.animania.common.entities.sheep.SheepSuffolk.EntityRamSuffolk;
 
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;

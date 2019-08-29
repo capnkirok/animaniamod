@@ -1,9 +1,7 @@
 package com.animania.common.capabilities;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 
 public interface ICapabilityPlayer {
 

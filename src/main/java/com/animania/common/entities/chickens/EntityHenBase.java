@@ -9,7 +9,6 @@ import com.animania.common.entities.amphibians.EntityAmphibian;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
 import com.animania.common.entities.chickens.ai.EntityAIFindNest;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
@@ -141,7 +140,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityHenBase.LAID, Boolean.valueOf(true));
+		this.dataManager.register(EntityHenBase.LAID, true);
 		this.dataManager.register(EntityHenBase.LAID_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100)));
 		this.timeUntilNextEgg = 6000;
 	}
@@ -166,12 +165,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 	public int getLaidTimer()
 	{
-		try {
-			return (this.getIntFromDataManager(LAID_TIMER));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getIntFromDataManager(LAID_TIMER);
 	}
 
 	public void setLaidTimer(int laidtimer)
@@ -203,23 +197,18 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 	public boolean getLaid()
 	{
-		try {
-			return (this.getBoolFromDataManager(LAID));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(LAID);
 	}
 
 	public void setLaid(boolean laid)
 	{
 		if (laid)
 		{
-			this.dataManager.set(EntityHenBase.LAID, Boolean.valueOf(true));
+			this.dataManager.set(EntityHenBase.LAID, true);
 			this.setLaidTimer(AnimaniaConfig.careAndFeeding.laidTimer + this.rand.nextInt(100));
 		}
 		else
-			this.dataManager.set(EntityHenBase.LAID, Boolean.valueOf(false));
+			this.dataManager.set(EntityHenBase.LAID, false);
 	}
 
 	@Override

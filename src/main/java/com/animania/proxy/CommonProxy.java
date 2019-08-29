@@ -20,17 +20,12 @@ import com.animania.common.handler.LootTableHandler;
 import com.animania.common.handler.PatreonHandler;
 import com.animania.common.handler.RecipeHandler;
 import com.animania.common.handler.TileEntityHandler;
-import com.animania.common.loottables.AddMoreFunction;
-import com.animania.common.loottables.EntityFedProperty;
-import com.animania.common.loottables.EntityWateredProperty;
 import com.animania.network.NetworkHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.functions.LootFunctionManager;
-import net.minecraft.world.storage.loot.properties.EntityPropertyManager;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

@@ -6,7 +6,6 @@ import com.animania.common.entities.cows.EntityCowBase;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIPanic;
-import net.minecraft.entity.passive.EntityTameable;
 
 public class GenericAIPanic<T extends EntityCreature> extends EntityAIPanic
 {

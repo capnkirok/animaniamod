@@ -116,7 +116,7 @@ public class ModelFerret extends ModelBase
             this.Head.rotationPointY = 14.3F + ef.getHeadRotationPointY(partialTickTime) * 0F; // number
             this.headRotationAngleX = ef.getHeadRotationAngleX(partialTickTime);
 
-            if (ef.isFerretSitting()) {
+            if (ef.isSitting()) {
                 this.Body2.setRotationPoint(0.0F, 18.0F, -1.0F);
                 this.Body2.rotateAngleX = -0.326944F;
                 this.Tail.setRotationPoint(0F, 20.0F, 8.5F);
@@ -133,7 +133,7 @@ public class ModelFerret extends ModelBase
             this.Head.rotationPointY = 14.3F + ef.getHeadRotationPointY(partialTickTime) * 0F; // number
             this.headRotationAngleX = ef.getHeadRotationAngleX(partialTickTime);
 
-            if (ef.isFerretSitting()) {
+            if (ef.isSitting()) {
                 this.Body2.setRotationPoint(0.0F, 18.0F, -1.0F);
                 this.Body2.rotateAngleX = -0.326944F;
                 this.Tail.setRotationPoint(0F, 20.5F, 9.5F);

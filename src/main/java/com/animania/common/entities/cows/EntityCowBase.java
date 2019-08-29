@@ -9,7 +9,6 @@ import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -80,13 +79,13 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityCowBase.PREGNANT, Boolean.valueOf(false));
+		this.dataManager.register(EntityCowBase.PREGNANT, false);
 		if (AnimaniaConfig.gameRules.cowsMilkableAtSpawn) {
-			this.dataManager.register(EntityCowBase.HAS_KIDS, Boolean.valueOf(true));
+			this.dataManager.register(EntityCowBase.HAS_KIDS, true);
 		} else {
-			this.dataManager.register(EntityCowBase.HAS_KIDS, Boolean.valueOf(false));
+			this.dataManager.register(EntityCowBase.HAS_KIDS, false);
 		}
-		this.dataManager.register(EntityCowBase.FERTILE, Boolean.valueOf(true));
+		this.dataManager.register(EntityCowBase.FERTILE, true);
 		this.dataManager.register(EntityCowBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 	}
 
@@ -210,14 +209,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public boolean getPregnant()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(PREGNANT));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(PREGNANT);
 	}
 
 	public void setPregnant(boolean preggers)
@@ -231,14 +223,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public boolean getFertile()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(FERTILE));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(FERTILE);
 	}
 
 	public void setFertile(boolean fertile)
@@ -248,14 +233,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public boolean getHasKids()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(HAS_KIDS));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(HAS_KIDS);
 	}
 
 	public void setHasKids(boolean kids)

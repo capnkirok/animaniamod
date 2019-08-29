@@ -2,13 +2,13 @@ package com.animania.common.entities.chickens.ai;
 
 import java.util.List;
 
+import com.animania.common.entities.chickens.ChickenLeghorn.EntityHenLeghorn;
+import com.animania.common.entities.chickens.ChickenOrpington.EntityHenOrpington;
+import com.animania.common.entities.chickens.ChickenPlymouthRock.EntityHenPlymouthRock;
+import com.animania.common.entities.chickens.ChickenRhodeIslandRed.EntityHenRhodeIslandRed;
+import com.animania.common.entities.chickens.ChickenWyandotte.EntityHenWyandotte;
 import com.animania.common.entities.chickens.EntityAnimaniaChicken;
 import com.animania.common.entities.chickens.EntityHenBase;
-import com.animania.common.entities.chickens.EntityHenLeghorn;
-import com.animania.common.entities.chickens.EntityHenOrpington;
-import com.animania.common.entities.chickens.EntityHenPlymouthRock;
-import com.animania.common.entities.chickens.EntityHenRhodeIslandRed;
-import com.animania.common.entities.chickens.EntityHenWyandotte;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -18,7 +18,6 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;

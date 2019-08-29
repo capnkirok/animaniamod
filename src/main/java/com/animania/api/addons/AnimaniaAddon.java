@@ -1,9 +1,5 @@
 package com.animania.api.addons;
 
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
 public interface AnimaniaAddon
 {
 	public void preInitCommon();

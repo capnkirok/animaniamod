@@ -5,6 +5,24 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.common.entities.pigs.PigDuroc.EntityHogDuroc;
+import com.animania.common.entities.pigs.PigDuroc.EntityPigletDuroc;
+import com.animania.common.entities.pigs.PigDuroc.EntitySowDuroc;
+import com.animania.common.entities.pigs.PigHampshire.EntityHogHampshire;
+import com.animania.common.entities.pigs.PigHampshire.EntityPigletHampshire;
+import com.animania.common.entities.pigs.PigHampshire.EntitySowHampshire;
+import com.animania.common.entities.pigs.PigLargeBlack.EntityHogLargeBlack;
+import com.animania.common.entities.pigs.PigLargeBlack.EntityPigletLargeBlack;
+import com.animania.common.entities.pigs.PigLargeBlack.EntitySowLargeBlack;
+import com.animania.common.entities.pigs.PigLargeWhite.EntityHogLargeWhite;
+import com.animania.common.entities.pigs.PigLargeWhite.EntityPigletLargeWhite;
+import com.animania.common.entities.pigs.PigLargeWhite.EntitySowLargeWhite;
+import com.animania.common.entities.pigs.PigOldSpot.EntityHogOldSpot;
+import com.animania.common.entities.pigs.PigOldSpot.EntityPigletOldSpot;
+import com.animania.common.entities.pigs.PigOldSpot.EntitySowOldSpot;
+import com.animania.common.entities.pigs.PigYorkshire.EntityHogYorkshire;
+import com.animania.common.entities.pigs.PigYorkshire.EntityPigletYorkshire;
+import com.animania.common.entities.pigs.PigYorkshire.EntitySowYorkshire;
 
 import net.minecraft.world.World;
 

@@ -1,48 +1,18 @@
 package com.animania.common.entities.peacocks;
 
 import java.util.Set;
-import java.util.UUID;
 
 import javax.annotation.Nullable;
-
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 
 import com.animania.Animania;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.amphibians.EntityAmphibian;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
@@ -56,8 +26,35 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILeapAtTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 
 public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, IAnimaniaAnimalBase
 {
@@ -68,6 +65,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.peacockFood));
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaPeacock.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean>createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
 
 	protected ResourceLocation resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue.png");
 	protected ResourceLocation resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue_blink.png");
@@ -85,8 +83,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	private int featherCounter;
 	protected EntityGender gender;
 	public int lidCol;
-	
-	
+
 	public EntityAnimaniaPeacock(World worldIn)
 	{
 		super(worldIn);
@@ -120,16 +117,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		this.featherCounter = AnimaniaConfig.careAndFeeding.featherTimer;
 
 	}
-
-	@Override
-	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
-	{
-		this.setFed(true);
-		this.setHandFed(true);
-		if (!player.capabilities.isCreativeMode)
-			stack.setCount(stack.getCount() - 1);
-	}
-
+	
 	@Override
 	protected boolean canDespawn()
 	{
@@ -162,23 +150,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
-		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
-
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
-		{
-			this.setWatered(true);
-			this.setInLove(player);
-			return true;
-		}
-		else if (this.isBreedingItem(stack))
-		{
-			this.consumeItemFromStack(player, stack);
-			this.setInLove(player);
-			return true;
-		}
-		else
-			return super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, player, hand, null) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -228,49 +200,33 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaPeacock.FED, Boolean.valueOf(true));
-		this.dataManager.register(EntityAnimaniaPeacock.HANDFED, Boolean.valueOf(false));
-		this.dataManager.register(EntityAnimaniaPeacock.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaPeacock.FED, true);
+		this.dataManager.register(EntityAnimaniaPeacock.HANDFED, false);
+		this.dataManager.register(EntityAnimaniaPeacock.WATERED, true);
 		this.dataManager.register(EntityAnimaniaPeacock.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityAnimaniaPeacock.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaPeacock.SLEEPING, false);
 		this.dataManager.register(EntityAnimaniaPeacock.SLEEPTIMER, Float.valueOf(0.0F));
+		this.dataManager.register(INTERACTED, false);
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setBoolean("Fed", this.getFed());
-		nbttagcompound.setBoolean("Handfed", this.getHandFed());
-		nbttagcompound.setBoolean("Watered", this.getWatered());
-		nbttagcompound.setInteger("Age", this.getAge());
-		nbttagcompound.setBoolean("Sleep", this.getSleeping());
-		nbttagcompound.setFloat("SleepTimer", this.getSleepTimer());
+		GenericBehavior.writeCommonNBT(nbttagcompound, this);
+		
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readEntityFromNBT(nbttagcompound);
-		this.setFed(nbttagcompound.getBoolean("Fed"));
-		this.setHandFed(nbttagcompound.getBoolean("Handfed"));
-		this.setWatered(nbttagcompound.getBoolean("Watered"));
-		this.setAge(nbttagcompound.getInteger("Age"));
-		this.setSleeping(nbttagcompound.getBoolean("Sleep"));
-		this.setSleepTimer(nbttagcompound.getFloat("SleepTimer"));
-
+		GenericBehavior.readCommonNBT(nbttagcompound, this);
 	}
 
 	public int getAge()
 	{
-		try
-		{
-			return (this.getIntFromDataManager(AGE));
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
+		return this.getIntFromDataManager(AGE);
 	}
 
 	public void setAge(int age)
@@ -280,38 +236,17 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 	public boolean getSleeping()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(SLEEPING));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(SLEEPING);
 	}
 
 	public void setSleeping(boolean flag)
 	{
-		if (flag)
-		{
-			this.dataManager.set(EntityAnimaniaPeacock.SLEEPING, Boolean.valueOf(true));
-		}
-		else
-		{
-			this.dataManager.set(EntityAnimaniaPeacock.SLEEPING, Boolean.valueOf(false));
-		}
+		this.dataManager.set(EntityAnimaniaPeacock.SLEEPING, flag);
 	}
 
 	public boolean getHandFed()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(HANDFED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(HANDFED);
 	}
 
 	public void setHandFed(boolean handfed)
@@ -334,25 +269,15 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		return this instanceof EntityPeachickBase ? null : new ResourceLocation(Animania.MODID, "peacocks/peacock_" + this.type.toString().toLowerCase());
 	}
-	
-	
+
 	@Override
 	public void onLivingUpdate()
 	{
 
-		if (this.getLeashed() && this.getSleeping())
-			this.setSleeping(false);
-		
-		if (this.getLeashed()) {
-			this.setHandFed(true);
-		}
-
-		if (this.getAge() == 0)
-		{
-			this.setAge(1);
-		}
-
 		super.onLivingUpdate();
+
+		GenericBehavior.livingUpdateCommon(this);
+		
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
 		this.destPos = (float) (this.destPos + ((this.onGround || this.isRiding()) ? -1 : 4) * 0.3D);
@@ -375,59 +300,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 				this.blinkTimer = 100 + this.rand.nextInt(100);
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-		{
-			this.fedTimer--;
-
-			if (this.fedTimer == 0)
-				this.setFed(false);
-		}
-
-		if (this.wateredTimer > -1)
-		{
-			this.wateredTimer--;
-
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-				this.setWatered(false);
-		}
-
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-
-		if (!fed && !watered)
-		{
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			if (AnimaniaConfig.gameRules.animalsStarve)
-			{
-				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer)
-				{
-					this.attackEntityFrom(DamageSource.STARVE, 4f);
-					this.damageTimer = 0;
-				}
-				this.damageTimer++;
-			}
-
-		}
-		else if (!fed || !watered)
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-
-		if (this.happyTimer > -1)
-		{
-			this.happyTimer--;
-			if (this.happyTimer == 0)
-			{
-				this.happyTimer = 60;
-
-				if (!this.getFed() && !this.getWatered() && !this.getSleeping() && AnimaniaConfig.gameRules.showUnhappyParticles)
-				{
-					double d = this.rand.nextGaussian() * 0.001D;
-					double d1 = this.rand.nextGaussian() * 0.001D;
-					double d2 = this.rand.nextGaussian() * 0.001D;
-					this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + this.rand.nextFloat() * this.width - this.width, this.posY + 1.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1, d2);
-				}
-			}
-		}
-
 		if (this instanceof EntityPeacockBase && AnimaniaConfig.gameRules.chickensDropFeathers)
 		{
 			this.featherCounter--;
@@ -435,38 +307,36 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 			{
 				featherCounter = AnimaniaConfig.careAndFeeding.featherTimer;
 				Item feather = null;
-				if (this.type == PeacockType.BLUE)
+
+				switch (this.type)
 				{
+				case BLUE:
 					feather = ItemHandler.peacockFeatherBlue;
-				}
-				else if (this.type == PeacockType.CHARCOAL)
-				{
+					break;
+				case CHARCOAL:
 					feather = ItemHandler.peacockFeatherCharcoal;
-				}
-				else if (this.type == PeacockType.OPAL)
-				{
+					break;
+				case OPAL:
 					feather = ItemHandler.peacockFeatherOpal;
-				}
-				else if (this.type == PeacockType.PEACH)
-				{
+					break;
+				case PEACH:
 					feather = ItemHandler.peacockFeatherPeach;
-				}
-				else if (this.type == PeacockType.PURPLE)
-				{
+					break;
+				case PURPLE:
 					feather = ItemHandler.peacockFeatherPurple;
-				}
-				else if (this.type == PeacockType.TAUPE)
-				{
+					break;
+				case TAUPE:
 					feather = ItemHandler.peacockFeatherTaupe;
-				}
-				else
-				{
+					break;
+				default:
 					feather = ItemHandler.peacockFeatherWhite;
+					break;
 				}
-				if (feather != null && !world.isRemote)
+
+				if (!world.isRemote)
 				{
-					ItemStack bob = new ItemStack(feather, 1);
-					EntityItem entityitem = new EntityItem(world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, bob);
+					ItemStack item = new ItemStack(feather, 1);
+					EntityItem entityitem = new EntityItem(world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, item);
 					world.spawnEntity(entityitem);
 				}
 			}
@@ -476,50 +346,35 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 	public boolean getFed()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(FED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(FED);
 	}
-
 
 	public void setFed(boolean fed)
 	{
 		if (fed)
 		{
-			this.dataManager.set(EntityAnimaniaPeacock.FED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaPeacock.FED, true);
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaPeacock.FED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaPeacock.FED, false);
 	}
 
 	public boolean getWatered()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(WATERED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(WATERED);
 	}
 
 	public void setWatered(boolean watered)
 	{
 		if (watered)
 		{
-			this.dataManager.set(EntityAnimaniaPeacock.WATERED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaPeacock.WATERED, true);
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaPeacock.WATERED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaPeacock.WATERED, false);
 	}
 
 	protected void fall(float p_70069_1_)
@@ -661,106 +516,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		return this.gender;
 	}
 
-	// ==================================================
-	// Data Manager Trapper (borrowed from Lycanites)
-	// ==================================================
-
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
-	}
-
-	public byte getByteFromDataManager(DataParameter<Byte> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public int getIntFromDataManager(DataParameter<Integer> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public float getFloatFromDataManager(DataParameter<Float> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public String getStringFromDataManager(DataParameter<String> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return ItemStack.EMPTY;
-		}
-	}
-
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return Optional.absent();
-		}
-	}
-
 	@Override
 	public Set<Item> getFoodItems()
 	{
@@ -786,11 +541,95 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	{
 		return new Class[] { BlockSeeds.class };
 	}
-	
+
 	@Override
 	public int getBlinkTimer()
 	{
 		return blinkTimer;
 	}
+	
 
+	@Override
+	public void setBlinkTimer(int i)
+	{
+		blinkTimer = i;
+	}
+
+	@Override
+	public int getEatTimer()
+	{
+		return 0;
+	}
+
+	@Override
+	public void setEatTimer(int i)
+	{
+	}
+
+	@Override
+	public int getFedTimer()
+	{
+		return fedTimer;
+	}
+
+	@Override
+	public void setFedTimer(int i)
+	{
+		fedTimer = i;
+	}
+	
+	@Override
+	public void setInteracted(boolean interacted)
+	{
+		this.dataManager.set(INTERACTED, interacted);
+	}
+
+	@Override
+	public boolean getInteracted()
+	{
+		return this.getBoolFromDataManager(INTERACTED);
+	}
+
+	@Override
+	public int getWaterTimer()
+	{
+		return wateredTimer;
+	}
+
+	@Override
+	public void setWaterTimer(int i)
+	{
+		wateredTimer = i;
+	}
+
+	@Override
+	public int getDamageTimer()
+	{
+		return damageTimer;
+	}
+
+	@Override
+	public void setDamageTimer(int i)
+	{
+		damageTimer = i;
+	}
+
+	@Override
+	public int getHappyTimer()
+	{
+		return happyTimer;
+	}
+
+	@Override
+	public void setHappyTimer(int i)
+	{
+		happyTimer = i;
+	}
+
+	@Override
+	public AnimaniaType getAnimalType()
+	{
+		return type;
+	}
+	
 }

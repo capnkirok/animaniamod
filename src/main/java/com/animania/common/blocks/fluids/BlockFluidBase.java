@@ -1,7 +1,6 @@
 package com.animania.common.blocks.fluids;
 
 import com.animania.Animania;
-import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

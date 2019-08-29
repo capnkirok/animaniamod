@@ -2,7 +2,6 @@ package com.animania.common.entities.peacocks;
 
 import com.animania.api.data.EntityGender;
 import com.animania.common.entities.peacocks.ai.EntityAIFindPeacockNest;
-import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 
@@ -10,9 +9,7 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -43,7 +40,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityPeafowlBase.LAID, Boolean.valueOf(true));
+		this.dataManager.register(EntityPeafowlBase.LAID, true);
 		this.dataManager.register(EntityPeafowlBase.LAID_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100)));
 	}
 	
@@ -65,12 +62,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 
 	public int getLaidTimer()
 	{
-		try {
-			return (this.getIntFromDataManager(LAID_TIMER));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getIntFromDataManager(LAID_TIMER);
 	}
 
 	public void setLaidTimer(int laidtimer)
@@ -97,23 +89,18 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 
 	public boolean getLaid()
 	{
-		try {
-			return (this.getBoolFromDataManager(LAID));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(LAID);
 	}
 
 	public void setLaid(boolean laid)
 	{
 		if (laid)
 		{
-			this.dataManager.set(EntityPeafowlBase.LAID, Boolean.valueOf(true));
+			this.dataManager.set(EntityPeafowlBase.LAID, true);
 			this.setLaidTimer(AnimaniaConfig.careAndFeeding.laidTimer + this.rand.nextInt(100));
 		}
 		else
-			this.dataManager.set(EntityPeafowlBase.LAID, Boolean.valueOf(false));
+			this.dataManager.set(EntityPeafowlBase.LAID, false);
 	}
 	
 	@Override

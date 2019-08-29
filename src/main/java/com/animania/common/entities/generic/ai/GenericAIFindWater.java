@@ -6,9 +6,6 @@ import com.animania.api.interfaces.IFoodEating;
 import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.api.interfaces.IFoodProviderTE;
 import com.animania.api.interfaces.ISleeping;
-import com.animania.common.handler.BlockHandler;
-import com.animania.common.tileentities.TileEntityInvisiblock;
-import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
@@ -60,7 +57,7 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleepi
 		if (++waterFindTimer <= AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 			return false;
 
-		if (entity.getWatered() || entity.isBeingRidden() || entity.getSleeping() || !entity.getHandFed())
+		if (entity.getWatered() || entity.isBeingRidden() || entity.getSleeping() || (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? !entity.getInteracted() : false))
 		{
 			waterFindTimer = 0;
 			return false;

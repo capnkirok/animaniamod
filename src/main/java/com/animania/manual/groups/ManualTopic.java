@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.animania.Animania;
 import com.animania.common.handler.AddonHandler;
-import com.animania.manual.components.IManualComponent;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;

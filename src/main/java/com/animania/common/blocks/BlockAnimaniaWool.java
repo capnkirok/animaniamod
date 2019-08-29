@@ -1,9 +1,6 @@
 package com.animania.common.blocks;
 
-import java.util.List;
-
 import com.animania.Animania;
-import com.animania.common.handler.BlockHandler;
 import com.animania.common.items.SubtypesItemBlock;
 
 import net.minecraft.block.SoundType;
@@ -16,7 +13,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;

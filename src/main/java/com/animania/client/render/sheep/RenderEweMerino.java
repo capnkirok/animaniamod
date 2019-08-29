@@ -2,11 +2,10 @@ package com.animania.client.render.sheep;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.client.models.sheep.ModelDorperSheep;
 import com.animania.client.models.sheep.ModelMerinoEwe;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
-import com.animania.common.entities.sheep.EntityEweMerino;
+import com.animania.common.entities.sheep.SheepMerino.EntityEweMerino;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;

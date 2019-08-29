@@ -1,10 +1,7 @@
 package com.animania.common.entities.peacocks;
 
 import com.animania.api.data.EntityGender;
-import com.animania.common.handler.ItemHandler;
 
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 

@@ -1,7 +1,5 @@
 package com.animania.client.render.item;
 
-import java.lang.reflect.Field;
-
 import com.animania.client.models.item.AnimatedEggModelWrapper;
 import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.config.AnimaniaConfig;
@@ -13,12 +11,10 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

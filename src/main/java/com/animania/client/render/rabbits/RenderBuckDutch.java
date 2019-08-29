@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.animania.client.models.rabbits.ModelDutch;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.common.entities.rodents.rabbits.EntityRabbitBuckDutch;
+import com.animania.common.entities.rodents.rabbits.RabbitDutch.EntityRabbitBuckDutch;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;

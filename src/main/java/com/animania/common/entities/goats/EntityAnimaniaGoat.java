@@ -6,46 +6,12 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemDye;
-import net.minecraft.item.ItemShears;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.management.PreYggdrasilConverter;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import com.animania.Animania;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
@@ -57,12 +23,44 @@ import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.handler.ItemHandler;
+import com.animania.common.entities.goats.GoatAngora.EntityBuckAngora;
+import com.animania.common.entities.goats.GoatAngora.EntityDoeAngora;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
+
+import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemDye;
+import net.minecraft.item.ItemShears;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.management.PreYggdrasilConverter;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBase
 {
@@ -80,6 +78,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaGoat.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -147,38 +146,25 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityAnimaniaGoat.FED, Boolean.valueOf(true));
-		this.dataManager.register(EntityAnimaniaGoat.HANDFED, Boolean.valueOf(false));
-		this.dataManager.register(EntityAnimaniaGoat.WATERED, Boolean.valueOf(true));
+		this.dataManager.register(EntityAnimaniaGoat.FED, true);
+		this.dataManager.register(EntityAnimaniaGoat.HANDFED, false);
+		this.dataManager.register(EntityAnimaniaGoat.WATERED, true);
 		this.dataManager.register(EntityAnimaniaGoat.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
-		this.dataManager.register(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaGoat.SHEARED, false);
 		this.dataManager.register(EntityAnimaniaGoat.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
-		this.dataManager.register(EntityAnimaniaGoat.SPOOKED, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaGoat.SPOOKED, false);
 		this.dataManager.register(EntityAnimaniaGoat.SPOOKED_TIMER, 0.0F);
 		this.dataManager.register(EntityAnimaniaGoat.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityAnimaniaGoat.SLEEPING, Boolean.valueOf(false));
+		this.dataManager.register(EntityAnimaniaGoat.SLEEPING, false);
 		this.dataManager.register(EntityAnimaniaGoat.SLEEPTIMER, Float.valueOf(0.0F));
+		this.dataManager.register(INTERACTED, false);
 	}
 
 	@Override
 	protected ResourceLocation getLootTable()
 	{
 		return this instanceof EntityKidBase ? null : this.goatType.isPrime ? new ResourceLocation(Animania.MODID, "goat_prime") : new ResourceLocation(Animania.MODID, "goat_regular");
-	}
-
-	@Override
-	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
-	{
-		this.setFed(true);
-		this.setHandFed(true);
-		this.entityAIEatGrass.startExecuting();
-		this.eatTimer = 80;
-		player.addStat(goatType.getAchievement(), 1);
-
-		if (!player.isCreative())
-			stack.shrink(1);
-		;
 	}
 
 	public void setSpooked(boolean spooked)
@@ -199,38 +185,17 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 
 	public boolean getSpooked()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(SPOOKED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(SPOOKED);
 	}
 
 	public Float getSpookedTimer()
 	{
-		try
-		{
-			return (this.getFloatFromDataManager(SPOOKED_TIMER));
-		}
-		catch (Exception e)
-		{
-			return 0F;
-		}
+		return this.getFloatFromDataManager(SPOOKED_TIMER);
 	}
 
 	public int getAge()
 	{
-		try
-		{
-			return (this.getIntFromDataManager(AGE));
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
+		return this.getIntFromDataManager(AGE);
 	}
 
 	public void setAge(int age)
@@ -245,38 +210,17 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 
 	public boolean getSleeping()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(SLEEPING));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(SLEEPING);
 	}
 
 	public void setSleeping(boolean flag)
 	{
-		if (flag)
-		{
-			this.dataManager.set(EntityAnimaniaGoat.SLEEPING, Boolean.valueOf(true));
-		}
-		else
-		{
-			this.dataManager.set(EntityAnimaniaGoat.SLEEPING, Boolean.valueOf(false));
-		}
+		this.dataManager.set(EntityAnimaniaGoat.SLEEPING, flag);
 	}
 
 	public Float getSleepTimer()
 	{
-		try
-		{
-			return (this.getFloatFromDataManager(SLEEPTIMER));
-		}
-		catch (Exception e)
-		{
-			return 0F;
-		}
+		return this.getFloatFromDataManager(SLEEPTIMER);
 	}
 
 	public void setSleepTimer(Float timer)
@@ -286,14 +230,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 
 	public boolean getHandFed()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(HANDFED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(HANDFED);
 	}
 
 	public void setHandFed(boolean handfed)
@@ -326,50 +263,36 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 
 	public boolean getFed()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(FED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(FED);
 	}
 
 	public void setFed(boolean fed)
 	{
 		if (fed)
 		{
-			this.dataManager.set(EntityAnimaniaGoat.FED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaGoat.FED, true);
 			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 			this.setHealth(this.getHealth() + 1.0F);
 		}
 		else
-			this.dataManager.set(EntityAnimaniaGoat.FED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaGoat.FED, false);
 	}
 
 	public boolean getWatered()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(WATERED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(WATERED);
 	}
 
 	public void setWatered(boolean watered)
 	{
 		if (watered)
 		{
-			this.dataManager.set(EntityAnimaniaGoat.WATERED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaGoat.WATERED, true);
 			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		}
 		else
 		{
-			this.dataManager.set(EntityAnimaniaGoat.WATERED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaGoat.WATERED, false);
 		}
 	}
 
@@ -422,22 +345,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 			}
 		}
 		
-		if (this.getLeashed()) {
-			this.setHandFed(true);
-		}
-
-		if (this.world.isRemote)
-			this.eatTimer = Math.max(0, this.eatTimer - 1);
-
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 100 + this.rand.nextInt(100);
-			}
-		}
-
 		if (this.getSpooked())
 		{
 
@@ -469,58 +376,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 			}
 		}
 
-		if (this.fedTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-		{
-			this.fedTimer--;
-
-			if (this.fedTimer == 0)
-				this.setFed(false);
-		}
-
-		if (this.wateredTimer > -1 && !AnimaniaConfig.gameRules.ambianceMode && this.getHandFed())
-		{
-			this.wateredTimer--;
-
-			if (this.wateredTimer == 0 && !AnimaniaConfig.gameRules.ambianceMode)
-				this.setWatered(false);
-		}
-
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-
-		if (!fed && !watered)
-		{
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 1, false, false));
-			if (AnimaniaConfig.gameRules.animalsStarve)
-			{
-				if (this.damageTimer >= AnimaniaConfig.careAndFeeding.starvationTimer)
-				{
-					this.attackEntityFrom(DamageSource.STARVE, 4f);
-					this.damageTimer = 0;
-				}
-				this.damageTimer++;
-			}
-
-		}
-		else if (!fed || !watered)
-			this.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
-
-		if (this.happyTimer > -1)
-		{
-			this.happyTimer--;
-			if (this.happyTimer == 0)
-			{
-				this.happyTimer = 60;
-
-				if (!this.getFed() && !this.getWatered() && !this.getSleeping() && this.getHandFed() && AnimaniaConfig.gameRules.showUnhappyParticles)
-				{
-					double d = this.rand.nextGaussian() * 0.001D;
-					double d1 = this.rand.nextGaussian() * 0.001D;
-					double d2 = this.rand.nextGaussian() * 0.001D;
-					this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX + this.rand.nextFloat() * this.width - this.width, this.posY + 1.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1, d2);
-				}
-			}
-		}
+		GenericBehavior.livingUpdateCommon(this);
 
 		boolean sheared = this.getSheared();
 		if (sheared)
@@ -544,10 +400,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild() && (this instanceof EntityBuckAngora || this instanceof EntityDoeAngora)) // Forge:
-																																										// Moved
-																																										// to
-																																										// onSheared
+		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild() && (this instanceof EntityBuckAngora || this instanceof EntityDoeAngora)) // Forge:																																							// onSheared
 		{
 			if (!this.world.isRemote)
 			{
@@ -556,9 +409,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 
 				for (int j = 0; j < i; ++j)
 				{
-					// EntityItem entityitem = this.entityDropItem(new
-					// ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1,
-					// this.getFleeceColor().getMetadata()), 1.0F);
 					EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1), 1.0F);
 					entityitem.motionY += (double) (this.rand.nextFloat() * 0.05F);
 					entityitem.motionX += (double) ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
@@ -584,33 +434,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 			return true;
 		}
 
-		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !this.getSleeping())
-		{
-			if (!player.isCreative())
-			{
-				ItemStack emptied = AnimaniaHelper.emptyContainer(stack);
-				stack.shrink(1);
-				AnimaniaHelper.addItem(player, emptied);
-			}
-
-			this.eatTimer = 40;
-			this.entityAIEatGrass.startExecuting();
-			this.setWatered(true);
-			this.setInLove(player);
-			return true;
-		}
-		/*
-		 * else if(stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET)
-		 * { return false; }
-		 */
-		else if (this.isBreedingItem(stack))
-		{
-			this.consumeItemFromStack(player, stack);
-			this.setInLove(player);
-			return true;
-		}
-		else
-			return super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, entityplayer, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -645,48 +469,31 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 		{
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
 		}
-		compound.setBoolean("Fed", this.getFed());
-		compound.setBoolean("Handfed", this.getHandFed());
-		compound.setBoolean("Watered", this.getWatered());
 		compound.setBoolean("Sheared", this.getSheared());
 		compound.setBoolean("Spooked", this.getSpooked());
-		compound.setInteger("Age", this.getAge());
 
+		GenericBehavior.writeCommonNBT(compound, this);
 	}
 
 	public boolean getSheared()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(SHEARED));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(SHEARED);
 	}
 
 	public void setSheared(boolean sheared)
 	{
 		if (sheared)
 		{
-			this.dataManager.set(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(true));
+			this.dataManager.set(EntityAnimaniaGoat.SHEARED, true);
 			this.setWoolRegrowthTimer(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500));
 		}
 		else
-			this.dataManager.set(EntityAnimaniaGoat.SHEARED, Boolean.valueOf(false));
+			this.dataManager.set(EntityAnimaniaGoat.SHEARED, false);
 	}
 
 	public int getWoolRegrowthTimer()
 	{
-		try
-		{
-			return (this.getIntFromDataManager(SHEARED_TIMER));
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
+		return this.getIntFromDataManager(SHEARED_TIMER);
 	}
 
 	public void setWoolRegrowthTimer(int time)
@@ -715,13 +522,11 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 			this.setMateUniqueId(UUID.fromString(s));
 		}
 
-		this.setFed(compound.getBoolean("Fed"));
-		this.setHandFed(compound.getBoolean("Handfed"));
-		this.setWatered(compound.getBoolean("Watered"));
 		this.setSheared(compound.getBoolean("Sheared"));
 		this.setSpooked(compound.getBoolean("Spooked"));
-		this.setAge(compound.getInteger("Age"));
 
+		GenericBehavior.readCommonNBT(compound, this);
+		
 	}
 
 	@Override
@@ -745,14 +550,12 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	@Override
 	public int getPrimaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getSecondaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -760,106 +563,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	public EntityGender getEntityGender()
 	{
 		return this.gender;
-	}
-
-	// ==================================================
-	// Data Manager Trapper (borrowed from Lycanites)
-	// ==================================================
-
-	public boolean getBoolFromDataManager(DataParameter<Boolean> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
-	}
-
-	public byte getByteFromDataManager(DataParameter<Byte> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public int getIntFromDataManager(DataParameter<Integer> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public float getFloatFromDataManager(DataParameter<Float> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return 0;
-		}
-	}
-
-	public String getStringFromDataManager(DataParameter<String> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public Optional<UUID> getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return ItemStack.EMPTY;
-		}
-	}
-
-	public Optional<BlockPos> getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
-	{
-		try
-		{
-			return this.getDataManager().get(key);
-		}
-		catch (Exception e)
-		{
-			return Optional.absent();
-		}
 	}
 
 	@Override
@@ -886,6 +589,91 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	public int getBlinkTimer()
 	{
 		return blinkTimer;
+	}
+	
+
+	@Override
+	public void setBlinkTimer(int i)
+	{
+		blinkTimer = i;
+	}
+
+	@Override
+	public int getEatTimer()
+	{
+		return eatTimer;
+	}
+
+	@Override
+	public void setEatTimer(int i)
+	{
+		this.eatTimer = i;
+	}
+
+	@Override
+	public int getFedTimer()
+	{
+		return fedTimer;
+	}
+
+	@Override
+	public void setFedTimer(int i)
+	{
+		fedTimer = i;
+	}
+	
+	@Override
+	public void setInteracted(boolean interacted)
+	{
+		this.dataManager.set(INTERACTED, interacted);
+	}
+
+	@Override
+	public boolean getInteracted()
+	{
+		return this.getBoolFromDataManager(INTERACTED);
+	}
+
+	@Override
+	public int getWaterTimer()
+	{
+		return wateredTimer;
+	}
+
+	@Override
+	public void setWaterTimer(int i)
+	{
+		wateredTimer = i;
+	}
+
+	@Override
+	public int getDamageTimer()
+	{
+		return damageTimer;
+	}
+
+	@Override
+	public void setDamageTimer(int i)
+	{
+		damageTimer = i;
+	}
+	
+	@Override
+	public int getHappyTimer()
+	{
+		return happyTimer;
+	}
+	
+	@Override
+	public void setHappyTimer(int i)
+	{
+		happyTimer = i;
+	}
+	
+	@Override
+	public AnimaniaType getAnimalType()
+	{
+		return goatType;
 	}
 
 }

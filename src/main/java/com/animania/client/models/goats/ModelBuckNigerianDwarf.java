@@ -1,7 +1,7 @@
 package com.animania.client.models.goats;
 
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityBuckNigerianDwarf;
+import com.animania.common.entities.goats.GoatNigerianDwarf.EntityBuckNigerianDwarf;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.model.ModelBase;

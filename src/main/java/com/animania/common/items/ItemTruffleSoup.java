@@ -1,10 +1,7 @@
 package com.animania.common.items;
 
-import java.util.List;
-
 import javax.annotation.Nullable;
 
-import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.advancements.CriteriaTriggers;
@@ -14,20 +11,14 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ItemTruffleSoup extends ItemAnimaniaFood
 {

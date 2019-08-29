@@ -1,7 +1,6 @@
 package com.animania.client.models.render;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 
 public class ModelRendererColored extends ModelRendererAnimania

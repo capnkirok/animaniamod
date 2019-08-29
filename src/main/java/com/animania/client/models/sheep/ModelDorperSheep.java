@@ -3,9 +3,9 @@ package com.animania.client.models.sheep;
 import com.animania.client.models.IColoredModel;
 import com.animania.client.models.render.ModelRendererColored;
 import com.animania.common.entities.sheep.EntityAnimaniaSheep;
-import com.animania.common.entities.sheep.EntityEweDorper;
-import com.animania.common.entities.sheep.EntityLambDorper;
-import com.animania.common.entities.sheep.EntityRamDorper;
+import com.animania.common.entities.sheep.SheepDorper.EntityEweDorper;
+import com.animania.common.entities.sheep.SheepDorper.EntityLambDorper;
+import com.animania.common.entities.sheep.SheepDorper.EntityRamDorper;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

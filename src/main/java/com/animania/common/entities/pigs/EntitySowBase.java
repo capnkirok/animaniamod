@@ -5,6 +5,15 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IMateable;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -34,16 +43,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IMateable;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 
 public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderPig, IMateable
 {
@@ -161,9 +160,9 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		super.entityInit();
 		this.dataManager.register(EntitySowBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
-		this.dataManager.register(EntitySowBase.PREGNANT, Boolean.valueOf(false));
-		this.dataManager.register(EntitySowBase.HAS_KIDS, Boolean.valueOf(false));
-		this.dataManager.register(EntitySowBase.FERTILE, Boolean.valueOf(true));
+		this.dataManager.register(EntitySowBase.PREGNANT, false);
+		this.dataManager.register(EntitySowBase.HAS_KIDS, false);
+		this.dataManager.register(EntitySowBase.FERTILE, true);
 		this.dataManager.register(EntitySowBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 
 	}
@@ -206,12 +205,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	public int getGestation()
 	{
-		try {
-			return (this.getIntFromDataManager(GESTATION_TIMER));
-		}
-		catch (Exception e) {
-			return 0;
-		}
+		return this.getIntFromDataManager(GESTATION_TIMER);
 	}
 
 	public void setGestation(int gestation)
@@ -221,12 +215,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	public boolean getPregnant()
 	{
-		try {
-			return (this.getBoolFromDataManager(PREGNANT));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(PREGNANT);
 	}
 
 	public void setPregnant(boolean preggers)
@@ -239,12 +228,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	public boolean getFertile()
 	{
-		try {
-			return (this.getBoolFromDataManager(FERTILE));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(FERTILE);
 	}
 
 	public void setFertile(boolean fertile)
@@ -254,12 +238,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	public boolean getHasKids()
 	{
-		try {
-			return (this.getBoolFromDataManager(HAS_KIDS));
-		}
-		catch (Exception e) {
-			return false;
-		}
+		return this.getBoolFromDataManager(HAS_KIDS);
 	}
 
 	public void setHasKids(boolean kids)

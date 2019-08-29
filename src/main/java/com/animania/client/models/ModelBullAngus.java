@@ -1,11 +1,9 @@
 package com.animania.client.models;
 
-import org.lwjgl.opengl.GL11;
-
+import com.animania.common.entities.cows.CowAngus.EntityBullAngus;
+import com.animania.common.entities.cows.CowFriesian.EntityBullFriesian;
+import com.animania.common.entities.cows.CowHolstein.EntityBullHolstein;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityBullAngus;
-import com.animania.common.entities.cows.EntityBullFriesian;
-import com.animania.common.entities.cows.EntityBullHolstein;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.model.ModelBase;

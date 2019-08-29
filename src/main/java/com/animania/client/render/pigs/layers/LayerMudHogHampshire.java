@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHogHampshire;
 import com.animania.client.render.pigs.RenderHogHampshire;
-import com.animania.common.entities.pigs.EntityHogHampshire;
+import com.animania.common.entities.pigs.PigHampshire.EntityHogHampshire;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

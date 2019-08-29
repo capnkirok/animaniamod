@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.client.models.ModelHog;
 import com.animania.client.render.pigs.RenderHogLargeWhite;
-import com.animania.common.entities.pigs.EntityHogLargeWhite;
+import com.animania.common.entities.pigs.PigLargeWhite.EntityHogLargeWhite;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

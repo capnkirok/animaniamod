@@ -3,9 +3,8 @@ package com.animania.compat.waila.provider;
 import java.util.List;
 import java.util.UUID;
 
-import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.goats.EntityBuckAngora;
 import com.animania.common.entities.goats.EntityDoeBase;
+import com.animania.common.entities.goats.GoatAngora.EntityBuckAngora;
 import com.animania.common.helper.AnimaniaHelper;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;

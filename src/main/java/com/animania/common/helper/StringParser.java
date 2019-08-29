@@ -2,8 +2,6 @@ package com.animania.common.helper;
 
 import javax.annotation.Nullable;
 
-import org.apache.logging.log4j.Level;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;

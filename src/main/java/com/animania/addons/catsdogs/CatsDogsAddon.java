@@ -8,8 +8,6 @@ import com.animania.addons.catsdogs.common.handler.CatsDogsAddonItemHandler;
 import com.animania.api.addons.AnimaniaAddon;
 import com.animania.api.addons.LoadAddon;
 
-import net.minecraftforge.fml.common.Loader;
-
 @LoadAddon
 public class CatsDogsAddon implements AnimaniaAddon
 {
@@ -62,7 +60,7 @@ public class CatsDogsAddon implements AnimaniaAddon
 	@Override
 	public String getDependencies()
 	{
-		return "required-after:animania@[1.8.0,);required-after:minecraft@[1.12,1.13)";
+		return "required-after:animania@[1.7.0,);required-after:minecraft@[1.12,1.13)";
 	}
 
 }

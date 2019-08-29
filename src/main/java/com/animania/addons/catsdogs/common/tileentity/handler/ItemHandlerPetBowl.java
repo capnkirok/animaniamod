@@ -1,9 +1,7 @@
 package com.animania.addons.catsdogs.common.tileentity.handler;
 
 import com.animania.addons.catsdogs.common.block.BlockPetBowl;
-import com.animania.common.blocks.BlockTrough;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 

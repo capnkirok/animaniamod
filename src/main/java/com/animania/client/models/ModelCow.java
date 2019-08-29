@@ -1,10 +1,10 @@
 package com.animania.client.models;
 
+import com.animania.common.entities.cows.CowAngus.EntityCowAngus;
+import com.animania.common.entities.cows.CowFriesian.EntityCowFriesian;
+import com.animania.common.entities.cows.CowHolstein.EntityCowHolstein;
+import com.animania.common.entities.cows.CowMooshroom.EntityCowMooshroom;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityCowAngus;
-import com.animania.common.entities.cows.EntityCowFriesian;
-import com.animania.common.entities.cows.EntityCowHolstein;
-import com.animania.common.entities.cows.EntityCowMooshroom;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

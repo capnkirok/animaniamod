@@ -1,11 +1,6 @@
 package com.animania.addons.catsdogs.client.models.cats;
 
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
-
-import com.animania.addons.catsdogs.common.entity.cats.EntityAnimaniaCat;
-import com.animania.addons.catsdogs.common.entity.cats.EntityQueenBase;
-import com.animania.addons.catsdogs.common.entity.cats.EntityTomBase;
+import com.animania.addons.catsdogs.common.entity.felids.EntityAnimaniaCat;
 import com.animania.client.models.render.ModelRendererAnimania;
 
 import net.minecraft.client.model.ModelBase;

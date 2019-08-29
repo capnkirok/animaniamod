@@ -6,6 +6,21 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IMateable;
+import com.animania.api.interfaces.ISterilizable;
+import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
+import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.entities.goats.GoatAngora.EntityBuckAngora;
+import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
+import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
+import com.animania.common.helper.AnimaniaHelper;
+import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -30,24 +45,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.animania.Animania;
-import com.animania.api.data.EntityGender;
-import com.animania.api.interfaces.IMateable;
-import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.cows.EntityBullBase;
-import com.animania.common.entities.cows.EntityCalfBase;
-import com.animania.common.entities.cows.EntityCowBase;
-import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
-import com.animania.common.entities.generic.ai.GenericAIMate;
-import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
-import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
-import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
-import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 
 public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
@@ -88,8 +85,8 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityBuckBase.FIGHTING, Boolean.valueOf(false));
-		this.dataManager.register(EntityBuckBase.STERILIZED, Boolean.valueOf(false));
+		this.dataManager.register(EntityBuckBase.FIGHTING, false);
+		this.dataManager.register(EntityBuckBase.STERILIZED, false);
 
 	}
 
@@ -107,9 +104,9 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	public void setFighting(boolean fighting)
 	{
 		if (fighting)
-			this.dataManager.set(EntityBuckBase.FIGHTING, Boolean.valueOf(true));
+			this.dataManager.set(EntityBuckBase.FIGHTING, true);
 		else
-			this.dataManager.set(EntityBuckBase.FIGHTING, Boolean.valueOf(false));
+			this.dataManager.set(EntityBuckBase.FIGHTING, false);
 	}
 
 	@Nullable

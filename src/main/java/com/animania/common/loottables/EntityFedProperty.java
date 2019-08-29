@@ -12,7 +12,6 @@ import com.google.gson.JsonSerializationContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.properties.EntityOnFire;
 import net.minecraft.world.storage.loot.properties.EntityProperty;
 
 public class EntityFedProperty implements EntityProperty	

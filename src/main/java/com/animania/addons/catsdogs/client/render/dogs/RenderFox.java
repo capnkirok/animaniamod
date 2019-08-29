@@ -1,11 +1,10 @@
 package com.animania.addons.catsdogs.client.render.dogs;
 
 import com.animania.addons.catsdogs.client.models.dogs.ModelFox;
-import com.animania.addons.catsdogs.common.entity.dogs.EntityAnimaniaDog;
+import com.animania.addons.catsdogs.common.entity.canids.EntityAnimaniaDog;
 import com.animania.api.interfaces.IChild;
 import com.animania.client.render.layer.LayerBlinking;
 
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
