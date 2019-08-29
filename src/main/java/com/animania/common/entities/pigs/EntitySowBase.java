@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.helper.AnimaniaHelper;
@@ -44,7 +45,7 @@ import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderPig, IMateable
+public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderPig, IMateable, IImpregnable
 {
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntitySowBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	public int dryTimerSow;
@@ -203,66 +204,34 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	}
 
-	public int getGestation()
+	@Override
+	public DataParameter<Integer> getGestationParam()
 	{
-		return this.getIntFromDataManager(GESTATION_TIMER);
+		return GESTATION_TIMER;
 	}
 
-	public void setGestation(int gestation)
+	@Override
+	public DataParameter<Boolean> getPregnantParam()
 	{
-		this.dataManager.set(EntitySowBase.GESTATION_TIMER, Integer.valueOf(gestation));
+		return PREGNANT;
 	}
 
-	public boolean getPregnant()
+	@Override
+	public DataParameter<Boolean> getFertileParam()
 	{
-		return this.getBoolFromDataManager(PREGNANT);
+		return FERTILE;
 	}
 
-	public void setPregnant(boolean preggers)
+	@Override
+	public DataParameter<Boolean> getHasKidsParam()
 	{
-		if (preggers) {
-			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200));
-		}
-		this.dataManager.set(EntitySowBase.PREGNANT, Boolean.valueOf(preggers));
+		return HAS_KIDS;
 	}
 
-	public boolean getFertile()
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
 	{
-		return this.getBoolFromDataManager(FERTILE);
-	}
-
-	public void setFertile(boolean fertile)
-	{
-		this.dataManager.set(EntitySowBase.FERTILE, Boolean.valueOf(fertile));
-	}
-
-	public boolean getHasKids()
-	{
-		return this.getBoolFromDataManager(HAS_KIDS);
-	}
-
-	public void setHasKids(boolean kids)
-	{
-		this.dataManager.set(EntitySowBase.HAS_KIDS, Boolean.valueOf(kids));
-	}
-
-	@Nullable
-	public UUID getMateUniqueId()
-	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntitySowBase.MATE_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntitySowBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		return EntitySowBase.MATE_UNIQUE_ID;
 	}
 
 	@Override

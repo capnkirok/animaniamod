@@ -138,22 +138,10 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	}
 
-	@Nullable
-	public UUID getMateUniqueId()
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
 	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntityHogBase.MATE_UNIQUE_ID)).orNull();
-			return id;
-		} catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityHogBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		return EntityHogBase.MATE_UNIQUE_ID;
 	}
 
 	@Override
@@ -426,15 +414,9 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public boolean getSterilized()
+	public DataParameter<Boolean> getSterilizedParam()
 	{
-		return this.getBoolFromDataManager(STERILIZED);
-	}
-
-	@Override
-	public void setSterilized(boolean sterilized)
-	{
-		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
+		return STERILIZED;
 	}
 
 	@Override

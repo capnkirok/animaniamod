@@ -103,25 +103,6 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	}
 
-	@Nullable
-	public UUID getParentUniqueId()
-	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntityKidBase.PARENT_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setParentUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityKidBase.PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
@@ -186,12 +167,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
 	}
-
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
-	}
-
+	
 	@Override
 	public int getAgeTimer()
 	{
@@ -204,11 +180,6 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		ageTimer = i;
 	}
 	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(EntityKidBase.AGE, Float.valueOf(age));
-	}
-
 	@Override
 	public void onLivingUpdate()
 	{
@@ -261,6 +232,18 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	protected Item getDropItem()
 	{
 		return null;
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	{
+		return PARENT_UNIQUE_ID;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		return AGE;
 	}
 
 }

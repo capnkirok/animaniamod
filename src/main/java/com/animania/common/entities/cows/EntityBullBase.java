@@ -17,6 +17,7 @@ import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -32,6 +33,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
@@ -45,6 +47,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityBullBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	public EntityBullBase(World worldIn)
 	{
@@ -80,6 +83,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		super.entityInit();
 		this.dataManager.register(EntityBullBase.FIGHTING, false);
 		this.dataManager.register(EntityBullBase.STERILIZED, false);
+		this.dataManager.register(EntityBullBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
 
 	}
 
@@ -292,6 +296,11 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
+		UUID mate = this.getMateUniqueId();
+		if (mate != null)
+			if (this.getMateUniqueId() != null)
+				compound.setString("MateUUID", this.getMateUniqueId().toString());
+		
 		compound.setBoolean("Fighting", this.getFighting());
 
 	}
@@ -301,6 +310,18 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	{
 		super.readEntityFromNBT(compound);
 
+		String s;
+
+		if (compound.hasKey("MateUUID", 8))
+			s = compound.getString("MateUUID");
+		else
+		{
+			String s1 = compound.getString("Mate");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		}
+		if (!s.isEmpty())
+			this.setMateUniqueId(UUID.fromString(s));
+		
 		this.setFighting(compound.getBoolean("Fighting"));
 
 	}
@@ -319,15 +340,9 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public boolean getSterilized()
+	public DataParameter<Boolean> getSterilizedParam()
 	{
-		return this.getBoolFromDataManager(STERILIZED);
-	}
-
-	@Override
-	public void setSterilized(boolean sterilized)
-	{
-		this.dataManager.set(EntityBullBase.STERILIZED, Boolean.valueOf(sterilized));
+		return STERILIZED;
 	}
 
 	@Override
@@ -360,6 +375,12 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 			}
 		}
 		setSterilized(true);
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	{
+		return MATE_UNIQUE_ID;
 	}
 
 }

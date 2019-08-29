@@ -187,14 +187,10 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		GenericBehavior.readCommonNBT(nbttagcompound, this);
 	}
 
-	public int getAge()
+	@Override
+	public DataParameter<Integer> getAgeParam()
 	{
-		return this.getIntFromDataManager(AGE);
-	}
-
-	public void setAge(int age)
-	{
-		this.dataManager.set(EntityAnimaniaChicken.AGE, Integer.valueOf(age));
+		return AGE;
 	}
 
 	@Override
@@ -230,57 +226,30 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		this.wingRotation += this.wingRotDelta * 2.0F;
 	}
 
-	public boolean getFed()
+	@Override
+	public DataParameter<Boolean> getFedParam()
 	{
-		return this.getBoolFromDataManager(FED);
+		return FED;
 	}
 
-	public void setFed(boolean fed)
+	
+
+	@Override
+	public DataParameter<Boolean> getWateredParam()
 	{
-		if (fed)
-		{
-			this.dataManager.set(EntityAnimaniaChicken.FED, true);
-			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-			this.setHealth(this.getHealth() + 1.0F);
-		}
-		else
-			this.dataManager.set(EntityAnimaniaChicken.FED, false);
+		return WATERED;
 	}
 
-	public boolean getWatered()
+	@Override
+	public DataParameter<Boolean> getSleepingParam()
 	{
-		return this.getBoolFromDataManager(WATERED);
+		return SLEEPING;
 	}
 
-	public void setWatered(boolean watered)
+	@Override
+	public DataParameter<Boolean> getHandFedParam()
 	{
-		if (watered)
-		{
-			this.dataManager.set(EntityAnimaniaChicken.WATERED, true);
-			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		}
-		else
-			this.dataManager.set(EntityAnimaniaChicken.WATERED, false);
-	}
-
-	public boolean getSleeping()
-	{
-		return this.getBoolFromDataManager(SLEEPING);
-	}
-
-	public void setSleeping(boolean flag)
-	{
-		this.dataManager.set(EntityAnimaniaChicken.SLEEPING, flag);
-	}
-
-	public boolean getHandFed()
-	{
-		return this.getBoolFromDataManager(HANDFED);
-	}
-
-	public void setHandFed(boolean handfed)
-	{
-		this.dataManager.set(EntityAnimaniaChicken.HANDFED, Boolean.valueOf(handfed));
+		return HANDFED;
 	}
 
 	protected void fall(float p_70069_1_)
@@ -506,15 +475,9 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	}
 	
 	@Override
-	public void setInteracted(boolean interacted)
+	public DataParameter<Boolean> getInteractedParam()
 	{
-		this.dataManager.set(INTERACTED, interacted);
-	}
-
-	@Override
-	public boolean getInteracted()
-	{
-		return this.getBoolFromDataManager(INTERACTED);
+		return INTERACTED;
 	}
 
 	@Override
@@ -557,5 +520,11 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	public AnimaniaType getAnimalType()
 	{
 		return type;
+	}
+
+	@Override
+	public DataParameter<Float> getSleepTimerParam()
+	{
+		return null;
 	}
 }

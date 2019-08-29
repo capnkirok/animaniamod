@@ -224,44 +224,22 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		GenericBehavior.readCommonNBT(nbttagcompound, this);
 	}
 
-	public int getAge()
+	@Override
+	public DataParameter<Integer> getAgeParam()
 	{
-		return this.getIntFromDataManager(AGE);
+		return AGE;
 	}
 
-	public void setAge(int age)
+	@Override
+	public DataParameter<Boolean> getSleepingParam()
 	{
-		this.dataManager.set(EntityAnimaniaPeacock.AGE, Integer.valueOf(age));
+		return SLEEPING;
 	}
 
-	public boolean getSleeping()
+	@Override
+	public DataParameter<Boolean> getHandFedParam()
 	{
-		return this.getBoolFromDataManager(SLEEPING);
-	}
-
-	public void setSleeping(boolean flag)
-	{
-		this.dataManager.set(EntityAnimaniaPeacock.SLEEPING, flag);
-	}
-
-	public boolean getHandFed()
-	{
-		return this.getBoolFromDataManager(HANDFED);
-	}
-
-	public void setHandFed(boolean handfed)
-	{
-		this.dataManager.set(EntityAnimaniaPeacock.HANDFED, Boolean.valueOf(handfed));
-	}
-
-	public Float getSleepTimer()
-	{
-		return -100f;
-	}
-
-	public void setSleepTimer(Float timer)
-	{
-		this.dataManager.set(EntityAnimaniaPeacock.SLEEPTIMER, Float.valueOf(timer));
+		return HANDFED;
 	}
 
 	@Override
@@ -344,37 +322,18 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		}
 	}
 
-	public boolean getFed()
+	@Override
+	public DataParameter<Boolean> getFedParam()
 	{
-		return this.getBoolFromDataManager(FED);
+		return FED;
 	}
 
-	public void setFed(boolean fed)
-	{
-		if (fed)
-		{
-			this.dataManager.set(EntityAnimaniaPeacock.FED, true);
-			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-			this.setHealth(this.getHealth() + 1.0F);
-		}
-		else
-			this.dataManager.set(EntityAnimaniaPeacock.FED, false);
-	}
+	
 
-	public boolean getWatered()
+	@Override
+	public DataParameter<Boolean> getWateredParam()
 	{
-		return this.getBoolFromDataManager(WATERED);
-	}
-
-	public void setWatered(boolean watered)
-	{
-		if (watered)
-		{
-			this.dataManager.set(EntityAnimaniaPeacock.WATERED, true);
-			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		}
-		else
-			this.dataManager.set(EntityAnimaniaPeacock.WATERED, false);
+		return WATERED;
 	}
 
 	protected void fall(float p_70069_1_)
@@ -579,15 +538,9 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	}
 	
 	@Override
-	public void setInteracted(boolean interacted)
+	public DataParameter<Boolean> getInteractedParam()
 	{
-		this.dataManager.set(INTERACTED, interacted);
-	}
-
-	@Override
-	public boolean getInteracted()
-	{
-		return this.getBoolFromDataManager(INTERACTED);
+		return INTERACTED;
 	}
 
 	@Override
@@ -630,6 +583,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	public AnimaniaType getAnimalType()
 	{
 		return type;
+	}
+
+	@Override
+	public DataParameter<Float> getSleepTimerParam()
+	{
+		return SLEEPTIMER;
 	}
 	
 }

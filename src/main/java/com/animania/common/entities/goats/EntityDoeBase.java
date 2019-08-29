@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.goats.GoatAngora.EntityDoeAngora;
@@ -34,6 +35,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
@@ -51,7 +53,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable, IMateable
+public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable, IMateable, IImpregnable
 {
 	protected ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
 	public int dryTimerDoe;
@@ -59,6 +61,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean>createKey(EntityDoeBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityDoeBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityDoeBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityDoeBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	public EntityDoeBase(World worldIn)
 	{
@@ -79,6 +82,8 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		this.dataManager.register(EntityDoeBase.HAS_KIDS, false);
 		this.dataManager.register(EntityDoeBase.FERTILE, true);
 		this.dataManager.register(EntityDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
+		this.dataManager.register(EntityDoeBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
+
 	}
 
 	@Override
@@ -97,6 +102,10 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		compound.setBoolean("HasKids", this.getHasKids());
 		compound.setBoolean("Fertile", this.getFertile());
 		compound.setInteger("Gestation", this.getGestation());
+		if (this.getMateUniqueId() != null)
+		{
+			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		}
 
 	}
 
@@ -110,6 +119,22 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		this.setFertile(compound.getBoolean("Fertile"));
 		this.setGestation(compound.getInteger("Gestation"));
 
+		String s;
+
+		if (compound.hasKey("MateUUID", 8))
+		{
+			s = compound.getString("MateUUID");
+		}
+		else
+		{
+			String s1 = compound.getString("Mate");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		}
+
+		if (!s.isEmpty())
+		{
+			this.setMateUniqueId(UUID.fromString(s));
+		}
 	}
 
 	@Override
@@ -154,68 +179,28 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		return livingdata;
 	}
 
-	public int getGestation()
+	@Override
+	public DataParameter<Integer> getGestationParam()
 	{
-		return this.getIntFromDataManager(GESTATION_TIMER);
+		return GESTATION_TIMER;
 	}
 
-	public void setGestation(int gestation)
+	@Override
+	public DataParameter<Boolean> getPregnantParam()
 	{
-		this.dataManager.set(EntityDoeBase.GESTATION_TIMER, Integer.valueOf(gestation));
+		return PREGNANT;
 	}
 
-	public boolean getPregnant()
+	@Override
+	public DataParameter<Boolean> getFertileParam()
 	{
-		return this.getBoolFromDataManager(PREGNANT);
+		return FERTILE;
 	}
 
-	public void setPregnant(boolean preggers)
+	@Override
+	public DataParameter<Boolean> getHasKidsParam()
 	{
-		if (preggers)
-		{
-			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200));
-		}
-		this.dataManager.set(EntityDoeBase.PREGNANT, Boolean.valueOf(preggers));
-	}
-
-	public boolean getFertile()
-	{
-		return this.getBoolFromDataManager(FERTILE);
-	}
-
-	public void setFertile(boolean fertile)
-	{
-		this.dataManager.set(EntityDoeBase.FERTILE, Boolean.valueOf(fertile));
-	}
-
-	public boolean getHasKids()
-	{
-		return this.getBoolFromDataManager(HAS_KIDS);
-	}
-
-	public void setHasKids(boolean kids)
-	{
-		this.dataManager.set(EntityDoeBase.HAS_KIDS, Boolean.valueOf(kids));
-	}
-
-	@Nullable
-	public UUID getMateUniqueId()
-	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntityDoeBase.MATE_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-
-	}
-
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityDoeBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		return HAS_KIDS;
 	}
 
 	@Override
@@ -466,44 +451,6 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 			return super.processInteract(player, hand);
 	}
 
-	/*
-	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
-	{
-		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
-
-		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && stack.getItem() == Items.BUCKET && this.getHasKids())
-		{
-			player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
-			stack.shrink(1);
-
-			if (stack.getCount() == 0)
-				player.setHeldItem(hand, this.milk.copy());
-			else if (!player.inventory.addItemStackToInventory(this.milk.copy()))
-				player.dropItem(this.milk.copy(), false);
-
-			this.setWatered(false);
-			return true;
-		}
-		else if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
-		{
-			if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-			else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				player.dropItem(new ItemStack(Items.BUCKET), false);
-
-			this.eatTimer = 40;
-			this.entityAIEatGrass.startExecuting();
-			this.setWatered(true);
-			this.setInLove(player);
-			return true;
-		}
-		else
-			return super.processInteract(player, hand);
-	}
-	*/
-
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void handleStatusUpdate(byte id)
@@ -582,5 +529,11 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 			}
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	{
+		return MATE_UNIQUE_ID;
 	}
 }

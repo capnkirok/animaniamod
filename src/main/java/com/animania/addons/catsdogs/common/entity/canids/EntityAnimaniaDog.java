@@ -206,12 +206,6 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 	{
 		return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 2.5F);
 	}
-
-//	@Override
-//	public boolean isTamed()
-//	{
-//		return this.getIsTamed();
-//	}
 	
 	@Override
 	protected void updateAITasks()
@@ -220,62 +214,29 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 		super.updateAITasks();
 	}
 
-	public int getAge()
+	@Override
+	public DataParameter<Integer> getAgeParam()
 	{
-		return this.getIntFromDataManager(AGE);
+		return AGE;
 	}
 
-	public void setAge(int age)
+	@Override
+	public DataParameter<Boolean> getHandFedParam()
 	{
-		this.dataManager.set(AGE, Integer.valueOf(age));
+		return HANDFED;
 	}
 
-	public boolean getHandFed()
+	@Override
+	public DataParameter<Boolean> getSleepingParam()
 	{
-		return this.getBoolFromDataManager(HANDFED);
+		return SLEEPING;
 	}
 
-	public void setHandFed(boolean handfed)
+	@Override
+	public DataParameter<Float> getSleepTimerParam()
 	{
-		this.dataManager.set(HANDFED, Boolean.valueOf(handfed));
+		return SLEEPTIMER;
 	}
-
-	public boolean getSleeping()
-	{
-		return this.getBoolFromDataManager(SLEEPING);
-	}
-
-	public void setSleeping(boolean flag)
-	{
-		if (flag)
-		{
-			this.dataManager.set(SLEEPING, true);
-		}
-		else
-		{
-			this.dataManager.set(SLEEPING, false);
-		}
-	}
-
-	public Float getSleepTimer()
-	{
-		return this.getFloatFromDataManager(SLEEPTIMER);
-	}
-
-	public void setSleepTimer(Float timer)
-	{
-		this.dataManager.set(SLEEPTIMER, Float.valueOf(timer));
-	}
-
-//	public boolean getIsTamed()
-//	{
-//		return this.getBoolFromDataManager(TAMED);
-//	}
-//
-//	public void setIsTamed(boolean tamed)
-//	{
-//		this.dataManager.set(TAMED, Boolean.valueOf(tamed));
-//	}
 
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
@@ -295,61 +256,22 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 		return TEMPTATION_ITEMS.contains(stack.getItem());
 	}
 
-	public boolean getFed()
-	{
-		return this.getBoolFromDataManager(FED);
-	}
-
-	public void setFed(boolean fed)
-	{
-		if (fed)
-		{
-			this.dataManager.set(FED, true);
-			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-			this.setHealth(this.getHealth() + 1.0F);
-		}
-		else
-			this.dataManager.set(FED, false);
-	}
-
-	public boolean getWatered()
-	{
-		return this.getBoolFromDataManager(WATERED);
-	}
-
-	public void setWatered(boolean watered)
-	{
-		if (watered)
-		{
-			this.dataManager.set(WATERED, true);
-			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		}
-		else
-			this.dataManager.set(WATERED, false);
-	}
-
-//	@Override
-//	public boolean isSitting()
-//	{
-//		return this.getBoolFromDataManager(SITTING);
-//	}
-//
-//	@Override
-//	public void setSitting(boolean flag)
-//	{
-//		this.dataManager.set(SITTING, Boolean.valueOf(flag));
-//	}
-
 	@Override
-	public int getVariant()
+	public DataParameter<Boolean> getFedParam()
 	{
-		return this.getIntFromDataManager(VARIANT);
+		return FED;
 	}
 
 	@Override
-	public void setVariant(int i)
+	public DataParameter<Boolean> getWateredParam()
 	{
-		this.dataManager.set(VARIANT, Integer.valueOf(i));
+		return WATERED;
+	}
+	
+	@Override
+	public DataParameter<Integer> getVariantParam()
+	{
+		return VARIANT;
 	}
 
 	@Override
@@ -503,15 +425,9 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 	}
 	
 	@Override
-	public void setInteracted(boolean interacted)
+	public DataParameter<Boolean> getInteractedParam()
 	{
-		this.dataManager.set(INTERACTED, interacted);
-	}
-
-	@Override
-	public boolean getInteracted()
-	{
-		return this.getBoolFromDataManager(INTERACTED);
+		return INTERACTED;
 	}
 
 	@Override
@@ -561,4 +477,6 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 	{
 		return type;
 	}
+
+
 }

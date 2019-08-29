@@ -101,25 +101,6 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 			this.setParentUniqueId(UUID.fromString(s));
 
 	}
-	
-	@Nullable
-	public UUID getParentUniqueId()
-	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntityLambBase.PARENT_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setParentUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityLambBase.PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
 
 	@Override
 	protected SoundEvent getAmbientSound()
@@ -184,11 +165,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F);
 	}
-	
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
-	}
+
 
 	@Override
 	public int getAgeTimer()
@@ -202,10 +179,6 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 		ageTimer = i;
 	}
 	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(EntityLambBase.AGE, Float.valueOf(age));
-	}
 	
 	@Override
 	public void onLivingUpdate()
@@ -305,6 +278,20 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	@Override
 	protected Item getDropItem()
 	{
+		return null;
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		// TODO Auto-generated method stub
 		return null;
 	}
 

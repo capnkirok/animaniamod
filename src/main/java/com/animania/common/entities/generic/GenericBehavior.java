@@ -218,8 +218,6 @@ public class GenericBehavior
 				eatAI.startExecuting();
 			entity.setEatTimer(80);
 
-			entity.heal(1);
-
 			if (entity instanceof EntityTameable)
 			{
 				EntityTameable tame = (EntityTameable) entity;

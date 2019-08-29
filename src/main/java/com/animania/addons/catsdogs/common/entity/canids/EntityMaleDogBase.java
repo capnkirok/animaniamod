@@ -93,23 +93,9 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	}
 
 	@Override
-	@Nullable
-	public UUID getMateUniqueId()
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
 	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(MATE_UNIQUE_ID)).orNull();
-			return id;
-		} catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	@Override
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		return MATE_UNIQUE_ID;
 	}
 
 	// TODO: SOUNDS
@@ -234,15 +220,9 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	}
 
 	@Override
-	public boolean getSterilized()
+	public DataParameter<Boolean> getSterilizedParam()
 	{
-		return this.getBoolFromDataManager(STERILIZED);
-	}
-
-	@Override
-	public void setSterilized(boolean sterilized)
-	{
-		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
+		return STERILIZED;
 	}
 
 	@Override

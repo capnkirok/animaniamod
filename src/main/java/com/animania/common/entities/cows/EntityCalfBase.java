@@ -112,22 +112,6 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	}
 
-	@Nullable
-	public UUID getParentUniqueId()
-	{
-		return getUUIDFromDataManager(PARENT_UNIQUE_ID);
-	}
-
-	public void setParentUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityCalfBase.PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
-	}
-
 	@Override
 	public int getAgeTimer()
 	{
@@ -138,11 +122,6 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public void setAgeTimer(int i)
 	{
 		ageTimer = i;
-	}
-	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(EntityCalfBase.AGE, Float.valueOf(age));
 	}
 
 	@Override
@@ -286,5 +265,17 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public EntityCalfBase createChild(EntityAgeable e)
 	{
 		return null;
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	{
+		return PARENT_UNIQUE_ID;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		return AGE;
 	}
 }

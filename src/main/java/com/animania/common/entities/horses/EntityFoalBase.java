@@ -253,28 +253,10 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		}
 	}
 
-	@Nullable
-	public UUID getParentUniqueId()
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
 	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntityFoalBase.PARENT_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setParentUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
+		return EntityFoalBase.PARENT_UNIQUE_ID;
 	}
 
 	@Override
@@ -287,11 +269,6 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public void setAgeTimer(int i)
 	{
 		ageTimer = i;
-	}
-
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(AGE, Float.valueOf(age));
 	}
 
 	public ResourceLocation getResourceLocation()
@@ -367,6 +344,12 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public EntityFoalBase createChild(EntityAgeable p_90011_1_)
 	{
 		return null;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		return AGE;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.animania.Animania;
 import com.animania.api.interfaces.IFoodEating;
+import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.api.interfaces.ISterilizable;
@@ -16,7 +17,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
-public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & ISleeping, O extends EntityCreature & IMateable & IFoodEating & ISleeping> extends EntityAIBase
+public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & ISleeping, O extends EntityCreature & IMateable & IFoodEating & ISleeping & IImpregnable> extends EntityAIBase
 {
 	private final T entity;
 	World theWorld;

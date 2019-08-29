@@ -302,34 +302,22 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		GenericBehavior.readCommonNBT(compound, this);
 	}
 
-	public int getAge()
+	@Override
+	public DataParameter<Integer> getAgeParam()
 	{
-		return this.getIntFromDataManager(AGE);
+		return AGE;
 	}
 
-	public void setAge(int age)
+	@Override
+	public DataParameter<Boolean> getSleepingParam()
 	{
-		this.dataManager.set(AGE, Integer.valueOf(age));
+		return SLEEPING;
 	}
 
-	public boolean getSleeping()
+	@Override
+	public DataParameter<Float> getSleepTimerParam()
 	{
-		return this.getBoolFromDataManager(SLEEPING);
-	}
-
-	public void setSleeping(boolean flag)
-	{
-		this.dataManager.set(EntityFerretBase.SLEEPING, flag);
-	}
-
-	public Float getSleepTimer()
-	{
-		return this.getFloatFromDataManager(SLEEPTIMER);
-	}
-
-	public void setSleepTimer(Float timer)
-	{
-		this.dataManager.set(EntityFerretBase.SLEEPTIMER, Float.valueOf(timer));
+		return SLEEPTIMER;
 	}
 
 
@@ -510,37 +498,18 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			this.dataManager.set(EntityFerretBase.RIDING, false);
 	}
 
-	public boolean getFed()
+	@Override
+	public DataParameter<Boolean> getFedParam()
 	{
-		return this.getBoolFromDataManager(FED);
+		return FED;
 	}
 
-	public void setFed(boolean fed)
-	{
-		if (fed)
-		{
-			this.dataManager.set(EntityFerretBase.FED, true);
-			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-			this.setHealth(this.getHealth() + 1.0F);
-		}
-		else
-			this.dataManager.set(EntityFerretBase.FED, false);
-	}
+	
 
-	public boolean getWatered()
+	@Override
+	public DataParameter<Boolean> getWateredParam()
 	{
-		return this.getBoolFromDataManager(WATERED);
-	}
-
-	public void setWatered(boolean watered)
-	{
-		if (watered)
-		{
-			this.dataManager.set(EntityFerretBase.WATERED, true);
-			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		}
-		else
-			this.dataManager.set(EntityFerretBase.WATERED, false);
+		return WATERED;
 	}
 
 //	public boolean getIsTamed()
@@ -601,14 +570,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	@Override
 	public int getPrimaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getSecondaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -618,19 +585,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		return EntityGender.NONE;
 	}
 
-	
-
-	@Override
-	public void setHandFed(boolean handfed)
-	{
-		setFed(handfed);
-	}
-
-	@Override
-	public boolean getHandFed()
-	{
-		return getFed();
-	}
 
 	@Override
 	public Set<Item> getFoodItems()
@@ -690,15 +644,9 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	}
 	
 	@Override
-	public void setInteracted(boolean interacted)
+	public DataParameter<Boolean> getInteractedParam()
 	{
-		this.dataManager.set(INTERACTED, interacted);
-	}
-
-	@Override
-	public boolean getInteracted()
-	{
-		return this.getBoolFromDataManager(INTERACTED);
+		return INTERACTED;
 	}
 
 	@Override
@@ -741,5 +689,11 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public AnimaniaType getAnimalType()
 	{
 		return type;
+	}
+
+	@Override
+	public DataParameter<Boolean> getHandFedParam()
+	{
+		return null;
 	}
 }

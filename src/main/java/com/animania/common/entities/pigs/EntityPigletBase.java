@@ -111,25 +111,6 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 
 	}
 
-	@Nullable
-	public UUID getParentUniqueId()
-	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntityPigletBase.PARENT_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setParentUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityPigletBase.PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
@@ -200,11 +181,6 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F);
 	}
 
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
-	}
-
 	@Override
 	public int getAgeTimer()
 	{
@@ -215,11 +191,6 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	public void setAgeTimer(int i)
 	{
 		ageTimer = i;
-	}
-	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(EntityPigletBase.AGE, Float.valueOf(age));
 	}
 
 	@Override
@@ -295,6 +266,18 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	        	probeInfo.text(TextFormatting.YELLOW + I18n.translateToLocal("text.waila.bored"));
 		 
 		TOPInfoProviderChild.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	{
+		return PARENT_UNIQUE_ID;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		return AGE;
 	}
 
 }

@@ -39,8 +39,6 @@ public class EntityPuppyBase extends EntityAnimaniaDog  implements TOPInfoProvid
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
 		this.tasks.addTask(1, new GenericAIFollowParents<EntityPuppyBase, EntityFemaleDogBase>(this, 1.1D, EntityFemaleDogBase.class));
-
-
 	}
 	
 	@Override
@@ -96,30 +94,6 @@ public class EntityPuppyBase extends EntityAnimaniaDog  implements TOPInfoProvid
 			this.setParentUniqueId(UUID.fromString(s));
 
 	}
-	
-	@Nullable
-	public UUID getParentUniqueId()
-	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(PARENT_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setParentUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
-	}
 
 	@Override
 	public int getAgeTimer()
@@ -132,12 +106,6 @@ public class EntityPuppyBase extends EntityAnimaniaDog  implements TOPInfoProvid
 	{
 		ageTimer = i;
 	}
-	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(AGE, Float.valueOf(age));
-	}
-
 	
 	//TODO: SOUND
 	@Override
@@ -164,6 +132,18 @@ public class EntityPuppyBase extends EntityAnimaniaDog  implements TOPInfoProvid
 		GenericBehavior.livingUpdateChild(this, null);
 
 		super.onLivingUpdate();
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	{
+		return PARENT_UNIQUE_ID;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		return AGE;
 	}
 
 	

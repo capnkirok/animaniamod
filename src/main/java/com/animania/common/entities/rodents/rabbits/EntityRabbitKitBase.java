@@ -102,25 +102,6 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 
 	}
 
-	@Nullable
-	public UUID getParentUniqueId()
-	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntityRabbitKitBase.PARENT_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setParentUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityRabbitKitBase.PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
@@ -175,10 +156,6 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch() + .2F);
 	}
 
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
-	}
 
 	@Override
 	public int getAgeTimer()
@@ -190,11 +167,6 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	public void setAgeTimer(int i)
 	{
 		ageTimer = i;
-	}
-	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(EntityRabbitKitBase.AGE, Float.valueOf(age));
 	}
 
 	@Override
@@ -250,6 +222,18 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected Item getDropItem()
 	{
 		return null;
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	{
+		return PARENT_UNIQUE_ID;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		return AGE;
 	}
 
 }
