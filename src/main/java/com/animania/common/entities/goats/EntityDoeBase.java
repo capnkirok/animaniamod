@@ -98,10 +98,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setBoolean("Pregnant", this.getPregnant());
-		compound.setBoolean("HasKids", this.getHasKids());
-		compound.setBoolean("Fertile", this.getFertile());
-		compound.setInteger("Gestation", this.getGestation());
+
 		if (this.getMateUniqueId() != null)
 		{
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
@@ -114,10 +111,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	{
 		super.readEntityFromNBT(compound);
 
-		this.setPregnant(compound.getBoolean("Pregnant"));
-		this.setHasKids(compound.getBoolean("HasKids"));
-		this.setFertile(compound.getBoolean("Fertile"));
-		this.setGestation(compound.getInteger("Gestation"));
+		
 
 		String s;
 

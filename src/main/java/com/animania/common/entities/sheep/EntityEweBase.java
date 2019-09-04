@@ -65,7 +65,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	public EntityEweBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.0F, 1.0F); 
+		this.setSize(1.0F, 1.0F);
 		this.width = 1.0F;
 		this.height = 1.0F;
 		this.stepHeight = 1.1F;
@@ -81,9 +81,9 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			return null;
 
 		List<EntityAnimaniaSheep> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 64, this.world, this.getPosition());
-		
-		if (others.size() <= 4 ) {
 
+		if (others.size() <= 4)
+		{
 
 			int chooser = this.rand.nextInt(3);
 
@@ -142,10 +142,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		{
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
 		}
-		compound.setBoolean("Pregnant", this.getPregnant());
-		compound.setBoolean("HasKids", this.getHasKids());
-		compound.setBoolean("Fertile", this.getFertile());
-		compound.setInteger("Gestation", this.getGestation());
+
 
 	}
 
@@ -165,12 +162,10 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			String s1 = compound.getString("Mate");
 			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
 		}
-		this.setMateUniqueId(UUID.fromString(s));
+		if (!s.isEmpty())
+			this.setMateUniqueId(UUID.fromString(s));
+
 		
-		this.setPregnant(compound.getBoolean("Pregnant"));
-		this.setHasKids(compound.getBoolean("HasKids"));
-		this.setFertile(compound.getBoolean("Fertile"));
-		this.setGestation(compound.getInteger("Gestation"));
 
 	}
 
@@ -179,8 +174,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	{
 		return GESTATION_TIMER;
 	}
-	
-	
+
 	@Override
 	public DataParameter<Boolean> getFertileParam()
 	{
@@ -265,11 +259,14 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!this.getFertile() && this.dryTimer > -1) {
+		if (!this.getFertile() && this.dryTimer > -1)
+		{
 			this.dryTimer--;
-		} else {
+		}
+		else
+		{
 			this.setFertile(true);
-			this.dryTimer = AnimaniaConfig.careAndFeeding.gestationTimer/9 + rand.nextInt(50);
+			this.dryTimer = AnimaniaConfig.careAndFeeding.gestationTimer / 9 + rand.nextInt(50);
 		}
 
 		if (this.blinkTimer > -1)
@@ -320,12 +317,13 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			if (gestationTimer == 0)
 			{
 
-
-				List list = this.world.loadedEntityList;	
+				List list = this.world.loadedEntityList;
 				int sheepCount = 0;
 				int num = 0;
-				for (int i = 0; i < list.size(); i++) {
-					if (list.get(i) instanceof EntityAnimaniaSheep) {
+				for (int i = 0; i < list.size(); i++)
+				{
+					if (list.get(i) instanceof EntityAnimaniaSheep)
+					{
 						num++;
 					}
 				}
@@ -338,7 +336,8 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				for (int k = 0; k <= esize - 1; k++)
 				{
 					EntityRamBase entity = (EntityRamBase) entities.get(k);
-					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID))  {
+					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID))
+					{
 
 						this.setInLove(null);
 						SheepType maleType = ((EntityAnimaniaSheep) entity).sheepType;
@@ -365,18 +364,20 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					}
 				}
 
-				if (!mateFound && this.getFed() && this.getWatered()) {
+				if (!mateFound && this.getFed() && this.getWatered())
+				{
 
 					this.setInLove(null);
 					SheepType babyType = sheepType.breed(this.sheepType, this.sheepType);
 					EntityLambBase entityKid = babyType.getChild(world);
 					entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
-					if (!world.isRemote) {
+					if (!world.isRemote)
+					{
 						this.world.spawnEntity(entityKid);
 					}
 
 					entityKid.setParentUniqueId(this.getPersistentID());
-					this.playSound(ModSoundEvents.lambLiving1, 0.50F, 1.1F); //TODO
+					this.playSound(ModSoundEvents.lambLiving1, 0.50F, 1.1F); // TODO
 
 					this.setPregnant(false);
 					this.setFertile(false);
@@ -388,7 +389,9 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 				}
 			}
-		} else if (gestationTimer < 0){
+		}
+		else if (gestationTimer < 0)
+		{
 			this.setGestation(100);
 		}
 		super.onLivingUpdate();
@@ -409,13 +412,14 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			FluidActionResult result;
 			result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(milk.copy()), 1000, player, true);
 
-			ItemStack filled;;
+			ItemStack filled;
+			;
 			if (!result.success)
 			{
 				Item item = stack.getItem();
 				if (item == Items.BUCKET)
 					filled = milk.copy();
-				else if(Loader.isModLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
+				else if (Loader.isModLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
 					filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 				else
 					return false;
@@ -472,7 +476,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		if (player.isSneaking())
 		{
 
-			if (this.getMateUniqueId() != null) 
+			if (this.getMateUniqueId() != null)
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
 
 			if (this.getHasKids())
@@ -481,32 +485,35 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			if (this.getFertile() && !this.getPregnant())
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.fertile1"));
-			} 
+			}
 
 			if (this.getPregnant())
 			{
-				if (this.getGestation() > 0) {
+				if (this.getGestation() > 0)
+				{
 					int bob = this.getGestation();
-					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
-				} else {
+					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
+				}
+				else
+				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
 			}
 
 			if (this.getSheared())
 			{
-				if (this.getWoolRegrowthTimer() > 1) {
+				if (this.getWoolRegrowthTimer() > 1)
+				{
 					int bob = this.getWoolRegrowthTimer();
-					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
-				} 
-			}  else if (!this.getSheared()) {
+					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")");
+				}
+			}
+			else if (!this.getSheared())
+			{
 				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
 			}
 
-
-
 		}
-
 
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}

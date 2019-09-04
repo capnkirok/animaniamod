@@ -149,8 +149,12 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
 	{
 
-		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
-
+		TileEntity tile = worldIn.getTileEntity(pos);
+		if(!(tile instanceof TileEntityTrough))
+			return;
+		
+		TileEntityTrough te = (TileEntityTrough) tile;
+		
 		if (entityIn != null && entityIn instanceof EntityItem && !worldIn.isRemote)
 		{
 

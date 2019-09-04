@@ -35,6 +35,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
@@ -139,7 +140,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		boolean flag = false;
 		if (this.canEntityBeSeen(entityIn) && this.getDistance(entityIn) <= 2.0F)
 		{
-			flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 5.0F);
+			flag = entityIn.attackEntityFrom(new EntityDamageSource("bull", this), 5.0F);
 
 			if (flag)
 				this.applyEnchantments(this, entityIn);
@@ -298,9 +299,8 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		super.writeEntityToNBT(compound);
 		UUID mate = this.getMateUniqueId();
 		if (mate != null)
-			if (this.getMateUniqueId() != null)
-				compound.setString("MateUUID", this.getMateUniqueId().toString());
-		
+			compound.setString("MateUUID", mate.toString());
+
 		compound.setBoolean("Fighting", this.getFighting());
 
 	}
@@ -310,18 +310,6 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	{
 		super.readEntityFromNBT(compound);
 
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-		if (!s.isEmpty())
-			this.setMateUniqueId(UUID.fromString(s));
-		
 		this.setFighting(compound.getBoolean("Fighting"));
 
 	}
@@ -345,20 +333,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		return STERILIZED;
 	}
 
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
-	{
-		compound.setBoolean("Sterilized", getSterilized());
-		return super.writeToNBT(compound);
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		this.setSterilized(compound.getBoolean("Sterilized"));
-		super.readFromNBT(compound);
-	}
-
+	
 	@Override
 	public void sterilize()
 	{

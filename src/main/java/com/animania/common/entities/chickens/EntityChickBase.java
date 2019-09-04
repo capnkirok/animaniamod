@@ -60,7 +60,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setFloat("Age", this.getEntityAge());
+
 
 	}
 
@@ -68,7 +68,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readEntityFromNBT(nbttagcompound);
-		this.setEntityAge(nbttagcompound.getFloat("Age"));
+		
 
 	}
 

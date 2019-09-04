@@ -103,6 +103,7 @@ public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleepi
 						if (eatAI != null)
 							eatAI.startExecuting();
 						entity.setWatered(true);
+						entity.setInteracted(true);
 
 						this.waterFindTimer = 0;
 					}

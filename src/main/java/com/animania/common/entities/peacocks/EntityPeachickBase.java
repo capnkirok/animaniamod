@@ -55,7 +55,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setFloat("Age", this.getEntityAge());
+
 
 	}
 
@@ -63,7 +63,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readEntityFromNBT(nbttagcompound);
-		this.setEntityAge(nbttagcompound.getFloat("Age"));
+		
 
 	}
 

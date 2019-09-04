@@ -133,6 +133,7 @@ import com.animania.client.render.tileEntity.TileEntityTroughRenderer;
 import com.animania.common.entities.amphibians.EntityDartFrogs;
 import com.animania.common.entities.amphibians.EntityFrogs;
 import com.animania.common.entities.amphibians.EntityToad;
+import com.animania.common.entities.chickens.ChickenLeghorn.EntityChickLeghorn;
 import com.animania.common.entities.chickens.ChickenLeghorn.EntityHenLeghorn;
 import com.animania.common.entities.chickens.ChickenLeghorn.EntityRoosterLeghorn;
 import com.animania.common.entities.chickens.ChickenOrpington.EntityChickOrpington;
@@ -417,7 +418,7 @@ public class RenderHandler
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityHenLeghorn.class, RenderHenBase.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityRoosterLeghorn.class, RenderRoosterBase.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityChickWyandotte.class, RenderChickBase.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityChickLeghorn.class, RenderChickBase.FACTORY);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityHenOrpington.class, RenderHenBase.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityRoosterOrpington.class, RenderRoosterBase.FACTORY);

@@ -40,6 +40,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -99,44 +100,6 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-		compound.setBoolean("Pregnant", this.getPregnant());
-		compound.setBoolean("HasKids", this.getHasKids());
-		compound.setBoolean("Fertile", this.getFertile());
-		compound.setInteger("Gestation", this.getGestation());
-
-		UUID mate = this.getMateUniqueId();
-		if (mate != null)
-			if (this.getMateUniqueId() != null)
-				compound.setString("MateUUID", this.getMateUniqueId().toString());
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-
-		this.setPregnant(compound.getBoolean("Pregnant"));
-		this.setHasKids(compound.getBoolean("HasKids"));
-		this.setFertile(compound.getBoolean("Fertile"));
-		this.setGestation(compound.getInteger("Gestation"));
-
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-		if (!s.isEmpty())
-			this.setMateUniqueId(UUID.fromString(s));
-	}
-
-	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
 
@@ -150,7 +113,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		boolean flag = false;
 		if (this.canEntityBeSeen(entityIn) && this.getDistance(entityIn) <= 2.0F)
 		{
-			flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 2.0F);
+			flag = entityIn.attackEntityFrom(new EntityDamageSource("bull", this), 2.0F);
 
 			if (flag)
 				this.applyEnchantments(this, entityIn);

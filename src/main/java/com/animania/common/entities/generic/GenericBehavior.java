@@ -1,6 +1,7 @@
 package com.animania.common.entities.generic;
 
 import java.util.Random;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
@@ -10,7 +11,10 @@ import com.animania.api.interfaces.IAnimaniaAnimal;
 import com.animania.api.interfaces.IBlinking;
 import com.animania.api.interfaces.IChild;
 import com.animania.api.interfaces.IFoodEating;
+import com.animania.api.interfaces.IImpregnable;
+import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISleeping;
+import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
@@ -36,7 +40,7 @@ public class GenericBehavior
 
 	public static <T extends EntityAnimal & IFoodEating & ISleeping & IAgeable & IBlinking> void livingUpdateCommon(T entity)
 	{
-		if (entity.world.isRemote && (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? entity.getInteracted() : true))
+		if (entity.world.isRemote)
 			entity.setEatTimer(Math.max(0, entity.getEatTimer() - 1));
 
 		if (entity.getLeashed() && entity.getSleeping())
@@ -45,7 +49,6 @@ public class GenericBehavior
 		if (entity.getLeashed() && !entity.getInteracted())
 		{
 			entity.setInteracted(true);
-			;
 		}
 
 		if (entity.getAge() == 0)
@@ -57,7 +60,8 @@ public class GenericBehavior
 
 		if (fedTimer > -1 && (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? entity.getInteracted() : true) && !AnimaniaConfig.gameRules.ambianceMode)
 		{
-			entity.setFedTimer(fedTimer--);
+			fedTimer--;
+			entity.setFedTimer(fedTimer);
 
 			if (fedTimer == 0)
 				entity.setFed(false);
@@ -67,7 +71,8 @@ public class GenericBehavior
 
 		if (wateredTimer > -1)
 		{
-			entity.setWaterTimer(wateredTimer--);
+			wateredTimer--;
+			entity.setWaterTimer(wateredTimer);
 
 			if (wateredTimer == 0 && (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? entity.getInteracted() : true) && !AnimaniaConfig.gameRules.ambianceMode)
 				entity.setWatered(false);
@@ -88,7 +93,8 @@ public class GenericBehavior
 					entity.attackEntityFrom(DamageSource.STARVE, 4f);
 					entity.setDamageTimer(0);
 				}
-				entity.setDamageTimer(damageTimer++);
+				damageTimer++;
+				entity.setDamageTimer(damageTimer);
 			}
 
 		}
@@ -99,7 +105,8 @@ public class GenericBehavior
 
 		if (happyTimer > -1)
 		{
-			entity.setHappyTimer(happyTimer--);
+			happyTimer--;
+			entity.setHappyTimer(happyTimer);
 			if (happyTimer == 0)
 			{
 				entity.setHappyTimer(60);
@@ -118,7 +125,8 @@ public class GenericBehavior
 
 		if (blinkTimer > -1)
 		{
-			entity.setBlinkTimer(blinkTimer--);
+			blinkTimer--;
+			entity.setBlinkTimer(blinkTimer);
 			if (blinkTimer == 0)
 			{
 				entity.setBlinkTimer(100 + rand.nextInt(100));
@@ -136,7 +144,8 @@ public class GenericBehavior
 
 		int ageTimer = entity.getAgeTimer();
 
-		entity.setAgeTimer(ageTimer++);
+		ageTimer++;
+		entity.setAgeTimer(ageTimer);
 
 		if (ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
 			if (fed && watered)
@@ -187,8 +196,6 @@ public class GenericBehavior
 		if (!entity.getInteracted())
 			entity.setInteracted(true);
 		
-		System.out.println(entity.getClass());
-
 		ItemStack stack = player.getHeldItem(hand);
 
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !entity.getSleeping())
@@ -264,6 +271,37 @@ public class GenericBehavior
 		tag.setInteger("Age", entity.getAge());
 		tag.setBoolean("Sleep", entity.getSleeping());
 		tag.setFloat("SleepTimer", entity.getSleepTimer());
+		
+		if(entity instanceof IImpregnable)
+		{
+			IImpregnable preg = (IImpregnable) entity;
+			tag.setBoolean("Pregnant", preg.getPregnant());
+			tag.setBoolean("HasKids", preg.getHasKids());
+			tag.setBoolean("Fertile", preg.getFertile());
+			tag.setInteger("Gestation", preg.getGestation());
+		}
+		
+		if(entity instanceof IMateable)
+		{
+			IMateable mateable = (IMateable) entity;
+			UUID mate = mateable.getMateUniqueId();
+			if (mate != null)
+				tag.setString("MateUUID", mate.toString());
+		}
+		
+		if(entity instanceof ISterilizable)
+		{
+			tag.setBoolean("Sterilized", ((ISterilizable) entity).getSterilized());
+		}
+		
+		if(entity instanceof IChild)
+		{
+			IChild child = (IChild) entity;
+
+			tag.setFloat("Age", child.getEntityAge());
+			if (child.getParentUniqueId() != null)
+				tag.setString("ParentUUID", child.getParentUniqueId().toString());
+		}
 	}
 
 	public static <T extends EntityAnimal & IFoodEating & ISleeping & IAgeable> void readCommonNBT(NBTTagCompound tag, T entity)
@@ -275,6 +313,46 @@ public class GenericBehavior
 		entity.setAge(tag.getInteger("Age"));
 		entity.setSleeping(tag.getBoolean("Sleep"));
 		entity.setSleepTimer(tag.getFloat("SleepTimer"));
+		
+		if(entity instanceof IImpregnable)
+		{
+			IImpregnable preg = (IImpregnable) entity;
+			preg.setPregnant(tag.getBoolean("Pregnant"));
+			preg.setHasKids(tag.getBoolean("HasKids"));
+			preg.setFertile(tag.getBoolean("Fertile"));
+			preg.setGestation(tag.getInteger("Gestation"));
+		}
+		
+		if(entity instanceof IMateable)
+		{
+			IMateable mateable = (IMateable) entity;
+
+			String s = "";
+			if (tag.hasKey("MateUUID"))
+				s = tag.getString("MateUUID");
+			
+			if (!s.isEmpty())
+				mateable.setMateUniqueId(UUID.fromString(s));
+		}
+		
+		if(entity instanceof ISterilizable)
+		{
+			((ISterilizable) entity).setSterilized(tag.getBoolean("Sterilized"));
+		}
+		
+		if(entity instanceof IChild)
+		{
+			IChild child = (IChild) entity;
+			String s = "";
+			if (tag.hasKey("ParentUUID"))
+				s = tag.getString("ParentUUID");
+			
+			if (!s.isEmpty())
+				child.setParentUniqueId(UUID.fromString(s));
+			
+			child.setEntityAge(tag.getFloat("Age"));
+		}
+		
 	}
 	
 	public static SoundEvent getRandomSound(SoundEvent... sounds)
@@ -289,13 +367,14 @@ public class GenericBehavior
 	{
 		if(sounds == null || sounds.length == 0)
 			return null;
-		
-		int num = 24;
+
+		int len = sounds.length * 8;
+		int num = len;
 
 		if (entity.getWatered())
-			num -= 8;
+			num -= len/3;
 		if (entity.getFed())
-			num -= 8;
+			num -= len/3;
 
 		if(entity.getSleeping())
 			return null;

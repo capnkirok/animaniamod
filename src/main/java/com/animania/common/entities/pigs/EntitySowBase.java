@@ -10,6 +10,7 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
 import com.animania.config.AnimaniaConfig;
@@ -169,42 +170,6 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null)
-			compound.setString("MateUUID", this.getMateUniqueId().toString());
-
-		compound.setBoolean("Pregnant", this.getPregnant());
-		compound.setBoolean("HasKids", this.getHasKids());
-		compound.setBoolean("Fertile", this.getFertile());
-		compound.setInteger("Gestation", this.getGestation());
-
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
-		this.setPregnant(compound.getBoolean("Pregnant"));
-		this.setHasKids(compound.getBoolean("HasKids"));
-		this.setFertile(compound.getBoolean("Fertile"));
-		this.setGestation(compound.getInteger("Gestation"));
-
-	}
-
-	@Override
 	public DataParameter<Integer> getGestationParam()
 	{
 		return GESTATION_TIMER;
@@ -237,73 +202,19 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 10;
-		else if (happy == 1)
-			num = 20;
-		else
-			num = 40;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.pig1;
-		else if (chooser == 1)
-			return ModSoundEvents.pig2;
-		else if (chooser == 2)
-			return ModSoundEvents.pig4;
-		else if (chooser == 3)
-			return ModSoundEvents.pig5;
-		else if (chooser == 4)
-			return ModSoundEvents.pig6;
-		else if (chooser == 5)
-			return ModSoundEvents.pig7;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.pig1, ModSoundEvents.pig2, ModSoundEvents.pig4, ModSoundEvents.pig5, ModSoundEvents.pig6, ModSoundEvents.pig7);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
-		else
-			return ModSoundEvents.pig3;
+		return GenericBehavior.getRandomSound(ModSoundEvents.pigHurt1, ModSoundEvents.pigHurt2, ModSoundEvents.pig3);
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
-		else
-			return ModSoundEvents.pig3;
-	}
-
-	@Override
-	public void playLivingSound()
-	{
-		SoundEvent soundevent = this.getAmbientSound();
-
-		if (soundevent != null && !this.getSleeping())
-			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
+		return GenericBehavior.getRandomSound(ModSoundEvents.pigHurt1, ModSoundEvents.pigHurt2, ModSoundEvents.pig3);
 	}
 
 	@Override
@@ -323,68 +234,64 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	public void fall(float distance, float damageMultiplier)
 	{
 		super.fall(distance, damageMultiplier);
-
-		//		if (distance > 5.0F)
-		//			for (EntityPlayer entityplayer : this.getRecursivePassengersByType(EntityPlayer.class))
-		//				entityplayer.addStat(AchievementList.FLY_PIG);
 	}
 
-	@Override
-	public void travel(float strafe, float forward, float friction)
-	{
-		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
-
-		if (this.isBeingRidden() && this.canBeSteered())
-		{
-			this.rotationYaw = entity.rotationYaw;
-			this.prevRotationYaw = this.rotationYaw;
-			this.rotationPitch = entity.rotationPitch * 0.5F;
-			this.setRotation(this.rotationYaw, this.rotationPitch);
-			this.renderYawOffset = this.rotationYaw;
-			this.rotationYawHead = this.rotationYaw;
-			this.stepHeight = 1.0F;
-			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
-
-			if (this.canPassengerSteer())
-			{
-				float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.5F;
-
-				if (this.boosting)
-				{
-					if (this.boostTime++ > this.totalBoostTime)
-						this.boosting = false;
-
-					f += f * 1.15F * MathHelper.sin((float) this.boostTime / (float) this.totalBoostTime * (float) Math.PI);
-				}
-
-				this.setAIMoveSpeed(f);
-				super.travel(0.0f, 1.0f, 0.0f);
-			}
-			else
-			{
-				this.motionX = 0.0D;
-				this.motionY = 0.0D;
-				this.motionZ = 0.0D;
-			}
-
-			this.prevLimbSwingAmount = this.limbSwingAmount;
-			double d1 = this.posX - this.prevPosX;
-			double d0 = this.posZ - this.prevPosZ;
-			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
-
-			if (f1 > 1.0F)
-				f1 = 1.0F;
-
-			this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
-			this.limbSwing += this.limbSwingAmount;
-		}
-		else
-		{
-			this.stepHeight = 1.0F;
-			this.jumpMovementFactor = 0.02F;
-			super.travel(strafe, forward, 0.0f);
-		}
-	}
+//	@Override
+//	public void travel(float strafe, float forward, float friction)
+//	{
+//		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
+//
+//		if (this.isBeingRidden() && this.canBeSteered())
+//		{
+//			this.rotationYaw = entity.rotationYaw;
+//			this.prevRotationYaw = this.rotationYaw;
+//			this.rotationPitch = entity.rotationPitch * 0.5F;
+//			this.setRotation(this.rotationYaw, this.rotationPitch);
+//			this.renderYawOffset = this.rotationYaw;
+//			this.rotationYawHead = this.rotationYaw;
+//			this.stepHeight = 1.0F;
+//			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
+//
+//			if (this.canPassengerSteer())
+//			{
+//				float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.5F;
+//
+//				if (this.boosting)
+//				{
+//					if (this.boostTime++ > this.totalBoostTime)
+//						this.boosting = false;
+//
+//					f += f * 1.15F * MathHelper.sin((float) this.boostTime / (float) this.totalBoostTime * (float) Math.PI);
+//				}
+//
+//				this.setAIMoveSpeed(f);
+//				super.travel(0.0f, 1.0f, 0.0f);
+//			}
+//			else
+//			{
+//				this.motionX = 0.0D;
+//				this.motionY = 0.0D;
+//				this.motionZ = 0.0D;
+//			}
+//
+//			this.prevLimbSwingAmount = this.limbSwingAmount;
+//			double d1 = this.posX - this.prevPosX;
+//			double d0 = this.posZ - this.prevPosZ;
+//			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+//
+//			if (f1 > 1.0F)
+//				f1 = 1.0F;
+//
+//			this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
+//			this.limbSwing += this.limbSwingAmount;
+//		}
+//		else
+//		{
+//			this.stepHeight = 1.0F;
+//			this.jumpMovementFactor = 0.02F;
+//			super.travel(strafe, forward, 0.0f);
+//		}
+//	}
 
 	@Override
 	public void onLivingUpdate()

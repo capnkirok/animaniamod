@@ -68,7 +68,7 @@ public class EntityPuppyBase extends EntityAnimaniaDog  implements TOPInfoProvid
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setFloat("Age", this.getEntityAge());
+
 		if (this.getParentUniqueId() != null)
 			if (this.getParentUniqueId() != null)
 				compound.setString("ParentUUID", this.getParentUniqueId().toString());
@@ -79,19 +79,8 @@ public class EntityPuppyBase extends EntityAnimaniaDog  implements TOPInfoProvid
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-		this.setEntityAge(compound.getFloat("Age"));
-		String s;
-
-		if (compound.hasKey("ParentUUID", 8))
-			s = compound.getString("ParentUUID");
-		else
-		{
-			String s1 = compound.getString("Parent");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
-		if (!s.isEmpty())
-			this.setParentUniqueId(UUID.fromString(s));
+		
+		
 
 	}
 

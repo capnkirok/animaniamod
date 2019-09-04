@@ -152,10 +152,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setBoolean("Pregnant", this.getPregnant());
-		compound.setBoolean("HasKids", this.getHasKids());
-		compound.setBoolean("Fertile", this.getFertile());
-		compound.setInteger("Gestation", this.getGestation());
+
 		if (this.getMateUniqueId() != null)
 		{
 			compound.setString("MateUUID", this.getMateUniqueId().toString());
@@ -185,10 +182,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			this.setMateUniqueId(UUID.fromString(s));
 		}
 		
-		this.setPregnant(compound.getBoolean("Pregnant"));
-		this.setHasKids(compound.getBoolean("HasKids"));
-		this.setFertile(compound.getBoolean("Fertile"));
-		this.setGestation(compound.getInteger("Gestation"));
+		
 
 	}
 

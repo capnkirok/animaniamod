@@ -126,6 +126,7 @@ public class LayerBlinking<E extends EntityLivingBase> implements LayerRenderer
 
 			this.render.bindTexture(left);
 			GlStateManager.enableRescaleNormal();
+			GlStateManager.enableCull();
 			GlStateManager.color(rgb[0], rgb[1], rgb[2], 1.0F);
 
 			if (this.render.getMainModel() instanceof IColoredModel)
@@ -157,6 +158,7 @@ public class LayerBlinking<E extends EntityLivingBase> implements LayerRenderer
 
 			this.render.getMainModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 			GlStateManager.color(1f, 1f, 1f);
+			GlStateManager.disableCull();
 			GlStateManager.popMatrix();
 		}
 

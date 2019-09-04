@@ -100,23 +100,25 @@ public class EntityComponent implements IManualComponent
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
+		if (currentEntity != null)
+		{
+			int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
+			GlStateManager.pushMatrix();
+			GlStateManager.color(1, 1, 1);
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
+			RenderHelper.enableStandardItemLighting();
 
-		int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
-		GlStateManager.pushMatrix();
-		GlStateManager.color(1, 1, 1);
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
-		RenderHelper.enableStandardItemLighting();
+			int size = 10;
 
-		int size = 10;
-
-		GlStateManager.scale(multiplier[index], multiplier[index], multiplier[index]);
-		GlStateManager.translate((manual.guiLeft + absoluteX + manual.MANUAL_MAX_X / 2) / (multiplier[index]), (manual.guiTop + absoluteY + 27) / (multiplier[index]), 2);
-		GlStateManager.rotate(180, 0f, 0, 1f);
-		GlStateManager.rotate(360 * RenderAnimatedEgg.renderTimer, 0, 1f, 0);
-		renderEntityStatic(currentEntity);
-		GlStateManager.disableLighting();
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240f, 240f);
-		GlStateManager.popMatrix();
+			GlStateManager.scale(multiplier[index], multiplier[index], multiplier[index]);
+			GlStateManager.translate((manual.guiLeft + absoluteX + manual.MANUAL_MAX_X / 2) / (multiplier[index]), (manual.guiTop + absoluteY + 27) / (multiplier[index]), 2);
+			GlStateManager.rotate(180, 0f, 0, 1f);
+			GlStateManager.rotate(360 * RenderAnimatedEgg.renderTimer, 0, 1f, 0);
+			renderEntityStatic(currentEntity);
+			GlStateManager.disableLighting();
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240f, 240f);
+			GlStateManager.popMatrix();
+		}
 
 	}
 

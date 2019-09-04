@@ -166,6 +166,9 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 			{
 				O female = (O) entities.get(k);
 
+				if(female == null)
+					continue;
+				
 				boolean allowBreeding = true;
 				if (AnimaniaConfig.careAndFeeding.feedToBreed && female instanceof IFoodEating && !((IFoodEating) female).getHandFed())
 				{

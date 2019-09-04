@@ -116,8 +116,6 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null)
-			compound.setString("MateUUID", this.getMateUniqueId().toString());
 
 	}
 
@@ -125,16 +123,6 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
 
 	}
 
@@ -419,19 +407,9 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		return STERILIZED;
 	}
 
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
-	{
-		compound.setBoolean("Sterilized", getSterilized());
-		return super.writeToNBT(compound);
-	}
+	
 
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		this.setSterilized(compound.getBoolean("Sterilized"));
-		super.readFromNBT(compound);
-	}
+	
 
 	@Override
 	public void sterilize()
