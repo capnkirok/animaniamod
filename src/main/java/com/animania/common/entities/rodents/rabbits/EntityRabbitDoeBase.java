@@ -7,11 +7,13 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -31,6 +33,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
@@ -44,7 +47,7 @@ import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable
+public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable, IImpregnable
 {
 
 	public int dryTimerDoe;
@@ -52,6 +55,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean>createKey(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityRabbitDoeBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityRabbitDoeBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 
 	public EntityRabbitDoeBase(World worldIn)
@@ -74,6 +78,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 		this.dataManager.register(EntityRabbitDoeBase.PREGNANT, false);
 		this.dataManager.register(EntityRabbitDoeBase.HAS_KIDS, false);
 		this.dataManager.register(EntityRabbitDoeBase.FERTILE, true);
+		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityRabbitDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 	}
 
@@ -89,10 +94,11 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setBoolean("Pregnant", this.getPregnant());
-		compound.setBoolean("HasKids", this.getHasKids());
-		compound.setBoolean("Fertile", this.getFertile());
-		compound.setInteger("Gestation", this.getGestation());
+		if (this.getMateUniqueId() != null)
+		{
+			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		}
+
 
 	}
 
@@ -100,11 +106,23 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
+		String s;
 
-		this.setPregnant(compound.getBoolean("Pregnant"));
-		this.setHasKids(compound.getBoolean("HasKids"));
-		this.setFertile(compound.getBoolean("Fertile"));
-		this.setGestation(compound.getInteger("Gestation"));
+		if (compound.hasKey("MateUUID", 8))
+		{
+			s = compound.getString("MateUUID");
+		}
+		else
+		{
+			String s1 = compound.getString("Mate");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		}
+
+		if (!s.isEmpty())
+		{
+			this.setMateUniqueId(UUID.fromString(s));
+		}
+		
 
 	}
 
@@ -151,47 +169,22 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	}
 
 
-	public int getGestation()
+	@Override
+	public DataParameter<Integer> getGestationParam()
 	{
-		return this.getIntFromDataManager(GESTATION_TIMER);
+		return GESTATION_TIMER;
 	}
 
-	public void setGestation(int gestation)
+	@Override
+	public DataParameter<Boolean> getFertileParam()
 	{
-		this.dataManager.set(EntityRabbitDoeBase.GESTATION_TIMER, Integer.valueOf(gestation));
+		return FERTILE;
 	}
 
-	public boolean getPregnant()
+	@Override
+	public DataParameter<Boolean> getHasKidsParam()
 	{
-		return this.getBoolFromDataManager(PREGNANT);
-	}
-
-	public void setPregnant(boolean preggers)
-	{
-		if (preggers) {
-			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200));
-		}
-		this.dataManager.set(EntityRabbitDoeBase.PREGNANT, Boolean.valueOf(preggers));
-	}
-
-	public boolean getFertile()
-	{
-		return this.getBoolFromDataManager(FERTILE);
-	}
-
-	public void setFertile(boolean fertile)
-	{
-		this.dataManager.set(EntityRabbitDoeBase.FERTILE, Boolean.valueOf(fertile));
-	}
-
-	public boolean getHasKids()
-	{
-		return this.getBoolFromDataManager(HAS_KIDS);
-	}
-
-	public void setHasKids(boolean kids)
-	{
-		this.dataManager.set(EntityRabbitDoeBase.HAS_KIDS, Boolean.valueOf(kids));
+		return HAS_KIDS;
 	}
 
 	@Override
@@ -475,5 +468,21 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+	}
+
+
+
+	@Override
+	public DataParameter<Boolean> getPregnantParam()
+	{
+		return PREGNANT;
+	}
+
+
+
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	{
+		return MATE_UNIQUE_ID;
 	}
 }

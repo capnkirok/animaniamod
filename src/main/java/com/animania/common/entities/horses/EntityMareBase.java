@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.horses.HorseDraft.EntityFoalDraftHorse;
@@ -14,6 +15,7 @@ import com.animania.common.entities.horses.HorseDraft.EntityStallionDraftHorse;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -28,17 +30,15 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -51,7 +51,7 @@ import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable, IMateable
+public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable, IMateable, IImpregnable
 {	
 
 	private ResourceLocation resourceLocation;
@@ -65,6 +65,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean>createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityMareBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityMareBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 
 	public EntityMareBase(World worldIn)
@@ -86,6 +87,8 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		this.dataManager.register(EntityMareBase.HAS_KIDS, false);
 		this.dataManager.register(EntityMareBase.FERTILE, true);
 		this.dataManager.register(EntityMareBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(400)));
+		this.dataManager.register(EntityMareBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
+
 	}
 
 	@Override
@@ -149,10 +152,11 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setBoolean("Pregnant", this.getPregnant());
-		compound.setBoolean("HasKids", this.getHasKids());
-		compound.setBoolean("Fertile", this.getFertile());
-		compound.setInteger("Gestation", this.getGestation());
+
+		if (this.getMateUniqueId() != null)
+		{
+			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		}
 
 	}
 
@@ -161,10 +165,24 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		super.readEntityFromNBT(compound);
 
-		this.setPregnant(compound.getBoolean("Pregnant"));
-		this.setHasKids(compound.getBoolean("HasKids"));
-		this.setFertile(compound.getBoolean("Fertile"));
-		this.setGestation(compound.getInteger("Gestation"));
+		String s;
+
+		if (compound.hasKey("MateUUID", 8))
+		{
+			s = compound.getString("MateUUID");
+		}
+		else
+		{
+			String s1 = compound.getString("Mate");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		}
+
+		if (!s.isEmpty())
+		{
+			this.setMateUniqueId(UUID.fromString(s));
+		}
+		
+		
 
 	}
 
@@ -236,24 +254,16 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		this.dataManager.set(EntityMareBase.PREGNANT, Boolean.valueOf(preggers));
 	}
 
-	public boolean getFertile()
+	@Override
+	public DataParameter<Boolean> getFertileParam()
 	{
-		return this.getBoolFromDataManager(FERTILE);
+		return FERTILE;
 	}
 
-	public void setFertile(boolean fertile)
+	@Override
+	public DataParameter<Boolean> getHasKidsParam()
 	{
-		this.dataManager.set(EntityMareBase.FERTILE, Boolean.valueOf(fertile));
-	}
-
-	public boolean getHasKids()
-	{
-		return this.getBoolFromDataManager(HAS_KIDS);
-	}
-
-	public void setHasKids(boolean Foals)
-	{
-		this.dataManager.set(EntityMareBase.HAS_KIDS, Boolean.valueOf(Foals));
+		return HAS_KIDS;
 	}
 
 	@Override
@@ -679,6 +689,24 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			} 
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+	}
+
+	@Override
+	public DataParameter<Integer> getGestationParam()
+	{
+		return GESTATION_TIMER;
+	}
+
+	@Override
+	public DataParameter<Boolean> getPregnantParam()
+	{
+		return PREGNANT;
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	{
+		return MATE_UNIQUE_ID;
 	}
 
 }

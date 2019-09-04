@@ -42,7 +42,7 @@ public class Animania
 	public static final String NAME = "Animania";
 	public static final Logger LOGGER = LogManager.getFormatterLogger("Animania");
 	public final static String ACCEPTED_VERSIONS = "[1.12,1.13)";
-	public static final String DEPENDENCIES = "required-after:craftstudioapi;after:cofhcore;after:harvestcraft;after:natura;after:botania;after:biomesoplenty;after:twilightforest;after:aroma1997sdimension;after:openterraingenerator;before:thermalexpansion;required-after:forge@[14.23.2.2638,)";
+	public static final String DEPENDENCIES = "required-after:craftstudioapi;after:cofhcore;after:harvestcraft;after:natura;after:botania;after:biomesoplenty;after:twilightforest;after:aroma1997sdimension;after:openterraingenerator;before:thermalexpansion;required-after:forge@[14.23.2.2779,)";
 	
 	
 	public static SimpleNetworkWrapper network;

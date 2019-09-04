@@ -20,6 +20,9 @@ import com.leviathanstudio.craftstudio.client.util.EnumResourceType;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiErrorScreen;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -31,8 +34,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.CustomModLoadingErrorDisplayException;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.MultipleModsErrored;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -183,6 +188,32 @@ public class ClientProxy extends CommonProxy
 			((SimpleReloadableResourceManager) res).reloadResourcePack(pack);
 			Minecraft.getMinecraft().getLanguageManager().onResourceManagerReload(res);
 		}
+	}
+	
+	@Override
+	public void throwCustomModLoadingErrorDisplayException(MultipleModsErrored errors)
+	{
+		CustomModLoadingErrorDisplayException customEx = new CustomModLoadingErrorDisplayException("Addon Loading Errors", errors)
+		{
+
+			private GuiScreen screen;
+
+			@Override
+			public void initGui(GuiErrorScreen errorScreen, FontRenderer fontRenderer)
+			{
+				screen = errors.createGui();
+				screen.setWorldAndResolution(Minecraft.getMinecraft(), errorScreen.width, errorScreen.height);
+			}
+
+			@Override
+			public void drawScreen(GuiErrorScreen errorScreen, FontRenderer fontRenderer, int mouseRelX, int mouseRelY, float tickTime)
+			{
+				screen.drawScreen(mouseRelX, mouseRelY, tickTime);
+			}
+
+		};
+
+		throw customEx;
 	}
 
 }

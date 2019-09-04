@@ -45,8 +45,8 @@ public class GenericAIFindSaltLick<T extends EntityCreature & ISleeping> extends
 			delay = 0;
 			return false;
 		}
-		
-		if(entity.getRNG().nextInt(3) != 0)
+
+		if (entity.getRNG().nextInt(3) != 0)
 			return false;
 
 		delay = 0;
@@ -65,7 +65,8 @@ public class GenericAIFindSaltLick<T extends EntityCreature & ISleeping> extends
 
 			if (block == BlockHandler.blockSaltLick)
 			{
-				eatAI.startExecuting();
+				if (eatAI != null)
+					eatAI.startExecuting();
 				BlockSaltLick salt = (BlockSaltLick) block;
 				salt.useSaltLick(world, seekingBlockPos, this.entity);
 

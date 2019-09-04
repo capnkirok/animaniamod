@@ -98,13 +98,12 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 		float f = 0.0625F;
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
-		GlStateManager.enableAlpha();
-		GlStateManager.enableCull();
+//		GlStateManager.enableAlpha();
+//		GlStateManager.enableCull();
 
 		this.bindTexture(TileEntityTroughRenderer.TROUGH_EMPTY_TEXTURE);
 		modelbase.render((Entity) null, animateTicks, 0.0F, 0.0F, 0, 0.0F, 0.0625F);
 
-		GlStateManager.pushMatrix();
 		if (te.getTroughContent() == TroughContent.LIQUID)
 		{
 			FluidStack fluid = te.fluidHandler.getFluid();
@@ -123,18 +122,26 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 				drawTextureAtlasSprite(0, 0, sprite, 0.6, 1);
 				drawTextureAtlasSprite(-0.8, 0, sprite, 0.6, 0.8);
 
+				GlStateManager.disableAlpha();
+				GlStateManager.disableBlend();
+				
 				GlStateManager.popMatrix();
 			}
 
 		}
-		GlStateManager.popMatrix();
 
-		GlStateManager.pushMatrix();
 		if (te.getTroughContent() == TroughContent.FOOD)
 		{
+			GlStateManager.pushMatrix();
+
 			ItemStack stack = te.itemHandler.getStackInSlot(0);
 			if (!stack.isEmpty())
 			{
+
+				GlStateManager.enableAlpha();
+				GlStateManager.enableBlend();
+				GlStateManager.enableCull();
+				
 				this.bindTexture(TROUGH_EMPTY_TEXTURE);
 				if (stack.getItem() == Items.WHEAT)
 					trough.renderFeed(stack.getCount(), new Color(160, 124, 89));
@@ -148,9 +155,13 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 					this.bindTexture(new ResourceLocation(sprite.getIconName().replace(":", ":textures/") + ".png"));
 
 				trough.renderFood(0.0625F, stack.getCount());
+				
+				GlStateManager.disableCull();
+				GlStateManager.disableAlpha();
+				GlStateManager.disableBlend();
 			}
+			GlStateManager.popMatrix();
 		}
-		GlStateManager.popMatrix();
 
 		GlStateManager.popMatrix();
 

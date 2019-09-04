@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.entities.generic.GenericBehavior;
+import com.google.common.base.Optional;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -54,7 +55,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setFloat("Age", this.getEntityAge());
+
 
 	}
 
@@ -62,7 +63,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readEntityFromNBT(nbttagcompound);
-		this.setEntityAge(nbttagcompound.getFloat("Age"));
+		
 
 	}
 
@@ -74,10 +75,6 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 		super.onLivingUpdate();
 	}
 
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
-	}
 
 	@Override
 	public int getAgeTimer()
@@ -91,10 +88,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 		ageTimer = i;
 	}
 	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(EntityPeachickBase.AGE, Float.valueOf(age));
-	}
+
 
 	@Override
 	public void playLivingSound()
@@ -121,6 +115,18 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	public void setParentUniqueId(UUID id)
 	{
 		
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	{
+		return null;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		return AGE;
 	}
 
 }

@@ -34,6 +34,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -47,6 +48,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 {
 	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean> createKey(EntityRamBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityRamBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityRamBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	public EntityRamBase(World worldIn)
 	{
@@ -82,6 +84,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		super.entityInit();
 		this.dataManager.register(EntityRamBase.FIGHTING, false);
 		this.dataManager.register(STERILIZED, false);
+		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
 
 	}
 
@@ -294,27 +297,38 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	}
 
 	@Override
-	public boolean getSterilized()
+	public DataParameter<Boolean> getSterilizedParam()
 	{
-		return this.getBoolFromDataManager(STERILIZED);
-	}
-
-	@Override
-	public void setSterilized(boolean sterilized)
-	{
-		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
+		return STERILIZED;
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		compound.setBoolean("Sterilized", getSterilized());
+		if (this.getMateUniqueId() != null)
+		{
+			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		}
 		return super.writeToNBT(compound);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
+		String s;
+
+		if (compound.hasKey("MateUUID", 8))
+		{
+			s = compound.getString("MateUUID");
+		}
+		else
+		{
+			String s1 = compound.getString("Mate");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		}
+		this.setMateUniqueId(UUID.fromString(s));
+		
 		this.setSterilized(compound.getBoolean("Sterilized"));
 		super.readFromNBT(compound);
 	}
@@ -335,6 +349,12 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			}
 		}
 		setSterilized(true);
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	{
+		return MATE_UNIQUE_ID;
 	}
 
 }

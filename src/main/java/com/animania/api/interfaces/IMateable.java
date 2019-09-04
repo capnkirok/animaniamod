@@ -2,32 +2,30 @@ package com.animania.api.interfaces;
 
 import java.util.UUID;
 
+import com.google.common.base.Optional;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.datasync.DataParameter;
 
-public interface IMateable
+public interface IMateable extends IAnimaniaAnimal
 {
-	default boolean getPregnant()
-	{
-		return false;
-	}
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam();
 	
-	default void setPregnant(boolean pregnant)
+	default UUID getMateUniqueId()
 	{
-	}
-	
-	default boolean getFertile()
-	{
-		return false;
-	}
-	
-	default void setFertile(boolean fertile)
-	{
+		DataParameter<Optional<UUID>> param = getMateUniqueIdParam();
+		if (param != null)
+			return this.getUUIDFromDataManager(param);
+		return null;
 	}
 
-	
-	public UUID getMateUniqueId();
-
-	public void setMateUniqueId(UUID id);
+	default void setMateUniqueId(UUID id)
+	{
+		DataParameter<Optional<UUID>> param = getMateUniqueIdParam();
+		if (param != null)
+			((Entity) this).getDataManager().set(param, Optional.fromNullable(id));
+	}
 
 	
 	default void setInLove(EntityPlayer player)

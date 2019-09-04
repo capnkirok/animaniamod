@@ -68,7 +68,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.goatFood));
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Optional<UUID>> RIVAL_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean>createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> SHEARED_TIMER = EntityDataManager.<Integer>createKey(EntityAnimaniaGoat.class, DataSerializers.VARINT);
@@ -149,7 +148,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 		this.dataManager.register(EntityAnimaniaGoat.FED, true);
 		this.dataManager.register(EntityAnimaniaGoat.HANDFED, false);
 		this.dataManager.register(EntityAnimaniaGoat.WATERED, true);
-		this.dataManager.register(EntityAnimaniaGoat.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaGoat.RIVAL_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaGoat.SHEARED, false);
 		this.dataManager.register(EntityAnimaniaGoat.SHEARED_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.woolRegrowthTimer + this.rand.nextInt(500)));
@@ -193,14 +191,10 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 		return this.getFloatFromDataManager(SPOOKED_TIMER);
 	}
 
-	public int getAge()
+	@Override
+	public DataParameter<Integer> getAgeParam()
 	{
-		return this.getIntFromDataManager(AGE);
-	}
-
-	public void setAge(int age)
-	{
-		this.dataManager.set(EntityAnimaniaGoat.AGE, Integer.valueOf(age));
+		return AGE;
 	}
 
 	public void setSpookedTimer(Float timer)
@@ -208,92 +202,28 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 		this.dataManager.set(EntityAnimaniaGoat.SPOOKED_TIMER, Float.valueOf(timer));
 	}
 
-	public boolean getSleeping()
+	@Override
+	public DataParameter<Boolean> getSleepingParam()
 	{
-		return this.getBoolFromDataManager(SLEEPING);
+		return SLEEPING;
 	}
 
-	public void setSleeping(boolean flag)
+	@Override
+	public DataParameter<Float> getSleepTimerParam()
 	{
-		this.dataManager.set(EntityAnimaniaGoat.SLEEPING, flag);
+		return SLEEPTIMER;
 	}
 
-	public Float getSleepTimer()
+	@Override
+	public DataParameter<Boolean> getHandFedParam()
 	{
-		return this.getFloatFromDataManager(SLEEPTIMER);
+		return HANDFED;
 	}
 
-	public void setSleepTimer(Float timer)
+	@Override
+	public DataParameter<Boolean> getFedParam()
 	{
-		this.dataManager.set(EntityAnimaniaGoat.SLEEPTIMER, Float.valueOf(timer));
-	}
-
-	public boolean getHandFed()
-	{
-		return this.getBoolFromDataManager(HANDFED);
-	}
-
-	public void setHandFed(boolean handfed)
-	{
-		this.dataManager.set(EntityAnimaniaGoat.HANDFED, Boolean.valueOf(handfed));
-	}
-
-	@Nullable
-	public UUID getMateUniqueId()
-	{
-		if (mateable)
-		{
-			try
-			{
-				UUID id = (UUID) ((Optional) this.dataManager.get(EntityAnimaniaGoat.MATE_UNIQUE_ID)).orNull();
-				return id;
-			}
-			catch (Exception e)
-			{
-				return null;
-			}
-		}
-		return null;
-	}
-
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityAnimaniaGoat.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
-	public boolean getFed()
-	{
-		return this.getBoolFromDataManager(FED);
-	}
-
-	public void setFed(boolean fed)
-	{
-		if (fed)
-		{
-			this.dataManager.set(EntityAnimaniaGoat.FED, true);
-			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-			this.setHealth(this.getHealth() + 1.0F);
-		}
-		else
-			this.dataManager.set(EntityAnimaniaGoat.FED, false);
-	}
-
-	public boolean getWatered()
-	{
-		return this.getBoolFromDataManager(WATERED);
-	}
-
-	public void setWatered(boolean watered)
-	{
-		if (watered)
-		{
-			this.dataManager.set(EntityAnimaniaGoat.WATERED, true);
-			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		}
-		else
-		{
-			this.dataManager.set(EntityAnimaniaGoat.WATERED, false);
-		}
+		return FED;
 	}
 
 	@Override
@@ -465,10 +395,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null)
-		{
-			compound.setString("MateUUID", this.getMateUniqueId().toString());
-		}
 		compound.setBoolean("Sheared", this.getSheared());
 		compound.setBoolean("Spooked", this.getSpooked());
 
@@ -505,22 +431,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-		{
-			s = compound.getString("MateUUID");
-		}
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
-		if (!s.isEmpty())
-		{
-			this.setMateUniqueId(UUID.fromString(s));
-		}
 
 		this.setSheared(compound.getBoolean("Sheared"));
 		this.setSpooked(compound.getBoolean("Spooked"));
@@ -623,15 +533,9 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	}
 	
 	@Override
-	public void setInteracted(boolean interacted)
+	public DataParameter<Boolean> getInteractedParam()
 	{
-		this.dataManager.set(INTERACTED, interacted);
-	}
-
-	@Override
-	public boolean getInteracted()
-	{
-		return this.getBoolFromDataManager(INTERACTED);
+		return INTERACTED;
 	}
 
 	@Override
@@ -674,6 +578,12 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	public AnimaniaType getAnimalType()
 	{
 		return goatType;
+	}
+
+	@Override
+	public DataParameter<Boolean> getWateredParam()
+	{
+		return WATERED;
 	}
 
 }

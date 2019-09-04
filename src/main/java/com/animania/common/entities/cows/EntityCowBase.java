@@ -7,12 +7,14 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -36,7 +38,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -52,7 +56,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable
+public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable, IImpregnable
 {
 
 	public int dryTimer;
@@ -61,11 +65,12 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean>createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityCowBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityCowBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	public EntityCowBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.4F, 1.8F); 
+		this.setSize(1.4F, 1.8F);
 		this.width = 1.4F;
 		this.height = 1.8F;
 		this.stepHeight = 1.1F;
@@ -80,53 +85,26 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	{
 		super.entityInit();
 		this.dataManager.register(EntityCowBase.PREGNANT, false);
-		if (AnimaniaConfig.gameRules.cowsMilkableAtSpawn) {
+		if (AnimaniaConfig.gameRules.cowsMilkableAtSpawn)
+		{
 			this.dataManager.register(EntityCowBase.HAS_KIDS, true);
-		} else {
+		}
+		else
+		{
 			this.dataManager.register(EntityCowBase.HAS_KIDS, false);
 		}
 		this.dataManager.register(EntityCowBase.FERTILE, true);
 		this.dataManager.register(EntityCowBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
-	}
+		this.dataManager.register(EntityCowBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
 
-	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-		compound.setBoolean("Pregnant", this.getPregnant());
-		compound.setBoolean("HasKids", this.getHasKids());
-		compound.setBoolean("Fertile", this.getFertile());
-		compound.setInteger("Gestation", this.getGestation());
-
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-
-		this.setPregnant(compound.getBoolean("Pregnant"));
-		this.setHasKids(compound.getBoolean("HasKids"));
-		this.setFertile(compound.getBoolean("Fertile"));
-		this.setGestation(compound.getInteger("Gestation"));
-
-	}
-
-	public int getGestation()
-	{
-		return this.dataManager.get(EntityCowBase.GESTATION_TIMER).intValue();
-	}
-
-	public void setGestation(int gestation)
-	{
-		this.dataManager.set(EntityCowBase.GESTATION_TIMER, Integer.valueOf(gestation));
 	}
 
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
 
-		if (this.getSleeping()) {
+		if (this.getSleeping())
+		{
 			this.setSleeping(false);
 			this.setSleepTimer(0F);
 			this.jump();
@@ -135,7 +113,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		boolean flag = false;
 		if (this.canEntityBeSeen(entityIn) && this.getDistance(entityIn) <= 2.0F)
 		{
-			flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 2.0F);
+			flag = entityIn.attackEntityFrom(new EntityDamageSource("bull", this), 2.0F);
 
 			if (flag)
 				this.applyEnchantments(this, entityIn);
@@ -166,8 +144,9 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		int chooser = this.rand.nextInt(3);
 
 		List<EntityAnimaniaCow> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 64, this.world, this.getPosition());
-		
-		if ((others.size() <= 4 )) {
+
+		if ((others.size() <= 4))
+		{
 
 			if (chooser == 0)
 			{
@@ -186,7 +165,6 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				this.setHasKids(true);
 			}
 		}
-
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
 
@@ -207,38 +185,16 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
 	}
 
-	public boolean getPregnant()
+	@Override
+	public DataParameter<Boolean> getFertileParam()
 	{
-		return this.getBoolFromDataManager(PREGNANT);
+		return FERTILE;
 	}
 
-	public void setPregnant(boolean preggers)
+	@Override
+	public DataParameter<Boolean> getHasKidsParam()
 	{
-		if (preggers)
-		{
-			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(500));
-		}
-		this.dataManager.set(EntityCowBase.PREGNANT, Boolean.valueOf(preggers));
-	}
-
-	public boolean getFertile()
-	{
-		return this.getBoolFromDataManager(FERTILE);
-	}
-
-	public void setFertile(boolean fertile)
-	{
-		this.dataManager.set(EntityCowBase.FERTILE, Boolean.valueOf(fertile));
-	}
-
-	public boolean getHasKids()
-	{
-		return this.getBoolFromDataManager(HAS_KIDS);
-	}
-
-	public void setHasKids(boolean kids)
-	{
-		this.dataManager.set(EntityCowBase.HAS_KIDS, Boolean.valueOf(kids));
+		return HAS_KIDS;
 	}
 
 	@Override
@@ -355,7 +311,8 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			gestationTimer--;
 			this.setGestation(gestationTimer);
 
-			if (gestationTimer < 200 && this.getSleeping()) {
+			if (gestationTimer < 200 && this.getSleeping())
+			{
 				this.setSleeping(false);
 			}
 
@@ -461,13 +418,14 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			else
 				result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(milk.copy()), 1000, player, true);
 
-			ItemStack filled;;
+			ItemStack filled;
+			;
 			if (!result.success)
 			{
 				Item item = stack.getItem();
 				if (item == Items.BUCKET)
 					filled = milk.copy();
-				else if(Loader.isModLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
+				else if (Loader.isModLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
 					filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 				else
 					return false;
@@ -540,6 +498,24 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 			}
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+	}
+
+	@Override
+	public DataParameter<Integer> getGestationParam()
+	{
+		return GESTATION_TIMER;
+	}
+
+	@Override
+	public DataParameter<Boolean> getPregnantParam()
+	{
+		return PREGNANT;
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	{
+		return MATE_UNIQUE_ID;
 	}
 
 }

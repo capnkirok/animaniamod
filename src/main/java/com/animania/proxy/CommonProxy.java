@@ -27,6 +27,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.common.MultipleModsErrored;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -91,6 +92,11 @@ public class CommonProxy implements IGuiHandler
 	
 	public void addAddonResourcePack(AnimaniaAddon addon)
 	{
+	}
+	
+	public void throwCustomModLoadingErrorDisplayException(MultipleModsErrored errors)
+	{
+		throw errors;
 	}
 
 	@Override

@@ -257,44 +257,28 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 		this.setPlayed(compound.getBoolean("Played"));
 	}
 
-	public int getAge()
+	@Override
+	public DataParameter<Integer> getAgeParam()
 	{
-		return this.getIntFromDataManager(AGE);
+		return AGE;
 	}
 
-	public void setAge(int age)
+	@Override
+	public DataParameter<Boolean> getHandFedParam()
 	{
-		this.dataManager.set(EntityAnimaniaPig.AGE, Integer.valueOf(age));
+		return HANDFED;
 	}
 
-	public boolean getHandFed()
+	@Override
+	public DataParameter<Boolean> getSleepingParam()
 	{
-		return this.getBoolFromDataManager(HANDFED);
+		return SLEEPING;
 	}
 
-	public void setHandFed(boolean handfed)
+	@Override
+	public DataParameter<Float> getSleepTimerParam()
 	{
-		this.dataManager.set(EntityAnimaniaPig.HANDFED, Boolean.valueOf(handfed));
-	}
-
-	public boolean getSleeping()
-	{
-		return this.getBoolFromDataManager(SLEEPING);
-	}
-
-	public void setSleeping(boolean flag)
-	{
-		this.dataManager.set(EntityAnimaniaPig.SLEEPING, flag);
-	}
-
-	public Float getSleepTimer()
-	{
-		return this.getFloatFromDataManager(SLEEPTIMER);
-	}
-
-	public void setSleepTimer(Float timer)
-	{
-		this.dataManager.set(EntityAnimaniaPig.SLEEPTIMER, Float.valueOf(timer));
+		return SLEEPTIMER;
 	}
 
 	@Override
@@ -365,21 +349,10 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 			this.dataManager.set(EntityAnimaniaPig.SADDLED, false);
 	}
 
-	public boolean getFed()
+	@Override
+	public DataParameter<Boolean> getFedParam()
 	{
-		return this.getBoolFromDataManager(FED);
-	}
-
-	public void setFed(boolean fed)
-	{
-		if (fed)
-		{
-			this.dataManager.set(EntityAnimaniaPig.FED, true);
-			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-			this.setHealth(this.getHealth() + 1.0F);
-		}
-		else
-			this.dataManager.set(EntityAnimaniaPig.FED, false);
+		return FED;
 	}
 
 	public void setSlopFed(boolean fed)
@@ -409,20 +382,10 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 			this.dataManager.set(EntityAnimaniaPig.PLAYED, false);
 	}
 
-	public boolean getWatered()
+	@Override
+	public DataParameter<Boolean> getWateredParam()
 	{
-		return this.getBoolFromDataManager(WATERED);
-	}
-
-	public void setWatered(boolean watered)
-	{
-		if (watered)
-		{
-			this.dataManager.set(EntityAnimaniaPig.WATERED, true);
-			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		}
-		else
-			this.dataManager.set(EntityAnimaniaPig.WATERED, false);
+		return WATERED;
 	}
 
 	public boolean getMuddy()
@@ -629,15 +592,9 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	}
 	
 	@Override
-	public void setInteracted(boolean interacted)
+	public DataParameter<Boolean> getInteractedParam()
 	{
-		this.dataManager.set(INTERACTED, interacted);
-	}
-
-	@Override
-	public boolean getInteracted()
-	{
-		return this.getBoolFromDataManager(INTERACTED);
+		return INTERACTED;
 	}
 
 	@Override

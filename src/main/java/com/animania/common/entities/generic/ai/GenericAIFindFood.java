@@ -90,6 +90,7 @@ public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleepin
 						entity.setLiquidFed(true);
 						entity.setFed(true);
 						entity.setHandFed(true);
+						entity.setInteracted(true);
 
 						entity.world.updateComparatorOutputLevel(seekingBlockPos, block);
 

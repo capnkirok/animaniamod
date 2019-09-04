@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.helper.AnimaniaHelper;
@@ -38,7 +39,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 
-public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProviderMateable, IMateable
+public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProviderMateable, IMateable, IImpregnable
 {
 
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityQueenBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -141,13 +142,9 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null)
-			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		
 
-		compound.setBoolean("Pregnant", this.getPregnant());
-		compound.setBoolean("HasKids", this.getHasKids());
-		compound.setBoolean("Fertile", this.getFertile());
-		compound.setInteger("Gestation", this.getGestation());
+
 
 	}
 
@@ -156,84 +153,40 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 	{
 		super.readEntityFromNBT(compound);
 
-		String s;
+		
 
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
-		this.setPregnant(compound.getBoolean("Pregnant"));
-		this.setHasKids(compound.getBoolean("HasKids"));
-		this.setFertile(compound.getBoolean("Fertile"));
-		this.setGestation(compound.getInteger("Gestation"));
+		
 
 	}
 
-	public int getGestation()
+	@Override
+	public DataParameter<Integer> getGestationParam()
 	{
-		return this.getIntFromDataManager(GESTATION_TIMER);
+		return GESTATION_TIMER;
 	}
 
-	public void setGestation(int gestation)
+	@Override
+	public DataParameter<Boolean> getPregnantParam()
 	{
-		this.dataManager.set(GESTATION_TIMER, Integer.valueOf(gestation));
+		return PREGNANT;
 	}
 
-	public boolean getPregnant()
+	@Override
+	public DataParameter<Boolean> getFertileParam()
 	{
-		return this.getBoolFromDataManager(PREGNANT);
+		return FERTILE;
 	}
 
-	public void setPregnant(boolean preggers)
+	@Override
+	public DataParameter<Boolean> getHasKidsParam()
 	{
-		if (preggers)
-		{
-			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200));
-		}
-		this.dataManager.set(PREGNANT, Boolean.valueOf(preggers));
+		return HAS_KIDS;
 	}
 
-	public boolean getFertile()
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
 	{
-		return this.getBoolFromDataManager(FERTILE);
-	}
-
-	public void setFertile(boolean fertile)
-	{
-		this.dataManager.set(FERTILE, Boolean.valueOf(fertile));
-	}
-
-	public boolean getHasKids()
-	{
-		return this.getBoolFromDataManager(HAS_KIDS);
-	}
-
-	public void setHasKids(boolean kids)
-	{
-		this.dataManager.set(HAS_KIDS, Boolean.valueOf(kids));
-	}
-
-	@Nullable
-	public UUID getMateUniqueId()
-	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(MATE_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		return MATE_UNIQUE_ID;
 	}
 
 	// TODO: SOUNDS

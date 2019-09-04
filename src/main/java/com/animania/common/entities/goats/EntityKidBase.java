@@ -76,7 +76,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setFloat("Age", this.getEntityAge());
+
 		if (this.getParentUniqueId() != null)
 			if (this.getParentUniqueId() != null)
 				compound.setString("ParentUUID", this.getParentUniqueId().toString());
@@ -87,39 +87,9 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-		this.setEntityAge(compound.getFloat("Age"));
-		String s;
+		
+		
 
-		if (compound.hasKey("ParentUUID", 8))
-			s = compound.getString("ParentUUID");
-		else
-		{
-			String s1 = compound.getString("Parent");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
-		if (!s.isEmpty())
-			this.setParentUniqueId(UUID.fromString(s));
-
-	}
-
-	@Nullable
-	public UUID getParentUniqueId()
-	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntityKidBase.PARENT_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setParentUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityKidBase.PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	@Override
@@ -186,12 +156,7 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		if (soundevent != null && !this.getSleeping())
 			this.playSound(soundevent, this.getSoundVolume(), this.getSoundPitch());
 	}
-
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
-	}
-
+	
 	@Override
 	public int getAgeTimer()
 	{
@@ -204,11 +169,6 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		ageTimer = i;
 	}
 	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(EntityKidBase.AGE, Float.valueOf(age));
-	}
-
 	@Override
 	public void onLivingUpdate()
 	{
@@ -261,6 +221,18 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	protected Item getDropItem()
 	{
 		return null;
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	{
+		return PARENT_UNIQUE_ID;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		return AGE;
 	}
 
 }

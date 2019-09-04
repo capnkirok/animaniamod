@@ -17,6 +17,7 @@ import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -32,7 +33,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
@@ -45,6 +48,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityBullBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	public EntityBullBase(World worldIn)
 	{
@@ -80,6 +84,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		super.entityInit();
 		this.dataManager.register(EntityBullBase.FIGHTING, false);
 		this.dataManager.register(EntityBullBase.STERILIZED, false);
+		this.dataManager.register(EntityBullBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
 
 	}
 
@@ -135,7 +140,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		boolean flag = false;
 		if (this.canEntityBeSeen(entityIn) && this.getDistance(entityIn) <= 2.0F)
 		{
-			flag = entityIn.attackEntityFrom(DamageSourceHandler.bullDamage, 5.0F);
+			flag = entityIn.attackEntityFrom(new EntityDamageSource("bull", this), 5.0F);
 
 			if (flag)
 				this.applyEnchantments(this, entityIn);
@@ -292,6 +297,10 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
+		UUID mate = this.getMateUniqueId();
+		if (mate != null)
+			compound.setString("MateUUID", mate.toString());
+
 		compound.setBoolean("Fighting", this.getFighting());
 
 	}
@@ -319,31 +328,12 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public boolean getSterilized()
+	public DataParameter<Boolean> getSterilizedParam()
 	{
-		return this.getBoolFromDataManager(STERILIZED);
+		return STERILIZED;
 	}
 
-	@Override
-	public void setSterilized(boolean sterilized)
-	{
-		this.dataManager.set(EntityBullBase.STERILIZED, Boolean.valueOf(sterilized));
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
-	{
-		compound.setBoolean("Sterilized", getSterilized());
-		return super.writeToNBT(compound);
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		this.setSterilized(compound.getBoolean("Sterilized"));
-		super.readFromNBT(compound);
-	}
-
+	
 	@Override
 	public void sterilize()
 	{
@@ -360,6 +350,12 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 			}
 		}
 		setSterilized(true);
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	{
+		return MATE_UNIQUE_ID;
 	}
 
 }

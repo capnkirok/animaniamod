@@ -1,8 +1,24 @@
 package com.animania.api.interfaces;
 
-public interface IAgeable
+import net.minecraft.entity.Entity;
+import net.minecraft.network.datasync.DataParameter;
+
+public interface IAgeable extends IAnimaniaAnimal
 {
-	public void setAge(int age);
+	public DataParameter<Integer> getAgeParam();
+		
+	default void setAge(int age)
+	{
+		DataParameter<Integer> param = getAgeParam();
+		if (param != null)
+			((Entity) this).getDataManager().set(param, age);
+	}
 	
-	public int getAge();
+	default int getAge()
+	{
+		DataParameter<Integer> param = getAgeParam();
+		if (param != null)
+			return this.getIntFromDataManager(param);
+		return 0;
+	}
 }

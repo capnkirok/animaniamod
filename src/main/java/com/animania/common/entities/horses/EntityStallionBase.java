@@ -15,6 +15,7 @@ import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -33,6 +34,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -48,6 +50,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 {
 
 	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityStallionBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityStallionBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	private ResourceLocation resourceLocation;
 	private ResourceLocation resourceLocationBlink;
@@ -76,12 +79,14 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.20000000298023224D);
 		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+	
 	}
 
 	@Override
 	protected void entityInit()
 	{
 		this.dataManager.register(STERILIZED, false);
+		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
 		super.entityInit();
 	}
 
@@ -456,27 +461,43 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	}
 
 	@Override
-	public boolean getSterilized()
+	public DataParameter<Boolean> getSterilizedParam()
 	{
-		return this.getBoolFromDataManager(STERILIZED);
-	}
-
-	@Override
-	public void setSterilized(boolean sterilized)
-	{
-		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
+		return STERILIZED;
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		compound.setBoolean("Sterilized", getSterilized());
+		if (this.getMateUniqueId() != null)
+		{
+			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		}
+		
 		return super.writeToNBT(compound);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
+		String s;
+
+		if (compound.hasKey("MateUUID", 8))
+		{
+			s = compound.getString("MateUUID");
+		}
+		else
+		{
+			String s1 = compound.getString("Mate");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		}
+
+		if (!s.isEmpty())
+		{
+			this.setMateUniqueId(UUID.fromString(s));
+		}
+		
 		this.setSterilized(compound.getBoolean("Sterilized"));
 		super.readFromNBT(compound);
 	}
@@ -497,6 +518,12 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 			}
 		}
 		setSterilized(true);
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	{
+		return MATE_UNIQUE_ID;
 	}
 
 }

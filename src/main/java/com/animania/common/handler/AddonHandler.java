@@ -95,28 +95,7 @@ public class AddonHandler
 		if (!missingModsExceptions.isEmpty())
 		{
 			MultipleModsErrored errors = new MultipleModsErrored(Collections.EMPTY_LIST, missingModsExceptions);
-
-			CustomModLoadingErrorDisplayException customEx = new CustomModLoadingErrorDisplayException("Addon Loading Errors", errors)
-			{
-
-				private GuiScreen screen;
-
-				@Override
-				public void initGui(GuiErrorScreen errorScreen, FontRenderer fontRenderer)
-				{
-					screen = errors.createGui();
-					screen.setWorldAndResolution(Minecraft.getMinecraft(), errorScreen.width, errorScreen.height);
-				}
-
-				@Override
-				public void drawScreen(GuiErrorScreen errorScreen, FontRenderer fontRenderer, int mouseRelX, int mouseRelY, float tickTime)
-				{
-					screen.drawScreen(mouseRelX, mouseRelY, tickTime);
-				}
-
-			};
-
-			throw customEx;
+			Animania.proxy.throwCustomModLoadingErrorDisplayException(errors);
 		}
 	}
 

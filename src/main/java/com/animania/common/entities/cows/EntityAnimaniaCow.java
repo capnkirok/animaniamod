@@ -71,7 +71,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaCow.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityAnimaniaCow.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
 
 	protected int happyTimer;
@@ -143,96 +142,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		this.dataManager.register(EntityAnimaniaCow.WATERED, true);
 		this.dataManager.register(EntityAnimaniaCow.SLEEPING, false);
 		this.dataManager.register(EntityAnimaniaCow.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(EntityAnimaniaCow.MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityAnimaniaCow.AGE, Integer.valueOf(0));
-	}
-
-	@Nullable
-	public UUID getMateUniqueId()
-	{
-		if (mateable)
-		{
-			return getUUIDFromDataManager(MATE_UNIQUE_ID);
-		}
-		return null;
-	}
-
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityAnimaniaCow.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
-	public boolean getFed()
-	{
-		return this.getBoolFromDataManager(FED);
-	}
-
-	public void setFed(boolean fed)
-	{
-		if (fed)
-		{
-			this.dataManager.set(EntityAnimaniaCow.FED, true);
-			this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-			this.setHealth(this.getHealth() + 1.0F);
-		}
-		else
-			this.dataManager.set(EntityAnimaniaCow.FED, false);
-	}
-
-	public boolean getHandFed()
-	{
-		return this.getBoolFromDataManager(HANDFED);
-	}
-
-	public void setHandFed(boolean handfed)
-	{
-		this.dataManager.set(EntityAnimaniaCow.HANDFED, Boolean.valueOf(handfed));
-	}
-
-	public boolean getWatered()
-	{
-		return this.getBoolFromDataManager(WATERED);
-	}
-
-	public void setWatered(boolean watered)
-	{
-		if (watered)
-		{
-			this.dataManager.set(EntityAnimaniaCow.WATERED, true);
-			this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		}
-		else
-			this.dataManager.set(EntityAnimaniaCow.WATERED, false);
-	}
-
-	public boolean getSleeping()
-	{
-		return this.getBoolFromDataManager(SLEEPING);
-	}
-
-	public void setSleeping(boolean flag)
-	{
-		this.dataManager.set(EntityAnimaniaCow.SLEEPING, Boolean.valueOf(flag));
-	}
-
-	public Float getSleepTimer()
-	{
-		return this.getFloatFromDataManager(SLEEPTIMER);
-	}
-
-	public void setSleepTimer(Float timer)
-	{
-		this.dataManager.set(EntityAnimaniaCow.SLEEPTIMER, Float.valueOf(timer));
-	}
-
-	public int getAge()
-	{
-		return this.getIntFromDataManager(AGE);
-	}
-
-	public void setAge(int age)
-	{
-		this.dataManager.set(EntityAnimaniaCow.AGE, Integer.valueOf(age));
 	}
 
 	@Override
@@ -358,10 +268,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		UUID mate = this.getMateUniqueId();
-		if (mate != null)
-			if (this.getMateUniqueId() != null)
-				compound.setString("MateUUID", this.getMateUniqueId().toString());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 	}
@@ -370,18 +276,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-		if (!s.isEmpty())
-			this.setMateUniqueId(UUID.fromString(s));
 
 		GenericBehavior.readCommonNBT(compound, this);
 
@@ -472,18 +366,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public void setInteracted(boolean interacted)
-	{
-		this.dataManager.set(INTERACTED, interacted);
-	}
-
-	@Override
-	public boolean getInteracted()
-	{
-		return this.getBoolFromDataManager(INTERACTED);
-	}
-
-	@Override
 	public int getWaterTimer()
 	{
 		return wateredTimer;
@@ -523,6 +405,48 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	public AnimaniaType getAnimalType()
 	{
 		return cowType;
+	}
+
+	@Override
+	public DataParameter<Boolean> getHandFedParam()
+	{
+		return HANDFED;
+	}
+
+	@Override
+	public DataParameter<Boolean> getFedParam()
+	{
+		return FED;
+	}
+
+	@Override
+	public DataParameter<Boolean> getWateredParam()
+	{
+		return WATERED;
+	}
+
+	@Override
+	public DataParameter<Boolean> getInteractedParam()
+	{
+		return INTERACTED;
+	}
+
+	@Override
+	public DataParameter<Integer> getAgeParam()
+	{
+		return AGE;
+	}
+
+	@Override
+	public DataParameter<Boolean> getSleepingParam()
+	{
+		return SLEEPING;
+	}
+
+	@Override
+	public DataParameter<Float> getSleepTimerParam()
+	{
+		return SLEEPTIMER;
 	}
 
 }

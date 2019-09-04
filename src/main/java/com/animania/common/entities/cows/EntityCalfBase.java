@@ -83,52 +83,6 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-		compound.setFloat("Age", this.getEntityAge());
-		if (this.getParentUniqueId() != null)
-			if (this.getParentUniqueId() != null)
-				compound.setString("ParentUUID", this.getParentUniqueId().toString());
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-		this.setEntityAge(compound.getFloat("Age"));
-		String s;
-
-		if (compound.hasKey("ParentUUID", 8))
-			s = compound.getString("ParentUUID");
-		else
-		{
-			String s1 = compound.getString("Parent");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
-		if (!s.isEmpty())
-			this.setParentUniqueId(UUID.fromString(s));
-
-	}
-
-	@Nullable
-	public UUID getParentUniqueId()
-	{
-		return getUUIDFromDataManager(PARENT_UNIQUE_ID);
-	}
-
-	public void setParentUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityCalfBase.PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
-	}
-
-	@Override
 	public int getAgeTimer()
 	{
 		return ageTimer;
@@ -139,66 +93,23 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	{
 		ageTimer = i;
 	}
-	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(EntityCalfBase.AGE, Float.valueOf(age));
-	}
 
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 6;
-		else if (happy == 1)
-			num = 12;
-		else
-			num = 24;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.mooCalf1;
-		else if (chooser == 1)
-			return ModSoundEvents.mooCalf2;
-		else if (chooser == 2)
-			return ModSoundEvents.mooCalf3;
-		else
-			return null;
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.mooCalf1, ModSoundEvents.mooCalf2, ModSoundEvents.mooCalf3);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.mooCalf1;
-		else if (chooser == 1)
-			return ModSoundEvents.mooCalf2;
-		else
-			return ModSoundEvents.mooCalf3;
+		return GenericBehavior.getRandomSound(ModSoundEvents.mooCalf1, ModSoundEvents.mooCalf2, ModSoundEvents.mooCalf3);
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.mooCalf1;
-		else if (chooser == 1)
-			return ModSoundEvents.mooCalf2;
-		else
-			return ModSoundEvents.mooCalf3;
+		return GenericBehavior.getRandomSound(ModSoundEvents.mooCalf1, ModSoundEvents.mooCalf2, ModSoundEvents.mooCalf3);
 	}
 
 	@Override
@@ -286,5 +197,17 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public EntityCalfBase createChild(EntityAgeable e)
 	{
 		return null;
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	{
+		return PARENT_UNIQUE_ID;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		return AGE;
 	}
 }

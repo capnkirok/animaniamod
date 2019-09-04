@@ -7,12 +7,14 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -32,6 +34,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
@@ -49,7 +52,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProviderMateable, IMateable
+public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProviderMateable, IMateable, IImpregnable
 {
 	protected ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
 	public int dryTimer;
@@ -57,11 +60,12 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean>createKey(EntityEweBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean>createKey(EntityEweBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityEweBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityEweBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	public EntityEweBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.0F, 1.0F); 
+		this.setSize(1.0F, 1.0F);
 		this.width = 1.0F;
 		this.height = 1.0F;
 		this.stepHeight = 1.1F;
@@ -77,9 +81,9 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			return null;
 
 		List<EntityAnimaniaSheep> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 64, this.world, this.getPosition());
-		
-		if (others.size() <= 4 ) {
 
+		if (others.size() <= 4)
+		{
 
 			int chooser = this.rand.nextInt(3);
 
@@ -123,6 +127,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	protected void entityInit()
 	{
 		super.entityInit();
+		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityEweBase.PREGNANT, false);
 		this.dataManager.register(EntityEweBase.HAS_KIDS, false);
 		this.dataManager.register(EntityEweBase.FERTILE, true);
@@ -133,10 +138,11 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setBoolean("Pregnant", this.getPregnant());
-		compound.setBoolean("HasKids", this.getHasKids());
-		compound.setBoolean("Fertile", this.getFertile());
-		compound.setInteger("Gestation", this.getGestation());
+		if (this.getMateUniqueId() != null)
+		{
+			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		}
+
 
 	}
 
@@ -145,54 +151,40 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	{
 		super.readEntityFromNBT(compound);
 
-		this.setPregnant(compound.getBoolean("Pregnant"));
-		this.setHasKids(compound.getBoolean("HasKids"));
-		this.setFertile(compound.getBoolean("Fertile"));
-		this.setGestation(compound.getInteger("Gestation"));
+		String s;
 
-	}
-
-	public int getGestation()
-	{
-		return this.getIntFromDataManager(GESTATION_TIMER);
-	}
-
-	public void setGestation(int gestation)
-	{
-		this.dataManager.set(EntityEweBase.GESTATION_TIMER, Integer.valueOf(gestation));
-	}
-
-	public boolean getPregnant()
-	{
-		return this.getBoolFromDataManager(PREGNANT);
-	}
-
-	public void setPregnant(boolean preggers)
-	{
-		if (preggers) {
-			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200));
+		if (compound.hasKey("MateUUID", 8))
+		{
+			s = compound.getString("MateUUID");
 		}
-		this.dataManager.set(EntityEweBase.PREGNANT, Boolean.valueOf(preggers));
+		else
+		{
+			String s1 = compound.getString("Mate");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		}
+		if (!s.isEmpty())
+			this.setMateUniqueId(UUID.fromString(s));
+
+		
+
 	}
 
-	public boolean getFertile()
+	@Override
+	public DataParameter<Integer> getGestationParam()
 	{
-		return this.getBoolFromDataManager(FERTILE);
+		return GESTATION_TIMER;
 	}
 
-	public void setFertile(boolean fertile)
+	@Override
+	public DataParameter<Boolean> getFertileParam()
 	{
-		this.dataManager.set(EntityEweBase.FERTILE, Boolean.valueOf(fertile));
+		return FERTILE;
 	}
 
-	public boolean getHasKids()
+	@Override
+	public DataParameter<Boolean> getHasKidsParam()
 	{
-		return this.getBoolFromDataManager(HAS_KIDS);
-	}
-
-	public void setHasKids(boolean kids)
-	{
-		this.dataManager.set(EntityEweBase.HAS_KIDS, Boolean.valueOf(kids));
+		return HAS_KIDS;
 	}
 
 	@Override
@@ -267,11 +259,14 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!this.getFertile() && this.dryTimer > -1) {
+		if (!this.getFertile() && this.dryTimer > -1)
+		{
 			this.dryTimer--;
-		} else {
+		}
+		else
+		{
 			this.setFertile(true);
-			this.dryTimer = AnimaniaConfig.careAndFeeding.gestationTimer/9 + rand.nextInt(50);
+			this.dryTimer = AnimaniaConfig.careAndFeeding.gestationTimer / 9 + rand.nextInt(50);
 		}
 
 		if (this.blinkTimer > -1)
@@ -322,12 +317,13 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			if (gestationTimer == 0)
 			{
 
-
-				List list = this.world.loadedEntityList;	
+				List list = this.world.loadedEntityList;
 				int sheepCount = 0;
 				int num = 0;
-				for (int i = 0; i < list.size(); i++) {
-					if (list.get(i) instanceof EntityAnimaniaSheep) {
+				for (int i = 0; i < list.size(); i++)
+				{
+					if (list.get(i) instanceof EntityAnimaniaSheep)
+					{
 						num++;
 					}
 				}
@@ -340,7 +336,8 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 				for (int k = 0; k <= esize - 1; k++)
 				{
 					EntityRamBase entity = (EntityRamBase) entities.get(k);
-					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID))  {
+					if (entity != null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID))
+					{
 
 						this.setInLove(null);
 						SheepType maleType = ((EntityAnimaniaSheep) entity).sheepType;
@@ -367,18 +364,20 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					}
 				}
 
-				if (!mateFound && this.getFed() && this.getWatered()) {
+				if (!mateFound && this.getFed() && this.getWatered())
+				{
 
 					this.setInLove(null);
 					SheepType babyType = sheepType.breed(this.sheepType, this.sheepType);
 					EntityLambBase entityKid = babyType.getChild(world);
 					entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
-					if (!world.isRemote) {
+					if (!world.isRemote)
+					{
 						this.world.spawnEntity(entityKid);
 					}
 
 					entityKid.setParentUniqueId(this.getPersistentID());
-					this.playSound(ModSoundEvents.lambLiving1, 0.50F, 1.1F); //TODO
+					this.playSound(ModSoundEvents.lambLiving1, 0.50F, 1.1F); // TODO
 
 					this.setPregnant(false);
 					this.setFertile(false);
@@ -390,7 +389,9 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 				}
 			}
-		} else if (gestationTimer < 0){
+		}
+		else if (gestationTimer < 0)
+		{
 			this.setGestation(100);
 		}
 		super.onLivingUpdate();
@@ -411,13 +412,14 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			FluidActionResult result;
 			result = FluidUtil.tryFillContainer(one, FluidUtil.getFluidHandler(milk.copy()), 1000, player, true);
 
-			ItemStack filled;;
+			ItemStack filled;
+			;
 			if (!result.success)
 			{
 				Item item = stack.getItem();
 				if (item == Items.BUCKET)
 					filled = milk.copy();
-				else if(Loader.isModLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
+				else if (Loader.isModLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
 					filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 				else
 					return false;
@@ -474,7 +476,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		if (player.isSneaking())
 		{
 
-			if (this.getMateUniqueId() != null) 
+			if (this.getMateUniqueId() != null)
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
 
 			if (this.getHasKids())
@@ -483,33 +485,48 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 			if (this.getFertile() && !this.getPregnant())
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.fertile1"));
-			} 
+			}
 
 			if (this.getPregnant())
 			{
-				if (this.getGestation() > 0) {
+				if (this.getGestation() > 0)
+				{
 					int bob = this.getGestation();
-					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
-				} else {
+					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
+				}
+				else
+				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
 			}
 
 			if (this.getSheared())
 			{
-				if (this.getWoolRegrowthTimer() > 1) {
+				if (this.getWoolRegrowthTimer() > 1)
+				{
 					int bob = this.getWoolRegrowthTimer();
-					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")" );
-				} 
-			}  else if (!this.getSheared()) {
+					probeInfo.text(I18n.translateToLocal("text.waila.wool1") + " (" + bob + " " + I18n.translateToLocal("text.waila.wool2") + ")");
+				}
+			}
+			else if (!this.getSheared())
+			{
 				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
 			}
 
-
-
 		}
 
-
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+	}
+
+	@Override
+	public DataParameter<Boolean> getPregnantParam()
+	{
+		return PREGNANT;
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	{
+		return MATE_UNIQUE_ID;
 	}
 }

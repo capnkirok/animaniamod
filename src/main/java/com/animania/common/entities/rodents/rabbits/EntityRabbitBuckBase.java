@@ -14,6 +14,7 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
+import com.google.common.base.Optional;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -31,6 +32,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -42,6 +44,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
 	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityRabbitBuckBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityRabbitBuckBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	public EntityRabbitBuckBase(World worldIn)
 	{
@@ -64,6 +67,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	{
 		super.entityInit();
 		this.dataManager.register(STERILIZED, false);
+		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
 
 	}
 	
@@ -221,21 +225,19 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	}
 
 	@Override
-	public boolean getSterilized()
+	public DataParameter<Boolean> getSterilizedParam()
 	{
-		return this.getBoolFromDataManager(STERILIZED);
-	}
-
-	@Override
-	public void setSterilized(boolean sterilized)
-	{
-		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
+		return STERILIZED;
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound)
 	{
 		compound.setBoolean("Sterilized", getSterilized());
+		if (this.getMateUniqueId() != null)
+		{
+			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		}
 		return super.writeToNBT(compound);
 	}
 
@@ -243,6 +245,22 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		this.setSterilized(compound.getBoolean("Sterilized"));
+		String s;
+
+		if (compound.hasKey("MateUUID", 8))
+		{
+			s = compound.getString("MateUUID");
+		}
+		else
+		{
+			String s1 = compound.getString("Mate");
+			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
+		}
+
+		if (!s.isEmpty())
+		{
+			this.setMateUniqueId(UUID.fromString(s));
+		}
 		super.readFromNBT(compound);
 	}
 
@@ -262,6 +280,13 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 			}
 		}
 		setSterilized(true);
+	}
+
+
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	{
+		return MATE_UNIQUE_ID;
 	}
 
 }

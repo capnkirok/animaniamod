@@ -70,8 +70,7 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null)
-			compound.setString("MateUUID", this.getMateUniqueId().toString());
+		
 
 	}
 
@@ -80,36 +79,14 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	{
 		super.readEntityFromNBT(compound);
 
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
+		
 
 	}
 
 	@Override
-	@Nullable
-	public UUID getMateUniqueId()
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
 	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(MATE_UNIQUE_ID)).orNull();
-			return id;
-		} catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	@Override
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		return MATE_UNIQUE_ID;
 	}
 
 	// TODO: SOUNDS
@@ -234,30 +211,14 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	}
 
 	@Override
-	public boolean getSterilized()
+	public DataParameter<Boolean> getSterilizedParam()
 	{
-		return this.getBoolFromDataManager(STERILIZED);
+		return STERILIZED;
 	}
 
-	@Override
-	public void setSterilized(boolean sterilized)
-	{
-		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
-	}
+	
 
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
-	{
-		compound.setBoolean("Sterilized", getSterilized());
-		return super.writeToNBT(compound);
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		this.setSterilized(compound.getBoolean("Sterilized"));
-		super.readFromNBT(compound);
-	}
+	
 	
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)

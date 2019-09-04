@@ -72,7 +72,7 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setFloat("Age", this.getEntityAge());
+
 		if (this.getParentUniqueId() != null)
 			if (this.getParentUniqueId() != null)
 				compound.setString("ParentUUID", this.getParentUniqueId().toString());
@@ -83,44 +83,9 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-		this.setEntityAge(compound.getFloat("Age"));
-		String s;
+		
+		
 
-		if (compound.hasKey("ParentUUID", 8))
-			s = compound.getString("ParentUUID");
-		else
-		{
-			String s1 = compound.getString("Parent");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
-		if (!s.isEmpty())
-			this.setParentUniqueId(UUID.fromString(s));
-
-	}
-	
-	@Nullable
-	public UUID getParentUniqueId()
-	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(PARENT_UNIQUE_ID)).orNull();
-			return id;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setParentUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(PARENT_UNIQUE_ID, Optional.fromNullable(uniqueId));
-	}
-
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
 	}
 
 	@Override
@@ -134,12 +99,6 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	{
 		ageTimer = i;
 	}
-	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(AGE, Float.valueOf(age));
-	}
-
 	
 	//TODO: SOUND
 	@Override
@@ -210,6 +169,18 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 		GenericBehavior.livingUpdateChild(this, null);
 
 		super.onLivingUpdate();
+	}
+
+	@Override
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	{
+		return PARENT_UNIQUE_ID;
+	}
+
+	@Override
+	public DataParameter<Float> getEntityAgeParam()
+	{
+		return AGE;
 	}
 
 }

@@ -6,6 +6,7 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
+import com.google.common.base.Optional;
 
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.item.Item;
@@ -59,7 +60,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setFloat("Age", this.getEntityAge());
+
 
 	}
 
@@ -67,7 +68,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readEntityFromNBT(nbttagcompound);
-		this.setEntityAge(nbttagcompound.getFloat("Age"));
+		
 
 	}
 
@@ -87,11 +88,6 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 		
 	}
 
-	public float getEntityAge()
-	{
-		return this.getFloatFromDataManager(AGE);
-	}
-
 	@Override
 	public int getAgeTimer()
 	{
@@ -103,11 +99,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	{
 		ageTimer = i;
 	}
-	
-	public void setEntityAge(float age)
-	{
-		this.dataManager.set(EntityChickBase.AGE, Float.valueOf(age));
-	}
+
 
 	@Override
 	public void playLivingSound()
@@ -131,15 +123,15 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	}
 
 	@Override
-	public UUID getParentUniqueId()
+	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
 	{
 		return null;
 	}
 
 	@Override
-	public void setParentUniqueId(UUID id)
+	public DataParameter<Float> getEntityAgeParam()
 	{
-		
+		return AGE;
 	}
 
 }

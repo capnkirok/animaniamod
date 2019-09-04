@@ -116,8 +116,6 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		if (this.getMateUniqueId() != null)
-			compound.setString("MateUUID", this.getMateUniqueId().toString());
 
 	}
 
@@ -126,34 +124,12 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		super.readEntityFromNBT(compound);
 
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-			s = compound.getString("MateUUID");
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
 	}
 
-	@Nullable
-	public UUID getMateUniqueId()
+	@Override
+	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
 	{
-		try
-		{
-			UUID id = (UUID) ((Optional) this.dataManager.get(EntityHogBase.MATE_UNIQUE_ID)).orNull();
-			return id;
-		} catch (Exception e)
-		{
-			return null;
-		}
-	}
-
-	public void setMateUniqueId(@Nullable UUID uniqueId)
-	{
-		this.dataManager.set(EntityHogBase.MATE_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		return EntityHogBase.MATE_UNIQUE_ID;
 	}
 
 	@Override
@@ -426,30 +402,14 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public boolean getSterilized()
+	public DataParameter<Boolean> getSterilizedParam()
 	{
-		return this.getBoolFromDataManager(STERILIZED);
+		return STERILIZED;
 	}
 
-	@Override
-	public void setSterilized(boolean sterilized)
-	{
-		this.dataManager.set(STERILIZED, Boolean.valueOf(sterilized));
-	}
+	
 
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
-	{
-		compound.setBoolean("Sterilized", getSterilized());
-		return super.writeToNBT(compound);
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		this.setSterilized(compound.getBoolean("Sterilized"));
-		super.readFromNBT(compound);
-	}
+	
 
 	@Override
 	public void sterilize()
