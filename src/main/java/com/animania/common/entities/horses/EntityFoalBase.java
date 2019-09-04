@@ -86,29 +86,12 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-
-		if (this.getParentUniqueId() != null)
-			if (this.getParentUniqueId() != null)
-				compound.setString("ParentUUID", this.getParentUniqueId().toString());
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-		
-		
-
-	}
-
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_HORSE_STEP, 0.05F, 1.1F);
 	}
 
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;
@@ -292,7 +275,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				age = age + .01F;
 				this.setEntityAge(age);
 
-				this.setSize(1.0F + age, 1.4F + age);
+//				this.setSize(1.0F + age, 1.4F + age);
 
 				if (age >= 0.45 && !this.world.isRemote)
 				{

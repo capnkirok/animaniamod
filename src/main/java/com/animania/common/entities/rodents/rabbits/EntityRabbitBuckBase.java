@@ -231,40 +231,6 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
-	{
-		compound.setBoolean("Sterilized", getSterilized());
-		if (this.getMateUniqueId() != null)
-		{
-			compound.setString("MateUUID", this.getMateUniqueId().toString());
-		}
-		return super.writeToNBT(compound);
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		this.setSterilized(compound.getBoolean("Sterilized"));
-		String s;
-
-		if (compound.hasKey("MateUUID", 8))
-		{
-			s = compound.getString("MateUUID");
-		}
-		else
-		{
-			String s1 = compound.getString("Mate");
-			s = PreYggdrasilConverter.convertMobOwnerIfNeeded(this.getServer(), s1);
-		}
-
-		if (!s.isEmpty())
-		{
-			this.setMateUniqueId(UUID.fromString(s));
-		}
-		super.readFromNBT(compound);
-	}
-
-	@Override
 	public void sterilize()
 	{
 		Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();

@@ -111,21 +111,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		this.dataManager.register(EntityHogBase.STERILIZED, false);
 
 	}
-
-	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-
-	}
-
+	
 	@Override
 	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
 	{

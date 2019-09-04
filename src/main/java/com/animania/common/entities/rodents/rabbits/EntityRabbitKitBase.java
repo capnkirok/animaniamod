@@ -72,26 +72,6 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-
-		if (this.getParentUniqueId() != null)
-			if (this.getParentUniqueId() != null)
-				compound.setString("ParentUUID", this.getParentUniqueId().toString());
-
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-		
-		
-
-	}
-
-	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		int happy = 0;

@@ -139,27 +139,6 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-		
-
-
-
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-
-		
-
-		
-
-	}
-
-	@Override
 	public DataParameter<Integer> getGestationParam()
 	{
 		return GESTATION_TIMER;

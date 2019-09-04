@@ -297,12 +297,8 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		UUID mate = this.getMateUniqueId();
-		if (mate != null)
-			compound.setString("MateUUID", mate.toString());
 
 		compound.setBoolean("Fighting", this.getFighting());
-
 	}
 
 	@Override
@@ -311,7 +307,6 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		super.readEntityFromNBT(compound);
 
 		this.setFighting(compound.getBoolean("Fighting"));
-
 	}
 
 	@Override

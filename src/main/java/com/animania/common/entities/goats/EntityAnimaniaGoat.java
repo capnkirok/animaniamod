@@ -129,7 +129,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	{
 		return false;
 	}
-
+	
 	@Override
 	public void setPosition(double x, double y, double z) // TODO Try
 	{

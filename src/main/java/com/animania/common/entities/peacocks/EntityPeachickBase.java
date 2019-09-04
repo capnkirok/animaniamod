@@ -52,22 +52,6 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
-	{
-		super.writeEntityToNBT(nbttagcompound);
-
-
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
-	{
-		super.readEntityFromNBT(nbttagcompound);
-		
-
-	}
-
-	@Override
 	public void onLivingUpdate()
 	{
 		GenericBehavior.livingUpdateChild(this, null);

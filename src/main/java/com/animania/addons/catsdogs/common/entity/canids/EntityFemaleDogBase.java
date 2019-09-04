@@ -139,27 +139,6 @@ public class EntityFemaleDogBase extends EntityAnimaniaDog implements TOPInfoPro
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-		
-
-
-
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-
-		
-
-		
-
-	}
-
-	@Override
 	public DataParameter<Integer> getGestationParam()
 	{
 		return GESTATION_TIMER;

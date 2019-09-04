@@ -67,23 +67,6 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
-	{
-		super.writeEntityToNBT(compound);
-		
-
-	}
-
-	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
-	{
-		super.readEntityFromNBT(compound);
-
-		
-
-	}
-
-	@Override
 	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
