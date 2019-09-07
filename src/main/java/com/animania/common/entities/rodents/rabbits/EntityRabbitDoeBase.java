@@ -10,6 +10,7 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
@@ -94,40 +95,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{
-		if (this.world.isRemote)
-			return null;
-
-		List<EntityAnimaniaRabbit> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaRabbit.class, 64, this.world, this.getPosition());
-		
-		if (others.size() <= 4 ) {
-
-
-			int chooser = this.rand.nextInt(3);
-
-			if (chooser == 0)
-			{
-				EntityRabbitBuckBase entityRabbit = this.rabbitType.getMale(world);
-				entityRabbit.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityRabbit);
-				entityRabbit.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityRabbit.getPersistentID());
-			}
-			else if (chooser == 1)
-			{
-				EntityRabbitKitBase entityKid = this.rabbitType.getChild(world);
-				entityKid.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityKid);
-				entityKid.setParentUniqueId(this.entityUniqueID);
-			}
-		
-		}
-
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
-
-		if (this.rand.nextFloat() < 0.05F)
-			this.setLeftHanded(true);
-		else
-			this.setLeftHanded(false);
+		GenericBehavior.initialSpawnFemale(this, EntityAnimaniaRabbit.class);
 
 		return livingdata;
 	}
@@ -152,51 +120,6 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound()
-	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 8;
-		else if (happy == 1)
-			num = 16;
-		else
-			num = 32;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.rabbit1;
-		else if (chooser == 1)
-			return ModSoundEvents.rabbit2;
-		else if (chooser == 2)
-			return ModSoundEvents.rabbit3;
-		else if (chooser == 3)
-			return ModSoundEvents.rabbit4;
-		else
-			return null;
-
-	}
-
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
-	{
-		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.rabbitHurt1 : ModSoundEvents.rabbitHurt2;
-	}
-
-	@Override
-	protected SoundEvent getDeathSound()
-	{
-		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.rabbitHurt1 : ModSoundEvents.rabbitHurt2;
-	}
-
-	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.8F);
@@ -214,137 +137,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!this.getFertile() && this.dryTimerDoe > -1) {
-			this.dryTimerDoe--;
-		} else {
-			this.setFertile(true);
-			this.dryTimerDoe = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
-		}
-
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 200 + this.rand.nextInt(200);
-
-				// Check for Mate
-				if (this.getMateUniqueId() != null)
-				{
-					UUID mate = this.getMateUniqueId();
-					boolean mateReset = true;
-
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityRabbitBuckBase.class, 30, world, this);
-					for (int k = 0; k <= entities.size() - 1; k++)
-					{
-						Entity entity = entities.get(k);
-						if (entity != null)
-						{
-							UUID id = entity.getPersistentID();
-							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
-							{
-								mateReset = false;
-								break;
-							}
-						}
-					}
-
-					if (mateReset)
-						this.setMateUniqueId(null);
-					if (!this.getFertile() && !this.getPregnant()) {
-						this.setFertile(true);
-					}
-
-				}
-			}
-		}
-
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-		int gestationTimer = this.getGestation();
-
-		if (gestationTimer > -1 && this.getPregnant())
-		{
-			gestationTimer--;
-			this.setGestation(gestationTimer);
-
-			if (gestationTimer < 200 && this.getSleeping()) {
-				this.setSleeping(false);
-			}
-			
-			if (gestationTimer == 0)
-			{
-
-				List list = this.world.loadedEntityList;	
-				int rabbitCount = 0;
-				int num = 0;
-				for (int i = 0; i < list.size(); i++) {
-					if (list.get(i) instanceof EntityAnimaniaRabbit) {
-						num++;
-					}
-				}
-				rabbitCount = num;
-
-				UUID MateID = this.getMateUniqueId();
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityRabbitBuckBase.class, 30, this.world, this);
-				int esize = entities.size();
-				Boolean mateFound = false;
-				for (int k = 0; k <= esize - 1; k++) 
-				{
-					EntityRabbitBuckBase entity = (EntityRabbitBuckBase)entities.get(k);
-
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
-
-						this.setInLove(null);
-						RabbitType maleType = ((EntityAnimaniaRabbit) entity).rabbitType;
-						RabbitType babyType = RabbitType.breed(maleType, this.rabbitType);
-						EntityRabbitKitBase entityKid = babyType.getChild(world);
-						entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
-						if (!world.isRemote) {
-							this.world.spawnEntity(entityKid);
-						}
-						entityKid.setParentUniqueId(this.getPersistentID());
-						this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
-
-						this.setPregnant(false);
-						this.setFertile(false);
-						this.setHasKids(true);
-
-						BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityKid);
-						MinecraftForge.EVENT_BUS.post(event);
-						k = esize;
-						mateFound = true;
-						break;
-
-					}
-				}
-
-				if (!mateFound && this.getFed() && this.getWatered()) {
-
-					this.setInLove(null);
-					RabbitType babyType = RabbitType.breed(this.rabbitType, this.rabbitType);
-					EntityRabbitKitBase entityKid = babyType.getChild(world);
-					entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
-					if (!world.isRemote) {
-						this.world.spawnEntity(entityKid);
-					}
-
-					entityKid.setParentUniqueId(this.getPersistentID());
-					this.playSound(ModSoundEvents.rabbit1, 0.50F, 1.1F);
-
-					this.setPregnant(false);
-					this.setFertile(false);
-					this.setHasKids(true);
-
-					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entityKid, entityKid);
-					MinecraftForge.EVENT_BUS.post(event);
-					mateFound = true;
-
-				}
-			}
-		} else if (gestationTimer < 0){
-			this.setGestation(1);
-		}
+		GenericBehavior.livingUpdateFemale(this, EntityRabbitBuckBase.class);
 
 		super.onLivingUpdate();
 	}
@@ -441,8 +234,18 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	{
 		return PREGNANT;
 	}
-
-
+	
+	@Override
+	public int getDryTimer()
+	{
+		return dryTimerDoe;
+	}
+	
+	@Override
+	public void setDryTimer(int i)
+	{
+		this.dryTimerDoe = i;
+	}
 
 	@Override
 	public DataParameter<Optional<UUID>> getMateUniqueIdParam()

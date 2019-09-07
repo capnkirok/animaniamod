@@ -29,7 +29,7 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 	private Class female;
 	private Class child;
 	private Class base;
-	
+
 	public GenericAIMate(T animal, double speedIn, Class other, Class child, Class base)
 	{
 		this.entity = animal;
@@ -42,7 +42,7 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 		this.child = child;
 		this.base = base;
 	}
-	
+
 	@Override
 	public boolean shouldExecute()
 	{
@@ -53,15 +53,15 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 
 		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
-			if(entity instanceof ISterilizable)
+			if (entity instanceof ISterilizable)
 			{
-				if(((ISterilizable) entity).getSterilized())
+				if (((ISterilizable) entity).getSterilized())
 				{
 					this.delayCounter = 0;
 					return false;
 				}
 			}
-			
+
 			if (entity.getSleeping())
 			{
 				this.delayCounter = 0;
@@ -75,21 +75,26 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 			}
 
 			List similarAnimalsInRange = AnimaniaHelper.getEntitiesInRange(base, AnimaniaConfig.gameRules.animalCapSearchRange, theWorld, entity);
-			if(similarAnimalsInRange.size() >= AnimaniaConfig.careAndFeeding.entityBreedingLimit)
+			if (similarAnimalsInRange.size() >= AnimaniaConfig.careAndFeeding.entityBreedingLimit)
 			{
 				this.delayCounter = 0;
 				return false;
 			}
-			
+
+			if (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? !entity.getInteracted() : false)
+			{
+				this.delayCounter = 0;
+				return false;
+			}
+
 			if (AnimaniaConfig.careAndFeeding.feedToBreed)
 			{
-				if (entity instanceof IFoodEating && !((IFoodEating) entity).getHandFed())
+				if (!entity.getHandFed())
 				{
 					this.delayCounter = 0;
 					return false;
 				}
 			}
-			
 
 			this.targetMate = this.getNearbyMate();
 
@@ -133,17 +138,64 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 
 		if (this.targetMate != null)
 		{
-			if (!targetMate.getPregnant() && targetMate.getFertile())
+			UUID targetMateUUID = targetMate.getMateUniqueId();
+			boolean preg = targetMate.getPregnant();
+			boolean fertile = targetMate.getFertile();
+			boolean uuidbool = (targetMateUUID == null ? false : !targetMateUUID.equals(entity.getUniqueID()));
+
+			if (uuidbool || preg || !fertile)
 			{
-				this.targetMate = this.getNearbyMate();
+				targetMate.getNavigator().clearPath();
+				this.courtshipTimer = 200;
+				this.resetTask();
+				this.entity.getNavigator().clearPath();
+				return;
+			}
+
+			this.courtshipTimer--;
+
+			if (courtshipTimer >= 0)
+			{
+
+				if (courtshipTimer % 20 == 0)
+				{
+					this.entity.getLookHelper().setLookPositionWithEntity(targetMate, 10.0F, this.entity.getVerticalFaceSpeed());
+					this.entity.getNavigator().tryMoveToEntityLiving(targetMate, this.moveSpeed);
+					targetMate.getLookHelper().setLookPositionWithEntity(this.entity, 10.0F, targetMate.getVerticalFaceSpeed());
+					targetMate.getNavigator().tryMoveToEntityLiving(this.entity, this.moveSpeed);
+				}
+
+				double distance = entity.getDistance(targetMate);
+
+				if (distance <= 1.8)
+				{
+					this.entity.setInLove(null);
+					this.entity.setMateUniqueId(targetMate.getPersistentID());
+					targetMate.setInLove(null);
+
+					targetMate.setPregnant(true);
+					targetMate.setFertile(false);
+					targetMate.setHandFed(false);
+					targetMate.setMateUniqueId(entity.getPersistentID());
+
+					targetMate.getNavigator().clearPath();
+					this.courtshipTimer = 200;
+					this.resetTask();
+					this.entity.getNavigator().clearPath();
+
+				}
 			}
 			else
 			{
-				((EntityAnimal) this.entity).resetInLove();
+				targetMate.getNavigator().clearPath();
+				this.courtshipTimer = 200;
 				this.resetTask();
 				this.entity.getNavigator().clearPath();
-				this.delayCounter = 0;
+
+				// If mating fails, we give a 2000 tick cooldown
+				this.delayCounter = -2000;
 			}
+
 		}
 	}
 
@@ -158,17 +210,20 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 			mateID = male.getMateUniqueId();
 		}
 
+		if (AnimaniaConfig.careAndFeeding.malesMateMultipleFemales)
+			mateID = null;
+
 		if (mateID != null)
 		{
-			List entities = AnimaniaHelper.getEntitiesInRange(this.female, 3, this.entity.world, this.entity);
+			List entities = AnimaniaHelper.getEntitiesInRange(this.female, 5, this.entity.world, this.entity);
 
 			for (int k = 0; k <= entities.size() - 1; k++)
 			{
 				O female = (O) entities.get(k);
 
-				if(female == null)
+				if (female == null)
 					continue;
-				
+
 				boolean allowBreeding = true;
 				if (AnimaniaConfig.careAndFeeding.feedToBreed && female instanceof IFoodEating && !((IFoodEating) female).getHandFed())
 				{
@@ -177,36 +232,14 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 
 				if (female.getPersistentID().equals(mateID) && female.getFertile() && (female instanceof ISleeping && !((ISleeping) female).getSleeping()) && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male))
 				{
-
-					this.courtshipTimer--;
-					if (this.courtshipTimer < 0)
-					{
-						this.entity.setInLove(null);
-						this.courtshipTimer = 20;
-						k = entities.size();
-						female.setPregnant(true);
-						female.setFertile(false);
-						female.setHandFed(false);
-						delayCounter = 0;
-						return female;
-					}
-					else if (allowBreeding)
-					{
-						k = entities.size();
-						((IMateable)entity).setInLove(null);
-						this.entity.getLookHelper().setLookPositionWithEntity(female, 10.0F, this.entity.getVerticalFaceSpeed());
-						this.entity.getNavigator().tryMoveToEntityLiving(female, this.moveSpeed);
-						female.getLookHelper().setLookPositionWithEntity(this.entity, 10.0F, female.getVerticalFaceSpeed());
-						female.getNavigator().tryMoveToEntityLiving(this.entity, this.moveSpeed);
-
-						return null;
-					}
+					this.courtshipTimer = 200;
+					return female;
 				}
 			}
 		}
 		else
 		{
-			List entities = AnimaniaHelper.getEntitiesInRange(this.female, 5, this.entity.world, this.entity);
+			List entities = AnimaniaHelper.getEntitiesInRange(this.female, 8, this.entity.world, this.entity);
 
 			for (int k = 0; k <= entities.size() - 1; k++)
 			{
@@ -219,31 +252,10 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 				}
 
 				this.courtshipTimer--;
-				if (female.getMateUniqueId() == null && this.courtshipTimer < 0 && female.getFertile() && !female.getSleeping() && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male))
+				if ((AnimaniaConfig.careAndFeeding.malesMateMultipleFemales ? (female.getMateUniqueId() == null ? true : female.getMateUniqueId().equals(entity.getPersistentID())) : female.getMateUniqueId() == null) && female.getFertile() && !female.getSleeping() && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male))
 				{
-
-					this.entity.setMateUniqueId(female.getPersistentID());
-					female.setMateUniqueId(this.entity.getPersistentID());
-					this.entity.setInLove(null);
-					this.courtshipTimer = 20;
-					k = entities.size();
-					female.setPregnant(true);
-					female.setFertile(false);
-					female.setHandFed(false);
-					delayCounter = 0;
+					this.courtshipTimer = 200;
 					return female;
-				}
-				else if (female.getMateUniqueId() == null && !female.getPregnant() && !female.getSleeping() && female.getFertile() && allowBreeding && female.canEntityBeSeen(male))
-				{
-
-					k = entities.size();
-					this.entity.setInLove(null);
-					this.entity.getLookHelper().setLookPositionWithEntity(female, 10.0F, this.entity.getVerticalFaceSpeed());
-					this.entity.getNavigator().tryMoveToEntityLiving(female, this.moveSpeed);
-					female.getLookHelper().setLookPositionWithEntity(this.entity, 10.0F, female.getVerticalFaceSpeed());
-					female.getNavigator().tryMoveToEntityLiving(this.entity, this.moveSpeed);
-					return null;
-
 				}
 			}
 		}

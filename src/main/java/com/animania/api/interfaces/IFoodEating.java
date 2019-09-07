@@ -101,7 +101,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	public Set<Item> getFoodItems();
 
-	default Fluid getFoodFluid()
+	default Fluid[] getFoodFluids()
 	{
 		return null;
 	}

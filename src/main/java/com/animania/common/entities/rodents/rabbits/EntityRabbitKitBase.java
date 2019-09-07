@@ -4,24 +4,19 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
-import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.GenericBehavior;
-import com.animania.common.entities.rodents.ai.EntityAIFollowParentRabbits;
+import com.animania.common.entities.generic.ai.GenericAIFollowParents;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.google.common.base.Optional;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -44,7 +39,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
-		this.tasks.addTask(1, new EntityAIFollowParentRabbits(this, 1.15D));
+		this.tasks.addTask(1, new GenericAIFollowParents<EntityRabbitKitBase, EntityRabbitDoeBase>(this, 1.1, EntityRabbitDoeBase.class));
 	}
 
 	@Override
@@ -69,51 +64,6 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		this.dataManager.register(EntityRabbitKitBase.AGE, Float.valueOf(0));
 		this.dataManager.register(EntityRabbitKitBase.PARENT_UNIQUE_ID, Optional.<UUID>absent());
 
-	}
-
-	@Override
-	protected SoundEvent getAmbientSound()
-	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 8;
-		else if (happy == 1)
-			num = 16;
-		else
-			num = 32;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.rabbit1;
-		else if (chooser == 1)
-			return ModSoundEvents.rabbit2;
-		else if (chooser == 2)
-			return ModSoundEvents.rabbit3;
-		else if (chooser == 3)
-			return ModSoundEvents.rabbit4;
-		else
-			return null;
-
-	}
-
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
-	{
-		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.rabbitHurt1 : ModSoundEvents.rabbitHurt2;
-	}
-
-	@Override
-	protected SoundEvent getDeathSound()
-	{
-		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.rabbitHurt1 : ModSoundEvents.rabbitHurt2;
 	}
 
 	@Override
@@ -142,7 +92,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	public void onLivingUpdate()
 	{
 
-		GenericBehavior.livingUpdateChild(this, null);
+		GenericBehavior.livingUpdateChild(this, EntityRabbitDoeBase.class);
 
 		super.onLivingUpdate();
 	}

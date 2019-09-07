@@ -4,23 +4,20 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.sheep.ai.EntityAIFollowParentSheep;
+import com.animania.common.entities.generic.GenericBehavior;
+import com.animania.common.entities.generic.ai.GenericAIFollowParents;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
-import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
@@ -44,7 +41,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
-		this.tasks.addTask(4, new EntityAIFollowParentSheep(this, 1.1D));
+		this.tasks.addTask(4, new GenericAIFollowParents<EntityLambBase, EntityEweBase>(this, 1.1, EntityEweBase.class));
 	}
 	
 	@Override
@@ -74,56 +71,19 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 8;
-		else if (happy == 1)
-			num = 16;
-		else
-			num = 32;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.lambLiving1;
-		else if (chooser == 1)
-			return ModSoundEvents.lambLiving2;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.lambLiving1,ModSoundEvents.lambLiving2);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.sheepHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.lambLiving2;
-		else
-			return null;
+		return GenericBehavior.getRandomSound(ModSoundEvents.sheepHurt1, ModSoundEvents.lambLiving2);
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.sheepHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.lambLiving2;
-		else
-			return null;
+		return GenericBehavior.getRandomSound(ModSoundEvents.sheepHurt1, ModSoundEvents.lambLiving2);
 	}
 
 	@Override
@@ -152,54 +112,7 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	@Override
 	public void onLivingUpdate()
 	{
-
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-		this.growingAge = -24000;
-		this.ageTimer++;
-		if (this.ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
-		{
-			if (fed && watered)
-			{
-				this.ageTimer = 0;
-				float age = this.getEntityAge();
-				age = age + .005F;
-				this.setEntityAge(age);
-
-				if (age >= .30 && !this.world.isRemote)
-				{
-					this.setDead();
-					int color = this.getColorNumber();
-
-					EntityAnimaniaSheep entitySheep;
-					
-					if (this.rand.nextInt(2) < 1)
-					{
-						entitySheep = this.sheepType.getFemale(world);
-					}
-					else
-					{
-						entitySheep = this.sheepType.getMale(world);
-					}
-					
-					if (entitySheep != null)
-					{
-						entitySheep.setPosition(this.posX, this.posY + .5, this.posZ);
-						entitySheep.setColorNumber(color);
-						String name = this.getCustomNameTag();
-						if (name != "")
-							entitySheep.setCustomNameTag(name);
-						
-						entitySheep.setAge(1);
-						this.world.spawnEntity(entitySheep);
-						this.playSound(ModSoundEvents.sheepLiving1, 0.50F, 1.1F);
-					}
-
-				}
-			}
-		}
-		
-		
+		GenericBehavior.livingUpdateChild(this, EntityEweBase.class);
 
 		super.onLivingUpdate();
 	}

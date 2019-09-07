@@ -11,6 +11,7 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
@@ -50,6 +51,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.server.management.PreYggdrasilConverter;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -236,6 +238,21 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 		return true;
 	}
 
+	protected SoundEvent getAmbientSound()
+	{
+		return GenericBehavior.getAmbientSound(this,ModSoundEvents.horseliving1, ModSoundEvents.horseliving2, ModSoundEvents.horseliving3, ModSoundEvents.horseliving4, ModSoundEvents.horseliving5, ModSoundEvents.horseliving6);
+	}
+
+	protected SoundEvent getHurtSound(DamageSource source)
+	{
+		return GenericBehavior.getRandomSound(ModSoundEvents.horsehurt1, ModSoundEvents.horsehurt2, ModSoundEvents.horsehurt3);
+	}
+
+	protected SoundEvent getDeathSound()
+	{
+		return GenericBehavior.getRandomSound(ModSoundEvents.horsehurt1, ModSoundEvents.horsehurt2, ModSoundEvents.horsehurt3);
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void setJumpPower(int jumpPowerIn)

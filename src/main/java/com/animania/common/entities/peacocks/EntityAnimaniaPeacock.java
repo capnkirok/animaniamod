@@ -271,13 +271,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 
 		this.wingRotation += this.wingRotDelta * 2.0F;
 
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-				this.blinkTimer = 100 + this.rand.nextInt(100);
-		}
-
 		if (this instanceof EntityPeacockBase && AnimaniaConfig.gameRules.chickensDropFeathers)
 		{
 			this.featherCounter--;
@@ -328,8 +321,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		return FED;
 	}
 
-	
-
 	@Override
 	public DataParameter<Boolean> getWateredParam()
 	{
@@ -379,68 +370,19 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 20;
-		else if (happy == 1)
-			num = 40;
-		else
-			num = 100;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.peacock1;
-		else if (chooser == 1)
-			return ModSoundEvents.peacock2;
-		else if (chooser == 2)
-			return ModSoundEvents.peacock3;
-		else if (chooser == 3)
-			return ModSoundEvents.peacock4;
-		else if (chooser == 4)
-			return ModSoundEvents.peacock5;
-		else if (chooser == 5)
-			return null;
-		else if (chooser == 6)
-			return ModSoundEvents.peacock7;
-		else if (chooser == 7)
-			return ModSoundEvents.peacock8;
-		else if (chooser == 8)
-			return ModSoundEvents.peacock9;
-		else if (chooser == 9)
-			return ModSoundEvents.peacock10;
-		else
-			return null;
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.peacock1, ModSoundEvents.peacock2, ModSoundEvents.peacock3, ModSoundEvents.peacock4, ModSoundEvents.peacock5, ModSoundEvents.peacock7, ModSoundEvents.peacock8, ModSoundEvents.peacock9, ModSoundEvents.peacock10);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(2);
-
-		if (chooser == 0)
-			return ModSoundEvents.peacockHurt1;
-		else
-			return ModSoundEvents.peacockHurt2;
+		return GenericBehavior.getRandomSound(ModSoundEvents.peacockHurt1, ModSoundEvents.peacockHurt2);
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		int chooser = Animania.RANDOM.nextInt(2);
-
-		if (chooser == 0)
-			return ModSoundEvents.peacockHurt1;
-		else
-			return ModSoundEvents.peacockHurt2;
+		return GenericBehavior.getRandomSound(ModSoundEvents.peacockHurt1, ModSoundEvents.peacockHurt2);
 	}
 
 	@Override
@@ -458,14 +400,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	@Override
 	public int getPrimaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getSecondaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -507,7 +447,6 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		return blinkTimer;
 	}
 	
-
 	@Override
 	public void setBlinkTimer(int i)
 	{

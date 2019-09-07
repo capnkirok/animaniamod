@@ -8,6 +8,7 @@ import com.animania.Animania;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
+import com.animania.api.interfaces.IFoodEating;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.handler.ItemHandler;
@@ -101,6 +102,13 @@ public class ItemEntityEgg extends Item
 			world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 			entity.rotationYawHead = entity.rotationYaw;
 			entity.renderYawOffset = entity.rotationYaw;
+			
+			if(entity instanceof IFoodEating)
+			{
+				IFoodEating foodEating = (IFoodEating) entity;
+				foodEating.setInteracted(true);
+			}
+			
 			world.spawnEntity(entity);
 			return EnumActionResult.SUCCESS;
 

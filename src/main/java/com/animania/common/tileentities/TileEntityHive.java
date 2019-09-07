@@ -130,6 +130,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 		NBTTagCompound fluid = new NBTTagCompound();
 		fluid = this.fluidHandler.writeToNBT(fluid);
 		tag.setInteger("nextHoney", nextHoney);
+		tag.setTag("fluid", fluid);
 		return tag;
 
 	}
@@ -142,6 +143,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 		this.fluidHandler.readFromNBT(compound.getCompoundTag("fluid"));
 		this.nextHoney = compound.getInteger("nextHoney");
 	}
+
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing)

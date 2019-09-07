@@ -94,11 +94,11 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		this.enablePersistence();
 		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaCat>(this, false);
 		this.tasks.addTask(11, this.entityAIEatGrass);
-
+		
+		this.initAI();
 	}
 
-	@Override
-	protected void initEntityAI()
+	protected void initAI()
 	{
 		this.aiSit = new GenericAISit(this);
 		this.tasks.addTask(0, new EntityAISwimming(this));
@@ -226,16 +226,6 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		return SLEEPTIMER;
 	}
 
-//	public boolean getIsTamed()
-//	{
-//		return this.getBoolFromDataManager(TAMED);
-//	}
-//
-//	public void setIsTamed(boolean tamed)
-//	{
-//		this.dataManager.set(TAMED, Boolean.valueOf(tamed));
-//	}
-
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand)
 	{
@@ -260,25 +250,11 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		return FED;
 	}
 
-	
-
 	@Override
 	public DataParameter<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
-
-//	@Override
-//	public boolean isSitting()
-//	{
-//		return this.getBoolFromDataManager(SITTING);
-//	}
-//
-//	@Override
-//	public void setSitting(boolean flag)
-//	{
-//		this.dataManager.set(SITTING, Boolean.valueOf(flag));
-//	}
 
 	@Override
 	public void onLivingUpdate()
@@ -289,15 +265,6 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 				this.rotationYaw = this.getRidingEntity().rotationYaw;
 			this.navigator.clearPath();
 			this.navigator.setSpeed(0);
-		}
-
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 100 + this.rand.nextInt(100);
-			}
 		}
 
 		GenericBehavior.livingUpdateCommon(this);

@@ -97,7 +97,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public GenericAIEatGrass<EntityFerretBase> entityAIEatGrass;
 	protected int damageTimer;
 	protected FerretType type;
-	private int delayCount;
 
 	public EntityFerretBase(World worldIn)
 	{
@@ -110,13 +109,14 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + this.rand.nextInt(70);
 		this.enablePersistence();
-		this.delayCount = 5;
 		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
 		this.tasks.addTask(11, this.entityAIEatGrass);
+		
+		this.initAI();
 	}
 
-	@Override
-	protected void initEntityAI()
+	
+	protected void initAI()
 	{
 		this.aiSit = new EntityAISit(this);
 		this.tasks.addTask(0, new GenericAISwimmingSmallCreatures(this));
@@ -196,7 +196,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			if (stack != ItemStack.EMPTY)
 				stack.setCount(stack.getCount() - 1);
 
-		delayCount = 10;
 	}
 
 	@Override
@@ -330,51 +329,13 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 10;
-		else if (happy == 1)
-			num = 20;
-		else
-			num = 40;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.ferretLiving1;
-		else if (chooser == 1)
-			return ModSoundEvents.ferretLiving2;
-		else if (chooser == 2)
-			return ModSoundEvents.ferretLiving3;
-		else if (chooser == 3)
-			return ModSoundEvents.ferretLiving4;
-		else if (chooser == 4)
-			return ModSoundEvents.ferretLiving5;
-		else if (chooser == 5)
-			return ModSoundEvents.ferretLiving6;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.ferretLiving1, ModSoundEvents.ferretLiving2, ModSoundEvents.ferretLiving3, ModSoundEvents.ferretLiving4, ModSoundEvents.ferretLiving5, ModSoundEvents.ferretLiving6);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.ferretHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.ferretHurt1;
-		else
-			return null;
+		return ModSoundEvents.ferretHurt1;
 	}
 
 	@Override
@@ -420,11 +381,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	@Override
 	public void onLivingUpdate()
 	{
-		delayCount--;
-		if (delayCount <= 0) {
-			delayCount = 0;
-		}
-		
 		GenericBehavior.livingUpdateCommon(this);
 		
 		if (this.isSitting() || this.isRiding())

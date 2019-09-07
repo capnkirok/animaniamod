@@ -259,35 +259,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 6;
-		else if (happy == 1)
-			num = 12;
-		else
-			num = 24;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.chickenCluck1;
-		else if (chooser == 1)
-			return ModSoundEvents.chickenCluck2;
-		else if (chooser == 2)
-			return ModSoundEvents.chickenCluck3;
-		else if (chooser == 3)
-			return ModSoundEvents.chickenCluck4;
-		else if (chooser == 4)
-			return ModSoundEvents.chickenCluck5;
-		else
-			return ModSoundEvents.chickenCluck6;
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.chickenCluck1, ModSoundEvents.chickenCluck2, ModSoundEvents.chickenCluck3, ModSoundEvents.chickenCluck4, ModSoundEvents.chickenCluck5, ModSoundEvents.chickenCluck6);
 	}
 
 	@Override

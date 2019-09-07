@@ -97,7 +97,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	public GenericAIEatGrass<EntityHedgehogBase> entityAIEatGrass;
 	protected int damageTimer;
 	protected HedgehogType type;
-	private int delayCount;
 
 	public EntityHedgehogBase(World worldIn)
 	{
@@ -111,10 +110,11 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 80 + this.rand.nextInt(80);
-		this.delayCount = 5;
 		this.enablePersistence();
 		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
 		this.tasks.addTask(12, this.entityAIEatGrass);
+		
+		this.initAI();
 	}
 
 	@Override
@@ -123,8 +123,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		return this.height - .4F;
 	}
 
-	@Override
-	protected void initEntityAI()
+	protected void initAI()
 	{
 		this.aiSit = new EntityAISit(this);
 		this.tasks.addTask(1, new GenericAISwimmingSmallCreatures(this));
@@ -258,48 +257,13 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 10;
-		else if (happy == 1)
-			num = 20;
-		else
-			num = 40;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-		if (chooser == 0)
-			return ModSoundEvents.hedgehogLiving1;
-		else if (chooser == 1)
-			return ModSoundEvents.hedgehogLiving2;
-		else if (chooser == 2)
-			return ModSoundEvents.hedgehogLiving3;
-		else if (chooser == 3)
-			return ModSoundEvents.hedgehogLiving4;
-		else if (chooser == 4)
-			return ModSoundEvents.hedgehogLiving5;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.hedgehogLiving1, ModSoundEvents.hedgehogLiving2, ModSoundEvents.hedgehogLiving3, ModSoundEvents.hedgehogLiving4, ModSoundEvents.hedgehogLiving5);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.hedgehogHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.hedgehogHurt2;
-		else
-			return null;
+		return GenericBehavior.getRandomSound(ModSoundEvents.hedgehogHurt1, ModSoundEvents.hedgehogHurt2);
 	}
 
 	@Override
@@ -355,9 +319,8 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		ItemStack stack = player.getHeldItem(hand);
 		EntityPlayer entityplayer = player;
 
-		if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0 && !this.getSleeping())
+		if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && !this.getSleeping())
 		{
-			delayCount = 5;
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 			if (!props.isCarrying())
 			{
@@ -397,13 +360,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
-		
-		delayCount--;
-		if (delayCount <= 0)
-		{
-			delayCount = 0;
-		}
-
 		if (this.isSitting() || this.isSitting() || this.isRiding())
 		{
 			if (this.getRidingEntity() != null)
@@ -465,19 +421,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 			super.handleStatusUpdate(id);
 	}
 
-//	public boolean isHedgehogSitting()
-//	{
-//		return this.getBoolFromDataManager(SITTING);
-//	}
-//
-//	public void setHedgehogSitting(boolean flag)
-//	{
-//		if (flag)
-//			this.dataManager.set(EntityHedgehogBase.SITTING, true);
-//		else
-//			this.dataManager.set(EntityHedgehogBase.SITTING, false);
-//	}
-
 	public boolean isHedgehogRiding()
 	{
 		return this.getBoolFromDataManager(RIDING);
@@ -505,19 +448,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		return WATERED;
 	}
 
-//	public boolean getIsTamed()
-//	{
-//		return this.getBoolFromDataManager(TAMED);
-//	}
-//
-//	public void setIsTamed(boolean fed)
-//	{
-//		if (fed)
-//			this.dataManager.set(EntityHedgehogBase.TAMED, true);
-//		else
-//			this.dataManager.set(EntityHedgehogBase.TAMED, false);
-//	}
-
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)
 	{
@@ -542,10 +472,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		return null;
 	}
 
-	/**
-	 * Checks if the parameter is an item which this animal can be fed to breed
-	 * it (wheat, carrots or seeds depending on the animal type)
-	 */
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
@@ -567,14 +493,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	@Override
 	public int getPrimaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getSecondaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

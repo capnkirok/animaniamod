@@ -10,6 +10,7 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
@@ -66,6 +67,7 @@ import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -253,6 +255,24 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		}
 	}
 
+	@Override
+	protected SoundEvent getAmbientSound()
+	{
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.rabbit1, ModSoundEvents.rabbit2, ModSoundEvents.rabbit3, ModSoundEvents.rabbit4);
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource source)
+	{
+		return GenericBehavior.getRandomSound(ModSoundEvents.rabbitHurt1, ModSoundEvents.rabbitHurt2);
+	}
+
+	@Override
+	protected SoundEvent getDeathSound()
+	{
+		return GenericBehavior.getRandomSound(ModSoundEvents.rabbitHurt1, ModSoundEvents.rabbitHurt2);
+	}
+	
 	protected void jump()
 	{
 		super.jump();

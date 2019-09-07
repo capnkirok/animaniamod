@@ -89,7 +89,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	private int tamedTimer;
 	public int blinkTimer;
 	private long rideCount;
-	private int delayCount;
 
 	private int stackCount;
 	private int eatCount;
@@ -129,12 +128,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.happyTimer = 60;
 		this.tamedTimer = 120;
 		this.blinkTimer = 70 + this.rand.nextInt(70);
-		this.delayCount = 5;
 		this.enablePersistence();
+		
+		this.initAI();
 	}
 
-	@Override
-	protected void initEntityAI()
+	protected void initAI()
 	{
 
 		this.tasks.addTask(1, new GenericAIPanic<EntityHamster>(this, 1.4D));
@@ -301,7 +300,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 		}
 		
-		if (itemstack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && delayCount == 0 && !this.isInBall() && !this.getSleeping())
+		if (itemstack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && !this.isInBall() && !this.getSleeping())
 		{
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 			if (!props.isCarrying())
@@ -426,20 +425,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 
 	@Override
 	public void onLivingUpdate()
-	{
-		delayCount--;
-		if (delayCount <= 0)
-		{
-			delayCount = 0;
-		}
-
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-				this.blinkTimer = 80 + this.rand.nextInt(80);
-		}
-		
+	{	
 		GenericBehavior.livingUpdateCommon(this);
 		
 		this.setResourceLoc();
@@ -663,63 +649,6 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		return new ResourceLocation(Animania.MODID, "hamster");
 	}
 
-	private ItemStack getItem(String moditem)
-	{
-
-		ItemStack foundStack = null;
-		String item = "";
-		String mod = "";
-		int sepLoc = 0;
-		int metaLoc = 0;
-		boolean metaFlag = false;
-		String metaVal = "";
-
-		sepLoc = moditem.indexOf(":");
-		metaLoc = moditem.indexOf("#");
-
-		if (!moditem.contains(":"))
-		{
-			return new ItemStack(Blocks.AIR, 1);
-		}
-
-		mod = moditem.substring(0, sepLoc);
-
-		if (metaLoc > 0)
-		{
-			item = moditem.substring(sepLoc + 1, metaLoc);
-		}
-		else
-		{
-			item = moditem.substring(sepLoc + 1, moditem.length());
-		}
-		if (metaLoc > 0)
-		{
-			metaFlag = true;
-			metaVal = moditem.substring(metaLoc + 1, moditem.length());
-		}
-
-		Item bob = Item.getByNameOrId(item);
-
-		if (bob != null)
-		{
-
-			if (metaFlag)
-			{
-				foundStack = new ItemStack(bob, 1, Integer.parseInt(metaVal));
-			}
-			else
-			{
-				foundStack = new ItemStack(bob, 1);
-			}
-		}
-		else
-		{
-			foundStack = new ItemStack(Blocks.AIR, 1);
-		}
-
-		return foundStack;
-	}
-
 	public int getFoodStackCount()
 	{
 		return this.foodStackCount;
@@ -797,32 +726,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 6;
-		else if (happy == 1)
-			num = 12;
-		else
-			num = 24;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.hamsterLiving1;
-		else if (chooser == 1)
-			return ModSoundEvents.hamsterLiving2;
-		else if (chooser == 2)
-			return ModSoundEvents.hamsterLiving3;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.hamsterLiving1, ModSoundEvents.hamsterLiving2, ModSoundEvents.hamsterLiving3);
 	}
 
 	@Override
@@ -834,7 +738,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		return null;
+		return ModSoundEvents.hamsterHurt1;
 	}
 
 	@Override

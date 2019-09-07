@@ -11,6 +11,7 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.entities.sheep.ai.EntityAIButtHeadsSheep;
 import com.animania.common.helper.AnimaniaHelper;
@@ -121,61 +122,19 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 10;
-		else if (happy == 1)
-			num = 20;
-		else
-			num = 40;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.sheepLiving1;
-		else if (chooser == 1)
-			return ModSoundEvents.sheepLiving2;
-		else if (chooser == 2)
-			return ModSoundEvents.sheepLiving3;
-		else if (chooser == 3)
-			return ModSoundEvents.sheepLiving4;
-		else if (chooser == 4)
-			return ModSoundEvents.sheepLiving5;
-		else if (chooser == 5)
-			return ModSoundEvents.sheepLiving6;
-		else if (chooser == 6)
-			return ModSoundEvents.sheepLiving7;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.sheepLiving1, ModSoundEvents.sheepLiving2, ModSoundEvents.sheepLiving3, ModSoundEvents.sheepLiving4, ModSoundEvents.sheepLiving5, ModSoundEvents.sheepLiving6, ModSoundEvents.sheepLiving7);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(2);
-
-		if (chooser == 0)
-			return ModSoundEvents.sheepHurt1;
-		else
-			return ModSoundEvents.sheepLiving7;
+		return GenericBehavior.getRandomSound(ModSoundEvents.sheepHurt1, ModSoundEvents.sheepLiving7);
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-		if (chooser == 0)
-			return ModSoundEvents.sheepHurt1;
-		else
-			return ModSoundEvents.sheepLiving7;
+		return GenericBehavior.getRandomSound(ModSoundEvents.sheepHurt1, ModSoundEvents.sheepLiving7);
 	}
 
 	@Override
@@ -196,47 +155,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 200 + this.rand.nextInt(200);
-
-				// Check for Mate
-				if (this.getMateUniqueId() != null)
-				{
-					UUID mate = this.getMateUniqueId();
-					boolean mateReset = true;
-
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityEweBase.class, 30, world, this);
-					for (int k = 0; k <= entities.size() - 1; k++)
-					{
-						Entity entity = entities.get(k);
-						if (entity != null)
-						{
-							UUID id = entity.getPersistentID();
-							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
-							{
-								mateReset = false;
-
-								EntityEweBase ewe = (EntityEweBase) entity;
-								if (ewe.getPregnant())
-								{
-									this.setHandFed(false);
-								}
-
-								break;
-							}
-						}
-					}
-
-					if (mateReset)
-						this.setMateUniqueId(null);
-
-				}
-			}
-		}
+		GenericBehavior.livingUpdateMateable(this, EntityEweBase.class);
 
 		super.onLivingUpdate();
 	}

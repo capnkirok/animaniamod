@@ -10,6 +10,7 @@ import net.minecraft.network.datasync.DataParameter;
 
 public interface IMateable extends IAnimaniaAnimal
 {
+	
 	public DataParameter<Optional<UUID>> getMateUniqueIdParam();
 	
 	default UUID getMateUniqueId()

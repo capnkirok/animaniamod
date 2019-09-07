@@ -12,6 +12,7 @@ import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -99,14 +100,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	public boolean getFighting()
 	{
-		try
-		{
-			return (this.getBoolFromDataManager(FIGHTING));
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		return this.getBoolFromDataManager(FIGHTING);
 	}
 
 	public void setFighting(boolean fighting)
@@ -156,59 +150,13 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 18;
-		else if (happy == 1)
-			num = 36;
-		else
-			num = 60;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-		if (chooser == 0)
-			return ModSoundEvents.bullMoo1;
-		else if (chooser == 1)
-			return ModSoundEvents.bullMoo2;
-		else if (chooser == 2)
-			return ModSoundEvents.bullMoo3;
-		else if (chooser == 3)
-			return ModSoundEvents.bullMoo4;
-		else if (chooser == 4)
-			return ModSoundEvents.bullMoo5;
-		else if (chooser == 5)
-			return ModSoundEvents.bullMoo6;
-		else if (chooser == 6)
-			return ModSoundEvents.bullMoo7;
-		else if (chooser == 7)
-			return ModSoundEvents.bullMoo8;
-		else if (chooser == 8)
-			return ModSoundEvents.moo4;
-		else if (chooser == 9)
-			return ModSoundEvents.moo8;
-		else if (chooser == 10)
-			return ModSoundEvents.moo4;
-		else
-			return ModSoundEvents.moo8;
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.bullMoo1, ModSoundEvents.bullMoo2, ModSoundEvents.bullMoo3, ModSoundEvents.bullMoo4, ModSoundEvents.bullMoo5, ModSoundEvents.bullMoo6, ModSoundEvents.bullMoo7, ModSoundEvents.bullMoo8, ModSoundEvents.moo4, ModSoundEvents.moo8, ModSoundEvents.moo4, ModSoundEvents.moo8);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(2);
-
-		if (chooser == 0)
-			return ModSoundEvents.angryBull1;
-		else if (chooser == 1)
-			return ModSoundEvents.angryBull2;
-		else
-			return ModSoundEvents.angryBull3;
+		return GenericBehavior.getRandomSound(ModSoundEvents.angryBull1, ModSoundEvents.angryBull2, ModSoundEvents.angryBull3);
 	}
 
 	@Override
@@ -220,46 +168,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public void onLivingUpdate()
 	{
-
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 100 + this.rand.nextInt(100);
-
-				// Check for Mate
-				if (this.getMateUniqueId() != null)
-				{
-					UUID mate = this.getMateUniqueId();
-					boolean mateReset = true;
-
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityCowBase.class, 20, world, this);
-					for (int k = 0; k <= entities.size() - 1; k++)
-					{
-						Entity entity = entities.get(k);
-						if (entity != null)
-						{
-							UUID id = entity.getPersistentID();
-							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
-							{
-								mateReset = false;
-								EntityCowBase fem = (EntityCowBase) entity;
-								if (fem.getPregnant())
-								{
-									this.setHandFed(false);
-								}
-								break;
-							}
-						}
-					}
-
-					if (mateReset)
-						this.setMateUniqueId(null);
-
-				}
-			}
-		}
+		GenericBehavior.livingUpdateMateable(this, EntityCowBase.class);
 
 		super.onLivingUpdate();
 	}
@@ -312,7 +221,6 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
-
 		if (player.isSneaking())
 		{
 
@@ -328,7 +236,6 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		return STERILIZED;
 	}
 
-	
 	@Override
 	public void sterilize()
 	{

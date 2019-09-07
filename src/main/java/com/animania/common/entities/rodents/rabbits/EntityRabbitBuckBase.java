@@ -11,6 +11,7 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -80,51 +81,6 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	}
 
 	@Override
-	protected SoundEvent getAmbientSound()
-	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 8;
-		else if (happy == 1)
-			num = 16;
-		else
-			num = 32;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.rabbit1;
-		else if (chooser == 1)
-			return ModSoundEvents.rabbit2;
-		else if (chooser == 2)
-			return ModSoundEvents.rabbit3;
-		else if (chooser == 3)
-			return ModSoundEvents.rabbit4;
-		else
-			return null;
-
-	}
-
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
-	{
-		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.rabbitHurt1 : ModSoundEvents.rabbitHurt2;
-	}
-
-	@Override
-	protected SoundEvent getDeathSound()
-	{
-		return Animania.RANDOM.nextBoolean() ? ModSoundEvents.rabbitHurt1 : ModSoundEvents.rabbitHurt2;
-	}
-
-	@Override
 	public void playLivingSound()
 	{
 		SoundEvent soundevent = this.getAmbientSound();
@@ -142,45 +98,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 200 + this.rand.nextInt(200);
-
-				// Check for Mate
-				if (this.getMateUniqueId() != null)
-				{
-					String mate = this.getMateUniqueId().toString();
-					boolean mateReset = true;
-
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityRabbitDoeBase.class, 64, world, this);
-					for (int k = 0; k <= entities.size() - 1; k++)
-					{
-						Entity entity = entities.get(k);
-						if (entity != null)
-						{
-							UUID id = entity.getPersistentID();
-							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead)
-							{
-								mateReset = false;
-								EntityRabbitDoeBase fem = (EntityRabbitDoeBase) entity;
-								if (fem.getPregnant())
-								{
-									this.setHandFed(false);
-								}
-								break;
-							}
-						}
-					}
-
-					if (mateReset)
-						this.setMateUniqueId(null);
-
-				}
-			}
-		}
+		GenericBehavior.livingUpdateMateable(this, EntityRabbitDoeBase.class);
 
 		super.onLivingUpdate();
 	}

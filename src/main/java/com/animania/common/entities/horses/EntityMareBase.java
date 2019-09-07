@@ -10,6 +10,7 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.horses.HorseDraft.EntityFoalDraftHorse;
 import com.animania.common.entities.horses.HorseDraft.EntityStallionDraftHorse;
 import com.animania.common.helper.AnimaniaHelper;
@@ -91,50 +92,12 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	}
 
-	@Override
-	protected void initEntityAI()
-	{
-		super.initEntityAI();
-	}
 
 	@Override
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{
-		if (this.world.isRemote)
-			return null;
-
-		List<EntityAnimaniaHorse> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 64, this.world, this.getPosition());
-		
-		if (others.size() <= 4 ) {
-
-
-			int chooser = rand.nextInt(3);
-
-			if (chooser == 0) {
-				EntityStallionDraftHorse entityHorse = new EntityStallionDraftHorse(this.world);
-				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
-				this.world.spawnEntity(entityHorse);
-				entityHorse.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityHorse.getPersistentID());
-			} else if (chooser == 1) {
-				EntityFoalDraftHorse entityHorse = new EntityFoalDraftHorse(this.world);
-				entityHorse.setPosition(this.posX,  this.posY, this.posZ);
-				this.world.spawnEntity(entityHorse);
-				entityHorse.setParentUniqueId(this.entityUniqueID);
-			} 
-		}
-
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
-
-		if (this.rand.nextFloat() < 0.05F)
-		{
-			this.setLeftHanded(true);
-		}
-		else
-		{
-			this.setLeftHanded(false);
-		}
+		GenericBehavior.initialSpawnFemale(this, EntityAnimaniaHorse.class);
 
 		return livingdata;
 	}
@@ -159,26 +122,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 		ItemStack stack = player.getHeldItem(hand);
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET) {
-			{
-				if (stack.getCount() == 1 && !player.capabilities.isCreativeMode)
-				{
-					player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-				}
-				else if (!player.capabilities.isCreativeMode && !player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET)))
-				{
-					player.dropItem(new ItemStack(Items.BUCKET), false);
-				}
-
-				if (this.entityAIEatGrass != null) {
-					this.entityAIEatGrass.startExecuting();
-					eatTimer = 40;
-				}
-				this.setWatered(true);
-				this.setInLove(player);
-				return true;
-			}
-		} else if (!this.isChild() && this.isHorseSaddled()) {
+		if (!this.isChild() && this.isHorseSaddled()) {
 
 			if (player.isSneaking())
 			{
@@ -289,66 +233,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		}
 	}
 
-	@Override
-	public void travel(float strafe, float forward, float friction)
-	{
-		Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
-
-		if (this.isHorseSaddled() && this.isBeingRidden() && this.canBeSteered())
-		{
-			this.rotationYaw = entity.rotationYaw;
-			this.prevRotationYaw = this.rotationYaw;
-			this.rotationPitch = entity.rotationPitch * 0.5F;
-			this.setRotation(this.rotationYaw, this.rotationPitch);
-			this.renderYawOffset = this.rotationYaw;
-			this.rotationYawHead = this.rotationYaw;
-			this.stepHeight = 1.0F;
-			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
-
-			if (this.canPassengerSteer())
-			{
-				float f = (float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.7F;
-
-				if (this.boosting)
-				{
-					if (this.boostTime++ > this.totalBoostTime)
-					{
-						this.boosting = false;
-					}
-
-					f += f * 1.15F * MathHelper.sin((float)this.boostTime / (float)this.totalBoostTime * (float)Math.PI);
-				}
-
-				this.setAIMoveSpeed(f);
-				super.travel(0.0F, 1.0F, 0.0f);
-			}
-			else
-			{
-				this.motionX = 0.0D;
-				this.motionY = 0.0D;
-				this.motionZ = 0.0D;
-			}
-
-			this.prevLimbSwingAmount = this.limbSwingAmount;
-			double d1 = this.posX - this.prevPosX;
-			double d0 = this.posZ - this.prevPosZ;
-			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
-
-			if (f1 > 1.0F)
-			{
-				f1 = 1.0F;
-			}
-
-			this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
-			this.limbSwing += this.limbSwingAmount;
-		}
-		else
-		{
-			this.stepHeight = 1.0F;
-			this.jumpMovementFactor = 0.02F;
-			super.travel(strafe, forward, 0.0f);
-		}
-	}
 
 	@Override
 	public void setInLove(EntityPlayer player)
@@ -359,69 +243,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	protected void playStepSound(BlockPos pos, Block blockIn)
 	{
 		this.playSound(SoundEvents.ENTITY_HORSE_STEP, 0.20F, 0.8F);
-	}
-
-	protected SoundEvent getAmbientSound()
-	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered()) {
-			happy++;
-		} 
-		if (this.getFed()) {
-			happy++;
-		} 
-
-		if (happy == 2) {
-			num = 18;
-		} else if (happy == 1) {
-			num = 36;
-		} else {
-			num = 60;
-		}
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0) {
-			return ModSoundEvents.horseliving1;
-		} else if (chooser == 1){
-			return ModSoundEvents.horseliving2;
-		} else if (chooser == 2){
-			return ModSoundEvents.horseliving3;
-		} else if (chooser == 3){
-			return ModSoundEvents.horseliving4;
-		} else if (chooser == 4){
-			return ModSoundEvents.horseliving5;
-		} else {
-			return ModSoundEvents.horseliving6;
-		} 
-	}
-
-	protected SoundEvent getHurtSound(DamageSource source)
-	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0) {
-			return ModSoundEvents.horsehurt1;
-		} else if (chooser == 1) {
-			return ModSoundEvents.horsehurt2;
-		} else {
-			return ModSoundEvents.horsehurt3;
-		}
-	}
-
-	protected SoundEvent getDeathSound()
-	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0) {
-			return ModSoundEvents.horsehurt1;
-		} else if (chooser == 1) {
-			return ModSoundEvents.horsehurt2;
-		} else {
-			return ModSoundEvents.horsehurt3;
-		}
 	}
 
 	@Override
@@ -477,143 +298,11 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public void onLivingUpdate()
 	{
-		
-		if (this.getLeashed() && this.getSleeping())
-			this.setSleeping(false);
-		
-		if (this.isBeingRidden() && this.getSleeping())
-			this.setSleeping(false);
-	
-
-		if (!this.getFertile() && this.dryTimerMare > -1) {
-			this.dryTimerMare--;
-		} else {
-			this.setFertile(true);
-			this.dryTimerMare = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
-		}
-
 		if (this.getColorNumber() > 5) {
 			this.setColorNumber(0);
 		}
 
-		if (this.blinkTimer > -1) {
-			this.blinkTimer--;
-			if (blinkTimer == 0) {
-				this.blinkTimer = 80 + rand.nextInt(80);
-
-				// Check for Mate
-				if (this.getMateUniqueId() != null)
-				{
-					UUID mate = this.getMateUniqueId();
-					boolean mateReset = true;
-
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityStallionBase.class, 20, world, this);
-					for (int k = 0; k <= entities.size() - 1; k++)
-					{
-						Entity entity = entities.get(k);
-						if (entity != null)
-						{
-							UUID id = entity.getPersistentID();
-							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
-							{
-								mateReset = false;
-								break;
-							}
-						}
-					}
-
-					if (mateReset)
-						this.setMateUniqueId(null);
-
-				}
-			}
-		}
-
-		int gestationTimer = this.getGestation();
-
-		if (gestationTimer > -1 && this.getPregnant())
-		{
-			gestationTimer--;
-			this.setGestation(gestationTimer);
-			
-			if (gestationTimer < 200 && this.getSleeping()) {
-				this.setSleeping(false);
-			}
-			
-			if (gestationTimer == 0)
-			{
-
-				List list = this.world.loadedEntityList;	
-				int horseCount = 0;
-				int num = 0;
-				for (int i = 0; i < list.size(); i++) {
-					if (list.get(i) instanceof EntityAnimaniaHorse) {
-						num++;
-					}
-				}
-				horseCount = num;
-
-				UUID MateID = this.getMateUniqueId();
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityStallionBase.class, 30, this.world, this);
-				int esize = entities.size();
-				Boolean mateFound = false;
-				for (int k = 0; k <= esize - 1; k++) 
-				{
-					EntityStallionBase entity = (EntityStallionBase)entities.get(k);
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
-
-						this.setInLove(null);
-						HorseType maleType = ((EntityAnimaniaHorse) entity).horseType;
-						HorseType babyType =HorseType.breed(maleType, this.horseType);
-						EntityFoalBase entityFoal = babyType.getChild(world);
-						;
-						entityFoal.setPosition(this.posX, this.posY + .2, this.posZ);
-						if (!world.isRemote) {
-							this.world.spawnEntity(entityFoal);
-						}
-						entityFoal.setParentUniqueId(this.getPersistentID());
-						this.playSound(ModSoundEvents.horseliving2, 0.50F, 1.1F);
-
-						this.setPregnant(false);
-						this.setFertile(false);
-						this.setHasKids(true);
-
-						BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityFoal);
-						MinecraftForge.EVENT_BUS.post(event);
-						k = esize;
-						mateFound = true;
-						break;
-
-					}
-				}
-
-				if (!mateFound && this.getFed() && this.getWatered()) {
-
-					this.setInLove(null);
-					HorseType babyType = HorseType.breed(this.horseType, this.horseType);
-					EntityFoalBase entityKid = babyType.getChild(world);
-					entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
-					if (!world.isRemote) {
-						this.world.spawnEntity(entityKid);
-					}
-
-					entityKid.setParentUniqueId(this.getPersistentID());
-					this.playSound(ModSoundEvents.horseliving2, 0.50F, 1.1F);
-
-					this.setPregnant(false);
-					this.setFertile(false);
-					this.setHasKids(true);
-
-					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entityKid, entityKid);
-					MinecraftForge.EVENT_BUS.post(event);
-					mateFound = true;
-
-				}
-			}
-
-		} else if (gestationTimer < 0){
-			this.setGestation(1);
-		}
+		GenericBehavior.livingUpdateFemale(this, EntityStallionBase.class);
 
 		super.onLivingUpdate();
 	}
@@ -663,6 +352,18 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	public DataParameter<Boolean> getPregnantParam()
 	{
 		return PREGNANT;
+	}
+	
+	@Override
+	public int getDryTimer()
+	{
+		return dryTimerMare;
+	}
+	
+	@Override
+	public void setDryTimer(int i)
+	{
+		this.dryTimerMare = i;
 	}
 
 	@Override

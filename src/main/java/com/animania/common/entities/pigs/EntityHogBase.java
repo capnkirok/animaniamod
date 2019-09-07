@@ -11,6 +11,7 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderPig;
@@ -121,68 +122,19 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 10;
-		else if (happy == 1)
-			num = 20;
-		else
-			num = 40;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.hog1;
-		else if (chooser == 1)
-			return ModSoundEvents.hog2;
-		else if (chooser == 2)
-			return ModSoundEvents.hog3;
-		else if (chooser == 3)
-			return ModSoundEvents.hog4;
-		else if (chooser == 4)
-			return ModSoundEvents.hog5;
-		else if (chooser == 5)
-			return ModSoundEvents.pig1;
-		else if (chooser == 6)
-			return ModSoundEvents.pig2;
-		else if (chooser == 7)
-			return ModSoundEvents.pig4;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.hog1, ModSoundEvents.hog2, ModSoundEvents.hog3, ModSoundEvents.hog4, ModSoundEvents.hog5, ModSoundEvents.pig1, ModSoundEvents.pig2, ModSoundEvents.pig4);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
-		else
-			return ModSoundEvents.pig3;
+		return GenericBehavior.getRandomSound(ModSoundEvents.pigHurt1, ModSoundEvents.pigHurt2, ModSoundEvents.pig3);
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
-		else
-			return ModSoundEvents.pig3;
+		return GenericBehavior.getRandomSound(ModSoundEvents.pigHurt1, ModSoundEvents.pigHurt2, ModSoundEvents.pig3);
 	}
 
 	@Override
@@ -227,121 +179,11 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public void travel(float strafe, float forward, float friction)
-	{
-		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
-
-		if (this.isBeingRidden() && this.canBeSteered())
-		{
-			this.rotationYaw = entity.rotationYaw;
-			this.prevRotationYaw = this.rotationYaw;
-			this.rotationPitch = entity.rotationPitch * 0.5F;
-			this.setRotation(this.rotationYaw, this.rotationPitch);
-			this.renderYawOffset = this.rotationYaw;
-			this.rotationYawHead = this.rotationYaw;
-			this.stepHeight = 1.0F;
-			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
-
-			if (this.canPassengerSteer())
-			{
-				float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.5F;
-
-				if (this.boosting)
-				{
-					if (this.boostTime++ > this.totalBoostTime)
-						this.boosting = false;
-
-					f += f * 1.15F * MathHelper.sin((float) this.boostTime / (float) this.totalBoostTime * (float) Math.PI);
-				}
-
-				this.setAIMoveSpeed(f);
-				super.travel(0.0F, 1.0F, 0.0f);
-			} else
-			{
-				this.motionX = 0.0D;
-				this.motionY = 0.0D;
-				this.motionZ = 0.0D;
-			}
-
-			this.prevLimbSwingAmount = this.limbSwingAmount;
-			double d1 = this.posX - this.prevPosX;
-			double d0 = this.posZ - this.prevPosZ;
-			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
-
-			if (f1 > 1.0F)
-				f1 = 1.0F;
-
-			this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
-			this.limbSwing += this.limbSwingAmount;
-		} else
-		{
-			this.stepHeight = 0.5F;
-			this.jumpMovementFactor = 0.02F;
-			super.travel(strafe, forward, 0.0f);
-		}
-	}
-
-	@Override
 	public void onLivingUpdate()
 	{
-
-		if (this.isBeingRidden() && this.getSleeping())
-			this.setSleeping(false);
-
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 200 + this.rand.nextInt(200);
-
-				// Check for Mate
-				if (this.getMateUniqueId() != null)
-				{
-					UUID mate = this.getMateUniqueId();
-					boolean mateReset = true;
-
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntitySowBase.class, 20, world, this);
-					for (int k = 0; k <= entities.size() - 1; k++)
-					{
-						Entity entity = entities.get(k);
-						if (entity != null)
-						{
-							UUID id = entity.getPersistentID();
-							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
-							{
-								mateReset = false;
-								EntitySowBase fem = (EntitySowBase) entity;
-								if (fem.getPregnant())
-								{
-									this.setHandFed(false);
-								}
-								break;
-							}
-						}
-					}
-
-					if (mateReset)
-						this.setMateUniqueId(null);
-
-				}
-			}
-		}
+		GenericBehavior.livingUpdateMateable(this, EntitySowBase.class);
 
 		super.onLivingUpdate();
-	}
-
-	public boolean boost()
-	{
-		if (this.boosting)
-			return false;
-		else
-		{
-			this.boosting = true;
-			this.boostTime = 0;
-			this.totalBoostTime = this.getRNG().nextInt(841) + 140;
-			return true;
-		}
 	}
 
 	@Override
@@ -377,10 +219,6 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		return null;
 	}
 
-	/**
-	 * Checks if the parameter is an item which this animal can be fed to breed
-	 * it (wheat, carrots or seeds depending on the animal type)
-	 */
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
@@ -393,9 +231,6 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		return STERILIZED;
 	}
 
-	
-
-	
 
 	@Override
 	public void sterilize()

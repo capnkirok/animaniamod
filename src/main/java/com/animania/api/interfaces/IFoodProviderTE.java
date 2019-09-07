@@ -10,7 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 public interface IFoodProviderTE
 {
-	public boolean canConsume(@Nullable Set<Item> fooditems, @Nullable Fluid fluid);
+	public boolean canConsume(@Nullable Set<Item> fooditems, @Nullable Fluid[] fluids);
 	
 	
 	public boolean canConsume(@Nullable FluidStack fluid, @Nullable Set<Item> fooditems);

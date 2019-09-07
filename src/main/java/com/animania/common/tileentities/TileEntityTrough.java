@@ -196,9 +196,22 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 	}
 	
 	@Override
-	public boolean canConsume(@Nullable Set<Item> fooditems, @Nullable Fluid fluid)
+	public boolean canConsume(@Nullable Set<Item> fooditems, @Nullable Fluid[] fluid)
 	{
-		return canConsume(fluid == null ? null : new FluidStack(fluid, 0), fooditems);
+		if(fluid == null)
+			return canConsume(null, fooditems);
+		else
+		{
+			boolean canConsumeAny = false;
+			for(Fluid f : fluid)
+			{
+				boolean consume = canConsume(new FluidStack(f, 0), fooditems);
+				if(consume)
+					canConsumeAny = true;
+			}
+			
+			return canConsumeAny;
+		}		
 	}
 	
 	@Override

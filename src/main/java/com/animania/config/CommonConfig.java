@@ -717,6 +717,8 @@ public class CommonConfig
 		@Comment("Animals won't breed if there are more than the specified amount of animals of their type in a 30 block range.")
 		public int entityBreedingLimit = 15;
 
+		@Comment("If male animals can have multiple mates.")
+		public boolean malesMateMultipleFemales = false;
 	}
 
 	public static class FoodValues

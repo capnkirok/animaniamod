@@ -84,69 +84,25 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 8;
-		else if (happy == 1)
-			num = 16;
-		else
-			num = 32;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.piglet1;
-		else if (chooser == 1)
-			return ModSoundEvents.piglet2;
-		else if (chooser == 2)
-			return ModSoundEvents.piglet3;
-		else if (chooser == 3)
-			return ModSoundEvents.pig1;
-		else if (chooser == 4)
-			return ModSoundEvents.pig2;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.pigletHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigletHurt2;
-		else
-			return ModSoundEvents.pigletHurt3;
+		return GenericBehavior.getRandomSound();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.pigletHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigletHurt2;
-		else
-			return ModSoundEvents.pigletHurt3;
+		return GenericBehavior.getRandomSound();
 	}
 	
 	@Override
 	public void onLivingUpdate()
 	{
-
-		GenericBehavior.livingUpdateChild(this, null);
+		GenericBehavior.livingUpdateChild(this, EntityQueenBase.class);
 
 		super.onLivingUpdate();
 	}

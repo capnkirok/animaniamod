@@ -11,6 +11,7 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
@@ -76,114 +77,26 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 10;
-		else if (happy == 1)
-			num = 20;
-		else
-			num = 40;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.hog1;
-		else if (chooser == 1)
-			return ModSoundEvents.hog2;
-		else if (chooser == 2)
-			return ModSoundEvents.hog3;
-		else if (chooser == 3)
-			return ModSoundEvents.hog4;
-		else if (chooser == 4)
-			return ModSoundEvents.hog5;
-		else if (chooser == 5)
-			return ModSoundEvents.pig1;
-		else if (chooser == 6)
-			return ModSoundEvents.pig2;
-		else if (chooser == 7)
-			return ModSoundEvents.pig4;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
-		else
-			return ModSoundEvents.pig3;
+		return GenericBehavior.getRandomSound();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.pigHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigHurt2;
-		else
-			return ModSoundEvents.pig3;
+		return GenericBehavior.getRandomSound();
 	}
 
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.isBeingRidden() && this.getSleeping())
-			this.setSleeping(false);
-
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 200 + this.rand.nextInt(200);
-
-				// Check for Mate
-				if (this.getMateUniqueId() != null)
-				{
-					UUID mate = this.getMateUniqueId();
-					boolean mateReset = true;
-
-					List<EntityQueenBase> entities = AnimaniaHelper.getEntitiesInRange(EntityQueenBase.class, 20, world, this);
-					for (int k = 0; k <= entities.size() - 1; k++)
-					{
-						EntityQueenBase female = entities.get(k);
-						if (female != null)
-						{
-							UUID id = female.getPersistentID();
-							if (id.equals(this.getMateUniqueId()) && !female.isDead)
-							{
-								mateReset = false;
-								if (female.getPregnant())
-								{
-									this.setHandFed(false);
-								}
-								break;
-							}
-						}
-					}
-
-					if (mateReset)
-						this.setMateUniqueId(null);
-
-				}
-			}
-		}
+		GenericBehavior.livingUpdateMateable(this, EntityQueenBase.class);
+		
 		super.onLivingUpdate();
 	}
 
@@ -198,10 +111,6 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	{
 		return STERILIZED;
 	}
-
-	
-
-	
 	
 	@SideOnly(Side.CLIENT)
 	public float getHeadRotationPointY(float p_70894_1_)

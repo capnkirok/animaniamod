@@ -69,53 +69,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	@Nullable
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
 	{
-		if (this.world.isRemote)
-			return null;
-
-		List<EntityAnimaniaPig> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 64, this.world, this.getPosition());
-		
-		if (others.size() <= 4 ) {
-
-
-			int chooser = this.rand.nextInt(3);
-
-			if (chooser == 0)
-			{
-				EntityHogBase entityPig = this.pigType.getMale(world);
-				entityPig.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityPig);
-				entityPig.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityPig.getPersistentID());
-			}
-			else if (chooser == 1)
-			{
-				EntityPigletBase entityPig = this.pigType.getChild(world);
-				entityPig.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityPig);
-				entityPig.setParentUniqueId(this.entityUniqueID);
-			}
-			else if (chooser > 2)
-			{
-				EntityHogBase entityPig = this.pigType.getMale(world);
-				entityPig.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityPig);
-				entityPig.setMateUniqueId(this.entityUniqueID);
-				this.setMateUniqueId(entityPig.getPersistentID());
-				if (!AnimaniaConfig.careAndFeeding.feedToBreed) {
-					EntityPigletBase entityPiglet = this.pigType.getChild(world);
-					entityPiglet.setPosition(this.posX, this.posY, this.posZ);
-					this.world.spawnEntity(entityPiglet);
-					entityPiglet.setParentUniqueId(this.entityUniqueID);
-				}
-			}
-		}
-
-		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(new AttributeModifier("Random spawn bonus", this.rand.nextGaussian() * 0.05D, 1));
-
-		if (this.rand.nextFloat() < 0.05F)
-			this.setLeftHanded(true);
-		else
-			this.setLeftHanded(false);
+		GenericBehavior.initialSpawnFemale(this, EntityAnimaniaPig.class);
 
 		return livingdata;
 	}
@@ -180,6 +134,18 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		return PREGNANT;
 	}
+	
+	@Override
+	public int getDryTimer()
+	{
+		return dryTimerSow;
+	}
+	
+	@Override
+	public void setDryTimer(int i)
+	{
+		this.dryTimerSow = i;
+	}
 
 	@Override
 	public DataParameter<Boolean> getFertileParam()
@@ -236,212 +202,12 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		super.fall(distance, damageMultiplier);
 	}
 
-//	@Override
-//	public void travel(float strafe, float forward, float friction)
-//	{
-//		Entity entity = this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
-//
-//		if (this.isBeingRidden() && this.canBeSteered())
-//		{
-//			this.rotationYaw = entity.rotationYaw;
-//			this.prevRotationYaw = this.rotationYaw;
-//			this.rotationPitch = entity.rotationPitch * 0.5F;
-//			this.setRotation(this.rotationYaw, this.rotationPitch);
-//			this.renderYawOffset = this.rotationYaw;
-//			this.rotationYawHead = this.rotationYaw;
-//			this.stepHeight = 1.0F;
-//			this.jumpMovementFactor = this.getAIMoveSpeed() * 0.1F;
-//
-//			if (this.canPassengerSteer())
-//			{
-//				float f = (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.5F;
-//
-//				if (this.boosting)
-//				{
-//					if (this.boostTime++ > this.totalBoostTime)
-//						this.boosting = false;
-//
-//					f += f * 1.15F * MathHelper.sin((float) this.boostTime / (float) this.totalBoostTime * (float) Math.PI);
-//				}
-//
-//				this.setAIMoveSpeed(f);
-//				super.travel(0.0f, 1.0f, 0.0f);
-//			}
-//			else
-//			{
-//				this.motionX = 0.0D;
-//				this.motionY = 0.0D;
-//				this.motionZ = 0.0D;
-//			}
-//
-//			this.prevLimbSwingAmount = this.limbSwingAmount;
-//			double d1 = this.posX - this.prevPosX;
-//			double d0 = this.posZ - this.prevPosZ;
-//			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
-//
-//			if (f1 > 1.0F)
-//				f1 = 1.0F;
-//
-//			this.limbSwingAmount += (f1 - this.limbSwingAmount) * 0.4F;
-//			this.limbSwing += this.limbSwingAmount;
-//		}
-//		else
-//		{
-//			this.stepHeight = 1.0F;
-//			this.jumpMovementFactor = 0.02F;
-//			super.travel(strafe, forward, 0.0f);
-//		}
-//	}
-
 	@Override
 	public void onLivingUpdate()
 	{
-		if (!this.getFertile() && this.dryTimerSow > -1) {
-			this.dryTimerSow--;
-		} else {
-			this.setFertile(true);
-			this.dryTimerSow = AnimaniaConfig.careAndFeeding.gestationTimer/5 + rand.nextInt(50);
-		}
-		
-		if (this.isBeingRidden() && this.getSleeping())
-			this.setSleeping(false);
-
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 200 + this.rand.nextInt(200);
-
-				// Check for Mate
-				if (this.getMateUniqueId() != null)
-				{
-					UUID mate = this.getMateUniqueId();
-					boolean mateReset = true;
-
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityHogBase.class, 20, world, this);
-					for (int k = 0; k <= entities.size() - 1; k++)
-					{
-						Entity entity = entities.get(k);
-						if (entity != null)
-						{
-							UUID id = entity.getPersistentID();
-							if (id.equals(this.getMateUniqueId()) && !entity.isDead)
-							{
-								mateReset = false;
-								break;
-							}
-						}
-					}
-
-					if (mateReset)
-						this.setMateUniqueId(null);
-
-				}
-			}
-		}
-
-		boolean fed = this.getFed();
-		boolean watered = this.getWatered();
-		boolean played = this.getPlayed();
-		int gestationTimer = this.getGestation();
-
-		if (gestationTimer > -1 && this.getPregnant())
-		{
-			gestationTimer--;
-			this.setGestation(gestationTimer);
-			
-			if (gestationTimer < 200 && this.getSleeping()) {
-				this.setSleeping(false);
-			}
-			
-			if (gestationTimer == 0)
-			{
-
-				List list = this.world.loadedEntityList;	
-				int pigCount = 0;
-				int num = 0;
-				for (int i = 0; i < list.size(); i++) {
-					if (list.get(i) instanceof EntityAnimaniaPig) {
-						num++;
-					}
-				}
-				pigCount = num;
-
-				UUID MateID = this.getMateUniqueId();
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityHogBase.class, 30, this.world, this);
-				int esize = entities.size();
-				Boolean mateFound = false;
-				for (int k = 0; k <= esize - 1; k++) 
-				{
-					EntityHogBase entity = (EntityHogBase)entities.get(k);
-					if (entity !=null && this.getFed() && this.getWatered() && entity.getPersistentID().equals(MateID)) {
-
-						this.setInLove(null);
-						PigType maleType = ((EntityAnimaniaPig) entity).pigType;
-						PigType babyType = PigType.breed(maleType, this.pigType);
-						EntityPigletBase entityPiglet = babyType.getChild(world);
-						entityPiglet.setPosition(this.posX, this.posY + .2, this.posZ);
-						if (!world.isRemote) {
-							this.world.spawnEntity(entityPiglet);
-						}
-						entityPiglet.setParentUniqueId(this.getPersistentID());
-						this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
-
-						this.setPregnant(false);
-						this.setFertile(false);
-						this.setHasKids(true);
-
-						BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entity, entityPiglet);
-						MinecraftForge.EVENT_BUS.post(event);
-						k = esize;
-						mateFound = true;
-						break;
-
-					}
-				}
-
-				if (!mateFound && this.getFed() && this.getWatered()) {
-
-					this.setInLove(null);
-					PigType babyType = pigType.breed(this.pigType, this.pigType);
-					EntityPigletBase entityKid = babyType.getChild(world);
-					entityKid.setPosition(this.posX, this.posY + .2, this.posZ);
-					if (!world.isRemote) {
-						this.world.spawnEntity(entityKid);
-					}
-
-					entityKid.setParentUniqueId(this.getPersistentID());
-					this.playSound(ModSoundEvents.piglet1, 0.50F, 1.1F);
-
-					this.setPregnant(false);
-					this.setFertile(false);
-					this.setHasKids(true);
-
-					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(this, (EntityLiving) entityKid, entityKid);
-					MinecraftForge.EVENT_BUS.post(event);
-					mateFound = true;
-
-				}
-			}
-		} else if (gestationTimer < 0){
-			this.setGestation(1);
-		}
+		GenericBehavior.livingUpdateFemale(this, EntityHogBase.class);
 
 		super.onLivingUpdate();
-	}
-
-	public boolean boost()
-	{
-		if (this.boosting)
-			return false;
-		else
-		{
-			this.boosting = true;
-			this.boostTime = 0;
-			this.totalBoostTime = this.getRNG().nextInt(841) + 140;
-			return true;
-		}
 	}
 
 	@Override
@@ -477,7 +243,6 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		return null;
 	}
-
 
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)

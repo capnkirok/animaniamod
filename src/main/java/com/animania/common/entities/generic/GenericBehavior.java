@@ -1,11 +1,14 @@
 package com.animania.common.entities.generic;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAgeable;
 import com.animania.api.interfaces.IAnimaniaAnimal;
 import com.animania.api.interfaces.IBlinking;
@@ -19,8 +22,10 @@ import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,11 +37,14 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 
 public class GenericBehavior
 {
 
-	private static Random rand = new Random();
+	private static Random rand = Animania.RANDOM;
 
 	public static <T extends EntityAnimal & IFoodEating & ISleeping & IAgeable & IBlinking> void livingUpdateCommon(T entity)
 	{
@@ -47,9 +55,10 @@ public class GenericBehavior
 			entity.setSleeping(false);
 
 		if (entity.getLeashed() && !entity.getInteracted())
-		{
 			entity.setInteracted(true);
-		}
+		
+		if (entity.isBeingRidden() && entity.getSleeping())
+			entity.setSleeping(false);
 
 		if (entity.getAge() == 0)
 		{
@@ -135,9 +144,11 @@ public class GenericBehavior
 
 	}
 
-	public static <T extends EntityAgeable & IFoodEating & ISleeping & IChild & IAnimaniaAnimal> void livingUpdateChild(T entity, Consumer<T> sizeFunction)
+	public static <T extends EntityAgeable & IFoodEating & ISleeping & IChild> void livingUpdateChild(T entity, Class<? extends EntityLivingBase> motherClass)
 	{
-		entity.setGrowingAge(-24000);
+		World world = entity.world;
+
+		entity.setGrowingAge((int) -((0.85 - entity.getEntityAge()) * 100 * AnimaniaConfig.careAndFeeding.childGrowthTick));
 
 		boolean fed = entity.getFed();
 		boolean watered = entity.getWatered();
@@ -155,9 +166,6 @@ public class GenericBehavior
 				age = age + .01F;
 				entity.setEntityAge(age);
 
-				if (sizeFunction != null)
-					sizeFunction.accept(entity);
-
 				if (age >= 0.85 && !entity.world.isRemote)
 				{
 					entity.setDead();
@@ -166,11 +174,24 @@ public class GenericBehavior
 
 					if (rand.nextInt(2) == 0)
 					{
-						grownUp = (EntityLiving) entity.getAnimalType().getFemale(entity.world);
+						grownUp = (EntityLiving) entity.getAnimalType().getFemale(world);
 					}
 					else
 					{
-						grownUp = (EntityLiving) entity.getAnimalType().getMale(entity.world);
+						grownUp = (EntityLiving) entity.getAnimalType().getMale(world);
+					}
+
+					if (motherClass.isAssignableFrom(IImpregnable.class))
+					{
+						List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(motherClass, 15, world, entity);
+						for (EntityLivingBase potentialMother : entities)
+						{
+							if (potentialMother.getPersistentID().equals(entity.getParentUniqueId()))
+							{
+								((IImpregnable) potentialMother).setHasKids(false);
+								break;
+							}
+						}
 					}
 
 					if (grownUp != null)
@@ -183,7 +204,10 @@ public class GenericBehavior
 						if (grownUp instanceof IAgeable)
 							((IAgeable) grownUp).setAge(1);
 
-						entity.world.spawnEntity(grownUp);
+						if (grownUp instanceof IFoodEating)
+							((IFoodEating) grownUp).setInteracted(entity.getInteracted());
+
+						world.spawnEntity(grownUp);
 						grownUp.playLivingSound();
 					}
 
@@ -191,11 +215,125 @@ public class GenericBehavior
 			}
 	}
 
+	public static <T extends EntityAnimal & IFoodEating & ISleeping & IMateable> void livingUpdateMateable(T entity, Class<? extends EntityLivingBase> partnerClass)
+	{
+
+		World world = entity.world;
+
+		if (rand.nextInt(200) == 0)
+		{
+			// Mate resetter
+			if (entity.getMateUniqueId() != null)
+			{
+				UUID mateUUID = entity.getMateUniqueId();
+				boolean mateReset = true;
+
+				List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(partnerClass, 30, world, entity);
+				for (int k = 0; k <= entities.size() - 1; k++)
+				{
+					Entity mate = entities.get(k);
+					if (mate != null)
+					{
+						UUID id = mate.getPersistentID();
+						if (id.equals(entity.getMateUniqueId()) && !mate.isDead)
+						{
+							mateReset = false;
+							break;
+						}
+					}
+				}
+
+				if (mateReset)
+					entity.setMateUniqueId(null);
+			}
+		}
+	}
+
+	public static <T extends EntityAnimal & IFoodEating & ISleeping & IMateable & IImpregnable> void livingUpdateFemale(T entity, Class<? extends EntityLivingBase> partnerClass)
+	{
+		livingUpdateMateable(entity, partnerClass);
+
+		World world = entity.world;
+
+		int dryTimer = entity.getDryTimer();
+
+		if (!entity.getFertile() && dryTimer > -1)
+		{
+			dryTimer--;
+			entity.setDryTimer(dryTimer);
+		}
+		else
+		{
+			entity.setFertile(true);
+			entity.setDryTimer(AnimaniaConfig.careAndFeeding.gestationTimer / 9 + rand.nextInt(50));
+		}
+
+		int gestationTimer = entity.getGestation();
+		if (gestationTimer > -1 && entity.getPregnant())
+		{
+			gestationTimer--;
+			entity.setGestation(gestationTimer);
+
+			if (gestationTimer < 200 && entity.getSleeping())
+			{
+				entity.setSleeping(false);
+			}
+
+			if (gestationTimer == 0)
+			{
+				UUID MateID = entity.getMateUniqueId();
+				List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(partnerClass, 30, world, entity);
+				EntityLiving male = null;
+				for (EntityLivingBase potentialMate : entities)
+				{
+					if (potentialMate != null && potentialMate.getPersistentID().equals(MateID))
+					{
+						male = (EntityLiving) potentialMate;
+						break;
+					}
+
+				}
+
+				if (entity.getFed() && entity.getWatered())
+				{
+					entity.setInLove(null);
+					AnimaniaType maleType = male == null ? entity.getAnimalType() : ((IAnimaniaAnimal) male).getAnimalType();
+					AnimaniaType babyType = maleType.breed(entity.getAnimalType());
+
+					EntityAgeable entityKid = (EntityAgeable) babyType.getChild(entity.world);
+					entityKid.setPosition(entity.posX, entity.posY + .2, entity.posZ);
+
+					((IChild) entityKid).setParentUniqueId(entity.getPersistentID());
+					entityKid.playLivingSound();
+
+					if (entityKid instanceof IFoodEating)
+						((IFoodEating) entityKid).setInteracted(entity.getInteracted());
+
+					if (!world.isRemote)
+					{
+						world.spawnEntity(entityKid);
+					}
+
+					entity.setPregnant(false);
+					entity.setFertile(false);
+					entity.setHasKids(true);
+
+					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(entity, (male == null ? entity : male), entityKid);
+					MinecraftForge.EVENT_BUS.post(event);
+				}
+			}
+		}
+		else if (gestationTimer < 0)
+		{
+			entity.setGestation(1);
+		}
+	}
+
 	public static <T extends EntityAnimal & IFoodEating & ISleeping> boolean interactCommon(T entity, EntityPlayer player, EnumHand hand, @Nullable GenericAIEatGrass<T> eatAI)
 	{
 		if (!entity.getInteracted())
 			entity.setInteracted(true);
-		
+
 		ItemStack stack = player.getHeldItem(hand);
 
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isWaterContainer(stack) && !entity.getSleeping())
@@ -262,6 +400,40 @@ public class GenericBehavior
 		return false;
 	}
 
+	public static <T extends EntityAnimal & IFoodEating & ISleeping & IImpregnable & IAnimaniaAnimal> void initialSpawnFemale(T entity, Class<? extends EntityLivingBase> baseClass)
+	{
+		if (entity.world.isRemote)
+			return;
+
+		int chooser = rand.nextInt(3);
+
+		List<EntityLivingBase> others = AnimaniaHelper.getEntitiesInRange(baseClass, 64, entity.world, entity.getPosition());
+
+		if ((others.size() <= 4))
+		{
+			EntityLivingBase animal = null;
+
+			if (chooser == 0)
+			{
+				animal = entity.getAnimalType().getMale(entity.world);
+				IMateable mateable = (IMateable) animal;
+				mateable.setMateUniqueId(entity.getUniqueID());
+			}
+			else if (chooser == 1)
+			{
+				animal = entity.getAnimalType().getChild(entity.world);
+				((IChild) animal).setParentUniqueId(entity.getUniqueID());
+				entity.setHasKids(true);
+			}
+
+			if (animal != null)
+			{
+				animal.setPosition(entity.posX, entity.posY, entity.posZ);
+				entity.world.spawnEntity(animal);
+			}
+		}
+	}
+
 	public static <T extends EntityAnimal & IFoodEating & ISleeping & IAgeable> void writeCommonNBT(NBTTagCompound tag, T entity)
 	{
 		tag.setBoolean("Fed", entity.getFed());
@@ -271,8 +443,8 @@ public class GenericBehavior
 		tag.setInteger("Age", entity.getAge());
 		tag.setBoolean("Sleep", entity.getSleeping());
 		tag.setFloat("SleepTimer", entity.getSleepTimer());
-		
-		if(entity instanceof IImpregnable)
+
+		if (entity instanceof IImpregnable)
 		{
 			IImpregnable preg = (IImpregnable) entity;
 			tag.setBoolean("Pregnant", preg.getPregnant());
@@ -280,21 +452,21 @@ public class GenericBehavior
 			tag.setBoolean("Fertile", preg.getFertile());
 			tag.setInteger("Gestation", preg.getGestation());
 		}
-		
-		if(entity instanceof IMateable)
+
+		if (entity instanceof IMateable)
 		{
 			IMateable mateable = (IMateable) entity;
 			UUID mate = mateable.getMateUniqueId();
 			if (mate != null)
 				tag.setString("MateUUID", mate.toString());
 		}
-		
-		if(entity instanceof ISterilizable)
+
+		if (entity instanceof ISterilizable)
 		{
 			tag.setBoolean("Sterilized", ((ISterilizable) entity).getSterilized());
 		}
-		
-		if(entity instanceof IChild)
+
+		if (entity instanceof IChild)
 		{
 			IChild child = (IChild) entity;
 
@@ -313,8 +485,8 @@ public class GenericBehavior
 		entity.setAge(tag.getInteger("Age"));
 		entity.setSleeping(tag.getBoolean("Sleep"));
 		entity.setSleepTimer(tag.getFloat("SleepTimer"));
-		
-		if(entity instanceof IImpregnable)
+
+		if (entity instanceof IImpregnable)
 		{
 			IImpregnable preg = (IImpregnable) entity;
 			preg.setPregnant(tag.getBoolean("Pregnant"));
@@ -322,67 +494,67 @@ public class GenericBehavior
 			preg.setFertile(tag.getBoolean("Fertile"));
 			preg.setGestation(tag.getInteger("Gestation"));
 		}
-		
-		if(entity instanceof IMateable)
+
+		if (entity instanceof IMateable)
 		{
 			IMateable mateable = (IMateable) entity;
 
 			String s = "";
 			if (tag.hasKey("MateUUID"))
 				s = tag.getString("MateUUID");
-			
+
 			if (!s.isEmpty())
 				mateable.setMateUniqueId(UUID.fromString(s));
 		}
-		
-		if(entity instanceof ISterilizable)
+
+		if (entity instanceof ISterilizable)
 		{
 			((ISterilizable) entity).setSterilized(tag.getBoolean("Sterilized"));
 		}
-		
-		if(entity instanceof IChild)
+
+		if (entity instanceof IChild)
 		{
 			IChild child = (IChild) entity;
 			String s = "";
 			if (tag.hasKey("ParentUUID"))
 				s = tag.getString("ParentUUID");
-			
+
 			if (!s.isEmpty())
 				child.setParentUniqueId(UUID.fromString(s));
-			
+
 			child.setEntityAge(tag.getFloat("Age"));
 		}
-		
+
 	}
-	
+
 	public static SoundEvent getRandomSound(SoundEvent... sounds)
 	{
-		if(sounds == null || sounds.length == 0)
+		if (sounds == null || sounds.length == 0)
 			return null;
-		
+
 		return sounds[rand.nextInt(sounds.length)];
 	}
-	
+
 	public static <T extends EntityAnimal & IFoodEating & ISleeping> SoundEvent getAmbientSound(T entity, SoundEvent... sounds)
 	{
-		if(sounds == null || sounds.length == 0)
+		if (sounds == null || sounds.length == 0)
 			return null;
 
 		int len = sounds.length * 8;
 		int num = len;
 
 		if (entity.getWatered())
-			num -= len/3;
+			num -= len / 3;
 		if (entity.getFed())
-			num -= len/3;
+			num -= len / 3;
 
-		if(entity.getSleeping())
+		if (entity.getSleeping())
 			return null;
-		
+
 		int index = rand.nextInt(num);
-		if(index > sounds.length-1)
+		if (index > sounds.length - 1)
 			return null;
-		
+
 		return sounds[index];
 	}
 

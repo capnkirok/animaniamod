@@ -127,12 +127,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public void onLivingUpdate()
 	{
-		GenericBehavior.livingUpdateChild(this, entity ->
-		{
-			float age = entity.getEntityAge();
-			age = age + .01F;
-//			entity.setSize(1.2F + age, 1.8F + age);
-		});
+		GenericBehavior.livingUpdateChild(this, EntityCowBase.class);
 
 		super.onLivingUpdate();
 	}

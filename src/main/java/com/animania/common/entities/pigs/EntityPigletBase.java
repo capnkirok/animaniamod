@@ -4,12 +4,11 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.GenericBehavior;
-import com.animania.common.entities.pigs.ai.EntityAIFollowParentPigs;
+import com.animania.common.entities.generic.ai.GenericAIFollowParents;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.google.common.base.Optional;
 
@@ -22,11 +21,9 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
@@ -53,7 +50,7 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 		this.ageTimer = 0;
 		this.pigType = PigType.YORKSHIRE;
 		this.gender = EntityGender.CHILD;
-		this.tasks.addTask(1, new EntityAIFollowParentPigs(this, 1.1D));
+		this.tasks.addTask(1, new GenericAIFollowParents<EntityPigletBase, EntitySowBase>(this, 1.1, EntitySowBase.class));
 	}
 
 	@Override
@@ -84,62 +81,19 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 8;
-		else if (happy == 1)
-			num = 16;
-		else
-			num = 32;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.piglet1;
-		else if (chooser == 1)
-			return ModSoundEvents.piglet2;
-		else if (chooser == 2)
-			return ModSoundEvents.piglet3;
-		else if (chooser == 3)
-			return ModSoundEvents.pig1;
-		else if (chooser == 4)
-			return ModSoundEvents.pig2;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.piglet1, ModSoundEvents.piglet2, ModSoundEvents.piglet3, ModSoundEvents.pig1, ModSoundEvents.pig2);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.pigletHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigletHurt2;
-		else
-			return ModSoundEvents.pigletHurt3;
+		return GenericBehavior.getRandomSound(ModSoundEvents.pigletHurt1, ModSoundEvents.pigletHurt2, ModSoundEvents.pigletHurt3);
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.pigletHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.pigletHurt2;
-		else
-			return ModSoundEvents.pigletHurt3;
+		return GenericBehavior.getRandomSound(ModSoundEvents.pigletHurt1, ModSoundEvents.pigletHurt2, ModSoundEvents.pigletHurt3);
 	}
 
 	@Override
@@ -166,7 +120,7 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	@Override
 	public void onLivingUpdate()
 	{
-		GenericBehavior.livingUpdateChild(this, null);
+		GenericBehavior.livingUpdateChild(this, EntitySowBase.class);
 
 		super.onLivingUpdate();
 	}

@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.network.datasync.DataParameter;
 
 public interface IImpregnable extends IAnimaniaAnimal
-{
+{	
 	public DataParameter<Integer> getGestationParam();
 
 	public DataParameter<Boolean> getPregnantParam();
@@ -83,5 +83,9 @@ public interface IImpregnable extends IAnimaniaAnimal
 			return this.getIntFromDataManager(param);
 		return 0;
 	}
+	
+	public int getDryTimer();
+	
+	public void setDryTimer(int i);
 
 }

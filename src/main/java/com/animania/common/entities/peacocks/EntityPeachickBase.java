@@ -54,7 +54,7 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	@Override
 	public void onLivingUpdate()
 	{
-		GenericBehavior.livingUpdateChild(this, null);
+		GenericBehavior.livingUpdateChild(this, EntityPeafowlBase.class);
 
 		super.onLivingUpdate();
 	}

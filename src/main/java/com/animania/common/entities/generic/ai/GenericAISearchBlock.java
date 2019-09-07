@@ -188,6 +188,8 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 		if (ySearchRange < 1)
 			ySearchRange = 1;
 
+		Collections.shuffle(destinationOffset);
+		
 		for (int range = 0; range < this.searchRange; ++range)
 		{
 			for (int y = 0; y <= ySearchRange; y = y > 0 ? -y : 1 - y)
@@ -219,7 +221,6 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 								}
 								else
 								{
-									Collections.shuffle(destinationOffset);
 
 									for (EnumFacing facing : destinationOffset)
 									{

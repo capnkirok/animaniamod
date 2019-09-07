@@ -74,7 +74,6 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	@Override
 	public void onLivingUpdate()
 	{
-		
 		int laidTimer = this.getLaidTimer();
 
 		if (laidTimer > -1) {

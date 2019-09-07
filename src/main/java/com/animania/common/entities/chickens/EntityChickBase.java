@@ -75,14 +75,9 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	@Override
 	public void onLivingUpdate()
 	{
-		
 		this.timeUntilNextEgg = 1000;
 
-		GenericBehavior.livingUpdateChild(this, entity ->
-		{
-			float age = entity.getEntityAge();
-			age = age + .01F;
-		});
+		GenericBehavior.livingUpdateChild(this, EntityHenBase.class);
 
 		super.onLivingUpdate();
 		

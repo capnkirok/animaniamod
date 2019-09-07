@@ -80,25 +80,25 @@ public class EntityPuppyBase extends EntityAnimaniaDog  implements TOPInfoProvid
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		return GenericBehavior.getAmbientSound(this, new SoundEvent[] {});
+		return GenericBehavior.getAmbientSound(this);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		return GenericBehavior.getRandomSound(new SoundEvent[] {});
+		return GenericBehavior.getRandomSound();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		return GenericBehavior.getRandomSound(new SoundEvent[] {});
+		return GenericBehavior.getRandomSound();
 	}
 	
 	@Override
 	public void onLivingUpdate()
 	{
-		GenericBehavior.livingUpdateChild(this, null);
+		GenericBehavior.livingUpdateChild(this, EntityFemaleDogBase.class);
 
 		super.onLivingUpdate();
 	}

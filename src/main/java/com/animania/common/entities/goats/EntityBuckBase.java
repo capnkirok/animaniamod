@@ -12,6 +12,7 @@ import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
+import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.entities.goats.GoatAngora.EntityBuckAngora;
 import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
@@ -136,62 +137,19 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	@Override
 	protected SoundEvent getAmbientSound()
 	{
-		int happy = 0;
-		int num = 1;
-
-		if (this.getWatered())
-			happy++;
-		if (this.getFed())
-			happy++;
-
-		if (happy == 2)
-			num = 10;
-		else if (happy == 1)
-			num = 20;
-		else
-			num = 40;
-
-		int chooser = Animania.RANDOM.nextInt(num);
-
-		if (chooser == 0)
-			return ModSoundEvents.goatLiving1;
-		else if (chooser == 1)
-			return ModSoundEvents.goatLiving2;
-		else if (chooser == 2)
-			return ModSoundEvents.goatLiving3;
-		else if (chooser == 3)
-			return ModSoundEvents.goatLiving4;
-		else if (chooser == 4)
-			return ModSoundEvents.goatLiving5;
-		else
-			return null;
-
+		return GenericBehavior.getAmbientSound(this, ModSoundEvents.goatLiving1, ModSoundEvents.goatLiving2, ModSoundEvents.goatLiving2, ModSoundEvents.goatLiving3, ModSoundEvents.goatLiving4, ModSoundEvents.goatLiving5);
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source)
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.goatHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.goatHurt2;
-		else
-			return ModSoundEvents.goatLiving3;
+		return GenericBehavior.getRandomSound(ModSoundEvents.goatHurt1, ModSoundEvents.goatHurt2, ModSoundEvents.goatLiving3);
 	}
 
 	@Override
 	protected SoundEvent getDeathSound()
 	{
-		int chooser = Animania.RANDOM.nextInt(3);
-
-		if (chooser == 0)
-			return ModSoundEvents.goatHurt1;
-		else if (chooser == 1)
-			return ModSoundEvents.goatHurt2;
-		else
-			return ModSoundEvents.goatLiving3;
+		return GenericBehavior.getRandomSound(ModSoundEvents.goatHurt1, ModSoundEvents.goatHurt2, ModSoundEvents.goatLiving3);
 	}
 
 	@Override
@@ -212,46 +170,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 200 + this.rand.nextInt(200);
-
-				// Check for Mate
-				if (this.getMateUniqueId() != null)
-				{
-					String mate = this.getMateUniqueId().toString();
-					boolean mateReset = true;
-
-					List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(EntityDoeBase.class, 64, world, this);
-					for (int k = 0; k <= entities.size() - 1; k++)
-					{
-						Entity entity = entities.get(k);
-						if (entity != null)
-						{
-							UUID id = entity.getPersistentID();
-							if (id.toString().equals(this.getMateUniqueId().toString()) && !entity.isDead)
-							{
-								mateReset = false;
-
-								EntityDoeBase fem = (EntityDoeBase) entity;
-								if (fem.getPregnant())
-								{
-									this.setHandFed(false);
-								}
-								break;
-							}
-						}
-					}
-
-					if (mateReset)
-						this.setMateUniqueId(null);
-
-				}
-			}
-		}
+		GenericBehavior.livingUpdateMateable(this, EntityDoeBase.class);
 
 		super.onLivingUpdate();
 	}

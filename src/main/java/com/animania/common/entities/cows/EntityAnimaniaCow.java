@@ -278,7 +278,6 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		super.readEntityFromNBT(compound);
 
 		GenericBehavior.readCommonNBT(compound, this);
-
 	}
 
 	@Override

@@ -97,10 +97,10 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaDog>(this, false);
 		this.tasks.addTask(11, this.entityAIEatGrass);
 
+		this.initAI();
 	}
 
-	@Override
-	protected void initEntityAI()
+	protected void initAI()
 	{
 		this.aiSit = new GenericAISit(this);
 		this.tasks.addTask(0, new EntityAISwimming(this));

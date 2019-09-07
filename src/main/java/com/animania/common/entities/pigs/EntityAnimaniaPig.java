@@ -101,10 +101,12 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 		this.slop = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
 		this.entityAIEatGrass = new EntityAIPigSnuffle(this);
 		this.tasks.addTask(11, this.entityAIEatGrass);
+		
+		this.initAI();
 	}
 
-	@Override
-	protected void initEntityAI()
+	
+	protected void initAI()
 	{
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIFindMud(this, 1.2D));
@@ -549,9 +551,9 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public Fluid getFoodFluid()
+	public Fluid[] getFoodFluids()
 	{
-		return BlockHandler.fluidSlop;
+		return new Fluid[] {BlockHandler.fluidSlop};
 	}
 
 	@Override

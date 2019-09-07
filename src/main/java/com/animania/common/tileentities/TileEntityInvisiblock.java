@@ -127,7 +127,7 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable, IFoo
 	}
 
 	@Override
-	public boolean canConsume(Set<Item> fooditems, Fluid fluid)
+	public boolean canConsume(Set<Item> fooditems, Fluid[] fluid)
 	{
 		return this.getTrough().canConsume(fooditems, fluid);
 	}

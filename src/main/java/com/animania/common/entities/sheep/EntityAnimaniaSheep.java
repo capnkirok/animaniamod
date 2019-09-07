@@ -156,7 +156,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		this.dataManager.register(EntityAnimaniaSheep.SLEEPTIMER, Float.valueOf(0.0F));
 		this.dataManager.register(EntityAnimaniaSheep.DYE_COLOR, Integer.valueOf(EnumDyeColor.WHITE.getMetadata()));
 		this.dataManager.register(INTERACTED, false);
-		
+
 		if (this.sheepType == SheepType.FRIESIAN)
 		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(3)));
@@ -228,8 +228,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		return FED;
 	}
 
-	
-
 	@Override
 	public DataParameter<Boolean> getHandFedParam()
 	{
@@ -241,7 +239,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	{
 		return WATERED;
 	}
-	
+
 	public int getWoolRegrowthTimer()
 	{
 		return this.getIntFromDataManager(SHEARED_TIMER);
@@ -251,7 +249,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	{
 		this.dataManager.set(EntityAnimaniaSheep.SHEARED_TIMER, Integer.valueOf(time));
 	}
-	
+
 	public int getDyeColorNum()
 	{
 		return this.getIntFromDataManager(EntityAnimaniaSheep.DYE_COLOR);
@@ -332,15 +330,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 			}
 		}
 
-		if (this.blinkTimer > -1)
-		{
-			this.blinkTimer--;
-			if (this.blinkTimer == 0)
-			{
-				this.blinkTimer = 100 + this.rand.nextInt(100);
-			}
-		}
-
 		GenericBehavior.livingUpdateCommon(this);
 
 		boolean sheared = this.getSheared();
@@ -387,7 +376,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 				{
 					if (!player.isCreative())
 						stack.shrink(1);
-					
+
 					this.color = col;
 					this.setDyeColorNum(col.getMetadata());
 					return true;
@@ -411,7 +400,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 			super.handleStatusUpdate(id);
 	}
 
-	
 	@Override
 	public void setInLove(EntityPlayer player)
 	{
@@ -434,26 +422,24 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		super.writeEntityToNBT(compound);
-		
-		
+
 		compound.setBoolean("Sheared", this.getSheared());
 		compound.setInteger("ColorNumber", getColorNumber());
 		compound.setInteger("DyeColor", this.getDyeColorNum());
 
 		GenericBehavior.writeCommonNBT(compound, this);
-		
+
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-		
-		
+
 		this.setColorNumber(compound.getInteger("ColorNumber"));
 		this.setSheared(compound.getBoolean("Sheared"));
 		this.setDyeColorNum(compound.getInteger("DyeColor"));
-		
+
 		GenericBehavior.readCommonNBT(compound, this);
 	}
 
@@ -488,14 +474,12 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	@Override
 	public int getPrimaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getSecondaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -524,8 +508,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		return this.gender;
 	}
 
-	
-
 	@Override
 	public Set<Item> getFoodItems()
 	{
@@ -551,14 +533,13 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	{
 		return blinkTimer;
 	}
-	
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
 		blinkTimer = i;
 	}
-	
+
 	@Override
 	public int getEatTimer()
 	{
@@ -582,7 +563,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	{
 		fedTimer = i;
 	}
-	
+
 	@Override
 	public DataParameter<Boolean> getInteractedParam()
 	{
@@ -612,19 +593,19 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	{
 		damageTimer = i;
 	}
-	
+
 	@Override
 	public int getHappyTimer()
 	{
 		return happyTimer;
 	}
-	
+
 	@Override
 	public void setHappyTimer(int i)
 	{
 		happyTimer = i;
 	}
-	
+
 	@Override
 	public AnimaniaType getAnimalType()
 	{
