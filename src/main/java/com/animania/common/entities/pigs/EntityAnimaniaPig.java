@@ -56,6 +56,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.UniversalBucket;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 {
@@ -128,8 +130,11 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));;
 		this.tasks.addTask(15, new GenericAILookIdle<EntityAnimaniaPig>(this));
 		this.targetTasks.addTask(16, new EntityAIHurtByTarget(this, false, new Class[0]));
-
 	}
+	
+    protected void initEntityAI()
+    {
+    }
 
 	@Override
 	protected boolean canDespawn()
@@ -480,6 +485,16 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public void handleStatusUpdate(byte id)
+	{
+		if (id == 10)
+			this.eatTimer = 80;
+		else
+			super.handleStatusUpdate(id);
+	}
+		
+	@Override
 	protected Item getDropItem()
 	{
 		return null;
@@ -506,14 +521,12 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	@Override
 	public int getPrimaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int getSecondaryEggColor()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

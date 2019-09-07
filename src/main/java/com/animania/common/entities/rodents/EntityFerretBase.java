@@ -79,8 +79,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
-//	protected static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
-//	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
+	// protected static final DataParameter<Boolean> TAMED =
+	// EntityDataManager.<Boolean>createKey(EntityFerretBase.class,
+	// DataSerializers.BOOLEAN);
+	// protected static final DataParameter<Boolean> SITTING =
+	// EntityDataManager.<Boolean>createKey(EntityFerretBase.class,
+	// DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityFerretBase.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
@@ -111,16 +115,16 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.enablePersistence();
 		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
 		this.tasks.addTask(11, this.entityAIEatGrass);
-		
+
 		this.initAI();
 	}
 
-	
 	protected void initAI()
 	{
 		this.aiSit = new EntityAISit(this);
 		this.tasks.addTask(0, new GenericAISwimmingSmallCreatures(this));
-		if (!AnimaniaConfig.gameRules.ambianceMode) {
+		if (!AnimaniaConfig.gameRules.ambianceMode)
+		{
 			this.tasks.addTask(1, new GenericAIFindWater<EntityFerretBase>(this, 1.0D, entityAIEatGrass, EntityFerretBase.class, true));
 			this.tasks.addTask(2, new EntityAIFerretFindNests(this, 1.0D));
 			this.tasks.addTask(3, new GenericAIFindFood<EntityFerretBase>(this, 1.0D, entityAIEatGrass, false));
@@ -135,10 +139,12 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new GenericAILookIdle<EntityFerretBase>(this));
-		if (AnimaniaConfig.gameRules.animalsSleep) {
+		if (AnimaniaConfig.gameRules.animalsSleep)
+		{
 			this.tasks.addTask(15, new GenericAISleep<EntityFerretBase>(this, 0.8, AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.ferretBed), AnimaniaHelper.getBlock(AnimaniaConfig.careAndFeeding.ferretBed2), EntityFerretBase.class));
 		}
-		if (AnimaniaConfig.gameRules.animalsCanAttackOthers) {
+		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
+		{
 			this.targetTasks.addTask(1, new GenericAINearestAttackableTarget<EntityChickLeghorn>(this, EntityChickLeghorn.class, false));
 			this.targetTasks.addTask(2, new GenericAINearestAttackableTarget<EntityChickOrpington>(this, EntityChickOrpington.class, false));
 			this.targetTasks.addTask(3, new GenericAINearestAttackableTarget<EntityChickPlymouthRock>(this, EntityChickPlymouthRock.class, false));
@@ -182,15 +188,16 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
 	{
 		this.setFed(true);
-		if (!this.isTamed()) {
+		if (!this.isTamed())
+		{
 			this.setOwnerId(player.getPersistentID());
-//			this.setIsTamed(true);
+			// this.setIsTamed(true);
 			this.setTamed(true);
 			this.setInLove(player);
 		}
 
 		this.setSitting(false);
-//		this.setAnimalSitting(false);
+		// this.setAnimalSitting(false);
 		this.entityAIEatGrass.startExecuting();
 		if (!player.capabilities.isCreativeMode)
 			if (stack != ItemStack.EMPTY)
@@ -237,7 +244,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 				return true;
 			}
 		}
-		
+
 		return GenericBehavior.interactCommon(this, player, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
@@ -267,8 +274,8 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		super.entityInit();
 		this.dataManager.register(EntityFerretBase.FED, true);
 		this.dataManager.register(EntityFerretBase.WATERED, true);
-//		this.dataManager.register(EntityFerretBase.TAMED, false);
-//		this.dataManager.register(EntityFerretBase.SITTING, false);
+		// this.dataManager.register(EntityFerretBase.TAMED, false);
+		// this.dataManager.register(EntityFerretBase.SITTING, false);
 		this.dataManager.register(EntityFerretBase.RIDING, false);
 		this.dataManager.register(EntityFerretBase.AGE, Integer.valueOf(0));
 		this.dataManager.register(EntityFerretBase.SLEEPING, false);
@@ -283,7 +290,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		compound.setBoolean("IsTamed", this.isTamed());
 		compound.setBoolean("IsSitting", this.isSitting());
 		compound.setBoolean("Riding", this.isFerretRiding());
-	
+
 		GenericBehavior.writeCommonNBT(compound, this);
 	}
 
@@ -294,8 +301,8 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		super.readEntityFromNBT(compound);
-//		this.setIsTamed(compound.getBoolean("IsTamed"));
-//		this.setAnimalSitting(compound.getBoolean("IsSitting"));
+		// this.setIsTamed(compound.getBoolean("IsTamed"));
+		// this.setAnimalSitting(compound.getBoolean("IsSitting"));
 		this.setFerretRiding(compound.getBoolean("Riding"));
 
 		GenericBehavior.readCommonNBT(compound, this);
@@ -318,7 +325,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	{
 		return SLEEPTIMER;
 	}
-
 
 	@Override
 	public boolean canBeLeashedTo(EntityPlayer player)
@@ -382,7 +388,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public void onLivingUpdate()
 	{
 		GenericBehavior.livingUpdateCommon(this);
-		
+
 		if (this.isSitting() || this.isRiding())
 		{
 			if (this.getRidingEntity() != null)
@@ -410,7 +416,11 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 					double d = this.rand.nextGaussian() * 0.02D;
 					double d1 = this.rand.nextGaussian() * 0.02D;
 					double d2 = this.rand.nextGaussian() * 0.02D;
-					//this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + this.rand.nextFloat() * this.width - this.width, this.posY + 1D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width - this.width, d, d1, d2);
+					// this.world.spawnParticle(EnumParticleTypes.HEART,
+					// this.posX + this.rand.nextFloat() * this.width -
+					// this.width, this.posY + 1D + this.rand.nextFloat() *
+					// this.height, this.posZ + this.rand.nextFloat() *
+					// this.width - this.width, d, d1, d2);
 				}
 			}
 		}
@@ -427,19 +437,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		else
 			super.handleStatusUpdate(id);
 	}
-
-//	public boolean isAnimalSitting()
-//	{
-//		return this.getBoolFromDataManager(SITTING);
-//	}
-
-//	public void setAnimalSitting(boolean flag)
-//	{
-//		if (flag)
-//			this.dataManager.set(EntityFerretBase.SITTING, true);
-//		else
-//			this.dataManager.set(EntityFerretBase.SITTING, false);
-//	}
 
 	public boolean isFerretRiding()
 	{
@@ -460,43 +457,10 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		return FED;
 	}
 
-	
-
 	@Override
 	public DataParameter<Boolean> getWateredParam()
 	{
 		return WATERED;
-	}
-
-//	public boolean getIsTamed()
-//	{
-//		return this.getBoolFromDataManager(TAMED);
-//	}
-//
-//	public void setIsTamed(boolean fed)
-//	{
-//		if (fed)
-//			this.dataManager.set(EntityFerretBase.TAMED, true);
-//		else
-//			this.dataManager.set(EntityFerretBase.TAMED, false);
-//	}
-
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationPointY(float p_70894_1_)
-	{
-		return this.eatTimer <= 0 ? 0.0F : this.eatTimer >= 4 && this.eatTimer <= 176 ? 1.0F : this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 80 - p_70894_1_) / 4.0F;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_)
-	{
-		if (this.eatTimer > 4 && this.eatTimer <= 176)
-		{
-			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
-			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
-		}
-		else
-			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
 
 	@Override
@@ -541,7 +505,6 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 		return EntityGender.NONE;
 	}
 
-
 	@Override
 	public Set<Item> getFoodItems()
 	{
@@ -552,7 +515,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	public void setSleepingPos(BlockPos pos)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -567,14 +530,13 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	{
 		return blinkTimer;
 	}
-	
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
 		blinkTimer = i;
 	}
-	
+
 	@Override
 	public int getEatTimer()
 	{
@@ -598,7 +560,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	{
 		fedTimer = i;
 	}
-	
+
 	@Override
 	public DataParameter<Boolean> getInteractedParam()
 	{
@@ -628,19 +590,19 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	{
 		damageTimer = i;
 	}
-	
+
 	@Override
 	public int getHappyTimer()
 	{
 		return happyTimer;
 	}
-	
+
 	@Override
 	public void setHappyTimer(int i)
 	{
 		happyTimer = i;
 	}
-	
+
 	@Override
 	public AnimaniaType getAnimalType()
 	{

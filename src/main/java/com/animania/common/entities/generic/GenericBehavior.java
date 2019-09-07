@@ -181,7 +181,7 @@ public class GenericBehavior
 						grownUp = (EntityLiving) entity.getAnimalType().getMale(world);
 					}
 
-					if (motherClass.isAssignableFrom(IImpregnable.class))
+					if (IImpregnable.class.isAssignableFrom(motherClass))
 					{
 						List<EntityLivingBase> entities = AnimaniaHelper.getEntitiesInRange(motherClass, 15, world, entity);
 						for (EntityLivingBase potentialMother : entities)
@@ -352,8 +352,11 @@ public class GenericBehavior
 			entity.setInLove(player);
 			return true;
 		}
-		else if (entity.isBreedingItem(stack) && !entity.getSleeping())
+		else if (entity.isBreedingItem(stack))
 		{
+			if(entity.getSleeping())
+				return true;
+			
 			if (!player.isCreative())
 				stack.shrink(1);
 

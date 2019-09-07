@@ -53,11 +53,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable, IMateable, IImpregnable
-{	
+{
 
 	private ResourceLocation resourceLocation;
 	private ResourceLocation resourceLocationBlink;
-	private static final String[] HORSE_TEXTURES = new String[] {"black", "bw1", "bw2", "grey", "red", "white"};
+	private static final String[] HORSE_TEXTURES = new String[] { "black", "bw1", "bw2", "grey", "red", "white" };
 	private boolean boosting;
 	private int boostTime;
 	private int totalBoostTime;
@@ -68,11 +68,10 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer>createKey(EntityMareBase.class, DataSerializers.VARINT);
 	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityMareBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
-
 	public EntityMareBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.8F, 2.2F); 
+		this.setSize(1.8F, 2.2F);
 		this.width = 1.8F;
 		this.height = 2.2F;
 		this.stepHeight = 1.2F;
@@ -91,7 +90,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		this.dataManager.register(EntityMareBase.MATE_UNIQUE_ID, Optional.<UUID>absent());
 
 	}
-
 
 	@Override
 	@Nullable
@@ -122,22 +120,28 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 		ItemStack stack = player.getHeldItem(hand);
 
-		if (!this.isChild() && this.isHorseSaddled()) {
+		if (!this.isChild() && this.isHorseSaddled())
+		{
 
 			if (player.isSneaking())
 			{
 				this.openGUI(player);
 				return true;
-			} else {
+			}
+			else
+			{
 				return super.processInteract(player, hand);
 			}
 
 		}
-		else if (!player.isSneaking() && stack != null && this.isHorseSaddled() && !this.getSleeping() && !this.isBeingRidden() && this.getWatered() && this.getFed()) {
+		else if (!player.isSneaking() && stack != null && this.isHorseSaddled() && !this.getSleeping() && !this.isBeingRidden() && this.getWatered() && this.getFed())
+		{
 			this.mountTo(player);
-			//player.addStat(AnimaniaAchievements.Horseriding, 1);
+			// player.addStat(AnimaniaAchievements.Horseriding, 1);
 			return true;
-		} else {
+		}
+		else
+		{
 			return super.processInteract(player, hand);
 		}
 	}
@@ -154,7 +158,8 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public void setPregnant(boolean preggers)
 	{
-		if (preggers) {
+		if (preggers)
+		{
 			this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + rand.nextInt(200));
 		}
 		this.dataManager.set(EntityMareBase.PREGNANT, Boolean.valueOf(preggers));
@@ -175,7 +180,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Override
 	public double getMountedYOffset()
 	{
-		return (double)this.height * 0.60D;
+		return (double) this.height * 0.60D;
 	}
 
 	@Override
@@ -187,7 +192,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			playerEntity.openGuiHorseInventory(this, this.horseChest);
 		}
 	}
-
 
 	public int getVerticalFaceSpeed()
 	{
@@ -212,7 +216,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Nullable
 	public Entity getControllingPassenger()
 	{
-		return this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
+		return this.getPassengers().isEmpty() ? null : (Entity) this.getPassengers().get(0);
 	}
 
 	public boolean canBeSteered()
@@ -232,7 +236,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 			return false;
 		}
 	}
-
 
 	@Override
 	public void setInLove(EntityPlayer player)
@@ -256,36 +259,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		}
 	}
 
-
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationPointY(float p_70894_1_)
-	{
-		if (this.isBeingRidden()) {
-			return 0;
-		} 
-
-		return this.eatTimer <= 0 ? 0.0F : (this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : (this.eatTimer < 4 ? ((float)this.eatTimer - p_70894_1_) / 4.0F : -((float)(this.eatTimer - 160) - p_70894_1_) / 4.0F));
-	}
-
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_)
-	{
-
-		if (this.isBeingRidden()) {
-			return 0;
-		} 
-
-		if (this.eatTimer > 4 && this.eatTimer <= 156)
-		{
-			float f = ((float)(this.eatTimer - 4) - p_70890_1_) / 80.0F;
-			return ((float)Math.PI / 5F) + ((float)Math.PI * 7F / 500F) * MathHelper.sin(f * 28.7F);
-		}
-		else
-		{
-			return this.eatTimer > 0 ? ((float)Math.PI / 5F) : this.rotationPitch * 0.017453292F;
-		}
-	}
-
 	public ResourceLocation getResourceLocation()
 	{
 		return resourceLocation;
@@ -298,7 +271,8 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	public void onLivingUpdate()
 	{
-		if (this.getColorNumber() > 5) {
+		if (this.getColorNumber() > 5)
+		{
 			this.setColorNumber(0);
 		}
 
@@ -306,8 +280,6 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 		super.onLivingUpdate();
 	}
-
-
 
 	@Override
 	public EntityMareBase createChild(EntityAgeable p_90011_1_)
@@ -321,23 +293,26 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		if (player.isSneaking())
 		{
 
-			if (this.getMateUniqueId() != null) 
+			if (this.getMateUniqueId() != null)
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
 
 			if (this.getFertile() && !this.getPregnant())
 			{
 				probeInfo.text(I18n.translateToLocal("text.waila.fertile1"));
-			} 
+			}
 
 			if (this.getPregnant())
 			{
-				if (this.getGestation() > 1) {
+				if (this.getGestation() > 1)
+				{
 					int bob = this.getGestation();
-					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")" );
-				} else {
+					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1") + " (" + bob + " " + I18n.translateToLocal("text.waila.pregnant2") + ")");
+				}
+				else
+				{
 					probeInfo.text(I18n.translateToLocal("text.waila.pregnant1"));
 				}
-			} 
+			}
 		}
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}
@@ -353,13 +328,13 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		return PREGNANT;
 	}
-	
+
 	@Override
 	public int getDryTimer()
 	{
 		return dryTimerMare;
 	}
-	
+
 	@Override
 	public void setDryTimer(int i)
 	{

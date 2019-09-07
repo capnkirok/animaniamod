@@ -125,6 +125,11 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	}
 
 	@Override
+	protected void initEntityAI()
+    {
+    }
+	
+	@Override
 	protected boolean canDespawn()
 	{
 		return false;
@@ -230,7 +235,6 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	protected void updateAITasks()
 	{
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
-		super.updateAITasks();
 	}
 
 	@Override

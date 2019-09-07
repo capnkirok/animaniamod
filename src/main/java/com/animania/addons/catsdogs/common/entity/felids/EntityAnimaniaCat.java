@@ -126,7 +126,13 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntityFerretBase || entity instanceof EntityHamster || entity instanceof EntityChickBase || entity instanceof EntityPeachickBase || entity instanceof EntitySilverfish || entity instanceof EntityFrogs || entity instanceof EntityToad));
 		}
 	}
-
+	
+	@Override
+	protected void initEntityAI()
+    {
+    }
+	
+	
 	@Override
 	protected void applyEntityAttributes()
 	{

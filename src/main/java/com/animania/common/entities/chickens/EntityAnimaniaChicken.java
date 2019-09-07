@@ -52,6 +52,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAnimalBase
 {
@@ -106,6 +108,11 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		this.featherTimer = AnimaniaConfig.careAndFeeding.featherTimer + rand.nextInt(1000);
 		this.enablePersistence();
 	}
+	
+	@Override
+	protected void initEntityAI()
+    {
+    }
 
 	@Override
 	public void setPosition(double x, double y, double z)

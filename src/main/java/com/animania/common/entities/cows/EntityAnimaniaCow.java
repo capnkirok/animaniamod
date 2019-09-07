@@ -145,6 +145,10 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 		this.dataManager.register(EntityAnimaniaCow.AGE, Integer.valueOf(0));
 	}
 
+	protected void initEntityAI()
+    {
+    }
+	
 	@Override
 	protected void updateAITasks()
 	{

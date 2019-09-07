@@ -119,6 +119,11 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	}
 	
 	@Override
+	protected void initEntityAI()
+    {
+    }
+	
+	@Override
 	protected boolean canDespawn()
 	{
 		return false;

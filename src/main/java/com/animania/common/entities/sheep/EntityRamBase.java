@@ -160,32 +160,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		super.onLivingUpdate();
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id)
-	{
-		if (id == 10)
-			this.eatTimer = 80;
-		else
-			super.handleStatusUpdate(id);
-	}
-
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationPointY(float p_70894_1_)
-	{
-		return this.eatTimer <= 0 ? 0.0F : this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F : this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 80 - p_70894_1_) / 4.0F;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_)
-	{
-		if (this.eatTimer > 4 && this.eatTimer <= 76)
-		{
-			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
-			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
-		} else
-			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
-	}
+	
 
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)

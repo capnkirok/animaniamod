@@ -149,33 +149,6 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 		}
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void handleStatusUpdate(byte id)
-	{
-		if (id == 10)
-			this.eatTimer = 160;
-		else
-			super.handleStatusUpdate(id);
-	}
-
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationPointY(float p_70894_1_)
-	{
-		return this.eatTimer <= 0 ? 0.0F : this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_)
-	{
-		if (this.eatTimer > 4 && this.eatTimer <= 156)
-		{
-			float f = (this.eatTimer - 4 - p_70890_1_) / 64.0F;
-			return (float) Math.PI / 5F + (float) Math.PI * 7F / 100F * MathHelper.sin(f * 28.7F);
-		}
-		else
-			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
-	}
 
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)

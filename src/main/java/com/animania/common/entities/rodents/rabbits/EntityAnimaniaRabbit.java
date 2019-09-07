@@ -176,6 +176,11 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 		this.setHealth(50);
 	}
+	
+	@Override
+	protected void initEntityAI()
+    {
+    }
 
 	protected void applyEntityAttributes()
 	{

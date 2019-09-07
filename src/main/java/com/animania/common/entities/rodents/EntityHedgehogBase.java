@@ -78,8 +78,12 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
-//	protected static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
-//	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
+	// protected static final DataParameter<Boolean> TAMED =
+	// EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class,
+	// DataSerializers.BOOLEAN);
+	// protected static final DataParameter<Boolean> SITTING =
+	// EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class,
+	// DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityHedgehogBase.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
@@ -101,7 +105,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	public EntityHedgehogBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.5F, 0.5F); 
+		this.setSize(0.5F, 0.5F);
 		this.width = 0.5F;
 		this.height = 0.5F;
 		this.stepHeight = 1.1F;
@@ -113,7 +117,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.enablePersistence();
 		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
 		this.tasks.addTask(12, this.entityAIEatGrass);
-		
+
 		this.initAI();
 	}
 
@@ -177,7 +181,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	{
 		super.setPosition(x, y, z);
 	}
-	
+
 	@Override
 	protected void updateAITasks()
 	{
@@ -203,8 +207,8 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		super.entityInit();
 		this.dataManager.register(EntityHedgehogBase.FED, true);
 		this.dataManager.register(EntityHedgehogBase.WATERED, true);
-//		this.dataManager.register(EntityHedgehogBase.TAMED, false);
-//		this.dataManager.register(EntityHedgehogBase.SITTING, false);
+		// this.dataManager.register(EntityHedgehogBase.TAMED, false);
+		// this.dataManager.register(EntityHedgehogBase.SITTING, false);
 		this.dataManager.register(EntityHedgehogBase.RIDING, false);
 		this.dataManager.register(EntityHedgehogBase.AGE, Integer.valueOf(0));
 		this.dataManager.register(EntityHedgehogBase.SLEEPING, false);
@@ -220,7 +224,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		compound.setBoolean("IsTamed", this.isTamed());
 		compound.setBoolean("IsSitting", this.isSitting());
 		compound.setBoolean("Riding", this.isHedgehogRiding());
-	
+
 		GenericBehavior.writeCommonNBT(compound, this);
 
 	}
@@ -232,7 +236,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.setTamed(compound.getBoolean("IsTamed"));
 		this.setSitting(compound.getBoolean("IsSitting"));
 		this.setHedgehogRiding(compound.getBoolean("Riding"));
-	
+
 		GenericBehavior.readCommonNBT(compound, this);
 	}
 
@@ -333,7 +337,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 				return true;
 			}
 		}
-		
+
 		return GenericBehavior.interactCommon(this, player, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
@@ -367,7 +371,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 			this.navigator.clearPath();
 			this.navigator.setSpeed(0);
 		}
-		
+
 		if (this.blinkTimer > -1)
 		{
 			this.blinkTimer--;
@@ -385,7 +389,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, 2, 6, false, false));
 		}
 
-		
 		if (this.tamedTimer > -1)
 		{
 			this.tamedTimer--;
@@ -440,30 +443,10 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		return FED;
 	}
 
-	
-
 	@Override
 	public DataParameter<Boolean> getWateredParam()
 	{
 		return WATERED;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationPointY(float p_70894_1_)
-	{
-		return this.eatTimer <= 0 ? 0.0F : this.eatTimer >= 4 && this.eatTimer <= 156 ? 1.0F : this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 160 - p_70894_1_) / 4.0F;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_)
-	{
-		if (this.eatTimer > 4 && this.eatTimer <= 156)
-		{
-			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
-			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
-		}
-		else
-			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
 
 	@Override
@@ -508,8 +491,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		return EntityGender.NONE;
 	}
 
-	
-
 	@Override
 	public void setSleepingPos(BlockPos pos)
 	{
@@ -535,14 +516,13 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	{
 		return blinkTimer;
 	}
-	
 
 	@Override
 	public void setBlinkTimer(int i)
 	{
 		blinkTimer = i;
 	}
-	
+
 	@Override
 	public int getEatTimer()
 	{
@@ -566,7 +546,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	{
 		fedTimer = i;
 	}
-	
+
 	@Override
 	public DataParameter<Boolean> getInteractedParam()
 	{
@@ -596,19 +576,19 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	{
 		damageTimer = i;
 	}
-	
+
 	@Override
 	public int getHappyTimer()
 	{
 		return happyTimer;
 	}
-	
+
 	@Override
 	public void setHappyTimer(int i)
 	{
 		happyTimer = i;
 	}
-	
+
 	@Override
 	public AnimaniaType getAnimalType()
 	{

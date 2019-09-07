@@ -129,6 +129,11 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		this.enablePersistence();
 
 	}
+	
+	@Override
+	protected void initEntityAI()
+    {
+    }
 
 	@Override
 	protected boolean canDespawn()
@@ -264,7 +269,6 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	protected void updateAITasks()
 	{
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
-		super.updateAITasks();
 	}
 
 	@Override

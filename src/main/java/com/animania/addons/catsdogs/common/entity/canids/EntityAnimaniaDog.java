@@ -133,6 +133,11 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 	}
 
 	@Override
+	protected void initEntityAI()
+    {
+    }
+	
+	@Override
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();

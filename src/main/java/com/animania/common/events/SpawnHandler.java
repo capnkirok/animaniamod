@@ -69,6 +69,7 @@ import com.animania.common.entities.sheep.SheepSuffolk.EntityRamSuffolk;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
@@ -86,16 +87,18 @@ import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-
-public class SpawnHandler {
+public class SpawnHandler
+{
 
 	@SubscribeEvent
 	public void removeSpawns(CheckSpawn event)
 	{
-		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ()); 
+		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
 		World worldIn = event.getWorld();
 		Biome biome = event.getWorld().getBiome(pos);
 		int chooser = 0;
+
+		Entity replacementEntity = null;
 
 		if (AnimaniaConfig.gameRules.replaceVanillaCows && (event.getEntity().getClass().equals(EntityCow.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !worldIn.isRemote)
 		{
@@ -105,106 +108,92 @@ public class SpawnHandler {
 			}
 
 			List<EntityLivingBase> otheranimals = AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 100, event.getEntity().world, pos);
-			if (otheranimals.size() <= 2) 
+			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(2) + 1;
 
-				if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowHolsteinBiomeTypes))) {
-					if (chooser == 1) {
-						EntityCowHolstein entity = new EntityCowHolstein(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+				if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowHolsteinBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityCowHolstein(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityBullHolstein entity = new EntityBullHolstein(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityBullHolstein(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowLonghornBiomeTypes))) {
-					if (chooser == 1) {
-						EntityCowLonghorn entity = new EntityCowLonghorn(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowLonghornBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityCowLonghorn(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityBullLonghorn entity = new EntityBullLonghorn(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityBullLonghorn(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowHerefordBiomeTypes))) {
-					if (chooser == 1) {
-						EntityCowHereford entity = new EntityCowHereford(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowHerefordBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityCowHereford(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityBullHereford entity = new EntityBullHereford(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityBullHereford(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowHighlandBiomeTypes))) {
-					if (chooser == 1) {
-						EntityCowHighland entity = new EntityCowHighland(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowHighlandBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityCowHighland(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityBullHighland entity = new EntityBullHighland(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityBullHighland(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowAngusBiomeTypes))) {
-					if (chooser == 1) {
-						EntityCowAngus entity = new EntityCowAngus(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowAngusBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityCowAngus(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityBullAngus entity = new EntityBullAngus(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityBullAngus(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowMooshroomBiomeTypes))) {
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.cowMooshroomBiomeTypes)))
+				{
 
-					if (chooser == 1) {
-						EntityCowMooshroom entity = new EntityCowMooshroom(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityCowMooshroom(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityBullMooshroom entity = new EntityBullMooshroom(worldIn);
-						entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityBullMooshroom(worldIn);
 					}
 
 				}
 				else if (chooser == 1)
 				{
-					EntityCowFriesian entity = new EntityCowFriesian(worldIn);
-					entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-					worldIn.spawnEntity(entity);
+					replacementEntity = new EntityCowFriesian(worldIn);
+
 				}
 				else if (chooser == 2)
 				{
-					EntityBullFriesian entity = new EntityBullFriesian(worldIn);
-					entity.setPosition(event.getX(),event.getY()+1, event.getZ());
-					worldIn.spawnEntity(entity);
+					replacementEntity = new EntityBullFriesian(worldIn);
+
 				}
 			}
 
@@ -219,83 +208,70 @@ public class SpawnHandler {
 
 			chooser = Animania.RANDOM.nextInt(2) + 1;
 			List<EntityLivingBase> otheranimals = AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 100, event.getEntity().world, pos);
-			if (otheranimals.size() <= 2) 
+			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(2) + 1;
 
-				if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.pigOldSpotBiomeTypes))) {
+				if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.pigOldSpotBiomeTypes)))
+				{
 
-					if (Animania.RANDOM.nextBoolean()) {
-						if (chooser == 1) {
+					if (Animania.RANDOM.nextBoolean())
+					{
+						if (chooser == 1)
+						{
 
-							EntitySowOldSpot entity = new EntitySowOldSpot(worldIn);
-							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-							worldIn.spawnEntity(entity);
+							replacementEntity = new EntitySowOldSpot(worldIn);
 						}
 						else if (chooser == 2)
 						{
-							EntityHogOldSpot entity = new EntityHogOldSpot(worldIn);
-							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-							worldIn.spawnEntity(entity);
+							replacementEntity = new EntityHogOldSpot(worldIn);
 						}
-
 					}
 					else
 					{
 
 						if (chooser == 1)
 						{
-							EntitySowHampshire entity = new EntitySowHampshire(worldIn);
-							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-							worldIn.spawnEntity(entity);
+							replacementEntity = new EntitySowHampshire(worldIn);
 						}
 						else if (chooser == 2)
 						{
-							EntityHogHampshire entity = new EntityHogHampshire(worldIn);
-							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-							worldIn.spawnEntity(entity);
+							replacementEntity = new EntityHogHampshire(worldIn);
 						}
-
 					}
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.pigDurocBiomeTypes))) {
-					if (chooser == 1) {
-						EntitySowDuroc entity = new EntitySowDuroc(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.pigDurocBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntitySowDuroc(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityHogDuroc entity = new EntityHogDuroc(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityHogDuroc(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.pigLargeBlackBiomeTypes))) {
-					if (chooser == 1) {
-						EntitySowLargeBlack entity = new EntitySowLargeBlack(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.pigLargeBlackBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntitySowLargeBlack(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityHogLargeBlack entity = new EntityHogLargeBlack(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityHogLargeBlack(worldIn);
 					}
 				}
 				else if (chooser == 1)
 				{
-					EntitySowYorkshire entity = new EntitySowYorkshire(worldIn);
-					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-					worldIn.spawnEntity(entity);
+					replacementEntity = new EntitySowYorkshire(worldIn);
+
 				}
 				else if (chooser == 2)
 				{
-					EntityHogYorkshire entity = new EntityHogYorkshire(worldIn);
-					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-					worldIn.spawnEntity(entity);
+					replacementEntity = new EntityHogYorkshire(worldIn);
+
 				}
 			}
 
@@ -312,77 +288,67 @@ public class SpawnHandler {
 			chooser = Animania.RANDOM.nextInt(2) + 1;
 
 			List<EntityLivingBase> otheranimals = AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 100, event.getEntity().world, pos);
-			if (otheranimals.size() <= 2) 
+			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(3);
 
-				if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.chickenOrpingtonBiomeTypes))) {
-					if (chooser == 1) {
-						EntityHenOrpington entity = new EntityHenOrpington(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.chickenOrpingtonBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityHenOrpington(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityRoosterOrpington entity = new EntityRoosterOrpington(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityRoosterOrpington(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.chickenPlymouthRockBiomeTypes))) {
-					if (chooser == 1) {
-						EntityHenPlymouthRock entity = new EntityHenPlymouthRock(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.chickenPlymouthRockBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityHenPlymouthRock(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityRoosterPlymouthRock entity = new EntityRoosterPlymouthRock(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityRoosterPlymouthRock(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.chickenRhodeIslandRedBiomeTypes))) {
-					if (chooser == 1) {
-						EntityHenRhodeIslandRed entity = new EntityHenRhodeIslandRed(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.chickenRhodeIslandRedBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityHenRhodeIslandRed(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityRoosterRhodeIslandRed entity = new EntityRoosterRhodeIslandRed(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityRoosterRhodeIslandRed(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.chickenWyandotteBiomeTypes))) {
-					if (chooser == 1) {
-						EntityHenWyandotte entity = new EntityHenWyandotte(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.chickenWyandotteBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityHenWyandotte(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityRoosterWyandotte entity = new EntityRoosterWyandotte(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityRoosterWyandotte(worldIn);
 					}
 
 				}
 				else if (chooser == 1)
 				{
-					EntityHenLeghorn entity = new EntityHenLeghorn(worldIn);
-					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-					worldIn.spawnEntity(entity);
+					replacementEntity = new EntityHenLeghorn(worldIn);
+
 				}
 				else if (chooser == 2)
 				{
-					EntityRoosterLeghorn entity = new EntityRoosterLeghorn(worldIn);
-					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-					worldIn.spawnEntity(entity);
+					replacementEntity = new EntityRoosterLeghorn(worldIn);
+
 				}
 			}
 
@@ -399,103 +365,85 @@ public class SpawnHandler {
 			chooser = Animania.RANDOM.nextInt(2) + 1;
 			List<EntityLivingBase> otheranimals = AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 100, event.getEntity().world, pos);
 
-			if (otheranimals.size() <= 2) 
+			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(3);
 
-				if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.sheepDorsetBiomeTypes))) {
+				if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.sheepDorsetBiomeTypes)))
+				{
 					int chooser2 = Animania.RANDOM.nextInt(2);
 					if (Animania.RANDOM.nextBoolean())
 					{
 						if (chooser == 1)
 						{
-							EntityEweDorset entity = new EntityEweDorset(worldIn);
-							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-							worldIn.spawnEntity(entity);
+							replacementEntity = new EntityEweDorset(worldIn);
 						}
 						else if (chooser == 2)
 						{
-							EntityRamDorset entity = new EntityRamDorset(worldIn);
-							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-							worldIn.spawnEntity(entity);
+							replacementEntity = new EntityRamDorset(worldIn);
 						}
-
 					}
 					else
 					{
 
 						if (chooser == 1)
 						{
-							EntityEweFriesian entity = new EntityEweFriesian(worldIn);
-							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-							worldIn.spawnEntity(entity);
+							replacementEntity = new EntityEweFriesian(worldIn);
 						}
 						else if (chooser == 2)
 						{
-							EntityRamFriesian entity = new EntityRamFriesian(worldIn);
-							entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-							worldIn.spawnEntity(entity);
+							replacementEntity = new EntityRamFriesian(worldIn);
 						}
-
 					}
 				}
 
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.sheepSuffolkBiomeTypes))) {
-					if (chooser == 1) {
-						EntityEweSuffolk entity = new EntityEweSuffolk(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
-					}
-					else if (chooser ==2)
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.sheepSuffolkBiomeTypes)))
+				{
+					if (chooser == 1)
 					{
-						EntityRamSuffolk entity = new EntityRamSuffolk(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
-					}
-
-				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.sheepDorsetBiomeTypes))) {
-					if (chooser == 1) {
-						EntityEweDorset entity = new EntityEweDorset(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityEweSuffolk(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityRamDorset entity = new EntityRamDorset(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityRamSuffolk(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.sheepMerinoBiomeTypes))) {
-					if (chooser == 1) {
-						EntityEweMerino entity = new EntityEweMerino(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.sheepDorsetBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityEweDorset(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityRamMerino entity = new EntityRamMerino(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityRamDorset(worldIn);
+					}
+
+				}
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.sheepMerinoBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityEweMerino(worldIn);
+					}
+					else if (chooser == 2)
+					{
+						replacementEntity = new EntityRamMerino(worldIn);
 					}
 
 				}
 				else if (chooser == 1)
 				{
-					EntityEweFriesian entity = new EntityEweFriesian(worldIn);
-					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-					worldIn.spawnEntity(entity);
+					replacementEntity = new EntityEweFriesian(worldIn);
+
 				}
 				else if (chooser == 2)
 				{
-					EntityRamFriesian entity = new EntityRamFriesian(worldIn);
-					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-					worldIn.spawnEntity(entity);
+					replacementEntity = new EntityRamFriesian(worldIn);
+
 				}
 			}
-
 
 		}
 		else if (AnimaniaConfig.gameRules.replaceVanillaRabbits && event.getEntity().getClass().equals(EntityRabbit.class) && !worldIn.isRemote)
@@ -509,81 +457,68 @@ public class SpawnHandler {
 			chooser = Animania.RANDOM.nextInt(2) + 1;
 
 			List<EntityLivingBase> otheranimals = AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 100, event.getEntity().world, pos);
-			if (otheranimals.size() <= 2) 
+			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(3);
 
-				if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitCottontailBiomeTypes))) {
-					if (chooser == 1) {
-						EntityRabbitBuckCottontail entity = new EntityRabbitBuckCottontail(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitCottontailBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityRabbitBuckCottontail(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityRabbitDoeCottontail entity = new EntityRabbitDoeCottontail(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityRabbitDoeCottontail(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitJackBiomeTypes)) || AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitJackBiomeTypes)[1])) {
-					if (chooser == 1) {
-						EntityRabbitBuckJack entity = new EntityRabbitBuckJack(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitJackBiomeTypes)) || AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitJackBiomeTypes)[1]))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityRabbitBuckJack(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityRabbitDoeJack entity = new EntityRabbitDoeJack(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityRabbitDoeJack(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitHavanaBiomeTypes))) {
-					if (chooser == 1) {
-						EntityRabbitBuckHavana entity = new EntityRabbitBuckHavana(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitHavanaBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityRabbitBuckHavana(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityRabbitDoeHavana entity = new EntityRabbitDoeHavana(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityRabbitDoeHavana(worldIn);
 					}
 
 				}
-				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitChinchillaBiomeTypes))) {
-					if (chooser == 1) {
-						EntityRabbitDoeChinchilla entity = new EntityRabbitDoeChinchilla(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+				else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(AnimaniaConfig.spawnLocations.rabbitChinchillaBiomeTypes)))
+				{
+					if (chooser == 1)
+					{
+						replacementEntity = new EntityRabbitDoeChinchilla(worldIn);
 					}
 					else if (chooser == 2)
 					{
-						EntityRabbitBuckChinchilla entity = new EntityRabbitBuckChinchilla(worldIn);
-						entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-						worldIn.spawnEntity(entity);
+						replacementEntity = new EntityRabbitBuckChinchilla(worldIn);
 					}
 
 				}
 				else if (chooser == 1)
 				{
-					EntityRabbitBuckCottontail entity = new EntityRabbitBuckCottontail(worldIn);
-					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-					worldIn.spawnEntity(entity);
+					replacementEntity = new EntityRabbitBuckCottontail(worldIn);
+
 				}
 				else if (chooser == 2)
 				{
-					EntityRabbitDoeCottontail entity = new EntityRabbitDoeCottontail(worldIn);
-					entity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-					worldIn.spawnEntity(entity);
+					replacementEntity = new EntityRabbitDoeCottontail(worldIn);
 				}
 			}
-
-
 
 		}
 		else if (AnimaniaConfig.gameRules.replaceVanillaHorses && event.getEntity().getClass().equals(EntityHorse.class) && !worldIn.isRemote)
@@ -616,18 +551,21 @@ public class SpawnHandler {
 				}
 			}
 
-		} 
+		}
 
-
+		if (replacementEntity != null)
+		{
+			replacementEntity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+			event.getWorld().spawnEntity(replacementEntity);
+		}
 	}
 
 	@SubscribeEvent
 	public void limitAnimaniaSpawns(CheckSpawn event)
 	{
-		BlockPos pos = new BlockPos(event.getX(),event.getY()+1, event.getZ());
+		BlockPos pos = new BlockPos(event.getX(), event.getY() + 1, event.getZ());
 		World worldIn = event.getWorld();
 		Biome biome = event.getWorld().getBiome(pos);
-
 
 		if (AnimaniaConfig.spawn.spawnAnimaniaCows && (event.getEntity() instanceof EntityAnimaniaCow && !worldIn.isRemote))
 		{
@@ -635,7 +573,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitCows)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Cow Denied Existence!");
+				// System.out.println("Cow Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaPigs && (event.getEntity() instanceof EntityAnimaniaPig && !worldIn.isRemote))
@@ -644,7 +582,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitPigs)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Pig Denied Existence!");
+				// System.out.println("Pig Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaChickens && (event.getEntity() instanceof EntityAnimaniaChicken && !worldIn.isRemote))
@@ -653,7 +591,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitChickens)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Chicken Denied Existence!");
+				// System.out.println("Chicken Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaSheep && (event.getEntity() instanceof EntityAnimaniaSheep && !worldIn.isRemote))
@@ -662,7 +600,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitSheep)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Sheep Denied Existence!");
+				// System.out.println("Sheep Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaGoats && (event.getEntity() instanceof EntityAnimaniaGoat && !worldIn.isRemote))
@@ -671,7 +609,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitGoats)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Goats Denied Existence!");
+				// System.out.println("Goats Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaRabbits && (event.getEntity() instanceof EntityAnimaniaRabbit && !worldIn.isRemote))
@@ -680,7 +618,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitRabbits)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Rabbit Denied Existence!");
+				// System.out.println("Rabbit Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaHorses && (event.getEntity() instanceof EntityAnimaniaHorse && !worldIn.isRemote))
@@ -689,7 +627,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitHorses)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Horse Denied Existence!");
+				// System.out.println("Horse Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaHorses && (event.getEntity() instanceof EntityAnimaniaHorse && !worldIn.isRemote))
@@ -698,7 +636,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitHorses)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Horse Denied Existence!");
+				// System.out.println("Horse Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaAmphibians && (event.getEntity() instanceof EntityAmphibian && !worldIn.isRemote))
@@ -707,7 +645,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitAmphibians)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Amphibian Denied Existence!");
+				// System.out.println("Amphibian Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaAmphibians && (event.getEntity() instanceof EntityAmphibian && !worldIn.isRemote))
@@ -716,7 +654,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitAmphibians)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Amphibian Denied Existence!");
+				// System.out.println("Amphibian Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHamster && !worldIn.isRemote))
@@ -725,7 +663,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitHamsters)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Hamster Denied Existence!");
+				// System.out.println("Hamster Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityFerretGrey && !worldIn.isRemote))
@@ -734,7 +672,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitFerrets)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Ferret Denied Existence!");
+				// System.out.println("Ferret Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityFerretWhite && !worldIn.isRemote))
@@ -743,7 +681,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitFerrets)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Ferret Denied Existence!");
+				// System.out.println("Ferret Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHedgehog && !worldIn.isRemote))
@@ -752,7 +690,7 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitFerrets)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Hedgehog Denied Existence!");
+				// System.out.println("Hedgehog Denied Existence!");
 			}
 		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHedgehogAlbino && !worldIn.isRemote))
@@ -761,12 +699,10 @@ public class SpawnHandler {
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitFerrets)
 			{
 				event.setResult(Result.DENY);
-				//System.out.println("Hedgehog Denied Existence!");
+				// System.out.println("Hedgehog Denied Existence!");
 			}
 		}
 
 	}
 
 }
-
-

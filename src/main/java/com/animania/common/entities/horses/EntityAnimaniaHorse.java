@@ -126,6 +126,11 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	}
 
 	@Override
+	protected void initEntityAI()
+    {
+    }
+	
+	@Override
 	protected boolean canDespawn()
 	{
 		return false;

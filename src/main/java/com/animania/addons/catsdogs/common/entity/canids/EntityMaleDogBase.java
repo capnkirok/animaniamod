@@ -35,18 +35,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityMaleDogBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityMaleDogBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityMaleDogBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean>createKey(EntityMaleDogBase.class, DataSerializers.BOOLEAN);
 
 	public EntityMaleDogBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.0F, 1.0F); 
+		this.setSize(1.0F, 1.0F);
 		this.width = 1.0F;
 		this.height = 1.0F;
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
-		
+
 		if (!getSterilized())
 			this.tasks.addTask(8, new GenericAIMate<EntityMaleDogBase, EntityFemaleDogBase>(this, 1.0D, EntityFemaleDogBase.class, EntityPuppyBase.class, EntityAnimaniaDog.class));
 	}
@@ -63,7 +63,7 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
 
 	}
 
@@ -96,7 +96,7 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	public void onLivingUpdate()
 	{
 		GenericBehavior.livingUpdateMateable(this, EntityFemaleDogBase.class);
-		
+
 		super.onLivingUpdate();
 	}
 
@@ -110,24 +110,6 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	public DataParameter<Boolean> getSterilizedParam()
 	{
 		return STERILIZED;
-	}
-
-	
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationPointY(float p_70894_1_)
-	{
-		return this.eatTimer <= 0 ? 0.0F : this.eatTimer >= 4 && this.eatTimer <= 76 ? 1.0F : this.eatTimer < 4 ? (this.eatTimer - p_70894_1_) / 4.0F : -(this.eatTimer - 80 - p_70894_1_) / 4.0F;
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_)
-	{
-		if (this.eatTimer > 4 && this.eatTimer <= 76)
-		{
-			float f = (this.eatTimer - 4 - p_70890_1_) / 24.0F;
-			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
-		} else
-			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 	}
 
 	@Override

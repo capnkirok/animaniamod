@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fluids.Fluid;
 
@@ -97,6 +98,31 @@ public interface IFoodEating extends IAnimaniaAnimal
 		if (param != null)
 			return this.getBoolFromDataManager(getInteractedParam());
 		return false;
+	}
+	
+	default float getHeadRotationPointY(float partialTicks)
+	{
+		if (((Entity)this).isBeingRidden()) {
+			return 0;
+		} 
+		
+		int eatTimer = this.getEatTimer();
+		return eatTimer <= 0 ? 0.0F : eatTimer >= 4 && eatTimer <= 76 ? 1.0F : eatTimer < 4 ? (eatTimer - partialTicks) / 4.0F : -(eatTimer - 80 - partialTicks) / 4.0F;
+	}
+	
+	default float getHeadRotationAngleX(float partialTicks)
+	{
+		if (((Entity)this).isBeingRidden()) {
+			return 0;
+		} 
+		
+		int eatTimer = this.getEatTimer();
+		if (eatTimer > 4 && eatTimer <= 76)
+		{
+			float f = (eatTimer - 4 - partialTicks) / 24.0F;
+			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
+		} else
+			return eatTimer > 0 ? (float) Math.PI / 5F : ((Entity)this).rotationPitch * 0.017453292F;
 	}
 
 	public Set<Item> getFoodItems();
