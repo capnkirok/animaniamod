@@ -203,5 +203,13 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	{
 		return AGE;
 	}
+	
+	@Override
+	public void ageUp(int growthSeconds, boolean updateForcedAge)
+	{
+		float entityAge = this.getEntityAge();
+		entityAge += 0.05f;
+		this.setEntityAge(entityAge);
+	}
 
 }

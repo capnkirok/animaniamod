@@ -235,7 +235,7 @@ public class ModelTrough extends ModelBase
 		GlStateManager.translate(0, 0.17 * (3 - count), 0);
 		GlStateManager.color((float) color.getRed() / 255f, (float) color.getGreen() / 255f, (float) color.getBlue() / 255f);	
 		this.Feed.render(0.0625f);
-		GlStateManager.color(1f, 1f, 1f);
+		GlStateManager.color(1f, 1f, 1f, 1f);
 		GlStateManager.popMatrix();
 
 	}
