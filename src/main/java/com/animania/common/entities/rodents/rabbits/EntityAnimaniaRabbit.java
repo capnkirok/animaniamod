@@ -22,11 +22,13 @@ import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.entities.rodents.ai.EntityAISleepRabbits;
+import com.animania.common.entities.rodents.rabbits.RabbitLop.EntityRabbitBuckLop;
+import com.animania.common.entities.rodents.rabbits.RabbitLop.EntityRabbitDoeLop;
+import com.animania.common.entities.rodents.rabbits.RabbitLop.EntityRabbitKitLop;
 import com.animania.common.handler.DamageSourceHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
@@ -63,7 +65,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.Path;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -340,7 +341,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	protected void entityInit()
 	{
 		super.entityInit();
-		if (this.rabbitType == RabbitType.LOP)
+		if (this instanceof EntityRabbitBuckLop || this instanceof EntityRabbitKitLop || this instanceof EntityRabbitDoeLop)
 		{
 			this.dataManager.register(EntityAnimaniaRabbit.COLOR_NUM, Integer.valueOf(rand.nextInt(7)));
 		}

@@ -69,7 +69,6 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		super.entityInit();
 		this.dataManager.register(STERILIZED, false);
 		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
-
 	}
 	
 	@Override
