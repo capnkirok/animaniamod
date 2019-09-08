@@ -595,8 +595,8 @@ public class ModelHedgehog extends ModelBase
 
         if (entitylivingbaseIn instanceof EntityHedgehogBase) {
         	EntityHedgehogBase entityHedgehog = (EntityHedgehogBase) entitylivingbaseIn;
-            this.Head.rotationPointY = 19.5F + entityHedgehog.getHeadRotationPointY(partialTickTime) * 0F; // number
-            this.headRotationAngleX = entityHedgehog.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 19.5F + entityHedgehog.getHeadAnchorPointY(partialTickTime) * 0F; // number
+            this.headRotationAngleX = entityHedgehog.getHeadAngleX(partialTickTime);
             
         }
     }

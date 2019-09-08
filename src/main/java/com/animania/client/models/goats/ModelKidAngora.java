@@ -335,8 +335,8 @@ public class ModelKidAngora extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityKidAngora)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityKidAngora)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = + 7.75F + ((EntityKidAngora)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityKidAngora)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 
 	}
 

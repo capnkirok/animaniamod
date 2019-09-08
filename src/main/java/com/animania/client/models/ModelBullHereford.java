@@ -324,12 +324,12 @@ public class ModelBullHereford extends ModelBase
 
 		if (entitylivingbaseIn instanceof EntityBullHereford) {
 			EntityBullHereford entityBullHereford = (EntityBullHereford) entitylivingbaseIn;
-			this.Head.rotationPointY = 6.0F + entityBullHereford.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityBullHereford.getHeadRotationAngleX(partialTickTime);
+			this.Head.rotationPointY = 6.0F + entityBullHereford.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityBullHereford.getHeadAngleX(partialTickTime);
 		} else if (entitylivingbaseIn instanceof EntityBullJersey) {
 			EntityBullJersey entityBullJersey = (EntityBullJersey) entitylivingbaseIn;
-			this.Head.rotationPointY = 6.0F + entityBullJersey.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityBullJersey.getHeadRotationAngleX(partialTickTime);
+			this.Head.rotationPointY = 6.0F + entityBullJersey.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityBullJersey.getHeadAngleX(partialTickTime);
 		}
 
 	}
@@ -341,8 +341,8 @@ public class ModelBullHereford extends ModelBase
 
 			EntityBullHereford eb = (EntityBullHereford) entity;
 			if (eb.getFighting()) {
-				this.Head.rotationPointY = 14.0F + eb.getHeadRotationPointY(1) * 9.0F;
-				this.headRotationAngleX = eb.getHeadRotationAngleX(-3);
+				this.Head.rotationPointY = 14.0F + eb.getHeadAnchorPointY(1) * 9.0F;
+				this.headRotationAngleX = eb.getHeadAngleX(-3);
 			}
 			else {
 				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
@@ -354,8 +354,8 @@ public class ModelBullHereford extends ModelBase
 
 			EntityBullJersey eb = (EntityBullJersey) entity;
 			if (eb.getFighting()) {
-				this.Head.rotationPointY = 14.0F + eb.getHeadRotationPointY(1) * 9.0F;
-				this.headRotationAngleX = eb.getHeadRotationAngleX(-3);
+				this.Head.rotationPointY = 14.0F + eb.getHeadAnchorPointY(1) * 9.0F;
+				this.headRotationAngleX = eb.getHeadAngleX(-3);
 			}
 			else {
 				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);

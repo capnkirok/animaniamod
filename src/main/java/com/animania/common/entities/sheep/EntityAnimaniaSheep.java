@@ -399,7 +399,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	public void handleStatusUpdate(byte id)
 	{
 		if (id == 10)
-			this.eatTimer = 160;
+			this.eatTimer = 80;
 		else
 			super.handleStatusUpdate(id);
 	}

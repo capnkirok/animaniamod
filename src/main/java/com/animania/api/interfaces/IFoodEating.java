@@ -100,17 +100,18 @@ public interface IFoodEating extends IAnimaniaAnimal
 		return false;
 	}
 	
-	default float getHeadRotationPointY(float partialTicks)
+	default float getHeadAnchorPointY(float partialTicks)
 	{
 		if (((Entity)this).isBeingRidden()) {
 			return 0;
 		} 
 		
 		int eatTimer = this.getEatTimer();
-		return eatTimer <= 0 ? 0.0F : eatTimer >= 4 && eatTimer <= 76 ? 1.0F : eatTimer < 4 ? (eatTimer - partialTicks) / 4.0F : -(eatTimer - 80 - partialTicks) / 4.0F;
+		float val =  eatTimer <= 0 ? 0.0F : eatTimer >= 4 && eatTimer <= 76 ? 1.0F : eatTimer < 4 ? (eatTimer - partialTicks) / 4.0F : -(eatTimer - 80 - partialTicks) / 4.0F;
+		return val;
 	}
 	
-	default float getHeadRotationAngleX(float partialTicks)
+	default float getHeadAngleX(float partialTicks)
 	{
 		if (((Entity)this).isBeingRidden()) {
 			return 0;

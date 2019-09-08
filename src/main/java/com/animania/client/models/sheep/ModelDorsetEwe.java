@@ -333,12 +333,12 @@ public class ModelDorsetEwe extends ModelBase  implements IColoredModel
 
 		if (entity instanceof EntityEweDorset) {
 			EntityEweDorset entityEweDorset = (EntityEweDorset)entity;
-			this.HeadNode.rotationPointY = 4F + entityEweDorset.getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = entityEweDorset.getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = 4F + entityEweDorset.getHeadAnchorPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityEweDorset.getHeadAngleX(partialTickTime);
 		} else if (entity instanceof EntityLambDorset) {
 			EntityLambDorset entityLambDorset = (EntityLambDorset)entity;
-			this.HeadNode.rotationPointY = 4F + entityLambDorset.getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = entityLambDorset.getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = 4F + entityLambDorset.getHeadAnchorPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityLambDorset.getHeadAngleX(partialTickTime);
 		}
 	}
 

@@ -264,8 +264,8 @@ public class ModelDoeKiko extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityDoeKiko)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityDoeKiko)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = + 7.75F + ((EntityDoeKiko)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityDoeKiko)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 
 	}
 

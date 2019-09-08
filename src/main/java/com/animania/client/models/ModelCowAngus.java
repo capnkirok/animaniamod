@@ -225,18 +225,18 @@ public class ModelCowAngus extends ModelBase
 
 		if (entitylivingbaseIn instanceof EntityCowHolstein) {
 			EntityCowHolstein entityCowHolstein = (EntityCowHolstein) entitylivingbaseIn;
-			this.head.rotationPointY = 6.0F + entityCowHolstein.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityCowHolstein.getHeadRotationAngleX(partialTickTime);
+			this.head.rotationPointY = 6.0F + entityCowHolstein.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityCowHolstein.getHeadAngleX(partialTickTime);
 		}
 		else if (entitylivingbaseIn instanceof EntityCowAngus) {
 			EntityCowAngus entityCowAngus = (EntityCowAngus) entitylivingbaseIn;
-			this.head.rotationPointY = 6.0F + entityCowAngus.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityCowAngus.getHeadRotationAngleX(partialTickTime);
+			this.head.rotationPointY = 6.0F + entityCowAngus.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityCowAngus.getHeadAngleX(partialTickTime);
 		}
 		else if (entitylivingbaseIn instanceof EntityCowFriesian) {
 			EntityCowFriesian entityCowFriesian = (EntityCowFriesian) entitylivingbaseIn;
-			this.head.rotationPointY = 6.0F + entityCowFriesian.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityCowFriesian.getHeadRotationAngleX(partialTickTime);
+			this.head.rotationPointY = 6.0F + entityCowFriesian.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityCowFriesian.getHeadAngleX(partialTickTime);
 		}
 
 	}

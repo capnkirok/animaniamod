@@ -270,8 +270,8 @@ public class ModelDoeKinder extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityDoeKinder)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityDoeKinder)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = + 7.75F + ((EntityDoeKinder)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityDoeKinder)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 
 	}
 

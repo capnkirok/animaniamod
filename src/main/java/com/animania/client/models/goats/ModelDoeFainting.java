@@ -305,8 +305,8 @@ public class ModelDoeFainting extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityDoeFainting)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityDoeFainting)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = + 7.75F + ((EntityDoeFainting)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityDoeFainting)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 
 	}
 

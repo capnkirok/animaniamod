@@ -223,23 +223,23 @@ public class ModelCow extends ModelBase
 
         if (entitylivingbaseIn instanceof EntityCowHolstein) {
         	EntityCowHolstein entityCowHolstein = (EntityCowHolstein) entitylivingbaseIn;
-            this.head.rotationPointY = 6.0F + entityCowHolstein.getHeadRotationPointY(partialTickTime) * 9.0F;
-            this.headRotationAngleX = entityCowHolstein.getHeadRotationAngleX(partialTickTime);
+            this.head.rotationPointY = 6.0F + entityCowHolstein.getHeadAnchorPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = entityCowHolstein.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCowAngus) {
         	EntityCowAngus entityCowAngus = (EntityCowAngus) entitylivingbaseIn;
-            this.head.rotationPointY = 6.0F + entityCowAngus.getHeadRotationPointY(partialTickTime) * 9.0F;
-            this.headRotationAngleX = entityCowAngus.getHeadRotationAngleX(partialTickTime);
+            this.head.rotationPointY = 6.0F + entityCowAngus.getHeadAnchorPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = entityCowAngus.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCowMooshroom) {
         	EntityCowMooshroom entityCowMooshroom = (EntityCowMooshroom) entitylivingbaseIn;
-            this.head.rotationPointY = 6.0F + entityCowMooshroom.getHeadRotationPointY(partialTickTime) * 9.0F;
-            this.headRotationAngleX = entityCowMooshroom.getHeadRotationAngleX(partialTickTime);
+            this.head.rotationPointY = 6.0F + entityCowMooshroom.getHeadAnchorPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = entityCowMooshroom.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCowFriesian) {
         	EntityCowFriesian entityCowFriesian = (EntityCowFriesian) entitylivingbaseIn;
-            this.head.rotationPointY = 6.0F + entityCowFriesian.getHeadRotationPointY(partialTickTime) * 9.0F;
-            this.headRotationAngleX = entityCowFriesian.getHeadRotationAngleX(partialTickTime);
+            this.head.rotationPointY = 6.0F + entityCowFriesian.getHeadAnchorPointY(partialTickTime) * 9.0F;
+            this.headRotationAngleX = entityCowFriesian.getHeadAngleX(partialTickTime);
         }
 
     }
@@ -258,7 +258,7 @@ public class ModelCow extends ModelBase
 		this.head.rotateAngleX = this.headRotationAngleX;
         
         EntityAnimaniaCow ech = (EntityAnimaniaCow) entity;
-		if (!ech.getSleeping()) {
+		if (!ech.getSleeping()) { 
 			this.TailTop.rotateAngleX = (float) Math.PI / 2F;
 			this.Tail.rotateAngleY = MathHelper.sin(par3 * 3.141593F * 0.05F) * MathHelper.sin(par3 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		} else {

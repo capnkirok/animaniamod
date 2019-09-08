@@ -168,13 +168,13 @@ public class ModelPigletHampshire extends ModelBase
 
         if (entitylivingbaseIn instanceof EntityPigletHampshire) {
         	EntityPigletHampshire entityPigletHampshire = (EntityPigletHampshire) entitylivingbaseIn;
-            this.Head.rotationPointY = 17.0F + entityPigletHampshire.getHeadRotationPointY(partialTickTime) * 3.0F; // number
+            this.Head.rotationPointY = 17.0F + entityPigletHampshire.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
                                                                                                                                            // should
                                                                                                                                            // match
                                                                                                                                            // model
                                                                                                                                            // Y
                                                                                                                                            // point
-            this.headRotationAngleX = entityPigletHampshire.getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityPigletHampshire.getHeadAngleX(partialTickTime);
         }
 
     }

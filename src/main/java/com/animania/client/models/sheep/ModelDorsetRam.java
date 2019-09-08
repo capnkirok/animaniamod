@@ -396,16 +396,16 @@ public class ModelDorsetRam extends ModelBase implements IColoredModel
 
 		if (entity instanceof EntityRamDorset ) {
 			EntityRamDorset entityRamDorser = (EntityRamDorset)entity;
-			this.HeadNode.rotationPointY = 4F + entityRamDorser.getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = entityRamDorser.getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = 4F + entityRamDorser.getHeadAnchorPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityRamDorser.getHeadAngleX(partialTickTime);
 		} else if (entity instanceof EntityEweDorset) {
 			EntityEweDorset entityEweDorset = (EntityEweDorset)entity;
-			this.HeadNode.rotationPointY = 4F + entityEweDorset.getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = entityEweDorset.getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = 4F + entityEweDorset.getHeadAnchorPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityEweDorset.getHeadAngleX(partialTickTime);
 		} else if (entity instanceof EntityLambDorset) {
 			EntityLambDorset entityLampDorset = (EntityLambDorset)entity;
-			this.HeadNode.rotationPointY = 4F + entityLampDorset.getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = entityLampDorset.getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = 4F + entityLampDorset.getHeadAnchorPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityLampDorset.getHeadAngleX(partialTickTime);
 		}
 	}
 

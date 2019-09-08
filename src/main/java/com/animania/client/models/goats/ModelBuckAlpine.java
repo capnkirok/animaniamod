@@ -344,8 +344,8 @@ public class ModelBuckAlpine extends ModelBase
 		if (entity instanceof EntityBuckAlpine) {
 			EntityBuckAlpine eb = (EntityBuckAlpine) entity;
 			if (!eb.getFighting()) {
-				this.HeadNode.rotationPointY = + 7.75F + eb.getHeadRotationPointY(partialTickTime) * 6.0F;
-				this.headRotationAngleX = eb.getHeadRotationAngleX(partialTickTime);
+				this.HeadNode.rotationPointY = + 7.75F + eb.getHeadAnchorPointY(partialTickTime) * 6.0F;
+				this.headRotationAngleX = eb.getHeadAngleX(partialTickTime);
 			}
 		}
 

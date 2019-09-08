@@ -294,8 +294,8 @@ public class ModelBuckNigerianDwarf extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckNigerianDwarf)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityBuckNigerianDwarf)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckNigerianDwarf)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityBuckNigerianDwarf)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 
 	}
 
@@ -308,7 +308,7 @@ public class ModelBuckNigerianDwarf extends ModelBase
 
 			EntityBuckNigerianDwarf eb = (EntityBuckNigerianDwarf) entity;
 			if (eb.getFighting() && eb.getRivalUniqueId() != null) {
-				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckNigerian) entity).getHeadRotationPointY(1) * 12.0F;
+				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckNigerian) entity).getHeadAnchorPointY(1) * 12.0F;
 				this.HeadNode.rotateAngleX = 0.687F;
 			}
 			else {

@@ -173,7 +173,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	
 
 	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_)
+	public float getHeadAngleX(float p_70890_1_)
 	{
 
 		if (this.isBeingRidden())

@@ -260,8 +260,8 @@ public class ModelBuckKinder extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckKinder)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityBuckKinder)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckKinder)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityBuckKinder)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 
 	}
 
@@ -274,7 +274,7 @@ public class ModelBuckKinder extends ModelBase
 
 			EntityBuckKinder eb = (EntityBuckKinder) entity;
 			if (eb.getFighting() && eb.getRivalUniqueId() != null) {
-				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckKinder) entity).getHeadRotationPointY(1) * 12.0F;
+				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckKinder) entity).getHeadAnchorPointY(1) * 12.0F;
 				this.HeadNode.rotateAngleX = 0.687F;
 			}
 			else {

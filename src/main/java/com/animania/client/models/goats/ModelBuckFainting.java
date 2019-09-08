@@ -313,8 +313,8 @@ public class ModelBuckFainting extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckFainting)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityBuckFainting)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckFainting)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityBuckFainting)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 
 	}
 
@@ -327,7 +327,7 @@ public class ModelBuckFainting extends ModelBase
 
 			EntityBuckAlpine eb = (EntityBuckAlpine) entity;
 			if (eb.getFighting() && eb.getRivalUniqueId() != null) {
-				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckAlpine) entity).getHeadRotationPointY(1) * 12.0F;
+				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckAlpine) entity).getHeadAnchorPointY(1) * 12.0F;
 				this.HeadNode.rotateAngleX = 0.687F;
 			}
 			else {

@@ -174,21 +174,21 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@SideOnly(Side.CLIENT)
-	public float getHeadRotationPointY(float p_70894_1_)
+	public float getHeadAnchorPointY(float p_70894_1_)
 	{
 		if (this.getFighting())
 			return 0;
 		else
-			return super.getHeadRotationPointY(p_70894_1_);
+			return super.getHeadAnchorPointY(p_70894_1_);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public float getHeadRotationAngleX(float p_70890_1_)
+	public float getHeadAngleX(float p_70890_1_)
 	{
 		if (this.getFighting())
 			return this.eatTimer > 0 ? (float) Math.PI / 5F : this.rotationPitch * 0.017453292F;
 		else
-			return super.getHeadRotationAngleX(p_70890_1_);
+			return super.getHeadAngleX(p_70890_1_);
 	}
 
 	@Override

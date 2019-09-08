@@ -334,12 +334,12 @@ public class ModelMerinoEwe extends ModelBase implements IColoredModel
 
 		if (entity instanceof EntityEweMerino) {
 			EntityEweMerino entityEweMerino = (EntityEweMerino)entity;
-			this.HeadNode.rotationPointY = 4F + entityEweMerino.getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = entityEweMerino.getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = 4F + entityEweMerino.getHeadAnchorPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityEweMerino.getHeadAngleX(partialTickTime);
 		} else if (entity instanceof EntityLambMerino) {
 			EntityLambMerino entityLambMerino = (EntityLambMerino)entity;
-			this.HeadNode.rotationPointY = 4F + entityLambMerino.getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = entityLambMerino.getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = 4F + entityLambMerino.getHeadAnchorPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityLambMerino.getHeadAngleX(partialTickTime);
 		}
 	}
 

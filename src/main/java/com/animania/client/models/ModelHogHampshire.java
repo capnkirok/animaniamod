@@ -225,13 +225,13 @@ public class ModelHogHampshire extends ModelBase
 
         if (entitylivingbaseIn instanceof EntityHogHampshire) {
         	EntityHogHampshire entityHogHampshire = (EntityHogHampshire) entitylivingbaseIn;
-            this.Head.rotationPointY = 11.0F + entityHogHampshire.getHeadRotationPointY(partialTickTime) * 5.5F; // number
+            this.Head.rotationPointY = 11.0F + entityHogHampshire.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                         // should
                                                                                                                                         // match
                                                                                                                                         // model
                                                                                                                                         // Y
                                                                                                                                         // point
-            this.headRotationAngleX = entityHogHampshire.getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogHampshire.getHeadAngleX(partialTickTime);
         }
 
     }

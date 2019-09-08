@@ -671,8 +671,8 @@ public class ModelDraftHorseStallion extends ModelBase
 		Entity horse = (Entity)entitylivingbaseIn;
 
 		if (!horse.isBeingRidden()) {
-			this.HeadNode.rotationPointY = -7.0F + ((EntityStallionDraftHorse)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 10.0F;
-			this.headRotationAngleX = ((EntityStallionDraftHorse)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = -7.0F + ((EntityStallionDraftHorse)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 10.0F;
+			this.headRotationAngleX = ((EntityStallionDraftHorse)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 		}
 	}
 

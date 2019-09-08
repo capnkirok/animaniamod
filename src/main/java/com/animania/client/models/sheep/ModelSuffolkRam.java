@@ -423,16 +423,16 @@ public class ModelSuffolkRam extends ModelBase implements IColoredModel
 
 		if (entity instanceof EntityRamSuffolk ) {
 			EntityRamSuffolk entityRamSuffolk = (EntityRamSuffolk)entity;
-			this.HeadNode.rotationPointY = 4F + entityRamSuffolk.getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = entityRamSuffolk.getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = 4F + entityRamSuffolk.getHeadAnchorPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityRamSuffolk.getHeadAngleX(partialTickTime);
 		} else if (entity instanceof EntityEweSuffolk) {
 			EntityEweSuffolk entityEweSuffolk = (EntityEweSuffolk)entity;
-			this.HeadNode.rotationPointY = 4F + entityEweSuffolk.getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = entityEweSuffolk.getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = 4F + entityEweSuffolk.getHeadAnchorPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityEweSuffolk.getHeadAngleX(partialTickTime);
 		} else if (entity instanceof EntityLambSuffolk) {
 			EntityLambSuffolk entityLambSuffolk = (EntityLambSuffolk)entity;
-			this.HeadNode.rotationPointY = 4F + entityLambSuffolk.getHeadRotationPointY(partialTickTime) * 4.0F;
-			this.headRotationAngleX = entityLambSuffolk.getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = 4F + entityLambSuffolk.getHeadAnchorPointY(partialTickTime) * 4.0F;
+			this.headRotationAngleX = entityLambSuffolk.getHeadAngleX(partialTickTime);
 		}
 	}
 

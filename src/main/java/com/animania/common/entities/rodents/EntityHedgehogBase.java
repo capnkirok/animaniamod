@@ -419,7 +419,7 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 	public void handleStatusUpdate(byte id)
 	{
 		if (id == 10)
-			this.eatTimer = 160;
+			this.eatTimer = 80;
 		else
 			super.handleStatusUpdate(id);
 	}

@@ -252,7 +252,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	public void handleStatusUpdate(byte id)
 	{
 		if (id == 10)
-			this.eatTimer = 160;
+			this.eatTimer = 80;
 		else
 			super.handleStatusUpdate(id);
 	}

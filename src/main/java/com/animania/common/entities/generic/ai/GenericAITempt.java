@@ -2,6 +2,7 @@ package com.animania.common.entities.generic.ai;
 
 import java.util.Set;
 
+import com.animania.api.interfaces.IFoodEating;
 import com.animania.api.interfaces.ISleeping;
 
 import net.minecraft.entity.EntityCreature;
@@ -9,7 +10,7 @@ import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.item.Item;
 
-public class GenericAITempt<T extends EntityCreature & ISleeping> extends EntityAITempt
+public class GenericAITempt<T extends EntityCreature & ISleeping & IFoodEating> extends EntityAITempt
 {
     /** The entity using this AI that is tempted by the player. */
     private final T temptedEntity;
@@ -38,5 +39,14 @@ public class GenericAITempt<T extends EntityCreature & ISleeping> extends Entity
     		return false;
     	
     	return super.shouldExecute();
+    }
+    
+    @Override
+    public void updateTask()
+    {	
+    	if(!temptedEntity.getInteracted())
+    		temptedEntity.setInteracted(true);
+    	
+    	super.updateTask();
     }
 }

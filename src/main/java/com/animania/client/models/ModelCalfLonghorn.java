@@ -181,12 +181,12 @@ public class ModelCalfLonghorn extends ModelBase
 
         if (entitylivingbaseIn instanceof EntityCalfLonghorn) {
         	EntityCalfLonghorn entityCalfLonghorn = (EntityCalfLonghorn) entitylivingbaseIn;
-            this.Head.rotationPointY = 10.0F + entityCalfLonghorn.getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = entityCalfLonghorn.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 10.0F + entityCalfLonghorn.getHeadAnchorPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfLonghorn.getHeadAngleX(partialTickTime);
         } else if (entitylivingbaseIn instanceof EntityCalfHighland) {
         	EntityCalfHighland entityCalfHighland = (EntityCalfHighland) entitylivingbaseIn;
-            this.Head.rotationPointY = 10.0F + entityCalfHighland.getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = entityCalfHighland.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 10.0F + entityCalfHighland.getHeadAnchorPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfHighland.getHeadAngleX(partialTickTime);
         }
         
     }

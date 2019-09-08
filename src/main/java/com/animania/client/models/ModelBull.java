@@ -299,23 +299,23 @@ public class ModelBull extends ModelBase
 
 		if (entitylivingbaseIn instanceof EntityBullHolstein) {
 			EntityBullHolstein entityBullHolstein = (EntityBullHolstein) entitylivingbaseIn;
-			this.Head.rotationPointY = 6.0F + entityBullHolstein.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityBullHolstein.getHeadRotationAngleX(partialTickTime);
+			this.Head.rotationPointY = 6.0F + entityBullHolstein.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityBullHolstein.getHeadAngleX(partialTickTime);
 		}
 		else if (entitylivingbaseIn instanceof EntityBullAngus) {
 			EntityBullAngus entityBullAngus = (EntityBullAngus) entitylivingbaseIn;
-			this.Head.rotationPointY = 6.0F + entityBullAngus.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityBullAngus.getHeadRotationAngleX(partialTickTime);
+			this.Head.rotationPointY = 6.0F + entityBullAngus.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityBullAngus.getHeadAngleX(partialTickTime);
 		}
 		else if (entitylivingbaseIn instanceof EntityBullMooshroom) {
 			EntityBullMooshroom entityBullMooshroom = (EntityBullMooshroom) entitylivingbaseIn;
-			this.Head.rotationPointY = 6.0F + entityBullMooshroom.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityBullMooshroom.getHeadRotationAngleX(partialTickTime);
+			this.Head.rotationPointY = 6.0F + entityBullMooshroom.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityBullMooshroom.getHeadAngleX(partialTickTime);
 		}
 		else if (entitylivingbaseIn instanceof EntityBullFriesian) {
 			EntityBullFriesian entityBullFriesian = (EntityBullFriesian) entitylivingbaseIn;
-			this.Head.rotationPointY = 6.0F + entityBullFriesian.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityBullFriesian.getHeadRotationAngleX(partialTickTime);
+			this.Head.rotationPointY = 6.0F + entityBullFriesian.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityBullFriesian.getHeadAngleX(partialTickTime);
 		}
 	}
 
@@ -328,8 +328,8 @@ public class ModelBull extends ModelBase
 
 			EntityBullAngus eb = (EntityBullAngus) entity;
 			if (eb.getFighting()) {
-				this.Head.rotationPointY = 14.0F + eb.getHeadRotationPointY(1) * 9.0F;
-				this.headRotationAngleX = eb.getHeadRotationAngleX(-3);
+				this.Head.rotationPointY = 14.0F + eb.getHeadAnchorPointY(1) * 9.0F;
+				this.headRotationAngleX = eb.getHeadAngleX(-3);
 			}
 			else {
 				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
@@ -342,8 +342,8 @@ public class ModelBull extends ModelBase
 			EntityBullHolstein eb = (EntityBullHolstein) entity;
 
 			if (eb.getFighting()) {
-				this.Head.rotationPointY = 14.0F + eb.getHeadRotationPointY(1) * 9.0F;
-				this.headRotationAngleX = eb.getHeadRotationAngleX(-3);
+				this.Head.rotationPointY = 14.0F + eb.getHeadAnchorPointY(1) * 9.0F;
+				this.headRotationAngleX = eb.getHeadAngleX(-3);
 			}
 			else {
 				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);
@@ -355,8 +355,8 @@ public class ModelBull extends ModelBase
 
 			EntityBullFriesian eb = (EntityBullFriesian) entity;
 			if (eb.getFighting()) {
-				this.Head.rotationPointY = 14.0F + eb.getHeadRotationPointY(1) * 9.0F;
-				this.headRotationAngleX = eb.getHeadRotationAngleX(-3);
+				this.Head.rotationPointY = 14.0F + eb.getHeadAnchorPointY(1) * 9.0F;
+				this.headRotationAngleX = eb.getHeadAngleX(-3);
 			}
 			else {
 				this.Head.rotateAngleX = par5 / (180F / (float) Math.PI);

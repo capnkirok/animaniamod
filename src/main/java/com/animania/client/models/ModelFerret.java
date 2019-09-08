@@ -113,8 +113,8 @@ public class ModelFerret extends ModelBase
 
         if (entitylivingbaseIn instanceof EntityFerretGrey) {
             EntityFerretGrey ef = (EntityFerretGrey) entitylivingbaseIn;
-            this.Head.rotationPointY = 14.3F + ef.getHeadRotationPointY(partialTickTime) * 0F; // number
-            this.headRotationAngleX = ef.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 14.3F + ef.getHeadAnchorPointY(partialTickTime) * 0F; // number
+            this.headRotationAngleX = ef.getHeadAngleX(partialTickTime);
 
             if (ef.isSitting()) {
                 this.Body2.setRotationPoint(0.0F, 18.0F, -1.0F);
@@ -130,8 +130,8 @@ public class ModelFerret extends ModelBase
         }
         else if (entitylivingbaseIn instanceof EntityFerretWhite) {
         	EntityFerretWhite ef = (EntityFerretWhite) entitylivingbaseIn;
-            this.Head.rotationPointY = 14.3F + ef.getHeadRotationPointY(partialTickTime) * 0F; // number
-            this.headRotationAngleX = ef.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 14.3F + ef.getHeadAnchorPointY(partialTickTime) * 0F; // number
+            this.headRotationAngleX = ef.getHeadAngleX(partialTickTime);
 
             if (ef.isSitting()) {
                 this.Body2.setRotationPoint(0.0F, 18.0F, -1.0F);

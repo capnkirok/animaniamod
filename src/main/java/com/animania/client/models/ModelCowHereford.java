@@ -223,12 +223,12 @@ public class ModelCowHereford extends ModelBase
 
 		if (entitylivingbaseIn instanceof EntityCowHereford) {
 			EntityCowHereford entityCowHereford = (EntityCowHereford) entitylivingbaseIn;
-			this.head.rotationPointY = 6.0F + entityCowHereford.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityCowHereford.getHeadRotationAngleX(partialTickTime);
+			this.head.rotationPointY = 6.0F + entityCowHereford.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityCowHereford.getHeadAngleX(partialTickTime);
 		} else if (entitylivingbaseIn instanceof EntityCowJersey) {
 			EntityCowJersey entityCowJersey = (EntityCowJersey) entitylivingbaseIn;
-			this.head.rotationPointY = 6.0F + entityCowJersey.getHeadRotationPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityCowJersey.getHeadRotationAngleX(partialTickTime);
+			this.head.rotationPointY = 6.0F + entityCowJersey.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = entityCowJersey.getHeadAngleX(partialTickTime);
 		}
 	}
 

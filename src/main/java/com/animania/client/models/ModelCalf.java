@@ -192,38 +192,38 @@ public class ModelCalf extends ModelBase
 
         if (entitylivingbaseIn instanceof EntityCalfHolstein) {
         	EntityCalfHolstein entityCalfHolstein = (EntityCalfHolstein) entitylivingbaseIn;
-            this.Head.rotationPointY = 10.0F + entityCalfHolstein.getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = entityCalfHolstein.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 10.0F + entityCalfHolstein.getHeadAnchorPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfHolstein.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCalfFriesian) {
         	EntityCalfFriesian entityCalfFriesian = (EntityCalfFriesian) entitylivingbaseIn;
-            this.Head.rotationPointY = 10.0F + entityCalfFriesian.getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = entityCalfFriesian.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 10.0F + entityCalfFriesian.getHeadAnchorPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfFriesian.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCalfHereford) {
         	EntityCalfHereford entityCalfHereford = (EntityCalfHereford) entitylivingbaseIn;
-            this.Head.rotationPointY = 10.0F + entityCalfHereford.getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = entityCalfHereford.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 10.0F + entityCalfHereford.getHeadAnchorPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfHereford.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCalfHighland) {
         	EntityCalfHighland entityCalfHighland = (EntityCalfHighland) entitylivingbaseIn;
-            this.Head.rotationPointY = 10.0F + entityCalfHighland.getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = entityCalfHighland.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 10.0F + entityCalfHighland.getHeadAnchorPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfHighland.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCalfMooshroom) {
         	EntityCalfMooshroom entityCalfMooshrom = (EntityCalfMooshroom) entitylivingbaseIn;
-            this.Head.rotationPointY = 10.0F + entityCalfMooshrom.getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = entityCalfMooshrom.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 10.0F + entityCalfMooshrom.getHeadAnchorPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfMooshrom.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCalfJersey) {
         	EntityCalfJersey entityCalfJersey = (EntityCalfJersey) entitylivingbaseIn;
-            this.Head.rotationPointY = 10.0F + entityCalfJersey.getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = entityCalfJersey.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 10.0F + entityCalfJersey.getHeadAnchorPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfJersey.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityCalfAngus) {
         	EntityCalfAngus entityCalfAngus = (EntityCalfAngus) entitylivingbaseIn;
-            this.Head.rotationPointY = 10.0F + entityCalfAngus.getHeadRotationPointY(partialTickTime) * 6.0F;
-            this.headRotationAngleX = entityCalfAngus.getHeadRotationAngleX(partialTickTime);
+            this.Head.rotationPointY = 10.0F + entityCalfAngus.getHeadAnchorPointY(partialTickTime) * 6.0F;
+            this.headRotationAngleX = entityCalfAngus.getHeadAngleX(partialTickTime);
         }
     }
 

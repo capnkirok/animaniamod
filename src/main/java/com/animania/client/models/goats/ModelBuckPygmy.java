@@ -297,8 +297,8 @@ public class ModelBuckPygmy extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckPygmy)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityBuckPygmy)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckPygmy)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityBuckPygmy)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 
 	}
 
@@ -311,7 +311,7 @@ public class ModelBuckPygmy extends ModelBase
 
 			EntityBuckPygmy eb = (EntityBuckPygmy) entity;
 			if (eb.getFighting() && eb.getRivalUniqueId() != null) {
-				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckPygmy) entity).getHeadRotationPointY(1) * 12.0F;
+				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckPygmy) entity).getHeadAnchorPointY(1) * 12.0F;
 				this.HeadNode.rotateAngleX = 0.687F;
 			}
 			else {

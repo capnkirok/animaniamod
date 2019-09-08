@@ -228,43 +228,43 @@ public class ModelHog extends ModelBase
 
         if (entitylivingbaseIn instanceof EntityHogYorkshire) {
         	EntityHogYorkshire entityHogYorkshire = (EntityHogYorkshire) entitylivingbaseIn;
-            this.Head.rotationPointY = 11.0F + entityHogYorkshire.getHeadRotationPointY(partialTickTime) * 5.5F; // number
+            this.Head.rotationPointY = 11.0F + entityHogYorkshire.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                         // should
                                                                                                                                         // match
                                                                                                                                         // model
                                                                                                                                         // Y
                                                                                                                                         // point
-            this.headRotationAngleX = entityHogYorkshire.getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogYorkshire.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityHogOldSpot) {
         	EntityHogOldSpot entityHogOldSpot = (EntityHogOldSpot) entitylivingbaseIn;
-            this.Head.rotationPointY = 11.0F + entityHogOldSpot.getHeadRotationPointY(partialTickTime) * 5.5F; // number
+            this.Head.rotationPointY = 11.0F + entityHogOldSpot.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                       // should
                                                                                                                                       // match
                                                                                                                                       // model
                                                                                                                                       // Y
                                                                                                                                       // point
-            this.headRotationAngleX = entityHogOldSpot.getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogOldSpot.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityHogDuroc) {
         	EntityHogDuroc entityHogDuroc = (EntityHogDuroc) entitylivingbaseIn;
-            this.Head.rotationPointY = 11.0F + entityHogDuroc.getHeadRotationPointY(partialTickTime) * 5.5F; // number
+            this.Head.rotationPointY = 11.0F + entityHogDuroc.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                     // should
                                                                                                                                     // match
                                                                                                                                     // model
                                                                                                                                     // Y
                                                                                                                                     // point
-            this.headRotationAngleX = entityHogDuroc.getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogDuroc.getHeadAngleX(partialTickTime);
         }
         else if (entitylivingbaseIn instanceof EntityHogLargeWhite) {
         	EntityHogLargeWhite entityHogLargeWhite = (EntityHogLargeWhite) entitylivingbaseIn;
-            this.Head.rotationPointY = 11.0F + entityHogLargeWhite.getHeadRotationPointY(partialTickTime) * 5.5F; // number
+            this.Head.rotationPointY = 11.0F + entityHogLargeWhite.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                          // should
                                                                                                                                          // match
                                                                                                                                          // model
                                                                                                                                          // Y
                                                                                                                                          // point
-            this.headRotationAngleX = entityHogLargeWhite.getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entityHogLargeWhite.getHeadAngleX(partialTickTime);
         }
 
     }

@@ -236,13 +236,13 @@ public class ModelSowLargeBlack extends ModelBase
 
         if (entitylivingbaseIn instanceof EntitySowLargeBlack) {
         	EntitySowLargeBlack entitySowLargeBlack = (EntitySowLargeBlack) entitylivingbaseIn;
-            this.Head.rotationPointY = 11.0F + entitySowLargeBlack.getHeadRotationPointY(partialTickTime) * 5.5F; // number
+            this.Head.rotationPointY = 11.0F + entitySowLargeBlack.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                          // should
                                                                                                                                          // match
                                                                                                                                          // model
                                                                                                                                          // Y
                                                                                                                                          // point
-            this.headRotationAngleX = entitySowLargeBlack.getHeadRotationAngleX(partialTickTime);
+            this.headRotationAngleX = entitySowLargeBlack.getHeadAngleX(partialTickTime);
         }
 
     }

@@ -199,8 +199,8 @@ public class ModelRex extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		//this.Neck1.rotationPointY = 0F + ((EntityRabbitBuckCottontail)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 0.0F;
-		//this.headRotationAngleX = ((EntityRabbitBuckCottontail)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		//this.Neck1.rotationPointY = 0F + ((EntityRabbitBuckCottontail)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 0.0F;
+		//this.headRotationAngleX = ((EntityRabbitBuckCottontail)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 
 	}
 

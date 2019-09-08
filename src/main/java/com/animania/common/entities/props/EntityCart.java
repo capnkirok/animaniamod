@@ -122,6 +122,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		return true;
 	}
 
+	@Override
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);

@@ -640,8 +640,8 @@ public class ModelDraftHorseMare extends ModelBase
 		Entity horse = (Entity)entitylivingbaseIn;
 
 		if (!horse.isBeingRidden()) {
-			this.HeadNode.rotationPointY = -7.0F + ((EntityMareDraftHorse)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 10.0F;
-			this.headRotationAngleX = ((EntityMareDraftHorse)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+			this.HeadNode.rotationPointY = -7.0F + ((EntityMareDraftHorse)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 10.0F;
+			this.headRotationAngleX = ((EntityMareDraftHorse)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 		}
 	}
 

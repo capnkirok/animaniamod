@@ -299,8 +299,8 @@ public class ModelBuckKiko extends ModelBase
 	{
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckKiko)entitylivingbaseIn).getHeadRotationPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityBuckKiko)entitylivingbaseIn).getHeadRotationAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckKiko)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityBuckKiko)entitylivingbaseIn).getHeadAngleX(partialTickTime);
 
 	}
 
@@ -313,7 +313,7 @@ public class ModelBuckKiko extends ModelBase
 
 			EntityBuckKiko eb = (EntityBuckKiko) entity;
 			if (eb.getFighting() && eb.getRivalUniqueId() != null) {
-				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckKiko) entity).getHeadRotationPointY(1) * 12.0F;
+				//this.HeadNode.rotationPointY = 13.75F + ((EntityBuckKiko) entity).getHeadAnchorPointY(1) * 12.0F;
 				this.HeadNode.rotateAngleX = 0.687F;
 			}
 			else {
