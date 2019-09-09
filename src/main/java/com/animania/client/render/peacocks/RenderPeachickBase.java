@@ -51,7 +51,7 @@ public class RenderPeachickBase<T extends EntityPeachickBase> extends RenderLivi
 	protected void preRenderScale(T entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.3F + age, 0.3F + age, 0.3F + age);
+		GL11.glScalef(0.3F + (age / entity.getSizeDividend()), 0.3F + (age / entity.getSizeDividend()), 0.3F + (age / entity.getSizeDividend()));
 
 		double x = entity.posX;
 		double y = entity.posY;

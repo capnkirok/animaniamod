@@ -49,7 +49,7 @@ public class RenderCalfAngus<T extends EntityCalfAngus> extends RenderLiving<T>
 	protected void preRenderScale(T entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age);
+		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()));
 
 		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
 		if (entityCow.getSleeping())

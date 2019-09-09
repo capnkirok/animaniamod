@@ -36,7 +36,7 @@ public class RenderLambDorper<T extends EntityLambDorper> extends RenderLiving<T
 	protected void preRenderScale(EntityLambDorper entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.30F + age, 0.30F + age, 0.30F + age);
+		GL11.glScalef(0.30F + (age / entity.getSizeDividend()), 0.30F + (age / entity.getSizeDividend()), 0.30F + (age / entity.getSizeDividend()));
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
 		if (entitySheep.getSleeping())

@@ -41,7 +41,7 @@ public class RenderPigletHampshire<T extends EntityPigletHampshire> extends Rend
 	{
 
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.12F + age, 1.12F + age, 1.12F + age);
+		GL11.glScalef(1.12F + (age / entity.getSizeDividend()), 1.12F + (age / entity.getSizeDividend()), 1.12F + (age / entity.getSizeDividend()));
 
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 

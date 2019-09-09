@@ -187,4 +187,10 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 		entityAge += 0.05f;
 		this.setEntityAge(entityAge);
 	}
+
+	@Override
+	public float getSizeDividend()
+	{
+		return 1;
+	}
 }

@@ -45,4 +45,6 @@ public interface IChild extends IAnimaniaAnimal
 	public int getAgeTimer();
 	
 	public void setAgeTimer(int i);
+	
+	public float getSizeDividend();
 }

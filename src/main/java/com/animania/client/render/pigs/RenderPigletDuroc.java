@@ -39,7 +39,7 @@ public class RenderPigletDuroc<T extends EntityPigletDuroc> extends RenderLiving
 	{
 
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age);
+		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()));
 
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 

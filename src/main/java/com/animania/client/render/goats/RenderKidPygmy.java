@@ -42,7 +42,7 @@ public class RenderKidPygmy<T extends EntityKidPygmy> extends RenderLiving<T>
 	protected void preRenderScale(EntityKidPygmy entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.24F + age, 0.24F + age, 0.24F + age);
+		GL11.glScalef(0.24F + (age / entity.getSizeDividend()), 0.24F + (age / entity.getSizeDividend()), 0.24F + (age / entity.getSizeDividend()));
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
 		if (entityGoat.getSleeping())

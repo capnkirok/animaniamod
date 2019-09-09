@@ -41,7 +41,7 @@ private static int[] EYE_COLORS = new int[]{0x404040, 0x816D60, 0xD0A675, 0x7F6C
 	protected void preRenderScale(EntityRabbitKitLop entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.23F + age, 0.23F + age, 0.23F + age);
+		GL11.glScalef(0.23F + (age / entity.getSizeDividend()), 0.23F + (age / entity.getSizeDividend()), 0.23F + (age / entity.getSizeDividend()));
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
 		double x = entity.posX;

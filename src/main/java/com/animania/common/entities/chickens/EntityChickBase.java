@@ -137,4 +137,10 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 		this.setEntityAge(entityAge);
 	}
 
+	@Override
+	public float getSizeDividend()
+	{
+		return 2.125f;
+	}
+
 }

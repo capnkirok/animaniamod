@@ -40,7 +40,7 @@ public class RenderLambMerino<T extends EntityLambMerino> extends RenderLiving<T
 	protected void preRenderScale(EntityLambMerino entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.24F + age, 0.24F + age, 0.24F + age);
+		GL11.glScalef(0.24F + (age / entity.getSizeDividend()), 0.24F + (age / entity.getSizeDividend()), 0.24F + (age / entity.getSizeDividend()));
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
 		if (entitySheep.getSleeping())

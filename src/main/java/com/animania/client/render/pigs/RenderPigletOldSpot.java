@@ -39,7 +39,7 @@ public class RenderPigletOldSpot<T extends EntityPigletOldSpot> extends RenderLi
 	protected void preRenderScale(T entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.1F + age, 1.1F + age, 1.1F + age);
+		GL11.glScalef(1.1F + (age / entity.getSizeDividend()), 1.1F + (age / entity.getSizeDividend()), 1.1F + (age / entity.getSizeDividend()));
 
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 

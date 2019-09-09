@@ -184,4 +184,10 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 		this.setEntityAge(entityAge);
 	}
 
+	@Override
+	public float getSizeDividend()
+	{
+		return 1.0625f;
+	}
+
 }

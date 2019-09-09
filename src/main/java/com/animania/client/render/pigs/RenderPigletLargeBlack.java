@@ -40,7 +40,7 @@ public class RenderPigletLargeBlack<T extends EntityPigletLargeBlack> extends Re
 	{
 
 		float age = entity.getEntityAge();
-		GL11.glScalef(1.20F + age, 1.20F + age, 1.20F + age);
+		GL11.glScalef(1.20F + (age / entity.getSizeDividend()), 1.20F + (age / entity.getSizeDividend()), 1.20F + (age / entity.getSizeDividend()));
 
 		EntityAnimaniaPig entityChk = (EntityAnimaniaPig) entity;
 

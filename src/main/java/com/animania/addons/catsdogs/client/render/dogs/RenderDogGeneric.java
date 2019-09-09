@@ -45,8 +45,9 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 
 		if (entity instanceof IChild)
 		{
-			float age = ((IChild) entity).getEntityAge();
-			GlStateManager.scale(scale + age, scale + age, scale + age);
+			IChild child = (IChild) entity;
+			float age = child.getEntityAge();
+			GlStateManager.scale(scale + (age / child.getSizeDividend()), scale + (age / child.getSizeDividend()), scale + (age / child.getSizeDividend()));
 		}
 		else
 			GlStateManager.scale(scale, scale, scale);

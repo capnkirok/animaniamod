@@ -140,15 +140,19 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	@Override
 	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return PARENT_UNIQUE_ID;
 	}
 
 	@Override
 	public DataParameter<Float> getEntityAgeParam()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return AGE;
+	}
+
+	@Override
+	public float getSizeDividend()
+	{
+		return 2.833333f;
 	}
 
 }

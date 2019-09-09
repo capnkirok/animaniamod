@@ -37,12 +37,15 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 	{
 		if (entity instanceof IChild)
 		{
-			float age = ((IChild) entity).getEntityAge();
-			GlStateManager.scale(scale + age, scale + age, scale + age);
-			this.shadowSize = (scale + age)/2;
-		} else {
+			IChild child = (IChild) entity;
+			float age = child.getEntityAge();
+			GlStateManager.scale(scale + (age / child.getSizeDividend()), scale + (age / child.getSizeDividend()), scale + (age / child.getSizeDividend()));
+			this.shadowSize = (scale + age) / 2;
+		}
+		else
+		{
 			GlStateManager.scale(scale, scale, scale);
-			this.shadowSize = scale/2;
+			this.shadowSize = scale / 2;
 		}
 
 		EntityAnimaniaCat entityCat = (EntityAnimaniaCat) entity;

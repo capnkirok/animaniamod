@@ -53,8 +53,7 @@ public class RenderChickBase<T extends EntityChickBase> extends RenderLiving<T>
 	{
 
 		float age = entity.getEntityAge();
-
-		GL11.glScalef(1.0F + age, 1.0F + age, 1.0F + age);
+		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend())); 
 
 		double x = entity.posX;
 		double y = entity.posY;

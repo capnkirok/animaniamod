@@ -123,5 +123,11 @@ public class EntityPuppyBase extends EntityAnimaniaDog  implements TOPInfoProvid
 		this.setEntityAge(entityAge);
 	}
 
+	@Override
+	public float getSizeDividend()
+	{
+		return 1;
+	}
+
 	
 }

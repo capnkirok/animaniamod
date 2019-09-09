@@ -126,5 +126,11 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 		entityAge += 0.05f;
 		this.setEntityAge(entityAge);
 	}
+	
+	@Override
+	public float getSizeDividend()
+	{
+		return 1;
+	}
 
 }

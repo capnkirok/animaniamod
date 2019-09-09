@@ -156,4 +156,10 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 		this.setEntityAge(entityAge);
 	}
 
+	@Override
+	public float getSizeDividend()
+	{
+		return 3.0357142857142857142857142857143f;
+	}
+
 }

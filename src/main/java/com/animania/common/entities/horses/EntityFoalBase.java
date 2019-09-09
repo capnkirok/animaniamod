@@ -153,4 +153,10 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 		this.setEntityAge(entityAge);
 	}
 
+	@Override
+	public float getSizeDividend()
+	{
+		return 1.889f;
+	}
+
 }

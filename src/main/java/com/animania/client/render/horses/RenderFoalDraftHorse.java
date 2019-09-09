@@ -40,8 +40,7 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 	{
 
 		float age = entity.getEntityAge();
-
-		GL11.glScalef(0.4F + age, 0.4F + age, 0.4F + age);
+		GL11.glScalef(0.4F + (age / entity.getSizeDividend()), 0.4F + (age / entity.getSizeDividend()), 0.4F + (age / entity.getSizeDividend())); 
 
 		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
 		if (entityHorse.getSleeping())

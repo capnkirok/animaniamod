@@ -97,8 +97,6 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		super.onLivingUpdate();
 	}
 
-	
-
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
@@ -135,6 +133,12 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		float entityAge = this.getEntityAge();
 		entityAge += 0.05f;
 		this.setEntityAge(entityAge);
+	}
+
+	@Override
+	public float getSizeDividend()
+	{
+		return 2.36111f;
 	}
 
 }

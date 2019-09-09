@@ -121,4 +121,10 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 		this.setEntityAge(entityAge);
 	}
 
+	@Override
+	public float getSizeDividend()
+	{
+		return 2.125f;
+	}
+
 }

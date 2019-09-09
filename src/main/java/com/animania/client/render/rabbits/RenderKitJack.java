@@ -34,7 +34,7 @@ public class RenderKitJack<T extends EntityRabbitKitJack> extends RenderLiving<T
 	protected void preRenderScale(EntityRabbitKitJack entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.32F + age, 0.32F + age, 0.32F + age);
+		GL11.glScalef(0.32F + (age / entity.getSizeDividend()), 0.32F + (age / entity.getSizeDividend()), 0.32F + (age / entity.getSizeDividend()));
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
 		double x = entity.posX;

@@ -37,7 +37,7 @@ public class RenderLambJacob<T extends EntityLambJacob> extends RenderLiving<T>
 	protected void preRenderScale(EntityLambJacob entity, float f)
 	{
 		float age = entity.getEntityAge();
-		GL11.glScalef(0.22F + age, 0.22F + age, 0.22F + age);
+		GL11.glScalef(0.22F + (age / entity.getSizeDividend()), 0.22F + (age / entity.getSizeDividend()), 0.22F + (age / entity.getSizeDividend()));
 		GL11.glTranslatef(0f, 0f, -0.5f);
 		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
 		if (entitySheep.getSleeping())
