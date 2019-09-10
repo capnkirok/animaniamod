@@ -129,6 +129,8 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	{
 		GenericBehavior.livingUpdateChild(this, EntityCowBase.class);
 
+		this.setSize((0.8f + this.getEntityAge()) * 2,  (1.0f + this.getEntityAge()) * 2);
+		
 		super.onLivingUpdate();
 	}
 

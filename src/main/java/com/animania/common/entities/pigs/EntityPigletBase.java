@@ -122,6 +122,8 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	{
 		GenericBehavior.livingUpdateChild(this, EntitySowBase.class);
 
+		this.setSize((0.3f + this.getEntityAge()) * 2,  (0.3f + this.getEntityAge()) * 2);
+		
 		super.onLivingUpdate();
 	}
 

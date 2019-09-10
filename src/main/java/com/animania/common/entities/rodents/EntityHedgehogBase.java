@@ -78,12 +78,6 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
-	// protected static final DataParameter<Boolean> TAMED =
-	// EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class,
-	// DataSerializers.BOOLEAN);
-	// protected static final DataParameter<Boolean> SITTING =
-	// EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class,
-	// DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityHedgehogBase.class, DataSerializers.VARINT);
 	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);

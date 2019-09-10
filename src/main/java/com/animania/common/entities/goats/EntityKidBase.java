@@ -113,6 +113,8 @@ public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	{
 		GenericBehavior.livingUpdateChild(this, EntityDoeBase.class);
 
+		this.setSize((0.8f + this.getEntityAge()) * 2,  (0.6f + this.getEntityAge()) * 2);
+		
 		super.onLivingUpdate();
 	}
 

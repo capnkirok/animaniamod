@@ -130,6 +130,8 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 		GenericBehavior.livingUpdateChild(this, EntityMareBase.class);
 
+		this.setSize((1f + this.getEntityAge()) * 2,  (1.35f + this.getEntityAge()) * 2);
+		
 		super.onLivingUpdate();
 	}
 

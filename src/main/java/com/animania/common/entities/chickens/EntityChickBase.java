@@ -27,9 +27,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	public EntityChickBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(0.7F, 0.8F); 
-		this.width = 0.7F;
-		this.height = 0.8F;
+		this.setSize(1.1F, 1.5F); 
 		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
 		this.ageTimer = 0;
 		this.type = ChickenType.LEGHORN;
@@ -78,7 +76,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 		this.timeUntilNextEgg = 1000;
 
 		GenericBehavior.livingUpdateChild(this, EntityHenBase.class);
-
+				
 		super.onLivingUpdate();
 		
 	}

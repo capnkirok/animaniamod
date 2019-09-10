@@ -93,6 +93,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	{
 
 		GenericBehavior.livingUpdateChild(this, EntityRabbitDoeBase.class);
+		this.setSize((0.2f + this.getEntityAge()) * 2,  (0.2f + this.getEntityAge()) * 2);
 
 		super.onLivingUpdate();
 	}

@@ -169,7 +169,7 @@ public class GenericBehavior
 				if (age >= 0.85 && !entity.world.isRemote)
 				{
 					entity.setDead();
-
+					
 					EntityLiving grownUp = null;
 
 					if (rand.nextInt(2) == 0)

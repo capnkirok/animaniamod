@@ -113,6 +113,8 @@ public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProvid
 	public void onLivingUpdate()
 	{
 		GenericBehavior.livingUpdateChild(this, EntityEweBase.class);
+		
+		this.setSize((0.3f + this.getEntityAge()) * 2,  (0.3f + this.getEntityAge()) * 2);
 
 		super.onLivingUpdate();
 	}

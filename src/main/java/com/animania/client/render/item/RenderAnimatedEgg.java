@@ -1,5 +1,6 @@
 package com.animania.client.render.item;
 
+import com.animania.api.interfaces.IChild;
 import com.animania.client.models.item.AnimatedEggModelWrapper;
 import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.config.AnimaniaConfig;
@@ -37,6 +38,12 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 		{
 			entity.setPosition(-1, -1, -1);
 
+			if(entity instanceof IChild)
+			{
+				((IChild) entity).setEntityAge(1.3f / ((IChild) entity).getSizeDividend());
+			}
+			
+			
 			float pbx = OpenGlHelper.lastBrightnessX;
 			float pby = OpenGlHelper.lastBrightnessY;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
