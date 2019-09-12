@@ -54,7 +54,6 @@ public class AnimaniaConfig
 					
 					List<Configuration> cfgs = new ArrayList<Configuration>();
 					
-					@SuppressWarnings("unchecked")
 					final Map<String, Configuration> configsMap = (Map<String, Configuration>) ReflectionUtil.findField(ConfigManager.class, "CONFIGS").get(null);
 
 					final Stream<Map.Entry<String, Configuration>> entries = configsMap.entrySet().stream().filter(entry -> entry.getKey().substring(entry.getKey().lastIndexOf(File.separator), entry.getKey().length()-1).contains(Animania.MODID));

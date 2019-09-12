@@ -26,7 +26,7 @@ public class RenderCalfJersey<T extends EntityCalfJersey> extends RenderLiving<T
 
     public RenderCalfJersey(RenderManager rm) {
         super(rm, new ModelCalf(), 0.5F);
-		addLayer(new LayerBlinking(this, cowTexturesBlink, 0xE8E0C6));
+		addLayer(new LayerBlinking(this, cowTexturesBlink, 0x7C632D));
     }
 
     protected ResourceLocation getCowTextures(T par1EntityCow) {

@@ -27,7 +27,7 @@ public class RenderBullJersey<T extends EntityBullJersey> extends RenderLiving<T
 	public RenderBullJersey(RenderManager rm)
 	{
 		super(rm, new ModelBullHereford(), 0.5F);
-		addLayer(new LayerBlinking(this, cowTexturesBlink, 0xE8E0C6));
+		addLayer(new LayerBlinking(this, cowTexturesBlink, 0x3B2603));
 	}
 
 	protected ResourceLocation getCowTextures(T par1EntityCow)

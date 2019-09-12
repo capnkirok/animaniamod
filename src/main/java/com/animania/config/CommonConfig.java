@@ -106,7 +106,7 @@ public class CommonConfig
 		public int ticksBetweenAIFirings = 100;
 
 		@Comment("Tamed animals teleport to player)")
-		public boolean tamedAnimalsTeleport = false;
+		public boolean tamedAnimalsTeleport = true;
 
 		@RequiresMcRestart
 		@Comment("Fancy entity spawn eggs")
@@ -151,9 +151,9 @@ public class CommonConfig
 		public int aiBlockSearchRange = 16;
 		
 		@Comment("Range that the animal cap applies for around each animal")
-		public int animalCapSearchRange = 50;
+		public int animalCapSearchRange = 80;
 		
-		@Comment("Animals that are spawned in the world and have never been interacted with (put on a leash, fed by hand, trough) will not eat or breed.")
+		@Comment("Animals that are spawned in the world and have never been interacted with (put on a leash, fed by hand, trough, lured with food) will not eat or breed.")
 		public boolean requireAnimalInteractionForAI = true;
 		
 	}
@@ -719,11 +719,18 @@ public class CommonConfig
 
 		@Comment("If male animals can have multiple mates.")
 		public boolean malesMateMultipleFemales = false;
+		
+		@Comment("Chance that multiple animals will be born. Gets multiplied with itself after every child. Set to 0 to disable.")
+		public double birthMultipleChance = 0.1;
+		
+		@Comment("Chance that a female animal will lose its baby, if it is hungry and thirsty. Set to 0 to disable")
+		public double animalLossChance = 0.0;
+
 	}
 
 	public static class FoodValues
 	{
-		@Comment("Food Value Overrides")
+		@Comment("Food Value Overrides. Format: modid:name(hunger,saturationMultiplier) Example: animania:cheese_omelette(5,0.8)")
 		public String[] foodValueOverrides = new String[] {};
 	}
 

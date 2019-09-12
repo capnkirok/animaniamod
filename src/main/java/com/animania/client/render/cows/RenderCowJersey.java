@@ -27,7 +27,7 @@ public class RenderCowJersey<T extends EntityCowJersey> extends RenderLiving<T>
 	public RenderCowJersey(RenderManager rm)
 	{
 		super(rm, new ModelCowHereford(), 0.5F);
-		addLayer(new LayerBlinking(this, cowTexturesBlink, 0xE8E0C6));
+		addLayer(new LayerBlinking(this, cowTexturesBlink, 0x3B2603));
 	}
 
 	protected void preRenderScale(T entity, float f)

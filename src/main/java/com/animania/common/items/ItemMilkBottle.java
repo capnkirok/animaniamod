@@ -27,7 +27,7 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 {
 	public ItemMilkBottle()
 	{
-		super(4, 4f, "milk_bottle");
+		super(4, 1f, "milk_bottle");
 		this.setMaxStackSize(4);
 		this.setContainerItem(Items.GLASS_BOTTLE);
 		this.setAlwaysEdible();

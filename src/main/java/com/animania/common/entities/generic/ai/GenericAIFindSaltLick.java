@@ -66,7 +66,9 @@ public class GenericAIFindSaltLick<T extends EntityCreature & ISleeping> extends
 			if (block == BlockHandler.blockSaltLick)
 			{
 				if (eatAI != null)
+				{
 					eatAI.startExecuting();
+				}
 				BlockSaltLick salt = (BlockSaltLick) block;
 				salt.useSaltLick(world, seekingBlockPos, this.entity);
 

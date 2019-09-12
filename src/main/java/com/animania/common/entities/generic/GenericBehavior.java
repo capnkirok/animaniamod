@@ -56,7 +56,7 @@ public class GenericBehavior
 
 		if (entity.getLeashed() && !entity.getInteracted())
 			entity.setInteracted(true);
-		
+
 		if (entity.isBeingRidden() && entity.getSleeping())
 			entity.setSleeping(false);
 
@@ -67,6 +67,12 @@ public class GenericBehavior
 
 		int fedTimer = entity.getFedTimer();
 
+		if(AnimaniaConfig.gameRules.ambianceMode)
+		{
+			entity.setFed(true);
+			entity.setWatered(true);
+		}
+		
 		if (fedTimer > -1 && (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? entity.getInteracted() : true) && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			fedTimer--;
@@ -159,7 +165,7 @@ public class GenericBehavior
 		entity.setAgeTimer(ageTimer);
 
 		if (ageTimer >= AnimaniaConfig.careAndFeeding.childGrowthTick)
-			if (fed && watered)
+			if (fed && watered && !entity.getSleeping())
 			{
 				entity.setAgeTimer(0);
 				float age = entity.getEntityAge();
@@ -169,7 +175,7 @@ public class GenericBehavior
 				if (age >= 0.85 && !entity.world.isRemote)
 				{
 					entity.setDead();
-					
+
 					EntityLiving grownUp = null;
 
 					if (rand.nextInt(2) == 0)
@@ -294,8 +300,22 @@ public class GenericBehavior
 
 				}
 
-				if (entity.getFed() && entity.getWatered())
+				if(!entity.getFed() && !entity.getWatered())
 				{
+					if(rand.nextDouble() <= AnimaniaConfig.careAndFeeding.animalLossChance)
+					{
+						entity.setPregnant(false);
+						entity.setFertile(false);
+						entity.setHasKids(false);
+						return;
+					}
+				}
+				
+				double birthChance = 1;
+				while (rand.nextDouble() <= birthChance)
+				{
+					birthChance *= AnimaniaConfig.careAndFeeding.birthMultipleChance;
+					
 					entity.setInLove(null);
 					AnimaniaType maleType = male == null ? entity.getAnimalType() : ((IAnimaniaAnimal) male).getAnimalType();
 					AnimaniaType babyType = maleType.breed(entity.getAnimalType());
@@ -321,6 +341,7 @@ public class GenericBehavior
 					BabyEntitySpawnEvent event = new BabyEntitySpawnEvent(entity, (male == null ? entity : male), entityKid);
 					MinecraftForge.EVENT_BUS.post(event);
 				}
+
 			}
 		}
 		else if (gestationTimer < 0)
@@ -354,9 +375,9 @@ public class GenericBehavior
 		}
 		else if (entity.isBreedingItem(stack))
 		{
-			if(entity.getSleeping())
+			if (entity.getSleeping())
 				return true;
-			
+
 			if (!player.isCreative())
 				stack.shrink(1);
 

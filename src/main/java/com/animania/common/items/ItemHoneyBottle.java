@@ -105,7 +105,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 		if (entityLiving instanceof EntityPlayer)
 		{
 			EntityPlayer entityplayer = (EntityPlayer) entityLiving;
-			entityplayer.getFoodStats().addStats(10, 10);
+			entityplayer.getFoodStats().addStats(10, 1.5f);
 
 			if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 				entityplayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 1));

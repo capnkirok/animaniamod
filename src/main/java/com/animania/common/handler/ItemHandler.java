@@ -185,72 +185,72 @@ public class ItemHandler
 		ItemHandler.animaniaManual = new ItemManual();
 
 		// Other foods
-		ItemHandler.ultimateOmelette = new ItemAnimaniaFood(5, 2f, "super_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false), new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false), new PotionEffect(MobEffects.RESISTANCE, 600, 1, false, false));
-		ItemHandler.truffleOmelette = new ItemAnimaniaFood(5, 2f, "truffle_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false));
-		ItemHandler.baconOmelette = new ItemAnimaniaFood(5, 2f, "bacon_omelette", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
-		ItemHandler.cheeseOmelette = new ItemAnimaniaFood(5, 2f, "cheese_omelette", new PotionEffect(MobEffects.INSTANT_HEALTH, 2, 2, false, false));
-		ItemHandler.plainOmelette = new ItemAnimaniaFood(5, 2f, "plain_omelette");
-		ItemHandler.truffle = new ItemAnimaniaFood(2, 2f, "truffle");
+		ItemHandler.ultimateOmelette = new ItemAnimaniaFood(5, 0.9f, "super_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false), new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false), new PotionEffect(MobEffects.RESISTANCE, 600, 1, false, false));
+		ItemHandler.truffleOmelette = new ItemAnimaniaFood(5, 0.8f, "truffle_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false));
+		ItemHandler.baconOmelette = new ItemAnimaniaFood(5, 0.7f, "bacon_omelette", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
+		ItemHandler.cheeseOmelette = new ItemAnimaniaFood(5, 0.7f, "cheese_omelette", new PotionEffect(MobEffects.INSTANT_HEALTH, 2, 2, false, false));
+		ItemHandler.plainOmelette = new ItemAnimaniaFood(5, 0.6f, "plain_omelette");
+		ItemHandler.truffle = new ItemAnimaniaFood(2, 0.7f, "truffle");
 		ItemHandler.truffleSoup = new ItemTruffleSoup();
-		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 2f, "chocolate_truffle", true, new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
+		ItemHandler.chocolateTruffle = new ItemAnimaniaFood(6, 0.7f, "chocolate_truffle", true, new PotionEffect(MobEffects.SPEED, 1200, 3, false, false));
 
 		ItemHandler.honeyJar = new ItemHoneyBottle();
 
 		// ITEMS produced by Animals
 		// COW ITEMS
 		ItemHandler.rawPrimeBeef = new ItemAnimaniaFoodRaw("raw_prime_beef", true);
-		ItemHandler.cookedPrimeBeef = new ItemAnimaniaFood(20, 1f, "cooked_prime_beef", true, new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 1, false, false));
+		ItemHandler.cookedPrimeBeef = new ItemAnimaniaFood(12, 0.5f, "cooked_prime_beef", true, new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 1, false, false));
 		ItemHandler.rawPrimeSteak = new ItemAnimaniaFoodRaw("raw_prime_steak", true);
-		ItemHandler.cookedPrimeSteak = new ItemAnimaniaFood(10, 1f, "cooked_prime_steak", true, new PotionEffect(MobEffects.INSTANT_HEALTH, 5, 1, false, false));
+		ItemHandler.cookedPrimeSteak = new ItemAnimaniaFood(8, 0.5f, "cooked_prime_steak", true, new PotionEffect(MobEffects.INSTANT_HEALTH, 5, 1, false, false));
 
 		// PIG ITEMS
 		ItemHandler.rawPrimePork = new ItemAnimaniaFoodRaw("raw_prime_pork", true);
-		ItemHandler.cookedPrimePork = new ItemAnimaniaFood(12, 1f, "cooked_prime_pork", true, new PotionEffect(MobEffects.ABSORPTION, 3000, 0, false, false));
+		ItemHandler.cookedPrimePork = new ItemAnimaniaFood(12, 0.5f, "cooked_prime_pork", true, new PotionEffect(MobEffects.ABSORPTION, 3000, 0, false, false));
 
 		ItemHandler.rawPrimeBacon = new ItemAnimaniaFoodRaw("raw_prime_bacon", true);
-		ItemHandler.cookedPrimeBacon = new ItemAnimaniaFood(12, 1f, "cooked_prime_bacon", true, new PotionEffect(MobEffects.ABSORPTION, 1800, 0, false, false));
+		ItemHandler.cookedPrimeBacon = new ItemAnimaniaFood(8, 0.5f, "cooked_prime_bacon", true, new PotionEffect(MobEffects.ABSORPTION, 1800, 0, false, false));
 
 		// CHICKEN ITEMS
 		ItemHandler.rawPrimeChicken = new ItemAnimaniaFoodRaw("raw_prime_chicken", true);
-		ItemHandler.cookedPrimeChicken = new ItemAnimaniaFood(12, 1f, "cooked_prime_chicken", true, new PotionEffect(MobEffects.HASTE, 3000, 0, false, false));
+		ItemHandler.cookedPrimeChicken = new ItemAnimaniaFood(8, 0.5f, "cooked_prime_chicken", true, new PotionEffect(MobEffects.HASTE, 3000, 0, false, false));
 		ItemHandler.brownEgg = new ItemBrownEgg();
 		ItemHandler.peacockEggBlue = new AnimaniaItem("peacock_egg_blue").setMaxStackSize(16);
 		ItemHandler.peacockEggWhite = new AnimaniaItem("peacock_egg_white").setMaxStackSize(16);
 
 		// SHEEP ITEMS
 		ItemHandler.rawPrimeMutton = new ItemAnimaniaFoodRaw("raw_prime_mutton");
-		ItemHandler.cookedPrimeMutton = new ItemAnimaniaFood(3, 1f, "cooked_prime_mutton", new PotionEffect(MobEffects.INSTANT_HEALTH, 5, 1, false, false));
+		ItemHandler.cookedPrimeMutton = new ItemAnimaniaFood(12, 0.5f, "cooked_prime_mutton", new PotionEffect(MobEffects.INSTANT_HEALTH, 5, 1, false, false));
 
 		// RABBIT ITEMS
 		ItemHandler.rawPrimeRabbit = new ItemAnimaniaFoodRaw("raw_prime_rabbit");
-		ItemHandler.cookedPrimeRabbit = new ItemAnimaniaFood(4, 1f, "cooked_prime_rabbit", new PotionEffect(MobEffects.JUMP_BOOST, 600, 3, false, false));
+		ItemHandler.cookedPrimeRabbit = new ItemAnimaniaFood(8, 0.5f, "cooked_prime_rabbit", new PotionEffect(MobEffects.JUMP_BOOST, 600, 3, false, false));
 
 		// FROG ITEMS
 		ItemHandler.rawFrogLegs = new ItemAnimaniaFoodRaw("raw_frog_legs");
-		ItemHandler.cookedFrogLegs = new ItemAnimaniaFood(3, 1f, "cooked_frog_legs", new PotionEffect(MobEffects.JUMP_BOOST, 1200, 2, false, false));
+		ItemHandler.cookedFrogLegs = new ItemAnimaniaFood(7, 0.5f, "cooked_frog_legs", new PotionEffect(MobEffects.JUMP_BOOST, 1200, 2, false, false));
 
 		// HORSE ITEMS
 		ItemHandler.rawHorse = new ItemAnimaniaFoodRaw("raw_horse");
-		ItemHandler.cookedHorse = new ItemAnimaniaFood(20, 1f, "cooked_horse", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
+		ItemHandler.cookedHorse = new ItemAnimaniaFood(12, 0.5f, "cooked_horse", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
 
 		// GOAT ITEMS
 		ItemHandler.rawChevon = new ItemAnimaniaFoodRaw("raw_chevon");
-		ItemHandler.cookedChevon = new ItemAnimaniaFood(3, 1f, "cooked_chevon", new PotionEffect(MobEffects.RESISTANCE, 600, 0, false, false));
+		ItemHandler.cookedChevon = new ItemAnimaniaFood(5, 0.5f, "cooked_chevon", new PotionEffect(MobEffects.RESISTANCE, 600, 0, false, false));
 		ItemHandler.rawPrimeChevon = new ItemAnimaniaFoodRaw("raw_prime_chevon");
-		ItemHandler.cookedPrimeChevon = new ItemAnimaniaFood(3, 1f, "cooked_prime_chevon", new PotionEffect(MobEffects.RESISTANCE, 1200, 1, false, false));
+		ItemHandler.cookedPrimeChevon = new ItemAnimaniaFood(10, 0.5f, "cooked_prime_chevon", new PotionEffect(MobEffects.RESISTANCE, 1200, 1, false, false));
 
 		// PEACOCK ITEMS
 		ItemHandler.rawPeacock = new ItemAnimaniaFoodRaw("raw_peacock");
-		ItemHandler.cookedPeacock = new ItemAnimaniaFood(3, 1f, "cooked_peacock", new PotionEffect(MobEffects.LUCK, 600, 0, false, false));
+		ItemHandler.cookedPeacock = new ItemAnimaniaFood(6, 0.5f, "cooked_peacock", new PotionEffect(MobEffects.LUCK, 600, 0, false, false));
 		ItemHandler.rawPrimePeacock = new ItemAnimaniaFoodRaw("raw_prime_peacock");
-		ItemHandler.cookedPrimePeacock = new ItemAnimaniaFood(3, 1f, "cooked_prime_peacock", new PotionEffect(MobEffects.LUCK, 1200, 1, false, false));
+		ItemHandler.cookedPrimePeacock = new ItemAnimaniaFood(9, 0.5f, "cooked_prime_peacock", new PotionEffect(MobEffects.LUCK, 1200, 1, false, false));
 
 		// CHEESE
-		ItemHandler.cheeseWedgeFriesian = new ItemAnimaniaFood(2, 2f, "friesian_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
-		ItemHandler.cheeseWedgeHolstein = new ItemAnimaniaFood(2, 2f, "holstein_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
-		ItemHandler.cheeseWedgeJersey = new ItemAnimaniaFood(2, 2f, "jersey_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 2, false, false));
-		ItemHandler.cheeseWedgeGoat = new ItemAnimaniaFood(2, 2f, "goat_cheese_wedge", new PotionEffect(MobEffects.RESISTANCE, 1200, 0, false, false));
-		ItemHandler.cheeseWedgeSheep = new ItemAnimaniaFood(2, 2f, "sheep_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 0, false, false));
+		ItemHandler.cheeseWedgeFriesian = new ItemAnimaniaFood(3, 0.9f, "friesian_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
+		ItemHandler.cheeseWedgeHolstein = new ItemAnimaniaFood(3, 0.9f, "holstein_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
+		ItemHandler.cheeseWedgeJersey = new ItemAnimaniaFood(3, 0.9f, "jersey_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 2, false, false));
+		ItemHandler.cheeseWedgeGoat = new ItemAnimaniaFood(3, 0.9f, "goat_cheese_wedge", new PotionEffect(MobEffects.RESISTANCE, 1200, 0, false, false));
+		ItemHandler.cheeseWedgeSheep = new ItemAnimaniaFood(3, 0.9f, "sheep_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 0, false, false));
 
 		// Item Entity Eggs
 		ItemHandler.entityeggrandomanimal = new ItemEntityEgg("random", new RandomAnimalType(), EntityGender.RANDOM);
