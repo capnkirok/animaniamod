@@ -32,6 +32,8 @@ import com.animania.common.entities.cows.CowMooshroom.EntityCowMooshroom;
 import com.animania.common.entities.cows.EntityAnimaniaCow;
 import com.animania.common.entities.goats.EntityAnimaniaGoat;
 import com.animania.common.entities.horses.EntityAnimaniaHorse;
+import com.animania.common.entities.horses.HorseDraft.EntityMareDraftHorse;
+import com.animania.common.entities.horses.HorseDraft.EntityStallionDraftHorse;
 import com.animania.common.entities.pigs.EntityAnimaniaPig;
 import com.animania.common.entities.pigs.PigDuroc.EntityHogDuroc;
 import com.animania.common.entities.pigs.PigDuroc.EntitySowDuroc;
@@ -43,11 +45,9 @@ import com.animania.common.entities.pigs.PigOldSpot.EntityHogOldSpot;
 import com.animania.common.entities.pigs.PigOldSpot.EntitySowOldSpot;
 import com.animania.common.entities.pigs.PigYorkshire.EntityHogYorkshire;
 import com.animania.common.entities.pigs.PigYorkshire.EntitySowYorkshire;
-import com.animania.common.entities.rodents.EntityFerretGrey;
-import com.animania.common.entities.rodents.EntityFerretWhite;
+import com.animania.common.entities.rodents.EntityFerretBase;
 import com.animania.common.entities.rodents.EntityHamster;
-import com.animania.common.entities.rodents.EntityHedgehog;
-import com.animania.common.entities.rodents.EntityHedgehogAlbino;
+import com.animania.common.entities.rodents.EntityHedgehogBase;
 import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
 import com.animania.common.entities.rodents.rabbits.RabbitChinchilla.EntityRabbitBuckChinchilla;
 import com.animania.common.entities.rodents.rabbits.RabbitChinchilla.EntityRabbitDoeChinchilla;
@@ -537,6 +537,10 @@ public class SpawnHandler
 			if (!event.getEntity().hasCustomName() && toggler)
 			{
 				event.setResult(Result.DENY);
+				if(Animania.RANDOM.nextBoolean())
+					replacementEntity = new EntityMareDraftHorse(worldIn);
+				else
+					replacementEntity = new EntityStallionDraftHorse(worldIn);
 			}
 
 		}
@@ -648,15 +652,6 @@ public class SpawnHandler
 				// System.out.println("Amphibian Denied Existence!");
 			}
 		}
-		else if (AnimaniaConfig.spawn.spawnAnimaniaAmphibians && (event.getEntity() instanceof EntityAmphibian && !worldIn.isRemote))
-		{
-			List<EntityAmphibian> others = AnimaniaHelper.getEntitiesInRange(EntityAmphibian.class, 100, event.getEntity().world, pos);
-			if (others.size() > AnimaniaConfig.spawn.spawnLimitAmphibians)
-			{
-				event.setResult(Result.DENY);
-				// System.out.println("Amphibian Denied Existence!");
-			}
-		}
 		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHamster && !worldIn.isRemote))
 		{
 			List<EntityHamster> others = AnimaniaHelper.getEntitiesInRange(EntityHamster.class, 100, event.getEntity().world, pos);
@@ -666,43 +661,24 @@ public class SpawnHandler
 				// System.out.println("Hamster Denied Existence!");
 			}
 		}
-		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityFerretGrey && !worldIn.isRemote))
+		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityFerretBase && !worldIn.isRemote))
 		{
-			List<EntityFerretGrey> others = AnimaniaHelper.getEntitiesInRange(EntityFerretGrey.class, 100, event.getEntity().world, pos);
+			List<EntityFerretBase> others = AnimaniaHelper.getEntitiesInRange(EntityFerretBase.class, 100, event.getEntity().world, pos);
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitFerrets)
 			{
 				event.setResult(Result.DENY);
 				// System.out.println("Ferret Denied Existence!");
 			}
 		}
-		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityFerretWhite && !worldIn.isRemote))
+		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHedgehogBase && !worldIn.isRemote))
 		{
-			List<EntityFerretWhite> others = AnimaniaHelper.getEntitiesInRange(EntityFerretWhite.class, 100, event.getEntity().world, pos);
-			if (others.size() > AnimaniaConfig.spawn.spawnLimitFerrets)
-			{
-				event.setResult(Result.DENY);
-				// System.out.println("Ferret Denied Existence!");
-			}
-		}
-		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHedgehog && !worldIn.isRemote))
-		{
-			List<EntityHedgehog> others = AnimaniaHelper.getEntitiesInRange(EntityHedgehog.class, 100, event.getEntity().world, pos);
+			List<EntityHedgehogBase> others = AnimaniaHelper.getEntitiesInRange(EntityHedgehogBase.class, 100, event.getEntity().world, pos);
 			if (others.size() > AnimaniaConfig.spawn.spawnLimitFerrets)
 			{
 				event.setResult(Result.DENY);
 				// System.out.println("Hedgehog Denied Existence!");
 			}
 		}
-		else if (AnimaniaConfig.spawn.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHedgehogAlbino && !worldIn.isRemote))
-		{
-			List<EntityHedgehogAlbino> others = AnimaniaHelper.getEntitiesInRange(EntityHedgehogAlbino.class, 100, event.getEntity().world, pos);
-			if (others.size() > AnimaniaConfig.spawn.spawnLimitFerrets)
-			{
-				event.setResult(Result.DENY);
-				// System.out.println("Hedgehog Denied Existence!");
-			}
-		}
-
 	}
 
 }

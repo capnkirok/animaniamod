@@ -72,6 +72,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 		GlStateManager.pushMatrix();
 		GlStateManager.disableCull();
 		Float rot = 0.0F;
+		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
 
 		if (facing == EnumFacing.UP)
 			GlStateManager.translate(x, y, z);
