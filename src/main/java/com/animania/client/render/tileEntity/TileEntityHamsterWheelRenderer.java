@@ -7,6 +7,8 @@ import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.CSTileEntitySpecialRenderer;
 
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GlStateManager.DestFactor;
+import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
@@ -34,6 +36,8 @@ public class TileEntityHamsterWheelRenderer extends TileEntitySpecialRenderer<Ti
         GlStateManager.translate(x + 0.5D, y + 1.5D, z + 0.5D);
         GlStateManager.multMatrix(CSTileEntitySpecialRenderer.ROTATION_CORRECTOR);
         GlStateManager.rotate(enumfacing.getHorizontalAngle(), 0, 1, 0);
+        GlStateManager.enableAlpha();
+		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
         this.bindTexture(WHEEL_TEXTURE);
         this.modelWheel.render(te);
         EntityHamster hamster = te.getHamster();

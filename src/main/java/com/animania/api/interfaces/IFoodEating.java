@@ -34,7 +34,6 @@ public interface IFoodEating extends IAnimaniaAnimal
 			if(fed)
 			{
 				this.setFedTimer(AnimaniaConfig.careAndFeeding.feedTimer + Animania.RANDOM.nextInt(100));
-				e.heal(1);
 			}
 			e.getDataManager().set(param, fed);
 		}
