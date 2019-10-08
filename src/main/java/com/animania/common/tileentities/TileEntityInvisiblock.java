@@ -2,6 +2,7 @@ package com.animania.common.tileentities;
 
 import java.util.Set;
 
+import com.animania.Animania;
 import com.animania.api.interfaces.IFoodProviderTE;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -21,10 +22,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 public class TileEntityInvisiblock extends TileEntity implements ITickable, IFoodProviderTE
 {
-
-
     public TileEntityInvisiblock() {
-    	
+        
     }
 
     @Override
@@ -40,16 +39,12 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable, IFoo
 
         return super.hasCapability(capability, facing);
     }
-  
-	
-
-
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (AnimaniaConfig.gameRules.allowTroughAutomation) {
 
-        	
+            
             if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
                 return (T) this.getPlacedTrough().itemHandler;
 
@@ -61,11 +56,6 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable, IFoo
         return super.getCapability(capability, facing);
 
     }
-    
-    
-
-    
-    
 
     private TileEntityTrough getPlacedTrough() {
         BlockPos pos1 = new BlockPos(this.pos.getX() + 1, this.pos.getY(), this.pos.getZ());
@@ -103,59 +93,88 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable, IFoo
                 return te;
 
         }
+
+        Animania.LOGGER.warn("Removing invalid trough at [" + this.pos.getX() 
+            + ", " + this.pos.getY() + ", " + this.pos.getZ() + "], dimension " + this.world.provider.getDimension());
+
+        this.world.setBlockToAir(this.pos);
+
         return null;
     }
-
-  
 
     public TileEntityTrough getTrough() {
         return this.getPlacedTrough();
     }
 
-	@Override
-	public void update()
-	{
-		
-	}
-	
-	@Override
-	public void markDirty()
-	{
-		super.markDirty();
-		AnimaniaHelper.sendTileEntityUpdate(getPlacedTrough());
-		
-	}
-
-	@Override
-	public boolean canConsume(Set<Item> fooditems, Fluid[] fluid)
-	{
-		return this.getTrough().canConsume(fooditems, fluid);
-	}
-
-	@Override
-	public boolean canConsume(FluidStack fluid, Set<Item> fooditems)
-	{
-		return this.getTrough().canConsume(fluid, fooditems);
-	}
-
-	@Override
-	public void consumeSolidOrLiquid(int liquidAmount, int itemAmount)
-	{
-		this.getTrough().consumeSolidOrLiquid(liquidAmount, itemAmount);
-	}
-
-	@Override
-	public void consumeSolid(int amount)
-	{
-		this.getTrough().consumeSolid(amount);
-	}
-
-	@Override
-	public void consumeLiquid(int amount)
-	{
-		this.getTrough().consumeLiquid(amount);		
-	}
+    @Override
+    public void update()
+    {
+        
+    }
     
-   
+    @Override
+    public void markDirty()
+    {
+        super.markDirty();
 
+        TileEntityTrough trough = this.getPlacedTrough();
+
+        if (trough != null) {
+            AnimaniaHelper.sendTileEntityUpdate(this.getPlacedTrough());
+        }        
+    }
+
+    @Override
+    public boolean canConsume(Set<Item> fooditems, Fluid[] fluid)
+    {
+        TileEntityTrough trough = this.getTrough();
+
+        if (trough != null) {
+            return this.getTrough().canConsume(fooditems, fluid);
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean canConsume(FluidStack fluid, Set<Item> fooditems)
+    {
+        TileEntityTrough trough = this.getTrough();
+
+        if (trough != null) {
+            return this.getTrough().canConsume(fluid, fooditems);
+        }
+
+        return false;
+    }
+
+    @Override
+    public void consumeSolidOrLiquid(int liquidAmount, int itemAmount)
+    {
+        TileEntityTrough trough = this.getTrough();
+
+        if (trough != null) {
+            this.getTrough().consumeSolidOrLiquid(liquidAmount, itemAmount);
+        }
+    }
+
+    @Override
+    public void consumeSolid(int amount)
+    {
+        TileEntityTrough trough = this.getTrough();
+
+        if (trough != null) {
+            this.getTrough().consumeSolid(amount);
+        }
+    }
+
+    @Override
+    public void consumeLiquid(int amount)
+    {
+        TileEntityTrough trough = this.getTrough();
+
+        if (trough != null) {
+            this.getTrough().consumeLiquid(amount);
+        }
+    }
 }
