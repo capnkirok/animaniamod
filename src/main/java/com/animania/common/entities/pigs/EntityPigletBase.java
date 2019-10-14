@@ -9,6 +9,7 @@ import com.animania.api.interfaces.IChild;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
+import com.animania.common.handler.CompatHandler;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.google.common.base.Optional;
 
@@ -156,6 +157,7 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	}
 	
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		 if (this.getPlayed())

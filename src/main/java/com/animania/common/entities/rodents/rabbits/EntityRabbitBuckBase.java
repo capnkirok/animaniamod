@@ -13,6 +13,7 @@ import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIMate;
+import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.google.common.base.Optional;
@@ -111,6 +112,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	}
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);

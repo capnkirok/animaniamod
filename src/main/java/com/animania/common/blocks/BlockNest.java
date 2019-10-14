@@ -16,6 +16,7 @@ import com.animania.common.entities.peacocks.EntityPeachickBase;
 import com.animania.common.entities.peacocks.EntityPeacockBase;
 import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityNest.NestContent;
@@ -220,6 +221,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 	}
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = world.getTileEntity(data.getPos());

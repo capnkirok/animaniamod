@@ -2,6 +2,7 @@ package com.animania.compat.top.providers.entity;
 
 import java.util.UUID;
 
+import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 
 import mcjty.theoneprobe.api.IProbeHitEntityData;
@@ -18,6 +19,7 @@ public interface TOPInfoProviderChild extends TOPInfoProviderBase
 {
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	default void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, world, entity, data);

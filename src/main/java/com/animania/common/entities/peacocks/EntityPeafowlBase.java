@@ -2,6 +2,7 @@ package com.animania.common.entities.peacocks;
 
 import com.animania.api.data.EntityGender;
 import com.animania.common.entities.peacocks.ai.EntityAIFindPeacockNest;
+import com.animania.common.handler.CompatHandler;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 
@@ -112,6 +113,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	}
 	
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())

@@ -2,6 +2,7 @@ package com.animania.compat.top.providers.entity;
 
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IGendered;
+import com.animania.common.handler.CompatHandler;
 import com.animania.compat.top.providers.TOPInfoEntityProvider;
 import com.animania.config.AnimaniaConfig;
 
@@ -19,6 +20,7 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 {
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	default void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		NBTTagCompound tag = new NBTTagCompound();

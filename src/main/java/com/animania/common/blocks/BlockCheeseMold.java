@@ -2,6 +2,7 @@ package com.animania.common.blocks;
 
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.CompatHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityCheeseMold;
@@ -282,6 +283,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 	}
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = world.getTileEntity(data.getPos());
