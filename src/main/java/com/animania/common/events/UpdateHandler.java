@@ -15,41 +15,46 @@ import net.minecraft.util.text.translation.I18n;
 public class UpdateHandler
 {
 
-    private static String currentVersion = Animania.VERSION;
-    private static String newestVersion;
-    public static String  updateStatus   = "NULL";
-    public static boolean show           = false;
+	private static String currentVersion = Animania.VERSION;
+	private static String newestVersion;
+	public static String updateStatus = "NULL";
+	public static boolean show = false;
 
-    public static void init() {
+	public static void init()
+	{
 
-        getNewestVersion();
+		getNewestVersion();
 
-        if (UpdateHandler.newestVersion != null) {
-            if (UpdateHandler.newestVersion.equals(UpdateHandler.currentVersion)) {
-                // show = true;
-            }
-            else {
-                UpdateHandler.show = true;
-                UpdateHandler.updateStatus = TextFormatting.WHITE + I18n.translateToLocal("animania.updatetext.1") + UpdateHandler.newestVersion + " "
-                        + I18n.translateToLocal("animania.updatetext.2");
-            }
-        }
-        else {
-            //UpdateHandler.show = false;
-            UpdateHandler.show = true;
-            UpdateHandler.updateStatus = TextFormatting.WHITE + I18n.translateToLocal("animania.updatetext.3");
-        }
-    }
+		if (UpdateHandler.newestVersion != null)
+		{
+			if (UpdateHandler.newestVersion.equals(UpdateHandler.currentVersion))
+			{
+				// show = true;
+			} else
+			{
+				UpdateHandler.show = true;
+				UpdateHandler.updateStatus = TextFormatting.WHITE + I18n.translateToLocal("animania.updatetext.1") + " " + TextFormatting.GOLD + UpdateHandler.newestVersion + TextFormatting.RESET + " " + I18n.translateToLocal("animania.updatetext.2");
+			}
+		} else
+		{
+			// UpdateHandler.show = false;
+			UpdateHandler.show = true;
+			UpdateHandler.updateStatus = TextFormatting.WHITE + I18n.translateToLocal("animania.updatetext.3");
+		}
+	}
 
-    private static void getNewestVersion() {
+	private static void getNewestVersion()
+	{
 
-        try {
-            URL url = new URL("https://gist.githubusercontent.com/Tschipp/150bdce860b9240c9cc363f5e7b95a6d/raw");
-            Scanner s = new Scanner(url.openStream());
-            UpdateHandler.newestVersion = s.next();
-            s.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+		try
+		{
+			URL url = new URL("https://gist.githubusercontent.com/Tschipp/150bdce860b9240c9cc363f5e7b95a6d/raw");
+			Scanner s = new Scanner(url.openStream());
+			UpdateHandler.newestVersion = s.next();
+			s.close();
+		} catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 }
