@@ -559,7 +559,7 @@ public class SpawnHandler
 
 		if (replacementEntity != null)
 		{
-			replacementEntity.setPosition(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+			replacementEntity.setPosition(event.getX(), event.getY(), event.getZ());
 			event.getWorld().spawnEntity(replacementEntity);
 		}
 	}

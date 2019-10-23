@@ -222,7 +222,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 			is = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
 			image = ImageIO.read(is);
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 			return new Color(0, 0, 0);

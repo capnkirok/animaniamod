@@ -67,12 +67,12 @@ public class GenericBehavior
 
 		int fedTimer = entity.getFedTimer();
 
-		if(AnimaniaConfig.gameRules.ambianceMode)
+		if (AnimaniaConfig.gameRules.ambianceMode)
 		{
 			entity.setFed(true);
 			entity.setWatered(true);
 		}
-		
+
 		if (fedTimer > -1 && (AnimaniaConfig.gameRules.requireAnimalInteractionForAI ? entity.getInteracted() : true) && !AnimaniaConfig.gameRules.ambianceMode)
 		{
 			fedTimer--;
@@ -108,12 +108,14 @@ public class GenericBehavior
 					entity.attackEntityFrom(DamageSource.STARVE, 4f);
 					entity.setDamageTimer(0);
 				}
-				damageTimer++;
-				entity.setDamageTimer(damageTimer);
+				if (!entity.getSleeping())
+				{
+					damageTimer++;
+					entity.setDamageTimer(damageTimer);
+				}
 			}
 
-		}
-		else if (!fed || !watered)
+		} else if (!fed || !watered)
 			entity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 2, 0, false, false));
 
 		int happyTimer = entity.getHappyTimer();
@@ -181,8 +183,7 @@ public class GenericBehavior
 					if (rand.nextInt(2) == 0)
 					{
 						grownUp = (EntityLiving) entity.getAnimalType().getFemale(world);
-					}
-					else
+					} else
 					{
 						grownUp = (EntityLiving) entity.getAnimalType().getMale(world);
 					}
@@ -267,8 +268,7 @@ public class GenericBehavior
 		{
 			dryTimer--;
 			entity.setDryTimer(dryTimer);
-		}
-		else
+		} else
 		{
 			entity.setFertile(true);
 			entity.setDryTimer(AnimaniaConfig.careAndFeeding.gestationTimer / 9 + rand.nextInt(50));
@@ -300,9 +300,9 @@ public class GenericBehavior
 
 				}
 
-				if(!entity.getFed() && !entity.getWatered())
+				if (!entity.getFed() && !entity.getWatered())
 				{
-					if(rand.nextDouble() <= AnimaniaConfig.careAndFeeding.animalLossChance)
+					if (rand.nextDouble() <= AnimaniaConfig.careAndFeeding.animalLossChance)
 					{
 						entity.setPregnant(false);
 						entity.setFertile(false);
@@ -310,12 +310,12 @@ public class GenericBehavior
 						return;
 					}
 				}
-				
+
 				double birthChance = 1;
 				while (rand.nextDouble() <= birthChance)
 				{
 					birthChance *= AnimaniaConfig.careAndFeeding.birthMultipleChance;
-					
+
 					entity.setInLove(null);
 					AnimaniaType maleType = male == null ? entity.getAnimalType() : ((IAnimaniaAnimal) male).getAnimalType();
 					AnimaniaType babyType = maleType.breed(entity.getAnimalType());
@@ -343,8 +343,7 @@ public class GenericBehavior
 				}
 
 			}
-		}
-		else if (gestationTimer < 0)
+		} else if (gestationTimer < 0)
 		{
 			entity.setGestation(1);
 		}
@@ -372,8 +371,7 @@ public class GenericBehavior
 			entity.setWatered(true);
 			entity.setInLove(player);
 			return true;
-		}
-		else if (entity.isBreedingItem(stack))
+		} else if (entity.isBreedingItem(stack))
 		{
 			if (entity.getSleeping())
 				return true;
@@ -399,8 +397,7 @@ public class GenericBehavior
 
 			entity.setInLove(player);
 			return true;
-		}
-		else if (entity instanceof EntityTameable)
+		} else if (entity instanceof EntityTameable)
 		{
 			EntityTameable tame = (EntityTameable) entity;
 
@@ -410,8 +407,7 @@ public class GenericBehavior
 				tame.setJumping(false);
 				tame.getNavigator().clearPath();
 				return true;
-			}
-			else if (stack.isEmpty() && tame.isTamed() && tame.isSitting() && !player.isSneaking() && !entity.getSleeping())
+			} else if (stack.isEmpty() && tame.isTamed() && tame.isSitting() && !player.isSneaking() && !entity.getSleeping())
 			{
 
 				tame.setSitting(false);
@@ -442,8 +438,7 @@ public class GenericBehavior
 				animal = entity.getAnimalType().getMale(entity.world);
 				IMateable mateable = (IMateable) animal;
 				mateable.setMateUniqueId(entity.getUniqueID());
-			}
-			else if (chooser == 1)
+			} else if (chooser == 1)
 			{
 				animal = entity.getAnimalType().getChild(entity.world);
 				((IChild) animal).setParentUniqueId(entity.getUniqueID());

@@ -24,6 +24,18 @@ import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.sheep.SheepDorset.EntityEweDorset;
+import com.animania.common.entities.sheep.SheepDorset.EntityLambDorset;
+import com.animania.common.entities.sheep.SheepDorset.EntityRamDorset;
+import com.animania.common.entities.sheep.SheepFriesian.EntityEweFriesian;
+import com.animania.common.entities.sheep.SheepFriesian.EntityLambFriesian;
+import com.animania.common.entities.sheep.SheepFriesian.EntityRamFriesian;
+import com.animania.common.entities.sheep.SheepMerino.EntityEweMerino;
+import com.animania.common.entities.sheep.SheepMerino.EntityLambMerino;
+import com.animania.common.entities.sheep.SheepMerino.EntityRamMerino;
+import com.animania.common.entities.sheep.SheepSuffolk.EntityEweSuffolk;
+import com.animania.common.entities.sheep.SheepSuffolk.EntityLambSuffolk;
+import com.animania.common.entities.sheep.SheepSuffolk.EntityRamSuffolk;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -50,7 +62,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -162,19 +173,19 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		this.dataManager.register(EntityAnimaniaSheep.DYE_COLOR, Integer.valueOf(EnumDyeColor.WHITE.getMetadata()));
 		this.dataManager.register(INTERACTED, false);
 
-		if (this.sheepType == SheepType.FRIESIAN)
+		if (this instanceof EntityRamFriesian || this instanceof EntityEweFriesian || this instanceof EntityLambFriesian)
 		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(3)));
 		}
-		else if (this.sheepType == SheepType.DORSET)
+		else if (this instanceof EntityRamDorset || this instanceof EntityEweDorset || this instanceof EntityLambDorset)
 		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
 		}
-		else if (this.sheepType == SheepType.MERINO)
+		else if (this instanceof EntityRamMerino || this instanceof EntityEweMerino || this instanceof EntityLambMerino)
 		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
 		}
-		else if (this.sheepType == SheepType.SUFFOLK)
+		else if (this instanceof EntityRamSuffolk || this instanceof EntityEweSuffolk || this instanceof EntityLambSuffolk)
 		{
 			this.dataManager.register(EntityAnimaniaSheep.COLOR_NUM, Integer.valueOf(rand.nextInt(2)));
 		}
