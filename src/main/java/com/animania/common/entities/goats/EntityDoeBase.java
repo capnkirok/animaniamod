@@ -13,6 +13,7 @@ import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.goats.GoatAngora.EntityDoeAngora;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
@@ -223,6 +224,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	}
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())

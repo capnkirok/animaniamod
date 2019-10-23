@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.compat.top.providers.TOPInfoProvider;
@@ -596,6 +597,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 	}
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = world.getTileEntity(data.getPos());

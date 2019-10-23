@@ -17,6 +17,7 @@ import com.animania.common.entities.generic.ai.GenericAIMate;
 import com.animania.common.entities.goats.GoatAngora.EntityBuckAngora;
 import com.animania.common.entities.goats.ai.EntityAIButtHeadsGoats;
 import com.animania.common.entities.goats.ai.EntityAIGoatsLeapAtTarget;
+import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.animania.config.AnimaniaConfig;
@@ -184,6 +185,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	}
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())

@@ -4,6 +4,7 @@ import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.interfaces.IFoodProviderBlock;
 import com.animania.common.blocks.AnimaniaContainer;
+import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.TOPInfoProvider;
 
@@ -257,6 +258,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 	}
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = world.getTileEntity(data.getPos());

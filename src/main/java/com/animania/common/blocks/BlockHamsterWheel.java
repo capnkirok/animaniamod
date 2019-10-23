@@ -5,6 +5,7 @@ import com.animania.common.capabilities.CapabilityRefs;
 import com.animania.common.capabilities.ICapabilityPlayer;
 import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.CompatHandler;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.tileentities.TileEntityHamsterWheel;
 import com.animania.compat.top.providers.TOPInfoProvider;
@@ -156,6 +157,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	}
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
 	{
 

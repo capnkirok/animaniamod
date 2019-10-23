@@ -1,5 +1,7 @@
 package com.animania.compat.top.providers.entity;
 
+import com.animania.common.handler.CompatHandler;
+
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
@@ -14,6 +16,7 @@ public interface TOPInfoProviderRodent extends TOPInfoProviderBase
 {
 
 	@Override
+	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	default void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
 

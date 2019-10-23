@@ -5,13 +5,14 @@ import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 public class CompatHandler
 {
+	public static final String THEONEPROBE_ID = "theoneprobe";
 
 	public static void preInit()
 	{
 		if (Loader.isModLoaded("waila"))
 			FMLInterModComms.sendMessage("waila", "register", "com.animania.compat.waila.WailaCompat.registerWaila");
 
-		if (Loader.isModLoaded("theoneprobe"))
+		if (Loader.isModLoaded(THEONEPROBE_ID))
 			FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe", "com.animania.compat.top.TOPCompat");
 
 		if (Loader.isModLoaded("morph")) {
