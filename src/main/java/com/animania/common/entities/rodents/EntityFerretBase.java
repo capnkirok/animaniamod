@@ -240,7 +240,9 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 				props.setType(EntityList.getKey(this).getResourcePath());
 				this.setDead();
 				player.swingArm(EnumHand.MAIN_HAND);
-				Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
+				if (!player.world.isRemote) {
+					Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
+				}
 				return true;
 			}
 		}
