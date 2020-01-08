@@ -1,6 +1,7 @@
 package com.animania.common.items;
 
 import com.animania.Animania;
+import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityEgg;
@@ -49,7 +50,7 @@ public class ItemBrownEgg extends Item
         if (!worldIn.isRemote) {
             EntityEgg entityegg = new EntityEgg(worldIn, playerIn);
             entityegg.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-            worldIn.spawnEntity(entityegg);
+            AnimaniaHelper.spawnEntity(worldIn, entityegg);
         }
 
         playerIn.addStat(StatList.getObjectUseStats(this));

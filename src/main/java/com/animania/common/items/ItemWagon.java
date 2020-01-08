@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.animania.Animania;
 import com.animania.common.entities.props.EntityWagon;
+import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -98,7 +99,7 @@ public class ItemWagon extends Item
 
 				if (!worldIn.isRemote)
 				{
-					worldIn.spawnEntity(EntityWagon);
+					AnimaniaHelper.spawnEntity(worldIn, EntityWagon);
 				}
 
 				if (!playerIn.capabilities.isCreativeMode)

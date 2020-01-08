@@ -124,7 +124,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 							ChickenType chickType = ChickenType.breed(rooster.type, birdType);
 							EntityChickBase chick = chickType.getChild(worldIn);
 							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
-							worldIn.spawnEntity(chick);
+							AnimaniaHelper.spawnEntity(worldIn, chick);
 							chick.playSound(ModSoundEvents.chickenCluck1, 0.50F, 1.4F);
 							te.removeItem();
 							te.markDirty();
@@ -146,7 +146,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 							PeacockType chickType = PeacockType.breed(peacock.type, birdType);
 							EntityPeachickBase chick = chickType.getChild(worldIn);
 							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
-							worldIn.spawnEntity(chick);
+							AnimaniaHelper.spawnEntity(worldIn, chick);
 							chick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
 							te.removeItem();
 							te.markDirty();

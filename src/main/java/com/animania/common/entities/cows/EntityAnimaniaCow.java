@@ -231,11 +231,11 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 				{
 					entitycow.setCustomNameTag(this.getCustomNameTag());
 				}
-				this.world.spawnEntity(entitycow);
+				AnimaniaHelper.spawnEntity(this.world, entitycow);
 
 				for (int i = 0; i < 5; ++i)
 				{
-					this.world.spawnEntity(new EntityItem(this.world, this.posX, this.posY + (double) this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
+					AnimaniaHelper.spawnEntity(this.world, new EntityItem(this.world, this.posX, this.posY + (double) this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
 				}
 
 				stack.damageItem(1, player);

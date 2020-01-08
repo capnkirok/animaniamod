@@ -10,6 +10,7 @@ import com.animania.common.entities.goats.GoatType;
 import com.animania.common.entities.peacocks.PeacockType;
 import com.animania.common.entities.pigs.PigType;
 import com.animania.common.entities.rodents.rabbits.RabbitType;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 
@@ -167,7 +168,7 @@ public class DispenserHandler
 				// ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) /
 				// 0.8F);
 
-				world.spawnEntity(entity);
+				AnimaniaHelper.spawnEntity(world, entity);
 			}
 
 			return stack;

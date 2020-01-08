@@ -173,7 +173,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		{
 			if (findPositionForHamster())
 			{
-				world.spawnEntity(hamster);
+				AnimaniaHelper.spawnEntity(world, hamster);
 				hamster.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
 				// this.hamster.setWatered(false);
 				this.hamster.setFed(false);

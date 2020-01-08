@@ -195,7 +195,7 @@ public class InteractHandler
 					BlockPos pos = event.getPos();
 					e.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 					
-					event.getWorld().spawnEntity(e);
+					AnimaniaHelper.spawnEntity(world, e);
 				}
 	
 				props.setAnimal(new NBTTagCompound());
