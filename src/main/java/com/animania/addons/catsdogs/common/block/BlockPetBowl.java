@@ -45,9 +45,14 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 	public BlockPetBowl()
 	{
 		super("pet_bowl", Material.WOOD, MapColor.BROWN);
-		this.hasTileEntity = true;
 		this.setHardness(1.2f);
 		this.setResistance(1.5f);
+	}
+	
+	@Override
+	public boolean hasTileEntity(IBlockState state)
+	{
+		return true;
 	}
 
 	@Override

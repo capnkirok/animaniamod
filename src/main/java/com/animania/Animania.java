@@ -38,12 +38,12 @@ public class Animania
 	public static Animania instance;
 
 	public static final String MODID = "animania";
-	public static final String VERSION = "1.7.3";
+	public static final String VERSION = "GRADLE:VERSION";
 	public static final String NAME = "Animania";
 	public static final Logger LOGGER = LogManager.getFormatterLogger("Animania");
 	public final static String ACCEPTED_VERSIONS = "[1.12,1.13)";
 	public static final String DEPENDENCIES = "required-after:craftstudioapi;after:cofhcore;after:harvestcraft;after:natura;after:botania;after:biomesoplenty;after:twilightforest;after:aroma1997sdimension;after:openterraingenerator;before:thermalexpansion;required-after:forge@[14.23.5.2779,)";
-	
+	public static boolean IS_DEV = true;
 	
 	public static SimpleNetworkWrapper network;
 	public static Random RANDOM = new Random();

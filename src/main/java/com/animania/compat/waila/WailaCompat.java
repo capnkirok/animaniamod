@@ -55,7 +55,6 @@ import com.animania.compat.waila.provider.WailaEntityMareProvider;
 import com.animania.compat.waila.provider.WailaEntityPeafowlProvider;
 import com.animania.compat.waila.provider.WailaEntityPigProvider;
 import com.animania.compat.waila.provider.WailaEntityPigletProvider;
-import com.animania.compat.waila.provider.WailaEntityRabbitBuckProvider;
 import com.animania.compat.waila.provider.WailaEntityRabbitDoeProvider;
 import com.animania.compat.waila.provider.WailaEntityRamProvider;
 import com.animania.compat.waila.provider.WailaEntityRodentProvider;
@@ -225,8 +224,8 @@ public class WailaCompat
 	}
 
 	private static void regEntityInfoRabbitBuck(IWailaRegistrar r, Class clazz) {
-		r.registerBodyProvider(new WailaEntityRabbitBuckProvider(), clazz);
-		r.registerNBTProvider(new WailaEntityRabbitBuckProvider(), clazz);
+		r.registerBodyProvider(new WailaEntityAnimalProviderMateable(), clazz);
+		r.registerNBTProvider(new WailaEntityAnimalProviderMateable(), clazz);
 	}
 
 	private static void regEntityInfoRabbitDoe(IWailaRegistrar r, Class clazz) {

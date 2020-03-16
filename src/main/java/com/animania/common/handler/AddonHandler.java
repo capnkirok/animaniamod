@@ -92,7 +92,7 @@ public class AddonHandler
 
 	public static void throwErrors()
 	{
-		if (!missingModsExceptions.isEmpty())
+		if (!missingModsExceptions.isEmpty() && !Animania.IS_DEV)
 		{
 			MultipleModsErrored errors = new MultipleModsErrored(Collections.EMPTY_LIST, missingModsExceptions);
 			Animania.proxy.throwCustomModLoadingErrorDisplayException(errors);
