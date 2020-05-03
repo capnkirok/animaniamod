@@ -1,0 +1,16 @@
+{
+  "name" : "manual.entities.entities.title",
+  "contents" : [
+    "@link@animania:manual/farm/farm.json#← manual.farm",
+    "§lmanual.entities.entities.title",
+    " ",
+    "@link@animania:manual/farm/entities/chickens/chickens.json#- advancements.animania.chickens.title",
+    "@link@animania:manual/farm/entities/cows/cows.json#- advancements.animania.cows.title",
+    "@link@animania:manual/farm/entities/goats/goats.json#- advancements.animania.goats.title",
+    "@link@animania:manual/farm/entities/horses/horses.json#- manual.horses",
+    "@link@animania:manual/farm/entities/pigs/pigs.json#- manual.pigs",
+    "@link@animania:manual/farm/entities/sheep/sheep.json#- advancements.animania.sheep.title"
+
+
+  ]
+}

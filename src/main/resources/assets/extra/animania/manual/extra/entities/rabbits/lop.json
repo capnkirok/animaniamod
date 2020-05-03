@@ -1,0 +1,16 @@
+{
+  "name" : "advancements.animania.lop.title",
+  "contents" : [
+    "@link@animania:manual/extra/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "§ladvancements.animania.lop.title",
+    "@entity@animania:buck_lop,animania:doe_lop,animania:kit_lop",
+    "advancements.animania.lop.title",
+    "@text@manual.rabbits.normal.1#prevline",
+    "@loottable@animania:rabbit_regular",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.extra.spawning_and_breeding;rabbitLopBiomeTypes"
+  ]
+}

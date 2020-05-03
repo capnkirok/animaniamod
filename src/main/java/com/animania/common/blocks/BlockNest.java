@@ -1,27 +1,17 @@
 package com.animania.common.blocks;
 
-import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
-import com.animania.common.ModSoundEvents;
-import com.animania.common.entities.chickens.ChickenType;
-import com.animania.common.entities.chickens.EntityAnimaniaChicken;
-import com.animania.common.entities.chickens.EntityChickBase;
-import com.animania.common.entities.chickens.EntityRoosterBase;
-import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
-import com.animania.common.entities.peacocks.EntityPeachickBase;
-import com.animania.common.entities.peacocks.EntityPeacockBase;
-import com.animania.common.entities.peacocks.PeacockType;
+import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityNest.NestContent;
 import com.animania.compat.top.providers.TOPInfoProvider;
-import com.animania.config.AnimaniaConfig;
 
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -62,6 +52,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 
 	}
 
+	@Override
 	public int tickRate(World worldIn)
 	{
 		return 5;
@@ -108,54 +99,10 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 		TileEntityNest te = (TileEntityNest) worldIn.getTileEntity(pos);
 		if (te != null && te.getNestContent() != NestContent.EMPTY)
 		{
-			List<EntityRoosterBase> roosters = AnimaniaHelper.getEntitiesInRange(EntityRoosterBase.class, 3, worldIn, pos);
-			List<EntityPeacockBase> peacocks = AnimaniaHelper.getEntitiesInRange(EntityPeacockBase.class, 3, worldIn, pos);
 
-			if (te.getBirdType() instanceof ChickenType)
-			{
-				List<EntityAnimaniaChicken> nearbyChickens = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 15, worldIn, pos);
-				if (nearbyChickens.size() < AnimaniaConfig.careAndFeeding.entityBreedingLimit)
-				{
-					ChickenType birdType = (ChickenType) te.getBirdType();
-					for (EntityRoosterBase rooster : roosters)
-					{
-						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
-						{
-							ChickenType chickType = ChickenType.breed(rooster.type, birdType);
-							EntityChickBase chick = chickType.getChild(worldIn);
-							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
-							worldIn.spawnEntity(chick);
-							chick.playSound(ModSoundEvents.chickenCluck1, 0.50F, 1.4F);
-							te.removeItem();
-							te.markDirty();
-							break;
-						}
-					}
-				}
-			}
-			if (te.getBirdType() instanceof PeacockType)
-			{
-				List<EntityAnimaniaPeacock> nearbyPeacocks = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPeacock.class, 15, worldIn, pos);
-				if (nearbyPeacocks.size() < AnimaniaConfig.careAndFeeding.entityBreedingLimit)
-				{
-					PeacockType birdType = (PeacockType) te.getBirdType();
-					for (EntityPeacockBase peacock : peacocks)
-					{
-						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
-						{
-							PeacockType chickType = PeacockType.breed(peacock.type, birdType);
-							EntityPeachickBase chick = chickType.getChild(worldIn);
-							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
-							worldIn.spawnEntity(chick);
-							chick.playSound(ModSoundEvents.peacock1, 0.50F, 1.4F);
-							te.removeItem();
-							te.markDirty();
-							break;
-						}
-					}
-				}
-			}
+			AddonInjectionHandler.runInjection("farm", "nestHatchChickens", Void.class, te, worldIn, pos, state, rand);
 
+			AddonInjectionHandler.runInjection("extra", "nestHatchPeafowl", Void.class, te, worldIn, pos, state, rand);
 		}
 
 	}
@@ -221,7 +168,7 @@ public class BlockNest extends BlockContainer implements TOPInfoProvider
 	}
 
 	@Override
-	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = world.getTileEntity(data.getPos());

@@ -1,0 +1,10 @@
+{
+  "name" : "manual.crafting_components",
+  "contents" : [
+    "@link@animania:manual/farm/items/items.json#← manual.items.items.title",
+    "§lmanual.crafting_components",
+    " ",
+    "manual.items.crafting_components.1",
+    "@crafting@animania:wheel"
+  ]
+}

@@ -2,18 +2,9 @@ package com.animania.compat.waila.provider;
 
 import java.util.List;
 
+import com.animania.api.interfaces.IFoodEating;
+import com.animania.api.interfaces.ISleeping;
 import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.entities.chickens.EntityAnimaniaChicken;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
-import com.animania.common.entities.goats.EntityAnimaniaGoat;
-import com.animania.common.entities.horses.EntityAnimaniaHorse;
-import com.animania.common.entities.peacocks.EntityAnimaniaPeacock;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.entities.rodents.EntityFerretBase;
-import com.animania.common.entities.rodents.EntityHamster;
-import com.animania.common.entities.rodents.EntityHedgehogBase;
-import com.animania.common.entities.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.animania.config.AnimaniaConfig;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -49,71 +40,15 @@ public class WailaEntityAnimalProviderBase implements IWailaEntityProvider
 		boolean watered = accessor.getNBTData().getBoolean("Watered");
 		boolean sleeping = accessor.getNBTData().getBoolean("Sleeping");
 
-		if (entity instanceof EntityAnimaniaChicken)
+		if (entity instanceof IFoodEating)
 		{
-			EntityAnimaniaChicken tempEnt = (EntityAnimaniaChicken) entity;
+			IFoodEating tempEnt = (IFoodEating) entity;
 			fed = tempEnt.getFed();
 			watered = tempEnt.getWatered();
-			sleeping = tempEnt.getSleeping();
-		} else if (entity instanceof EntityAnimaniaCow)
+		}
+		if (entity instanceof ISleeping)
 		{
-			EntityAnimaniaCow tempEnt = (EntityAnimaniaCow) entity;
-			fed = tempEnt.getFed();
-			watered = tempEnt.getWatered();
-			sleeping = tempEnt.getSleeping();
-		} else if (entity instanceof EntityAnimaniaGoat)
-		{
-			EntityAnimaniaGoat tempEnt = (EntityAnimaniaGoat) entity;
-			fed = tempEnt.getFed();
-			watered = tempEnt.getWatered();
-			sleeping = tempEnt.getSleeping();
-		} else if (entity instanceof EntityAnimaniaHorse)
-		{
-			EntityAnimaniaHorse tempEnt = (EntityAnimaniaHorse) entity;
-			fed = tempEnt.getFed();
-			watered = tempEnt.getWatered();
-			sleeping = tempEnt.getSleeping();
-		} else if (entity instanceof EntityAnimaniaPeacock)
-		{
-			EntityAnimaniaPeacock tempEnt = (EntityAnimaniaPeacock) entity;
-			fed = tempEnt.getFed();
-			watered = tempEnt.getWatered();
-			sleeping = tempEnt.getSleeping();
-		} else if (entity instanceof EntityAnimaniaPig)
-		{
-			EntityAnimaniaPig tempEnt = (EntityAnimaniaPig) entity;
-			fed = tempEnt.getFed();
-			watered = tempEnt.getWatered();
-			sleeping = tempEnt.getSleeping();
-		} else if (entity instanceof EntityAnimaniaRabbit)
-		{
-			EntityAnimaniaRabbit tempEnt = (EntityAnimaniaRabbit) entity;
-			fed = tempEnt.getFed();
-			watered = tempEnt.getWatered();
-			sleeping = tempEnt.getSleeping();
-		} else if (entity instanceof EntityAnimaniaSheep)
-		{
-			EntityAnimaniaSheep tempEnt = (EntityAnimaniaSheep) entity;
-			fed = tempEnt.getFed();
-			watered = tempEnt.getWatered();
-			sleeping = tempEnt.getSleeping();
-		} else if (entity instanceof EntityHedgehogBase)
-		{
-			EntityHedgehogBase tempEnt = (EntityHedgehogBase) entity;
-			fed = tempEnt.getFed();
-			watered = tempEnt.getWatered();
-			sleeping = tempEnt.getSleeping();
-		} else if (entity instanceof EntityFerretBase)
-		{
-			EntityFerretBase tempEnt = (EntityFerretBase) entity;
-			fed = tempEnt.getFed();
-			watered = tempEnt.getWatered();
-			sleeping = tempEnt.getSleeping();
-		} else if (entity instanceof EntityHamster)
-		{
-			EntityHamster tempEnt = (EntityHamster) entity;
-			fed = tempEnt.getFed();
-			watered = tempEnt.getWatered();
+			ISleeping tempEnt = (ISleeping) entity;
 			sleeping = tempEnt.getSleeping();
 		}
 

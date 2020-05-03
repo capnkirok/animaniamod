@@ -1,0 +1,13 @@
+{
+  "name" : "manual.equipment.title",
+  "contents" : [
+    "@link@animania:manual/farm/contents.json#← manual.startpage.content",
+    "§lmanual.equipment",
+    " ",
+    "@link@animania:manual/farm/entities/equipment/cart.json#- manual.cart.title",
+    "@link@animania:manual/farm/entities/equipment/tiller.json#- manual.tiller.title",
+    "@link@animania:manual/farm/entities/equipment/wagon.json#- manual.wagon.title",
+    " ",
+    "manual.equipment.general.1"
+  ]
+}

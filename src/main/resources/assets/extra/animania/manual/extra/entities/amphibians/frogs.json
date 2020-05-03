@@ -1,0 +1,13 @@
+{
+  "name" : "manual.frogs",
+  "contents" : [
+    "@link@animania:manual/extra/entities/amphibians/amphibians.json#← manual.amphibians",
+    "§lmanual.frogs",
+    "@entity@animania:frog",
+    "manual.frogs.1",
+    "@loottable@animania:frog",
+     " ",
+    "manual.biometypes",
+    "@config@general.extra.spawning_and_breeding;frogBiomeTypes"
+  ]
+}

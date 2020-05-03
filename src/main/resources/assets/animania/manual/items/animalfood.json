@@ -5,8 +5,6 @@
     "§lmanual.animalfood",
     " ",
     "manual.items.animalfood.1",
-    "@crafting@animania:slop",
-    "manual.items.animalfood.2",
-    "@crafting@animania:hamster_food"
+    "@crafting@animania:slop"
   ]
 }

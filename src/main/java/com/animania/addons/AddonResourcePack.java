@@ -4,8 +4,13 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -26,10 +31,79 @@ import com.google.common.collect.Sets;
 import net.minecraft.client.resources.FileResourcePack;
 import net.minecraft.client.resources.FolderResourcePack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Tuple;
 import net.minecraftforge.fml.common.Loader;
 
 public class AddonResourcePack
 {
+
+	public static File getAddonFile(AnimaniaAddon addon)
+	{
+		try
+		{
+			String classpath = addon.getClass().getResource(addon.getClass().getSimpleName() + ".class").getFile();
+
+			System.out.println("Classpath for " + addon.getAddonName() + " is: " + classpath);
+
+			classpath = classpath.substring(0, classpath.indexOf("!"));
+			classpath = classpath.substring(classpath.indexOf(":") + 1, classpath.length());
+
+			classpath = classpath.replace("/./", "/");
+			// classpath.length());
+
+			classpath = URLDecoder.decode(classpath);
+
+			System.out.println("Edited classpath for " + addon.getAddonName() + " is: " + classpath);
+
+			String path = classpath;
+			// String path = ".\\mods\\" + classpath;
+
+			File f = new File(path);
+
+			return f;
+		} catch (Exception e)
+		{
+			System.out.println("Failed to get addon file!");
+			Animania.LOGGER.error(e);
+			return null;
+		}
+	}
+
+	public static Tuple<FileSystem, Path> getAddonPath(AnimaniaAddon addon)
+	{
+		try
+		{
+			URI classpath = addon.getClass().getResource("/assets/" + addon.getAddonID() + "/").toURI();
+
+			System.out.println("Path classpath: " + classpath);
+
+			FileSystem fs = null;
+
+			Path myPath;
+			if (classpath.getScheme().equals("jar"))
+			{
+				fs = FileSystems.newFileSystem(classpath, Collections.<String, Object> emptyMap());
+				System.out.println("Filesystem: " + fs);
+				// myPath = fs.getPath(".");
+				myPath = fs.getPath(".");
+			} else
+			{
+
+				myPath = Paths.get(classpath);
+			}
+
+			System.out.println("Edited Path classpath: " + myPath);
+
+			return new Tuple<FileSystem, Path>(fs, myPath);
+		} catch (Exception e)
+		{
+			System.out.println("Failed to get addon path!");
+			Animania.LOGGER.error(e);
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	public static class Jar extends FileResourcePack
 	{
 
@@ -44,28 +118,6 @@ public class AddonResourcePack
 			this.addon = addon;
 		}
 
-		private static File getAddonFile(AnimaniaAddon addon)
-		{
-
-			try
-			{
-				String classpath = addon.getClass().getResource(addon.getClass().getSimpleName() + ".class").getFile();
-				classpath = classpath.substring(0, classpath.indexOf("!"));
-				classpath = classpath.substring(classpath.lastIndexOf("/"), classpath.length());
-
-				String path = ".\\mods\\" + classpath;
-
-				File f = new File(path);
-
-				return f;
-			}
-			catch (Exception e)
-			{
-				Animania.LOGGER.error(e);
-				return null;
-			}
-		}
-
 		@Override
 		public String getPackName()
 		{
@@ -78,9 +130,9 @@ public class AddonResourcePack
 			try
 			{
 				return this.getResourcePackZipFile().getEntry(name.replace("assets/", "assets/" + addon.getAddonID() + "/")) != null;
-			}
-			catch (IOException var3)
+			} catch (IOException var3)
 			{
+				var3.printStackTrace();
 				return false;
 			}
 		}
@@ -91,18 +143,18 @@ public class AddonResourcePack
 			ZipFile zipfile;
 
 			this.manualFiles.clear();
-			
+
 			try
 			{
 				zipfile = this.getResourcePackZipFile();
-			}
-			catch (IOException var8)
+			} catch (IOException var8)
 			{
-				return Collections.<String>emptySet();
+				var8.printStackTrace();
+				return Collections.<String> emptySet();
 			}
 
 			Enumeration<? extends ZipEntry> enumeration = zipfile.entries();
-			Set<String> set = Sets.<String>newHashSet();
+			Set<String> set = Sets.<String> newHashSet();
 
 			while (enumeration.hasMoreElements())
 			{
@@ -127,8 +179,7 @@ public class AddonResourcePack
 						if (s1.equals(s1.toLowerCase(java.util.Locale.ROOT)))
 						{
 							set.add(s1);
-						}
-						else
+						} else
 						{
 							this.logNameNotLowercase(s1);
 						}
@@ -143,7 +194,6 @@ public class AddonResourcePack
 		protected InputStream getInputStreamByName(String resourceName) throws IOException
 		{
 
-			
 			if (resourceName.contains("pack.mcmeta"))
 			{
 				return Animania.class.getResourceAsStream("/addons.mcmeta");
@@ -195,7 +245,7 @@ public class AddonResourcePack
 		@Override
 		protected InputStream getInputStreamByName(String resourceName) throws IOException
 		{
-			
+
 			if (resourceName.equals("pack.mcmeta"))
 			{
 				return Animania.class.getResourceAsStream("/addons.mcmeta");
@@ -224,10 +274,9 @@ public class AddonResourcePack
 				{
 					return file1;
 				}
-			}
-			catch (IOException var3)
+			} catch (IOException var3)
 			{
-				;
+
 			}
 
 			return null;
@@ -236,11 +285,11 @@ public class AddonResourcePack
 		@Override
 		public Set<String> getResourceDomains()
 		{
-			Set<String> set = Sets.<String>newHashSet();
+			Set<String> set = Sets.<String> newHashSet();
 			File file1 = new File(this.resourcePackFile, "assets/" + addon.getAddonID() + "/");
 
 			this.manualFiles.clear();
-			
+
 			if (file1.isDirectory())
 			{
 				Iterator<Path> it;
@@ -258,8 +307,7 @@ public class AddonResourcePack
 							manualFiles.add(loc);
 						}
 					}
-				}
-				catch (IOException e)
+				} catch (IOException e)
 				{
 					e.printStackTrace();
 				}
@@ -271,8 +319,7 @@ public class AddonResourcePack
 					if (s.equals(s.toLowerCase(java.util.Locale.ROOT)))
 					{
 						set.add(s.substring(0, s.length() - 1));
-					}
-					else
+					} else
 					{
 						this.logNameNotLowercase(s);
 					}

@@ -1,0 +1,15 @@
+{
+  "name" : "advancements.animania.hereford.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/cows/cows.json#← advancements.animania.cows.title",
+    "§ladvancements.animania.hereford.title",
+    "@entity@animania:bull_hereford,animania:cow_hereford,animania:calf_hereford",
+    "advancements.animania.hereford.title",
+    "@text@manual.cows.meat.1#prevline",
+    "@loottable@animania:cow_prime",
+    "manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;cowHerefordBiomeTypes"
+  ]
+}

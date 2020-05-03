@@ -1,0 +1,9 @@
+{
+  "name" : "manual.eggs",
+  "contents" : [
+    "@link@animania:manual/farm/items/food.json#← manual.items.food.title",
+    "§lmanual.eggs",
+    " ",
+    "manual.food.eggs.1"
+  ]
+}

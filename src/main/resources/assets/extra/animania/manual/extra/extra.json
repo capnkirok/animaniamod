@@ -1,0 +1,11 @@
+{
+  "name" : "manual.extra",
+  "contents" : [
+    "@link@animania:manual/addons.json#← manual.addons",
+    "§lmanual.extra",
+    " ",
+	"@link@animania:manual/extra/entities/entities.json#- manual.entities.entities.title",
+    "@link@animania:manual/extra/blocks/blocks.json#- manual.blocks.blocks.title",
+    "@link@animania:manual/extra/items/items.json#- manual.items.items.title"
+  ]
+}

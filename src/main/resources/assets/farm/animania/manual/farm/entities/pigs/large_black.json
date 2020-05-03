@@ -1,0 +1,16 @@
+{
+  "name" : "advancements.animania.large_black.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/pigs/pigs.json#← advancements.animania.pigs.title",
+    "§ladvancements.animania.large_black.title",
+    "@entity@animania:hog_large_black,animania:sow_large_black,animania:piglet_large_black",
+    "advancements.animania.large_black.title",
+    "@text@manual.pigs.meat.1#prevline",
+    "@loottable@animania:pig_prime",
+    " ",
+    "@text@manual.pigs.meat.3",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;pigLargeBlackBiomeTypes"
+  ]
+}

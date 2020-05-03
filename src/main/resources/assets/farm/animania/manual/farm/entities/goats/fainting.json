@@ -1,0 +1,18 @@
+{
+  "name" : "advancements.animania.fainting.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/goats/goats.json#← advancements.animania.goats.title",
+    "§ladvancements.animania.fainting.title",
+    "@entity@animania:buck_fainting,animania:doe_fainting,animania:kid_fainting",
+    "advancements.animania.fainting.title",
+    "@text@manual.goats.normal.1#prevline",
+    "@loottable@animania:goat_regular",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;goatFaintingBiomeTypes",
+    " ",
+    "manual.goats.fainting"
+  ]
+}

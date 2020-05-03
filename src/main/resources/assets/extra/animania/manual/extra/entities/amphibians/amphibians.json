@@ -1,0 +1,13 @@
+{
+  "name" : "manual.amphibians",
+  "contents" : [
+    "@link@animania:manual/extra/entities/entities.json#← manual.entities.entities.title",
+    "§lmanual.amphibians",
+    " ",
+    "@link@animania:manual/extra/entities/amphibians/dart_frogs.json#- manual.dart_frogs",
+    "@link@animania:manual/extra/entities/amphibians/frogs.json#- manual.frogs",
+    "@link@animania:manual/extra/entities/amphibians/toads.json#- manual.toads",
+    " ",
+    "manual.amphibians.general.1"
+  ]
+}

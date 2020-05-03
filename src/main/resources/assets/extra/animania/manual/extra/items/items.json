@@ -1,0 +1,11 @@
+{
+  "name" : "manual.items.items.title",
+  "contents" : [
+    "@link@animania:manual/extra/extra.json#← manual.extra",
+    "§lmanual.items.items.title",
+    " ",
+    "@link@animania:manual/extra/items/animalfood.json#- manual.animalfood",
+    "@link@animania:manual/extra/items/hamster_balls.json#- manual.hamster_balls",
+    "@link@animania:manual/extra/items/peacockfeathers.json#- manual.peacockfeathers"    
+  ]
+}

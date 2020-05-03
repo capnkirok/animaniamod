@@ -80,4 +80,10 @@ public class RandomAnimalType implements AnimaniaType
 		return entity;
 	}
 
+	@Override
+	public String getTypeName()
+	{
+		return Animania.MODID + ":random";
+	}
+
 }

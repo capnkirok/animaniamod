@@ -1,0 +1,10 @@
+{
+  "name" : "manual.animalfood",
+  "contents" : [
+    "@link@animania:manual/items/items.json#← manual.items.items.title",
+    "§lmanual.animalfood",
+    " ",
+    "manual.items.animalfood.2",
+    "@crafting@animania:hamster_food"
+  ]
+}

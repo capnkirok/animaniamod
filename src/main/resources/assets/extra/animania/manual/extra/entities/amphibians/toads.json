@@ -1,0 +1,13 @@
+{
+  "name" : "manual.toads",
+  "contents" : [
+    "@link@animania:manual/extra/entities/amphibians/amphibians.json#← manual.amphibians",
+    "§lmanual.toads",
+    "@entity@animania:toad",
+    "manual.toads.1",
+    "@loottable@animania:toad",
+     " ",
+    "manual.biometypes",
+    "@config@general.extra.spawning_and_breeding;toadBiomeTypes"
+  ]
+}

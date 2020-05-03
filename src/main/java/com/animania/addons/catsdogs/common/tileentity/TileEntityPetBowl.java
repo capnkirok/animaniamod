@@ -10,7 +10,6 @@ import com.animania.api.interfaces.IFoodProviderTE;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -87,8 +86,7 @@ public class TileEntityPetBowl extends TileEntity implements ITickable, IFoodPro
 			else if (count >= 1 && this.type != BowlContent.FOOD)
 				this.setTroughType(BowlContent.FOOD);
 
-		}
-		else if (fluid != null)
+		} else if (fluid != null)
 		{
 			if (this.type != BowlContent.LIQUID)
 				this.setTroughType(BowlContent.LIQUID);
@@ -99,8 +97,7 @@ public class TileEntityPetBowl extends TileEntity implements ITickable, IFoodPro
 				oldFluidCount = fluid.amount;
 			}
 
-		}
-		else if (this.type != BowlContent.EMPTY)
+		} else if (this.type != BowlContent.EMPTY)
 			this.setTroughType(BowlContent.EMPTY);
 
 	}
@@ -183,31 +180,31 @@ public class TileEntityPetBowl extends TileEntity implements ITickable, IFoodPro
 	}
 
 	@Override
-	public boolean canConsume(@Nullable Set<Item> fooditems, @Nullable Fluid[] fluid)
+	public boolean canConsume(@Nullable Set<ItemStack> fooditems, @Nullable Fluid[] fluid)
 	{
-		if(fluid == null)
+		if (fluid == null)
 			return canConsume(null, fooditems);
 		else
 		{
 			boolean canConsumeAny = false;
-			for(Fluid f : fluid)
+			for (Fluid f : fluid)
 			{
 				boolean consume = canConsume(new FluidStack(f, 0), fooditems);
-				if(consume)
+				if (consume)
 					canConsumeAny = true;
 			}
-			
+
 			return canConsumeAny;
-		}		
+		}
 	}
 
 	@Override
-	public boolean canConsume(@Nullable FluidStack fluid, @Nullable Set<Item> fooditems)
+	public boolean canConsume(@Nullable FluidStack fluid, @Nullable Set<ItemStack> fooditems)
 	{
 		if (fooditems != null && !this.itemHandler.getStackInSlot(0).isEmpty())
 		{
 			ItemStack stack = this.itemHandler.getStackInSlot(0);
-			return fooditems.contains(stack.getItem());
+			return AnimaniaHelper.containsItemStack(fooditems, stack);
 		}
 
 		if (fluid != null && this.fluidHandler.getFluid() != null && fluid.getFluid() == this.fluidHandler.getFluid().getFluid())
@@ -249,9 +246,7 @@ public class TileEntityPetBowl extends TileEntity implements ITickable, IFoodPro
 
 	public static enum BowlContent
 	{
-		EMPTY,
-		LIQUID,
-		FOOD,
+		EMPTY, LIQUID, FOOD,
 	}
 
 }

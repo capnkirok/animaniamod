@@ -11,7 +11,10 @@ import com.animania.api.addons.LoadAddon;
 @LoadAddon
 public class TemplateAddon implements AnimaniaAddon
 {
-	
+
+	/*
+	 * Registration Order: GUI Handler, Injections, Entities, Items, Blocks
+	 */
 	@Override
 	public void preInitCommon()
 	{
@@ -41,7 +44,7 @@ public class TemplateAddon implements AnimaniaAddon
 	@Override
 	public String getVersion()
 	{
-		return "1.0";
+		return "GRADLE:template_version";
 	}
 
 	@Override
@@ -59,8 +62,7 @@ public class TemplateAddon implements AnimaniaAddon
 	@Override
 	public String getDependencies()
 	{
-		return "required-after:animania@[1.7.0,);required-after:minecraft@[1.12,1.13)";
+		return "required-after:animania@[2.0.0,);required-after:minecraft@[1.12,1.13)";
 	}
-	
-	
+
 }

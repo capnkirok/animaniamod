@@ -1,0 +1,15 @@
+{
+  "name" : "advancements.animania.mooshroom.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/cows/cows.json#← advancements.animania.cows.title",
+    "§ladvancements.animania.mooshroom.title",
+    "@entity@animania:bull_mooshroom,animania:cow_mooshroom,animania:calf_mooshroom",
+    "advancements.animania.mooshroom.title",
+    "@text@manual.cows.mooshroom.1#prevline",
+    "@loottable@animania:cow_mooshroom",
+    "manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;cowMooshroomBiomeTypes"
+  ]
+}

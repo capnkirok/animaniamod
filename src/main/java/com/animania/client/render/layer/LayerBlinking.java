@@ -5,17 +5,7 @@ import java.awt.Color;
 import com.animania.api.interfaces.IBlinking;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.client.models.IColoredModel;
-import com.animania.client.models.ModelDraftHorseFoal;
-import com.animania.client.models.ModelDraftHorseMare;
-import com.animania.client.models.ModelDraftHorseStallion;
-import com.animania.client.models.ModelPiglet;
-import com.animania.client.models.ModelPigletHampshire;
-import com.animania.common.entities.sheep.EntityAnimaniaSheep;
-import com.animania.common.entities.sheep.SheepJacob.EntityEweJacob;
-import com.animania.common.entities.sheep.SheepJacob.EntityLambJacob;
-import com.animania.common.entities.sheep.SheepJacob.EntityRamJacob;
-import com.animania.common.entities.sheep.SheepMerino.EntityRamMerino;
-import com.animania.common.entities.sheep.SheepSuffolk.EntityRamSuffolk;
+import com.animania.common.handler.AddonInjectionHandler;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -99,30 +89,7 @@ public class LayerBlinking<E extends EntityLivingBase> implements LayerRenderer
 			rgb = c.getRGBColorComponents(rgb);
 
 			// Manual position and scale overrides, because nothing is perfect
-
-			if (this.render.getMainModel() instanceof ModelPiglet || this.render.getMainModel() instanceof ModelPigletHampshire)
-			{
-				GlStateManager.translate(0.0, -0.038, 0.1499);
-			}
-			else
-				GlStateManager.scale(1.0002, 1.0002, 1.0002);
-
-			GlStateManager.pushMatrix();
-
-			if (this.render.getMainModel() instanceof ModelDraftHorseStallion)
-			{
-				GlStateManager.translate(0.0, 0, 0.0001);
-			}
-
-			if (entity instanceof EntityAnimaniaSheep)
-			{
-				GlStateManager.translate(0.0, 0, 0.0001);
-			}
-
-			if (entity instanceof EntityRamSuffolk || entity instanceof EntityRamMerino || entity instanceof EntityRamJacob || entity instanceof EntityEweJacob || entity instanceof EntityLambJacob)
-			{
-				GlStateManager.translate(0.0, 0, -0.0001);
-			}
+			AddonInjectionHandler.runInjection("farm", "blink1", Void.class, this.render, entity);
 
 			this.render.bindTexture(left);
 			GlStateManager.enableRescaleNormal();
@@ -138,15 +105,7 @@ public class LayerBlinking<E extends EntityLivingBase> implements LayerRenderer
 
 			GlStateManager.pushMatrix();
 
-			if (this.render.getMainModel() instanceof ModelDraftHorseMare || this.render.getMainModel() instanceof ModelDraftHorseFoal)
-			{
-				GlStateManager.translate(0.0, 0, 0.0001);
-			}
-
-			if (entity instanceof EntityRamSuffolk || entity instanceof EntityRamMerino || entity instanceof EntityRamJacob || entity instanceof EntityEweJacob || entity instanceof EntityLambJacob)
-			{
-				GlStateManager.translate(0.0, 0, 0.0001);
-			}
+			AddonInjectionHandler.runInjection("farm", "blink2", Void.class, this.render, entity);
 
 			c = new Color(colRight);
 			rgb = c.getRGBColorComponents(new float[3]);

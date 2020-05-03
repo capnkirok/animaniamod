@@ -1,0 +1,16 @@
+{
+  "name" : "advancements.animania.kinder.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/goats/goats.json#← advancements.animania.goats.title",
+    "§ladvancements.animania.kinder.title",
+    "@entity@animania:buck_kinder,animania:doe_kinder,animania:kid_kinder",
+    "advancements.animania.kinder.title",
+    "@text@manual.goats.normal.1#prevline",
+    "@loottable@animania:goat_regular",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;goatKinderBiomeTypes"
+  ]
+}

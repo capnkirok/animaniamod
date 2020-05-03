@@ -2,8 +2,7 @@ package com.animania.common.entities.generic.ai;
 
 
 import com.animania.api.interfaces.ISleeping;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
-import com.animania.common.handler.BlockHandler;
+import com.animania.common.handler.AddonInjectionHandler;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -24,8 +23,7 @@ public class GenericAILookIdle<T extends EntityLiving & ISleeping> extends Entit
 	 */
 	public boolean shouldExecute()
 	{
-		if (this.entity.getSleeping() ||
-				(this.entity instanceof EntityAnimaniaPig && entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud))
+		if (this.entity.getSleeping() || AddonInjectionHandler.runInjection("farm", "pigMudTest", Boolean.class, entity))
 			return false;
 
 		return super.shouldExecute();

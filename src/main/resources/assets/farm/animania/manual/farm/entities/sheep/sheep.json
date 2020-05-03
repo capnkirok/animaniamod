@@ -1,0 +1,19 @@
+{
+  "name" : "advancements.animania.sheep.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/entities.json#← manual.entities.entities.title",
+    "§ladvancements.animania.sheep.title",
+    " ",
+    "@link@animania:manual/farm/entities/sheep/dorper.json#- advancements.animania.dorper.title",
+    "@link@animania:manual/farm/entities/sheep/dorset.json#- advancements.animania.dorset.title",
+    "@link@animania:manual/farm/entities/sheep/friesian.json#- advancements.animania.sheep_friesian.title",
+    "@link@animania:manual/farm/entities/sheep/jacob.json#- advancements.animania.jacob.title",
+    "@link@animania:manual/farm/entities/sheep/merino.json#- advancements.animania.merino.title",
+    "@link@animania:manual/farm/entities/sheep/suffolk.json#- advancements.animania.suffolk.title",
+    " ",
+    "manual.sheep.general.1",
+    "@configitem@general.careandfeeding;sheepFood",
+    " ",
+    "manual.sheep.general.2"
+  ]
+}

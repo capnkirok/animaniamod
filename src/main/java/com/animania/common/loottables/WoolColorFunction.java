@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Random;
 
 import com.animania.Animania;
-import com.animania.common.entities.sheep.EntityAnimaniaSheep;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
@@ -27,9 +27,9 @@ public class WoolColorFunction extends LootFunction
 	{
 		Entity e = context.getLootedEntity();
 
-		if (e instanceof EntityAnimaniaSheep)
+		if (e instanceof EntitySheep)
 		{
-			EntityAnimaniaSheep entityAnimaniaSheep = (EntityAnimaniaSheep) e;
+			EntitySheep entityAnimaniaSheep = (EntitySheep) e;
 			boolean isSheared = entityAnimaniaSheep.getSheared();
 			
 			List<ItemStack> stacks = entityAnimaniaSheep.onSheared(ItemStack.EMPTY, e.world, e.getPosition(), 0);

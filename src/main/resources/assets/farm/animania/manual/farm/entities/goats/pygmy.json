@@ -1,0 +1,16 @@
+{
+  "name" : "advancements.animania.pygmy.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/goats/goats.json#← advancements.animania.goats.title",
+    "§ladvancements.animania.pygmy.title",
+    "@entity@animania:buck_pygmy,animania:doe_pygmy,animania:kid_pygmy",
+    "advancements.animania.pygmy.title",
+    "@text@manual.goats.meat.1#prevline",
+    "@loottable@animania:goat_prime",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;goatPygmyBiomeTypes"
+  ]
+}

@@ -9,7 +9,7 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.IPlantable;
@@ -31,7 +31,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 		if (param != null)
 		{
 			EntityLivingBase e = (EntityLivingBase) this;
-			if(fed)
+			if (fed)
 			{
 				this.setFedTimer(AnimaniaConfig.careAndFeeding.feedTimer + Animania.RANDOM.nextInt(100));
 			}
@@ -53,7 +53,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 		if (param != null)
 		{
 			EntityLivingBase e = (EntityLivingBase) this;
-			if(watered)
+			if (watered)
 			{
 				this.setWaterTimer(AnimaniaConfig.careAndFeeding.waterTimer + Animania.RANDOM.nextInt(100));
 			}
@@ -98,34 +98,36 @@ public interface IFoodEating extends IAnimaniaAnimal
 			return this.getBoolFromDataManager(getInteractedParam());
 		return false;
 	}
-	
+
 	default float getHeadAnchorPointY(float partialTicks)
 	{
-		if (((Entity)this).isBeingRidden()) {
+		if (((Entity) this).isBeingRidden())
+		{
 			return 0;
-		} 
-		
+		}
+
 		int eatTimer = this.getEatTimer();
-		float val =  eatTimer <= 0 ? 0.0F : eatTimer >= 4 && eatTimer <= 76 ? 1.0F : eatTimer < 4 ? (eatTimer - partialTicks) / 4.0F : -(eatTimer - 80 - partialTicks) / 4.0F;
+		float val = eatTimer <= 0 ? 0.0F : eatTimer >= 4 && eatTimer <= 76 ? 1.0F : eatTimer < 4 ? (eatTimer - partialTicks) / 4.0F : -(eatTimer - 80 - partialTicks) / 4.0F;
 		return val;
 	}
-	
+
 	default float getHeadAngleX(float partialTicks)
 	{
-		if (((Entity)this).isBeingRidden()) {
+		if (((Entity) this).isBeingRidden())
+		{
 			return 0;
-		} 
-		
+		}
+
 		int eatTimer = this.getEatTimer();
 		if (eatTimer > 4 && eatTimer <= 76)
 		{
 			float f = (eatTimer - 4 - partialTicks) / 24.0F;
 			return (float) Math.PI / 5F + (float) Math.PI * 7F / 150F * MathHelper.sin(f * 28.7F);
 		} else
-			return eatTimer > 0 ? (float) Math.PI / 5F : ((Entity)this).rotationPitch * 0.017453292F;
+			return eatTimer > 0 ? (float) Math.PI / 5F : ((Entity) this).rotationPitch * 0.017453292F;
 	}
 
-	public Set<Item> getFoodItems();
+	public Set<ItemStack> getFoodItems();
 
 	default Fluid[] getFoodFluids()
 	{

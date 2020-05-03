@@ -2,14 +2,15 @@ package com.animania.common.tileentities;
 
 import javax.annotation.Nullable;
 
+import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
-import com.animania.common.entities.chickens.ChickenType;
-import com.animania.common.entities.peacocks.PeacockType;
-import com.animania.common.handler.ItemHandler;
+import com.animania.common.handler.AddonHandler;
+import com.animania.common.handler.AnimalTypeHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.handler.ItemHandlerNest;
 
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -60,27 +61,22 @@ public class TileEntityNest extends TileEntity implements ITickable
 		super.readFromNBT(compound);
 		this.itemHandler = new ItemHandlerNest(this);
 		this.itemHandler.deserializeNBT(compound.getCompoundTag("items"));
-		try
+		
+		if(AddonHandler.isAddonLoaded("farm"))
 		{
-			ChickenType ct = ChickenType.valueOf(compound.getString("birdType"));
-			this.birdType = ct;
+			AnimaniaType type = AnimalTypeHandler.getType(Animania.MODID + ":chicken", compound.getString("birdType"));
+			if(type != null)
+				this.birdType = type;
 		}
-		catch (Exception e)
+		
+		if(AddonHandler.isAddonLoaded("extra"))
 		{
+			AnimaniaType type = AnimalTypeHandler.getType(Animania.MODID + ":peacock", compound.getString("birdType"));
+			if(type != null)
+				this.birdType = type;
 		}
-
-		try
-		{
-			PeacockType pt = PeacockType.valueOf(compound.getString("birdType"));
-			this.birdType = pt;
-		}
-		catch (Exception e)
-		{
-		}
+		
 	}
-	
-
-
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
@@ -119,16 +115,12 @@ public class TileEntityNest extends TileEntity implements ITickable
 				oldItemCount = count;
 			}
 
-			if (stack.getItem() == Items.EGG && this.nestContent != NestContent.CHICKEN_WHITE)
-				this.nestContent = NestContent.CHICKEN_WHITE;
-			else if (stack.getItem() == ItemHandler.brownEgg && this.nestContent != NestContent.CHICKEN_BROWN)
-				this.nestContent = NestContent.CHICKEN_BROWN;
-			else if (stack.getItem() == ItemHandler.peacockEggBlue && this.nestContent != NestContent.PEACOCK_BLUE)
-				this.nestContent = NestContent.PEACOCK_BLUE;
-			else if (stack.getItem() == ItemHandler.peacockEggWhite && this.nestContent != NestContent.PEACOCK_WHITE)
-				this.nestContent = NestContent.PEACOCK_WHITE;
-		}
-		else if (this.nestContent != NestContent.EMPTY)
+			for (NestContent c : NestContent.values())
+			{
+				if (stack.getItem() == c.item && this.nestContent != c)
+					this.nestContent = c;
+			}
+		} else if (this.nestContent != NestContent.EMPTY)
 		{
 			this.nestContent = NestContent.EMPTY;
 			this.birdType = null;
@@ -162,7 +154,6 @@ public class TileEntityNest extends TileEntity implements ITickable
 		this.itemHandler.setStackInSlot(0, copy);
 	}
 
-
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
 	{
@@ -188,14 +179,27 @@ public class TileEntityNest extends TileEntity implements ITickable
 		AnimaniaHelper.sendTileEntityUpdate(this);
 	}
 
-
 	public static enum NestContent
 	{
-		EMPTY,
-		CHICKEN_WHITE,
-		CHICKEN_BROWN,
-		PEACOCK_WHITE,
-		PEACOCK_BLUE;
+		EMPTY(Items.AIR), 
+		CHICKEN_WHITE(Items.EGG), 
+		CHICKEN_BROWN(Item.getByNameOrId(Animania.MODID + ":brown_egg")), 
+		PEACOCK_WHITE(Item.getByNameOrId(Animania.MODID + ":peacock_egg_white")), 
+		PEACOCK_BLUE(Item.getByNameOrId(Animania.MODID + ":peacock_egg_blue"));
+
+		private Item item;
+
+		private NestContent(Item item)
+		{
+			if (item == null)
+				item = Items.AIR;
+			this.item = item;
+		}
+
+		public Item getItem()
+		{
+			return item;
+		}
 	}
 
 }

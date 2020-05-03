@@ -1,0 +1,18 @@
+{
+  "name" : "advancements.animania.charcoal.title",
+  "contents" : [
+    "@link@animania:manual/extra/entities/peafowl/peafowl.json#← advancements.animania.peafowl.title",
+    "§ladvancements.animania.charcoal.title",
+    "@entity@animania:peacock_charcoal,animania:peahen_charcoal,animania:peachick_charcoal",
+    "advancements.animania.charcoal.title",
+    "@text@manual.peafowl.normal.1#prevline",
+    "@loottable@animania:peacocks/peacock_charcoal",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.peafowl.malefeathers",
+    " ",
+    "manual.biometypes",
+    "@config@general.extra.spawning_and_breeding;peafowlCharcoalBiomeTypes"
+  ]
+}

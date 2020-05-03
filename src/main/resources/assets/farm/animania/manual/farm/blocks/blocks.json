@@ -1,0 +1,11 @@
+{
+  "name" : "manual.blocks.blocks.title",
+  "contents" : [
+    "@link@animania:manual/farm/farm.json#← manual.farm",
+    "§lmanual.blocks.blocks.title",
+    " ",
+    "@link@animania:manual/farm/blocks/bee_hive.json#- tile.animania_block_hive.name",
+    "@link@animania:manual/farm/blocks/cheese_mold.json#- tile.animania_cheese_mold.name",
+    "@link@animania:manual/farm/blocks/wool.json#- tile.cloth.name"
+  ]
+}

@@ -10,7 +10,6 @@ import com.animania.common.tileentities.handler.FluidHandlerTrough;
 import com.animania.common.tileentities.handler.ItemHandlerTrough;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -31,13 +30,13 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 
 	public ItemHandlerTrough itemHandler;
 	public FluidHandlerTrough fluidHandler;
-	
+
 	private int oldItemCount = 0;
 	private int oldFluidCount = 0;
 
 	public TileEntityTrough()
 	{
-		
+
 		this.itemHandler = new ItemHandlerTrough();
 		this.fluidHandler = new FluidHandlerTrough(1000);
 	}
@@ -76,35 +75,34 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 		if (!stack.isEmpty())
 		{
 			int count = stack.getCount();
-			
-			if(count != oldItemCount)
+
+			if (count != oldItemCount)
 			{
 				this.markDirty();
 				oldItemCount = count;
 			}
-			
+
 			if (count == 0 && fluid == null && this.troughType != TroughContent.EMPTY)
 				this.setTroughType(TroughContent.EMPTY);
 			else if (count >= 1 && this.troughType != TroughContent.FOOD)
 				this.setTroughType(TroughContent.FOOD);
-			
-				
+
 		} else if (fluid != null)
 		{
-			if(this.troughType != TroughContent.LIQUID)
+			if (this.troughType != TroughContent.LIQUID)
 				this.setTroughType(TroughContent.LIQUID);
-		
-			if(fluid.amount != oldFluidCount)
+
+			if (fluid.amount != oldFluidCount)
 			{
 				this.markDirty();
 				oldFluidCount = fluid.amount;
 			}
-			
+
 		} else if (this.troughType != TroughContent.EMPTY)
 			this.setTroughType(TroughContent.EMPTY);
 
 	}
-	
+
 	public void setTroughType(TroughContent type)
 	{
 		this.troughType = type;
@@ -112,7 +110,6 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 		this.world.notifyBlockUpdate(this.pos, this.world.getBlockState(this.pos), this.world.getBlockState(this.pos), 2);
 	}
 
-	
 	public TroughContent getTroughContent()
 	{
 		return this.troughType;
@@ -186,86 +183,83 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 		return super.getCapability(capability, facing);
 
 	}
-	
+
 	@Override
 	public void markDirty()
 	{
 		super.markDirty();
-		
+
 		AnimaniaHelper.sendTileEntityUpdate(this);
 	}
-	
+
 	@Override
-	public boolean canConsume(@Nullable Set<Item> fooditems, @Nullable Fluid[] fluid)
+	public boolean canConsume(@Nullable Set<ItemStack> fooditems, @Nullable Fluid[] fluid)
 	{
-		if(fluid == null)
+		if (fluid == null)
 			return canConsume(null, fooditems);
 		else
 		{
 			boolean canConsumeAny = false;
-			for(Fluid f : fluid)
+			for (Fluid f : fluid)
 			{
 				boolean consume = canConsume(new FluidStack(f, 0), fooditems);
-				if(consume)
+				if (consume)
 					canConsumeAny = true;
 			}
-			
+
 			return canConsumeAny;
-		}		
+		}
 	}
-	
+
 	@Override
-	public boolean canConsume(@Nullable FluidStack fluid, @Nullable Set<Item> fooditems)
+	public boolean canConsume(@Nullable FluidStack fluid, @Nullable Set<ItemStack> fooditems)
 	{
-		if(fooditems != null && !this.itemHandler.getStackInSlot(0).isEmpty())
+		if (fooditems != null && !this.itemHandler.getStackInSlot(0).isEmpty())
 		{
 			ItemStack stack = this.itemHandler.getStackInSlot(0);
-			return fooditems.contains(stack.getItem());
+			return AnimaniaHelper.containsItemStack(fooditems, stack);
 		}
-		
-		if(fluid != null && this.fluidHandler.getFluid() != null && fluid.getFluid() == this.fluidHandler.getFluid().getFluid())
+
+		if (fluid != null && this.fluidHandler.getFluid() != null && fluid.getFluid() == this.fluidHandler.getFluid().getFluid())
 		{
 			FluidStack fluidstack = this.fluidHandler.getFluid();
 			return fluidstack.getFluid() == fluid.getFluid() && fluidstack.amount >= fluid.amount;
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public void consumeSolidOrLiquid(int liquidAmount, int itemAmount)
 	{
-		if(!this.itemHandler.getStackInSlot(0).isEmpty())
+		if (!this.itemHandler.getStackInSlot(0).isEmpty())
 		{
 			this.consumeSolid(itemAmount);
 			return;
 		}
-		
-		if(this.fluidHandler.getFluid() != null)
+
+		if (this.fluidHandler.getFluid() != null)
 		{
 			this.consumeLiquid(liquidAmount);
 			return;
 		}
 	}
-	
+
 	@Override
 	public void consumeSolid(int amount)
 	{
 		this.itemHandler.getStackInSlot(0).shrink(amount);
 	}
-	
+
 	@Override
 	public void consumeLiquid(int amount)
 	{
 		this.fluidHandler.drain(amount, true);
 	}
-	
+
 	public static enum TroughContent
 	{
-		EMPTY,
-		LIQUID,
-		FOOD,
+		EMPTY, LIQUID, FOOD,
 	}
-	
 
 }

@@ -3,6 +3,7 @@ package com.animania.common.creativeTab;
 import com.animania.common.handler.ItemHandler;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 
@@ -19,7 +20,7 @@ public final class TabAnimaniaEntities extends CreativeTabs
 
     @Override
     public ItemStack getTabIconItem() {
-        return new ItemStack(ItemHandler.entityeggrandomchicken, 1);
+        return new ItemStack(ItemHandler.entityEggList.isEmpty() ? Items.EGG : ItemHandler.entityEggList.get(0), 1);
     }
 
 }

@@ -1,0 +1,19 @@
+{
+  "name" : "manual.ferrets",
+  "contents" : [
+    "@link@animania:manual/extra/entities/pets/pets.json#← manual.pets",
+    "§lmanual.ferrets",
+    "manual.ferrets.1",
+    "@entity@animania:ferret_grey",
+    "@entity@animania:ferret_white",
+    " ",
+    "manual.biometypes",
+    "@config@general.extra.spawning_and_breeding;ferretGrayBiomeTypes",
+    " ",
+    "manual.ferrets.2",
+    "@configitem@general.careandfeeding;ferretFood",
+    "manual.pets.pickup",
+     " ",
+    "@text@manual.pets.sit"
+  ]
+}

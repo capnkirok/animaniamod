@@ -1,0 +1,18 @@
+{
+  "name" : "advancements.animania.chickens.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/entities.json#← manual.entities.entities.title",
+    "§ladvancements.animania.chickens.title",
+    " ",
+    "@link@animania:manual/farm/entities/chickens/leghorn.json#- advancements.animania.leghorn.title",
+    "@link@animania:manual/farm/entities/chickens/orpington.json#- advancements.animania.orpington.title",
+    "@link@animania:manual/farm/entities/chickens/plymouth_rock.json#- advancements.animania.plymouth_rock.title",
+    "@link@animania:manual/farm/entities/chickens/rhode_island_red.json#- advancements.animania.rhode_island_red.title",
+    "@link@animania:manual/farm/entities/chickens/wyandotte.json#- advancements.animania.wyandotte.title",
+    " ",
+    "manual.chickens.general.1",
+    "@configitem@general.careandfeeding;chickenFood",
+    " ",
+    "manual.chickens.general.2"
+  ]
+}

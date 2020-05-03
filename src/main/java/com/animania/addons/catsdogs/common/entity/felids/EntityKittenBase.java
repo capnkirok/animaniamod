@@ -2,23 +2,17 @@ package com.animania.addons.catsdogs.common.entity.felids;
 
 import java.util.UUID;
 
-import javax.annotation.Nullable;
-
-import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
-import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.google.common.base.Optional;
 
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;

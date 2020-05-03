@@ -1,37 +1,25 @@
 package com.animania.addons.catsdogs.common.entity.felids;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Nullable;
-
-import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIMate;
-import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.google.common.base.Optional;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
@@ -41,12 +29,12 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	public EntityTomBase(World worldIn)
 	{
 		super(worldIn);
-		this.setSize(1.0F, 1.0F); 
+		this.setSize(1.0F, 1.0F);
 		this.width = 1.0F;
 		this.height = 1.0F;
 		this.stepHeight = 1.1F;
 		this.gender = EntityGender.MALE;
-		
+
 		if (!getSterilized())
 			this.tasks.addTask(8, new GenericAIMate<EntityTomBase, EntityQueenBase>(this, 1.0D, EntityQueenBase.class, EntityKittenBase.class, EntityAnimaniaCat.class));
 	}
@@ -96,14 +84,8 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	public void onLivingUpdate()
 	{
 		GenericBehavior.livingUpdateMateable(this, EntityQueenBase.class);
-		
-		super.onLivingUpdate();
-	}
 
-	@Override
-	public boolean isBreedingItem(@Nullable ItemStack stack)
-	{
-		return stack != ItemStack.EMPTY && (TEMPTATION_ITEMS.contains(stack.getItem()));
+		super.onLivingUpdate();
 	}
 
 	@Override
@@ -111,10 +93,6 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	{
 		return STERILIZED;
 	}
-	
-	
-	
-	
 
 	@Override
 	public void sterilize()

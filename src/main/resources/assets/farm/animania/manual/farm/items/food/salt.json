@@ -1,0 +1,11 @@
+{
+  "name" : "item.animania_salt.name",
+  "contents" : [
+    "@link@animania:manual/farm/items/food.json#← manual.items.food.title",
+    "§litem.animania_salt.name",
+    " ",
+    "manual.food.salt.1",
+    "@link@animania:manual/farm/blocks/cheese_mold.json#tile.animania_cheese_mold.name#prevline",
+    "@text@manual.food.salt.2#prevline"
+  ]
+}

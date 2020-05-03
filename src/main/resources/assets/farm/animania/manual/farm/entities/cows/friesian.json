@@ -1,0 +1,15 @@
+{
+  "name" : "advancements.animania.friesian.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/cows/cows.json#← advancements.animania.cows.title",
+    "§ladvancements.animania.friesian.title",
+    "@entity@animania:bull_friesian,animania:cow_friesian,animania:calf_friesian",
+    "advancements.animania.friesian.title",
+    "@text@manual.cows.milk.1#prevline",
+    "@loottable@animania:cow_regular",
+    "manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;cowFriesianBiomeTypes"
+  ]
+}

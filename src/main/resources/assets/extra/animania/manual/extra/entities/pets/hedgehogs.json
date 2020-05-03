@@ -1,0 +1,20 @@
+{
+  "name" : "manual.hedgehogs",
+  "contents" : [
+    "@link@animania:manual/extra/entities/pets/pets.json#← manual.pets",
+    "§lmanual.hedgehogs",
+    "manual.hedgehogs.1",
+    "@entity@animania:hedgehog",
+    "@entity@animania:hedgehog_albino",
+    " ",
+    "manual.biometypes",
+    "@config@general.extra.spawning_and_breeding;hedgehogBiomeTypes",
+    " ",
+    "manual.ferrets.2",
+    "@configitem@general.careandfeeding;hedgehogFood",
+    "manual.pets.pickup",
+    "@text@manual.hedgehogs.2#prevline",
+     " ",
+    "@text@manual.pets.sit"
+  ]
+}

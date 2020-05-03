@@ -1,0 +1,20 @@
+{
+  "name" : "advancements.animania.cows.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/entities.json#← manual.entities.entities.title",
+    "§ladvancements.animania.cows.title",
+    " ",
+    "@link@animania:manual/farm/entities/cows/angus.json#- advancements.animania.angus.title",
+    "@link@animania:manual/farm/entities/cows/friesian.json#- advancements.animania.friesian.title",
+    "@link@animania:manual/farm/entities/cows/hereford.json#- advancements.animania.hereford.title",
+    "@link@animania:manual/farm/entities/cows/highland.json#- advancements.animania.highland.title",
+    "@link@animania:manual/farm/entities/cows/holstein.json#- advancements.animania.holstein.title",
+    "@link@animania:manual/farm/entities/cows/jersey.json#- advancements.animania.jersey.title",
+    "@link@animania:manual/farm/entities/cows/longhorn.json#- advancements.animania.longhorn.title",
+    "@link@animania:manual/farm/entities/cows/mooshroom.json#- advancements.animania.mooshroom.title",
+    " ",
+    "manual.cows.general.1",
+    "@configitem@general.careandfeeding;cowFood",
+    "manual.cows.general.2"
+  ]
+}

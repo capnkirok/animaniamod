@@ -9,7 +9,33 @@
       },
 	  [
 		{
-			"item": "#ANY_MILK"
+			"type" : "animania:addon_item",
+			"addon" : "farm",
+			"item": [
+				{
+					"type": "animania:filled_bucket",
+					"fluid": "milk_holstein"
+				},
+				{
+					"type": "animania:filled_bucket",
+					"fluid": "milk_friesian"
+				},
+				{
+					"type": "animania:filled_bucket",
+					"fluid": "milk_sheep"
+				},
+				{
+					"type": "animania:filled_bucket",
+					"fluid": "milk_goat"
+				},
+				{
+					"type": "animania:filled_bucket",
+					"fluid": "milk_jersey"
+				}
+			],
+			"fallback": { 
+				"item" : "minecraft:milk_bucket"
+			}
 		},
 		{
 			"item": "minecraft:milk_bucket"

@@ -1,0 +1,13 @@
+{
+  "name" : "manual.farm",
+  "contents" : [
+    "@link@animania:manual/addons.json#← manual.addons",
+    "§lmanual.farm",
+    " ",
+	"@link@animania:manual/farm/entities/entities.json#- manual.entities.entities.title",
+    "@link@animania:manual/farm/blocks/blocks.json#- manual.blocks.blocks.title",
+    "@link@animania:manual/farm/entities/equipment.json#- manual.equipment.title",
+    "@link@animania:manual/farm/items/food.json#- manual.items.food.title",
+    "@link@animania:manual/farm/items/items.json#- manual.items.items.title"
+  ]
+}

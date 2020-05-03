@@ -1,0 +1,17 @@
+{
+  "name" : "manual.items.food.title",
+  "contents" : [
+    "@link@animania:manual/farm/farm.json#← manual.farm",
+    "§lmanual.items.food.title",
+    " ",
+    "@link@animania:manual/farm/items/food/cheese.json#- manual.cheese",
+    "@link@animania:manual/farm/items/food/eggs.json#- manual.eggs",
+    "@link@animania:manual/farm/items/food/honey.json#- fluid.animania_honey",
+    "@link@animania:manual/farm/items/food/meats.json#- manual.meats",
+    "@link@animania:manual/farm/items/food/milk.json#- manual.milk",
+    "@link@animania:manual/farm/items/food/omelettes.json#- manual.omelettes",
+    "@link@animania:manual/farm/items/food/salt.json#- item.animania_salt.name",
+    "@link@animania:manual/farm/items/food/truffles.json#- manual.truffles"
+   
+  ]
+}

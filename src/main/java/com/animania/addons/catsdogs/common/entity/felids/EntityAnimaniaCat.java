@@ -2,15 +2,20 @@ package com.animania.addons.catsdogs.common.entity.felids;
 
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import com.animania.addons.catsdogs.common.entity.generic.ai.GenericAISitIdle;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
+import com.animania.addons.extra.common.entity.amphibians.EntityFrogs;
+import com.animania.addons.extra.common.entity.amphibians.EntityToad;
+import com.animania.addons.extra.common.entity.peafowl.EntityPeachickBase;
+import com.animania.addons.extra.common.entity.rodents.EntityFerretBase;
+import com.animania.addons.extra.common.entity.rodents.EntityHamster;
+import com.animania.addons.farm.common.entity.chickens.EntityChickBase;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
-import com.animania.common.entities.amphibians.EntityFrogs;
-import com.animania.common.entities.amphibians.EntityToad;
-import com.animania.common.entities.chickens.EntityChickBase;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
@@ -24,9 +29,6 @@ import com.animania.common.entities.generic.ai.GenericAITargetNonTamed;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
-import com.animania.common.entities.peacocks.EntityPeachickBase;
-import com.animania.common.entities.rodents.EntityFerretBase;
-import com.animania.common.entities.rodents.EntityHamster;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -62,16 +64,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimalBase
 {
 
-	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
-//	protected static final DataParameter<Boolean> TAMED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
-//	protected static final DataParameter<Boolean> SITTING = EntityDataManager.<Boolean>createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAnimaniaCat.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float>createKey(EntityAnimaniaCat.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean>createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
-	public static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemArray(CatsDogsConfig.catsdogs.catFood));
+	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean> createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
+	// protected static final DataParameter<Boolean> TAMED =
+	// EntityDataManager.<Boolean>createKey(EntityAnimaniaCat.class,
+	// DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
+	// protected static final DataParameter<Boolean> SITTING =
+	// EntityDataManager.<Boolean>createKey(EntityAnimaniaCat.class,
+	// DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaCat.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaCat.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
+	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(CatsDogsConfig.catsdogs.catFood));
 
 	protected int fedTimer;
 	protected int wateredTimer;
@@ -94,7 +100,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		this.enablePersistence();
 		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaCat>(this, false);
 		this.tasks.addTask(11, this.entityAIEatGrass);
-		
+
 		this.initAI();
 	}
 
@@ -126,13 +132,12 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntityFerretBase || entity instanceof EntityHamster || entity instanceof EntityChickBase || entity instanceof EntityPeachickBase || entity instanceof EntitySilverfish || entity instanceof EntityFrogs || entity instanceof EntityToad));
 		}
 	}
-	
+
 	@Override
 	protected void initEntityAI()
-    {
-    }
-	
-	
+	{
+	}
+
 	@Override
 	protected void applyEntityAttributes()
 	{
@@ -148,8 +153,8 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		super.entityInit();
 		this.dataManager.register(FED, true);
 		this.dataManager.register(WATERED, true);
-//		this.dataManager.register(TAMED, false);
-//		this.dataManager.register(SITTING, false);
+		// this.dataManager.register(TAMED, false);
+		// this.dataManager.register(SITTING, false);
 		this.dataManager.register(SLEEPING, false);
 		this.dataManager.register(HANDFED, false);
 		this.dataManager.register(AGE, Integer.valueOf(0));
@@ -163,7 +168,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("IsTamed", this.isTamed());
 		compound.setBoolean("IsSitting", this.isSitting());
-		
+
 		GenericBehavior.writeCommonNBT(compound, this);
 	}
 
@@ -173,7 +178,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		super.readEntityFromNBT(compound);
 		this.setTamed(compound.getBoolean("IsTamed"));
 		this.setSitting(compound.getBoolean("IsSitting"));
-		
+
 		GenericBehavior.readCommonNBT(compound, this);
 	}
 
@@ -245,9 +250,9 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	}
 
 	@Override
-	public boolean isBreedingItem(ItemStack stack)
+	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
-		return TEMPTATION_ITEMS.contains(stack.getItem());
+		return stack != ItemStack.EMPTY && AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, stack);
 	}
 
 	@Override
@@ -336,7 +341,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	}
 
 	@Override
-	public Set<Item> getFoodItems()
+	public Set<ItemStack> getFoodItems()
 	{
 		return TEMPTATION_ITEMS;
 	}
@@ -371,14 +376,12 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		return null;
 	}
 
-	
-
 	@Override
 	public int getBlinkTimer()
 	{
 		return this.blinkTimer;
 	}
-	
+
 	@Override
 	public int getEatTimer()
 	{
@@ -402,7 +405,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	{
 		fedTimer = i;
 	}
-	
+
 	@Override
 	public DataParameter<Boolean> getInteractedParam()
 	{
@@ -432,13 +435,13 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	{
 		damageTimer = i;
 	}
-	
+
 	@Override
 	public int getHappyTimer()
 	{
 		return happyTimer;
 	}
-	
+
 	@Override
 	public void setHappyTimer(int i)
 	{
@@ -450,7 +453,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	{
 		this.blinkTimer = i;
 	}
-	
+
 	@Override
 	public AnimaniaType getAnimalType()
 	{

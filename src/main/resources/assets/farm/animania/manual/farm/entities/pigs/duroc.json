@@ -1,0 +1,16 @@
+{
+  "name" : "advancements.animania.duroc.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/pigs/pigs.json#← advancements.animania.pigs.title",
+    "§ladvancements.animania.duroc.title",
+    "@entity@animania:hog_duroc,animania:sow_duroc,animania:piglet_duroc",
+    "advancements.animania.duroc.title",
+    "@text@manual.pigs.meat.1#prevline",
+    "@loottable@animania:pig_prime",
+     " ",
+    "@text@manual.pigs.meat.3",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;pigDurocBiomeTypes"
+  ]
+}

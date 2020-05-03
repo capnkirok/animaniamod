@@ -1,0 +1,9 @@
+{
+  "name" : "manual.blocks.blocks.title",
+  "contents" : [
+    "@link@animania:manual/extra/extra.json#← manual.extra",
+    "§lmanual.blocks.blocks.title",
+    " ",
+    "@link@animania:manual/extra/blocks/hamster_wheel.json#- tile.animania_block_hamster_wheel.name" 
+  ]
+}

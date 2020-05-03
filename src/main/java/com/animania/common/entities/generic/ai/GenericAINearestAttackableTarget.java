@@ -7,9 +7,6 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.animania.api.interfaces.ISleeping;
-import com.animania.common.entities.rodents.EntityFerretBase;
-import com.animania.common.entities.rodents.EntityHamster;
-import com.animania.common.entities.rodents.EntityHedgehogBase;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
@@ -55,22 +52,16 @@ public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extend
 		this.targetChance = chance;
 		this.sorter = new GenericAINearestAttackableTarget.Sorter(creature);
 		this.setMutexBits(1);
-		this.targetEntitySelector = new Predicate<T>()
-		{
-			public boolean apply(@Nullable T p_apply_1_)
+		this.targetEntitySelector = (@Nullable T p_apply_1_) -> {
+			if (p_apply_1_ == null)
 			{
-				if (p_apply_1_ == null)
-				{
-					return false;
-				}
-				else if (targetSelector != null && !targetSelector.apply(p_apply_1_))
-				{
-					return false;
-				}
-				else
-				{
-					return !EntitySelectors.NOT_SPECTATING.apply(p_apply_1_) ? false : GenericAINearestAttackableTarget.this.isSuitableTarget(p_apply_1_, false);
-				}
+				return false;
+			} else if (targetSelector != null && !targetSelector.apply(p_apply_1_))
+			{
+				return false;
+			} else
+			{
+				return !EntitySelectors.NOT_SPECTATING.apply(p_apply_1_) ? false : GenericAINearestAttackableTarget.this.isSuitableTarget(p_apply_1_, false);
 			}
 		};
 	}
@@ -78,6 +69,7 @@ public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extend
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
+	@Override
 	public boolean shouldExecute()
 	{
 
@@ -89,27 +81,9 @@ public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extend
 			if (((EntityTameable) this.taskOwner).isSitting())
 				return false;
 
-		if (this.taskOwner instanceof EntityHedgehogBase)
+		if (this.taskOwner instanceof ISleeping)
 		{
-			EntityHedgehogBase entity = (EntityHedgehogBase) this.taskOwner;
-			if (entity.getSleeping())
-			{
-				return false;
-			}
-		}
-
-		if (this.taskOwner instanceof EntityFerretBase)
-		{
-			EntityFerretBase entity = (EntityFerretBase) this.taskOwner;
-			if (entity.getSleeping())
-			{
-				return false;
-			}
-		}
-
-		if (this.taskOwner instanceof EntityHamster)
-		{
-			EntityHamster entity = (EntityHamster) this.taskOwner;
+			ISleeping entity = (ISleeping) this.taskOwner;
 			if (entity.getSleeping())
 			{
 				return false;
@@ -119,26 +93,23 @@ public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extend
 		if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0)
 		{
 			return false;
-		}
-		else if (this.targetClass != EntityPlayer.class && this.targetClass != EntityPlayerMP.class)
+		} else if (this.targetClass != EntityPlayer.class && this.targetClass != EntityPlayerMP.class)
 		{
-			List<T> list = this.taskOwner.world.<T>getEntitiesWithinAABB(this.targetClass, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
+			List<T> list = this.taskOwner.world.<T> getEntitiesWithinAABB(this.targetClass, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
 
 			if (list.isEmpty())
 			{
 				return false;
-			}
-			else
+			} else
 			{
 				Collections.sort(list, this.sorter);
 				this.targetEntity = list.get(0);
 				return true;
 			}
-		}
-		else
+		} else
 		{
-			this.targetEntity = (T) this.taskOwner.world.getNearestAttackablePlayer(this.taskOwner.posX, this.taskOwner.posY + (double) this.taskOwner.getEyeHeight(), this.taskOwner.posZ, this.getTargetDistance(), this.getTargetDistance(), new Function<EntityPlayer, Double>()
-			{
+			this.targetEntity = (T) this.taskOwner.world.getNearestAttackablePlayer(this.taskOwner.posX, this.taskOwner.posY + this.taskOwner.getEyeHeight(), this.taskOwner.posZ, this.getTargetDistance(), this.getTargetDistance(), new Function<EntityPlayer, Double>() {
+				@Override
 				@Nullable
 				public Double apply(@Nullable EntityPlayer p_apply_1_)
 				{
@@ -172,6 +143,7 @@ public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extend
 	/**
 	 * Execute a one shot task or start executing a continuous task
 	 */
+	@Override
 	public void startExecuting()
 	{
 		this.taskOwner.setAttackTarget(this.targetEntity);
@@ -187,6 +159,7 @@ public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extend
 			this.entity = entityIn;
 		}
 
+		@Override
 		public int compare(Entity p_compare_1_, Entity p_compare_2_)
 		{
 			double d0 = this.entity.getDistanceSq(p_compare_1_);
@@ -195,8 +168,7 @@ public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extend
 			if (d0 < d1)
 			{
 				return -1;
-			}
-			else
+			} else
 			{
 				return d0 > d1 ? 1 : 0;
 			}

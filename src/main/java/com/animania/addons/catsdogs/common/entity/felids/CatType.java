@@ -132,5 +132,11 @@ public enum CatType implements AnimaniaType
 	{
 		return Animania.RANDOM.nextBoolean() ? male : female;
 	}
+	
+	@Override
+	public String getTypeName()
+	{
+		return Animania.MODID + ":cat";
+	}
 
 }

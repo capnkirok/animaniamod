@@ -1,0 +1,16 @@
+{
+  "name" : "advancements.animania.leghorn.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/chickens/chickens.json#← advancements.animania.chickens.title",
+    "§ladvancements.animania.leghorn.title",
+    "@entity@animania:rooster_leghorn,animania:hen_leghorn,animania:chick_leghorn",
+    "advancements.animania.leghorn.title",
+    "@text@manual.chickens.normal.1#prevline",
+    "@loottable@animania:chicken_regular",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;chickenLeghornBiomeTypes"
+  ]
+}

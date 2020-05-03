@@ -1,0 +1,15 @@
+{
+  "name" : "advancements.animania.jersey.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/cows/cows.json#← advancements.animania.cows.title",
+    "§ladvancements.animania.jersey.title",
+    "@entity@animania:bull_jersey,animania:cow_jersey,animania:calf_jersey",
+    "advancements.animania.jersey.title",
+    "@text@manual.cows.jersey.1#prevline",
+    "@loottable@animania:cow_prime",
+    "manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;cowJerseyBiomeTypes"
+  ]
+}

@@ -16,13 +16,11 @@ import com.google.gson.GsonBuilder;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class RecipeHandler
 {
@@ -35,39 +33,7 @@ public class RecipeHandler
 	public static void init()
 	{
 		ItemStack slopBucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
-		ItemStack milkHolstein = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein);
-		ItemStack milkFriesian = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian);
-		ItemStack milkGoat = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat);
-		ItemStack milkSheep = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep);
-
-
-		// Smelting Recipes
-
-		GameRegistry.addSmelting(ItemHandler.rawPrimeBeef, new ItemStack(ItemHandler.cookedPrimeBeef, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.rawPrimeSteak, new ItemStack(ItemHandler.cookedPrimeSteak, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.rawPrimePork, new ItemStack(ItemHandler.cookedPrimePork, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.rawPrimeBacon, new ItemStack(ItemHandler.cookedPrimeBacon, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.rawPrimeChicken, new ItemStack(ItemHandler.cookedPrimeChicken, 1), .3F);
-
-		GameRegistry.addSmelting(ItemHandler.rawFrogLegs, new ItemStack(ItemHandler.cookedFrogLegs, 1), .3F);
-
-		GameRegistry.addSmelting(Items.EGG, new ItemStack(ItemHandler.plainOmelette, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.brownEgg, new ItemStack(ItemHandler.plainOmelette, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.peacockEggBlue, new ItemStack(ItemHandler.plainOmelette, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.peacockEggWhite, new ItemStack(ItemHandler.plainOmelette, 1), .3F);
-		
-		GameRegistry.addSmelting(ItemHandler.rawPrimeRabbit, new ItemStack(ItemHandler.cookedPrimeRabbit, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.rawPrimeMutton, new ItemStack(ItemHandler.cookedPrimeMutton, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.rawChevon, new ItemStack(ItemHandler.cookedChevon, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.rawPrimeChevon, new ItemStack(ItemHandler.cookedPrimeChevon, 1), .3F);
-		
-		GameRegistry.addSmelting(ItemHandler.rawHorse, new ItemStack(ItemHandler.cookedHorse, 1), .3F);
-
-		GameRegistry.addSmelting(ItemHandler.rawPeacock, new ItemStack(ItemHandler.cookedPeacock, 1), .3F);
-		GameRegistry.addSmelting(ItemHandler.rawPrimePeacock, new ItemStack(ItemHandler.cookedPrimePeacock, 1), .3F);
-		
 	}
-
 
 	public static File getMcDir()
 	{
@@ -78,7 +44,8 @@ public class RecipeHandler
 		return Minecraft.getMinecraft().mcDataDir;
 	}
 
-	public static void addShapedRecipe(ItemStack result, Object... components) {
+	public static void addShapedRecipe(ItemStack result, Object... components)
+	{
 
 		setupDir();
 
@@ -86,7 +53,8 @@ public class RecipeHandler
 
 		List<String> pattern = new ArrayList<>();
 		int i = 0;
-		while (i < components.length && components[i] instanceof String) {
+		while (i < components.length && components[i] instanceof String)
+		{
 			pattern.add((String) components[i]);
 			i++;
 		}
@@ -95,13 +63,16 @@ public class RecipeHandler
 		boolean isOreDict = false;
 		Map<String, Map<String, Object>> key = new HashMap<>();
 		Character curKey = null;
-		for (; i < components.length; i++) {
+		for (; i < components.length; i++)
+		{
 			Object o = components[i];
-			if (o instanceof Character) {
+			if (o instanceof Character)
+			{
 				if (curKey != null)
 					throw new IllegalArgumentException("Provided two char keys in a row");
 				curKey = (Character) o;
-			} else {
+			} else
+			{
 				if (curKey == null)
 					throw new IllegalArgumentException("Providing object without a char key");
 				if (o instanceof String)
@@ -120,21 +91,24 @@ public class RecipeHandler
 		String suffix = "";
 		File f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
 
-		while (f.exists()) {
+		while (f.exists())
+		{
 			suffix += "_alt";
 			f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
 		}
 
-		try (FileWriter w = new FileWriter(f)) {
+		try (FileWriter w = new FileWriter(f))
+		{
 			GSON.toJson(json, w);
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 
 	}
 
-
-	public static void addShapelessRecipe(ItemStack result, Object... components) {
+	public static void addShapelessRecipe(ItemStack result, Object... components)
+	{
 
 		setupDir();
 
@@ -142,7 +116,8 @@ public class RecipeHandler
 
 		boolean isOreDict = false;
 		List<Map<String, Object>> ingredients = new ArrayList<>();
-		for (Object o : components) {
+		for (Object o : components)
+		{
 			if (o instanceof String)
 				isOreDict = true;
 			ingredients.add(serializeItem(o));
@@ -157,60 +132,72 @@ public class RecipeHandler
 		String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
 		File f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
 
-		while (f.exists()) {
+		while (f.exists())
+		{
 			suffix += "_alt";
 			f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
 		}
 
-
-		try (FileWriter w = new FileWriter(f)) {
+		try (FileWriter w = new FileWriter(f))
+		{
 			GSON.toJson(json, w);
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 
 	}
 
-
-	private static Map<String, Object> serializeItem(Object thing) {
-		if (thing instanceof Item) {
+	private static Map<String, Object> serializeItem(Object thing)
+	{
+		if (thing instanceof Item)
+		{
 			return serializeItem(new ItemStack((Item) thing));
 		}
-		if (thing instanceof Block) {
+		if (thing instanceof Block)
+		{
 			return serializeItem(new ItemStack((Block) thing));
 		}
-		if (thing instanceof ItemStack) {
+		if (thing instanceof ItemStack)
+		{
 			ItemStack stack = (ItemStack) thing;
 			Map<String, Object> ret = new HashMap<>();
 			ret.put("item", stack.getItem().getRegistryName().toString());
-			if (stack.getItem().getHasSubtypes() || stack.getItemDamage() != 0) {
+			if (stack.getItem().getHasSubtypes() || stack.getItemDamage() != 0)
+			{
 				ret.put("data", stack.getItemDamage());
 			}
-			if (stack.getCount() > 1) {
+			if (stack.getCount() > 1)
+			{
 				ret.put("count", stack.getCount());
 			}
 
-			if (stack.hasTagCompound()) {
+			if (stack.hasTagCompound())
+			{
 				throw new IllegalArgumentException("nbt not implemented");
 			}
 
 			return ret;
 		}
-		if (thing instanceof String) {
+		if (thing instanceof String)
+		{
 			Map<String, Object> ret = new HashMap<>();
 			USED_OD_NAMES.add((String) thing);
-			//OLD ret.put("item", "#" + ((String) thing).toUpperCase(Locale.ROOT));
+			// OLD ret.put("item", "#" + ((String)
+			// thing).toUpperCase(Locale.ROOT));
 			ret.put("type", "forge:ore_dict");
-			ret.put("ore", ((String) thing));
+			ret.put("ore", (thing));
 			return ret;
 		}
 
 		throw new IllegalArgumentException("Not a block, item, stack, or od name");
 	}
 
-	private static void generateConstants() {
+	private static void generateConstants()
+	{
 		List<Map<String, Object>> json = new ArrayList<>();
-		for (String s : USED_OD_NAMES) {
+		for (String s : USED_OD_NAMES)
+		{
 			Map<String, Object> entry = new HashMap<>();
 
 			entry.put("name", s);
@@ -219,26 +206,33 @@ public class RecipeHandler
 			json.add(entry);
 		}
 
-		try (FileWriter w = new FileWriter(new File(RECIPE_DIR, "_constants.json"))) {
+		try (FileWriter w = new FileWriter(new File(RECIPE_DIR, "_constants.json")))
+		{
 			GSON.toJson(json, w);
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	private static void setupDir() {
-		if (RECIPE_DIR == null) {
+	private static void setupDir()
+	{
+		if (RECIPE_DIR == null)
+		{
 			RECIPE_DIR = new File(getMcDir(), "../src/main/resources/assets/animania/recipes/");
 		}
 
-		if (!RECIPE_DIR.exists()) {
+		if (!RECIPE_DIR.exists())
+		{
 			RECIPE_DIR.mkdir();
 
-		} 
+		}
 	}
 
-	private static boolean checkDir() {
-		if (RECIPE_DIR == null) {
+	private static boolean checkDir()
+	{
+		if (RECIPE_DIR == null)
+		{
 			RECIPE_DIR = new File(getMcDir(), "../src/main/resources/assets/animania/recipes/");
 		}
 
@@ -246,6 +240,4 @@ public class RecipeHandler
 
 	}
 
-
 }
-

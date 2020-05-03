@@ -23,6 +23,8 @@ import net.minecraft.world.World;
 
 public abstract class GenericAISearchBlock extends EntityAIBase
 {
+	private static final boolean DEBUG_MODE = false;
+
 	protected final EntityCreature creature;
 	protected final double movementSpeed;
 	protected BlockPos destinationBlock = NO_POS;
@@ -38,7 +40,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	private boolean isDone = false;
 	private Set<BlockPos> nonValidPositions = new HashSet<BlockPos>();
 	private int blacklistTimer = 0;
-	
+
 	public static final BlockPos NO_POS = new BlockPos(-1, -1, -1);
 
 	public GenericAISearchBlock(EntityCreature creature, double speedIn, int range, boolean hasSecondary, EnumFacing... destinationOffset)
@@ -62,14 +64,18 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	/**
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
+	@Override
 	public boolean shouldExecute()
 	{
-		if(blacklistTimer > 1200)
+		blacklistTimer++;
+
+		if (blacklistTimer > 10)
 		{
 			this.nonValidPositions.clear();
 			this.blacklistTimer = 0;
+			this.seekingBlockPos = NO_POS;
 		}
-		
+
 		if (this.seekingBlockPos == NO_POS)
 			return this.searchForDestination();
 
@@ -79,6 +85,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	/**
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
+	@Override
 	public boolean shouldContinueExecuting()
 	{
 		return destinationBlock != NO_POS && seekingBlockPos != NO_POS && !isDone && (this.shouldMoveTo(this.creature.world, this.seekingBlockPos) || (this.hasSecondary ? this.shouldMoveToSecondary(world, seekingBlockPos) : false));
@@ -87,9 +94,10 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	/**
 	 * Execute a one shot task or start executing a continuous task
 	 */
+	@Override
 	public void startExecuting()
 	{
-		this.creature.getNavigator().tryMoveToXYZ((double) ((float) this.destinationBlock.getX()) + 0.5D, (double) (this.destinationBlock.getY()), (double) ((float) this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+		this.creature.getNavigator().tryMoveToXYZ((this.destinationBlock.getX()) + 0.5D, (this.destinationBlock.getY()), (this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
 		this.walkTries = 0;
 	}
 
@@ -106,10 +114,9 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	/**
 	 * Keep ticking a continuous task that has already been started
 	 */
+	@Override
 	public void updateTask()
 	{
-		this.blacklistTimer++;
-		
 		if (!shouldContinueExecuting())
 			this.resetTask();
 
@@ -126,18 +133,18 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 
 				if (isStandingStill && this.walkTries % 40 == 0)
 				{
-					this.creature.getNavigator().tryMoveToXYZ((double) ((float) this.destinationBlock.getX()) + 0.5D, (double) (this.destinationBlock.getY()), (double) ((float) this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
-					this.creature.getLookHelper().setLookPosition((double) this.seekingBlockPos.getX() + 0.5D, (double) (this.seekingBlockPos.getY()), (double) this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
+					this.creature.getNavigator().tryMoveToXYZ((this.destinationBlock.getX()) + 0.5D, (this.destinationBlock.getY()), (this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+					this.creature.getLookHelper().setLookPosition(this.seekingBlockPos.getX() + 0.5D, (this.seekingBlockPos.getY()), this.seekingBlockPos.getZ() + 0.5D, 10.0F, this.creature.getVerticalFaceSpeed());
 				}
 
 				if (isStandingStill && this.walkTries > 100)
 				{
 					this.nonValidPositions.add(seekingBlockPos);
+
 					this.resetTask();
 					this.searchForDestination();
 				}
-			}
-			else
+			} else
 			{
 				this.isAtDestination = true;
 				this.blacklistTimer = 0;
@@ -189,7 +196,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 			ySearchRange = 1;
 
 		Collections.shuffle(destinationOffset);
-		
+
 		for (int range = 0; range < this.searchRange; ++range)
 		{
 			for (int y = 0; y <= ySearchRange; y = y > 0 ? -y : 1 - y)
@@ -218,8 +225,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 										secondaryDest = blockpos1;
 										secondarySeek = blockpos1;
 									}
-								}
-								else
+								} else
 								{
 
 									for (EnumFacing facing : destinationOffset)
@@ -273,8 +279,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 			Path p = (Path) getPath.invoke(finder, startPoint, endPoint, (float) searchRange);
 
 			return p != null;
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 			return false;

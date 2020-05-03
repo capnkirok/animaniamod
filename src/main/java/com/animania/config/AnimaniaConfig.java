@@ -22,10 +22,7 @@ public class AnimaniaConfig
 {
 	@Config.LangKey("Animania")
 	public static CommonConfig.GameRules gameRules = new CommonConfig.GameRules();
-//	public static CommonConfig.Drops drops = new CommonConfig.Drops();
-	public static CommonConfig.Spawn spawn = new CommonConfig.Spawn();
-	@Config.RequiresMcRestart
-	public static CommonConfig.SpawnLocations spawnLocations = new CommonConfig.SpawnLocations();
+
 	public static CommonConfig.CareAndFeeding careAndFeeding = new CommonConfig.CareAndFeeding();
 	public static CommonConfig.FoodValues foodValues = new CommonConfig.FoodValues();
 
@@ -51,19 +48,20 @@ public class AnimaniaConfig
 			if (EventHandler.configuration == null)
 				try
 				{
-					
+
 					List<Configuration> cfgs = new ArrayList<Configuration>();
-					
+
 					final Map<String, Configuration> configsMap = (Map<String, Configuration>) ReflectionUtil.findField(ConfigManager.class, "CONFIGS").get(null);
 
-					final Stream<Map.Entry<String, Configuration>> entries = configsMap.entrySet().stream().filter(entry -> entry.getKey().substring(entry.getKey().lastIndexOf(File.separator), entry.getKey().length()-1).contains(Animania.MODID));
+					final Stream<Map.Entry<String, Configuration>> entries = configsMap.entrySet().stream().filter(entry -> entry.getKey().substring(entry.getKey().lastIndexOf(File.separator), entry.getKey().length() - 1).contains(Animania.MODID));
 
 					entries.forEach(entry -> cfgs.add(entry.getValue()));
-//					entries.ifPresent(stringConfigurationEntry -> EventHandler.configuration = stringConfigurationEntry.getValue());
-				
+					// entries.ifPresent(stringConfigurationEntry ->
+					// EventHandler.configuration =
+					// stringConfigurationEntry.getValue());
+
 					configuration = cfgs;
-				}
-				catch (Throwable throwable)
+				} catch (Throwable throwable)
 				{
 					throwable.printStackTrace();
 				}

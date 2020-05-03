@@ -14,7 +14,6 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.world.World;
 
 public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & ISleeping, O extends EntityCreature & IMateable & IFoodEating & ISleeping & IImpregnable> extends EntityAIBase

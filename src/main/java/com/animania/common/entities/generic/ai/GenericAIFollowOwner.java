@@ -5,7 +5,6 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIFollowOwner;
 import net.minecraft.entity.passive.EntityTameable;
-import net.minecraft.util.math.MathHelper;
 
 public class GenericAIFollowOwner<T extends EntityTameable & ISleeping> extends EntityAIFollowOwner
 {

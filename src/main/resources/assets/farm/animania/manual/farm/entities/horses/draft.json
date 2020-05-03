@@ -1,0 +1,13 @@
+{
+  "name" : "advancements.animania.draft.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/horses/horses.json#← manual.horses",
+    "§ladvancements.animania.draft.title",
+    "@entity@animania:stallion_draft,animania:mare_draft,animania:foal_draft",
+    "manual.horses.general.1",
+    "@loottable@animania:horse",
+     " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;draftHorseBiomeTypes"
+  ]
+}

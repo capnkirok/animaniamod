@@ -3,14 +3,10 @@ package com.animania.common.helper;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.animania.Animania;
-import com.animania.common.capabilities.CapabilityRefs;
-import com.animania.common.capabilities.ICapabilityPlayer;
-import com.animania.common.entities.props.EntityCart;
-import com.animania.common.entities.props.EntityTiller;
-import com.animania.common.entities.props.EntityWagon;
 import com.animania.config.AnimaniaConfig;
 import com.animania.network.client.TileEntitySyncPacket;
 import com.google.gson.Gson;
@@ -92,8 +88,7 @@ public class AnimaniaHelper
 			if (metaFlag)
 			{
 				stack = new ItemStack(item, 1, Integer.parseInt(metaVal));
-			}
-			else
+			} else
 			{
 				stack = new ItemStack(item, 1);
 			}
@@ -126,8 +121,7 @@ public class AnimaniaHelper
 			try
 			{
 				meta = Integer.parseInt(name.substring(name.indexOf("#")).replace("#", ""));
-			}
-			catch (Exception e)
+			} catch (Exception e)
 			{
 			}
 
@@ -196,8 +190,7 @@ public class AnimaniaHelper
 				tmp.setInteger("Damage", JsonUtils.getInt(json, "data", 0));
 
 				return new ItemStack(tmp);
-			}
-			catch (NBTException e)
+			} catch (NBTException e)
 			{
 				throw new JsonSyntaxException("Invalid NBT Entry: " + e.toString());
 			}
@@ -214,31 +207,19 @@ public class AnimaniaHelper
 
 	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
-		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
+		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
 		return list;
 	}
 
 	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, BlockPos pos)
 	{
-		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range));
+		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range));
 		return list;
 	}
 
-	public static <T extends EntityCart> List<T> getCartsInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
+	public static <T extends Entity> List<T> getEntitiesInRangeGeneric(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
-		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
-		return list;
-	}
-
-	public static <T extends EntityTiller> List<T> getTillersInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
-	{
-		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
-		return list;
-	}
-
-	public static <T extends EntityWagon> List<T> getWagonsInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
-	{
-		List<T> list = world.<T>getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
+		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
 		return list;
 	}
 
@@ -273,6 +254,16 @@ public class AnimaniaHelper
 		return result.result;
 	}
 
+	public static boolean containsItemStack(Collection<ItemStack> stacks, ItemStack toSearch)
+	{
+		for (ItemStack s : stacks)
+		{
+			if (ItemStack.areItemsEqual(s, toSearch))
+				return true;
+		}
+		return false;
+	}
+
 	public static Item[] getItemArray(String[] names)
 	{
 		ArrayList<Item> list = new ArrayList<Item>();
@@ -282,13 +273,12 @@ public class AnimaniaHelper
 			if (i != null)
 			{
 				list.add(i);
-			}
-			else
+			} else
 			{
 				NonNullList<ItemStack> stacks = OreDictionary.getOres(name);
-				if(!stacks.isEmpty())
+				if (!stacks.isEmpty())
 				{
-					for(ItemStack s : stacks)
+					for (ItemStack s : stacks)
 						list.add(s.getItem());
 				}
 			}
@@ -306,28 +296,18 @@ public class AnimaniaHelper
 			if (!i.isEmpty())
 			{
 				list.add(i);
-			}
-			else
+			} else
 			{
 				NonNullList<ItemStack> stacks = OreDictionary.getOres(name);
-				if(!stacks.isEmpty())
+				if (!stacks.isEmpty())
 				{
-					for(ItemStack s : stacks)
+					for (ItemStack s : stacks)
 						list.add(s);
 				}
 			}
 		}
 
 		return list.toArray(new ItemStack[list.size()]);
-	}
-
-	public static void syncCap(Entity entity, ICapabilityPlayer other)
-	{
-		ICapabilityPlayer cap = entity.getCapability(CapabilityRefs.CAPS, null);
-
-		cap.setAnimal(other.getAnimal());
-		cap.setCarrying(other.isCarrying());
-		cap.setType(other.getType());
 	}
 
 	public static Type[] getBiomeTypes(String[] types)
@@ -463,37 +443,36 @@ public class AnimaniaHelper
 	public static ItemStack[] getItemsForLoottable(ResourceLocation table)
 	{
 		List<ItemStack> stacks = new ArrayList<ItemStack>();
-		
+
 		table = new ResourceLocation(table.getResourceDomain(), "loot_tables/" + table.getResourcePath() + ".json");
-		
+
 		try
 		{
 			InputStream stream = Minecraft.getMinecraft().getResourceManager().getResource(table).getInputStream();
 			JsonParser parser = new JsonParser();
 			JsonObject base = (JsonObject) parser.parse(new InputStreamReader(stream));
 			JsonArray pools = base.getAsJsonArray("pools");
-			for(int i = 0; i < pools.size(); i++)
+			for (int i = 0; i < pools.size(); i++)
 			{
 				JsonArray entries = pools.get(i).getAsJsonObject().getAsJsonArray("entries");
-				for(int k = 0; k < entries.size(); k++)
+				for (int k = 0; k < entries.size(); k++)
 				{
 					String name = entries.get(k).getAsJsonObject().get("name").getAsString();
 					Item item = Item.getByNameOrId(name);
-					if(item != null)
+					if (item != null)
 					{
 						ItemStack stack = new ItemStack(item);
-						if(item == Item.getItemFromBlock(Blocks.WOOL))
+						if (item == Item.getItemFromBlock(Blocks.WOOL))
 							stack = addTooltipToStack(stack, I18n.translateToLocal("manual.blocks.wool.colored"));
 						stacks.add(stack);
 					}
 				}
 			}
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		
+
 		return stacks.toArray(new ItemStack[stacks.size()]);
 	}
 
@@ -508,26 +487,26 @@ public class AnimaniaHelper
 		stack.setTagCompound(tag);
 		return stack;
 	}
-	
+
 	public static ResourceLocation[] getResourceLocations(String... strings)
 	{
 		ResourceLocation[] res = new ResourceLocation[strings.length];
-		for(int i = 0; i < strings.length; i++)
+		for (int i = 0; i < strings.length; i++)
 		{
 			res[i] = new ResourceLocation(strings[i]);
 		}
-		
+
 		return res;
 	}
-	
+
 	public static boolean hasBiomeType(Biome biome, Type... types)
-	{		
-		for(Type t : types)
+	{
+		for (Type t : types)
 		{
-			if(BiomeDictionary.hasType(biome, t))
+			if (BiomeDictionary.hasType(biome, t))
 				return true;
 		}
-		
+
 		return false;
 	}
 }

@@ -1,0 +1,16 @@
+{
+  "name" : "advancements.animania.dorset.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/sheep/sheep.json#← advancements.animania.sheep.title",
+    "§ladvancements.animania.dorset.title",
+    "@entity@animania:ram_dorset,animania:ewe_dorset,animania:lamb_dorset",
+    "advancements.animania.dorset.title",
+    "@text@manual.sheep.meat.1#prevline",
+    "@loottable@animania:sheep_prime",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;sheepDorsetBiomeTypes"
+  ]
+}

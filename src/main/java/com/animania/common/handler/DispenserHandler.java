@@ -2,14 +2,8 @@ package com.animania.common.handler;
 
 import com.animania.Animania;
 import com.animania.api.data.EntityGender;
+import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.blocks.BlockSeeds;
-import com.animania.common.entities.RandomAnimalType;
-import com.animania.common.entities.chickens.ChickenType;
-import com.animania.common.entities.cows.CowType;
-import com.animania.common.entities.goats.GoatType;
-import com.animania.common.entities.peacocks.PeacockType;
-import com.animania.common.entities.pigs.PigType;
-import com.animania.common.entities.rodents.rabbits.RabbitType;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 
@@ -50,13 +44,13 @@ public class DispenserHandler
 		}
 	}
 
-	public static final IBehaviorDispenseItem SEEDS_DISPENSER_BEHAVIOUR = new BehaviorDefaultDispenseItem()
-	{
+	public static final IBehaviorDispenseItem SEEDS_DISPENSER_BEHAVIOUR = new BehaviorDefaultDispenseItem() {
 		private final BehaviorDefaultDispenseItem behaviourDefaultDispenseItem = new BehaviorDefaultDispenseItem();
 
+		@Override
 		public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
 		{
-			EnumFacing enumfacing = (EnumFacing) source.getBlockState().getValue(BlockDispenser.FACING);
+			EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 			World world = source.getWorld();
 			BlockPos pos = source.getBlockPos().offset(enumfacing);
 			BlockPos below = pos.offset(EnumFacing.DOWN);
@@ -77,8 +71,7 @@ public class DispenserHandler
 					stack.shrink(1);
 					return stack;
 				}
-			}
-			else if ((Loader.isModLoaded("quark") || Loader.isModLoaded("botania")) && world.getBlockState(below).getBlock() instanceof BlockFarmland)
+			} else if ((Loader.isModLoaded("quark") || Loader.isModLoaded("botania")) && world.getBlockState(below).getBlock() instanceof BlockFarmland)
 			{
 				if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
 				{
@@ -92,8 +85,7 @@ public class DispenserHandler
 						world.setBlockState(pos, Blocks.BEETROOTS.getDefaultState());
 					return stack;
 				}
-			}
-			else if (world.getBlockState(pos).getBlock() == BlockHandler.blockSeeds)
+			} else if (world.getBlockState(pos).getBlock() == BlockHandler.blockSeeds)
 			{
 				return stack;
 			}
@@ -104,13 +96,13 @@ public class DispenserHandler
 
 	};
 
-	public static final IBehaviorDispenseItem SPAWNEGG_DISPENSER_BEHAVIOUR = new BehaviorDefaultDispenseItem()
-	{
+	public static final IBehaviorDispenseItem SPAWNEGG_DISPENSER_BEHAVIOUR = new BehaviorDefaultDispenseItem() {
 		private final BehaviorDefaultDispenseItem behaviourDefaultDispenseItem = new BehaviorDefaultDispenseItem();
 
+		@Override
 		public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
 		{
-			EnumFacing enumfacing = (EnumFacing) source.getBlockState().getValue(BlockDispenser.FACING);
+			EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 			World world = source.getWorld();
 			BlockPos pos = source.getBlockPos().offset(enumfacing);
 			ItemEntityEgg item = (ItemEntityEgg) stack.getItem();
@@ -119,36 +111,23 @@ public class DispenserHandler
 
 			if (item.gender == EntityGender.RANDOM)
 			{
-				if (item.type instanceof CowType)
+				AnimaniaType[] types = item.type.getClass().getEnumConstants();
+				if (types != null)
+					entity = EntityGender.getEntity(types[Animania.RANDOM.nextInt(types.length)], item.gender, world);
+				else
 				{
-					entity = EntityGender.getEntity(CowType.values()[Animania.RANDOM.nextInt(((CowType) item.type).values().length)], item.gender, world);
+					double d = Animania.RANDOM.nextDouble();
+					if (d <= 0.33)
+						entity = item.type.getMale(world);
+					else if (d > 0.33 && d <= 0.66)
+						entity = item.type.getFemale(world);
+					else
+						entity = item.type.getChild(world);
+
+					if (entity == null)
+						entity = item.type.getMale(world);
 				}
-				if (item.type instanceof PigType)
-				{
-					entity = EntityGender.getEntity(PigType.values()[Animania.RANDOM.nextInt(((PigType) item.type).values().length)], item.gender, world);
-				}
-				if (item.type instanceof ChickenType)
-				{
-					entity = EntityGender.getEntity(ChickenType.values()[Animania.RANDOM.nextInt(((ChickenType) item.type).values().length)], item.gender, world);
-				}
-				if(item.type instanceof GoatType)
-				{
-					entity = EntityGender.getEntity(GoatType.values()[Animania.RANDOM.nextInt(((GoatType) item.type).values().length)], item.gender, world);
-				}
-				if(item.type instanceof PeacockType)
-				{
-					entity = EntityGender.getEntity(PeacockType.values()[Animania.RANDOM.nextInt(((PeacockType) item.type).values().length)], item.gender, world);
-				}
-				if(item.type instanceof RabbitType)
-				{
-					entity = EntityGender.getEntity(RabbitType.values()[Animania.RANDOM.nextInt(((RabbitType) item.type).values().length)], item.gender, world);
-				}
-				if(item.type instanceof RandomAnimalType)
-				{
-					entity = EntityGender.getEntity(item.type, item.gender, world);
-				}
-			}
-			else
+			} else
 			{
 				entity = EntityGender.getEntity(item.type, item.gender, world);
 			}
@@ -157,15 +136,9 @@ public class DispenserHandler
 				entity.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
 
 				if (stack.hasDisplayName())
-					((EntityLivingBase) entity).setCustomNameTag(stack.getDisplayName());
+					entity.setCustomNameTag(stack.getDisplayName());
 
 				stack.shrink(1);
-
-				// Random rand = new Random();
-				// world.playSound(null, pos.getX(), pos.getY(), pos.getZ(),
-				// ModSoundEvents.combo, SoundCategory.BLOCKS, 0.8F,
-				// ((rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F) /
-				// 0.8F);
 
 				world.spawnEntity(entity);
 			}

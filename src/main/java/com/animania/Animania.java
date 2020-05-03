@@ -42,18 +42,15 @@ public class Animania
 	public static final String NAME = "Animania";
 	public static final Logger LOGGER = LogManager.getFormatterLogger("Animania");
 	public final static String ACCEPTED_VERSIONS = "[1.12,1.13)";
-	public static final String DEPENDENCIES = "required-after:craftstudioapi;after:cofhcore;after:harvestcraft;after:natura;after:botania;after:biomesoplenty;after:twilightforest;after:aroma1997sdimension;after:openterraingenerator;before:thermalexpansion;required-after:forge@[14.23.5.2779,)";
+	public static final String DEPENDENCIES = "required-after:craftstudioapi;after:cofhcore;after:harvestcraft;after:natura;after:botania;after:biomesoplenty;after:twilightforest;after:aroma1997sdimension;after:openterraingenerator;before:thermalexpansion;required-after:forge@[14.23.5.2847,)";
 	public static boolean IS_DEV = true;
-	
+
 	public static SimpleNetworkWrapper network;
 	public static Random RANDOM = new Random();
 
-	//GUI
-	public static int horseCartGUI_ID = 0;
-	public static int coveredWagonGUI_ID = 1;
-	public static int tillerGUI_ID = 2;
+	// Gui
 	private GuiHandlerAnimania guiHandlerAnimania = new GuiHandlerAnimania();
-	
+
 	// Tabs
 	public static CreativeTabs TabAnimaniaEggs = new TabAnimaniaEntities(CreativeTabs.getNextID(), "Animania");
 	public static CreativeTabs TabAnimaniaResources = new TabAnimaniaResources(CreativeTabs.getNextID(), "Animania");
@@ -75,7 +72,6 @@ public class Animania
 	public void init(FMLInitializationEvent event)
 	{
 		Animania.proxy.init(event);
-		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandlerAnimania);
 	}
 

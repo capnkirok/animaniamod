@@ -1,0 +1,15 @@
+{
+  "name" : "manual.meats",
+  "contents" : [
+    "@link@animania:manual/farm/items/food.json#← manual.items.food.title",
+    "§lmanual.meats",
+    " ",
+    "manual.food.meats.1",
+    "@config@general.gamerules;foodsGiveBonusEffects#prevline",
+    "@text@manual.food.meats.2#prevline",
+    "@item@animania:raw_prime_beef,animania:raw_prime_steak,animania:raw_prime_pork,animania:raw_prime_bacon,animania:raw_prime_chicken,animania:raw_prime_mutton,animania:raw_prime_rabbit,animania:raw_frog_legs,animania:raw_horse,animania:raw_chevon,animania:raw_prime_chevon,animania:raw_peacock,animania:raw_prime_peacock,cooked_prime_beef,animania:cooked_prime_steak,animania:cooked_prime_pork,animania:cooked_prime_bacon,animania:cooked_prime_chicken,animania:cooked_prime_mutton,animania:cooked_prime_rabbit,animania:cooked_frog_legs,animania:cooked_horse,animania:cooked_chevon,animania:cooked_prime_chevon,animania:cooked_peacock,animania:cooked_prime_peacock",
+    "manual.food.meats.3",
+    "@crafting@animania:raw_prime_steak",
+    "@crafting@animania:raw_prime_bacon"
+  ]
+}

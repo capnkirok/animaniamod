@@ -33,16 +33,16 @@ public class AnimalContainer
 	
 	public static AnimalContainer fromString(String string)
 	{
-		String[] s = string.split(":");
-		String type = s[0];
-		String gender = s[1];
-		
-		AnimaniaType t = AnimaniaType.valueOf(type);
-		EntityGender g = EntityGender.valueOf(gender);
-		
-		if(t != null && g != null)
-			return new AnimalContainer(t,g);
-		
+//		String[] s = string.split(":");
+//		String type = s[0];
+//		String gender = s[1];
+//		
+//		AnimaniaType t = AnimaniaType.valueOf(type);
+//		EntityGender g = EntityGender.valueOf(gender);
+//		
+//		if(t != null && g != null)
+//			return new AnimalContainer(t,g);
+//		
 		return null;
 	}
 

@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.blocks.BlockSaltLick;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
+import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.config.AnimaniaConfig;
 
@@ -40,7 +40,7 @@ public class GenericAIFindSaltLick<T extends EntityCreature & ISleeping> extends
 		if (++delay <= AnimaniaConfig.careAndFeeding.saltLickTick)
 			return false;
 
-		if (entity.getHealth() >= entity.getMaxHealth() || entity.isBeingRidden() || entity.getSleeping() || (entity instanceof EntityAnimaniaPig && entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud))
+		if (entity.getHealth() >= entity.getMaxHealth() || entity.isBeingRidden() || entity.getSleeping() || AddonInjectionHandler.runInjection("farm", "pigMudTest", Boolean.class, entity))
 		{
 			delay = 0;
 			return false;

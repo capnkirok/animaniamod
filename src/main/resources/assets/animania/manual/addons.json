@@ -4,6 +4,8 @@
     "@link@animania:manual/contents.json#← manual.startpage.content",
     "§lmanual.addons",
     " ",
+	"@link@animania:manual/farm/farm.json#- manual.farm$farm",
+	"@link@animania:manual/extra/extra.json#- manual.extra$extra",
     "@link@animania:manual/catsdogs/catsdogs.json#- manual.catsdogs$catsdogs"
   ]
 }

@@ -17,29 +17,29 @@ public class PigFoodIngredient extends Ingredient
 	{
 		super(getStacks());
 	}
-	
+
 	public static ItemStack[] getStacks()
 	{
-		Item[] items = AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.pigFood);
+		Item[] items = AnimaniaHelper.getItemArray(AnimaniaConfig.careAndFeeding.slopIngredients);
 		ItemStack[] stacks = new ItemStack[items.length];
-		
-		for(int i = 0; i < items.length; i++)
+
+		for (int i = 0; i < items.length; i++)
 		{
 			stacks[i] = new ItemStack(items[i]);
 		}
-		
+
 		return stacks;
 	}
-	
+
 	public static class Factory implements IIngredientFactory
 	{
-		
+
 		@Override
 		public Ingredient parse(JsonContext context, JsonObject json)
 		{
 			return new PigFoodIngredient();
 		}
-		
+
 	}
-	
+
 }

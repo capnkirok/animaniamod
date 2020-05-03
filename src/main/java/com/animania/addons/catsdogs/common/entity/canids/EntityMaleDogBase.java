@@ -1,42 +1,30 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Nullable;
-
-import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISterilizable;
-import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIMate;
-import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.google.common.base.Optional;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityMaleDogBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean>createKey(EntityMaleDogBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityMaleDogBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityMaleDogBase.class, DataSerializers.BOOLEAN);
 
 	public EntityMaleDogBase(World worldIn)
 	{
@@ -63,7 +51,7 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID>absent());
+		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 
@@ -98,12 +86,6 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 		GenericBehavior.livingUpdateMateable(this, EntityFemaleDogBase.class);
 
 		super.onLivingUpdate();
-	}
-
-	@Override
-	public boolean isBreedingItem(@Nullable ItemStack stack)
-	{
-		return stack != ItemStack.EMPTY && (TEMPTATION_ITEMS.contains(stack.getItem()));
 	}
 
 	@Override

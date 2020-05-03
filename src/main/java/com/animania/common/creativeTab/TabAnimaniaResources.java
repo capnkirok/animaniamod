@@ -12,6 +12,8 @@ import net.minecraftforge.fluids.UniversalBucket;
 
 public final class TabAnimaniaResources extends CreativeTabs
 {
+	private static ItemStack DISPLAYSTACK = ItemStack.EMPTY;
+	
     public TabAnimaniaResources(int par1, String par2Str) {
         super(par1, par2Str);
     }
@@ -23,19 +25,21 @@ public final class TabAnimaniaResources extends CreativeTabs
 
     @Override
     public ItemStack getTabIconItem() {
-        return new ItemStack(ItemHandler.cookedPrimeSteak, 1);
+    	
+    	if(DISPLAYSTACK.isEmpty())
+    		DISPLAYSTACK = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
+    	
+        return DISPLAYSTACK;
     }
 
     @Override
     public void displayAllRelevantItems(NonNullList<ItemStack> list) {
 
+    	for(ItemStack stack : ItemHandler.resourceTabItems)
+    		list.add(stack.copy());
+    	
         list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop));
-        list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkFriesian));
-        list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkHolstein));
-        list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkJersey));
-        list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkGoat));
-        list.add(UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidMilkSheep));
-
+     
         super.displayAllRelevantItems(list);
     }
 

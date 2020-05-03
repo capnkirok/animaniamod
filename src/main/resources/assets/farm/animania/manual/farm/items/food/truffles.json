@@ -1,0 +1,14 @@
+{
+  "name" : "manual.truffles",
+  "contents" : [
+    "@link@animania:manual/farm/items/food.json#← manual.items.food.title",
+    "§lmanual.truffles",
+    " ",
+    "manual.food.truffles.1",
+    "@image@animania:textures/images/truffles.png",
+    "manual.food.truffles.2",
+    "@crafting@animania:truffle_soup",
+    "@crafting@animania:chocolate_truffle",
+    "@crafting@animania:truffle_omelette"
+  ]
+}

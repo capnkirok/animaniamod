@@ -1,0 +1,15 @@
+{
+  "name" : "advancements.animania.holstein.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/cows/cows.json#← advancements.animania.cows.title",
+    "§ladvancements.animania.holstein.title",
+    "@entity@animania:bull_holstein,animania:cow_holstein,animania:calf_holstein",
+    "advancements.animania.holstein.title",
+    "@text@manual.cows.milk.1#prevline",
+    "@loottable@animania:cow_regular",
+    "manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;cowHolsteinBiomeTypes"
+  ]
+}

@@ -23,5 +23,7 @@ public interface AnimaniaType
 	{
 		return Animania.RANDOM.nextBoolean() ? this : other;
 	}
+	
+	public String getTypeName();
 
 }

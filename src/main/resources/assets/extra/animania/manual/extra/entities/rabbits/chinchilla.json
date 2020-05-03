@@ -1,0 +1,16 @@
+{
+  "name" : "advancements.animania.chinchilla.title",
+  "contents" : [
+    "@link@animania:manual/extra/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "§ladvancements.animania.chinchilla.title",
+    "@entity@animania:buck_chinchilla,animania:doe_chinchilla,animania:kit_chinchilla",
+    "advancements.animania.chinchilla.title",
+    "@text@manual.rabbits.meat.1#prevline",
+    "@loottable@animania:rabbit_prime",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.extra.spawning_and_breeding;rabbitChinchillaBiomeTypes"
+  ]
+}

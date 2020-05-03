@@ -10,48 +10,6 @@
 					"fluid": "slop"
 				}
 			}
-		],
-		"milk_friesian": [
-			{
-				"custom": {
-					"fluid": "milk_friesian"
-				}
-			}
-		],
-		"milk_holstein": [
-			{
-				"custom": {
-					"fluid": "milk_holstein"
-				}
-			}
-		],
-		"milk_jersey": [
-			{
-				"custom": {
-					"fluid": "milk_jersey"
-				}
-			}
-		],
-		"milk_goat": [
-			{
-				"custom": {
-					"fluid": "milk_goat"
-				}
-			}
-		],
-		"milk_sheep": [
-			{
-				"custom": {
-					"fluid": "milk_sheep"
-				}
-			}
-		],
-		"honey": [
-			{
-				"custom": {
-					"fluid": "animania_honey"
-				}
-			}
 		]
 	}
 }

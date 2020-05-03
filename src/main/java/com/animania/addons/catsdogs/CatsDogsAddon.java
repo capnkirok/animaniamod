@@ -12,7 +12,6 @@ import com.animania.api.addons.LoadAddon;
 public class CatsDogsAddon implements AnimaniaAddon
 {
 
-	
 	@Override
 	public void preInitCommon()
 	{
@@ -22,7 +21,7 @@ public class CatsDogsAddon implements AnimaniaAddon
 	}
 
 	@Override
-	public void initCommon()	
+	public void initCommon()
 	{
 		CatsDogsAddonCraftingHandler.init();
 	}
@@ -54,13 +53,13 @@ public class CatsDogsAddon implements AnimaniaAddon
 	@Override
 	public String getAddonName()
 	{
-		return "Cats & Dogs";
+		return "Animania - Cats & Dogs";
 	}
 
 	@Override
 	public String getDependencies()
 	{
-		return "required-after:animania@[1.7.0,);required-after:minecraft@[1.12,1.13)";
+		return "required-after:animania@[2.0.0,);required-after:minecraft@[1.12,1.13)";
 	}
 
 }

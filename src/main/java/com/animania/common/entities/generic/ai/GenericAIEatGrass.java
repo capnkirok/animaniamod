@@ -2,8 +2,7 @@ package com.animania.common.entities.generic.ai;
 
 import com.animania.api.interfaces.IFoodEating;
 import com.animania.api.interfaces.ISleeping;
-import com.animania.common.entities.cows.CowType;
-import com.animania.common.entities.cows.EntityAnimaniaCow;
+import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.helper.ReflectionUtil;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
@@ -164,7 +163,7 @@ public class GenericAIEatGrass<T extends EntityCreature & ISleeping & IFoodEatin
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 
-		if (block instanceof BlockGrass || ((grassEaterEntity instanceof EntityAnimaniaCow && ((EntityAnimaniaCow) grassEaterEntity).cowType == CowType.MOOSHROOM) ? block == Blocks.MYCELIUM : false) || handleDesirePaths(block))
+		if (block instanceof BlockGrass || AddonInjectionHandler.runInjection("farm", "isMooshroom", Boolean.class, grassEaterEntity, block) || handleDesirePaths(block))
 			return true;
 
 		return false;

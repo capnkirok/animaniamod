@@ -1,0 +1,15 @@
+{
+  "name" : "advancements.animania.angus.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/cows/cows.json#← advancements.animania.cows.title",
+    "§ladvancements.animania.angus.title",
+    "@entity@animania:bull_angus,animania:cow_angus,animania:calf_angus",
+    "advancements.animania.angus.title",
+    "@text@manual.cows.meat.1#prevline",
+    "@loottable@animania:cow_prime",
+    "manual.meat.dropmore",
+     " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;cowAngusBiomeTypes"
+  ]
+}

@@ -3,7 +3,6 @@ package com.animania.common.entities.generic;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
 

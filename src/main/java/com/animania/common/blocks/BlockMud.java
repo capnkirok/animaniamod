@@ -1,14 +1,12 @@
 package com.animania.common.blocks;
 
-import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
-import com.animania.common.entities.pigs.EntityAnimaniaPig;
+import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
-import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -16,11 +14,9 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -98,37 +94,7 @@ public class BlockMud extends Block
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
 	{
-
-		List<EntityAnimaniaPig> pigs = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 10, worldIn, pos);
-
-		for (EntityAnimaniaPig pig : pigs)
-		{
-
-			boolean isMuddy = false;
-			Float splashTimer = 0.0F;
-
-			splashTimer = pig.getSplashTimer();
-			isMuddy = pig.getMuddy();
-
-			if (isMuddy && splashTimer > 0.0)
-			{
-				double xt = pig.posX;
-				double yt = pig.posY;
-				double zt = pig.posZ;
-				int x1 = pos.getX();
-				int y1 = pos.getY();
-				int z1 = pos.getZ();
-				double x2 = xt - x1;
-				double y2 = yt - y1;
-				double z2 = zt - z1;
-
-				if (MathHelper.abs((int) x2) < 1 && MathHelper.abs((int) z2) < 1 && MathHelper.abs((int) y2) < 1)
-					for (int kk = 0; kk < 8; kk++)
-						worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pig.posX + (rand.nextFloat() - 0.5D) * pig.width, pig.getEntityBoundingBox().minY + 0.5D, pig.posZ + (rand.nextFloat() - 0.5D) * pig.width, 4.0D * (rand.nextFloat() - 0.5D), 0.5D, (rand.nextFloat() - 0.5D) * 4.0D, new int[] { Block.getStateId(stateIn) });
-
-			}
-
-		}
+		AddonInjectionHandler.runInjection("farm", "mudParticleDisplay", Void.class, stateIn, worldIn, pos, rand);
 	}
 
 }

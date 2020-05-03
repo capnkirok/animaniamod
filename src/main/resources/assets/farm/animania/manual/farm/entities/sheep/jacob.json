@@ -1,0 +1,16 @@
+{
+  "name" : "advancements.animania.jacob.title",
+  "contents" : [
+    "@link@animania:manual/farm/entities/sheep/sheep.json#← advancements.animania.sheep.title",
+    "§ladvancements.animania.jacob.title",
+    "@entity@animania:ram_jacob,animania:ewe_jacob,animania:lamb_jacob",
+    "advancements.animania.jacob.title",
+    "@text@manual.sheep.normal.1#prevline",
+    "@loottable@animania:sheep_regular",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.farm.spawning_and_breeding;sheepJacobBiomeTypes"
+  ]
+}

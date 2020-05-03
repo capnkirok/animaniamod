@@ -1,0 +1,18 @@
+{
+  "name" : "advancements.animania.taupe.title",
+  "contents" : [
+    "@link@animania:manual/extra/entities/peafowl/peafowl.json#← advancements.animania.peafowl.title",
+    "§ladvancements.animania.taupe.title",
+    "@entity@animania:peacock_taupe,animania:peahen_taupe,animania:peachick_taupe",
+    "advancements.animania.taupe.title",
+    "@text@manual.peafowl.normal.1#prevline",
+    "@loottable@animania:peacocks/peacock_taupe",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.peafowl.malefeathers",
+    " ",
+    "manual.biometypes",
+    "@config@general.extra.spawning_and_breeding;peafowlTaupeBiomeTypes"
+  ]
+}

@@ -12,10 +12,6 @@ import com.animania.common.handler.AddonHandler;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.manual.gui.GuiManual;
 import com.animania.manual.resources.ManualResourceLoader;
-import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
-import com.leviathanstudio.craftstudio.client.registry.CraftStudioLoader;
-import com.leviathanstudio.craftstudio.client.util.EnumRenderType;
-import com.leviathanstudio.craftstudio.client.util.EnumResourceType;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -70,10 +66,10 @@ public class ClientProxy extends CommonProxy
 				FMLClientHandler.instance().getClient().getItemColors().registerItemColorHandler(new ItemEntityEgg.Color(), item);
 			}
 		}
-		
+
 		AddonHandler.initClient();
 	}
-	
+
 	@Override
 	public void postInit(FMLPostInitializationEvent event)
 	{
@@ -94,7 +90,7 @@ public class ClientProxy extends CommonProxy
 
 		ModelLoader.setCustomStateMapper(block, mapper);
 	}
-	
+
 	@Override
 	public void reloadManual()
 	{
@@ -123,78 +119,55 @@ public class ClientProxy extends CommonProxy
 		}
 	}
 
-	@CraftStudioLoader
-	public static void registerCraftStudioAssets()
-	{
-		CSRegistryHelper csRegistry = new CSRegistryHelper(Animania.MODID);
-
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_hamster_wheel");
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_bee_hive");
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.BLOCK, "model_wild_hive");
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "hamster");
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_wagon");
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_cart");
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_cart_chest");
-		csRegistry.register(EnumResourceType.MODEL, EnumRenderType.ENTITY, "model_tiller");
-		
-		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "anim_hamster_wheel");
-		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "anim_bees");
-		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.BLOCK, "anim_bees_wild");
-		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "hamster_run");
-		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_cart");
-		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_cart_chest");
-		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_wagon");
-		csRegistry.register(EnumResourceType.ANIM, EnumRenderType.ENTITY, "anim_tiller");
-		
-	}
-	
+	@Override
 	public void openManualGui(ItemStack stack)
 	{
 		GuiManual manual = GuiManual.getInstance(stack);
 		Minecraft.getMinecraft().displayGuiScreen(manual);
 	}
 
-	//Sleep
-	public void Sleep(EntityPlayer entityplayer) {
+	// Sleep
+	@Override
+	public void Sleep(EntityPlayer entityplayer)
+	{
 
 		long currentTime = 0;
 		int factorTime = 0;
 
 		for (int j = 0; j < entityplayer.world.getMinecraftServer().getServer().worlds.length; ++j)
 		{
-			currentTime = entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() %24000;
-			factorTime = 24000 - (int)currentTime;
-			entityplayer.world.getMinecraftServer().getServer().worlds[j].setWorldTime(entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime) ;
+			currentTime = entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() % 24000;
+			factorTime = 24000 - (int) currentTime;
+			entityplayer.world.getMinecraftServer().getServer().worlds[j].setWorldTime(entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime);
 		}
 
 	}
-	
+
 	@Override
 	public void addAddonResourcePack(AnimaniaAddon addon)
 	{
 		List<IResourcePack> packs = ObfuscationReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "field_110449_ao");
 		File animania = Loader.instance().activeModContainer().getSource();
-		
+
 		IResourcePack pack = null;
-		if(animania.isDirectory())
+		if (animania.isDirectory())
 			pack = new AddonResourcePack.Folder(addon);
-		else 
+		else
 			pack = new AddonResourcePack.Jar(addon);
-		
-		packs.add(pack);	
+
+		packs.add(pack);
 		IResourceManager res = Minecraft.getMinecraft().getResourceManager();
-		if(res instanceof SimpleReloadableResourceManager)
+		if (res instanceof SimpleReloadableResourceManager)
 		{
 			((SimpleReloadableResourceManager) res).reloadResourcePack(pack);
 			Minecraft.getMinecraft().getLanguageManager().onResourceManagerReload(res);
 		}
 	}
-	
+
 	@Override
 	public void throwCustomModLoadingErrorDisplayException(MultipleModsErrored errors)
 	{
-		CustomModLoadingErrorDisplayException customEx = new CustomModLoadingErrorDisplayException("Addon Loading Errors", errors)
-		{
+		CustomModLoadingErrorDisplayException customEx = new CustomModLoadingErrorDisplayException("Addon Loading Errors", errors) {
 
 			private GuiScreen screen;
 

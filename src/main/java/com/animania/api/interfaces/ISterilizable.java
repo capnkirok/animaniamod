@@ -1,14 +1,6 @@
 package com.animania.api.interfaces;
 
-import java.util.Iterator;
-
-import com.animania.common.entities.cows.ai.EntityAIAttackMeleeBulls;
-import com.animania.common.entities.generic.ai.GenericAIMate;
-
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.network.datasync.DataParameter;
 
 public interface ISterilizable extends IAnimaniaAnimal

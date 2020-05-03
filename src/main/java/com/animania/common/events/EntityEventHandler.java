@@ -1,5 +1,6 @@
 package com.animania.common.events;
 
+import com.animania.Animania;
 import com.animania.api.interfaces.IAnimaniaAnimal;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.handler.ItemHandler;
@@ -14,13 +15,15 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@EventBusSubscriber(modid = Animania.MODID)
 public class EntityEventHandler
 {
 
 	@SubscribeEvent
-	public void onEntityTakeDamage(LivingHurtEvent event)
+	public static void onEntityTakeDamage(LivingHurtEvent event)
 	{
 		float amount = event.getAmount();
 		EntityLivingBase entity = event.getEntityLiving();
@@ -42,7 +45,7 @@ public class EntityEventHandler
 	}
 
 	@SubscribeEvent
-	public void onEntityHit(LivingAttackEvent event)
+	public static void onEntityHit(LivingAttackEvent event)
 	{
 		float amount = event.getAmount();
 		EntityLivingBase entity = event.getEntityLiving();
@@ -79,7 +82,7 @@ public class EntityEventHandler
 	}
 
 	@SubscribeEvent
-	public void onEntityJoinWorld(EntityJoinWorldEvent event)
+	public static void onEntityJoinWorld(EntityJoinWorldEvent event)
 	{
 		if (event.getEntity() instanceof EntityPlayer)
 		{
@@ -88,7 +91,7 @@ public class EntityEventHandler
 	}
 
 	@SubscribeEvent
-	public void onLivingUpdate(LivingUpdateEvent event)
+	public static void onLivingUpdate(LivingUpdateEvent event)
 	{
 		EntityLivingBase entity = event.getEntityLiving();
 

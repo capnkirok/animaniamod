@@ -1,0 +1,16 @@
+{
+  "name" : "advancements.animania.havana.title",
+  "contents" : [
+    "@link@animania:manual/extra/entities/rabbits/rabbits.json#← advancements.animania.rabbits.title",
+    "§ladvancements.animania.havana.title",
+    "@entity@animania:buck_havana,animania:doe_havana,animania:kit_havana",
+    "advancements.animania.havana.title",
+    "@text@manual.rabbits.normal.1#prevline",
+    "@loottable@animania:rabbit_regular",
+     " ",
+    "@text@manual.meat.dropmore",
+    " ",
+    "manual.biometypes",
+    "@config@general.extra.spawning_and_breeding;rabbitHavanaBiomeTypes"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name" : "manual.entities.entities.title",
+  "contents" : [
+    "@link@animania:manual/extra/extra.json#← manual.extra",
+    "§lmanual.entities.entities.title",
+    " ",
+    "@link@animania:manual/extra/entities/amphibians/amphibians.json#- manual.amphibians",
+    "@link@animania:manual/extra/entities/peafowl/peafowl.json#- advancements.animania.peafowl.title",
+    "@link@animania:manual/extra/entities/pets/pets.json#- manual.pets",
+    "@link@animania:manual/extra/entities/rabbits/rabbits.json#- advancements.animania.rabbits.title"
+  ]
+}
