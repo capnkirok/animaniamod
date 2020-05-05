@@ -44,7 +44,19 @@ public class RenderKidFainting<T extends EntityKidFainting> extends RenderLiving
 		float age = entity.getEntityAge();
 		GL11.glScalef(0.21F + (age / entity.getSizeDividend()), 0.21F + (age / entity.getSizeDividend()), 0.21F + (age / entity.getSizeDividend()));
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		EntityAnimaniaGoat entityGoat = (EntityAnimaniaGoat) entity;
+		EntityAnimaniaGoat entityGoat = entity;
+
+		if (!entity.getSleeping() && entity.getSpooked() && entity.getSpookedTimer() < 0.94F && entity.getSpookedTimer() > 0.06F)
+		{
+			GlStateManager.translate(0.0F, entity.height - 1.5F, 0.0F);
+			GlStateManager.rotate(86.0F, 0.0F, 0.0F, 1.0F);
+			this.shadowSize = 0F;
+		} else
+		{
+			GL11.glTranslatef(0f, 0f, -0.5f);
+			this.shadowSize = 0.35F;
+		}
+
 		if (entityGoat.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -57,8 +69,7 @@ public class RenderKidFainting<T extends EntityKidFainting> extends RenderLiving
 
 			GlStateManager.translate(-0.25F, entity.height - .5F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		}
-		else
+		} else
 		{
 			this.shadowSize = 0.2F;
 			entityGoat.setSleeping(false);

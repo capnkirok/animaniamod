@@ -1,6 +1,7 @@
 package com.animania.addons.extra.common.entity.rodents;
 
 import java.util.Set;
+import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
@@ -11,7 +12,6 @@ import com.animania.addons.extra.common.entity.amphibians.EntityAmphibian;
 import com.animania.addons.extra.common.entity.amphibians.EntityFrogs;
 import com.animania.addons.extra.common.entity.amphibians.EntityToad;
 import com.animania.addons.extra.common.entity.rodents.ai.EntityAIHedgehogFindNests;
-import com.animania.addons.extra.common.entity.rodents.ai.EntityAISleepHedgehogs;
 import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.addons.extra.compat.top.TOPInfoProviderRodent;
 import com.animania.addons.extra.config.ExtraConfig;
@@ -28,6 +28,8 @@ import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
 import com.animania.common.entities.generic.ai.GenericAINearestAttackableTarget;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAISwimmingSmallCreatures;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
@@ -142,7 +144,15 @@ public class EntityHedgehogBase extends EntityTameable implements TOPInfoProvide
 		this.tasks.addTask(15, new GenericAILookIdle<EntityHedgehogBase>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(16, new EntityAISleepHedgehogs(this, 0.8));
+			this.tasks.addTask(16, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hedgehogBed), Block.getBlockFromName(ExtraConfig.settings.hedgehogBed2), EntityHedgehogBase.class, new Function<Long, Boolean>() {
+
+					@Override
+					public Boolean apply(Long worldtime)
+					{		
+						return (worldtime < 13000);
+					}
+					
+				}));
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{

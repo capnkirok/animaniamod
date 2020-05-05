@@ -2,8 +2,8 @@ package com.animania.addons.farm.client.render.cows;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCalfFriesian;
 import com.animania.addons.farm.client.model.cow.ModelCalf;
+import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCalfFriesian;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.client.render.layer.LayerBlinking;
 
@@ -41,8 +41,7 @@ public class RenderCalfFriesian<T extends EntityCalfFriesian> extends RenderLivi
 		{
 			this.blinkingLayer.setColors(0x4F0AA3, 0x4F0AA3);
 			return RenderCalfFriesian.purpTextures;
-		}
-		else
+		} else
 		{
 			this.blinkingLayer.setColors(0x463930, 0xDEDEDE);
 			return RenderCalfFriesian.cowTextures;
@@ -54,8 +53,7 @@ public class RenderCalfFriesian<T extends EntityCalfFriesian> extends RenderLivi
 		if (par1EntityCow.getCustomNameTag().equalsIgnoreCase("purp"))
 		{
 			return RenderCalfFriesian.purpTexturesBlink;
-		}
-		else
+		} else
 		{
 			return RenderCalfFriesian.cowTexturesBlink;
 		}
@@ -72,7 +70,7 @@ public class RenderCalfFriesian<T extends EntityCalfFriesian> extends RenderLivi
 		float age = entity.getEntityAge();
 		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()));
 
-		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
+		EntityAnimaniaCow entityCow = entity;
 		if (entityCow.getSleeping())
 		{
 			float sleepTimer = entityCow.getSleepTimer();
@@ -82,10 +80,9 @@ public class RenderCalfFriesian<T extends EntityCalfFriesian> extends RenderLivi
 			}
 			entity.setSleepTimer(sleepTimer);
 
-			GlStateManager.translate(-0.25F, entity.height - 1.95F - sleepTimer, -0.25F);
+			GlStateManager.translate(-0.25F, entity.height - 1.15F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		}
-		else
+		} else
 		{
 			entityCow.setSleeping(false);
 			entityCow.setSleepTimer(0F);

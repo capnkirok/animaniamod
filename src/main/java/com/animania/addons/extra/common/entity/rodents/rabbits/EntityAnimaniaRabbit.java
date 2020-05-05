@@ -2,11 +2,11 @@ package com.animania.addons.extra.common.entity.rodents.rabbits;
 
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
-import com.animania.addons.extra.common.entity.rodents.ai.EntityAISleepRabbits;
 import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitBuckLop;
 import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitDoeLop;
 import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitKitLop;
@@ -23,6 +23,7 @@ import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAILookIdle;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
@@ -139,29 +140,33 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaRabbit>(this));
 			if (AnimaniaConfig.gameRules.animalsSleep)
 			{
-				this.tasks.addTask(12, new EntityAISleepRabbits(this, 0.8));
+				this.tasks.addTask(12, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.rabbitBed), Block.getBlockFromName(ExtraConfig.settings.rabbitBed2), EntityAnimaniaRabbit.class, new Function<Long, Boolean>() {
+
+					@Override
+					public Boolean apply(Long worldtime)
+					{		
+						return (worldtime > 20000 && worldtime < 24000) || (worldtime > 10000 && worldtime < 15000);
+					}
+					
+				}));
+					
 			}
-		} else
-		{
-			this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.7F));
-			this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
-			this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
-			this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
-			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
-			this.setHealth(50);
-		}
+		}else
 
-		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
-		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
-		this.happyTimer = 60;
-		this.blinkTimer = 100 + this.rand.nextInt(100);
-		this.enablePersistence();
+	{
+		this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.7F));
+		this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
+		this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+		this.setHealth(50);
+	}
 
-		this.jumpHelper = new EntityAnimaniaRabbit.RabbitJumpHelper(this);
-		this.moveHelper = new EntityAnimaniaRabbit.RabbitMoveHelper(this);
-		this.setMovementSpeed(0.0D);
+	this.fedTimer=AnimaniaConfig.careAndFeeding.feedTimer+this.rand.nextInt(100);this.wateredTimer=AnimaniaConfig.careAndFeeding.waterTimer+this.rand.nextInt(100);this.happyTimer=60;this.blinkTimer=100+this.rand.nextInt(100);this.enablePersistence();
+
+	this.jumpHelper=new EntityAnimaniaRabbit.RabbitJumpHelper(this);this.moveHelper=new EntityAnimaniaRabbit.RabbitMoveHelper(this);this.setMovementSpeed(0.0D);
 	}
 
 	protected void resetAI()

@@ -1,5 +1,7 @@
 package com.animania.common.entities.generic.ai;
 
+import java.util.function.Function;
+
 import com.animania.api.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 
@@ -19,7 +21,16 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 	private Block bedBlock;
 	private Block bedBlock2;
 
+	private Function<Long, Boolean> shouldSleep;
+
 	public GenericAISleep(T entity, double speedIn, Block bed1, Block bed2, Class parentClass)
+	{
+		this(entity, speedIn, bed1, bed2, parentClass, (worldtime) -> {
+			return worldtime >= 13000;
+		});
+	}
+
+	public GenericAISleep(T entity, double speedIn, Block bed1, Block bed2, Class parentClass, Function<Long, Boolean> shouldSleepFunction)
 	{
 		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, true, EnumFacing.UP);
 		this.entity = entity;
@@ -27,8 +38,10 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 		this.delay = 0;
 		this.bedBlock = bed1;
 		this.bedBlock2 = bed2;
+		this.shouldSleep = shouldSleepFunction;
 	}
 
+	@Override
 	public boolean shouldExecute()
 	{
 		if (++this.delay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings + entity.getRNG().nextInt(100))
@@ -37,7 +50,7 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 		}
 		if (entity.getSleeping())
 		{
-			if (entity.world.isDaytime() || entity.isBurning() || (entity.world.isRainingAt(entity.getPosition()) && entity.world.canSeeSky(entity.getPosition())))
+			if (!this.shouldSleep.apply(world.getWorldTime() % 24000) || entity.isBurning() || (entity.world.isRainingAt(entity.getPosition()) && entity.world.canSeeSky(entity.getPosition())))
 			{
 				entity.setSleeping(false);
 				entity.setSleepingPos(NO_POS);
@@ -46,7 +59,7 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 			return false;
 		}
 
-		return !entity.world.isDaytime() && !entity.world.isRainingAt(entity.getPosition()) && this.entity.getRNG().nextInt(3) == 0 ? super.shouldExecute() : false;
+		return shouldSleep.apply(world.getWorldTime() % 24000) && !entity.world.isRainingAt(entity.getPosition()) && this.entity.getRNG().nextInt(3) == 0 ? super.shouldExecute() : false;
 	}
 
 	@Override

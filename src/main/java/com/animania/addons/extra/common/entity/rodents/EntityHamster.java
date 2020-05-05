@@ -3,6 +3,7 @@ package com.animania.addons.extra.common.entity.rodents;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
@@ -10,7 +11,6 @@ import com.animania.Animania;
 import com.animania.addons.extra.common.capabilities.CapabilityRefs;
 import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 import com.animania.addons.extra.common.entity.rodents.ai.EntityAILookIdleRodent;
-import com.animania.addons.extra.common.entity.rodents.ai.EntityAISleepHamsters;
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.addons.extra.compat.top.TOPInfoProviderRodent;
@@ -25,6 +25,7 @@ import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
 import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
 import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAISwimmingSmallCreatures;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
@@ -155,7 +156,15 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 		this.tasks.addTask(9, new EntityAILookIdleRodent(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(10, new EntityAISleepHamsters(this, 0.8));
+			this.tasks.addTask(10, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hamsterBed), Block.getBlockFromName(ExtraConfig.settings.hamsterBed2), EntityHamster.class, new Function<Long, Boolean>() {
+
+				@Override
+				public Boolean apply(Long worldtime)
+				{		
+					return (worldtime < 13000);
+				}
+				
+			}));
 		}
 		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
 

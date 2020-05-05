@@ -73,6 +73,23 @@ public class GoatFainting
 			return 14803425;
 		}
 
+		@Override
+		protected void collideWithEntity(Entity entityIn)
+		{
+
+			if (entityIn instanceof EntityPlayer)
+			{
+				EntityPlayer player = (EntityPlayer) entityIn;
+				if (player.isSprinting())
+				{
+					this.setSpooked(true);
+					this.setSpookedTimer(1.0F);
+
+				}
+				entityIn.applyEntityCollision(this);
+			}
+		}
+
 	}
 
 	public static class EntityDoeFainting extends EntityDoeBase
