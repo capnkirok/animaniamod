@@ -176,7 +176,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
-		return stack != ItemStack.EMPTY && (AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, stack) || ItemStack.areItemStacksEqual(stack, this.slop));
+		return stack != ItemStack.EMPTY && (AnimaniaHelper.containsItemStack(EntityAnimaniaPig.TEMPTATION_ITEMS, stack) || ItemStack.areItemStacksEqual(stack, this.slop));
 	}
 
 	@Override

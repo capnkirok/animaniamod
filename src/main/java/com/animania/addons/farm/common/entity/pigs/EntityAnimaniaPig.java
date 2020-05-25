@@ -77,6 +77,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.pigFood));
+
 	protected boolean boosting;
 	protected int boostTime;
 	protected int totalBoostTime;

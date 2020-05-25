@@ -66,7 +66,7 @@ public class ItemHandler
 										EntityList.ENTITY_EGGS.put(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), new EntityEggInfo(EntityEggHandler.getEntryFromEntity(entity).getRegistryName(), ispawnable.getPrimaryEggColor(), ispawnable.getSecondaryEggColor()));
 									} catch (Exception e)
 									{
-										Animania.LOGGER.warn("Failed to insert entity egg for " + EntityEggHandler.getEntryFromEntity(entity).getRegistryName());
+										Animania.LOGGER.warn("Failed to insert entity egg for " + entity);
 									}
 								} else
 									ItemEntityEgg.ANIMAL_USES_COLOR.put(animal, false);
