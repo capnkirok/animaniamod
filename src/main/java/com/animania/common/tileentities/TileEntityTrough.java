@@ -172,10 +172,10 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 		if (AnimaniaConfig.gameRules.allowTroughAutomation)
 		{
 
-			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+			if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && this.fluidHandler.getFluid() == null)
 				return (T) this.itemHandler;
 
-			if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+			if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this.itemHandler.getStackInSlot(0).isEmpty())
 				return (T) this.fluidHandler;
 
 		}

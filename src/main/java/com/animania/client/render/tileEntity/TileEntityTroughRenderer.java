@@ -3,11 +3,14 @@ package com.animania.client.render.tileEntity;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 import org.lwjgl.opengl.GL11;
 
+import com.animania.client.events.RenderEvents;
 import com.animania.client.models.ModelTrough;
 import com.animania.common.tileentities.TileEntityTrough;
 import com.animania.common.tileentities.TileEntityTrough.TroughContent;
@@ -41,6 +44,8 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 	public static TileEntityTroughRenderer instance;
 	private final ModelTrough trough = new ModelTrough();
 
+	private static Map<TileEntityTrough, Color> cachedColors = new HashMap<TileEntityTrough, Color>();
+
 	@Override
 	public void render(TileEntityTrough te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
@@ -59,15 +64,15 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 	{
 		ModelBase modelbase = this.trough;
 
-//		if (destroyStage >= 0)
-//		{
-//			this.bindTexture(TileEntitySpecialRenderer.DESTROY_STAGES[destroyStage]);
-//			GlStateManager.matrixMode(5890);
-//			GlStateManager.pushMatrix();
-//			GlStateManager.scale(4.0F, 2.0F, 1.0F);
-//			GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
-//			GlStateManager.matrixMode(5888);
-//		}
+		// if (destroyStage >= 0)
+		// {
+		// this.bindTexture(TileEntitySpecialRenderer.DESTROY_STAGES[destroyStage]);
+		// GlStateManager.matrixMode(5890);
+		// GlStateManager.pushMatrix();
+		// GlStateManager.scale(4.0F, 2.0F, 1.0F);
+		// GlStateManager.translate(0.0625F, 0.0625F, 0.0625F);
+		// GlStateManager.matrixMode(5888);
+		// }
 		GlStateManager.pushMatrix();
 		GlStateManager.disableCull();
 		Float rot = 0.0F;
@@ -101,8 +106,8 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.scale(-1.0F, -1.0F, 1.0F);
 		GlStateManager.color(1f, 1f, 1f, 1f);
-//		GlStateManager.enableAlpha();
-//		GlStateManager.enableCull();
+		// GlStateManager.enableAlpha();
+		// GlStateManager.enableCull();
 
 		this.bindTexture(TileEntityTroughRenderer.TROUGH_EMPTY_TEXTURE);
 		modelbase.render((Entity) null, animateTicks, 0.0F, 0.0F, 0, 0.0F, 0.0625F);
@@ -122,13 +127,13 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 				GlStateManager.enableAlpha();
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
-				
+
 				drawTextureAtlasSprite(0, 0, sprite, 0.6, 1);
 				drawTextureAtlasSprite(-0.8, 0, sprite, 0.6, 0.8);
 
 				GlStateManager.disableAlpha();
 				GlStateManager.disableBlend();
-				
+
 				GlStateManager.popMatrix();
 			}
 
@@ -147,12 +152,25 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
 				GlStateManager.color(1f, 1f, 1f, 1f);
-				
+
+				if (RenderEvents.ticks % 20 == 0)
+				{
+					Color foodColor = getAverageColor(stack);
+					cachedColors.put(te, foodColor);
+				}
+
+				Color foodColor = cachedColors.get(te);
+				if (foodColor == null)
+				{
+					foodColor = getAverageColor(stack);
+					cachedColors.put(te, foodColor);
+				}
+
 				this.bindTexture(TROUGH_EMPTY_TEXTURE);
 				if (stack.getItem() == Items.WHEAT)
 					trough.renderFeed(stack.getCount(), new Color(160, 124, 89));
 				else
-					trough.renderFeed(stack.getCount(), getAverageColor(stack));
+					trough.renderFeed(stack.getCount(), foodColor);
 
 				TextureAtlasSprite sprite = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, null, null).getParticleTexture();
 				if (stack.getItem() == Items.WHEAT)
@@ -161,7 +179,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 					this.bindTexture(new ResourceLocation(sprite.getIconName().replace(":", ":textures/") + ".png"));
 
 				trough.renderFood(0.0625F, stack.getCount());
-				
+
 				GlStateManager.disableCull();
 				GlStateManager.disableBlend();
 				GlStateManager.disableAlpha();
@@ -171,12 +189,12 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 
 		GlStateManager.popMatrix();
 
-//		if (destroyStage >= 0)
-//		{
-//			GlStateManager.matrixMode(5890);
-//			GlStateManager.popMatrix();
-//			GlStateManager.matrixMode(5888);
-//		}
+		// if (destroyStage >= 0)
+		// {
+		// GlStateManager.matrixMode(5890);
+		// GlStateManager.popMatrix();
+		// GlStateManager.matrixMode(5888);
+		// }
 	}
 
 	private static void drawTextureAtlasSprite(double xCoord, double yCoord, TextureAtlasSprite textureSprite, double height, double width)
@@ -192,15 +210,14 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 		double u1 = u0 + u * width;
 		double v0 = textureSprite.getMinV();
 		double v1 = v0 + v * height;
-		
-		
+
 		bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
 		bufferbuilder.pos(xCoord, yCoord, 0).tex(u1, v1).normal(0, 0, 1).endVertex();
 		bufferbuilder.pos(xCoord + width, yCoord, 0).tex(u0, v1).normal(0, 0, 1).endVertex();
 		bufferbuilder.pos(xCoord + width, yCoord + height, 0).tex(u0, v0).normal(0, 0, 1).endVertex();
 		bufferbuilder.pos(xCoord, yCoord + height, 0).tex(u1, v0).normal(0, 0, 1).endVertex();
 		Tessellator.getInstance().draw();
-		
+
 	}
 
 	/**
@@ -220,8 +237,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 
 			is = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
 			image = ImageIO.read(is);
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 			e.printStackTrace();
 			return new Color(0, 0, 0);
@@ -249,8 +265,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 					b += texture[i];
 					bloops++;
 				}
-			}
-			catch (Exception e)
+			} catch (Exception e)
 			{
 			}
 		}
@@ -259,8 +274,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 			r /= rloops;
 			g /= gloops;
 			b /= bloops;
-		}
-		catch (Exception e)
+		} catch (Exception e)
 		{
 		}
 		return new Color(r, g, b);

@@ -84,33 +84,35 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 	{
 		return 6;
 	}
-	
+
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
 	{
 
 		float f = worldIn.getBiome(pos).getTemperature(pos);
-		
+
 		if (worldIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F && worldIn.isRaining() && worldIn.getTopSolidOrLiquidBlock(pos).getY() == pos.getY() + 1)
 		{
 			TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 
-			if (te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null) {
+			if (te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+			{
 				te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 100), true);
-			} else if (te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000) {
+			} else if (te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000)
+			{
 				te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 100), true);
 			}
 
 		}
 
-
 	}
-	
+
+	@Override
 	@Deprecated
-    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
-    {
-        return BlockFaceShape.UNDEFINED;
-    }
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	{
+		return BlockFaceShape.UNDEFINED;
+	}
 
 	@Override
 	public boolean isTopSolid(IBlockState state)
@@ -151,11 +153,11 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 	{
 
 		TileEntity tile = worldIn.getTileEntity(pos);
-		if(!(tile instanceof TileEntityTrough))
+		if (!(tile instanceof TileEntityTrough))
 			return;
-		
+
 		TileEntityTrough te = (TileEntityTrough) tile;
-		
+
 		if (entityIn != null && entityIn instanceof EntityItem && !worldIn.isRemote)
 		{
 
@@ -185,8 +187,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 				ItemStack newStack = handler.getContainer();
 				entityitem.setItem(newStack);
 
-			}
-			else if (AnimaniaHelper.hasFluid(stack, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+			} else if (AnimaniaHelper.hasFluid(stack, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
 				te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
 				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.BLOCKS, 0.6F, 0.8F);
@@ -199,7 +200,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 			}
 
 			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
-
+			worldIn.updateComparatorOutputLevel(pos, this);
 		}
 	}
 
@@ -251,22 +252,19 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
 				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 				te.setTroughRotation(0);
-			}
-			else if (placer.getHorizontalFacing().toString() == "north")
+			} else if (placer.getHorizontalFacing().toString() == "north")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
 				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
 				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 				te.setTroughRotation(1);
-			}
-			else if (placer.getHorizontalFacing().toString() == "east")
+			} else if (placer.getHorizontalFacing().toString() == "east")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
 				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
 				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 				te.setTroughRotation(2);
-			}
-			else if (placer.getHorizontalFacing().toString() == "west")
+			} else if (placer.getHorizontalFacing().toString() == "west")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
 				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
@@ -334,18 +332,15 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 		{
 			BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
 			worldIn.setBlockToAir(invisipos);
-		}
-		else if (dir == "north")
+		} else if (dir == "north")
 		{
 			BlockPos invisipos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
 			worldIn.setBlockToAir(invisipos);
-		}
-		else if (dir == "east")
+		} else if (dir == "east")
 		{
 			BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
 			worldIn.setBlockToAir(invisipos);
-		}
-		else if (dir == "west")
+		} else if (dir == "west")
 		{
 			BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
 			worldIn.setBlockToAir(invisipos);
@@ -404,6 +399,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 					heldItem.shrink(1);
 
 				worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+				worldIn.updateComparatorOutputLevel(pos, this);
 				return true;
 			}
 
@@ -421,10 +417,10 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 				playerIn.setHeldItem(hand, newStack);
 			}
 			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			worldIn.updateComparatorOutputLevel(pos, this);
 			return true;
 
-		}
-		else if (AnimaniaHelper.hasFluid(heldItem, FluidRegistry.WATER) && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000)
+		} else if (AnimaniaHelper.hasFluid(heldItem, FluidRegistry.WATER) && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000)
 		{
 			te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
@@ -436,10 +432,10 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 				playerIn.setHeldItem(hand, newStack);
 			}
 			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			worldIn.updateComparatorOutputLevel(pos, this);
 			return true;
 
-		}
-		else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
+		} else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 		{
 			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
@@ -451,10 +447,10 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 				playerIn.setHeldItem(hand, newStack);
 			}
 			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			worldIn.updateComparatorOutputLevel(pos, this);
 			return true;
 
-		}
-		else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == BlockHandler.fluidSlop && te.fluidHandler.getFluid().amount < 1000)
+		} else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == BlockHandler.fluidSlop && te.fluidHandler.getFluid().amount < 1000)
 		{
 			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
@@ -466,6 +462,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 				playerIn.setHeldItem(hand, newStack);
 			}
 			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			worldIn.updateComparatorOutputLevel(pos, this);
 			return true;
 
 		}
@@ -497,8 +494,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 					{
 						heldItem.shrink(1);
 						playerIn.inventory.addItemStackToInventory(newstack);
-					}
-					else
+					} else
 						playerIn.setHeldItem(hand, newstack);
 
 					return true;
@@ -508,6 +504,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 
 			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
 			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			worldIn.updateComparatorOutputLevel(pos, this);
 
 			return true;
 
@@ -577,7 +574,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 		String[] foods = AnimaniaConfig.gameRules.troughFood;
 
 		ItemStack[] items = AnimaniaHelper.getItemStackArray(foods);
-		
+
 		for (int i = 0; i < items.length; i++)
 		{
 			if (ItemStack.areItemsEqual(items[i], stack))
@@ -597,7 +594,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
+	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = world.getTileEntity(data.getPos());

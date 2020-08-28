@@ -127,7 +127,7 @@ public class FarmAddonItemHandler
 		ultimateOmelette = new ItemAnimaniaFood(5, 0.9f, "super_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false), new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false), new PotionEffect(MobEffects.RESISTANCE, 600, 1, false, false));
 		truffleOmelette = new ItemAnimaniaFood(5, 0.8f, "truffle_omelette", new PotionEffect(MobEffects.REGENERATION, 600, 1, false, false));
 		baconOmelette = new ItemAnimaniaFood(5, 0.7f, "bacon_omelette", new PotionEffect(MobEffects.STRENGTH, 600, 0, false, false));
-		cheeseOmelette = new ItemAnimaniaFood(5, 0.7f, "cheese_omelette", new PotionEffect(MobEffects.INSTANT_HEALTH, 2, 2, false, false));
+		cheeseOmelette = new ItemAnimaniaFood(5, 0.7f, "cheese_omelette", new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 1, false, false));
 		plainOmelette = new ItemAnimaniaFood(5, 0.6f, "plain_omelette");
 		truffle = new ItemAnimaniaFood(2, 0.7f, "truffle");
 		truffleSoup = new ItemTruffleSoup();
@@ -138,9 +138,9 @@ public class FarmAddonItemHandler
 		// ITEMS produced by Animals
 		// COW ITEMS
 		rawPrimeBeef = new ItemAnimaniaFoodRaw("raw_prime_beef", true);
-		cookedPrimeBeef = new ItemAnimaniaFood(12, 0.5f, "cooked_prime_beef", true, new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 1, false, false));
+		cookedPrimeBeef = new ItemAnimaniaFood(12, 0.5f, "cooked_prime_beef", true, new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 0, false, false));
 		rawPrimeSteak = new ItemAnimaniaFoodRaw("raw_prime_steak", true);
-		cookedPrimeSteak = new ItemAnimaniaFood(8, 0.5f, "cooked_prime_steak", true, new PotionEffect(MobEffects.INSTANT_HEALTH, 5, 1, false, false));
+		cookedPrimeSteak = new ItemAnimaniaFood(8, 0.5f, "cooked_prime_steak", true, new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 0, false, false));
 
 		// PIG ITEMS
 		rawPrimePork = new ItemAnimaniaFoodRaw("raw_prime_pork", true);
@@ -155,7 +155,7 @@ public class FarmAddonItemHandler
 
 		// SHEEP ITEMS
 		rawPrimeMutton = new ItemAnimaniaFoodRaw("raw_prime_mutton");
-		cookedPrimeMutton = new ItemAnimaniaFood(12, 0.5f, "cooked_prime_mutton", new PotionEffect(MobEffects.INSTANT_HEALTH, 5, 1, false, false));
+		cookedPrimeMutton = new ItemAnimaniaFood(12, 0.5f, "cooked_prime_mutton", new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 0, false, false));
 
 		// HORSE ITEMS
 		rawHorse = new ItemAnimaniaFoodRaw("raw_horse");
@@ -168,11 +168,11 @@ public class FarmAddonItemHandler
 		cookedPrimeChevon = new ItemAnimaniaFood(10, 0.5f, "cooked_prime_chevon", new PotionEffect(MobEffects.RESISTANCE, 1200, 1, false, false));
 
 		// CHEESE
-		cheeseWedgeFriesian = new ItemAnimaniaFood(3, 0.9f, "friesian_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
-		cheeseWedgeHolstein = new ItemAnimaniaFood(3, 0.9f, "holstein_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 12, 2, false, false));
-		cheeseWedgeJersey = new ItemAnimaniaFood(3, 0.9f, "jersey_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 2, false, false));
+		cheeseWedgeFriesian = new ItemAnimaniaFood(3, 0.9f, "friesian_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 1, false, false));
+		cheeseWedgeHolstein = new ItemAnimaniaFood(3, 0.9f, "holstein_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 1, false, false));
+		cheeseWedgeJersey = new ItemAnimaniaFood(3, 0.9f, "jersey_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 1, false, false));
 		cheeseWedgeGoat = new ItemAnimaniaFood(3, 0.9f, "goat_cheese_wedge", new PotionEffect(MobEffects.RESISTANCE, 1200, 0, false, false));
-		cheeseWedgeSheep = new ItemAnimaniaFood(3, 0.9f, "sheep_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 10, 0, false, false));
+		cheeseWedgeSheep = new ItemAnimaniaFood(3, 0.9f, "sheep_cheese_wedge", new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 0, false, false));
 
 		entityeggrandomcow = new ItemEntityEgg("cow_random", CowType.ANGUS, EntityGender.RANDOM);
 		entityeggrandompig = new ItemEntityEgg("pig_random", PigType.DUROC, EntityGender.RANDOM);
