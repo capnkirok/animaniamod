@@ -40,11 +40,13 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -508,5 +510,23 @@ public class AnimaniaHelper
 		}
 
 		return false;
+	}
+
+	/*
+	 * Spawns entity and ensures the unique UUID. Does not re-roll the UUID on
+	 * remote worlds.
+	 */
+	public static boolean spawnEntity(World world, Entity entity)
+	{
+		if (!world.isRemote)
+		{
+			WorldServer ws = (WorldServer) world;
+			while (ws.getEntityFromUuid(entity.getUniqueID()) != null)
+			{
+				entity.setUniqueId(MathHelper.getRandomUUID(Animania.RANDOM));
+			}
+		}
+
+		return world.spawnEntity(entity);
 	}
 }

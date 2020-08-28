@@ -50,7 +50,7 @@ public class ItemHelper
 		EntityItem item = new EntityItem(world);
 		item.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
 		item.setItem(itemStack);
-		world.spawnEntity(item);
+		AnimaniaHelper.spawnEntity(world, item);
 	}
 	
 	public static int getSlotForItem(Item item, EntityPlayer player)

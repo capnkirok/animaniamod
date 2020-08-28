@@ -114,7 +114,7 @@ public class FarmAddonSpawnHandler
 		if (replacementEntity != null)
 		{
 			replacementEntity.setPosition(event.getX(), event.getY(), event.getZ());
-			event.getWorld().spawnEntity(replacementEntity);
+		AnimaniaHelper.spawnEntity(	event.getWorld(), replacementEntity);
 		}
 	}
 

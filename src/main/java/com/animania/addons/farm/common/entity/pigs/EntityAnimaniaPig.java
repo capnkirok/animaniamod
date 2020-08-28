@@ -450,7 +450,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 				entitypigzombie.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
 			}
 
-			this.world.spawnEntity(entitypigzombie);
+		AnimaniaHelper.spawnEntity(	this.world, entitypigzombie);
 			this.setDead();
 		}
 	}

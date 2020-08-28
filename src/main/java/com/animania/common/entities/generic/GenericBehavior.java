@@ -213,7 +213,7 @@ public class GenericBehavior
 						if (grownUp instanceof IFoodEating)
 							((IFoodEating) grownUp).setInteracted(entity.getInteracted());
 
-						world.spawnEntity(grownUp);
+						AnimaniaHelper.spawnEntity(world, grownUp);
 						grownUp.playLivingSound();
 					}
 
@@ -330,7 +330,7 @@ public class GenericBehavior
 
 					if (!world.isRemote)
 					{
-						world.spawnEntity(entityKid);
+						AnimaniaHelper.spawnEntity(world, entityKid);
 					}
 
 					entity.setPregnant(false);
@@ -447,7 +447,7 @@ public class GenericBehavior
 			if (animal != null)
 			{
 				animal.setPosition(entity.posX, entity.posY, entity.posZ);
-				entity.world.spawnEntity(animal);
+				AnimaniaHelper.spawnEntity(entity.world, animal);
 			}
 		}
 	}

@@ -435,7 +435,7 @@ public class FarmAddonSpawnHandler
 			{
 				if (replacementEntity.isNotColliding())
 				{
-					event.getWorld().spawnEntity(replacementEntity);
+				AnimaniaHelper.spawnEntity(	event.getWorld(), replacementEntity);
 				} else
 				{
 					replacementEntity.setDead();

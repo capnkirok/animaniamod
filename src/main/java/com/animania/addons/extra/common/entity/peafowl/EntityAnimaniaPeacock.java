@@ -314,7 +314,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 				{
 					ItemStack item = new ItemStack(feather, 1);
 					EntityItem entityitem = new EntityItem(world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, item);
-					world.spawnEntity(entityitem);
+				AnimaniaHelper.spawnEntity(	world, entityitem);
 				}
 			}
 

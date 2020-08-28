@@ -79,12 +79,12 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 			{
 				EntityRoosterBase entityChicken = this.type.getMale(world);
 				entityChicken.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityChicken);
+			AnimaniaHelper.spawnEntity(	this.world, entityChicken);
 			} else if (chooser == 1)
 			{
 				EntityChickBase entityChicken = this.type.getChild(world);
 				entityChicken.setPosition(this.posX, this.posY, this.posZ);
-				this.world.spawnEntity(entityChicken);
+			AnimaniaHelper.spawnEntity(	this.world, entityChicken);
 			}
 
 		}

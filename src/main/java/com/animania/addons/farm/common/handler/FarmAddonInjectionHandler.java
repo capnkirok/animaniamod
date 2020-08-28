@@ -111,7 +111,7 @@ public class FarmAddonInjectionHandler
 							ChickenType chickType = ChickenType.breed(rooster.type, birdType);
 							EntityChickBase chick = chickType.getChild(worldIn);
 							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
-							worldIn.spawnEntity(chick);
+						AnimaniaHelper.spawnEntity(	worldIn, chick);
 							chick.playSound(FarmAddonSoundHandler.chickenCluck1, 0.50F, 1.4F);
 							te.removeItem();
 							te.markDirty();

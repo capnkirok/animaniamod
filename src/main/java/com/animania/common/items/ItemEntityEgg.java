@@ -12,6 +12,7 @@ import com.animania.api.interfaces.IFoodEating;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.entities.RandomAnimalType;
 import com.animania.common.handler.ItemHandler;
+import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -109,7 +110,7 @@ public class ItemEntityEgg extends Item
 				foodEating.setInteracted(true);
 			}
 			
-			world.spawnEntity(entity);
+			AnimaniaHelper.spawnEntity(world, entity);
 			return EnumActionResult.SUCCESS;
 
 		}

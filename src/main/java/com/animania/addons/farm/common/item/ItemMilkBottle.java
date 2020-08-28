@@ -50,7 +50,7 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 				if (!worldIn.isRemote)
 				{
 					EntityItem entityitem = new EntityItem(worldIn, entityLiving.posX + 0.5D, entityLiving.posY + 0.5D, entityLiving.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
-					worldIn.spawnEntity(entityitem);
+				AnimaniaHelper.spawnEntity(	worldIn, entityitem);
 				}
 
 				if (entityPlayer.getFoodStats() != null)

@@ -4,6 +4,7 @@ import com.animania.Animania;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.blocks.BlockSeeds;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 
@@ -140,7 +141,7 @@ public class DispenserHandler
 
 				stack.shrink(1);
 
-				world.spawnEntity(entity);
+				AnimaniaHelper.spawnEntity(world, entity);
 			}
 
 			return stack;

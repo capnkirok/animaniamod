@@ -94,7 +94,7 @@ public class ItemWagon extends Item
 
 				if (!worldIn.isRemote)
 				{
-					worldIn.spawnEntity(EntityWagon);
+				AnimaniaHelper.spawnEntity(	worldIn, EntityWagon);
 				}
 
 				if (!playerIn.capabilities.isCreativeMode)
