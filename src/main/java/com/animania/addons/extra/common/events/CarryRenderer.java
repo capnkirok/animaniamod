@@ -8,8 +8,6 @@ import com.animania.client.models.item.AnimatedEggModelWrapper;
 import com.animania.client.render.item.RenderAnimatedEgg;
 import com.animania.common.handler.ItemHandler;
 import com.animania.common.items.ItemEntityEggAnimated;
-import com.animania.manual.components.CraftingComponent;
-import com.animania.manual.components.EntityComponent;
 import com.animania.manual.resources.ManualResourceLoader;
 
 import net.minecraft.client.Minecraft;
@@ -33,13 +31,10 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@EventBusSubscriber(modid = Animania.MODID)
 public class CarryRenderer
 {
 
@@ -66,9 +61,9 @@ public class CarryRenderer
 			entity.readFromNBT(props.getAnimal());
 			if (entity != null)
 			{
-				double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialticks;
-				double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialticks;
-				double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialticks;
+				double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialticks;
+				double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialticks;
+				double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialticks;
 
 				entity.setPosition(d0, d1, d2);
 				entity.rotationYaw = 0.0f;
@@ -80,12 +75,12 @@ public class CarryRenderer
 				float multiplier = height * width;
 
 				GlStateManager.pushMatrix();
-				GlStateManager.scale(50,50,50);
+				GlStateManager.scale(50, 50, 50);
 				GlStateManager.rotate(180, 0, 1, 0);
-				GlStateManager.translate(-0.2,-0.1,0.13);
+				GlStateManager.translate(-0.2, -0.1, 0.13);
 				GlStateManager.enableAlpha();
-				GlStateManager.scale(0.3,0.3,0.3);
-				GlStateManager.translate(0,0.1,0);
+				GlStateManager.scale(0.3, 0.3, 0.3);
+				GlStateManager.translate(0, 0.1, 0);
 
 				if (perspective == 0)
 				{
@@ -101,12 +96,11 @@ public class CarryRenderer
 				GlStateManager.scale(1, 1, 1);
 				GlStateManager.popMatrix();
 
-//				RenderHelper.disableStandardItemLighting();
-//				GlStateManager.disableRescaleNormal();
-//				GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-//				GlStateManager.disableTexture2D();
-//				GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-
+				// RenderHelper.disableStandardItemLighting();
+				// GlStateManager.disableRescaleNormal();
+				// GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+				// GlStateManager.disableTexture2D();
+				// GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
 
 			}
 		}
@@ -137,15 +131,15 @@ public class CarryRenderer
 
 			if (entity != null)
 			{
-				if(entity instanceof EntityHamster)
+				if (entity instanceof EntityHamster)
 					((EntityHamster) entity).setSitting(true);
-				double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialticks;
-				double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialticks;
-				double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialticks;
+				double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialticks;
+				double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialticks;
+				double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialticks;
 
-				double c0 = clientPlayer.lastTickPosX + (clientPlayer.posX - clientPlayer.lastTickPosX) * (double) partialticks;
-				double c1 = clientPlayer.lastTickPosY + (clientPlayer.posY - clientPlayer.lastTickPosY) * (double) partialticks;
-				double c2 = clientPlayer.lastTickPosZ + (clientPlayer.posZ - clientPlayer.lastTickPosZ) * (double) partialticks;
+				double c0 = clientPlayer.lastTickPosX + (clientPlayer.posX - clientPlayer.lastTickPosX) * partialticks;
+				double c1 = clientPlayer.lastTickPosY + (clientPlayer.posY - clientPlayer.lastTickPosY) * partialticks;
+				double c2 = clientPlayer.lastTickPosZ + (clientPlayer.posZ - clientPlayer.lastTickPosZ) * partialticks;
 
 				double xOffset = d0 - c0;
 				double yOffset = d1 - c1;
@@ -162,9 +156,9 @@ public class CarryRenderer
 
 				GlStateManager.pushMatrix();
 				GlStateManager.translate(xOffset, yOffset, zOffset);
-				GlStateManager.scale(1,1,1);
+				GlStateManager.scale(1, 1, 1);
 				GlStateManager.rotate(rotation, 0, 1f, 0);
-				GlStateManager.translate(-0.32,1.37,0);
+				GlStateManager.translate(-0.32, 1.37, 0);
 
 				if (player.isSneaking())
 					GlStateManager.translate(0, -0.3, 0);
@@ -194,7 +188,7 @@ public class CarryRenderer
 				event.getModelRegistry().putObject(new ModelResourceLocation("animania:fancy_egg", "inventory"), RenderAnimatedEgg.wrapperModel);
 			}
 		}
-		
+
 		ManualResourceLoader.loadResources();
 	}
 
@@ -211,28 +205,4 @@ public class CarryRenderer
 			}
 		}
 	}
-
-
-	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
-	public static void onTick(TickEvent.ClientTickEvent event)
-	{
-		if (event.side == Side.CLIENT)
-		{
-			RenderAnimatedEgg.renderTimer += 0.004f;
-			if (RenderAnimatedEgg.renderTimer > 1f)
-				RenderAnimatedEgg.renderTimer = 0;
-			
-			CraftingComponent.ITEM_TIMER++;
-			if(CraftingComponent.ITEM_TIMER > 26)
-				CraftingComponent.ITEM_TIMER = 0;
-			
-			if(EntityComponent.renderTimer >= 80)
-				EntityComponent.renderTimer = 0;
-			EntityComponent.renderTimer++;
-			
-		}
-	}
-
-
 }

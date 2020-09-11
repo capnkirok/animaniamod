@@ -13,6 +13,7 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.api.interfaces.IConvertable;
 import com.animania.common.blocks.BlockSeeds;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
@@ -54,7 +55,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAnimalBase
+public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAnimalBase, IConvertable
 {
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.chickenFood));
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
@@ -502,5 +503,15 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	public DataParameter<Float> getSleepTimerParam()
 	{
 		return null;
+	}
+
+	@Override
+	public Entity convertToVanilla()
+	{
+		EntityChicken entity = new EntityChicken(this.world);
+		entity.setPosition(this.posX, this.posY, this.posZ);
+		if (entity.hasCustomName())
+			entity.setCustomNameTag(this.getCustomNameTag());
+		return entity;
 	}
 }

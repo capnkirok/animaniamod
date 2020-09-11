@@ -42,7 +42,7 @@
 		"ferret4": {
 			"trigger": "animania:feed_animal",
 			"conditions": {
-				"itemstack": {
+				"optional": {
 					"item": "animania:brown_egg"
 				},
 				"entity": "animania:ferret_grey"
@@ -51,7 +51,7 @@
 		"ferret5": {
 			"trigger": "animania:feed_animal",
 			"conditions": {
-				"itemstack": {
+				"optional": {
 					"item": "animania:raw_prime_chicken"
 				},
 				"entity": "animania:ferret_grey"
@@ -60,7 +60,7 @@
 		"ferret6": {
 			"trigger": "animania:feed_animal",
 			"conditions": {
-				"itemstack": {
+				"optional": {
 					"item": "animania:raw_prime_mutton"
 				},
 				"entity": "animania:ferret_grey"

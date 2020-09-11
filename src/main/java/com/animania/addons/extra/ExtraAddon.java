@@ -2,6 +2,10 @@ package com.animania.addons.extra;
 
 import com.animania.Animania;
 import com.animania.addons.extra.client.ExtraAddonRenderHandler;
+import com.animania.addons.extra.common.events.CapabilityLoadHandler;
+import com.animania.addons.extra.common.events.CarryInteractHandler;
+import com.animania.addons.extra.common.events.CarryRenderer;
+import com.animania.addons.extra.common.events.ExtraAddonSpawnHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonBlockHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonCapHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonCompatHandler;
@@ -18,6 +22,7 @@ import com.animania.api.addons.AnimaniaAddon;
 import com.animania.api.addons.LoadAddon;
 import com.animania.network.NetworkHandler;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 
 @LoadAddon
@@ -30,6 +35,11 @@ public class ExtraAddon implements AnimaniaAddon
 	@Override
 	public void preInitCommon()
 	{
+		MinecraftForge.EVENT_BUS.register(CapabilityLoadHandler.class);
+		MinecraftForge.EVENT_BUS.register(CarryInteractHandler.class);
+		MinecraftForge.EVENT_BUS.register(CarryRenderer.class);
+		MinecraftForge.EVENT_BUS.register(ExtraAddonSpawnHandler.class);
+
 		ExtraAddonInjectionHandler.preInit();
 		ExtraAddonEntityHandler.preInit();
 		ExtraAddonItemHandler.preInit();

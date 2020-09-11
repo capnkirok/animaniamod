@@ -31,6 +31,9 @@ public class FarmConfig
 		@Comment("Disable salt creation using cheese mold")
 		public boolean disableSaltCreation = false;
 
+		@Comment("Salt items that are created in the cheese mold")
+		public int saltCreationAmount = 16;
+
 		@Comment("Disable cart and wagon")
 		public boolean disableRollingVehicles = false;
 

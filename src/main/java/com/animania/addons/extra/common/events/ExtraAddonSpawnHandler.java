@@ -26,12 +26,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@EventBusSubscriber(modid = Animania.MODID)
-public class FarmAddonSpawnHandler
+public class ExtraAddonSpawnHandler
 {
 
 	@SubscribeEvent
@@ -114,7 +112,7 @@ public class FarmAddonSpawnHandler
 		if (replacementEntity != null)
 		{
 			replacementEntity.setPosition(event.getX(), event.getY(), event.getZ());
-		AnimaniaHelper.spawnEntity(	event.getWorld(), replacementEntity);
+			AnimaniaHelper.spawnEntity(event.getWorld(), replacementEntity);
 		}
 	}
 

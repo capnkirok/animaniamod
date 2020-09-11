@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.animania.common.helper.AnimaniaHelper;
@@ -27,7 +28,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.Instance>
 {
 	private static final ResourceLocation ID = new ResourceLocation("animania", "feed_animal");
-	private final Map<PlayerAdvancements, FeedAnimalTrigger.Listeners> listeners = Maps.<PlayerAdvancements, FeedAnimalTrigger.Listeners>newHashMap();
+	private final Map<PlayerAdvancements, FeedAnimalTrigger.Listeners> listeners = Maps.<PlayerAdvancements, FeedAnimalTrigger.Listeners> newHashMap();
 
 	@Override
 	public ResourceLocation getId()
@@ -76,37 +77,54 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 	{
 		ItemStack item = null;
 		EntityEntry entity = null;
+		boolean useOptional = false;
+
+		ResourceLocation entityloc = new ResourceLocation(JsonUtils.getString(json, "entity"));
+
 		if (json.has("itemstack"))
 		{
-			ResourceLocation entityloc = new ResourceLocation(JsonUtils.getString(json, "entity"));
-
 			item = AnimaniaHelper.getItemStack(JsonUtils.getJsonObject(json, "itemstack"));
-			if (item.isEmpty())
-				throw new JsonSyntaxException("Item cannot be air '" + JsonUtils.getJsonObject(json, "item").toString() + "'");
-
-			if (!ForgeRegistries.ENTITIES.containsKey(entityloc))
-				throw new JsonSyntaxException("Unknown entity '" + entityloc + "'");
-			entity = ForgeRegistries.ENTITIES.getValue(entityloc);
-
+		} else if (json.has("optional"))
+		{
+			try
+			{
+				item = AnimaniaHelper.getItemStack(JsonUtils.getJsonObject(json, "optional"));
+			} catch (Exception e)
+			{
+				item = ItemStack.EMPTY;
+			}
+			useOptional = true;
 		}
 
-		return new FeedAnimalTrigger.Instance(item, entity);
+		if (item.isEmpty() && !useOptional)
+			throw new JsonSyntaxException("Item cannot be air '" + JsonUtils.getJsonObject(json, "item").toString() + "'");
+
+		if (!ForgeRegistries.ENTITIES.containsKey(entityloc))
+			throw new JsonSyntaxException("Unknown entity '" + entityloc + "'");
+		entity = ForgeRegistries.ENTITIES.getValue(entityloc);
+
+		return new FeedAnimalTrigger.Instance(item, entity, useOptional);
 	}
 
 	public static class Instance extends AbstractCriterionInstance
 	{
 		private final ItemStack item;
 		private final EntityEntry entity;
+		private final boolean optional;
 
-		public Instance(@Nullable ItemStack item, @Nullable EntityEntry entity)
+		public Instance(@Nonnull ItemStack item, @Nullable EntityEntry entity, boolean useOptional)
 		{
 			super(FeedAnimalTrigger.ID);
 			this.item = item;
 			this.entity = entity;
+			this.optional = useOptional;
 		}
 
 		public boolean test(ItemStack item, EntityEntry entry)
 		{
+			if (this.item.isEmpty() && optional)
+				return false;
+
 			if (item != null && this.item != null)
 			{
 				ItemStack s1 = this.item.copy();
@@ -136,7 +154,7 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 	static class Listeners
 	{
 		private final PlayerAdvancements playerAdvancements;
-		private final Set<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>>newHashSet();
+		private final Set<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>> listeners = Sets.<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>> newHashSet();
 
 		public Listeners(PlayerAdvancements playerAdvancementsIn)
 		{
@@ -164,11 +182,11 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 
 			for (ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener : this.listeners)
 			{
-				if (((FeedAnimalTrigger.Instance) listener.getCriterionInstance()).test(item, entry))
+				if (listener.getCriterionInstance().test(item, entry))
 				{
 					if (list == null)
 					{
-						list = Lists.<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>>newArrayList();
+						list = Lists.<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>> newArrayList();
 					}
 
 					list.add(listener);

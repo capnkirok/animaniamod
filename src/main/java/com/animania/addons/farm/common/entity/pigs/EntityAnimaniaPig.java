@@ -11,6 +11,7 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.api.interfaces.IConvertable;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
@@ -60,7 +61,7 @@ import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
+public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase, IConvertable
 {
 
 	protected static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
@@ -450,7 +451,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 				entitypigzombie.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
 			}
 
-		AnimaniaHelper.spawnEntity(	this.world, entitypigzombie);
+			AnimaniaHelper.spawnEntity(this.world, entitypigzombie);
 			this.setDead();
 		}
 	}
@@ -651,5 +652,15 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase
 	public AnimaniaType getAnimalType()
 	{
 		return pigType;
+	}
+
+	@Override
+	public Entity convertToVanilla()
+	{
+		EntityPig entity = new EntityPig(this.world);
+		entity.setPosition(this.posX, this.posY, this.posZ);
+		if (entity.hasCustomName())
+			entity.setCustomNameTag(this.getCustomNameTag());
+		return entity;
 	}
 }

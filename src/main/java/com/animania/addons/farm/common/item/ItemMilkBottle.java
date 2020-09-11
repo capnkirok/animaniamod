@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.config.AnimaniaConfig;
 
@@ -50,7 +51,7 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 				if (!worldIn.isRemote)
 				{
 					EntityItem entityitem = new EntityItem(worldIn, entityLiving.posX + 0.5D, entityLiving.posY + 0.5D, entityLiving.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
-				AnimaniaHelper.spawnEntity(	worldIn, entityitem);
+					AnimaniaHelper.spawnEntity(worldIn, entityitem);
 				}
 
 				if (entityPlayer.getFoodStats() != null)
@@ -79,12 +80,14 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 
 	}
 
+	@Override
 	public EnumAction getItemUseAction(ItemStack stack)
 	{
 		return EnumAction.DRINK;
 
 	}
 
+	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
 		tooltip.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.removeall"));

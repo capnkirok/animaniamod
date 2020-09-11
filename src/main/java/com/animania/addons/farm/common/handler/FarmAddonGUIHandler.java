@@ -32,7 +32,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = (Entity) world.loadedEntityList.get(k);
+				entity = world.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -49,7 +49,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = (Entity) world.loadedEntityList.get(k);
+				entity = world.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -66,7 +66,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = (Entity) world.loadedEntityList.get(k);
+				entity = world.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -95,7 +95,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = (Entity) world.loadedEntityList.get(k);
+				entity = world.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -113,7 +113,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = (Entity) world.loadedEntityList.get(k);
+				entity = world.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -131,7 +131,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = (Entity) world.loadedEntityList.get(k);
+				entity = world.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -156,7 +156,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 	@Override
 	public int getGuiIdOffset()
 	{
-		return 0;
+		return idOffset;
 	}
 
 }

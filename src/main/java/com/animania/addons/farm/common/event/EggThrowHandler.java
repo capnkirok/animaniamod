@@ -1,6 +1,5 @@
 package com.animania.addons.farm.common.event;
 
-import com.animania.Animania;
 import com.animania.addons.extra.common.entity.rodents.EntityFerretGrey;
 import com.animania.addons.extra.common.entity.rodents.EntityFerretWhite;
 import com.animania.addons.extra.common.entity.rodents.EntityHedgehog;
@@ -15,10 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@EventBusSubscriber(modid = Animania.MODID)
 public class EggThrowHandler
 {
 

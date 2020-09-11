@@ -1,12 +1,8 @@
 package com.animania.addons.farm.common.event;
 
-import com.animania.Animania;
-
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@EventBusSubscriber(modid = Animania.MODID)
 public class EventMudDamageCanceller
 {
 	@SubscribeEvent

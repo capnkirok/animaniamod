@@ -9,6 +9,7 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.api.interfaces.IConvertable;
 import com.animania.api.interfaces.IVariant;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
@@ -44,6 +45,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -61,7 +63,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimalBase, IVariant
+public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimalBase, IVariant, IConvertable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaDog.class, DataSerializers.BOOLEAN);
@@ -485,6 +487,16 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 	public AnimaniaType getAnimalType()
 	{
 		return type;
+	}
+
+	@Override
+	public Entity convertToVanilla()
+	{
+		EntityWolf entity = new EntityWolf(this.world);
+		entity.setPosition(this.posX, this.posY, this.posZ);
+		if (entity.hasCustomName())
+			entity.setCustomNameTag(this.getCustomNameTag());
+		return entity;
 	}
 
 }

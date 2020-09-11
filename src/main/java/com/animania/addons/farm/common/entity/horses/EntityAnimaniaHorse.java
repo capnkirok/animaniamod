@@ -18,6 +18,7 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.api.interfaces.IConvertable;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindSaltLick;
@@ -62,7 +63,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalBase
+public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalBase, IConvertable
 {
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.horseFood));
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean> createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
@@ -707,6 +708,16 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	public AnimaniaType getAnimalType()
 	{
 		return horseType;
+	}
+
+	@Override
+	public Entity convertToVanilla()
+	{
+		EntityHorse entity = new EntityHorse(this.world);
+		entity.setPosition(this.posX, this.posY, this.posZ);
+		if (entity.hasCustomName())
+			entity.setCustomNameTag(this.getCustomNameTag());
+		return entity;
 	}
 
 }

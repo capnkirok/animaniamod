@@ -22,6 +22,9 @@ public class RandomAnimalType implements AnimaniaType
 	@Override
 	public EntityLivingBase getMale(World world)
 	{
+		if (types.size() == 0)
+			return null;
+
 		Class<? extends AnimaniaType> type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
 		AnimaniaType[] breeds = type.getEnumConstants();
 
@@ -43,6 +46,9 @@ public class RandomAnimalType implements AnimaniaType
 	@Override
 	public EntityLivingBase getFemale(World world)
 	{
+		if (types.size() == 0)
+			return null;
+
 		Class<? extends AnimaniaType> type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
 		AnimaniaType[] breeds = type.getEnumConstants();
 
@@ -63,6 +69,9 @@ public class RandomAnimalType implements AnimaniaType
 	@Override
 	public EntityLivingBase getChild(World world)
 	{
+		if (types.size() == 0)
+			return null;
+
 		Class<? extends AnimaniaType> type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
 		AnimaniaType[] breeds = type.getEnumConstants();
 

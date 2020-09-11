@@ -10,17 +10,19 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-@EventBusSubscriber(modid = Animania.MODID)
 public class CarryInteractHandler
 {
 	@SubscribeEvent
@@ -57,6 +59,30 @@ public class CarryInteractHandler
 			}
 
 			event.setCanceled(true);
+		}
+	}
+
+	@SubscribeEvent
+	public static void missingMapping(RegistryEvent.MissingMappings<Item> event)
+	{
+		for (MissingMappings.Mapping<Item> entry : event.getAllMappings())
+		{
+
+			String key = entry.key.toString();
+
+			if (key.contains("animania:entity_egg_peafowl"))
+			{
+				ResourceLocation egg = new ResourceLocation(key.replace("peafowl", "peahen"));
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
+			}
+			if (key.equals("animania:entity_egg_dart_frog"))
+			{
+				ResourceLocation egg = new ResourceLocation("animania:entity_egg_dartfrog");
+				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
+				continue;
+			}
+
 		}
 	}
 }

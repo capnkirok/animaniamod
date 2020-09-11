@@ -13,11 +13,8 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.StartTracking;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-
-@EventBusSubscriber(modid = Animania.MODID)
 public class CapabilityLoadHandler
 {
 	@SubscribeEvent
@@ -60,7 +57,7 @@ public class CapabilityLoadHandler
 	public static void entityJoinWorld(EntityJoinWorldEvent event)
 	{
 		Entity e = event.getEntity();
-		if(e instanceof EntityPlayerMP)
+		if (e instanceof EntityPlayerMP)
 		{
 			EntityPlayerMP player = (EntityPlayerMP) e;
 			ICapabilityPlayer caps = CapabilityRefs.getPlayerCaps(player);

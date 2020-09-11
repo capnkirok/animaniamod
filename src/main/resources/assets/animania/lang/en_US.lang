@@ -363,7 +363,9 @@ tab.animania_resources.label=Animania Resources
 animania.updatetext.1=Animania Version
 animania.updatetext.2=is now available
 animania.updatetext.3=Failed to connect to see if an update to Animania is available
-animania.update.download=["Click to: [",{"text":"Download","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click to see the latest files available for download","color":"gold"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/animania/files"}},"]"]
+animania.update.click_to=Click to: 
+animania.update.download=[Download]
+animania.update.show_latest_files=Click to see the latest files available for download
 
 tooltip.an.instanthealth=Instant Health
 tooltip.an.speed=Speed Boost

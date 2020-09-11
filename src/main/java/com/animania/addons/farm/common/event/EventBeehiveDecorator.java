@@ -1,6 +1,5 @@
 package com.animania.addons.farm.common.event;
 
-import com.animania.Animania;
 import com.animania.addons.farm.common.block.BlockHive;
 import com.animania.addons.farm.common.block.BlockWildHive;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
@@ -18,12 +17,10 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@EventBusSubscriber(modid = Animania.MODID)
 public class EventBeehiveDecorator
 {
 

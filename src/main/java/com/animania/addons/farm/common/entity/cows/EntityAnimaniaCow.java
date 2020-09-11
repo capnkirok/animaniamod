@@ -18,6 +18,7 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.api.interfaces.IConvertable;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
@@ -34,6 +35,7 @@ import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.item.EntityItem;
@@ -60,7 +62,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
+public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase, IConvertable
 {
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.cowFood));
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaCow.class, DataSerializers.VARINT);
@@ -448,6 +450,16 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase
 	public DataParameter<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
+	}
+
+	@Override
+	public Entity convertToVanilla()
+	{
+		EntityCow entity = new EntityCow(this.world);
+		entity.setPosition(this.posX, this.posY, this.posZ);
+		if (entity.hasCustomName())
+			entity.setCustomNameTag(this.getCustomNameTag());
+		return entity;
 	}
 
 }

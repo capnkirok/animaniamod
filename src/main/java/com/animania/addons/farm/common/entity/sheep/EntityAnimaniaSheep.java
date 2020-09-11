@@ -25,6 +25,7 @@ import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
+import com.animania.api.interfaces.IConvertable;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
@@ -43,6 +44,7 @@ import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -74,7 +76,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAnimaniaAnimalBase
+public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAnimaniaAnimalBase, IConvertable
 {
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.sheepFood));
@@ -620,6 +622,16 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	public AnimaniaType getAnimalType()
 	{
 		return sheepType;
+	}
+
+	@Override
+	public Entity convertToVanilla()
+	{
+		EntitySheep entity = new EntitySheep(this.world);
+		entity.setPosition(this.posX, this.posY, this.posZ);
+		if (entity.hasCustomName())
+			entity.setCustomNameTag(this.getCustomNameTag());
+		return entity;
 	}
 
 }

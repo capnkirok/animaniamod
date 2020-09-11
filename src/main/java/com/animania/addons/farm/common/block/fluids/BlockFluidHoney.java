@@ -7,6 +7,9 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.MobEffects;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -25,9 +28,12 @@ public class BlockFluidHoney extends BlockFluidBase
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity)
+	{
 		Vec3d vec = this.getFlowVector(world, pos);
-		entity.addVelocity(vec.x / 1000, vec.y / 1000, vec.z / 1000);
+		entity.addVelocity(vec.x / 2000, vec.y / 2000, vec.z / 2000);
+		if (entity instanceof EntityLivingBase)
+			((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1, 0, false, false));
 	}
 
 	@Override
@@ -37,7 +43,8 @@ public class BlockFluidHoney extends BlockFluidBase
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
+	{
 		return true;
 	}
 

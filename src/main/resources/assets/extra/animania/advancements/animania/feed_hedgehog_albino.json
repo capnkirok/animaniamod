@@ -24,7 +24,7 @@
 		"hedgehog2": {
 			"trigger": "animania:feed_animal",
 			"conditions": {
-				"itemstack": {
+				"optional": {
 					"item": "animania:brown_egg"
 				},
 				"entity": "animania:hedgehog_albino"

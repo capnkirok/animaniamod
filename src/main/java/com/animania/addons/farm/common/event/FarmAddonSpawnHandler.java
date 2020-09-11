@@ -71,11 +71,9 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@EventBusSubscriber(modid = Animania.MODID)
 public class FarmAddonSpawnHandler
 {
 	@SubscribeEvent
@@ -435,7 +433,7 @@ public class FarmAddonSpawnHandler
 			{
 				if (replacementEntity.isNotColliding())
 				{
-				AnimaniaHelper.spawnEntity(	event.getWorld(), replacementEntity);
+					AnimaniaHelper.spawnEntity(event.getWorld(), replacementEntity);
 				} else
 				{
 					replacementEntity.setDead();

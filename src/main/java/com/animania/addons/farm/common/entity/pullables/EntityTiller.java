@@ -16,6 +16,7 @@ import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 
 import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.BlockGrass;
@@ -50,6 +51,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -71,7 +73,9 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 	private double lerpZ;
 	public double cartYaw;
 	private double lerpXRot;
-	BlockPos lastPos;
+	private MutableBlockPos lastPosMid = new MutableBlockPos(0, 0, 0);
+	private MutableBlockPos lastPosRight = new MutableBlockPos(0, 0, 0);
+	private MutableBlockPos lastPosLeft = new MutableBlockPos(0, 0, 0);
 	protected static final DataParameter<Integer> PULLER_TYPE = EntityDataManager.<Integer> createKey(EntityTiller.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer> createKey(EntityTiller.class, DataSerializers.VARINT);
 	private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.<Float> createKey(EntityTiller.class, DataSerializers.FLOAT);
@@ -118,11 +122,13 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		return true;
 	}
 
+	@Override
 	public boolean canBeCollidedWith()
 	{
 		return !this.isDead;
 	}
 
+	@Override
 	public double getMountedYOffset()
 	{
 		return +0.62D;
@@ -134,6 +140,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		return true;
 	}
 
+	@Override
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
@@ -281,15 +288,6 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 	}
 
-	private void controlBoat()
-	{
-		if (this.isBeingRidden())
-		{
-			float f = 0.0F;
-
-		}
-	}
-
 	public void setDamageTaken(float damageTaken)
 	{
 		this.dataManager.set(EntityTiller.DAMAGE_TAKEN, Float.valueOf(damageTaken));
@@ -297,7 +295,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 	public float getDamageTaken()
 	{
-		return ((Float) this.dataManager.get(EntityTiller.DAMAGE_TAKEN)).floatValue();
+		return this.dataManager.get(EntityTiller.DAMAGE_TAKEN).floatValue();
 	}
 
 	public void setHasChest(boolean hasChest)
@@ -307,7 +305,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 	public boolean getHasChest()
 	{
-		return ((boolean) this.dataManager.get(EntityTiller.HAS_CHEST).booleanValue());
+		return (this.dataManager.get(EntityTiller.HAS_CHEST).booleanValue());
 	}
 
 	public void setTimeSinceHit(int timeSinceHit)
@@ -317,9 +315,10 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 	public int getTimeSinceHit()
 	{
-		return ((Integer) this.dataManager.get(EntityTiller.TIME_SINCE_HIT)).intValue();
+		return this.dataManager.get(EntityTiller.TIME_SINCE_HIT).intValue();
 	}
 
+	@Override
 	public void applyEntityCollision(Entity entityIn)
 	{
 		if (entityIn instanceof EntityTiller)
@@ -336,54 +335,64 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		}
 	}
 
-	@Override
-	public void onUpdate()
+	public void tillGround(BlockPos pos, MutableBlockPos lastPos, EntityPlayer player)
 	{
-
-		if (this.pulled && this.puller != null && (this.puller instanceof EntityAnimaniaHorse || this.puller instanceof EntityAnimaniaCow))
+		if (!pos.equals(lastPos) && (this.world.getBlockState(pos).getBlock() instanceof BlockGrass || this.world.getBlockState(pos).getBlock() instanceof BlockFarmland) || this.world.getBlockState(pos).getBlock() instanceof BlockDirt)
 		{
+			lastPos.setPos(pos);
+			this.world.setBlockState(pos, Blocks.FARMLAND.getStateFromMeta(7));
 
-			EntityPlayer player = world.getClosestPlayer(this.posX, this.posY, this.posZ, 20, false);
-
-			BlockPos pos = this.getPosition();
-			if (pos != lastPos && (this.world.getBlockState(this.getPosition().down()).getBlock() instanceof BlockGrass || this.world.getBlockState(this.getPosition().down()).getBlock() instanceof BlockFarmland))
+			if (this.world.getBlockState(pos.up()).getBlock() instanceof BlockTallGrass || this.world.getBlockState(pos.up()).getBlock() instanceof BlockDoublePlant)
 			{
-				lastPos = pos;
-				this.world.setBlockState(this.getPosition().down(), Blocks.FARMLAND.getStateFromMeta(7));
-
-				if (this.world.getBlockState(this.getPosition()).getBlock() instanceof BlockTallGrass || this.world.getBlockState(this.getPosition()).getBlock() instanceof BlockDoublePlant)
+				this.world.destroyBlock(this.getPosition(), false);
+			} else if (this.world.getBlockState(pos.up()).getBlock() instanceof BlockCrops)
+			{
+				// do nothing
+			} else
+			{
+				for (int j = 0; j < 10; j++)
 				{
-					this.world.destroyBlock(this.getPosition(), false);
-				} else if (this.world.getBlockState(this.getPosition()).getBlock() instanceof BlockCrops)
-				{
-					// do nothing
-				} else
-				{
-					for (int j = 0; j < 10; j++)
+					ItemStack seeds = cartChest.getStackInSlot(j);
+					if (seeds != ItemStack.EMPTY && (seeds.getItem() instanceof ItemSeeds || seeds.getItem() instanceof ItemSeedFood))
 					{
-						ItemStack seeds = cartChest.getStackInSlot(j);
-						if (seeds != ItemStack.EMPTY && (seeds.getItem() instanceof ItemSeeds || seeds.getItem() instanceof ItemSeedFood))
+						if (seeds.getItem() instanceof ItemSeeds)
 						{
-							if (seeds.getItem() instanceof ItemSeeds)
-							{
-								ItemSeeds seedy = (ItemSeeds) seeds.getItem();
-								this.world.setBlockState(this.getPosition(), seedy.getPlant(world, this.getPosition()));
-							} else
-							{
-								ItemSeedFood seedy = (ItemSeedFood) seeds.getItem();
-								this.world.setBlockState(this.getPosition(), seedy.getPlant(world, this.getPosition()));
-							}
-
-							if (player != null && !player.isCreative())
-							{
-								seeds.shrink(1);
-							}
-							break;
+							ItemSeeds seedy = (ItemSeeds) seeds.getItem();
+							this.world.setBlockState(pos.up(), seedy.getPlant(world, pos.up()));
+						} else
+						{
+							ItemSeedFood seedy = (ItemSeedFood) seeds.getItem();
+							this.world.setBlockState(pos.up(), seedy.getPlant(world, pos.up()));
 						}
+
+						if (player != null && !player.isCreative())
+						{
+							seeds.shrink(1);
+						}
+						break;
 					}
 				}
 			}
+		}
+	}
 
+	@Override
+	public void onUpdate()
+	{
+		if (!this.world.isRemote && this.pulled && this.puller != null && (this.puller instanceof EntityAnimaniaHorse || this.puller instanceof EntityAnimaniaCow))
+		{
+			EntityPlayer player = world.getClosestPlayer(this.posX, this.posY, this.posZ, 20, false);
+
+			Vec3d up = new Vec3d(0, 1, 0);
+			Vec3d forward = new Vec3d(1, 0, 0).rotateYaw(this.rotationYaw).normalize();
+			Vec3d right = up.crossProduct(forward).normalize();
+
+			Vec3d posvec = new Vec3d(this.getPosition().down());
+			posvec = posvec.addVector(0.5, 0, 0.5);
+
+			tillGround(new BlockPos(posvec), lastPosMid, player);
+			tillGround(new BlockPos(posvec.add(right)), lastPosRight, player);
+			tillGround(new BlockPos(posvec.subtract(right)), lastPosLeft, player);
 		}
 
 		if (!this.getHasChest())
@@ -727,35 +736,38 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 	private void tickLerp()
 	{
+		if (this.puller != null)
+		{
+			double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
+			this.rotationYaw = (float) Math.toDegrees(deltaAngle);
+		}
+
 		if (this.lerpSteps > 0 && !this.canPassengerSteer())
 		{
-			double d0 = this.posX + (this.cartPitch - this.posX) / (double) this.lerpSteps;
-			double d1 = this.posY + (this.lerpY - this.posY) / (double) this.lerpSteps;
-			double d2 = this.posZ + (this.lerpZ - this.posZ) / (double) this.lerpSteps;
-			double d3 = MathHelper.wrapDegrees(this.cartYaw - (double) this.rotationYaw);
-			if (this.puller != null)
-			{
-				double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
-				this.rotationYaw = (float) Math.toDegrees(deltaAngle);
-			}
-			this.rotationPitch = (float) ((double) this.rotationPitch + (this.lerpXRot - (double) this.rotationPitch) / (double) this.lerpSteps);
+			double d0 = this.posX + (this.cartPitch - this.posX) / this.lerpSteps;
+			double d1 = this.posY + (this.lerpY - this.posY) / this.lerpSteps;
+			double d2 = this.posZ + (this.lerpZ - this.posZ) / this.lerpSteps;
+			double d3 = MathHelper.wrapDegrees(this.cartYaw - this.rotationYaw);
+			this.rotationPitch = (float) (this.rotationPitch + (this.lerpXRot - this.rotationPitch) / this.lerpSteps);
 			--this.lerpSteps;
 			this.setPosition(d0, d1, d2);
 			this.setRotation(this.rotationYaw, this.rotationPitch);
 		}
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
 	{
 		this.cartPitch = x;
 		this.lerpY = y;
 		this.lerpZ = z;
-		this.cartYaw = (double) yaw;
-		this.lerpXRot = (double) pitch;
+		this.cartYaw = yaw;
+		this.lerpXRot = pitch;
 		this.lerpSteps = 10;
 	}
 
+	@Override
 	public void updatePassenger(Entity passenger)
 	{
 		if (this.isPassenger(passenger))
@@ -777,12 +789,12 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 				if (passenger instanceof EntityAnimal)
 				{
-					f = (float) ((double) f + 0.2D);
+					f = (float) (f + 0.2D);
 				}
 			}
 
-			Vec3d vec3d = (new Vec3d((double) f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
-			passenger.setPosition(this.posX + vec3d.x, this.posY + (double) f1, this.posZ + vec3d.z);
+			Vec3d vec3d = (new Vec3d(f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
+			passenger.setPosition(this.posX + vec3d.x, this.posY + f1, this.posZ + vec3d.z);
 			passenger.rotationYaw += this.deltaRotation;
 			passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
 			this.applyYawToEntity(passenger);
@@ -791,8 +803,8 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 			{
 
 				int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-				passenger.setRenderYawOffset(((EntityAnimal) passenger).renderYawOffset + (float) j);
-				passenger.setRotationYawHead(passenger.getRotationYawHead() + (float) j);
+				passenger.setRenderYawOffset(((EntityAnimal) passenger).renderYawOffset + j);
+				passenger.setRotationYawHead(passenger.getRotationYawHead() + j);
 			}
 		}
 	}
@@ -811,6 +823,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void applyOrientationToEntity(Entity entityToUpdate)
 	{
@@ -854,6 +867,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		}
 	}
 
+	@Override
 	@Nullable
 	public AxisAlignedBB getCollisionBox(Entity entityIn)
 	{
@@ -876,6 +890,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 	/**
 	 * Returns the collision bounding box for this entity
 	 */
+	@Override
 	@Nullable
 	public AxisAlignedBB getCollisionBoundingBox()
 	{
@@ -913,6 +928,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		this.dataManager.set(EntityTiller.PULLER_TYPE, Integer.valueOf(pullerType));
 	}
 
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound)
 	{
 		compound.setInteger("PullerType", this.getPullerType());
@@ -936,6 +952,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		compound.setTag("Items", nbttaglist);
 	}
 
+	@Override
 	public void readEntityFromNBT(NBTTagCompound compound)
 	{
 		this.setPullerType(compound.getInteger("PullerType"));
@@ -1002,6 +1019,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void performHurtAnimation()
 	{
@@ -1009,6 +1027,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		this.setDamageTaken(this.getDamageTaken() * 11.0F);
 	}
 
+	@Override
 	@Nullable
 	public Entity getControllingPassenger()
 	{

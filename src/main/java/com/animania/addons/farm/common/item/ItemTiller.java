@@ -3,6 +3,7 @@ package com.animania.addons.farm.common.item;
 import com.animania.Animania;
 import com.animania.addons.farm.common.entity.pullables.EntityTiller;
 import com.animania.common.ModSoundEvents;
+import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -50,7 +51,7 @@ public class ItemTiller extends Item
 		world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 		entity.rotationYaw = entity.rotationYaw;
 		entity.deltaRotation = entity.rotationYaw;
-	AnimaniaHelper.spawnEntity(	world, entity);
+		AnimaniaHelper.spawnEntity(world, entity);
 		return EnumActionResult.SUCCESS;
 
 	}

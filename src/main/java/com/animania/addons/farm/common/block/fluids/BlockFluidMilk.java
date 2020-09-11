@@ -16,23 +16,25 @@ import net.minecraftforge.fluids.Fluid;
 public class BlockFluidMilk extends BlockFluidBase
 {
 
-    public BlockFluidMilk(Fluid fluid, String name) {
-        super(fluid, Material.WATER, name);
+	public BlockFluidMilk(Fluid fluid, String name)
+	{
+		super(fluid, Material.WATER, name);
 
-        this.quantaPerBlock = 7;
-        this.setRenderLayer(BlockRenderLayer.TRANSLUCENT);
+		this.quantaPerBlock = 7;
+		this.setRenderLayer(BlockRenderLayer.TRANSLUCENT);
 
-    }
+	}
 
-    @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
-        Vec3d vec = this.getFlowVector(world, pos);
-        entity.addVelocity(vec.x / 60, vec.y / 60, vec.z / 60);
-    }
+	@Override
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity)
+	{
+		Vec3d vec = this.getFlowVector(world, pos);
+		entity.addVelocity(vec.x / 1000, vec.y / 1000, vec.z / 1000);
+	}
 
-    @Override
-    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
-    {
-    	return MapColor.SNOW;
-    }
+	@Override
+	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	{
+		return MapColor.SNOW;
+	}
 }

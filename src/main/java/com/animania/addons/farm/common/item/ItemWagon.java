@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.animania.Animania;
 import com.animania.addons.farm.common.entity.pullables.EntityWagon;
+import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -40,7 +41,7 @@ public class ItemWagon extends Item
 		float f1 = playerIn.prevRotationPitch + (playerIn.rotationPitch - playerIn.prevRotationPitch) * 1.0F;
 		float f2 = playerIn.prevRotationYaw + (playerIn.rotationYaw - playerIn.prevRotationYaw) * 1.0F;
 		double d0 = playerIn.prevPosX + (playerIn.posX - playerIn.prevPosX) * 1.0D;
-		double d1 = playerIn.prevPosY + (playerIn.posY - playerIn.prevPosY) * 1.0D + (double) playerIn.getEyeHeight();
+		double d1 = playerIn.prevPosY + (playerIn.posY - playerIn.prevPosY) * 1.0D + playerIn.getEyeHeight();
 		double d2 = playerIn.prevPosZ + (playerIn.posZ - playerIn.prevPosZ) * 1.0D;
 		Vec3d vec3d = new Vec3d(d0, d1, d2);
 		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
@@ -50,7 +51,7 @@ public class ItemWagon extends Item
 		float f7 = f4 * f5;
 		float f8 = f3 * f5;
 		double d3 = 5.0D;
-		Vec3d vec3d1 = vec3d.addVector((double) f7 * 5.0D, (double) f6 * 5.0D, (double) f8 * 5.0D);
+		Vec3d vec3d1 = vec3d.addVector(f7 * 5.0D, f6 * 5.0D, f8 * 5.0D);
 		RayTraceResult raytraceresult = worldIn.rayTraceBlocks(vec3d, vec3d1, true);
 
 		if (raytraceresult == null)
@@ -64,11 +65,11 @@ public class ItemWagon extends Item
 
 			for (int i = 0; i < list.size(); ++i)
 			{
-				Entity entity = (Entity) list.get(i);
+				Entity entity = list.get(i);
 
 				if (entity.canBeCollidedWith())
 				{
-					AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().grow((double) entity.getCollisionBorderSize());
+					AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().grow(entity.getCollisionBorderSize());
 
 					if (axisalignedbb.contains(vec3d))
 					{
@@ -94,7 +95,7 @@ public class ItemWagon extends Item
 
 				if (!worldIn.isRemote)
 				{
-				AnimaniaHelper.spawnEntity(	worldIn, EntityWagon);
+					AnimaniaHelper.spawnEntity(worldIn, EntityWagon);
 				}
 
 				if (!playerIn.capabilities.isCreativeMode)

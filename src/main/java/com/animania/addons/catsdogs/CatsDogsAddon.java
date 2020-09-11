@@ -5,8 +5,11 @@ import com.animania.addons.catsdogs.common.handler.CatsDogsAddonBlockHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonCraftingHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonEntityHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonItemHandler;
+import com.animania.addons.catsdogs.common.handler.CatsDogsVillagerProfessions;
 import com.animania.api.addons.AnimaniaAddon;
 import com.animania.api.addons.LoadAddon;
+
+import net.minecraftforge.common.MinecraftForge;
 
 @LoadAddon
 public class CatsDogsAddon implements AnimaniaAddon
@@ -15,6 +18,8 @@ public class CatsDogsAddon implements AnimaniaAddon
 	@Override
 	public void preInitCommon()
 	{
+		MinecraftForge.EVENT_BUS.register(CatsDogsVillagerProfessions.class);
+
 		CatsDogsAddonEntityHandler.preInit();
 		CatsDogsAddonItemHandler.preInit();
 		CatsDogsAddonBlockHandler.preInit();

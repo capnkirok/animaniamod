@@ -81,7 +81,7 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_CHEESE));
 					} else if (fluid.getFluid() == FluidRegistry.WATER)
 					{
-						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.salt, 16));
+						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.salt, FarmConfig.settings.saltCreationAmount));
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
 					}
 

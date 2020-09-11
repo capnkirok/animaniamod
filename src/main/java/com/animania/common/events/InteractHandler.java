@@ -17,6 +17,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -24,8 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -74,6 +73,9 @@ public class InteractHandler
 							stack.shrink(1);
 
 						event.getWorld().playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ, SoundEvents.BLOCK_GRASS_FALL, SoundCategory.PLAYERS, 0.2F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+
+						event.setCanceled(true);
+						event.setCancellationResult(EnumActionResult.SUCCESS);
 					}
 				}
 			}
@@ -97,89 +99,6 @@ public class InteractHandler
 			{
 				AdvancementHandler.feedAnimal.trigger((EntityPlayerMP) player, stack, entry);
 			}
-		}
-	}
-
-	@SubscribeEvent
-	public static void missingMapping(RegistryEvent.MissingMappings<Item> event)
-	{
-		for (MissingMappings.Mapping<Item> entry : event.getAllMappings())
-		{
-
-			String key = entry.key.toString();
-
-			if (key.contains("animania:entity_egg_peafowl"))
-			{
-				ResourceLocation egg = new ResourceLocation(key.replace("peafowl", "peahen"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.contains("animania:entity_egg_") && key.contains("newzealand"))
-			{
-				ResourceLocation egg = new ResourceLocation(key.replace("newzealand", "new_zealand"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.contains("animania:entity_egg_") && key.contains("red"))
-			{
-				ResourceLocation egg = new ResourceLocation(key.replace("red", "rhode_island_red"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.contains("animania:entity_egg_") && key.contains("nigeriandwarf"))
-			{
-				ResourceLocation egg = new ResourceLocation(key.replace("nigeriandwarf", "nigerian_dwarf"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-			}
-			if (key.contains("animania:entity_egg_") && key.contains("largewhite"))
-			{
-				ResourceLocation egg = new ResourceLocation(key.replace("largewhite", "large_white"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.equals("animania:entity_egg_draft_horse_mare"))
-			{
-				ResourceLocation egg = new ResourceLocation("animania:entity_egg_mare_draft");
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.equals("animania:entity_egg_draft_horse_foal"))
-			{
-				ResourceLocation egg = new ResourceLocation("animania:entity_egg_foal_draft");
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.equals("animania:entity_egg_draft_horse_stallion"))
-			{
-				ResourceLocation egg = new ResourceLocation("animania:entity_egg_stallion_draft");
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.contains("animania:entity_egg_") && key.contains("largeblack"))
-			{
-				ResourceLocation egg = new ResourceLocation(key.replace("largeblack", "large_black"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.contains("animania:entity_egg_") && key.contains("oldspot"))
-			{
-				ResourceLocation egg = new ResourceLocation(key.replace("oldspot", "old_spot"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.contains("animania:entity_egg_") && key.contains("plymouth"))
-			{
-				ResourceLocation egg = new ResourceLocation(key.replace("plymouth", "plymouth_rock"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.equals("animania:entity_egg_dart_frog"))
-			{
-				ResourceLocation egg = new ResourceLocation("animania:entity_egg_dartfrog");
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-
 		}
 	}
 
