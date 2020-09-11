@@ -43,7 +43,8 @@ public class AddonResourcePack
 		{
 			String classpath = addon.getClass().getResource(addon.getClass().getSimpleName() + ".class").getFile();
 
-			System.out.println("Classpath for " + addon.getAddonName() + " is: " + classpath);
+			// System.out.println("Classpath for " + addon.getAddonName() + "
+			// is: " + classpath);
 
 			classpath = classpath.substring(0, classpath.indexOf("!"));
 			classpath = classpath.substring(classpath.indexOf(":") + 1, classpath.length());
@@ -53,7 +54,8 @@ public class AddonResourcePack
 
 			classpath = URLDecoder.decode(classpath);
 
-			System.out.println("Edited classpath for " + addon.getAddonName() + " is: " + classpath);
+			// System.out.println("Edited classpath for " + addon.getAddonName()
+			// + " is: " + classpath);
 
 			String path = classpath;
 			// String path = ".\\mods\\" + classpath;
@@ -83,7 +85,7 @@ public class AddonResourcePack
 			if (classpath.getScheme().equals("jar"))
 			{
 				fs = FileSystems.newFileSystem(classpath, Collections.<String, Object> emptyMap());
-				System.out.println("Filesystem: " + fs);
+				// System.out.println("Filesystem: " + fs);
 				// myPath = fs.getPath(".");
 				myPath = fs.getPath(".");
 			} else
@@ -92,7 +94,7 @@ public class AddonResourcePack
 				myPath = Paths.get(classpath);
 			}
 
-			System.out.println("Edited Path classpath: " + myPath);
+			// System.out.println("Edited Path classpath: " + myPath);
 
 			return new Tuple<FileSystem, Path>(fs, myPath);
 		} catch (Exception e)

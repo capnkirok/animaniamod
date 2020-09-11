@@ -320,12 +320,8 @@ public class AddonHandler
 			else
 				fPath = fPath.resolve(ctx.getModId() + "/recipes/_factories.json");
 
-			System.out.println(fPath);
-
 			if (fPath != null && Files.exists(fPath))
 			{
-				System.out.println("Factory json exists");
-
 				try (BufferedReader reader = Files.newBufferedReader(fPath))
 				{
 					JsonObject json = JsonUtils.fromJson(GSON, reader, JsonObject.class);
@@ -412,11 +408,8 @@ public class AddonHandler
 			else
 				root = tuple.getSecond().resolve(base);
 
-			System.out.println("Base root: " + root);
-
 			if (root == null || !Files.exists(root))
 			{
-				System.out.println("Returning unfound root");
 				return defaultUnfoundRoot;
 			}
 
