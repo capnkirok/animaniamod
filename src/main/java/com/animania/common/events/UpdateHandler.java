@@ -48,7 +48,7 @@ public class UpdateHandler
 
 		try
 		{
-			URL url = new URL("https://gist.githubusercontent.com/Tschipp/150bdce860b9240c9cc363f5e7b95a6d/raw");
+			URL url = new URL("https://gist.githubusercontent.com/Tschipp/150bdce860b9240c9cc363f5e7b95a6d/raw/");
 			Scanner s = new Scanner(url.openStream());
 			UpdateHandler.newestVersion = s.next();
 			s.close();
