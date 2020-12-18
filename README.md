@@ -6,7 +6,7 @@ If you would like to learn more about the mod, check out the Wiki: http://www.an
 
 To Download the latest compiled code, visit CurseForge: https://minecraft.curseforge.com/projects/animania
 
-To join our Discord, visit the following: https://discord.gg/xyXrVBa
+To join our Discord, visit the following: https://discord.gg/7ne2Dqp
 
 To use Animania-Base in your projects, include this in your build.gradle:
 ```
