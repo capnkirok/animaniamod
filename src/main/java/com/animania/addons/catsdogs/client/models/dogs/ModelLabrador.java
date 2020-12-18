@@ -1,6 +1,8 @@
 package com.animania.addons.catsdogs.client.models.dogs;
 
+import com.animania.addons.catsdogs.client.models.dogs.poses.PoseLabradorSleeping;
 import com.animania.addons.catsdogs.common.entity.canids.EntityAnimaniaDog;
+import com.animania.api.rendering.ModelPose;
 import com.animania.client.models.render.ModelRendererAnimania;
 
 import net.minecraft.client.model.ModelBase;
@@ -37,6 +39,8 @@ public class ModelLabrador extends ModelBase
 	ModelRendererAnimania leg_r1;
 	ModelRendererAnimania leg_r2;
 	ModelRendererAnimania toes_r;
+
+	ModelPose sleepingPose;
 
 	public ModelLabrador()
 	{
@@ -204,8 +208,7 @@ public class ModelLabrador extends ModelBase
 
 	}
 
-	@Override
-	public void render(Entity entity, float f1, float f2, float f3, float f4, float f5, float scale)
+	public void setupAngles()
 	{
 		this.body.rotateAngleX = -0.03490658503988659F;
 		this.leg_l1.rotateAngleX = 0.03490658503988659F;
@@ -228,10 +231,15 @@ public class ModelLabrador extends ModelBase
 		this.ear_r.rotateAngleZ = -0.3787364476827695F;
 		this.ear_r2.rotateAngleX = 0.3490658503988659F;
 		this.leg_r1.rotateAngleX = 0.03490658503988659F;
+	}
+
+	@Override
+	public void render(Entity entity, float f1, float f2, float f3, float f4, float f5, float scale)
+	{
 		this.setRotationAngles(f1, f2, f3, f4, f5, scale, entity);
 		this.body.render(scale);
 	}
-	
+
 	@Override
 	public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)
 	{
@@ -242,7 +250,7 @@ public class ModelLabrador extends ModelBase
 		if (!sitting)
 		{
 			this.body.setRotationPoint(0.0F, 10.0F, -5.0F);
-			
+
 			this.body.rotateAngleX = -0.06981317007977318F;
 			this.leg_l1.rotateAngleX = 0.06981317007977318F;
 			this.lower_body.rotateAngleX = 0;
@@ -258,35 +266,51 @@ public class ModelLabrador extends ModelBase
 		super.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTickTime);
 
 	}
-	
+
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
 	{
-		limbSwingAmount *= 0.6;
-		
-		this.neck1.rotateAngleX = headPitch * 0.001453292F - 0.7f;
-		this.neck1.rotateAngleY = netHeadYaw * 0.017453292F;
+		setupAngles();
+
+		if (sleepingPose == null)
+		{
+			sleepingPose = new ModelPose(this, PoseLabradorSleeping.INSTANCE);
+		}
 
 		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
 
 		if (!dog.getSleeping())
 		{
-			this.tail.rotateAngleY = MathHelper.sin(ageInTicks * 3.141593F * 0.05F) * MathHelper.sin(ageInTicks * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+			sleepingPose.transitionToNormal(1, ageInTicks);
 		}
-		else
+		if (dog.getSleeping())
+		{
+			sleepingPose.transitionToPose(10, ageInTicks);
+		}
+
+		limbSwingAmount *= 0.6;
+
+		this.neck1.rotateAngleX = headPitch * 0.001453292F - 1f;
+		this.neck1.rotateAngleY = netHeadYaw * 0.017453292F;
+
+		if (!dog.getSleeping())
+		{
+			this.tail.rotateAngleY = MathHelper.sin(ageInTicks * 3.141593F * 0.05F) * MathHelper.sin(ageInTicks * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
+
+			this.back_leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+			this.back_leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+			this.leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+			this.leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+		} else
 		{
 			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}
-		this.back_leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-		this.back_leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-		this.leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-		this.leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
 
 		boolean sitting = dog.isSitting();
 		if (sitting)
 		{
 			this.body.setRotationPoint(0.0F, 12.0F, -5.0F);
-			
+
 			this.body.rotateAngleX = -0.10049954898833749F;
 			this.leg_l1.rotateAngleX = -0.4374388517443468F;
 			this.lower_body.rotateAngleX = -0.68513423385813F;

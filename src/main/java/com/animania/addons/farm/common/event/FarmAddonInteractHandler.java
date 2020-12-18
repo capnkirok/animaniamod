@@ -167,12 +167,6 @@ public class FarmAddonInteractHandler
 				entry.remap(FarmAddonItemHandler.cookedPrimeChicken);
 				continue;
 			}
-			if (key.contains("animania:entity_egg_peafowl"))
-			{
-				ResourceLocation egg = new ResourceLocation(key.replace("peafowl", "peahen"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
 			if (key.contains("animania:entity_egg_") && key.contains("newzealand"))
 			{
 				ResourceLocation egg = new ResourceLocation(key.replace("newzealand", "new_zealand"));
@@ -229,12 +223,6 @@ public class FarmAddonInteractHandler
 			if (key.contains("animania:entity_egg_") && key.contains("plymouth"))
 			{
 				ResourceLocation egg = new ResourceLocation(key.replace("plymouth", "plymouth_rock"));
-				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
-				continue;
-			}
-			if (key.equals("animania:entity_egg_dart_frog"))
-			{
-				ResourceLocation egg = new ResourceLocation("animania:entity_egg_dartfrog");
 				entry.remap(ForgeRegistries.ITEMS.getValue(egg));
 				continue;
 			}

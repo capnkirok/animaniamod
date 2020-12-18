@@ -1,5 +1,7 @@
 package com.animania.addons.catsdogs.client.render.dogs;
 
+import java.util.function.Function;
+
 import com.animania.addons.catsdogs.common.entity.canids.EntityAnimaniaDog;
 import com.animania.api.interfaces.IChild;
 import com.animania.client.render.layer.LayerBlinking;
@@ -23,9 +25,11 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 	private final int eyeColor;
 	private final float scale;
 	private final LayerBlinking blinking;
-	private final double x,y,z;
-	
-	public RenderDogGeneric(RenderManager rm, ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeColor, float scale, double x, double y, double z)
+	private final double x, y, z;
+
+	private final Function<EntityAnimaniaDog, ResourceLocation> textureOverrideFunction;
+
+	public RenderDogGeneric(RenderManager rm, ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeColor, float scale, double x, double y, double z, Function<EntityAnimaniaDog, ResourceLocation> textureOverride)
 	{
 		super(rm, model, 0.5F);
 		this.texture = texture;
@@ -35,6 +39,7 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.textureOverrideFunction = textureOverride;
 
 		this.addLayer(blinking = new LayerBlinking(this, blink, eyeColor, true));
 	}
@@ -48,62 +53,65 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 			IChild child = (IChild) entity;
 			float age = child.getEntityAge();
 			GlStateManager.scale(scale + (age / child.getSizeDividend()), scale + (age / child.getSizeDividend()), scale + (age / child.getSizeDividend()));
-		}
-		else
+		} else
 			GlStateManager.scale(scale, scale, scale);
 
-//		GlStateManager.translate(0f, 0f, -0.5f);
-		EntityAnimaniaDog entityCat = (EntityAnimaniaDog) entity;
-		if (entityCat.getSleeping())
+		if (entity.getSleeping())
 		{
+			GlStateManager.pushMatrix();
 			this.shadowSize = 0;
-			float sleepTimer = entityCat.getSleepTimer();
+			float sleepTimer = entity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
 			}
 			entity.setSleepTimer(sleepTimer);
 
-			GlStateManager.translate(-0.25F, entity.height - 1.45F - sleepTimer, -0.25F);
-			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		}
-		else
+			GlStateManager.translate(0, entity.height - 1.65F - sleepTimer, 0);
+			GlStateManager.popMatrix();
+			// GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
+		} else
 		{
-			this.shadowSize = 0.5F;
-			entityCat.setSleeping(false);
-			entityCat.setSleepTimer(0F);
+			// this.shadowSize = 0.5F;
+			// entity.setSleeping(false);
+			// entity.setSleepTimer(0F);
 		}
-		
+
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if(entity.getVariantCount() > 0)
+		if (textureOverrideFunction != null)
 		{
-			
-			
+			ResourceLocation loc = textureOverrideFunction.apply(entity);
+			if (loc != null)
+				return loc;
+		}
+
+		if (entity.getVariantCount() > 0)
+		{
 			String tex = texture.toString().replace(".png", "");
-			
-			if(entity.getPosition().equals(new BlockPos(-1, -1, -1)))
+
+			if (entity.getPosition().equals(new BlockPos(-1, -1, -1)))
 				return new ResourceLocation(tex + 0 + ".png");
-			
+
 			tex += entity.getVariant() + ".png";
 			return new ResourceLocation(tex);
 		}
-		
+
 		return texture;
 	}
 
 	@Override
 	protected void preRenderCallback(T entityliving, float f)
-	{	
-		if(entityliving.getVariantCount() > 0)
+	{
+		if (entityliving.getVariantCount() > 0)
 		{
 			int col = entityliving.getEyeColorForVariant(entityliving.getVariant());
 			blinking.setColors(col, col);
 		}
-		
+
 		this.preRenderScale(entityliving, f);
 	}
 
@@ -115,8 +123,9 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 		float scale;
 		ModelBase model;
 		double x, y, z;
+		Function<EntityAnimaniaDog, ResourceLocation> overrideFunc;
 
-		public Factory(ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeCol, float scale, double x, double y, double z)
+		public Factory(ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeCol, float scale, double x, double y, double z, Function<EntityAnimaniaDog, ResourceLocation> overrideFunc)
 		{
 			this.tex = texture;
 			this.blink = blink;
@@ -126,17 +135,18 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 			this.x = x;
 			this.y = y;
 			this.z = z;
+			this.overrideFunc = overrideFunc;
 		}
-		
+
 		public Factory(ModelBase model, ResourceLocation texture, ResourceLocation blink, int eyeCol, float scale)
 		{
-			this(model, texture, blink, eyeCol, scale, 0, 0, 0);
+			this(model, texture, blink, eyeCol, scale, 0, 0, 0, null);
 		}
 
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)
 		{
-			return new RenderDogGeneric(manager, model, tex, blink, eye, scale, x, y, z);
+			return new RenderDogGeneric(manager, model, tex, blink, eye, scale, x, y, z, overrideFunc);
 		}
 
 	}

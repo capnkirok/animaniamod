@@ -24,3 +24,11 @@ entity.animania:kitten_norwegian.name=Norwegian Kitten
 entity.animania:kitten_ocelot.name=Ocelot Kitten
 entity.animania:kitten_siamese.name=Siamese Kitten
 entity.animania:kitten_tabby.name=Tabby Kitten
+
+tile.animania_pet_bowl.name=Pet Bowl
+tile.animania_cat_bed_1.name=Cat Bed
+tile.animania_cat_bed_2.name=Cat Bed
+tile.animania_cat_tower.name=Cat Tower
+tile.animania_dog_house.name=Dog House
+tile.animania_dog_pillow.name=Dog Pillow
+tile.animania_litter_box.name=Litter Box

@@ -3,17 +3,11 @@ package com.animania.addons.farm.common.entity.chickens;
 import java.util.List;
 
 import com.animania.Animania;
-import com.animania.addons.extra.common.entity.amphibians.EntityAmphibian;
-import com.animania.addons.extra.common.entity.amphibians.EntityFrogs;
-import com.animania.addons.extra.common.entity.amphibians.EntityToad;
-import com.animania.addons.extra.common.entity.rodents.EntityFerretGrey;
-import com.animania.addons.extra.common.entity.rodents.EntityFerretWhite;
-import com.animania.addons.extra.common.entity.rodents.EntityHedgehog;
-import com.animania.addons.extra.common.entity.rodents.EntityHedgehogAlbino;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.addons.farm.common.handler.FarmAddonSoundHandler;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.api.data.EntityGender;
+import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
@@ -54,12 +48,9 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 		this.tasks.addTask(6, new EntityAIMate(this, 1.0D));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
-			this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityHedgehog.class, false));
-			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityHedgehogAlbino.class, false));
-			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityFerretWhite.class, false));
-			this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityFerretGrey.class, false));
-			this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+			// AddonInjectionHandler.runInjection("extra", "attackRodents",
+			// null, this);
+			AddonInjectionHandler.runInjection("extra", "attackFrogs", null, this);
 		}
 		if (FarmConfig.settings.roostersFight)
 			this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityRoosterBase.class, 80, false, true, (Predicate) null));
@@ -75,10 +66,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 		if (flag)
 			this.applyEnchantments(this, entityIn);
 
-		if (entityIn instanceof EntityAmphibian)
-		{
-			this.setFed(true);
-		}
+		AddonInjectionHandler.runInjection("extra", "eatFrogs", null, entityIn, this);
 
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)

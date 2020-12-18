@@ -40,7 +40,7 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 	protected void preRenderScale(EntityMareDraftHorse entity, float f)
 	{
 		GL11.glScalef(0.72F, 0.72F, 0.72F);
-		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
+		EntityAnimaniaHorse entityHorse = entity;
 		if (entityHorse.getSleeping())
 		{
 			this.shadowSize = 0F;
@@ -53,12 +53,9 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 
 			GlStateManager.translate(-0.25F, entity.height - 1.95F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		}
-		else
+		} else
 		{
 			this.shadowSize = 0.8F;
-			entityHorse.setSleeping(false);
-			entityHorse.setSleepTimer(0F);
 		}
 
 	}
@@ -77,7 +74,7 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 	@Override
 	protected void preRenderCallback(EntityMareDraftHorse entityliving, float f)
 	{
-		preRenderScale((EntityMareDraftHorse) entityliving, f);
+		preRenderScale(entityliving, f);
 		blinkingLayer.setColors(BLINK_COLORS[entityliving.getColorNumber()], BLINK_COLORS[entityliving.getColorNumber()]);
 	}
 

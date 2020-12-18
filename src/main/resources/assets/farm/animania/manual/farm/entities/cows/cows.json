@@ -14,7 +14,7 @@
     "@link@animania:manual/farm/entities/cows/mooshroom.json#- advancements.animania.mooshroom.title",
     " ",
     "manual.cows.general.1",
-    "@configitem@general.careandfeeding;cowFood",
+    "@configitem@general.farm;cowFood",
     "manual.cows.general.2"
   ]
 }

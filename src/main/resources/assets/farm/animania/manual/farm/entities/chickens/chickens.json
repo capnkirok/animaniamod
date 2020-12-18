@@ -11,7 +11,7 @@
     "@link@animania:manual/farm/entities/chickens/wyandotte.json#- advancements.animania.wyandotte.title",
     " ",
     "manual.chickens.general.1",
-    "@configitem@general.careandfeeding;chickenFood",
+    "@configitem@general.farm;chickenFood",
     " ",
     "manual.chickens.general.2"
   ]

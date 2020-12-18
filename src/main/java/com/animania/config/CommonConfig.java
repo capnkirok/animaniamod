@@ -15,7 +15,7 @@ public class CommonConfig
 		public boolean showModUpdateNotification = true;
 
 		@Comment("Show male parts (modesty flag)")
-		public boolean showParts = true;
+		public boolean showParts = false;
 
 		@Comment("Show particles when animals are hungry or thirsty")
 		public boolean showUnhappyParticles = true;
@@ -84,6 +84,9 @@ public class CommonConfig
 
 		@Comment("Animals that are spawned in the world and have never been interacted with (put on a leash, fed by hand, trough, lured with food) will not eat or breed.")
 		public boolean requireAnimalInteractionForAI = true;
+
+		@Comment("Allow Squids to Spawn in Fresh Water")
+		public boolean spawnFreshWaterSquids = true;
 
 	}
 

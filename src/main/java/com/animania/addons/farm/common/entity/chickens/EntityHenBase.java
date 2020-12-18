@@ -4,12 +4,10 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.animania.addons.extra.common.entity.amphibians.EntityAmphibian;
-import com.animania.addons.extra.common.entity.amphibians.EntityFrogs;
-import com.animania.addons.extra.common.entity.amphibians.EntityToad;
 import com.animania.addons.farm.common.entity.chickens.ai.EntityAIFindNest;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.api.data.EntityGender;
+import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.CompatHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
@@ -24,7 +22,6 @@ import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -54,8 +51,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
-			this.targetTasks.addTask(7, new EntityAINearestAttackableTarget(this, EntityFrogs.class, false));
-			this.targetTasks.addTask(8, new EntityAINearestAttackableTarget(this, EntityToad.class, false));
+			AddonInjectionHandler.runInjection("extra", "attackFrogs", null, this);
 		}
 		this.gender = EntityGender.FEMALE;
 
@@ -79,12 +75,12 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 			{
 				EntityRoosterBase entityChicken = this.type.getMale(world);
 				entityChicken.setPosition(this.posX, this.posY, this.posZ);
-			AnimaniaHelper.spawnEntity(	this.world, entityChicken);
+				AnimaniaHelper.spawnEntity(this.world, entityChicken);
 			} else if (chooser == 1)
 			{
 				EntityChickBase entityChicken = this.type.getChild(world);
 				entityChicken.setPosition(this.posX, this.posY, this.posZ);
-			AnimaniaHelper.spawnEntity(	this.world, entityChicken);
+				AnimaniaHelper.spawnEntity(this.world, entityChicken);
 			}
 
 		}
@@ -115,10 +111,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 			this.applyEnchantments(this, entityIn);
 		}
 
-		if (entityIn instanceof EntityAmphibian)
-		{
-			this.setFed(true);
-		}
+		AddonInjectionHandler.runInjection("extra", "eatFrogs", null, entityIn, this);
 
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)

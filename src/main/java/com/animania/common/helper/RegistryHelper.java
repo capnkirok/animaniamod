@@ -64,16 +64,16 @@ public class RegistryHelper
 
 			EntityRegistry.registerModEntity(registryName, entityClass, registryName.toString(), entityID, Animania.instance, 64, 2, true);
 			EntityEggHandler.ENTITY_MAP.put(new AnimalContainer(type, gender), entry);
-				
+
 			if (registerEgg)
 			{
 				if (fancyEgg)
 					ItemHandler.entityEggList.add(new ItemEntityEggAnimated(entityName, type, gender));
 				else
 					ItemHandler.entityEggList.add(new ItemEntityEgg(entityName, type, gender));
-				
+
 			}
-			
+
 			RandomAnimalType.addType(type.getClass());
 			AnimalTypeHandler.register(type.getTypeName(), type.getClass());
 		}

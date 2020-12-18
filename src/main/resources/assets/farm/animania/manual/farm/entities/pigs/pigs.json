@@ -12,7 +12,7 @@
     "@link@animania:manual/farm/entities/pigs/yorkshire.json#- advancements.animania.yorkshire.title",
     " ",
     "manual.pigs.general.1",
-    "@configitem@general.careandfeeding;pigFood",
+    "@configitem@general.farm;pigFood",
     " ",
     "manual.pigs.general.2"
   ]

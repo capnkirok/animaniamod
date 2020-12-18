@@ -81,15 +81,6 @@ public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extend
 			if (((EntityTameable) this.taskOwner).isSitting())
 				return false;
 
-		if (this.taskOwner instanceof ISleeping)
-		{
-			ISleeping entity = (ISleeping) this.taskOwner;
-			if (entity.getSleeping())
-			{
-				return false;
-			}
-		}
-
 		if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0)
 		{
 			return false;

@@ -6,12 +6,6 @@ import javax.annotation.Nullable;
 
 import com.animania.addons.catsdogs.common.entity.generic.ai.GenericAISitIdle;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
-import com.animania.addons.extra.common.entity.amphibians.EntityFrogs;
-import com.animania.addons.extra.common.entity.amphibians.EntityToad;
-import com.animania.addons.extra.common.entity.peafowl.EntityPeachickBase;
-import com.animania.addons.extra.common.entity.rodents.EntityFerretBase;
-import com.animania.addons.extra.common.entity.rodents.EntityHamster;
-import com.animania.addons.farm.common.entity.chickens.EntityChickBase;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
@@ -30,6 +24,7 @@ import com.animania.common.entities.generic.ai.GenericAITargetNonTamed;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -131,7 +126,11 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 		{
-			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntityFerretBase || entity instanceof EntityHamster || entity instanceof EntityChickBase || entity instanceof EntityPeachickBase || entity instanceof EntitySilverfish || entity instanceof EntityFrogs || entity instanceof EntityToad));
+			AddonInjectionHandler.runInjection("farm", "attackChicks", null, this);
+			AddonInjectionHandler.runInjection("extra", "attackFrogs", null, this);
+			AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
+
+			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntitySilverfish));
 		}
 	}
 

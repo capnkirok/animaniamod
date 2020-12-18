@@ -13,7 +13,7 @@
     "@link@animania:manual/farm/entities/goats/pygmy.json#- advancements.animania.pygmy.title",
     " ",
     "manual.goats.general.1",
-    "@configitem@general.careandfeeding;goatFood",
+    "@configitem@general.farm;goatFood",
     " ",
     "manual.goats.general.2"
   ]

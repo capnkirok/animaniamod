@@ -1,10 +1,8 @@
 package com.animania.addons.farm.common.event;
 
-import com.animania.addons.extra.common.entity.rodents.EntityFerretGrey;
-import com.animania.addons.extra.common.entity.rodents.EntityFerretWhite;
-import com.animania.addons.extra.common.entity.rodents.EntityHedgehog;
 import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
 import com.animania.addons.farm.config.FarmConfig;
+import com.animania.common.handler.AddonInjectionHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -48,13 +46,7 @@ public class EggThrowHandler
 					double y2 = Math.abs(yt - y1);
 					double z2 = Math.abs(zt - z1);
 
-					// TODO
-					if (entity != null && x2 <= 3 && y2 <= 2 && z2 <= 3 && (entity instanceof EntityFerretWhite || entity instanceof EntityFerretGrey || entity instanceof EntityHedgehog))
-					{
-						event.getEntityPlayer().swingArm(event.getHand());
-						event.isCanceled();
-						event.setCanceled(true);
-					}
+					AddonInjectionHandler.runInjection("extra", "rodentEggEvent", null, entity, x2, y2, z2, event);
 				}
 
 			} else

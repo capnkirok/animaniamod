@@ -131,9 +131,6 @@ public class FarmConfig
 		@Comment("Remove vanilla Horses")
 		public boolean replaceVanillaHorses = false;
 
-		@Comment("Allow Squids to Spawn in Fresh Water")
-		public boolean spawnFreshWaterSquids = true;
-
 		@Comment("Spawn Animania Chickens in world")
 		public boolean spawnAnimaniaChickens = true;
 

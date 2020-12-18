@@ -7,6 +7,6 @@
     "@link@animania:manual/farm/entities/horses/draft.json#- advancements.animania.draft.title",
     " ",
     "manual.horses.general.3",
-    "@configitem@general.careandfeeding;horseFood"
+    "@configitem@general.farm;horseFood"
     ]
 }

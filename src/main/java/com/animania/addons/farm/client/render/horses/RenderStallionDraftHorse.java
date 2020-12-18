@@ -39,7 +39,7 @@ public class RenderStallionDraftHorse<T extends EntityStallionDraftHorse> extend
 	protected void preRenderScale(EntityStallionDraftHorse entity, float f)
 	{
 		GL11.glScalef(0.85F, 0.85F, 0.85F);
-		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
+		EntityAnimaniaHorse entityHorse = entity;
 		if (entityHorse.getSleeping())
 		{
 			this.shadowSize = 0F;
@@ -52,12 +52,9 @@ public class RenderStallionDraftHorse<T extends EntityStallionDraftHorse> extend
 
 			GlStateManager.translate(-0.25F, entity.height - 1.95F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		}
-		else
+		} else
 		{
 			this.shadowSize = 0.8F;
-			entityHorse.setSleeping(false);
-			entityHorse.setSleepTimer(0F);
 		}
 
 	}
@@ -76,7 +73,7 @@ public class RenderStallionDraftHorse<T extends EntityStallionDraftHorse> extend
 	@Override
 	protected void preRenderCallback(EntityStallionDraftHorse entityliving, float f)
 	{
-		preRenderScale((EntityStallionDraftHorse) entityliving, f);
+		preRenderScale(entityliving, f);
 		blinkingLayer.setColors(BLINK_COLORS[entityliving.getColorNumber()], BLINK_COLORS[entityliving.getColorNumber()]);
 	}
 

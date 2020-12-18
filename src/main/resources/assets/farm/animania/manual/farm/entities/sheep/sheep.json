@@ -12,7 +12,7 @@
     "@link@animania:manual/farm/entities/sheep/suffolk.json#- advancements.animania.suffolk.title",
     " ",
     "manual.sheep.general.1",
-    "@configitem@general.careandfeeding;sheepFood",
+    "@configitem@general.farm;sheepFood",
     " ",
     "manual.sheep.general.2"
   ]

@@ -15,7 +15,7 @@
           "offsetFromPivot": [ 0, 0, 0 ],
           "size": [ 7, 2, 2 ],
           "rotation": [ 0, 89.99999, 0 ],
-          "texOffset": [ 5, 0 ],
+          "texOffset": [ 7, 0 ],
           "children": [
             {
               "name": "Side",
@@ -148,7 +148,7 @@
           "offsetFromPivot": [ 0, 0, 0 ],
           "size": [ 7, 2, 16 ],
           "rotation": [ 0, 0, 0 ],
-          "texOffset": [ -16, -16 ],
+          "texOffset": [ 0, 14 ],
           "children": [
             {
               "name": "Bottom",
@@ -156,7 +156,7 @@
               "offsetFromPivot": [ 0, 0, 0 ],
               "size": [ 7, 2, 16 ],
               "rotation": [ 0, 89.99999, 0 ],
-              "texOffset": [ -16, -16 ],
+              "texOffset": [ 0, 14 ],
               "children": [
                 {
                   "name": "Bottom",
@@ -174,7 +174,7 @@
                     [ -3.196412, -1, 8.13813 ],
                     [ 3.196412, -1, 8.13813 ]
                   ],
-                  "texOffset": [ -16, -16 ],
+                  "texOffset": [ 0, 14 ],
                   "children": [
                     {
                       "name": "Bottom",
@@ -192,7 +192,7 @@
                         [ 3.196412, -1, 8.13813 ],
                         [ -3.196412, -1, 8.13813 ]
                       ],
-                      "texOffset": [ -16, -16 ],
+                      "texOffset": [ 0, 14 ],
                       "children": []
                     }
                   ]

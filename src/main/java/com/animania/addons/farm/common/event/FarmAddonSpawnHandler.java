@@ -64,11 +64,9 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
@@ -408,17 +406,6 @@ public class FarmAddonSpawnHandler
 					replacementEntity = new EntityMareDraftHorse(worldIn);
 				else
 					replacementEntity = new EntityStallionDraftHorse(worldIn);
-			}
-
-		} else if (!FarmConfig.settings.spawning_and_breeding.spawnFreshWaterSquids && event.getEntity().getClass().equals(EntitySquid.class) && !worldIn.isRemote)
-		{
-
-			if (!AnimaniaHelper.hasBiomeType(biome, Type.OCEAN))
-			{
-				if (!event.getEntity().hasCustomName())
-				{
-					event.setResult(Result.DENY);
-				}
 			}
 
 		}

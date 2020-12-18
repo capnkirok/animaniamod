@@ -24,6 +24,7 @@ import com.animania.addons.farm.common.entity.sheep.SheepJacob.EntityRamJacob;
 import com.animania.addons.farm.common.entity.sheep.SheepMerino.EntityRamMerino;
 import com.animania.addons.farm.common.entity.sheep.SheepSuffolk.EntityRamSuffolk;
 import com.animania.common.entities.generic.ai.GenericAINearestAttackableTarget;
+import com.animania.common.entities.generic.ai.GenericAITargetNonTamed;
 import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -38,6 +39,8 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAITasks;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -111,7 +114,7 @@ public class FarmAddonInjectionHandler
 							ChickenType chickType = ChickenType.breed(rooster.type, birdType);
 							EntityChickBase chick = chickType.getChild(worldIn);
 							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
-						AnimaniaHelper.spawnEntity(	worldIn, chick);
+							AnimaniaHelper.spawnEntity(worldIn, chick);
 							chick.playSound(FarmAddonSoundHandler.chickenCluck1, 0.50F, 1.4F);
 							te.removeItem();
 							te.markDirty();
@@ -162,7 +165,11 @@ public class FarmAddonInjectionHandler
 		// Attack chicks
 		AddonInjectionHandler.addInjection(ID, "attackChicks", args -> {
 			EntityCreature entity = (EntityCreature) args[0];
-			entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget<EntityChickBase>(entity, EntityChickBase.class, false));
+			if (entity instanceof EntityTameable)
+				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((EntityTameable) entity, EntityAnimal.class, false, target -> target instanceof EntityChickBase));
+			else
+				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, EntityAnimal.class, 10, false, false, target -> target instanceof EntityChickBase));
+
 			return null;
 		});
 
@@ -214,7 +221,6 @@ public class FarmAddonInjectionHandler
 
 			return null;
 		});
-
 	}
 
 }
