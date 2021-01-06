@@ -3,6 +3,8 @@ package com.animania.common.handler;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 public class AddonInjectionHandler
 {
 	private static Map<String, Map<String, AddonInjection>> injections = new HashMap<String, Map<String, AddonInjection>>();
@@ -18,10 +20,12 @@ public class AddonInjectionHandler
 		injections.put(addonID, map);
 	}
 
-	public static <R> R runInjection(String addonID, String injectionName, Class<? extends R> returnType, Object... args)
+	public static <R> R runInjection(String addonID, String injectionName, @Nullable Class<? extends R> returnType, Object... args)
 	{
 		if (!AddonHandler.isAddonLoaded(addonID))
 		{
+			if (returnType == null)
+				return null;
 			if (returnType.equals(Boolean.class))
 				return (R) Boolean.FALSE;
 			if (returnType.equals(Float.class))
@@ -37,6 +41,8 @@ public class AddonInjectionHandler
 		Map<String, AddonInjection> map = injections.get(addonID);
 		if (map == null)
 		{
+			if (returnType == null)
+				return null;
 			if (returnType.equals(Boolean.class))
 				return (R) Boolean.FALSE;
 			if (returnType.equals(Float.class))
