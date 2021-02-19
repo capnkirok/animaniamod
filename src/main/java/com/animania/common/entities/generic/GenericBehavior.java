@@ -17,6 +17,7 @@ import com.animania.api.interfaces.IImpregnable;
 import com.animania.api.interfaces.IMateable;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.api.interfaces.ISterilizable;
+import com.animania.api.interfaces.IVariant;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
@@ -202,6 +203,11 @@ public class GenericBehavior
 
 					if (grownUp != null)
 					{
+						if (entity instanceof IVariant)
+						{
+							((IVariant) grownUp).setVariant(((IVariant) entity).getVariant());
+						}
+
 						grownUp.setPosition(entity.posX, entity.posY + .5, entity.posZ);
 						String name = entity.getCustomNameTag();
 						if (name != "")

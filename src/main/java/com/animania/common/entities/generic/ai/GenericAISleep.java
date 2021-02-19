@@ -8,6 +8,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -44,6 +45,12 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 	@Override
 	public boolean shouldExecute()
 	{
+		if (entity instanceof EntityTameable)
+		{
+			if (((EntityTameable) entity).isSitting())
+				return false;
+		}
+
 		if (++this.delay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings + entity.getRNG().nextInt(100))
 		{
 			return false;

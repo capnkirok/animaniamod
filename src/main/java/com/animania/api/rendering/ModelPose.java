@@ -75,23 +75,26 @@ public class ModelPose
 		{
 			for (Field f : originalFields)
 			{
-				ModelRenderer mr = (ModelRenderer) f.get(originalModel);
-				PartData data = modelPose.get(f.getName());
-				PartData orig = originalPose.get(f.getName());
+				if (modelPose.containsKey(f.getName()))
+				{
+					ModelRenderer mr = (ModelRenderer) f.get(originalModel);
+					PartData data = modelPose.get(f.getName());
+					PartData orig = originalPose.get(f.getName());
 
-				mr.rotationPointX = (float) MathHelper.clampedLerp(orig.rotationPointX, data.rotationPointX, slide);
-				mr.rotationPointY = (float) MathHelper.clampedLerp(orig.rotationPointY, data.rotationPointY, slide);
-				mr.rotationPointZ = (float) MathHelper.clampedLerp(orig.rotationPointZ, data.rotationPointZ, slide);
+					mr.rotationPointX = (float) MathHelper.clampedLerp(orig.rotationPointX, data.rotationPointX, slide);
+					mr.rotationPointY = (float) MathHelper.clampedLerp(orig.rotationPointY, data.rotationPointY, slide);
+					mr.rotationPointZ = (float) MathHelper.clampedLerp(orig.rotationPointZ, data.rotationPointZ, slide);
 
-				mr.rotateAngleX = lerpRotation(orig.rotateAngleX, data.rotateAngleX, slide);
-				mr.rotateAngleY = lerpRotation(orig.rotateAngleY, data.rotateAngleY, slide);
-				mr.rotateAngleZ = lerpRotation(orig.rotateAngleZ, data.rotateAngleZ, slide);
+					mr.rotateAngleX = lerpRotation(orig.rotateAngleX, data.rotateAngleX, slide);
+					mr.rotateAngleY = lerpRotation(orig.rotateAngleY, data.rotateAngleY, slide);
+					mr.rotateAngleZ = lerpRotation(orig.rotateAngleZ, data.rotateAngleZ, slide);
 
-				mr.isHidden = data.isHidden;
+					mr.isHidden = data.isHidden;
 
-				mr.offsetX = (float) MathHelper.clampedLerp(orig.offsetX, data.offsetX, slide);
-				mr.offsetY = (float) MathHelper.clampedLerp(orig.offsetY, data.offsetY, slide);
-				mr.offsetZ = (float) MathHelper.clampedLerp(orig.offsetZ, data.offsetZ, slide);
+					mr.offsetX = (float) MathHelper.clampedLerp(orig.offsetX, data.offsetX, slide);
+					mr.offsetY = (float) MathHelper.clampedLerp(orig.offsetY, data.offsetY, slide);
+					mr.offsetZ = (float) MathHelper.clampedLerp(orig.offsetZ, data.offsetZ, slide);
+				}
 			}
 		} catch (Exception e)
 		{
@@ -116,23 +119,26 @@ public class ModelPose
 		{
 			for (Field f : originalFields)
 			{
-				ModelRenderer mr = (ModelRenderer) f.get(originalModel);
-				PartData orig = modelPose.get(f.getName());
-				PartData data = originalPose.get(f.getName());
+				if (modelPose.containsKey(f.getName()))
+				{
+					ModelRenderer mr = (ModelRenderer) f.get(originalModel);
+					PartData orig = modelPose.get(f.getName());
+					PartData data = originalPose.get(f.getName());
 
-				mr.rotationPointX = (float) MathHelper.clampedLerp(orig.rotationPointX, data.rotationPointX, slide);
-				mr.rotationPointY = (float) MathHelper.clampedLerp(orig.rotationPointY, data.rotationPointY, slide);
-				mr.rotationPointZ = (float) MathHelper.clampedLerp(orig.rotationPointZ, data.rotationPointZ, slide);
+					mr.rotationPointX = (float) MathHelper.clampedLerp(orig.rotationPointX, data.rotationPointX, slide);
+					mr.rotationPointY = (float) MathHelper.clampedLerp(orig.rotationPointY, data.rotationPointY, slide);
+					mr.rotationPointZ = (float) MathHelper.clampedLerp(orig.rotationPointZ, data.rotationPointZ, slide);
 
-				mr.rotateAngleX = lerpRotation(orig.rotateAngleX, data.rotateAngleX, slide);
-				mr.rotateAngleY = lerpRotation(orig.rotateAngleY, data.rotateAngleY, slide);
-				mr.rotateAngleZ = lerpRotation(orig.rotateAngleZ, data.rotateAngleZ, slide);
+					mr.rotateAngleX = lerpRotation(orig.rotateAngleX, data.rotateAngleX, slide);
+					mr.rotateAngleY = lerpRotation(orig.rotateAngleY, data.rotateAngleY, slide);
+					mr.rotateAngleZ = lerpRotation(orig.rotateAngleZ, data.rotateAngleZ, slide);
 
-				mr.isHidden = data.isHidden;
+					mr.isHidden = data.isHidden;
 
-				mr.offsetX = (float) MathHelper.clampedLerp(orig.offsetX, data.offsetX, slide);
-				mr.offsetY = (float) MathHelper.clampedLerp(orig.offsetY, data.offsetY, slide);
-				mr.offsetZ = (float) MathHelper.clampedLerp(orig.offsetZ, data.offsetZ, slide);
+					mr.offsetX = (float) MathHelper.clampedLerp(orig.offsetX, data.offsetX, slide);
+					mr.offsetY = (float) MathHelper.clampedLerp(orig.offsetY, data.offsetY, slide);
+					mr.offsetZ = (float) MathHelper.clampedLerp(orig.offsetZ, data.offsetZ, slide);
+				}
 			}
 		} catch (Exception e)
 		{
@@ -141,21 +147,16 @@ public class ModelPose
 
 	private float lerpRotation(float from, float to, float slide)
 	{
-		from = (float) (from < 0 ? from + (2 * Math.PI) : from);
-		to = (float) (to < 0 ? to + (2 * Math.PI) : to);
+		double mul = 180 / Math.PI;
+		double fromdeg = (from * mul) % 180 + 180;
+		double todeg = (to * mul) % 180 + 180;
 
-		if (Math.abs(from + (2 * Math.PI) - to) < Math.abs(from - to))
-			from += +(2 * Math.PI);
+		if (from == -6.079215658816017)
+			System.out.println("s");
 
-		if (Math.abs(from - (to + (2 * Math.PI))) < Math.abs(from - to))
-			to += +(2 * Math.PI);
+		double lerped = MathHelper.clampedLerp(fromdeg, todeg, slide) - 180;
 
-		float lerped = (float) MathHelper.clampedLerp(from, to, slide);
-		if (lerped > Math.PI)
-		{
-			lerped -= (2 * Math.PI);
-		}
-		return lerped;
+		return (float) (lerped / mul);
 	}
 
 	private static class PartData

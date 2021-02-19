@@ -1,6 +1,10 @@
 package com.animania.addons.catsdogs.client.models.dogs;
 
+import com.animania.addons.catsdogs.client.models.dogs.poses.PoseStandardDogSleeping;
 import com.animania.addons.catsdogs.common.entity.canids.EntityAnimaniaDog;
+import com.animania.api.data.Pose;
+import com.animania.api.rendering.ModelPose;
+import com.animania.client.handler.AnimationHandler;
 import com.animania.client.models.render.ModelRendererAnimania;
 
 import net.minecraft.client.model.ModelBase;
@@ -230,55 +234,125 @@ public class ModelCollie extends ModelBase
 		this.leg_r1.addChild(this.leg_r2);
 		this.body.addChild(this.leg_r1);
 
+		setupAngles();
+
+	}
+
+	public void setupAngles()
+	{
+		this.body.rotateAngleX = -0.06981317007977318F;
+		this.body.rotateAngleY = -0.0F;
+		this.body.rotateAngleZ = -0.0F;
+		this.leg_l1.rotateAngleX = 0.06981317007977318F;
+		this.leg_l1.rotateAngleY = -0.0F;
+		this.leg_l1.rotateAngleZ = -0.0F;
+		this.leg_l2.rotateAngleX = 0.0F;
+		this.leg_l2.rotateAngleY = -0.0F;
+		this.leg_l2.rotateAngleZ = -0.0F;
+		this.toes_l.rotateAngleX = 0.0F;
+		this.toes_l.rotateAngleY = -0.0F;
+		this.toes_l.rotateAngleZ = -0.0F;
+		this.lower_body.rotateAngleX = 0.0F;
+		this.lower_body.rotateAngleY = -0.0F;
+		this.lower_body.rotateAngleZ = -0.0F;
+		this.tail.rotateAngleX = -0.6834220658619237F;
+		this.tail.rotateAngleY = -0.0F;
+		this.tail.rotateAngleZ = -0.0F;
+		this.tail2.rotateAngleX = -0.40761990147402366F;
+		this.tail2.rotateAngleY = -0.0F;
+		this.tail2.rotateAngleZ = -0.0F;
+		this.tail3.rotateAngleX = 0.08067609934418589F;
+		this.tail3.rotateAngleY = -0.0F;
+		this.tail3.rotateAngleZ = -0.0F;
+		this.back_leg_l1.rotateAngleX = 0.06981317007977318F;
+		this.back_leg_l1.rotateAngleY = -0.0F;
+		this.back_leg_l1.rotateAngleZ = -0.0F;
+		this.back_leg_l2.rotateAngleX = 0.0F;
+		this.back_leg_l2.rotateAngleY = -0.0F;
+		this.back_leg_l2.rotateAngleZ = -0.0F;
+		this.back_toe_l.rotateAngleX = 0.0F;
+		this.back_toe_l.rotateAngleY = -0.0F;
+		this.back_toe_l.rotateAngleZ = -0.0F;
+		this.back_leg_r1.rotateAngleX = 0.06981317007977318F;
+		this.back_leg_r1.rotateAngleY = -0.0F;
+		this.back_leg_r1.rotateAngleZ = -0.0F;
+		this.back_leg_r2.rotateAngleX = 0.0F;
+		this.back_leg_r2.rotateAngleY = -0.0F;
+		this.back_leg_r2.rotateAngleZ = -0.0F;
+		this.back_toe_r.rotateAngleX = 0.0F;
+		this.back_toe_r.rotateAngleY = -0.0F;
+		this.back_toe_r.rotateAngleZ = -0.0F;
+		this.neck1.rotateAngleX = -0.8180236031049783F;
+		this.neck1.rotateAngleY = -0.0F;
+		this.neck1.rotateAngleZ = -0.0F;
+		this.head_base.rotateAngleX = 1.1907142302588394F;
+		this.head_base.rotateAngleY = -0.0F;
+		this.head_base.rotateAngleZ = -0.0F;
+		this.head_front.rotateAngleX = -0.17280330391070658F;
+		this.head_front.rotateAngleY = -0.0F;
+		this.head_front.rotateAngleZ = -0.0F;
+		this.nose.rotateAngleX = -0.091106186954104F;
+		this.nose.rotateAngleY = -0.0F;
+		this.nose.rotateAngleZ = -0.0F;
+		this.upper_jaw_detail.rotateAngleX = 0.2039696483635693F;
+		this.upper_jaw_detail.rotateAngleY = -0.0F;
+		this.upper_jaw_detail.rotateAngleZ = -0.0F;
+		this.jaw.rotateAngleX = -0.2525770680316114F;
+		this.jaw.rotateAngleY = -0.0F;
+		this.jaw.rotateAngleZ = -0.0F;
+		this.ear_l.rotateAngleX = -1.293639786907449F;
+		this.ear_l.rotateAngleY = -2.588148747782391F;
+		this.ear_l.rotateAngleZ = 2.3736477827122884F;
+		this.ear_l2.rotateAngleX = 0.8103877876275032F;
+		this.ear_l2.rotateAngleY = -0.0F;
+		this.ear_l2.rotateAngleZ = -0.0F;
+		this.ear_l1.rotateAngleX = -1.0111390488503949F;
+		this.ear_l1.rotateAngleY = 2.130956259563973F;
+		this.ear_l1.rotateAngleZ = -1.9506096426261468F;
+		this.ear_l21.rotateAngleX = 1.054184104192331F;
+		this.ear_l21.rotateAngleY = -0.0F;
+		this.ear_l21.rotateAngleZ = -0.0F;
+		this.cheek.rotateAngleX = -0.36139136557644985F;
+		this.cheek.rotateAngleY = -0.2775701829201702F;
+		this.cheek.rotateAngleZ = -0.0F;
+		this.cheek1.rotateAngleX = 0.0F;
+		this.cheek1.rotateAngleY = -0.0F;
+		this.cheek1.rotateAngleZ = -0.0F;
+		this.cheek11.rotateAngleX = -0.36139136557644985F;
+		this.cheek11.rotateAngleY = 0.2775701829201702F;
+		this.cheek11.rotateAngleZ = 1.7453292519943296E-6F;
+		this.cheek111.rotateAngleX = 0.0F;
+		this.cheek111.rotateAngleY = 1.7453292519943296E-6F;
+		this.cheek111.rotateAngleZ = 1.7453292519943296E-6F;
+		this.leg_r1.rotateAngleX = 0.06981317007977318F;
+		this.leg_r1.rotateAngleY = -0.0F;
+		this.leg_r1.rotateAngleZ = -0.0F;
+		this.leg_r2.rotateAngleX = 0.0F;
+		this.leg_r2.rotateAngleY = -0.0F;
+		this.leg_r2.rotateAngleZ = -0.0F;
+		this.toes_r.rotateAngleX = 0.0F;
+		this.toes_r.rotateAngleY = -0.0F;
+		this.toes_r.rotateAngleZ = -0.0F;
+
 	}
 
 	@Override
 	public void render(Entity entity, float f1, float f2, float f3, float f4, float f5, float scale)
 	{
-		this.body.rotateAngleX = -0.06981317007977318F;
-		this.leg_l1.rotateAngleX = 0.06981317007977318F;
-		this.tail.rotateAngleX = -0.6834220658619237F;
-		this.tail2.rotateAngleX = -0.40761990147402366F;
-		this.tail3.rotateAngleX = 0.08067609934418589F;
-		this.back_leg_l1.rotateAngleX = 0.06981317007977318F;
-		this.back_leg_r1.rotateAngleX = 0.06981317007977318F;
-		this.neck1.rotateAngleX = -0.8180236031049783F;
-		this.head_base.rotateAngleX = 1.1907142302588394F;
-		this.head_front.rotateAngleX = -0.17280330391070658F;
-		this.nose.rotateAngleX = -0.091106186954104F;
-		this.upper_jaw_detail.rotateAngleX = -6.079215658816017F;
-		this.jaw.rotateAngleX = -0.2525770680316114F;
-		this.ear_l.rotateAngleX = -1.293639786907449F;
-		this.ear_l.rotateAngleY = -2.588148747782391F;
-		this.ear_l.rotateAngleZ = 2.3736477827122884F;
-		this.ear_l2.rotateAngleX = 0.8103877876275032F;
-		this.ear_l1.rotateAngleX = -1.0111390488503949F;
-		this.ear_l1.rotateAngleY = 2.130956259563973F;
-		this.ear_l1.rotateAngleZ = -1.9506096426261468F;
-		this.ear_l21.rotateAngleX = 1.054184104192331F;
-		this.cheek.rotateAngleX = -0.36139136557644985F;
-		this.cheek.rotateAngleY = -0.2775701829201702F;
-		this.cheek11.rotateAngleX = -0.36139136557644985F;
-		this.cheek11.rotateAngleY = 0.2775701829201702F;
-		this.cheek11.rotateAngleZ = 1.7453292519943296E-6F;
-		this.cheek111.rotateAngleY = 1.7453292519943296E-6F;
-		this.cheek111.rotateAngleZ = 1.7453292519943296E-6F;
-		this.leg_r1.rotateAngleX = 0.06981317007977318F;
 		this.setRotationAngles(f1, f2, f3, f4, f5, scale, entity);
 		this.body.render(scale);
 	}
-	
+
 	@Override
 	public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)
 	{
-
 		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
 
 		boolean sitting = dog.isSitting();
 		if (!sitting)
 		{
 			this.body.setRotationPoint(0.0F, 10.0F, -5.0F);
-			
+
 			this.body.rotateAngleX = -0.06981317007977318F;
 			this.leg_l1.rotateAngleX = 0.06981317007977318F;
 			this.lower_body.rotateAngleX = 0;
@@ -294,35 +368,47 @@ public class ModelCollie extends ModelBase
 		super.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTickTime);
 
 	}
-	
+
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
 	{
-		limbSwingAmount *= 0.6;
-		
-		this.neck1.rotateAngleX = headPitch * 0.001453292F - 0.7f;
-		this.neck1.rotateAngleY = netHeadYaw * 0.017453292F;
-
 		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
+
+		setupAngles();
+
+		ModelPose sleepingPose = AnimationHandler.getOrCreatePose(entity, Pose.SLEEPING, () -> new ModelPose(this, PoseStandardDogSleeping.INSTANCE));
+
+		if (!dog.getSleeping())
+		{
+			sleepingPose.transitionToNormal(ageInTicks <= 10 ? 0 : 10, ageInTicks);
+			this.neck1.rotateAngleX = headPitch * 0.001453292F - 0.7f;
+			this.neck1.rotateAngleY = netHeadYaw * 0.017453292F;
+		}
+		if (dog.getSleeping())
+		{
+			sleepingPose.transitionToPose(10, ageInTicks);
+		}
+
+		limbSwingAmount *= 0.6;
 
 		if (!dog.getSleeping())
 		{
 			this.tail.rotateAngleY = MathHelper.sin(ageInTicks * 3.141593F * 0.05F) * MathHelper.sin(ageInTicks * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-		}
-		else
+
+			this.back_leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+			this.back_leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+			this.leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+			this.leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
+		} else
 		{
 			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}
-		this.back_leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-		this.back_leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-		this.leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-		this.leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
 
 		boolean sitting = dog.isSitting();
 		if (sitting)
 		{
 			this.body.setRotationPoint(0.0F, 12.0F, -5.0F);
-			
+
 			this.body.rotateAngleX = -0.10049954898833749F;
 			this.leg_l1.rotateAngleX = -0.4374388517443468F;
 			this.lower_body.rotateAngleX = -0.68513423385813F;

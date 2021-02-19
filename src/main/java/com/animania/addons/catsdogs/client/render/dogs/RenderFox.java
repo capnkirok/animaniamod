@@ -1,6 +1,7 @@
 package com.animania.addons.catsdogs.client.render.dogs;
 
 import com.animania.addons.catsdogs.client.models.dogs.ModelFox;
+import com.animania.addons.catsdogs.common.entity.canids.DogFox.EntityFemaleFox;
 import com.animania.addons.catsdogs.common.entity.canids.EntityAnimaniaDog;
 import com.animania.api.interfaces.IChild;
 import com.animania.client.render.layer.LayerBlinking;
@@ -31,15 +32,19 @@ public class RenderFox<T extends EntityAnimaniaDog> extends RenderLiving<T>
 
 	protected void preRenderScale(EntityAnimaniaDog entity, float f)
 	{
+		if (entity instanceof EntityFemaleFox)
+			GlStateManager.scale(0.9, 0.9, 0.9);
+
+		double dividend = 0.85 / (0.9 - 0.5);
+
 		if (entity instanceof IChild)
 		{
 			float age = ((IChild) entity).getEntityAge();
-			GlStateManager.scale(1 + age, 1 + age, 1 + age);
-		}
-		else
+			GlStateManager.scale(0.5 + age / dividend, 0.5 + age / dividend, 0.5 + age / dividend);
+		} else
 			GlStateManager.scale(1, 1, 1);
 
-		EntityAnimaniaDog entityCat = (EntityAnimaniaDog) entity;
+		EntityAnimaniaDog entityCat = entity;
 		if (entityCat.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -52,34 +57,35 @@ public class RenderFox<T extends EntityAnimaniaDog> extends RenderLiving<T>
 
 			GlStateManager.translate(-0.25F, entity.height - 1.45F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		}
-		else
+			GlStateManager.translate(0, -0.3, 0);
+		} else
 		{
 			this.shadowSize = 0.5F;
 			entityCat.setSleeping(false);
 			entityCat.setSleepTimer(0F);
 		}
+		GlStateManager.translate(0, 0.1, 0);
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if(entity.getName().equalsIgnoreCase("razz"))
+		if (entity.getName().equalsIgnoreCase("razz"))
 		{
 			return texture_razz;
 		}
-		
+
 		return texture;
 	}
 
 	@Override
 	protected void preRenderCallback(T entityliving, float f)
-	{	
-		if(entityliving.getName().equalsIgnoreCase("razz"))
+	{
+		if (entityliving.getName().equalsIgnoreCase("razz"))
 		{
 			blinking.setColors(0xA81348, 0xA81348);
 		}
-		
+
 		this.preRenderScale(entityliving, f);
 	}
 

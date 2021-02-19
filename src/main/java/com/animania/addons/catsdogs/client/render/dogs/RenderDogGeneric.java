@@ -50,9 +50,11 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 
 		if (entity instanceof IChild)
 		{
+			double dividend = 0.85 / (0.8 * scale);
+
 			IChild child = (IChild) entity;
 			float age = child.getEntityAge();
-			GlStateManager.scale(scale + (age / child.getSizeDividend()), scale + (age / child.getSizeDividend()), scale + (age / child.getSizeDividend()));
+			GlStateManager.scale(scale + (age / dividend), scale + (age / dividend), scale + (age / dividend));
 		} else
 			GlStateManager.scale(scale, scale, scale);
 
@@ -67,8 +69,10 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 			}
 			entity.setSleepTimer(sleepTimer);
 
-			GlStateManager.translate(0, entity.height - 1.65F - sleepTimer, 0);
+			// GlStateManager.translate(0, entity.height - 2.65F - sleepTimer,
+			// 0);
 			GlStateManager.popMatrix();
+			GlStateManager.translate(0, -0.1, 0);
 			// GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
 		} else
 		{

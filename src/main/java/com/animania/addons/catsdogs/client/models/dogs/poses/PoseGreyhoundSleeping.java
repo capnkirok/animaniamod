@@ -1,19 +1,13 @@
-package com.animania.addons.catsdogs.client.models.dogs;
+package com.animania.addons.catsdogs.client.models.dogs.poses;
 
-import com.animania.addons.catsdogs.client.models.dogs.poses.PoseGreyhoundSleeping;
-import com.animania.addons.catsdogs.common.entity.canids.EntityAnimaniaDog;
-import com.animania.api.data.Pose;
-import com.animania.api.rendering.ModelPose;
-import com.animania.client.handler.AnimationHandler;
 import com.animania.client.models.render.ModelRendererAnimania;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.math.MathHelper;
 
-public class ModelGreyhound extends ModelBase
+public class PoseGreyhoundSleeping extends ModelBase
 {
+	public static final PoseGreyhoundSleeping INSTANCE = new PoseGreyhoundSleeping();
+
 	ModelRendererAnimania body;
 	ModelRendererAnimania leg_l1;
 	ModelRendererAnimania leg_l2;
@@ -47,12 +41,12 @@ public class ModelGreyhound extends ModelBase
 	ModelRendererAnimania ear_l2;
 	ModelRendererAnimania ear_l3;
 
-	public ModelGreyhound()
+	public PoseGreyhoundSleeping()
 	{
 		this.body = new ModelRendererAnimania(this, 70, 40);
 		this.body.setTextureSize(128, 64);
 		this.body.addBox(-4.0F, -6.0F, -6.0F, 8, 12, 12);
-		this.body.setRotationPoint(0.0F, 3.0F, -5.0F);
+		this.body.setRotationPoint(0.0F, 18.0F, -5.0F);
 		this.body.setOffset(0.0F, 0.6F, -1.5F);
 		this.leg_l1 = new ModelRendererAnimania(this, 0, 53);
 		this.leg_l1.setTextureSize(128, 64);
@@ -152,7 +146,7 @@ public class ModelGreyhound extends ModelBase
 		this.neck2 = new ModelRendererAnimania(this, 0, 20);
 		this.neck2.setTextureSize(128, 64);
 		this.neck2.addBox(-2.5F, -1.0F, -4.5F, 5, 2, 9);
-		this.neck2.setRotationPoint(0.0F, -4.5F, -0.04F);
+		this.neck2.setRotationPoint(0.0F, -1.0F, -0.04F);
 		this.neck2.setOffset(0.0F, 1.0F, -1.0F);
 		this.head_base = new ModelRendererAnimania(this, 101, 27);
 		this.head_base.setTextureSize(128, 64);
@@ -245,19 +239,19 @@ public class ModelGreyhound extends ModelBase
 
 	public void setupAngles()
 	{
-		this.body.rotateAngleX = 0.0F;
-		this.body.rotateAngleY = 0.0F;
-		this.body.rotateAngleZ = 0.0F;
-		this.body.setRotationPoint(0.0F, 3.0F, -5.0F);
+		this.body.rotateAngleX = 0.20162218051963693F;
+		this.body.rotateAngleY = 0.3506890066032206F;
+		this.body.rotateAngleZ = 0.07312755032931041F;
+		this.body.setRotationPoint(0.0F, 18.0F, -5.0F);
 		this.body.setOffset(0.0F, 0.6F, -1.5F);
-		this.leg_l1.rotateAngleX = 0.0F;
-		this.leg_l1.rotateAngleY = 0.0F;
-		this.leg_l1.rotateAngleZ = 0.0F;
+		this.leg_l1.rotateAngleX = -1.3097334679400887F;
+		this.leg_l1.rotateAngleY = 2.830170064497941F;
+		this.leg_l1.rotateAngleZ = -2.895344149425913F;
 		this.leg_l1.setRotationPoint(-3.5F, 5.4F, -3.5F);
 		this.leg_l1.setOffset(0.0F, 3.0F, -0.0F);
 		this.leg_l2.rotateAngleX = 0.0F;
 		this.leg_l2.rotateAngleY = 0.0F;
-		this.leg_l2.rotateAngleZ = 0.0F;
+		this.leg_l2.rotateAngleZ = -0.25465750049998864F;
 		this.leg_l2.setRotationPoint(0.0F, 2.5F, -0.0F);
 		this.leg_l2.setOffset(0.12F, 3.5F, -0.6F);
 		this.toes_l.rotateAngleX = 0.0F;
@@ -265,14 +259,14 @@ public class ModelGreyhound extends ModelBase
 		this.toes_l.rotateAngleZ = 0.0F;
 		this.toes_l.setRotationPoint(-0.12F, -3.5F, 0.6001F);
 		this.toes_l.setOffset(0.12F, 7.5F, -1.5F);
-		this.leg_r1.rotateAngleX = 0.0F;
-		this.leg_r1.rotateAngleY = 0.0F;
-		this.leg_r1.rotateAngleZ = 0.0F;
+		this.leg_r1.rotateAngleX = -1.2640058415378375F;
+		this.leg_r1.rotateAngleY = -3.1178247598361346F;
+		this.leg_r1.rotateAngleZ = 2.8722202821662406F;
 		this.leg_r1.setRotationPoint(3.5F, 5.4F, -3.5F);
 		this.leg_r1.setOffset(0.0F, 3.0F, -0.0F);
 		this.leg_r2.rotateAngleX = 0.0F;
 		this.leg_r2.rotateAngleY = 0.0F;
-		this.leg_r2.rotateAngleZ = 0.0F;
+		this.leg_r2.rotateAngleZ = 0.39289804923345145F;
 		this.leg_r2.setRotationPoint(0.0F, 2.5F, -0.0F);
 		this.leg_r2.setOffset(-0.12F, 3.5F, -0.6F);
 		this.toes_r.rotateAngleX = 0.0F;
@@ -280,22 +274,22 @@ public class ModelGreyhound extends ModelBase
 		this.toes_r.rotateAngleZ = 0.0F;
 		this.toes_r.setRotationPoint(0.1199F, -3.5F, 0.6001F);
 		this.toes_r.setOffset(-0.12F, 7.5F, -1.5F);
-		this.lower_body.rotateAngleX = 0.03291167370485707F;
-		this.lower_body.rotateAngleY = 0.0F;
-		this.lower_body.rotateAngleZ = 0.0F;
+		this.lower_body.rotateAngleX = -0.5539867032047722F;
+		this.lower_body.rotateAngleY = 0.5432215123784712F;
+		this.lower_body.rotateAngleZ = -0.3075741380912047F;
 		this.lower_body.setRotationPoint(0.0F, -2.6F, 6.5F);
 		this.lower_body.setOffset(0.0F, 0.8F, 5.0F);
-		this.back_leg_l1.rotateAngleX = 0.3737500420098217F;
-		this.back_leg_l1.rotateAngleY = 0.0F;
-		this.back_leg_l1.rotateAngleZ = 0.0F;
+		this.back_leg_l1.rotateAngleX = -1.2180007077845187F;
+		this.back_leg_l1.rotateAngleY = -0.33180978008439793F;
+		this.back_leg_l1.rotateAngleZ = 0.6353906048470397F;
 		this.back_leg_l1.setRotationPoint(-3.0F, 2.9614F, 2.8805F);
 		this.back_leg_l1.setOffset(0.0F, 4.0F, 0.5F);
-		this.back_leg_l2.rotateAngleX = 0.8980190240408864F;
-		this.back_leg_l2.rotateAngleY = 0.0F;
-		this.back_leg_l2.rotateAngleZ = 0.0F;
+		this.back_leg_l2.rotateAngleX = 0.8349306075690474F;
+		this.back_leg_l2.rotateAngleY = -0.4951359461567753F;
+		this.back_leg_l2.rotateAngleZ = -0.380745321651815F;
 		this.back_leg_l2.setRotationPoint(0.0F, -2.9542F, -3.1279F);
 		this.back_leg_l2.setOffset(0.0F, 8.0F, -4.0F);
-		this.back_leg_l3.rotateAngleX = -1.3046842304140691F;
+		this.back_leg_l3.rotateAngleX = -0.9714624789648078F;
 		this.back_leg_l3.rotateAngleY = 0.0F;
 		this.back_leg_l3.rotateAngleZ = 0.0F;
 		this.back_leg_l3.setRotationPoint(0.0F, 1.5593F, -0.6497F);
@@ -305,17 +299,17 @@ public class ModelGreyhound extends ModelBase
 		this.back_toe_l.rotateAngleZ = 0.0F;
 		this.back_toe_l.setRotationPoint(-0.01F, -3.5F, -0.6999F);
 		this.back_toe_l.setOffset(0.01F, 8.5F, -0.4F);
-		this.back_leg_r1.rotateAngleX = 0.3737517873390737F;
-		this.back_leg_r1.rotateAngleY = 0.0F;
-		this.back_leg_r1.rotateAngleZ = 0.0F;
+		this.back_leg_r1.rotateAngleX = -1.0845074546164806F;
+		this.back_leg_r1.rotateAngleY = 0.13464167981585057F;
+		this.back_leg_r1.rotateAngleZ = -0.6328668587486558F;
 		this.back_leg_r1.setRotationPoint(3.0F, 2.9614F, 2.8805F);
 		this.back_leg_r1.setOffset(0.0F, 4.0F, 0.5F);
 		this.back_leg_r2.rotateAngleX = 0.8980190240408864F;
-		this.back_leg_r2.rotateAngleY = 0.0F;
-		this.back_leg_r2.rotateAngleZ = 0.0F;
+		this.back_leg_r2.rotateAngleY = 1.7453292519943296E-6F;
+		this.back_leg_r2.rotateAngleZ = -0.122501169538978F;
 		this.back_leg_r2.setRotationPoint(0.0F, -2.9542F, -3.1279F);
 		this.back_leg_r2.setOffset(0.0F, 8.0F, -4.0F);
-		this.back_leg_r3.rotateAngleX = -1.3046842304140691F;
+		this.back_leg_r3.rotateAngleX = -0.962482759963297F;
 		this.back_leg_r3.rotateAngleY = 0.0F;
 		this.back_leg_r3.rotateAngleZ = 0.0F;
 		this.back_leg_r3.setRotationPoint(0.0F, 1.5593F, -0.6497F);
@@ -325,19 +319,19 @@ public class ModelGreyhound extends ModelBase
 		this.back_toe_r.rotateAngleZ = 0.0F;
 		this.back_toe_r.setRotationPoint(0.0099F, -3.5F, -0.6999F);
 		this.back_toe_r.setOffset(-0.01F, 8.5F, -0.4F);
-		this.tail.rotateAngleX = -0.4668965188595071F;
+		this.tail.rotateAngleX = -0.055232689508612556F;
 		this.tail.rotateAngleY = 0.0F;
 		this.tail.rotateAngleZ = 0.0F;
 		this.tail.setRotationPoint(0.0F, -2.4369F, 6.0599F);
 		this.tail.setOffset(0.0F, 0.8F, 5.0F);
-		this.tail2.rotateAngleX = 0.35078849037058435F;
+		this.tail2.rotateAngleX = 0.4014990317872796F;
 		this.tail2.rotateAngleY = 0.0F;
 		this.tail2.rotateAngleZ = 0.0F;
 		this.tail2.setRotationPoint(0.0F, 1.9883F, -1.5034F);
 		this.tail2.setOffset(0.0F, 0.8F, 12.0F);
-		this.neck.rotateAngleX = 0.0F;
+		this.neck.rotateAngleX = 1.123190932157683F;
 		this.neck.rotateAngleY = 0.0F;
-		this.neck.rotateAngleZ = 0.0F;
+		this.neck.rotateAngleZ = 0.2461106231529724F;
 		this.neck.setRotationPoint(0.0F, -5.1F, -5.38F);
 		this.neck.setOffset(0.0F, -0.0F, -0.0F);
 		this.neck1.rotateAngleX = -1.0039133857471385F;
@@ -348,11 +342,11 @@ public class ModelGreyhound extends ModelBase
 		this.neck2.rotateAngleX = 0.38586262701866236F;
 		this.neck2.rotateAngleY = 0.0F;
 		this.neck2.rotateAngleZ = 0.0F;
-		this.neck2.setRotationPoint(0.0F, -4.5F, -0.04F);
+		this.neck2.setRotationPoint(0.0F, -1.0F, -0.04F);
 		this.neck2.setOffset(0.0F, 1.0F, -1.0F);
-		this.head_base.rotateAngleX = 1.023461073369475F;
-		this.head_base.rotateAngleY = 0.0F;
-		this.head_base.rotateAngleZ = 0.0F;
+		this.head_base.rotateAngleX = 0.37451449622219524F;
+		this.head_base.rotateAngleY = 0.5511243632315015F;
+		this.head_base.rotateAngleZ = 0.2211751041297294F;
 		this.head_base.setRotationPoint(0.0F, -0.8529F, -6.7255F);
 		this.head_base.setOffset(0.0F, -1.0F, -1.0F);
 		this.head_front.rotateAngleX = -0.17280330391070658F;
@@ -407,87 +401,4 @@ public class ModelGreyhound extends ModelBase
 		this.ear_l3.setOffset(0.0F, -0.6F, -1.0F);
 	}
 
-	@Override
-	public void render(Entity entity, float f1, float f2, float f3, float f4, float f5, float scale)
-	{
-		this.setRotationAngles(f1, f2, f3, f4, f5, scale, entity);
-		this.body.render(scale);
-	}
-
-	@Override
-	public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)
-	{
-
-		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
-
-		boolean sitting = dog.isSitting();
-		if (!sitting)
-		{
-			this.body.setRotationPoint(0.0F, 3.0F, -5.0F);
-			this.tail.setRotationPoint(0.0F, -4.6F, 17.5F);
-
-			this.body.rotateAngleX = 0F;
-			this.leg_l1.rotateAngleX = 0f;
-			this.leg_r1.rotateAngleX = 0F;
-			this.lower_body.rotateAngleX = 0.03291167370485707F;
-			this.back_leg_l1.rotateAngleX = 0.4066634610439308F;
-			this.back_leg_r1.rotateAngleX = 0.4066634610439308F;
-			this.tail.rotateAngleX = -0.433983099825398F;
-
-		}
-
-		super.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTickTime);
-
-	}
-
-	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
-	{
-		setupAngles();
-
-		ModelPose sleepingPose = AnimationHandler.getOrCreatePose(entity, Pose.SLEEPING, () -> new ModelPose(this, PoseGreyhoundSleeping.INSTANCE));
-
-		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
-
-		if (!dog.getSleeping() && !dog.isSitting())
-		{
-			sleepingPose.transitionToNormal(ageInTicks <= 10 ? 0 : 10, ageInTicks);
-			this.neck1.rotateAngleX = headPitch * 0.001453292F - 0.7f;
-			this.neck1.rotateAngleY = netHeadYaw * 0.017453292F;
-		}
-		if (dog.getSleeping() && !dog.isSitting())
-		{
-			sleepingPose.transitionToPose(10, ageInTicks);
-		}
-
-		limbSwingAmount *= 0.6;
-
-		if (!dog.getSleeping())
-		{
-			this.leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-			this.leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-			this.back_leg_l1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-			this.back_leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount + 0.06981317007977318F;
-			this.tail.rotateAngleY = MathHelper.sin(ageInTicks * 3.141593F * 0.05F) * MathHelper.sin(ageInTicks * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-		} else
-		{
-			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-		}
-
-		boolean sitting = dog.isSitting();
-		if (sitting)
-		{
-			this.body.setRotationPoint(0.0F, 13.0F, -5.0F);
-			this.tail.setRotationPoint(0.0F, -2.2F, 17.5F);
-
-			this.body.rotateAngleX = 0.0498343861321941F;
-			this.leg_l1.rotateAngleX = -1.2861313804653693F;
-			this.leg_r1.rotateAngleX = -1.3041327063704389F;
-			this.lower_body.rotateAngleX = -0.2823750743509106F;
-			this.back_leg_l1.rotateAngleX = -0.9602522291792482F;
-			this.back_leg_r1.rotateAngleX = -0.9624426173905011F;
-			this.tail.rotateAngleX = -0.26909660940173774F;
-		}
-
-	}
 }

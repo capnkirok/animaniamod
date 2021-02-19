@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import com.animania.addons.catsdogs.common.entity.generic.ai.GenericAISitIdle;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
@@ -36,6 +35,7 @@ import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
+import net.minecraft.entity.ai.EntityAIOcelotSit;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -119,7 +119,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new GenericAILookIdle<EntityAnimaniaCat>(this));
-		this.tasks.addTask(14, new GenericAISitIdle(this));
+		// this.tasks.addTask(14, new GenericAISitIdle(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(14, new GenericAISleep<EntityAnimaniaCat>(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed2), EntityAnimaniaCat.class));
@@ -132,6 +132,8 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 
 			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntitySilverfish));
 		}
+		this.tasks.taskEntries.removeIf(task -> task.action instanceof EntityAIOcelotSit);
+		System.out.println("Foo");
 	}
 
 	@Override

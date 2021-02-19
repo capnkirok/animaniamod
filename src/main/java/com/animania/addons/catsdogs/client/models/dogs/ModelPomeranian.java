@@ -1,6 +1,10 @@
 package com.animania.addons.catsdogs.client.models.dogs;
 
+import com.animania.addons.catsdogs.client.models.dogs.poses.PosePomeranianSleeping;
 import com.animania.addons.catsdogs.common.entity.canids.EntityAnimaniaDog;
+import com.animania.api.data.Pose;
+import com.animania.api.rendering.ModelPose;
+import com.animania.client.handler.AnimationHandler;
 import com.animania.client.models.render.ModelRendererAnimania;
 
 import net.minecraft.client.model.ModelBase;
@@ -40,8 +44,8 @@ public class ModelPomeranian extends ModelBase
 		this.tail = new ModelRendererAnimania(this, 7, 40);
 		this.tail.setTextureSize(64, 128);
 		this.tail.addBox(-2.0F, -2.0F, -2.5F, 4, 4, 5);
-		this.tail.setRotationPoint(0.0F, -5.0F, 4.0F);
-		this.tail.setOffset(0.0F, -0.0F, 2.0F);
+		this.tail.setRotationPoint(0.0F, -3.0F, 5.0F);
+		this.tail.setOffset(0.0F, -2.0F, 2.0F);
 		this.back_left = new ModelRendererAnimania(this, 3, 27);
 		this.back_left.setTextureSize(64, 128);
 		this.back_left.addBox(-1.5F, -4.0F, -1.5F, 3, 8, 3);
@@ -65,13 +69,13 @@ public class ModelPomeranian extends ModelBase
 		this.neck_base = new ModelRendererAnimania(this, 16, 16);
 		this.neck_base.setTextureSize(64, 128);
 		this.neck_base.addBox(-0.0F, -0.0F, -0.0F, 0, 0, 0);
-		this.neck_base.setRotationPoint(0.0F, -6.0F, -3.5F);
-		this.neck_base.setOffset(0.0F, -0.0F, -0.0F);
+		this.neck_base.setRotationPoint(0.0F, 1.0F, -0.0F);
+		this.neck_base.setOffset(0.0F, -6.0F, -3.0F);
 		this.neck = new ModelRendererAnimania(this, 29, 27);
 		this.neck.setTextureSize(64, 128);
 		this.neck.addBox(-3.5F, -3.5F, -4.0F, 7, 7, 8);
-		this.neck.setRotationPoint(0.0F, 0.0F, -0.0F);
-		this.neck.setOffset(0.0F, 3.0F, 4.0F);
+		this.neck.setRotationPoint(0.0F, 6.0F, 3.0F);
+		this.neck.setOffset(0.0F, -0.0F, -4.0F);
 		this.pug_head = new ModelRendererAnimania(this, 25, 8);
 		this.pug_head.setTextureSize(64, 128);
 		this.pug_head.addBox(-5.0F, -5.0F, -4.0F, 10, 10, 8);
@@ -110,17 +114,58 @@ public class ModelPomeranian extends ModelBase
 		this.neck_base.addChild(this.neck);
 		this.upperbody.addChild(this.neck_base);
 		this.body.addChild(this.upperbody);
+		setupAngles();
+	}
 
+	public void setupAngles()
+	{
+		this.body.rotateAngleX = 0.0F;
+		this.body.rotateAngleY = 0.0F;
+		this.body.rotateAngleZ = 0.0F;
+		this.back_right.rotateAngleX = 0.0F;
+		this.back_right.rotateAngleY = 0.0F;
+		this.back_right.rotateAngleZ = 0.0F;
+		this.tail.rotateAngleX = 0.0F;
+		this.tail.rotateAngleY = 0.0F;
+		this.tail.rotateAngleZ = 0.0F;
+		this.back_left.rotateAngleX = 0.0F;
+		this.back_left.rotateAngleY = 0.0F;
+		this.back_left.rotateAngleZ = 0.0F;
+		this.upperbody.rotateAngleX = 0.0F;
+		this.upperbody.rotateAngleY = 0.0F;
+		this.upperbody.rotateAngleZ = 0.0F;
+		this.front_right.rotateAngleX = 0.0F;
+		this.front_right.rotateAngleY = 0.0F;
+		this.front_right.rotateAngleZ = 0.0F;
+		this.front_left.rotateAngleX = 0.0F;
+		this.front_left.rotateAngleY = 0.0F;
+		this.front_left.rotateAngleZ = 0.0F;
+		this.neck_base.rotateAngleX = -0.030037116426822413F;
+		this.neck_base.rotateAngleY = 0.0F;
+		this.neck_base.rotateAngleZ = 0.0F;
+		this.neck.rotateAngleX = -0.5546935615518298F;
+		this.neck.rotateAngleY = 0.0F;
+		this.neck.rotateAngleZ = 0.0F;
+		this.pug_head.rotateAngleX = 0.6108652381980153F;
+		this.pug_head.rotateAngleY = 0.0F;
+		this.pug_head.rotateAngleZ = 0.0F;
+		this.snout.rotateAngleX = 0.0F;
+		this.snout.rotateAngleY = 0.0F;
+		this.snout.rotateAngleZ = 0.0F;
+		this.nose.rotateAngleX = 0.0F;
+		this.nose.rotateAngleY = 0.0F;
+		this.nose.rotateAngleZ = 0.0F;
+		this.ear_l.rotateAngleX = 0.0F;
+		this.ear_l.rotateAngleY = 0.0F;
+		this.ear_l.rotateAngleZ = -0.23574336739612609F;
+		this.ear_l1.rotateAngleX = 0.0F;
+		this.ear_l1.rotateAngleY = 1.7453292519943296E-6F;
+		this.ear_l1.rotateAngleZ = 0.23574336739612609F;
 	}
 
 	@Override
 	public void render(Entity entity, float f1, float f2, float f3, float f4, float f5, float scale)
 	{
-		this.neck.rotateAngleX = -0.6108652381980153F;
-		this.pug_head.rotateAngleX = 0.6108652381980153F;
-		this.ear_l.rotateAngleZ = -0.23574336739612609F;
-		this.ear_l1.rotateAngleY = 1.7453292519943296E-6F;
-		this.ear_l1.rotateAngleZ = 0.23574336739612609F;
 		this.setRotationAngles(f1, f2, f3, f4, f5, scale, entity);
 		this.body.render(scale);
 	}
@@ -153,18 +198,29 @@ public class ModelPomeranian extends ModelBase
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
 	{
-		limbSwingAmount *= 0.6;
+		setupAngles();
 
-		this.neck_base.rotateAngleX = headPitch * 0.001453292F;
-		this.neck_base.rotateAngleY = netHeadYaw * 0.017453292F;
+		ModelPose sleepingPose = AnimationHandler.getOrCreatePose(entity, Pose.SLEEPING, () -> new ModelPose(this, PosePomeranianSleeping.INSTANCE));
 
 		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
+
+		if (!dog.getSleeping() && !dog.isSitting())
+		{
+			sleepingPose.transitionToNormal(ageInTicks <= 10 ? 0 : 10, ageInTicks);
+			this.neck_base.rotateAngleX = headPitch * 0.001453292F - 0.1f;
+			this.neck_base.rotateAngleY = netHeadYaw * 0.017453292F;
+		}
+		if (dog.getSleeping() && !dog.isSitting())
+		{
+			sleepingPose.transitionToPose(10, ageInTicks);
+		}
+
+		limbSwingAmount *= 0.6;
 
 		if (!dog.getSleeping())
 		{
 			this.tail.rotateAngleY = MathHelper.sin(ageInTicks * 3.141593F * 0.05F) * MathHelper.sin(ageInTicks * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-		}
-		else
+		} else
 		{
 			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
 		}

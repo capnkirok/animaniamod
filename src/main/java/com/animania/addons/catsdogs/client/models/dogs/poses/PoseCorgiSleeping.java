@@ -1,19 +1,12 @@
-package com.animania.addons.catsdogs.client.models.dogs;
+package com.animania.addons.catsdogs.client.models.dogs.poses;
 
-import com.animania.addons.catsdogs.client.models.dogs.poses.PoseCorgiSleeping;
-import com.animania.addons.catsdogs.common.entity.canids.EntityAnimaniaDog;
-import com.animania.api.data.Pose;
-import com.animania.api.rendering.ModelPose;
-import com.animania.client.handler.AnimationHandler;
 import com.animania.client.models.render.ModelRendererAnimania;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.math.MathHelper;
 
-public class ModelCorgi extends ModelBase
+public class PoseCorgiSleeping extends ModelBase
 {
+	public static final PoseCorgiSleeping INSTANCE = new PoseCorgiSleeping();
 	ModelRendererAnimania body;
 	ModelRendererAnimania leg_r1;
 	ModelRendererAnimania toes_r;
@@ -39,12 +32,12 @@ public class ModelCorgi extends ModelBase
 	ModelRendererAnimania ear_l2;
 	ModelRendererAnimania ear_l3;
 
-	public ModelCorgi()
+	public PoseCorgiSleeping()
 	{
 		this.body = new ModelRendererAnimania(this, 37, 44);
 		this.body.setTextureSize(128, 64);
 		this.body.addBox(-3.5F, -3.5F, -3.5F, 7, 7, 7);
-		this.body.setRotationPoint(0.0F, 18.0F, -10.0F);
+		this.body.setRotationPoint(0.0F, 21.0F, -10.0F);
 		this.body.setOffset(0.0F, 0.8F, 5.0F);
 		this.leg_r1 = new ModelRendererAnimania(this, 1, 55);
 		this.leg_r1.setTextureSize(128, 64);
@@ -69,12 +62,12 @@ public class ModelCorgi extends ModelBase
 		this.lower_body = new ModelRendererAnimania(this, 29, 25);
 		this.lower_body.setTextureSize(128, 64);
 		this.lower_body.addBox(-3.0F, -3.0F, -6.5F, 6, 6, 13);
-		this.lower_body.setRotationPoint(0.0F, -0.8851F, -1.0F);
+		this.lower_body.setRotationPoint(0.0F, -1.0F, -1.0F);
 		this.lower_body.setOffset(0.0F, 0.8F, 5.0F);
 		this.tail = new ModelRendererAnimania(this, 71, 27);
 		this.tail.setTextureSize(128, 64);
 		this.tail.addBox(-1.5F, -1.5F, -2.5F, 3, 3, 5);
-		this.tail.setRotationPoint(0.0F, -1.0F, 7.0F);
+		this.tail.setRotationPoint(0.0F, 0.0F, 7.0F);
 		this.tail.setOffset(0.0F, 1.0F, -1.0F);
 		this.tail2 = new ModelRendererAnimania(this, 70, 26);
 		this.tail2.setTextureSize(128, 64);
@@ -189,51 +182,51 @@ public class ModelCorgi extends ModelBase
 
 	public void setupAngles()
 	{
-		this.body.rotateAngleX = 0.0F;
-		this.body.rotateAngleY = 0.0F;
-		this.body.rotateAngleZ = 0.0F;
+		this.body.rotateAngleX = 0.16237845228854444F;
+		this.body.rotateAngleY = 0.17407215827690645F;
+		this.body.rotateAngleZ = 1.7453292519943296E-6F;
 		this.leg_r1.rotateAngleX = 0.0F;
 		this.leg_r1.rotateAngleY = 0.0F;
-		this.leg_r1.rotateAngleZ = 0.0F;
+		this.leg_r1.rotateAngleZ = -1.3385645618537831F;
 		this.toes_r.rotateAngleX = 0.0F;
 		this.toes_r.rotateAngleY = 0.0F;
 		this.toes_r.rotateAngleZ = 0.0F;
 		this.leg_r11.rotateAngleX = 0.0F;
 		this.leg_r11.rotateAngleY = 0.0F;
-		this.leg_r11.rotateAngleZ = 0.0F;
+		this.leg_r11.rotateAngleZ = 1.2984691129477173F;
 		this.toes_r1.rotateAngleX = 0.0F;
 		this.toes_r1.rotateAngleY = 0.0F;
 		this.toes_r1.rotateAngleZ = 0.0F;
-		this.lower_body.rotateAngleX = 0.0F;
-		this.lower_body.rotateAngleY = 0.0F;
-		this.lower_body.rotateAngleZ = 0.0F;
-		this.tail.rotateAngleX = -0.4323512169747833F;
+		this.lower_body.rotateAngleX = -0.08702560716294126F;
+		this.lower_body.rotateAngleY = 0.12910549542852454F;
+		this.lower_body.rotateAngleZ = -0.10515434210340635F;
+		this.tail.rotateAngleX = -0.5764700346289631F;
 		this.tail.rotateAngleY = 0.0F;
 		this.tail.rotateAngleZ = 0.0F;
-		this.tail2.rotateAngleX = -0.2780745830739965F;
+		this.tail2.rotateAngleX = 0.321653709167043F;
 		this.tail2.rotateAngleY = 0.0F;
 		this.tail2.rotateAngleZ = 0.0F;
-		this.tail3.rotateAngleX = -0.29183650422597185F;
+		this.tail3.rotateAngleX = 0.2945923791148709F;
 		this.tail3.rotateAngleY = 0.0F;
 		this.tail3.rotateAngleZ = 0.0F;
 		this.leg_r2.rotateAngleX = 0.0F;
 		this.leg_r2.rotateAngleY = 0.0F;
-		this.leg_r2.rotateAngleZ = 0.0F;
+		this.leg_r2.rotateAngleZ = 1.372514706463577F;
 		this.toes_r2.rotateAngleX = 0.0F;
 		this.toes_r2.rotateAngleY = 0.0F;
 		this.toes_r2.rotateAngleZ = 0.0F;
 		this.leg_r21.rotateAngleX = 0.0F;
 		this.leg_r21.rotateAngleY = 0.0F;
-		this.leg_r21.rotateAngleZ = 0.0F;
+		this.leg_r21.rotateAngleZ = -1.2947428349947094F;
 		this.toes_r21.rotateAngleX = 0.0F;
 		this.toes_r21.rotateAngleY = 0.0F;
 		this.toes_r21.rotateAngleZ = 0.0F;
-		this.neck.rotateAngleX = -0.7303504787895471F;
-		this.neck.rotateAngleY = 0.0F;
-		this.neck.rotateAngleZ = 0.0F;
-		this.head_base.rotateAngleX = 0.6643194371988457F;
-		this.head_base.rotateAngleY = 0.0F;
-		this.head_base.rotateAngleZ = 0.0F;
+		this.neck.rotateAngleX = -0.12372464534462602F;
+		this.neck.rotateAngleY = -0.2057952627611554F;
+		this.neck.rotateAngleZ = 0.025757569100932316F;
+		this.head_base.rotateAngleX = 0.1230230229853243F;
+		this.head_base.rotateAngleY = -0.35411159726638153F;
+		this.head_base.rotateAngleZ = -0.04533492732055271F;
 		this.head_front.rotateAngleX = 0.04036772026937685F;
 		this.head_front.rotateAngleY = 0.0F;
 		this.head_front.rotateAngleZ = 0.0F;
@@ -243,105 +236,23 @@ public class ModelCorgi extends ModelBase
 		this.jaw.rotateAngleX = 0.26870740097854295F;
 		this.jaw.rotateAngleY = 0.0F;
 		this.jaw.rotateAngleZ = 0.0F;
-		this.ear_r.rotateAngleX = -1.3181616628979693F;
-		this.ear_r.rotateAngleY = 1.9450786942265765F;
-		this.ear_r.rotateAngleZ = -1.6712679505152022F;
-		this.ear_r2.rotateAngleX = 0.06981317007977318F;
+		this.ear_r.rotateAngleX = -1.0310741995666741F;
+		this.ear_r.rotateAngleY = 0.7134958342030379F;
+		this.ear_r.rotateAngleZ = -0.5051471547462147F;
+		this.ear_r2.rotateAngleX = 0.02950479100496414F;
 		this.ear_r2.rotateAngleY = 0.0F;
 		this.ear_r2.rotateAngleZ = 0.0F;
 		this.ear_r3.rotateAngleX = 0.06981317007977318F;
 		this.ear_r3.rotateAngleY = 1.7453292519943296E-6F;
 		this.ear_r3.rotateAngleZ = 0.0F;
-		this.ear_l.rotateAngleX = -1.3181634082272213F;
-		this.ear_l.rotateAngleY = -1.9450786942265765F;
-		this.ear_l.rotateAngleZ = 1.6712696958444542F;
+		this.ear_l.rotateAngleX = -1.1604729103095337F;
+		this.ear_l.rotateAngleY = -0.9018849283340539F;
+		this.ear_l.rotateAngleZ = 0.673135095250669F;
 		this.ear_l2.rotateAngleX = 0.06981317007977318F;
 		this.ear_l2.rotateAngleY = 0.0F;
 		this.ear_l2.rotateAngleZ = 0.0F;
 		this.ear_l3.rotateAngleX = 0.06981317007977318F;
 		this.ear_l3.rotateAngleY = 0.0F;
 		this.ear_l3.rotateAngleZ = 1.7453292519943296E-6F;
-	}
-
-	@Override
-	public void render(Entity entity, float f1, float f2, float f3, float f4, float f5, float scale)
-	{
-		this.setRotationAngles(f1, f2, f3, f4, f5, scale, entity);
-		this.body.render(scale);
-	}
-
-	@Override
-	public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)
-	{
-
-		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
-
-		boolean sitting = dog.isSitting();
-		if (!sitting)
-		{
-			this.body.rotateAngleX = 0;
-			this.leg_r1.rotateAngleX = 0;
-			this.leg_r11.rotateAngleX = 0;
-			this.lower_body.rotateAngleX = 0F;
-			this.tail.rotateAngleX = -0.4323512169747833F;
-			this.tail2.rotateAngleX = -0.2780745830739965F;
-			this.tail3.rotateAngleX = -0.29183650422597185F;
-			this.leg_r2.rotateAngleX = 0;
-			this.leg_r21.rotateAngleX = 0;
-
-		}
-
-		super.setLivingAnimations(entity, limbSwing, limbSwingAmount, partialTickTime);
-
-	}
-
-	@Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity)
-	{
-		setupAngles();
-
-		ModelPose sleepingPose = AnimationHandler.getOrCreatePose(entity, Pose.SLEEPING, () -> new ModelPose(this, PoseCorgiSleeping.INSTANCE));
-
-		EntityAnimaniaDog dog = (EntityAnimaniaDog) entity;
-
-		if (!dog.getSleeping() && !dog.isSitting())
-		{
-			sleepingPose.transitionToNormal(ageInTicks <= 10 ? 0 : 10, ageInTicks);
-			this.neck.rotateAngleX = headPitch * 0.001453292F - 0.7f;
-			this.neck.rotateAngleY = netHeadYaw * 0.017453292F;
-		}
-		if (dog.getSleeping() && !dog.isSitting())
-		{
-			sleepingPose.transitionToPose(10, ageInTicks);
-		}
-
-		limbSwingAmount *= 0.6;
-
-		if (!dog.getSleeping())
-		{
-			this.tail.rotateAngleY = MathHelper.sin(ageInTicks * 3.141593F * 0.05F) * MathHelper.sin(ageInTicks * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-		} else
-		{
-			this.tail.rotateAngleY = MathHelper.sin(1 * 3.141593F * 0.05F) * MathHelper.sin(1 * 3.141593F * .03F * 0.05F) * 0.15F * 3.141593F;
-		}
-		this.leg_r1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.leg_r11.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-		this.leg_r21.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
-		this.leg_r2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-
-		boolean sitting = dog.isSitting();
-		if (sitting)
-		{
-			this.body.rotateAngleX = -0.07355690132530102F;
-			this.leg_r1.rotateAngleX = -0.39865763576503277F;
-			this.leg_r11.rotateAngleX = -0.40206975445268167F;
-			this.lower_body.rotateAngleX = -0.06664190682889948F;
-			this.tail.rotateAngleX = -0.0519846317706511F;
-			this.tail2.rotateAngleX = 0.3797661919414462F;
-			this.tail3.rotateAngleX = 0.3947725328500934F;
-			this.leg_r2.rotateAngleX = -0.6804916580478251F;
-			this.leg_r21.rotateAngleX = -0.7049157956002338F;
-		}
-
 	}
 }
