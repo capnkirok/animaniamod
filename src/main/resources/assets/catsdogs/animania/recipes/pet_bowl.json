@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "animania:pet_bowl"
+  },
+  "pattern": [
+    "   ",
+    "i i",
+    "nin"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "n": {
+      "ore": "nuggetIron",
+      "type": "forge:ore_dict"
+    },
+    "i": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "animania:dog_pillow"
+  },
+  "pattern": [
+    "   ",
+    "www",
+    "www"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "w": {
+      "ore": "wool",
+      "type": "forge:ore_dict"
+    }
+  }
+}

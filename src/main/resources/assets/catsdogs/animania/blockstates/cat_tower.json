@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "normal": { "model": "minecraft:oak_planks" },
+        "facing=north": { "model": "minecraft:oak_planks" },
+        "facing=south": { "model": "minecraft:oak_planks" },
+        "facing=west": { "model": "minecraft:oak_planks" },
+        "facing=east": { "model": "minecraft:oak_planks" },
+        "facing=up": { "model": "minecraft:oak_planks" },
+        "facing=down": { "model": "minecraft:oak_planks" }
+    }
+}

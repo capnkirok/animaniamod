@@ -97,6 +97,7 @@ import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityKittenTa
 import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityQueenTabby;
 import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityTomTabby;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonBlockHandler;
+import com.animania.addons.catsdogs.common.handler.CatsDogsAddonItemHandler;
 import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl;
 import com.animania.addons.catsdogs.common.tileentity.TileEntityProp;
 import com.leviathanstudio.craftstudio.client.registry.CSRegistryHelper;
@@ -137,6 +138,9 @@ public class CatsDogsAddonRenderHandler
 		register(CatsDogsAddonBlockHandler.dogHouse);
 		register(CatsDogsAddonBlockHandler.dogPillow);
 		register(CatsDogsAddonBlockHandler.litterBox);
+
+		register(CatsDogsAddonItemHandler.entityeggrandomcat);
+		register(CatsDogsAddonItemHandler.entityeggrandomdog);
 	}
 
 	/**
@@ -169,36 +173,36 @@ public class CatsDogsAddonRenderHandler
 		// CATS
 		RenderingRegistry.registerEntityRenderingHandler(EntityTomRagdoll.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "ragdoll.png"), r(CATS + "blink_2.png"), 0x83786D, 0.67f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityQueenRagdoll.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "ragdoll.png"), r(CATS + "blink_2.png"), 0x83786D, 0.655f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenRagdoll.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "ragdoll.png"), r(CATS + "blink_2.png"), 0x83786D, 0.12f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenRagdoll.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "ragdoll.png"), r(CATS + "blink_2.png"), 0x83786D, 0.3f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityTomAmericanShorthair.class, new RenderCatGeneric.Factory(new ModelCatAmericanShorthair(), r(CATS + "american_shorthair.png"), r(CATS + "blink_1.png"), 0x7D7D7D, 0.65f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityQueenAmericanShorthair.class, new RenderCatGeneric.Factory(new ModelCatAmericanShorthair(), r(CATS + "american_shorthair.png"), r(CATS + "blink_1.png"), 0x7D7D7D, 0.635f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenAmericanShorthair.class, new RenderCatGeneric.Factory(new ModelCatAmericanShorthair(), r(CATS + "american_shorthair.png"), r(CATS + "blink_1.png"), 0x7D7D7D, 0.12f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenAmericanShorthair.class, new RenderCatGeneric.Factory(new ModelCatAmericanShorthair(), r(CATS + "american_shorthair.png"), r(CATS + "blink_1.png"), 0x7D7D7D, 0.3f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityTomAsiatic.class, new RenderCatGeneric.Factory(new ModelCatAsiatic(), r(CATS + "asiatic.png"), r(CATS + "blink_1.png"), 0x836951, 0.78f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityQueenAsiatic.class, new RenderCatGeneric.Factory(new ModelCatAsiatic(), r(CATS + "asiatic.png"), r(CATS + "blink_1.png"), 0x836951, 0.765f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenAsiatic.class, new RenderCatGeneric.Factory(new ModelCatAsiatic(), r(CATS + "asiatic.png"), r(CATS + "blink_1.png"), 0x836951, 0.15f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenAsiatic.class, new RenderCatGeneric.Factory(new ModelCatAsiatic(), r(CATS + "asiatic.png"), r(CATS + "blink_1.png"), 0x836951, 0.35f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityTomExotic.class, new RenderCatGeneric.Factory(new ModelCatExotic(), r(CATS + "exotic.png"), r(CATS + "blink_1.png"), 0xA75823, 0.60f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityQueenExotic.class, new RenderCatGeneric.Factory(new ModelCatExotic(), r(CATS + "exotic.png"), r(CATS + "blink_1.png"), 0xA75823, 0.585f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenExotic.class, new RenderCatGeneric.Factory(new ModelCatExotic(), r(CATS + "exotic.png"), r(CATS + "blink_1.png"), 0xA75823, 0.12f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenExotic.class, new RenderCatGeneric.Factory(new ModelCatExotic(), r(CATS + "exotic.png"), r(CATS + "blink_1.png"), 0xA75823, 0.3f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityTomNorwegian.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "norwegian.png"), r(CATS + "blink_2.png"), 0x4E3C30, 0.59f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityQueenNorwegian.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "norwegian.png"), r(CATS + "blink_2.png"), 0x4E3C30, 0.575f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenNorwegian.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "norwegian.png"), r(CATS + "blink_2.png"), 0x4E3C30, 0.12f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenNorwegian.class, new RenderCatGeneric.Factory(new ModelCatRagdoll(), r(CATS + "norwegian.png"), r(CATS + "blink_2.png"), 0x4E3C30, 0.3f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityTomOcelot.class, new RenderCatGeneric.Factory(new ModelCatOcelot(), r(CATS + "ocelot.png"), r(CATS + "blink_1.png"), 0xA47947, 0.85f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityQueenOcelot.class, new RenderCatGeneric.Factory(new ModelCatOcelot(), r(CATS + "ocelot.png"), r(CATS + "blink_1.png"), 0xA47947, 0.82f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenOcelot.class, new RenderCatGeneric.Factory(new ModelCatOcelot(), r(CATS + "ocelot.png"), r(CATS + "blink_1.png"), 0xA47947, 0.18f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenOcelot.class, new RenderCatGeneric.Factory(new ModelCatOcelot(), r(CATS + "ocelot.png"), r(CATS + "blink_1.png"), 0xA47947, 0.3f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityTomSiamese.class, new RenderCatGeneric.Factory(new ModelCatSiamese(), r(CATS + "siamese.png"), r(CATS + "blink_1.png"), 0x271D1B, 0.57f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityQueenSiamese.class, new RenderCatGeneric.Factory(new ModelCatSiamese(), r(CATS + "siamese.png"), r(CATS + "blink_1.png"), 0x271D1B, 0.555f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenSiamese.class, new RenderCatGeneric.Factory(new ModelCatSiamese(), r(CATS + "siamese.png"), r(CATS + "blink_1.png"), 0x271D1B, 0.12f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenSiamese.class, new RenderCatGeneric.Factory(new ModelCatSiamese(), r(CATS + "siamese.png"), r(CATS + "blink_1.png"), 0x271D1B, 0.3f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityTomTabby.class, new RenderCatGeneric.Factory(new ModelCatTabby(), r(CATS + "tabby.png"), r(CATS + "blink_1.png"), 0x594336, 0.70f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityQueenTabby.class, new RenderCatGeneric.Factory(new ModelCatTabby(), r(CATS + "tabby.png"), r(CATS + "blink_1.png"), 0x594336, 0.68f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityKittenTabby.class, new RenderCatGeneric.Factory(new ModelCatTabby(), r(CATS + "tabby.png"), r(CATS + "blink_1.png"), 0x594336, 0.13f));
+		RenderingRegistry.registerEntityRenderingHandler(EntityKittenTabby.class, new RenderCatGeneric.Factory(new ModelCatTabby(), r(CATS + "tabby.png"), r(CATS + "blink_1.png"), 0x594336, 0.3f));
 
 		// DOGS
 		RenderingRegistry.registerEntityRenderingHandler(EntityMaleBloodHound.class, new RenderDogGeneric.Factory(new ModelBloodHound(), r(DOGS + "blood_hound.png"), r(DOGS + "blink_blood_hound.png"), -5938636, 1f, 0, -0.1, 0, null));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFemaleBloodHound.class, new RenderDogGeneric.Factory(new ModelBloodHound(), r(DOGS + "blood_hound.png"), r(DOGS + "blink_blood_hound.png"), -5938636, 0.9f, 0, -0.1, 0, null));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyBloodHound.class, new RenderDogGeneric.Factory(new ModelBloodHound(), r(DOGS + "blood_hound.png"), r(DOGS + "blink_blood_hound.png"), -5938636, 0.5f, 0, -0.1, 0, null));
-		RenderingRegistry.registerEntityRenderingHandler(EntityMaleChihuahua.class, new RenderDogGeneric.Factory(new ModelChihuahua(), r(DOGS + "chihuahua.png"), r(DOGS + "blink_chihuahua.png"), -593428, 0.8f, 0, 0.1, -0.5, null));
-		RenderingRegistry.registerEntityRenderingHandler(EntityFemaleChihuahua.class, new RenderDogGeneric.Factory(new ModelChihuahua(), r(DOGS + "chihuahua.png"), r(DOGS + "blink_chihuahua.png"), -593428, 0.7f, 0, 0.1, -0.5, null));
-		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyChihuahua.class, new RenderDogGeneric.Factory(new ModelChihuahua(), r(DOGS + "chihuahua.png"), r(DOGS + "blink_chihuahua.png"), -593428, 0.4f, 0, 0.1, -0.5, null));
+		RenderingRegistry.registerEntityRenderingHandler(EntityMaleChihuahua.class, new RenderDogGeneric.Factory(new ModelChihuahua(), r(DOGS + "chihuahua.png"), r(DOGS + "blink_chihuahua.png"), -593428, 0.6f, 0, 0.1, -0.5, null));
+		RenderingRegistry.registerEntityRenderingHandler(EntityFemaleChihuahua.class, new RenderDogGeneric.Factory(new ModelChihuahua(), r(DOGS + "chihuahua.png"), r(DOGS + "blink_chihuahua.png"), -593428, 0.5f, 0, 0.1, -0.5, null));
+		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyChihuahua.class, new RenderDogGeneric.Factory(new ModelChihuahua(), r(DOGS + "chihuahua.png"), r(DOGS + "blink_chihuahua.png"), -593428, 0.3f, 0, 0.1, -0.5, null));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMaleCollie.class, new RenderDogGeneric.Factory(new ModelCollie(), r(DOGS + "collie.png"), r(DOGS + "blink_collie.png"), -12570587, 1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFemaleCollie.class, new RenderDogGeneric.Factory(new ModelCollie(), r(DOGS + "collie.png"), r(DOGS + "blink_collie.png"), -12570587, 0.9f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyCollie.class, new RenderDogGeneric.Factory(new ModelCollie(), r(DOGS + "collie.png"), r(DOGS + "blink_collie.png"), -12570587, 0.5f));
@@ -230,9 +234,9 @@ public class CatsDogsAddonRenderHandler
 			return null;
 		}));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyLabrador.class, new RenderDogGeneric.Factory(new ModelLabrador(), r(DOGS + "labrador.png"), r(DOGS + "blink_collie.png"), -4153993, 0.5f));
-		RenderingRegistry.registerEntityRenderingHandler(EntityMalePomeranian.class, new RenderDogGeneric.Factory(new ModelPomeranian(), r(DOGS + "pomeranian.png"), r(DOGS + "blink_pomeranian.png"), -197380, 0.8f, 0, 0, -0.5, null));
-		RenderingRegistry.registerEntityRenderingHandler(EntityFemalePomeranian.class, new RenderDogGeneric.Factory(new ModelPomeranian(), r(DOGS + "pomeranian.png"), r(DOGS + "blink_pomeranian.png"), -197380, 0.7f, 0, 0, -0.5, null));
-		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyPomeranian.class, new RenderDogGeneric.Factory(new ModelPomeranian(), r(DOGS + "pomeranian.png"), r(DOGS + "blink_pomeranian.png"), -197380, 0.4f, 0, 0, -0.25, null));
+		RenderingRegistry.registerEntityRenderingHandler(EntityMalePomeranian.class, new RenderDogGeneric.Factory(new ModelPomeranian(), r(DOGS + "pomeranian.png"), r(DOGS + "blink_pomeranian.png"), -197380, 0.6f, 0, 0, -0.5, null));
+		RenderingRegistry.registerEntityRenderingHandler(EntityFemalePomeranian.class, new RenderDogGeneric.Factory(new ModelPomeranian(), r(DOGS + "pomeranian.png"), r(DOGS + "blink_pomeranian.png"), -197380, 0.5f, 0, 0, -0.5, null));
+		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyPomeranian.class, new RenderDogGeneric.Factory(new ModelPomeranian(), r(DOGS + "pomeranian.png"), r(DOGS + "blink_pomeranian.png"), -197380, 0.3f, 0, 0, -0.25, null));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMalePoodle.class, new RenderDogGeneric.Factory(new ModelPoodle(), r(DOGS + "poodle.png"), r(DOGS + "blink_poodle.png"), -658707, 1f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFemalePoodle.class, new RenderDogGeneric.Factory(new ModelPoodle(), r(DOGS + "poodle.png"), r(DOGS + "blink_poodle.png"), -658707, 0.9f));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPuppyPoodle.class, new RenderDogGeneric.Factory(new ModelPoodle(), r(DOGS + "poodle.png"), r(DOGS + "blink_poodle.png"), -658707, 0.5f));

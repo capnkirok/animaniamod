@@ -434,7 +434,7 @@ public class GenericBehavior
 
 		List<EntityLivingBase> others = AnimaniaHelper.getEntitiesInRange(baseClass, 64, entity.world, entity.getPosition());
 
-		if ((others.size() <= 4))
+		if ((others.size() <= 8))
 		{
 			EntityLivingBase animal = null;
 

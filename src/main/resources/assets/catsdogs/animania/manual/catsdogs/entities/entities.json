@@ -1,0 +1,12 @@
+{
+  "name" : "manual.entities.entities.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/catsdogs.json#← manual.catsdogs",
+    "§lmanual.entities.entities.title",
+    " ",
+    "@link@animania:manual/catsdogs/entities/cats/cats.json#- manual.cats",
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#- manual.dogs",
+	"@link@animania:manual/catsdogs/entities/canids/canids.json#- manual.canids",
+	"@link@animania:manual/catsdogs/entities/felids/felids.json#- manual.felids"
+  ]
+}

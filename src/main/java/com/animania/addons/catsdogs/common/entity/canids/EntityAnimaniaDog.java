@@ -44,7 +44,6 @@ import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -56,6 +55,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -63,7 +63,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimalBase, IVariant, IConvertable
+public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase, IVariant, IConvertable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaDog.class, DataSerializers.BOOLEAN);
@@ -151,7 +151,7 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(18.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
-		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.5D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.5D);
 	}
 
 	@Override
@@ -200,6 +200,12 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 	protected boolean canDespawn()
 	{
 		return false;
+	}
+
+	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
 	}
 
 	@Override
@@ -350,7 +356,7 @@ public class EntityAnimaniaDog extends EntityTameable implements IAnimaniaAnimal
 	}
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable ageable)
+	public EntityWolf createChild(EntityAgeable ageable)
 	{
 		return null;
 	}

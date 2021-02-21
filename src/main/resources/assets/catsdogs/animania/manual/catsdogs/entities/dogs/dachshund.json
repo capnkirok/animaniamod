@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.dachshund.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#← manual.dogs",
+    "§ladvancements.animania.dachshund.title",
+	" ",
+    "advancements.animania.dachshund.title",
+    "@text@manual.dogs.generic.1#prevline",
+	"@entity@animania:male_dachshund,animania:female_dachshund,animania:puppy_dachshund"
+  ]
+}

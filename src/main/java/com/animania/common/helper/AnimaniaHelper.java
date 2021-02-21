@@ -211,6 +211,7 @@ public class AnimaniaHelper
 	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
 		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
+		list.removeIf(e -> e == theEntity);
 		return list;
 	}
 

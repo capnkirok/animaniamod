@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "normal": { "model": "minecraft:hardened_clay_blue" },
+        "facing=north": { "model": "minecraft:hardened_clay_blue" },
+        "facing=south": { "model": "minecraft:hardened_clay_blue" },
+        "facing=west": { "model": "minecraft:hardened_clay_blue" },
+        "facing=east": { "model": "minecraft:hardened_clay_blue" },
+        "facing=up": { "model": "minecraft:hardened_clay_blue" },
+        "facing=down": { "model": "minecraft:hardened_clay_blue" }
+    }
+}

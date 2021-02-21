@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_puppy_fox"
+        },
+        "title": {
+            "translate": "advancements.animania.fox.title"
+        },
+        "description": {
+            "translate": "advancements.animania.fox.description"
+        }
+    },
+    "parent": "animania:animania/feed_dog_pug",
+    "criteria": {
+        "puppy": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:puppy_fox"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:female_fox"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:male_fox"
+            }
+        }
+    },
+	"requirements": [["male", "female", "puppy"]]
+
+}

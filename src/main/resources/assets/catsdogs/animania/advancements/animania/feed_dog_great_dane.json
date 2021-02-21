@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_puppy_great_dane"
+        },
+        "title": {
+            "translate": "advancements.animania.great_dane.title"
+        },
+        "description": {
+            "translate": "advancements.animania.great_dane.description"
+        }
+    },
+    "parent": "animania:animania/feed_dog_german_shepherd",
+    "criteria": {
+        "puppy": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:puppy_great_dane"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:female_great_dane"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:male_great_dane"
+            }
+        }
+    },
+	"requirements": [["male", "female", "puppy"]]
+
+}

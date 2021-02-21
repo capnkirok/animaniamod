@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_puppy_blood_hound"
+        },
+        "title": {
+            "translate": "advancements.animania.blood_hound.title"
+        },
+        "description": {
+            "translate": "advancements.animania.blood_hound.description"
+        }
+    },
+    "parent": "animania:animania/dogs",
+    "criteria": {
+        "puppy": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:puppy_blood_hound"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:female_blood_hound"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:male_blood_hound"
+            }
+        }
+    },
+	"requirements": [["male", "female", "puppy"]]
+
+}

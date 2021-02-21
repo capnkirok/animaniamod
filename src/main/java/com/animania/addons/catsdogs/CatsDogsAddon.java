@@ -1,6 +1,7 @@
 package com.animania.addons.catsdogs;
 
 import com.animania.addons.catsdogs.client.CatsDogsAddonRenderHandler;
+import com.animania.addons.catsdogs.common.event.CatsDogsAddonSpawnHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonBlockHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonCraftingHandler;
 import com.animania.addons.catsdogs.common.handler.CatsDogsAddonEntityHandler;
@@ -20,6 +21,7 @@ public class CatsDogsAddon implements AnimaniaAddon
 	public void preInitCommon()
 	{
 		MinecraftForge.EVENT_BUS.register(CatsDogsVillagerProfessions.class);
+		MinecraftForge.EVENT_BUS.register(CatsDogsAddonSpawnHandler.class);
 
 		CatsDogsAddonInjectionHandler.preInit();
 		CatsDogsAddonEntityHandler.preInit();

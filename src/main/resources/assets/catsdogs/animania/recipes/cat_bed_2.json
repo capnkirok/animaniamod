@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "animania:cat_bed_2"
+  },
+  "pattern": [
+    "www",
+    "w w",
+    "www"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "w": {
+      "ore": "wool",
+      "type": "forge:ore_dict"
+    }
+  }
+}

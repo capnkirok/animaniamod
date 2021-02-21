@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.animania.api.interfaces.IFoodEating;
 import com.animania.common.helper.AnimaniaHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -18,6 +19,7 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
@@ -75,7 +77,7 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 	@Override
 	public FeedAnimalTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context)
 	{
-		ItemStack item = null;
+		ItemStack item = ItemStack.EMPTY;
 		EntityEntry entity = null;
 		boolean useOptional = false;
 
@@ -84,6 +86,8 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 		if (json.has("itemstack"))
 		{
 			item = AnimaniaHelper.getItemStack(JsonUtils.getJsonObject(json, "itemstack"));
+			if (item.isEmpty())
+				throw new JsonSyntaxException("Item cannot be air '" + JsonUtils.getJsonObject(json, "item").toString() + "'");
 		} else if (json.has("optional"))
 		{
 			try
@@ -95,9 +99,6 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 			}
 			useOptional = true;
 		}
-
-		if (item.isEmpty() && !useOptional)
-			throw new JsonSyntaxException("Item cannot be air '" + JsonUtils.getJsonObject(json, "item").toString() + "'");
 
 		if (!ForgeRegistries.ENTITIES.containsKey(entityloc))
 			throw new JsonSyntaxException("Unknown entity '" + entityloc + "'");
@@ -120,10 +121,24 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 			this.optional = useOptional;
 		}
 
-		public boolean test(ItemStack item, EntityEntry entry)
+		public boolean test(ItemStack item, EntityEntry entry, Entity entity)
 		{
 			if (this.item.isEmpty() && optional)
 				return false;
+
+			if (this.item.isEmpty())
+			{
+				if (entity instanceof IFoodEating && entry == this.entity)
+				{
+					Set<ItemStack> food = ((IFoodEating) entity).getFoodItems();
+					for (ItemStack is : food)
+					{
+						if (ItemStack.areItemsEqual(is, item))
+							return true;
+					}
+				}
+				return false;
+			}
 
 			if (item != null && this.item != null)
 			{
@@ -141,13 +156,13 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 
 	}
 
-	public void trigger(EntityPlayerMP player, ItemStack item, EntityEntry entry)
+	public void trigger(EntityPlayerMP player, ItemStack item, EntityEntry entry, Entity entity)
 	{
 		FeedAnimalTrigger.Listeners enterblocktrigger$listeners = this.listeners.get(player.getAdvancements());
 
 		if (enterblocktrigger$listeners != null)
 		{
-			enterblocktrigger$listeners.trigger(item, entry);
+			enterblocktrigger$listeners.trigger(item, entry, entity);
 		}
 	}
 
@@ -176,13 +191,13 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 			this.listeners.remove(listener);
 		}
 
-		public void trigger(ItemStack item, EntityEntry entry)
+		public void trigger(ItemStack item, EntityEntry entry, Entity entity)
 		{
 			List<ICriterionTrigger.Listener<FeedAnimalTrigger.Instance>> list = null;
 
 			for (ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener : this.listeners)
 			{
-				if (listener.getCriterionInstance().test(item, entry))
+				if (listener.getCriterionInstance().test(item, entry, entity))
 				{
 					if (list == null)
 					{

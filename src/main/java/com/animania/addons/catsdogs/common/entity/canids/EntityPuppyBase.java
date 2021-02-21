@@ -4,8 +4,10 @@ import java.util.UUID;
 
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IChild;
+import com.animania.api.interfaces.IPlaying;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.common.entities.generic.ai.GenericAIFollowParents;
+import com.animania.common.entities.generic.ai.GenericAIPlay;
 import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.google.common.base.Optional;
 
@@ -13,16 +15,16 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityPuppyBase extends EntityAnimaniaDog implements TOPInfoProviderChild, IChild
+public class EntityPuppyBase extends EntityAnimaniaDog implements TOPInfoProviderChild, IChild, IPlaying
 {
 
 	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityPuppyBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> createKey(EntityPuppyBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
+
+	protected GenericAIPlay playAI;
 
 	public EntityPuppyBase(World worldIn)
 	{
@@ -34,6 +36,7 @@ public class EntityPuppyBase extends EntityAnimaniaDog implements TOPInfoProvide
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
 		this.tasks.addTask(1, new GenericAIFollowParents<EntityPuppyBase, EntityFemaleDogBase>(this, 1.1D, EntityFemaleDogBase.class));
+		this.tasks.addTask(8, playAI = new GenericAIPlay(this, EntityPuppyBase.class));
 	}
 
 	@Override
@@ -71,25 +74,6 @@ public class EntityPuppyBase extends EntityAnimaniaDog implements TOPInfoProvide
 		ageTimer = i;
 	}
 
-	// TODO: SOUND
-	@Override
-	protected SoundEvent getAmbientSound()
-	{
-		return GenericBehavior.getAmbientSound(this);
-	}
-
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
-	{
-		return GenericBehavior.getRandomSound();
-	}
-
-	@Override
-	protected SoundEvent getDeathSound()
-	{
-		return GenericBehavior.getRandomSound();
-	}
-
 	@Override
 	public void onLivingUpdate()
 	{
@@ -122,6 +106,12 @@ public class EntityPuppyBase extends EntityAnimaniaDog implements TOPInfoProvide
 	public float getSizeDividend()
 	{
 		return 1f;
+	}
+
+	@Override
+	public GenericAIPlay getPlayAI()
+	{
+		return this.playAI;
 	}
 
 }

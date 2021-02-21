@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.american_shorthair.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/cats/cats.json#← manual.cats",
+    "§ladvancements.animania.american_shorthair.title",
+	" ",
+    "advancements.animania.american_shorthair.title",
+    "@text@manual.cats.generic.1#prevline",
+	"@entity@animania:tom_american_shorthair,animania:queen_american_shorthair,animania:kitten_american_shorthair"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.labrador.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#← manual.dogs",
+    "§ladvancements.animania.labrador.title",
+	" ",
+    "advancements.animania.labrador.title",
+    "@text@manual.dogs.generic.1#prevline",
+	"@entity@animania:male_labrador,animania:female_labrador,animania:puppy_labrador"
+  ]
+}

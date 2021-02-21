@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_puppy_corgi"
+        },
+        "title": {
+            "translate": "advancements.animania.corgi.title"
+        },
+        "description": {
+            "translate": "advancements.animania.corgi.description"
+        }
+    },
+    "parent": "animania:animania/feed_dog_collie",
+    "criteria": {
+        "puppy": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:puppy_corgi"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:female_corgi"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:male_corgi"
+            }
+        }
+    },
+	"requirements": [["male", "female", "puppy"]]
+
+}

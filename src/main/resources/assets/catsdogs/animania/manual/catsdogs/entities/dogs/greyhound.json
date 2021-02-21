@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.greyhound.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#← manual.dogs",
+    "§ladvancements.animania.greyhound.title",
+	" ",
+    "advancements.animania.greyhound.title",
+    "@text@manual.dogs.generic.1#prevline",
+	"@entity@animania:male_greyhound,animania:female_greyhound,animania:puppy_greyhound"
+  ]
+}

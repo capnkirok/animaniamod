@@ -1,0 +1,36 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kitten_american_shorthair"
+        },
+        "title": {
+            "translate": "advancements.animania.american_shorthair.title"
+        },
+        "description": {
+            "translate": "advancements.animania.american_shorthair.description"
+        }
+    },
+    "parent": "animania:animania/cats",
+    "criteria": {
+        "kitten": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:kitten_american_shorthair"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:queen_american_shorthair"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:tom_american_shorthair"
+            }
+        }
+    },
+	"requirements": [["male", "female", "kitten"]]
+
+}

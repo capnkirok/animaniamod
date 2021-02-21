@@ -1,0 +1,36 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kitten_norwegian"
+        },
+        "title": {
+            "translate": "advancements.animania.norwegian.title"
+        },
+        "description": {
+            "translate": "advancements.animania.norwegian.description"
+        }
+    },
+    "parent": "animania:animania/feed_cat_exotic",
+    "criteria": {
+        "kitten": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:kitten_norwegian"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:queen_norwegian"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:tom_norwegian"
+            }
+        }
+    },
+	"requirements": [["male", "female", "kitten"]]
+
+}

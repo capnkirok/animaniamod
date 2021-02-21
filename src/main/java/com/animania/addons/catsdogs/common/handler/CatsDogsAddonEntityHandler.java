@@ -76,22 +76,27 @@ import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityKittenTa
 import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityQueenTabby;
 import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityTomTabby;
 import com.animania.addons.catsdogs.common.entity.felids.CatType;
+import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.data.EntityGender;
+import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.helper.RegistryHelper;
 import com.google.common.collect.Lists;
 
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class CatsDogsAddonEntityHandler
 {
-	
+
 	/**
 	 * Register Entities
 	 */
 	public static void preInit()
 	{
-				
+
 		// CATS
 		RegistryHelper.Entities.registerAnimal(EntityTomRagdoll.class, "tom_ragdoll", entityID++, CatType.RAGDOLL, EntityGender.MALE);
 		RegistryHelper.Entities.registerAnimal(EntityQueenRagdoll.class, "queen_ragdoll", entityID++, CatType.RAGDOLL, EntityGender.FEMALE);
@@ -116,9 +121,9 @@ public class CatsDogsAddonEntityHandler
 		RegistryHelper.Entities.registerAnimal(EntityKittenSiamese.class, "kitten_siamese", entityID++, CatType.SIAMESE, EntityGender.CHILD);
 		RegistryHelper.Entities.registerAnimal(EntityTomTabby.class, "tom_tabby", entityID++, CatType.TABBY, EntityGender.MALE);
 		RegistryHelper.Entities.registerAnimal(EntityQueenTabby.class, "queen_tabby", entityID++, CatType.TABBY, EntityGender.FEMALE);
-		RegistryHelper.Entities.registerAnimal(EntityKittenTabby.class, "kitten_tabby", entityID++, CatType.TABBY, EntityGender.CHILD);		
+		RegistryHelper.Entities.registerAnimal(EntityKittenTabby.class, "kitten_tabby", entityID++, CatType.TABBY, EntityGender.CHILD);
 
-		//DOGS
+		// DOGS
 		RegistryHelper.Entities.registerAnimal(EntityMaleBloodHound.class, "male_blood_hound", entityID++, DogType.BLOOD_HOUND, EntityGender.MALE);
 		RegistryHelper.Entities.registerAnimal(EntityFemaleBloodHound.class, "female_blood_hound", entityID++, DogType.BLOOD_HOUND, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityPuppyBloodHound.class, "puppy_blood_hound", entityID++, DogType.BLOOD_HOUND, EntityGender.CHILD);
@@ -165,11 +170,24 @@ public class CatsDogsAddonEntityHandler
 		RegistryHelper.Entities.registerAnimal(EntityFemaleWolf.class, "female_wolf", entityID++, DogType.WOLF, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityPuppyWolf.class, "puppy_wolf", entityID++, DogType.WOLF, EntityGender.CHILD);
 
-	
+		int maxFam = CatsDogsConfig.catsdogs.numberDogFamilies;
+		for (Type t : AnimaniaHelper.getBiomeTypes(CatsDogsConfig.catsdogs.wolfBiomeTypes))
+		{
+			EntityRegistry.addSpawn(EntityFemaleWolf.class, CatsDogsConfig.catsdogs.spawnProbabilityDogs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+		}
+
+		for (Type t : AnimaniaHelper.getBiomeTypes(CatsDogsConfig.catsdogs.foxBiomeTypes))
+		{
+			EntityRegistry.addSpawn(EntityFemaleFox.class, CatsDogsConfig.catsdogs.spawnProbabilityDogs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+		}
+
+		maxFam = CatsDogsConfig.catsdogs.numberCatFamilies;
+		for (Type t : AnimaniaHelper.getBiomeTypes(CatsDogsConfig.catsdogs.ocelotBiomeTypes))
+		{
+			EntityRegistry.addSpawn(EntityQueenOcelot.class, CatsDogsConfig.catsdogs.spawnLimitCats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+		}
 	}
-	
-	
-	
+
 	private static Biome[] getBiomes(BiomeDictionary.Type type)
 	{
 		List<Biome> criteriaMet = Lists.newArrayList();

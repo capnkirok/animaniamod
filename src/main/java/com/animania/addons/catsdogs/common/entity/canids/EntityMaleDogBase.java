@@ -17,8 +17,6 @@ import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProviderMateable, IMateable, ISterilizable
@@ -59,25 +57,6 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
-	}
-
-	// TODO: SOUNDS
-	@Override
-	protected SoundEvent getAmbientSound()
-	{
-		return GenericBehavior.getAmbientSound(this);
-	}
-
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
-	{
-		return GenericBehavior.getRandomSound();
-	}
-
-	@Override
-	protected SoundEvent getDeathSound()
-	{
-		return GenericBehavior.getRandomSound();
 	}
 
 	@Override

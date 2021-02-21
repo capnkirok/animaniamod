@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.tabby.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/cats/cats.json#← manual.cats",
+    "§ladvancements.animania.tabby.title",
+	" ",
+    "advancements.animania.tabby.title",
+    "@text@manual.cats.generic.1#prevline",
+	"@entity@animania:tom_tabby,animania:queen_tabby,animania:kitten_tabby"
+  ]
+}
