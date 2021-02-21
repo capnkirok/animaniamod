@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.siamese.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/cats/cats.json#← manual.cats",
+    "§ladvancements.animania.siamese.title",
+	" ",
+    "advancements.animania.siamese.title",
+    "@text@manual.cats.generic.1#prevline",
+	"@entity@animania:tom_siamese,animania:queen_siamese,animania:kitten_siamese"
+  ]
+}

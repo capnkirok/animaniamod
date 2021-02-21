@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_puppy_poodle"
+        },
+        "title": {
+            "translate": "advancements.animania.poodle.title"
+        },
+        "description": {
+            "translate": "advancements.animania.poodle.description"
+        }
+    },
+    "parent": "animania:animania/feed_dog_pomeranian",
+    "criteria": {
+        "puppy": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:puppy_poodle"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:female_poodle"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:male_poodle"
+            }
+        }
+    },
+	"requirements": [["male", "female", "puppy"]]
+
+}

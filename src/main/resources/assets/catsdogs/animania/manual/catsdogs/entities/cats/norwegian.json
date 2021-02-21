@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.norwegian.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/cats/cats.json#← manual.cats",
+    "§ladvancements.animania.norwegian.title",
+	" ",
+    "advancements.animania.norwegian.title",
+    "@text@manual.cats.generic.1#prevline",
+	"@entity@animania:tom_norwegian,animania:queen_norwegian,animania:kitten_norwegian"
+  ]
+}

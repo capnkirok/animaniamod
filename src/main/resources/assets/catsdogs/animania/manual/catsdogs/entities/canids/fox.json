@@ -1,0 +1,12 @@
+{
+  "name" : "advancements.animania.fox.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/canids/canids.json#← manual.canids",
+    "§ladvancements.animania.fox.title",
+	" ",
+    "manual.canids.fox.1",
+	"@entity@animania:male_fox,animania:female_fox,animania:puppy_fox",
+	"manual.biometypes",
+	"@config@general.catsdogs;foxBiomeTypes"
+  ]
+}

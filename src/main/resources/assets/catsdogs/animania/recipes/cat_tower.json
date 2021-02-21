@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "animania:cat_tower"
+  },
+  "pattern": [
+    "sww",
+    "r w",
+    "www"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "w": {
+      "ore": "plankWood",
+      "type": "forge:ore_dict"
+    },
+	"s": {
+      "ore": "string",
+      "type": "forge:ore_dict"
+    },
+	"r": {
+      "ore": "woolRed",
+      "type": "forge:ore_dict"
+    }
+  }
+}

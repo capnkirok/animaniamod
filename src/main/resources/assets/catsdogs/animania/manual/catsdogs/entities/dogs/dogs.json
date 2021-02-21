@@ -1,0 +1,27 @@
+{
+  "name" : "manual.dogs",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/entities.json#← manual.entities.entities.title",
+    "§lmanual.dogs",
+    " ",
+    "@link@animania:manual/catsdogs/entities/dogs/bloodhound.json#- advancements.animania.blood_hound.title",
+    "@link@animania:manual/catsdogs/entities/dogs/chihuahua.json#- advancements.animania.chihuahua.title",
+    "@link@animania:manual/catsdogs/entities/dogs/collie.json#- advancements.animania.collie.title",
+    "@link@animania:manual/catsdogs/entities/dogs/corgi.json#- advancements.animania.corgi.title",
+    "@link@animania:manual/catsdogs/entities/dogs/dachshund.json#- advancements.animania.dachshund.title",
+    "@link@animania:manual/catsdogs/entities/dogs/german_shepherd.json#- advancements.animania.german_shepherd.title",
+	"@link@animania:manual/catsdogs/entities/dogs/great_dane.json#- advancements.animania.great_dane.title",
+	"@link@animania:manual/catsdogs/entities/dogs/greyhound.json#- advancements.animania.greyhound.title",
+	"@link@animania:manual/catsdogs/entities/dogs/husky.json#- advancements.animania.husky.title",
+	"@link@animania:manual/catsdogs/entities/dogs/labrador.json#- advancements.animania.labrador.title",
+	"@link@animania:manual/catsdogs/entities/dogs/pomeranian.json#- advancements.animania.pomeranian.title",
+	"@link@animania:manual/catsdogs/entities/dogs/poodle.json#- advancements.animania.poodle.title",
+	"@link@animania:manual/catsdogs/entities/dogs/pug.json#- advancements.animania.pug.title",
+    " ",
+    "manual.dogs.general.1",
+    "@configitem@general.catsdogs;dogFood",
+    "manual.dogs.general.2",
+	"@configitem@general.catsdogs;dogBed",
+	"@configitem@general.catsdogs;dogBed2"
+  ]
+}

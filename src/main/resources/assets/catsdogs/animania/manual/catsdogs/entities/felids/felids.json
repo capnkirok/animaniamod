@@ -1,0 +1,15 @@
+{
+  "name" : "manual.felids",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/entities.json#← manual.entities.entities.title",
+    "§lmanual.felids",
+    " ",
+    "@link@animania:manual/catsdogs/entities/felids/ocelot.json#- advancements.animania.ocelot.title",
+    " ",
+    "manual.felids.general.1",
+    "@configitem@general.catsdogs;catFood",
+    "manual.cats.general.2",
+	"@configitem@general.catsdogs;catBed",
+	"@configitem@general.catsdogs;catBed2"
+  ]
+}

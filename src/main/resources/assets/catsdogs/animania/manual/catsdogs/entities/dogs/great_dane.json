@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.great_dane.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#← manual.dogs",
+    "§ladvancements.animania.great_dane.title",
+	" ",
+    "advancements.animania.great_dane.title",
+    "@text@manual.dogs.generic.1#prevline",
+	"@entity@animania:male_great_dane,animania:female_great_dane,animania:puppy_great_dane"
+  ]
+}

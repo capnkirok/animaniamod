@@ -1,0 +1,12 @@
+{
+  "name" : "advancements.animania.german_shepherd.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#← manual.dogs",
+    "§ladvancements.animania.german_shepherd.title",
+	" ",
+    "advancements.animania.german_shepherd.title",
+    "@text@manual.dogs.generic.1#prevline",
+	"@entity@animania:male_german_shepherd,animania:female_german_shepherd,animania:puppy_german_shepherd",
+	"manual.dogs.german_shepherd"
+  ]
+}

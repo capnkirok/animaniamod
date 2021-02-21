@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.husky.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#← manual.dogs",
+    "§ladvancements.animania.husky.title",
+	" ",
+    "advancements.animania.husky.title",
+    "@text@manual.dogs.generic.1#prevline",
+	"@entity@animania:male_husky,animania:female_husky,animania:puppy_husky"
+  ]
+}

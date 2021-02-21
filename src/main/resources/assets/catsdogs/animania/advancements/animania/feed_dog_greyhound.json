@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_puppy_greyhound"
+        },
+        "title": {
+            "translate": "advancements.animania.greyhound.title"
+        },
+        "description": {
+            "translate": "advancements.animania.greyhound.description"
+        }
+    },
+    "parent": "animania:animania/feed_dog_great_dane",
+    "criteria": {
+        "puppy": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:puppy_greyhound"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:female_greyhound"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:male_greyhound"
+            }
+        }
+    },
+	"requirements": [["male", "female", "puppy"]]
+
+}

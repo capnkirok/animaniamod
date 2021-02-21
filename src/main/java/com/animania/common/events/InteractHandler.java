@@ -97,7 +97,7 @@ public class InteractHandler
 		{
 			if (entry != null)
 			{
-				AdvancementHandler.feedAnimal.trigger((EntityPlayerMP) player, stack, entry);
+				AdvancementHandler.feedAnimal.trigger((EntityPlayerMP) player, stack, entry, target);
 			}
 		}
 	}

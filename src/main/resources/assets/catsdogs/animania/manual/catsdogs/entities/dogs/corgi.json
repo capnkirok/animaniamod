@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.corgi.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#← manual.dogs",
+    "§ladvancements.animania.corgi.title",
+	" ",
+    "advancements.animania.corgi.title",
+    "@text@manual.dogs.generic.1#prevline",
+	"@entity@animania:male_corgi,animania:female_corgi,animania:puppy_corgi"
+  ]
+}

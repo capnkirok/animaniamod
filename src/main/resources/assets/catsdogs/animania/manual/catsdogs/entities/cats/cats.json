@@ -1,0 +1,21 @@
+{
+  "name" : "manual.cats",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/entities.json#← manual.entities.entities.title",
+    "§lmanual.cats",
+    " ",
+    "@link@animania:manual/catsdogs/entities/cats/american_shorthair.json#- advancements.animania.american_shorthair.title",
+    "@link@animania:manual/catsdogs/entities/cats/asiatic.json#- advancements.animania.asiatic.title",
+    "@link@animania:manual/catsdogs/entities/cats/exotic.json#- advancements.animania.exotic.title",
+    "@link@animania:manual/catsdogs/entities/cats/norwegian.json#- advancements.animania.norwegian.title",
+    "@link@animania:manual/catsdogs/entities/cats/ragdoll.json#- advancements.animania.ragdoll.title",
+    "@link@animania:manual/catsdogs/entities/cats/siamese.json#- advancements.animania.siamese.title",
+	"@link@animania:manual/catsdogs/entities/cats/tabby.json#- advancements.animania.tabby.title",
+    " ",
+    "manual.cats.general.1",
+    "@configitem@general.catsdogs;catFood",
+    "manual.cats.general.2",
+	"@configitem@general.catsdogs;catBed",
+	"@configitem@general.catsdogs;catBed2"
+  ]
+}

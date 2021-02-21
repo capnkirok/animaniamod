@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.blood_hound.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#← manual.dogs",
+    "§ladvancements.animania.blood_hound.title",
+	" ",
+    "advancements.animania.blood_hound.title",
+    "@text@manual.dogs.generic.1#prevline",
+	"@entity@animania:male_blood_hound,animania:female_blood_hound,animania:puppy_blood_hound"
+  ]
+}

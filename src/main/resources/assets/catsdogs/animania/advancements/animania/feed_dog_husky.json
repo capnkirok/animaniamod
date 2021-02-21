@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_puppy_husky"
+        },
+        "title": {
+            "translate": "advancements.animania.husky.title"
+        },
+        "description": {
+            "translate": "advancements.animania.husky.description"
+        }
+    },
+    "parent": "animania:animania/feed_dog_greyhound",
+    "criteria": {
+        "puppy": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:puppy_husky"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:female_husky"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:male_husky"
+            }
+        }
+    },
+	"requirements": [["male", "female", "puppy"]]
+
+}

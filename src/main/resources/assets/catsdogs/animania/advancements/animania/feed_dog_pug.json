@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_puppy_pug"
+        },
+        "title": {
+            "translate": "advancements.animania.pug.title"
+        },
+        "description": {
+            "translate": "advancements.animania.pug.description"
+        }
+    },
+    "parent": "animania:animania/feed_dog_poodle",
+    "criteria": {
+        "puppy": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:puppy_pug"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:female_pug"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:male_pug"
+            }
+        }
+    },
+	"requirements": [["male", "female", "puppy"]]
+
+}

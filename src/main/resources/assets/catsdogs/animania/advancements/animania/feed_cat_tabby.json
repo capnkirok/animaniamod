@@ -1,0 +1,36 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kitten_tabby"
+        },
+        "title": {
+            "translate": "advancements.animania.tabby.title"
+        },
+        "description": {
+            "translate": "advancements.animania.tabby.description"
+        }
+    },
+    "parent": "animania:animania/feed_cat_siamese",
+    "criteria": {
+        "kitten": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:kitten_tabby"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:queen_tabby"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:tom_tabby"
+            }
+        }
+    },
+	"requirements": [["male", "female", "kitten"]]
+
+}

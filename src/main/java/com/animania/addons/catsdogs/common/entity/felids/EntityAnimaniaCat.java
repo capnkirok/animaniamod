@@ -4,7 +4,7 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import com.animania.addons.catsdogs.common.entity.generic.ai.GenericAISitIdle;
+import com.animania.addons.catsdogs.common.entity.felids.ai.EntityAICatAttack;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
@@ -12,6 +12,7 @@ import com.animania.api.interfaces.AnimaniaType;
 import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.api.interfaces.IConvertable;
 import com.animania.common.entities.generic.GenericBehavior;
+import com.animania.common.entities.generic.ai.GenericAIAvoidEntity;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.entities.generic.ai.GenericAIFindFood;
 import com.animania.common.entities.generic.ai.GenericAIFindWater;
@@ -34,13 +35,13 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
+import net.minecraft.entity.ai.EntityAIOcelotSit;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -51,6 +52,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -58,7 +60,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimalBase, IConvertable
+public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBase, IConvertable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
@@ -86,6 +88,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	protected int damageTimer;
 	public CatType type;
 	public EntityGender gender;
+	private EntityAIBase avoidEntity;
 
 	public EntityAnimaniaCat(World worldIn)
 	{
@@ -112,14 +115,14 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		}
 		this.tasks.addTask(4, this.aiSit);
 		this.tasks.addTask(5, new EntityAILeapAtTarget(this, 0.4F));
-		this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.0D, true));
+		this.tasks.addTask(6, new EntityAICatAttack(this));
 		this.tasks.addTask(7, new GenericAIFollowOwner<EntityAnimaniaCat>(this, 1.5D, 5.0F, 30.0F));
 		this.tasks.addTask(8, new GenericAIPanic<EntityAnimaniaCat>(this, 1.5D));
-		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaCat>(this, 1.2D, false, TEMPTATION_ITEMS)); // TODO
+		this.tasks.addTask(3, new GenericAITempt<EntityAnimaniaCat>(this, 0.6D, true, TEMPTATION_ITEMS));
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(14, new GenericAILookIdle<EntityAnimaniaCat>(this));
-		this.tasks.addTask(14, new GenericAISitIdle(this));
+		// this.tasks.addTask(14, new GenericAISitIdle(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(14, new GenericAISleep<EntityAnimaniaCat>(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.catBed2), EntityAnimaniaCat.class));
@@ -129,9 +132,11 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 			AddonInjectionHandler.runInjection("farm", "attackChicks", null, this);
 			AddonInjectionHandler.runInjection("extra", "attackFrogs", null, this);
 			AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
+			AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 
 			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntitySilverfish));
 		}
+		this.tasks.taskEntries.removeIf(task -> task.action instanceof EntityAIOcelotSit);
 	}
 
 	@Override
@@ -208,7 +213,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	}
 
 	@Override
-	protected void updateAITasks()
+	public void updateAITasks()
 	{
 		this.eatTimer = this.entityAIEatGrass.getEatingGrassTimer();
 		super.updateAITasks();
@@ -251,6 +256,12 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	}
 
 	@Override
+	protected ResourceLocation getLootTable()
+	{
+		return null;
+	}
+
+	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack)
 	{
 		return stack != ItemStack.EMPTY && AnimaniaHelper.containsItemStack(TEMPTATION_ITEMS, stack);
@@ -282,6 +293,22 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 		GenericBehavior.livingUpdateCommon(this);
 
 		super.onLivingUpdate();
+	}
+
+	@Override
+	protected void setupTamedAI()
+	{
+		if (this.avoidEntity == null)
+		{
+			this.avoidEntity = new GenericAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D);
+		}
+
+		this.tasks.removeTask(this.avoidEntity);
+
+		if (!this.isTamed())
+		{
+			this.tasks.addTask(4, this.avoidEntity);
+		}
 	}
 
 	@Override
@@ -322,7 +349,7 @@ public class EntityAnimaniaCat extends EntityTameable implements IAnimaniaAnimal
 	}
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable ageable)
+	public EntityOcelot createChild(EntityAgeable ageable)
 	{
 		return null;
 	}

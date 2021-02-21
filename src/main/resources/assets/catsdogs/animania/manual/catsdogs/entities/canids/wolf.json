@@ -1,0 +1,12 @@
+{
+  "name" : "advancements.animania.wolf.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/canids/canids.json#← manual.canids",
+    "§ladvancements.animania.wolf.title",
+	" ",
+    "manual.canids.wolf.1",
+	"@entity@animania:male_wolf,animania:female_wolf,animania:puppy_wolf",
+	"manual.biometypes",
+	"@config@general.catsdogs;wolfBiomeTypes"
+  ]
+}

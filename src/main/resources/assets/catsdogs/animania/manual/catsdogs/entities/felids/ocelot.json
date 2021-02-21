@@ -1,0 +1,12 @@
+{
+  "name" : "advancements.animania.ocelot.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/felids/felids.json#← manual.felids",
+    "§ladvancements.animania.ocelot.title",
+	" ",
+    "manual.felids.ocelot.1",
+	"@entity@animania:tom_ocelot,animania:queen_ocelot,animania:kitten_ocelot",
+	"manual.biometypes",
+	"@config@general.catsdogs;ocelotBiomeTypes"
+  ]
+}

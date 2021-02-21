@@ -22,8 +22,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -109,25 +107,6 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
-	}
-
-	// TODO: SOUNDS
-	@Override
-	protected SoundEvent getAmbientSound()
-	{
-		return GenericBehavior.getAmbientSound(this);
-	}
-
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source)
-	{
-		return GenericBehavior.getRandomSound();
-	}
-
-	@Override
-	protected SoundEvent getDeathSound()
-	{
-		return GenericBehavior.getRandomSound();
 	}
 
 	@Override

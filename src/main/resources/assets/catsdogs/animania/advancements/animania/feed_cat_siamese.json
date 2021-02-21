@@ -1,0 +1,36 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kitten_siamese"
+        },
+        "title": {
+            "translate": "advancements.animania.siamese.title"
+        },
+        "description": {
+            "translate": "advancements.animania.siamese.description"
+        }
+    },
+    "parent": "animania:animania/feed_cat_ragdoll",
+    "criteria": {
+        "kitten": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:kitten_siamese"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:queen_siamese"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:tom_siamese"
+            }
+        }
+    },
+	"requirements": [["male", "female", "kitten"]]
+
+}

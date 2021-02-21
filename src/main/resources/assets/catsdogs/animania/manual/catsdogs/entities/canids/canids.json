@@ -1,0 +1,16 @@
+{
+  "name" : "manual.canids",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/entities.json#← manual.entities.entities.title",
+    "§lmanual.canids",
+    " ",
+    "@link@animania:manual/catsdogs/entities/canids/fox.json#- advancements.animania.fox.title",
+    "@link@animania:manual/catsdogs/entities/canids/wolf.json#- advancements.animania.wolf.title",
+    " ",
+    "manual.canids.general.1",
+    "@configitem@general.catsdogs;dogFood",
+    "manual.dogs.general.2",
+	"@configitem@general.catsdogs;dogBed",
+	"@configitem@general.catsdogs;dogBed2"
+  ]
+}

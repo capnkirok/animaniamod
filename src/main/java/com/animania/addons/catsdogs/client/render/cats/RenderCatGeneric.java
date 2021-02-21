@@ -39,16 +39,16 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 		{
 			IChild child = (IChild) entity;
 			float age = child.getEntityAge();
-			GlStateManager.scale(scale + (age / child.getSizeDividend()), scale + (age / child.getSizeDividend()), scale + (age / child.getSizeDividend()));
+			double dividend = 0.85 / (0.8 * scale);
+			GlStateManager.scale(scale + (age / dividend), scale + (age / dividend), scale + (age / dividend));
 			this.shadowSize = (scale + age) / 2;
-		}
-		else
+		} else
 		{
 			GlStateManager.scale(scale, scale, scale);
 			this.shadowSize = scale / 2;
 		}
 
-		EntityAnimaniaCat entityCat = (EntityAnimaniaCat) entity;
+		EntityAnimaniaCat entityCat = entity;
 		if (entityCat.getSleeping())
 		{
 			this.shadowSize = 0;
@@ -59,10 +59,14 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 			}
 			entity.setSleepTimer(sleepTimer);
 
-			GlStateManager.translate(-0.25F, entity.height - 1.45F - sleepTimer, -0.25F);
+			GlStateManager.translate(-0.25F, entity.height - 2F - sleepTimer, -0.25F);
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
-		}
-		else
+			GlStateManager.translate(0, 0.6, 0);
+
+			if (entity instanceof IChild)
+				GlStateManager.translate(0, 0.4, 0);
+
+		} else
 		{
 			entityCat.setSleeping(false);
 			entityCat.setSleepTimer(0F);

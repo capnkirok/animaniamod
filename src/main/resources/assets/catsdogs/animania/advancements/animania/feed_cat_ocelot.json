@@ -1,0 +1,36 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_kitten_ocelot"
+        },
+        "title": {
+            "translate": "advancements.animania.ocelot.title"
+        },
+        "description": {
+            "translate": "advancements.animania.ocelot.description"
+        }
+    },
+    "parent": "animania:animania/feed_cat_tabby",
+    "criteria": {
+        "kitten": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:kitten_ocelot"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:queen_ocelot"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+				"entity": "animania:tom_ocelot"
+            }
+        }
+    },
+	"requirements": [["male", "female", "kitten"]]
+
+}

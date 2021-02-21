@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.pomeranian.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#← manual.dogs",
+    "§ladvancements.animania.pomeranian.title",
+	" ",
+    "advancements.animania.pomeranian.title",
+    "@text@manual.dogs.generic.1#prevline",
+	"@entity@animania:male_pomeranian,animania:female_pomeranian,animania:puppy_pomeranian"
+  ]
+}

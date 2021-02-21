@@ -3,6 +3,8 @@
   "contents" : [
     "@link@animania:manual/addons.json#← manual.addons",
     "§lmanual.catsdogs",
-    " "
+    " ",
+	"@link@animania:manual/catsdogs/entities/entities.json#- manual.entities.entities.title",
+    "@link@animania:manual/catsdogs/blocks/blocks.json#- manual.blocks.blocks.title"
   ]
 }

@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.poodle.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/dogs/dogs.json#← manual.dogs",
+    "§ladvancements.animania.poodle.title",
+	" ",
+    "advancements.animania.poodle.title",
+    "@text@manual.dogs.generic.1#prevline",
+	"@entity@animania:male_poodle,animania:female_poodle,animania:puppy_poodle"
+  ]
+}

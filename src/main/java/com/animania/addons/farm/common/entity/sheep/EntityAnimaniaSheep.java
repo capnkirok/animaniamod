@@ -38,6 +38,8 @@ import com.animania.common.entities.generic.ai.GenericAISleep;
 import com.animania.common.entities.generic.ai.GenericAITempt;
 import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
 import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.handler.AddonHandler;
+import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
@@ -133,6 +135,10 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(11, new GenericAISleep<EntityAnimaniaSheep>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.sheepBed), AnimaniaHelper.getBlock(FarmConfig.settings.sheepBed2), EntityAnimaniaSheep.class));
+		}
+		if (AddonHandler.isAddonLoaded("catsdogs"))
+		{
+			AddonInjectionHandler.runInjection("catsdogs", "addHerdingBehavior", null, this, 1);
 		}
 		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));

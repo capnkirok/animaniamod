@@ -1,0 +1,14 @@
+{
+  "name" : "manual.decorations",
+  "contents" : [
+    "@link@animania:manual/catsdogs/blocks/blocks.json#← manual.blocks.blocks.title",
+    "§lmanual.decorations",
+    " ",
+    "manual.blocks.decorations.1",
+    "@crafting@animania:cat_tower",
+	"manual.blocks.decorations.2",
+    "@crafting@animania:litter_box",
+	"manual.blocks.decorations.3",
+    "@crafting@animania:dog_house"
+  ]
+}

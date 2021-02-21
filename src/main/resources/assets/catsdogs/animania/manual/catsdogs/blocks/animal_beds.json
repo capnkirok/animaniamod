@@ -1,0 +1,13 @@
+{
+  "name" : "manual.animal_beds",
+  "contents" : [
+    "@link@animania:manual/catsdogs/blocks/blocks.json#← manual.blocks.blocks.title",
+    "§lmanual.animal_beds",
+    " ",
+    "manual.blocks.animal_beds.1",
+	"@crafting@animania:cat_bed_1",
+	"@crafting@animania:cat_bed_2",
+	"manual.blocks.animal_beds.2",
+    "@crafting@animania:dog_pillow"
+  ]
+}

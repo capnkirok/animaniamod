@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "animania:litter_box"
+  },
+  "pattern": [
+    "   ",
+    "isi",
+    "iii"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "s": {
+      "ore": "sand",
+      "type": "forge:ore_dict"
+    },
+    "i": {
+      "ore": "ingotIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

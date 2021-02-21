@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "normal": { "model": "minecraft:iron_block" },
+        "facing=north": { "model": "minecraft:iron_block" },
+        "facing=south": { "model": "minecraft:iron_block" },
+        "facing=west": { "model": "minecraft:iron_block" },
+        "facing=east": { "model": "minecraft:iron_block" },
+        "facing=up": { "model": "minecraft:iron_block" },
+        "facing=down": { "model": "minecraft:iron_block" }
+    }
+}

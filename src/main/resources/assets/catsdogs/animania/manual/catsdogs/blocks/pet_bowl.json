@@ -1,0 +1,12 @@
+{
+  "name" : "tile.animania_pet_bowl.name",
+  "contents" : [
+    "@link@animania:manual/catsdogs/blocks/blocks.json#← manual.blocks.blocks.title",
+    "§ltile.animania_pet_bowl.name",
+    " ",
+    "manual.blocks.pet_bowl.1",
+    "@configitem@general.catsdogs;petBowlFood",
+	"manual.blocks.pet_bowl.1",
+    "@crafting@animania:pet_bowl"
+  ]
+}

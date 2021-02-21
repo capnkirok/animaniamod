@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 
 import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
@@ -210,6 +211,14 @@ public class AnimaniaHelper
 	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
 		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
+		list.removeIf(e -> e == theEntity);
+		return list;
+	}
+
+	public static <T extends EntityLivingBase> List<T> getEntitiesInRangeWithPredicate(Class<? extends T> filterEntity, double range, World world, Entity theEntity, Predicate<T> predicate)
+	{
+		List<T> list = getEntitiesInRange(filterEntity, range, world, theEntity);
+		list.removeIf(predicate.negate());
 		return list;
 	}
 

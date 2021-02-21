@@ -1,0 +1,11 @@
+{
+  "name" : "advancements.animania.ragdoll.title",
+  "contents" : [
+    "@link@animania:manual/catsdogs/entities/cats/cats.json#← manual.cats",
+    "§ladvancements.animania.ragdoll.title",
+	" ",
+    "advancements.animania.ragdoll.title",
+    "@text@manual.cats.generic.1#prevline",
+	"@entity@animania:tom_ragdoll,animania:queen_ragdoll,animania:kitten_ragdoll"
+  ]
+}

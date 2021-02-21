@@ -1,0 +1,11 @@
+{
+    "variants": {
+        "normal": { "model": "minecraft:pink_wool" },
+        "facing=north": { "model": "minecraft:pink_wool" },
+        "facing=south": { "model": "minecraft:pink_wool" },
+        "facing=west": { "model": "minecraft:pink_wool" },
+        "facing=east": { "model": "minecraft:pink_wool" },
+        "facing=up": { "model": "minecraft:pink_wool" },
+        "facing=down": { "model": "minecraft:pink_wool" }
+    }
+}

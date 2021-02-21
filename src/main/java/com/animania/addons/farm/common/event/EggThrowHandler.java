@@ -42,9 +42,9 @@ public class EggThrowHandler
 					int x1 = MathHelper.floor(player.posX);
 					int y1 = MathHelper.floor(player.posY);
 					int z1 = MathHelper.floor(player.posZ);
-					double x2 = Math.abs(xt - x1);
-					double y2 = Math.abs(yt - y1);
-					double z2 = Math.abs(zt - z1);
+					int x2 = (int) Math.abs(xt - x1);
+					int y2 = (int) Math.abs(yt - y1);
+					int z2 = (int) Math.abs(zt - z1);
 
 					AddonInjectionHandler.runInjection("extra", "rodentEggEvent", null, entity, x2, y2, z2, event);
 				}

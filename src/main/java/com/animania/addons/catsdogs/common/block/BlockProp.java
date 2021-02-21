@@ -6,6 +6,7 @@ import com.animania.common.blocks.AnimaniaRotateable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -21,17 +22,18 @@ import net.minecraft.world.World;
 public class BlockProp extends AnimaniaRotateable implements ITileEntityProvider
 {
 	private AxisAlignedBB AABB = Block.FULL_BLOCK_AABB;
-	
-	public BlockProp(String name, Material blockMaterialIn, MapColor blockMapColorIn)
+
+	public BlockProp(String name, Material blockMaterialIn, MapColor blockMapColorIn, SoundType sound)
 	{
 		super(name, blockMaterialIn, blockMapColorIn);
 		this.hasTileEntity = true;
 		this.setCreativeTab(Animania.TabAnimaniaResources);
+		this.setSoundType(sound);
 	}
-	
+
 	public Block setAABB(double x1, double y1, double z1, double x2, double y2, double z2)
 	{
-		this.AABB = new AxisAlignedBB(x1/16, y1/16, z1/16, x2/16, y2/16, z2/16);
+		this.AABB = new AxisAlignedBB(x1 / 16, y1 / 16, z1 / 16, x2 / 16, y2 / 16, z2 / 16);
 		return this;
 	}
 
@@ -40,7 +42,7 @@ public class BlockProp extends AnimaniaRotateable implements ITileEntityProvider
 	{
 		return new TileEntityProp();
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube(IBlockState state)
 	{
@@ -58,19 +60,19 @@ public class BlockProp extends AnimaniaRotateable implements ITileEntityProvider
 	{
 		return false;
 	}
-	
+
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state)
 	{
 		return EnumBlockRenderType.INVISIBLE;
 	}
-	
+
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return AABB;
 	}
-	
+
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
 	{

@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_puppy_chihuahua"
+        },
+        "title": {
+            "translate": "advancements.animania.chihuahua.title"
+        },
+        "description": {
+            "translate": "advancements.animania.chihuahua.description"
+        }
+    },
+    "parent": "animania:animania/feed_dog_bloodhound",
+    "criteria": {
+        "puppy": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:puppy_chihuahua"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:female_chihuahua"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:male_chihuahua"
+            }
+        }
+    },
+	"requirements": [["male", "female", "puppy"]]
+
+}

@@ -1,0 +1,39 @@
+{
+    "display": {
+        "icon": {
+            "item": "animania:entity_egg_puppy_dachshund"
+        },
+        "title": {
+            "translate": "advancements.animania.dachshund.title"
+        },
+        "description": {
+            "translate": "advancements.animania.dachshund.description"
+        }
+    },
+    "parent": "animania:animania/feed_dog_corgi",
+    "criteria": {
+        "puppy": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:puppy_dachshund"
+            }
+        },
+		"female": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:female_dachshund"
+            }
+        },
+		 "male": {
+            "trigger": "animania:feed_animal",
+            "conditions": {
+                "itemstack": {"item": "minecraft:beef"},
+				"entity": "animania:male_dachshund"
+            }
+        }
+    },
+	"requirements": [["male", "female", "puppy"]]
+
+}
