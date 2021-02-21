@@ -173,18 +173,18 @@ public class CatsDogsAddonEntityHandler
 		int maxFam = CatsDogsConfig.catsdogs.numberDogFamilies;
 		for (Type t : AnimaniaHelper.getBiomeTypes(CatsDogsConfig.catsdogs.wolfBiomeTypes))
 		{
-			EntityRegistry.addSpawn(EntityFemaleWolf.class, CatsDogsConfig.catsdogs.spawnProbabilityDogs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+			RegistryHelper.Entities.addSpawn(EntityFemaleWolf.class, CatsDogsConfig.catsdogs.spawnProbabilityDogs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 		}
 
 		for (Type t : AnimaniaHelper.getBiomeTypes(CatsDogsConfig.catsdogs.foxBiomeTypes))
 		{
-			EntityRegistry.addSpawn(EntityFemaleFox.class, CatsDogsConfig.catsdogs.spawnProbabilityDogs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+			RegistryHelper.Entities.addSpawn(EntityFemaleFox.class, CatsDogsConfig.catsdogs.spawnProbabilityDogs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 		}
 
 		maxFam = CatsDogsConfig.catsdogs.numberCatFamilies;
 		for (Type t : AnimaniaHelper.getBiomeTypes(CatsDogsConfig.catsdogs.ocelotBiomeTypes))
 		{
-			EntityRegistry.addSpawn(EntityQueenOcelot.class, CatsDogsConfig.catsdogs.spawnLimitCats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+			RegistryHelper.Entities.addSpawn(EntityQueenOcelot.class, CatsDogsConfig.catsdogs.spawnLimitCats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 		}
 	}
 

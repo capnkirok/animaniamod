@@ -68,7 +68,7 @@ public class CatsDogsAddon implements AnimaniaAddon
 	@Override
 	public String getDependencies()
 	{
-		return "required-after:animania@[2.0.0,);required-after:minecraft@[1.12,1.13)";
+		return "required-after:animania@[2.0.3,);required-after:minecraft@[1.12,1.13)";
 	}
 
 }

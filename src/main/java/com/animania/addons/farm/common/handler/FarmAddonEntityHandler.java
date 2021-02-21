@@ -148,7 +148,7 @@ public class FarmAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.draftHorseBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityMareDraftHorse.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityHorses, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityMareDraftHorse.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityHorses, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 		}
 
@@ -187,27 +187,27 @@ public class FarmAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.pigYorkshireBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntitySowYorkshire.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntitySowYorkshire.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.pigOldSpotBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntitySowOldSpot.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntitySowOldSpot.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.pigLargeBlackBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntitySowLargeBlack.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntitySowLargeBlack.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.pigLargeWhiteBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntitySowLargeWhite.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntitySowLargeWhite.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.pigDurocBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntitySowDuroc.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntitySowDuroc.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.pigHampshireBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntitySowHampshire.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntitySowHampshire.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityPigs, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 		}
 
@@ -242,27 +242,27 @@ public class FarmAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.chickenPlymouthRockBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityHenPlymouthRock.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityChickens, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityHenPlymouthRock.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityChickens, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.chickenLeghornBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityHenLeghorn.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityChickens, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityHenLeghorn.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityChickens, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.chickenOrpingtonBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityHenOrpington.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityChickens, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityHenOrpington.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityChickens, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.chickenWyandotteBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityHenWyandotte.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityChickens, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityHenWyandotte.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityChickens, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.chickenRhodeIslandRedBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityHenRhodeIslandRed.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityChickens, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityHenRhodeIslandRed.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityChickens, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 		}
@@ -310,35 +310,35 @@ public class FarmAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowHolsteinBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityCowHolstein.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityCowHolstein.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowFriesianBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityCowFriesian.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityCowFriesian.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowAngusBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityCowAngus.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityCowAngus.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowHerefordBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityCowHereford.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityCowHereford.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowHighlandBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityCowHighland.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityCowHighland.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowJerseyBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityCowJersey.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityCowJersey.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowLonghornBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityCowLonghorn.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityCowLonghorn.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowMooshroomBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityCowMooshroom.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityCowMooshroom.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 		}
 
@@ -382,31 +382,31 @@ public class FarmAddonEntityHandler
 
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.goatAlpineBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityDoeAlpine.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityDoeAlpine.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.goatAngoraBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityDoeAngora.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityDoeAngora.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.goatFaintingBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityDoeFainting.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityDoeFainting.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.goatKikoBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityDoeKiko.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityDoeKiko.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.goatKinderBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityDoeKinder.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityDoeKinder.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.goatNigerianDwarfBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityDoeNigerianDwarf.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityDoeNigerianDwarf.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.goatPygmyBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityDoePygmy.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityDoePygmy.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityGoats, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 		}
@@ -447,27 +447,27 @@ public class FarmAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.sheepDorsetBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityEweDorset.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityEweDorset.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.sheepFriesianBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityEweFriesian.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityEweFriesian.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.sheepJacobBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityEweJacob.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityEweJacob.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.sheepMerinoBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityEweMerino.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityEweMerino.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.sheepSuffolkBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityEweSuffolk.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityEweSuffolk.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.sheepDorperBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityEweDorper.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityEweDorper.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilitySheep, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 		}

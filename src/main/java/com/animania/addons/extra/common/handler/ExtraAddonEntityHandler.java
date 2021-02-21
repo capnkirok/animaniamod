@@ -95,23 +95,23 @@ public class ExtraAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.hamsterBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityHamster.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityHamsters, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityHamster.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityHamsters, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.ferretGrayBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityFerretGrey.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityFerrets, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityFerretGrey.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityFerrets, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.ferretWhiteBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityFerretWhite.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityFerrets, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityFerretWhite.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityFerrets, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.hedgehogBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityHedgehog.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityHedgehogs, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityHedgehog.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityHedgehogs, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.hedgehogAlbinoBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityHedgehogAlbino.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityHedgehogs, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityHedgehogAlbino.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityHedgehogs, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 		}
 
@@ -124,15 +124,15 @@ public class ExtraAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.toadBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityToad.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityAmphibians + 10, 2, 2, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityToad.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityAmphibians + 10, 2, 2, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.frogBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityFrogs.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityAmphibians + 10, 2, 2, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityFrogs.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityAmphibians + 10, 2, 2, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.dartFrogBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityDartFrogs.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityAmphibians + 10, 2, 2, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityDartFrogs.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityAmphibians + 10, 2, 2, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 		}
@@ -180,35 +180,35 @@ public class ExtraAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitCottontailBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityRabbitDoeCottontail.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityRabbitDoeCottontail.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitChinchillaBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityRabbitDoeChinchilla.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityRabbitDoeChinchilla.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitDutchBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityRabbitDoeDutch.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityRabbitDoeDutch.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitHavanaBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityRabbitDoeHavana.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityRabbitDoeHavana.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitJackBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityRabbitDoeJack.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityRabbitDoeJack.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitNewZealandBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityRabbitDoeNewZealand.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityRabbitDoeNewZealand.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitRexBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityRabbitDoeRex.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityRabbitDoeRex.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitLopBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityRabbitDoeLop.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityRabbitDoeLop.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 		}
@@ -246,45 +246,45 @@ public class ExtraAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.peafowlCharcoalBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityPeacockCharcoal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeafowlCharcoal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeachickCharcoal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeacockCharcoal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeafowlCharcoal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeachickCharcoal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.peafowlOpalBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityPeacockOpal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeafowlOpal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeachickOpal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeacockOpal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeafowlOpal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeachickOpal.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.peafowlPeachBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityPeacockPeach.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeafowlPeach.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeachickPeach.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeacockPeach.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeafowlPeach.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeachickPeach.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.peafowlPurpleBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityPeacockPurple.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeafowlPurple.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeachickPurple.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeacockPurple.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeafowlPurple.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeachickPurple.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.peafowlTaupeBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityPeacockTaupe.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeafowlTaupe.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeachickTaupe.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeacockTaupe.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeafowlTaupe.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeachickTaupe.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 1, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.peafowlBlueBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityPeacockBlue.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeafowlBlue.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeachickBlue.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeacockBlue.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeafowlBlue.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeachickBlue.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.peafowlWhiteBiomeTypes))
 			{
-				EntityRegistry.addSpawn(EntityPeacockWhite.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeafowlWhite.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
-				EntityRegistry.addSpawn(EntityPeachickWhite.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeacockWhite.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeafowlWhite.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(EntityPeachickWhite.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityPeacocks / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 		}

@@ -115,7 +115,10 @@ public class RegistryHelper
 
 		public static void addSpawn(Class<? extends EntityLiving> entityClass, int weightedProb, int min, int max, EnumCreatureType typeOfCreature, Biome... biomes)
 		{
-			EntityRegistry.addSpawn(entityClass, weightedProb, min, max, typeOfCreature, biomes);
+			if (max <= 0 || weightedProb <= 0)
+				return;
+
+			EntityRegistry.addSpawn(entityClass, weightedProb, Math.min(min, max), Math.max(min, max), typeOfCreature, biomes);
 		}
 
 		/** Helper to copy spawn of creature A to a creature B */
