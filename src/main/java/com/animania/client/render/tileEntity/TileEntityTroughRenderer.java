@@ -2,6 +2,7 @@ package com.animania.client.render.tileEntity;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -220,12 +221,6 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 
 	}
 
-	/**
-	 * Code by SuperKael on minecraftforge.net, updated by Tschipp
-	 * 
-	 * @param item
-	 * @return
-	 */
 	public Color getAverageColor(ItemStack item)
 	{
 		InputStream is;
@@ -237,46 +232,29 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 
 			is = Minecraft.getMinecraft().getResourceManager().getResource(loc).getInputStream();
 			image = ImageIO.read(is);
-		} catch (Exception e)
+		} catch (IOException e)
 		{
 			e.printStackTrace();
 			return new Color(0, 0, 0);
 		}
-		int[] texture = new int[image.getWidth() * image.getHeight() * 4];
-		texture = image.getRaster().getPixels(image.getRaster().getMinX(), image.getRaster().getMinY(), image.getRaster().getWidth(), image.getRaster().getHeight(), texture);
-		int r = 0, g = 0, b = 0;
-		int rloops = 0, gloops = 0, bloops = 0;
-		for (int i = 0; i < texture.length; i++)
+
+		int x1 = image.getWidth();
+		int y1 = image.getHeight();
+
+		double sumr = 0, sumg = 0, sumb = 0;
+		for (int x = 0; x < x1; x++)
 		{
-			try
+			for (int y = 0; y < y1; y++)
 			{
-				if (((float) i / 4) * 4 == i && texture[i + 3] >= 255)
-				{
-					r += texture[i];
-					rloops++;
-				}
-				if (((float) (i - 1) / 4) * 4 == i - 1 && texture[i + 2] >= 255)
-				{
-					g += texture[i];
-					gloops++;
-				}
-				if (((float) (i - 2) / 4) * 4 == i - 2 && texture[i + 1] >= 255)
-				{
-					b += texture[i];
-					bloops++;
-				}
-			} catch (Exception e)
-			{
+				Color pixel = new Color(image.getRGB(x, y), true);
+				double alpha = pixel.getAlpha() / 255.0;
+				sumr += pixel.getRed() * alpha;
+				sumg += pixel.getGreen() * alpha;
+				sumb += pixel.getBlue() * alpha;
+
 			}
 		}
-		try
-		{
-			r /= rloops;
-			g /= gloops;
-			b /= bloops;
-		} catch (Exception e)
-		{
-		}
-		return new Color(r, g, b);
+		int num = image.getWidth() * image.getHeight();
+		return new Color((int) sumr / num, (int) sumg / num, (int) sumb / num).brighter().brighter().brighter();
 	}
 }
