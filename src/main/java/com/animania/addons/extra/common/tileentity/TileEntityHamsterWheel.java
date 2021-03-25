@@ -60,8 +60,6 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	@Override
 	public void update()
 	{
-		super.update();
-
 		if (hamster == null && hamsterNBT != null)
 		{
 			hamster = new EntityHamster(world);

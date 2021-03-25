@@ -56,8 +56,6 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	@Override
 	public void update()
 	{
-		super.update();
-
 		nextHoney--;
 		if (nextHoney < 1)
 		{
