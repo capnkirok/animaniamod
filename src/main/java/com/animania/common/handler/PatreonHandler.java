@@ -36,6 +36,7 @@ public class PatreonHandler
 		patreonUUIDS.add("de8fc838-7468-4c5f-8f48-012808e079e1"); // Volfster
 		patreonUUIDS.add("0b667a5c-9c03-4b8b-8cf4-ba3b31e09934"); // SilentWolf
 		patreonUUIDS.add("ad425147-a229-48a0-930b-ec58f9c5dd84"); // AntonioAsh
+		patreonUUIDS.add("6d84bec0-b5c4-4467-8957-8458c3c18cb0"); // PhoenixTheMighty
 
 	}
 
