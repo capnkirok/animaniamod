@@ -26,8 +26,8 @@ import net.minecraft.world.World;
 public class EntityKidBase extends EntityAnimaniaGoat implements TOPInfoProviderChild, IChild
 {
 
-	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityKidBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> createKey(EntityKidBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityKidBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(EntityKidBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
 	public EntityKidBase(World worldIn)

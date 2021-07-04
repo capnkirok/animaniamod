@@ -26,7 +26,7 @@ public class AdvancementHandler
 	{
 		Method method;
 
-		method = ReflectionUtil.findMethod(CriteriaTriggers.class, "register", "func_192118_a", ICriterionTrigger.class);
+		method = ReflectionUtil.findMethod(CriteriaTriggers.class, "register", "register", ICriterionTrigger.class);
 
 		try
 		{

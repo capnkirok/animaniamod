@@ -12,7 +12,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 
 public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProviderBase, IChild
 {
-	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>createKey(EntityFoalBase.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer>defineId(EntityFoalBase.class, DataSerializers.INT);
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT, Items.APPLE, Items.CARROT });
 	private static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityFoalBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	private static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityFoalBase.class, DataSerializers.FLOAT);
@@ -133,7 +133,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public EntityFoalBase createChild(EntityAgeable p_90011_1_)
+	public EntityFoalBase createChild(AgeableEntity p_90011_1_)
 	{
 		return null;
 	}

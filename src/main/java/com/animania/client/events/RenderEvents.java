@@ -18,7 +18,7 @@ public class RenderEvents
 	@SubscribeEvent
 	public static void onTick(TickEvent.ClientTickEvent event)
 	{
-		if (event.side == Side.CLIENT)
+		if (event.side == Dist.CLIENT)
 		{
 			ticks++;
 			RenderAnimatedEgg.renderTimer += 0.004f;

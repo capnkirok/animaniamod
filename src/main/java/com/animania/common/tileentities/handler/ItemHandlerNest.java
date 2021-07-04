@@ -28,7 +28,7 @@ public class ItemHandlerNest extends ItemStackHandler
     @Override
     protected void onContentsChanged(int slot)
     {
-    	te.markDirty();
+    	te.setChanged();
     	super.onContentsChanged(slot);
     }
 }

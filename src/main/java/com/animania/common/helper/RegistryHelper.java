@@ -13,7 +13,7 @@ import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -113,7 +113,7 @@ public class RegistryHelper
 			EntityRegistry.registerModEntity(registryName, entityClass, registryName.toString(), entityID, Animania.instance, trackingRange, updateFrequency, sendsVelocityUpdates);
 		}
 
-		public static void addSpawn(Class<? extends EntityLiving> entityClass, int weightedProb, int min, int max, EnumCreatureType typeOfCreature, Biome... biomes)
+		public static void addSpawn(Class<? extends LivingEntity> entityClass, int weightedProb, int min, int max, EnumCreatureType typeOfCreature, Biome... biomes)
 		{
 			if (max <= 0 || weightedProb <= 0)
 				return;
@@ -122,7 +122,7 @@ public class RegistryHelper
 		}
 
 		/** Helper to copy spawn of creature A to a creature B */
-		public static void copySpawns(Class<? extends EntityLiving> classToAdd, EnumCreatureType creatureTypeToAdd, Class<? extends EntityLiving> classToCopy, EnumCreatureType creatureTypeToCopy)
+		public static void copySpawns(Class<? extends LivingEntity> classToAdd, EnumCreatureType creatureTypeToAdd, Class<? extends LivingEntity> classToCopy, EnumCreatureType creatureTypeToCopy)
 		{
 			for (final Biome biome : ForgeRegistries.BIOMES)
 				biome.getSpawnableList(creatureTypeToCopy).stream().filter(entry -> entry.entityClass == classToCopy).findFirst().ifPresent(spawnListEntry -> biome.getSpawnableList(creatureTypeToAdd).add(new Biome.SpawnListEntry(classToAdd, spawnListEntry.itemWeight, spawnListEntry.minGroupCount, spawnListEntry.maxGroupCount)));

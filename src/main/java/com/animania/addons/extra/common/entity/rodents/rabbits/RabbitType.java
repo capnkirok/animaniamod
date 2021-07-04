@@ -33,6 +33,8 @@ import com.animania.api.interfaces.AnimaniaType;
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
+import StatBase;
+
 public enum RabbitType implements AnimaniaType
 {
 

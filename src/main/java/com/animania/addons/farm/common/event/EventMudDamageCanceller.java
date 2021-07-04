@@ -8,23 +8,23 @@ public class EventMudDamageCanceller
 	@SubscribeEvent
 	public static void notifyAttack(LivingAttackEvent event)
 	{
-		// if ((event.getEntityLiving() instanceof EntityHamster ||
-		// event.getEntityLiving() instanceof EntityFerretWhite
-		// || event.getEntityLiving() instanceof EntityFerretGrey ||
-		// event.getEntityLiving() instanceof EntityChickLeghorn
-		// || event.getEntityLiving() instanceof EntityChickPlymouthRock ||
-		// event.getEntityLiving() instanceof EntityChickOrpington
-		// || event.getEntityLiving() instanceof EntityChickRhodeIslandRed ||
-		// event.getEntityLiving() instanceof EntityChickWyandotte)
+		// if ((event.getLivingEntity() instanceof EntityHamster ||
+		// event.getLivingEntity() instanceof EntityFerretWhite
+		// || event.getLivingEntity() instanceof EntityFerretGrey ||
+		// event.getLivingEntity() instanceof EntityChickLeghorn
+		// || event.getLivingEntity() instanceof EntityChickPlymouthRock ||
+		// event.getLivingEntity() instanceof EntityChickOrpington
+		// || event.getLivingEntity() instanceof EntityChickRhodeIslandRed ||
+		// event.getLivingEntity() instanceof EntityChickWyandotte)
 		// && event.getSource().damageType.contains("Wall"))
-		// if (!event.getEntityLiving().world.isRemote) {
+		// if (!event.getLivingEntity().world.isRemote) {
 		//
-		// BlockPos poschk = new BlockPos(event.getEntityLiving().posX +
-		// event.getEntityLiving().motionX / 1.5,
-		// event.getEntityLiving().posY + .1F, event.getEntityLiving().posZ +
-		// event.getEntityLiving().motionZ / 1.5);
+		// BlockPos poschk = new BlockPos(event.getLivingEntity().posX +
+		// event.getLivingEntity().motionX / 1.5,
+		// event.getLivingEntity().posY + .1F, event.getLivingEntity().posZ +
+		// event.getLivingEntity().motionZ / 1.5);
 		// Block blockchk =
-		// event.getEntityLiving().world.getBlockState(poschk).getBlock();
+		// event.getLivingEntity().world.getBlockState(poschk).getBlock();
 		//
 		// boolean isInMud = false;
 		// if (blockchk == BlockHandler.blockMud)

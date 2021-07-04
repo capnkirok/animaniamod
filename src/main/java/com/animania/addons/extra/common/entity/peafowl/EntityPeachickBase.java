@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 {
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityPeachickBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>defineId(EntityPeachickBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
 	public EntityPeachickBase(World worldIn)

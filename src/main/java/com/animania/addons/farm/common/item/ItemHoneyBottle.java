@@ -16,7 +16,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
@@ -25,7 +25,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
@@ -51,7 +51,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 	}
 
 	@Override
-	public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, NBTTagCompound nbt)
+	public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, CompoundNBT nbt)
 	{
 		return new FluidHandlerHoneyBottle(stack);
 	}
@@ -100,11 +100,11 @@ public class ItemHoneyBottle extends AnimaniaItem
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
+	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity LivingEntity)
 	{
-		if (entityLiving instanceof EntityPlayer)
+		if (LivingEntity instanceof EntityPlayer)
 		{
-			EntityPlayer entityplayer = (EntityPlayer) entityLiving;
+			EntityPlayer entityplayer = (EntityPlayer) LivingEntity;
 			entityplayer.getFoodStats().addStats(10, 1.5f);
 
 			if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
@@ -117,7 +117,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 			{
 				CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP) entityplayer, stack);
 			}
-			AnimaniaHelper.addItem((EntityPlayer) entityLiving, new ItemStack(Items.GLASS_BOTTLE));
+			AnimaniaHelper.addItem((EntityPlayer) LivingEntity, new ItemStack(Items.GLASS_BOTTLE));
 		}
 
 		stack.shrink(1);

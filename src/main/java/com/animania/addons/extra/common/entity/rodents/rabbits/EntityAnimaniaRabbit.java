@@ -40,9 +40,9 @@ import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -63,7 +63,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -204,9 +204,9 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	}
 
 	@Override
-	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
+	public void setAttackTarget(@Nullable LivingEntity LivingEntityIn)
 	{
-		super.setAttackTarget(entitylivingbaseIn);
+		super.setAttackTarget(LivingEntityIn);
 	}
 
 	@Override
@@ -238,7 +238,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)
 		{
-			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((LivingEntity) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
 		}
 
 		return flag;
@@ -309,7 +309,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public float setJumpCompletion(float p_175521_1_)
 	{
 		return this.jumpDuration == 0 ? 0.0F : (this.jumpTicks + p_175521_1_) / this.jumpDuration;
@@ -396,12 +396,12 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 
 			if (/* this.getRabbitType() == 99 && */ this.currentMoveTypeDuration == 0)
 			{
-				EntityLivingBase entitylivingbase = this.getAttackTarget();
+				LivingEntity LivingEntity = this.getAttackTarget();
 
-				if (entitylivingbase != null && this.getDistanceSq(entitylivingbase) < 16.0D)
+				if (LivingEntity != null && this.getDistanceSq(LivingEntity) < 16.0D)
 				{
-					this.calculateRotationYaw(entitylivingbase.posX, entitylivingbase.posZ);
-					this.moveHelper.setMoveTo(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, this.moveHelper.getSpeed());
+					this.calculateRotationYaw(LivingEntity.posX, LivingEntity.posZ);
+					this.moveHelper.setMoveTo(LivingEntity.posX, LivingEntity.posY, LivingEntity.posZ, this.moveHelper.getSpeed());
 					this.startJumping();
 					this.wasOnGround = true;
 				}
@@ -570,10 +570,10 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 				return false;
 			} else
 			{
-				EntityLiving entityliving = this;
-				entityliving.setCustomNameTag(stack.getDisplayName());
+				LivingEntity LivingEntity = this;
+				LivingEntity.setCustomNameTag(stack.getDisplayName());
 
-				entityliving.enablePersistence();
+				LivingEntity.enablePersistence();
 				if (!player.capabilities.isCreativeMode)
 				{
 					stack.shrink(1);
@@ -593,7 +593,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
 		if (id == 10)
@@ -603,7 +603,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
 
@@ -614,7 +614,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		super.readEntityFromNBT(compound);
 
@@ -652,7 +652,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		}
 
 		@Override
-		protected double getAttackReachSqr(EntityLivingBase attackTarget)
+		protected double getAttackReachSqr(LivingEntity attackTarget)
 		{
 			return 4.0F + attackTarget.width;
 		}
@@ -876,7 +876,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	}
 
 	@Override
-	public EntityAnimaniaRabbit createChild(EntityAgeable ageable)
+	public EntityAnimaniaRabbit createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

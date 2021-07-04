@@ -5,12 +5,12 @@ import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntityPigletHamp
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class ModelPigletHampshire extends ModelBase
 {
     private float headRotationAngleX;
@@ -162,12 +162,12 @@ public class ModelPigletHampshire extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+    public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 
-        super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+        super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        if (entitylivingbaseIn instanceof EntityPigletHampshire) {
-        	EntityPigletHampshire entityPigletHampshire = (EntityPigletHampshire) entitylivingbaseIn;
+        if (LivingEntityIn instanceof EntityPigletHampshire) {
+        	EntityPigletHampshire entityPigletHampshire = (EntityPigletHampshire) LivingEntityIn;
             this.Head.rotationPointY = 17.0F + entityPigletHampshire.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
                                                                                                                                            // should
                                                                                                                                            // match

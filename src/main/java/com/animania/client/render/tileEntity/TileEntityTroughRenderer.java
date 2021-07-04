@@ -37,7 +37,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEntityTrough>
 {
 	private static final ResourceLocation TROUGH_EMPTY_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/block_trough.png");

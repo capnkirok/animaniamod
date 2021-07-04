@@ -15,7 +15,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderFox<T extends EntityAnimaniaDog> extends RenderLiving<T>
 {
 	private final ResourceLocation texture = new ResourceLocation("animania:textures/entity/dogs/fox.png");
@@ -79,14 +79,14 @@ public class RenderFox<T extends EntityAnimaniaDog> extends RenderLiving<T>
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
+	protected void preRenderCallback(T LivingEntity, float f)
 	{
-		if (entityliving.getName().equalsIgnoreCase("razz"))
+		if (LivingEntity.getName().equalsIgnoreCase("razz"))
 		{
 			blinking.setColors(0xA81348, 0xA81348);
 		}
 
-		this.preRenderScale(entityliving, f);
+		this.preRenderScale(LivingEntity, f);
 	}
 
 	public static class Factory<T extends EntityAnimaniaDog> implements IRenderFactory<T>

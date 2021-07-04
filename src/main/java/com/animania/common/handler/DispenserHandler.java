@@ -13,7 +13,7 @@ import net.minecraft.block.BlockFarmland;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -108,7 +108,7 @@ public class DispenserHandler
 			BlockPos pos = source.getBlockPos().offset(enumfacing);
 			ItemEntityEgg item = (ItemEntityEgg) stack.getItem();
 
-			EntityLivingBase entity = null;
+			LivingEntity entity = null;
 
 			if (item.gender == EntityGender.RANDOM)
 			{

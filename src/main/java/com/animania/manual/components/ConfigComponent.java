@@ -33,10 +33,10 @@ public class ConfigComponent implements IManualComponent
 		this.y = y;
 
 		this.text = text.trim();
-		this.mc = Minecraft.getMinecraft();
+		this.mc = Minecraft.getInstance();
 
-		this.objectHeight = mc.fontRenderer.FONT_HEIGHT;
-		this.objectWidth = mc.fontRenderer.getStringWidth(text);
+		this.objectHeight = mc.font.lineHeight;
+		this.objectWidth = mc.font.width(text);
 
 		this.configOption = configOption;
 	}
@@ -51,7 +51,7 @@ public class ConfigComponent implements IManualComponent
 	{
 		boolean isBool = text.equalsIgnoreCase("true") || text.equalsIgnoreCase("false");
 
-		mc.fontRenderer.drawString((isBool ? (Boolean.valueOf(text) ? TextFormatting.GREEN : TextFormatting.RED) : TextFormatting.DARK_PURPLE) + text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
+		mc.font.drawString((isBool ? (Boolean.valueOf(text) ? TextFormatting.GREEN : TextFormatting.RED) : TextFormatting.DARK_PURPLE) + text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
 	}
 
 	@Override

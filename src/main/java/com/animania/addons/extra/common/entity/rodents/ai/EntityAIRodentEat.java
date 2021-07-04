@@ -11,7 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -21,11 +21,11 @@ import net.minecraft.world.biome.Biome;
 public class EntityAIRodentEat extends EntityAIBase
 {
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	private final EntityLiving                  grassEaterEntity;
+	private final LivingEntity                  grassEaterEntity;
 	private final World                         entityWorld;
 	int                                         eatingGrassTimer;
 
-	public EntityAIRodentEat(EntityLiving grassEaterEntityIn) {
+	public EntityAIRodentEat(LivingEntity grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.world;
 		this.setMutexBits(7);

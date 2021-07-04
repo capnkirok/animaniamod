@@ -12,7 +12,7 @@ import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -191,15 +191,15 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		NBTTagCompound tagCompound = new NBTTagCompound();
+		CompoundNBT tagCompound = new CompoundNBT();
 		this.writeToNBT(tagCompound);
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public NBTTagCompound getUpdateTag()
+	public CompoundNBT getUpdateTag()
 	{
-		return this.writeToNBT(new NBTTagCompound());
+		return this.writeToNBT(new CompoundNBT());
 	}
 
 	public FluidHandlerCheeseMold getFluidHandler()
@@ -223,11 +223,11 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	public CompoundNBT writeToNBT(CompoundNBT compound)
 	{
-		NBTTagCompound tag = super.writeToNBT(compound);
-		NBTTagCompound fluid = new NBTTagCompound();
-		NBTTagCompound items = new NBTTagCompound();
+		CompoundNBT tag = super.writeToNBT(compound);
+		CompoundNBT fluid = new CompoundNBT();
+		CompoundNBT items = new CompoundNBT();
 		fluid = this.fluidHandler.writeToNBT(fluid);
 		items = this.itemHandler.serializeNBT();
 		tag.setTag("fluid", fluid);
@@ -239,7 +239,7 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	public void readFromNBT(CompoundNBT compound)
 	{
 		super.readFromNBT(compound);
 		this.fluidHandler = new FluidHandlerCheeseMold();

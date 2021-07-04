@@ -45,7 +45,7 @@ public class ImageComponent implements IManualComponent
 
 		this.image = image;
 
-		this.mc = Minecraft.getMinecraft();
+		this.mc = Minecraft.getInstance();
 
 		try
 		{

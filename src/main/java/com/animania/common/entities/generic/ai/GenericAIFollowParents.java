@@ -8,11 +8,13 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.MathHelper;
 
-public class GenericAIFollowParents<T extends EntityCreature & IChild & ISleeping, O extends EntityCreature & IMateable> extends EntityAIBase
+import CreatureEntity;
+
+public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleeping, O extends CreatureEntity & IMateable> extends EntityAIBase
 {
 	T childAnimal;
 	O parentAnimal;
@@ -114,7 +116,7 @@ public class GenericAIFollowParents<T extends EntityCreature & IChild & ISleepin
 		if (--this.delayCounter <= 0)
 		{
 			this.delayCounter = 40;
-			this.childAnimal.getNavigator().tryMoveToEntityLiving(this.parentAnimal, this.moveSpeed);
+			this.childAnimal.getNavigator().tryMoveToLivingEntity(this.parentAnimal, this.moveSpeed);
 		}
 	}
 }

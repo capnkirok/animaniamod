@@ -35,7 +35,7 @@ public class ItemComponent implements IManualComponent
 		this.x = x;
 		this.y = y;
 
-		this.mc = Minecraft.getMinecraft();
+		this.mc = Minecraft.getInstance();
 
 		this.objectHeight = 16;
 		this.objectWidth = 0;

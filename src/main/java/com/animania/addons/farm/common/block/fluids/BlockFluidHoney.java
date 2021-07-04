@@ -7,7 +7,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockRenderLayer;
@@ -32,8 +32,8 @@ public class BlockFluidHoney extends BlockFluidBase
 	{
 		Vec3d vec = this.getFlowVector(world, pos);
 		entity.addVelocity(vec.x / 2000, vec.y / 2000, vec.z / 2000);
-		if (entity instanceof EntityLivingBase)
-			((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1, 0, false, false));
+		if (entity instanceof LivingEntity)
+			((LivingEntity) entity).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1, 0, false, false));
 	}
 
 	@Override

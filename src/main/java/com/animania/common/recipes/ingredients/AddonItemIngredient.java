@@ -17,7 +17,7 @@ public class AddonItemIngredient extends Ingredient
 
 	public AddonItemIngredient(Ingredient main, Ingredient fallback, String addonId)
 	{
-		super(AddonHandler.isAddonLoaded(addonId) ? main.getMatchingStacks() : fallback.getMatchingStacks());
+		super(AddonHandler.isAddonLoaded(addonId) ? main.getItems() : fallback.getItems());
 
 		this.main = main;
 		this.fallback = fallback;

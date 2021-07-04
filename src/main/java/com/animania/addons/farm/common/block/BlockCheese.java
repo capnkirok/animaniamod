@@ -35,6 +35,8 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import PropertyInteger;
+
 public class BlockCheese extends Block
 {
 
@@ -213,7 +215,7 @@ public class BlockCheese extends Block
 		return this.getDefaultState().withProperty(BITES, Integer.valueOf(meta));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	@Override
 	public BlockRenderLayer getBlockLayer()
 	{

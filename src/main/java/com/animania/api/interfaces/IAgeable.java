@@ -11,7 +11,7 @@ public interface IAgeable extends IAnimaniaAnimal
 	{
 		DataParameter<Integer> param = getAgeParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, age);
+			((Entity) this).getEntityData().set(param, age);
 	}
 	
 	default int getAge()

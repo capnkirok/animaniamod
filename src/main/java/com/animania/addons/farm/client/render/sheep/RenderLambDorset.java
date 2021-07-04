@@ -16,7 +16,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderLambDorset<T extends EntityLambDorset> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
@@ -83,10 +83,10 @@ public class RenderLambDorset<T extends EntityLambDorset> extends RenderLiving<T
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
+	protected void preRenderCallback(T LivingEntity, float f)
 	{
-		this.preRenderScale(entityliving, f);
-		this.blinking.setColors(EYE_COLORS[entityliving.getColorNumber()], EYE_COLORS[entityliving.getColorNumber()]);
+		this.preRenderScale(LivingEntity, f);
+		this.blinking.setColors(EYE_COLORS[LivingEntity.getColorNumber()], EYE_COLORS[LivingEntity.getColorNumber()]);
 	}
 
 	static class Factory<T extends EntityLambDorset> implements IRenderFactory<T>

@@ -31,20 +31,20 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -57,7 +57,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProviderBase, IAnimaniaAnimalBase
+public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProviderBase, IAnimaniaAnimalBase
 {
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
 	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
@@ -177,7 +177,7 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)
 		{
-			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((LivingEntity) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
 		}
 
 		return flag;
@@ -216,18 +216,18 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
-		super.writeEntityToNBT(nbttagcompound);
-		GenericBehavior.writeCommonNBT(nbttagcompound, this);
+		super.writeEntityToNBT(CompoundNBT);
+		GenericBehavior.writeCommonNBT(CompoundNBT, this);
 
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+	public void readEntityFromNBT(CompoundNBT CompoundNBT)
 	{
-		super.readEntityFromNBT(nbttagcompound);
-		GenericBehavior.readCommonNBT(nbttagcompound, this);
+		super.readEntityFromNBT(CompoundNBT);
+		GenericBehavior.readCommonNBT(CompoundNBT, this);
 	}
 
 	@Override
@@ -363,12 +363,12 @@ public class EntityAnimaniaPeacock extends EntityAnimal implements TOPInfoProvid
 		float f3 = 0.0F;
 		passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.posZ - 0.1F * f1);
 
-		if (passenger instanceof EntityLivingBase)
-			((EntityLivingBase) passenger).renderYawOffset = this.renderYawOffset;
+		if (passenger instanceof LivingEntity)
+			((LivingEntity) passenger).renderYawOffset = this.renderYawOffset;
 	}
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable ageable)
+	public AgeableEntity createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

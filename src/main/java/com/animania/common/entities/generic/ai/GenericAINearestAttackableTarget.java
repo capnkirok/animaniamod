@@ -11,13 +11,13 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
@@ -26,7 +26,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 
-public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extends EntityAITarget
+import LivingEntity;
+
+public class GenericAINearestAttackableTarget<T extends LivingEntity> extends EntityAITarget
 {
 	protected final Class<T> targetClass;
 	private final int targetChance;
@@ -35,17 +37,17 @@ public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extend
 	protected final Predicate<? super T> targetEntitySelector;
 	protected T targetEntity;
 
-	public GenericAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, boolean checkSight)
+	public GenericAINearestAttackableTarget(CreatureEntity creature, Class<T> classTarget, boolean checkSight)
 	{
 		this(creature, classTarget, checkSight, false);
 	}
 
-	public GenericAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, boolean checkSight, boolean onlyNearby)
+	public GenericAINearestAttackableTarget(CreatureEntity creature, Class<T> classTarget, boolean checkSight, boolean onlyNearby)
 	{
 		this(creature, classTarget, 10, checkSight, onlyNearby, (Predicate) null);
 	}
 
-	public GenericAINearestAttackableTarget(EntityCreature creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, @Nullable final Predicate<? super T> targetSelector)
+	public GenericAINearestAttackableTarget(CreatureEntity creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, @Nullable final Predicate<? super T> targetSelector)
 	{
 		super(creature, checkSight, onlyNearby);
 		this.targetClass = classTarget;
@@ -77,8 +79,8 @@ public class GenericAINearestAttackableTarget<T extends EntityLivingBase> extend
 			if (((ISleeping) this.taskOwner).getSleeping())
 				return false;
 
-		if (this.taskOwner instanceof EntityTameable)
-			if (((EntityTameable) this.taskOwner).isSitting())
+		if (this.taskOwner instanceof TameableEntity)
+			if (((TameableEntity) this.taskOwner).isSitting())
 				return false;
 
 		if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0)

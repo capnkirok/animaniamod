@@ -33,11 +33,11 @@ public class AnimaniaTextures
 		register(ItemHandler.entityeggrandomanimal);
 
 		// Blocks
-		register(Item.getItemFromBlock(BlockHandler.blockMud));
-		register(Item.getItemFromBlock(BlockHandler.blockTrough));
-		register(Item.getItemFromBlock(BlockHandler.blockNest));
-		register(Item.getItemFromBlock(BlockHandler.blockStraw));
-		register(Item.getItemFromBlock(BlockHandler.blockSaltLick));
+		register(Item.byBlock(BlockHandler.blockMud));
+		register(Item.byBlock(BlockHandler.blockTrough));
+		register(Item.byBlock(BlockHandler.blockNest));
+		register(Item.byBlock(BlockHandler.blockStraw));
+		register(Item.byBlock(BlockHandler.blockSaltLick));
 
 		Animania.proxy.registerFluidBlockRendering(BlockHandler.blockSlop, "slop");
 	}

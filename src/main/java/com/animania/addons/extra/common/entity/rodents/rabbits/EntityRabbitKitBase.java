@@ -20,8 +20,8 @@ import net.minecraft.world.World;
 public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfoProviderChild, IChild
 {
 
-	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityRabbitKitBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> createKey(EntityRabbitKitBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityRabbitKitBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(EntityRabbitKitBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
 	public EntityRabbitKitBase(World worldIn)

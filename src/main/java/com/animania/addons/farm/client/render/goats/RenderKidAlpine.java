@@ -16,7 +16,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderKidAlpine<T extends EntityKidAlpine> extends RenderLiving<T>
 {
 	public static final Factory           FACTORY          = new Factory();
@@ -65,8 +65,8 @@ public class RenderKidAlpine<T extends EntityKidAlpine> extends RenderLiving<T>
 		return this.getGoatTextures(entity);
 	}
 	@Override
-	protected void preRenderCallback(T entityliving, float f) {
-		this.preRenderScale(entityliving, f);
+	protected void preRenderCallback(T LivingEntity, float f) {
+		this.preRenderScale(LivingEntity, f);
 	}
 
 	static class Factory<T extends EntityKidAlpine> implements IRenderFactory<T>

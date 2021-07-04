@@ -20,6 +20,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerCareer;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
 
+import VillagerProfession;
+
 public class CatsDogsVillagerProfessions
 {
 	public static VillagerProfession petSeller;

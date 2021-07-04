@@ -3,17 +3,17 @@ package com.animania.common.entities.generic.ai;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.util.math.BlockPos;
 
 public class GenericAISwimmingSmallCreatures extends EntityAISwimming
 {
-    private final EntityLiving theEntity;
+    private final LivingEntity theEntity;
 
-    public GenericAISwimmingSmallCreatures(EntityLiving entitylivingIn) {
-        super(entitylivingIn);
-        this.theEntity = entitylivingIn;
+    public GenericAISwimmingSmallCreatures(LivingEntity LivingEntityIn) {
+        super(LivingEntityIn);
+        this.theEntity = LivingEntityIn;
     }
 
     @Override

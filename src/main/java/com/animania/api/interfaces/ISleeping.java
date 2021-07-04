@@ -13,7 +13,7 @@ public interface ISleeping extends IAnimaniaAnimal
 	{
 		DataParameter<Boolean> param = getSleepingParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, sleeping);
+			((Entity) this).getEntityData().set(param, sleeping);
 	}
 	
 	default boolean getSleeping()
@@ -40,7 +40,7 @@ public interface ISleeping extends IAnimaniaAnimal
 	{
 		DataParameter<Float> param = getSleepTimerParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, timer);
+			((Entity) this).getEntityData().set(param, timer);
 	}
 
 }

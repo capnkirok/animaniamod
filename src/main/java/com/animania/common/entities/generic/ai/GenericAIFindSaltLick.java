@@ -10,13 +10,16 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GenericAIFindSaltLick<T extends EntityCreature & ISleeping> extends GenericAISearchBlock
+import EntityAIBase;
+import CreatureEntity;
+
+public class GenericAIFindSaltLick<T extends CreatureEntity & ISleeping> extends GenericAISearchBlock
 {
 
 	private final T entity;

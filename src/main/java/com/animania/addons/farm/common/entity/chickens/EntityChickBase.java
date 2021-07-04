@@ -10,7 +10,7 @@ import com.google.common.base.Optional;
 
 import net.minecraft.entity.ai.EntityAIFollowParent;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoProviderBase, IChild
 {
 
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityChickBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>defineId(EntityChickBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 	
 	public EntityChickBase(World worldIn)
@@ -55,17 +55,17 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
-		super.writeEntityToNBT(nbttagcompound);
+		super.writeEntityToNBT(CompoundNBT);
 
 
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+	public void readEntityFromNBT(CompoundNBT CompoundNBT)
 	{
-		super.readEntityFromNBT(nbttagcompound);
+		super.readEntityFromNBT(CompoundNBT);
 		
 
 	}

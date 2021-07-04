@@ -8,8 +8,8 @@ import com.animania.api.interfaces.IGendered;
 import com.animania.api.interfaces.ISpawnable;
 import com.animania.common.handler.AddonInjectionHandler;
 
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIPanic;
@@ -18,11 +18,11 @@ import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -37,7 +37,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class EntityAmphibian extends EntityAnimal implements ISpawnable, IAnimaniaAnimal, IGendered
+public abstract class EntityAmphibian extends AnimalEntity implements ISpawnable, IAnimaniaAnimal, IGendered
 {
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer>createKey(EntityAmphibian.class, DataSerializers.VARINT);
 	private int     jumpTicks;
@@ -148,7 +148,7 @@ public abstract class EntityAmphibian extends EntityAnimal implements ISpawnable
 			this.world.setEntityState(this, (byte) 1);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public float setJumpCompletion(float p_175521_1_) {
 		return this.jumpDuration == 0 ? 0.0F : (this.jumpTicks + p_175521_1_) / this.jumpDuration;
 	}
@@ -313,12 +313,12 @@ public abstract class EntityAmphibian extends EntityAnimal implements ISpawnable
 	}
 
 	@Override
-	public EntityAmphibian createChild(EntityAgeable ageable) {
+	public EntityAmphibian createChild(AgeableEntity ageable) {
 		return null;
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.setInteger("Age", this.getAge());
@@ -326,14 +326,14 @@ public abstract class EntityAmphibian extends EntityAnimal implements ISpawnable
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		super.readEntityFromNBT(compound);
 		this.setAge(compound.getInteger("Age"));
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void handleStatusUpdate(byte id) {
 		if (id == 1) {
 			// this.createRunningParticles();
@@ -434,7 +434,7 @@ public abstract class EntityAmphibian extends EntityAnimal implements ISpawnable
 		}
 	}
 
-	public static class RabbitTypeData implements IEntityLivingData
+	public static class RabbitTypeData implements ILivingEntityData
 	{
 		public int typeData;
 

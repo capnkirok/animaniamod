@@ -8,7 +8,7 @@ import com.animania.common.tileentities.TileEntityNest.NestContent;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +17,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class EntityAIFerretFindNests extends EntityAIBase
 {
-	private final EntityCreature temptedEntity;
+	private final CreatureEntity temptedEntity;
 	private final double speed;
 	private double targetX;
 	private double targetY;
@@ -28,7 +28,7 @@ public class EntityAIFerretFindNests extends EntityAIBase
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIFerretFindNests(EntityCreature temptedEntityIn, double speedIn)
+	public EntityAIFerretFindNests(CreatureEntity temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;

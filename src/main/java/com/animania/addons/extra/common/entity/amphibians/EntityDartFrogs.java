@@ -11,7 +11,7 @@ import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -19,7 +19,7 @@ import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -36,7 +36,7 @@ import net.minecraft.world.World;
 public class EntityDartFrogs extends EntityAmphibian
 {
 
-	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer> createKey(EntityDartFrogs.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer> defineId(EntityDartFrogs.class, DataSerializers.INT);
 	public int poisonTimer;
 	private int jumpTicks;
 	private int jumpDuration;
@@ -59,7 +59,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.setInteger("FrogsType", this.getFrogsType());
@@ -69,7 +69,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		super.readEntityFromNBT(compound);
 		this.setFrogsType(compound.getInteger("FrogsType"));
@@ -170,7 +170,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	 */
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	public ILivingEntityData onInitialSpawn(DifficultyInstance difficulty, @Nullable ILivingEntityData livingdata)
 	{
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 

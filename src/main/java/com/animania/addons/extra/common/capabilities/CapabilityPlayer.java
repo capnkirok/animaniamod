@@ -2,16 +2,18 @@ package com.animania.addons.extra.common.capabilities;
 
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+
+import CompoundNBT;
 
 public class CapabilityPlayer implements ICapabilityPlayer {
 
-	private NBTTagCompound animal;
+	private CompoundNBT animal;
 	private boolean carrying;
 	private String type;
 	
 	public CapabilityPlayer() {
-		this.animal = new NBTTagCompound();
+		this.animal = new CompoundNBT();
 		this.carrying = false;
 		this.type = "";
 	}
@@ -27,22 +29,22 @@ public class CapabilityPlayer implements ICapabilityPlayer {
 	}
 	
 	@Override
-	public NBTTagCompound writeNBT() {
-		return (NBTTagCompound) CapabilityPlayerHandler.writeNBT(CapabilityRefs.CAPS, this);
+	public CompoundNBT writeNBT() {
+		return (CompoundNBT) CapabilityPlayerHandler.writeNBT(CapabilityRefs.CAPS, this);
 	}
 	@Override
-	public void readNBT(NBTTagCompound nbt) {
+	public void readNBT(CompoundNBT nbt) {
 		CapabilityPlayerHandler.readNBT(CapabilityRefs.CAPS, this, nbt);
 	}
 
 	@Override
-	public NBTTagCompound getAnimal()
+	public CompoundNBT getAnimal()
 	{
 		return this.animal;
 	}
 
 	@Override
-	public void setAnimal(NBTTagCompound tag)
+	public void setAnimal(CompoundNBT tag)
 	{
 		this.animal = tag;
 	}

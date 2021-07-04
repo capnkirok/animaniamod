@@ -7,7 +7,7 @@ import com.animania.addons.catsdogs.common.entity.felids.EntityAnimaniaCat;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.util.math.BlockPos;
@@ -27,7 +27,7 @@ public class CatsDogsAddonSpawnHandler
 		Biome biome = event.getWorld().getBiome(pos);
 		int chooser = 0;
 
-		EntityLiving replacementEntity = null;
+		LivingEntity replacementEntity = null;
 
 		if (CatsDogsConfig.catsdogs.replaceVanillaWolves && (event.getEntity().getClass().equals(EntityWolf.class)) && !worldIn.isRemote)
 		{

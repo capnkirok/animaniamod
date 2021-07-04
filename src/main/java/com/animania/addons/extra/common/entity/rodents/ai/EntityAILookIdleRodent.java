@@ -5,17 +5,17 @@ import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.addons.extra.common.entity.rodents.EntityHedgehogBase;
 
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 
 public class EntityAILookIdleRodent extends EntityAIBase
 {
-	private final EntityAnimal idleEntity;
+	private final AnimalEntity idleEntity;
 	private double             lookX;
 	private double             lookZ;
 	private int                idleTime;
 
-	public EntityAILookIdleRodent(EntityAnimal entitylivingIn) {
-		this.idleEntity = entitylivingIn;
+	public EntityAILookIdleRodent(AnimalEntity LivingEntityIn) {
+		this.idleEntity = LivingEntityIn;
 		this.setMutexBits(3);
 	}
 

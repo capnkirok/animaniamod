@@ -33,7 +33,7 @@ public class ItemHamsterBall extends Item
 
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public boolean shouldRotateAroundWhenRendering()
 	{
 		return true;
@@ -63,7 +63,7 @@ public class ItemHamsterBall extends Item
 		list.add(TextFormatting.BOLD.GOLD + I18n.translateToLocal("tooltip.an.hamsterball2"));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
 	{

@@ -56,7 +56,7 @@ public class ExtraAddon implements AnimaniaAddon
 		ExtraAddonOredictHandler.init();
 		ExtraAddonCraftingHandler.init();
 
-		Animania.network.registerMessage(CapSyncPacketHandler.class, CapSyncPacket.class, NetworkHandler.packetID++, Side.CLIENT);
+		Animania.network.registerMessage(CapSyncPacketHandler.class, CapSyncPacket.class, NetworkHandler.packetID++, Dist.CLIENT);
 	}
 
 	@Override

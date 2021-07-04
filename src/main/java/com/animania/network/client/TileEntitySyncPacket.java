@@ -1,20 +1,20 @@
 package com.animania.network.client;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 public class TileEntitySyncPacket implements IMessage{
 	
 
-	public NBTTagCompound data;
+	public CompoundNBT data;
 	
 	public TileEntitySyncPacket() {
 	}
 	
 	
-	public TileEntitySyncPacket(NBTTagCompound data)
+	public TileEntitySyncPacket(CompoundNBT data)
 	{
 		this.data = data;
 	}

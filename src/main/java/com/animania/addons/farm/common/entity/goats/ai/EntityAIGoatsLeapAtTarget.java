@@ -5,20 +5,20 @@ import com.animania.addons.farm.common.entity.goats.EntityBuckBase;
 import com.animania.addons.farm.common.entity.goats.EntityDoeBase;
 import com.animania.addons.farm.common.entity.goats.EntityKidBase;
 
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.MathHelper;
 
 public class EntityAIGoatsLeapAtTarget extends EntityAIBase
 {
-	EntityLiving leaper;
-	EntityLivingBase leapTarget;
+	LivingEntity leaper;
+	LivingEntity leapTarget;
 	float leapMotionY;
 
-	public EntityAIGoatsLeapAtTarget(EntityLivingBase leapingEntity, float leapMotionYIn)
+	public EntityAIGoatsLeapAtTarget(LivingEntity leapingEntity, float leapMotionYIn)
 	{
-		this.leaper = (EntityLiving) leapingEntity;
+		this.leaper = (LivingEntity) leapingEntity;
 		this.leapMotionY = leapMotionYIn;
 		this.setMutexBits(5);
 	}
@@ -31,8 +31,8 @@ public class EntityAIGoatsLeapAtTarget extends EntityAIBase
 		}
 
 		if (this.leaper instanceof EntityAnimaniaGoat) {
-			EntityAnimaniaGoat entityAnimal = (EntityAnimaniaGoat) this.leaper;
-			if (entityAnimal.getSleeping()) {
+			EntityAnimaniaGoat AnimalEntity = (EntityAnimaniaGoat) this.leaper;
+			if (AnimalEntity.getSleeping()) {
 				return false;
 			}
 		}

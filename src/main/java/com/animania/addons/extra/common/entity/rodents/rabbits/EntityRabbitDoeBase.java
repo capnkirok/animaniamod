@@ -18,7 +18,7 @@ import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -38,11 +38,11 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 {
 
 	public int dryTimerDoe;
-	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> createKey(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> createKey(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> createKey(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> createKey(EntityRabbitDoeBase.class, DataSerializers.VARINT);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityRabbitDoeBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> defineId(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> defineId(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> defineId(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> defineId(EntityRabbitDoeBase.class, DataSerializers.INT);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityRabbitDoeBase.class, DataSerializers.OPTIONAL_UUID);
 
 	public EntityRabbitDoeBase(World worldIn)
 	{
@@ -76,7 +76,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	public ILivingEntityData onInitialSpawn(DifficultyInstance difficulty, @Nullable ILivingEntityData livingdata)
 	{
 		GenericBehavior.initialSpawnFemale(this, EntityAnimaniaRabbit.class);
 

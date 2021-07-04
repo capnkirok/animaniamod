@@ -24,7 +24,7 @@ public interface IChild extends IAnimaniaAnimal
 	{
 		DataParameter<Optional<UUID>> param = getParentUniqueIdParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, Optional.fromNullable(id));
+			((Entity) this).getEntityData().set(param, Optional.fromNullable(id));
 	}
 	
 	default float getEntityAge()
@@ -39,7 +39,7 @@ public interface IChild extends IAnimaniaAnimal
 	{
 		DataParameter<Float> param = getEntityAgeParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, age);
+			((Entity) this).getEntityData().set(param, age);
 	}
 	
 	public int getAgeTimer();

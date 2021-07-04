@@ -22,9 +22,9 @@ import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -111,7 +111,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 			// Custom Knockback
 			if (entityIn instanceof EntityPlayer)
-				((EntityLivingBase) entityIn).knockBack(this, 0, (this.posX - entityIn.posX) / 2, (this.posZ - entityIn.posZ) / 2);
+				((LivingEntity) entityIn).knockBack(this, 0, (this.posX - entityIn.posX) / 2, (this.posZ - entityIn.posZ) / 2);
 		}
 
 		return flag;
@@ -127,7 +127,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	public ILivingEntityData onInitialSpawn(DifficultyInstance difficulty, @Nullable ILivingEntityData livingdata)
 	{
 		GenericBehavior.initialSpawnFemale(this, EntityAnimaniaCow.class);
 		return livingdata;
@@ -228,7 +228,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	}
 
 	@Override
-	public EntityCowBase createChild(EntityAgeable ageable)
+	public EntityCowBase createChild(AgeableEntity ageable)
 	{
 
 		return null;

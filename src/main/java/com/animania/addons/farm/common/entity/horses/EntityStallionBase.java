@@ -15,7 +15,7 @@ import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
@@ -37,8 +37,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
 
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityStallionBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityStallionBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> defineId(EntityStallionBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityStallionBase.class, DataSerializers.OPTIONAL_UUID);
 
 	private ResourceLocation resourceLocation;
 	private ResourceLocation resourceLocationBlink;
@@ -146,7 +146,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public float getHeadAngleX(float p_70890_1_)
 	{
 
@@ -221,7 +221,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	}
 
 	@Override
-	public EntityStallionBase createChild(EntityAgeable p_90011_1_)
+	public EntityStallionBase createChild(AgeableEntity p_90011_1_)
 	{
 		return null;
 	}

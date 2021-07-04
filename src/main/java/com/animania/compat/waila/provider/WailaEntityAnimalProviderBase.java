@@ -12,11 +12,11 @@ import mcp.mobius.waila.api.IWailaEntityAccessor;
 import mcp.mobius.waila.api.IWailaEntityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class WailaEntityAnimalProviderBase implements IWailaEntityProvider
+public class WailaAnimalEntityProviderBase implements IWailaEntityProvider
 {
 
 	@Override
@@ -35,7 +35,7 @@ public class WailaEntityAnimalProviderBase implements IWailaEntityProvider
 	public List<String> getWailaBody(Entity entity, List<String> currenttip, IWailaEntityAccessor accessor, IWailaConfigHandler config)
 	{
 
-		NBTTagCompound comp = accessor.getNBTData();
+		CompoundNBT comp = accessor.getNBTData();
 		boolean fed = accessor.getNBTData().getBoolean("Fed");
 		boolean watered = accessor.getNBTData().getBoolean("Watered");
 		boolean sleeping = accessor.getNBTData().getBoolean("Sleeping");
@@ -84,9 +84,9 @@ public class WailaEntityAnimalProviderBase implements IWailaEntityProvider
 	}
 
 	@Override
-	public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world)
+	public CompoundNBT getNBTData(EntityPlayerMP player, Entity ent, CompoundNBT tag, World world)
 	{
-		NBTTagCompound comp = ent.getEntityData();
+		CompoundNBT comp = ent.getEntityData();
 
 		tag.setBoolean("Fed", comp.getBoolean("Fed"));
 		tag.setBoolean("Watered", comp.getBoolean("Watered"));

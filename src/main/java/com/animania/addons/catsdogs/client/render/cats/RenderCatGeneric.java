@@ -14,7 +14,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<T>
 {
 	private final ResourceLocation texture;
@@ -80,9 +80,9 @@ public class RenderCatGeneric<T extends EntityAnimaniaCat> extends RenderLiving<
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
+	protected void preRenderCallback(T LivingEntity, float f)
 	{
-		this.preRenderScale(entityliving, f);
+		this.preRenderScale(LivingEntity, f);
 	}
 
 	public static class Factory<T extends EntityAnimaniaCat> implements IRenderFactory<T>

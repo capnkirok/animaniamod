@@ -30,7 +30,7 @@ public class ModelRendererAnimania extends ModelRenderer
 	}
 
 	//Credit: CraftStudioAPI
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void render(float scale)
 	{
 		if (!this.isHidden)
@@ -65,7 +65,7 @@ public class ModelRendererAnimania extends ModelRenderer
 			}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private void compileDisplayList(float scale)
 	{
 		this.displayList = GLAllocation.generateDisplayLists(1);

@@ -14,9 +14,9 @@ import com.animania.addons.extra.compat.waila.WailaBlockHamsterWheelProvider;
 import com.animania.addons.extra.compat.waila.WailaEntityPeafowlProvider;
 import com.animania.addons.extra.compat.waila.WailaEntityRabbitDoeProvider;
 import com.animania.addons.extra.compat.waila.WailaEntityRodentProvider;
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderBase;
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderChild;
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderMateable;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderBase;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderChild;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;
 
 import mcp.mobius.waila.api.IWailaRegistrar;
 
@@ -45,8 +45,8 @@ public class ExtraAddonWailaCompat
 
 	private static void regEntityInfoBase(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderBase(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderBase(), clazz);
+		r.registerBodyProvider(new WailaAnimalEntityProviderBase(), clazz);
+		r.registerNBTProvider(new WailaAnimalEntityProviderBase(), clazz);
 	}
 
 	private static void regEntityInfoPeafowl(IWailaRegistrar r, Class clazz)
@@ -63,8 +63,8 @@ public class ExtraAddonWailaCompat
 
 	private static void regEntityInfoRabbitBuck(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderMateable(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderMateable(), clazz);
+		r.registerBodyProvider(new WailaAnimalEntityProviderMateable(), clazz);
+		r.registerNBTProvider(new WailaAnimalEntityProviderMateable(), clazz);
 	}
 
 	private static void regEntityInfoRabbitDoe(IWailaRegistrar r, Class clazz)
@@ -75,8 +75,8 @@ public class ExtraAddonWailaCompat
 
 	private static void regEntityInfoRabbitKit(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderChild(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderChild(), clazz);
+		r.registerBodyProvider(new WailaAnimalEntityProviderChild(), clazz);
+		r.registerNBTProvider(new WailaAnimalEntityProviderChild(), clazz);
 	}
 
 }

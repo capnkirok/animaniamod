@@ -10,14 +10,14 @@ import com.animania.common.helper.AnimaniaHelper;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class WailaEntityAnimalProviderMateable extends WailaEntityAnimalProviderBase
+public class WailaAnimalEntityProviderMateable extends WailaAnimalEntityProviderBase
 {
 
     @Override
@@ -37,7 +37,7 @@ public class WailaEntityAnimalProviderMateable extends WailaEntityAnimalProvider
             World world = entity.world;
 
             if (!mate.equals("")) {
-                for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 20, world, entity)) {
+                for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, world, entity)) {
                     UUID id = e.getPersistentID();
                     if (id.toString().equals(mate)) {
                         String name = e.getCustomNameTag();
@@ -60,8 +60,8 @@ public class WailaEntityAnimalProviderMateable extends WailaEntityAnimalProvider
     }
 
     @Override
-    public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world) {
-        NBTTagCompound comp = ent.getEntityData();
+    public CompoundNBT getNBTData(EntityPlayerMP player, Entity ent, CompoundNBT tag, World world) {
+        CompoundNBT comp = ent.getEntityData();
 
         String mate = comp.getString("MateUUID");
         if (!mate.equals(""))

@@ -21,8 +21,8 @@ import net.minecraft.world.World;
 
 public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityMaleDogBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityMaleDogBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityMaleDogBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> defineId(EntityMaleDogBase.class, DataSerializers.BOOLEAN);
 
 	public EntityMaleDogBase(World worldIn)
 	{

@@ -30,6 +30,8 @@ import com.animania.api.interfaces.AnimaniaType;
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
+import StatBase;
+
 public enum GoatType implements AnimaniaType
 {
 	ALPINE(EntityBuckAlpine.class, EntityDoeAlpine.class, EntityKidAlpine.class, null, true),

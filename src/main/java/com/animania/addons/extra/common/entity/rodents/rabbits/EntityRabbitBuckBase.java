@@ -31,8 +31,8 @@ import net.minecraft.world.World;
 
 public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityRabbitBuckBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityRabbitBuckBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> defineId(EntityRabbitBuckBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityRabbitBuckBase.class, DataSerializers.OPTIONAL_UUID);
 
 	public EntityRabbitBuckBase(World worldIn)
 	{

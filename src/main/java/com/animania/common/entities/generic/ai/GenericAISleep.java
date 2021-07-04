@@ -7,13 +7,15 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GenericAISleep<T extends EntityCreature & ISleeping> extends GenericAISearchBlock
+import CreatureEntity;
+
+public class GenericAISleep<T extends CreatureEntity & ISleeping> extends GenericAISearchBlock
 {
 
 	private final T entity;
@@ -45,9 +47,9 @@ public class GenericAISleep<T extends EntityCreature & ISleeping> extends Generi
 	@Override
 	public boolean shouldExecute()
 	{
-		if (entity instanceof EntityTameable)
+		if (entity instanceof TameableEntity)
 		{
-			if (((EntityTameable) entity).isSitting())
+			if (((TameableEntity) entity).isSitting())
 				return false;
 		}
 

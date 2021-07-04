@@ -12,12 +12,12 @@ import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class ModelCalf extends ModelBase
 {
     private float        headRotationAngleX;
@@ -186,42 +186,42 @@ public class ModelCalf extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+    public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 
-        super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+        super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        if (entitylivingbaseIn instanceof EntityCalfHolstein) {
-        	EntityCalfHolstein entityCalfHolstein = (EntityCalfHolstein) entitylivingbaseIn;
+        if (LivingEntityIn instanceof EntityCalfHolstein) {
+        	EntityCalfHolstein entityCalfHolstein = (EntityCalfHolstein) LivingEntityIn;
             this.Head.rotationPointY = 10.0F + entityCalfHolstein.getHeadAnchorPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = entityCalfHolstein.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityCalfFriesian) {
-        	EntityCalfFriesian entityCalfFriesian = (EntityCalfFriesian) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityCalfFriesian) {
+        	EntityCalfFriesian entityCalfFriesian = (EntityCalfFriesian) LivingEntityIn;
             this.Head.rotationPointY = 10.0F + entityCalfFriesian.getHeadAnchorPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = entityCalfFriesian.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityCalfHereford) {
-        	EntityCalfHereford entityCalfHereford = (EntityCalfHereford) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityCalfHereford) {
+        	EntityCalfHereford entityCalfHereford = (EntityCalfHereford) LivingEntityIn;
             this.Head.rotationPointY = 10.0F + entityCalfHereford.getHeadAnchorPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = entityCalfHereford.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityCalfHighland) {
-        	EntityCalfHighland entityCalfHighland = (EntityCalfHighland) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityCalfHighland) {
+        	EntityCalfHighland entityCalfHighland = (EntityCalfHighland) LivingEntityIn;
             this.Head.rotationPointY = 10.0F + entityCalfHighland.getHeadAnchorPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = entityCalfHighland.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityCalfMooshroom) {
-        	EntityCalfMooshroom entityCalfMooshrom = (EntityCalfMooshroom) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityCalfMooshroom) {
+        	EntityCalfMooshroom entityCalfMooshrom = (EntityCalfMooshroom) LivingEntityIn;
             this.Head.rotationPointY = 10.0F + entityCalfMooshrom.getHeadAnchorPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = entityCalfMooshrom.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityCalfJersey) {
-        	EntityCalfJersey entityCalfJersey = (EntityCalfJersey) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityCalfJersey) {
+        	EntityCalfJersey entityCalfJersey = (EntityCalfJersey) LivingEntityIn;
             this.Head.rotationPointY = 10.0F + entityCalfJersey.getHeadAnchorPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = entityCalfJersey.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityCalfAngus) {
-        	EntityCalfAngus entityCalfAngus = (EntityCalfAngus) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityCalfAngus) {
+        	EntityCalfAngus entityCalfAngus = (EntityCalfAngus) LivingEntityIn;
             this.Head.rotationPointY = 10.0F + entityCalfAngus.getHeadAnchorPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = entityCalfAngus.getHeadAngleX(partialTickTime);
         }

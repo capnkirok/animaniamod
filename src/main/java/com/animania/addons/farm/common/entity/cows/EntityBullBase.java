@@ -22,13 +22,13 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -43,9 +43,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
 
-	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean>createKey(EntityBullBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityBullBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean>defineId(EntityBullBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean>defineId(EntityBullBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>>defineId(EntityBullBase.class, DataSerializers.OPTIONAL_UUID);
 
 	public EntityBullBase(World worldIn)
 	{
@@ -105,9 +105,9 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn)
+	public void setAttackTarget(@Nullable LivingEntity LivingEntityIn)
 	{
-		super.setAttackTarget(entitylivingbaseIn);
+		super.setAttackTarget(LivingEntityIn);
 	}
 
 	@Override
@@ -137,7 +137,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 			// Custom Knockback
 			if (entityIn instanceof EntityPlayer)
-				((EntityLivingBase) entityIn).knockBack(this, 1, (this.posX - entityIn.posX) / 2, (this.posZ - entityIn.posZ) / 2);
+				((LivingEntity) entityIn).knockBack(this, 1, (this.posX - entityIn.posX) / 2, (this.posZ - entityIn.posZ) / 2);
 		}
 
 		return flag;
@@ -169,7 +169,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		super.onLivingUpdate();
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public float getHeadAnchorPointY(float p_70894_1_)
 	{
 		if (this.getFighting())
@@ -178,7 +178,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 			return super.getHeadAnchorPointY(p_70894_1_);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public float getHeadAngleX(float p_70890_1_)
 	{
 		if (this.getFighting())
@@ -188,13 +188,13 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public EntityBullBase createChild(EntityAgeable p_90011_1_)
+	public EntityBullBase createChild(AgeableEntity p_90011_1_)
 	{
 		return null;
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
 
@@ -202,7 +202,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		super.readEntityFromNBT(compound);
 

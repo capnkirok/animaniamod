@@ -21,8 +21,8 @@ import net.minecraft.world.World;
 
 public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityTomBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityTomBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityTomBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> defineId(EntityTomBase.class, DataSerializers.BOOLEAN);
 
 	public EntityTomBase(World worldIn)
 	{

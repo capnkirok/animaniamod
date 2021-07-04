@@ -59,7 +59,7 @@ public class EntityComponent implements IManualComponent
 		this.entities = new Entity[entities.length];
 		this.multiplier = new float[entities.length];
 
-		this.mc = Minecraft.getMinecraft();
+		this.mc = Minecraft.getInstance();
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class EntityComponent implements IManualComponent
 		{
 			try
 			{
-				World world = mc.world;
+				World world = mc.level;
 				Entity e = EntityList.createEntityByIDFromName(entityLoc[i], world);
 				if (e != null)
 				{
@@ -207,14 +207,14 @@ public class EntityComponent implements IManualComponent
 		return this;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private void renderEntityStatic(Entity entity)
 	{
 		Minecraft.getMinecraft().getRenderManager().renderEntity(entity, 0.0D, 0.0D, 0.0D, 0, 0.0F, true);
 
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private int getBrightnessForRender(Entity entity, EntityPlayer player)
 	{
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(player.posX), 0, MathHelper.floor(player.posZ));
@@ -230,7 +230,7 @@ public class EntityComponent implements IManualComponent
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private void setLightmapDisabled(boolean disabled)
 	{
 		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);

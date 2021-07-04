@@ -14,14 +14,14 @@ import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -33,8 +33,8 @@ import net.minecraft.world.World;
 public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
 
-	protected static final DataParameter<Integer> CROWTIMER = EntityDataManager.<Integer> createKey(EntityRoosterBase.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> CROWDURATION = EntityDataManager.<Integer> createKey(EntityRoosterBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Integer> CROWTIMER = EntityDataManager.<Integer> defineId(EntityRoosterBase.class, DataSerializers.INT);
+	protected static final DataParameter<Integer> CROWDURATION = EntityDataManager.<Integer> defineId(EntityRoosterBase.class, DataSerializers.INT);
 
 	public EntityRoosterBase(World worldIn)
 	{
@@ -70,7 +70,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)
-			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((LivingEntity) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
 
 		int i = 0b0011;
 		int j = 30;
@@ -101,19 +101,19 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
-		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setInteger("CrowTime", this.getTimeUntilNextCrow());
-		nbttagcompound.setInteger("CrowDuration", this.getCrowDuration());
+		super.writeEntityToNBT(CompoundNBT);
+		CompoundNBT.setInteger("CrowTime", this.getTimeUntilNextCrow());
+		CompoundNBT.setInteger("CrowDuration", this.getCrowDuration());
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+	public void readEntityFromNBT(CompoundNBT CompoundNBT)
 	{
-		super.readEntityFromNBT(nbttagcompound);
-		this.setTimeUntilNextCrow(nbttagcompound.getInteger("CrowTime"));
-		this.setCrowDuration(nbttagcompound.getInteger("CrowDuration"));
+		super.readEntityFromNBT(CompoundNBT);
+		this.setTimeUntilNextCrow(CompoundNBT.getInteger("CrowTime"));
+		this.setCrowDuration(CompoundNBT.getInteger("CrowDuration"));
 	}
 
 	@Override

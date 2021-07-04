@@ -18,8 +18,8 @@ import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -42,11 +42,11 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	private ResourceLocation resourceLocationBlink;
 	private static final String[] HORSE_TEXTURES = new String[] { "black", "bw1", "bw2", "grey", "red", "white" };
 	public int dryTimerMare;
-	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> createKey(EntityMareBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> createKey(EntityMareBase.class, DataSerializers.VARINT);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityMareBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> defineId(EntityMareBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> defineId(EntityMareBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> defineId(EntityMareBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> defineId(EntityMareBase.class, DataSerializers.INT);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityMareBase.class, DataSerializers.OPTIONAL_UUID);
 
 	public EntityMareBase(World worldIn)
 	{
@@ -73,7 +73,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	public ILivingEntityData onInitialSpawn(DifficultyInstance difficulty, @Nullable ILivingEntityData livingdata)
 	{
 		GenericBehavior.initialSpawnFemale(this, EntityAnimaniaHorse.class);
 
@@ -253,7 +253,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public EntityMareBase createChild(EntityAgeable p_90011_1_)
+	public EntityMareBase createChild(AgeableEntity p_90011_1_)
 	{
 		return null;
 	}

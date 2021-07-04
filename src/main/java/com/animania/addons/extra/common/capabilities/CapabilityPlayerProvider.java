@@ -1,11 +1,11 @@
 package com.animania.addons.extra.common.capabilities;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
-public class CapabilityPlayerProvider implements ICapabilitySerializable<NBTTagCompound> {
+public class CapabilityPlayerProvider implements ICapabilitySerializable<CompoundNBT> {
 	public ICapabilityPlayer instance = null;
 
 	public CapabilityPlayerProvider() {
@@ -25,12 +25,12 @@ public class CapabilityPlayerProvider implements ICapabilitySerializable<NBTTagC
 	}
 
 	@Override
-	public NBTTagCompound serializeNBT() {
-		return (NBTTagCompound) CapabilityRefs.CAPS.getStorage().writeNBT(CapabilityRefs.CAPS, instance, null);
+	public CompoundNBT serializeNBT() {
+		return (CompoundNBT) CapabilityRefs.CAPS.getStorage().writeNBT(CapabilityRefs.CAPS, instance, null);
 	}
 
 	@Override
-	public void deserializeNBT(NBTTagCompound nbt) {
+	public void deserializeNBT(CompoundNBT nbt) {
 		CapabilityRefs.CAPS.getStorage().readNBT(CapabilityRefs.CAPS, instance, null, nbt);
 	}
 

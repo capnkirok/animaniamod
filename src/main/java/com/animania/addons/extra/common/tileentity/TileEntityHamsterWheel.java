@@ -17,7 +17,7 @@ import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -45,7 +45,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 	private boolean isRunning;
 	private EntityHamster hamster;
-	private NBTTagCompound hamsterNBT;
+	private CompoundNBT hamsterNBT;
 	private ItemHandlerHamsterWheel itemHandler;
 	private int timer;
 	private EnergyStorage power;
@@ -206,14 +206,14 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	public CompoundNBT writeToNBT(CompoundNBT compound)
 	{
-		NBTTagCompound tag = super.writeToNBT(compound);
+		CompoundNBT tag = super.writeToNBT(compound);
 		tag.setInteger("energy", power.getEnergyStored());
 		tag.setBoolean("running", isRunning);
 		tag.setInteger("timer", this.timer);
-		NBTTagCompound hamster = new NBTTagCompound();
-		NBTTagCompound items = this.itemHandler.serializeNBT();
+		CompoundNBT hamster = new CompoundNBT();
+		CompoundNBT items = this.itemHandler.serializeNBT();
 		tag.setTag("hamster", ((this.hamster == null) ? hamster : this.hamster.writeToNBT(hamster)));
 		tag.setTag("items", items);
 		return tag;
@@ -221,13 +221,13 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	public void readFromNBT(CompoundNBT compound)
 	{
 		super.readFromNBT(compound);
 		this.power = new EnergyStorage(ExtraConfig.settings.hamsterWheelCapacity);
 		this.power.receiveEnergy(compound.getInteger("energy"), false);
-		NBTTagCompound hamster = compound.getCompoundTag("hamster");
-		if (!hamster.equals(new NBTTagCompound()))
+		CompoundNBT hamster = compound.getCompoundTag("hamster");
+		if (!hamster.equals(new CompoundNBT()))
 			this.hamsterNBT = hamster;
 		else
 		{
@@ -262,15 +262,15 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		NBTTagCompound tagCompound = new NBTTagCompound();
+		CompoundNBT tagCompound = new CompoundNBT();
 		this.writeToNBT(tagCompound);
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public NBTTagCompound getUpdateTag()
+	public CompoundNBT getUpdateTag()
 	{
-		return this.writeToNBT(new NBTTagCompound());
+		return this.writeToNBT(new CompoundNBT());
 	}
 
 	private TileEntity getSurroundingTE(EnumFacing facing)

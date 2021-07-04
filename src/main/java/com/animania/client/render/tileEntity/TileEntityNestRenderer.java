@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class TileEntityNestRenderer extends TileEntitySpecialRenderer<TileEntityNest>
 {
 	private static final ResourceLocation NEST_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/block_nest_white.png");

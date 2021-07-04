@@ -25,6 +25,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import Fluid;
+
 public class FarmAddonBlockHandler
 {
 
@@ -65,14 +67,14 @@ public class FarmAddonBlockHandler
 		blockCheeseGoat = new BlockCheese("cheese_goat");
 		blockCheeseSheep = new BlockCheese("cheese_sheep");
 
-		cheeseWheelFriesian = Item.getItemFromBlock(blockCheeseFriesian);
-		cheeseWheelHolstein = Item.getItemFromBlock(blockCheeseHolstein);
-		cheeseWheelJersey = Item.getItemFromBlock(blockCheeseJersey);
-		cheeseWheelGoat = Item.getItemFromBlock(blockCheeseGoat);
-		cheeseWheelSheep = Item.getItemFromBlock(blockCheeseSheep);
+		cheeseWheelFriesian = Item.byBlock(blockCheeseFriesian);
+		cheeseWheelHolstein = Item.byBlock(blockCheeseHolstein);
+		cheeseWheelJersey = Item.byBlock(blockCheeseJersey);
+		cheeseWheelGoat = Item.byBlock(blockCheeseGoat);
+		cheeseWheelSheep = Item.byBlock(blockCheeseSheep);
 
 		blockCheeseMold = new BlockCheeseMold();
-		cheeseMold = Item.getItemFromBlock(blockCheeseMold);
+		cheeseMold = Item.byBlock(blockCheeseMold);
 		blockAnimaniaWool = new BlockAnimaniaWool();
 		blockHive = new BlockHive();
 		blockWildHive = new BlockWildHive();

@@ -26,8 +26,8 @@ import net.minecraft.world.World;
 public class EntityLambBase extends EntityAnimaniaSheep implements TOPInfoProviderChild, IChild
 {
 
-	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityLambBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> createKey(EntityLambBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityLambBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(EntityLambBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
 	public EntityLambBase(World worldIn)

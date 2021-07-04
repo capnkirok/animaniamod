@@ -10,7 +10,7 @@ import com.animania.client.models.render.ModelRendererColored;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelSuffolkRam extends ModelBase implements IColoredModel
@@ -417,7 +417,7 @@ public class ModelSuffolkRam extends ModelBase implements IColoredModel
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entity, float p_78086_2_, float p_78086_3_, float partialTickTime)
+	public void setLivingAnimations(LivingEntity entity, float p_78086_2_, float p_78086_3_, float partialTickTime)
 	{
 		super.setLivingAnimations(entity, p_78086_2_, p_78086_3_, partialTickTime);
 

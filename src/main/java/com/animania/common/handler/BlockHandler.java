@@ -25,6 +25,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
+import Fluid;
+import ItemBlock;
+
 @EventBusSubscriber(modid = Animania.MODID)
 public class BlockHandler
 {

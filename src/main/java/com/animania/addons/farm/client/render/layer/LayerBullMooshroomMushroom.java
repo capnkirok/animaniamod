@@ -12,7 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class LayerBullMooshroomMushroom implements LayerRenderer<EntityBullMooshroom>
 {
     private final RenderBullMooshroom mooshroomRenderer;
@@ -22,9 +22,9 @@ public class LayerBullMooshroomMushroom implements LayerRenderer<EntityBullMoosh
         this.mooshroomRenderer = mooshroomRendererIn;
     }
 
-    public void doRenderLayer(EntityBullMooshroom entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    public void doRenderLayer(EntityBullMooshroom LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
-        if (!entitylivingbaseIn.isChild() && !entitylivingbaseIn.isInvisible())
+        if (!LivingEntityIn.isChild() && !LivingEntityIn.isInvisible())
         {
             BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
             this.mooshroomRenderer.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

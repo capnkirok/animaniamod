@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class TileEntityCraftstudioRenderer<T extends TileEntity> extends TileEntitySpecialRenderer<T>
 {
 	private final ResourceLocation BLOCK_TEXTURE;

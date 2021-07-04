@@ -3,17 +3,17 @@ package com.animania.common.entities.generic.ai;
 import com.animania.api.interfaces.ISleeping;
 
 import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.TameableEntity;
 
 public class GenericAIOwnerHurtTarget extends EntityAIOwnerHurtTarget
 {
 
-	private EntityTameable entity;
+	private TameableEntity entity;
 
-	public GenericAIOwnerHurtTarget(EntityTameable theEntityTameableIn)
+	public GenericAIOwnerHurtTarget(TameableEntity theTameableEntityIn)
 	{
-		super(theEntityTameableIn);
-		this.entity = theEntityTameableIn;
+		super(theTameableEntityIn);
+		this.entity = theTameableEntityIn;
 	}
 
 	@Override

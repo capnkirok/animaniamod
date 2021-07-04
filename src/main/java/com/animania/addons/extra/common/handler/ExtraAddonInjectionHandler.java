@@ -26,9 +26,9 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
@@ -76,31 +76,31 @@ public class ExtraAddonInjectionHandler
 
 		// Attack frogs
 		AddonInjectionHandler.addInjection(ID, "attackFrogs", args -> {
-			EntityCreature entity = (EntityCreature) args[0];
-			if (entity instanceof EntityTameable)
-				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((EntityTameable) entity, EntityAnimal.class, false, target -> target instanceof EntityFrogs || target instanceof EntityToad));
+			CreatureEntity entity = (CreatureEntity) args[0];
+			if (entity instanceof TameableEntity)
+				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityFrogs || target instanceof EntityToad));
 			else
-				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, EntityAnimal.class, 80, false, false, target -> target instanceof EntityFrogs || target instanceof EntityToad));
+				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 80, false, false, target -> target instanceof EntityFrogs || target instanceof EntityToad));
 			return null;
 		});
 
 		// Attack peachicks
 		AddonInjectionHandler.addInjection(ID, "attackPeachicks", args -> {
-			EntityCreature entity = (EntityCreature) args[0];
-			if (entity instanceof EntityTameable)
-				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((EntityTameable) entity, EntityAnimal.class, false, target -> target instanceof EntityPeachickBase));
+			CreatureEntity entity = (CreatureEntity) args[0];
+			if (entity instanceof TameableEntity)
+				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityPeachickBase));
 			else
-				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, EntityAnimal.class, 80, false, false, target -> target instanceof EntityPeachickBase));
+				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 80, false, false, target -> target instanceof EntityPeachickBase));
 			return null;
 		});
 
 		// Attack rodents
 		AddonInjectionHandler.addInjection(ID, "attackRodents", args -> {
-			EntityCreature entity = (EntityCreature) args[0];
-			if (entity instanceof EntityTameable)
-				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((EntityTameable) entity, EntityAnimal.class, false, target -> target instanceof EntityHamster || target instanceof EntityFerretBase || target instanceof EntityHedgehogBase));
+			CreatureEntity entity = (CreatureEntity) args[0];
+			if (entity instanceof TameableEntity)
+				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityHamster || target instanceof EntityFerretBase || target instanceof EntityHedgehogBase));
 			else
-				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, EntityAnimal.class, 80, false, false, target -> target instanceof EntityHamster || target instanceof EntityFerretBase || target instanceof EntityHedgehogBase));
+				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 80, false, false, target -> target instanceof EntityHamster || target instanceof EntityFerretBase || target instanceof EntityHedgehogBase));
 			return null;
 		});
 

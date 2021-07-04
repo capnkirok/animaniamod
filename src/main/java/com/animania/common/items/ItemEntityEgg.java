@@ -17,7 +17,7 @@ import com.animania.common.helper.AnimaniaHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -73,7 +73,7 @@ public class ItemEntityEgg extends Item
 		if (world.isRemote)
 			return EnumActionResult.SUCCESS;
 
-		EntityLivingBase entity = null;
+		LivingEntity entity = null;
 
 		if (this.gender == EntityGender.RANDOM)
 		{
@@ -95,7 +95,7 @@ public class ItemEntityEgg extends Item
 			entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
 
 			if (stack.hasDisplayName())
-				((EntityLivingBase) entity).setCustomNameTag(stack.getDisplayName());
+				((LivingEntity) entity).setCustomNameTag(stack.getDisplayName());
 
 			if (!playerIn.isCreative())
 				stack.shrink(1);
@@ -140,7 +140,7 @@ public class ItemEntityEgg extends Item
 		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("item.animania_entity_egg.desc1") + " " + TextFormatting.DARK_GRAY + I18n.translateToLocal("item.animania_entity_egg.desc2"));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public static class Color implements IItemColor
 	{
 		@Override

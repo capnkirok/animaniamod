@@ -35,12 +35,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAITasks;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -129,19 +129,19 @@ public class FarmAddonInjectionHandler
 
 		// Pig mud test
 		AddonInjectionHandler.addInjection(ID, "pigMudTest", args -> {
-			EntityLivingBase entity = (EntityLivingBase) args[0];
+			LivingEntity entity = (LivingEntity) args[0];
 			return Boolean.valueOf((entity instanceof EntityAnimaniaPig && entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud));
 		});
 
 		// Is cow
 		AddonInjectionHandler.addInjection(ID, "isCow", args -> {
-			EntityLivingBase creature = (EntityLivingBase) args[0];
+			LivingEntity creature = (LivingEntity) args[0];
 			return Boolean.valueOf(creature instanceof EntityCowBase || creature instanceof EntityBullBase);
 		});
 
 		// Is mooshroom
 		AddonInjectionHandler.addInjection(ID, "isMooshroom", args -> {
-			EntityLivingBase grassEaterEntity = (EntityLivingBase) args[0];
+			LivingEntity grassEaterEntity = (LivingEntity) args[0];
 			Block block = (Block) args[1];
 			return Boolean.valueOf(((grassEaterEntity instanceof EntityAnimaniaCow && ((EntityAnimaniaCow) grassEaterEntity).cowType == CowType.MOOSHROOM) ? block == Blocks.MYCELIUM : false));
 		});
@@ -149,7 +149,7 @@ public class FarmAddonInjectionHandler
 		// Avoid chickens
 		AddonInjectionHandler.addInjection(ID, "avoidChicken", args -> {
 			EntityAITasks tasks = (EntityAITasks) args[0];
-			EntityCreature entity = (EntityCreature) args[1];
+			CreatureEntity entity = (CreatureEntity) args[1];
 			tasks.addTask(6, new EntityAIAvoidEntity<EntityAnimaniaChicken>(entity, EntityAnimaniaChicken.class, 10.0F, 3.0D, 3.5D));
 			return null;
 		});
@@ -157,18 +157,18 @@ public class FarmAddonInjectionHandler
 		// Avoid Roosters
 		AddonInjectionHandler.addInjection(ID, "avoidRooster", args -> {
 			EntityAITasks tasks = (EntityAITasks) args[0];
-			EntityCreature entity = (EntityCreature) args[1];
+			CreatureEntity entity = (CreatureEntity) args[1];
 			tasks.addTask(6, new EntityAIAvoidEntity<EntityRoosterBase>(entity, EntityRoosterBase.class, 10.0F, 3.0D, 3.5D));
 			return null;
 		});
 
 		// Attack chicks
 		AddonInjectionHandler.addInjection(ID, "attackChicks", args -> {
-			EntityCreature entity = (EntityCreature) args[0];
-			if (entity instanceof EntityTameable)
-				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((EntityTameable) entity, EntityAnimal.class, false, target -> target instanceof EntityChickBase));
+			CreatureEntity entity = (CreatureEntity) args[0];
+			if (entity instanceof TameableEntity)
+				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityChickBase));
 			else
-				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, EntityAnimal.class, 10, false, false, target -> target instanceof EntityChickBase));
+				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 10, false, false, target -> target instanceof EntityChickBase));
 
 			return null;
 		});
@@ -176,7 +176,7 @@ public class FarmAddonInjectionHandler
 		// blink1
 		AddonInjectionHandler.addInjection(ID, "blink1", args -> {
 			RenderLiving render = (RenderLiving) args[0];
-			EntityLivingBase entity = (EntityLivingBase) args[1];
+			LivingEntity entity = (LivingEntity) args[1];
 
 			if (render.getMainModel() instanceof ModelPiglet || render.getMainModel() instanceof ModelPigletHampshire)
 			{
@@ -207,7 +207,7 @@ public class FarmAddonInjectionHandler
 		// blink2
 		AddonInjectionHandler.addInjection(ID, "blink2", args -> {
 			RenderLiving render = (RenderLiving) args[0];
-			EntityLivingBase entity = (EntityLivingBase) args[1];
+			LivingEntity entity = (LivingEntity) args[1];
 
 			if (render.getMainModel() instanceof ModelDraftHorseMare || render.getMainModel() instanceof ModelDraftHorseFoal)
 			{

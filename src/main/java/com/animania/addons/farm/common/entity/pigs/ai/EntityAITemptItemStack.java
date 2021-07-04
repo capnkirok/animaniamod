@@ -92,7 +92,7 @@ public class EntityAITemptItemStack extends EntityAIBase
 		if (this.temptedEntity.getDistanceSq(this.temptingPlayer) < 6.25D)
 			this.temptedEntity.getNavigator().clearPath();
 		else
-			this.temptedEntity.getNavigator().tryMoveToEntityLiving(this.temptingPlayer, this.speed);
+			this.temptedEntity.getNavigator().tryMoveToLivingEntity(this.temptingPlayer, this.speed);
 	}
 
 	public boolean isRunning()

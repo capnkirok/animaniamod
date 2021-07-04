@@ -54,7 +54,7 @@ public class CraftingComponent implements IManualComponent
 		this.y = y;
 
 		this.recipes = recipes;
-		this.mc = Minecraft.getMinecraft();
+		this.mc = Minecraft.getInstance();
 
 		this.objectHeight = 54;
 		this.objectWidth = 104;
@@ -71,7 +71,7 @@ public class CraftingComponent implements IManualComponent
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
-		mc.renderEngine.bindTexture(MATRIX_TEXTURE);
+		mc.textureManager.bind(MATRIX_TEXTURE);
 		int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
 
 		int posX = absoluteX + manual.guiLeft + border;

@@ -16,8 +16,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
-@EventBusSubscriber(modid = Animania.MODID, value = Side.CLIENT)
+@SideOnly(Dist.CLIENT)
+@EventBusSubscriber(modid = Animania.MODID, value = Dist.CLIENT)
 public class AnimationHandler
 {
 	private static final Map<Pair, ModelPose> handlers = new HashMap<>();

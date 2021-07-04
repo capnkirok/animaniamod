@@ -3,17 +3,17 @@ package com.animania.addons.farm.compat.waila;
 import java.util.List;
 
 import com.animania.addons.farm.common.entity.pigs.EntityAnimaniaPig;
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderMateable;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class WailaEntityPigProvider extends WailaEntityAnimalProviderMateable
+public class WailaEntityPigProvider extends WailaAnimalEntityProviderMateable
 {
 
     @Override
@@ -34,7 +34,7 @@ public class WailaEntityPigProvider extends WailaEntityAnimalProviderMateable
     }
 
     @Override
-    public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world) {
+    public CompoundNBT getNBTData(EntityPlayerMP player, Entity ent, CompoundNBT tag, World world) {
 
         tag.setBoolean("Played", ent.getEntityData().getBoolean("Played"));
 

@@ -9,7 +9,7 @@ import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -37,12 +37,12 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 
 	@Override
 	@Nullable
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
+	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity LivingEntity)
 	{
 
-		if (entityLiving instanceof EntityPlayer)
+		if (LivingEntity instanceof EntityPlayer)
 		{
-			EntityPlayer entityPlayer = (EntityPlayer) entityLiving;
+			EntityPlayer entityPlayer = (EntityPlayer) LivingEntity;
 			entityPlayer.clearActivePotions();
 
 			if (!entityPlayer.capabilities.isCreativeMode)
@@ -50,7 +50,7 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 
 				if (!worldIn.isRemote)
 				{
-					EntityItem entityitem = new EntityItem(worldIn, entityLiving.posX + 0.5D, entityLiving.posY + 0.5D, entityLiving.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
+					EntityItem entityitem = new EntityItem(worldIn, LivingEntity.posX + 0.5D, LivingEntity.posY + 0.5D, LivingEntity.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
 					AnimaniaHelper.spawnEntity(worldIn, entityitem);
 				}
 

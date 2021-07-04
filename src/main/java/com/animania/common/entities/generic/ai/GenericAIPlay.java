@@ -7,14 +7,16 @@ import com.animania.api.interfaces.IPlaying;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.math.Vec3d;
 
-public class GenericAIPlay<T extends EntityCreature & ISleeping & IPlaying, U extends EntityCreature & ISleeping & IPlaying> extends EntityAIBase
+import CreatureEntity;
+
+public class GenericAIPlay<T extends CreatureEntity & ISleeping & IPlaying, U extends CreatureEntity & ISleeping & IPlaying> extends EntityAIBase
 {
 	private T entity;
 	private Class<? extends U> playmateClass;
@@ -102,7 +104,7 @@ public class GenericAIPlay<T extends EntityCreature & ISleeping & IPlaying, U ex
 			{
 				if (path == null || navigator.noPath())
 				{
-					path = navigator.getPathToEntityLiving(playmate);
+					path = navigator.getPathToLivingEntity(playmate);
 				}
 
 				navigator.setPath(path, 1.0);

@@ -8,13 +8,15 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.common.helper.AnimaniaHelper;
 import com.google.common.collect.Sets;
 
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-public class GenericAITempt<T extends EntityCreature & ISleeping & IFoodEating> extends EntityAITempt
+import CreatureEntity;
+
+public class GenericAITempt<T extends CreatureEntity & ISleeping & IFoodEating> extends EntityAITempt
 {
 	/** The entity using this AI that is tempted by the player. */
 	private final T temptedEntity;
@@ -53,7 +55,7 @@ public class GenericAITempt<T extends EntityCreature & ISleeping & IFoodEating> 
 		if (temptedEntity.getSleeping())
 			return false;
 
-		if (temptedEntity instanceof EntityTameable && ((EntityTameable) temptedEntity).isSitting())
+		if (temptedEntity instanceof TameableEntity && ((TameableEntity) temptedEntity).isSitting())
 			return false;
 
 		return super.shouldExecute();

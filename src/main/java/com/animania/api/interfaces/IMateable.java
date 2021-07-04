@@ -25,7 +25,7 @@ public interface IMateable extends IAnimaniaAnimal
 	{
 		DataParameter<Optional<UUID>> param = getMateUniqueIdParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, Optional.fromNullable(id));
+			((Entity) this).getEntityData().set(param, Optional.fromNullable(id));
 	}
 
 	

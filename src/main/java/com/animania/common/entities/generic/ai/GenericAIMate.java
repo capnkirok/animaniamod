@@ -12,11 +12,13 @@ import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.world.World;
 
-public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & ISleeping, O extends EntityCreature & IMateable & IFoodEating & ISleeping & IImpregnable> extends EntityAIBase
+import CreatureEntity;
+
+public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & ISleeping, O extends CreatureEntity & IMateable & IFoodEating & ISleeping & IImpregnable> extends EntityAIBase
 {
 	private final T entity;
 	World theWorld;
@@ -166,9 +168,9 @@ public class GenericAIMate<T extends EntityCreature & IMateable & IFoodEating & 
 				if (courtshipTimer % 20 == 0)
 				{
 					this.entity.getLookHelper().setLookPositionWithEntity(targetMate, 10.0F, this.entity.getVerticalFaceSpeed());
-					this.entity.getNavigator().tryMoveToEntityLiving(targetMate, this.moveSpeed);
+					this.entity.getNavigator().tryMoveToLivingEntity(targetMate, this.moveSpeed);
 					targetMate.getLookHelper().setLookPositionWithEntity(this.entity, 10.0F, targetMate.getVerticalFaceSpeed());
-					targetMate.getNavigator().tryMoveToEntityLiving(this.entity, this.moveSpeed);
+					targetMate.getNavigator().tryMoveToLivingEntity(this.entity, this.moveSpeed);
 				}
 
 				double distance = entity.getDistance(targetMate);

@@ -19,7 +19,7 @@ public interface IVariant extends IAnimaniaAnimal
 	{
 		DataParameter<Integer> param = getVariantParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, i);
+			((Entity) this).getEntityData().set(param, i);
 	}
 	
 	default int getVariantCount()

@@ -9,7 +9,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelBullAngus extends ModelBase
@@ -298,21 +298,21 @@ public class ModelBullAngus extends ModelBase
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
-		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+	public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		if (entitylivingbaseIn instanceof EntityBullHolstein) {
-			EntityBullHolstein entityBullHollstein = (EntityBullHolstein) entitylivingbaseIn;
+		if (LivingEntityIn instanceof EntityBullHolstein) {
+			EntityBullHolstein entityBullHollstein = (EntityBullHolstein) LivingEntityIn;
 			this.Head.rotationPointY = 6.0F + entityBullHollstein.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = entityBullHollstein.getHeadAngleX(partialTickTime);
 		}
-		else if (entitylivingbaseIn instanceof EntityBullAngus) {
-			EntityBullAngus entityBullAngus = (EntityBullAngus) entitylivingbaseIn;
+		else if (LivingEntityIn instanceof EntityBullAngus) {
+			EntityBullAngus entityBullAngus = (EntityBullAngus) LivingEntityIn;
 			this.Head.rotationPointY = 6.0F + entityBullAngus.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = entityBullAngus.getHeadAngleX(partialTickTime);
 		}
-		else if (entitylivingbaseIn instanceof EntityBullFriesian) {
-			EntityBullFriesian entityBullFriesian = (EntityBullFriesian) entitylivingbaseIn;
+		else if (LivingEntityIn instanceof EntityBullFriesian) {
+			EntityBullFriesian entityBullFriesian = (EntityBullFriesian) LivingEntityIn;
 			this.Head.rotationPointY = 6.0F + entityBullFriesian.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = entityBullFriesian.getHeadAngleX(partialTickTime);
 		}

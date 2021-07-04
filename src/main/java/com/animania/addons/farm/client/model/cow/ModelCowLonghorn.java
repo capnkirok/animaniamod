@@ -7,12 +7,12 @@ import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class ModelCowLonghorn extends ModelBase
 {
 	private float        headRotationAngleX;
@@ -252,16 +252,16 @@ public class ModelCowLonghorn extends ModelBase
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+	public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 
-		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		if (entitylivingbaseIn instanceof EntityCowLonghorn) {
-			EntityCowLonghorn entityCowLonghorn = (EntityCowLonghorn) entitylivingbaseIn;
+		if (LivingEntityIn instanceof EntityCowLonghorn) {
+			EntityCowLonghorn entityCowLonghorn = (EntityCowLonghorn) LivingEntityIn;
 			this.head.rotationPointY = 6.0F + entityCowLonghorn.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = entityCowLonghorn.getHeadAngleX(partialTickTime);
-		} else  if (entitylivingbaseIn instanceof EntityCowHighland) {
-			EntityCowHighland entityCowHighland = (EntityCowHighland) entitylivingbaseIn;
+		} else  if (LivingEntityIn instanceof EntityCowHighland) {
+			EntityCowHighland entityCowHighland = (EntityCowHighland) LivingEntityIn;
 			this.head.rotationPointY = 6.0F + entityCowHighland.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = entityCowHighland.getHeadAngleX(partialTickTime);
 		}

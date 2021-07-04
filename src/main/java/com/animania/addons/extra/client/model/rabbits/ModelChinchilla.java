@@ -3,7 +3,7 @@ package com.animania.addons.extra.client.model.rabbits;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelChinchilla extends ModelBase
@@ -202,12 +202,12 @@ public class ModelChinchilla extends ModelBase
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
+	public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
 	{
-		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		//this.Neck1.rotationPointY = 0F + ((EntityRabbitBuckCottontail)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 0.0F;
-		//this.headRotationAngleX = ((EntityRabbitBuckCottontail)entitylivingbaseIn).getHeadAngleX(partialTickTime);
+		//this.Neck1.rotationPointY = 0F + ((EntityRabbitBuckCottontail)LivingEntityIn).getHeadAnchorPointY(partialTickTime) * 0.0F;
+		//this.headRotationAngleX = ((EntityRabbitBuckCottontail)LivingEntityIn).getHeadAngleX(partialTickTime);
 
 	}
 

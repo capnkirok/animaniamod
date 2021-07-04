@@ -10,7 +10,7 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
@@ -23,7 +23,10 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class GenericAIFindWater<T extends EntityCreature & IFoodEating & ISleeping> extends GenericAISearchBlock
+import EntityAIBase;
+import CreatureEntity;
+
+public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleeping> extends GenericAISearchBlock
 {
 
 	private final T entity;

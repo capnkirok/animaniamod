@@ -9,12 +9,12 @@ import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class ModelCow extends ModelBase
 {
     private float        headRotationAngleX;
@@ -217,27 +217,27 @@ public class ModelCow extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
+    public void setLivingAnimations(LivingEntity LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
 
-        super.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTickTime);
+        super.setLivingAnimations(LivingEntityIn, limbSwing, limbSwingAmount, partialTickTime);
 
-        if (entitylivingbaseIn instanceof EntityCowHolstein) {
-        	EntityCowHolstein entityCowHolstein = (EntityCowHolstein) entitylivingbaseIn;
+        if (LivingEntityIn instanceof EntityCowHolstein) {
+        	EntityCowHolstein entityCowHolstein = (EntityCowHolstein) LivingEntityIn;
             this.head.rotationPointY = 6.0F + entityCowHolstein.getHeadAnchorPointY(partialTickTime) * 9.0F;
             this.headRotationAngleX = entityCowHolstein.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityCowAngus) {
-        	EntityCowAngus entityCowAngus = (EntityCowAngus) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityCowAngus) {
+        	EntityCowAngus entityCowAngus = (EntityCowAngus) LivingEntityIn;
             this.head.rotationPointY = 6.0F + entityCowAngus.getHeadAnchorPointY(partialTickTime) * 9.0F;
             this.headRotationAngleX = entityCowAngus.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityCowMooshroom) {
-        	EntityCowMooshroom entityCowMooshroom = (EntityCowMooshroom) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityCowMooshroom) {
+        	EntityCowMooshroom entityCowMooshroom = (EntityCowMooshroom) LivingEntityIn;
             this.head.rotationPointY = 6.0F + entityCowMooshroom.getHeadAnchorPointY(partialTickTime) * 9.0F;
             this.headRotationAngleX = entityCowMooshroom.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityCowFriesian) {
-        	EntityCowFriesian entityCowFriesian = (EntityCowFriesian) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityCowFriesian) {
+        	EntityCowFriesian entityCowFriesian = (EntityCowFriesian) LivingEntityIn;
             this.head.rotationPointY = 6.0F + entityCowFriesian.getHeadAnchorPointY(partialTickTime) * 9.0F;
             this.headRotationAngleX = entityCowFriesian.getHeadAngleX(partialTickTime);
         }

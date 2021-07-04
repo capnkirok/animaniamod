@@ -2,13 +2,13 @@ package com.animania.addons.catsdogs.common.entity.generic.ai;
 
 import com.animania.addons.catsdogs.common.entity.felids.EntityAnimaniaCat;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 
 public class GenericAISitIdle extends EntityAIBase
 {
 	/** The entity that is looking idle. */
-	private final EntityLiving idleEntity;
+	private final LivingEntity idleEntity;
 	/** X offset to look at */
 	private double lookX;
 	/** Z offset to look at */
@@ -16,9 +16,9 @@ public class GenericAISitIdle extends EntityAIBase
 	/** A decrementing tick that stops the entity from being idle once it reaches 0. */
 	private int idleTime;
 
-	public GenericAISitIdle(EntityLiving entitylivingIn)
+	public GenericAISitIdle(LivingEntity LivingEntityIn)
 	{
-		this.idleEntity = entitylivingIn;
+		this.idleEntity = LivingEntityIn;
 		this.setMutexBits(3);
 	}
 

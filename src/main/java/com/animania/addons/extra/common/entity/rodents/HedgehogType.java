@@ -6,8 +6,10 @@ import java.lang.reflect.InvocationTargetException;
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
+
+import LivingEntity;
 
 public enum HedgehogType implements AnimaniaType
 {
@@ -46,14 +48,14 @@ public enum HedgehogType implements AnimaniaType
 	}
 
 	@Override
-	public EntityLivingBase getFemale(World world)
+	public LivingEntity getFemale(World world)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public EntityLivingBase getChild(World world)
+	public LivingEntity getChild(World world)
 	{
 		// TODO Auto-generated method stub
 		return null;

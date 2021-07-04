@@ -12,7 +12,7 @@ import com.animania.common.tileentities.handler.ItemHandlerNest;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -45,10 +45,10 @@ public class TileEntityNest extends TileEntity implements ITickable
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	public CompoundNBT writeToNBT(CompoundNBT compound)
 	{
 		super.writeToNBT(compound);
-		NBTTagCompound items = this.itemHandler.serializeNBT();
+		CompoundNBT items = this.itemHandler.serializeNBT();
 		compound.setTag("items", items);
 		if (birdType != null)
 			compound.setString("birdType", birdType.toString());
@@ -56,7 +56,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	public void readFromNBT(CompoundNBT compound)
 	{
 		super.readFromNBT(compound);
 		this.itemHandler = new ItemHandlerNest(this);
@@ -90,15 +90,15 @@ public class TileEntityNest extends TileEntity implements ITickable
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		NBTTagCompound tagCompound = new NBTTagCompound();
+		CompoundNBT tagCompound = new CompoundNBT();
 		this.writeToNBT(tagCompound);
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public NBTTagCompound getUpdateTag()
+	public CompoundNBT getUpdateTag()
 	{
-		return this.writeToNBT(new NBTTagCompound());
+		return this.writeToNBT(new CompoundNBT());
 	}
 
 	@Override

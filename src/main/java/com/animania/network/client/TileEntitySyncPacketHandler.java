@@ -1,7 +1,7 @@
 package com.animania.network.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.math.BlockPos;
@@ -21,9 +21,9 @@ public class TileEntitySyncPacketHandler implements IMessageHandler<TileEntitySy
 			@Override
 			public void run() {
 
-				NBTTagCompound data = message.data;
+				CompoundNBT data = message.data;
 				BlockPos pos = new BlockPos(data.getInteger("x"), data.getInteger("y"), data.getInteger("z"));
-				NBTTagCompound tileData = data.getCompoundTag("data");
+				CompoundNBT tileData = data.getCompoundTag("data");
 				
 				TileEntity tile = Minecraft.getMinecraft().world.getTileEntity(pos);
 

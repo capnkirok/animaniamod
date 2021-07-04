@@ -3,8 +3,8 @@ package com.animania.addons.farm.common.entity.cows.ai;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.addons.farm.common.entity.cows.EntityBullBase;
 
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 public class EntityAIAttackMeleeBulls extends EntityAIBase
 {
 	World                    worldObj;
-	protected EntityCreature attacker;
+	protected CreatureEntity attacker;
 	protected int            attackTick;
 	double                   speedTowardsTarget;
 	boolean                  longMemory;
@@ -39,11 +39,11 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 
 	@Override
 	public boolean shouldExecute() {
-		EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
+		LivingEntity LivingEntity = this.attacker.getAttackTarget();
 
-		if (entitylivingbase == null)
+		if (LivingEntity == null)
 			return false;
-		else if (!entitylivingbase.isEntityAlive() || entitylivingbase instanceof EntitySkeleton)
+		else if (!LivingEntity.isEntityAlive() || LivingEntity instanceof EntitySkeleton)
 			return false;
 		else {
 
@@ -57,7 +57,7 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 					eb.entityAIEatGrass.eatingGrassTimer = 0;
 				}
 			}
-			this.entityPathEntity = this.attacker.getNavigator().getPathToEntityLiving(entitylivingbase);
+			this.entityPathEntity = this.attacker.getNavigator().getPathToLivingEntity(LivingEntity);
 			return this.entityPathEntity != null;
 
 		}
@@ -65,13 +65,13 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 
 	@Override
 	public boolean shouldContinueExecuting() {
-		EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
-		return entitylivingbase == null ? false
-				: !entitylivingbase.isEntityAlive() ? false
+		LivingEntity LivingEntity = this.attacker.getAttackTarget();
+		return LivingEntity == null ? false
+				: !LivingEntity.isEntityAlive() ? false
 						: !this.longMemory ? !this.attacker.getNavigator().noPath()
-								: !this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase)) ? false
-										: !(entitylivingbase instanceof EntityPlayer) || !((EntityPlayer) entitylivingbase).isSpectator()
-										&& !((EntityPlayer) entitylivingbase).isCreative();
+								: !this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(LivingEntity)) ? false
+										: !(LivingEntity instanceof EntityPlayer) || !((EntityPlayer) LivingEntity).isSpectator()
+										&& !((EntityPlayer) LivingEntity).isCreative();
 	}
 
 	@Override
@@ -82,11 +82,11 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 
 	@Override
 	public void resetTask() {
-		EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
+		LivingEntity LivingEntity = this.attacker.getAttackTarget();
 
-		if (entitylivingbase instanceof EntityPlayer
-				&& (((EntityPlayer) entitylivingbase).isSpectator() || ((EntityPlayer) entitylivingbase).isCreative()))
-			this.attacker.setAttackTarget((EntityLivingBase) null);
+		if (LivingEntity instanceof EntityPlayer
+				&& (((EntityPlayer) LivingEntity).isSpectator() || ((EntityPlayer) LivingEntity).isCreative()))
+			this.attacker.setAttackTarget((LivingEntity) null);
 
 		this.attacker.getNavigator().clearPath();
 		if (this.attacker instanceof EntityBullBase) {
@@ -97,21 +97,21 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 
 	@Override
 	public void updateTask() {
-		EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
+		LivingEntity LivingEntity = this.attacker.getAttackTarget();
 
-		if (entitylivingbase != null) {
+		if (LivingEntity != null) {
 
-			this.attacker.getLookHelper().setLookPositionWithEntity(entitylivingbase, 20.0F, 20.0F);
-			double d0 = this.attacker.getDistanceSq(entitylivingbase.posX, entitylivingbase.getEntityBoundingBox().minY, entitylivingbase.posZ);
+			this.attacker.getLookHelper().setLookPositionWithEntity(LivingEntity, 20.0F, 20.0F);
+			double d0 = this.attacker.getDistanceSq(LivingEntity.posX, LivingEntity.getEntityBoundingBox().minY, LivingEntity.posZ);
 			--this.delayCounter;
 
-			if ((this.longMemory || this.attacker.getEntitySenses().canSee(entitylivingbase)) && this.delayCounter <= 0
+			if ((this.longMemory || this.attacker.getEntitySenses().canSee(LivingEntity)) && this.delayCounter <= 0
 					&& (this.targetX == 0.0D && this.targetY == 0.0D && this.targetZ == 0.0D
-					|| entitylivingbase.getDistanceSq(this.targetX, this.targetY, this.targetZ) >= 1.0D
+					|| LivingEntity.getDistanceSq(this.targetX, this.targetY, this.targetZ) >= 1.0D
 					|| this.attacker.getRNG().nextFloat() < 0.05F)) {
-				this.targetX = entitylivingbase.posX;
-				this.targetY = entitylivingbase.getEntityBoundingBox().minY;
-				this.targetZ = entitylivingbase.posZ;
+				this.targetX = LivingEntity.posX;
+				this.targetY = LivingEntity.getEntityBoundingBox().minY;
+				this.targetZ = LivingEntity.posZ;
 				this.delayCounter = 4 + this.attacker.getRNG().nextInt(7);
 
 				if (this.canPenalize) {
@@ -119,7 +119,7 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 					if (this.attacker.getNavigator().getPath() != null) {
 						net.minecraft.pathfinding.PathPoint finalPathPoint = this.attacker.getNavigator().getPath().getFinalPathPoint();
 						if (finalPathPoint != null
-								&& entitylivingbase.getDistanceSq(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
+								&& LivingEntity.getDistanceSq(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
 							this.failedPathFindingPenalty = 0;
 						else
 							this.failedPathFindingPenalty += 10;
@@ -133,17 +133,17 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 				else if (d0 > 256.0D)
 					this.delayCounter += 5;
 
-				if (!this.attacker.getNavigator().tryMoveToEntityLiving(entitylivingbase, this.speedTowardsTarget))
+				if (!this.attacker.getNavigator().tryMoveToLivingEntity(LivingEntity, this.speedTowardsTarget))
 					this.delayCounter += 15;
 			}
 
 			this.attackTick = Math.max(this.attackTick - 1, 0);
-			this.func_190102_a(entitylivingbase, d0);
+			this.checkAndPerformAttack(LivingEntity, d0);
 		}
 
 	}
 
-	protected void func_190102_a(EntityLivingBase p_190102_1_, double p_190102_2_) {
+	protected void checkAndPerformAttack(LivingEntity p_190102_1_, double p_190102_2_) {
 		double d0 = this.getAttackReachSqr(p_190102_1_);
 
 		if (p_190102_2_ <= d0 && this.attackTick <= 0) {
@@ -153,7 +153,7 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 		}
 	}
 
-	protected double getAttackReachSqr(EntityLivingBase attackTarget) {
+	protected double getAttackReachSqr(LivingEntity attackTarget) {
 		return this.attacker.width * 2.0F * this.attacker.width * 2.0F + attackTarget.width;
 	}
 }

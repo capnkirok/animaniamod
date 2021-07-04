@@ -14,7 +14,7 @@ import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -31,8 +31,8 @@ import net.minecraft.world.World;
 
 public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProviderChild, IChild
 {
-	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityCalfBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> createKey(EntityCalfBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityCalfBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(EntityCalfBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
 	public EntityCalfBase(World worldIn)
@@ -158,7 +158,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public EntityCalfBase createChild(EntityAgeable e)
+	public EntityCalfBase createChild(AgeableEntity e)
 	{
 		return null;
 	}

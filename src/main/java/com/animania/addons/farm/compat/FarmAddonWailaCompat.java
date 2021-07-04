@@ -34,9 +34,9 @@ import com.animania.addons.farm.compat.waila.WailaEntityPigProvider;
 import com.animania.addons.farm.compat.waila.WailaEntityPigletProvider;
 import com.animania.addons.farm.compat.waila.WailaEntityRamProvider;
 import com.animania.addons.farm.compat.waila.WailaEntitySowProvider;
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderBase;
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderChild;
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderMateable;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderBase;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderChild;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;
 
 import mcp.mobius.waila.api.IWailaRegistrar;
 
@@ -83,8 +83,8 @@ public class FarmAddonWailaCompat
 
 	private static void regEntityInfoBull(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderMateable(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderMateable(), clazz);
+		r.registerBodyProvider(new WailaAnimalEntityProviderMateable(), clazz);
+		r.registerNBTProvider(new WailaAnimalEntityProviderMateable(), clazz);
 	}
 
 	private static void regEntityInfoCow(IWailaRegistrar r, Class clazz)
@@ -95,8 +95,8 @@ public class FarmAddonWailaCompat
 
 	private static void regEntityInfoCalf(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderChild(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderChild(), clazz);
+		r.registerBodyProvider(new WailaAnimalEntityProviderChild(), clazz);
+		r.registerNBTProvider(new WailaAnimalEntityProviderChild(), clazz);
 	}
 
 	private static void regEntityInfoHog(IWailaRegistrar r, Class clazz)
@@ -125,8 +125,8 @@ public class FarmAddonWailaCompat
 
 	private static void regEntityInfoStallion(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderMateable(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderMateable(), clazz);
+		r.registerBodyProvider(new WailaAnimalEntityProviderMateable(), clazz);
+		r.registerNBTProvider(new WailaAnimalEntityProviderMateable(), clazz);
 	}
 
 	private static void regEntityInfoMare(IWailaRegistrar r, Class clazz)
@@ -137,8 +137,8 @@ public class FarmAddonWailaCompat
 
 	private static void regEntityInfoFoal(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderChild(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderChild(), clazz);
+		r.registerBodyProvider(new WailaAnimalEntityProviderChild(), clazz);
+		r.registerNBTProvider(new WailaAnimalEntityProviderChild(), clazz);
 	}
 
 	private static void regEntityInfoBuck(IWailaRegistrar r, Class clazz)
@@ -155,8 +155,8 @@ public class FarmAddonWailaCompat
 
 	private static void regEntityInfoKid(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderChild(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderChild(), clazz);
+		r.registerBodyProvider(new WailaAnimalEntityProviderChild(), clazz);
+		r.registerNBTProvider(new WailaAnimalEntityProviderChild(), clazz);
 	}
 
 	private static void regEntityInfoRam(IWailaRegistrar r, Class clazz)
@@ -173,14 +173,14 @@ public class FarmAddonWailaCompat
 
 	private static void regEntityInfoLamb(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderChild(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderChild(), clazz);
+		r.registerBodyProvider(new WailaAnimalEntityProviderChild(), clazz);
+		r.registerNBTProvider(new WailaAnimalEntityProviderChild(), clazz);
 	}
 
 	private static void regEntityInfoBase(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityAnimalProviderBase(), clazz);
-		r.registerNBTProvider(new WailaEntityAnimalProviderBase(), clazz);
+		r.registerBodyProvider(new WailaAnimalEntityProviderBase(), clazz);
+		r.registerNBTProvider(new WailaAnimalEntityProviderBase(), clazz);
 	}
 
 }

@@ -6,7 +6,7 @@ import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
@@ -32,12 +32,12 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 
 	@Override
 	@Nullable
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
+	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity LivingEntity)
 	{
 
-		if (entityLiving instanceof EntityPlayer)
+		if (LivingEntity instanceof EntityPlayer)
 		{
-			EntityPlayer entityplayer = (EntityPlayer) entityLiving;
+			EntityPlayer entityplayer = (EntityPlayer) LivingEntity;
 			if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 				entityplayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
 

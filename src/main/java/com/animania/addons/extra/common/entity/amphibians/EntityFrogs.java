@@ -17,9 +17,9 @@ import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -35,7 +35,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -51,7 +51,7 @@ import net.minecraft.world.World;
 public class EntityFrogs extends EntityAmphibian
 {
 
-	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer> createKey(EntityFrogs.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> FROGS_TYPE = EntityDataManager.<Integer> defineId(EntityFrogs.class, DataSerializers.INT);
 
 	public EntityFrogs(World worldIn)
 	{
@@ -67,7 +67,7 @@ public class EntityFrogs extends EntityAmphibian
 
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	public ILivingEntityData onInitialSpawn(DifficultyInstance difficulty, @Nullable ILivingEntityData livingdata)
 	{
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 
@@ -80,7 +80,7 @@ public class EntityFrogs extends EntityAmphibian
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.setInteger("FrogsType", this.getFrogsType());
@@ -90,7 +90,7 @@ public class EntityFrogs extends EntityAmphibian
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		super.readEntityFromNBT(compound);
 		this.setFrogsType(compound.getInteger("FrogsType"));
@@ -150,10 +150,10 @@ public class EntityFrogs extends EntityAmphibian
 				return false;
 			} else
 			{
-				EntityLiving entityliving = this;
-				entityliving.setCustomNameTag(stack.getDisplayName());
+				LivingEntity LivingEntity = this;
+				LivingEntity.setCustomNameTag(stack.getDisplayName());
 
-				entityliving.enablePersistence();
+				LivingEntity.enablePersistence();
 				if (!player.capabilities.isCreativeMode)
 				{
 					stack.shrink(1);
@@ -211,7 +211,7 @@ public class EntityFrogs extends EntityAmphibian
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)
 		{
-			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((LivingEntity) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
 		}
 
 		return flag;

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderEweFriesian<T extends EntityEweFriesian> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
@@ -86,18 +86,18 @@ public class RenderEweFriesian<T extends EntityEweFriesian> extends RenderLiving
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float partial)
+	protected void preRenderCallback(T LivingEntity, float partial)
 	{
-		this.preRenderScale(entityliving, partial);
-		this.blinking.setColors(EYE_COLORS[entityliving.getColorNumber()], EYE_COLORS[entityliving.getColorNumber()]);
-		if (entityliving.hasCustomName() && "jeb_".equals(entityliving.getCustomNameTag()) && entityliving.isDyeable())
+		this.preRenderScale(LivingEntity, partial);
+		this.blinking.setColors(EYE_COLORS[LivingEntity.getColorNumber()], EYE_COLORS[LivingEntity.getColorNumber()]);
+		if (LivingEntity.hasCustomName() && "jeb_".equals(LivingEntity.getCustomNameTag()) && LivingEntity.isDyeable())
 		{
 			int i1 = 25;
-			int i = entityliving.ticksExisted / 25 + entityliving.getEntityId();
+			int i = LivingEntity.ticksExisted / 25 + LivingEntity.getEntityId();
 			int j = EnumDyeColor.values().length;
 			int k = i % j;
 			int l = (i + 1) % j;
-			float f = ((float) (entityliving.ticksExisted % 25) + partial) / 25.0F;
+			float f = ((float) (LivingEntity.ticksExisted % 25) + partial) / 25.0F;
 			float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
 			float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
 			model.setWoolColor(afloat1[0] * (1.0F - f) + afloat2[0] * f, afloat1[1] * (1.0F - f) + afloat2[1] * f, afloat1[2] * (1.0F - f) + afloat2[2] * f);
@@ -105,7 +105,7 @@ public class RenderEweFriesian<T extends EntityEweFriesian> extends RenderLiving
 		}
 		else
 		{
-			float[] rgb = entityliving.getDyeColor().getColorComponentValues();
+			float[] rgb = LivingEntity.getDyeColor().getColorComponentValues();
 			model.setWoolColor(rgb[0], rgb[1], rgb[2]);
 		}
 

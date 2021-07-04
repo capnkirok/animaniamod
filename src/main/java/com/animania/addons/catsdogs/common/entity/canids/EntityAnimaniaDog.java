@@ -34,14 +34,14 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.AbstractSkeleton;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityWolf;
@@ -49,7 +49,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -136,7 +136,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 		{
-			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntitySheep || entity instanceof EntityRabbit));
+			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof EntitySheep || entity instanceof EntityRabbit));
 		}
 	}
 
@@ -175,7 +175,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("IsTamed", this.isTamed());
@@ -186,7 +186,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		super.readEntityFromNBT(compound);
 		this.setTamed(compound.getBoolean("IsTamed"));
@@ -328,7 +328,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
 		if (id == 10)
@@ -356,7 +356,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public EntityWolf createChild(EntityAgeable ageable)
+	public EntityWolf createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

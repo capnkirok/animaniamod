@@ -11,7 +11,7 @@ import com.animania.common.tileentities.handler.ItemHandlerTrough;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -54,15 +54,15 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		NBTTagCompound tagCompound = new NBTTagCompound();
+		CompoundNBT tagCompound = new CompoundNBT();
 		this.writeToNBT(tagCompound);
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public NBTTagCompound getUpdateTag()
+	public CompoundNBT getUpdateTag()
 	{
-		return this.writeToNBT(new NBTTagCompound());
+		return this.writeToNBT(new CompoundNBT());
 	}
 
 	@Override
@@ -126,11 +126,11 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	public CompoundNBT writeToNBT(CompoundNBT compound)
 	{
-		NBTTagCompound tag = super.writeToNBT(compound);
-		NBTTagCompound items = this.itemHandler.serializeNBT();
-		NBTTagCompound fluid = new NBTTagCompound();
+		CompoundNBT tag = super.writeToNBT(compound);
+		CompoundNBT items = this.itemHandler.serializeNBT();
+		CompoundNBT fluid = new CompoundNBT();
 		fluid = this.fluidHandler.writeToNBT(fluid);
 		tag.setTag("items", items);
 		tag.setTag("fluid", fluid);
@@ -141,7 +141,7 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	public void readFromNBT(CompoundNBT compound)
 	{
 		super.readFromNBT(compound);
 		this.troughRotation = compound.getByte("Rot");

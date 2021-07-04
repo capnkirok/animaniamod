@@ -17,7 +17,7 @@ import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileE
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
@@ -108,22 +108,22 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		NBTTagCompound tagCompound = new NBTTagCompound();
+		CompoundNBT tagCompound = new CompoundNBT();
 		this.writeToNBT(tagCompound);
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public NBTTagCompound getUpdateTag()
+	public CompoundNBT getUpdateTag()
 	{
-		return this.writeToNBT(new NBTTagCompound());
+		return this.writeToNBT(new CompoundNBT());
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	public CompoundNBT writeToNBT(CompoundNBT compound)
 	{
-		NBTTagCompound tag = super.writeToNBT(compound);
-		NBTTagCompound fluid = new NBTTagCompound();
+		CompoundNBT tag = super.writeToNBT(compound);
+		CompoundNBT fluid = new CompoundNBT();
 		fluid = this.fluidHandler.writeToNBT(fluid);
 		tag.setInteger("nextHoney", nextHoney);
 		tag.setTag("fluid", fluid);
@@ -132,7 +132,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	public void readFromNBT(CompoundNBT compound)
 	{
 		super.readFromNBT(compound);
 		this.fluidHandler = new FluidHandlerBeehive(5000);

@@ -5,12 +5,12 @@ import com.animania.addons.extra.common.entity.rodents.EntityHedgehogBase;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class ModelHedgehog extends ModelBase
 {
     private float headRotationAngleX;
@@ -589,12 +589,12 @@ public class ModelHedgehog extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+    public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 
-        super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+        super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        if (entitylivingbaseIn instanceof EntityHedgehogBase) {
-        	EntityHedgehogBase entityHedgehog = (EntityHedgehogBase) entitylivingbaseIn;
+        if (LivingEntityIn instanceof EntityHedgehogBase) {
+        	EntityHedgehogBase entityHedgehog = (EntityHedgehogBase) LivingEntityIn;
             this.Head.rotationPointY = 19.5F + entityHedgehog.getHeadAnchorPointY(partialTickTime) * 0F; // number
             this.headRotationAngleX = entityHedgehog.getHeadAngleX(partialTickTime);
             

@@ -7,7 +7,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelBuckPygmy extends ModelBase
@@ -293,12 +293,12 @@ public class ModelBuckPygmy extends ModelBase
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
+	public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime)
 	{
-		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckPygmy)entitylivingbaseIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
-		this.headRotationAngleX = ((EntityBuckPygmy)entitylivingbaseIn).getHeadAngleX(partialTickTime);
+		this.HeadNode.rotationPointY = + 7.75F + ((EntityBuckPygmy)LivingEntityIn).getHeadAnchorPointY(partialTickTime) * 6.0F;
+		this.headRotationAngleX = ((EntityBuckPygmy)LivingEntityIn).getHeadAngleX(partialTickTime);
 
 	}
 

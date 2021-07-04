@@ -1,12 +1,14 @@
 package com.animania.addons.extra.common.capabilities;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+
+import CompoundNBT;
 
 public interface ICapabilityPlayer {
 
-	public NBTTagCompound getAnimal();
-	public void setAnimal(NBTTagCompound tag);
+	public CompoundNBT getAnimal();
+	public void setAnimal(CompoundNBT tag);
 	
 	public boolean isCarrying();
 	public void setCarrying(boolean carrying);
@@ -18,8 +20,8 @@ public interface ICapabilityPlayer {
 
 	void update();
 
-	NBTTagCompound writeNBT();
+	CompoundNBT writeNBT();
 
-	void readNBT(NBTTagCompound nbt);
+	void readNBT(CompoundNBT nbt);
 
 }

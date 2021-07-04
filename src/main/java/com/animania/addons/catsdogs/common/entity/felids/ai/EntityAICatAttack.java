@@ -2,10 +2,12 @@ package com.animania.addons.catsdogs.common.entity.felids.ai;
 
 import com.animania.api.interfaces.ISleeping;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIOcelotAttack;
 
-public class EntityAICatAttack<T extends EntityLiving & ISleeping> extends EntityAIOcelotAttack
+import LivingEntity;
+
+public class EntityAICatAttack<T extends LivingEntity & ISleeping> extends EntityAIOcelotAttack
 {
 	private T entity;
 

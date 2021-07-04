@@ -39,10 +39,10 @@ public class LinkComponent implements IManualComponent
 		this.x = x;
 		this.y = y;
 		
-		this.mc = Minecraft.getMinecraft();
+		this.mc = Minecraft.getInstance();
 		
-		this.objectHeight = mc.fontRenderer.FONT_HEIGHT;
-		this.objectWidth = mc.fontRenderer.getStringWidth(text);
+		this.objectHeight = mc.font.lineHeight;
+		this.objectWidth = mc.font.width(text);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class LinkComponent implements IManualComponent
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
-		mc.fontRenderer.drawString((isHovering(mouseX, mouseY) ? (TextFormatting.BLUE + "" + TextFormatting.UNDERLINE) : (TextFormatting.BLUE)) + text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
+		mc.font.drawString((isHovering(mouseX, mouseY) ? (TextFormatting.BLUE + "" + TextFormatting.UNDERLINE) : (TextFormatting.BLUE)) + text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
 	}
 	
 	@Override

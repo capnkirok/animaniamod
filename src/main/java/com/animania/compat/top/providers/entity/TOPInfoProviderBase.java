@@ -11,7 +11,7 @@ import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -23,7 +23,7 @@ public interface TOPInfoProviderBase extends TOPInfoEntityProvider
 	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
 	default void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
 	{
-		NBTTagCompound tag = new NBTTagCompound();
+		CompoundNBT tag = new CompoundNBT();
 		entity.writeToNBT(tag);
 
 		if (player.isSneaking())

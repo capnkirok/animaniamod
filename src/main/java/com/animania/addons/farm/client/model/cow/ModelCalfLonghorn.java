@@ -7,12 +7,12 @@ import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class ModelCalfLonghorn extends ModelBase
 {
     private float        headRotationAngleX;
@@ -175,16 +175,16 @@ public class ModelCalfLonghorn extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+    public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 
-        super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+        super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        if (entitylivingbaseIn instanceof EntityCalfLonghorn) {
-        	EntityCalfLonghorn entityCalfLonghorn = (EntityCalfLonghorn) entitylivingbaseIn;
+        if (LivingEntityIn instanceof EntityCalfLonghorn) {
+        	EntityCalfLonghorn entityCalfLonghorn = (EntityCalfLonghorn) LivingEntityIn;
             this.Head.rotationPointY = 10.0F + entityCalfLonghorn.getHeadAnchorPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = entityCalfLonghorn.getHeadAngleX(partialTickTime);
-        } else if (entitylivingbaseIn instanceof EntityCalfHighland) {
-        	EntityCalfHighland entityCalfHighland = (EntityCalfHighland) entitylivingbaseIn;
+        } else if (LivingEntityIn instanceof EntityCalfHighland) {
+        	EntityCalfHighland entityCalfHighland = (EntityCalfHighland) LivingEntityIn;
             this.Head.rotationPointY = 10.0F + entityCalfHighland.getHeadAnchorPointY(partialTickTime) * 6.0F;
             this.headRotationAngleX = entityCalfHighland.getHeadAngleX(partialTickTime);
         }

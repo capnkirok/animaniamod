@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 
 public class StringParser
@@ -17,7 +17,7 @@ public class StringParser
 	@Nullable
 	public static Block getBlock(String string)
 	{
-		NBTTagCompound tag = getTagCompound(string);
+		CompoundNBT tag = getTagCompound(string);
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
@@ -33,7 +33,7 @@ public class StringParser
 
 	public static int getMeta(String string)
 	{
-		NBTTagCompound tag = getTagCompound(string);
+		CompoundNBT tag = getTagCompound(string);
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
@@ -57,7 +57,7 @@ public class StringParser
 	@Nullable
 	public static IBlockState getBlockState(String string)
 	{
-		NBTTagCompound tag = getTagCompound(string);
+		CompoundNBT tag = getTagCompound(string);
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
@@ -82,7 +82,7 @@ public class StringParser
 	@Nullable
 	public static Item getItem(String string)
 	{
-		NBTTagCompound tag = getTagCompound(string);
+		CompoundNBT tag = getTagCompound(string);
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 
@@ -100,7 +100,7 @@ public class StringParser
 			return ItemStack.EMPTY;
 		
 		ItemStack stack = new ItemStack(item, 1, getMeta(string));
-		NBTTagCompound tag = getTagCompound(string);
+		CompoundNBT tag = getTagCompound(string);
 		if (tag != null)
 			stack.setTagCompound(tag);
 
@@ -108,9 +108,9 @@ public class StringParser
 	}
 
 	@Nullable
-	public static NBTTagCompound getTagCompound(String string)
+	public static CompoundNBT getTagCompound(String string)
 	{
-		NBTTagCompound tag = null;
+		CompoundNBT tag = null;
 		if (string.contains("{"))
 		{
 			if (!string.contains("}"))

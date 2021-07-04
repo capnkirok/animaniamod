@@ -3,14 +3,14 @@ package com.animania.addons.extra.compat.waila;
 import java.util.List;
 
 import com.animania.addons.extra.common.entity.rodents.rabbits.EntityRabbitDoeBase;
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderMateable;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.text.translation.I18n;
 
-public class WailaEntityRabbitDoeProvider extends WailaEntityAnimalProviderMateable
+public class WailaEntityRabbitDoeProvider extends WailaAnimalEntityProviderMateable
 {
 
 	@Override

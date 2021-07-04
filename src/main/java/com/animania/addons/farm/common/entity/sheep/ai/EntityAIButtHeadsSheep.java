@@ -9,20 +9,20 @@ import com.animania.addons.farm.common.entity.sheep.EntityRamBase;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.World;
 
 public class EntityAIButtHeadsSheep extends EntityAIBase
 {
-	private final EntityAnimal theAnimal;
+	private final AnimalEntity theAnimal;
 	World theWorld;
-	private EntityAnimal targetMate;
+	private AnimalEntity targetMate;
 	int fightTimer;
 	double moveSpeed;
 	private int delayCounter;
 
 
-	public EntityAIButtHeadsSheep(EntityAnimal animal, double speedIn)
+	public EntityAIButtHeadsSheep(AnimalEntity animal, double speedIn)
 	{
 		this.theAnimal = animal;
 		this.theWorld = animal.world;
@@ -86,7 +86,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 		EntityRamBase thisEntity = (EntityRamBase) this.theAnimal;
 		if (thisEntity.getFighting()) {
 			this.theAnimal.getLookHelper().setLookPositionWithEntity(this.targetMate, 10.0F, (float)this.theAnimal.getVerticalFaceSpeed());
-			this.theAnimal.getNavigator().tryMoveToEntityLiving(this.targetMate, this.moveSpeed);
+			this.theAnimal.getNavigator().tryMoveToLivingEntity(this.targetMate, this.moveSpeed);
 		} else {
 
 			thisEntity.getNavigator().clearPath();
@@ -94,7 +94,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 
 	}
 
-	private EntityAnimal getNearbyRival() {
+	private AnimalEntity getNearbyRival() {
 
 		if (this.theAnimal instanceof EntityRamBase) {
 		
@@ -148,10 +148,10 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 				} else {
 					
 					thisEntity.getLookHelper().setLookPositionWithEntity(foundEntity, 10.0F, thisEntity.getVerticalFaceSpeed());
-					thisEntity.getNavigator().tryMoveToEntityLiving(foundEntity, this.moveSpeed);
+					thisEntity.getNavigator().tryMoveToLivingEntity(foundEntity, this.moveSpeed);
 		
 					foundEntity.getLookHelper().setLookPositionWithEntity(thisEntity, 10.0F, foundEntity.getVerticalFaceSpeed());
-					foundEntity.getNavigator().tryMoveToEntityLiving(thisEntity, this.moveSpeed);
+					foundEntity.getNavigator().tryMoveToLivingEntity(thisEntity, this.moveSpeed);
 					
 					return null;
 

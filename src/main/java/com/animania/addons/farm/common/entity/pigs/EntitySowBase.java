@@ -19,8 +19,8 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -37,12 +37,12 @@ import net.minecraft.world.World;
 
 public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderPig, IMateable, IImpregnable
 {
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntitySowBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntitySowBase.class, DataSerializers.OPTIONAL_UUID);
 	public int dryTimerSow;
-	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> createKey(EntitySowBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> createKey(EntitySowBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> createKey(EntitySowBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> createKey(EntitySowBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> defineId(EntitySowBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> defineId(EntitySowBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> defineId(EntitySowBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> defineId(EntitySowBase.class, DataSerializers.INT);
 
 	public EntitySowBase(World worldIn)
 	{
@@ -56,7 +56,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	public ILivingEntityData onInitialSpawn(DifficultyInstance difficulty, @Nullable ILivingEntityData livingdata)
 	{
 		GenericBehavior.initialSpawnFemale(this, EntityAnimaniaPig.class);
 
@@ -199,7 +199,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public EntitySowBase createChild(EntityAgeable ageable)
+	public EntitySowBase createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

@@ -184,7 +184,7 @@ public class AddonHandler
 
 		for (IAddonGuiHandler handler : addonGuiHandlers.values())
 		{
-			if (side == Side.CLIENT)
+			if (side == Dist.CLIENT)
 				returnObject = handler.getClientGuiElement(guiId - handler.getGuiIdOffset(), player, world, x, y, z);
 			else
 				returnObject = handler.getServerGuiElement(guiId - handler.getGuiIdOffset(), player, world, x, y, z);
@@ -219,7 +219,7 @@ public class AddonHandler
 			return;
 
 		Map<String, ModContainer> loadedMods = Loader.instance().getIndexedModList();
-		DependencyParser parser = new DependencyParser(addon.getAddonID(), Side.SERVER);
+		DependencyParser parser = new DependencyParser(addon.getAddonID(), Dist.DEDICATED_SERVER);
 		DependencyInfo info = parser.parseDependencies(addon.getDependencies());
 
 		for (ArtifactVersion dependency : info.dependencies)

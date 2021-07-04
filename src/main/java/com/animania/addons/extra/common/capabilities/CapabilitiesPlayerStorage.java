@@ -3,10 +3,12 @@ package com.animania.addons.extra.common.capabilities;
 import java.util.concurrent.Callable;
 
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
+
+import NBTBase;
 
 public class CapabilitiesPlayerStorage implements IStorage<ICapabilityPlayer> {
 
@@ -17,12 +19,12 @@ public class CapabilitiesPlayerStorage implements IStorage<ICapabilityPlayer> {
 
 	  @Override
 	  public void readNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, EnumFacing side, NBTBase nbt) {
-	    CapabilityPlayerHandler.readNBT(capability, instance, (NBTTagCompound) nbt);
+	    CapabilityPlayerHandler.readNBT(capability, instance, (CompoundNBT) nbt);
 	  }
 	  
 	  
 	  public ICapabilityPlayer readNBT2(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, EnumFacing side, NBTBase nbt) {
-	    CapabilityPlayerHandler.readNBT(capability, instance, (NBTTagCompound) nbt);
+	    CapabilityPlayerHandler.readNBT(capability, instance, (CompoundNBT) nbt);
 	    
 	    return instance;
 	  }

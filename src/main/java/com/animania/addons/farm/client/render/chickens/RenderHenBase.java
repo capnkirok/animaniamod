@@ -20,7 +20,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderHenBase<T extends EntityHenBase> extends RenderLiving<T>
 {
 
@@ -43,25 +43,25 @@ public class RenderHenBase<T extends EntityHenBase> extends RenderLiving<T>
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
+	protected void preRenderCallback(T LivingEntity, float f)
 	{
-		this.preRenderScale(entityliving, f);
-		blinkingLayer.setColors(entityliving.lidCol, entityliving.lidCol);
+		this.preRenderScale(LivingEntity, f);
+		blinkingLayer.setColors(LivingEntity.lidCol, LivingEntity.lidCol);
 	}
 
-	protected void preRenderScale(T entityliving, float f)
+	protected void preRenderScale(T LivingEntity, float f)
 	{
 		GL11.glScalef(0.9F, 0.9F, 0.9F);
 
-		double x = entityliving.posX;
-		double y = entityliving.posY;
-		double z = entityliving.posZ;
+		double x = LivingEntity.posX;
+		double y = LivingEntity.posY;
+		double z = LivingEntity.posZ;
 
 		BlockPos pos = new BlockPos(x, y, z);
 
-		Block blockchk = entityliving.world.getBlockState(pos).getBlock();
+		Block blockchk = LivingEntity.world.getBlockState(pos).getBlock();
 
-		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) entityliving;
+		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) LivingEntity;
 		if (blockchk == BlockHandler.blockNest || entityChk.getSleeping())
 		{
 			GlStateManager.translate(-0.25F, 0.35F, -0.25F);

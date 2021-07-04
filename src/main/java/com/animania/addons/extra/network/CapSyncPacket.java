@@ -5,7 +5,7 @@ import com.animania.addons.extra.common.capabilities.CapabilityRefs;
 import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
@@ -33,7 +33,7 @@ public class CapSyncPacket implements IMessage
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		ByteBufUtils.writeTag(buf, (NBTTagCompound) CapabilityRefs.CAPS.getStorage().writeNBT(CapabilityRefs.CAPS, carry, null));
+		ByteBufUtils.writeTag(buf, (CompoundNBT) CapabilityRefs.CAPS.getStorage().writeNBT(CapabilityRefs.CAPS, carry, null));
 		ByteBufUtils.writeVarInt(buf, entityID, 4);
 		
 	}

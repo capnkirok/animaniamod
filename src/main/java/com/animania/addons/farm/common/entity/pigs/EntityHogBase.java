@@ -17,7 +17,7 @@ import com.google.common.base.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
@@ -37,8 +37,8 @@ import net.minecraft.world.World;
 public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderPig, IMateable, ISterilizable
 {
 
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityHogBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityHogBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityHogBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> defineId(EntityHogBase.class, DataSerializers.BOOLEAN);
 
 	public EntityHogBase(World worldIn)
 	{
@@ -168,7 +168,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public EntityHogBase createChild(EntityAgeable ageable)
+	public EntityHogBase createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

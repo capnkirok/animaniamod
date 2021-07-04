@@ -56,8 +56,8 @@ import com.animania.addons.farm.common.entity.sheep.SheepSuffolk.EntityRamSuffol
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityHorse;
@@ -82,7 +82,7 @@ public class FarmAddonSpawnHandler
 		Biome biome = event.getWorld().getBiome(pos);
 		int chooser = 0;
 
-		EntityLiving replacementEntity = null;
+		LivingEntity replacementEntity = null;
 
 		if (FarmConfig.settings.spawning_and_breeding.replaceVanillaCows && (event.getEntity().getClass().equals(EntityCow.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !worldIn.isRemote)
 		{
@@ -91,7 +91,7 @@ public class FarmAddonSpawnHandler
 				event.setResult(Result.DENY);
 			}
 
-			List<EntityLivingBase> otheranimals = AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 100, event.getEntity().world, pos);
+			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().world, pos);
 			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(2) + 1;
@@ -177,7 +177,7 @@ public class FarmAddonSpawnHandler
 			}
 
 			chooser = Animania.RANDOM.nextInt(2) + 1;
-			List<EntityLivingBase> otheranimals = AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 100, event.getEntity().world, pos);
+			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().world, pos);
 			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(2) + 1;
@@ -248,7 +248,7 @@ public class FarmAddonSpawnHandler
 
 			chooser = Animania.RANDOM.nextInt(2) + 1;
 
-			List<EntityLivingBase> otheranimals = AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 100, event.getEntity().world, pos);
+			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().world, pos);
 			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(3);
@@ -315,7 +315,7 @@ public class FarmAddonSpawnHandler
 			}
 
 			chooser = Animania.RANDOM.nextInt(2) + 1;
-			List<EntityLivingBase> otheranimals = AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 100, event.getEntity().world, pos);
+			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().world, pos);
 
 			if (otheranimals.size() <= 2)
 			{

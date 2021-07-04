@@ -23,7 +23,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -32,7 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
@@ -143,10 +143,10 @@ public class AnimaniaHelper
 	{
 		if (tile != null && tile.getWorld() != null && !tile.getWorld().isRemote)
 		{
-			NBTTagCompound compound = new NBTTagCompound();
+			CompoundNBT compound = new CompoundNBT();
 			compound = tile.writeToNBT(compound);
 
-			NBTTagCompound data = new NBTTagCompound();
+			CompoundNBT data = new CompoundNBT();
 			data.setTag("data", compound);
 			data.setInteger("x", tile.getPos().getX());
 			data.setInteger("y", tile.getPos().getY());
@@ -174,13 +174,13 @@ public class AnimaniaHelper
 			try
 			{
 				JsonElement element = json.get("nbt");
-				NBTTagCompound nbt;
+				CompoundNBT nbt;
 				if (element.isJsonObject())
 					nbt = JsonToNBT.getTagFromJson(GSON.toJson(element));
 				else
 					nbt = JsonToNBT.getTagFromJson(element.getAsString());
 
-				NBTTagCompound tmp = new NBTTagCompound();
+				CompoundNBT tmp = new CompoundNBT();
 				if (nbt.hasKey("ForgeCaps"))
 				{
 					tmp.setTag("ForgeCaps", nbt.getTag("ForgeCaps"));
@@ -208,21 +208,21 @@ public class AnimaniaHelper
 			player.dropItem(stack, false);
 	}
 
-	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
+	public static <T extends LivingEntity> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
 		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
 		list.removeIf(e -> e == theEntity);
 		return list;
 	}
 
-	public static <T extends EntityLivingBase> List<T> getEntitiesInRangeWithPredicate(Class<? extends T> filterEntity, double range, World world, Entity theEntity, Predicate<T> predicate)
+	public static <T extends LivingEntity> List<T> getEntitiesInRangeWithPredicate(Class<? extends T> filterEntity, double range, World world, Entity theEntity, Predicate<T> predicate)
 	{
 		List<T> list = getEntitiesInRange(filterEntity, range, world, theEntity);
 		list.removeIf(predicate.negate());
 		return list;
 	}
 
-	public static <T extends EntityLivingBase> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, BlockPos pos)
+	public static <T extends LivingEntity> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, BlockPos pos)
 	{
 		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range));
 		return list;
@@ -489,8 +489,8 @@ public class AnimaniaHelper
 
 	public static ItemStack addTooltipToStack(ItemStack stack, String tooltip)
 	{
-		NBTTagCompound tag = stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
-		NBTTagCompound display = new NBTTagCompound();
+		CompoundNBT tag = stack.hasTagCompound() ? stack.getTagCompound() : new CompoundNBT();
+		CompoundNBT display = new CompoundNBT();
 		NBTTagList lore = new NBTTagList();
 		lore.appendTag(new NBTTagString(TextFormatting.GRAY + tooltip));
 		display.setTag("Lore", lore);

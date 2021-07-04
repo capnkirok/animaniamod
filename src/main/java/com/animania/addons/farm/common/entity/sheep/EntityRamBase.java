@@ -40,9 +40,9 @@ import net.minecraft.world.World;
 
 public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean> createKey(EntityRamBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> createKey(EntityRamBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityRamBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> FIGHTING = EntityDataManager.<Boolean> defineId(EntityRamBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> defineId(EntityRamBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityRamBase.class, DataSerializers.OPTIONAL_UUID);
 
 	public EntityRamBase(World worldIn)
 	{

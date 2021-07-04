@@ -4,9 +4,11 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIFollowOwner;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.TameableEntity;
 
-public class GenericAIFollowOwner<T extends EntityTameable & ISleeping> extends EntityAIFollowOwner
+import TameableEntity;
+
+public class GenericAIFollowOwner<T extends TameableEntity & ISleeping> extends EntityAIFollowOwner
 {
 	private final T tameable;
 

@@ -10,10 +10,13 @@ import com.animania.common.handler.AddonInjectionHandler;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 
-public class LayerBlinking<E extends EntityLivingBase> implements LayerRenderer
+import LivingEntity;
+import RenderLiving;
+
+public class LayerBlinking<E extends LivingEntity> implements LayerRenderer
 {
 
 	private RenderLiving render;
@@ -57,7 +60,7 @@ public class LayerBlinking<E extends EntityLivingBase> implements LayerRenderer
 	}
 
 	@Override
-	public void doRenderLayer(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+	public void doRenderLayer(LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	{
 
 		boolean drawBlink = false;

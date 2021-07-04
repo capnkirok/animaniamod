@@ -13,7 +13,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
@@ -25,6 +25,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import PropertyEnum;
 
 public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 {
@@ -43,7 +45,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items)
 	{
 
@@ -65,7 +67,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, LivingEntity placer, ItemStack stack)
 	{
 		worldIn.setBlockState(pos, this.getStateFromMeta(stack.getMetadata()));
 	}

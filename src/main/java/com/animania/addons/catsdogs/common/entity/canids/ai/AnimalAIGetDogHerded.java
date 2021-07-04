@@ -5,14 +5,17 @@ import java.util.List;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathPoint;
 
-public class AnimalAIGetDogHerded<T extends EntityCreature & ISleeping, U extends EntityTameable & ISleeping> extends EntityAIBase
+import CreatureEntity;
+import TameableEntity;
+
+public class AnimalAIGetDogHerded<T extends CreatureEntity & ISleeping, U extends TameableEntity & ISleeping> extends EntityAIBase
 {
 	private final T herdAnimal;
 	private final Class<? extends U> herderType;

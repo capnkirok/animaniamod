@@ -146,7 +146,7 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private void renderEntityStatic(Entity entity)
 	{
 		if (entity.ticksExisted == 0)
@@ -178,7 +178,7 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private int getBrightnessForRender(Entity entity, EntityPlayer player)
 	{
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(player.posX), 0, MathHelper.floor(player.posZ));
@@ -194,7 +194,7 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private void setLightmapDisabled(boolean disabled)
 	{
 		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);

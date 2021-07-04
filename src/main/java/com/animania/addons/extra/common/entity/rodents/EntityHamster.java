@@ -39,18 +39,18 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFleeSun;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -64,7 +64,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
-public class EntityHamster extends EntityTameable implements TOPInfoProviderRodent, IAnimaniaAnimalBase
+public class EntityHamster extends TameableEntity implements TOPInfoProviderRodent, IAnimaniaAnimalBase
 {
 	private static final DataParameter<Boolean> IN_BALL = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	// private static final DataParameter<Boolean> SITTING =
@@ -233,34 +233,34 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
-		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setBoolean("IsSitting", this.isSitting());
-		nbttagcompound.setBoolean("InBall", this.isInBall());
-		nbttagcompound.setInteger("ColorNumber", this.getColorNumber());
-		nbttagcompound.setInteger("foodStackCount", this.getFoodStackCount());
-		nbttagcompound.setInteger("BallColor", this.getBallColor());
-		nbttagcompound.setBoolean("IsTamed", this.isTamed());
-		nbttagcompound.setBoolean("IsRiding", this.getIsRiding());
+		super.writeEntityToNBT(CompoundNBT);
+		CompoundNBT.setBoolean("IsSitting", this.isSitting());
+		CompoundNBT.setBoolean("InBall", this.isInBall());
+		CompoundNBT.setInteger("ColorNumber", this.getColorNumber());
+		CompoundNBT.setInteger("foodStackCount", this.getFoodStackCount());
+		CompoundNBT.setInteger("BallColor", this.getBallColor());
+		CompoundNBT.setBoolean("IsTamed", this.isTamed());
+		CompoundNBT.setBoolean("IsRiding", this.getIsRiding());
 
-		GenericBehavior.writeCommonNBT(nbttagcompound, this);
+		GenericBehavior.writeCommonNBT(CompoundNBT, this);
 
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+	public void readEntityFromNBT(CompoundNBT CompoundNBT)
 	{
-		super.readEntityFromNBT(nbttagcompound);
-		this.setSitting(nbttagcompound.getBoolean("IsSitting"));
-		this.setInBall(nbttagcompound.getBoolean("InBall"));
-		this.setColorNumber(nbttagcompound.getInteger("ColorNumber"));
-		this.setFoodStackCount(nbttagcompound.getInteger("foodStackCount"));
-		this.setBallColor(nbttagcompound.getInteger("BallColor"));
-		this.setTamed(nbttagcompound.getBoolean("IsTamed"));
-		this.setIsRiding(nbttagcompound.getBoolean("IsRiding"));
+		super.readEntityFromNBT(CompoundNBT);
+		this.setSitting(CompoundNBT.getBoolean("IsSitting"));
+		this.setInBall(CompoundNBT.getBoolean("InBall"));
+		this.setColorNumber(CompoundNBT.getInteger("ColorNumber"));
+		this.setFoodStackCount(CompoundNBT.getInteger("foodStackCount"));
+		this.setBallColor(CompoundNBT.getInteger("BallColor"));
+		this.setTamed(CompoundNBT.getBoolean("IsTamed"));
+		this.setIsRiding(CompoundNBT.getBoolean("IsRiding"));
 
-		GenericBehavior.readCommonNBT(nbttagcompound, this);
+		GenericBehavior.readCommonNBT(CompoundNBT, this);
 	}
 
 	@Override
@@ -318,7 +318,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 			if (!props.isCarrying())
 			{
-				props.setAnimal(this.writeToNBT(new NBTTagCompound()));
+				props.setAnimal(this.writeToNBT(new CompoundNBT()));
 				props.setCarrying(true);
 				props.setType("hamster");
 				this.setDead();
@@ -543,12 +543,12 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	@Nullable
 	public UUID getHamsterOwner()
 	{
-		return (UUID) ((Optional) this.dataManager.get(EntityTameable.OWNER_UNIQUE_ID)).orNull();
+		return (UUID) ((Optional) this.dataManager.get(TameableEntity.OWNER_UNIQUE_ID)).orNull();
 	}
 
 	public void setHamsterOwner(@Nullable UUID uniqueId)
 	{
-		this.dataManager.set(EntityTameable.OWNER_UNIQUE_ID, Optional.fromNullable(uniqueId));
+		this.dataManager.set(TameableEntity.OWNER_UNIQUE_ID, Optional.fromNullable(uniqueId));
 	}
 
 	public boolean isInBall()
@@ -711,7 +711,7 @@ public class EntityHamster extends EntityTameable implements TOPInfoProviderRode
 	}
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable entityanimal)
+	public AgeableEntity createChild(AgeableEntity AnimalEntity)
 	{
 		return null;
 	}

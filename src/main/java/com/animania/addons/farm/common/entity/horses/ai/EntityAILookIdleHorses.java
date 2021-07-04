@@ -6,13 +6,13 @@ import com.animania.addons.farm.common.entity.pullables.EntityCart;
 import com.animania.addons.farm.common.entity.pullables.EntityWagon;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 
 public class EntityAILookIdleHorses extends EntityAIBase
 {
 	/** The entity that is looking idle. */
-	private final EntityCreature idleEntity;
+	private final CreatureEntity idleEntity;
 	/** X offset to look at */
 	private double lookX;
 	/** Z offset to look at */
@@ -24,9 +24,9 @@ public class EntityAILookIdleHorses extends EntityAIBase
 	private int idleTime;
 	private int delayCounter;
 
-	public EntityAILookIdleHorses(EntityCreature entitylivingIn)
+	public EntityAILookIdleHorses(CreatureEntity LivingEntityIn)
 	{
-		this.idleEntity = entitylivingIn;
+		this.idleEntity = LivingEntityIn;
 		this.setMutexBits(3);
 	}
 

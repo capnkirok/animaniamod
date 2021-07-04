@@ -6,8 +6,10 @@ import java.lang.reflect.InvocationTargetException;
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
+
+import LivingEntity;
 
 public enum FerretType implements AnimaniaType
 {
@@ -48,13 +50,13 @@ public enum FerretType implements AnimaniaType
 	}
 
 	@Override
-	public EntityLivingBase getFemale(World world)
+	public LivingEntity getFemale(World world)
 	{
 		return null;
 	}
 
 	@Override
-	public EntityLivingBase getChild(World world)
+	public LivingEntity getChild(World world)
 	{
 		return null;
 	}

@@ -34,7 +34,7 @@ import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -50,7 +50,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -389,7 +389,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
 		if (id == 10)
@@ -399,7 +399,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("Sheared", this.getSheared());
@@ -436,7 +436,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		super.readEntityFromNBT(compound);
 
@@ -448,7 +448,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public EntityAnimaniaGoat createChild(EntityAgeable ageable)
+	public EntityAnimaniaGoat createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

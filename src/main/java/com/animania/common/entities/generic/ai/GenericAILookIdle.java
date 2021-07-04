@@ -4,18 +4,20 @@ package com.animania.common.entities.generic.ai;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.handler.AddonInjectionHandler;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAILookIdle;
 
-public class GenericAILookIdle<T extends EntityLiving & ISleeping> extends EntityAILookIdle
+import LivingEntity;
+
+public class GenericAILookIdle<T extends LivingEntity & ISleeping> extends EntityAILookIdle
 {
 	/** The entity that is looking idle. */
 	private final T entity;
 
-	public GenericAILookIdle(T entitylivingIn)
+	public GenericAILookIdle(T LivingEntityIn)
 	{
-		super(entitylivingIn);
-		this.entity = entitylivingIn;
+		super(LivingEntityIn);
+		this.entity = LivingEntityIn;
 	}
 
 	/**

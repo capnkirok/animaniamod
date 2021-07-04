@@ -2,13 +2,13 @@ package com.animania.addons.farm.compat.waila;
 
 import java.util.List;
 
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderMateable;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
 
-public class WailaEntityStallionProvider extends WailaEntityAnimalProviderMateable
+public class WailaEntityStallionProvider extends WailaAnimalEntityProviderMateable
 {
 
     @Override

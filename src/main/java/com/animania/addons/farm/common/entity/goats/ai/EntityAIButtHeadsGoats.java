@@ -11,14 +11,14 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.World;
 
 public class EntityAIButtHeadsGoats extends EntityAIBase
 {
 	private final EntityAnimaniaGoat theAnimal;
 	World theWorld;
-	private EntityAnimal targetMate;
+	private AnimalEntity targetMate;
 	int fightTimer;
 	double moveSpeed;
 	private int delayCounter;
@@ -88,7 +88,7 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 		EntityBuckBase thisEntity = (EntityBuckBase) this.theAnimal;
 		if (thisEntity.getFighting()) {
 			this.theAnimal.getLookHelper().setLookPositionWithEntity(this.targetMate, 10.0F, (float)this.theAnimal.getVerticalFaceSpeed());
-			this.theAnimal.getNavigator().tryMoveToEntityLiving(this.targetMate, this.moveSpeed);
+			this.theAnimal.getNavigator().tryMoveToLivingEntity(this.targetMate, this.moveSpeed);
 		} else {
 
 			thisEntity.getNavigator().clearPath();
@@ -96,7 +96,7 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 
 	}
 
-	private EntityAnimal getNearbyRival() {
+	private AnimalEntity getNearbyRival() {
 
 		if (this.theAnimal instanceof EntityBuckBase) {
 		
@@ -150,10 +150,10 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 				} else {
 					
 					thisEntity.getLookHelper().setLookPositionWithEntity(foundEntity, 10.0F, thisEntity.getVerticalFaceSpeed());
-					thisEntity.getNavigator().tryMoveToEntityLiving(foundEntity, this.moveSpeed);
+					thisEntity.getNavigator().tryMoveToLivingEntity(foundEntity, this.moveSpeed);
 		
 					foundEntity.getLookHelper().setLookPositionWithEntity(thisEntity, 10.0F, foundEntity.getVerticalFaceSpeed());
-					foundEntity.getNavigator().tryMoveToEntityLiving(thisEntity, this.moveSpeed);
+					foundEntity.getNavigator().tryMoveToLivingEntity(thisEntity, this.moveSpeed);
 					
 					return null;
 

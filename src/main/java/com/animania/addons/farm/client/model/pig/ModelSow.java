@@ -8,12 +8,12 @@ import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntitySowYorkshi
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class ModelSow extends ModelBase
 {
     private float headRotationAngleX;
@@ -205,12 +205,12 @@ public class ModelSow extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+    public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 
-        super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+        super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        if (entitylivingbaseIn instanceof EntitySowYorkshire) {
-        	EntitySowYorkshire entitySowYorkshire = (EntitySowYorkshire) entitylivingbaseIn;
+        if (LivingEntityIn instanceof EntitySowYorkshire) {
+        	EntitySowYorkshire entitySowYorkshire = (EntitySowYorkshire) LivingEntityIn;
             this.Head.rotationPointY = 11.0F + entitySowYorkshire.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                         // should
                                                                                                                                         // match
@@ -219,8 +219,8 @@ public class ModelSow extends ModelBase
                                                                                                                                         // point
             this.headRotationAngleX = entitySowYorkshire.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntitySowOldSpot) {
-        	EntitySowOldSpot entitySowOldSpot = (EntitySowOldSpot) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntitySowOldSpot) {
+        	EntitySowOldSpot entitySowOldSpot = (EntitySowOldSpot) LivingEntityIn;
             this.Head.rotationPointY = 11.0F + entitySowOldSpot.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                       // should
                                                                                                                                       // match
@@ -229,8 +229,8 @@ public class ModelSow extends ModelBase
                                                                                                                                       // point
             this.headRotationAngleX = entitySowOldSpot.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntitySowDuroc) {
-        	EntitySowDuroc entitySowDuroc = (EntitySowDuroc) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntitySowDuroc) {
+        	EntitySowDuroc entitySowDuroc = (EntitySowDuroc) LivingEntityIn;
             this.Head.rotationPointY = 11.0F + entitySowDuroc.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                     // should
                                                                                                                                     // match
@@ -239,8 +239,8 @@ public class ModelSow extends ModelBase
                                                                                                                                     // point
             this.headRotationAngleX = entitySowDuroc.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntitySowLargeWhite) {
-        	EntitySowLargeWhite entitySowLargeWhite = (EntitySowLargeWhite) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntitySowLargeWhite) {
+        	EntitySowLargeWhite entitySowLargeWhite = (EntitySowLargeWhite) LivingEntityIn;
             this.Head.rotationPointY = 11.0F + entitySowLargeWhite.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                          // should
                                                                                                                                          // match

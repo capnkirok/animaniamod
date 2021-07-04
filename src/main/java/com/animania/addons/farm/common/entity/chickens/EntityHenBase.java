@@ -17,14 +17,14 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -37,8 +37,8 @@ import net.minecraft.world.World;
 public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
 
-	protected static final DataParameter<Boolean> LAID = EntityDataManager.<Boolean> createKey(EntityHenBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> LAID_TIMER = EntityDataManager.<Integer> createKey(EntityHenBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> LAID = EntityDataManager.<Boolean> defineId(EntityHenBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> LAID_TIMER = EntityDataManager.<Integer> defineId(EntityHenBase.class, DataSerializers.INT);
 
 	public EntityHenBase(World worldIn)
 	{
@@ -59,7 +59,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	public ILivingEntityData onInitialSpawn(DifficultyInstance difficulty, @Nullable ILivingEntityData livingdata)
 	{
 		if (this.world.isRemote)
 			return null;
@@ -116,7 +116,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)
 		{
-			((EntityLivingBase) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((LivingEntity) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
 		}
 
 		return flag;
@@ -140,21 +140,21 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
-		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setBoolean("Laid", this.getLaid());
-		nbttagcompound.setInteger("EggLayTime", timeUntilNextEgg);
-		nbttagcompound.setInteger("LaidTimer", this.getLaidTimer());
+		super.writeEntityToNBT(CompoundNBT);
+		CompoundNBT.setBoolean("Laid", this.getLaid());
+		CompoundNBT.setInteger("EggLayTime", timeUntilNextEgg);
+		CompoundNBT.setInteger("LaidTimer", this.getLaidTimer());
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+	public void readEntityFromNBT(CompoundNBT CompoundNBT)
 	{
-		super.readEntityFromNBT(nbttagcompound);
-		this.timeUntilNextEgg = nbttagcompound.getInteger("EggLayTime");
-		this.setLaid(nbttagcompound.getBoolean("Laid"));
-		this.setLaidTimer(nbttagcompound.getInteger("LaidTimer"));
+		super.readEntityFromNBT(CompoundNBT);
+		this.timeUntilNextEgg = CompoundNBT.getInteger("EggLayTime");
+		this.setLaid(CompoundNBT.getBoolean("Laid"));
+		this.setLaidTimer(CompoundNBT.getInteger("LaidTimer"));
 	}
 
 	public int getLaidTimer()

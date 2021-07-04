@@ -91,7 +91,7 @@ public class BlockMud extends Block
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
 	{
 		AddonInjectionHandler.runInjection("farm", "mudParticleDisplay", Void.class, stateIn, worldIn, pos, rand);

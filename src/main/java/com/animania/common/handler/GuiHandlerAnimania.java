@@ -11,13 +11,13 @@ public class GuiHandlerAnimania implements IGuiHandler
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z)
 	{
-		return AddonHandler.openAddonGui(player, id, world, x, y, z, Side.SERVER);
+		return AddonHandler.openAddonGui(player, id, world, x, y, z, Dist.DEDICATED_SERVER);
 		
 	}
 
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z)
 	{
-		return AddonHandler.openAddonGui(player, id, world, x, y, z, Side.CLIENT);
+		return AddonHandler.openAddonGui(player, id, world, x, y, z, Dist.CLIENT);
 	}
 }

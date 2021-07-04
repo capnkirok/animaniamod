@@ -33,20 +33,20 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIOcelotSit;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.EntitySilverfish;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -134,7 +134,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 			AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 			AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 
-			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, EntityAnimal.class, false, (entity) -> entity instanceof EntitySilverfish));
+			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof EntitySilverfish));
 		}
 		this.tasks.taskEntries.removeIf(task -> task.action instanceof EntityAIOcelotSit);
 	}
@@ -169,7 +169,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("IsTamed", this.isTamed());
@@ -179,7 +179,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		super.readEntityFromNBT(compound);
 		this.setTamed(compound.getBoolean("IsTamed"));
@@ -321,7 +321,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
 		if (id == 10)
@@ -349,7 +349,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public EntityOcelot createChild(EntityAgeable ageable)
+	public EntityOcelot createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

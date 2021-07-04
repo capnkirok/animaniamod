@@ -17,7 +17,7 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -29,11 +29,11 @@ import net.minecraft.world.World;
 public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProviderMateable, IMateable, IImpregnable
 {
 
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityQueenBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> createKey(EntityQueenBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> createKey(EntityQueenBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> createKey(EntityQueenBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> createKey(EntityQueenBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityQueenBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> defineId(EntityQueenBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> defineId(EntityQueenBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> defineId(EntityQueenBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> defineId(EntityQueenBase.class, DataSerializers.INT);
 	public int dryTimer;
 
 	public EntityQueenBase(World worldIn)
@@ -48,7 +48,7 @@ public class EntityQueenBase extends EntityAnimaniaCat implements TOPInfoProvide
 
 	@Override
 	@Nullable
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	public ILivingEntityData onInitialSpawn(DifficultyInstance difficulty, @Nullable ILivingEntityData livingdata)
 	{
 		GenericBehavior.initialSpawnFemale(this, EntityAnimaniaCat.class);
 

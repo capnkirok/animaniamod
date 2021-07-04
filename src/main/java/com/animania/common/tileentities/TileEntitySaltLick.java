@@ -6,7 +6,7 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -21,7 +21,7 @@ public class TileEntitySaltLick extends TileEntity
 		usesLeft--;
 
 		if (usesLeft <= 0)
-			world.setBlockState(pos, Blocks.AIR.getDefaultState());
+			level.setBlockAndUpdate(worldPosition, Blocks.AIR.getDefaultState());
 	}
 
 	@Override
@@ -39,9 +39,9 @@ public class TileEntitySaltLick extends TileEntity
 	}
 
 	@Override
-	public NBTTagCompound getUpdateTag()
+	public CompoundNBT getUpdateTag()
 	{
-		return this.writeToNBT(new NBTTagCompound());
+		return this.writeToNBT(new CompoundNBT());
 	}
 	
 	@Override
@@ -53,9 +53,9 @@ public class TileEntitySaltLick extends TileEntity
 	}
 
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	public CompoundNBT writeToNBT(CompoundNBT compound)
 	{
-		NBTTagCompound tag = super.writeToNBT(compound);
+		CompoundNBT tag = super.writeToNBT(compound);
 		tag.setInteger("usesLeft", usesLeft);
 
 		return tag;
@@ -63,7 +63,7 @@ public class TileEntitySaltLick extends TileEntity
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
+	public void readFromNBT(CompoundNBT compound)
 	{
 		super.readFromNBT(compound);
 		this.usesLeft = compound.getInteger("usesLeft");

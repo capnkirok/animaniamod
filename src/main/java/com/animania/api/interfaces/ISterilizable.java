@@ -19,7 +19,7 @@ public interface ISterilizable extends IAnimaniaAnimal
 	{
 		DataParameter<Boolean> param = getSterilizedParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, sterilized);
+			((Entity) this).getEntityData().set(param, sterilized);
 	}
 	
 	public void sterilize();

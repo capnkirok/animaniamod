@@ -20,7 +20,7 @@ import com.animania.addons.extra.config.ExtraConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -52,7 +52,7 @@ public class ExtraAddonSpawnHandler
 
 			chooser = Animania.RANDOM.nextInt(2) + 1;
 
-			List<EntityLivingBase> otheranimals = AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 100, event.getEntity().world, pos);
+			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().world, pos);
 			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(3);

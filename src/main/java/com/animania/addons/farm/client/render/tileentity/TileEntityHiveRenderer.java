@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class TileEntityHiveRenderer extends TileEntitySpecialRenderer<TileEntityHive>
 {
 	private static final ResourceLocation HIVE_TEXTURE = new ResourceLocation("animania:textures/entity/props/bee_hive.png");

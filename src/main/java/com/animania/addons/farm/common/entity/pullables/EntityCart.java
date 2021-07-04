@@ -17,9 +17,9 @@ import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -31,7 +31,7 @@ import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -50,6 +50,8 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import AnimationHandler;
 
 public class EntityCart extends AnimatedEntityBase implements IInventoryChangedListener
 {
@@ -404,17 +406,17 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		}
 
 		// Mounting a horse that is riding a cart...
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityAnimal)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof AnimalEntity)
 		{
 
-			EntityAnimal entityanimal = (EntityAnimal) this.getControllingPassenger();
-			if (entityanimal.isBeingRidden() && entityanimal.getControllingPassenger() instanceof EntityPlayer)
+			AnimalEntity AnimalEntity = (AnimalEntity) this.getControllingPassenger();
+			if (AnimalEntity.isBeingRidden() && AnimalEntity.getControllingPassenger() instanceof EntityPlayer)
 			{
-				entityanimal.applyEntityCollision(this);
-				entityanimal.dismountRidingEntity();
+				AnimalEntity.applyEntityCollision(this);
+				AnimalEntity.dismountRidingEntity();
 				this.dismountRidingEntity();
-				entityanimal.dismountEntity(this);
-				entityanimal.removePassengers();
+				AnimalEntity.dismountEntity(this);
+				AnimalEntity.removePassengers();
 				this.removePassengers();
 			}
 
@@ -550,13 +552,13 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 		// TODO didn't work
 
-		if (this.pulled && this.puller instanceof EntityAnimal)
+		if (this.pulled && this.puller instanceof AnimalEntity)
 		{
 			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, world, this);
 			List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
 			List tillers = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, world, this);
 
-			EntityAnimal animal = (EntityAnimal) this.puller;
+			AnimalEntity animal = (AnimalEntity) this.puller;
 
 			// System.out.println(carts.size() + wagons.size() +
 			// tillers.size());
@@ -729,13 +731,13 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			{
 				Entity entity = list.get(j);
 
-				if (entity instanceof EntityAnimal)
+				if (entity instanceof AnimalEntity)
 				{
 
-					EntityAnimal entityanimal = (EntityAnimal) entity;
+					AnimalEntity AnimalEntity = (AnimalEntity) entity;
 					if (!entity.isPassenger(this))
 					{
-						if (flag && this.getPassengers().size() < 2 && this.puller != entity && entityanimal.getLeashed() && entityanimal.getLeashHolder() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer))
+						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof EntityPlayer))
 						{
 							entity.startRiding(this);
 						} else
@@ -792,7 +794,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
 	{
 		this.cartPitch = x;
@@ -822,7 +824,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					f = -0.6F;
 				}
 
-				if (passenger instanceof EntityAnimal)
+				if (passenger instanceof AnimalEntity)
 				{
 					f = (float) ((double) f + 0.2D);
 				}
@@ -834,11 +836,11 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
 			this.applyYawToEntity(passenger);
 
-			if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
+			if (passenger instanceof AnimalEntity && this.getPassengers().size() > 1)
 			{
 
 				int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-				passenger.setRenderYawOffset(((EntityAnimal) passenger).renderYawOffset + (float) j);
+				passenger.setRenderYawOffset(((AnimalEntity) passenger).renderYawOffset + (float) j);
 				passenger.setRotationYawHead(passenger.getRotationYawHead() + (float) j);
 			}
 		}
@@ -858,7 +860,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void applyOrientationToEntity(Entity entityToUpdate)
 	{
 		this.applyYawToEntity(entityToUpdate);
@@ -963,7 +965,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		this.dataManager.set(EntityCart.PULLER_TYPE, Integer.valueOf(pullerType));
 	}
 
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		compound.setInteger("PullerType", this.getPullerType());
 
@@ -975,10 +977,10 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 			if (!itemstack.isEmpty())
 			{
-				NBTTagCompound nbttagcompound = new NBTTagCompound();
-				nbttagcompound.setByte("Slot", (byte) i);
-				itemstack.writeToNBT(nbttagcompound);
-				nbttaglist.appendTag(nbttagcompound);
+				CompoundNBT CompoundNBT = new CompoundNBT();
+				CompoundNBT.setByte("Slot", (byte) i);
+				itemstack.writeToNBT(CompoundNBT);
+				nbttaglist.appendTag(CompoundNBT);
 			}
 		}
 		compound.setBoolean("HasChest", this.getHasChest());
@@ -986,7 +988,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		compound.setTag("Items", nbttaglist);
 	}
 
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		this.setPullerType(compound.getInteger("PullerType"));
 
@@ -995,12 +997,12 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
-			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-			int j = nbttagcompound.getByte("Slot") & 255;
+			CompoundNBT CompoundNBT = nbttaglist.getCompoundTagAt(i);
+			int j = CompoundNBT.getByte("Slot") & 255;
 
 			if (j >= 0 && j < this.cartChest.getSizeInventory())
 			{
-				this.cartChest.setInventorySlotContents(j, new ItemStack(nbttagcompound));
+				this.cartChest.setInventorySlotContents(j, new ItemStack(CompoundNBT));
 			}
 		}
 		this.setHasChest(compound.getBoolean("HasChest"));
@@ -1052,7 +1054,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void performHurtAnimation()
 	{
 		this.setTimeSinceHit(10);

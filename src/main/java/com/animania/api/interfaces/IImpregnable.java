@@ -29,7 +29,7 @@ public interface IImpregnable extends IAnimaniaAnimal
 	{
 		DataParameter<Boolean> param = getFertileParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, fertile);
+			((Entity) this).getEntityData().set(param, fertile);
 	}
 
 	default boolean getPregnant()
@@ -48,7 +48,7 @@ public interface IImpregnable extends IAnimaniaAnimal
 		{
 			if(pregnant)
 				this.setGestation(AnimaniaConfig.careAndFeeding.gestationTimer + Animania.RANDOM.nextInt(200));
-			((Entity) this).getDataManager().set(param, pregnant);
+			((Entity) this).getEntityData().set(param, pregnant);
 
 		}
 	}
@@ -57,7 +57,7 @@ public interface IImpregnable extends IAnimaniaAnimal
 	{
 		DataParameter<Boolean> param = getHasKidsParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, hasKids);
+			((Entity) this).getEntityData().set(param, hasKids);
 	}
 	
 	default boolean getHasKids()
@@ -73,7 +73,7 @@ public interface IImpregnable extends IAnimaniaAnimal
 	{
 		DataParameter<Integer> param = getGestationParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, gestation);
+			((Entity) this).getEntityData().set(param, gestation);
 	}
 	
 	default int getGestation()

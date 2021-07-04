@@ -2,19 +2,19 @@ package com.animania.addons.extra.compat.waila;
 
 import java.util.List;
 
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderBase;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderBase;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class WailaEntityRodentProvider extends WailaEntityAnimalProviderBase
+public class WailaEntityRodentProvider extends WailaAnimalEntityProviderBase
 {
 
     @Override
@@ -32,7 +32,7 @@ public class WailaEntityRodentProvider extends WailaEntityAnimalProviderBase
         
         if (accessor.getPlayer().isSneaking())
             if (tamed) {
-                EntityLivingBase owner = ((EntityTameable) accessor.getEntity()).getOwner();
+                LivingEntity owner = ((TameableEntity) accessor.getEntity()).getOwner();
                 if (owner != null) {
                     String name = owner.getName();
                     if (!name.equals(""))
@@ -49,8 +49,8 @@ public class WailaEntityRodentProvider extends WailaEntityAnimalProviderBase
     }
 
     @Override
-    public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world) {
-        NBTTagCompound comp = ent.getEntityData();
+    public CompoundNBT getNBTData(EntityPlayerMP player, Entity ent, CompoundNBT tag, World world) {
+        CompoundNBT comp = ent.getEntityData();
 
         tag.setBoolean("IsSitting", comp.getBoolean("IsSitting"));
         tag.setBoolean("IsTamed", comp.getBoolean("IsTamed"));

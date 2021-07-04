@@ -3,10 +3,12 @@ package com.animania.common.entities.generic.ai;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.handler.AddonInjectionHandler;
 
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIPanic;
 
-public class GenericAIPanic<T extends EntityCreature> extends EntityAIPanic
+import CreatureEntity;
+
+public class GenericAIPanic<T extends CreatureEntity> extends EntityAIPanic
 {
 	public GenericAIPanic(T creature, double speedIn)
 	{

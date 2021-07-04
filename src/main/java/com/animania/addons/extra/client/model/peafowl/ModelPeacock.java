@@ -5,7 +5,7 @@ import com.animania.addons.extra.common.entity.peafowl.EntityAnimaniaPeacock;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelPeacock extends ModelBase
@@ -604,7 +604,7 @@ public class ModelPeacock extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entity, float limbSwingAmount, float ageInTicks, float partialTickTime) {
+    public void setLivingAnimations(LivingEntity entity, float limbSwingAmount, float ageInTicks, float partialTickTime) {
 
         super.setLivingAnimations(entity, limbSwingAmount, ageInTicks, partialTickTime);
         

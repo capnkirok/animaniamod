@@ -17,7 +17,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderCowMooshroom<T extends EntityCowMooshroom> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
@@ -75,9 +75,9 @@ public class RenderCowMooshroom<T extends EntityCowMooshroom> extends RenderLivi
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
+	protected void preRenderCallback(T LivingEntity, float f)
 	{
-		this.preRenderScale(entityliving, f);
+		this.preRenderScale(LivingEntity, f);
 	}
 
 	static class Factory<T extends EntityCowMooshroom> implements IRenderFactory<T>

@@ -27,6 +27,8 @@ import com.animania.api.interfaces.AnimaniaType;
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
 
+import StatBase;
+
 public enum SheepType implements AnimaniaType
 {
 	DORPER(EntityRamDorper.class, EntityEweDorper.class, EntityLambDorper.class, null, true),

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderBuckCottontail<T extends EntityRabbitBuckCottontail> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
@@ -61,9 +61,9 @@ public class RenderBuckCottontail<T extends EntityRabbitBuckCottontail> extends 
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
+	protected void preRenderCallback(T LivingEntity, float f)
 	{
-		this.preRenderScale(entityliving, f);
+		this.preRenderScale(LivingEntity, f);
 	}
 
 	@Override

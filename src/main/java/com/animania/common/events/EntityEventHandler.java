@@ -7,10 +7,10 @@ import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.EntitySquid;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
@@ -34,12 +34,12 @@ public class EntityEventHandler
 	public static void onEntityTakeDamage(LivingHurtEvent event)
 	{
 		float amount = event.getAmount();
-		EntityLivingBase entity = event.getEntityLiving();
+		LivingEntity entity = event.getLivingEntity();
 		DamageSource source = event.getSource();
 
-		if (entity instanceof EntityAnimal)
+		if (entity instanceof AnimalEntity)
 		{
-			EntityAnimal animal = (EntityAnimal) entity;
+			AnimalEntity animal = (AnimalEntity) entity;
 
 			if (source == DamageSource.FALL)
 				if (animal.getLeashed())
@@ -56,12 +56,12 @@ public class EntityEventHandler
 	public static void onEntityHit(LivingAttackEvent event)
 	{
 		float amount = event.getAmount();
-		EntityLivingBase entity = event.getEntityLiving();
+		LivingEntity entity = event.getLivingEntity();
 		DamageSource source = event.getSource();
 
-		if (entity instanceof EntityLivingBase && entity instanceof IAnimaniaAnimal)
+		if (entity instanceof LivingEntity && entity instanceof IAnimaniaAnimal)
 		{
-			EntityLivingBase animal = entity;
+			LivingEntity animal = entity;
 
 			if (animal.isRiding())
 				event.setCanceled(true);
@@ -81,10 +81,10 @@ public class EntityEventHandler
 			}
 		}
 
-		if (entity instanceof EntityTameable)
+		if (entity instanceof TameableEntity)
 		{
-			if (((EntityTameable) entity).isSitting())
-				((EntityTameable) entity).setSitting(false);
+			if (((TameableEntity) entity).isSitting())
+				((TameableEntity) entity).setSitting(false);
 		}
 
 	}
@@ -101,12 +101,12 @@ public class EntityEventHandler
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingUpdateEvent event)
 	{
-		EntityLivingBase entity = event.getEntityLiving();
+		LivingEntity entity = event.getLivingEntity();
 
-		if (entity instanceof ISleeping && entity instanceof EntityAnimal)
+		if (entity instanceof ISleeping && entity instanceof AnimalEntity)
 		{
 			ISleeping isleeping = (ISleeping) entity;
-			if (isleeping.getSleeping() && ((EntityAnimal) entity).getLeashed())
+			if (isleeping.getSleeping() && ((AnimalEntity) entity).getLeashed())
 				isleeping.setSleeping(false);
 		}
 	}

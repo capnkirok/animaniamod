@@ -8,7 +8,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelBullLonghorn extends ModelBase
@@ -297,15 +297,15 @@ public class ModelBullLonghorn extends ModelBase
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
-		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+	public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		if (entitylivingbaseIn instanceof EntityBullLonghorn) {
-			EntityBullLonghorn entityBullLonghorn = (EntityBullLonghorn) entitylivingbaseIn;
+		if (LivingEntityIn instanceof EntityBullLonghorn) {
+			EntityBullLonghorn entityBullLonghorn = (EntityBullLonghorn) LivingEntityIn;
 			this.Head.rotationPointY = 6.0F + entityBullLonghorn.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = entityBullLonghorn.getHeadAngleX(partialTickTime);
-		} else if (entitylivingbaseIn instanceof EntityBullHighland) {
-			EntityBullHighland entityBullHighland = (EntityBullHighland) entitylivingbaseIn;
+		} else if (LivingEntityIn instanceof EntityBullHighland) {
+			EntityBullHighland entityBullHighland = (EntityBullHighland) LivingEntityIn;
 			this.Head.rotationPointY = 6.0F + entityBullHighland.getHeadAnchorPointY(partialTickTime) * 9.0F;
 			this.headRotationAngleX = entityBullHighland.getHeadAngleX(partialTickTime);
 		}

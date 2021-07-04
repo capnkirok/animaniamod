@@ -9,13 +9,13 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class EntityAIFollowMateHorses extends EntityAIBase
 {
 	EntityAnimaniaHorse thisAnimal;
-	EntityAnimal mateAnimal;
+	AnimalEntity mateAnimal;
 	double moveSpeed;
 	private int delayCounter;
 
@@ -59,7 +59,7 @@ public class EntityAIFollowMateHorses extends EntityAIBase
 							double z2 = Math.abs(zt - z1);
 
 							if (x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
-								this.mateAnimal = (EntityAnimal) entity;
+								this.mateAnimal = (AnimalEntity) entity;
 								return true;
 							} else {
 								return false;
@@ -101,7 +101,7 @@ public class EntityAIFollowMateHorses extends EntityAIBase
 		if (--this.delayCounter <= 0)
 		{
 			this.delayCounter = 60;
-			this.thisAnimal.getNavigator().tryMoveToEntityLiving(this.mateAnimal, this.moveSpeed);
+			this.thisAnimal.getNavigator().tryMoveToLivingEntity(this.mateAnimal, this.moveSpeed);
 		}
 	}
 }

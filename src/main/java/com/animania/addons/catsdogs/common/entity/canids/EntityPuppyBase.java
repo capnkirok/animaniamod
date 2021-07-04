@@ -20,8 +20,8 @@ import net.minecraft.world.World;
 public class EntityPuppyBase extends EntityAnimaniaDog implements TOPInfoProviderChild, IChild, IPlaying
 {
 
-	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityPuppyBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> createKey(EntityPuppyBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityPuppyBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(EntityPuppyBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
 	protected GenericAIPlay playAI;

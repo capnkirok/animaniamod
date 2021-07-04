@@ -2,17 +2,19 @@ package com.animania.api.interfaces;
 
 import com.animania.Animania;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
+
+import LivingEntity;
 
 public interface AnimaniaType
 {
 
-	public EntityLivingBase getMale(World world);
+	public LivingEntity getMale(World world);
 	
-	public EntityLivingBase getFemale(World world);
+	public LivingEntity getFemale(World world);
 	
-	public EntityLivingBase getChild(World world);
+	public LivingEntity getChild(World world);
 	
 	public static AnimaniaType valueOf(String type)
 	{

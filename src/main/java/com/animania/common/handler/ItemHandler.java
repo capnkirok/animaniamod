@@ -13,7 +13,7 @@ import com.animania.common.items.ItemManual;
 
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityList.EntityEggInfo;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -48,7 +48,7 @@ public class ItemHandler
 					if (item != ItemHandler.entityeggrandomanimal)
 					{
 						AnimalContainer animal = ((ItemEntityEgg) item).getAnimal();
-						EntityLivingBase entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world);
+						LivingEntity entity = EntityGender.getEntity(animal.getType(), animal.getGender(), world);
 
 						if (animal.getGender() != EntityGender.RANDOM)
 						{

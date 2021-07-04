@@ -23,7 +23,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
@@ -80,7 +80,7 @@ public class GuiManual extends GuiScreen
 	{
 		if (book.hasTagCompound())
 		{
-			NBTTagCompound tag = book.getTagCompound();
+			CompoundNBT tag = book.getTagCompound();
 			if (tag.hasKey("currentTopic") && tag.hasKey("lastTopic"))
 			{
 				INSTANCE.currentTopic = INSTANCE.manualContent.get(new ResourceLocation(tag.getString("currentTopic")));
@@ -219,7 +219,7 @@ public class GuiManual extends GuiScreen
 		updateButtons();
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	static class NextPageButton extends GuiButton
 	{
 		private final boolean isForward;
@@ -266,7 +266,7 @@ public class GuiManual extends GuiScreen
 		}
 	}
 	
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	static class PrevPageButton extends GuiButton
 	{
 		private final boolean isForward;

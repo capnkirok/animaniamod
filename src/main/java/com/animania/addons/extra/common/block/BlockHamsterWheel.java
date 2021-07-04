@@ -23,12 +23,12 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -96,7 +96,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 			{
 				ICapabilityPlayer cap = player.getCapability(CapabilityRefs.CAPS, null);
 
-				NBTTagCompound hamsternbt = cap.getAnimal();
+				CompoundNBT hamsternbt = cap.getAnimal();
 
 				if (!hamsternbt.hasNoTags() && cap.isCarrying() && cap.getType().equals("hamster"))
 
@@ -107,7 +107,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 					{
 						te.setHamster(hamster);
 						te.markDirty();
-						cap.setAnimal(new NBTTagCompound());
+						cap.setAnimal(new CompoundNBT());
 						cap.setCarrying(false);
 						cap.setType("");
 						player.swingArm(EnumHand.MAIN_HAND);
@@ -176,13 +176,13 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 	}
 
 	@Override
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
 	{
 		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, LivingEntity placer, ItemStack stack)
 	{
 		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 	}

@@ -24,9 +24,9 @@ import net.minecraft.block.BlockTallGrass;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -38,7 +38,7 @@ import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -59,6 +59,8 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import AnimationHandler;
 
 public class EntityTiller extends AnimatedEntityBase implements IInventoryChangedListener
 {
@@ -415,17 +417,17 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		}
 
 		// Mounting a horse that is riding a cart...
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityAnimal)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof AnimalEntity)
 		{
 
-			EntityAnimal entityanimal = (EntityAnimal) this.getControllingPassenger();
-			if (entityanimal.isBeingRidden() && entityanimal.getControllingPassenger() instanceof EntityPlayer)
+			AnimalEntity AnimalEntity = (AnimalEntity) this.getControllingPassenger();
+			if (AnimalEntity.isBeingRidden() && AnimalEntity.getControllingPassenger() instanceof EntityPlayer)
 			{
-				entityanimal.applyEntityCollision(this);
-				entityanimal.dismountRidingEntity();
+				AnimalEntity.applyEntityCollision(this);
+				AnimalEntity.dismountRidingEntity();
 				this.dismountRidingEntity();
-				entityanimal.dismountEntity(this);
-				entityanimal.removePassengers();
+				AnimalEntity.dismountEntity(this);
+				AnimalEntity.removePassengers();
 				this.removePassengers();
 			}
 
@@ -558,10 +560,10 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 			}
 		}
 
-		if (this.pulled && this.puller instanceof EntityAnimal)
+		if (this.pulled && this.puller instanceof AnimalEntity)
 		{
 			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, world, this);
-			EntityAnimal animal = (EntityAnimal) this.puller;
+			AnimalEntity animal = (AnimalEntity) this.puller;
 			int totPulling = 0;
 			if (!carts.isEmpty())
 			{
@@ -697,13 +699,13 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 			{
 				Entity entity = list.get(j);
 
-				if (entity instanceof EntityAnimal)
+				if (entity instanceof AnimalEntity)
 				{
 
-					EntityAnimal entityanimal = (EntityAnimal) entity;
+					AnimalEntity AnimalEntity = (AnimalEntity) entity;
 					if (!entity.isPassenger(this))
 					{
-						if (flag && this.getPassengers().size() < 2 && this.puller != entity && entityanimal.getLeashed() && entityanimal.getLeashHolder() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof EntityLivingBase && !(entity instanceof EntityPlayer))
+						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof EntityPlayer))
 						{
 							entity.startRiding(this);
 						} else
@@ -756,7 +758,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport)
 	{
 		this.cartPitch = x;
@@ -787,7 +789,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 					f = -0.6F;
 				}
 
-				if (passenger instanceof EntityAnimal)
+				if (passenger instanceof AnimalEntity)
 				{
 					f = (float) (f + 0.2D);
 				}
@@ -799,11 +801,11 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 			passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
 			this.applyYawToEntity(passenger);
 
-			if (passenger instanceof EntityAnimal && this.getPassengers().size() > 1)
+			if (passenger instanceof AnimalEntity && this.getPassengers().size() > 1)
 			{
 
 				int j = passenger.getEntityId() % 2 == 0 ? 90 : 270;
-				passenger.setRenderYawOffset(((EntityAnimal) passenger).renderYawOffset + j);
+				passenger.setRenderYawOffset(((AnimalEntity) passenger).renderYawOffset + j);
 				passenger.setRotationYawHead(passenger.getRotationYawHead() + j);
 			}
 		}
@@ -824,7 +826,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void applyOrientationToEntity(Entity entityToUpdate)
 	{
 		this.applyYawToEntity(entityToUpdate);
@@ -929,7 +931,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		compound.setInteger("PullerType", this.getPullerType());
 
@@ -941,10 +943,10 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 			if (!itemstack.isEmpty())
 			{
-				NBTTagCompound nbttagcompound = new NBTTagCompound();
-				nbttagcompound.setByte("Slot", (byte) i);
-				itemstack.writeToNBT(nbttagcompound);
-				nbttaglist.appendTag(nbttagcompound);
+				CompoundNBT CompoundNBT = new CompoundNBT();
+				CompoundNBT.setByte("Slot", (byte) i);
+				itemstack.writeToNBT(CompoundNBT);
+				nbttaglist.appendTag(CompoundNBT);
 			}
 		}
 		compound.setBoolean("HasChest", this.getHasChest());
@@ -953,7 +955,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		this.setPullerType(compound.getInteger("PullerType"));
 
@@ -962,12 +964,12 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
-			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-			int j = nbttagcompound.getByte("Slot") & 255;
+			CompoundNBT CompoundNBT = nbttaglist.getCompoundTagAt(i);
+			int j = CompoundNBT.getByte("Slot") & 255;
 
 			if (j >= 0 && j < this.cartChest.getSizeInventory())
 			{
-				this.cartChest.setInventorySlotContents(j, new ItemStack(nbttagcompound));
+				this.cartChest.setInventorySlotContents(j, new ItemStack(CompoundNBT));
 			}
 		}
 		this.setHasChest(compound.getBoolean("HasChest"));
@@ -1020,7 +1022,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void performHurtAnimation()
 	{
 		this.setTimeSinceHit(10);

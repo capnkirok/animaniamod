@@ -18,7 +18,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderKitLop<T extends EntityRabbitKitLop> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
@@ -63,10 +63,10 @@ private static int[] EYE_COLORS = new int[]{0x404040, 0x816D60, 0xD0A675, 0x7F6C
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
+	protected void preRenderCallback(T LivingEntity, float f)
 	{
-		this.preRenderScale(entityliving, f);
-		this.blinkingLayer.setColors(EYE_COLORS[entityliving.getColorNumber()], EYE_COLORS[entityliving.getColorNumber()]);
+		this.preRenderScale(LivingEntity, f);
+		this.blinkingLayer.setColors(EYE_COLORS[LivingEntity.getColorNumber()], EYE_COLORS[LivingEntity.getColorNumber()]);
 	}
 
 	@Override

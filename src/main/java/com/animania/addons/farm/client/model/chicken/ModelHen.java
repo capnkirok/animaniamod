@@ -3,7 +3,7 @@ package com.animania.addons.farm.client.model.chicken;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelHen extends ModelBase
@@ -202,8 +202,8 @@ public class ModelHen extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwingAmount, float ageInTicks, float partialTickTime) {
-        super.setLivingAnimations(entitylivingbaseIn, limbSwingAmount, ageInTicks, partialTickTime);
+    public void setLivingAnimations(LivingEntity LivingEntityIn, float limbSwingAmount, float ageInTicks, float partialTickTime) {
+        super.setLivingAnimations(LivingEntityIn, limbSwingAmount, ageInTicks, partialTickTime);
 
     }
 

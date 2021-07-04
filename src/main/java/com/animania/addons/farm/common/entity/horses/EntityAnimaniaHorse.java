@@ -33,8 +33,8 @@ import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -46,7 +46,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -290,7 +290,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void setJumpPower(int jumpPowerIn)
 	{
 
@@ -396,15 +396,15 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 		if (this.isBeingRidden() && this.canBeSteered()) // &&
 		// this.isHorseSaddled())
 		{
-			EntityLivingBase entitylivingbase = (EntityLivingBase) this.getControllingPassenger();
-			this.rotationYaw = entitylivingbase.rotationYaw;
+			LivingEntity LivingEntity = (LivingEntity) this.getControllingPassenger();
+			this.rotationYaw = LivingEntity.rotationYaw;
 			this.prevRotationYaw = this.rotationYaw;
-			this.rotationPitch = entitylivingbase.rotationPitch * 0.5F;
+			this.rotationPitch = LivingEntity.rotationPitch * 0.5F;
 			this.setRotation(this.rotationYaw, this.rotationPitch);
 			this.renderYawOffset = this.rotationYaw;
 			this.rotationYawHead = this.renderYawOffset;
-			strafe = entitylivingbase.moveStrafing * 0.5F;
-			forward = entitylivingbase.moveForward * 4F;
+			strafe = LivingEntity.moveStrafing * 0.5F;
+			forward = LivingEntity.moveForward * 4F;
 
 			if (forward <= 0.0F)
 			{
@@ -448,7 +448,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 			{
 				this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				super.travel(strafe, vertical / 8, forward);
-			} else if (entitylivingbase instanceof EntityPlayer)
+			} else if (LivingEntity instanceof EntityPlayer)
 			{
 				this.motionX = 0.0D;
 				this.motionY = 0.0D;
@@ -510,7 +510,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
 		if (id == 10)
@@ -548,7 +548,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
 
@@ -559,7 +559,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		super.readEntityFromNBT(compound);
 
@@ -569,7 +569,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	}
 
 	@Override
-	public EntityAgeable createChild(EntityAgeable ageable)
+	public AgeableEntity createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

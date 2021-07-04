@@ -11,7 +11,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -51,7 +51,7 @@ public class CarryInteractHandler
 					AnimaniaHelper.spawnEntity(world, e);
 				}
 
-				props.setAnimal(new NBTTagCompound());
+				props.setAnimal(new CompoundNBT());
 				props.setCarrying(false);
 				props.setType("");
 

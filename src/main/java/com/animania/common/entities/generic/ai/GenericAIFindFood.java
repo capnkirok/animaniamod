@@ -11,7 +11,7 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -19,7 +19,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 
-public class GenericAIFindFood<T extends EntityCreature & IFoodEating & ISleeping> extends GenericAISearchBlock
+import EntityAIBase;
+import CreatureEntity;
+
+public class GenericAIFindFood<T extends CreatureEntity & IFoodEating & ISleeping> extends GenericAISearchBlock
 {
 
 	private final T entity;

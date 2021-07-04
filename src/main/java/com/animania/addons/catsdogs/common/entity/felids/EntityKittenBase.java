@@ -20,8 +20,8 @@ import net.minecraft.world.World;
 public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProviderChild, IChild, IPlaying
 {
 
-	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityKittenBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> createKey(EntityKittenBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityKittenBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(EntityKittenBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
 	protected GenericAIPlay playAI;

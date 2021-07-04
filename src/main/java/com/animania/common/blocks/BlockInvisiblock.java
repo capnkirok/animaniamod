@@ -134,7 +134,7 @@ public class BlockInvisiblock extends BlockContainer implements TOPInfoProvider,
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public BlockRenderLayer getBlockLayer()
 	{
 		return BlockRenderLayer.CUTOUT;
@@ -183,7 +183,7 @@ public class BlockInvisiblock extends BlockContainer implements TOPInfoProvider,
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
 	{
 		IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));

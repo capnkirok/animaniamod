@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class TileEntityHamsterWheelRenderer extends TileEntitySpecialRenderer<TileEntityHamsterWheel>
 {
 	private static final ResourceLocation WHEEL_TEXTURE = new ResourceLocation("animania:textures/entity/tileentities/hamster_wheel.png");

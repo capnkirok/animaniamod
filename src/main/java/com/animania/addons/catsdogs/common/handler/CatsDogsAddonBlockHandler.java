@@ -29,7 +29,7 @@ public class CatsDogsAddonBlockHandler
 	public static void preInit()
 	{
 		petBowl = new BlockPetBowl();
-		catBed1 = new BlockProp("cat_bed_1", Material.CLOTH, MapColor.CLOTH, SoundType.CLOTH).setAABB(2, 0, 2, 14, 1, 14).setHardness(1.0f).setResistance(0.8f);
+		catBed1 = new BlockProp("cat_bed_1", Material.WOOL, MapColor.CLOTH, SoundType.CLOTH).setAABB(2, 0, 2, 14, 1, 14).setHardness(1.0f).setResistance(0.8f);
 		catBed2 = new BlockProp("cat_bed_2", Material.CLOTH, MapColor.CLOTH, SoundType.CLOTH).setAABB(2, 0, 2, 14, 2, 14).setHardness(1.0f).setResistance(0.8f);
 		catTower = new BlockProp("cat_tower", Material.WOOD, MapColor.WOOD, SoundType.WOOD).setAABB(0, 0, 0, 16, 24, 16).setHardness(1.4f).setResistance(0.8f);
 		dogHouse = new BlockProp("dog_house", Material.WOOD, MapColor.WOOD, SoundType.STONE).setHardness(1.5f).setResistance(1.4f);

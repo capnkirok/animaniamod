@@ -32,8 +32,8 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.passive.EntityChicken;
@@ -42,7 +42,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -177,22 +177,22 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
-		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setBoolean("IsChickenJockey", this.chickenJockey);
+		super.writeEntityToNBT(CompoundNBT);
+		CompoundNBT.setBoolean("IsChickenJockey", this.chickenJockey);
 
-		GenericBehavior.writeCommonNBT(nbttagcompound, this);
+		GenericBehavior.writeCommonNBT(CompoundNBT, this);
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+	public void readEntityFromNBT(CompoundNBT CompoundNBT)
 	{
-		super.readEntityFromNBT(nbttagcompound);
+		super.readEntityFromNBT(CompoundNBT);
 
-		this.chickenJockey = nbttagcompound.getBoolean("IsChickenJockey");
+		this.chickenJockey = CompoundNBT.getBoolean("IsChickenJockey");
 
-		GenericBehavior.readCommonNBT(nbttagcompound, this);
+		GenericBehavior.readCommonNBT(CompoundNBT, this);
 	}
 
 	@Override
@@ -326,8 +326,8 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		float f3 = 0.0F;
 		passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.posZ - 0.1F * f1);
 
-		if (passenger instanceof EntityLivingBase)
-			((EntityLivingBase) passenger).renderYawOffset = this.renderYawOffset;
+		if (passenger instanceof LivingEntity)
+			((LivingEntity) passenger).renderYawOffset = this.renderYawOffset;
 	}
 
 	@Override
@@ -343,7 +343,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	}
 
 	@Override
-	public EntityChicken createChild(EntityAgeable ageable)
+	public EntityChicken createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

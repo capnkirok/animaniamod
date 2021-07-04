@@ -6,12 +6,12 @@ import com.animania.addons.extra.common.entity.rodents.EntityFerretWhite;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class ModelFerret extends ModelBase
 {
     private float        headRotationAngleX;
@@ -107,12 +107,12 @@ public class ModelFerret extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+    public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 
-        super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+        super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        if (entitylivingbaseIn instanceof EntityFerretGrey) {
-            EntityFerretGrey ef = (EntityFerretGrey) entitylivingbaseIn;
+        if (LivingEntityIn instanceof EntityFerretGrey) {
+            EntityFerretGrey ef = (EntityFerretGrey) LivingEntityIn;
             this.Head.rotationPointY = 14.3F + ef.getHeadAnchorPointY(partialTickTime) * 0F; // number
             this.headRotationAngleX = ef.getHeadAngleX(partialTickTime);
 
@@ -128,8 +128,8 @@ public class ModelFerret extends ModelBase
             }
 
         }
-        else if (entitylivingbaseIn instanceof EntityFerretWhite) {
-        	EntityFerretWhite ef = (EntityFerretWhite) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityFerretWhite) {
+        	EntityFerretWhite ef = (EntityFerretWhite) LivingEntityIn;
             this.Head.rotationPointY = 14.3F + ef.getHeadAnchorPointY(partialTickTime) * 0F; // number
             this.headRotationAngleX = ef.getHeadAngleX(partialTickTime);
 

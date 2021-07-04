@@ -15,7 +15,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -37,7 +37,7 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	
 	public BlockSaltLick()
 	{
-		super("salt_lick", Material.ROCK, MapColor.SNOW, false);
+		super("salt_lick", Material.STONE, MapColor.SNOW, false);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		
 		this.setHardness(1.2f);
@@ -49,7 +49,7 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 		ForgeRegistries.ITEMS.register(item);
 	}
 	
-	public void useSaltLick(World world, BlockPos pos, @Nullable EntityLivingBase entity)
+	public void useSaltLick(World world, BlockPos pos, @Nullable LivingEntity entity)
 	{
 		TileEntity te = world.getTileEntity(pos);
 		if(te != null && te instanceof TileEntitySaltLick)
@@ -89,7 +89,7 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, LivingEntity placer, ItemStack stack)
 	{
 		int left = AnimaniaConfig.careAndFeeding.saltLickMaxUses - stack.getItemDamage();
 		

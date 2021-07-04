@@ -8,18 +8,18 @@ import com.animania.addons.farm.common.entity.sheep.EntityRamBase;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IGendered;
 import com.animania.common.helper.AnimaniaHelper;
-import com.animania.compat.waila.provider.WailaEntityAnimalProviderBase;
+import com.animania.compat.waila.provider.WailaAnimalEntityProviderBase;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class WailaEntityRamProvider extends WailaEntityAnimalProviderBase
+public class WailaEntityRamProvider extends WailaAnimalEntityProviderBase
 {
 
 	@Override
@@ -76,8 +76,8 @@ public class WailaEntityRamProvider extends WailaEntityAnimalProviderBase
 	}
 
 	@Override
-	public NBTTagCompound getNBTData(EntityPlayerMP player, Entity ent, NBTTagCompound tag, World world) {
-		NBTTagCompound comp = ent.getEntityData();
+	public CompoundNBT getNBTData(EntityPlayerMP player, Entity ent, CompoundNBT tag, World world) {
+		CompoundNBT comp = ent.getEntityData();
 
 		String mate = comp.getString("MateUUID");
 		if (!mate.equals(""))

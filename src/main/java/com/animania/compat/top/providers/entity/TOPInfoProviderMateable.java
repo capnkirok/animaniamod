@@ -10,9 +10,9 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
@@ -36,7 +36,7 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 		if (mode == ProbeMode.EXTENDED)
 		{
 
-			NBTTagCompound nbt = new NBTTagCompound();
+			CompoundNBT nbt = new CompoundNBT();
 			entity.writeToNBT(nbt);
 			String mate = nbt.getString("MateUUID");
 
@@ -44,7 +44,7 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 			{
 				if (!mate.equals(""))
 				{
-					for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityLivingBase.class, 20, world, entity))
+					for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, world, entity))
 					{
 						UUID id = e.getPersistentID();
 						if (id.toString().equals(mate))

@@ -8,7 +8,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.math.MathHelper;
@@ -30,7 +30,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 		DataParameter<Boolean> param = getFedParam();
 		if (param != null)
 		{
-			EntityLivingBase e = (EntityLivingBase) this;
+			LivingEntity e = (LivingEntity) this;
 			if (fed)
 			{
 				this.setFedTimer(AnimaniaConfig.careAndFeeding.feedTimer + Animania.RANDOM.nextInt(100));
@@ -52,7 +52,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 		DataParameter<Boolean> param = getWateredParam();
 		if (param != null)
 		{
-			EntityLivingBase e = (EntityLivingBase) this;
+			LivingEntity e = (LivingEntity) this;
 			if (watered)
 			{
 				this.setWaterTimer(AnimaniaConfig.careAndFeeding.waterTimer + Animania.RANDOM.nextInt(100));

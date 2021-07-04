@@ -18,7 +18,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderEweSuffolk<T extends EntityEweSuffolk> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
@@ -80,24 +80,24 @@ public class RenderEweSuffolk<T extends EntityEweSuffolk> extends RenderLiving<T
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
+	protected void preRenderCallback(T LivingEntity, float f)
 	{
-		this.preRenderScale(entityliving, f);
-		if (entityliving.hasCustomName() && "jeb_".equals(entityliving.getCustomNameTag()) && entityliving.isDyeable())
+		this.preRenderScale(LivingEntity, f);
+		if (LivingEntity.hasCustomName() && "jeb_".equals(LivingEntity.getCustomNameTag()) && LivingEntity.isDyeable())
 		{
 			int i1 = 25;
-			int i = entityliving.ticksExisted / 25 + entityliving.getEntityId();
+			int i = LivingEntity.ticksExisted / 25 + LivingEntity.getEntityId();
 			int j = EnumDyeColor.values().length;
 			int k = i % j;
 			int l = (i + 1) % j;
-			float q = ((float) (entityliving.ticksExisted % 25) + f) / 25.0F;
+			float q = ((float) (LivingEntity.ticksExisted % 25) + f) / 25.0F;
 			float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
 			float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
 			((ModelSuffolkEwe) this.mainModel).setWoolColor(afloat1[0] * (1.0F - q) + afloat2[0] * q, afloat1[1] * (1.0F - q) + afloat2[1] * q, afloat1[2] * (1.0F - q) + afloat2[2] * q);
 		}
 		else
 		{
-			float[] rgb = entityliving.getDyeColor().getColorComponentValues();
+			float[] rgb = LivingEntity.getDyeColor().getColorComponentValues();
 			((ModelSuffolkEwe) this.mainModel).setWoolColor(rgb[0], rgb[1], rgb[2]);
 		}
 	}

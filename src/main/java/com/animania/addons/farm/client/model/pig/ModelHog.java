@@ -9,12 +9,12 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class ModelHog extends ModelBase
 {
     private float headRotationAngleX;
@@ -222,12 +222,12 @@ public class ModelHog extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
+    public void setLivingAnimations(LivingEntity LivingEntityIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 
-        super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+        super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        if (entitylivingbaseIn instanceof EntityHogYorkshire) {
-        	EntityHogYorkshire entityHogYorkshire = (EntityHogYorkshire) entitylivingbaseIn;
+        if (LivingEntityIn instanceof EntityHogYorkshire) {
+        	EntityHogYorkshire entityHogYorkshire = (EntityHogYorkshire) LivingEntityIn;
             this.Head.rotationPointY = 11.0F + entityHogYorkshire.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                         // should
                                                                                                                                         // match
@@ -236,8 +236,8 @@ public class ModelHog extends ModelBase
                                                                                                                                         // point
             this.headRotationAngleX = entityHogYorkshire.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityHogOldSpot) {
-        	EntityHogOldSpot entityHogOldSpot = (EntityHogOldSpot) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityHogOldSpot) {
+        	EntityHogOldSpot entityHogOldSpot = (EntityHogOldSpot) LivingEntityIn;
             this.Head.rotationPointY = 11.0F + entityHogOldSpot.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                       // should
                                                                                                                                       // match
@@ -246,8 +246,8 @@ public class ModelHog extends ModelBase
                                                                                                                                       // point
             this.headRotationAngleX = entityHogOldSpot.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityHogDuroc) {
-        	EntityHogDuroc entityHogDuroc = (EntityHogDuroc) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityHogDuroc) {
+        	EntityHogDuroc entityHogDuroc = (EntityHogDuroc) LivingEntityIn;
             this.Head.rotationPointY = 11.0F + entityHogDuroc.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                     // should
                                                                                                                                     // match
@@ -256,8 +256,8 @@ public class ModelHog extends ModelBase
                                                                                                                                     // point
             this.headRotationAngleX = entityHogDuroc.getHeadAngleX(partialTickTime);
         }
-        else if (entitylivingbaseIn instanceof EntityHogLargeWhite) {
-        	EntityHogLargeWhite entityHogLargeWhite = (EntityHogLargeWhite) entitylivingbaseIn;
+        else if (LivingEntityIn instanceof EntityHogLargeWhite) {
+        	EntityHogLargeWhite entityHogLargeWhite = (EntityHogLargeWhite) LivingEntityIn;
             this.Head.rotationPointY = 11.0F + entityHogLargeWhite.getHeadAnchorPointY(partialTickTime) * 5.5F; // number
                                                                                                                                          // should
                                                                                                                                          // match

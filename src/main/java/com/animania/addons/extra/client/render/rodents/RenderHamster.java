@@ -37,30 +37,30 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 		this.addLayer(blinking = new LayerBlinking(this, new ResourceLocation("animania:textures/entity/rodents/hamster_blink.png"), 0));
 	}
 
-	protected void preRenderScale(EntityHamster entityliving, float f)
+	protected void preRenderScale(EntityHamster LivingEntity, float f)
 	{
 		GL11.glScalef(this.scale * .8F, this.scale * .8F, this.scale * .8F);
 
-		if (entityliving.isRiding())
+		if (LivingEntity.isRiding())
 		{
-			if (entityliving.getRidingEntity() instanceof EntityPlayerSP)
+			if (LivingEntity.getRidingEntity() instanceof EntityPlayerSP)
 			{
 
-				EntityPlayer player = (EntityPlayer) entityliving.getRidingEntity();
-				entityliving.rotationYaw = player.rotationYaw;
+				EntityPlayer player = (EntityPlayer) LivingEntity.getRidingEntity();
+				LivingEntity.rotationYaw = player.rotationYaw;
 
 				if (player.isSneaking())
 				{
-					GlStateManager.translate(-0.85F, entityliving.height - .07F, -0.1F);
+					GlStateManager.translate(-0.85F, LivingEntity.height - .07F, -0.1F);
 
 				}
 				else
 				{
-					GlStateManager.translate(-0.85F, entityliving.height - .17F, -0.1F);
+					GlStateManager.translate(-0.85F, LivingEntity.height - .17F, -0.1F);
 				}
 			}
 		}
-		else if (entityliving.getSleeping())
+		else if (LivingEntity.getSleeping())
 		{
 			GlStateManager.translate(0F, 0.15F, 0F);
 			GlStateManager.rotate(20.0F, 0.0F, 0.0F, 1.0F);
@@ -68,10 +68,10 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 	}
 
 	@Override
-	protected void preRenderCallback(EntityHamster entityliving, float f)
+	protected void preRenderCallback(EntityHamster LivingEntity, float f)
 	{
-		preRenderScale((EntityHamster) entityliving, f);
-		this.blinking.setColors(EYE_COLORS[entityliving.getColorNumber()], EYE_COLORS[entityliving.getColorNumber()]);
+		preRenderScale((EntityHamster) LivingEntity, f);
+		this.blinking.setColors(EYE_COLORS[LivingEntity.getColorNumber()], EYE_COLORS[LivingEntity.getColorNumber()]);
 	}
 
 	@Override

@@ -434,13 +434,13 @@ public class FarmAddonRenderHandler
 
 		register(FarmAddonItemHandler.entityeggrandomsheep);
 
-		register(Item.getItemFromBlock(FarmAddonBlockHandler.blockCheeseFriesian));
-		register(Item.getItemFromBlock(FarmAddonBlockHandler.blockCheeseHolstein));
-		register(Item.getItemFromBlock(FarmAddonBlockHandler.blockCheeseJersey));
-		register(Item.getItemFromBlock(FarmAddonBlockHandler.blockCheeseGoat));
-		register(Item.getItemFromBlock(FarmAddonBlockHandler.blockCheeseSheep));
-		register(Item.getItemFromBlock(FarmAddonBlockHandler.blockHive));
-		register(Item.getItemFromBlock(FarmAddonBlockHandler.blockWildHive));
+		register(Item.byBlock(FarmAddonBlockHandler.blockCheeseFriesian));
+		register(Item.byBlock(FarmAddonBlockHandler.blockCheeseHolstein));
+		register(Item.byBlock(FarmAddonBlockHandler.blockCheeseJersey));
+		register(Item.byBlock(FarmAddonBlockHandler.blockCheeseGoat));
+		register(Item.byBlock(FarmAddonBlockHandler.blockCheeseSheep));
+		register(Item.byBlock(FarmAddonBlockHandler.blockHive));
+		register(Item.byBlock(FarmAddonBlockHandler.blockWildHive));
 
 		regSpecial(FarmAddonBlockHandler.blockAnimaniaWool);
 		if (!FarmConfig.settings.disableRollingVehicles)
@@ -488,19 +488,19 @@ public class FarmAddonRenderHandler
 
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private static void register(Item item)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private static void register(Item item, String name, int meta)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name, "inventory"));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 
 	private static void registerColored(Item item, String name)
 	{
@@ -508,19 +508,19 @@ public class FarmAddonRenderHandler
 			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name + "_" + EnumDyeColor.byDyeDamage(meta).getName(), "inventory"));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private static <T extends Entity> void registerEntityRender(Class<T> entityClass, IRenderFactory<? super T> renderFactory)
 	{
 		RenderingRegistry.registerEntityRenderingHandler(entityClass, renderFactory);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private static <T extends TileEntity> void registerTileEntityRender(Class<T> tileEntityClass, TileEntitySpecialRenderer<? super T> specialRenderer)
 	{
 		ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, specialRenderer);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public static void regSpecial(Block block)
 	{
 		NonNullList<ItemStack> list = NonNullList.create();

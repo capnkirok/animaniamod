@@ -8,7 +8,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelHamster extends ModelBase
@@ -80,8 +80,8 @@ public class ModelHamster extends ModelBase
     }
 
     @Override
-    public void setLivingAnimations(EntityLivingBase entityliving, float f, float f1, float f2) {
-        EntityHamster entityhamster = (EntityHamster) entityliving;
+    public void setLivingAnimations(LivingEntity LivingEntity, float f, float f1, float f2) {
+        EntityHamster entityhamster = (EntityHamster) LivingEntity;
 
         /*
          * if (entityhamster.setHamsterFlag) { entityhamster.entityId =

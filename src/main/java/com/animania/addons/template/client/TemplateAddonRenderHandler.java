@@ -35,19 +35,19 @@ public class TemplateAddonRenderHandler
 		
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private static void register(Item item)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private static void register(Item item, String name, int meta)
 	{
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name, "inventory"));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 
 	private static void registerColored(Item item, String name)
 	{
@@ -55,13 +55,13 @@ public class TemplateAddonRenderHandler
 			ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Animania.MODID + ":" + name + "_" + EnumDyeColor.byDyeDamage(meta).getName(), "inventory"));
 	}
 	
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
     private static <T extends Entity> void registerEntityRender(Class<T> entityClass, IRenderFactory<? super T> renderFactory)
 	{
 		RenderingRegistry.registerEntityRenderingHandler(entityClass, renderFactory);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	private static <T extends TileEntity> void registerTileEntityRender(Class<T> tileEntityClass, TileEntitySpecialRenderer<? super T> specialRenderer)
 	{
 		 ClientRegistry.bindTileEntitySpecialRenderer(tileEntityClass, specialRenderer);

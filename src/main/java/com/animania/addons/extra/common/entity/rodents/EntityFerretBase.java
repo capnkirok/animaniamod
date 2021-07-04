@@ -41,21 +41,21 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAISit;
 import net.minecraft.entity.monster.EntitySilverfish;
-import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -70,7 +70,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityFerretBase extends EntityTameable implements TOPInfoProviderRodent, IAnimaniaAnimalBase
+public class EntityFerretBase extends TameableEntity implements TOPInfoProviderRodent, IAnimaniaAnimalBase
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityFerretBase.class, DataSerializers.BOOLEAN);
@@ -228,7 +228,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 			if (!props.isCarrying())
 			{
-				props.setAnimal(this.writeToNBT(new NBTTagCompound()));
+				props.setAnimal(this.writeToNBT(new CompoundNBT()));
 				props.setCarrying(true);
 				props.setType(EntityList.getKey(this).getResourcePath());
 				this.setDead();
@@ -257,7 +257,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 
 		// Custom Knockback
 		if (entityIn instanceof EntityPlayer)
-			((EntityLivingBase) entityIn).knockBack(this, 0.3f, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((LivingEntity) entityIn).knockBack(this, 0.3f, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
 
 		return flag;
 	}
@@ -278,7 +278,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound)
+	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("IsTamed", this.isTamed());
@@ -292,7 +292,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound)
+	public void readEntityFromNBT(CompoundNBT compound)
 	{
 		super.readEntityFromNBT(compound);
 		// this.setIsTamed(compound.getBoolean("IsTamed"));
@@ -422,7 +422,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public void handleStatusUpdate(byte id)
 	{
 		if (id == 10)
@@ -457,7 +457,7 @@ public class EntityFerretBase extends EntityTameable implements TOPInfoProviderR
 	}
 
 	@Override
-	public EntityFerretBase createChild(EntityAgeable ageable)
+	public EntityFerretBase createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

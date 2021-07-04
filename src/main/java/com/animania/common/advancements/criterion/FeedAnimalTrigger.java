@@ -39,7 +39,7 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 	}
 
 	@Override
-	public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
+	public void addPlayerListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
 	{
 		FeedAnimalTrigger.Listeners consumeitemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
 
@@ -53,7 +53,7 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 	}
 
 	@Override
-	public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
+	public void removePlayerListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
 	{
 		FeedAnimalTrigger.Listeners consumeitemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
 
@@ -69,7 +69,7 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 	}
 
 	@Override
-	public void removeAllListeners(PlayerAdvancements playerAdvancementsIn)
+	public void removePlayerListeners(PlayerAdvancements playerAdvancementsIn)
 	{
 		this.listeners.remove(playerAdvancementsIn);
 	}

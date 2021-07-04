@@ -12,7 +12,7 @@ public class CartChest extends InventoryBasic
         super(inventoryName, false, slotCount);
     }
 
-    @SideOnly(Side.CLIENT)
+    @SideOnly(Dist.CLIENT)
     public CartChest(ITextComponent invTitle, int slotCount)
     {
         super(invTitle, slotCount);

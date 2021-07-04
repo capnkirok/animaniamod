@@ -4,17 +4,17 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.common.handler.AddonInjectionHandler;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 
 public class GenericAIWatchClosest extends EntityAIWatchClosest
 {
-	public GenericAIWatchClosest(EntityLiving entityIn, Class<? extends Entity> watchTargetClass, float maxDistance)
+	public GenericAIWatchClosest(LivingEntity entityIn, Class<? extends Entity> watchTargetClass, float maxDistance)
 	{
 		super(entityIn, watchTargetClass, maxDistance);
 	}
 
-	public GenericAIWatchClosest(EntityLiving entityIn, Class<? extends Entity> watchTargetClass, float maxDistance, float chanceIn)
+	public GenericAIWatchClosest(LivingEntity entityIn, Class<? extends Entity> watchTargetClass, float maxDistance, float chanceIn)
 	{
 		super(entityIn, watchTargetClass, maxDistance, chanceIn);
 	}

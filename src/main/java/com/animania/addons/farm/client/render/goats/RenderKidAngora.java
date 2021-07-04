@@ -16,7 +16,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderKidAngora<T extends EntityKidAngora> extends RenderLiving<T>
 {
 	public static final Factory           FACTORY          = new Factory();
@@ -65,8 +65,8 @@ public class RenderKidAngora<T extends EntityKidAngora> extends RenderLiving<T>
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f) {
-		this.preRenderScale(entityliving, f);
+	protected void preRenderCallback(T LivingEntity, float f) {
+		this.preRenderScale(LivingEntity, f);
 	}
 
 	static class Factory<T extends EntityKidAngora> implements IRenderFactory<T>

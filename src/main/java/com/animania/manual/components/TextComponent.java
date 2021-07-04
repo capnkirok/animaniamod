@@ -30,10 +30,10 @@ public class TextComponent implements IManualComponent
 		this.y = y;
 		
 		this.text = text.trim();
-		this.mc = Minecraft.getMinecraft();
+		this.mc = Minecraft.getInstance();
 		
-		this.objectHeight = mc.fontRenderer.FONT_HEIGHT;
-		this.objectWidth = mc.fontRenderer.getStringWidth(text);
+		this.objectHeight = mc.font.lineHeight;
+		this.objectWidth = mc.font.width(text);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class TextComponent implements IManualComponent
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks)
 	{
-		mc.fontRenderer.drawString(text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
+		mc.font.drawString(text, absoluteX + manual.guiLeft, absoluteY + manual.guiTop, 0);
 	}
 
 	@Override

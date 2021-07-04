@@ -24,7 +24,7 @@ public interface IAnimaniaAnimal
 		try
 		{
 			Entity entity = (Entity) this;
-			return entity.getDataManager().get(key);
+			return entity.getEntityData().get(key);
 		}
 		catch (Exception e)
 		{
@@ -37,7 +37,7 @@ public interface IAnimaniaAnimal
 		try
 		{
 			Entity entity = (Entity) this;
-			return entity.getDataManager().get(key);
+			return entity.getEntityData().get(key);
 		}
 		catch (Exception e)
 		{
@@ -50,7 +50,7 @@ public interface IAnimaniaAnimal
 		try
 		{
 			Entity entity = (Entity) this;
-			return entity.getDataManager().get(key);
+			return entity.getEntityData().get(key);
 		}
 		catch (Exception e)
 		{
@@ -63,7 +63,7 @@ public interface IAnimaniaAnimal
 		try
 		{
 			Entity entity = (Entity) this;
-			return entity.getDataManager().get(key);
+			return entity.getEntityData().get(key);
 		}
 		catch (Exception e)
 		{
@@ -76,7 +76,7 @@ public interface IAnimaniaAnimal
 		try
 		{
 			Entity entity = (Entity) this;
-			return entity.getDataManager().get(key);
+			return entity.getEntityData().get(key);
 		}
 		catch (Exception e)
 		{
@@ -89,7 +89,7 @@ public interface IAnimaniaAnimal
 		try
 		{
 			Entity entity = (Entity) this;
-			return entity.getDataManager().get(key).orNull();
+			return entity.getEntityData().get(key).orNull();
 		}
 		catch (Exception e)
 		{
@@ -102,7 +102,7 @@ public interface IAnimaniaAnimal
 		try
 		{
 			Entity entity = (Entity) this;
-			return entity.getDataManager().get(key);
+			return entity.getEntityData().get(key);
 		}
 		catch (Exception e)
 		{
@@ -115,7 +115,7 @@ public interface IAnimaniaAnimal
 		try
 		{
 			Entity entity = (Entity) this;
-			return entity.getDataManager().get(key).orNull();
+			return entity.getEntityData().get(key).orNull();
 		}
 		catch (Exception e)
 		{

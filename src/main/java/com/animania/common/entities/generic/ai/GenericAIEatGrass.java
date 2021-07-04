@@ -11,16 +11,14 @@ import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.block.BlockTallGrass;
+import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockStateMatcher;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Loader;
 
-public class GenericAIEatGrass<T extends EntityCreature & ISleeping & IFoodEating> extends GenericAISearchBlock
+public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEating> extends GenericAISearchBlock
 {
 
 	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));

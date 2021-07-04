@@ -37,14 +37,14 @@ public class ItemRidingCrop extends Item
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public boolean isFull3D()
 	{
 		return true;
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public boolean shouldRotateAroundWhenRendering()
 	{
 		return true;

@@ -41,7 +41,7 @@ public class CarryRenderer
 	/*
 	 * Renders the Entity in First Person
 	 */
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	@SubscribeEvent
 	public static void renderHand(RenderHandEvent event)
 	{
@@ -110,7 +110,7 @@ public class CarryRenderer
 	/*
 	 * Renders the Block in Third Person
 	 */
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	@SubscribeEvent
 	public static void onPlayerRenderPost(RenderPlayerEvent.Post event)
 	{
@@ -176,7 +176,7 @@ public class CarryRenderer
 	}
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public static void onModelBake(ModelBakeEvent event)
 	{
 		for (Item item : ItemHandler.entityEggList)
@@ -193,7 +193,7 @@ public class CarryRenderer
 	}
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
+	@SideOnly(Dist.CLIENT)
 	public static void onModelRegistryReady(ModelRegistryEvent event)
 	{
 		for (Item item : ItemHandler.entityEggList)

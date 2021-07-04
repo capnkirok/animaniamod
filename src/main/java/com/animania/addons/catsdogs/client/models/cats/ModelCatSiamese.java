@@ -9,7 +9,7 @@ import com.animania.client.models.render.ModelRendererAnimania;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelCatSiamese extends ModelBase
@@ -331,7 +331,7 @@ public class ModelCatSiamese extends ModelBase
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTickTime)
+	public void setLivingAnimations(LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTickTime)
 	{
 
 		EntityAnimaniaCat cat = (EntityAnimaniaCat) entity;

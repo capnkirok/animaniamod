@@ -17,7 +17,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<T>
 {
 	private final ResourceLocation texture;
@@ -108,15 +108,15 @@ public class RenderDogGeneric<T extends EntityAnimaniaDog> extends RenderLiving<
 	}
 
 	@Override
-	protected void preRenderCallback(T entityliving, float f)
+	protected void preRenderCallback(T LivingEntity, float f)
 	{
-		if (entityliving.getVariantCount() > 0)
+		if (LivingEntity.getVariantCount() > 0)
 		{
-			int col = entityliving.getEyeColorForVariant(entityliving.getVariant());
+			int col = LivingEntity.getEyeColorForVariant(LivingEntity.getVariant());
 			blinking.setColors(col, col);
 		}
 
-		this.preRenderScale(entityliving, f);
+		this.preRenderScale(LivingEntity, f);
 	}
 
 	public static class Factory<T extends EntityAnimaniaDog> implements IRenderFactory<T>

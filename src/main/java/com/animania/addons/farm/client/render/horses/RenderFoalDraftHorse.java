@@ -16,7 +16,7 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends RenderLiving<T>
 {
 
@@ -77,10 +77,10 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 	}
 
 	@Override
-	protected void preRenderCallback(EntityFoalDraftHorse entityliving, float f)
+	protected void preRenderCallback(EntityFoalDraftHorse LivingEntity, float f)
 	{
-		preRenderScale((EntityFoalDraftHorse) entityliving, f);
-		blinkingLayer.setColors(BLINK_COLORS[entityliving.getColorNumber()], BLINK_COLORS[entityliving.getColorNumber()]);
+		preRenderScale((EntityFoalDraftHorse) LivingEntity, f);
+		blinkingLayer.setColors(BLINK_COLORS[LivingEntity.getColorNumber()], BLINK_COLORS[LivingEntity.getColorNumber()]);
 	}
 
 	static class Factory<T extends EntityFoalDraftHorse> implements IRenderFactory<T>

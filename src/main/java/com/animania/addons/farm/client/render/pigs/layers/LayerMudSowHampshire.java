@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@SideOnly(Dist.CLIENT)
 public class LayerMudSowHampshire implements LayerRenderer<EntitySowHampshire>
 {
     private static final ResourceLocation TEXTURE  = new ResourceLocation("animania:textures/entity/pigs/pig_muddy_hampshire.png");
@@ -24,30 +24,30 @@ public class LayerMudSowHampshire implements LayerRenderer<EntitySowHampshire>
     }
 
     @Override
-    public void doRenderLayer(EntitySowHampshire entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
+    public void doRenderLayer(EntitySowHampshire LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
             float netHeadYaw, float headPitch, float scale) {
 
-        if (entitylivingbaseIn.getMuddy()) {
+        if (LivingEntityIn.getMuddy()) {
 
-            float splashTimer = entitylivingbaseIn.getSplashTimer();
+            float splashTimer = LivingEntityIn.getSplashTimer();
 
             if (splashTimer <= 0) {
                 GL11.glScalef(1.01F, 1.01F, 1.01F);
                 this.pigRenderer.bindTexture(LayerMudSowHampshire.TEXTURE);
                 GlStateManager.enableBlend();
-                this.pigRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+                this.pigRenderer.getMainModel().render(LivingEntityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
                 GlStateManager.depthMask(true);
                 GlStateManager.disableBlend();
             }
         }
-        else if (entitylivingbaseIn.getMudTimer() > 0) {
+        else if (LivingEntityIn.getMudTimer() > 0) {
 
-            float mudTimer = entitylivingbaseIn.getMudTimer();
+            float mudTimer = LivingEntityIn.getMudTimer();
             GL11.glScalef(1.01F, 1.01F, 1.01F);
             this.pigRenderer.bindTexture(LayerMudSowHampshire.TEXTURE);
             GlStateManager.enableBlend();
             GlStateManager.color(1.0F, 1.0F, 1.0F, mudTimer);
-            this.pigRenderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            this.pigRenderer.getMainModel().render(LivingEntityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             GlStateManager.disableBlend();
 
         }

@@ -11,7 +11,7 @@ import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -22,8 +22,8 @@ import net.minecraft.world.World;
 public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoProviderBase
 {
 
-	private static final DataParameter<Boolean> LAID = EntityDataManager.<Boolean>createKey(EntityPeafowlBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> LAID_TIMER = EntityDataManager.<Integer>createKey(EntityPeafowlBase.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> LAID = EntityDataManager.<Boolean>defineId(EntityPeafowlBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> LAID_TIMER = EntityDataManager.<Integer>defineId(EntityPeafowlBase.class, DataSerializers.INT);
 	protected int laidTimer;
 	
 	public EntityPeafowlBase(World worldIn)
@@ -46,19 +46,19 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	}
 	
 	@Override
-	public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
-		super.writeEntityToNBT(nbttagcompound);
-		nbttagcompound.setBoolean("Laid", this.getLaid());
-		nbttagcompound.setInteger("LaidTimer", this.getLaidTimer());
+		super.writeEntityToNBT(CompoundNBT);
+		CompoundNBT.setBoolean("Laid", this.getLaid());
+		CompoundNBT.setInteger("LaidTimer", this.getLaidTimer());
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+	public void readEntityFromNBT(CompoundNBT CompoundNBT)
 	{
-		super.readEntityFromNBT(nbttagcompound);
-		this.setLaid(nbttagcompound.getBoolean("Laid"));
-		this.setLaidTimer(nbttagcompound.getInteger("LaidTimer"));
+		super.readEntityFromNBT(CompoundNBT);
+		this.setLaid(CompoundNBT.getBoolean("Laid"));
+		this.setLaidTimer(CompoundNBT.getInteger("LaidTimer"));
 	}
 
 	public int getLaidTimer()

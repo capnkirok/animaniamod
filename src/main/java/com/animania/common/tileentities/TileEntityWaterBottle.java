@@ -1,6 +1,6 @@
 package com.animania.common.tileentities;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityWaterBottle extends TileEntity
@@ -8,22 +8,22 @@ public class TileEntityWaterBottle extends TileEntity
     public int rotation;
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         super.readFromNBT(compound);
         this.rotation = compound.getInteger("BlockRotation");
     }
 
     /*
-     * @Override public void writeToNBT(NBTTagCompound compound) {
+     * @Override public void writeToNBT(CompoundNBT compound) {
      * super.writeToNBT(compound); compound.setInteger("BlockRotation",
      * rotation); }
      *
-     * @Override public Packet getDescriptionPacket() { NBTTagCompound
-     * nbttagcompound = new NBTTagCompound(); this.writeToNBT(nbttagcompound);
+     * @Override public Packet getDescriptionPacket() { CompoundNBT
+     * CompoundNBT = new CompoundNBT(); this.writeToNBT(CompoundNBT);
      * return new S35PacketUpdateTileEntity(this.x, this.y,
-     * this.z, -1, nbttagcompound); }
+     * this.z, -1, CompoundNBT); }
      *
      * @Override public void onDataPacket(NetworkManager net,
-     * S35PacketUpdateTileEntity pkt) { readFromNBT(pkt.func_148857_g()); }
+     * S35PacketUpdateTileEntity pkt) { readFromNBT(pkt.getTag()); }
      */
 }

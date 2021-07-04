@@ -10,7 +10,7 @@ import java.util.Set;
 import com.animania.common.helper.ReflectionUtil;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathFinder;
@@ -25,7 +25,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 {
 	private static final boolean DEBUG_MODE = false;
 
-	protected final EntityCreature creature;
+	protected final CreatureEntity creature;
 	protected final double movementSpeed;
 	protected BlockPos destinationBlock = NO_POS;
 	private boolean isAtDestination;
@@ -43,7 +43,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 
 	public static final BlockPos NO_POS = new BlockPos(-1, -1, -1);
 
-	public GenericAISearchBlock(EntityCreature creature, double speedIn, int range, boolean hasSecondary, EnumFacing... destinationOffset)
+	public GenericAISearchBlock(CreatureEntity creature, double speedIn, int range, boolean hasSecondary, EnumFacing... destinationOffset)
 	{
 		this.creature = creature;
 		this.movementSpeed = speedIn;
@@ -56,7 +56,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 		// this.setMutexBits(5);
 	}
 
-	public GenericAISearchBlock(EntityCreature creature, double speedIn, int range, EnumFacing... destinationOffset)
+	public GenericAISearchBlock(CreatureEntity creature, double speedIn, int range, EnumFacing... destinationOffset)
 	{
 		this(creature, speedIn, range, false, destinationOffset);
 	}
@@ -272,7 +272,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 			PathPoint endPoint = new PathPoint(end.getX(), end.getY(), end.getZ());
 
 			PathNavigate navigate = this.creature.getNavigator();
-			Method getPathFinder = ReflectionUtil.findMethod(PathNavigate.class, "getPathFinder", "func_179679_a");
+			Method getPathFinder = ReflectionUtil.findMethod(PathNavigate.class, "getPathFinder", "createPathFinder");
 			Method getPath = ReflectionUtil.findMethod(PathFinder.class, "findPath", "func_186336_a", PathPoint.class, PathPoint.class, float.class);
 
 			PathFinder finder = (PathFinder) getPathFinder.invoke(navigate);

@@ -18,7 +18,7 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -35,8 +35,8 @@ import net.minecraft.world.World;
 public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProviderChild, IChild
 {
 
-	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityPigletBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> createKey(EntityPigletBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityPigletBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(EntityPigletBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
 	public EntityPigletBase(World worldIn)
@@ -126,7 +126,7 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	}
 
 	@Override
-	public EntityPigletBase createChild(EntityAgeable ageable)
+	public EntityPigletBase createChild(AgeableEntity ageable)
 	{
 		return null;
 	}

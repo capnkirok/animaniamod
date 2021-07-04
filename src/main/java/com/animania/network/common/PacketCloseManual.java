@@ -5,7 +5,7 @@ import com.animania.common.handler.ItemHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -64,7 +64,7 @@ public class PacketCloseManual implements IMessage, IMessageHandler<PacketCloseM
 				else if (main.getItem() == ItemHandler.animaniaManual)
 					stack = off;
 				
-				NBTTagCompound tag = stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
+				CompoundNBT tag = stack.hasTagCompound() ? stack.getTagCompound() : new CompoundNBT();
 				tag.setString("currentTopic", message.currentTopic);
 				tag.setString("lastTopic", message.lastTopic);
 
