@@ -45,7 +45,7 @@ public class RenderDoeDutch<T extends EntityRabbitDoeDutch> extends RenderLiving
 		double y = entity.posY;
 		double z = entity.posZ;
 		BlockPos pos = new BlockPos(x, y, z);
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
+		Block blockchk = entity.level.getBlockState(pos).getBlock();
 		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
 		if (entityChk.getSleeping())
 		{

@@ -12,9 +12,9 @@ public class CapabilityPlayerHandler {
 
 	public static NBTBase writeNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance) {
 		CompoundNBT tags = new CompoundNBT();
-		tags.setTag("animal", instance.getAnimal());
-		tags.setBoolean("carrying", instance.isCarrying());
-		tags.setString("type", instance.getType());
+		tags.put("animal", instance.getAnimal());
+		tags.putBoolean("carrying", instance.isCarrying());
+		tags.putString("type", instance.getType());
 		return tags;
 	}
 
