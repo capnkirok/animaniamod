@@ -74,13 +74,13 @@ public class CraftingComponent implements IManualComponent
 		mc.textureManager.bind(MATRIX_TEXTURE);
 		int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
 
-		int posX = absoluteX + manual.guiLeft + border;
-		int posY = absoluteY + manual.guiTop;
+		int getX() = absoluteX + manual.guiLeft + border;
+		int getY() = absoluteY + manual.guiTop;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1, 1, 1);
 		GlStateManager.enableBlend();
-		manual.drawModalRectWithCustomSizedTexture(posX, posY, 0, 0, objectWidth, objectHeight, objectWidth, objectHeight);
+		manual.drawModalRectWithCustomSizedTexture(getX(), getY(), 0, 0, objectWidth, objectHeight, objectWidth, objectHeight);
 		GlStateManager.popMatrix();
 
 		for (int i = 0; i < 9; i++)
@@ -91,26 +91,26 @@ public class CraftingComponent implements IManualComponent
 			{
 				GlStateManager.pushMatrix();
 				RenderHelper.enableGUIStandardItemLighting();
-				manual.drawItemStack(items[i][ingredientIndex[i]], posX + offsetX, posY + offsetY, null);
+				manual.drawItemStack(items[i][ingredientIndex[i]], getX() + offsetX, getY() + offsetY, null);
 				GlStateManager.popMatrix();
 			}
 		}
 
 		GlStateManager.pushMatrix();
 		RenderHelper.enableGUIStandardItemLighting();
-		manual.drawItemStack(currentRecipe.getRecipeOutput(), posX + 83, posY + 19, null);
+		manual.drawItemStack(currentRecipe.getRecipeOutput(), getX() + 83, getY() + 19, null);
 		GlStateManager.popMatrix();
 
 		if (recipes.size() > 1)
 		{
 			mc.renderEngine.bindTexture(BUTTONS);
-			manual.drawModalRectWithCustomSizedTexture(posX + 56, posY + 42, isHovering(mouseX, mouseY, posX + 56, posY + 42, 9, 11) ? 18 : 0, 0, 9, 11, 36, 11);
-			manual.drawModalRectWithCustomSizedTexture(posX + 67, posY + 42, isHovering(mouseX, mouseY, posX + 67, posY + 42, 9, 11) ? 27 : 9, 0, 9, 11, 36, 11);
+			manual.drawModalRectWithCustomSizedTexture(getX() + 56, getY() + 42, isHovering(mouseX, mouseY, getX() + 56, getY() + 42, 9, 11) ? 18 : 0, 0, 9, 11, 36, 11);
+			manual.drawModalRectWithCustomSizedTexture(getX() + 67, getY() + 42, isHovering(mouseX, mouseY, getX() + 67, getY() + 42, 9, 11) ? 27 : 9, 0, 9, 11, 36, 11);
 		}
 
 		if (!(currentRecipe instanceof IShapedRecipe))
 		{
-			mc.fontRenderer.drawString(I18n.translateToLocal("manual.crafting.shapeless"), posX + 57, posY + 2, 0);
+			mc.fontRenderer.drawString(I18n.translateToLocal("manual.crafting.shapeless"), getX() + 57, getY() + 2, 0);
 		}
 		
 		GlStateManager.disableLighting();
@@ -126,8 +126,8 @@ public class CraftingComponent implements IManualComponent
 	public void drawLater(int mouseX, int mouseY, float partialTicks)
 	{
 		int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
-		int posX = absoluteX + manual.guiLeft + border;
-		int posY = absoluteY + manual.guiTop;
+		int getX() = absoluteX + manual.guiLeft + border;
+		int getY() = absoluteY + manual.guiTop;
 
 		GlStateManager.pushMatrix();
 
@@ -135,7 +135,7 @@ public class CraftingComponent implements IManualComponent
 		{
 			int offsetX = 1 + (18 * (i % 3));
 			int offsetY = 1 + (18 * (i / 3));
-			if (isHovering(mouseX, mouseY, posX + offsetX, posY + offsetY, 16, 16))
+			if (isHovering(mouseX, mouseY, getX() + offsetX, getY() + offsetY, 16, 16))
 			{
 				if (items[i].length > 0)
 				{
@@ -144,7 +144,7 @@ public class CraftingComponent implements IManualComponent
 			}
 		}
 
-		if (isHovering(mouseX, mouseY, posX + 83, posY + 19, 16, 16))
+		if (isHovering(mouseX, mouseY, getX() + 83, getY() + 19, 16, 16))
 			manual.renderToolTip(currentRecipe.getRecipeOutput(), mouseX, mouseY);
 
 		GlStateManager.disableLighting();
@@ -189,10 +189,10 @@ public class CraftingComponent implements IManualComponent
 		{
 			int border = (GuiManual.MANUAL_MAX_X - objectWidth) / 2;
 
-			int posX = absoluteX + manual.guiLeft + border;
-			int posY = absoluteY + manual.guiTop;
+			int getX() = absoluteX + manual.guiLeft + border;
+			int getY() = absoluteY + manual.guiTop;
 
-			if (isHovering(mouseX, mouseY, posX + 56, posY + 42, 9, 11))
+			if (isHovering(mouseX, mouseY, getX() + 56, getY() + 42, 9, 11))
 			{
 				if (recipeIndex == 0)
 					recipeIndex = recipes.size() - 1;
@@ -204,7 +204,7 @@ public class CraftingComponent implements IManualComponent
 				return;
 			}
 
-			if (isHovering(mouseX, mouseY, posX + 67, posY + 42, 9, 11))
+			if (isHovering(mouseX, mouseY, getX() + 67, getY() + 42, 9, 11))
 			{
 				if (recipeIndex == recipes.size() - 1)
 					recipeIndex = 0;

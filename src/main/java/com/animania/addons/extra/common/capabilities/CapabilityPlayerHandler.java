@@ -1,7 +1,7 @@
 package com.animania.addons.extra.common.capabilities;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.capabilities.Capability;
@@ -12,8 +12,8 @@ public class CapabilityPlayerHandler {
 
 	public static NBTBase writeNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance) {
 		CompoundNBT tags = new CompoundNBT();
-		tags.setTag("animal", instance.getAnimal());
-		tags.setBoolean("carrying", instance.isCarrying());
+		tags.putTag("animal", instance.getAnimal());
+		tags.putBoolean("carrying", instance.isCarrying());
 		tags.setString("type", instance.getType());
 		return tags;
 	}
@@ -33,8 +33,8 @@ public class CapabilityPlayerHandler {
 		}
 	}
 
-	public static void onUpdate(EntityPlayer player) {
-		if (!(player instanceof EntityPlayerMP))
+	public static void onUpdate(PlayerEntity player) {
+		if (!(player instanceof ServerPlayerEntity))
 			return;
 		final ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 
@@ -42,7 +42,7 @@ public class CapabilityPlayerHandler {
 
 	}
 
-	public static void processNBTData(EntityPlayer player, CompoundNBT nbt) {
+	public static void processNBTData(PlayerEntity player, CompoundNBT nbt) {
 		ICapabilityPlayer instance = CapabilityRefs.getPlayerCaps(player);
 		if (instance == null)
 			return;

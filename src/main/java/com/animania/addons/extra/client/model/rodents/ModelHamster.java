@@ -136,7 +136,7 @@ public class ModelHamster extends ModelBase
              * ((entityhamster.ridingEntity.height - 2.5F) * 5.0F); if
              * (entityhamster.ridingEntity.ridingEntity != null &&
              * !(entityhamster.ridingEntity.ridingEntity instanceof
-             * EntityPlayerSP)) { //mod_Hamster.
+             * PlayerEntitySP)) { //mod_Hamster.
              * mDebug("setLivingAnimations entityhamster.ridingEntity.ridingEntity.height="
              * +entityhamster.ridingEntity.ridingEntity.height); if
              * (entityhamster.ridingEntity.ridingEntity.height < 0.5F) f3 -=

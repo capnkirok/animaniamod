@@ -7,9 +7,9 @@ import java.util.function.Function;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitBuckLop;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitDoeLop;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitKitLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityBuckLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityDoeLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityKitLop;
 import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.addons.extra.config.ExtraConfig;
 import com.animania.api.data.AnimalContainer;
@@ -56,9 +56,9 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.passive.EntityRabbit;
-import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -80,7 +80,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnimalBase, IConvertable
+public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnimalBase, IConvertable
 {
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(ExtraConfig.settings.rabbitFood));
@@ -135,9 +135,9 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			this.tasks.addTask(5, new EntityAISwimming(this));
 			this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaRabbit>(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
 			this.tasks.addTask(8, this.entityAIEatGrass);
-			this.tasks.addTask(9, new GenericAIAvoidEntity<EntityWolf>(this, EntityWolf.class, 24.0F, 3.0D, 3.5D));
+			this.tasks.addTask(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 3.0D, 3.5D));
 			this.tasks.addTask(9, new GenericAIAvoidEntity<EntityMob>(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
-			this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+			this.tasks.addTask(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 			this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaRabbit>(this));
 			if (AnimaniaConfig.gameRules.animalsSleep)
 			{
@@ -158,9 +158,9 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.7F));
 		this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
 		this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, PlayerEntity.class, 20.0F));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<PlayerEntity>(this, PlayerEntity.class, true));
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 		this.setHealth(50);
 	}
@@ -177,9 +177,9 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.7F));
 		this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
 		this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, PlayerEntity.class, 10.0F));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, PlayerEntity.class, true));
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 		this.setHealth(50);
 	}
@@ -236,9 +236,9 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 		}
 
 		// Custom Knockback
-		if (entityIn instanceof EntityPlayer)
+		if (entityIn instanceof PlayerEntity)
 		{
-			((LivingEntity) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((LivingEntity) entityIn).knockBack(this, 1, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 		}
 
 		return flag;
@@ -247,7 +247,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	@Override
 	protected float getJumpUpwardsMotion()
 	{
-		if (!this.collidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.posY + 0.4D))
+		if (!this.collidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.getY() + 0.4D))
 		{
 			Path path = this.navigator.getPath();
 
@@ -255,7 +255,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 			{
 				Vec3d vec3d = path.getPosition(this);
 
-				if (vec3d.y > this.posY + 0.4D)
+				if (vec3d.y > this.getY() + 0.4D)
 				{
 					return 0.4F;
 				}
@@ -353,7 +353,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	protected void entityInit()
 	{
 		super.entityInit();
-		if (this instanceof EntityRabbitBuckLop || this instanceof EntityRabbitKitLop || this instanceof EntityRabbitDoeLop)
+		if (this instanceof RabbitEntityBuckLop || this instanceof RabbitEntityKitLop || this instanceof RabbitEntityDoeLop)
 		{
 			this.dataManager.register(EntityAnimaniaRabbit.COLOR_NUM, Integer.valueOf(rand.nextInt(7)));
 		} else
@@ -372,7 +372,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	@Override
 	protected ResourceLocation getLootTable()
 	{
-		return this instanceof EntityRabbitKitBase ? null : this.rabbitType.isPrime ? new ResourceLocation("extra/" + Animania.MODID, "rabbit_prime") : new ResourceLocation("extra/" + Animania.MODID, "rabbit_regular");
+		return this instanceof RabbitEntityKitBase ? null : this.rabbitType.isPrime ? new ResourceLocation("extra/" + Animania.MODID, "rabbit_prime") : new ResourceLocation("extra/" + Animania.MODID, "rabbit_regular");
 	}
 
 	@Override
@@ -400,16 +400,16 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 
 				if (LivingEntity != null && this.getDistanceSq(LivingEntity) < 16.0D)
 				{
-					this.calculateRotationYaw(LivingEntity.posX, LivingEntity.posZ);
-					this.moveHelper.setMoveTo(LivingEntity.posX, LivingEntity.posY, LivingEntity.posZ, this.moveHelper.getSpeed());
+					this.calculateRotationYaw(LivingEntity.getX(), LivingEntity.getZ());
+					this.moveHelper.setMoveTo(LivingEntity.getX(), LivingEntity.getY(), LivingEntity.getZ(), this.moveHelper.getSpeed());
 					this.startJumping();
 					this.wasOnGround = true;
 				}
 			}
 
-			EntityAnimaniaRabbit.RabbitJumpHelper entityrabbit$rabbitjumphelper = (EntityAnimaniaRabbit.RabbitJumpHelper) this.jumpHelper;
+			EntityAnimaniaRabbit.RabbitJumpHelper RabbitEntity$rabbitjumphelper = (EntityAnimaniaRabbit.RabbitJumpHelper) this.jumpHelper;
 
-			if (!entityrabbit$rabbitjumphelper.getIsJumping())
+			if (!RabbitEntity$rabbitjumphelper.getIsJumping())
 			{
 				if (this.moveHelper.isUpdating() && this.currentMoveTypeDuration == 0)
 				{
@@ -424,7 +424,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 					this.calculateRotationYaw(vec3d.x, vec3d.z);
 					this.startJumping();
 				}
-			} else if (!entityrabbit$rabbitjumphelper.canJump())
+			} else if (!RabbitEntity$rabbitjumphelper.canJump())
 			{
 				this.enableJumpControl();
 			}
@@ -497,7 +497,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 
 	private void calculateRotationYaw(double x, double z)
 	{
-		this.rotationYaw = (float) (MathHelper.atan2(z - this.posZ, x - this.posX) * (180D / Math.PI)) - 90.0F;
+		this.rotationYaw = (float) (MathHelper.atan2(z - this.getZ(), x - this.getX()) * (180D / Math.PI)) - 90.0F;
 	}
 
 	private void enableJumpControl()
@@ -558,10 +558,10 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
+		PlayerEntity PlayerEntity = player;
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.NAME_TAG)
 		{
@@ -589,7 +589,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 
 		}
 
-		return GenericBehavior.interactCommon(this, entityplayer, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, PlayerEntity, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -607,7 +607,7 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	{
 		super.writeEntityToNBT(compound);
 
-		compound.setInteger("ColorNumber", getColorNumber());
+		compound.putInteger("ColorNumber", getColorNumber());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 
@@ -1024,8 +1024,8 @@ public class EntityAnimaniaRabbit extends EntityRabbit implements IAnimaniaAnima
 	@Override
 	public Entity convertToVanilla()
 	{
-		EntityRabbit entity = new EntityRabbit(this.world);
-		entity.setPosition(this.posX, this.posY, this.posZ);
+		RabbitEntity entity = new RabbitEntity(this.world);
+		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());
 		return entity;

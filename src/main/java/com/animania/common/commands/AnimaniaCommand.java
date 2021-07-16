@@ -14,7 +14,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.SyntaxErrorException;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -48,7 +48,7 @@ public class AnimaniaCommand extends CommandBase
 		{
 			if (args[0].toLowerCase().equals("tovanilla"))
 			{
-				if (sender instanceof EntityPlayer)
+				if (sender instanceof PlayerEntity)
 				{
 					if (servers.containsKey(server))
 					{
@@ -65,7 +65,7 @@ public class AnimaniaCommand extends CommandBase
 									if (entity instanceof IConvertable)
 									{
 										Entity converted = ((IConvertable) entity).convertToVanilla();
-										entity.setPosition(entity.posX, -200, entity.posZ);
+										entity.setPosition(entity.getX(), -200, entity.getZ());
 										entity.setDead();
 										convertedEntities.add(converted);
 									}

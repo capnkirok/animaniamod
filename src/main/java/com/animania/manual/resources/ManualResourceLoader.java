@@ -266,7 +266,7 @@ public class ManualResourceLoader
 	{
 		int offsetY = 0;
 
-		int prevPosY = 0;
+		int prevgetY() = 0;
 		int prevHeight = 0;
 
 		for (int i = 0; i < components.size(); i++)
@@ -277,7 +277,7 @@ public class ManualResourceLoader
 
 			if (lastComponent != null)
 			{
-				if (prevPosY == thisComponent.getY() && prevHeight == thisComponent.getObjectHeight())
+				if (prevgetY() == thisComponent.getY() && prevHeight == thisComponent.getObjectHeight())
 				{
 					offsetY = lastComponent.getY();
 				}
@@ -285,7 +285,7 @@ public class ManualResourceLoader
 					offsetY = lastComponent.getY() + lastComponent.getObjectHeight() + GuiManual.LINE_Y_OFFSET;
 
 			}
-			prevPosY = thisComponent.getY();
+			prevgetY() = thisComponent.getY();
 			prevHeight = thisComponent.getObjectHeight();
 
 			thisComponent.setY(offsetY);

@@ -20,7 +20,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -29,12 +29,12 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable, ISterilizable
+public class RabbitEntityBuckBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> defineId(EntityRabbitBuckBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityRabbitBuckBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Boolean> STERILIZED = EntityDataManager.<Boolean> defineId(RabbitEntityBuckBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(RabbitEntityBuckBase.class, DataSerializers.OPTIONAL_UUID);
 
-	public EntityRabbitBuckBase(World worldIn)
+	public RabbitEntityBuckBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(0.7F, 0.6F);
@@ -45,7 +45,7 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		this.gender = EntityGender.MALE;
 
 		if (!getSterilized())
-			this.tasks.addTask(6, new GenericAIMate<EntityRabbitBuckBase, EntityRabbitDoeBase>(this, 1.0D, EntityRabbitDoeBase.class, EntityRabbitKitBase.class, EntityAnimaniaRabbit.class));
+			this.tasks.addTask(6, new GenericAIMate<RabbitEntityBuckBase, RabbitEntityDoeBase>(this, 1.0D, RabbitEntityDoeBase.class, RabbitEntityKitBase.class, EntityAnimaniaRabbit.class));
 		// this.tasks.addTask(3, new EntityAIFollowMateRabbits(this, 1.1D));
 	}
 
@@ -83,14 +83,14 @@ public class EntityRabbitBuckBase extends EntityAnimaniaRabbit implements TOPInf
 	@Override
 	public void onLivingUpdate()
 	{
-		GenericBehavior.livingUpdateMateable(this, EntityRabbitDoeBase.class);
+		GenericBehavior.livingUpdateMateable(this, RabbitEntityDoeBase.class);
 
 		super.onLivingUpdate();
 	}
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
 	}

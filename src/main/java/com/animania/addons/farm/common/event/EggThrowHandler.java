@@ -5,7 +5,7 @@ import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.handler.AddonInjectionHandler;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +22,7 @@ public class EggThrowHandler
 	{
 
 		ItemStack stack = event.getItemStack();
-		EntityPlayer player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayerEntity();
 		BlockPos pos = event.getPos();
 		World world = event.getWorld();
 
@@ -36,12 +36,12 @@ public class EggThrowHandler
 				{
 					Entity entity = world.loadedEntityList.get(k);
 
-					double xt = entity.posX;
-					double yt = entity.posY;
-					double zt = entity.posZ;
-					int x1 = MathHelper.floor(player.posX);
-					int y1 = MathHelper.floor(player.posY);
-					int z1 = MathHelper.floor(player.posZ);
+					double xt = entity.getX();
+					double yt = entity.getY();
+					double zt = entity.getZ();
+					int x1 = MathHelper.floor(player.getX());
+					int y1 = MathHelper.floor(player.getY());
+					int z1 = MathHelper.floor(player.getZ());
 					int x2 = (int) Math.abs(xt - x1);
 					int y2 = (int) Math.abs(yt - y1);
 					int z2 = (int) Math.abs(zt - z1);
@@ -51,7 +51,7 @@ public class EggThrowHandler
 
 			} else
 			{
-				// event.getEntityPlayer().swingArm(event.getHand());
+				// event.getPlayerEntity().swingArm(event.getHand());
 				event.isCanceled();
 				event.setCanceled(true);
 			}

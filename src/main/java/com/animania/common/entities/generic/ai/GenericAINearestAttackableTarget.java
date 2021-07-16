@@ -14,12 +14,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAITarget;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -86,7 +86,7 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends En
 		if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0)
 		{
 			return false;
-		} else if (this.targetClass != EntityPlayer.class && this.targetClass != EntityPlayerMP.class)
+		} else if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class)
 		{
 			List<T> list = this.taskOwner.world.<T> getEntitiesWithinAABB(this.targetClass, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
 
@@ -101,19 +101,19 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends En
 			}
 		} else
 		{
-			this.targetEntity = (T) this.taskOwner.world.getNearestAttackablePlayer(this.taskOwner.posX, this.taskOwner.posY + this.taskOwner.getEyeHeight(), this.taskOwner.posZ, this.getTargetDistance(), this.getTargetDistance(), new Function<EntityPlayer, Double>() {
+			this.targetEntity = (T) this.taskOwner.world.getNearestAttackablePlayer(this.taskOwner.getX(), this.taskOwner.getY() + this.taskOwner.getEyeHeight(), this.taskOwner.getZ(), this.getTargetDistance(), this.getTargetDistance(), new Function<PlayerEntity, Double>() {
 				@Override
 				@Nullable
-				public Double apply(@Nullable EntityPlayer p_apply_1_)
+				public Double apply(@Nullable PlayerEntity p_apply_1_)
 				{
 					ItemStack itemstack = p_apply_1_.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
 					if (itemstack.getItem() == Items.SKULL)
 					{
 						int i = itemstack.getItemDamage();
-						boolean flag = GenericAINearestAttackableTarget.this.taskOwner instanceof EntitySkeleton && i == 0;
-						boolean flag1 = GenericAINearestAttackableTarget.this.taskOwner instanceof EntityZombie && i == 2;
-						boolean flag2 = GenericAINearestAttackableTarget.this.taskOwner instanceof EntityCreeper && i == 4;
+						boolean flag = GenericAINearestAttackableTarget.this.taskOwner instanceof SkeletonEntity && i == 0;
+						boolean flag1 = GenericAINearestAttackableTarget.this.taskOwner instanceof ZombieEntity && i == 2;
+						boolean flag2 = GenericAINearestAttackableTarget.this.taskOwner instanceof CreeperEntity && i == 4;
 
 						if (flag || flag1 || flag2)
 						{
@@ -123,7 +123,7 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends En
 
 					return 1.0D;
 				}
-			}, (Predicate<EntityPlayer>) this.targetEntitySelector);
+			}, (Predicate<PlayerEntity>) this.targetEntitySelector);
 			return this.targetEntity != null;
 		}
 	}

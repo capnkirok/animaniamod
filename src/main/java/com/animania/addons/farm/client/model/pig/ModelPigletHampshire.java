@@ -1,6 +1,6 @@
 package com.animania.addons.farm.client.model.pig;
 
-import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntityPigletHampshire;
+import com.animania.addons.farm.common.entity.pigs.PigHampshire.PigEntityletHampshire;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -166,15 +166,15 @@ public class ModelPigletHampshire extends ModelBase
 
         super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        if (LivingEntityIn instanceof EntityPigletHampshire) {
-        	EntityPigletHampshire entityPigletHampshire = (EntityPigletHampshire) LivingEntityIn;
-            this.Head.rotationPointY = 17.0F + entityPigletHampshire.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
+        if (LivingEntityIn instanceof PigEntityletHampshire) {
+        	PigEntityletHampshire PigEntityletHampshire = (PigEntityletHampshire) LivingEntityIn;
+            this.Head.rotationPointY = 17.0F + PigEntityletHampshire.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
                                                                                                                                            // should
                                                                                                                                            // match
                                                                                                                                            // model
                                                                                                                                            // Y
                                                                                                                                            // point
-            this.headRotationAngleX = entityPigletHampshire.getHeadAngleX(partialTickTime);
+            this.headRotationAngleX = PigEntityletHampshire.getHeadAngleX(partialTickTime);
         }
 
     }

@@ -209,13 +209,13 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	public CompoundNBT writeToNBT(CompoundNBT compound)
 	{
 		CompoundNBT tag = super.writeToNBT(compound);
-		tag.setInteger("energy", power.getEnergyStored());
-		tag.setBoolean("running", isRunning);
-		tag.setInteger("timer", this.timer);
+		tag.putInteger("energy", power.getEnergyStored());
+		tag.putBoolean("running", isRunning);
+		tag.putInteger("timer", this.timer);
 		CompoundNBT hamster = new CompoundNBT();
 		CompoundNBT items = this.itemHandler.serializeNBT();
-		tag.setTag("hamster", ((this.hamster == null) ? hamster : this.hamster.writeToNBT(hamster)));
-		tag.setTag("items", items);
+		tag.putTag("hamster", ((this.hamster == null) ? hamster : this.hamster.writeToNBT(hamster)));
+		tag.putTag("items", items);
 		return tag;
 
 	}

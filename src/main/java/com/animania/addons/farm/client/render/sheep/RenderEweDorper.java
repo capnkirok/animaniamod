@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -40,11 +40,11 @@ public class RenderEweDorper<T extends EntityEweDorper> extends RenderLiving<T>
 	{
 		GL11.glScalef(0.60F, 0.60F, 0.60F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
-		if (entitySheep.getSleeping())
+		EntityAnimaniaSheep SheepEntity = (EntityAnimaniaSheep) entity;
+		if (SheepEntity.getSleeping())
 		{
 			this.shadowSize = 0;
-			float sleepTimer = entitySheep.getSleepTimer();
+			float sleepTimer = SheepEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -57,15 +57,15 @@ public class RenderEweDorper<T extends EntityEweDorper> extends RenderLiving<T>
 		else
 		{
 			this.shadowSize = 0.5F;
-			entitySheep.setSleeping(false);
-			entitySheep.setSleepTimer(0F);
+			SheepEntity.setSleeping(false);
+			SheepEntity.setSleepTimer(0F);
 		}
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+		if (entity.getX() == -1 && entity.getY() == -1 && entity.getZ() == -1)
 		{
 			return SHEEP_TEXTURES[0];
 		}
@@ -93,8 +93,8 @@ public class RenderEweDorper<T extends EntityEweDorper> extends RenderLiving<T>
 			int k = i % j;
 			int l = (i + 1) % j;
 			float q = ((float) (LivingEntity.ticksExisted % 25) + f) / 25.0F;
-			float[] afloat1 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(k));
-			float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
+			float[] afloat1 = SheepEntity.getDyeRgb(EnumDyeColor.byMetadata(k));
+			float[] afloat2 = SheepEntity.getDyeRgb(EnumDyeColor.byMetadata(l));
 			((ModelDorperSheep) this.mainModel).setWoolColor(afloat1[0] * (1.0F - q) + afloat2[0] * q, afloat1[1] * (1.0F - q) + afloat2[1] * q, afloat1[2] * (1.0F - q) + afloat2[2] * q);
 		}
 		else

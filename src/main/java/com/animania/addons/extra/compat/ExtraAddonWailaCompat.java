@@ -7,12 +7,12 @@ import com.animania.addons.extra.common.entity.peafowl.EntityPeafowlBase;
 import com.animania.addons.extra.common.entity.rodents.EntityFerretBase;
 import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.addons.extra.common.entity.rodents.EntityHedgehogBase;
-import com.animania.addons.extra.common.entity.rodents.rabbits.EntityRabbitBuckBase;
-import com.animania.addons.extra.common.entity.rodents.rabbits.EntityRabbitDoeBase;
-import com.animania.addons.extra.common.entity.rodents.rabbits.EntityRabbitKitBase;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitEntityBuckBase;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitEntityDoeBase;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitEntityKitBase;
 import com.animania.addons.extra.compat.waila.WailaBlockHamsterWheelProvider;
 import com.animania.addons.extra.compat.waila.WailaEntityPeafowlProvider;
-import com.animania.addons.extra.compat.waila.WailaEntityRabbitDoeProvider;
+import com.animania.addons.extra.compat.waila.WailaRabbitEntityDoeProvider;
 import com.animania.addons.extra.compat.waila.WailaEntityRodentProvider;
 import com.animania.compat.waila.provider.WailaAnimalEntityProviderBase;
 import com.animania.compat.waila.provider.WailaAnimalEntityProviderChild;
@@ -38,9 +38,9 @@ public class ExtraAddonWailaCompat
 		regEntityInfoRodent(r, EntityHedgehogBase.class);
 
 		// RABBITS
-		regEntityInfoRabbitBuck(r, EntityRabbitBuckBase.class);
-		regEntityInfoRabbitDoe(r, EntityRabbitDoeBase.class);
-		regEntityInfoRabbitKit(r, EntityRabbitKitBase.class);
+		regEntityInfoRabbitBuck(r, RabbitEntityBuckBase.class);
+		regEntityInfoRabbitDoe(r, RabbitEntityDoeBase.class);
+		regEntityInfoRabbitKit(r, RabbitEntityKitBase.class);
 	}
 
 	private static void regEntityInfoBase(IWailaRegistrar r, Class clazz)
@@ -69,8 +69,8 @@ public class ExtraAddonWailaCompat
 
 	private static void regEntityInfoRabbitDoe(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityRabbitDoeProvider(), clazz);
-		r.registerNBTProvider(new WailaEntityRabbitDoeProvider(), clazz);
+		r.registerBodyProvider(new WailaRabbitEntityDoeProvider(), clazz);
+		r.registerNBTProvider(new WailaRabbitEntityDoeProvider(), clazz);
 	}
 
 	private static void regEntityInfoRabbitKit(IWailaRegistrar r, Class clazz)

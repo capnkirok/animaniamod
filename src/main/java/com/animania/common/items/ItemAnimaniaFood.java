@@ -9,7 +9,7 @@ import com.animania.common.helper.TimeHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -94,7 +94,7 @@ public class ItemAnimaniaFood extends ItemFood
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
+	protected void onFoodEaten(ItemStack itemstack, World worldObj, PlayerEntity PlayerEntity)
 	{
 		if (!worldObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects && this.effects != null)
 			for (PotionEffect effect : this.effects.clone())
@@ -103,7 +103,7 @@ public class ItemAnimaniaFood extends ItemFood
 				int duration = effect.getDuration();
 				int amplifier = effect.getAmplifier();
 				boolean isAmbient = effect.getIsAmbient();
-				entityplayer.addPotionEffect(new PotionEffect(pot, duration, amplifier, isAmbient, false));
+				PlayerEntity.addPotionEffect(new PotionEffect(pot, duration, amplifier, isAmbient, false));
 			}
 	}
 

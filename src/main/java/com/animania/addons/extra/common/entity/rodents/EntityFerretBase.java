@@ -49,9 +49,9 @@ import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAISit;
-import net.minecraft.entity.monster.EntitySilverfish;
+import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -133,7 +133,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 		this.tasks.addTask(9, new EntityAIRodentEat(this));
 		this.tasks.addTask(10, new GenericAITempt<EntityFerretBase>(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
-		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(14, new GenericAILookIdle<EntityFerretBase>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
@@ -143,7 +143,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 		{
 			AddonInjectionHandler.runInjection("farm", "attackChicks", Void.class, this);
 
-			this.targetTasks.addTask(6, new GenericAINearestAttackableTarget<EntitySilverfish>(this, EntitySilverfish.class, false));
+			this.targetTasks.addTask(6, new GenericAINearestAttackableTarget<SilverfishEntity>(this, SilverfishEntity.class, false));
 			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget<EntityFrogs>(this, EntityFrogs.class, false));
 			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget<EntityToad>(this, EntityToad.class, false));
 		}
@@ -178,7 +178,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 	}
 
 	@Override
-	protected void consumeItemFromStack(EntityPlayer player, ItemStack stack)
+	protected void consumeItemFromStack(PlayerEntity player, ItemStack stack)
 	{
 		this.setFed(true);
 		if (!this.isTamed())
@@ -199,7 +199,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		this.world.setEntityState(this, (byte) 18);
 	}
@@ -218,10 +218,10 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
+		PlayerEntity PlayerEntity = player;
 
 		if (stack == ItemStack.EMPTY && this.isTamed() && player.isSneaking() && !this.getSleeping())
 		{
@@ -233,8 +233,8 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 				props.setType(EntityList.getKey(this).getResourcePath());
 				this.setDead();
 				player.swingArm(EnumHand.MAIN_HAND);
-				if (!player.world.isRemote)
-					Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
+				if (!player.level.isRemote)
+					Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.level.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
 				return true;
 			}
 		}
@@ -256,8 +256,8 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 		}
 
 		// Custom Knockback
-		if (entityIn instanceof EntityPlayer)
-			((LivingEntity) entityIn).knockBack(this, 0.3f, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+		if (entityIn instanceof PlayerEntity)
+			((LivingEntity) entityIn).knockBack(this, 0.3f, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 
 		return flag;
 	}
@@ -281,9 +281,9 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setBoolean("IsTamed", this.isTamed());
-		compound.setBoolean("IsSitting", this.isSitting());
-		compound.setBoolean("Riding", this.isFerretRiding());
+		compound.putBoolean("IsTamed", this.isTamed());
+		compound.putBoolean("IsSitting", this.isSitting());
+		compound.putBoolean("Riding", this.isFerretRiding());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 	}
@@ -321,7 +321,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 	}
 
 	@Override
-	public boolean canBeLeashedTo(EntityPlayer player)
+	public boolean canBeLeashedTo(PlayerEntity player)
 	{
 		return true;
 	}
@@ -359,9 +359,9 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.5F);
 	}
 
-	private boolean interactRide(EntityPlayer entityplayer)
+	private boolean interactRide(PlayerEntity PlayerEntity)
 	{
-		this.isRemoteMountEntity(entityplayer);
+		this.isRemoteMountEntity(PlayerEntity);
 		return true;
 	}
 
@@ -410,9 +410,9 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 					double d1 = this.rand.nextGaussian() * 0.02D;
 					double d2 = this.rand.nextGaussian() * 0.02D;
 					// this.world.spawnParticle(EnumParticleTypes.HEART,
-					// this.posX + this.rand.nextFloat() * this.width -
-					// this.width, this.posY + 1D + this.rand.nextFloat() *
-					// this.height, this.posZ + this.rand.nextFloat() *
+					// this.getX() + this.rand.nextFloat() * this.width -
+					// this.width, this.getY() + 1D + this.rand.nextFloat() *
+					// this.height, this.getZ() + this.rand.nextFloat() *
 					// this.width - this.width, d, d1, d2);
 				}
 			}

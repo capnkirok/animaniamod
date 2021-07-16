@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.extra.client.model.rabbits.ModelLop;
 import com.animania.addons.extra.common.entity.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitKitLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityKitLop;
 import com.animania.client.render.layer.LayerBlinking;
 
 import net.minecraft.block.Block;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderKitLop<T extends EntityRabbitKitLop> extends RenderLiving<T>
+public class RenderKitLop<T extends RabbitEntityKitLop> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", rabbitBaseDir = "textures/entity/rabbits/";
@@ -38,17 +38,17 @@ private static int[] EYE_COLORS = new int[]{0x404040, 0x816D60, 0xD0A675, 0x7F6C
 		this.addLayer(blinkingLayer = new LayerBlinking(this, rabbitTexturesBlink, 0));
 	}
 
-	protected void preRenderScale(EntityRabbitKitLop entity, float f)
+	protected void preRenderScale(RabbitEntityKitLop entity, float f)
 	{
 		float age = entity.getEntityAge();
 		GL11.glScalef(0.23F + (age / entity.getSizeDividend()), 0.23F + (age / entity.getSizeDividend()), 0.23F + (age / entity.getSizeDividend()));
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
-		double x = entity.posX;
-		double y = entity.posY;
-		double z = entity.posZ;
+		double x = entity.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
+		Block blockchk = entity.level.getBlockState(pos).getBlock();
 		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
 		if (entityChk.getSleeping())
 		{
@@ -72,7 +72,7 @@ private static int[] EYE_COLORS = new int[]{0x404040, 0x816D60, 0xD0A675, 0x7F6C
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+		if (entity.getX() == -1 && entity.getY() == -1 && entity.getZ() == -1)
 		{
 			return RABBIT_TEXTURES[0];
 		}
@@ -80,7 +80,7 @@ private static int[] EYE_COLORS = new int[]{0x404040, 0x816D60, 0xD0A675, 0x7F6C
 		return this.RABBIT_TEXTURES[entity.getColorNumber()];
 	}
 
-	static class Factory<T extends EntityRabbitKitLop> implements IRenderFactory<T>
+	static class Factory<T extends RabbitEntityKitLop> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

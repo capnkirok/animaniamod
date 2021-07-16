@@ -52,9 +52,9 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -78,7 +78,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAnimaniaAnimalBase, IConvertable
+public class EntityAnimaniaSheep extends SheepEntity implements IShearable, IAnimaniaAnimalBase, IConvertable
 {
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.sheepFood));
@@ -128,8 +128,8 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, new ItemStack(Blocks.YELLOW_FLOWER), false));
 		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, new ItemStack(Blocks.RED_FLOWER), false));
 		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new GenericAIAvoidEntity<EntityWolf>(this, EntityWolf.class, 24.0F, 2.0D, 2.2D));
-		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 2.0D, 2.2D));
+		this.tasks.addTask(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaSheep>(this));
 		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaSheep>(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
@@ -141,7 +141,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 			AddonInjectionHandler.runInjection("catsdogs", "addHerdingBehavior", null, this, 1);
 		}
 		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityPlayer.class));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, PlayerEntity.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -369,10 +369,10 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
+		PlayerEntity PlayerEntity = player;
 
 		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild())
 		{
@@ -420,7 +420,7 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		if (!this.getSleeping())
 			this.world.setEntityState(this, (byte) 18);
@@ -442,9 +442,9 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	{
 		super.writeEntityToNBT(compound);
 
-		compound.setBoolean("Sheared", this.getSheared());
-		compound.setInteger("ColorNumber", getColorNumber());
-		compound.setInteger("DyeColor", this.getDyeColorNum());
+		compound.putBoolean("Sheared", this.getSheared());
+		compound.putInteger("ColorNumber", getColorNumber());
+		compound.putInteger("DyeColor", this.getDyeColorNum());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 
@@ -633,8 +633,8 @@ public class EntityAnimaniaSheep extends EntitySheep implements IShearable, IAni
 	@Override
 	public Entity convertToVanilla()
 	{
-		EntitySheep entity = new EntitySheep(this.world);
-		entity.setPosition(this.posX, this.posY, this.posZ);
+		SheepEntity entity = new SheepEntity(this.world);
+		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());
 		return entity;

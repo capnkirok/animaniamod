@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.farm.client.model.pig.ModelPiglet;
 import com.animania.addons.farm.client.render.pigs.RenderPigletYorkshire;
-import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntityPigletYorkshire;
+import com.animania.addons.farm.common.entity.pigs.PigYorkshire.PigEntityletYorkshire;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class LayerMudPigletYorkshire implements LayerRenderer<EntityPigletYorkshire>
+public class LayerMudPigletYorkshire implements LayerRenderer<PigEntityletYorkshire>
 {
     private static final ResourceLocation TEXTURE  = new ResourceLocation("animania:textures/entity/pigs/piglet_muddy.png");
     private final RenderPigletYorkshire   pigRenderer;
@@ -24,7 +24,7 @@ public class LayerMudPigletYorkshire implements LayerRenderer<EntityPigletYorksh
     }
 
     @Override
-    public void doRenderLayer(EntityPigletYorkshire LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
+    public void doRenderLayer(PigEntityletYorkshire LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
             float netHeadYaw, float headPitch, float scale) {
 
         if (LivingEntityIn.getMuddy()) {

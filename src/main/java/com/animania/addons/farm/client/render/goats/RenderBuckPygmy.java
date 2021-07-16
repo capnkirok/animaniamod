@@ -29,12 +29,12 @@ public class RenderBuckPygmy<T extends EntityBuckPygmy> extends RenderLiving<T>
 		this.addLayer(new LayerBlinking(this, goatTexturesBlink, 0x2B2E2E));
 	}
 
-	protected ResourceLocation getGoatTextures(T par1EntityCow)
+	protected ResourceLocation getGoatTextures(T par1CowEntity)
 	{
 		return RenderBuckPygmy.goatTextures;
 	}
 
-	protected ResourceLocation getGoatTexturesBlink(T par1EntityCow)
+	protected ResourceLocation getGoatTexturesBlink(T par1CowEntity)
 	{
 		return RenderBuckPygmy.goatTexturesBlink;
 	}

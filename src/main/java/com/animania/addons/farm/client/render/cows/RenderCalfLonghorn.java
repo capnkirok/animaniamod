@@ -30,12 +30,12 @@ public class RenderCalfLonghorn<T extends EntityCalfLonghorn> extends RenderLivi
 		addLayer(new LayerBlinking(this, cowTexturesBlink, 0xDEDEDE));
 	}
 
-	protected ResourceLocation getCowTextures(T par1EntityCow)
+	protected ResourceLocation getCowTextures(T par1CowEntity)
 	{
 		return RenderCalfLonghorn.cowTextures;
 	}
 
-	protected ResourceLocation getCowTexturesBlink(T par1EntityCow)
+	protected ResourceLocation getCowTexturesBlink(T par1CowEntity)
 	{
 		return RenderCalfLonghorn.cowTexturesBlink;
 	}
@@ -51,10 +51,10 @@ public class RenderCalfLonghorn<T extends EntityCalfLonghorn> extends RenderLivi
 		float age = entity.getEntityAge();
 		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()));
 
-		EntityAnimaniaCow entityCow = entity;
-		if (entityCow.getSleeping())
+		EntityAnimaniaCow CowEntity = entity;
+		if (CowEntity.getSleeping())
 		{
-			float sleepTimer = entityCow.getSleepTimer();
+			float sleepTimer = CowEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -65,8 +65,8 @@ public class RenderCalfLonghorn<T extends EntityCalfLonghorn> extends RenderLivi
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
 		} else
 		{
-			entityCow.setSleeping(false);
-			entityCow.setSleepTimer(0F);
+			CowEntity.setSleeping(false);
+			CowEntity.setSleepTimer(0F);
 		}
 	}
 

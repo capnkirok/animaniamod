@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.farm.client.model.pig.ModelPigletHampshire;
 import com.animania.addons.farm.client.render.pigs.RenderPigletHampshire;
-import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntityPigletHampshire;
+import com.animania.addons.farm.common.entity.pigs.PigHampshire.PigEntityletHampshire;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class LayerMudPigletHampshire implements LayerRenderer<EntityPigletHampshire>
+public class LayerMudPigletHampshire implements LayerRenderer<PigEntityletHampshire>
 {
     private static final ResourceLocation TEXTURE  = new ResourceLocation("animania:textures/entity/pigs/piglet_muddy.png");
     private final RenderPigletHampshire   pigRenderer;
@@ -24,7 +24,7 @@ public class LayerMudPigletHampshire implements LayerRenderer<EntityPigletHampsh
     }
 
     @Override
-    public void doRenderLayer(EntityPigletHampshire LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
+    public void doRenderLayer(PigEntityletHampshire LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
             float netHeadYaw, float headPitch, float scale) {
 
         if (LivingEntityIn.getMuddy()) {

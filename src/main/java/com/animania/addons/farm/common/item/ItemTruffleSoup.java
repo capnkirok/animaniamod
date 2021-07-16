@@ -7,8 +7,8 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -35,26 +35,26 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity LivingEntity)
 	{
 
-		if (LivingEntity instanceof EntityPlayer)
+		if (LivingEntity instanceof PlayerEntity)
 		{
-			EntityPlayer entityplayer = (EntityPlayer) LivingEntity;
+			PlayerEntity PlayerEntity = (PlayerEntity) LivingEntity;
 			if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
-				entityplayer.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
+				PlayerEntity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1200, 1, false, false));
 
-			if (entityplayer.getFoodStats() != null)
+			if (PlayerEntity.getFoodStats() != null)
 			{
-				entityplayer.getFoodStats().addStats(this, stack);
+				PlayerEntity.getFoodStats().addStats(this, stack);
 			}
-			worldIn.playSound((EntityPlayer) null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-			this.onFoodEaten(stack, worldIn, entityplayer);
-			entityplayer.addStat(StatList.getObjectUseStats(this));
+			worldIn.playSound((PlayerEntity) null, PlayerEntity.getX(), PlayerEntity.getY(), PlayerEntity.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+			this.onFoodEaten(stack, worldIn, PlayerEntity);
+			PlayerEntity.addStat(StatList.getObjectUseStats(this));
 
-			if (entityplayer instanceof EntityPlayerMP)
+			if (PlayerEntity instanceof ServerPlayerEntity)
 			{
-				CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP) entityplayer, stack);
+				CriteriaTriggers.CONSUME_ITEM.trigger((ServerPlayerEntity) PlayerEntity, stack);
 			}
 
-			if (!entityplayer.capabilities.isCreativeMode)
+			if (!PlayerEntity.capabilities.isCreativeMode)
 			{
 				stack.shrink(1);
 			}
@@ -64,12 +64,12 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
+	protected void onFoodEaten(ItemStack itemstack, World worldObj, PlayerEntity PlayerEntity)
 	{
 
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, PlayerEntity playerIn, EnumHand hand)
 	{
 		playerIn.setActiveHand(hand);
 		return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);

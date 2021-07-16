@@ -21,7 +21,7 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -50,7 +50,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		this.gender = EntityGender.MALE;
 
 		if (!getSterilized())
-			this.tasks.addTask(3, new GenericAIMate<EntityHogBase, EntitySowBase>(this, 1.0D, EntitySowBase.class, EntityPigletBase.class, EntityAnimaniaPig.class));
+			this.tasks.addTask(3, new GenericAIMate<EntityHogBase, EntitySowBase>(this, 1.0D, EntitySowBase.class, PigEntityletBase.class, EntityAnimaniaPig.class));
 		// this.tasks.addTask(9, new EntityAIFollowMatePigs(this, 1.1D));
 	}
 
@@ -79,18 +79,18 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof EntityPlayer))
+		if (!(entity instanceof PlayerEntity))
 			return false;
 		else
 		{
-			EntityPlayer entityplayer = (EntityPlayer) entity;
-			ItemStack itemstack = entityplayer.getHeldItemMainhand();
+			PlayerEntity PlayerEntity = (PlayerEntity) entity;
+			ItemStack itemstack = PlayerEntity.getHeldItemMainhand();
 
 			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK)
 				return true;
 			else
 			{
-				itemstack = entityplayer.getHeldItemOffhand();
+				itemstack = PlayerEntity.getHeldItemOffhand();
 				return itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK;
 			}
 		}
@@ -145,7 +145,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);

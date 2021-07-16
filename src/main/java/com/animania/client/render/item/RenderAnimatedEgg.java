@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -29,10 +29,10 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 	@Override
 	public void renderByItem(ItemStack stack, float partialTicks)
 	{
-		EntityPlayer player = Minecraft.getMinecraft().player;
+		PlayerEntity player = Minecraft.getMinecraft().player;
 		Minecraft mc = Minecraft.getMinecraft();
 
-		Entity entity = ItemEntityEggAnimated.getEntity(player.world, stack);
+		Entity entity = ItemEntityEggAnimated.getEntity(player.level, stack);
 
 		if (entity != null)
 		{
@@ -151,9 +151,9 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 	{
 		if (entity.ticksExisted == 0)
 		{
-			entity.lastTickPosX = entity.posX;
-			entity.lastTickPosY = entity.posY;
-			entity.lastTickPosZ = entity.posZ;
+			entity.lastTickgetX() = entity.getX();
+			entity.lastTickgetY() = entity.getY();
+			entity.lastTickgetZ() = entity.getZ();
 		}
 
 		float f = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw);
@@ -179,14 +179,14 @@ public class RenderAnimatedEgg extends TileEntityItemStackRenderer
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private int getBrightnessForRender(Entity entity, EntityPlayer player)
+	private int getBrightnessForRender(Entity entity, PlayerEntity player)
 	{
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(player.posX), 0, MathHelper.floor(player.posZ));
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(player.getX()), 0, MathHelper.floor(player.getZ()));
 
-		if (entity.world.isBlockLoaded(blockpos$mutableblockpos))
+		if (entity.level.isBlockLoaded(blockpos$mutableblockpos))
 		{
-			blockpos$mutableblockpos.setY(MathHelper.floor(player.posY + entity.getEyeHeight()));
-			return entity.world.getCombinedLight(blockpos$mutableblockpos, 0);
+			blockpos$mutableblockpos.setY(MathHelper.floor(player.getY() + entity.getEyeHeight()));
+			return entity.level.getCombinedLight(blockpos$mutableblockpos, 0);
 		}
 		else
 		{

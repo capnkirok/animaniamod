@@ -47,17 +47,17 @@ public abstract class AnimatedEntityBase extends Entity implements IAnimated
 
 	@Override
 	public double getX() {
-		return this.posX;
+		return this.getX();
 	}
 
 	@Override
 	public double getY() {
-		return this.posY;
+		return this.getY();
 	}
 
 	@Override
 	public double getZ() {
-		return this.posZ;
+		return this.getZ();
 	}
 
 	@Override

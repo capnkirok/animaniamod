@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.extra.client.model.rabbits.ModelLop;
 import com.animania.addons.extra.common.entity.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitDoeLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityDoeLop;
 import com.animania.client.render.layer.LayerBlinking;
 
 import net.minecraft.block.Block;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderDoeLop<T extends EntityRabbitDoeLop> extends RenderLiving<T>
+public class RenderDoeLop<T extends RabbitEntityDoeLop> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 	private static final String modid = "animania", rabbitBaseDir = "textures/entity/rabbits/";
@@ -35,7 +35,7 @@ public class RenderDoeLop<T extends EntityRabbitDoeLop> extends RenderLiving<T>
 		this.addLayer(blinkingLayer = new LayerBlinking(this, rabbitTexturesBlink, 0));
 	}
 
-	protected void preRenderScale(EntityRabbitDoeLop entity, float f)
+	protected void preRenderScale(RabbitEntityDoeLop entity, float f)
 	{
 		if (entity.getCustomNameTag().equals("Killer")) {
 			GlStateManager.scale(0.7D, 0.7D, 0.7D);
@@ -44,11 +44,11 @@ public class RenderDoeLop<T extends EntityRabbitDoeLop> extends RenderLiving<T>
 		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
-		double x = entity.posX;
-		double y = entity.posY;
-		double z = entity.posZ;
+		double x = entity.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
+		Block blockchk = entity.level.getBlockState(pos).getBlock();
 		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
 		if (entityChk.getSleeping())
 		{
@@ -75,7 +75,7 @@ public class RenderDoeLop<T extends EntityRabbitDoeLop> extends RenderLiving<T>
 		if (entity.getCustomNameTag().trim().equals("Killer")) {
 			return RenderDoeLop.killerRabbitTextures;
 		} else {
-			if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+			if (entity.getX() == -1 && entity.getY() == -1 && entity.getZ() == -1)
 			{
 				return RABBIT_TEXTURES[0];
 			}
@@ -84,7 +84,7 @@ public class RenderDoeLop<T extends EntityRabbitDoeLop> extends RenderLiving<T>
 		}
 	}
 
-	static class Factory<T extends EntityRabbitDoeLop> implements IRenderFactory<T>
+	static class Factory<T extends RabbitEntityDoeLop> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

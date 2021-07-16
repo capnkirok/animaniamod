@@ -1,7 +1,7 @@
 package com.animania.addons.extra.common.capabilities;
 
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 
 import CompoundNBT;
@@ -19,7 +19,7 @@ public class CapabilityPlayer implements ICapabilityPlayer {
 	}
 
 	@Override
-	public void read(EntityPlayer player){
+	public void read(PlayerEntity player){
 		ICapabilityPlayer cap = CapabilityRefs.getPlayerCaps(player);   
 	}
 

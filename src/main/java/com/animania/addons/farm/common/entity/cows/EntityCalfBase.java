@@ -16,7 +16,7 @@ import com.google.common.base.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -42,7 +42,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 		this.width = 1.6F;
 		this.height = 3.6F;
 		this.stepHeight = 1.1F;
-		this.tasks.addTask(1, new GenericAIFollowParents<EntityCalfBase, EntityCowBase>(this, 1.1, EntityCowBase.class));
+		this.tasks.addTask(1, new GenericAIFollowParents<EntityCalfBase, CowEntityBase>(this, 1.1, CowEntityBase.class));
 		this.ageTimer = 0;
 		this.cowType = CowType.FRIESIAN;
 		this.gender = EntityGender.CHILD;
@@ -72,7 +72,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		this.world.setEntityState(this, (byte) 18);
 	}
@@ -122,7 +122,7 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public void onLivingUpdate()
 	{
-		GenericBehavior.livingUpdateChild(this, EntityCowBase.class);
+		GenericBehavior.livingUpdateChild(this, CowEntityBase.class);
 
 		this.setSize((0.8f + this.getEntityAge()) * 2, (1.0f + this.getEntityAge()) * 2);
 

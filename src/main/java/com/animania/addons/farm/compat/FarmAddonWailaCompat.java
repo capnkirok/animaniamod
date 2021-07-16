@@ -8,7 +8,7 @@ import com.animania.addons.farm.common.entity.chickens.EntityHenBase;
 import com.animania.addons.farm.common.entity.chickens.EntityRoosterBase;
 import com.animania.addons.farm.common.entity.cows.EntityBullBase;
 import com.animania.addons.farm.common.entity.cows.EntityCalfBase;
-import com.animania.addons.farm.common.entity.cows.EntityCowBase;
+import com.animania.addons.farm.common.entity.cows.CowEntityBase;
 import com.animania.addons.farm.common.entity.goats.EntityBuckBase;
 import com.animania.addons.farm.common.entity.goats.EntityDoeBase;
 import com.animania.addons.farm.common.entity.goats.EntityKidBase;
@@ -16,7 +16,7 @@ import com.animania.addons.farm.common.entity.horses.EntityFoalBase;
 import com.animania.addons.farm.common.entity.horses.EntityMareBase;
 import com.animania.addons.farm.common.entity.horses.EntityStallionBase;
 import com.animania.addons.farm.common.entity.pigs.EntityHogBase;
-import com.animania.addons.farm.common.entity.pigs.EntityPigletBase;
+import com.animania.addons.farm.common.entity.pigs.PigEntityletBase;
 import com.animania.addons.farm.common.entity.pigs.EntitySowBase;
 import com.animania.addons.farm.common.entity.sheep.EntityEweBase;
 import com.animania.addons.farm.common.entity.sheep.EntityLambBase;
@@ -25,13 +25,13 @@ import com.animania.addons.farm.compat.waila.WailaBlockCheeseMoldProvider;
 import com.animania.addons.farm.compat.waila.WailaBlockCheeseProvider;
 import com.animania.addons.farm.compat.waila.WailaBlockHiveProvider;
 import com.animania.addons.farm.compat.waila.WailaEntityBuckProvider;
-import com.animania.addons.farm.compat.waila.WailaEntityCowProvider;
+import com.animania.addons.farm.compat.waila.WailaCowEntityProvider;
 import com.animania.addons.farm.compat.waila.WailaEntityDoeProvider;
 import com.animania.addons.farm.compat.waila.WailaEntityEweProvider;
 import com.animania.addons.farm.compat.waila.WailaEntityHenProvider;
 import com.animania.addons.farm.compat.waila.WailaEntityMareProvider;
-import com.animania.addons.farm.compat.waila.WailaEntityPigProvider;
-import com.animania.addons.farm.compat.waila.WailaEntityPigletProvider;
+import com.animania.addons.farm.compat.waila.WailaPigEntityProvider;
+import com.animania.addons.farm.compat.waila.WailaPigEntityletProvider;
 import com.animania.addons.farm.compat.waila.WailaEntityRamProvider;
 import com.animania.addons.farm.compat.waila.WailaEntitySowProvider;
 import com.animania.compat.waila.provider.WailaAnimalEntityProviderBase;
@@ -51,13 +51,13 @@ public class FarmAddonWailaCompat
 
 		// COWS
 		regEntityInfoBull(r, EntityBullBase.class);
-		regEntityInfoCow(r, EntityCowBase.class);
+		regEntityInfoCow(r, CowEntityBase.class);
 		regEntityInfoCalf(r, EntityCalfBase.class);
 
 		// PIGS
 		regEntityInfoHog(r, EntityHogBase.class);
 		regEntityInfoSow(r, EntitySowBase.class);
-		regEntityInfoPiglet(r, EntityPigletBase.class);
+		regEntityInfoPiglet(r, PigEntityletBase.class);
 
 		// CHICKENS
 		regEntityInfoBase(r, EntityRoosterBase.class);
@@ -89,8 +89,8 @@ public class FarmAddonWailaCompat
 
 	private static void regEntityInfoCow(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityCowProvider(), clazz);
-		r.registerNBTProvider(new WailaEntityCowProvider(), clazz);
+		r.registerBodyProvider(new WailaCowEntityProvider(), clazz);
+		r.registerNBTProvider(new WailaCowEntityProvider(), clazz);
 	}
 
 	private static void regEntityInfoCalf(IWailaRegistrar r, Class clazz)
@@ -101,8 +101,8 @@ public class FarmAddonWailaCompat
 
 	private static void regEntityInfoHog(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityPigProvider(), clazz);
-		r.registerNBTProvider(new WailaEntityPigProvider(), clazz);
+		r.registerBodyProvider(new WailaPigEntityProvider(), clazz);
+		r.registerNBTProvider(new WailaPigEntityProvider(), clazz);
 	}
 
 	private static void regEntityInfoSow(IWailaRegistrar r, Class clazz)
@@ -113,8 +113,8 @@ public class FarmAddonWailaCompat
 
 	private static void regEntityInfoPiglet(IWailaRegistrar r, Class clazz)
 	{
-		r.registerBodyProvider(new WailaEntityPigletProvider(), clazz);
-		r.registerNBTProvider(new WailaEntityPigletProvider(), clazz);
+		r.registerBodyProvider(new WailaPigEntityletProvider(), clazz);
+		r.registerNBTProvider(new WailaPigEntityletProvider(), clazz);
 	}
 
 	private static void regEntityInfoHen(IWailaRegistrar r, Class clazz)

@@ -2,7 +2,7 @@ package com.animania.addons.farm.client.render.cows;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.addons.farm.common.entity.cows.CowJersey.EntityCowJersey;
+import com.animania.addons.farm.common.entity.cows.CowJersey.CowEntityJersey;
 import com.animania.addons.farm.client.model.cow.ModelCowHereford;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.client.render.layer.LayerBlinking;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderCowJersey<T extends EntityCowJersey> extends RenderLiving<T>
+public class RenderCowJersey<T extends CowEntityJersey> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 
@@ -34,10 +34,10 @@ public class RenderCowJersey<T extends EntityCowJersey> extends RenderLiving<T>
 	{
 		GL11.glScalef(1.34F, 1.34F, 1.34F);
 
-		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
-		if (entityCow.getSleeping())
+		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		if (CowEntity.getSleeping())
 		{
-			float sleepTimer = entityCow.getSleepTimer();
+			float sleepTimer = CowEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -49,8 +49,8 @@ public class RenderCowJersey<T extends EntityCowJersey> extends RenderLiving<T>
 		}
 		else
 		{
-			entityCow.setSleeping(false);
-			entityCow.setSleepTimer(0F);
+			CowEntity.setSleeping(false);
+			CowEntity.setSleepTimer(0F);
 		}
 
 	}
@@ -67,17 +67,17 @@ public class RenderCowJersey<T extends EntityCowJersey> extends RenderLiving<T>
 		this.preRenderScale(LivingEntity, f);
 	}
 
-	protected ResourceLocation getCowTextures(T par1EntityCow)
+	protected ResourceLocation getCowTextures(T par1CowEntity)
 	{
 		return RenderCowJersey.cowTextures;
 	}
 
-	protected ResourceLocation getCowTexturesBlink(T par1EntityCow)
+	protected ResourceLocation getCowTexturesBlink(T par1CowEntity)
 	{
 		return RenderCowJersey.cowTexturesBlink;
 	}
 
-	static class Factory<T extends EntityCowJersey> implements IRenderFactory<T>
+	static class Factory<T extends CowEntityJersey> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

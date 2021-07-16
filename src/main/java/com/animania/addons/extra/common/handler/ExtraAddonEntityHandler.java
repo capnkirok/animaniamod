@@ -39,30 +39,30 @@ import com.animania.addons.extra.common.entity.rodents.EntityHedgehogAlbino;
 import com.animania.addons.extra.common.entity.rodents.FerretType;
 import com.animania.addons.extra.common.entity.rodents.HamsterType;
 import com.animania.addons.extra.common.entity.rodents.HedgehogType;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.EntityRabbitBuckChinchilla;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.EntityRabbitDoeChinchilla;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.EntityRabbitKitChinchilla;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.EntityRabbitBuckCottontail;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.EntityRabbitDoeCottontail;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.EntityRabbitKitCottontail;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.EntityRabbitBuckDutch;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.EntityRabbitDoeDutch;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.EntityRabbitKitDutch;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.EntityRabbitBuckHavana;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.EntityRabbitDoeHavana;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.EntityRabbitKitHavana;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.EntityRabbitBuckJack;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.EntityRabbitDoeJack;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.EntityRabbitKitJack;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitBuckLop;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitDoeLop;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitKitLop;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.EntityRabbitBuckNewZealand;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.EntityRabbitDoeNewZealand;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.EntityRabbitKitNewZealand;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.EntityRabbitBuckRex;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.EntityRabbitDoeRex;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.EntityRabbitKitRex;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.RabbitEntityBuckChinchilla;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.RabbitEntityDoeChinchilla;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.RabbitEntityKitChinchilla;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.RabbitEntityBuckCottontail;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.RabbitEntityDoeCottontail;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.RabbitEntityKitCottontail;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.RabbitEntityBuckDutch;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.RabbitEntityDoeDutch;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.RabbitEntityKitDutch;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.RabbitEntityBuckHavana;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.RabbitEntityDoeHavana;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.RabbitEntityKitHavana;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.RabbitEntityBuckJack;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.RabbitEntityDoeJack;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.RabbitEntityKitJack;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityBuckLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityDoeLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityKitLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.RabbitEntityBuckNewZealand;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.RabbitEntityDoeNewZealand;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.RabbitEntityKitNewZealand;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitEntityBuckRex;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitEntityDoeRex;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitEntityKitRex;
 import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitType;
 import com.animania.addons.extra.config.ExtraConfig;
 import com.animania.api.data.EntityGender;
@@ -138,37 +138,37 @@ public class ExtraAddonEntityHandler
 		}
 
 		// RABBITS
-		RegistryHelper.Entities.registerAnimal(EntityRabbitBuckCottontail.class, "buck_cottontail", entityID++, RabbitType.COTTONTAIL, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitDoeCottontail.class, "doe_cottontail", entityID++, RabbitType.COTTONTAIL, EntityGender.FEMALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitKitCottontail.class, "kit_cottontail", entityID++, RabbitType.COTTONTAIL, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityBuckCottontail.class, "buck_cottontail", entityID++, RabbitType.COTTONTAIL, EntityGender.MALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityDoeCottontail.class, "doe_cottontail", entityID++, RabbitType.COTTONTAIL, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityKitCottontail.class, "kit_cottontail", entityID++, RabbitType.COTTONTAIL, EntityGender.CHILD);
 
-		RegistryHelper.Entities.registerAnimal(EntityRabbitBuckChinchilla.class, "buck_chinchilla", entityID++, RabbitType.CHINCHILLA, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitDoeChinchilla.class, "doe_chinchilla", entityID++, RabbitType.CHINCHILLA, EntityGender.FEMALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitKitChinchilla.class, "kit_chinchilla", entityID++, RabbitType.CHINCHILLA, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityBuckChinchilla.class, "buck_chinchilla", entityID++, RabbitType.CHINCHILLA, EntityGender.MALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityDoeChinchilla.class, "doe_chinchilla", entityID++, RabbitType.CHINCHILLA, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityKitChinchilla.class, "kit_chinchilla", entityID++, RabbitType.CHINCHILLA, EntityGender.CHILD);
 
-		RegistryHelper.Entities.registerAnimal(EntityRabbitBuckDutch.class, "buck_dutch", entityID++, RabbitType.DUTCH, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitDoeDutch.class, "doe_dutch", entityID++, RabbitType.DUTCH, EntityGender.FEMALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitKitDutch.class, "kit_dutch", entityID++, RabbitType.DUTCH, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityBuckDutch.class, "buck_dutch", entityID++, RabbitType.DUTCH, EntityGender.MALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityDoeDutch.class, "doe_dutch", entityID++, RabbitType.DUTCH, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityKitDutch.class, "kit_dutch", entityID++, RabbitType.DUTCH, EntityGender.CHILD);
 
-		RegistryHelper.Entities.registerAnimal(EntityRabbitBuckHavana.class, "buck_havana", entityID++, RabbitType.HAVANA, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitDoeHavana.class, "doe_havana", entityID++, RabbitType.HAVANA, EntityGender.FEMALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitKitHavana.class, "kit_havana", entityID++, RabbitType.HAVANA, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityBuckHavana.class, "buck_havana", entityID++, RabbitType.HAVANA, EntityGender.MALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityDoeHavana.class, "doe_havana", entityID++, RabbitType.HAVANA, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityKitHavana.class, "kit_havana", entityID++, RabbitType.HAVANA, EntityGender.CHILD);
 
-		RegistryHelper.Entities.registerAnimal(EntityRabbitBuckJack.class, "buck_jack", entityID++, RabbitType.JACK, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitDoeJack.class, "doe_jack", entityID++, RabbitType.JACK, EntityGender.FEMALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitKitJack.class, "kit_jack", entityID++, RabbitType.JACK, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityBuckJack.class, "buck_jack", entityID++, RabbitType.JACK, EntityGender.MALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityDoeJack.class, "doe_jack", entityID++, RabbitType.JACK, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityKitJack.class, "kit_jack", entityID++, RabbitType.JACK, EntityGender.CHILD);
 
-		RegistryHelper.Entities.registerAnimal(EntityRabbitBuckNewZealand.class, "buck_new_zealand", entityID++, RabbitType.NEW_ZEALAND, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitDoeNewZealand.class, "doe_new_zealand", entityID++, RabbitType.NEW_ZEALAND, EntityGender.FEMALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitKitNewZealand.class, "kit_new_zealand", entityID++, RabbitType.NEW_ZEALAND, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityBuckNewZealand.class, "buck_new_zealand", entityID++, RabbitType.NEW_ZEALAND, EntityGender.MALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityDoeNewZealand.class, "doe_new_zealand", entityID++, RabbitType.NEW_ZEALAND, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityKitNewZealand.class, "kit_new_zealand", entityID++, RabbitType.NEW_ZEALAND, EntityGender.CHILD);
 
-		RegistryHelper.Entities.registerAnimal(EntityRabbitBuckRex.class, "buck_rex", entityID++, RabbitType.REX, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitDoeRex.class, "doe_rex", entityID++, RabbitType.REX, EntityGender.FEMALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitKitRex.class, "kit_rex", entityID++, RabbitType.REX, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityBuckRex.class, "buck_rex", entityID++, RabbitType.REX, EntityGender.MALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityDoeRex.class, "doe_rex", entityID++, RabbitType.REX, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityKitRex.class, "kit_rex", entityID++, RabbitType.REX, EntityGender.CHILD);
 
-		RegistryHelper.Entities.registerAnimal(EntityRabbitBuckLop.class, "buck_lop", entityID++, RabbitType.LOP, EntityGender.MALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitDoeLop.class, "doe_lop", entityID++, RabbitType.LOP, EntityGender.FEMALE);
-		RegistryHelper.Entities.registerAnimal(EntityRabbitKitLop.class, "kit_lop", entityID++, RabbitType.LOP, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityBuckLop.class, "buck_lop", entityID++, RabbitType.LOP, EntityGender.MALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityDoeLop.class, "doe_lop", entityID++, RabbitType.LOP, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(RabbitEntityKitLop.class, "kit_lop", entityID++, RabbitType.LOP, EntityGender.CHILD);
 
 		maxFam = ExtraConfig.settings.spawning_and_breeding.numberRabbitFamilies;
 		if (maxFam < 2)
@@ -180,35 +180,35 @@ public class ExtraAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitCottontailBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityRabbitDoeCottontail.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(RabbitEntityDoeCottontail.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitChinchillaBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityRabbitDoeChinchilla.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(RabbitEntityDoeChinchilla.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitDutchBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityRabbitDoeDutch.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(RabbitEntityDoeDutch.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitHavanaBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityRabbitDoeHavana.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(RabbitEntityDoeHavana.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitJackBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityRabbitDoeJack.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(RabbitEntityDoeJack.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitNewZealandBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityRabbitDoeNewZealand.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(RabbitEntityDoeNewZealand.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitRexBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityRabbitDoeRex.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(RabbitEntityDoeRex.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitLopBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityRabbitDoeLop.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(RabbitEntityDoeLop.class, ExtraConfig.settings.spawning_and_breeding.spawnProbabilityRabbits / 2, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 
 		}

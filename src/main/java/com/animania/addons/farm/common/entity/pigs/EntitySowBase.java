@@ -22,7 +22,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -83,18 +83,18 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	{
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof EntityPlayer))
+		if (!(entity instanceof PlayerEntity))
 			return false;
 		else
 		{
-			EntityPlayer entityplayer = (EntityPlayer) entity;
-			ItemStack itemstack = entityplayer.getHeldItemMainhand();
+			PlayerEntity PlayerEntity = (PlayerEntity) entity;
+			ItemStack itemstack = PlayerEntity.getHeldItemMainhand();
 
 			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK)
 				return true;
 			else
 			{
-				itemstack = entityplayer.getHeldItemOffhand();
+				itemstack = PlayerEntity.getHeldItemOffhand();
 				return itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK;
 			}
 		}
@@ -173,7 +173,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && !this.isBeingRidden() && this.getWatered() && this.getFed())
@@ -212,7 +212,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
 	{
 
 		if (player.isSneaking())

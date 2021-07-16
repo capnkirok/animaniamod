@@ -11,7 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -24,7 +24,7 @@ public class EntityAIFerretFindNests extends EntityAIBase
 	private double targetZ;
 	private double pitch;
 	private double yaw;
-	private EntityPlayer temptingPlayer;
+	private PlayerEntity temptingPlayer;
 	private boolean isRunning;
 	private int delayTemptCounter;
 
@@ -73,12 +73,12 @@ public class EntityAIFerretFindNests extends EntityAIBase
 				return false;
 			}
 
-			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
-			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
+			BlockPos currentpos = new BlockPos(temptedEntity.getX(), temptedEntity.getY(), temptedEntity.getZ());
+			Block poschk = temptedentity.level.getBlockState(currentpos).getBlock();
 
 			if (poschk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(currentpos);
+				TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(currentpos);
 
 				if (te == null ? true : te.getNestContent() == NestContent.EMPTY) {
 					this.delayTemptCounter = 0;
@@ -103,9 +103,9 @@ public class EntityAIFerretFindNests extends EntityAIBase
 				}
 			}
 
-			double x = this.temptedEntity.posX;
-			double y = this.temptedEntity.posY;
-			double z = this.temptedEntity.posZ;
+			double x = this.temptedEntity.getX();
+			double y = this.temptedEntity.getY();
+			double z = this.temptedEntity.getZ();
 
 			boolean foodFound = false;
 
@@ -120,11 +120,11 @@ public class EntityAIFerretFindNests extends EntityAIBase
 
 						pos = new BlockPos(x + i, y + j, z + k);
 
-						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = temptedentity.level.getBlockState(pos).getBlock();
 
 						if (blockchk == BlockHandler.blockNest)
 						{
-							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
+							TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
 
 							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 							{
@@ -173,9 +173,9 @@ public class EntityAIFerretFindNests extends EntityAIBase
 
 	public void startExecuting()
 	{
-		double x = this.temptedEntity.posX;
-		double y = this.temptedEntity.posY;
-		double z = this.temptedEntity.posZ;
+		double x = this.temptedEntity.getX();
+		double y = this.temptedEntity.getY();
+		double z = this.temptedEntity.getZ();
 
 		boolean foodFound = false;
 		int loc = 24;
@@ -191,10 +191,10 @@ public class EntityAIFerretFindNests extends EntityAIBase
 				{
 
 					pos = new BlockPos(x + i, y + j, z + k);
-					Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
+					Block blockchk = temptedentity.level.getBlockState(pos).getBlock();
 					if (blockchk == BlockHandler.blockNest)
 					{
-						TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
+						TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
 
 						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 						{
@@ -207,17 +207,17 @@ public class EntityAIFerretFindNests extends EntityAIBase
 
 								loc = newloc;
 
-								if (temptedEntity.posX < foodPos.getX())
+								if (temptedEntity.getX() < foodPos.getX())
 								{
 									BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
-									Block foodBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
+									Block foodBlockchk = temptedentity.level.getBlockState(foodPoschk).getBlock();
 									i = i + 1;
 								}
 
-								if (temptedEntity.posZ < foodPos.getZ())
+								if (temptedEntity.getZ() < foodPos.getZ())
 								{
 									BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
-									Block foodBlockchk = temptedEntity.world.getBlockState(foodPoschk).getBlock();
+									Block foodBlockchk = temptedentity.level.getBlockState(foodPoschk).getBlock();
 									k = k + 1;
 								}
 
@@ -233,11 +233,11 @@ public class EntityAIFerretFindNests extends EntityAIBase
 		if (foodFound)
 		{
 
-			Block foodBlockchk = temptedEntity.world.getBlockState(foodPos).getBlock();
+			Block foodBlockchk = temptedentity.level.getBlockState(foodPos).getBlock();
 
 			if (foodBlockchk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(foodPos);
+				TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(foodPos);
 
 				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 				{

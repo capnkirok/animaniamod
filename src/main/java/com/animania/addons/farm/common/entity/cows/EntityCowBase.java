@@ -28,7 +28,7 @@ import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -48,18 +48,18 @@ import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.Loader;
 
-public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable, IImpregnable
+public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable, IImpregnable
 {
 
 	public int dryTimer;
 	protected ItemStack milk = new ItemStack(Items.MILK_BUCKET);
-	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> createKey(EntityCowBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> createKey(EntityCowBase.class, DataSerializers.VARINT);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityCowBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> createKey(CowEntityBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> createKey(CowEntityBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> createKey(CowEntityBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> createKey(CowEntityBase.class, DataSerializers.VARINT);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(CowEntityBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
-	public EntityCowBase(World worldIn)
+	public CowEntityBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(1.4F, 1.8F);
@@ -76,17 +76,17 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityCowBase.PREGNANT, false);
+		this.dataManager.register(CowEntityBase.PREGNANT, false);
 		if (FarmConfig.settings.cowsMilkableAtSpawn)
 		{
-			this.dataManager.register(EntityCowBase.HAS_KIDS, true);
+			this.dataManager.register(CowEntityBase.HAS_KIDS, true);
 		} else
 		{
-			this.dataManager.register(EntityCowBase.HAS_KIDS, false);
+			this.dataManager.register(CowEntityBase.HAS_KIDS, false);
 		}
-		this.dataManager.register(EntityCowBase.FERTILE, true);
-		this.dataManager.register(EntityCowBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
-		this.dataManager.register(EntityCowBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
+		this.dataManager.register(CowEntityBase.FERTILE, true);
+		this.dataManager.register(CowEntityBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
+		this.dataManager.register(CowEntityBase.MATE_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 
@@ -110,15 +110,15 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				this.applyEnchantments(this, entityIn);
 
 			// Custom Knockback
-			if (entityIn instanceof EntityPlayer)
-				((LivingEntity) entityIn).knockBack(this, 0, (this.posX - entityIn.posX) / 2, (this.posZ - entityIn.posZ) / 2);
+			if (entityIn instanceof PlayerEntity)
+				((LivingEntity) entityIn).knockBack(this, 0, (this.getX() - entityIn.getX()) / 2, (this.getZ() - entityIn.getZ()) / 2);
 		}
 
 		return flag;
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 
 		if (!this.getSleeping())
@@ -186,10 +186,10 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
+		PlayerEntity PlayerEntity = player;
 
 		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack) && this.getHasKids())
 		{
@@ -228,7 +228,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	}
 
 	@Override
-	public EntityCowBase createChild(AgeableEntity ageable)
+	public CowEntityBase createChild(AgeableEntity ageable)
 	{
 
 		return null;
@@ -236,7 +236,7 @@ public class EntityCowBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{

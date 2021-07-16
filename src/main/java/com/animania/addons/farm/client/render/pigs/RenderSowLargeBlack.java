@@ -61,14 +61,14 @@ public class RenderSowLargeBlack<T extends EntitySowLargeBlack> extends RenderLi
 			entityChk.setSleeping(false);
 			entityChk.setSleepTimer(0F);
 
-			double x = entity.posX;
-			double y = entity.posY;
-			double z = entity.posZ;
+			double x = entity.getX();
+			double y = entity.getY();
+			double z = entity.getZ();
 
 			BlockPos pos = new BlockPos(x, y, z);
 
-			Block blockchk = entity.world.getBlockState(pos).getBlock();
-			Block blockchk2 = entity.world.getBlockState(pos).getBlock();
+			Block blockchk = entity.level.getBlockState(pos).getBlock();
+			Block blockchk2 = entity.level.getBlockState(pos).getBlock();
 			boolean mudBlock = false;
 			if (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().contains("tile.mud") || blockchk2.getUnlocalizedName().contains("tile.mud"))
 			{

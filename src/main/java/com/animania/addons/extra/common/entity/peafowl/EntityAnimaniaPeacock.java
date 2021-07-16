@@ -40,7 +40,7 @@ import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -98,7 +98,7 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 		this.tasks.addTask(2, new GenericAIPanic<EntityAnimaniaPeacock>(this, 1.4D));
 		this.tasks.addTask(3, new GenericAITempt<EntityAnimaniaPeacock>(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
 		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(5, new EntityAIWatchClosestFromSide(this, PlayerEntity.class, 6.0F));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(6, new GenericAISleep<EntityAnimaniaPeacock>(this, 0.8, AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed), AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed2), EntityAnimaniaPeacock.class));
@@ -137,7 +137,7 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		this.world.setEntityState(this, (byte) 18);
 	}
@@ -154,7 +154,7 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		return GenericBehavior.interactCommon(this, player, hand, null) ? true : super.processInteract(player, hand);
 	}
@@ -175,9 +175,9 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 		}
 
 		// Custom Knockback
-		if (entityIn instanceof EntityPlayer)
+		if (entityIn instanceof PlayerEntity)
 		{
-			((LivingEntity) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((LivingEntity) entityIn).knockBack(this, 1, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 		}
 
 		return flag;
@@ -313,7 +313,7 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 				if (!world.isRemote)
 				{
 					ItemStack item = new ItemStack(feather, 1);
-					EntityItem entityitem = new EntityItem(world, this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D, item);
+					EntityItem entityitem = new EntityItem(world, this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, item);
 				AnimaniaHelper.spawnEntity(	world, entityitem);
 				}
 			}
@@ -361,7 +361,7 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 		float f1 = MathHelper.cos(this.renderYawOffset * 0.017453292F);
 		float f2 = 0.1F;
 		float f3 = 0.0F;
-		passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.posZ - 0.1F * f1);
+		passenger.setPosition(this.getX() + 0.1F * f, this.getY() + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.getZ() - 0.1F * f1);
 
 		if (passenger instanceof LivingEntity)
 			((LivingEntity) passenger).renderYawOffset = this.renderYawOffset;

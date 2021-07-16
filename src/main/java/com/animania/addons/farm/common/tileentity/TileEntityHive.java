@@ -16,7 +16,7 @@ import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileE
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -83,8 +83,8 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 		{
 			if (Animania.RANDOM.nextInt(10) == 0)
 			{
-				List<EntityPlayer> players = AnimaniaHelper.getEntitiesInRange(EntityPlayer.class, 2, this.world, pos);
-				for (EntityPlayer p : players)
+				List<PlayerEntity> players = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 2, this.world, pos);
+				for (PlayerEntity p : players)
 				{
 					if (Animania.RANDOM.nextInt(3) == 0)
 						p.attackEntityFrom(DamageSourceHandler.beeDamage, 2.5f);
@@ -125,8 +125,8 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 		CompoundNBT tag = super.writeToNBT(compound);
 		CompoundNBT fluid = new CompoundNBT();
 		fluid = this.fluidHandler.writeToNBT(fluid);
-		tag.setInteger("nextHoney", nextHoney);
-		tag.setTag("fluid", fluid);
+		tag.putInteger("nextHoney", nextHoney);
+		tag.putTag("fluid", fluid);
 		return tag;
 
 	}

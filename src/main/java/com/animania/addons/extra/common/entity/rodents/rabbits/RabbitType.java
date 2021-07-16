@@ -4,30 +4,30 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import com.animania.Animania;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.EntityRabbitBuckChinchilla;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.EntityRabbitDoeChinchilla;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.EntityRabbitKitChinchilla;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.EntityRabbitBuckCottontail;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.EntityRabbitDoeCottontail;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.EntityRabbitKitCottontail;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.EntityRabbitBuckDutch;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.EntityRabbitDoeDutch;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.EntityRabbitKitDutch;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.EntityRabbitBuckHavana;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.EntityRabbitDoeHavana;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.EntityRabbitKitHavana;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.EntityRabbitBuckJack;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.EntityRabbitDoeJack;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.EntityRabbitKitJack;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitBuckLop;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitDoeLop;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.EntityRabbitKitLop;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.EntityRabbitBuckNewZealand;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.EntityRabbitDoeNewZealand;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.EntityRabbitKitNewZealand;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.EntityRabbitBuckRex;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.EntityRabbitDoeRex;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.EntityRabbitKitRex;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.RabbitEntityBuckChinchilla;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.RabbitEntityDoeChinchilla;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.RabbitEntityKitChinchilla;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.RabbitEntityBuckCottontail;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.RabbitEntityDoeCottontail;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.RabbitEntityKitCottontail;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.RabbitEntityBuckDutch;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.RabbitEntityDoeDutch;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitDutch.RabbitEntityKitDutch;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.RabbitEntityBuckHavana;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.RabbitEntityDoeHavana;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.RabbitEntityKitHavana;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.RabbitEntityBuckJack;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.RabbitEntityDoeJack;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.RabbitEntityKitJack;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityBuckLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityDoeLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitLop.RabbitEntityKitLop;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.RabbitEntityBuckNewZealand;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.RabbitEntityDoeNewZealand;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.RabbitEntityKitNewZealand;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitEntityBuckRex;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitEntityDoeRex;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitEntityKitRex;
 import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.stats.StatBase;
@@ -38,14 +38,14 @@ import StatBase;
 public enum RabbitType implements AnimaniaType
 {
 
-	LOP(EntityRabbitBuckLop.class, EntityRabbitDoeLop.class, EntityRabbitKitLop.class, null, false),
-	REX(EntityRabbitBuckRex.class, EntityRabbitDoeRex.class, EntityRabbitKitRex.class, null, true),
-	DUTCH(EntityRabbitBuckDutch.class, EntityRabbitDoeDutch.class, EntityRabbitKitDutch.class, null, false),
-	HAVANA(EntityRabbitBuckHavana.class, EntityRabbitDoeHavana.class, EntityRabbitKitHavana.class, null, false),
-	NEW_ZEALAND(EntityRabbitBuckNewZealand.class, EntityRabbitDoeNewZealand.class, EntityRabbitKitNewZealand.class, null, true),
-	JACK(EntityRabbitBuckJack.class, EntityRabbitDoeJack.class, EntityRabbitKitJack.class, null, false),
-	COTTONTAIL(EntityRabbitBuckCottontail.class, EntityRabbitDoeCottontail.class, EntityRabbitKitCottontail.class, null, false),
-	CHINCHILLA(EntityRabbitBuckChinchilla.class, EntityRabbitDoeChinchilla.class, EntityRabbitKitChinchilla.class, null, true);
+	LOP(RabbitEntityBuckLop.class, RabbitEntityDoeLop.class, RabbitEntityKitLop.class, null, false),
+	REX(RabbitEntityBuckRex.class, RabbitEntityDoeRex.class, RabbitEntityKitRex.class, null, true),
+	DUTCH(RabbitEntityBuckDutch.class, RabbitEntityDoeDutch.class, RabbitEntityKitDutch.class, null, false),
+	HAVANA(RabbitEntityBuckHavana.class, RabbitEntityDoeHavana.class, RabbitEntityKitHavana.class, null, false),
+	NEW_ZEALAND(RabbitEntityBuckNewZealand.class, RabbitEntityDoeNewZealand.class, RabbitEntityKitNewZealand.class, null, true),
+	JACK(RabbitEntityBuckJack.class, RabbitEntityDoeJack.class, RabbitEntityKitJack.class, null, false),
+	COTTONTAIL(RabbitEntityBuckCottontail.class, RabbitEntityDoeCottontail.class, RabbitEntityKitCottontail.class, null, false),
+	CHINCHILLA(RabbitEntityBuckChinchilla.class, RabbitEntityDoeChinchilla.class, RabbitEntityKitChinchilla.class, null, true);
 	
 	
 	private Class male;
@@ -64,7 +64,7 @@ public enum RabbitType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityRabbitBuckBase getMale(World world)
+	public RabbitEntityBuckBase getMale(World world)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -75,10 +75,10 @@ public enum RabbitType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		EntityRabbitBuckBase male = null;
+		RabbitEntityBuckBase male = null;
 		try
 		{
-			male = (EntityRabbitBuckBase) constructor.newInstance(world);
+			male = (RabbitEntityBuckBase) constructor.newInstance(world);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -88,7 +88,7 @@ public enum RabbitType implements AnimaniaType
 	}
 
 	@Override
-	public EntityRabbitDoeBase getFemale(World world)
+	public RabbitEntityDoeBase getFemale(World world)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -99,10 +99,10 @@ public enum RabbitType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		EntityRabbitDoeBase female = null;
+		RabbitEntityDoeBase female = null;
 		try
 		{
-			female = (EntityRabbitDoeBase) constructor.newInstance(world);
+			female = (RabbitEntityDoeBase) constructor.newInstance(world);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -112,7 +112,7 @@ public enum RabbitType implements AnimaniaType
 	}
 
 	@Override
-	public EntityRabbitKitBase getChild(World world)
+	public RabbitEntityKitBase getChild(World world)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -123,10 +123,10 @@ public enum RabbitType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		EntityRabbitKitBase child = null;
+		RabbitEntityKitBase child = null;
 		try
 		{
-			child = (EntityRabbitKitBase) constructor.newInstance(world);
+			child = (RabbitEntityKitBase) constructor.newInstance(world);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

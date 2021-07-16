@@ -35,8 +35,8 @@ public class RenderTiller extends Render<EntityTiller>
 	public void setupRotation(EntityTiller tiller, float yaw, float partialticks)
 	{
 		GlStateManager.rotate(180.0F - yaw, 0.0F, 0.5F, 0.0F);
-		double yPulling = tiller.puller == null ? tiller.posY : tiller.puller.posY;
-		double ytiller = tiller.posY;
+		double yPulling = tiller.puller == null ? tiller.getY() : tiller.puller.getY();
+		double ytiller = tiller.getY();
 
 		float difference = (float) (yPulling-ytiller);
 		GlStateManager.rotate(25 * difference, 1.0f, 0, 0);

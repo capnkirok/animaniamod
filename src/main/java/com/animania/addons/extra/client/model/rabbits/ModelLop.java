@@ -220,8 +220,8 @@ public class ModelLop extends ModelBase
 	{
 		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		//this.Neck1.rotationPointY = 0F + ((EntityRabbitBuckCottontail)LivingEntityIn).getHeadAnchorPointY(partialTickTime) * 0.0F;
-		//this.headRotationAngleX = ((EntityRabbitBuckCottontail)LivingEntityIn).getHeadAngleX(partialTickTime);
+		//this.Neck1.rotationPointY = 0F + ((RabbitEntityBuckCottontail)LivingEntityIn).getHeadAnchorPointY(partialTickTime) * 0.0F;
+		//this.headRotationAngleX = ((RabbitEntityBuckCottontail)LivingEntityIn).getHeadAngleX(partialTickTime);
 
 	}
 

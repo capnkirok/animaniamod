@@ -12,7 +12,7 @@ import com.animania.common.items.ItemEntityEgg;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
@@ -62,7 +62,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setInteger("FrogsType", this.getFrogsType());
+		compound.putInteger("FrogsType", this.getFrogsType());
 	}
 
 	/**
@@ -86,11 +86,11 @@ public class EntityDartFrogs extends EntityAmphibian
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
+		PlayerEntity PlayerEntity = player;
 
 		if (!stack.isEmpty() && stack.getItem() == Items.ARROW && this.poisonTimer <= 1)
 		{
@@ -119,9 +119,9 @@ public class EntityDartFrogs extends EntityAmphibian
 	protected void collideWithEntity(Entity entityIn)
 	{
 
-		if (entityIn instanceof EntityPlayer && entityIn != this)
+		if (entityIn instanceof PlayerEntity && entityIn != this)
 		{
-			EntityPlayer player = (EntityPlayer) entityIn;
+			PlayerEntity player = (PlayerEntity) entityIn;
 			player.addPotionEffect(new PotionEffect(MobEffects.POISON, 200, 1, false, false));
 		}
 		entityIn.applyEntityCollision(this);

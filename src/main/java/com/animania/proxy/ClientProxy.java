@@ -26,7 +26,7 @@ import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
@@ -128,17 +128,17 @@ public class ClientProxy extends CommonProxy
 
 	// Sleep
 	@Override
-	public void Sleep(EntityPlayer entityplayer)
+	public void Sleep(PlayerEntity PlayerEntity)
 	{
 
 		long currentTime = 0;
 		int factorTime = 0;
 
-		for (int j = 0; j < entityplayer.world.getMinecraftServer().getServer().worlds.length; ++j)
+		for (int j = 0; j < Playerentity.level.getMinecraftServer().getServer().worlds.length; ++j)
 		{
-			currentTime = entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() % 24000;
+			currentTime = Playerentity.level.getMinecraftServer().getServer().worlds[j].getWorldTime() % 24000;
 			factorTime = 24000 - (int) currentTime;
-			entityplayer.world.getMinecraftServer().getServer().worlds[j].setWorldTime(entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime);
+			Playerentity.level.getMinecraftServer().getServer().worlds[j].setWorldTime(Playerentity.level.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime);
 		}
 
 	}

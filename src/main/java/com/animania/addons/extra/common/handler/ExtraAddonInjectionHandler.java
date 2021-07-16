@@ -113,7 +113,7 @@ public class ExtraAddonInjectionHandler
 			RightClickItem event = (RightClickItem) args[4];
 			if (entity != null && x2 <= 3 && y2 <= 2 && z2 <= 3 && (entity instanceof EntityFerretWhite || entity instanceof EntityFerretGrey || entity instanceof EntityHedgehog))
 			{
-				event.getEntityPlayer().swingArm(event.getHand());
+				event.getPlayerEntity().swingArm(event.getHand());
 				event.isCanceled();
 				event.setCanceled(true);
 			}

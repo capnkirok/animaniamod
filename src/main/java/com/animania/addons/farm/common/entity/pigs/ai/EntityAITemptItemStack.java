@@ -4,7 +4,7 @@ import com.animania.addons.farm.common.entity.pigs.EntityAnimaniaPig;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 
@@ -17,7 +17,7 @@ public class EntityAITemptItemStack extends EntityAIBase
 	private double targetZ;
 	private double pitch;
 	private double yaw;
-	private EntityPlayer temptingPlayer;
+	private PlayerEntity temptingPlayer;
 	private int delayTemptCounter;
 	private boolean isRunning;
 	private final ItemStack temptItem;
@@ -49,7 +49,7 @@ public class EntityAITemptItemStack extends EntityAIBase
 		else
 		{
 
-			this.temptingPlayer = this.temptedEntity.world.getClosestPlayerToEntity(this.temptedEntity, 10.0D);
+			this.temptingPlayer = this.temptedentity.level.getClosestPlayerToEntity(this.temptedEntity, 10.0D);
 			return this.temptingPlayer == null ? false : this.isTempting(this.temptingPlayer.getHeldItemMainhand()) || this.isTempting(this.temptingPlayer.getHeldItemOffhand());
 		}
 	}
@@ -68,9 +68,9 @@ public class EntityAITemptItemStack extends EntityAIBase
 	@Override
 	public void startExecuting()
 	{
-		this.targetX = this.temptingPlayer.posX;
-		this.targetY = this.temptingPlayer.posY;
-		this.targetZ = this.temptingPlayer.posZ;
+		this.targetX = this.temptingPlayer.getX();
+		this.targetY = this.temptingPlayer.getY();
+		this.targetZ = this.temptingPlayer.getZ();
 		this.isRunning = true;
 	}
 

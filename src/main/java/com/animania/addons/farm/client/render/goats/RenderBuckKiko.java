@@ -29,12 +29,12 @@ public class RenderBuckKiko<T extends EntityBuckKiko> extends RenderLiving<T>
 		this.addLayer(new LayerBlinking(this, goatTexturesBlink, 0x694330));
 	}
 
-	protected ResourceLocation getGoatTextures(T par1EntityCow)
+	protected ResourceLocation getGoatTextures(T par1CowEntity)
 	{
 		return RenderBuckKiko.goatTextures;
 	}
 
-	protected ResourceLocation getGoatTexturesBlink(T par1EntityCow)
+	protected ResourceLocation getGoatTexturesBlink(T par1CowEntity)
 	{
 		return RenderBuckKiko.goatTexturesBlink;
 	}

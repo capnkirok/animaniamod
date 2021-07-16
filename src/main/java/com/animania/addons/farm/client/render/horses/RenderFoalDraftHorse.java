@@ -42,11 +42,11 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 		float age = entity.getEntityAge();
 		GL11.glScalef(0.4F + (age / entity.getSizeDividend()), 0.4F + (age / entity.getSizeDividend()), 0.4F + (age / entity.getSizeDividend())); 
 
-		EntityAnimaniaHorse entityHorse = (EntityAnimaniaHorse) entity;
-		if (entityHorse.getSleeping())
+		EntityAnimaniaHorse HorseEntity = (EntityAnimaniaHorse) entity;
+		if (HorseEntity.getSleeping())
 		{
 			this.shadowSize = 0F;
-			float sleepTimer = entityHorse.getSleepTimer();
+			float sleepTimer = HorseEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -59,8 +59,8 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 		else
 		{
 			this.shadowSize = 0.8F;
-			entityHorse.setSleeping(false);
-			entityHorse.setSleepTimer(0F);
+			HorseEntity.setSleeping(false);
+			HorseEntity.setSleepTimer(0F);
 		}
 
 	}
@@ -68,7 +68,7 @@ public class RenderFoalDraftHorse<T extends EntityFoalDraftHorse> extends Render
 	@Override
 	protected ResourceLocation getEntityTexture(EntityFoalDraftHorse entity)
 	{
-		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+		if (entity.getX() == -1 && entity.getY() == -1 && entity.getZ() == -1)
 		{
 			return HORSE_TEXTURES[0];
 		}

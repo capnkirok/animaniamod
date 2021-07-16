@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.farm.client.model.pig.ModelPiglet;
 import com.animania.addons.farm.client.render.pigs.RenderPigletLargeWhite;
-import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntityPigletLargeWhite;
+import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.PigEntityletLargeWhite;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class LayerMudPigletLargeWhite implements LayerRenderer<EntityPigletLargeWhite>
+public class LayerMudPigletLargeWhite implements LayerRenderer<PigEntityletLargeWhite>
 {
     private static final ResourceLocation TEXTURE  = new ResourceLocation("animania:textures/entity/pigs/piglet_muddy.png");
     private final RenderPigletLargeWhite  pigRenderer;
@@ -24,7 +24,7 @@ public class LayerMudPigletLargeWhite implements LayerRenderer<EntityPigletLarge
     }
 
     @Override
-    public void doRenderLayer(EntityPigletLargeWhite LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
+    public void doRenderLayer(PigEntityletLargeWhite LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
             float netHeadYaw, float headPitch, float scale) {
 
         if (LivingEntityIn.getMuddy()) {

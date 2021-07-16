@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.extra.client.model.rabbits.ModelRex;
 import com.animania.addons.extra.common.entity.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.EntityRabbitDoeRex;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitRex.RabbitEntityDoeRex;
 import com.animania.client.render.layer.LayerBlinking;
 
 import net.minecraft.block.Block;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderDoeRex<T extends EntityRabbitDoeRex> extends RenderLiving<T>
+public class RenderDoeRex<T extends RabbitEntityDoeRex> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_rex.png");
@@ -32,7 +32,7 @@ public class RenderDoeRex<T extends EntityRabbitDoeRex> extends RenderLiving<T>
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x574133));
 	}
 
-	protected void preRenderScale(EntityRabbitDoeRex entity, float f)
+	protected void preRenderScale(RabbitEntityDoeRex entity, float f)
 	{
 		if (entity.getCustomNameTag().equals("Killer")) {
 			GlStateManager.scale(0.7D, 0.7D, 0.7D);
@@ -41,11 +41,11 @@ public class RenderDoeRex<T extends EntityRabbitDoeRex> extends RenderLiving<T>
 		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
-		double x = entity.posX;
-		double y = entity.posY;
-		double z = entity.posZ;
+		double x = entity.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
+		Block blockchk = entity.level.getBlockState(pos).getBlock();
 		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
 		if (entityChk.getSleeping())
 		{
@@ -75,7 +75,7 @@ public class RenderDoeRex<T extends EntityRabbitDoeRex> extends RenderLiving<T>
 		}
 	}
 
-	static class Factory<T extends EntityRabbitDoeRex> implements IRenderFactory<T>
+	static class Factory<T extends RabbitEntityDoeRex> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

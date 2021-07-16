@@ -10,7 +10,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -92,11 +92,11 @@ public class InteractHandler
 		ResourceLocation loc = EntityList.getKey(target);
 		EntityEntry entry = ForgeRegistries.ENTITIES.getValue(loc);
 
-		if (player instanceof EntityPlayerMP && target instanceof IAnimaniaAnimal)
+		if (player instanceof ServerPlayerEntity && target instanceof IAnimaniaAnimal)
 		{
 			if (entry != null)
 			{
-				AdvancementHandler.feedAnimal.trigger((EntityPlayerMP) player, stack, entry, target);
+				AdvancementHandler.feedAnimal.trigger((ServerPlayerEntity) player, stack, entry, target);
 			}
 		}
 	}

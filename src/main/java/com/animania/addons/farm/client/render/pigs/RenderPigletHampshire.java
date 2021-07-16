@@ -6,8 +6,8 @@ import com.animania.Animania;
 import com.animania.addons.farm.client.model.pig.ModelPigletHampshire;
 import com.animania.addons.farm.client.render.pigs.layers.LayerMudPigletHampshire;
 import com.animania.addons.farm.common.entity.pigs.EntityAnimaniaPig;
-import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntityPigletHampshire;
-import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.EntityPigletLargeBlack;
+import com.animania.addons.farm.common.entity.pigs.PigHampshire.PigEntityletHampshire;
+import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.PigEntityletLargeBlack;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.handler.BlockHandler;
 
@@ -23,7 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderPigletHampshire<T extends EntityPigletHampshire> extends RenderLiving<T>
+public class RenderPigletHampshire<T extends PigEntityletHampshire> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 
@@ -37,7 +37,7 @@ public class RenderPigletHampshire<T extends EntityPigletHampshire> extends Rend
 		this.addLayer(new LayerBlinking(this, PIG_TEXTURES_BLINK, 0x3A3333));
 	}
 
-	protected void preRenderScale(EntityPigletHampshire entity, float f)
+	protected void preRenderScale(PigEntityletHampshire entity, float f)
 	{
 
 		float age = entity.getEntityAge();
@@ -63,14 +63,14 @@ public class RenderPigletHampshire<T extends EntityPigletHampshire> extends Rend
 			entityChk.setSleeping(false);
 			entityChk.setSleepTimer(0F);
 
-			double x = entity.posX;
-			double y = entity.posY;
-			double z = entity.posZ;
+			double x = entity.getX();
+			double y = entity.getY();
+			double z = entity.getZ();
 
 			BlockPos pos = new BlockPos(x, y, z);
 
-			Block blockchk = entity.world.getBlockState(pos).getBlock();
-			Block blockchk2 = entity.world.getBlockState(pos).getBlock();
+			Block blockchk = entity.level.getBlockState(pos).getBlock();
+			Block blockchk2 = entity.level.getBlockState(pos).getBlock();
 			boolean mudBlock = false;
 			if (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().contains("tile.mud") || blockchk2.getUnlocalizedName().contains("tile.mud"))
 			{
@@ -133,7 +133,7 @@ public class RenderPigletHampshire<T extends EntityPigletHampshire> extends Rend
 		return this.PIG_TEXTURES;
 	}
 
-	static class Factory<T extends EntityPigletLargeBlack> implements IRenderFactory<T>
+	static class Factory<T extends PigEntityletLargeBlack> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

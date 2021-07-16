@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.extra.client.model.rabbits.ModelChinchilla;
 import com.animania.addons.extra.common.entity.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.EntityRabbitKitChinchilla;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.RabbitEntityKitChinchilla;
 import com.animania.client.render.layer.LayerBlinking;
 
 import net.minecraft.block.Block;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderKitChinchilla<T extends EntityRabbitKitChinchilla> extends RenderLiving<T>
+public class RenderKitChinchilla<T extends RabbitEntityKitChinchilla> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_chinchilla.png");
@@ -31,17 +31,17 @@ public class RenderKitChinchilla<T extends EntityRabbitKitChinchilla> extends Re
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0x9E9E9E));
 	}
 
-	protected void preRenderScale(EntityRabbitKitChinchilla entity, float f)
+	protected void preRenderScale(RabbitEntityKitChinchilla entity, float f)
 	{
 		float age = entity.getEntityAge();
 		GL11.glScalef(0.33F + (age / entity.getSizeDividend()), 0.33F + (age / entity.getSizeDividend()), 0.33F + (age / entity.getSizeDividend()));
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
-		double x = entity.posX;
-		double y = entity.posY;
-		double z = entity.posZ;
+		double x = entity.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
+		Block blockchk = entity.level.getBlockState(pos).getBlock();
 		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
 		if (entityChk.getSleeping())
 		{
@@ -67,7 +67,7 @@ public class RenderKitChinchilla<T extends EntityRabbitKitChinchilla> extends Re
 		return this.rabbitTextures;
 	}
 
-	static class Factory<T extends EntityRabbitKitChinchilla> implements IRenderFactory<T>
+	static class Factory<T extends RabbitEntityKitChinchilla> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

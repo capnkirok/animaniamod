@@ -2,7 +2,7 @@ package com.animania.addons.farm.compat.waila;
 
 import java.util.List;
 
-import com.animania.addons.farm.common.entity.cows.EntityCowBase;
+import com.animania.addons.farm.common.entity.cows.CowEntityBase;
 import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -10,7 +10,7 @@ import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.text.translation.I18n;
 
-public class WailaEntityCowProvider extends WailaAnimalEntityProviderMateable
+public class WailaCowEntityProvider extends WailaAnimalEntityProviderMateable
 {
 
 	@Override
@@ -20,7 +20,7 @@ public class WailaEntityCowProvider extends WailaAnimalEntityProviderMateable
 		if (accessor.getPlayer().isSneaking())
 		{
 
-			EntityCowBase thisEntity = (EntityCowBase)entity;
+			CowEntityBase thisEntity = (CowEntityBase)entity;
 			
 			if (thisEntity.getHasKids())
 				currenttip.add(I18n.translateToLocal("text.waila.milkable"));

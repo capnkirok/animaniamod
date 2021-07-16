@@ -15,7 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -29,7 +29,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 	private double targetZ;
 	private double pitch;
 	private double yaw;
-	private EntityPlayer temptingPlayer;
+	private PlayerEntity temptingPlayer;
 	private boolean isRunning;
 	private int delayTemptCounter;
 
@@ -52,7 +52,7 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 		} else if (delayTemptCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
 
-			if (!temptedEntity.world.isDaytime() || temptedEntity.getSleeping())
+			if (!temptedentity.level.isDaytime() || temptedEntity.getSleeping())
 			{
 				this.delayTemptCounter = 0;
 				return false;
@@ -80,12 +80,12 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 				return false;
 			}
 
-			BlockPos currentpos = new BlockPos(temptedEntity.posX, temptedEntity.posY, temptedEntity.posZ);
-			Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
+			BlockPos currentpos = new BlockPos(temptedEntity.getX(), temptedEntity.getY(), temptedEntity.getZ());
+			Block poschk = temptedentity.level.getBlockState(currentpos).getBlock();
 
 			if (poschk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(currentpos);
+				TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(currentpos);
 
 				if (te.itemHandler.getStackInSlot(0).getCount() >= 3)
 				{
@@ -125,9 +125,9 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 				return false;
 			}
 
-			double x = this.temptedEntity.posX;
-			double y = this.temptedEntity.posY;
-			double z = this.temptedEntity.posZ;
+			double x = this.temptedEntity.getX();
+			double y = this.temptedEntity.getY();
+			double z = this.temptedEntity.getZ();
 
 			boolean nestFound = false;
 
@@ -141,12 +141,12 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 					{
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = temptedentity.level.getBlockState(pos).getBlock();
 
 						if (blockchk == BlockHandler.blockNest)
 						{
 
-							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
+							TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
 							NestContent nestType = te.getNestContent();
 
 							if (nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY)
@@ -194,12 +194,12 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 	public void startExecuting()
 	{
 
-		double x = this.temptedEntity.posX;
-		double y = this.temptedEntity.posY;
-		double z = this.temptedEntity.posZ;
+		double x = this.temptedEntity.getX();
+		double y = this.temptedEntity.getY();
+		double z = this.temptedEntity.getZ();
 
 		BlockPos currentpos = new BlockPos(x, y, z);
-		Block poschk = temptedEntity.world.getBlockState(currentpos).getBlock();
+		Block poschk = temptedentity.level.getBlockState(currentpos).getBlock();
 		if (poschk != BlockHandler.blockNest)
 		{
 
@@ -217,12 +217,12 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 					{
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = temptedentity.level.getBlockState(pos).getBlock();
 
 						if (blockchk == BlockHandler.blockNest && !temptedEntity.hasPath())
 						{
 
-							TileEntityNest te = (TileEntityNest) temptedEntity.world.getTileEntity(pos);
+							TileEntityNest te = (TileEntityNest) temptedentity.level.getTileEntity(pos);
 							NestContent nestType = te.getNestContent();
 
 							if (nestType == NestContent.PEACOCK_BLUE || nestType == NestContent.PEACOCK_WHITE || nestType == NestContent.EMPTY)
@@ -246,20 +246,20 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 
 									loc = newloc;
 
-									if (temptedEntity.posX < nestPos.getX())
+									if (temptedEntity.getX() < nestPos.getX())
 									{
 										BlockPos nestPoschk = new BlockPos(x + i + 1, y + j, z + k);
-										Block nestBlockchk = temptedEntity.world.getBlockState(nestPoschk).getBlock();
+										Block nestBlockchk = temptedentity.level.getBlockState(nestPoschk).getBlock();
 										if (nestBlockchk == BlockHandler.blockNest)
 										{
 											i = i + 1;
 										}
 									}
 
-									if (temptedEntity.posZ < nestPos.getZ())
+									if (temptedEntity.getZ() < nestPos.getZ())
 									{
 										BlockPos nestPoschk = new BlockPos(x + i, y + j, z + k + 1);
-										Block nestBlockchk = temptedEntity.world.getBlockState(nestPoschk).getBlock();
+										Block nestBlockchk = temptedentity.level.getBlockState(nestPoschk).getBlock();
 										if (nestBlockchk == BlockHandler.blockNest)
 										{
 											k = k + 1;
@@ -278,8 +278,8 @@ public class EntityAIFindPeacockNest extends EntityAIBase
 			if (nestFound)
 			{
 
-				Block nestBlockchk = temptedEntity.world.getBlockState(nestPos).getBlock();
-				List<Entity> nestClear = temptedEntity.world.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expand(1, 1, 1));
+				Block nestBlockchk = temptedentity.level.getBlockState(nestPos).getBlock();
+				List<Entity> nestClear = temptedentity.level.getEntitiesWithinAABBExcludingEntity(temptedEntity, temptedEntity.getEntityBoundingBox().expand(1, 1, 1));
 
 				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
 				{

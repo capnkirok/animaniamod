@@ -129,7 +129,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 				this.isAtDestination = false;
 				this.walkTries++;
 
-				boolean isStandingStill = this.creature.prevPosX == this.creature.posX && this.creature.prevPosY == this.creature.posY && this.creature.prevPosZ == this.creature.posZ;
+				boolean isStandingStill = this.creature.prevgetX() == this.creature.getX() && this.creature.prevgetY() == this.creature.getY() && this.creature.prevgetZ() == this.creature.getZ();
 
 				if (isStandingStill && this.walkTries % 40 == 0)
 				{

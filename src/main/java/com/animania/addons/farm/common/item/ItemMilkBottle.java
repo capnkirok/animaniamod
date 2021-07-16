@@ -11,7 +11,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
@@ -40,27 +40,27 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity LivingEntity)
 	{
 
-		if (LivingEntity instanceof EntityPlayer)
+		if (LivingEntity instanceof PlayerEntity)
 		{
-			EntityPlayer entityPlayer = (EntityPlayer) LivingEntity;
-			entityPlayer.clearActivePotions();
+			PlayerEntity PlayerEntity = (PlayerEntity) LivingEntity;
+			PlayerEntity.clearActivePotions();
 
-			if (!entityPlayer.capabilities.isCreativeMode)
+			if (!PlayerEntity.capabilities.isCreativeMode)
 			{
 
 				if (!worldIn.isRemote)
 				{
-					EntityItem entityitem = new EntityItem(worldIn, LivingEntity.posX + 0.5D, LivingEntity.posY + 0.5D, LivingEntity.posZ + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
+					EntityItem entityitem = new EntityItem(worldIn, LivingEntity.getX() + 0.5D, LivingEntity.getY() + 0.5D, LivingEntity.getZ() + 0.5D, new ItemStack(Items.GLASS_BOTTLE));
 					AnimaniaHelper.spawnEntity(worldIn, entityitem);
 				}
 
-				if (entityPlayer.getFoodStats() != null)
+				if (PlayerEntity.getFoodStats() != null)
 				{
-					entityPlayer.getFoodStats().addStats(this, stack);
+					PlayerEntity.getFoodStats().addStats(this, stack);
 				}
-				worldIn.playSound((EntityPlayer) null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-				this.onFoodEaten(stack, worldIn, entityPlayer);
-				entityPlayer.addStat(StatList.getObjectUseStats(this));
+				worldIn.playSound((PlayerEntity) null, PlayerEntity.getX(), PlayerEntity.getY(), PlayerEntity.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+				this.onFoodEaten(stack, worldIn, PlayerEntity);
+				PlayerEntity.addStat(StatList.getObjectUseStats(this));
 				stack.shrink(1);
 			}
 		}
@@ -68,14 +68,14 @@ public class ItemMilkBottle extends ItemAnimaniaFood
 		return stack;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, PlayerEntity playerIn, EnumHand hand)
 	{
 		playerIn.setActiveHand(hand);
 		return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack itemstack, World worldObj, EntityPlayer entityplayer)
+	protected void onFoodEaten(ItemStack itemstack, World worldObj, PlayerEntity PlayerEntity)
 	{
 
 	}

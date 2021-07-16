@@ -30,9 +30,9 @@ public class CowAngus
 		}
 	}
 	
-	public static class EntityCowAngus extends EntityCowBase
+	public static class CowEntityAngus extends CowEntityBase
 	{
-		public EntityCowAngus(World world)
+		public CowEntityAngus(World world)
 		{
 			super(world);
 			this.cowType = type;

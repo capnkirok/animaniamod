@@ -7,12 +7,12 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityBullFriesian;
 import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCalfFriesian;
-import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCowFriesian;
+import com.animania.addons.farm.common.entity.cows.CowFriesian.CowEntityFriesian;
 import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityBullHolstein;
 import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCalfHolstein;
-import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCowHolstein;
+import com.animania.addons.farm.common.entity.cows.CowHolstein.CowEntityHolstein;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshroom;
-import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCowMooshroom;
+import com.animania.addons.farm.common.entity.cows.CowMooshroom.CowEntityMooshroom;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
@@ -39,8 +39,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -62,7 +62,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase, IConvertable
+public class EntityAnimaniaCow extends CowEntity implements IAnimaniaAnimalBase, IConvertable
 {
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.cowFood));
 	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaCow.class, DataSerializers.VARINT);
@@ -105,13 +105,13 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase,
 		{
 			this.tasks.addTask(9, new GenericAISleep<EntityAnimaniaCow>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.cowBed), AnimaniaHelper.getBlock(FarmConfig.settings.cowBed2), EntityAnimaniaCow.class));
 		}
-		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaCow>(this));
 		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaCow>(this, 1.0, entityAIEatGrass));
 		this.targetTasks.addTask(14, new EntityAIHurtByTarget(this, false, new Class[0]));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
-			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, EntityPlayer.class));
+			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, PlayerEntity.class));
 		}
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
@@ -183,7 +183,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase,
 	{
 		GenericBehavior.livingUpdateCommon(this);
 
-		if (this.getCustomNameTag().toLowerCase().trim().equals("purp") && (this instanceof EntityCowFriesian || this instanceof EntityBullFriesian || this instanceof EntityCowHolstein || this instanceof EntityBullHolstein || this instanceof EntityCalfFriesian || this instanceof EntityCalfHolstein))
+		if (this.getCustomNameTag().toLowerCase().trim().equals("purp") && (this instanceof CowEntityFriesian || this instanceof EntityBullFriesian || this instanceof CowEntityHolstein || this instanceof EntityBullHolstein || this instanceof EntityCalfFriesian || this instanceof EntityCalfHolstein))
 		{
 			this.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 4, 2, false, false));
 			if (!this.isWet() && !this.isInWater())
@@ -194,10 +194,10 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
+		PlayerEntity PlayerEntity = player;
 
 		if (this instanceof EntityBullBase)
 		{
@@ -210,32 +210,32 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase,
 		if (stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack))
 		{
 			return true;
-		} else if (stack != ItemStack.EMPTY && (this instanceof EntityCowMooshroom || this instanceof EntityBullMooshroom) && stack.getItem() instanceof ItemShears && this.getGrowingAge() >= 0) // onSheared
+		} else if (stack != ItemStack.EMPTY && (this instanceof CowEntityMooshroom || this instanceof EntityBullMooshroom) && stack.getItem() instanceof ItemShears && this.getGrowingAge() >= 0) // onSheared
 		{
 			this.setDead();
-			this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY + this.height / 2.0F, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+			this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.getX(), this.getY() + this.height / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D, new int[0]);
 
 			if (!this.world.isRemote)
 			{
-				EntityAnimaniaCow entitycow = null;
+				EntityAnimaniaCow CowEntity = null;
 
-				if (this instanceof EntityCowMooshroom)
-					entitycow = new EntityCowFriesian(this.world);
+				if (this instanceof CowEntityMooshroom)
+					CowEntity = new CowEntityFriesian(this.world);
 				else
-					entitycow = new EntityBullFriesian(this.world);
+					CowEntity = new EntityBullFriesian(this.world);
 
-				entitycow.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-				entitycow.setHealth(this.getHealth());
-				entitycow.renderYawOffset = this.renderYawOffset;
+				CowEntity.setLocationAndAngles(this.getX(), this.getY(), this.getZ(), this.rotationYaw, this.rotationPitch);
+				CowEntity.setHealth(this.getHealth());
+				CowEntity.renderYawOffset = this.renderYawOffset;
 				if (this.hasCustomName())
 				{
-					entitycow.setCustomNameTag(this.getCustomNameTag());
+					CowEntity.setCustomNameTag(this.getCustomNameTag());
 				}
-				AnimaniaHelper.spawnEntity(this.world, entitycow);
+				AnimaniaHelper.spawnEntity(this.world, CowEntity);
 
 				for (int i = 0; i < 5; ++i)
 				{
-					AnimaniaHelper.spawnEntity(world, new EntityItem(this.world, this.posX, this.posY + this.height, this.posZ, new ItemStack(Blocks.RED_MUSHROOM)));
+					AnimaniaHelper.spawnEntity(world, new EntityItem(this.world, this.getX(), this.getY() + this.height, this.getZ(), new ItemStack(Blocks.RED_MUSHROOM)));
 				}
 
 				stack.damageItem(1, player);
@@ -244,7 +244,7 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase,
 			return true;
 		}
 
-		return GenericBehavior.interactCommon(this, entityplayer, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, PlayerEntity, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -455,8 +455,8 @@ public class EntityAnimaniaCow extends EntityCow implements IAnimaniaAnimalBase,
 	@Override
 	public Entity convertToVanilla()
 	{
-		EntityCow entity = new EntityCow(this.world);
-		entity.setPosition(this.posX, this.posY, this.posZ);
+		CowEntity entity = new CowEntity(this.world);
+		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());
 		return entity;

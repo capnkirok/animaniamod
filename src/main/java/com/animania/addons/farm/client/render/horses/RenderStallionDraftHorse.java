@@ -39,11 +39,11 @@ public class RenderStallionDraftHorse<T extends EntityStallionDraftHorse> extend
 	protected void preRenderScale(EntityStallionDraftHorse entity, float f)
 	{
 		GL11.glScalef(0.85F, 0.85F, 0.85F);
-		EntityAnimaniaHorse entityHorse = entity;
-		if (entityHorse.getSleeping())
+		EntityAnimaniaHorse HorseEntity = entity;
+		if (HorseEntity.getSleeping())
 		{
 			this.shadowSize = 0F;
-			float sleepTimer = entityHorse.getSleepTimer();
+			float sleepTimer = HorseEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -62,7 +62,7 @@ public class RenderStallionDraftHorse<T extends EntityStallionDraftHorse> extend
 	@Override
 	protected ResourceLocation getEntityTexture(EntityStallionDraftHorse entity)
 	{
-		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+		if (entity.getX() == -1 && entity.getY() == -1 && entity.getZ() == -1)
 		{
 			return RenderStallionDraftHorse.HORSE_TEXTURES[0];
 		}

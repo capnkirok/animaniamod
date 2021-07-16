@@ -28,10 +28,10 @@ public class PigDuroc
 	
 	}
 
-	public static class EntityPigletDuroc extends EntityPigletBase
+	public static class PigEntityletDuroc extends PigEntityletBase
 	{
 	
-		public EntityPigletDuroc(World world)
+		public PigEntityletDuroc(World world)
 		{
 			super(world);
 			this.pigType = PigType.DUROC;

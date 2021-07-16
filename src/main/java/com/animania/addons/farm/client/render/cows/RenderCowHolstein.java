@@ -2,7 +2,7 @@ package com.animania.addons.farm.client.render.cows;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCowHolstein;
+import com.animania.addons.farm.common.entity.cows.CowHolstein.CowEntityHolstein;
 import com.animania.addons.farm.client.model.cow.ModelCow;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.client.render.layer.LayerBlinking;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving<T>
+public class RenderCowHolstein<T extends CowEntityHolstein> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 
@@ -34,10 +34,10 @@ public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving
 		addLayer(blinkingLayer = new LayerBlinking(this, cowTexturesBlink, 0x1C242B, 0xDEDEDE));
 	}
 
-	protected ResourceLocation getCowTextures(T par1EntityCow)
+	protected ResourceLocation getCowTextures(T par1CowEntity)
 	{
 
-		if (par1EntityCow.getCustomNameTag().equalsIgnoreCase("purp"))
+		if (par1CowEntity.getCustomNameTag().equalsIgnoreCase("purp"))
 		{
 			this.blinkingLayer.setColors(0x4F0AA3, 0x4F0AA3);
 			return RenderCowHolstein.purpTextures;
@@ -49,9 +49,9 @@ public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving
 		}
 	}
 
-	protected ResourceLocation getCowTexturesBlink(T par1EntityCow)
+	protected ResourceLocation getCowTexturesBlink(T par1CowEntity)
 	{
-		if (par1EntityCow.getCustomNameTag().equalsIgnoreCase("purp"))
+		if (par1CowEntity.getCustomNameTag().equalsIgnoreCase("purp"))
 		{
 
 			return RenderCowHolstein.purpTexturesBlink;
@@ -66,10 +66,10 @@ public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving
 	{
 		GL11.glScalef(1.24F, 1.24F, 1.24F);
 
-		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
-		if (entityCow.getSleeping())
+		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		if (CowEntity.getSleeping())
 		{
-			float sleepTimer = entityCow.getSleepTimer();
+			float sleepTimer = CowEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -81,8 +81,8 @@ public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving
 		}
 		else
 		{
-			entityCow.setSleeping(false);
-			entityCow.setSleepTimer(0F);
+			CowEntity.setSleeping(false);
+			CowEntity.setSleepTimer(0F);
 		}
 
 	}
@@ -99,7 +99,7 @@ public class RenderCowHolstein<T extends EntityCowHolstein> extends RenderLiving
 		this.preRenderScale(LivingEntity, f);
 	}
 
-	static class Factory<T extends EntityCowHolstein> implements IRenderFactory<T>
+	static class Factory<T extends CowEntityHolstein> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

@@ -39,10 +39,10 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIOcelotSit;
 import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.monster.EntitySilverfish;
+import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.passive.OcelotEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -60,7 +60,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBase, IConvertable
+public class EntityAnimaniaCat extends OcelotEntity implements IAnimaniaAnimalBase, IConvertable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaCat.class, DataSerializers.BOOLEAN);
@@ -120,7 +120,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 		this.tasks.addTask(8, new GenericAIPanic<EntityAnimaniaCat>(this, 1.5D));
 		this.tasks.addTask(3, new GenericAITempt<EntityAnimaniaCat>(this, 0.6D, true, TEMPTATION_ITEMS));
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
-		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(14, new GenericAILookIdle<EntityAnimaniaCat>(this));
 		// this.tasks.addTask(14, new GenericAISitIdle(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
@@ -134,7 +134,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 			AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 			AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 
-			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof EntitySilverfish));
+			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof SilverfishEntity));
 		}
 		this.tasks.taskEntries.removeIf(task -> task.action instanceof EntityAIOcelotSit);
 	}
@@ -172,8 +172,8 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setBoolean("IsTamed", this.isTamed());
-		compound.setBoolean("IsSitting", this.isSitting());
+		compound.putBoolean("IsTamed", this.isTamed());
+		compound.putBoolean("IsSitting", this.isSitting());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 	}
@@ -201,7 +201,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		this.world.setEntityState(this, (byte) 18);
 	}
@@ -244,7 +244,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		return GenericBehavior.interactCommon(this, player, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
@@ -300,7 +300,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	{
 		if (this.avoidEntity == null)
 		{
-			this.avoidEntity = new GenericAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 16.0F, 0.8D, 1.33D);
+			this.avoidEntity = new GenericAIAvoidEntity<PlayerEntity>(this, PlayerEntity.class, 16.0F, 0.8D, 1.33D);
 		}
 
 		this.tasks.removeTask(this.avoidEntity);
@@ -337,7 +337,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public boolean canBeLeashedTo(EntityPlayer player)
+	public boolean canBeLeashedTo(PlayerEntity player)
 	{
 		return true;
 	}
@@ -349,7 +349,7 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public EntityOcelot createChild(AgeableEntity ageable)
+	public OcelotEntity createChild(AgeableEntity ageable)
 	{
 		return null;
 	}
@@ -491,8 +491,8 @@ public class EntityAnimaniaCat extends EntityOcelot implements IAnimaniaAnimalBa
 	@Override
 	public Entity convertToVanilla()
 	{
-		EntityOcelot entity = new EntityOcelot(this.world);
-		entity.setPosition(this.posX, this.posY, this.posZ);
+		OcelotEntity entity = new OcelotEntity(this.world);
+		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());
 		return entity;

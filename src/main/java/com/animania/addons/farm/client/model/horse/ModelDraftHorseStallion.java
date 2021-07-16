@@ -683,8 +683,8 @@ public class ModelDraftHorseStallion extends ModelBase
 		this.HeadNode.rotateAngleY = par4 / (180F / (float)Math.PI);
 		this.HeadNode.rotateAngleX = this.headRotationAngleX;
 
-		EntityStallionDraftHorse entityHorse = (EntityStallionDraftHorse) scale;
-		if (entityHorse.eatTimer > 4 && entityHorse.eatTimer < 160) {
+		EntityStallionDraftHorse HorseEntity = (EntityStallionDraftHorse) scale;
+		if (HorseEntity.eatTimer > 4 && HorseEntity.eatTimer < 160) {
 			this.HeadNode.rotateAngleX = .687F + this.headRotationAngleX;
 		} else {
 			this.HeadNode.rotateAngleX = this.headRotationAngleX;

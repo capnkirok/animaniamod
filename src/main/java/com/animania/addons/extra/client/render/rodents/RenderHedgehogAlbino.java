@@ -7,12 +7,12 @@ import com.animania.addons.extra.common.entity.rodents.EntityHedgehogAlbino;
 import com.animania.addons.extra.common.entity.rodents.EntityHedgehogBase;
 import com.animania.client.render.layer.LayerBlinking;
 
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.PlayerEntitySP;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
@@ -41,10 +41,10 @@ public class RenderHedgehogAlbino<T extends EntityHedgehogAlbino> extends Render
 		if (entity.isRiding())
 		{
 
-			if (entity.getRidingEntity() instanceof EntityPlayerSP)
+			if (entity.getRidingEntity() instanceof PlayerEntitySP)
 			{
 				GL11.glScalef(0.4F, 0.4F, 0.4F);
-				EntityPlayer player = (EntityPlayer) entity.getRidingEntity();
+				PlayerEntity player = (PlayerEntity) entity.getRidingEntity();
 				entity.rotationYaw = player.rotationYaw;
 				if (player.isSneaking())
 					GlStateManager.translate(-1.0F, entity.height - .1F, .1F);

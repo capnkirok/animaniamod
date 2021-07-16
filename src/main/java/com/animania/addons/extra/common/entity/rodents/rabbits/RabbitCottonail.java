@@ -5,10 +5,10 @@ import net.minecraft.world.World;
 public class RabbitCottonail
 {
 
-	public static class EntityRabbitKitCottontail extends EntityRabbitKitBase
+	public static class RabbitEntityKitCottontail extends RabbitEntityKitBase
 	{
 	
-		public EntityRabbitKitCottontail(World worldIn)
+		public RabbitEntityKitCottontail(World worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.COTTONTAIL;
@@ -28,10 +28,10 @@ public class RabbitCottonail
 		
 	}
 
-	public static class EntityRabbitDoeCottontail extends EntityRabbitDoeBase
+	public static class RabbitEntityDoeCottontail extends RabbitEntityDoeBase
 	{
 	
-		public EntityRabbitDoeCottontail(World worldIn)
+		public RabbitEntityDoeCottontail(World worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.COTTONTAIL;
@@ -52,10 +52,10 @@ public class RabbitCottonail
 		
 	}
 
-	public static class EntityRabbitBuckCottontail extends EntityRabbitBuckBase
+	public static class RabbitEntityBuckCottontail extends RabbitEntityBuckBase
 	{
 	
-		public EntityRabbitBuckCottontail(World worldIn)
+		public RabbitEntityBuckCottontail(World worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.COTTONTAIL;

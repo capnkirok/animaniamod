@@ -16,7 +16,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -80,7 +80,7 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player)
 	{
 		return new ItemStack(this);
 	}
@@ -104,7 +104,7 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, PlayerEntity playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 		if (!worldIn.isRemote)
 		{
@@ -116,7 +116,7 @@ public class BlockCheese extends Block
 		}
 	}
 
-	private boolean eatCheese(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player)
+	private boolean eatCheese(World worldIn, BlockPos pos, IBlockState state, PlayerEntity player)
 	{
 		if (!player.canEat(false))
 		{

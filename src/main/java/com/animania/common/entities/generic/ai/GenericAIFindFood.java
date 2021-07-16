@@ -97,7 +97,7 @@ public class GenericAIFindFood<T extends CreatureEntity & IFoodEating & ISleepin
 						entity.setHandFed(true);
 						entity.setInteracted(true);
 
-						entity.world.updateComparatorOutputLevel(seekingBlockPos, block);
+						entity.level.updateComparatorOutputLevel(seekingBlockPos, block);
 
 						this.foodDelay = 0;
 						return;
@@ -112,7 +112,7 @@ public class GenericAIFindFood<T extends CreatureEntity & IFoodEating & ISleepin
 				entity.setFed(true);
 
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
-					entity.world.destroyBlock(seekingBlockPos, false);
+					entity.level.destroyBlock(seekingBlockPos, false);
 
 				this.foodDelay = 0;
 				return;
@@ -125,7 +125,7 @@ public class GenericAIFindFood<T extends CreatureEntity & IFoodEating & ISleepin
 				entity.setFed(true);
 				entity.setLiquidFed(true);
 
-				entity.world.destroyBlock(seekingBlockPos, false);
+				entity.level.destroyBlock(seekingBlockPos, false);
 
 				this.foodDelay = 0;
 				return;

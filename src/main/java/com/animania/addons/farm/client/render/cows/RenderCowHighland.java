@@ -2,7 +2,7 @@ package com.animania.addons.farm.client.render.cows;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.addons.farm.common.entity.cows.CowHighland.EntityCowHighland;
+import com.animania.addons.farm.common.entity.cows.CowHighland.CowEntityHighland;
 import com.animania.addons.farm.client.model.cow.ModelCowLonghorn;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.client.render.layer.LayerBlinking;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderCowHighland<T extends EntityCowHighland> extends RenderLiving<T>
+public class RenderCowHighland<T extends CowEntityHighland> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation cowTextures = new ResourceLocation("animania:textures/entity/cows/cow_highland.png");
@@ -33,10 +33,10 @@ public class RenderCowHighland<T extends EntityCowHighland> extends RenderLiving
 	{
 		GL11.glScalef(1.44F, 1.44F, 1.44F);
 
-		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
-		if (entityCow.getSleeping())
+		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		if (CowEntity.getSleeping())
 		{
-			float sleepTimer = entityCow.getSleepTimer();
+			float sleepTimer = CowEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -48,8 +48,8 @@ public class RenderCowHighland<T extends EntityCowHighland> extends RenderLiving
 		}
 		else
 		{
-			entityCow.setSleeping(false);
-			entityCow.setSleepTimer(0F);
+			CowEntity.setSleeping(false);
+			CowEntity.setSleepTimer(0F);
 		}
 
 	}
@@ -66,17 +66,17 @@ public class RenderCowHighland<T extends EntityCowHighland> extends RenderLiving
 		this.preRenderScale(LivingEntity, f);
 	}
 
-	protected ResourceLocation getCowTextures(T par1EntityCow)
+	protected ResourceLocation getCowTextures(T par1CowEntity)
 	{
 		return RenderCowHighland.cowTextures;
 	}
 
-	protected ResourceLocation getCowTexturesBlink(T par1EntityCow)
+	protected ResourceLocation getCowTexturesBlink(T par1CowEntity)
 	{
 		return RenderCowHighland.cowTexturesBlink;
 	}
 
-	static class Factory<T extends EntityCowHighland> implements IRenderFactory<T>
+	static class Factory<T extends CowEntityHighland> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

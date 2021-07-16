@@ -16,7 +16,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -71,7 +71,7 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	}
 	
 	@Override
-	public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack)
+	public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack)
 	{
 		if(te != null && te instanceof TileEntitySaltLick)
 		{

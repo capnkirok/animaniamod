@@ -24,7 +24,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -148,10 +148,10 @@ public class AnimaniaHelper
 			compound = tile.writeToNBT(compound);
 
 			CompoundNBT data = new CompoundNBT();
-			data.setTag("data", compound);
-			data.setInteger("x", tile.getPos().getX());
-			data.setInteger("y", tile.getPos().getY());
-			data.setInteger("z", tile.getPos().getZ());
+			data.putTag("data", compound);
+			data.putInteger("x", tile.getPos().getX());
+			data.putInteger("y", tile.getPos().getY());
+			data.putInteger("z", tile.getPos().getZ());
 			Animania.network.sendToAllAround(new TileEntitySyncPacket(data), new NetworkRegistry.TargetPoint(tile.getWorld().provider.getDimension(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), 64));
 		}
 
@@ -184,14 +184,14 @@ public class AnimaniaHelper
 				CompoundNBT tmp = new CompoundNBT();
 				if (nbt.hasKey("ForgeCaps"))
 				{
-					tmp.setTag("ForgeCaps", nbt.getTag("ForgeCaps"));
+					tmp.putTag("ForgeCaps", nbt.getTag("ForgeCaps"));
 					nbt.removeTag("ForgeCaps");
 				}
 
-				tmp.setTag("tag", nbt);
+				tmp.putTag("tag", nbt);
 				tmp.setString("id", itemName);
-				tmp.setInteger("Count", JsonUtils.getInt(json, "count", 1));
-				tmp.setInteger("Damage", JsonUtils.getInt(json, "data", 0));
+				tmp.putInteger("Count", JsonUtils.getInt(json, "count", 1));
+				tmp.putInteger("Damage", JsonUtils.getInt(json, "data", 0));
 
 				return new ItemStack(tmp);
 			} catch (NBTException e)
@@ -203,7 +203,7 @@ public class AnimaniaHelper
 		return new ItemStack(item, JsonUtils.getInt(json, "count", 1), JsonUtils.getInt(json, "data", 0));
 	}
 
-	public static void addItem(EntityPlayer player, ItemStack stack)
+	public static void addItem(PlayerEntity player, ItemStack stack)
 	{
 		if (!player.inventory.addItemStackToInventory(stack))
 			player.dropItem(stack, false);
@@ -211,7 +211,7 @@ public class AnimaniaHelper
 
 	public static <T extends LivingEntity> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
-		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
+		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
 		list.removeIf(e -> e == theEntity);
 		return list;
 	}
@@ -231,7 +231,7 @@ public class AnimaniaHelper
 
 	public static <T extends Entity> List<T> getEntitiesInRangeGeneric(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
 	{
-		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.posX - range, theEntity.posY - range, theEntity.posZ - range, theEntity.posX + range, theEntity.posY + range, theEntity.posZ + range));
+		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
 		return list;
 	}
 
@@ -240,7 +240,7 @@ public class AnimaniaHelper
 		Vec3d vec3d = player.getPositionEyes(1f);
 		Vec3d vec3d1 = player.getLook(1f);
 		Vec3d vec3d2 = vec3d.addVector(vec3d1.x * blockReachDistance, vec3d1.y * blockReachDistance, vec3d1.z * blockReachDistance);
-		return player.world.rayTraceBlocks(vec3d, vec3d2, false, false, true);
+		return player.level.rayTraceBlocks(vec3d, vec3d2, false, false, true);
 	}
 
 	public static boolean hasFluid(ItemStack stack, Fluid fluid)
@@ -494,9 +494,9 @@ public class AnimaniaHelper
 		CompoundNBT display = new CompoundNBT();
 		NBTTagList lore = new NBTTagList();
 		lore.appendTag(new NBTTagString(TextFormatting.GRAY + tooltip));
-		display.setTag("Lore", lore);
-		tag.setTag("display", display);
-		stack.setTagCompound(tag);
+		display.putTag("Lore", lore);
+		tag.putTag("display", display);
+		stack.putTagCompound(tag);
 		return stack;
 	}
 

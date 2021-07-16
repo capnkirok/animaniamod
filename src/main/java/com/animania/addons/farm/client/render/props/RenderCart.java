@@ -48,8 +48,8 @@ public class RenderCart extends Render<EntityCart>
 	public void setupRotation(EntityCart cart, float yaw, float partialticks)
 	{
 		GlStateManager.rotate(180.0F - yaw, 0.0F, 0.5F, 0.0F);
-		double yPulling = cart.puller == null ? cart.posY : cart.puller.posY;
-		double yCart = cart.posY;
+		double yPulling = cart.puller == null ? cart.getY() : cart.puller.getY();
+		double yCart = cart.getY();
 
 		float difference = (float) (yPulling-yCart);
 		GlStateManager.rotate(25 * difference, 1.0f, 0, 0);

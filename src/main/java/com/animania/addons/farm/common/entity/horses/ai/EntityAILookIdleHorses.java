@@ -37,14 +37,14 @@ public class EntityAILookIdleHorses extends EntityAIBase
 	public boolean shouldExecute()
 	{
 
-		if (!this.idleEntity.world.isDaytime())
+		if (!this.idleentity.level.isDaytime())
 		{
 			this.delayCounter = 0;
 			return false;
 		}
 
 		boolean pullingFlag = false;
-		List entities = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, idleEntity.world, idleEntity);
+		List entities = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, idleentity.level, idleEntity);
 		if (!entities.isEmpty())
 		{
 			EntityCart checkCart = (EntityCart) entities.get(0);
@@ -54,7 +54,7 @@ public class EntityAILookIdleHorses extends EntityAIBase
 			}
 		}
 
-		entities = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, idleEntity.world, idleEntity);
+		entities = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, idleentity.level, idleEntity);
 		if (!entities.isEmpty())
 		{
 			EntityWagon checkWagon = (EntityWagon) entities.get(0);
@@ -96,6 +96,6 @@ public class EntityAILookIdleHorses extends EntityAIBase
 	public void updateTask()
 	{
 		--this.idleTime;
-		this.idleEntity.getLookHelper().setLookPosition(this.idleEntity.posX + this.lookX, this.idleEntity.posY + this.idleEntity.getEyeHeight(), this.idleEntity.posZ + this.lookZ, this.idleEntity.getHorizontalFaceSpeed(), this.idleEntity.getVerticalFaceSpeed());
+		this.idleEntity.getLookHelper().setLookPosition(this.idleEntity.getX() + this.lookX, this.idleEntity.getY() + this.idleEntity.getEyeHeight(), this.idleEntity.getZ() + this.lookZ, this.idleEntity.getHorizontalFaceSpeed(), this.idleEntity.getVerticalFaceSpeed());
 	}
 }

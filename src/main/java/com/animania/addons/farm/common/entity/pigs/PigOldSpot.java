@@ -29,10 +29,10 @@ public class PigOldSpot
 	
 	}
 
-	public static class EntityPigletOldSpot extends EntityPigletBase
+	public static class PigEntityletOldSpot extends PigEntityletBase
 	{
 	
-		public EntityPigletOldSpot(World world)
+		public PigEntityletOldSpot(World world)
 		{
 			super(world);
 			this.pigType = PigType.OLD_SPOT;

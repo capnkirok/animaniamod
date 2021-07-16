@@ -133,7 +133,7 @@ public class DogWolf
 
 			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 			{
-				this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof EntityChicken));
+				this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof ChickenEntity));
 				AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 				AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 			}
@@ -198,7 +198,7 @@ public class DogWolf
 
 			if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 			{
-				this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof EntityChicken));
+				this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof ChickenEntity));
 				AddonInjectionHandler.runInjection("extra", "attackPeachicks", null, this);
 				AddonInjectionHandler.runInjection("extra", "attackRodents", null, this);
 			}

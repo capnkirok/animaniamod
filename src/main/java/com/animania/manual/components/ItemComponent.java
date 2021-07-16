@@ -60,11 +60,11 @@ public class ItemComponent implements IManualComponent
 		for (int i = 0; i < stacks.length; i++)
 		{
 			ItemStack stack = stacks[i];
-			int posX = absoluteX + manual.guiLeft + border + (i * (16 + ITEM_OFFSET));
-			int posY = absoluteY + manual.guiTop;
+			int getX() = absoluteX + manual.guiLeft + border + (i * (16 + ITEM_OFFSET));
+			int getY() = absoluteY + manual.guiTop;
 			GlStateManager.pushMatrix();
 			RenderHelper.enableGUIStandardItemLighting();
-			manual.drawItemStack(stack, posX, posY, null);
+			manual.drawItemStack(stack, getX(), getY(), null);
 			GlStateManager.disableLighting();
 			GlStateManager.popMatrix();
 
@@ -81,10 +81,10 @@ public class ItemComponent implements IManualComponent
 		for (int i = 0; i < stacks.length; i++)
 		{
 			ItemStack stack = stacks[i];
-			int posX = absoluteX + manual.guiLeft + border + (i * (16 + ITEM_OFFSET));
-			int posY = absoluteY + manual.guiTop;
+			int getX() = absoluteX + manual.guiLeft + border + (i * (16 + ITEM_OFFSET));
+			int getY() = absoluteY + manual.guiTop;
 
-			if (mouseX > posX && mouseX < posX + 16 && mouseY > posY && mouseY < posY + 16)
+			if (mouseX > getX() && mouseX < getX() + 16 && mouseY > getY() && mouseY < getY() + 16)
 			{
 				GlStateManager.pushMatrix();
 				manual.renderToolTip(stack, mouseX, mouseY);

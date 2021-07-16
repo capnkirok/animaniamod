@@ -38,11 +38,11 @@ public class RenderRamJacob<T extends EntityRamJacob> extends RenderLiving<T>
 	{
 		GL11.glScalef(0.52F, 0.52F, 0.52F);
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		EntityAnimaniaSheep entitySheep = (EntityAnimaniaSheep) entity;
-		if (entitySheep.getSleeping())
+		EntityAnimaniaSheep SheepEntity = (EntityAnimaniaSheep) entity;
+		if (SheepEntity.getSleeping())
 		{
 			this.shadowSize = 0;
-			float sleepTimer = entitySheep.getSleepTimer();
+			float sleepTimer = SheepEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -55,15 +55,15 @@ public class RenderRamJacob<T extends EntityRamJacob> extends RenderLiving<T>
 		else
 		{
 			this.shadowSize = 0.5F;
-			entitySheep.setSleeping(false);
-			entitySheep.setSleepTimer(0F);
+			SheepEntity.setSleeping(false);
+			SheepEntity.setSleepTimer(0F);
 		}
 	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+		if (entity.getX() == -1 && entity.getY() == -1 && entity.getZ() == -1)
 		{
 			return SHEEP_TEXTURES[0];
 		}

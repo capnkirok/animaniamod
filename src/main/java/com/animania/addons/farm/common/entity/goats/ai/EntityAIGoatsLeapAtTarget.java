@@ -60,8 +60,8 @@ public class EntityAIGoatsLeapAtTarget extends EntityAIBase
 
 	public void startExecuting()
 	{
-		double d0 = this.leapTarget.posX - this.leaper.posX;
-		double d1 = this.leapTarget.posZ - this.leaper.posZ;
+		double d0 = this.leapTarget.getX() - this.leaper.getX();
+		double d1 = this.leapTarget.getZ() - this.leaper.getZ();
 		float f = MathHelper.sqrt(d0 * d0 + d1 * d1);
 
 		if ((double)f >= 1.0E-4D)

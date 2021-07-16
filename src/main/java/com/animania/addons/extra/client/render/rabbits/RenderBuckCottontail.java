@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.extra.client.model.rabbits.ModelCottontail;
 import com.animania.addons.extra.common.entity.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.EntityRabbitBuckCottontail;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.RabbitEntityBuckCottontail;
 import com.animania.client.render.layer.LayerBlinking;
 
 import net.minecraft.block.Block;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderBuckCottontail<T extends EntityRabbitBuckCottontail> extends RenderLiving<T>
+public class RenderBuckCottontail<T extends RabbitEntityBuckCottontail> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_cottontail.png");
@@ -33,7 +33,7 @@ public class RenderBuckCottontail<T extends EntityRabbitBuckCottontail> extends 
 		
 	}
 
-	protected void preRenderScale(EntityRabbitBuckCottontail entity, float f)
+	protected void preRenderScale(RabbitEntityBuckCottontail entity, float f)
 	{
 		if (entity.getCustomNameTag().equals("Killer")) {
 			GlStateManager.scale(0.7D, 0.7D, 0.7D);
@@ -42,11 +42,11 @@ public class RenderBuckCottontail<T extends EntityRabbitBuckCottontail> extends 
 		}
 		GL11.glTranslatef(0f, 0f, -0.5f);
 
-		double x = entity.posX;
-		double y = entity.posY;
-		double z = entity.posZ;
+		double x = entity.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
+		Block blockchk = entity.level.getBlockState(pos).getBlock();
 		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
 		if (entityChk.getSleeping())
 		{
@@ -76,7 +76,7 @@ public class RenderBuckCottontail<T extends EntityRabbitBuckCottontail> extends 
 		}
 	}
 
-	static class Factory<T extends EntityRabbitBuckCottontail> implements IRenderFactory<T>
+	static class Factory<T extends RabbitEntityBuckCottontail> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

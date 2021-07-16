@@ -8,20 +8,20 @@ import com.animania.addons.extra.common.entity.rodents.EntityFerretBase;
 import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.addons.extra.common.entity.rodents.EntityHedgehogBase;
 import com.animania.addons.extra.common.entity.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.EntityRabbitBuckChinchilla;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.EntityRabbitDoeChinchilla;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.EntityRabbitBuckCottontail;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.EntityRabbitDoeCottontail;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.EntityRabbitBuckHavana;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.EntityRabbitDoeHavana;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.EntityRabbitBuckJack;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.EntityRabbitDoeJack;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.RabbitEntityBuckChinchilla;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitChinchilla.RabbitEntityDoeChinchilla;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.RabbitEntityBuckCottontail;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitCottonail.RabbitEntityDoeCottontail;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.RabbitEntityBuckHavana;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitHavana.RabbitEntityDoeHavana;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.RabbitEntityBuckJack;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.RabbitEntityDoeJack;
 import com.animania.addons.extra.config.ExtraConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.EntityRabbit;
+import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -42,7 +42,7 @@ public class ExtraAddonSpawnHandler
 
 		Entity replacementEntity = null;
 
-		if (ExtraConfig.settings.replaceVanillaRabbits && event.getEntity().getClass().equals(EntityRabbit.class) && !worldIn.isRemote)
+		if (ExtraConfig.settings.replaceVanillaRabbits && event.getEntity().getClass().equals(RabbitEntity.class) && !worldIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -61,49 +61,49 @@ public class ExtraAddonSpawnHandler
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityRabbitBuckCottontail(worldIn);
+						replacementEntity = new RabbitEntityBuckCottontail(worldIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRabbitDoeCottontail(worldIn);
+						replacementEntity = new RabbitEntityDoeCottontail(worldIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitJackBiomeTypes)) || AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitJackBiomeTypes)[1]))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityRabbitBuckJack(worldIn);
+						replacementEntity = new RabbitEntityBuckJack(worldIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRabbitDoeJack(worldIn);
+						replacementEntity = new RabbitEntityDoeJack(worldIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitHavanaBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityRabbitBuckHavana(worldIn);
+						replacementEntity = new RabbitEntityBuckHavana(worldIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRabbitDoeHavana(worldIn);
+						replacementEntity = new RabbitEntityDoeHavana(worldIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitChinchillaBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityRabbitDoeChinchilla(worldIn);
+						replacementEntity = new RabbitEntityDoeChinchilla(worldIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRabbitBuckChinchilla(worldIn);
+						replacementEntity = new RabbitEntityBuckChinchilla(worldIn);
 					}
 
 				} else if (chooser == 1)
 				{
-					replacementEntity = new EntityRabbitBuckCottontail(worldIn);
+					replacementEntity = new RabbitEntityBuckCottontail(worldIn);
 
 				} else if (chooser == 2)
 				{
-					replacementEntity = new EntityRabbitDoeCottontail(worldIn);
+					replacementEntity = new RabbitEntityDoeCottontail(worldIn);
 				}
 			}
 

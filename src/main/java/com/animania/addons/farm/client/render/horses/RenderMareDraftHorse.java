@@ -40,11 +40,11 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 	protected void preRenderScale(EntityMareDraftHorse entity, float f)
 	{
 		GL11.glScalef(0.72F, 0.72F, 0.72F);
-		EntityAnimaniaHorse entityHorse = entity;
-		if (entityHorse.getSleeping())
+		EntityAnimaniaHorse HorseEntity = entity;
+		if (HorseEntity.getSleeping())
 		{
 			this.shadowSize = 0F;
-			float sleepTimer = entityHorse.getSleepTimer();
+			float sleepTimer = HorseEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -63,7 +63,7 @@ public class RenderMareDraftHorse<T extends EntityMareDraftHorse> extends Render
 	@Override
 	protected ResourceLocation getEntityTexture(EntityMareDraftHorse entity)
 	{
-		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+		if (entity.getX() == -1 && entity.getY() == -1 && entity.getZ() == -1)
 		{
 			return HORSE_TEXTURES[0];
 		}

@@ -1,9 +1,9 @@
 package com.animania.addons.farm.client.model.pig;
 
-import com.animania.addons.farm.common.entity.pigs.PigDuroc.EntityPigletDuroc;
-import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntityPigletLargeWhite;
-import com.animania.addons.farm.common.entity.pigs.PigOldSpot.EntityPigletOldSpot;
-import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntityPigletYorkshire;
+import com.animania.addons.farm.common.entity.pigs.PigDuroc.PigEntityletDuroc;
+import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.PigEntityletLargeWhite;
+import com.animania.addons.farm.common.entity.pigs.PigOldSpot.PigEntityletOldSpot;
+import com.animania.addons.farm.common.entity.pigs.PigYorkshire.PigEntityletYorkshire;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
@@ -169,45 +169,45 @@ public class ModelPiglet extends ModelBase
 
         super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-        if (LivingEntityIn instanceof EntityPigletYorkshire) {
-        	EntityPigletYorkshire entityPigletYorkshire = (EntityPigletYorkshire) LivingEntityIn;
-            this.Head.rotationPointY = 17.0F + entityPigletYorkshire.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
+        if (LivingEntityIn instanceof PigEntityletYorkshire) {
+        	PigEntityletYorkshire PigEntityletYorkshire = (PigEntityletYorkshire) LivingEntityIn;
+            this.Head.rotationPointY = 17.0F + PigEntityletYorkshire.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
                                                                                                                                            // should
                                                                                                                                            // match
                                                                                                                                            // model
                                                                                                                                            // Y
                                                                                                                                            // point
-            this.headRotationAngleX = entityPigletYorkshire.getHeadAngleX(partialTickTime);
+            this.headRotationAngleX = PigEntityletYorkshire.getHeadAngleX(partialTickTime);
         }
-        else if (LivingEntityIn instanceof EntityPigletOldSpot) {
-        	EntityPigletOldSpot entityPigletOldSpot = (EntityPigletOldSpot) LivingEntityIn;
-            this.Head.rotationPointY = 17.0F + entityPigletOldSpot.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
+        else if (LivingEntityIn instanceof PigEntityletOldSpot) {
+        	PigEntityletOldSpot PigEntityletOldSpot = (PigEntityletOldSpot) LivingEntityIn;
+            this.Head.rotationPointY = 17.0F + PigEntityletOldSpot.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
                                                                                                                                          // should
                                                                                                                                          // match
                                                                                                                                          // model
                                                                                                                                          // Y
                                                                                                                                          // point
-            this.headRotationAngleX = entityPigletOldSpot.getHeadAngleX(partialTickTime);
+            this.headRotationAngleX = PigEntityletOldSpot.getHeadAngleX(partialTickTime);
         }
-        else if (LivingEntityIn instanceof EntityPigletDuroc) {
-        	EntityPigletDuroc entityPigletDuroc = (EntityPigletDuroc) LivingEntityIn;
-            this.Head.rotationPointY = 17.0F + entityPigletDuroc.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
+        else if (LivingEntityIn instanceof PigEntityletDuroc) {
+        	PigEntityletDuroc PigEntityletDuroc = (PigEntityletDuroc) LivingEntityIn;
+            this.Head.rotationPointY = 17.0F + PigEntityletDuroc.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
                                                                                                                                        // should
                                                                                                                                        // match
                                                                                                                                        // model
                                                                                                                                        // Y
                                                                                                                                        // point
-            this.headRotationAngleX = entityPigletDuroc.getHeadAngleX(partialTickTime);
+            this.headRotationAngleX = PigEntityletDuroc.getHeadAngleX(partialTickTime);
         }
-        else if (LivingEntityIn instanceof EntityPigletLargeWhite) {
-        	EntityPigletLargeWhite entityPigletLargeWhite = (EntityPigletLargeWhite) LivingEntityIn;
-            this.Head.rotationPointY = 17.0F + entityPigletLargeWhite.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
+        else if (LivingEntityIn instanceof PigEntityletLargeWhite) {
+        	PigEntityletLargeWhite PigEntityletLargeWhite = (PigEntityletLargeWhite) LivingEntityIn;
+            this.Head.rotationPointY = 17.0F + PigEntityletLargeWhite.getHeadAnchorPointY(partialTickTime) * 3.0F; // number
                                                                                                                                             // should
                                                                                                                                             // match
                                                                                                                                             // model
                                                                                                                                             // Y
                                                                                                                                             // point
-            this.headRotationAngleX = entityPigletLargeWhite.getHeadAngleX(partialTickTime);
+            this.headRotationAngleX = PigEntityletLargeWhite.getHeadAngleX(partialTickTime);
         }
 
     }

@@ -2,7 +2,7 @@ package com.animania.addons.farm.client.render.cows;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.addons.farm.common.entity.cows.CowAngus.EntityCowAngus;
+import com.animania.addons.farm.common.entity.cows.CowAngus.CowEntityAngus;
 import com.animania.addons.farm.client.model.cow.ModelCowAngus;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.client.render.layer.LayerBlinking;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderCowAngus<T extends EntityCowAngus> extends RenderLiving<T>
+public class RenderCowAngus<T extends CowEntityAngus> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 
@@ -37,12 +37,12 @@ public class RenderCowAngus<T extends EntityCowAngus> extends RenderLiving<T>
 		this.preRenderScale(LivingEntity, f);
 	}
 
-	protected ResourceLocation getCowTextures(EntityCowAngus par1EntityCow)
+	protected ResourceLocation getCowTextures(CowEntityAngus par1CowEntity)
 	{
 		return RenderCowAngus.cowTextures;
 	}
 
-	protected ResourceLocation getCowTexturesBlink(EntityCowAngus par1EntityCow)
+	protected ResourceLocation getCowTexturesBlink(CowEntityAngus par1CowEntity)
 	{
 		return RenderCowAngus.cowTexturesBlink;
 	}
@@ -51,10 +51,10 @@ public class RenderCowAngus<T extends EntityCowAngus> extends RenderLiving<T>
 	{
 		GL11.glScalef(1.34F, 1.34F, 1.34F);
 
-		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
-		if (entityCow.getSleeping())
+		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		if (CowEntity.getSleeping())
 		{
-			float sleepTimer = entityCow.getSleepTimer();
+			float sleepTimer = CowEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -66,8 +66,8 @@ public class RenderCowAngus<T extends EntityCowAngus> extends RenderLiving<T>
 		}
 		else
 		{
-			entityCow.setSleeping(false);
-			entityCow.setSleepTimer(0F);
+			CowEntity.setSleeping(false);
+			CowEntity.setSleepTimer(0F);
 		}
 
 	}
@@ -78,7 +78,7 @@ public class RenderCowAngus<T extends EntityCowAngus> extends RenderLiving<T>
 		return this.getCowTextures(entity);
 	}
 
-	static class Factory<T extends EntityCowAngus> implements IRenderFactory<T>
+	static class Factory<T extends CowEntityAngus> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

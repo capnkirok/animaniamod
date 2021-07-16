@@ -48,12 +48,12 @@ public class EntityAIFollowMateHorses extends EntityAIBase
 						EntityMareBase entity = (EntityMareBase)entities.get(k);
 						
 						if (entities.get(k) != null && entity.getPersistentID().equals(((EntityStallionBase) this.thisAnimal).getMateUniqueId())) {
-							double xt = entity.posX;
-							double yt = entity.posY;
-							double zt = entity.posZ;
-							int x1 = MathHelper.floor(this.thisAnimal.posX);
-							int y1 = MathHelper.floor(this.thisAnimal.posY);
-							int z1 = MathHelper.floor(this.thisAnimal.posZ);
+							double xt = entity.getX();
+							double yt = entity.getY();
+							double zt = entity.getZ();
+							int x1 = MathHelper.floor(this.thisAnimal.getX());
+							int y1 = MathHelper.floor(this.thisAnimal.getY());
+							int z1 = MathHelper.floor(this.thisAnimal.getZ());
 							double x2 = Math.abs(xt - x1);
 							double y2 = Math.abs(yt - y1);
 							double z2 = Math.abs(zt - z1);

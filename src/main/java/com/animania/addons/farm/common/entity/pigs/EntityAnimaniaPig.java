@@ -35,9 +35,9 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.monster.PigZombieEntity;
+import net.minecraft.entity.passive.PigEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -61,7 +61,7 @@ import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase, IConvertable
+public class EntityAnimaniaPig extends PigEntity implements IAnimaniaAnimalBase, IConvertable
 {
 
 	protected static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
@@ -129,7 +129,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase,
 		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
 		this.tasks.addTask(10, new EntityAITemptItemStack(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
 		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaPig>(this, 1.0, entityAIEatGrass));
-		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(15, new GenericAILookIdle<EntityAnimaniaPig>(this));
 		this.targetTasks.addTask(16, new EntityAIHurtByTarget(this, false, new Class[0]));
 	}
@@ -191,8 +191,8 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase,
 			}
 
 			this.prevLimbSwingAmount = this.limbSwingAmount;
-			double d1 = this.posX - this.prevPosX;
-			double d0 = this.posZ - this.prevPosZ;
+			double d1 = this.getX() - this.prevgetX();
+			double d0 = this.getZ() - this.prevgetZ();
 			float f1 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
 			if (f1 > 1.0F)
@@ -212,7 +212,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		this.world.setEntityState(this, (byte) 18);
 	}
@@ -247,11 +247,11 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase,
 	{
 		super.writeEntityToNBT(compound);
 		GenericBehavior.writeCommonNBT(compound, this);
-		compound.setBoolean("Saddle", this.getSaddled());
-		compound.setBoolean("Muddy", this.getMuddy());
+		compound.putBoolean("Saddle", this.getSaddled());
+		compound.putBoolean("Muddy", this.getMuddy());
 		compound.setFloat("MudTimer", this.getMudTimer());
 		compound.setFloat("SplashTimer", this.getSplashTimer());
-		compound.setBoolean("Played", this.getPlayed());
+		compound.putBoolean("Played", this.getPlayed());
 	}
 
 	@Override
@@ -291,10 +291,10 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
+		PlayerEntity PlayerEntity = player;
 
 		if (!stack.isEmpty() && stack.getItem() == Items.SADDLE)
 			return true;
@@ -316,13 +316,13 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase,
 			return true;
 		}
 
-		return GenericBehavior.interactCommon(this, entityplayer, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, PlayerEntity, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
 	protected ResourceLocation getLootTable()
 	{
-		return this instanceof EntityPigletBase ? null : this.pigType.isPrime ? new ResourceLocation("farm/" + Animania.MODID, "pig_prime") : new ResourceLocation("farm/" + Animania.MODID, "pig_regular");
+		return this instanceof PigEntityletBase ? null : this.pigType.isPrime ? new ResourceLocation("farm/" + Animania.MODID, "pig_prime") : new ResourceLocation("farm/" + Animania.MODID, "pig_regular");
 	}
 
 	@Override
@@ -435,23 +435,23 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase,
 	{
 		if (!this.world.isRemote && !this.isDead)
 		{
-			EntityPigZombie entitypigzombie = new EntityPigZombie(this.world);
-			entitypigzombie.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
-			entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-			entitypigzombie.setNoAI(this.isAIDisabled());
+			PigZombieEntity PigZombieEntity = new PigZombieEntity(this.world);
+			PigZombieEntity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
+			PigZombieEntity.setLocationAndAngles(this.getX(), this.getY(), this.getZ(), this.rotationYaw, this.rotationPitch);
+			PigZombieEntity.setNoAI(this.isAIDisabled());
 
 			if (this.isChild())
 			{
-				entitypigzombie.setChild(true);
+				PigZombieEntity.setChild(true);
 			}
 
 			if (this.hasCustomName())
 			{
-				entitypigzombie.setCustomNameTag(this.getCustomNameTag());
-				entitypigzombie.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
+				PigZombieEntity.setCustomNameTag(this.getCustomNameTag());
+				PigZombieEntity.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
 			}
 
-			AnimaniaHelper.spawnEntity(this.world, entitypigzombie);
+			AnimaniaHelper.spawnEntity(this.world, PigZombieEntity);
 			this.setDead();
 		}
 	}
@@ -477,7 +477,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase,
 
 		boolean played = this.getPlayed();
 
-		BlockPos currentpos = new BlockPos(this.posX, this.posY, this.posZ);
+		BlockPos currentpos = new BlockPos(this.getX(), this.getY(), this.getZ());
 		Block poschk = this.world.getBlockState(currentpos).getBlock();
 
 		if (poschk != null && (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")))
@@ -503,7 +503,7 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public EntityPig createChild(AgeableEntity ageable)
+	public PigEntity createChild(AgeableEntity ageable)
 	{
 		return null;
 	}
@@ -657,8 +657,8 @@ public class EntityAnimaniaPig extends EntityPig implements IAnimaniaAnimalBase,
 	@Override
 	public Entity convertToVanilla()
 	{
-		EntityPig entity = new EntityPig(this.world);
-		entity.setPosition(this.posX, this.posY, this.posZ);
+		PigEntity entity = new PigEntity(this.world);
+		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());
 		return entity;

@@ -224,7 +224,7 @@ public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & 
 
 		if (mateID != null)
 		{
-			List entities = AnimaniaHelper.getEntitiesInRange(this.female, 5, this.entity.world, this.entity);
+			List entities = AnimaniaHelper.getEntitiesInRange(this.female, 5, this.entity.level, this.entity);
 
 			for (int k = 0; k <= entities.size() - 1; k++)
 			{
@@ -248,7 +248,7 @@ public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & 
 		}
 		else
 		{
-			List entities = AnimaniaHelper.getEntitiesInRange(this.female, 8, this.entity.world, this.entity);
+			List entities = AnimaniaHelper.getEntitiesInRange(this.female, 8, this.entity.level, this.entity);
 
 			for (int k = 0; k <= entities.size() - 1; k++)
 			{

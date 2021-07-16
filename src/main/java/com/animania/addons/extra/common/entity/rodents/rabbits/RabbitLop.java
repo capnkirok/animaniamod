@@ -5,10 +5,10 @@ import net.minecraft.world.World;
 public class RabbitLop
 {
 
-	public static class EntityRabbitKitLop extends EntityRabbitKitBase
+	public static class RabbitEntityKitLop extends RabbitEntityKitBase
 	{
 	
-		public EntityRabbitKitLop(World worldIn)
+		public RabbitEntityKitLop(World worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.LOP;
@@ -28,10 +28,10 @@ public class RabbitLop
 		
 	}
 
-	public static class EntityRabbitDoeLop extends EntityRabbitDoeBase
+	public static class RabbitEntityDoeLop extends RabbitEntityDoeBase
 	{
 	
-		public EntityRabbitDoeLop(World worldIn)
+		public RabbitEntityDoeLop(World worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.LOP;
@@ -52,10 +52,10 @@ public class RabbitLop
 		
 	}
 
-	public static class EntityRabbitBuckLop extends EntityRabbitBuckBase
+	public static class RabbitEntityBuckLop extends RabbitEntityBuckBase
 	{
 	
-		public EntityRabbitBuckLop(World worldIn)
+		public RabbitEntityBuckLop(World worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.LOP;

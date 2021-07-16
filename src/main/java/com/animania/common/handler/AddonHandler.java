@@ -37,7 +37,7 @@ import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.advancements.AdvancementList;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementTreeNode;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
@@ -178,7 +178,7 @@ public class AddonHandler
 		guiHandlerCounter += 1000;
 	}
 
-	public static Object openAddonGui(EntityPlayer player, int guiId, World world, int x, int y, int z, Side side)
+	public static Object openAddonGui(PlayerEntity player, int guiId, World world, int x, int y, int z, Side side)
 	{
 		Object returnObject = null;
 

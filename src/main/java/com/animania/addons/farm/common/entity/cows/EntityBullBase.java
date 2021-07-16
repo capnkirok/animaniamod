@@ -27,7 +27,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -63,7 +63,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		}
 		// this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
 		if (!getSterilized())
-			this.tasks.addTask(3, new GenericAIMate<EntityBullBase, EntityCowBase>(this, 1.0D, EntityCowBase.class, EntityCalfBase.class, EntityAnimaniaCow.class));
+			this.tasks.addTask(3, new GenericAIMate<EntityBullBase, CowEntityBase>(this, 1.0D, CowEntityBase.class, EntityCalfBase.class, EntityAnimaniaCow.class));
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		if (!this.getFighting() && !this.getSleeping())
 		{
@@ -136,8 +136,8 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 				this.applyEnchantments(this, entityIn);
 
 			// Custom Knockback
-			if (entityIn instanceof EntityPlayer)
-				((LivingEntity) entityIn).knockBack(this, 1, (this.posX - entityIn.posX) / 2, (this.posZ - entityIn.posZ) / 2);
+			if (entityIn instanceof PlayerEntity)
+				((LivingEntity) entityIn).knockBack(this, 1, (this.getX() - entityIn.getX()) / 2, (this.getZ() - entityIn.getZ()) / 2);
 		}
 
 		return flag;
@@ -164,7 +164,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	@Override
 	public void onLivingUpdate()
 	{
-		GenericBehavior.livingUpdateMateable(this, EntityCowBase.class);
+		GenericBehavior.livingUpdateMateable(this, CowEntityBase.class);
 
 		super.onLivingUpdate();
 	}
@@ -198,7 +198,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	{
 		super.writeEntityToNBT(compound);
 
-		compound.setBoolean("Fighting", this.getFighting());
+		compound.putBoolean("Fighting", this.getFighting());
 	}
 
 	@Override
@@ -211,7 +211,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
