@@ -9,22 +9,23 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.EntitySquid;
+import net.minecraft.entity.passive.SquidEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @EventBusSubscriber(modid = Animania.MODID)
 public class EntityEventHandler
@@ -34,7 +35,7 @@ public class EntityEventHandler
 	public static void onEntityTakeDamage(LivingHurtEvent event)
 	{
 		float amount = event.getAmount();
-		LivingEntity entity = event.getLivingEntity();
+		LivingEntity entity = event.getEntityLiving();
 		DamageSource source = event.getSource();
 
 		if (entity instanceof AnimalEntity)
@@ -42,7 +43,7 @@ public class EntityEventHandler
 			AnimalEntity animal = (AnimalEntity) entity;
 
 			if (source == DamageSource.FALL)
-				if (animal.getLeashed())
+				if (animal.isLeashed())
 				{
 					event.setAmount(amount * AnimaniaConfig.gameRules.fallDamageReduceMultiplier);
 					animal.fallDistance = 0;
@@ -56,7 +57,7 @@ public class EntityEventHandler
 	public static void onEntityHit(LivingAttackEvent event)
 	{
 		float amount = event.getAmount();
-		LivingEntity entity = event.getLivingEntity();
+		LivingEntity entity = event.getEntityLiving();
 		DamageSource source = event.getSource();
 
 		if (entity instanceof LivingEntity && entity instanceof IAnimaniaAnimal)
@@ -83,7 +84,7 @@ public class EntityEventHandler
 
 		if (entity instanceof TameableEntity)
 		{
-			if (((TameableEntity) entity).isSitting())
+			if (((TameableEntity) entity).isSit())
 				((TameableEntity) entity).setSitting(false);
 		}
 
@@ -92,7 +93,7 @@ public class EntityEventHandler
 	@SubscribeEvent
 	public static void onEntityJoinWorld(EntityJoinWorldEvent event)
 	{
-		if (event.getEntity() instanceof EntityPlayer)
+		if (event.getEntity() instanceof PlayerEntity)
 		{
 			ItemHandler.regItemEggColors(event.getWorld());
 		}
@@ -101,12 +102,12 @@ public class EntityEventHandler
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingUpdateEvent event)
 	{
-		LivingEntity entity = event.getLivingEntity();
+		LivingEntity entity = event.getEntityLiving();
 
 		if (entity instanceof ISleeping && entity instanceof AnimalEntity)
 		{
 			ISleeping isleeping = (ISleeping) entity;
-			if (isleeping.getSleeping() && ((AnimalEntity) entity).getLeashed())
+			if (isleeping.getSleeping() && ((AnimalEntity) entity).isLeashed())
 				isleeping.setSleeping(false);
 		}
 	}
@@ -115,10 +116,10 @@ public class EntityEventHandler
 	public static void removeSquidSpawns(CheckSpawn event)
 	{
 		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
-		World worldIn = event.getWorld();
+		World worldIn = (World) event.getWorld();
 		Biome biome = event.getWorld().getBiome(pos);
 
-		if (!AnimaniaConfig.gameRules.spawnFreshWaterSquids && event.getEntity().getClass().equals(EntitySquid.class) && !worldIn.isRemote)
+		if (!AnimaniaConfig.gameRules.spawnFreshWaterSquids && event.getEntity().getClass().equals(SquidEntity.class) && !worldIn.isClientSide)
 		{
 
 			if (!AnimaniaHelper.hasBiomeType(biome, Type.OCEAN))
