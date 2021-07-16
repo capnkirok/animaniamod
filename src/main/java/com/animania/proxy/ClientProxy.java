@@ -1,8 +1,5 @@
 package com.animania.proxy;
 
-import java.io.File;
-import java.util.List;
-
 import com.animania.Animania;
 import com.animania.addons.AddonResourcePack;
 import com.animania.api.addons.AnimaniaAddon;
@@ -12,7 +9,6 @@ import com.animania.common.handler.AddonHandler;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.manual.gui.GuiManual;
 import com.animania.manual.resources.ManualResourceLoader;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -39,6 +35,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+
+import java.io.File;
+import java.util.List;
 
 public class ClientProxy extends CommonProxy
 {

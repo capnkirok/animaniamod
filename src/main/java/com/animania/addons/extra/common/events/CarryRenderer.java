@@ -115,7 +115,7 @@ public class CarryRenderer
 	public static void onPlayerRenderPost(RenderPlayerEvent.Post event)
 	{
 		World world = Minecraft.getMinecraft().world;
-		PlayerEntity player = event.getPlayerEntity();
+		PlayerEntity player = event.getPlayer();
 		ModelPlayer modelPlayer = event.getRenderer().getMainModel();
 		PlayerEntitySP clientPlayer = Minecraft.getMinecraft().player;
 		ItemStack stack = player.getHeldItemMainhand();

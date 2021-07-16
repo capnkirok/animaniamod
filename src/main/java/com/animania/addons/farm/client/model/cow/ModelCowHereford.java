@@ -3,13 +3,12 @@ package com.animania.addons.farm.client.model.cow;
 import com.animania.addons.farm.common.entity.cows.CowHereford.CowEntityHereford;
 import com.animania.addons.farm.common.entity.cows.CowJersey.CowEntityJersey;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)

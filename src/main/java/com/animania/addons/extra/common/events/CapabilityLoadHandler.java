@@ -35,7 +35,7 @@ public class CapabilityLoadHandler
 			return;
 		}
 
-		final ICapabilityPlayer propsNew = CapabilityRefs.getPlayerCaps(event.getPlayerEntity());
+		final ICapabilityPlayer propsNew = CapabilityRefs.getPlayerCaps(event.getPlayer());
 		propsNew.read(event.getOriginal());
 
 	}
@@ -44,7 +44,7 @@ public class CapabilityLoadHandler
 	public static void startTracking(StartTracking event)
 	{
 		Entity target = event.getTarget();
-		PlayerEntity viewer = event.getPlayerEntity();
+		PlayerEntity viewer = event.getPlayer();
 		if (target instanceof ServerPlayerEntity)
 		{
 			ICapabilityPlayer caps = CapabilityRefs.getPlayerCaps((PlayerEntity) target);

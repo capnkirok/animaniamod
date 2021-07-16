@@ -22,7 +22,7 @@ public class EggThrowHandler
 	{
 
 		ItemStack stack = event.getItemStack();
-		PlayerEntity player = event.getPlayerEntity();
+		PlayerEntity player = event.getPlayer();
 		BlockPos pos = event.getPos();
 		World world = event.getWorld();
 
@@ -51,7 +51,7 @@ public class EggThrowHandler
 
 			} else
 			{
-				// event.getPlayerEntity().swingArm(event.getHand());
+				// event.getPlayer().swingArm(event.getHand());
 				event.isCanceled();
 				event.setCanceled(true);
 			}

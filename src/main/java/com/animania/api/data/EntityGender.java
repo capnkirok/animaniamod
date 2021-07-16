@@ -2,11 +2,8 @@ package com.animania.api.data;
 
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
-
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
-
-import LivingEntity;
 
 public enum EntityGender
 {

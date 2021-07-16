@@ -1,17 +1,11 @@
 package com.animania;
 
-import java.util.Random;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.animania.common.commands.AnimaniaCommand;
 import com.animania.common.creativeTab.TabAnimaniaEntities;
 import com.animania.common.creativeTab.TabAnimaniaResources;
 import com.animania.common.handler.AddonHandler;
 import com.animania.common.handler.GuiHandlerAnimania;
 import com.animania.proxy.CommonProxy;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -19,13 +13,13 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLConstructionEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Random;
 
 @EventBusSubscriber
 @Mod(modid = Animania.MODID, name = Animania.NAME, version = Animania.VERSION, acceptedMinecraftVersions = Animania.ACCEPTED_VERSIONS, guiFactory = "com.animania.client.gui.GuiFactoryAnimania", dependencies = Animania.DEPENDENCIES)

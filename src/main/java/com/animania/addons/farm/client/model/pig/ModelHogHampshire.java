@@ -2,13 +2,12 @@ package com.animania.addons.farm.client.model.pig;
 
 import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntityHogHampshire;
 import com.animania.config.AnimaniaConfig;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)

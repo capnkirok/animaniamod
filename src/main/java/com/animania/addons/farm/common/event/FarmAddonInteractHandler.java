@@ -31,7 +31,7 @@ public class FarmAddonInteractHandler
 	public static void notify(PlayerInteractEvent.RightClickItem event)
 	{
 		ItemStack stack = event.getItemStack();
-		PlayerEntity player = event.getPlayerEntity();
+		PlayerEntity player = event.getPlayer();
 		World world = event.getWorld();
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && player.isRiding())
@@ -85,7 +85,7 @@ public class FarmAddonInteractHandler
 	@SubscribeEvent
 	public static void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event)
 	{
-		PlayerEntity player = event.getPlayerEntity();
+		PlayerEntity player = event.getPlayer();
 		ItemStack stack = player.getHeldItemMainhand();
 		Entity target = event.getTarget();
 

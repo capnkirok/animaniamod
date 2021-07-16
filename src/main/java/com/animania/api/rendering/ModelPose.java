@@ -1,18 +1,15 @@
 package com.animania.api.rendering;
 
+import ModelBase;
+import com.animania.client.models.render.ModelRendererAnimania;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
+
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import com.animania.client.models.render.ModelRendererAnimania;
-
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
-
-import ModelBase;
 
 public class ModelPose
 {

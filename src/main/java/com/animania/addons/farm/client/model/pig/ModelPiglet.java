@@ -4,13 +4,12 @@ import com.animania.addons.farm.common.entity.pigs.PigDuroc.PigEntityletDuroc;
 import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.PigEntityletLargeWhite;
 import com.animania.addons.farm.common.entity.pigs.PigOldSpot.PigEntityletOldSpot;
 import com.animania.addons.farm.common.entity.pigs.PigYorkshire.PigEntityletYorkshire;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
