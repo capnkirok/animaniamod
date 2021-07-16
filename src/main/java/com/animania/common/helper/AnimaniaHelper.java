@@ -25,6 +25,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -234,7 +235,7 @@ public class AnimaniaHelper
 		return list;
 	}
 
-	public static RayTraceResult rayTrace(EntityPlayer player, double blockReachDistance)
+	public static RayTraceResult rayTrace(PlayerEntity player, double blockReachDistance)
 	{
 		Vec3d vec3d = player.getPositionEyes(1f);
 		Vec3d vec3d1 = player.getLook(1f);
