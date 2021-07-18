@@ -12,10 +12,11 @@ import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.AnimaniaType;
 import com.animania.common.items.ItemEntityEgg;
 
-import net.minecraft.entity.passive.EntityVillager.ListItemForEmeralds;
-import net.minecraft.entity.passive.EntityVillager.PriceInfo;
+import net.minecraft.entity.merchant.villager.VillagerEntity.ListItemForEmeralds;
+import net.minecraft.entity.merchant.villager.VillagerEntity.PriceInfo;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerCareer;
 import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;

@@ -1,5 +1,12 @@
 package com.animania.network.common;
 
+import java.util.function.Supplier;
+
+import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.NetworkEvent;
+
 import com.animania.common.handler.ItemHandler;
 
 import io.netty.buffer.ByteBuf;
@@ -13,7 +20,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class PacketCloseManual implements IMessage, IMessageHandler<PacketCloseManual, IMessage>
+
+public class  PacketCloseManual implements IMessage, IMessageHandler<PacketCloseManual, IMessage>
 {
 
 	public String currentTopic;
@@ -37,7 +45,7 @@ public class PacketCloseManual implements IMessage, IMessageHandler<PacketCloseM
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf)
+	public void toBytes(PacketBuffer buf)
 	{
 		ByteBufUtils.writeUTF8String(buf, currentTopic);
 		ByteBufUtils.writeUTF8String(buf, lastTopic);
@@ -76,3 +84,4 @@ public class PacketCloseManual implements IMessage, IMessageHandler<PacketCloseM
 	}
 
 }
+
