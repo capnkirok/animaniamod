@@ -16,7 +16,7 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -42,7 +42,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class BlockInvisiblock extends BlockContainer implements TOPInfoProvider, IFoodProviderBlock
+public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider, IFoodProviderBlock
 {
 
 	protected static final AxisAlignedBB Invisiblock_AABB = new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.8D, 0.3D, 0.8D);

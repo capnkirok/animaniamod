@@ -10,7 +10,7 @@ import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -31,7 +31,7 @@ public class BlockMud extends Block
 
 	public BlockMud()
 	{
-		super(Material.SAND, MapColor.BROWN);
+		super(Material.SAND, MaterialColor.BROWN);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		BlockHandler.blocks.add(this);

@@ -24,8 +24,8 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.EntityEntry;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.Instance>
 {

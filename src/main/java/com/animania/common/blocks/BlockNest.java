@@ -16,7 +16,7 @@ import com.animania.compat.top.providers.TOPInfoProvider;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -35,7 +35,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockNest extends BlockContainer implements TOPInfoProvider
+public class BlockNest extends ContainerBlock implements TOPInfoProvider
 {
 	private String name = "block_nest";
 

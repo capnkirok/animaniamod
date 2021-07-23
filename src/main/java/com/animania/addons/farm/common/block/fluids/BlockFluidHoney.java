@@ -3,7 +3,7 @@ package com.animania.addons.farm.common.block.fluids;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -37,9 +37,9 @@ public class BlockFluidHoney extends BlockFluidBase
 	}
 
 	@Override
-	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	public MaterialColor getMaterialColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
-		return MapColor.YELLOW;
+		return MaterialColor.YELLOW;
 	}
 
 	@Override
