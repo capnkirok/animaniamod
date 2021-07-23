@@ -3,10 +3,10 @@ package com.animania.addons.farm.common.block;
 import com.animania.Animania;
 import com.animania.common.blocks.AnimaniaBlock;
 import com.animania.common.blocks.IMetaBlockName;
-import com.animania.common.items.SubtypesItemBlock;
+import com.animania.common.items.SubtypesBlockItem;
 
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -22,7 +22,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -35,11 +35,11 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 
 	public BlockAnimaniaWool()
 	{
-		super("wool", Material.CLOTH, MapColor.GRAY, false);
+		super("wool", Material.CLOTH, MaterialColor.GRAY, false);
 		this.setHardness(0.8F);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setSoundType(SoundType.CLOTH);
-		ForgeRegistries.ITEMS.register(new SubtypesItemBlock(this));
+		ForgeRegistries.ITEMS.register(new SubtypesBlockItem(this));
 		this.setHarvestLevel("shears", 0);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.DORSET_BROWN));
 	}
@@ -100,14 +100,14 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	}
 
 	@Override
-	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	public MaterialColor getMaterialColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
-		return ((BlockAnimaniaWool.EnumType) state.getValue(VARIANT)).getMapColor();
+		return ((BlockAnimaniaWool.EnumType) state.getValue(VARIANT)).getMaterialColor();
 	}
 
 	public static enum EnumType implements IStringSerializable
 	{
-		DORSET_BROWN(0, MapColor.BROWN, "dorset_brown"), FRIESIAN_BLACK(1, MapColor.BLACK, "friesian_black"), FRIESIAN_BROWN(2, MapColor.BROWN, "friesian_brown"), JACOB(3, MapColor.SNOW, "jacob"), MERINO_BROWN(4, MapColor.BROWN, "merino_brown"), MERINO_WHITE(5, MapColor.SNOW, "merino_white"), SUFFOLK_BROWN(6, MapColor.BROWN, "suffolk_brown");
+		DORSET_BROWN(0, MaterialColor.BROWN, "dorset_brown"), FRIESIAN_BLACK(1, MaterialColor.BLACK, "friesian_black"), FRIESIAN_BROWN(2, MaterialColor.BROWN, "friesian_brown"), JACOB(3, MaterialColor.SNOW, "jacob"), MERINO_BROWN(4, MaterialColor.BROWN, "merino_brown"), MERINO_WHITE(5, MaterialColor.SNOW, "merino_white"), SUFFOLK_BROWN(6, MaterialColor.BROWN, "suffolk_brown");
 
 		/** Array of the Block's BlockStates */
 		private static final BlockAnimaniaWool.EnumType[] META = new BlockAnimaniaWool.EnumType[values().length];
@@ -116,19 +116,19 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 		/** The EnumType's name. */
 		private final String name;
 		private final String unlocalizedName;
-		private final MapColor mapColor;
+		private final MaterialColor MaterialColor;
 
-		private EnumType(int i, MapColor color, String name)
+		private EnumType(int i, MaterialColor color, String name)
 		{
 			this(i, color, name, name);
 		}
 
-		private EnumType(int meta, MapColor color, String name, String name2)
+		private EnumType(int meta, MaterialColor color, String name, String name2)
 		{
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = name2;
-			this.mapColor = color;
+			this.MaterialColor = color;
 		}
 
 		/**
@@ -139,9 +139,9 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 			return this.meta;
 		}
 
-		public MapColor getMapColor()
+		public MaterialColor getMaterialColor()
 		{
-			return this.mapColor;
+			return this.MaterialColor;
 		}
 
 		public String toString()
