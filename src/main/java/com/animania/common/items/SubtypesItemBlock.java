@@ -3,13 +3,13 @@ package com.animania.common.items;
 import com.animania.common.blocks.IMetaBlockName;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 
-public class SubtypesItemBlock extends ItemBlock
+public class SubtypesBlockItem extends BlockItem
 {
 
-	public SubtypesItemBlock(Block block)
+	public SubtypesBlockItem(Block block)
 	{
 		super(block);
 		this.setRegistryName(block.getRegistryName());
