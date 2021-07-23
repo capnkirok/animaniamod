@@ -1,14 +1,10 @@
-# Template for mods.toml
 
     # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
     modLoader="javafml"
     # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
     # Forge for 1.16.5 is version 36
     loaderVersion="[36,)"
-    # The license for your mod. This is mandatory and allows for easier comprehension of your redistributive properties.
-    # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
     license="All Rights Reserved"
-    # A URL to refer people to when problems occur with this mod
     issueTrackerURL="https://github.com/capnkirok/animaniamod/issues"
     # If the mods defined in this file should show as separate resource packs
     showAsResourcePack=false
@@ -19,11 +15,12 @@
       displayName="Animania"
       updateJSONURL="minecraftforge.net/versions.json"
       displayURL="minecraftforge.net"
-      logoFile="logo.png"
-      credits="I'd like to thank my mother and father."
-      authors="Author"
+      logoFile="assets/animania/textures/animania_logo1.png"
+      credits="Game concept, creative direction, models, textures, animation, sound design, and development by
+        RazzleberryFox, Purplicious_Cow, cy4n, Tschipp, ZeAmateis, Timmypote, vroulas, and TheJurassicAlien"
+      authors="RazzleberryFox, Purplicious_Cow, cy4n, Tschipp, ZeAmateis, Timmypote, Raptorfarian, vroulas, and TheJurassicAlien"
       description='''
-      Lets you craft dirt into diamonds. This is a traditional mod that has existed for eons. It is ancient. The holy Notch created it. Jeb rainbowfied it. Dinnerbone made it upside down. Etc.
+      Immersive and realistic animals in Minecraft, with improved models, textures, animation, behaviors, and drops.
       '''
 
       [[dependencies.animaniamod]]
@@ -33,9 +30,3 @@
         ordering="NONE"
         side="BOTH"
 
-      [[dependencies.examplemod]]
-        modId="minecraft"
-        mandatory=true
-        versionRange="[1.16.5,1.17)"
-        ordering="NONE"
-        side="BOTH"
