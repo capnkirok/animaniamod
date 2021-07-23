@@ -17,7 +17,7 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -58,7 +58,7 @@ import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoodProviderBlock
+public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoodProviderBlock
 {
 	private String name = "block_trough";
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
@@ -223,7 +223,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 	}
 
 	/**
-	 * Called by ItemBlocks just before a block is actually set in the world, to
+	 * Called by BlockItems just before a block is actually set in the world, to
 	 * allow for adjustments to the IBlockstate
 	 */
 

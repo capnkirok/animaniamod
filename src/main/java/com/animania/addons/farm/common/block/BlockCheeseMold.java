@@ -13,9 +13,9 @@ import com.animania.compat.top.providers.TOPInfoProvider;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -26,7 +26,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -47,9 +47,9 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 
-public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
+public class BlockCheeseMold extends ContainerBlock implements TOPInfoProvider
 {
 
 	public static final PropertyEnum<BlockCheeseMold.EnumType> VARIANT = PropertyEnum.<BlockCheeseMold.EnumType> create("variant", BlockCheeseMold.EnumType.class);
@@ -57,7 +57,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 
 	public BlockCheeseMold()
 	{
-		super(Material.WOOD, MapColor.WOOD);
+		super(Material.WOOD, MaterialColor.WOOD);
 		this.setRegistryName(Animania.MODID + ":" + "cheese_mold");
 		this.setUnlocalizedName(Animania.MODID + "_" + "cheese_mold");
 		this.setCreativeTab(Animania.TabAnimaniaResources);
@@ -65,7 +65,7 @@ public class BlockCheeseMold extends BlockContainer implements TOPInfoProvider
 		this.setHardness(0.9f);
 		this.setResistance(1.2f);
 		BlockHandler.blocks.add(this);
-		Item item = new ItemBlock(this);
+		Item item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "cheese_mold"));
 
 		ForgeRegistries.ITEMS.register(item);

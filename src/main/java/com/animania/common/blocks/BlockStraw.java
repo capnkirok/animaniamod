@@ -9,7 +9,7 @@ import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -19,7 +19,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -31,7 +31,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -58,7 +58,7 @@ public class BlockStraw extends Block
 		this.setSoundType(SoundType.PLANT);
 		this.setTickRandomly(true);
 		
-		Item item = new ItemBlock(this);
+		Item item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		
 		ForgeRegistries.ITEMS.register(item);
@@ -216,9 +216,9 @@ public class BlockStraw extends Block
 	}
 	
 	@Override
-	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	public MaterialColor getMaterialColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
-		return ((BlockStraw.EnumType)state.getValue(VARIANT)).getMapColor();
+		return ((BlockStraw.EnumType)state.getValue(VARIANT)).getMaterialColor();
 	}
 
 	
@@ -233,7 +233,7 @@ public class BlockStraw extends Block
 	
 	public static enum EnumType implements IStringSerializable
 	{
-		STRAW(0, MapColor.YELLOW, "straw");
+		STRAW(0, MaterialColor.YELLOW, "straw");
 		
 		/** Array of the Block's BlockStates */
 		private static final BlockStraw.EnumType[] META = new BlockStraw.EnumType[values().length];
@@ -242,19 +242,19 @@ public class BlockStraw extends Block
 		/** The EnumType's name. */
 		private final String name;
 		private final String unlocalizedName;
-		private final MapColor mapColor;
+		private final MaterialColor MaterialColor;
 
-		private EnumType(int i, MapColor color, String name)
+		private EnumType(int i, MaterialColor color, String name)
 		{
 			this(i, color, name, name);
 		}
 
-		private EnumType(int meta, MapColor color, String name, String name2)
+		private EnumType(int meta, MaterialColor color, String name, String name2)
 		{
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = name2;
-			this.mapColor = color;
+			this.MaterialColor = color;
 		}
 
 		/**
@@ -265,9 +265,9 @@ public class BlockStraw extends Block
 			return this.meta;
 		}
 
-		public MapColor getMapColor()
+		public MaterialColor getMaterialColor()
 		{
-			return this.mapColor;
+			return this.MaterialColor;
 		}
 
 		public String toString()

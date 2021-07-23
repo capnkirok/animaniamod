@@ -75,7 +75,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.registries.EntityRegistry;
 
 public class ExtraAddonEntityHandler
 {
