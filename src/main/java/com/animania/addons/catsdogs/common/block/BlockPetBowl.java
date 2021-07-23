@@ -11,7 +11,7 @@ import com.animania.compat.top.providers.TOPInfoProvider;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -44,7 +44,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 
 	public BlockPetBowl()
 	{
-		super("pet_bowl", Material.WOOD, MapColor.BROWN);
+		super("pet_bowl", Material.WOOD, MaterialColor.BROWN);
 		this.setHardness(1.2f);
 		this.setResistance(1.5f);
 	}

@@ -12,9 +12,9 @@ import com.animania.compat.top.providers.TOPInfoProvider;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -35,7 +35,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
+public class BlockHamsterWheel extends ContainerBlock implements TOPInfoProvider
 {
 
 	private String name = "block_hamster_wheel";
@@ -43,7 +43,7 @@ public class BlockHamsterWheel extends BlockContainer implements TOPInfoProvider
 
 	public BlockHamsterWheel()
 	{
-		super(Material.IRON, MapColor.GRAY);
+		super(Material.IRON, MaterialColor.GRAY);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		BlockHandler.blocks.add(this);
