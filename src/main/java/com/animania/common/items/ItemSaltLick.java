@@ -3,9 +3,9 @@ package com.animania.common.items;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 
-public class ItemSaltLick extends ItemBlock
+public class ItemSaltLick extends BlockItem
 {
 
 	public ItemSaltLick(Block block)
