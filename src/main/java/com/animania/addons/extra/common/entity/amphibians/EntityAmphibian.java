@@ -144,8 +144,8 @@ public abstract class EntityAmphibian extends AnimalEntity implements ISpawnable
 				this.moveRelative(0.0F, 1.0F, 0.1F, 0f);
 		}
 
-		if (!this.world.isRemote)
-			this.world.setEntityState(this, (byte) 1);
+		if (!this.level.isRemote)
+			this.level.setEntityState(this, (byte) 1);
 	}
 
 	@SideOnly(Dist.CLIENT)

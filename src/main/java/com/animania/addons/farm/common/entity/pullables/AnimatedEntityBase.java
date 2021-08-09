@@ -62,6 +62,6 @@ public abstract class AnimatedEntityBase extends Entity implements IAnimated
 
 	@Override
 	public boolean isWorldRemote() {
-		return this.world.isRemote;
+		return this.level.isRemote;
 	}
 }

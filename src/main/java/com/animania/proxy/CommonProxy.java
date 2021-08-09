@@ -98,11 +98,11 @@ public class CommonProxy
 		long currentTime = 0;
 		int factorTime = 0;
 
-		for (int j = 0; j < Playerentity.level.getMinecraftServer().getServer().worlds.length; ++j)
+		for (int j = 0; j < Playerentity.level.getMinecraftServer().getServer().levels.length; ++j)
 		{
-			currentTime = Playerentity.level.getMinecraftServer().getServer().worlds[j].getWorldTime() % 24000;
+			currentTime = Playerentity.level.getMinecraftServer().getServer().levels[j].getWorldTime() % 24000;
 			factorTime = 24000 - (int) currentTime;
-			Playerentity.level.getMinecraftServer().getServer().worlds[j].setWorldTime(Playerentity.level.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime);
+			Playerentity.level.getMinecraftServer().getServer().levels[j].setWorldTime(Playerentity.level.getMinecraftServer().getServer().levels[j].getWorldTime() + factorTime);
 		}
 	}
 

@@ -5,7 +5,7 @@ import com.animania.addons.farm.common.entity.cows.EntityBullBase;
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
@@ -13,7 +13,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityAIAttackMeleeBulls extends EntityAIBase
+public class EntityAIAttackMeleeBulls extends Goal
 {
 	World                    worldObj;
 	protected CreatureEntity attacker;
@@ -31,7 +31,7 @@ public class EntityAIAttackMeleeBulls extends EntityAIBase
 
 	public EntityAIAttackMeleeBulls(EntityAnimaniaCow creature, double speedIn, boolean useLongMemory) {
 		this.attacker = creature;
-		this.worldObj = creature.world;
+		this.levelObj = creature.level;
 		this.speedTowardsTarget = speedIn;
 		this.longMemory = useLongMemory;
 		this.setMutexBits(3);

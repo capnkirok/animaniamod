@@ -6,7 +6,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import com.animania.client.render.item.RenderAnimatedEgg;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
@@ -27,7 +27,7 @@ public class AnimatedEggModelWrapper implements IBakedModel
 	}
 
 	@Override
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand)
+	public List<BakedQuad> getQuads(BlockState state, EnumFacing side, long rand)
 	{
 		return old.getQuads(state, side, rand);
 	}

@@ -6,13 +6,13 @@ import com.animania.common.blocks.IMetaBlockName;
 import com.animania.common.items.SubtypesBlockItem;
 
 import PropertyEnum;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -56,7 +56,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	}
 
 	@Override
-	public float getPlayerRelativeBlockHardness(IBlockState state, PlayerEntity player, World worldIn, BlockPos pos)
+	public float getPlayerRelativeBlockHardness(BlockState state, PlayerEntity player, World worldIn, BlockPos pos)
 	{
 		ItemStack stack = player.getHeldItemMainhand();
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemShears)
@@ -66,19 +66,19 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, LivingEntity placer, ItemStack stack)
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
 		worldIn.setBlockState(pos, this.getStateFromMeta(stack.getMetadata()));
 	}
 
 	@Override
-	public int damageDropped(IBlockState state)
+	public int damageDropped(BlockState state)
 	{
 		return state.getValue(VARIANT).getMetadata();
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta)
+	public BlockState getStateFromMeta(int meta)
 	{
 		return this.getDefaultState().withProperty(VARIANT, BlockAnimaniaWool.EnumType.byMetadata(meta));
 	}
@@ -87,7 +87,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	 * Convert the BlockState into the correct metadata value
 	 */
 	@Override
-	public int getMetaFromState(IBlockState state)
+	public int getMetaFromState(BlockState state)
 	{
 		return ((BlockAnimaniaWool.EnumType) state.getValue(VARIANT)).getMetadata();
 	}
@@ -99,7 +99,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	}
 
 	@Override
-	public MaterialColor getMaterialColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	public MaterialColor getMaterialColor(BlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
 		return ((BlockAnimaniaWool.EnumType) state.getValue(VARIANT)).getMaterialColor();
 	}

@@ -277,7 +277,7 @@ public class ModelRooster extends ModelBase
         this.BeakBottom.rotateAngleX = 0.05872219F;
         this.BeakTop.rotateAngleX = 0.3169494F;
 
-        long currentTime = entityIn.world.getWorldTime();
+        long currentTime = entityIn.level.getWorldTime();
 
         if (currentTime > 23250 || currentTime < 500) {
 

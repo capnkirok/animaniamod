@@ -11,7 +11,7 @@ import com.animania.common.helper.ReflectionUtil;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathFinder;
 import net.minecraft.pathfinding.PathNavigate;
@@ -21,7 +21,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class GenericAISearchBlock extends EntityAIBase
+public abstract class GenericAISearchBlock extends Goal
 {
 	private static final boolean DEBUG_MODE = false;
 
@@ -51,7 +51,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 		this.destinationOffset = new ArrayList<EnumFacing>();
 		for (EnumFacing f : destinationOffset)
 			this.destinationOffset.add(f);
-		this.world = creature.world;
+		this.level = creature.level;
 		this.hasSecondary = hasSecondary;
 		// this.setMutexBits(5);
 	}
@@ -62,7 +62,7 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	}
 
 	/**
-	 * Returns whether the EntityAIBase should begin execution.
+	 * Returns whether the Goal should begin execution.
 	 */
 	@Override
 	public boolean shouldExecute()
@@ -83,12 +83,12 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 	}
 
 	/**
-	 * Returns whether an in-progress EntityAIBase should continue executing
+	 * Returns whether an in-progress Goal should continue executing
 	 */
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		return destinationBlock != NO_POS && seekingBlockPos != NO_POS && !isDone && (this.shouldMoveTo(this.creature.world, this.seekingBlockPos) || (this.hasSecondary ? this.shouldMoveToSecondary(world, seekingBlockPos) : false));
+		return destinationBlock != NO_POS && seekingBlockPos != NO_POS && !isDone && (this.shouldMoveTo(this.creature.level, this.seekingBlockPos) || (this.hasSecondary ? this.shouldMoveToSecondary(world, seekingBlockPos) : false));
 	}
 
 	/**
@@ -209,8 +209,8 @@ public abstract class GenericAISearchBlock extends EntityAIBase
 
 						if (!this.nonValidPositions.contains(blockpos1))
 						{
-							boolean shouldMoveToPrimary = this.shouldMoveTo(this.creature.world, blockpos1);
-							if (shouldMoveToPrimary || (this.hasSecondary && secondarySeek == null && this.shouldMoveToSecondary(this.creature.world, blockpos1)))
+							boolean shouldMoveToPrimary = this.shouldMoveTo(this.creature.level, blockpos1);
+							if (shouldMoveToPrimary || (this.hasSecondary && secondarySeek == null && this.shouldMoveToSecondary(this.creature.level, blockpos1)))
 							{
 								if (destinationOffset.isEmpty())
 								{

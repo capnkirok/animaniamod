@@ -139,7 +139,7 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		this.level.setEntityState(this, (byte) 18);
 	}
 
 	public boolean isAIEnabled()

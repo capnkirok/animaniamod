@@ -167,7 +167,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Override
 	public void openGUI(PlayerEntity playerEntity)
 	{
-		if (!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)))
+		if (!this.level.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)))
 		{
 			this.horseChest.setCustomName(this.getName());
 			playerEntity.openGuiHorseInventory(this, this.horseChest);
@@ -207,7 +207,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override

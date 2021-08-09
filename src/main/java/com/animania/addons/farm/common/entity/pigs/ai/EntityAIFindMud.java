@@ -12,13 +12,13 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAIFindMud extends EntityAIBase
+public class EntityAIFindMud extends Goal
 {
 	private final EntityAnimaniaPig entityIn;
 	private final double         speed;
@@ -51,7 +51,7 @@ public class EntityAIFindMud extends EntityAIBase
 				return false;
 			}
 
-			if (!entityIn.world.isDaytime() || entityIn.getSleeping()) {
+			if (!entityIn.level.isDaytime() || entityIn.getSleeping()) {
 				this.delayTemptCounter = 0;
 				return false;
 			}
@@ -68,7 +68,7 @@ public class EntityAIFindMud extends EntityAIBase
 			}
 
 			BlockPos currentpos = new BlockPos(this.entityIn.getX(), this.entityIn.getY(), this.entityIn.getZ());
-			Block poschk = this.entityIn.world.getBlockState(currentpos).getBlock();
+			Block poschk = this.entityIn.level.getBlockState(currentpos).getBlock();
 			if (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")) {
 				EntityAnimaniaPig pig = (EntityAnimaniaPig) entityIn;
 				pig.setPlayed(true);
@@ -89,9 +89,9 @@ public class EntityAIFindMud extends EntityAIBase
 					for (int k = -10; k < 10; k++) {
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = this.entityIn.world.getBlockState(pos).getBlock();
+						Block blockchk = this.entityIn.level.getBlockState(pos).getBlock();
 
-						List<EntityAnimaniaPig> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 2, entityIn.world, pos);
+						List<EntityAnimaniaPig> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 2, entityIn.level, pos);
 
 						if (blockchk != null && (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().equals("tile.mud")) && others.size() < 2) {
 							mudFound = true;
@@ -140,7 +140,7 @@ public class EntityAIFindMud extends EntityAIBase
 		double z = this.entityIn.getZ();
 
 		BlockPos currentpos = new BlockPos(x, y, z);
-		Block poschk = this.entityIn.world.getBlockState(currentpos).getBlock();
+		Block poschk = this.entityIn.level.getBlockState(currentpos).getBlock();
 		if (poschk != BlockHandler.blockMud || !poschk.getUnlocalizedName().equals("tile.mud")) {
 
 			boolean mudFound = false;
@@ -155,7 +155,7 @@ public class EntityAIFindMud extends EntityAIBase
 					for (int k = -10; k < 10; k++) {
 
 						pos = new BlockPos(x + i, y + j, z + k);
-						Block blockchk = this.entityIn.world.getBlockState(pos).getBlock();
+						Block blockchk = this.entityIn.level.getBlockState(pos).getBlock();
 						if (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().equals("tile.mud")) {
 							mudFound = true;
 							newloc = Math.abs(i) + Math.abs(j) + Math.abs(k);
@@ -166,7 +166,7 @@ public class EntityAIFindMud extends EntityAIBase
 
 								if (this.entityIn.getX() > mudPos.getX()) {
 									BlockPos mudPoschk = new BlockPos(x + i + 1, y + j, z + k);
-									Block mudBlockchk = this.entityIn.world.getBlockState(mudPoschk).getBlock();
+									Block mudBlockchk = this.entityIn.level.getBlockState(mudPoschk).getBlock();
 									if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) {
 										spcFlag = true;
 										i = i + 1;
@@ -175,7 +175,7 @@ public class EntityAIFindMud extends EntityAIBase
 
 								if (this.entityIn.getZ() > mudPos.getZ()) {
 									BlockPos mudPoschk = new BlockPos(x + i, y + j, z + k + 1);
-									Block mudBlockchk = this.entityIn.world.getBlockState(mudPoschk).getBlock();
+									Block mudBlockchk = this.entityIn.level.getBlockState(mudPoschk).getBlock();
 									if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) {
 										spcFlag = true;
 										k = k + 1;
@@ -198,7 +198,7 @@ public class EntityAIFindMud extends EntityAIBase
 
 			if (mudFound) {
 
-				Block mudBlockchk = this.entityIn.world.getBlockState(mudPos).getBlock();
+				Block mudBlockchk = this.entityIn.level.getBlockState(mudPos).getBlock();
 				if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) 
 					if (this.entityIn instanceof EntitySowBase) {
 						EntitySowBase te = (EntitySowBase) this.entityIn;

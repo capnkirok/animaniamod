@@ -4,10 +4,10 @@ import com.animania.addons.farm.common.entity.chickens.EntityAnimaniaChicken;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class EntityAIWatchClosestFromSide extends EntityAIBase
+public class EntityAIWatchClosestFromSide extends Goal
 {
     protected LivingEntity            theWatcher;
     protected Entity                  closestEntity;
@@ -34,7 +34,7 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
 
     @Override
     public boolean shouldExecute() {
-		if (!this.theWatcher.world.isDaytime() && this.theWatcher instanceof EntityAnimaniaChicken && ((EntityAnimaniaChicken) this.theWatcher).getSleeping())
+		if (!this.theWatcher.level.isDaytime() && this.theWatcher instanceof EntityAnimaniaChicken && ((EntityAnimaniaChicken) this.theWatcher).getSleeping())
 			return false;
     	
         if (this.theWatcher.getRNG().nextFloat() >= this.chance)
@@ -44,9 +44,9 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
                 this.closestEntity = this.theWatcher.getAttackTarget();
 
             if (this.watchedClass == PlayerEntity.class)
-                this.closestEntity = this.theWatcher.world.getClosestPlayerToEntity(this.theWatcher, this.maxDistanceForPlayer);
+                this.closestEntity = this.theWatcher.level.getClosestPlayerToEntity(this.theWatcher, this.maxDistanceForPlayer);
             else
-                this.closestEntity = this.theWatcher.world.findNearestEntityWithinAABB(this.watchedClass,
+                this.closestEntity = this.theWatcher.level.findNearestEntityWithinAABB(this.watchedClass,
                         this.theWatcher.getEntityBoundingBox().expand(this.maxDistanceForPlayer, 3.0D, this.maxDistanceForPlayer), this.theWatcher);
 
             return this.closestEntity != null;

@@ -1,18 +1,19 @@
 
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
-		mavenCentral()
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        maven { url = 'https://sizableshrimp.me/maven' }
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
+        classpath group: 'me.sizableshrimp.parchmenttest', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
 
-plugins {
-  id "com.wynprice.cursemaven" version "2.1.1"
-}
+//plugins {
+//  id "com.wynprice.cursemaven" version "2.1.1"
+//}
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
@@ -24,7 +25,6 @@ ext.animaniaversion = project.animaniaversion
 version = "${animaniaversion}"
 group= "com.animania"
 archivesBaseName = "animania-${mcversion}"
-sourceCompatibility = targetCompatibility = "1.8"
 
 ext.addons = project.addons.split()
 ext.addonversions = project.addon_versions.split()
@@ -40,15 +40,15 @@ if (System.getenv('BUILD_NUMBER') != null) {
 	animaniaversion += "." + System.getenv('BUILD_NUMBER')
 }
 
-//java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
-compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
-}
+//compileJava {
+//    sourceCompatibility = targetCompatibility = "1.8"
+//}
 
 minecraft {
     
-	mappings channel: 'official', version: '1.16.5'
+	mappings channel: 'parchment', version: '2021.08.08-1.16.5'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 	
@@ -142,7 +142,7 @@ repositories {
 
     maven { //Maven for Waila
        name 'ProfMobius maven'
-       url "http://mobiusstrip.eu/maven/"
+       url "https://mobiusstrip.eu/maven/"
    }
 
   	maven { //Maven for HWYLA
@@ -152,22 +152,22 @@ repositories {
 
    maven { //Maven for JEI
     name = "Progwml6 maven"
-    url = "http://dvs1.progwml6.com/files/maven"
+    url = "https://dvs1.progwml6.com/files/maven"
    }
   
 	maven { // TOP
         name 'tterrag maven'
-        url "http://maven.tterrag.com/"
+        url "https://maven.tterrag.com/"
     }
 	
 	maven { // RedstoneFlux
         name 'redstoneflux'
-        url "http://maven.covers1624.net/"
+        url "https://maven.covers1624.net/"
     }
 	
 	maven { // CodeChickenLib
         name 'redstoneflux'
-        url "http://chickenbones.net/maven/"
+        url "https://chickenbones.net/maven/"
     }
 	
 	maven {

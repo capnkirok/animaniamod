@@ -8,25 +8,25 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.pattern.BlockStateMatcher;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-public class EntityAIRodentEat extends EntityAIBase
+public class EntityAIRodentEat extends Goal
 {
-	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+	private static final Predicate<BlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	private final LivingEntity                  grassEaterEntity;
 	private final World                         entityWorld;
 	int                                         eatingGrassTimer;
 
 	public EntityAIRodentEat(LivingEntity grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
-		this.entityWorld = grassEaterEntityIn.world;
+		this.entityWorld = grassEaterEntityIn.level;
 		this.setMutexBits(7);
 	}
 

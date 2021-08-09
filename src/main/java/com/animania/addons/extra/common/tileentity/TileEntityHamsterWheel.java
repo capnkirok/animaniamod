@@ -14,7 +14,7 @@ import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileEntity;
 
 import cofh.redstoneflux.api.IEnergyReceiver;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -193,7 +193,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		{
 			BlockPos pos = this.pos;
 			pos = pos.offset(e);
-			IBlockState state = world.getBlockState(pos);
+			BlockState state = world.getBlockState(pos);
 
 			if (!state.isOpaqueCube() && !state.isFullCube() && state.getBlock() != ExtraAddonBlockHandler.blockHamsterWheel)
 			{
@@ -241,7 +241,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	}
 
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
+	public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newState)
 	{
 
 		return (oldState.getBlock() != newState.getBlock());
@@ -253,7 +253,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 		if (this.blockType != null && this.pos != null)
-			this.world.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
+			this.level.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
 
 	}
 

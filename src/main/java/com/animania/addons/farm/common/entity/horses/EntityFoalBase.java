@@ -69,7 +69,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override

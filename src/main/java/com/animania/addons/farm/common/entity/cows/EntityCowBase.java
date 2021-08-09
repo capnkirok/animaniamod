@@ -120,7 +120,7 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	{
 
 		if (!this.getSleeping())
-			this.world.setEntityState(this, (byte) 18);
+			this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override
@@ -191,7 +191,7 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack) && this.getHasKids())
 		{
-			if (!this.world.isRemote)
+			if (!this.level.isRemote)
 			{
 				player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 

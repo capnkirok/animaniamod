@@ -61,10 +61,10 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	@Nullable
 	public ILivingEntityData onInitialSpawn(DifficultyInstance difficulty, @Nullable ILivingEntityData livingdata)
 	{
-		if (this.world.isRemote)
+		if (this.level.isRemote)
 			return null;
 
-		List<EntityAnimaniaChicken> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 64, this.world, this.getPosition());
+		List<EntityAnimaniaChicken> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 64, this.level, this.getPosition());
 
 		if (others.size() <= 4)
 		{
@@ -75,12 +75,12 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 			{
 				EntityRoosterBase ChickenEntity = this.type.getMale(world);
 				ChickenEntity.setPosition(this.getX(), this.getY(), this.getZ());
-				AnimaniaHelper.spawnEntity(this.world, ChickenEntity);
+				AnimaniaHelper.spawnEntity(this.level, ChickenEntity);
 			} else if (chooser == 1)
 			{
 				EntityChickBase ChickenEntity = this.type.getChild(world);
 				ChickenEntity.setPosition(this.getX(), this.getY(), this.getZ());
-				AnimaniaHelper.spawnEntity(this.world, ChickenEntity);
+				AnimaniaHelper.spawnEntity(this.level, ChickenEntity);
 			}
 
 		}

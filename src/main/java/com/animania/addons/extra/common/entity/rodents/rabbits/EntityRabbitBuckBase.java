@@ -18,8 +18,8 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -108,7 +108,7 @@ public class RabbitEntityBuckBase extends EntityAnimaniaRabbit implements TOPInf
 		while (it.hasNext())
 		{
 			EntityAITaskEntry entry = it.next();
-			EntityAIBase ai = entry.action;
+			Goal ai = entry.action;
 			if (ai instanceof GenericAIMate)
 			{
 				entry.using = false;

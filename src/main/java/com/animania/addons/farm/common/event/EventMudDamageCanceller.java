@@ -17,14 +17,14 @@ public class EventMudDamageCanceller
 		// || event.getLivingEntity() instanceof EntityChickRhodeIslandRed ||
 		// event.getLivingEntity() instanceof EntityChickWyandotte)
 		// && event.getSource().damageType.contains("Wall"))
-		// if (!event.getLivingEntity().world.isRemote) {
+		// if (!event.getLivingEntity().level.isRemote) {
 		//
 		// BlockPos poschk = new BlockPos(event.getLivingEntity().getX() +
 		// event.getLivingEntity().motionX / 1.5,
 		// event.getLivingEntity().getY() + .1F, event.getLivingEntity().getZ() +
 		// event.getLivingEntity().motionZ / 1.5);
 		// Block blockchk =
-		// event.getLivingEntity().world.getBlockState(poschk).getBlock();
+		// event.getLivingEntity().level.getBlockState(poschk).getBlock();
 		//
 		// boolean isInMud = false;
 		// if (blockchk == BlockHandler.blockMud)

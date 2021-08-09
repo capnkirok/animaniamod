@@ -89,7 +89,7 @@ public class FarmAddonSpawnHandler
 				event.setResult(Result.DENY);
 			}
 
-			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().world, pos);
+			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().level, pos);
 			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(2) + 1;
@@ -175,7 +175,7 @@ public class FarmAddonSpawnHandler
 			}
 
 			chooser = Animania.RANDOM.nextInt(2) + 1;
-			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().world, pos);
+			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().level, pos);
 			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(2) + 1;
@@ -246,7 +246,7 @@ public class FarmAddonSpawnHandler
 
 			chooser = Animania.RANDOM.nextInt(2) + 1;
 
-			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().world, pos);
+			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().level, pos);
 			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(3);
@@ -313,7 +313,7 @@ public class FarmAddonSpawnHandler
 			}
 
 			chooser = Animania.RANDOM.nextInt(2) + 1;
-			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().world, pos);
+			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().level, pos);
 
 			if (otheranimals.size() <= 2)
 			{
@@ -436,7 +436,7 @@ public class FarmAddonSpawnHandler
 
 		if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaCows && (event.getEntity() instanceof EntityAnimaniaCow && !worldIn.isRemote))
 		{
-			List<EntityAnimaniaCow> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 100, event.getEntity().world, pos);
+			List<EntityAnimaniaCow> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitCows)
 			{
 				event.setResult(Result.DENY);
@@ -444,7 +444,7 @@ public class FarmAddonSpawnHandler
 			}
 		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaPigs && (event.getEntity() instanceof EntityAnimaniaPig && !worldIn.isRemote))
 		{
-			List<EntityAnimaniaPig> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 100, event.getEntity().world, pos);
+			List<EntityAnimaniaPig> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitPigs)
 			{
 				event.setResult(Result.DENY);
@@ -452,7 +452,7 @@ public class FarmAddonSpawnHandler
 			}
 		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaChickens && (event.getEntity() instanceof EntityAnimaniaChicken && !worldIn.isRemote))
 		{
-			List<EntityAnimaniaChicken> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 100, event.getEntity().world, pos);
+			List<EntityAnimaniaChicken> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitChickens)
 			{
 				event.setResult(Result.DENY);
@@ -460,7 +460,7 @@ public class FarmAddonSpawnHandler
 			}
 		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaSheep && (event.getEntity() instanceof EntityAnimaniaSheep && !worldIn.isRemote))
 		{
-			List<EntityAnimaniaSheep> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 100, event.getEntity().world, pos);
+			List<EntityAnimaniaSheep> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitSheep)
 			{
 				event.setResult(Result.DENY);
@@ -468,7 +468,7 @@ public class FarmAddonSpawnHandler
 			}
 		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaGoats && (event.getEntity() instanceof EntityAnimaniaGoat && !worldIn.isRemote))
 		{
-			List<EntityAnimaniaGoat> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaGoat.class, 100, event.getEntity().world, pos);
+			List<EntityAnimaniaGoat> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaGoat.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitGoats)
 			{
 				event.setResult(Result.DENY);
@@ -476,7 +476,7 @@ public class FarmAddonSpawnHandler
 			}
 		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && (event.getEntity() instanceof EntityAnimaniaHorse && !worldIn.isRemote))
 		{
-			List<EntityAnimaniaHorse> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 100, event.getEntity().world, pos);
+			List<EntityAnimaniaHorse> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitHorses)
 			{
 				event.setResult(Result.DENY);
@@ -484,7 +484,7 @@ public class FarmAddonSpawnHandler
 			}
 		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && (event.getEntity() instanceof EntityAnimaniaHorse && !worldIn.isRemote))
 		{
-			List<EntityAnimaniaHorse> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 100, event.getEntity().world, pos);
+			List<EntityAnimaniaHorse> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitHorses)
 			{
 				event.setResult(Result.DENY);

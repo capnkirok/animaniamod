@@ -16,10 +16,10 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
@@ -60,7 +60,7 @@ public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider,
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, BlockState state, Entity entityIn)
 	{
 		if (entityIn != null && entityIn instanceof EntityItem)
 		{
@@ -141,25 +141,25 @@ public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider,
 	}
 	
 	@Override
-	public boolean isTopSolid(IBlockState state)
+	public boolean isTopSolid(BlockState state)
 	{
 		return false;
 	}
 	
 	@Deprecated
-    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
     {
         return BlockFaceShape.UNDEFINED;
     }
 
 	@Override
-	public boolean isFullCube(IBlockState state)
+	public boolean isFullCube(BlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isFullBlock(IBlockState state)
+	public boolean isFullBlock(BlockState state)
 	{
 		return false;
 	}
@@ -171,30 +171,30 @@ public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider,
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state)
+	public boolean isOpaqueCube(BlockState state)
 	{
 		return false;
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return BlockInvisiblock.Invisiblock_AABB;
 	}
 
 	@Override
 	@SideOnly(Dist.CLIENT)
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
 	{
-		IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
-		Block block = iblockstate.getBlock();
+		BlockState BlockState = blockAccess.getBlockState(pos.offset(side));
+		Block block = BlockState.getBlock();
 
 		return block == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
 	}
 	
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+	public void breakBlock(World worldIn, BlockPos pos, BlockState state)
 	{
 
 		BlockPos pos1 = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
@@ -259,7 +259,7 @@ public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider,
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, PlayerEntity playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 
 		BlockPos pos1 = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
@@ -332,19 +332,19 @@ public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider,
 
 	@Override
 	@Nullable
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
 		return Item.getItemFromBlock(BlockHandler.blockTrough);
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(IBlockState state)
+	public boolean hasComparatorInputOverride(BlockState state)
 	{
 		return true;
 	}
 
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player)
+	public ItemStack getPickBlock(BlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player)
 	{
 		return new ItemStack(BlockHandler.blockTrough);
 	}
@@ -356,7 +356,7 @@ public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider,
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
+	public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
 	{
 
 		TileEntityInvisiblock te = (TileEntityInvisiblock) worldIn.getTileEntity(pos);
@@ -376,7 +376,7 @@ public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider,
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, IBlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = world.getTileEntity(data.getPos());
 		if (te instanceof TileEntityInvisiblock)

@@ -15,7 +15,7 @@ import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileEntity;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -83,7 +83,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 		{
 			if (Animania.RANDOM.nextInt(10) == 0)
 			{
-				List<PlayerEntity> players = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 2, this.world, pos);
+				List<PlayerEntity> players = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 2, this.level, pos);
 				for (PlayerEntity p : players)
 				{
 					if (Animania.RANDOM.nextInt(3) == 0)
@@ -100,7 +100,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 		if (this.blockType != null && this.pos != null)
-			this.world.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
+			this.level.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
 
 	}
 
@@ -150,7 +150,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	}
 
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState)
+	public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newState)
 	{
 		return (oldState.getBlock() != newState.getBlock());
 	}
@@ -178,7 +178,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 
 	public Block getHiveType()
 	{
-		return this.world.getBlockState(pos).getBlock();
+		return this.level.getBlockState(pos).getBlock();
 	}
 
 	@Override
@@ -205,7 +205,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 		if (this.isWorldRemote())
 		{
 
-			if (this.world.getBlockState(pos).getBlock() == FarmAddonBlockHandler.blockWildHive)
+			if (this.level.getBlockState(pos).getBlock() == FarmAddonBlockHandler.blockWildHive)
 			{
 				if (!this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_bees_wild", this))
 				{

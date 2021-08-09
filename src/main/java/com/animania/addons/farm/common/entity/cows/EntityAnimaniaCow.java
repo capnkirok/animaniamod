@@ -212,16 +212,16 @@ public class EntityAnimaniaCow extends CowEntity implements IAnimaniaAnimalBase,
 		} else if (stack != ItemStack.EMPTY && (this instanceof CowEntityMooshroom || this instanceof EntityBullMooshroom) && stack.getItem() instanceof ItemShears && this.getGrowingAge() >= 0) // onSheared
 		{
 			this.setDead();
-			this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.getX(), this.getY() + this.height / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D, new int[0]);
+			this.level.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.getX(), this.getY() + this.height / 2.0F, this.getZ(), 0.0D, 0.0D, 0.0D, new int[0]);
 
-			if (!this.world.isRemote)
+			if (!this.level.isRemote)
 			{
 				EntityAnimaniaCow CowEntity = null;
 
 				if (this instanceof CowEntityMooshroom)
-					CowEntity = new CowEntityFriesian(this.world);
+					CowEntity = new CowEntityFriesian(this.level);
 				else
-					CowEntity = new EntityBullFriesian(this.world);
+					CowEntity = new EntityBullFriesian(this.level);
 
 				CowEntity.setLocationAndAngles(this.getX(), this.getY(), this.getZ(), this.rotationYaw, this.rotationPitch);
 				CowEntity.setHealth(this.getHealth());
@@ -230,11 +230,11 @@ public class EntityAnimaniaCow extends CowEntity implements IAnimaniaAnimalBase,
 				{
 					CowEntity.setCustomNameTag(this.getCustomNameTag());
 				}
-				AnimaniaHelper.spawnEntity(this.world, CowEntity);
+				AnimaniaHelper.spawnEntity(this.level, CowEntity);
 
 				for (int i = 0; i < 5; ++i)
 				{
-					AnimaniaHelper.spawnEntity(world, new EntityItem(this.world, this.getX(), this.getY() + this.height, this.getZ(), new ItemStack(Blocks.RED_MUSHROOM)));
+					AnimaniaHelper.spawnEntity(world, new EntityItem(this.level, this.getX(), this.getY() + this.height, this.getZ(), new ItemStack(Blocks.RED_MUSHROOM)));
 				}
 
 				stack.damageItem(1, player);
@@ -454,7 +454,7 @@ public class EntityAnimaniaCow extends CowEntity implements IAnimaniaAnimalBase,
 	@Override
 	public Entity convertToVanilla()
 	{
-		CowEntity entity = new CowEntity(this.world);
+		CowEntity entity = new CowEntity(this.level);
 		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());

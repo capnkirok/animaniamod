@@ -20,7 +20,7 @@ public class CapSyncPacketHandler implements IMessageHandler<CapSyncPacket, IMes
 
 		mainThread.addScheduledTask(() -> {
 
-			Entity entity = Minecraft.getMinecraft().world.getEntityByID(message.entityID);
+			Entity entity = Minecraft.getMinecraft().level.getEntityByID(message.entityID);
 
 			if (entity != null)
 			{

@@ -213,7 +213,7 @@ public class EntityAnimaniaPig extends PigEntity implements IAnimaniaAnimalBase,
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override
@@ -432,9 +432,9 @@ public class EntityAnimaniaPig extends PigEntity implements IAnimaniaAnimalBase,
 	@Override
 	public void onStruckByLightning(EntityLightningBolt lightningBolt)
 	{
-		if (!this.world.isRemote && !this.isDead)
+		if (!this.level.isRemote && !this.isDead)
 		{
-			PigZombieEntity PigZombieEntity = new PigZombieEntity(this.world);
+			PigZombieEntity PigZombieEntity = new PigZombieEntity(this.level);
 			PigZombieEntity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 			PigZombieEntity.setLocationAndAngles(this.getX(), this.getY(), this.getZ(), this.rotationYaw, this.rotationPitch);
 			PigZombieEntity.setNoAI(this.isAIDisabled());
@@ -450,7 +450,7 @@ public class EntityAnimaniaPig extends PigEntity implements IAnimaniaAnimalBase,
 				PigZombieEntity.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
 			}
 
-			AnimaniaHelper.spawnEntity(this.world, PigZombieEntity);
+			AnimaniaHelper.spawnEntity(this.level, PigZombieEntity);
 			this.setDead();
 		}
 	}
@@ -477,7 +477,7 @@ public class EntityAnimaniaPig extends PigEntity implements IAnimaniaAnimalBase,
 		boolean played = this.getPlayed();
 
 		BlockPos currentpos = new BlockPos(this.getX(), this.getY(), this.getZ());
-		Block poschk = this.world.getBlockState(currentpos).getBlock();
+		Block poschk = this.level.getBlockState(currentpos).getBlock();
 
 		if (poschk != null && (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")))
 			this.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 4, false, false));
@@ -656,7 +656,7 @@ public class EntityAnimaniaPig extends PigEntity implements IAnimaniaAnimalBase,
 	@Override
 	public Entity convertToVanilla()
 	{
-		PigEntity entity = new PigEntity(this.world);
+		PigEntity entity = new PigEntity(this.level);
 		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());

@@ -8,11 +8,11 @@ import com.animania.addons.farm.common.entity.horses.EntityStallionBase;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.util.math.MathHelper;
 
-public class EntityAIFollowMateHorses extends EntityAIBase
+public class EntityAIFollowMateHorses extends Goal
 {
 	EntityAnimaniaHorse thisAnimal;
 	AnimalEntity mateAnimal;
@@ -30,7 +30,7 @@ public class EntityAIFollowMateHorses extends EntityAIBase
 		this.delayCounter++;
 		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
 			
-			if (!thisAnimal.world.isDaytime() || thisAnimal.getSleeping()) {
+			if (!thisAnimal.level.isDaytime() || thisAnimal.getSleeping()) {
 				this.delayCounter = 0;
 				return false;
 			}
@@ -41,7 +41,7 @@ public class EntityAIFollowMateHorses extends EntityAIBase
 					return false;
 				else {
 
-					List entities = AnimaniaHelper.getEntitiesInRange(EntityMareBase.class, 40, this.thisAnimal.world, this.thisAnimal);
+					List entities = AnimaniaHelper.getEntitiesInRange(EntityMareBase.class, 40, this.thisAnimal.level, this.thisAnimal);
 
 					for (int k = 0; k <= entities.size() - 1; k++) {
 

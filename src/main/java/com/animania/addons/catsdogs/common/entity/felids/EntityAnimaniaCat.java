@@ -35,10 +35,10 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIOcelotSit;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.OcelotEntity;
@@ -88,7 +88,7 @@ public class EntityAnimaniaCat extends OcelotEntity implements IAnimaniaAnimalBa
 	protected int damageTimer;
 	public CatType type;
 	public EntityGender gender;
-	private EntityAIBase avoidEntity;
+	private Goal avoidEntity;
 
 	public EntityAnimaniaCat(World worldIn)
 	{
@@ -203,7 +203,7 @@ public class EntityAnimaniaCat extends OcelotEntity implements IAnimaniaAnimalBa
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override
@@ -491,7 +491,7 @@ public class EntityAnimaniaCat extends OcelotEntity implements IAnimaniaAnimalBa
 	@Override
 	public Entity convertToVanilla()
 	{
-		OcelotEntity entity = new OcelotEntity(this.world);
+		OcelotEntity entity = new OcelotEntity(this.level);
 		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());

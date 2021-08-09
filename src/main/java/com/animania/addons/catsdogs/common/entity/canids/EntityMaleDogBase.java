@@ -12,8 +12,8 @@ import com.animania.compat.top.providers.entity.TOPInfoProviderMateable;
 import com.google.common.base.Optional;
 
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -80,7 +80,7 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 		while (it.hasNext())
 		{
 			EntityAITaskEntry entry = it.next();
-			EntityAIBase ai = entry.action;
+			Goal ai = entry.action;
 			if (ai instanceof GenericAIMate)
 			{
 				entry.using = false;

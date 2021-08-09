@@ -159,7 +159,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 		if (player.isSneaking())
 		{
-			if (!this.world.isRemote)
+			if (!this.level.isRemote)
 			{
 				this.cartChest.setCustomName(this.getName());
 				player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
@@ -335,15 +335,15 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 	public void tillGround(BlockPos pos, MutableBlockPos lastPos, PlayerEntity player)
 	{
-		if (!pos.equals(lastPos) && (this.world.getBlockState(pos).getBlock() instanceof BlockGrass || this.world.getBlockState(pos).getBlock() instanceof BlockFarmland) || this.world.getBlockState(pos).getBlock() instanceof BlockDirt)
+		if (!pos.equals(lastPos) && (this.level.getBlockState(pos).getBlock() instanceof BlockGrass || this.level.getBlockState(pos).getBlock() instanceof BlockFarmland) || this.level.getBlockState(pos).getBlock() instanceof BlockDirt)
 		{
 			lastPos.setPos(pos);
-			this.world.setBlockState(pos, Blocks.FARMLAND.getStateFromMeta(7));
+			this.level.setBlockState(pos, Blocks.FARMLAND.getStateFromMeta(7));
 
-			if (this.world.getBlockState(pos.up()).getBlock() instanceof BlockTallGrass || this.world.getBlockState(pos.up()).getBlock() instanceof BlockDoublePlant)
+			if (this.level.getBlockState(pos.up()).getBlock() instanceof BlockTallGrass || this.level.getBlockState(pos.up()).getBlock() instanceof BlockDoublePlant)
 			{
-				this.world.destroyBlock(this.getPosition(), false);
-			} else if (this.world.getBlockState(pos.up()).getBlock() instanceof BlockCrops)
+				this.level.destroyBlock(this.getPosition(), false);
+			} else if (this.level.getBlockState(pos.up()).getBlock() instanceof BlockCrops)
 			{
 				// do nothing
 			} else
@@ -356,11 +356,11 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 						if (seeds.getItem() instanceof ItemSeeds)
 						{
 							ItemSeeds seedy = (ItemSeeds) seeds.getItem();
-							this.world.setBlockState(pos.up(), seedy.getPlant(world, pos.up()));
+							this.level.setBlockState(pos.up(), seedy.getPlant(world, pos.up()));
 						} else
 						{
 							ItemSeedFood seedy = (ItemSeedFood) seeds.getItem();
-							this.world.setBlockState(pos.up(), seedy.getPlant(world, pos.up()));
+							this.level.setBlockState(pos.up(), seedy.getPlant(world, pos.up()));
 						}
 
 						if (player != null && !player.isCreative())
@@ -377,7 +377,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 	@Override
 	public void onUpdate()
 	{
-		if (!this.world.isRemote && this.pulled && this.puller != null && (this.puller instanceof EntityAnimaniaHorse || this.puller instanceof EntityAnimaniaCow))
+		if (!this.level.isRemote && this.pulled && this.puller != null && (this.puller instanceof EntityAnimaniaHorse || this.puller instanceof EntityAnimaniaCow))
 		{
 			PlayerEntity player = world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 20, false);
 
@@ -583,7 +583,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 		// Stop Animation if not pulling or moving
 
-		if (this.world.isRemote && this.pulled)
+		if (this.level.isRemote && this.pulled)
 		{
 			double diffX = (this.getX() - this.prevgetX());
 			double diffZ = (this.getZ() - this.prevgetZ());
@@ -619,7 +619,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 			if (this.getPullerType() == 1)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, this.level, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -628,7 +628,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 				}
 			} else if (this.getPullerType() == 2)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.level, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -637,7 +637,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 				}
 			} else if (this.getPullerType() == 3)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 3, this.level, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -685,11 +685,11 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 		}
 
-		List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
+		List<Entity> list = this.level.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
 
 		if (!list.isEmpty())
 		{
-			boolean flag = !this.world.isRemote;
+			boolean flag = !this.level.isRemote;
 
 			for (int j = 0; j < list.size(); ++j)
 			{
@@ -834,7 +834,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		if (this.isEntityInvulnerable(source))
 		{
 			return false;
-		} else if (!this.world.isRemote && !this.isDead)
+		} else if (!this.level.isRemote && !this.isDead)
 		{
 			if (source instanceof EntityDamageSourceIndirect && source.getTrueSource() != null)
 			{
@@ -849,7 +849,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 				if (flag || this.getDamageTaken() > 40.0F)
 				{
-					if (!flag && this.world.getGameRules().getBoolean("doEntityDrops"))
+					if (!flag && this.level.getGameRules().getBoolean("doEntityDrops"))
 					{
 						this.dropItemWithOffset(FarmAddonItemHandler.tiller, 1, 0.0F);
 					}

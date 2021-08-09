@@ -68,28 +68,28 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable, IFoo
 		BlockPos pos3 = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ() + 1);
 		BlockPos pos4 = new BlockPos(this.pos.getX(), this.pos.getY(), this.pos.getZ() - 1);
 
-		Block block1 = this.world.getBlockState(pos1).getBlock();
-		Block block2 = this.world.getBlockState(pos2).getBlock();
-		Block block3 = this.world.getBlockState(pos3).getBlock();
-		Block block4 = this.world.getBlockState(pos4).getBlock();
+		Block block1 = this.level.getBlockState(pos1).getBlock();
+		Block block2 = this.level.getBlockState(pos2).getBlock();
+		Block block3 = this.level.getBlockState(pos3).getBlock();
+		Block block4 = this.level.getBlockState(pos4).getBlock();
 
 		if (block1 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) this.world.getTileEntity(pos1);
+			TileEntityTrough te = (TileEntityTrough) this.level.getTileEntity(pos1);
 			if (te != null && te.getTroughRotation() == 1)
 				return te;
 		}
 
 		if (block2 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) this.world.getTileEntity(pos2);
+			TileEntityTrough te = (TileEntityTrough) this.level.getTileEntity(pos2);
 			if (te != null && te.getTroughRotation() == 0)
 				return te;
 		}
 
 		if (block3 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) this.world.getTileEntity(pos3);
+			TileEntityTrough te = (TileEntityTrough) this.level.getTileEntity(pos3);
 			if (te != null && te.getTroughRotation() == 2)
 				return te;
 
@@ -97,15 +97,15 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable, IFoo
 
 		if (block4 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) this.world.getTileEntity(pos4);
+			TileEntityTrough te = (TileEntityTrough) this.level.getTileEntity(pos4);
 			if (te != null && te.getTroughRotation() == 3)
 				return te;
 
 		}
 
-		Animania.LOGGER.warn("Removing invalid trough at [" + this.pos.getX() + ", " + this.pos.getY() + ", " + this.pos.getZ() + "], dimension " + this.world.provider.getDimension());
+		Animania.LOGGER.warn("Removing invalid trough at [" + this.pos.getX() + ", " + this.pos.getY() + ", " + this.pos.getZ() + "], dimension " + this.level.provider.getDimension());
 
-		this.world.setBlockToAir(this.pos);
+		this.level.setBlockToAir(this.pos);
 
 		return null;
 	}

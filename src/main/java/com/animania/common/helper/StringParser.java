@@ -3,7 +3,7 @@ package com.animania.common.helper;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -55,7 +55,7 @@ public class StringParser
 	}
 
 	@Nullable
-	public static IBlockState getBlockState(String string)
+	public static BlockState getBlockState(String string)
 	{
 		CompoundNBT tag = getTagCompound(string);
 		if (tag != null)

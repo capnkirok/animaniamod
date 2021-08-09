@@ -10,7 +10,7 @@ import com.animania.addons.farm.common.tileentity.handler.ItemHandlerCheeseMold;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -57,7 +57,7 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 				FluidStack fluid = fluidHandler.getFluid();
 				if (fluid != null)
 				{
-					IBlockState state = world.getBlockState(pos);
+					BlockState state = world.getBlockState(pos);
 					fluidHandler.drain(1000, true);
 					if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkFriesian)
 					{
@@ -92,7 +92,7 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 
 			}
 
-			IBlockState state2 = world.getBlockState(pos);
+			BlockState state2 = world.getBlockState(pos);
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelFriesian && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.FRIESIAN_CHEESE)
 				world.setBlockState(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
@@ -118,32 +118,32 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 				FluidStack fluid = fluidHandler.getFluid();
 				if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkFriesian)
 				{
-					IBlockState state = world.getBlockState(pos);
+					BlockState state = world.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.FRIESIAN_MILK)
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_MILK));
 				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkHolstein)
 				{
-					IBlockState state = world.getBlockState(pos);
+					BlockState state = world.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.HOLSTEIN_MILK)
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_MILK));
 				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkJersey)
 				{
-					IBlockState state = world.getBlockState(pos);
+					BlockState state = world.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.JERSEY_MILK)
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_MILK));
 				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkGoat)
 				{
-					IBlockState state = world.getBlockState(pos);
+					BlockState state = world.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.GOAT_MILK)
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_MILK));
 				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkSheep)
 				{
-					IBlockState state = world.getBlockState(pos);
+					BlockState state = world.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.SHEEP_MILK)
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_MILK));
 				} else if (fluid.getFluid() == FluidRegistry.WATER)
 				{
-					IBlockState state = world.getBlockState(pos);
+					BlockState state = world.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.WATER)
 						world.setBlockState(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.WATER));
 				}
@@ -258,7 +258,7 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 	}
 
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
+	public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newSate)
 	{
 		return oldState.getBlock() != newSate.getBlock();
 	}

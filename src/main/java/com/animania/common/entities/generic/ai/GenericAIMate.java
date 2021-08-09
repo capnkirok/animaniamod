@@ -13,10 +13,10 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.world.World;
 
-public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & ISleeping, O extends CreatureEntity & IMateable & IFoodEating & ISleeping & IImpregnable> extends EntityAIBase
+public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & ISleeping, O extends CreatureEntity & IMateable & IFoodEating & ISleeping & IImpregnable> extends Goal
 {
 	private final T entity;
 	World theWorld;
@@ -32,7 +32,7 @@ public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & 
 	public GenericAIMate(T animal, double speedIn, Class other, Class child, Class base)
 	{
 		this.entity = animal;
-		this.theWorld = animal.world;
+		this.theWorld = animal.level;
 		this.moveSpeed = speedIn;
 		this.setMutexBits(3);
 		this.courtshipTimer = 20;

@@ -125,7 +125,7 @@ public class EntityAnimaniaChicken extends ChickenEntity implements IAnimaniaAni
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		this.level.setEntityState(this, (byte) 18);
 	}
 
 	public boolean isAIEnabled()
@@ -215,7 +215,7 @@ public class EntityAnimaniaChicken extends ChickenEntity implements IAnimaniaAni
 
 		this.fallDistance = 0;
 
-		if (!this.world.isRemote && !this.isChild() && AnimaniaConfig.gameRules.birdsDropFeathers && !this.isChickenJockey() && --this.featherTimer <= 0)
+		if (!this.level.isRemote && !this.isChild() && AnimaniaConfig.gameRules.birdsDropFeathers && !this.isChickenJockey() && --this.featherTimer <= 0)
 		{
 			this.playSound(FarmAddonSoundHandler.chickenCluck2, 0.5F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
 			this.dropItem(Items.FEATHER, 1);
@@ -290,7 +290,7 @@ public class EntityAnimaniaChicken extends ChickenEntity implements IAnimaniaAni
 	{
 		if (!this.isSilent() && !this.getSleeping())
 		{
-			this.world.playSound((PlayerEntity) null, this.getX(), this.getY(), this.getZ(), soundIn, this.getSoundCategory(), volume, pitch);
+			this.level.playSound((PlayerEntity) null, this.getX(), this.getY(), this.getZ(), soundIn, this.getSoundCategory(), volume, pitch);
 		}
 	}
 
@@ -507,7 +507,7 @@ public class EntityAnimaniaChicken extends ChickenEntity implements IAnimaniaAni
 	@Override
 	public Entity convertToVanilla()
 	{
-		ChickenEntity entity = new ChickenEntity(this.world);
+		ChickenEntity entity = new ChickenEntity(this.level);
 		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());

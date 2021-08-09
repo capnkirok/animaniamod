@@ -46,14 +46,14 @@ public class CatsDogsAddonSpawnHandler
 
 		if ((event.getEntity() instanceof EntityAnimaniaCat && !worldIn.isRemote))
 		{
-			List<EntityAnimaniaCat> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCat.class, 100, event.getEntity().world, pos);
+			List<EntityAnimaniaCat> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCat.class, 100, event.getEntity().level, pos);
 			if (others.size() > CatsDogsConfig.catsdogs.spawnLimitCats)
 			{
 				event.setResult(Result.DENY);
 			}
 		} else if ((event.getEntity() instanceof EntityAnimaniaDog && !worldIn.isRemote))
 		{
-			List<EntityAnimaniaDog> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaDog.class, 100, event.getEntity().world, pos);
+			List<EntityAnimaniaDog> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaDog.class, 100, event.getEntity().level, pos);
 			if (others.size() > CatsDogsConfig.catsdogs.spawnLimitDogs)
 			{
 				event.setResult(Result.DENY);

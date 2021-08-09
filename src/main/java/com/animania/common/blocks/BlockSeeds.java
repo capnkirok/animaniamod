@@ -9,6 +9,7 @@ import com.animania.common.handler.BlockHandler;
 
 import PropertyEnum;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -16,7 +17,6 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -57,19 +57,19 @@ public class BlockSeeds extends Block
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state)
+	public boolean isOpaqueCube(BlockState state)
 	{
 		return false;
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state)
+	public boolean isFullCube(BlockState state)
 	{
 		return false;
 	}
 
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
 	{
 		return BlockFaceShape.UNDEFINED;
 	}
@@ -87,7 +87,7 @@ public class BlockSeeds extends Block
 		return BlockRenderLayer.CUTOUT;
 	}
 
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
+	public BlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
 	{
 
 		for (int i = 0; i < 10; i++)
@@ -106,7 +106,7 @@ public class BlockSeeds extends Block
 
 	@Override
 	@Nullable
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
 		switch(state.getValue(VARIANT))
 		{
@@ -125,13 +125,13 @@ public class BlockSeeds extends Block
 	}
 
 	@Nullable
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
+	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, World worldIn, BlockPos pos)
 	{
 		return Block.NULL_AABB;
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 		return BlockSeeds.SEEDS_AABB;
 	}
@@ -148,13 +148,13 @@ public class BlockSeeds extends Block
 	}
 
 	@Override
-	public void observedNeighborChange(IBlockState observerState, World world, BlockPos observerPos, Block changedBlock, BlockPos changedBlockPos)
+	public void observedNeighborChange(BlockState observerState, World world, BlockPos observerPos, Block changedBlock, BlockPos changedBlockPos)
 	{
 		this.checkForDrop(world, observerPos, observerState);
 
 	}
 
-	private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
+	private boolean checkForDrop(World worldIn, BlockPos pos, BlockState state)
 	{
 		if (!this.canBlockStay(worldIn, pos))
 		{
@@ -172,7 +172,7 @@ public class BlockSeeds extends Block
 	}
 
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player)
+	public ItemStack getPickBlock(BlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player)
 	{
 		switch(state.getValue(VARIANT))
 		{
@@ -193,7 +193,7 @@ public class BlockSeeds extends Block
 	
 	
 	@Override
-	public IBlockState getStateFromMeta(int meta)
+	public BlockState getStateFromMeta(int meta)
 	{
 		return this.getDefaultState().withProperty(VARIANT, BlockSeeds.EnumType.byMetadata(meta));
 	}
@@ -202,7 +202,7 @@ public class BlockSeeds extends Block
 	 * Convert the BlockState into the correct metadata value
 	 */
 	@Override
-	public int getMetaFromState(IBlockState state)
+	public int getMetaFromState(BlockState state)
 	{
 		return ((BlockSeeds.EnumType)state.getValue(VARIANT)).getMetadata();
 	}
@@ -214,14 +214,14 @@ public class BlockSeeds extends Block
 	}
 	
 	@Override
-	public MaterialColor getMaterialColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	public MaterialColor getMaterialColor(BlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
 		return ((BlockSeeds.EnumType)state.getValue(VARIANT)).getMaterialColor();
 	}
 
 	
 	@Override
-	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
 	{
 		if(side == EnumFacing.UP)
 			return true;

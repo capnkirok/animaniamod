@@ -6,7 +6,7 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.util.EnumFacing;
@@ -98,7 +98,7 @@ public class GenericAISleep<T extends CreatureEntity & ISleeping> extends Generi
 	@Override
 	protected boolean shouldMoveTo(World worldIn, BlockPos pos)
 	{
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 
 		if (block == this.bedBlock)
@@ -110,7 +110,7 @@ public class GenericAISleep<T extends CreatureEntity & ISleeping> extends Generi
 	@Override
 	protected boolean shouldMoveToSecondary(World world, BlockPos pos)
 	{
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 
 		if (block == this.bedBlock2)

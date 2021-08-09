@@ -20,7 +20,7 @@ public class GenericAIWatchClosest extends EntityAIWatchClosest
 	}
 
 	/**
-	 * Returns whether the EntityAIBase should begin execution.
+	 * Returns whether the Goal should begin execution.
 	 */
 	public boolean shouldExecute()
 	{

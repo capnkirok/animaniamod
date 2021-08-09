@@ -10,11 +10,11 @@ import com.animania.common.tileentities.TileEntitySaltLick;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -64,13 +64,13 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	
 	
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
 	{
 		return BlockFaceShape.UNDEFINED;
 	}
 	
 	@Override
-	public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, IBlockState state, TileEntity te, ItemStack stack)
+	public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack)
 	{
 		if(te != null && te instanceof TileEntitySaltLick)
 		{
@@ -82,13 +82,13 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	}
 	
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
 		return Items.AIR;
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, LivingEntity placer, ItemStack stack)
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
 		int left = AnimaniaConfig.careAndFeeding.saltLickMaxUses - stack.getItemDamage();
 		
@@ -100,7 +100,7 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	}
 	
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess world, BlockPos pos)
 	{
 		if(world != null)
 		{
@@ -115,7 +115,7 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess world, BlockPos pos)
 	{
 		if(world != null)
 		{
@@ -130,25 +130,25 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	}
 
 	@Override
-	public boolean isFullBlock(IBlockState state)
+	public boolean isFullBlock(BlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isOpaqueCube(IBlockState state)
+	public boolean isOpaqueCube(BlockState state)
 	{
 		return false;
 	}
 	
 	@Override
-	public boolean isFullCube(IBlockState state)
+	public boolean isFullCube(BlockState state)
 	{
 		return false;
 	}
 		
 //	@Override
-//	public boolean isFullyOpaque(IBlockState state)
+//	public boolean isFullyOpaque(BlockState state)
 //	{
 //		return false;
 //	}
@@ -167,7 +167,7 @@ public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
 	
 	
 	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state)
+	public EnumBlockRenderType getRenderType(BlockState state)
 	{
 		return EnumBlockRenderType.INVISIBLE;
 	}

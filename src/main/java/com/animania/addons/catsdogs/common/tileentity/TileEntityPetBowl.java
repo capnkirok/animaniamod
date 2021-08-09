@@ -45,7 +45,7 @@ public class TileEntityPetBowl extends TileEntity implements ITickable, IFoodPro
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 		if (this.blockType != null && this.pos != null)
-			this.world.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
+			this.level.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
 
 	}
 
@@ -106,7 +106,7 @@ public class TileEntityPetBowl extends TileEntity implements ITickable, IFoodPro
 	{
 		this.type = type;
 		this.markDirty();
-		this.world.notifyBlockUpdate(this.pos, this.world.getBlockState(this.pos), this.world.getBlockState(this.pos), 2);
+		this.level.notifyBlockUpdate(this.pos, this.level.getBlockState(this.pos), this.level.getBlockState(this.pos), 2);
 	}
 
 	public BowlContent getBowlContent()

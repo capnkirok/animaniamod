@@ -37,15 +37,14 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarrot;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIMoveToBlock;
@@ -55,6 +54,7 @@ import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.WolfEntity;
@@ -301,9 +301,9 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 			}
 		}
 
-		if (!this.world.isRemote)
+		if (!this.level.isRemote)
 		{
-			this.world.setEntityState(this, (byte) 1);
+			this.level.setEntityState(this, (byte) 1);
 		}
 	}
 
@@ -535,7 +535,7 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 		{
 			for (Object a : this.tasks.taskEntries.toArray())
 			{
-				EntityAIBase ai = ((EntityAITaskEntry) a).action;
+				Goal ai = ((EntityAITaskEntry) a).action;
 				if (ai instanceof GenericAIPanic)
 				{
 					this.resetAI();
@@ -633,7 +633,7 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 		}
 
 		/**
-		 * Returns whether the EntityAIBase should begin execution.
+		 * Returns whether the Goal should begin execution.
 		 */
 		@Override
 		public boolean shouldExecute()
@@ -691,14 +691,14 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 		}
 
 		/**
-		 * Returns whether the EntityAIBase should begin execution.
+		 * Returns whether the Goal should begin execution.
 		 */
 		@Override
 		public boolean shouldExecute()
 		{
 			if (this.runDelay <= 0)
 			{
-				if (!this.rabbit.world.getGameRules().getBoolean("mobGriefing"))
+				if (!this.rabbit.level.getGameRules().getBoolean("mobGriefing"))
 				{
 					return false;
 				}
@@ -712,7 +712,7 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 		}
 
 		/**
-		 * Returns whether an in-progress EntityAIBase should continue executing
+		 * Returns whether an in-progress Goal should continue executing
 		 */
 		@Override
 		public boolean shouldContinueExecuting()
@@ -731,14 +731,14 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 
 			if (this.getIsAboveDestination())
 			{
-				World world = this.rabbit.world;
+				World world = this.rabbit.level;
 				BlockPos blockpos = this.destinationBlock.up();
-				IBlockState iblockstate = world.getBlockState(blockpos);
-				Block block = iblockstate.getBlock();
+				BlockState BlockState = world.getBlockState(blockpos);
+				Block block = BlockState.getBlock();
 
 				if (this.canRaid && block instanceof BlockCarrot)
 				{
-					Integer integer = iblockstate.getValue(BlockCarrot.AGE);
+					Integer integer = BlockState.getValue(BlockCarrot.AGE);
 
 					if (integer.intValue() == 0)
 					{
@@ -746,8 +746,8 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 						world.destroyBlock(blockpos, true);
 					} else
 					{
-						world.setBlockState(blockpos, iblockstate.withProperty(BlockCarrot.AGE, Integer.valueOf(integer.intValue() - 1)), 2);
-						world.playEvent(2001, blockpos, Block.getStateId(iblockstate));
+						world.setBlockState(blockpos, BlockState.withProperty(BlockCarrot.AGE, Integer.valueOf(integer.intValue() - 1)), 2);
+						world.playEvent(2001, blockpos, Block.getStateId(BlockState));
 					}
 
 					// this.rabbit.createEatingParticles();
@@ -769,10 +769,10 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 			if (block == Blocks.FARMLAND && this.wantsToRaid && !this.canRaid)
 			{
 				pos = pos.up();
-				IBlockState iblockstate = worldIn.getBlockState(pos);
-				block = iblockstate.getBlock();
+				BlockState BlockState = worldIn.getBlockState(pos);
+				block = BlockState.getBlock();
 
-				if (block instanceof BlockCarrot && ((BlockCarrot) block).isMaxAge(iblockstate))
+				if (block instanceof BlockCarrot && ((BlockCarrot) block).isMaxAge(BlockState))
 				{
 					this.canRaid = true;
 					return true;
@@ -1023,7 +1023,7 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 	@Override
 	public Entity convertToVanilla()
 	{
-		RabbitEntity entity = new RabbitEntity(this.world);
+		RabbitEntity entity = new RabbitEntity(this.level);
 		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());

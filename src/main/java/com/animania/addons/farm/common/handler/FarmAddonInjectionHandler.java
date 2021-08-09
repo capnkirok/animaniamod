@@ -33,7 +33,7 @@ import com.animania.config.AnimaniaConfig;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.LivingEntity;
@@ -54,7 +54,7 @@ public class FarmAddonInjectionHandler
 	{
 		// Mud block particles
 		AddonInjectionHandler.addInjection(ID, "mudParticleDisplay", args -> {
-			IBlockState stateIn = (IBlockState) args[0];
+			BlockState stateIn = (BlockState) args[0];
 			World worldIn = (World) args[1];
 			BlockPos pos = (BlockPos) args[2];
 			Random rand = (Random) args[3];
@@ -96,7 +96,7 @@ public class FarmAddonInjectionHandler
 			TileEntityNest te = (TileEntityNest) args[0];
 			World worldIn = (World) args[1];
 			BlockPos pos = (BlockPos) args[2];
-			IBlockState state = (IBlockState) args[3];
+			BlockState state = (BlockState) args[3];
 			Random rand = (Random) args[4];
 
 			if (te.getBirdType() instanceof ChickenType)

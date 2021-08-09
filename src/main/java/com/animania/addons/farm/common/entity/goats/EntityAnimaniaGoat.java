@@ -35,7 +35,7 @@ import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.Goal;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
@@ -266,7 +266,7 @@ public class EntityAnimaniaGoat extends SheepEntity implements IAnimaniaAnimalBa
 				while (it.hasNext())
 				{
 					EntityAITaskEntry entry = it.next();
-					EntityAIBase ai = entry.action;
+					Goal ai = entry.action;
 					try
 					{
 						if (Class.forName("biomesoplenty.common.entities.ai.EntityAIEatBOPGrass").isInstance(ai))
@@ -341,7 +341,7 @@ public class EntityAnimaniaGoat extends SheepEntity implements IAnimaniaAnimalBa
 																																										// //
 																																										// onSheared
 		{
-			if (!this.world.isRemote)
+			if (!this.level.isRemote)
 			{
 				this.setSheared(true);
 				int i = 1 + this.rand.nextInt(2);
@@ -385,7 +385,7 @@ public class EntityAnimaniaGoat extends SheepEntity implements IAnimaniaAnimalBa
 	{
 
 		if (!this.getSleeping())
-			this.world.setEntityState(this, (byte) 18);
+			this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override

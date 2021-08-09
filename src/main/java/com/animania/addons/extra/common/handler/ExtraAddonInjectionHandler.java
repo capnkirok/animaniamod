@@ -24,7 +24,7 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -44,7 +44,7 @@ public class ExtraAddonInjectionHandler
 			TileEntityNest te = (TileEntityNest) args[0];
 			World worldIn = (World) args[1];
 			BlockPos pos = (BlockPos) args[2];
-			IBlockState state = (IBlockState) args[3];
+			BlockState state = (BlockState) args[3];
 			Random rand = (Random) args[4];
 
 			if (te.getBirdType() instanceof PeacockType)

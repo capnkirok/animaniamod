@@ -3,12 +3,12 @@ package com.animania.addons.farm.common.entity.pigs.ai;
 import com.animania.addons.farm.common.entity.pigs.EntityAnimaniaPig;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 
-public class EntityAITemptItemStack extends EntityAIBase
+public class EntityAITemptItemStack extends Goal
 {
 	private final EntityAnimaniaPig temptedEntity;
 	private final double speed;

@@ -69,7 +69,7 @@ public class EntityFrogs extends EntityAmphibian
 	{
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 
-		if (this.world.isRemote)
+		if (this.level.isRemote)
 			return null;
 
 		this.setFrogsType(this.rand.nextInt(2));

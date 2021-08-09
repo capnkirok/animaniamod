@@ -19,7 +19,7 @@ public class GenericAILookIdle<T extends LivingEntity & ISleeping> extends Entit
 	}
 
 	/**
-	 * Returns whether the EntityAIBase should begin execution.
+	 * Returns whether the Goal should begin execution.
 	 */
 	public boolean shouldExecute()
 	{

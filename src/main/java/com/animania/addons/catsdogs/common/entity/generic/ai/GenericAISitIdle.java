@@ -3,9 +3,9 @@ package com.animania.addons.catsdogs.common.entity.generic.ai;
 import com.animania.addons.catsdogs.common.entity.felids.EntityAnimaniaCat;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 
-public class GenericAISitIdle extends EntityAIBase
+public class GenericAISitIdle extends Goal
 {
 	/** The entity that is looking idle. */
 	private final LivingEntity idleEntity;
@@ -23,7 +23,7 @@ public class GenericAISitIdle extends EntityAIBase
 	}
 
 	/**
-	 * Returns whether the EntityAIBase should begin execution.
+	 * Returns whether the Goal should begin execution.
 	 */
 	public boolean shouldExecute()
 	{
@@ -31,7 +31,7 @@ public class GenericAISitIdle extends EntityAIBase
 	}
 
 	/**
-	 * Returns whether an in-progress EntityAIBase should continue executing
+	 * Returns whether an in-progress Goal should continue executing
 	 */
 	public boolean shouldContinueExecuting()
 	{

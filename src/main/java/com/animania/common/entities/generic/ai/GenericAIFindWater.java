@@ -8,11 +8,10 @@ import com.animania.api.interfaces.IFoodProviderTE;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 
-import EntityAIBase;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -30,11 +29,11 @@ public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleepi
 	private final double speed;
 	private int waterFindTimer;
 	private boolean isRunning;
-	private EntityAIBase eatAI;
+	private Goal eatAI;
 	private Class parentClass;
 	private boolean halfAmount;
 
-	public GenericAIFindWater(T entity, double speedIn, @Nullable EntityAIBase eatAI, Class parentClass, boolean halfAmount)
+	public GenericAIFindWater(T entity, double speedIn, @Nullable Goal eatAI, Class parentClass, boolean halfAmount)
 	{
 		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, true, EnumFacing.UP);
 		this.entity = entity;
@@ -46,7 +45,7 @@ public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleepi
 		this.halfAmount = halfAmount;
 	}
 
-	public GenericAIFindWater(T entity, double speedIn, @Nullable EntityAIBase eatAI, Class parentClass)
+	public GenericAIFindWater(T entity, double speedIn, @Nullable Goal eatAI, Class parentClass)
 	{
 		this(entity, speedIn, eatAI, parentClass, false);
 	}
@@ -85,7 +84,7 @@ public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleepi
 		{
 			this.creature.getLookHelper().setLookPosition((double) this.seekingBlockPos.getX() + 0.5D, (double) (this.seekingBlockPos.getY()), (double) this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
 
-			IBlockState state = world.getBlockState(seekingBlockPos);
+			BlockState state = world.getBlockState(seekingBlockPos);
 			Block block = state.getBlock();
 
 			if (block instanceof IFoodProviderBlock)
@@ -132,7 +131,7 @@ public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleepi
 	@Override
 	protected boolean shouldMoveTo(World world, BlockPos pos)
 	{
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 
 		if (block instanceof IFoodProviderBlock)
@@ -151,7 +150,7 @@ public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleepi
 	@Override
 	protected boolean shouldMoveToSecondary(World worldIn, BlockPos pos)
 	{
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		Biome biome = world.getBiome(pos);
 

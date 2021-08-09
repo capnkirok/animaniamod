@@ -9,11 +9,11 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
-public class EntityAIHedgehogFindNests extends EntityAIBase
+public class EntityAIHedgehogFindNests extends Goal
 {
 	private final CreatureEntity temptedEntity;
 	private final double speed;

@@ -4,10 +4,10 @@ import com.animania.addons.extra.common.entity.rodents.EntityFerretBase;
 import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.addons.extra.common.entity.rodents.EntityHedgehogBase;
 
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 
-public class EntityAILookIdleRodent extends EntityAIBase
+public class EntityAILookIdleRodent extends Goal
 {
 	private final AnimalEntity idleEntity;
 	private double             lookX;

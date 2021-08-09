@@ -14,7 +14,7 @@ import com.animania.manual.gui.GuiManual;
 import com.animania.manual.resources.ManualResourceLoader;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -104,7 +104,7 @@ public class ClientProxy extends CommonProxy
 		}
 
 		@Override
-		protected ModelResourceLocation getModelResourceLocation(IBlockState state)
+		protected ModelResourceLocation getModelResourceLocation(BlockState state)
 		{
 			return this.location;
 		}
@@ -131,11 +131,11 @@ public class ClientProxy extends CommonProxy
 		long currentTime = 0;
 		int factorTime = 0;
 
-		for (int j = 0; j < Playerentity.level.getMinecraftServer().getServer().worlds.length; ++j)
+		for (int j = 0; j < Playerentity.level.getMinecraftServer().getServer().levels.length; ++j)
 		{
-			currentTime = Playerentity.level.getMinecraftServer().getServer().worlds[j].getWorldTime() % 24000;
+			currentTime = Playerentity.level.getMinecraftServer().getServer().levels[j].getWorldTime() % 24000;
 			factorTime = 24000 - (int) currentTime;
-			Playerentity.level.getMinecraftServer().getServer().worlds[j].setWorldTime(Playerentity.level.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime);
+			Playerentity.level.getMinecraftServer().getServer().levels[j].setWorldTime(Playerentity.level.getMinecraftServer().getServer().levels[j].getWorldTime() + factorTime);
 		}
 
 	}

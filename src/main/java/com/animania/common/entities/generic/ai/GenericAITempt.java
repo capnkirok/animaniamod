@@ -44,7 +44,7 @@ public class GenericAITempt<T extends CreatureEntity & ISleeping & IFoodEating> 
 	}
 
 	/**
-	 * Returns whether the EntityAIBase should begin execution.
+	 * Returns whether the Goal should begin execution.
 	 */
 	@Override
 	public boolean shouldExecute()

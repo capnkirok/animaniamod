@@ -10,9 +10,10 @@ import com.google.common.base.Predicates;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrass;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockTallGrass;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.pattern.BlockStateMatcher;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +22,7 @@ import net.minecraft.world.World;
 public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEating> extends GenericAISearchBlock
 {
 
-	private static final Predicate<IBlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
+	private static final Predicate<BlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALL_GRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	protected final T grassEaterEntity;
 	protected final World entityWorld;
 	public int eatingGrassTimer;
@@ -33,7 +34,7 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 	{
 		super(grassEaterEntityIn, 1.0, 8, EnumFacing.UP);
 		this.grassEaterEntity = grassEaterEntityIn;
-		this.entityWorld = grassEaterEntityIn.world;
+		this.entityWorld = grassEaterEntityIn.level;
 		this.eatsGrass = eatsGrass;
 		this.setMutexBits(7);
 	}
@@ -105,7 +106,7 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 
 		if (this.isAtDestination() && shouldMoveTo(world, seekingBlockPos))
 		{
-			IBlockState state = world.getBlockState(seekingBlockPos);
+			BlockState state = world.getBlockState(seekingBlockPos);
 			Block block = state.getBlock();
 
 			if (!isEating)
@@ -158,7 +159,7 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 	@Override
 	protected boolean shouldMoveTo(World worldIn, BlockPos pos)
 	{
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 
 		if (block instanceof BlockGrass || AddonInjectionHandler.runInjection("farm", "isMooshroom", Boolean.class, grassEaterEntity, block) || handleDesirePaths(block))

@@ -6,13 +6,13 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathPoint;
 
-public class AnimalAIGetDogHerded<T extends CreatureEntity & ISleeping, U extends TameableEntity & ISleeping> extends EntityAIBase
+public class AnimalAIGetDogHerded<T extends CreatureEntity & ISleeping, U extends TameableEntity & ISleeping> extends Goal
 {
 	private final T herdAnimal;
 	private final Class<? extends U> herderType;
@@ -30,7 +30,7 @@ public class AnimalAIGetDogHerded<T extends CreatureEntity & ISleeping, U extend
 		if (herdAnimal.getSleeping())
 			return false;
 
-		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(herderType, 10, herdAnimal.world, herdAnimal, e -> !e.getSleeping() && e.isTamed() && !e.isSitting());
+		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(herderType, 10, herdAnimal.level, herdAnimal, e -> !e.getSleeping() && e.isTamed() && !e.isSitting());
 		if (list.isEmpty())
 			return false;
 
@@ -49,7 +49,7 @@ public class AnimalAIGetDogHerded<T extends CreatureEntity & ISleeping, U extend
 	@Override
 	public void updateTask()
 	{
-		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(herderType, 10, herdAnimal.world, herdAnimal, e -> !e.getSleeping() && e.isTamed() && !e.isSitting());
+		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(herderType, 10, herdAnimal.level, herdAnimal, e -> !e.getSleeping() && e.isTamed() && !e.isSitting());
 		if (list.size() > 0)
 		{
 			U herder = list.get(0);

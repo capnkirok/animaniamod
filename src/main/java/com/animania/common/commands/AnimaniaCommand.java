@@ -56,7 +56,7 @@ public class AnimaniaCommand extends CommandBase
 						long curr = System.currentTimeMillis();
 						if (time >= curr)
 						{
-							for (World world : server.worlds)
+							for (World world : server.levels)
 							{
 								List<Entity> convertedEntities = new ArrayList<Entity>();
 

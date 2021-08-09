@@ -51,7 +51,7 @@ public class ExtraAddonSpawnHandler
 
 			chooser = Animania.RANDOM.nextInt(2) + 1;
 
-			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().world, pos);
+			List<LivingEntity> otheranimals = AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 100, event.getEntity().level, pos);
 			if (otheranimals.size() <= 2)
 			{
 				chooser = Animania.RANDOM.nextInt(3);
@@ -124,7 +124,7 @@ public class ExtraAddonSpawnHandler
 
 		if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRabbits && (event.getEntity() instanceof EntityAnimaniaRabbit && !worldIn.isRemote))
 		{
-			List<EntityAnimaniaRabbit> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaRabbit.class, 100, event.getEntity().world, pos);
+			List<EntityAnimaniaRabbit> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaRabbit.class, 100, event.getEntity().level, pos);
 			if (others.size() > ExtraConfig.settings.spawning_and_breeding.spawnLimitRabbits)
 			{
 				event.setResult(Result.DENY);
@@ -132,7 +132,7 @@ public class ExtraAddonSpawnHandler
 			}
 		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaAmphibians && (event.getEntity() instanceof EntityAmphibian && !worldIn.isRemote))
 		{
-			List<EntityAmphibian> others = AnimaniaHelper.getEntitiesInRange(EntityAmphibian.class, 100, event.getEntity().world, pos);
+			List<EntityAmphibian> others = AnimaniaHelper.getEntitiesInRange(EntityAmphibian.class, 100, event.getEntity().level, pos);
 			if (others.size() > ExtraConfig.settings.spawning_and_breeding.spawnLimitAmphibians)
 			{
 				event.setResult(Result.DENY);
@@ -140,7 +140,7 @@ public class ExtraAddonSpawnHandler
 			}
 		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHamster && !worldIn.isRemote))
 		{
-			List<EntityHamster> others = AnimaniaHelper.getEntitiesInRange(EntityHamster.class, 100, event.getEntity().world, pos);
+			List<EntityHamster> others = AnimaniaHelper.getEntitiesInRange(EntityHamster.class, 100, event.getEntity().level, pos);
 			if (others.size() > ExtraConfig.settings.spawning_and_breeding.spawnLimitHamsters)
 			{
 				event.setResult(Result.DENY);
@@ -148,7 +148,7 @@ public class ExtraAddonSpawnHandler
 			}
 		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRodents && (event.getEntity() instanceof EntityFerretBase && !worldIn.isRemote))
 		{
-			List<EntityFerretBase> others = AnimaniaHelper.getEntitiesInRange(EntityFerretBase.class, 100, event.getEntity().world, pos);
+			List<EntityFerretBase> others = AnimaniaHelper.getEntitiesInRange(EntityFerretBase.class, 100, event.getEntity().level, pos);
 			if (others.size() > ExtraConfig.settings.spawning_and_breeding.spawnLimitFerrets)
 			{
 				event.setResult(Result.DENY);
@@ -156,7 +156,7 @@ public class ExtraAddonSpawnHandler
 			}
 		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHedgehogBase && !worldIn.isRemote))
 		{
-			List<EntityHedgehogBase> others = AnimaniaHelper.getEntitiesInRange(EntityHedgehogBase.class, 100, event.getEntity().world, pos);
+			List<EntityHedgehogBase> others = AnimaniaHelper.getEntitiesInRange(EntityHedgehogBase.class, 100, event.getEntity().level, pos);
 			if (others.size() > ExtraConfig.settings.spawning_and_breeding.spawnLimitFerrets)
 			{
 				event.setResult(Result.DENY);

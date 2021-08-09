@@ -712,7 +712,7 @@ public class EntityAnimaniaHorse extends HorseEntity implements IAnimaniaAnimalB
 	@Override
 	public Entity convertToVanilla()
 	{
-		HorseEntity entity = new HorseEntity(this.world);
+		HorseEntity entity = new HorseEntity(this.level);
 		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());

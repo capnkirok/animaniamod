@@ -66,7 +66,7 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends En
 	}
 
 	/**
-	 * Returns whether the EntityAIBase should begin execution.
+	 * Returns whether the Goal should begin execution.
 	 */
 	@Override
 	public boolean shouldExecute()
@@ -85,7 +85,7 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends En
 			return false;
 		} else if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class)
 		{
-			List<T> list = this.taskOwner.world.<T> getEntitiesWithinAABB(this.targetClass, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
+			List<T> list = this.taskOwner.level.<T> getEntitiesWithinAABB(this.targetClass, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
 
 			if (list.isEmpty())
 			{
@@ -98,7 +98,7 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends En
 			}
 		} else
 		{
-			this.targetEntity = (T) this.taskOwner.world.getNearestAttackablePlayer(this.taskOwner.getX(), this.taskOwner.getY() + this.taskOwner.getEyeHeight(), this.taskOwner.getZ(), this.getTargetDistance(), this.getTargetDistance(), new Function<PlayerEntity, Double>() {
+			this.targetEntity = (T) this.taskOwner.level.getNearestAttackablePlayer(this.taskOwner.getX(), this.taskOwner.getY() + this.taskOwner.getEyeHeight(), this.taskOwner.getZ(), this.getTargetDistance(), this.getTargetDistance(), new Function<PlayerEntity, Double>() {
 				@Override
 				@Nullable
 				public Double apply(@Nullable PlayerEntity p_apply_1_)

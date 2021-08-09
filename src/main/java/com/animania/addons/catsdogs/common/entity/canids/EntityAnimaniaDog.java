@@ -217,7 +217,7 @@ public class EntityAnimaniaDog extends WolfEntity implements IAnimaniaAnimalBase
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override
@@ -498,7 +498,7 @@ public class EntityAnimaniaDog extends WolfEntity implements IAnimaniaAnimalBase
 	@Override
 	public Entity convertToVanilla()
 	{
-		WolfEntity entity = new WolfEntity(this.world);
+		WolfEntity entity = new WolfEntity(this.level);
 		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());

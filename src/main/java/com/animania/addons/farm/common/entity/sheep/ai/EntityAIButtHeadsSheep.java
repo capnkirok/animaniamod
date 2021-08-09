@@ -8,11 +8,11 @@ import com.animania.addons.farm.common.entity.sheep.EntityLambBase;
 import com.animania.addons.farm.common.entity.sheep.EntityRamBase;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.World;
 
-public class EntityAIButtHeadsSheep extends EntityAIBase
+public class EntityAIButtHeadsSheep extends Goal
 {
 	private final AnimalEntity theAnimal;
 	World theWorld;
@@ -25,7 +25,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 	public EntityAIButtHeadsSheep(AnimalEntity animal, double speedIn)
 	{
 		this.theAnimal = animal;
-		this.theWorld = animal.world;
+		this.theWorld = animal.level;
 		this.moveSpeed = speedIn;
 		this.setMutexBits(3);
 		this.fightTimer = 100 + Animania.RANDOM.nextInt(50);
@@ -43,7 +43,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 				return false;
 			}
 			
-			if (!this.theAnimal.world.isDaytime()) {
+			if (!this.theAnimal.level.isDaytime()) {
 				this.delayCounter = 0;
 				return false;
 			}
@@ -101,7 +101,7 @@ public class EntityAIButtHeadsSheep extends EntityAIBase
 			EntityRamBase thisEntity = (EntityRamBase) this.theAnimal;
 			EntityRamBase foundEntity = null;
 
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 10, this.theAnimal.world, this.theAnimal);
+			List entities = AnimaniaHelper.getEntitiesInRange(EntityRamBase.class, 10, this.theAnimal.level, this.theAnimal);
 			
 			if (entities != null) {
 				for (int k = 0; k < entities.size(); k++) {

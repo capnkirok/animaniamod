@@ -201,7 +201,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override
@@ -409,7 +409,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 					double d = this.rand.nextGaussian() * 0.02D;
 					double d1 = this.rand.nextGaussian() * 0.02D;
 					double d2 = this.rand.nextGaussian() * 0.02D;
-					// this.world.spawnParticle(EnumParticleTypes.HEART,
+					// this.level.spawnParticle(EnumParticleTypes.HEART,
 					// this.getX() + this.rand.nextFloat() * this.width -
 					// this.width, this.getY() + 1D + this.rand.nextFloat() *
 					// this.height, this.getZ() + this.rand.nextFloat() *

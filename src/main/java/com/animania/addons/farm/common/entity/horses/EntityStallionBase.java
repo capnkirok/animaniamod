@@ -17,8 +17,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -85,7 +85,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	@Override
 	public void openGUI(PlayerEntity playerEntity)
 	{
-		if (!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)))
+		if (!this.level.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)))
 		{
 			this.horseChest.setCustomName(this.getName());
 			playerEntity.openGuiHorseInventory(this, this.horseChest);
@@ -125,7 +125,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override
@@ -239,7 +239,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 		while (it.hasNext())
 		{
 			EntityAITaskEntry entry = it.next();
-			EntityAIBase ai = entry.action;
+			Goal ai = entry.action;
 			if (ai instanceof GenericAIMate)
 			{
 				entry.using = false;

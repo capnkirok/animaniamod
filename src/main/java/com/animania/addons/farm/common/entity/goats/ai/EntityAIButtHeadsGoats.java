@@ -10,11 +10,11 @@ import com.animania.addons.farm.common.entity.goats.EntityKidBase;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.World;
 
-public class EntityAIButtHeadsGoats extends EntityAIBase
+public class EntityAIButtHeadsGoats extends Goal
 {
 	private final EntityAnimaniaGoat theAnimal;
 	World theWorld;
@@ -27,7 +27,7 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 	public EntityAIButtHeadsGoats(EntityAnimaniaGoat animal, double speedIn)
 	{
 		this.theAnimal = animal;
-		this.theWorld = animal.world;
+		this.theWorld = animal.level;
 		this.moveSpeed = speedIn;
 		this.setMutexBits(3);
 		this.fightTimer = 100 + Animania.RANDOM.nextInt(50);
@@ -45,7 +45,7 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 				return false;
 			}
 			
-			if (!this.theAnimal.world.isDaytime() || this.theAnimal.getSleeping()) {
+			if (!this.theAnimal.level.isDaytime() || this.theAnimal.getSleeping()) {
 				this.delayCounter = 0;
 				return false;
 			}
@@ -103,7 +103,7 @@ public class EntityAIButtHeadsGoats extends EntityAIBase
 			EntityBuckBase thisEntity = (EntityBuckBase) this.theAnimal;
 			EntityBuckBase foundEntity = null;
 
-			List entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 10, this.theAnimal.world, this.theAnimal);
+			List entities = AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 10, this.theAnimal.level, this.theAnimal);
 			
 			if (entities != null) {
 				for (int k = 0; k < entities.size(); k++) {

@@ -28,8 +28,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -212,7 +212,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		while (it.hasNext())
 		{
 			EntityAITaskEntry entry = it.next();
-			EntityAIBase ai = entry.action;
+			Goal ai = entry.action;
 			if (ai instanceof GenericAIMate || ai instanceof EntityAIAttackMeleeBulls || ai instanceof EntityAIGoatsLeapAtTarget)
 			{
 				entry.using = false;

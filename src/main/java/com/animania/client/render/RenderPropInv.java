@@ -15,7 +15,7 @@ package com.animania.client.render;
  * com.mia.craftstudio.minecraft.client.CSClientModelWrapperVBO; import
  * com.mia.props.DecoModelMetadata; import com.mia.props.Props;
  *
- * import net.minecraft.block.state.IBlockState; import
+ * import net.minecraft.block.state.BlockState; import
  * net.minecraft.client.Minecraft; import
  * net.minecraft.client.renderer.block.model.BakedQuad; import
  * net.minecraft.client.renderer.block.model.IBakedModel; import
@@ -42,7 +42,7 @@ package com.animania.client.render;
  * originalModel; } }; protected int modelID = 0; protected boolean
  * disableRender = false;
  *
- * @Override public List<BakedQuad> getQuads(@Nullable IBlockState
+ * @Override public List<BakedQuad> getQuads(@Nullable BlockState
  * state, @Nullable EnumFacing side, long rand) { //TODO : We do our special
  * rendering here (call for the special renderer ?) if(side == null &&
  * !disableRender) { GL11.glPushMatrix(); DecoModelMetadata modelData =

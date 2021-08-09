@@ -49,10 +49,10 @@ import com.google.common.collect.Sets;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IShearable;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -329,7 +329,7 @@ public class EntityAnimaniaSheep extends SheepEntity implements IShearable, IAni
 				while (it.hasNext())
 				{
 					EntityAITaskEntry entry = it.next();
-					EntityAIBase ai = entry.action;
+					Goal ai = entry.action;
 					try
 					{
 						if (Class.forName("biomesoplenty.common.entities.ai.EntityAIEatBOPGrass").isInstance(ai))
@@ -373,7 +373,7 @@ public class EntityAnimaniaSheep extends SheepEntity implements IShearable, IAni
 
 		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild())
 		{
-			if (!this.world.isRemote)
+			if (!this.level.isRemote)
 			{
 				this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
 			}
@@ -420,7 +420,7 @@ public class EntityAnimaniaSheep extends SheepEntity implements IShearable, IAni
 	public void setInLove(PlayerEntity player)
 	{
 		if (!this.getSleeping())
-			this.world.setEntityState(this, (byte) 18);
+			this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override
@@ -630,7 +630,7 @@ public class EntityAnimaniaSheep extends SheepEntity implements IShearable, IAni
 	@Override
 	public Entity convertToVanilla()
 	{
-		SheepEntity entity = new SheepEntity(this.world);
+		SheepEntity entity = new SheepEntity(this.level);
 		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());

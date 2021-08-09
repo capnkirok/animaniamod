@@ -32,7 +32,7 @@ public class WoolColorFunction extends LootFunction
 			SheepEntity entityAnimaniaSheep = (SheepEntity) e;
 			boolean isSheared = entityAnimaniaSheep.getSheared();
 			
-			List<ItemStack> stacks = entityAnimaniaSheep.onSheared(ItemStack.EMPTY, e.world, e.getPosition(), 0);
+			List<ItemStack> stacks = entityAnimaniaSheep.onSheared(ItemStack.EMPTY, e.level, e.getPosition(), 0);
 			if (stacks != null && !stacks.isEmpty())
 			{
 				if (isSheared)

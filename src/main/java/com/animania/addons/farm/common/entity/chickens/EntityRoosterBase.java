@@ -120,7 +120,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	public void onLivingUpdate()
 	{
 		this.timeUntilNextEgg = 1000;
-		long currentTime = this.world.getWorldTime() % 23999;
+		long currentTime = this.level.getWorldTime() % 23999;
 
 		if (this.getTimeUntilNextCrow() > 0)
 			this.setTimeUntilNextCrow(this.getTimeUntilNextCrow() - 1);
@@ -140,11 +140,11 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 			int crowChooser = this.rand.nextInt(3);
 			if (crowChooser == 0)
-				this.world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow1, SoundCategory.PLAYERS, 0.7F, 0.95F + modular);
+				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow1, SoundCategory.PLAYERS, 0.7F, 0.95F + modular);
 			else if (crowChooser == 1)
-				this.world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow2, SoundCategory.PLAYERS, 0.65F, 0.9F + modular);
+				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow2, SoundCategory.PLAYERS, 0.65F, 0.9F + modular);
 			else if (crowChooser == 2)
-				this.world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow3, SoundCategory.PLAYERS, 0.6F, 1.05F + modular);
+				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow3, SoundCategory.PLAYERS, 0.6F, 1.05F + modular);
 			this.setTimeUntilNextCrow(this.rand.nextInt(200) + 200);
 
 			List list = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 30, world, this.getPosition());

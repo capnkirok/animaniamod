@@ -9,10 +9,10 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.MathHelper;
 
-public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleeping, O extends CreatureEntity & IMateable> extends EntityAIBase
+public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleeping, O extends CreatureEntity & IMateable> extends Goal
 {
 	T childAnimal;
 	O parentAnimal;
@@ -35,7 +35,7 @@ public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleepin
 		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
 
-			if (!childAnimal.world.isDaytime() || childAnimal.getSleeping())
+			if (!childAnimal.level.isDaytime() || childAnimal.getSleeping())
 			{
 				this.delayCounter = 0;
 				return false;
@@ -47,7 +47,7 @@ public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleepin
 			}
 			else
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(mother, 40, this.childAnimal.world, this.childAnimal);
+				List entities = AnimaniaHelper.getEntitiesInRange(mother, 40, this.childAnimal.level, this.childAnimal);
 
 				for (int k = 0; k <= entities.size() - 1; k++)
 				{

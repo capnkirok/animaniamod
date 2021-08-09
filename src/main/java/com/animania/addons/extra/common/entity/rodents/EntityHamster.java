@@ -184,7 +184,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.world.setEntityState(this, (byte) 18);
+		this.level.setEntityState(this, (byte) 18);
 	}
 
 	@Override
@@ -497,7 +497,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 					double d = this.rand.nextGaussian() * 0.02D;
 					double d1 = this.rand.nextGaussian() * 0.02D;
 					double d2 = this.rand.nextGaussian() * 0.02D;
-					// this.world.spawnParticle(EnumParticleTypes.HEART,
+					// this.level.spawnParticle(EnumParticleTypes.HEART,
 					// this.getX() + this.rand.nextFloat() * this.width -
 					// this.width, this.getY() + 1D + this.rand.nextFloat() *
 					// this.height, this.getZ() + this.rand.nextFloat() *
@@ -597,9 +597,9 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 			double d2 = this.rand.nextGaussian() * 0.02D;
 
 			if (this.rand.nextInt(2) > 0)
-				this.world.playSound(null, this.getX(), this.getY() + 1, this.getZ(), ExtraAddonSoundHandler.hamsterEat1, SoundCategory.PLAYERS, 0.6F, 0.8F);
+				this.level.playSound(null, this.getX(), this.getY() + 1, this.getZ(), ExtraAddonSoundHandler.hamsterEat1, SoundCategory.PLAYERS, 0.6F, 0.8F);
 			else
-				this.world.playSound(null, this.getX(), this.getY() + 1, this.getZ(), ExtraAddonSoundHandler.hamsterEat2, SoundCategory.PLAYERS, 0.6F, 0.8F);
+				this.level.playSound(null, this.getX(), this.getY() + 1, this.getZ(), ExtraAddonSoundHandler.hamsterEat2, SoundCategory.PLAYERS, 0.6F, 0.8F);
 		}
 
 	}

@@ -18,6 +18,7 @@ import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -25,7 +26,6 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -84,7 +84,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public void updateTick(World worldIn, BlockPos pos, BlockState state, Random rand)
 	{
 
 		float f = worldIn.getBiome(pos).getTemperature(pos);
@@ -107,13 +107,13 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 
 	@Override
 	@Deprecated
-	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
 	{
 		return BlockFaceShape.UNDEFINED;
 	}
 
 	@Override
-	public boolean isTopSolid(IBlockState state)
+	public boolean isTopSolid(BlockState state)
 	{
 		return false;
 	}
@@ -129,25 +129,25 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	 * for render
 	 */
 	@Override
-	public boolean isOpaqueCube(IBlockState state)
+	public boolean isOpaqueCube(BlockState state)
 	{
 		return false;
 	}
 
 	@Override
-	public boolean isFullBlock(IBlockState state)
+	public boolean isFullBlock(BlockState state)
 	{
 		return false;
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state)
+	public boolean isFullCube(BlockState state)
 	{
 		return false;
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, BlockState state, Entity entityIn)
 	{
 
 		TileEntity tile = worldIn.getTileEntity(pos);
@@ -203,7 +203,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos)
 	{
 
 		switch (state.getValue(BlockTrough.FACING))
@@ -222,11 +222,11 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 
 	/**
 	 * Called by BlockItems just before a block is actually set in the world, to
-	 * allow for adjustments to the IBlockstate
+	 * allow for adjustments to the BlockState
 	 */
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, LivingEntity placer, ItemStack stack)
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
 
 		TileEntityTrough teChk = (TileEntityTrough) worldIn.getTileEntity(pos);
@@ -315,13 +315,13 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
+	public ItemStack getItem(World worldIn, BlockPos pos, BlockState state)
 	{
 		return new ItemStack(BlockHandler.blockTrough, 1);
 	}
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+	public void breakBlock(World worldIn, BlockPos pos, BlockState state)
 	{
 
 		String dir = state.getValue(BlockTrough.FACING).toString();
@@ -355,7 +355,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 
 	@Override
 	@Nullable
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	public Item getItemDropped(BlockState state, Random rand, int fortune)
 	{
 		return Item.getItemFromBlock(BlockHandler.blockTrough);
 	}
@@ -366,13 +366,13 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	public IBlockState getStateFromMeta(int meta)
+	public BlockState getStateFromMeta(int meta)
 	{
 		return this.getDefaultState().withProperty(BlockTrough.FACING, EnumFacing.getHorizontal(meta & 3));
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state)
+	public int getMetaFromState(BlockState state)
 	{
 		int i = 0;
 		i = i | state.getValue(BlockTrough.FACING).getIndex();
@@ -380,7 +380,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, PlayerEntity playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = playerIn.getHeldItem(hand);
@@ -511,13 +511,13 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	public IBlockState withRotation(IBlockState state, Rotation rot)
+	public BlockState withRotation(BlockState state, Rotation rot)
 	{
 		return state.withProperty(BlockTrough.FACING, rot.rotate(state.getValue(BlockTrough.FACING)));
 	}
 
 	@Override
-	public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
+	public BlockState withMirror(BlockState state, Mirror mirrorIn)
 	{
 		return state.withRotation(mirrorIn.toRotation(state.getValue(BlockTrough.FACING)));
 	}
@@ -529,13 +529,13 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(IBlockState state)
+	public boolean hasComparatorInputOverride(BlockState state)
 	{
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos)
+	public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
 	{
 
 		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
@@ -583,7 +583,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
 	{
 		BlockPos invisi = findInvisiblock(worldIn, pos);
 		worldIn.updateComparatorOutputLevel(invisi, BlockHandler.blockInvisiblock);
@@ -593,7 +593,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, IBlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = world.getTileEntity(data.getPos());
 		if (te instanceof TileEntityTrough)

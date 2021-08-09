@@ -8,11 +8,10 @@ import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.config.AnimaniaConfig;
 
-import EntityAIBase;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,10 +21,10 @@ public class GenericAIFindSaltLick<T extends CreatureEntity & ISleeping> extends
 
 	private final T entity;
 	private final double speed;
-	private EntityAIBase eatAI;
+	private Goal eatAI;
 	private int delay;
 
-	public GenericAIFindSaltLick(T creature, double speedIn, @Nullable EntityAIBase eatAI)
+	public GenericAIFindSaltLick(T creature, double speedIn, @Nullable Goal eatAI)
 	{
 		super(creature, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, EnumFacing.HORIZONTALS);
 		this.entity = creature;
@@ -61,7 +60,7 @@ public class GenericAIFindSaltLick<T extends CreatureEntity & ISleeping> extends
 
 		if (this.isAtDestination())
 		{
-			IBlockState state = world.getBlockState(seekingBlockPos);
+			BlockState state = world.getBlockState(seekingBlockPos);
 			Block block = state.getBlock();
 
 			if (block == BlockHandler.blockSaltLick)

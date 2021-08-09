@@ -2,9 +2,9 @@ package com.animania.common.blocks.fluids;
 
 import com.animania.common.handler.BlockHandler;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -24,18 +24,18 @@ public class BlockFluidSlop extends BlockFluidBase
     }
 
     @Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, BlockState state, Entity entity) {
 		Vec3d vec = this.getFlowVector(world, pos);
 		entity.addVelocity(vec.x / 500, vec.y / 500, vec.z / 500);
 	}
 
     @Override
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(BlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return true;
     }
 
     @Override
-    public MaterialColor getMaterialColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public MaterialColor getMaterialColor(BlockState state, IBlockAccess worldIn, BlockPos pos)
     {
     	return MaterialColor.BROWN;
     }

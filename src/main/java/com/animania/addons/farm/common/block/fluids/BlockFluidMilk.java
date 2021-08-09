@@ -2,9 +2,9 @@ package com.animania.addons.farm.common.block.fluids;
 
 import com.animania.common.blocks.fluids.BlockFluidBase;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.BlockRenderLayer;
@@ -26,14 +26,14 @@ public class BlockFluidMilk extends BlockFluidBase
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity)
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, BlockState state, Entity entity)
 	{
 		Vec3d vec = this.getFlowVector(world, pos);
 		entity.addVelocity(vec.x / 1000, vec.y / 1000, vec.z / 1000);
 	}
 
 	@Override
-	public MaterialColor getMaterialColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	public MaterialColor getMaterialColor(BlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
 		return MaterialColor.SNOW;
 	}

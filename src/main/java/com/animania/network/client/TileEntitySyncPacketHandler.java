@@ -25,7 +25,7 @@ public class TileEntitySyncPacketHandler {
 				BlockPos pos = new BlockPos(data.getInteger("x"), data.getInteger("y"), data.getInteger("z"));
 				CompoundNBT tileData = data.getCompoundTag("data");
 				
-				TileEntity tile = Minecraft.getMinecraft().world.getTileEntity(pos);
+				TileEntity tile = Minecraft.getMinecraft().level.getTileEntity(pos);
 
 				if(tile != null)
 				{

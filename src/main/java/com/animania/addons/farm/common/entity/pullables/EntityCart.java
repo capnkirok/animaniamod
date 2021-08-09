@@ -186,7 +186,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 		if (player.isSneaking())
 		{
-			if (!this.world.isRemote && this.getHasChest())
+			if (!this.level.isRemote && this.getHasChest())
 			{
 				this.cartChest.setCustomName(this.getName());
 				player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
@@ -615,7 +615,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 		// Stop Animation if not pulling or moving
 
-		if (this.world.isRemote && this.pulled)
+		if (this.level.isRemote && this.pulled)
 		{
 			double diffX = (this.getX() - this.prevgetX());
 			double diffZ = (this.getZ() - this.prevgetZ());
@@ -651,7 +651,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 			if (this.getPullerType() == 1)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, this.level, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -660,7 +660,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 			} else if (this.getPullerType() == 2)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.level, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -669,7 +669,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 			} else if (this.getPullerType() == 3)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 3, this.level, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -717,11 +717,11 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 		}
 
-		List<Entity> list = this.world.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
+		List<Entity> list = this.level.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().grow(0.20000000298023224D, -0.009999999776482582D, 0.20000000298023224D), EntitySelectors.getTeamCollisionPredicate(this));
 
 		if (!list.isEmpty())
 		{
-			boolean flag = !this.world.isRemote;
+			boolean flag = !this.level.isRemote;
 
 			for (int j = 0; j < list.size(); ++j)
 			{
@@ -868,7 +868,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		if (this.isEntityInvulnerable(source))
 		{
 			return false;
-		} else if (!this.world.isRemote && !this.isDead)
+		} else if (!this.level.isRemote && !this.isDead)
 		{
 			if (source instanceof EntityDamageSourceIndirect && source.getTrueSource() != null)
 			{
@@ -883,7 +883,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 				if (flag || this.getDamageTaken() > 40.0F)
 				{
-					if (!flag && this.world.getGameRules().getBoolean("doEntityDrops"))
+					if (!flag && this.level.getGameRules().getBoolean("doEntityDrops"))
 					{
 						this.dropItemWithOffset(FarmAddonItemHandler.cart, 1, 0.0F);
 

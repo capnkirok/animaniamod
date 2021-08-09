@@ -15,7 +15,7 @@ import com.animania.client.handler.AnimationHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -166,7 +166,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 			if (mdiffx > 0 && mdiffx < 2.4 && mdiffy < 1.25 && mdiffz > 0 && mdiffz < 2.4)
 			{
 				this.wagonChest.setCustomName(this.getName());
-				if (!this.world.isRemote)
+				if (!this.level.isRemote)
 				{
 					player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
@@ -608,7 +608,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 		// Stop Animation if not pulling or moving
 
-		if (this.world.isRemote && this.pulled)
+		if (this.level.isRemote && this.pulled)
 		{
 			double diffX = (this.getX() - this.prevgetX());
 			double diffZ = (this.getZ() - this.prevgetZ());
@@ -644,7 +644,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 			if (this.getPullerType() == 1)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, this.level, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -653,7 +653,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				}
 			} else if (this.getPullerType() == 2)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.level, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -831,7 +831,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		if (this.isEntityInvulnerable(source))
 		{
 			return false;
-		} else if (!this.world.isRemote && !this.isDead)
+		} else if (!this.level.isRemote && !this.isDead)
 		{
 			if (source instanceof EntityDamageSourceIndirect && source.getTrueSource() != null)
 			{
@@ -846,7 +846,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 				if (flag || this.getDamageTaken() > 40.0F)
 				{
-					if (!flag && this.world.getGameRules().getBoolean("doEntityDrops"))
+					if (!flag && this.level.getGameRules().getBoolean("doEntityDrops"))
 					{
 						this.dropItemWithOffset(FarmAddonItemHandler.wagon, 1, 0.0F);
 
@@ -1068,7 +1068,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 			}
 		}
 
-		IBlockState state = null;
+		BlockState state = null;
 		if (world.isBlockLoaded(bedLocation))
 			state = world.getBlockState(bedLocation);
 		if (state != null)
@@ -1108,18 +1108,18 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 		long time = this.getEntityWorld().getWorldTime() % 24000;
 
-		if (this.world.isBlockLoaded(blockpos$mutableblockpos))
+		if (this.level.isBlockLoaded(blockpos$mutableblockpos))
 		{
 			blockpos$mutableblockpos.setY(MathHelper.floor(this.getY() + this.getEyeHeight()));
 
 			if (Animania.RANDOM.nextInt(32) == 0 && time > 13000 && sleepTimer == 0)
 			{
 				lastLighting = 85 + Animania.RANDOM.nextInt(22);
-				return this.world.getCombinedLight(blockpos$mutableblockpos, 0) + lastLighting;
+				return this.level.getCombinedLight(blockpos$mutableblockpos, 0) + lastLighting;
 
 			} else if (sleepTimer == 0 || time < 13000)
 			{
-				return this.world.getCombinedLight(blockpos$mutableblockpos, 0) + lastLighting;
+				return this.level.getCombinedLight(blockpos$mutableblockpos, 0) + lastLighting;
 			} else
 			{
 				return 30;

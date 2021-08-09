@@ -46,7 +46,7 @@ public class CarryRenderer
 	public static void renderHand(RenderHandEvent event)
 	{
 
-		World world = Minecraft.getMinecraft().world;
+		World world = Minecraft.getMinecraft().level;
 		PlayerEntity player = Minecraft.getMinecraft().player;
 		AbstractClientPlayer aplayer = (AbstractClientPlayer) player;
 		ItemStack stack = player.getHeldItemMainhand();
@@ -114,7 +114,7 @@ public class CarryRenderer
 	@SubscribeEvent
 	public static void onPlayerRenderPost(RenderPlayerEvent.Post event)
 	{
-		World world = Minecraft.getMinecraft().world;
+		World world = Minecraft.getMinecraft().level;
 		PlayerEntity player = event.getPlayer();
 		ModelPlayer modelPlayer = event.getRenderer().getMainModel();
 		PlayerEntitySP clientPlayer = Minecraft.getMinecraft().player;
