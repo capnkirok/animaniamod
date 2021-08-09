@@ -1,32 +1,35 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="All Rights Reserved"
+issueTrackerURL="https://github.com/capnkirok/animaniamod/issues"
+# If the mods defined in this file should show as separate resource packs
+showAsResourcePack=false
 
-    # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
-    modLoader="javafml"
-    # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-    # Forge for 1.16.5 is version 36
-    loaderVersion="[36,)"
-    license="All Rights Reserved"
-    issueTrackerURL="https://github.com/capnkirok/animaniamod/issues"
-    # If the mods defined in this file should show as separate resource packs
-    showAsResourcePack=false
+[[mods]]
+  modId="animania"
+  version="1.0.0.0"
+  displayName="Animania"
+  updateJSONURL="minecraftforge.net/versions.json"
+  displayURL="minecraftforge.net"
+  logoFile="assets/animania/textures/animania_logo1.png"
+  credits="Game concept, creative direction, models, textures, animation, sound design, and development by
+    RazzleberryFox, Purplicious_Cow, cy4n, Tschipp, ZeAmateis, Timmypote, vroulas, and TheJurassicAlien"
+  authors="RazzleberryFox, Purplicious_Cow, cy4n, Tschipp, ZeAmateis, Timmypote, Raptorfarian, vroulas,
+    TheJurassicAlien, and spiritrider13"
+  description='''
+  Immersive and realistic animals in Minecraft, with improved models, textures, animation, behaviors, and drops.
+  '''
 
-    [[mods]]
-      modId="animania"
-      version="1.0.0.0"
-      displayName="Animania"
-      updateJSONURL="minecraftforge.net/versions.json"
-      displayURL="minecraftforge.net"
-      logoFile="assets/animania/textures/animania_logo1.png"
-      credits="Game concept, creative direction, models, textures, animation, sound design, and development by
-        RazzleberryFox, Purplicious_Cow, cy4n, Tschipp, ZeAmateis, Timmypote, vroulas, and TheJurassicAlien"
-      authors="RazzleberryFox, Purplicious_Cow, cy4n, Tschipp, ZeAmateis, Timmypote, Raptorfarian, vroulas, and TheJurassicAlien"
-      description='''
-      Immersive and realistic animals in Minecraft, with improved models, textures, animation, behaviors, and drops.
-      '''
-
-      [[dependencies.animaniamod]]
-        modId="forge"
-        mandatory=true
-        versionRange="[36,)"
-        ordering="NONE"
-        side="BOTH"
+[[dependencies.swem]]
+  modId="forge"
+  mandatory=true
+  versionRange="[36,)"
+  ordering="NONE"
+  side="BOTH"
+[[dependencies.swem]]
+  modId="minecraft"
+  mandatory=true
+  versionRange="[1.16.5]"
+  ordering="NONE"
+  side="BOTH"
 
