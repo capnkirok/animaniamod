@@ -145,7 +145,7 @@ public abstract class EntityAmphibian extends AnimalEntity implements ISpawnable
 		}
 
 		if (!this.level.isRemote)
-			this.level.setEntityState(this, (byte) 1);
+			this.level.broadcastEntityEvent(this, (byte) 1);
 	}
 
 	@SideOnly(Dist.CLIENT)
@@ -154,7 +154,7 @@ public abstract class EntityAmphibian extends AnimalEntity implements ISpawnable
 	}
 
 	public void setMovementSpeed(double newSpeed) {
-		this.getNavigator().setSpeed(newSpeed);
+		this.getNavigation().setSpeed(newSpeed);
 		this.moveHelper.setMoveTo(this.moveHelper.getX(), this.moveHelper.getY(), this.moveHelper.getZ(), newSpeed);
 	}
 

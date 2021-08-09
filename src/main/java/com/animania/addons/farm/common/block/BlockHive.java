@@ -21,7 +21,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -46,7 +46,7 @@ public class BlockHive extends ContainerBlock
 		this.setSoundType(SoundType.WOOD);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setHardness(1.3f);
 		this.setResistance(0.3f);
@@ -68,7 +68,7 @@ public class BlockHive extends ContainerBlock
 	}
 
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, Direction p_193383_4_)
 	{
 		return BlockFaceShape.UNDEFINED;
 	}
@@ -80,7 +80,7 @@ public class BlockHive extends ContainerBlock
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = player.getHeldItem(hand);
@@ -166,25 +166,25 @@ public class BlockHive extends ContainerBlock
 
 	public BlockState getStateFromMeta(int meta)
 	{
-		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		Direction enumfacing = Direction.getFront(meta);
 
-		if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+		if (enumfacing.getAxis() == Direction.Axis.Y)
 		{
-			enumfacing = EnumFacing.NORTH;
+			enumfacing = Direction.NORTH;
 		}
 
-		return this.getDefaultState().withProperty(FACING, enumfacing);
+		return this.defaultBlockState().withProperty(FACING, enumfacing);
 	}
 
 	public int getMetaFromState(BlockState state)
 	{
-		return ((EnumFacing) state.getValue(FACING)).getIndex();
+		return ((Direction) state.getValue(FACING)).getIndex();
 	}
 
 	@Override
-	public BlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
+	public BlockState getStateForPlacement(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
 	{
-		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+		return this.defaultBlockState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 
 	@Override

@@ -323,7 +323,7 @@ public class EntityAnimaniaSheep extends SheepEntity implements IShearable, IAni
 	{
 		if (!hasRemovedBOP)
 		{
-			if (Loader.isModLoaded("biomesoplenty"))
+			if (ModList.get().isLoaded("biomesoplenty"))
 			{
 				Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
 				while (it.hasNext())
@@ -420,7 +420,7 @@ public class EntityAnimaniaSheep extends SheepEntity implements IShearable, IAni
 	public void setInLove(PlayerEntity player)
 	{
 		if (!this.getSleeping())
-			this.level.setEntityState(this, (byte) 18);
+			this.level.broadcastEntityEvent(this, (byte) 18);
 	}
 
 	@Override

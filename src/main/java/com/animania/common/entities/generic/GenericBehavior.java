@@ -192,7 +192,7 @@ public class GenericBehavior
 						List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(motherClass, 15, world, entity);
 						for (LivingEntity potentialMother : entities)
 						{
-							if (potentialMother.getPersistentID().equals(entity.getParentUniqueId()))
+							if (potentialMother.getUUID().equals(entity.getParentUniqueId()))
 							{
 								((IImpregnable) potentialMother).setHasKids(false);
 								break;
@@ -245,7 +245,7 @@ public class GenericBehavior
 					Entity mate = entities.get(k);
 					if (mate != null)
 					{
-						UUID id = mate.getPersistentID();
+						UUID id = mate.getUUID();
 						if (id.equals(entity.getMateUniqueId()) && !mate.isDead)
 						{
 							mateReset = false;
@@ -296,7 +296,7 @@ public class GenericBehavior
 				LivingEntity male = null;
 				for (LivingEntity potentialMate : entities)
 				{
-					if (potentialMate != null && potentialMate.getPersistentID().equals(MateID))
+					if (potentialMate != null && potentialMate.getUUID().equals(MateID))
 					{
 						male = (LivingEntity) potentialMate;
 						break;
@@ -327,7 +327,7 @@ public class GenericBehavior
 					AgeableEntity entityKid = (AgeableEntity) babyType.getChild(entity.level);
 					entityKid.setPosition(entity.getX(), entity.getY() + .2, entity.getZ());
 
-					((IChild) entityKid).setParentUniqueId(entity.getPersistentID());
+					((IChild) entityKid).setParentUniqueId(entity.getUUID());
 					entityKid.playLivingSound();
 
 					if (entityKid instanceof IFoodEating)
@@ -394,7 +394,7 @@ public class GenericBehavior
 				TameableEntity tame = (TameableEntity) entity;
 				if (!tame.isTamed())
 				{
-					tame.setOwnerId(player.getPersistentID());
+					tame.setOwnerId(player.getUUID());
 					tame.setTamed(true);
 				}
 			}
@@ -409,14 +409,14 @@ public class GenericBehavior
 			{
 				tame.setSitting(true);
 				tame.setJumping(false);
-				tame.getNavigator().clearPath();
+				tame.getNavigation().stop();
 				return true;
 			} else if (stack.isEmpty() && tame.isTamed() && tame.isSitting() && !player.isSneaking() && !entity.getSleeping())
 			{
 
 				tame.setSitting(false);
 				tame.setJumping(false);
-				tame.getNavigator().clearPath();
+				tame.getNavigation().stop();
 				return true;
 			}
 		}

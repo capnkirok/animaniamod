@@ -12,7 +12,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -64,7 +64,7 @@ public class TileEntityPropRenderer extends TileEntitySpecialRenderer<TileEntity
 	@Override
 	public void render(TileEntityProp te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
-		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
+		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 
 		ModelCraftStudio model = models.get(te.type);
 		ResourceLocation texture = textures.get(te.type);

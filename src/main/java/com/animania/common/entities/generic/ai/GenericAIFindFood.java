@@ -15,7 +15,7 @@ import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -30,7 +30,7 @@ public class GenericAIFindFood<T extends CreatureEntity & IFoodEating & ISleepin
 
 	public GenericAIFindFood(T entity, double speedIn, @Nullable Goal eatAI, boolean eatBlocks)
 	{
-		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, eatBlocks, EnumFacing.HORIZONTALS);
+		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, eatBlocks, Direction.HORIZONTALS);
 		this.entity = entity;
 		this.setMutexBits(3);
 		this.foodDelay = 0;
@@ -51,7 +51,7 @@ public class GenericAIFindFood<T extends CreatureEntity & IFoodEating & ISleepin
 			return false;
 		}
 
-		if (entity.getRNG().nextInt(3) != 0)
+		if (entity.getRandom().nextInt(3) != 0)
 			return false;
 
 		foodDelay = 0;

@@ -47,7 +47,7 @@ public class EntityAIWanderHorses extends EntityAIWander
 			}
 		}
 
-		if (!this.entity.level.isDaytime() || isSleeping)
+		if (!this.entity.level.isDay() || isSleeping)
 		{
 			return false;
 		}
@@ -59,7 +59,7 @@ public class EntityAIWanderHorses extends EntityAIWander
 				return false;
 			}
 
-			if (this.entity.getRNG().nextInt(this.executionChance) != 0)
+			if (this.entity.getRandom().nextInt(this.executionChance) != 0)
 			{
 				return false;
 			}
@@ -102,7 +102,7 @@ public class EntityAIWanderHorses extends EntityAIWander
 			return vec3d == null ? super.getPosition() : vec3d;
 		} else
 		{
-			return this.entity.getRNG().nextFloat() >= this.probability ? RandomPositionGenerator.getLandPos(this.entity, 10, 7) : super.getPosition();
+			return this.entity.getRandom().nextFloat() >= this.probability ? RandomPositionGenerator.getLandPos(this.entity, 10, 7) : super.getPosition();
 		}
 	}
 }

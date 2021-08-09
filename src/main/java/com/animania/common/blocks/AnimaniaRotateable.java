@@ -10,7 +10,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -24,7 +24,7 @@ public abstract class AnimaniaRotateable extends AnimaniaBlock
 	public AnimaniaRotateable(String name, Material blockMaterialIn, MaterialColor blockMaterialColorIn, boolean BlockItem)
 	{
 		super(name, blockMaterialIn, blockMaterialColorIn, BlockItem);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
 
 	}
 
@@ -34,27 +34,27 @@ public abstract class AnimaniaRotateable extends AnimaniaBlock
 	}
 
 	@Override
-	public BlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
+	public BlockState getStateForPlacement(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
 	{
-		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+		return this.defaultBlockState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
-		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+		worldIn.setBlock(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 	}
 
 	public BlockState getStateFromMeta(int meta)
 	{
-		EnumFacing enumfacing = EnumFacing.getFront(meta);
+		Direction enumfacing = Direction.getFront(meta);
 
-		if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+		if (enumfacing.getAxis() == Direction.Axis.Y)
 		{
-			enumfacing = EnumFacing.NORTH;
+			enumfacing = Direction.NORTH;
 		}
 
-		return this.getDefaultState().withProperty(FACING, enumfacing);
+		return this.defaultBlockState().withProperty(FACING, enumfacing);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public abstract class AnimaniaRotateable extends AnimaniaBlock
 	 */
 	public int getMetaFromState(BlockState state)
 	{
-		return ((EnumFacing) state.getValue(FACING)).getIndex();
+		return ((Direction) state.getValue(FACING)).getIndex();
 	}
 
 	/**
@@ -71,7 +71,7 @@ public abstract class AnimaniaRotateable extends AnimaniaBlock
 	 */
 	public BlockState withRotation(BlockState state, Rotation rot)
 	{
-		return state.withProperty(FACING, rot.rotate((EnumFacing) state.getValue(FACING)));
+		return state.withProperty(FACING, rot.rotate((Direction) state.getValue(FACING)));
 	}
 
 	/**
@@ -80,7 +80,7 @@ public abstract class AnimaniaRotateable extends AnimaniaBlock
 	 */
 	public BlockState withMirror(BlockState state, Mirror mirrorIn)
 	{
-		return state.withRotation(mirrorIn.toRotation((EnumFacing) state.getValue(FACING)));
+		return state.withRotation(mirrorIn.toRotation((Direction) state.getValue(FACING)));
 	}
 
 	protected BlockStateContainer createBlockState()

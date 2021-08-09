@@ -217,7 +217,7 @@ public class EntityAnimaniaDog extends WolfEntity implements IAnimaniaAnimalBase
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.level.setEntityState(this, (byte) 18);
+		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
 
 	@Override
@@ -300,7 +300,7 @@ public class EntityAnimaniaDog extends WolfEntity implements IAnimaniaAnimalBase
 		{
 			if (this.getRidingEntity() != null)
 				this.rotationYaw = this.getRidingEntity().rotationYaw;
-			this.navigator.clearPath();
+			this.navigator.stop();
 			this.navigator.setSpeed(0);
 		}
 

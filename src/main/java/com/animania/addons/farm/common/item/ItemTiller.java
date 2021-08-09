@@ -9,7 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -29,7 +29,7 @@ public class ItemTiller extends Item
 	}
 
 	@Override
-	public EnumActionResult onItemUse(PlayerEntity playerIn, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public EnumActionResult onItemUse(PlayerEntity playerIn, World world, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(facing);
 

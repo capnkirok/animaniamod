@@ -124,7 +124,7 @@ public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & 
 	{
 		if (targetMate != null)
 		{
-			return this.targetMate.isEntityAlive();
+			return this.targetMate.isAlive();
 		}
 		else
 		{
@@ -151,10 +151,10 @@ public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & 
 
 			if (uuidbool || preg || !fertile)
 			{
-				targetMate.getNavigator().clearPath();
+				targetMate.getNavigation().stop();
 				this.courtshipTimer = 200;
 				this.resetTask();
-				this.entity.getNavigator().clearPath();
+				this.entity.getNavigation().stop();
 				return;
 			}
 
@@ -166,9 +166,9 @@ public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & 
 				if (courtshipTimer % 20 == 0)
 				{
 					this.entity.getLookHelper().setLookPositionWithEntity(targetMate, 10.0F, this.entity.getVerticalFaceSpeed());
-					this.entity.getNavigator().tryMoveToLivingEntity(targetMate, this.moveSpeed);
+					this.entity.getNavigation().tryMoveToLivingEntity(targetMate, this.moveSpeed);
 					targetMate.getLookHelper().setLookPositionWithEntity(this.entity, 10.0F, targetMate.getVerticalFaceSpeed());
-					targetMate.getNavigator().tryMoveToLivingEntity(this.entity, this.moveSpeed);
+					targetMate.getNavigation().tryMoveToLivingEntity(this.entity, this.moveSpeed);
 				}
 
 				double distance = entity.getDistance(targetMate);
@@ -176,28 +176,28 @@ public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & 
 				if (distance <= 1.8)
 				{
 					this.entity.setInLove(null);
-					this.entity.setMateUniqueId(targetMate.getPersistentID());
+					this.entity.setMateUniqueId(targetMate.getUUID());
 					targetMate.setInLove(null);
 
 					targetMate.setPregnant(true);
 					targetMate.setFertile(false);
 					targetMate.setHandFed(false);
 					targetMate.setInteracted(this.entity.getInteracted());
-					targetMate.setMateUniqueId(entity.getPersistentID());
+					targetMate.setMateUniqueId(entity.getUUID());
 
-					targetMate.getNavigator().clearPath();
+					targetMate.getNavigation().stop();
 					this.courtshipTimer = 200;
 					this.resetTask();
-					this.entity.getNavigator().clearPath();
+					this.entity.getNavigation().stop();
 
 				}
 			}
 			else
 			{
-				targetMate.getNavigator().clearPath();
+				targetMate.getNavigation().stop();
 				this.courtshipTimer = 200;
 				this.resetTask();
-				this.entity.getNavigator().clearPath();
+				this.entity.getNavigation().stop();
 
 				// If mating fails, we give a 2000 tick cooldown
 				this.delayCounter = -2000;
@@ -237,7 +237,7 @@ public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & 
 					allowBreeding = false;
 				}
 
-				if (female.getPersistentID().equals(mateID) && female.getFertile() && (female instanceof ISleeping && !((ISleeping) female).getSleeping()) && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male) && female.getWatered() && female.getFed())
+				if (female.getUUID().equals(mateID) && female.getFertile() && (female instanceof ISleeping && !((ISleeping) female).getSleeping()) && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male) && female.getWatered() && female.getFed())
 				{
 					this.courtshipTimer = 200;
 					return female;
@@ -259,7 +259,7 @@ public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & 
 				}
 
 				this.courtshipTimer--;
-				if ((AnimaniaConfig.careAndFeeding.malesMateMultipleFemales ? (female.getMateUniqueId() == null ? true : female.getMateUniqueId().equals(entity.getPersistentID())) : female.getMateUniqueId() == null) && female.getFertile() && !female.getSleeping() && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male) && female.getWatered() && female.getFed())
+				if ((AnimaniaConfig.careAndFeeding.malesMateMultipleFemales ? (female.getMateUniqueId() == null ? true : female.getMateUniqueId().equals(entity.getUUID())) : female.getMateUniqueId() == null) && female.getFertile() && !female.getSleeping() && !female.getPregnant() && allowBreeding && female.canEntityBeSeen(male) && female.getWatered() && female.getFed())
 				{
 					this.courtshipTimer = 200;
 					return female;

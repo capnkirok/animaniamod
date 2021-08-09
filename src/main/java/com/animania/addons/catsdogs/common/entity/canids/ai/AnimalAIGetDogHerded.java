@@ -53,12 +53,12 @@ public class AnimalAIGetDogHerded<T extends CreatureEntity & ISleeping, U extend
 		if (list.size() > 0)
 		{
 			U herder = list.get(0);
-			PathNavigate herderNav = herder.getNavigator();
+			PathNavigate herderNav = herder.getNavigation();
 			Path herderPath = herderNav.getPath();
 			if (herderPath != null)
 			{
 				PathPoint herderDest = herderPath.getFinalPathPoint();
-				herdAnimal.getNavigator().tryMoveToXYZ(herderDest.x, herderDest.y, herderDest.z, 1.0f);
+				herdAnimal.getNavigation().tryMoveToXYZ(herderDest.x, herderDest.y, herderDest.z, 1.0f);
 			}
 		}
 	}

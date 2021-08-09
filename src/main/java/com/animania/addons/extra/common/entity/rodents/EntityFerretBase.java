@@ -183,7 +183,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 		this.setFed(true);
 		if (!this.isTamed())
 		{
-			this.setOwnerId(player.getPersistentID());
+			this.setOwnerId(player.getUUID());
 			// this.setIsTamed(true);
 			this.setTamed(true);
 			this.setInLove(player);
@@ -201,7 +201,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.level.setEntityState(this, (byte) 18);
+		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
 
 	@Override
@@ -386,7 +386,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 		{
 			if (this.getRidingEntity() != null)
 				this.rotationYaw = this.getRidingEntity().rotationYaw;
-			this.navigator.clearPath();
+			this.navigator.stop();
 			this.navigator.setSpeed(0);
 		}
 

@@ -30,7 +30,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
@@ -93,11 +93,11 @@ public class BlockCheeseMold extends ContainerBlock implements TOPInfoProvider
 	@Override
 	public BlockState getStateFromMeta(int meta)
 	{
-		return this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta));
+		return this.defaultBlockState().withProperty(VARIANT, EnumType.byMetadata(meta));
 	}
 
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, Direction p_193383_4_)
 	{
 		return BlockFaceShape.UNDEFINED;
 	}
@@ -148,7 +148,7 @@ public class BlockCheeseMold extends ContainerBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);

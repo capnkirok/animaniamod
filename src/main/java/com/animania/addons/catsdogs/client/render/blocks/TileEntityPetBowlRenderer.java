@@ -29,7 +29,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -44,7 +44,7 @@ public class TileEntityPetBowlRenderer extends TileEntitySpecialRenderer<TileEnt
 	@Override
 	public void render(TileEntityPetBowl te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
-		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
+		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);

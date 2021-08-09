@@ -27,7 +27,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -147,7 +147,7 @@ public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider,
 	}
 	
 	@Deprecated
-    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+    public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, Direction p_193383_4_)
     {
         return BlockFaceShape.UNDEFINED;
     }
@@ -184,7 +184,7 @@ public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider,
 
 	@Override
 	@SideOnly(Dist.CLIENT)
-	public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, Direction side)
 	{
 		BlockState BlockState = blockAccess.getBlockState(pos.offset(side));
 		Block block = BlockState.getBlock();
@@ -259,7 +259,7 @@ public class BlockInvisiblock extends ContainerBlock implements TOPInfoProvider,
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		BlockPos pos1 = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());

@@ -68,7 +68,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
-		worldIn.setBlockState(pos, this.getStateFromMeta(stack.getMetadata()));
+		worldIn.setBlock(pos, this.getStateFromMeta(stack.getMetadata()));
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	@Override
 	public BlockState getStateFromMeta(int meta)
 	{
-		return this.getDefaultState().withProperty(VARIANT, BlockAnimaniaWool.EnumType.byMetadata(meta));
+		return this.defaultBlockState().withProperty(VARIANT, BlockAnimaniaWool.EnumType.byMetadata(meta));
 	}
 
 	/**

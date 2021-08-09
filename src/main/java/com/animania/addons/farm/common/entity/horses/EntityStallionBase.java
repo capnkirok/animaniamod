@@ -125,7 +125,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.level.setEntityState(this, (byte) 18);
+		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
 
 	@Override

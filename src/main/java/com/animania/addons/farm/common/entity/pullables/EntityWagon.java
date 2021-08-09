@@ -37,7 +37,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -1039,11 +1039,11 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 		World world = Playerentity.level;
 
-		EnumFacing enumfacing = EnumFacing.NORTH;
+		Direction enumfacing = Direction.NORTH;
 
 		if (!world.isRemote)
 		{
-			if (PlayerEntity.isPlayerSleeping() || !PlayerEntity.isEntityAlive())
+			if (PlayerEntity.isPlayerSleeping() || !PlayerEntity.isAlive())
 			{
 				return PlayerEntity.SleepResult.OTHER_PROBLEM;
 			}
@@ -1053,7 +1053,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 			 * PlayerEntity.SleepResult.NOT_POSSIBLE_HERE; }
 			 */
 
-			if (world.isDaytime())
+			if (world.isDay())
 			{
 				return PlayerEntity.SleepResult.NOT_POSSIBLE_NOW;
 			}

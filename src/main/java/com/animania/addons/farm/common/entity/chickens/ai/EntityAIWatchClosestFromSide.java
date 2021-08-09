@@ -34,10 +34,10 @@ public class EntityAIWatchClosestFromSide extends Goal
 
     @Override
     public boolean shouldExecute() {
-		if (!this.theWatcher.level.isDaytime() && this.theWatcher instanceof EntityAnimaniaChicken && ((EntityAnimaniaChicken) this.theWatcher).getSleeping())
+		if (!this.theWatcher.level.isDay() && this.theWatcher instanceof EntityAnimaniaChicken && ((EntityAnimaniaChicken) this.theWatcher).getSleeping())
 			return false;
     	
-        if (this.theWatcher.getRNG().nextFloat() >= this.chance)
+        if (this.theWatcher.getRandom().nextFloat() >= this.chance)
             return false;
         else {
             if (this.theWatcher.getAttackTarget() != null)
@@ -55,14 +55,14 @@ public class EntityAIWatchClosestFromSide extends Goal
 
     @Override
     public boolean shouldContinueExecuting() {
-        return !this.closestEntity.isEntityAlive() ? false
+        return !this.closestEntity.isAlive() ? false
                 : this.theWatcher.getDistanceSq(this.closestEntity) > this.maxDistanceForPlayer * this.maxDistanceForPlayer ? false
                         : this.lookTime > 0;
     }
 
     @Override
     public void startExecuting() {
-        this.lookTime = 40 + this.theWatcher.getRNG().nextInt(40);
+        this.lookTime = 40 + this.theWatcher.getRandom().nextInt(40);
     }
 
     @Override

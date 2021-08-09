@@ -12,7 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -26,7 +26,7 @@ public class GenericAIFindSaltLick<T extends CreatureEntity & ISleeping> extends
 
 	public GenericAIFindSaltLick(T creature, double speedIn, @Nullable Goal eatAI)
 	{
-		super(creature, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, EnumFacing.HORIZONTALS);
+		super(creature, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, Direction.HORIZONTALS);
 		this.entity = creature;
 		this.speed = speedIn;
 		this.setMutexBits(3);
@@ -46,7 +46,7 @@ public class GenericAIFindSaltLick<T extends CreatureEntity & ISleeping> extends
 			return false;
 		}
 
-		if (entity.getRNG().nextInt(3) != 0)
+		if (entity.getRandom().nextInt(3) != 0)
 			return false;
 
 		delay = 0;

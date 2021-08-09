@@ -64,12 +64,12 @@ public class ManualTopic
 	
 	public boolean isPermitted()
 	{
-		return Loader.isModLoaded(requiredModid) || AddonHandler.isAddonLoaded(requiredModid);
+		return ModList.get().isLoaded(requiredModid) || AddonHandler.isAddonLoaded(requiredModid);
 	}
 	
 	public static boolean isPermitted(String requiredModid)
 	{
-		return Loader.isModLoaded(requiredModid) || AddonHandler.isAddonLoaded(requiredModid);
+		return ModList.get().isLoaded(requiredModid) || AddonHandler.isAddonLoaded(requiredModid);
 	}
 
 	public String getName()

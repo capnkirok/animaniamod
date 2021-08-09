@@ -21,7 +21,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -99,12 +99,12 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 		}
 
-		for (EnumFacing facing : EnumFacing.VALUES)
+		for (Direction facing : Direction.VALUES)
 		{
 			TileEntity tile = getSurroundingTE(facing);
 			if (tile != null)
 			{
-				if (Loader.isModLoaded("redstoneflux") && tile instanceof IEnergyReceiver)
+				if (ModList.get().isLoaded("redstoneflux") && tile instanceof IEnergyReceiver)
 				{
 					IEnergyReceiver reciever = (IEnergyReceiver) getSurroundingTE(facing);
 					int recieved = reciever.receiveEnergy(facing.getOpposite(), this.getEnergy(), false);
@@ -189,7 +189,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 	private boolean findPositionForHamster()
 	{
-		for (EnumFacing e : EnumFacing.VALUES)
+		for (Direction e : Direction.VALUES)
 		{
 			BlockPos pos = this.pos;
 			pos = pos.offset(e);
@@ -253,7 +253,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 		if (this.blockType != null && this.pos != null)
-			this.level.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
+			this.level.notifyBlockUpdate(this.pos, this.blockType.defaultBlockState(), this.blockType.defaultBlockState(), 1);
 
 	}
 
@@ -272,7 +272,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		return this.writeToNBT(new CompoundNBT());
 	}
 
-	private TileEntity getSurroundingTE(EnumFacing facing)
+	private TileEntity getSurroundingTE(Direction facing)
 	{
 		BlockPos pos = this.pos.offset(facing);
 		return world.getTileEntity(pos);
@@ -284,7 +284,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
+	public boolean hasCapability(Capability<?> capability, Direction facing)
 	{
 
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
@@ -297,7 +297,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	}
 
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
+	public <T> T getCapability(Capability<T> capability, Direction facing)
 	{
 
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)

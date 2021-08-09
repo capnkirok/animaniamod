@@ -35,7 +35,7 @@ public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleepin
 		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings)
 		{
 
-			if (!childAnimal.level.isDaytime() || childAnimal.getSleeping())
+			if (!childAnimal.level.isDay() || childAnimal.getSleeping())
 			{
 				this.delayCounter = 0;
 				return false;
@@ -54,7 +54,7 @@ public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleepin
 
 					O mother = (O) entities.get(k);
 
-					if (mother != null && mother.getPersistentID().equals(this.childAnimal.getParentUniqueId()))
+					if (mother != null && mother.getUUID().equals(this.childAnimal.getParentUniqueId()))
 					{
 
 						double xt = mother.getX();
@@ -87,7 +87,7 @@ public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleepin
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		if (!this.parentAnimal.isEntityAlive())
+		if (!this.parentAnimal.isAlive())
 			return false;
 		else
 		{
@@ -114,7 +114,7 @@ public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleepin
 		if (--this.delayCounter <= 0)
 		{
 			this.delayCounter = 40;
-			this.childAnimal.getNavigator().tryMoveToLivingEntity(this.parentAnimal, this.moveSpeed);
+			this.childAnimal.getNavigation().tryMoveToLivingEntity(this.parentAnimal, this.moveSpeed);
 		}
 	}
 }

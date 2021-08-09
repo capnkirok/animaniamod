@@ -9,7 +9,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,7 +27,7 @@ public class TileEntityHiveRenderer extends TileEntitySpecialRenderer<TileEntity
 	@Override
 	public void render(TileEntityHive te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
-		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
+		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 		GlStateManager.pushMatrix();
 		this.bindTexture(HIVE_TEXTURE);
 		if (te.getHiveType() == FarmAddonBlockHandler.blockHive) {
@@ -36,13 +36,13 @@ public class TileEntityHiveRenderer extends TileEntitySpecialRenderer<TileEntity
 			GlStateManager.rotate(enumfacing.getHorizontalAngle(), 0, 1, 0);
 			this.modelBeeHive.render(te);
 		} else {
-			if (enumfacing == EnumFacing.NORTH) {
+			if (enumfacing == Direction.NORTH) {
 				GlStateManager.translate(x + 0.5D, y + 1D, z + 0.75D);
-			} else if (enumfacing == EnumFacing.SOUTH) {
+			} else if (enumfacing == Direction.SOUTH) {
 				GlStateManager.translate(x + 0.5D, y + 1D, z + 0.25D);
-			} else if (enumfacing == EnumFacing.EAST) {
+			} else if (enumfacing == Direction.EAST) {
 				GlStateManager.translate(x + 0.25D, y + 1D, z + 0.5D);
-			} else if (enumfacing == EnumFacing.WEST) {
+			} else if (enumfacing == Direction.WEST) {
 				GlStateManager.translate(x + 0.75D, y + 1D, z + 0.5D);
 			} else {
 				GlStateManager.translate(x + 0.25D, y + 1D, z + 0.5D);

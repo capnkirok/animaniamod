@@ -128,7 +128,7 @@ public class AnimaniaHelper
 		Block b = Block.getBlockFromName(name);
 
 		if (b == null)
-			return Blocks.AIR.getDefaultState();
+			return Blocks.AIR.defaultBlockState();
 
 		return b.getStateFromMeta(meta);
 	}

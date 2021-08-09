@@ -66,7 +66,7 @@ public class StringParser
 		{
 			Block block = getBlock(string);
 			if(block != null)
-				return block.getDefaultState();
+				return block.defaultBlockState();
 		}
 		try
 		{

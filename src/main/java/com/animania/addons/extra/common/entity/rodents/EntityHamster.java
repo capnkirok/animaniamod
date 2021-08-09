@@ -184,7 +184,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 	@Override
 	public void setInLove(PlayerEntity player)
 	{
-		this.level.setEntityState(this, (byte) 18);
+		this.level.broadcastEntityEvent(this, (byte) 18);
 	}
 
 	@Override
@@ -218,7 +218,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 		this.dataManager.register(EntityHamster.IN_BALL, false);
 		// this.dataManager.register(EntityHamster.SITTING, false);
 		// this.dataManager.register(EntityHamster.TAMED, false);
-		this.dataManager.register(EntityHamster.COLOR_NUM, Integer.valueOf(this.getRNG().nextInt(8)));
+		this.dataManager.register(EntityHamster.COLOR_NUM, Integer.valueOf(this.getRandom().nextInt(8)));
 		this.dataManager.register(EntityHamster.FOOD_STACK_COUNT, Integer.valueOf(0));
 		this.dataManager.register(EntityHamster.IN_LOVE, Integer.valueOf(0));
 		this.dataManager.register(EntityHamster.BALL_COLOR, Integer.valueOf(0));
@@ -385,7 +385,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 		else if (this.isSitting())
 			this.setSitting(false);
 		this.isJumping = false;
-		this.navigator.clearPath();
+		this.navigator.stop();
 
 		return true;
 	}
@@ -454,7 +454,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 			{
 				this.setHamsterStanding(true);
 				this.standCount = 30;
-				this.navigator.clearPath();
+				this.navigator.stop();
 				this.isJumping = false;
 			}
 		} else if (this.isHamsterStanding() && this.standCount-- <= 0 && this.rand.nextInt(10) == 0)
@@ -482,8 +482,8 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 			}
 		}
 
-		if (this.isSitting() | this.isHamsterStanding() && this.getNavigator() != null)
-			this.getNavigator().clearPath();
+		if (this.isSitting() | this.isHamsterStanding() && this.getNavigation() != null)
+			this.getNavigation().stop();
 
 		if (this.tamedTimer > -1)
 		{
@@ -676,7 +676,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 		} catch (Exception e)
 		{
 			// System.out.print(e);
-			return this.getRNG().nextInt(8);
+			return this.getRandom().nextInt(8);
 		}
 	}
 

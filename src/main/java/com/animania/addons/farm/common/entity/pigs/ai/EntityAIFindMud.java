@@ -51,18 +51,18 @@ public class EntityAIFindMud extends Goal
 				return false;
 			}
 
-			if (!entityIn.level.isDaytime() || entityIn.getSleeping()) {
+			if (!entityIn.level.isDay() || entityIn.getSleeping()) {
 				this.delayTemptCounter = 0;
 				return false;
 			}
 
-			if (this.entityIn.getRNG().nextInt(100) == 0)
+			if (this.entityIn.getRandom().nextInt(100) == 0)
 			{
 				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.entityIn, 20, 4);
 				if (vec3d != null) {
 					this.delayTemptCounter = 0;
 					this.resetTask();
-					this.entityIn.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.entityIn.getNavigation().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
 				}
 				return false;
 			}
@@ -122,13 +122,13 @@ public class EntityAIFindMud extends Goal
 
 	public boolean shouldContinueExecuting()
 	{
-		return !this.entityIn.getNavigator().noPath();
+		return !this.entityIn.getNavigation().noPath();
 	}
 
 	@Override
 	public void resetTask() {
 		this.temptingPlayer = null;
-		this.entityIn.getNavigator().clearPath();
+		this.entityIn.getNavigation().stop();
 		this.isRunning = false;
 	}
 
@@ -205,11 +205,11 @@ public class EntityAIFindMud extends Goal
 
 						if (te.getMuddy() == false) {
 							if (te.getX() - mudPos.getX() < 0 && te.getZ() - mudPos.getZ() < 0)
-								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() + 2, mudPos.getY(), mudPos.getZ() + 2, this.speed);
+								this.entityIn.getNavigation().tryMoveToXYZ(mudPos.getX() + 2, mudPos.getY(), mudPos.getZ() + 2, this.speed);
 							else
-								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
+								this.entityIn.getNavigation().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
 
-							this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
+							this.entityIn.getNavigation().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
 
 						}
 					}
@@ -217,19 +217,19 @@ public class EntityAIFindMud extends Goal
 						PigEntityletBase te = (PigEntityletBase) this.entityIn;
 						if (te.getMuddy() == false)
 							if (te.getX() - mudPos.getX() < 0 && te.getZ() - mudPos.getZ() < 0)
-								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() + 2, mudPos.getY(), mudPos.getZ() + 2, this.speed);
+								this.entityIn.getNavigation().tryMoveToXYZ(mudPos.getX() + 2, mudPos.getY(), mudPos.getZ() + 2, this.speed);
 							else
-								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
+								this.entityIn.getNavigation().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
 					}
 					else if (this.entityIn instanceof EntityHogBase) {
 						EntityHogBase te = (EntityHogBase) this.entityIn;
 						if (te.getMuddy() == false)
 							if (te.getX() - mudPos.getX() < 0 && te.getZ() - mudPos.getZ() < 0)
-								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() + 3, mudPos.getY(), mudPos.getZ() + 3, this.speed);
+								this.entityIn.getNavigation().tryMoveToXYZ(mudPos.getX() + 3, mudPos.getY(), mudPos.getZ() + 3, this.speed);
 							else if (te.getX() - mudPos.getX() > 0 && te.getZ() - mudPos.getZ() > 0)
-								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
+								this.entityIn.getNavigation().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
 							else
-								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
+								this.entityIn.getNavigation().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
 					}
 			}
 		}

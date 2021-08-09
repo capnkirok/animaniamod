@@ -260,7 +260,7 @@ public class EntityAnimaniaGoat extends SheepEntity implements IAnimaniaAnimalBa
 	{
 		if (!hasRemovedBOP)
 		{
-			if (Loader.isModLoaded("biomesoplenty"))
+			if (ModList.get().isLoaded("biomesoplenty"))
 			{
 				Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
 				while (it.hasNext())
@@ -295,7 +295,7 @@ public class EntityAnimaniaGoat extends SheepEntity implements IAnimaniaAnimalBa
 				this.setJumping(false);
 			}
 
-			this.getNavigator().clearPath();
+			this.getNavigation().stop();
 			this.setNoAI(true);
 
 			this.setSpookedTimer(this.getSpookedTimer() - 0.01F);
@@ -385,7 +385,7 @@ public class EntityAnimaniaGoat extends SheepEntity implements IAnimaniaAnimalBa
 	{
 
 		if (!this.getSleeping())
-			this.level.setEntityState(this, (byte) 18);
+			this.level.broadcastEntityEvent(this, (byte) 18);
 	}
 
 	@Override

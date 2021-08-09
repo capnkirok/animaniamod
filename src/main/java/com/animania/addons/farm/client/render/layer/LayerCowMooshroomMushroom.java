@@ -35,13 +35,13 @@ public class LayerCowMooshroomMushroom implements LayerRenderer<CowEntityMooshro
             GlStateManager.rotate(42.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.pushMatrix();
             GlStateManager.translate(-0.5F, -0.5F, 0.5F);
-            blockrendererdispatcher.renderBlockBrightness(Blocks.RED_MUSHROOM.getDefaultState(), 1.0F);
+            blockrendererdispatcher.renderBlockBrightness(Blocks.RED_MUSHROOM.defaultBlockState(), 1.0F);
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.1F, 0.0F, -0.6F);
             GlStateManager.rotate(42.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.translate(-0.5F, -0.5F, 0.5F);
-            blockrendererdispatcher.renderBlockBrightness(Blocks.RED_MUSHROOM.getDefaultState(), 1.0F);
+            blockrendererdispatcher.renderBlockBrightness(Blocks.RED_MUSHROOM.defaultBlockState(), 1.0F);
             GlStateManager.popMatrix();
             GlStateManager.popMatrix();
             GlStateManager.pushMatrix();
@@ -50,7 +50,7 @@ public class LayerCowMooshroomMushroom implements LayerRenderer<CowEntityMooshro
             GlStateManager.translate(0.0F, 0.3F, -0.2F);
             GlStateManager.rotate(12.0F, 0.0F, 1.0F, 0.0F);
             GlStateManager.translate(-0.5F, -0.5F, 0.5F);
-            blockrendererdispatcher.renderBlockBrightness(Blocks.RED_MUSHROOM.getDefaultState(), 1.0F);
+            blockrendererdispatcher.renderBlockBrightness(Blocks.RED_MUSHROOM.defaultBlockState(), 1.0F);
             GlStateManager.popMatrix();
             GlStateManager.cullFace(GlStateManager.CullFace.BACK);
             GlStateManager.disableCull();

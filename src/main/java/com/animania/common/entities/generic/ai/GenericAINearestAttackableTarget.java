@@ -80,7 +80,7 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends En
 			if (((TameableEntity) this.taskOwner).isSitting())
 				return false;
 
-		if (this.targetChance > 0 && this.taskOwner.getRNG().nextInt(this.targetChance) != 0)
+		if (this.targetChance > 0 && this.taskOwner.getRandom().nextInt(this.targetChance) != 0)
 		{
 			return false;
 		} else if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class)

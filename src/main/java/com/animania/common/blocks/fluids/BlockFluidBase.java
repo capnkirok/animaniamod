@@ -5,7 +5,7 @@ import com.animania.Animania;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -47,7 +47,7 @@ public class BlockFluidBase extends BlockFluidClassic
 	}
 
 	  @Override
-	    public boolean shouldSideBeRendered(BlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+	    public boolean shouldSideBeRendered(BlockState state, IBlockAccess world, BlockPos pos, Direction side) {
 	    	BlockState st = world.getBlockState(pos.offset(side));
 	    	if(st.getBlock() == this)
 	    		return false;

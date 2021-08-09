@@ -16,7 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -48,7 +48,7 @@ public class InteractHandler
 
 			if (ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK)
 			{
-				EnumFacing facing = ray.sideHit;
+				Direction facing = ray.sideHit;
 				BlockPos pos = ray.getBlockPosition();
 
 				if (!world.getBlockState(pos).getBlock().canBeReplaced(world, pos))
@@ -60,13 +60,13 @@ public class InteractHandler
 					if (world.getBlockState(pos).getBlock().canBeReplaced(world, pos))
 					{
 						if (item == Items.WHEAT_SEEDS)
-							world.setBlockState(pos, BlockHandler.blockSeeds.defaultBlockState());
+							world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState());
 						else if (item == Items.PUMPKIN_SEEDS)
-							world.setBlockState(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.PUMPKIN));
+							world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.PUMPKIN));
 						else if (item == Items.MELON_SEEDS)
-							world.setBlockState(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
+							world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
 						else if (item == Items.BEETROOT_SEEDS)
-							world.setBlockState(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
+							world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
 						player.swingArm(event.getHand());
 						if (!player.isCreative())
 							stack.shrink(1);

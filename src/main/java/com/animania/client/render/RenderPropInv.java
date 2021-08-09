@@ -26,7 +26,7 @@ package com.animania.client.render;
  * net.minecraft.client.renderer.block.model.ModelRotation; import
  * net.minecraft.client.renderer.texture.TextureAtlasSprite; import
  * net.minecraft.entity.LivingEntity; import net.minecraft.init.Blocks;
- * import net.minecraft.item.ItemStack; import net.minecraft.util.EnumFacing;
+ * import net.minecraft.item.ItemStack; import net.minecraft.util.Direction;
  * import net.minecraft.world.World; import
  * net.minecraftforge.client.model.IPerspectiveAwareModel; import
  * net.minecraftforge.common.model.TRSRTransformation;
@@ -43,7 +43,7 @@ package com.animania.client.render;
  * disableRender = false;
  *
  * @Override public List<BakedQuad> getQuads(@Nullable BlockState
- * state, @Nullable EnumFacing side, long rand) { //TODO : We do our special
+ * state, @Nullable Direction side, long rand) { //TODO : We do our special
  * rendering here (call for the special renderer ?) if(side == null &&
  * !disableRender) { GL11.glPushMatrix(); DecoModelMetadata modelData =
  * Props.modelData.get(modelID); GL11.glTranslatef(1.0F, 1.0F, 1.0F);
@@ -61,7 +61,7 @@ package com.animania.client.render;
  *
  * @Override public TextureAtlasSprite getParticleTexture() { return
  * Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().
- * getTexture(Blocks.SOUL_SAND.getDefaultState()); }
+ * getTexture(Blocks.SOUL_SAND.defaultBlockState()); }
  *
  * @Override public ItemCameraTransforms getItemCameraTransforms() { return
  * ItemCameraTransforms.DEFAULT; }

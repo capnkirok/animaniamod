@@ -11,7 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -96,28 +96,28 @@ public class EventBeehiveDecorator
 
 								if (side == 0)
 								{
-									event.getWorld().setBlockState(pos.east(), FarmAddonBlockHandler.blockWildHive.getDefaultState().withProperty(FACING, EnumFacing.EAST));
+									event.getWorld().setBlock(pos.east(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.EAST));
 									i = 7;
 									j = 3;
 									k = 7;
 									break;
 								} else if (side == 1)
 								{
-									event.getWorld().setBlockState(pos.west(), FarmAddonBlockHandler.blockWildHive.getDefaultState().withProperty(FACING, EnumFacing.WEST));
+									event.getWorld().setBlock(pos.west(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.WEST));
 									i = 7;
 									j = 3;
 									k = 7;
 									break;
 								} else if (side == 2)
 								{
-									event.getWorld().setBlockState(pos.north(), FarmAddonBlockHandler.blockWildHive.getDefaultState().withProperty(FACING, EnumFacing.NORTH));
+									event.getWorld().setBlock(pos.north(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.NORTH));
 									i = 7;
 									j = 3;
 									k = 7;
 									break;
 								} else if (side == 3)
 								{
-									event.getWorld().setBlockState(pos.south(), FarmAddonBlockHandler.blockWildHive.getDefaultState().withProperty(FACING, EnumFacing.SOUTH));
+									event.getWorld().setBlock(pos.south(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.SOUTH));
 									i = 7;
 									j = 3;
 									k = 7;

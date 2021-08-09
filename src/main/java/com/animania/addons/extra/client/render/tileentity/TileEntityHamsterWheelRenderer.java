@@ -11,7 +11,7 @@ import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -30,7 +30,7 @@ public class TileEntityHamsterWheelRenderer extends TileEntitySpecialRenderer<Ti
 		
 	@Override
 	public void render(TileEntityHamsterWheel te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
+		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 		
 		GlStateManager.pushMatrix();
         GlStateManager.translate(x + 0.5D, y + 1.5D, z + 0.5D);

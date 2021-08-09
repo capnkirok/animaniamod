@@ -27,7 +27,7 @@ public class WailaAnimalEntityProviderChild extends WailaAnimalEntityProviderBas
 
             if (!parent.equals("")) {
                 for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, world, entity)) {
-                    UUID id = e.getPersistentID();
+                    UUID id = e.getUUID();
                     if (id.toString().equals(parent)) {
                         String name = e.getCustomNameTag();
                         if (!name.equals(""))

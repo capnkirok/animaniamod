@@ -253,7 +253,7 @@ public class EntityAnimaniaHorse extends HorseEntity implements IAnimaniaAnimalB
 		{
 			this.boosting = true;
 			this.boostTime = 0;
-			this.totalBoostTime = this.getRNG().nextInt(100) + 20;
+			this.totalBoostTime = this.getRandom().nextInt(100) + 20;
 			return true;
 		}
 	}
@@ -500,7 +500,7 @@ public class EntityAnimaniaHorse extends HorseEntity implements IAnimaniaAnimalB
 			return true;
 		} else if (stack == ItemStack.EMPTY && this.isHorseSaddled() && !this.isBeingRidden() && this.getWatered() && this.getFed() && !this.isChild() && !this.getSleeping())
 		{
-			this.navigator.clearPath();
+			this.navigator.stop();
 			this.mountTo(player);
 			return true;
 		}

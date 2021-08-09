@@ -63,7 +63,7 @@ public class EntityAIRodentEat extends Goal
 			}
 		}
 		
-		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 150) != 0)
+		if (this.grassEaterEntity.getRandom().nextInt(this.grassEaterEntity.isChild() ? 50 : 150) != 0)
 			return false;
 		else {
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.getX(), this.grassEaterEntity.getY(), this.grassEaterEntity.getZ());
@@ -76,8 +76,8 @@ public class EntityAIRodentEat extends Goal
 	@Override
 	public void startExecuting() {
 		this.eatingGrassTimer = 80;
-		this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
-		this.grassEaterEntity.getNavigator().clearPath();
+		this.entityWorld.broadcastEntityEvent(this.grassEaterEntity, (byte) 10);
+		this.grassEaterEntity.getNavigation().stop();
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class EntityAIRodentEat extends Goal
 				if (chkblock == Blocks.GRASS || chkblock == Blocks.DIRT || chkblock == BlockHandler.blockMud || chkblock == Blocks.MYCELIUM || chkblock == Blocks.SAND)
 					if (chkblock == Blocks.WATER) {
 						this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
-						this.entityWorld.setBlockState(blockpos1, Blocks.AIR.getDefaultState(), 2);
+						this.entityWorld.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 2);
 
 					}
 

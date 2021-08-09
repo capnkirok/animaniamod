@@ -22,7 +22,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
@@ -69,7 +69,7 @@ public class BlockSeeds extends Block
 	}
 
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, Direction p_193383_4_)
 	{
 		return BlockFaceShape.UNDEFINED;
 	}
@@ -87,7 +87,7 @@ public class BlockSeeds extends Block
 		return BlockRenderLayer.CUTOUT;
 	}
 
-	public BlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
+	public BlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
 	{
 
 		for (int i = 0; i < 10; i++)
@@ -97,11 +97,11 @@ public class BlockSeeds extends Block
 			double d2 = pos.getZ() + 0.25D;
 			double d3 = 0.52D;
 			double d4 = Animania.RANDOM.nextDouble() * 0.6D - 0.3D;
-			worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, d0, d1 + .75D, d2 + d4, 0.0D, 0.0D, 0.0D, new int[] { Block.getStateId(BlockHandler.blockSeeds.getDefaultState()) });
+			worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, d0, d1 + .75D, d2 + d4, 0.0D, 0.0D, 0.0D, new int[] { Block.getStateId(BlockHandler.blockSeeds.defaultBlockState()) });
 
 		}
 
-		return this.getDefaultState();
+		return this.defaultBlockState();
 	}
 
 	@Override
@@ -195,7 +195,7 @@ public class BlockSeeds extends Block
 	@Override
 	public BlockState getStateFromMeta(int meta)
 	{
-		return this.getDefaultState().withProperty(VARIANT, BlockSeeds.EnumType.byMetadata(meta));
+		return this.defaultBlockState().withProperty(VARIANT, BlockSeeds.EnumType.byMetadata(meta));
 	}
 
 	/**
@@ -221,9 +221,9 @@ public class BlockSeeds extends Block
 
 	
 	@Override
-	public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+	public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, Direction side)
 	{
-		if(side == EnumFacing.UP)
+		if(side == Direction.UP)
 			return true;
 		return false;
 	}

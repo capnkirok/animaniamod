@@ -24,7 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -73,7 +73,7 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, Direction p_193383_4_)
 	{
 		return BlockFaceShape.UNDEFINED;
 	}
@@ -93,7 +93,7 @@ public class BlockCheese extends Block
 	@Override
 	public int quantityDropped(BlockState state, int fortune, Random random)
 	{
-		return state == this.getDefaultState() ? 1 : 0;
+		return state == this.defaultBlockState() ? 1 : 0;
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 		if (!worldIn.isRemote)
 		{
@@ -139,7 +139,7 @@ public class BlockCheese extends Block
 
 			if (i < 3)
 			{
-				worldIn.setBlockState(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
+				worldIn.setBlock(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
 			} else
 			{
 				worldIn.setBlockToAir(pos);
@@ -211,7 +211,7 @@ public class BlockCheese extends Block
 	@Override
 	public BlockState getStateFromMeta(int meta)
 	{
-		return this.getDefaultState().withProperty(BITES, Integer.valueOf(meta));
+		return this.defaultBlockState().withProperty(BITES, Integer.valueOf(meta));
 	}
 
 	@SideOnly(Dist.CLIENT)

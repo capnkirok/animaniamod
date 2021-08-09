@@ -5,24 +5,24 @@ import java.util.concurrent.Callable;
 import NBTBase;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 
 public class CapabilitiesPlayerStorage implements IStorage<ICapabilityPlayer> {
 
 	  @Override
-	  public NBTBase writeNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, EnumFacing side) {
+	  public NBTBase writeNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side) {
 	    return CapabilityPlayerHandler.writeNBT(capability, instance);
 	  }
 
 	  @Override
-	  public void readNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, EnumFacing side, NBTBase nbt) {
+	  public void readNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side, NBTBase nbt) {
 	    CapabilityPlayerHandler.readNBT(capability, instance, (CompoundNBT) nbt);
 	  }
 	  
 	  
-	  public ICapabilityPlayer readNBT2(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, EnumFacing side, NBTBase nbt) {
+	  public ICapabilityPlayer readNBT2(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side, NBTBase nbt) {
 	    CapabilityPlayerHandler.readNBT(capability, instance, (CompoundNBT) nbt);
 	    
 	    return instance;

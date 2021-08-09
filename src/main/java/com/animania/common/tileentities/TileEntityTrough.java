@@ -17,7 +17,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -46,7 +46,7 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 		if (this.blockType != null && this.pos != null)
-			this.level.notifyBlockUpdate(this.pos, this.blockType.getDefaultState(), this.blockType.getDefaultState(), 1);
+			this.level.notifyBlockUpdate(this.pos, this.blockType.defaultBlockState(), this.blockType.defaultBlockState(), 1);
 
 	}
 
@@ -152,7 +152,7 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
+	public boolean hasCapability(Capability<?> capability, Direction facing)
 	{
 
 		if (AnimaniaConfig.gameRules.allowTroughAutomation)
@@ -167,7 +167,7 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 	}
 
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
+	public <T> T getCapability(Capability<T> capability, Direction facing)
 	{
 		if (AnimaniaConfig.gameRules.allowTroughAutomation)
 		{

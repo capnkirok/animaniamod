@@ -35,7 +35,7 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
@@ -70,7 +70,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	{
 		super(Material.WOOD);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
-		this.setDefaultState(this.blockState.getBaseState().withProperty(BlockTrough.FACING, EnumFacing.NORTH));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(BlockTrough.FACING, Direction.NORTH));
 		BlockHandler.blocks.add(this);
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
@@ -107,7 +107,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 
 	@Override
 	@Deprecated
-	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_)
+	public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, BlockState p_193383_2_, BlockPos p_193383_3_, Direction p_193383_4_)
 	{
 		return BlockFaceShape.UNDEFINED;
 	}
@@ -234,38 +234,38 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 		if (teChk == null || true)
 		{
 
-			EnumFacing enumfacing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3).getOpposite();
+			Direction enumfacing = Direction.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3).getOpposite();
 			state = state.withProperty(BlockTrough.FACING, enumfacing);
 			BlockPos blockpos = pos.north();
 			boolean flag = this.blockState == worldIn.getBlockState(blockpos);
 
 			if (!flag)
-				worldIn.setBlockState(pos, state, 3);
+				worldIn.setBlock(pos, state, 3);
 
 			// System.out.println(placer.getHorizontalFacing().toString());
 
 			if (placer.getHorizontalFacing().toString() == "south")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
-				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
+				worldIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
 				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 				te.setTroughRotation(0);
 			} else if (placer.getHorizontalFacing().toString() == "north")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
-				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
+				worldIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
 				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 				te.setTroughRotation(1);
 			} else if (placer.getHorizontalFacing().toString() == "east")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
-				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
+				worldIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
 				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 				te.setTroughRotation(2);
 			} else if (placer.getHorizontalFacing().toString() == "west")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
-				worldIn.setBlockState(invisipos, BlockHandler.blockInvisiblock.getDefaultState());
+				worldIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
 				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
 				te.setTroughRotation(3);
 			}
@@ -368,7 +368,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	@Override
 	public BlockState getStateFromMeta(int meta)
 	{
-		return this.getDefaultState().withProperty(BlockTrough.FACING, EnumFacing.getHorizontal(meta & 3));
+		return this.defaultBlockState().withProperty(BlockTrough.FACING, Direction.getHorizontal(meta & 3));
 	}
 
 	@Override
@@ -380,7 +380,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = playerIn.getHeldItem(hand);
@@ -558,7 +558,7 @@ public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoo
 
 	public BlockPos findInvisiblock(World world, BlockPos pos)
 	{
-		EnumFacing facing = world.getBlockState(pos).getValue(FACING);
+		Direction facing = world.getBlockState(pos).getValue(FACING);
 		facing = facing.rotateAround(Axis.Y);
 
 		return pos.offset(facing);

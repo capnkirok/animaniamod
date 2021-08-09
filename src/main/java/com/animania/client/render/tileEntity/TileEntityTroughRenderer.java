@@ -30,7 +30,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fluids.FluidStack;
@@ -49,7 +49,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 	@Override
 	public void render(TileEntityTrough te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
-		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
+		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 		this.renderTrough(te, (float) x, (float) y, (float) z, enumfacing, destroyStage, partialTicks);
 	}
 
@@ -60,7 +60,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 		TileEntityTroughRenderer.instance = this;
 	}
 
-	public void renderTrough(TileEntityTrough te, float x, float y, float z, EnumFacing facing, int destroyStage, float animateTicks)
+	public void renderTrough(TileEntityTrough te, float x, float y, float z, Direction facing, int destroyStage, float animateTicks)
 	{
 		ModelBase modelbase = this.trough;
 
@@ -78,7 +78,7 @@ public class TileEntityTroughRenderer extends TileEntitySpecialRenderer<TileEnti
 		Float rot = 0.0F;
 		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
 
-		if (facing == EnumFacing.UP)
+		if (facing == Direction.UP)
 			GlStateManager.translate(x, y, z);
 		else
 			switch (facing)

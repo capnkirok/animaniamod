@@ -8,7 +8,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -42,7 +42,7 @@ public class TileEntityCraftstudioRenderer<T extends TileEntity> extends TileEnt
 	@Override
 	public void render(T te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
 	{
-		EnumFacing enumfacing = EnumFacing.getFront(te.getBlockMetadata() & 7);
+		Direction enumfacing = Direction.getFront(te.getBlockMetadata() & 7);
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5D + this.offsetX, y + 1.5D + this.offsetY, z + 0.5D + this.offsetZ);

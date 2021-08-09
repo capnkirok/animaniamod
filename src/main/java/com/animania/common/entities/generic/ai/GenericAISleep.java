@@ -9,7 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -33,7 +33,7 @@ public class GenericAISleep<T extends CreatureEntity & ISleeping> extends Generi
 
 	public GenericAISleep(T entity, double speedIn, Block bed1, Block bed2, Class parentClass, Function<Long, Boolean> shouldSleepFunction)
 	{
-		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, true, EnumFacing.UP);
+		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, true, Direction.UP);
 		this.entity = entity;
 		this.setMutexBits(3);
 		this.delay = 0;
@@ -51,7 +51,7 @@ public class GenericAISleep<T extends CreatureEntity & ISleeping> extends Generi
 				return false;
 		}
 
-		if (++this.delay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings + entity.getRNG().nextInt(100))
+		if (++this.delay <= AnimaniaConfig.gameRules.ticksBetweenAIFirings + entity.getRandom().nextInt(100))
 		{
 			return false;
 		}
@@ -66,7 +66,7 @@ public class GenericAISleep<T extends CreatureEntity & ISleeping> extends Generi
 			return false;
 		}
 
-		return shouldSleep.apply(world.getWorldTime() % 24000) && !entity.level.isRainingAt(entity.getPosition()) && this.entity.getRNG().nextInt(3) == 0 ? super.shouldExecute() : false;
+		return shouldSleep.apply(world.getWorldTime() % 24000) && !entity.level.isRainingAt(entity.getPosition()) && this.entity.getRandom().nextInt(3) == 0 ? super.shouldExecute() : false;
 	}
 
 	@Override

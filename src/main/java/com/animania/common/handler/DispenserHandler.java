@@ -16,7 +16,7 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -48,10 +48,10 @@ public class DispenserHandler
 		@Override
 		public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
 		{
-			EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+			Direction enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 			World world = source.getWorld();
 			BlockPos pos = source.getBlockPos().offset(enumfacing);
-			BlockPos below = pos.offset(EnumFacing.DOWN);
+			BlockPos below = pos.offset(Direction.DOWN);
 			Item item = stack.getItem();
 
 			if (world.getBlockState(pos).getBlock() != BlockHandler.blockSeeds && world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable) && AnimaniaConfig.gameRules.allowSeedDispenserPlacement)
@@ -59,28 +59,28 @@ public class DispenserHandler
 				if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
 				{
 					if (item == Items.WHEAT_SEEDS)
-						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState());
+						world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState());
 					else if (item == Items.PUMPKIN_SEEDS)
-						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.PUMPKIN));
+						world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.PUMPKIN));
 					else if (item == Items.MELON_SEEDS)
-						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
+						world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
 					else if (item == Items.BEETROOT_SEEDS)
-						world.setBlockState(pos, BlockHandler.blockSeeds.getDefaultState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
+						world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
 					stack.shrink(1);
 					return stack;
 				}
-			} else if ((Loader.isModLoaded("quark") || Loader.isModLoaded("botania")) && world.getBlockState(below).getBlock() instanceof BlockFarmland)
+			} else if ((ModList.get().isLoaded("quark") || ModList.get().isLoaded("botania")) && world.getBlockState(below).getBlock() instanceof BlockFarmland)
 			{
 				if (world.getBlockState(pos).getBlock().isReplaceable(world, pos))
 				{
 					if (item == Items.WHEAT_SEEDS)
-						world.setBlockState(pos, Blocks.WHEAT.getDefaultState());
+						world.setBlock(pos, Blocks.WHEAT.defaultBlockState());
 					else if (item == Items.PUMPKIN_SEEDS)
-						world.setBlockState(pos, Blocks.PUMPKIN_STEM.getDefaultState());
+						world.setBlock(pos, Blocks.PUMPKIN_STEM.defaultBlockState());
 					else if (item == Items.MELON_SEEDS)
-						world.setBlockState(pos, Blocks.MELON_STEM.getDefaultState());
+						world.setBlock(pos, Blocks.MELON_STEM.defaultBlockState());
 					else if (item == Items.BEETROOT_SEEDS)
-						world.setBlockState(pos, Blocks.BEETROOTS.getDefaultState());
+						world.setBlock(pos, Blocks.BEETROOTS.defaultBlockState());
 					return stack;
 				}
 			} else if (world.getBlockState(pos).getBlock() == BlockHandler.blockSeeds)
@@ -100,7 +100,7 @@ public class DispenserHandler
 		@Override
 		public ItemStack dispenseStack(IBlockSource source, ItemStack stack)
 		{
-			EnumFacing enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
+			Direction enumfacing = source.getBlockState().getValue(BlockDispenser.FACING);
 			World world = source.getWorld();
 			BlockPos pos = source.getBlockPos().offset(enumfacing);
 			ItemEntityEgg item = (ItemEntityEgg) stack.getItem();

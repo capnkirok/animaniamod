@@ -8,13 +8,13 @@ public class CompatHandler
 
 	public static void preInit()
 	{
-		if (Loader.isModLoaded("waila"))
+		if (ModList.get().isLoaded("waila"))
 			FMLInterModComms.sendMessage("waila", "register", "com.animania.compat.waila.WailaCompat.registerWaila");
 
-		if (Loader.isModLoaded(THEONEPROBE_ID))
+		if (ModList.get().isLoaded(THEONEPROBE_ID))
 			FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe", "com.animania.compat.top.TOPCompat");
 
-		if (Loader.isModLoaded("morph")) {
+		if (ModList.get().isLoaded("morph")) {
 			
 			//Chickens
 			FMLInterModComms.sendMessage("morph", "nbt_modifier", "com.animania.common.entities.chickens.EntityAnimaniaChicken>CrowTime>null");

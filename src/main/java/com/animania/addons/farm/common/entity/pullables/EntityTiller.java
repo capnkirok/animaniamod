@@ -19,7 +19,7 @@ import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.BlockGrass;
+import net.minecraft.block.GrassBlock;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -335,10 +335,10 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 
 	public void tillGround(BlockPos pos, MutableBlockPos lastPos, PlayerEntity player)
 	{
-		if (!pos.equals(lastPos) && (this.level.getBlockState(pos).getBlock() instanceof BlockGrass || this.level.getBlockState(pos).getBlock() instanceof BlockFarmland) || this.level.getBlockState(pos).getBlock() instanceof BlockDirt)
+		if (!pos.equals(lastPos) && (this.level.getBlockState(pos).getBlock() instanceof GrassBlock || this.level.getBlockState(pos).getBlock() instanceof BlockFarmland) || this.level.getBlockState(pos).getBlock() instanceof BlockDirt)
 		{
 			lastPos.setPos(pos);
-			this.level.setBlockState(pos, Blocks.FARMLAND.getStateFromMeta(7));
+			this.level.setBlock(pos, Blocks.FARMLAND.getStateFromMeta(7));
 
 			if (this.level.getBlockState(pos.up()).getBlock() instanceof BlockTallGrass || this.level.getBlockState(pos.up()).getBlock() instanceof BlockDoublePlant)
 			{
@@ -356,11 +356,11 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 						if (seeds.getItem() instanceof ItemSeeds)
 						{
 							ItemSeeds seedy = (ItemSeeds) seeds.getItem();
-							this.level.setBlockState(pos.up(), seedy.getPlant(world, pos.up()));
+							this.level.setBlock(pos.up(), seedy.getPlant(world, pos.up()));
 						} else
 						{
 							ItemSeedFood seedy = (ItemSeedFood) seeds.getItem();
-							this.level.setBlockState(pos.up(), seedy.getPlant(world, pos.up()));
+							this.level.setBlock(pos.up(), seedy.getPlant(world, pos.up()));
 						}
 
 						if (player != null && !player.isCreative())

@@ -11,7 +11,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
@@ -43,7 +43,7 @@ public class BlockFluidHoney extends BlockFluidBase
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(BlockState state, IBlockAccess world, BlockPos pos, EnumFacing side)
+	public boolean shouldSideBeRendered(BlockState state, IBlockAccess world, BlockPos pos, Direction side)
 	{
 		return true;
 	}

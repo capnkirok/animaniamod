@@ -303,7 +303,7 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 
 		if (!this.level.isRemote)
 		{
-			this.level.setEntityState(this, (byte) 1);
+			this.level.broadcastEntityEvent(this, (byte) 1);
 		}
 	}
 
@@ -317,7 +317,7 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 	@Override
 	public void setMovementSpeed(double newSpeed)
 	{
-		this.getNavigator().setSpeed(newSpeed);
+		this.getNavigation().setSpeed(newSpeed);
 		this.moveHelper.setMoveTo(this.moveHelper.getX(), this.moveHelper.getY(), this.moveHelper.getZ(), newSpeed);
 	}
 
@@ -742,11 +742,11 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 
 					if (integer.intValue() == 0)
 					{
-						world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 2);
+						world.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 2);
 						world.destroyBlock(blockpos, true);
 					} else
 					{
-						world.setBlockState(blockpos, BlockState.withProperty(BlockCarrot.AGE, Integer.valueOf(integer.intValue() - 1)), 2);
+						world.setBlock(blockpos, BlockState.withProperty(BlockCarrot.AGE, Integer.valueOf(integer.intValue() - 1)), 2);
 						world.playEvent(2001, blockpos, Block.getStateId(BlockState));
 					}
 

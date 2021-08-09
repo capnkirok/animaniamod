@@ -58,7 +58,7 @@ public class EntityAIFindNest extends Goal
 		else if (delayTemptCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
 		{
 			
-			if (!temptedentity.level.isDaytime() || temptedEntity.getSleeping()) {
+			if (!temptedentity.level.isDay() || temptedEntity.getSleeping()) {
 				this.delayTemptCounter = 0;
 				return false;
 			}
@@ -73,13 +73,13 @@ public class EntityAIFindNest extends Goal
 				}
 			}
 
-			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			if (this.temptedEntity.getRandom().nextInt(100) == 0)
 			{
 				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
 				if (vec3d != null) {
 					this.delayTemptCounter = 0;
 					this.resetTask();
-					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.temptedEntity.getNavigation().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
 					this.temptedEntity.getLookHelper().setLookPosition(vec3d.x, vec3d.y, vec3d.z, 0.0F, 0.0F);
 				}
 				return false;
@@ -206,13 +206,13 @@ public class EntityAIFindNest extends Goal
 
 	public boolean shouldContinueExecuting()
 	{
-		return !this.temptedEntity.getNavigator().noPath();
+		return !this.temptedEntity.getNavigation().noPath();
 	}
 	
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
-		this.temptedEntity.getNavigator().clearPath();
+		this.temptedEntity.getNavigation().stop();
 		this.isRunning = false;
 	}
 
@@ -326,13 +326,13 @@ public class EntityAIFindNest extends Goal
 
 				if (nestBlockchk == BlockHandler.blockNest && nestClear.isEmpty())
 				{
-					this.temptedEntity.getNavigator().tryMoveToXYZ(nestPos.getX() + .50, nestPos.getY(), nestPos.getZ() + .50, this.speed);
+					this.temptedEntity.getNavigation().tryMoveToXYZ(nestPos.getX() + .50, nestPos.getY(), nestPos.getZ() + .50, this.speed);
 					this.temptedEntity.getLookHelper().setLookPosition(nestPos.getX(), nestPos.getY(), nestPos.getZ(), 10.0F, 10.0F);
 					
 				}
 				else
 				{
-					// this.temptedEntity.getNavigator().tryMoveToXYZ(nestPos.getX(),
+					// this.temptedEntity.getNavigation().tryMoveToXYZ(nestPos.getX(),
 					// nestPos.getY(), nestPos.getZ(), this.speed);
 
 				}

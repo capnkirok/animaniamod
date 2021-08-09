@@ -120,7 +120,7 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	{
 
 		if (!this.getSleeping())
-			this.level.setEntityState(this, (byte) 18);
+			this.level.broadcastEntityEvent(this, (byte) 18);
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 					Item item = stack.getItem();
 					if (item == Items.BUCKET)
 						filled = milk.copy();
-					else if (Loader.isModLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
+					else if (ModList.get().isLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
 						filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 					else
 						return false;

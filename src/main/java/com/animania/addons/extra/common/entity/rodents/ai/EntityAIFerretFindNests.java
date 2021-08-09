@@ -62,13 +62,13 @@ public class EntityAIFerretFindNests extends Goal
 				}
 			}
 			
-			if (this.temptedEntity.getRNG().nextInt(100) == 0)
+			if (this.temptedEntity.getRandom().nextInt(100) == 0)
 			{
 				Vec3d vec3d = RandomPositionGenerator.findRandomTarget(this.temptedEntity, 20, 4);
 				if (vec3d != null) {
 					this.delayTemptCounter = 0;
 					this.resetTask();
-					this.temptedEntity.getNavigator().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
+					this.temptedEntity.getNavigation().tryMoveToXYZ(vec3d.x, vec3d.y, vec3d.z, this.speed);
 				}
 				return false;
 			}
@@ -161,13 +161,13 @@ public class EntityAIFerretFindNests extends Goal
 
 	public boolean shouldContinueExecuting()
 	{
-		return !this.temptedEntity.getNavigator().noPath();
+		return !this.temptedEntity.getNavigation().noPath();
 	}
 
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
-		this.temptedEntity.getNavigator().clearPath();
+		this.temptedEntity.getNavigation().stop();
 		this.isRunning = false;
 	}
 
@@ -241,13 +241,13 @@ public class EntityAIFerretFindNests extends Goal
 
 				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 				{
-					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
+					if (this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)
 					{
 						this.delayTemptCounter = 0;
 					}
 					else
 					{
-						this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
+						this.temptedEntity.getNavigation().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed);
 					}
 				}
 			}

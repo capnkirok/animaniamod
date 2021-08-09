@@ -40,7 +40,7 @@ public class WailaEntityRamProvider extends WailaAnimalEntityProviderBase
 
 			if (!mate.equals("")) {
 				for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 20, world, entity)) {
-					UUID id = e.getPersistentID();
+					UUID id = e.getUUID();
 					if (id.toString().equals(mate)) {
 						String name = e.getCustomNameTag();
 						if (!name.equals(""))

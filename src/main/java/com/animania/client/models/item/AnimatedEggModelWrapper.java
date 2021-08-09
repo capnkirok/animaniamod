@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Matrix4f;
 
 public class AnimatedEggModelWrapper implements IBakedModel
@@ -27,7 +27,7 @@ public class AnimatedEggModelWrapper implements IBakedModel
 	}
 
 	@Override
-	public List<BakedQuad> getQuads(BlockState state, EnumFacing side, long rand)
+	public List<BakedQuad> getQuads(BlockState state, Direction side, long rand)
 	{
 		return old.getQuads(state, side, rand);
 	}

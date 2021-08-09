@@ -45,11 +45,11 @@ public class EntityAIGoatsLeapAtTarget extends Goal
 			return false;
 		} else if (thisBuck.getFighting()) {
 			double d0 = this.leaper.getDistanceSq(this.leapTarget);
-			return d0 >= 0.0D && d0 <= 4.0D ? (!this.leaper.onGround ? false : this.leaper.getRNG().nextInt(20) == 0) : false;
+			return d0 >= 0.0D && d0 <= 4.0D ? (!this.leaper.onGround ? false : this.leaper.getRandom().nextInt(20) == 0) : false;
 
 		} else {
 			double d0 = this.leaper.getDistanceSq(this.leapTarget);
-			return d0 >= 0.0D && d0 <= 46.0D ? (!this.leaper.onGround ? false : this.leaper.getRNG().nextInt(20) == 0) : false;
+			return d0 >= 0.0D && d0 <= 46.0D ? (!this.leaper.onGround ? false : this.leaper.getRandom().nextInt(20) == 0) : false;
 		}
 	}
 	public boolean shouldContinueExecuting()

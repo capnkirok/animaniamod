@@ -90,7 +90,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	{
 		if (!this.getFighting() && !this.getSleeping())
 		{
-			this.level.setEntityState(this, (byte) 18);
+			this.level.broadcastEntityEvent(this, (byte) 18);
 		}
 	}
 

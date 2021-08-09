@@ -43,7 +43,7 @@ public class EntityAILookIdleRodent extends Goal
 			}
 		}
 		
-		return this.idleEntity.getRNG().nextFloat() < 0.02F && !this.idleEntity.isRiding();
+		return this.idleEntity.getRandom().nextFloat() < 0.02F && !this.idleEntity.isRiding();
 	}
 
 	@Override
@@ -53,10 +53,10 @@ public class EntityAILookIdleRodent extends Goal
 
 	@Override
 	public void startExecuting() {
-		double d0 = Math.PI * 2D * this.idleEntity.getRNG().nextDouble();
+		double d0 = Math.PI * 2D * this.idleEntity.getRandom().nextDouble();
 		this.lookX = Math.cos(d0);
 		this.lookZ = Math.sin(d0);
-		this.idleTime = 20 + this.idleEntity.getRNG().nextInt(20);
+		this.idleTime = 20 + this.idleEntity.getRandom().nextInt(20);
 	}
 
 	@Override

@@ -16,7 +16,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 
@@ -81,7 +81,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
 	{
 		this.readFromNBT(pkt.getNbtCompound());
-		this.level.notifyBlockUpdate(this.pos, this.getBlockType().getDefaultState(), this.getBlockType().getDefaultState(), 1);
+		this.level.notifyBlockUpdate(this.pos, this.getBlockType().defaultBlockState(), this.getBlockType().defaultBlockState(), 1);
 
 	}
 
@@ -154,7 +154,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
+	public boolean hasCapability(Capability<?> capability, Direction facing)
 	{
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return true;
@@ -163,7 +163,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 	}
 
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
+	public <T> T getCapability(Capability<T> capability, Direction facing)
 	{
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return (T) this.itemHandler;

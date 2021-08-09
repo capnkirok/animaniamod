@@ -9,21 +9,21 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockGrass;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.GrassBlock;
 import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.ModList;
 
 public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEating> extends GenericAISearchBlock
 {
 
 	private static final Predicate<BlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALL_GRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
-	protected final T grassEaterEntity;
+	protected final T grassEaterEntity;	
 	protected final World entityWorld;
 	public int eatingGrassTimer;
 	public boolean eatsGrass;
@@ -32,7 +32,7 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 
 	public GenericAIEatGrass(T grassEaterEntityIn, boolean eatsGrass)
 	{
-		super(grassEaterEntityIn, 1.0, 8, EnumFacing.UP);
+		super(grassEaterEntityIn, 1.0, 8, Direction.UP);
 		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.level;
 		this.eatsGrass = eatsGrass;
@@ -55,7 +55,7 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 			return false;
 		}
 
-		if (this.grassEaterEntity.getRNG().nextInt(120) == 0)
+		if (this.grassEaterEntity.getRandom().nextInt(120) == 0)
 		{
 			timer = 0;
 			return super.shouldExecute();
@@ -67,13 +67,13 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 	@Override
 	public void startExecuting()
 	{
-		if (!this.destinationBlock.equals(this.NO_POS) && eatsGrass)
+		if (!this.destinationBlock.equals(GenericAISearchBlock.NO_POS) && eatsGrass)
 			super.startExecuting();
 		else
 		{
 			this.eatingGrassTimer = 160;
-			this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
-			this.grassEaterEntity.getNavigator().clearPath();
+			this.entityWorld.broadcastEntityEvent(this.grassEaterEntity, (byte) 10);
+			this.grassEaterEntity.getNavigation().stop();
 		}
 	}
 
@@ -112,8 +112,8 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 			if (!isEating)
 			{
 				this.eatingGrassTimer = 160;
-				this.entityWorld.setEntityState(this.grassEaterEntity, (byte) 10);
-				this.grassEaterEntity.getNavigator().clearPath();
+				this.entityWorld.broadcastEntityEvent(this.grassEaterEntity, (byte) 10);
+				this.grassEaterEntity.getNavigation().stop();
 				this.isEating = true;
 			}
 
@@ -121,17 +121,17 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 			{
 				if (this.eatingGrassTimer == 4)
 				{
-					this.entityWorld.playEvent(2001, this.seekingBlockPos, Block.getIdFromBlock(block));
+					this.entityWorld.globalLevelEvent(2001, this.seekingBlockPos, Block.getId(state));
 
 					if (AnimaniaConfig.gameRules.plantsRemovedAfterEating)
 					{
 						String name = block.getRegistryName().toString();
 						boolean handled = false;
 						
-						if (Loader.isModLoaded("desirepaths") && ((name.startsWith("desirepaths:grass_worn_") && !name.endsWith("6")) || block instanceof BlockGrass))
+						if (ModList.get().isLoaded("desirepaths") && ((name.startsWith("desirepaths:grass_worn_") && !name.endsWith("6")) || block instanceof GrassBlock))
 						{
 							try {
-								ReflectionUtil.findMethod(Class.forName("com.corosus.desirepaths.block.BlockGrassWorn"), "performWearTick", null, World.class, BlockPos.class, float.class).invoke(null, this.entityWorld, this.seekingBlockPos, 20.0F);
+								ReflectionUtil.findMethod(Class.forName("com.corosus.desirepaths.block.GrassBlockWorn"), "performWearTick", null, World.class, BlockPos.class, float.class).invoke(null, this.entityWorld, this.seekingBlockPos, 20.0F);
 								handled = true;
 							} catch (Exception e) {
 								// Do nothing as handled is still false
@@ -140,7 +140,7 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 						}
 						
 						if(!handled)
-							this.entityWorld.setBlockState(this.seekingBlockPos, Blocks.DIRT.getDefaultState(), 2);
+							this.entityWorld.setBlock(this.seekingBlockPos, Blocks.DIRT.defaultBlockState(), 2);
 					}
 
 					if (grassEaterEntity instanceof IFoodEating)
@@ -162,7 +162,7 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 
-		if (block instanceof BlockGrass || AddonInjectionHandler.runInjection("farm", "isMooshroom", Boolean.class, grassEaterEntity, block) || handleDesirePaths(block))
+		if (block instanceof GrassBlock || AddonInjectionHandler.runInjection("farm", "isMooshroom", Boolean.class, grassEaterEntity, block) || handleDesirePaths(block))
 			return true;
 
 		return false;
@@ -170,7 +170,7 @@ public class GenericAIEatGrass<T extends CreatureEntity & ISleeping & IFoodEatin
 
 	private boolean handleDesirePaths(Block block)
 	{
-		if (Loader.isModLoaded("desirepaths"))
+		if (ModList.get().isLoaded("desirepaths"))
 		{
 			String name = block.getRegistryName().toString();
 			if (name.contains("desirepaths:grass_worn_") && (name.endsWith("1") || name.endsWith("2") || name.endsWith("3")))

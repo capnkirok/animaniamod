@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
@@ -28,7 +28,7 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable, IFoo
 	}
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing)
+	public boolean hasCapability(Capability<?> capability, Direction facing)
 	{
 
 		if (AnimaniaConfig.gameRules.allowTroughAutomation)
@@ -44,7 +44,7 @@ public class TileEntityInvisiblock extends TileEntity implements ITickable, IFoo
 	}
 
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing)
+	public <T> T getCapability(Capability<T> capability, Direction facing)
 	{
 		if (AnimaniaConfig.gameRules.allowTroughAutomation)
 		{

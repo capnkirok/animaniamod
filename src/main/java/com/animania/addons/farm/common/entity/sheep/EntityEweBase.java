@@ -167,7 +167,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 					Item item = stack.getItem();
 					if (item == Items.BUCKET)
 						filled = milk.copy();
-					else if (Loader.isModLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
+					else if (ModList.get().isLoaded("ceramics") && item == Item.getByNameOrId("ceramics:clay_bucket"))
 						filled = new ItemStack(Item.getByNameOrId("ceramics:clay_bucket"), 1, 1);
 					else
 						return false;

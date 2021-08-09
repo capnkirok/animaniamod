@@ -8,7 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -22,7 +22,7 @@ public class BlockWildHive extends BlockHive
 		this.setSoundType(SoundType.PLANT);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, Direction.NORTH));
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setHardness(1.3f);
 		this.setResistance(0.3f);

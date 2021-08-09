@@ -46,7 +46,7 @@ public interface TOPInfoProviderMateable extends TOPInfoProviderBase
 				{
 					for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, world, entity))
 					{
-						UUID id = e.getPersistentID();
+						UUID id = e.getUUID();
 						if (id.toString().equals(mate))
 						{
 							String name = e.getCustomNameTag();

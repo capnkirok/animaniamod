@@ -44,11 +44,11 @@ public class EntityAIWatchClosestFromSide extends Goal
 			}
 		}
 		
-		if (!this.theWatcher.level.isDaytime() || isSleeping) {
+		if (!this.theWatcher.level.isDay() || isSleeping) {
 			return false;
 		}
     	
-    	if (this.theWatcher.getRNG().nextFloat() >= this.chance)
+    	if (this.theWatcher.getRandom().nextFloat() >= this.chance)
             return false;
         else {
             if (this.theWatcher.getAttackTarget() != null)
@@ -66,14 +66,14 @@ public class EntityAIWatchClosestFromSide extends Goal
 
     @Override
     public boolean shouldContinueExecuting() {
-        return !this.closestEntity.isEntityAlive() ? false
+        return !this.closestEntity.isAlive() ? false
                 : this.theWatcher.getDistanceSq(this.closestEntity) > this.maxDistanceForPlayer * this.maxDistanceForPlayer ? false
                         : this.lookTime > 0;
     }
 
     @Override
     public void startExecuting() {
-        this.lookTime = 40 + this.theWatcher.getRNG().nextInt(40);
+        this.lookTime = 40 + this.theWatcher.getRandom().nextInt(40);
     }
 
     @Override

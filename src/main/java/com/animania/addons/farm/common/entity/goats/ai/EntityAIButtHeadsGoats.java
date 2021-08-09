@@ -45,7 +45,7 @@ public class EntityAIButtHeadsGoats extends Goal
 				return false;
 			}
 			
-			if (!this.theAnimal.level.isDaytime() || this.theAnimal.getSleeping()) {
+			if (!this.theAnimal.level.isDay() || this.theAnimal.getSleeping()) {
 				this.delayCounter = 0;
 				return false;
 			}
@@ -71,7 +71,7 @@ public class EntityAIButtHeadsGoats extends Goal
 	public boolean shouldContinueExecuting()
 	{
 		if (targetMate != null) {
-			return this.targetMate.isEntityAlive();
+			return this.targetMate.isAlive();
 		} else {
 			return false;
 		}
@@ -88,10 +88,10 @@ public class EntityAIButtHeadsGoats extends Goal
 		EntityBuckBase thisEntity = (EntityBuckBase) this.theAnimal;
 		if (thisEntity.getFighting()) {
 			this.theAnimal.getLookHelper().setLookPositionWithEntity(this.targetMate, 10.0F, (float)this.theAnimal.getVerticalFaceSpeed());
-			this.theAnimal.getNavigator().tryMoveToLivingEntity(this.targetMate, this.moveSpeed);
+			this.theAnimal.getNavigation().tryMoveToLivingEntity(this.targetMate, this.moveSpeed);
 		} else {
 
-			thisEntity.getNavigator().clearPath();
+			thisEntity.getNavigation().stop();
 		}
 
 	}
@@ -112,18 +112,18 @@ public class EntityAIButtHeadsGoats extends Goal
 
 					if (thisEntity.getRivalUniqueId() == null && entity.getRivalUniqueId() == null && thisEntity != entity) {
 						foundEntity = entity;
-						foundEntity.setRivalUniqueId(thisEntity.getPersistentID());
-						thisEntity.setRivalUniqueId(foundEntity.getPersistentID());
+						foundEntity.setRivalUniqueId(thisEntity.getUUID());
+						thisEntity.setRivalUniqueId(foundEntity.getUUID());
 						thisEntity.setFighting(true);
 						foundEntity.setFighting(true);
 						thisEntity.setAttackTarget(foundEntity);
 						foundEntity.setAttackTarget(thisEntity);
 						k = entities.size();
 						break;
-					} else if (thisEntity.getRivalUniqueId() != null && thisEntity.getRivalUniqueId() == entity.getPersistentID() && thisEntity != entity) {
+					} else if (thisEntity.getRivalUniqueId() != null && thisEntity.getRivalUniqueId() == entity.getUUID() && thisEntity != entity) {
 						foundEntity = entity;	
-						foundEntity.setRivalUniqueId(thisEntity.getPersistentID());
-						thisEntity.setRivalUniqueId(foundEntity.getPersistentID());
+						foundEntity.setRivalUniqueId(thisEntity.getUUID());
+						thisEntity.setRivalUniqueId(foundEntity.getUUID());
 						thisEntity.setAttackTarget(foundEntity);
 						foundEntity.setAttackTarget(thisEntity);
 						k = entities.size();
@@ -150,10 +150,10 @@ public class EntityAIButtHeadsGoats extends Goal
 				} else {
 					
 					thisEntity.getLookHelper().setLookPositionWithEntity(foundEntity, 10.0F, thisEntity.getVerticalFaceSpeed());
-					thisEntity.getNavigator().tryMoveToLivingEntity(foundEntity, this.moveSpeed);
+					thisEntity.getNavigation().tryMoveToLivingEntity(foundEntity, this.moveSpeed);
 		
 					foundEntity.getLookHelper().setLookPositionWithEntity(thisEntity, 10.0F, foundEntity.getVerticalFaceSpeed());
-					foundEntity.getNavigator().tryMoveToLivingEntity(thisEntity, this.moveSpeed);
+					foundEntity.getNavigation().tryMoveToLivingEntity(thisEntity, this.moveSpeed);
 					
 					return null;
 

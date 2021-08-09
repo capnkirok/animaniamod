@@ -6,7 +6,7 @@ public class FarmAddonCompatHandler
 {
 	public static void preInit()
 	{
-		if (Loader.isModLoaded("waila"))
+		if (ModList.get().isLoaded("waila"))
 			FMLInterModComms.sendMessage("waila", "register", "com.animania.addons.farm.compat.FarmAddonWailaCompat.registerWaila");
 
 	}

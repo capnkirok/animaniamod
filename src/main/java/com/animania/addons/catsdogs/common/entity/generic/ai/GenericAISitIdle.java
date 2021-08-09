@@ -27,7 +27,7 @@ public class GenericAISitIdle extends Goal
 	 */
 	public boolean shouldExecute()
 	{
-		return this.idleEntity.getRNG().nextFloat() < 0.002F;
+		return this.idleEntity.getRandom().nextFloat() < 0.002F;
 	}
 
 	/**
@@ -43,10 +43,10 @@ public class GenericAISitIdle extends Goal
 	 */
 	public void startExecuting()
 	{
-		double d0 = (Math.PI * 2D) * this.idleEntity.getRNG().nextDouble();
+		double d0 = (Math.PI * 2D) * this.idleEntity.getRandom().nextDouble();
 		this.lookX = Math.cos(d0);
 		this.lookZ = Math.sin(d0);
-		this.idleTime = 50 + this.idleEntity.getRNG().nextInt(20);
+		this.idleTime = 50 + this.idleEntity.getRandom().nextInt(20);
 	}
 
 	/**

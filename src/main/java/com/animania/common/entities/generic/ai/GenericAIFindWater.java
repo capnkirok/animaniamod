@@ -13,7 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -35,7 +35,7 @@ public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleepi
 
 	public GenericAIFindWater(T entity, double speedIn, @Nullable Goal eatAI, Class parentClass, boolean halfAmount)
 	{
-		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, true, EnumFacing.UP);
+		super(entity, speedIn, AnimaniaConfig.gameRules.aiBlockSearchRange, true, Direction.UP);
 		this.entity = entity;
 		this.speed = speedIn;
 		this.setMutexBits(3);
@@ -62,7 +62,7 @@ public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleepi
 			return false;
 		}
 		
-		if(entity.getRNG().nextInt(3) != 0)
+		if(entity.getRandom().nextInt(3) != 0)
 			return false;
 
 		waterFindTimer = 0;

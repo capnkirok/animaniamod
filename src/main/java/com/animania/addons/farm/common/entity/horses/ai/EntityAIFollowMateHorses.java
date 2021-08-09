@@ -30,7 +30,7 @@ public class EntityAIFollowMateHorses extends Goal
 		this.delayCounter++;
 		if (this.delayCounter > AnimaniaConfig.gameRules.ticksBetweenAIFirings) 
 			
-			if (!thisAnimal.level.isDaytime() || thisAnimal.getSleeping()) {
+			if (!thisAnimal.level.isDay() || thisAnimal.getSleeping()) {
 				this.delayCounter = 0;
 				return false;
 			}
@@ -47,7 +47,7 @@ public class EntityAIFollowMateHorses extends Goal
 
 						EntityMareBase entity = (EntityMareBase)entities.get(k);
 						
-						if (entities.get(k) != null && entity.getPersistentID().equals(((EntityStallionBase) this.thisAnimal).getMateUniqueId())) {
+						if (entities.get(k) != null && entity.getUUID().equals(((EntityStallionBase) this.thisAnimal).getMateUniqueId())) {
 							double xt = entity.getX();
 							double yt = entity.getY();
 							double zt = entity.getZ();
@@ -75,7 +75,7 @@ public class EntityAIFollowMateHorses extends Goal
 
 	public boolean shouldContinueExecuting()
 	{
-		if (!this.mateAnimal.isEntityAlive())
+		if (!this.mateAnimal.isAlive())
 		{
 			return false;
 		}
@@ -101,7 +101,7 @@ public class EntityAIFollowMateHorses extends Goal
 		if (--this.delayCounter <= 0)
 		{
 			this.delayCounter = 60;
-			this.thisAnimal.getNavigator().tryMoveToLivingEntity(this.mateAnimal, this.moveSpeed);
+			this.thisAnimal.getNavigation().tryMoveToLivingEntity(this.mateAnimal, this.moveSpeed);
 		}
 	}
 }

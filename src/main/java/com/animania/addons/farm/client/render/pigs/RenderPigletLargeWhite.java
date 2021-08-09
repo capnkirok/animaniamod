@@ -48,7 +48,7 @@ public class RenderPigletLargeWhite<T extends PigEntityletLargeWhite> extends Re
 		{
 			this.shadowSize = 0;
 			float sleepTimer = entityChk.getSleepTimer();
-			if (entityChk.getRNG().nextInt(2) < 1 && sleepTimer > -0.55F)
+			if (entityChk.getRandom().nextInt(2) < 1 && sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
 			}

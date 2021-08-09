@@ -31,7 +31,7 @@ public class GenericAIPlay<T extends CreatureEntity & ISleeping & IPlaying, U ex
 	{
 		this.entity = entity;
 		this.playmateClass = playmateType;
-		this.navigator = entity.getNavigator();
+		this.navigator = entity.getNavigation();
 	}
 
 	@Override

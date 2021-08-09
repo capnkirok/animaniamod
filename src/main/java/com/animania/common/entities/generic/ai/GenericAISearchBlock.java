@@ -16,7 +16,7 @@ import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathFinder;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -31,7 +31,7 @@ public abstract class GenericAISearchBlock extends Goal
 	private boolean isAtDestination;
 	protected final int searchRange;
 	protected World world;
-	protected List<EnumFacing> destinationOffset;
+	protected List<Direction> destinationOffset;
 	protected BlockPos seekingBlockPos = NO_POS;
 
 	protected BlockPos oldBlockPos = NO_POS;
@@ -43,20 +43,20 @@ public abstract class GenericAISearchBlock extends Goal
 
 	public static final BlockPos NO_POS = new BlockPos(-1, -1, -1);
 
-	public GenericAISearchBlock(CreatureEntity creature, double speedIn, int range, boolean hasSecondary, EnumFacing... destinationOffset)
+	public GenericAISearchBlock(CreatureEntity creature, double speedIn, int range, boolean hasSecondary, Direction... destinationOffset)
 	{
 		this.creature = creature;
 		this.movementSpeed = speedIn;
 		this.searchRange = range;
-		this.destinationOffset = new ArrayList<EnumFacing>();
-		for (EnumFacing f : destinationOffset)
+		this.destinationOffset = new ArrayList<Direction>();
+		for (Direction f : destinationOffset)
 			this.destinationOffset.add(f);
 		this.level = creature.level;
 		this.hasSecondary = hasSecondary;
 		// this.setMutexBits(5);
 	}
 
-	public GenericAISearchBlock(CreatureEntity creature, double speedIn, int range, EnumFacing... destinationOffset)
+	public GenericAISearchBlock(CreatureEntity creature, double speedIn, int range, Direction... destinationOffset)
 	{
 		this(creature, speedIn, range, false, destinationOffset);
 	}
@@ -97,7 +97,7 @@ public abstract class GenericAISearchBlock extends Goal
 	@Override
 	public void startExecuting()
 	{
-		this.creature.getNavigator().tryMoveToXYZ((this.destinationBlock.getX()) + 0.5D, (this.destinationBlock.getY()), (this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+		this.creature.getNavigation().tryMoveToXYZ((this.destinationBlock.getX()) + 0.5D, (this.destinationBlock.getY()), (this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
 		this.walkTries = 0;
 	}
 
@@ -133,7 +133,7 @@ public abstract class GenericAISearchBlock extends Goal
 
 				if (isStandingStill && this.walkTries % 40 == 0)
 				{
-					this.creature.getNavigator().tryMoveToXYZ((this.destinationBlock.getX()) + 0.5D, (this.destinationBlock.getY()), (this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+					this.creature.getNavigation().tryMoveToXYZ((this.destinationBlock.getX()) + 0.5D, (this.destinationBlock.getY()), (this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
 					this.creature.getLookHelper().setLookPosition(this.seekingBlockPos.getX() + 0.5D, (this.seekingBlockPos.getY()), this.seekingBlockPos.getZ() + 0.5D, 10.0F, this.creature.getVerticalFaceSpeed());
 				}
 
@@ -214,7 +214,7 @@ public abstract class GenericAISearchBlock extends Goal
 							{
 								if (destinationOffset.isEmpty())
 								{
-									if (this.creature.getNavigator().getPathToXYZ(blockpos1.getX() + 0.5, blockpos1.getY(), blockpos1.getZ() + 0.5) != null)
+									if (this.creature.getNavigation().getPathToXYZ(blockpos1.getX() + 0.5, blockpos1.getY(), blockpos1.getZ() + 0.5) != null)
 									{
 										if (shouldMoveToPrimary)
 										{
@@ -228,13 +228,13 @@ public abstract class GenericAISearchBlock extends Goal
 								} else
 								{
 
-									for (EnumFacing facing : destinationOffset)
+									for (Direction facing : destinationOffset)
 									{
 										AxisAlignedBB aabb = world.getBlockState(blockpos1).getCollisionBoundingBox(world, blockpos1);
 
 										BlockPos offsetPos = aabb == Block.NULL_AABB ? blockpos1 : blockpos1.offset(facing);
 
-										if (this.creature.getNavigator().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
+										if (this.creature.getNavigation().getPathToXYZ(offsetPos.getX() + 0.5, offsetPos.getY(), offsetPos.getZ() + 0.5) != null)
 										{
 											if (shouldMoveToPrimary)
 											{
@@ -271,7 +271,7 @@ public abstract class GenericAISearchBlock extends Goal
 			PathPoint startPoint = new PathPoint(start.getX(), start.getY(), start.getZ());
 			PathPoint endPoint = new PathPoint(end.getX(), end.getY(), end.getZ());
 
-			PathNavigate navigate = this.creature.getNavigator();
+			PathNavigate navigate = this.creature.getNavigation();
 			Method getPathFinder = ReflectionUtil.findMethod(PathNavigate.class, "getPathFinder", "createPathFinder");
 			Method getPath = ReflectionUtil.findMethod(PathFinder.class, "findPath", "func_186336_a", PathPoint.class, PathPoint.class, float.class);
 

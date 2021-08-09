@@ -37,7 +37,7 @@ public class EntityAILookIdleHorses extends Goal
 	public boolean shouldExecute()
 	{
 
-		if (!this.idleentity.level.isDaytime())
+		if (!this.idleentity.level.isDay())
 		{
 			this.delayCounter = 0;
 			return false;
@@ -64,7 +64,7 @@ public class EntityAILookIdleHorses extends Goal
 			}
 		}
 
-		return this.idleEntity.getRNG().nextFloat() < 0.02F;
+		return this.idleEntity.getRandom().nextFloat() < 0.02F;
 
 	}
 
@@ -83,10 +83,10 @@ public class EntityAILookIdleHorses extends Goal
 	@Override
 	public void startExecuting()
 	{
-		double d0 = (Math.PI * 2D) * this.idleEntity.getRNG().nextDouble();
+		double d0 = (Math.PI * 2D) * this.idleEntity.getRandom().nextDouble();
 		this.lookX = Math.cos(d0);
 		this.lookZ = Math.sin(d0);
-		this.idleTime = 20 + this.idleEntity.getRNG().nextInt(20);
+		this.idleTime = 20 + this.idleEntity.getRandom().nextInt(20);
 	}
 
 	/**

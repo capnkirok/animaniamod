@@ -20,7 +20,7 @@ public class TileEntitySaltLick extends TileEntity
 		usesLeft--;
 
 		if (usesLeft <= 0)
-			level.setBlockAndUpdate(worldPosition, Blocks.AIR.getDefaultState());
+			level.setBlockAndUpdate(worldPosition, Blocks.AIR.defaultBlockState());
 	}
 
 	@Override

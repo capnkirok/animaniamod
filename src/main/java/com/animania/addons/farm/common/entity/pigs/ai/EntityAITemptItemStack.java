@@ -29,7 +29,7 @@ public class EntityAITemptItemStack extends Goal
 		this.temptItem = temptItemIn;
 		this.setMutexBits(3);
 
-		if (!(temptedEntityIn.getNavigator() instanceof PathNavigateGround))
+		if (!(temptedEntityIn.getNavigation() instanceof PathNavigateGround))
 			throw new IllegalArgumentException("Unsupported mob type for TemptGoal");
 	}
 
@@ -78,7 +78,7 @@ public class EntityAITemptItemStack extends Goal
 	public void resetTask()
 	{
 		this.temptingPlayer = null;
-		this.temptedEntity.getNavigator().clearPath();
+		this.temptedEntity.getNavigation().stop();
 		this.delayTemptCounter = AnimaniaConfig.gameRules.ticksBetweenAIFirings;
 		this.isRunning = false;
 	}
@@ -90,9 +90,9 @@ public class EntityAITemptItemStack extends Goal
 			this.temptedEntity.getLookHelper().setLookPositionWithEntity(this.temptingPlayer, this.temptedEntity.getHorizontalFaceSpeed() + 20, this.temptedEntity.getVerticalFaceSpeed());
 
 		if (this.temptedEntity.getDistanceSq(this.temptingPlayer) < 6.25D)
-			this.temptedEntity.getNavigator().clearPath();
+			this.temptedEntity.getNavigation().stop();
 		else
-			this.temptedEntity.getNavigator().tryMoveToLivingEntity(this.temptingPlayer, this.speed);
+			this.temptedEntity.getNavigation().tryMoveToLivingEntity(this.temptingPlayer, this.speed);
 	}
 
 	public boolean isRunning()
