@@ -3,8 +3,8 @@ package com.animania.client.render.tileEntity;
 import com.animania.client.models.blocks.ModelSaltLick;
 import com.animania.common.tileentities.TileEntitySaltLick;
 import com.animania.config.AnimaniaConfig;
+import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;

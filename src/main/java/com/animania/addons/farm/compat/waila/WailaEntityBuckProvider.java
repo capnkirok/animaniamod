@@ -10,10 +10,10 @@ import com.animania.compat.waila.provider.WailaAnimalEntityProviderBase;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 public class WailaEntityBuckProvider extends WailaAnimalEntityProviderBase

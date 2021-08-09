@@ -3,6 +3,7 @@ package com.animania.addons.catsdogs.common.entity.canids;
 import com.animania.common.entities.generic.ai.GenericAITargetNonTamed;
 import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.config.AnimaniaConfig;
+
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.world.World;

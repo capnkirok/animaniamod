@@ -5,11 +5,11 @@ import org.lwjgl.opengl.GL11;
 import com.animania.addons.farm.client.model.pig.ModelHog;
 import com.animania.addons.farm.client.render.pigs.RenderHogLargeBlack;
 import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.EntityHogLargeBlack;
+import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)

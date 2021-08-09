@@ -6,16 +6,16 @@ import com.animania.addons.farm.client.model.sheep.ModelDorsetRam;
 import com.animania.addons.farm.common.entity.sheep.EntityAnimaniaSheep;
 import com.animania.addons.farm.common.entity.sheep.SheepDorset.EntityRamDorset;
 import com.animania.client.render.layer.LayerBlinking;
+import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)

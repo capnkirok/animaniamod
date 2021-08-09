@@ -6,15 +6,13 @@ import com.animania.api.interfaces.IBlinking;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.client.models.IColoredModel;
 import com.animania.common.handler.AddonInjectionHandler;
+import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.renderer.GlStateManager;
+import RenderLiving;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
-
-import LivingEntity;
-import RenderLiving;
 
 public class LayerBlinking<E extends LivingEntity> implements LayerRenderer
 {

@@ -4,7 +4,6 @@ import com.animania.Animania;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;

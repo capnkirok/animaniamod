@@ -5,8 +5,9 @@ import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntityHogLargeW
 import com.animania.addons.farm.common.entity.pigs.PigOldSpot.EntityHogOldSpot;
 import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntityHogYorkshire;
 import com.animania.config.AnimaniaConfig;
+
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;

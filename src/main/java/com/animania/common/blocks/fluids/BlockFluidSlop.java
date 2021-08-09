@@ -2,8 +2,8 @@ package com.animania.common.blocks.fluids;
 
 import com.animania.common.handler.BlockHandler;
 
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockRenderLayer;

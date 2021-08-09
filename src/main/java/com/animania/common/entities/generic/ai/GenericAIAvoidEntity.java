@@ -4,8 +4,8 @@ import com.animania.api.interfaces.ISleeping;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 
 public class GenericAIAvoidEntity<T extends Entity> extends EntityAIAvoidEntity<T>

@@ -1,11 +1,12 @@
 package com.animania.common.events;
 
-import com.animania.Animania;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
-
 import java.net.URL;
 import java.util.Scanner;
+
+import com.animania.Animania;
+
+import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.TextFormatting;
 
 /*
  * Original Code VozValden, updated by Purplicious_Cow

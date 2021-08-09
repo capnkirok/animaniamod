@@ -4,7 +4,7 @@ import com.animania.Animania;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class AnimaniaItem extends Item
 {

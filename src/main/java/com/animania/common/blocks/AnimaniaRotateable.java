@@ -1,8 +1,9 @@
 package com.animania.common.blocks;
 
+import PropertyDirection;
 import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -14,8 +15,6 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import PropertyDirection;
 
 public abstract class AnimaniaRotateable extends AnimaniaBlock
 {

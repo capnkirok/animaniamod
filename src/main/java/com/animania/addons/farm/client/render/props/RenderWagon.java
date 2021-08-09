@@ -3,8 +3,8 @@ package com.animania.addons.farm.client.render.props;
 import com.animania.Animania;
 import com.animania.addons.farm.common.entity.pullables.EntityWagon;
 import com.leviathanstudio.craftstudio.client.model.ModelCraftStudio;
+import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;

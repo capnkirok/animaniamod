@@ -20,12 +20,10 @@ import com.animania.common.blocks.fluids.BlockFluidBase;
 import com.animania.common.blocks.fluids.FluidBase;
 
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.registries.GameRegistry;
-
-import Fluid;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class FarmAddonBlockHandler
 {

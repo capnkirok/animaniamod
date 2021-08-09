@@ -2,9 +2,10 @@ package com.animania.client.models;
 
 import java.awt.Color;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelTrough extends ModelBase

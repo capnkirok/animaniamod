@@ -7,17 +7,17 @@ import com.animania.addons.farm.common.entity.chickens.EntityAnimaniaChicken;
 import com.animania.addons.farm.common.entity.chickens.EntityChickBase;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.handler.BlockHandler;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)

@@ -7,8 +7,6 @@ import com.animania.common.handler.AddonInjectionHandler;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAILookIdle;
 
-import LivingEntity;
-
 public class GenericAILookIdle<T extends LivingEntity & ISleeping> extends EntityAILookIdle
 {
 	/** The entity that is looking idle. */

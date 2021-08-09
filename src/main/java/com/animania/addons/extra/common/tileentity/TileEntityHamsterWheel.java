@@ -8,29 +8,28 @@ import com.animania.addons.extra.common.handler.ExtraAddonBlockHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.addons.extra.common.tileentity.handler.ItemHandlerHamsterWheel;
 import com.animania.addons.extra.config.ExtraConfig;
+import com.animania.client.handler.AnimationHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
-import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileEntity;
 
 import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITickable

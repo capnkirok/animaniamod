@@ -12,9 +12,9 @@ import com.animania.common.items.ItemEntityEgg;
 import com.animania.common.items.ItemEntityEggAnimated;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.model.ModelLoader;

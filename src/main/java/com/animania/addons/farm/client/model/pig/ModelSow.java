@@ -4,8 +4,9 @@ import com.animania.addons.farm.common.entity.pigs.PigDuroc.EntitySowDuroc;
 import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntitySowLargeWhite;
 import com.animania.addons.farm.common.entity.pigs.PigOldSpot.EntitySowOldSpot;
 import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntitySowYorkshire;
+
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;

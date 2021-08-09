@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;

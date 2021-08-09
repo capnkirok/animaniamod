@@ -22,8 +22,8 @@ import com.animania.api.addons.AnimaniaAddon;
 import com.animania.api.addons.LoadAddon;
 import com.animania.network.NetworkHandler;
 
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.relauncher.Side;
 
 @LoadAddon
 public class ExtraAddon implements AnimaniaAddon

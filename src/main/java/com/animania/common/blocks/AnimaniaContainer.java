@@ -4,13 +4,12 @@ import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.ContainerBlock;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraft.item.ItemGroup;
 
 
 public abstract class AnimaniaContainer extends ContainerBlock

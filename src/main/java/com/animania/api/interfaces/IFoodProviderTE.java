@@ -1,11 +1,12 @@
 package com.animania.api.interfaces;
 
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import java.util.Set;
 
 import javax.annotation.Nullable;
-import java.util.Set;
+
+import net.minecraft.fluid.Fluid;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 public interface IFoodProviderTE
 {

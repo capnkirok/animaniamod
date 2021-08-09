@@ -4,8 +4,9 @@ import com.animania.addons.farm.common.entity.cows.CowHighland.EntityBullHighlan
 import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityBullLonghorn;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.config.AnimaniaConfig;
+
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;

@@ -1,16 +1,12 @@
 package com.animania.network.client;
 
-import com.animania.Animania;
 import java.util.function.Supplier;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
-//import com.animania.common.scripting.ScriptReader;
-import java.util.function.Supplier;
 
 public class TileEntitySyncPacket {
 

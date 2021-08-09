@@ -7,8 +7,6 @@ import com.animania.Animania;
 import com.animania.common.handler.AddonHandler;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
-import scala.actors.threadpool.Arrays;
 
 public class ManualTopic
 {

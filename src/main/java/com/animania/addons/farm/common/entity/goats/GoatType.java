@@ -27,10 +27,9 @@ import com.animania.addons.farm.common.entity.goats.GoatPygmy.EntityDoePygmy;
 import com.animania.addons.farm.common.entity.goats.GoatPygmy.EntityKidPygmy;
 import com.animania.api.interfaces.AnimaniaType;
 
+import StatBase;
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
-
-import StatBase;
 
 public enum GoatType implements AnimaniaType
 {

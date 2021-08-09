@@ -14,20 +14,20 @@ import com.animania.addons.farm.common.entity.chickens.ChickenRhodeIslandRed.Ent
 import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityHenWyandotte;
 import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityRoosterWyandotte;
 import com.animania.addons.farm.common.entity.chickens.EntityAnimaniaChicken;
-import com.animania.addons.farm.common.entity.cows.CowAngus.EntityBullAngus;
 import com.animania.addons.farm.common.entity.cows.CowAngus.CowEntityAngus;
-import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityBullFriesian;
+import com.animania.addons.farm.common.entity.cows.CowAngus.EntityBullAngus;
 import com.animania.addons.farm.common.entity.cows.CowFriesian.CowEntityFriesian;
-import com.animania.addons.farm.common.entity.cows.CowHereford.EntityBullHereford;
+import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityBullFriesian;
 import com.animania.addons.farm.common.entity.cows.CowHereford.CowEntityHereford;
-import com.animania.addons.farm.common.entity.cows.CowHighland.EntityBullHighland;
+import com.animania.addons.farm.common.entity.cows.CowHereford.EntityBullHereford;
 import com.animania.addons.farm.common.entity.cows.CowHighland.CowEntityHighland;
-import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityBullHolstein;
+import com.animania.addons.farm.common.entity.cows.CowHighland.EntityBullHighland;
 import com.animania.addons.farm.common.entity.cows.CowHolstein.CowEntityHolstein;
-import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityBullLonghorn;
+import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityBullHolstein;
 import com.animania.addons.farm.common.entity.cows.CowLonghorn.CowEntityLonghorn;
-import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshroom;
+import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityBullLonghorn;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.CowEntityMooshroom;
+import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshroom;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.addons.farm.common.entity.goats.EntityAnimaniaGoat;
 import com.animania.addons.farm.common.entity.horses.EntityAnimaniaHorse;
@@ -57,20 +57,18 @@ import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class FarmAddonSpawnHandler
 {

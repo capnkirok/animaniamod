@@ -7,8 +7,8 @@ import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntitySaltLick;
 import com.animania.common.tileentities.TileEntityTrough;
 
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)

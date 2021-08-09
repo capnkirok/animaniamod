@@ -6,7 +6,6 @@ import com.animania.addons.farm.common.entity.goats.EntityDoeBase;
 import com.animania.addons.farm.common.entity.goats.EntityKidBase;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.MathHelper;
 

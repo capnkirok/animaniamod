@@ -16,17 +16,14 @@ import com.animania.common.blocks.fluids.BlockFluidSlop;
 import com.animania.common.blocks.fluids.FluidBase;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import Fluid;
-import BlockItem;
 
 @EventBusSubscriber(modid = Animania.MODID)
 public class BlockHandler

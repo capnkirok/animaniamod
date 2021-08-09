@@ -6,7 +6,7 @@ import com.animania.common.loottables.EntityGenderProperty;
 import com.animania.common.loottables.EntityWateredProperty;
 import com.animania.common.loottables.WoolColorFunction;
 
-import net.minecraft.world.storage.loot.functions.LootFunctionManager;
+import net.minecraft.loot.functions.LootFunctionManager;
 import net.minecraft.world.storage.loot.properties.EntityPropertyManager;
 
 public class LootTableHandler

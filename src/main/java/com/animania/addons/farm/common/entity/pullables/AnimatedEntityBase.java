@@ -1,7 +1,7 @@
 package com.animania.addons.farm.common.entity.pullables;
 
+import com.animania.client.handler.AnimationHandler;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
-import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 import com.leviathanstudio.craftstudio.common.animation.IAnimated;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedEntity;
 

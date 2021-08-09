@@ -7,9 +7,9 @@ import com.animania.addons.catsdogs.common.tileentity.TileEntityProp;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
-import net.minecraftforge.registries.GameRegistry;
+import net.minecraft.block.material.MaterialColor;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CatsDogsAddonBlockHandler
 {

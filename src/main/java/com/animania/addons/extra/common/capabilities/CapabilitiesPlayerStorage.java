@@ -2,13 +2,12 @@ package com.animania.addons.extra.common.capabilities;
 
 import java.util.concurrent.Callable;
 
-import net.minecraft.nbt.NBTBase;
+import NBTBase;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
-
-import NBTBase;
 
 public class CapabilitiesPlayerStorage implements IStorage<ICapabilityPlayer> {
 

@@ -8,8 +8,9 @@ import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCalfHolstei
 import com.animania.addons.farm.common.entity.cows.CowJersey.EntityCalfJersey;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCalfMooshroom;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
+
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;

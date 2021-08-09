@@ -10,8 +10,8 @@ import com.animania.api.interfaces.ISleeping;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.entity.monster.CreeperEntity;
@@ -20,13 +20,10 @@ import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
-
-import LivingEntity;
 
 public class GenericAINearestAttackableTarget<T extends LivingEntity> extends EntityAITarget
 {

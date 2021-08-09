@@ -16,8 +16,6 @@ import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.world.World;
 
-import CreatureEntity;
-
 public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & ISleeping, O extends CreatureEntity & IMateable & IFoodEating & ISleeping & IImpregnable> extends EntityAIBase
 {
 	private final T entity;

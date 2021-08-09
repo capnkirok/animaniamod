@@ -4,29 +4,28 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.lwjgl.input.Keyboard;
-
 import com.animania.Animania;
 import com.animania.manual.components.IManualComponent;
 import com.animania.manual.groups.ManualPage;
 import com.animania.manual.groups.ManualTopic;
 import com.animania.manual.resources.ManualResourceLoader;
 import com.animania.network.common.PacketCloseManual;
+import com.mojang.blaze3d.platform.GlStateManager;
 
+import net.java.games.input.Keyboard;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GuiManual extends GuiScreen

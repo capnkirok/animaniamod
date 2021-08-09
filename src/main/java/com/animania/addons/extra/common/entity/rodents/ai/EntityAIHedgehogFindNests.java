@@ -11,7 +11,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 
 public class EntityAIHedgehogFindNests extends EntityAIBase

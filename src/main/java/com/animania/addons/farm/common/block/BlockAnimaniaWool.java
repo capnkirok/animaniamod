@@ -5,9 +5,10 @@ import com.animania.common.blocks.AnimaniaBlock;
 import com.animania.common.blocks.IMetaBlockName;
 import com.animania.common.items.SubtypesBlockItem;
 
+import PropertyEnum;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
@@ -22,11 +23,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import PropertyEnum;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 {

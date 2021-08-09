@@ -3,8 +3,6 @@ package com.animania.addons.extra.common.capabilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 
-import CompoundNBT;
-
 public interface ICapabilityPlayer {
 
 	public CompoundNBT getAnimal();

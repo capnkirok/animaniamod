@@ -2,7 +2,7 @@ package com.animania.addons.catsdogs.common.tileentity.handler;
 
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 public class FluidHandlerPetBowl extends FluidTank
 {

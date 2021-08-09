@@ -5,9 +5,9 @@ import org.lwjgl.opengl.GL11;
 import com.animania.addons.extra.client.model.rodents.ModelHamster;
 import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.client.render.layer.LayerBlinking;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.entity.PlayerEntitySP;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;

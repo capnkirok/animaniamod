@@ -14,14 +14,11 @@ import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.entity.merchant.villager.VillagerEntity.ListItemForEmeralds;
 import net.minecraft.entity.merchant.villager.VillagerEntity.PriceInfo;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.VillagerRegistry.VillagerCareer;
-import net.minecraftforge.registries.VillagerRegistry.VillagerProfession;
-
-import VillagerProfession;
 
 public class CatsDogsVillagerProfessions
 {

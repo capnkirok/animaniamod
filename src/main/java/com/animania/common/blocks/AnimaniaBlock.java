@@ -4,10 +4,10 @@ import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 

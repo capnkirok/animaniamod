@@ -7,10 +7,10 @@ import javax.imageio.ImageIO;
 
 import com.animania.Animania;
 import com.animania.manual.gui.GuiManual;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.IResource;
+import net.minecraft.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 
 public class ImageComponent implements IManualComponent

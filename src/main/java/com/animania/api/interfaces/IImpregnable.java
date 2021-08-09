@@ -2,6 +2,7 @@ package com.animania.api.interfaces;
 
 import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.network.datasync.DataParameter;
 

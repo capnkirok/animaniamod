@@ -8,11 +8,11 @@ import com.animania.api.interfaces.IFoodProviderTE;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 
+import EntityAIBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -22,9 +22,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-
-import EntityAIBase;
-import CreatureEntity;
 
 public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleeping> extends GenericAISearchBlock
 {

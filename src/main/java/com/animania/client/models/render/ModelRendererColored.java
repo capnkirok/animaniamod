@@ -1,7 +1,8 @@
 package com.animania.client.models.render;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.GlStateManager;
 
 public class ModelRendererColored extends ModelRendererAnimania
 {

@@ -2,7 +2,7 @@ package com.animania.addons.farm.common.inventory;
 
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CartChest extends InventoryBasic

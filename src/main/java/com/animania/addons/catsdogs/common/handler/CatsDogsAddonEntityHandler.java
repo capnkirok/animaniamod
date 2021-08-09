@@ -86,7 +86,6 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.registries.EntityRegistry;
 
 public class CatsDogsAddonEntityHandler
 {

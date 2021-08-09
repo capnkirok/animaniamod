@@ -2,7 +2,6 @@ package com.animania.addons.farm.common.item.handler;
 
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;

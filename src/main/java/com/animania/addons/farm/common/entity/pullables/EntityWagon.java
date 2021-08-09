@@ -11,9 +11,9 @@ import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
 import com.animania.addons.farm.common.handler.FarmAddonSoundHandler;
 import com.animania.addons.farm.common.inventory.CartChest;
 import com.animania.addons.farm.config.FarmConfig;
+import com.animania.client.handler.AnimationHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.leviathanstudio.craftstudio.CraftStudioApi;
-import com.leviathanstudio.craftstudio.common.animation.AnimationHandler;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -22,11 +22,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.HorseEntity;
+import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.InventoryHelper;
@@ -42,6 +40,7 @@ import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -50,10 +49,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import AnimationHandler;
 
 public class EntityWagon extends AnimatedEntityBase implements IInventoryChangedListener
 {

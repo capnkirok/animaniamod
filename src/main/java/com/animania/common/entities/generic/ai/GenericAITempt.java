@@ -11,10 +11,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-
-import CreatureEntity;
 
 public class GenericAITempt<T extends CreatureEntity & ISleeping & IFoodEating> extends EntityAITempt
 {

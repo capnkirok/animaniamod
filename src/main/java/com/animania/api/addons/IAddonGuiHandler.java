@@ -1,9 +1,9 @@
 package com.animania.api.addons;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 public interface IAddonGuiHandler
 {

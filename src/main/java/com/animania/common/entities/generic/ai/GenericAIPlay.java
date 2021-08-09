@@ -14,8 +14,6 @@ import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.math.Vec3d;
 
-import CreatureEntity;
-
 public class GenericAIPlay<T extends CreatureEntity & ISleeping & IPlaying, U extends CreatureEntity & ISleeping & IPlaying> extends EntityAIBase
 {
 	private T entity;

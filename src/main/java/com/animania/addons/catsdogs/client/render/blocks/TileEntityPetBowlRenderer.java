@@ -15,12 +15,12 @@ import com.animania.addons.catsdogs.client.models.blocks.ModelPetBowl;
 import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl;
 import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl.BowlContent;
 import com.animania.client.events.RenderEvents;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
+import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.GlStateManager.DestFactor;
-import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;

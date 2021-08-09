@@ -6,8 +6,6 @@ import com.animania.common.handler.AddonInjectionHandler;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIPanic;
 
-import CreatureEntity;
-
 public class GenericAIPanic<T extends CreatureEntity> extends EntityAIPanic
 {
 	public GenericAIPanic(T creature, double speedIn)

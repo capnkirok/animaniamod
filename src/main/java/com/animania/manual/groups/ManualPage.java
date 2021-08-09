@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.animania.manual.components.IManualComponent;
 
-import scala.actors.threadpool.Arrays;
-
 public class ManualPage
 {
 	private List<IManualComponent> components = new ArrayList<IManualComponent>();

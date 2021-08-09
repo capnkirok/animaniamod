@@ -2,8 +2,8 @@ package com.animania.common.blocks.fluids;
 
 import com.animania.Animania;
 
+import net.minecraft.fluid.Fluid;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.Fluid;
 
 public class FluidBase extends Fluid
 {

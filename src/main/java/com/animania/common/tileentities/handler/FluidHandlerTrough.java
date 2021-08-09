@@ -4,7 +4,7 @@ import com.animania.common.handler.BlockHandler;
 
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 public class FluidHandlerTrough extends FluidTank
 {

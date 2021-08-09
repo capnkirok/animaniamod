@@ -8,7 +8,7 @@ import com.animania.client.models.IColoredModel;
 import com.animania.client.models.render.ModelRendererColored;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;

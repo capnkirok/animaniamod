@@ -1,5 +1,9 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
@@ -8,11 +12,26 @@ import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.api.interfaces.IConvertable;
 import com.animania.api.interfaces.IVariant;
 import com.animania.common.entities.generic.GenericBehavior;
-import com.animania.common.entities.generic.ai.*;
+import com.animania.common.entities.generic.ai.GenericAIEatGrass;
+import com.animania.common.entities.generic.ai.GenericAIFindFood;
+import com.animania.common.entities.generic.ai.GenericAIFindWater;
+import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
+import com.animania.common.entities.generic.ai.GenericAILookIdle;
+import com.animania.common.entities.generic.ai.GenericAINearestAttackableTarget;
+import com.animania.common.entities.generic.ai.GenericAIOwnerHurtByTarget;
+import com.animania.common.entities.generic.ai.GenericAIOwnerHurtTarget;
+import com.animania.common.entities.generic.ai.GenericAIPanic;
+import com.animania.common.entities.generic.ai.GenericAISit;
+import com.animania.common.entities.generic.ai.GenericAISleep;
+import com.animania.common.entities.generic.ai.GenericAITargetNonTamed;
+import com.animania.common.entities.generic.ai.GenericAITempt;
+import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
+import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
@@ -27,7 +46,6 @@ import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -38,14 +56,12 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.Set;
 
 public class EntityAnimaniaDog extends WolfEntity implements IAnimaniaAnimalBase, IVariant, IConvertable
 {

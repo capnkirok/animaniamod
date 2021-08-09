@@ -5,10 +5,10 @@ import com.animania.client.render.item.RenderAnimatedEgg;
 import com.animania.manual.components.CraftingComponent;
 import com.animania.manual.components.EntityComponent;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 @EventBusSubscriber(modid = Animania.MODID)
 public class RenderEvents

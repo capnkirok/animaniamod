@@ -5,8 +5,6 @@ import com.animania.api.interfaces.ISleeping;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIOcelotAttack;
 
-import LivingEntity;
-
 public class EntityAICatAttack<T extends LivingEntity & ISleeping> extends EntityAIOcelotAttack
 {
 	private T entity;

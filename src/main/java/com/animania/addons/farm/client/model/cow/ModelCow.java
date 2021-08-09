@@ -5,8 +5,9 @@ import com.animania.addons.farm.common.entity.cows.CowFriesian.CowEntityFriesian
 import com.animania.addons.farm.common.entity.cows.CowHolstein.CowEntityHolstein;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.CowEntityMooshroom;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
+
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;

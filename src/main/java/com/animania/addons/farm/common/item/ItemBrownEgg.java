@@ -5,7 +5,6 @@ import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.EntityEgg;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
@@ -14,6 +13,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
 

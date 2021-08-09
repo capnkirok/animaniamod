@@ -5,14 +5,14 @@ import com.animania.addons.catsdogs.common.entity.canids.DogFox.EntityFemaleFox;
 import com.animania.addons.catsdogs.common.entity.canids.EntityAnimaniaDog;
 import com.animania.api.interfaces.IChild;
 import com.animania.client.render.layer.LayerBlinking;
+import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)

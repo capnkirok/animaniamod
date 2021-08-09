@@ -1,5 +1,7 @@
 package com.animania.addons.extra.network;
 
+import javax.xml.ws.handler.MessageContext;
+
 import com.animania.addons.extra.common.handler.ExtraAddonCapHandler;
 
 import net.minecraft.client.Minecraft;
@@ -7,7 +9,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class CapSyncPacketHandler implements IMessageHandler<CapSyncPacket, IMessage>
 {

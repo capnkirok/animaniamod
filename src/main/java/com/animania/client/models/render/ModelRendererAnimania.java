@@ -2,19 +2,19 @@ package com.animania.client.models.render;
 
 import java.nio.FloatBuffer;
 
-import javax.vecmath.Matrix4f;
 import javax.vecmath.Quat4f;
 
-import com.leviathanstudio.craftstudio.client.util.MathHelper;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelBox;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.renderer.model.ModelRenderer.ModelBox;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModelRendererAnimania extends ModelRenderer

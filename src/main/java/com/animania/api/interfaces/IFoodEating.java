@@ -1,18 +1,19 @@
 package com.animania.api.interfaces;
 
+import java.util.Set;
+
 import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
+
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.fluids.Fluid;
-
-import java.util.Set;
 
 public interface IFoodEating extends IAnimaniaAnimal
 {

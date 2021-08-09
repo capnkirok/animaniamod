@@ -5,11 +5,11 @@ import com.animania.addons.extra.common.block.BlockHamsterWheel;
 import com.animania.addons.extra.common.tileentity.TileEntityHamsterWheel;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.GameRegistry;
 
 public class ExtraAddonBlockHandler
 {

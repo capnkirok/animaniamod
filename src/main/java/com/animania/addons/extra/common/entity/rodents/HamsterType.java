@@ -9,8 +9,6 @@ import com.animania.api.interfaces.AnimaniaType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 
-import LivingEntity;
-
 public enum HamsterType implements AnimaniaType
 {
 	STANDARD(EntityHamster.class);

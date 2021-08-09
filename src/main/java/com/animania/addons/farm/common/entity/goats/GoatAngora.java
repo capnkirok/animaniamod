@@ -2,11 +2,11 @@ package com.animania.addons.farm.common.entity.goats;
 
 import java.util.List;
 
+import net.minecraft.entity.IShearable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.IShearable;
 
 public class GoatAngora
 {

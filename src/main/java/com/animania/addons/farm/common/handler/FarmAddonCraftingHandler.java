@@ -1,10 +1,9 @@
 package com.animania.addons.farm.common.handler;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
-import net.minecraftforge.registries.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class FarmAddonCraftingHandler
 {

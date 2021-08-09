@@ -24,10 +24,9 @@ import com.animania.addons.farm.common.entity.sheep.SheepSuffolk.EntityLambSuffo
 import com.animania.addons.farm.common.entity.sheep.SheepSuffolk.EntityRamSuffolk;
 import com.animania.api.interfaces.AnimaniaType;
 
+import StatBase;
 import net.minecraft.stats.StatBase;
 import net.minecraft.world.World;
-
-import StatBase;
 
 public enum SheepType implements AnimaniaType
 {

@@ -12,8 +12,8 @@ import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitEntityDoeBa
 import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitEntityKitBase;
 import com.animania.addons.extra.compat.waila.WailaBlockHamsterWheelProvider;
 import com.animania.addons.extra.compat.waila.WailaEntityPeafowlProvider;
-import com.animania.addons.extra.compat.waila.WailaRabbitEntityDoeProvider;
 import com.animania.addons.extra.compat.waila.WailaEntityRodentProvider;
+import com.animania.addons.extra.compat.waila.WailaRabbitEntityDoeProvider;
 import com.animania.compat.waila.provider.WailaAnimalEntityProviderBase;
 import com.animania.compat.waila.provider.WailaAnimalEntityProviderChild;
 import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;

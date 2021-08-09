@@ -9,18 +9,16 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 import com.animania.config.AnimaniaConfig;
 
+import EntityAIBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-
-import EntityAIBase;
-import CreatureEntity;
 
 public class GenericAIFindFood<T extends CreatureEntity & IFoodEating & ISleeping> extends GenericAISearchBlock
 {

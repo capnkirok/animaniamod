@@ -2,18 +2,18 @@ package com.animania.addons.farm.client.render.cows;
 
 import org.lwjgl.opengl.GL11;
 
-import com.animania.addons.farm.common.entity.cows.CowHighland.CowEntityHighland;
 import com.animania.addons.farm.client.model.cow.ModelCowLonghorn;
+import com.animania.addons.farm.common.entity.cows.CowHighland.CowEntityHighland;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.client.render.layer.LayerBlinking;
+import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)

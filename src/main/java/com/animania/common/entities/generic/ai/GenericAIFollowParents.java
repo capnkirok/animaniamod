@@ -12,8 +12,6 @@ import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.MathHelper;
 
-import CreatureEntity;
-
 public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleeping, O extends CreatureEntity & IMateable> extends EntityAIBase
 {
 	T childAnimal;

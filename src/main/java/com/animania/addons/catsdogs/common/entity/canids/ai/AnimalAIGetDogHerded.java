@@ -12,9 +12,6 @@ import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathPoint;
 
-import CreatureEntity;
-import TameableEntity;
-
 public class AnimalAIGetDogHerded<T extends CreatureEntity & ISleeping, U extends TameableEntity & ISleeping> extends EntityAIBase
 {
 	private final T herdAnimal;

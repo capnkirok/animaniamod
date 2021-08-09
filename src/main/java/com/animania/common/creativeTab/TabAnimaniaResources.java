@@ -3,10 +3,10 @@ package com.animania.common.creativeTab;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.handler.ItemHandler;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
