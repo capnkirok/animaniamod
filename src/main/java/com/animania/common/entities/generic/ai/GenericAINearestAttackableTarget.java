@@ -13,7 +13,7 @@ import com.google.common.base.Predicate;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.EntityAITarget;
+import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
@@ -25,11 +25,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 
-public class GenericAINearestAttackableTarget<T extends LivingEntity> extends EntityAITarget
+public class GenericAINearestAttackableTarget<T extends LivingEntity> extends TargetGoal
 {
 	protected final Class<T> targetClass;
 	private final int targetChance;
-	/** Instance of EntityAINearestAttackableTargetSorter. */
+	/** Instance of NearestAttackableTargetSorterGoal. */
 	protected final GenericAINearestAttackableTarget.Sorter sorter;
 	protected final Predicate<? super T> targetEntitySelector;
 	protected T targetEntity;

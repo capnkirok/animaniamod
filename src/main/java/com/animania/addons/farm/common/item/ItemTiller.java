@@ -8,7 +8,7 @@ import com.animania.common.helper.AnimaniaHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -29,14 +29,14 @@ public class ItemTiller extends Item
 	}
 
 	@Override
-	public EnumActionResult onItemUse(PlayerEntity playerIn, World world, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public ActionResultType onItemUse(PlayerEntity playerIn, World world, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(facing);
 
 		ItemStack stack = playerIn.getHeldItem(hand);
 
 		if (world.isRemote)
-			return EnumActionResult.SUCCESS;
+			return ActionResultType.SUCCESS;
 
 		EntityTiller entity = new EntityTiller(world);
 
@@ -52,7 +52,7 @@ public class ItemTiller extends Item
 		entity.rotationYaw = entity.rotationYaw;
 		entity.deltaRotation = entity.rotationYaw;
 		AnimaniaHelper.spawnEntity(world, entity);
-		return EnumActionResult.SUCCESS;
+		return ActionResultType.SUCCESS;
 
 	}
 

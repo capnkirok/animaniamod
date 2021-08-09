@@ -25,7 +25,7 @@ public class ModelHamster extends ModelBase
     public ModelRenderer     hamsterTail;
     public ModelRenderer     hamsterCheekRight[];
     public ModelRenderer     hamsterCheekLeft[];
-    // public boolean isRiding;
+    // public boolean isPassenger;
 
     public ModelRendererBall ball;
 
@@ -111,9 +111,9 @@ public class ModelHamster extends ModelBase
         float f9 = 0.0F;
         // float f9 = isChild ? 25.0F : 0.0F;
 
-        if (entityhamster.isSitting() | entityhamster.isRiding()
-        // | entityhamster.isRidingCreature()
-        // | entityhamster.isRidingHamster()
+        if (entityhamster.isSitting() | entityhamster.isPassenger()
+        // | entityhamster.isPassengerCreature()
+        // | entityhamster.isPassengerHamster()
         ) {
             float f3 = 0.0F;
 
@@ -122,8 +122,8 @@ public class ModelHamster extends ModelBase
              * if (entityhamster.ridingEntity != null) { //mod_Hamster.
              * mDebug("setLivingAnimations entityhamster.ridingEntity.height="
              * +entityhamster.ridingEntity.height); if
-             * (entityhamster.isRidingPlayer()) { //Player //mod_Hamster.
-             * mDebug("setLivingAnimations isRidingEntity() entityhamster.ridingEntity.height="
+             * (entityhamster.isPassengerPlayer()) { //Player //mod_Hamster.
+             * mDebug("setLivingAnimations isPassengerEntity() entityhamster.ridingEntity.height="
              * +entityhamster.ridingEntity.height); } else { //mod_Hamster.
              * mDebug("setLivingAnimations entityhamster.ridingEntity.height="
              * +entityhamster.ridingEntity.height); if

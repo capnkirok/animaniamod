@@ -19,8 +19,8 @@ import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.GrassBlock;
 import net.minecraft.block.BlockTallGrass;
+import net.minecraft.block.GrassBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -180,7 +180,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 		} else if (!player.isSneaking())
 		{
 
-			if (player.isRiding() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this)
+			if (player.isPassenger() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this)
 			{
 
 				this.pulled = true;
@@ -198,7 +198,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 				}
 
 				return true;
-			} else if (player.isRiding() && this.puller == player.getRidingEntity() && player.getRidingEntity() != this)
+			} else if (player.isPassenger() && this.puller == player.getRidingEntity() && player.getRidingEntity() != this)
 			{
 				this.pulled = false;
 				this.puller = null;
@@ -239,7 +239,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isRiding() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote)
+			} else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote)
 			{
 
 				double diffx = Math.abs(this.getX() - player.getX());
@@ -258,7 +258,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 					}
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isRiding() && this.puller == player && this.getControllingPassenger() != player && !world.isRemote)
+			} else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !world.isRemote)
 			{
 				this.pulled = false;
 				this.puller = null;
@@ -652,7 +652,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 			}
 		}
 
-		if (this.pulled && this.puller != null && this.puller.isRiding())
+		if (this.pulled && this.puller != null && this.puller.isPassenger())
 		{
 			this.puller = this.puller.getRidingEntity();
 			if (this.puller instanceof HorseEntity)
@@ -701,7 +701,7 @@ public class EntityTiller extends AnimatedEntityBase implements IInventoryChange
 					AnimalEntity AnimalEntity = (AnimalEntity) entity;
 					if (!entity.isPassenger(this))
 					{
-						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof PlayerEntity && !entity.isRiding() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof PlayerEntity))
+						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof PlayerEntity && !entity.isPassenger() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof PlayerEntity))
 						{
 							entity.startRiding(this);
 						} else

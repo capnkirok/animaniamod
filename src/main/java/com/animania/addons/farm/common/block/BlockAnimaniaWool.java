@@ -58,7 +58,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	@Override
 	public float getPlayerRelativeBlockHardness(BlockState state, PlayerEntity player, World worldIn, BlockPos pos)
 	{
-		ItemStack stack = player.getHeldItemMainhand();
+		ItemStack stack = player.getMainHandItem();
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemShears)
 			return 0.16f;
 		else

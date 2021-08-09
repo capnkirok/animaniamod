@@ -12,7 +12,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.World;
 
-public class EntityAIButtHeadsSheep extends Goal
+public class ButtHeadsSheepGoal extends Goal
 {
 	private final AnimalEntity theAnimal;
 	World theWorld;
@@ -22,7 +22,7 @@ public class EntityAIButtHeadsSheep extends Goal
 	private int delayCounter;
 
 
-	public EntityAIButtHeadsSheep(AnimalEntity animal, double speedIn)
+	public ButtHeadsSheepGoal(AnimalEntity animal, double speedIn)
 	{
 		this.theAnimal = animal;
 		this.theWorld = animal.level;

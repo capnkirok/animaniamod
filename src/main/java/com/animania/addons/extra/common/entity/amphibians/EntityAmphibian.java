@@ -11,13 +11,10 @@ import com.animania.common.handler.AddonInjectionHandler;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAIPanic;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -90,14 +87,14 @@ public abstract class EntityAmphibian extends AnimalEntity implements ISpawnable
 
 	@Override
 	protected void initEntityAI() {
-		this.tasks.addTask(1, new EntityAISwimming(this));
+		this.tasks.addTask(1, new SwimmingGoal(this));
 		this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
 		if (!this.getCustomNameTag().equals("Pepe")) {
-			this.tasks.addTask(2, new EntityAIAvoidEntity<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
+			this.tasks.addTask(2, new AvoidEntityGoal<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
 		}
-		this.tasks.addTask(3, new EntityAIWanderAvoidWater(this, 0.6D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, PlayerEntity.class, 10.0F));
-		this.tasks.addTask(5, new EntityAIAvoidEntity<EntityAnimaniaPeacock>(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
+		this.tasks.addTask(3, new WanderAvoidWaterGoal(this, 0.6D));
+		this.tasks.addTask(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
+		this.tasks.addTask(5, new AvoidEntityGoal<EntityAnimaniaPeacock>(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
 		
 		AddonInjectionHandler.runInjection("farm", "avoidChicken", Void.class, this.tasks, this);
 	}
@@ -344,7 +341,7 @@ public abstract class EntityAmphibian extends AnimalEntity implements ISpawnable
 			super.handleStatusUpdate(id);
 	}
 
-	static class AIPanic extends EntityAIPanic
+	static class AIPanic extends PanicGoal
 	{
 		private final EntityAmphibian theEntity;
 

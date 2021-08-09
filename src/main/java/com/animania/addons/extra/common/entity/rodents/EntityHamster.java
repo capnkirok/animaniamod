@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 import com.animania.Animania;
 import com.animania.addons.extra.common.capabilities.CapabilityRefs;
 import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
-import com.animania.addons.extra.common.entity.rodents.ai.EntityAILookIdleRodent;
+import com.animania.addons.extra.common.entity.rodents.ai.LookIdleRodentGoal;
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.addons.extra.compat.top.TOPInfoProviderRodent;
@@ -41,8 +41,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIFleeSun;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.goal.FleeSunGoal;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -147,12 +147,12 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 			this.tasks.addTask(3, new GenericAIFindWater<EntityHamster>(this, 1.0D, null, EntityHamster.class, true));
 			this.tasks.addTask(3, new GenericAIFindFood<EntityHamster>(this, 1.0D, null, false));
 		}
-		this.tasks.addTask(4, new EntityAIFleeSun(this, 1.0D));
+		this.tasks.addTask(4, new FleeSunGoal(this, 1.0D));
 		this.tasks.addTask(5, new GenericAIWanderAvoidWater(this, 1.1D));
 		this.tasks.addTask(6, new GenericAITempt<EntityHamster>(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
 		this.tasks.addTask(7, new GenericAIFollowOwner<EntityHamster>(this, 1.0D, 10.0F, 2.0F));
 		this.tasks.addTask(8, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(9, new EntityAILookIdleRodent(this));
+		this.tasks.addTask(9, new LookIdleRodentGoal(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(10, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hamsterBed), Block.getBlockFromName(ExtraConfig.settings.hamsterBed2), EntityHamster.class, new Function<Long, Boolean>() {
@@ -165,7 +165,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 				
 			}));
 		}
-		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 
 	}
 
@@ -492,7 +492,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 			{
 				this.tamedTimer = 120;
 
-				if (this.isTamed() && AnimaniaConfig.gameRules.showUnhappyParticles && !this.isRiding())
+				if (this.isTamed() && AnimaniaConfig.gameRules.showUnhappyParticles && !this.isPassenger())
 				{
 					double d = this.rand.nextGaussian() * 0.02D;
 					double d1 = this.rand.nextGaussian() * 0.02D;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.animania.addons.farm.common.entity.chickens.ai.EntityAIFindNest;
+import com.animania.addons.farm.common.entity.chickens.ai.FindNestGoal;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.api.data.EntityGender;
 import com.animania.common.handler.AddonInjectionHandler;
@@ -21,9 +21,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -46,9 +45,9 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		this.setSize(0.5F, 0.7F);
 		this.width = 0.5F;
 		this.height = 0.7F;
-		this.tasks.addTask(6, new EntityAIFindNest(this, 1.0D));
-		this.tasks.addTask(9, new EntityAILeapAtTarget(this, 0.2F));
-		this.tasks.addTask(10, new EntityAIAttackMelee(this, 1.0D, true));
+		this.tasks.addTask(6, new FindNestGoal(this, 1.0D));
+		this.tasks.addTask(9, new LeapAtTargetGoal(this, 0.2F));
+		this.tasks.addTask(10, new AttackMeleeGoal(this, 1.0D, true));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
 			AddonInjectionHandler.runInjection("extra", "attackFrogs", null, this);

@@ -50,7 +50,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 		if (!getSterilized())
 			this.tasks.addTask(3, new GenericAIMate<EntityHogBase, EntitySowBase>(this, 1.0D, EntitySowBase.class, PigEntityletBase.class, EntityAnimaniaPig.class));
-		// this.tasks.addTask(9, new EntityAIFollowMatePigs(this, 1.1D));
+		// this.tasks.addTask(9, new FollowMatePigsGoal(this, 1.1D));
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class EntityHogBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		else
 		{
 			PlayerEntity PlayerEntity = (PlayerEntity) entity;
-			ItemStack itemstack = PlayerEntity.getHeldItemMainhand();
+			ItemStack itemstack = PlayerEntity.getMainHandItem();
 
 			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK)
 				return true;

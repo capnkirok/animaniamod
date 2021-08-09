@@ -9,11 +9,10 @@ import com.animania.addons.farm.common.entity.pullables.EntityCart;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAIWanderHorses extends EntityAIWander
+public class WanderHorsesGoal extends WanderGoal
 {
 	protected final float probability;
 
@@ -81,12 +80,12 @@ public class EntityAIWanderHorses extends EntityAIWander
 		}
 	}
 
-	public EntityAIWanderHorses(CreatureEntity p_i47301_1_, double p_i47301_2_)
+	public WanderHorsesGoal(CreatureEntity p_i47301_1_, double p_i47301_2_)
 	{
 		this(p_i47301_1_, p_i47301_2_, 0.001F);
 	}
 
-	public EntityAIWanderHorses(CreatureEntity p_i47302_1_, double p_i47302_2_, float p_i47302_4_)
+	public WanderHorsesGoal(CreatureEntity p_i47302_1_, double p_i47302_2_, float p_i47302_4_)
 	{
 		super(p_i47302_1_, p_i47302_2_);
 		this.probability = p_i47302_4_;

@@ -27,8 +27,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -64,8 +63,8 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 		this.width = 1.4F;
 		this.height = 1.8F;
 		this.stepHeight = 1.1F;
-		this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.2D, false));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
+		this.tasks.addTask(4, new AttackMeleeGoal(this, 1.2D, false));
+		this.targetTasks.addTask(1, new HurtByTargetGoal(this, true, new Class[0]));
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;
 	}

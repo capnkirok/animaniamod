@@ -14,7 +14,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.World;
 
-public class EntityAIButtHeadsGoats extends Goal
+public class ButtHeadsGoatsGoal extends Goal
 {
 	private final EntityAnimaniaGoat theAnimal;
 	World theWorld;
@@ -24,7 +24,7 @@ public class EntityAIButtHeadsGoats extends Goal
 	private int delayCounter;
 
 
-	public EntityAIButtHeadsGoats(EntityAnimaniaGoat animal, double speedIn)
+	public ButtHeadsGoatsGoal(EntityAnimaniaGoat animal, double speedIn)
 	{
 		this.theAnimal = animal;
 		this.theWorld = animal.level;

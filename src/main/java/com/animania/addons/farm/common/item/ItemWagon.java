@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -56,7 +56,7 @@ public class ItemWagon extends Item
 
 		if (raytraceresult == null)
 		{
-			return new ActionResult(EnumActionResult.PASS, itemstack);
+			return new ActionResult(ActionResultType.PASS, itemstack);
 		} else
 		{
 			Vec3d vec3d2 = playerIn.getLook(1.0F);
@@ -80,11 +80,11 @@ public class ItemWagon extends Item
 
 			if (flag)
 			{
-				return new ActionResult(EnumActionResult.PASS, itemstack);
+				return new ActionResult(ActionResultType.PASS, itemstack);
 
 			} else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK)
 			{
-				return new ActionResult(EnumActionResult.PASS, itemstack);
+				return new ActionResult(ActionResultType.PASS, itemstack);
 			} else
 			{
 				Block block = worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
@@ -104,7 +104,7 @@ public class ItemWagon extends Item
 				}
 
 				playerIn.addStat(StatList.getObjectUseStats(this));
-				return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+				return new ActionResult(ActionResultType.SUCCESS, itemstack);
 			}
 		}
 	}

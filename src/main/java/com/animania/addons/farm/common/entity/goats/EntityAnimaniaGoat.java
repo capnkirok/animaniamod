@@ -106,7 +106,7 @@ public class EntityAnimaniaGoat extends SheepEntity implements IAnimaniaAnimalBa
 			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaGoat>(this, 1.0D, entityAIEatGrass, true));
 		}
 		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new EntityAISwimming(this));
+		this.tasks.addTask(5, new SwimmingGoal(this));
 		this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaGoat>(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
 		this.tasks.addTask(8, this.entityAIEatGrass);
 		this.tasks.addTask(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 20.0F, 2.2D, 2.2D));
@@ -121,7 +121,7 @@ public class EntityAnimaniaGoat extends SheepEntity implements IAnimaniaAnimalBa
 		{
 			AddonInjectionHandler.runInjection("catsdogs", "addHerdingBehavior", null, this, 1);
 		}
-		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;

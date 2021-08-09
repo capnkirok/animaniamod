@@ -36,10 +36,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.RabbitEntity;
@@ -111,15 +109,15 @@ public class EntityAnimaniaDog extends WolfEntity implements IAnimaniaAnimalBase
 	protected void initAI()
 	{
 		this.aiSit = new GenericAISit(this);
-		this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(0, new SwimmingGoal(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaDog>(this, 1.0D, entityAIEatGrass, EntityAnimaniaDog.class, true));
 			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaDog>(this, 1.0D, entityAIEatGrass, false));
 		}
 		this.tasks.addTask(4, this.aiSit);
-		this.tasks.addTask(5, new EntityAILeapAtTarget(this, 0.4F));
-		this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.0D, true));
+		this.tasks.addTask(5, new LeapAtTargetGoal(this, 0.4F));
+		this.tasks.addTask(6, new AttackMeleeGoal(this, 1.0D, true));
 		this.tasks.addTask(7, new GenericAIFollowOwner<EntityAnimaniaDog>(this, 1.5D, 5.0F, 30.0F));
 		this.tasks.addTask(8, new GenericAIPanic<EntityAnimaniaDog>(this, 1.5D));
 		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaDog>(this, 1.2D, false, TEMPTATION_ITEMS)); // TODO
@@ -128,7 +126,7 @@ public class EntityAnimaniaDog extends WolfEntity implements IAnimaniaAnimalBase
 		this.tasks.addTask(14, new GenericAILookIdle<EntityAnimaniaDog>(this));
 		this.targetTasks.addTask(1, new GenericAIOwnerHurtByTarget(this));
 		this.targetTasks.addTask(2, new GenericAIOwnerHurtTarget(this));
-		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true, new Class[0]));
+		this.targetTasks.addTask(3, new HurtByTargetGoal(this, true, new Class[0]));
 		this.targetTasks.addTask(5, new GenericAINearestAttackableTarget(this, AbstractSkeleton.class, false));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
@@ -296,7 +294,7 @@ public class EntityAnimaniaDog extends WolfEntity implements IAnimaniaAnimalBase
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.isSitting() || this.isRiding())
+		if (this.isSitting() || this.isPassenger())
 		{
 			if (this.getRidingEntity() != null)
 				this.rotationYaw = this.getRidingEntity().rotationYaw;

@@ -13,7 +13,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityAIAttackMeleeBulls extends Goal
+public class AttackMeleeBullsGoal extends Goal
 {
 	World                    worldObj;
 	protected CreatureEntity attacker;
@@ -29,7 +29,7 @@ public class EntityAIAttackMeleeBulls extends Goal
 	private int              failedPathFindingPenalty = 0;
 	private boolean          canPenalize              = false;
 
-	public EntityAIAttackMeleeBulls(EntityAnimaniaCow creature, double speedIn, boolean useLongMemory) {
+	public AttackMeleeBullsGoal(EntityAnimaniaCow creature, double speedIn, boolean useLongMemory) {
 		this.attacker = creature;
 		this.levelObj = creature.level;
 		this.speedTowardsTarget = speedIn;

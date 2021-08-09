@@ -38,7 +38,7 @@ public class RenderHedgehogAlbino<T extends EntityHedgehogAlbino> extends Render
 
 	protected void preRenderScale(T entity, float f)
 	{
-		if (entity.isRiding())
+		if (entity.isPassenger())
 		{
 
 			if (entity.getRidingEntity() instanceof PlayerEntitySP)

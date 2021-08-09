@@ -18,12 +18,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
-public class EntityAIPigSnuffle extends GenericAIEatGrass<EntityAnimaniaPig>
+public class PigSnuffleGoal extends GenericAIEatGrass<EntityAnimaniaPig>
 {
 	private boolean hasSpawned = false;
 	private boolean hasEaten = false;
 
-	public EntityAIPigSnuffle(EntityAnimaniaPig grassEaterEntityIn)
+	public PigSnuffleGoal(EntityAnimaniaPig grassEaterEntityIn)
 	{
 		super(grassEaterEntityIn, false);
 	}

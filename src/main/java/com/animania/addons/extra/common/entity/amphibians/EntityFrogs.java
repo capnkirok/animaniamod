@@ -20,14 +20,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
@@ -113,25 +109,25 @@ public class EntityFrogs extends EntityAmphibian
 	@Override
 	protected void initEntityAI()
 	{
-		this.tasks.addTask(1, new EntityAISwimming(this));
+		this.tasks.addTask(1, new SwimmingGoal(this));
 		if (!this.getCustomNameTag().equals("Pepe"))
 		{
 			this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
-			this.tasks.addTask(2, new EntityAIAvoidEntity<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
+			this.tasks.addTask(2, new AvoidEntityGoal<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
 		} else if (this.getCustomNameTag().equals("Pepe"))
 		{
 			this.tasks.taskEntries.clear();
-			this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.5F));
-			this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
-			this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-			this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityFerretBase>(this, EntityFerretBase.class, true));
-			this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<EntityHedgehog>(this, EntityHedgehog.class, true));
-			this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityHedgehogAlbino>(this, EntityHedgehogAlbino.class, true));
+			this.tasks.addTask(1, new LeapAtTargetGoal(this, 0.5F));
+			this.tasks.addTask(2, new AttackMeleeGoal(this, 2.0D, true));
+			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
+			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<EntityFerretBase>(this, EntityFerretBase.class, true));
+			this.targetTasks.addTask(3, new NearestAttackableTargetGoal<EntityHedgehog>(this, EntityHedgehog.class, true));
+			this.targetTasks.addTask(4, new NearestAttackableTargetGoal<EntityHedgehogAlbino>(this, EntityHedgehogAlbino.class, true));
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20);
 		}
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, PlayerEntity.class, 10.0F));
-		this.tasks.addTask(5, new EntityAIWander(this, 0.6D));
+		this.tasks.addTask(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
+		this.tasks.addTask(5, new WanderGoal(this, 0.6D));
 
 	}
 

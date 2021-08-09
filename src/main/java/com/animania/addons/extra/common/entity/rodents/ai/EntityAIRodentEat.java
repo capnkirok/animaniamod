@@ -17,14 +17,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-public class EntityAIRodentEat extends Goal
+public class RodentEatGoal extends Goal
 {
 	private static final Predicate<BlockState> IS_TALL_GRASS = BlockStateMatcher.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	private final LivingEntity                  grassEaterEntity;
 	private final World                         entityWorld;
 	int                                         eatingGrassTimer;
 
-	public EntityAIRodentEat(LivingEntity grassEaterEntityIn) {
+	public RodentEatGoal(LivingEntity grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
 		this.entityWorld = grassEaterEntityIn.level;
 		this.setMutexBits(7);
@@ -67,7 +67,7 @@ public class EntityAIRodentEat extends Goal
 			return false;
 		else {
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.getX(), this.grassEaterEntity.getY(), this.grassEaterEntity.getZ());
-			return EntityAIRodentEat.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true
+			return RodentEatGoal.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true
 					: this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS
 					|| this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.DIRT;
 		}

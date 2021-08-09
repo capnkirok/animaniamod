@@ -10,8 +10,8 @@ import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 import com.animania.addons.extra.common.entity.amphibians.EntityAmphibian;
 import com.animania.addons.extra.common.entity.amphibians.EntityFrogs;
 import com.animania.addons.extra.common.entity.amphibians.EntityToad;
-import com.animania.addons.extra.common.entity.rodents.ai.EntityAIFerretFindNests;
-import com.animania.addons.extra.common.entity.rodents.ai.EntityAIRodentEat;
+import com.animania.addons.extra.common.entity.rodents.ai.FerretFindNestsGoal;
+import com.animania.addons.extra.common.entity.rodents.ai.RodentEatGoal;
 import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.addons.extra.compat.top.TOPInfoProviderRodent;
 import com.animania.addons.extra.config.ExtraConfig;
@@ -45,10 +45,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAISit;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -117,20 +116,20 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 
 	protected void initAI()
 	{
-		this.aiSit = new EntityAISit(this);
+		this.aiSit = new SitGoal(this);
 		this.tasks.addTask(0, new GenericAISwimmingSmallCreatures(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(1, new GenericAIFindWater<EntityFerretBase>(this, 1.0D, entityAIEatGrass, EntityFerretBase.class, true));
-			this.tasks.addTask(2, new EntityAIFerretFindNests(this, 1.0D));
+			this.tasks.addTask(2, new FerretFindNestsGoal(this, 1.0D));
 			this.tasks.addTask(3, new GenericAIFindFood<EntityFerretBase>(this, 1.0D, entityAIEatGrass, false));
 		}
 		this.tasks.addTask(4, this.aiSit);
-		this.tasks.addTask(5, new EntityAILeapAtTarget(this, 0.2F));
-		this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.0D, true));
+		this.tasks.addTask(5, new LeapAtTargetGoal(this, 0.2F));
+		this.tasks.addTask(6, new AttackMeleeGoal(this, 1.0D, true));
 		this.tasks.addTask(7, new GenericAIFollowOwner<EntityFerretBase>(this, 1.0D, 10.0F, 2.0F));
 		this.tasks.addTask(8, new GenericAIPanic<EntityFerretBase>(this, 1.5D));
-		this.tasks.addTask(9, new EntityAIRodentEat(this));
+		this.tasks.addTask(9, new RodentEatGoal(this));
 		this.tasks.addTask(10, new GenericAITempt<EntityFerretBase>(this, 1.2D, false, EntityFerretBase.TEMPTATION_ITEMS));
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
@@ -147,7 +146,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 			this.targetTasks.addTask(7, new GenericAINearestAttackableTarget<EntityFrogs>(this, EntityFrogs.class, false));
 			this.targetTasks.addTask(8, new GenericAINearestAttackableTarget<EntityToad>(this, EntityToad.class, false));
 		}
-		this.targetTasks.addTask(9, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(9, new HurtByTargetGoal(this, false, new Class[0]));
 	}
 
 	@Override
@@ -382,7 +381,7 @@ public class EntityFerretBase extends TameableEntity implements TOPInfoProviderR
 	{
 		GenericBehavior.livingUpdateCommon(this);
 
-		if (this.isSitting() || this.isRiding())
+		if (this.isSitting() || this.isPassenger())
 		{
 			if (this.getRidingEntity() != null)
 				this.rotationYaw = this.getRidingEntity().rotationYaw;

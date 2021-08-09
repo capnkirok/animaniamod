@@ -44,17 +44,14 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAIMoveToBlock;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.WolfEntity;
@@ -131,7 +128,7 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 		{
 			this.tasks.addTask(3, new GenericAIPanic<EntityAnimaniaRabbit>(this, 2.5D));
 			this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.8D));
-			this.tasks.addTask(5, new EntityAISwimming(this));
+			this.tasks.addTask(5, new SwimmingGoal(this));
 			this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaRabbit>(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
 			this.tasks.addTask(8, this.entityAIEatGrass);
 			this.tasks.addTask(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 3.0D, 3.5D));
@@ -154,12 +151,12 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 		}else
 
 	{
-		this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.7F));
-		this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
+		this.tasks.addTask(1, new LeapAtTargetGoal(this, 0.7F));
+		this.tasks.addTask(2, new AttackMeleeGoal(this, 2.0D, true));
 		this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, PlayerEntity.class, 20.0F));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<PlayerEntity>(this, PlayerEntity.class, true));
+		this.tasks.addTask(4, new WatchClosestGoal(this, PlayerEntity.class, 20.0F));
+		this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetTasks.addTask(2, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 		this.setHealth(50);
 	}
@@ -173,12 +170,12 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 	{
 
 		this.tasks.taskEntries.clear();
-		this.tasks.addTask(1, new EntityAILeapAtTarget(this, 0.7F));
-		this.tasks.addTask(2, new EntityAIAttackMelee(this, 2.0D, true));
+		this.tasks.addTask(1, new LeapAtTargetGoal(this, 0.7F));
+		this.tasks.addTask(2, new AttackMeleeGoal(this, 2.0D, true));
 		this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, PlayerEntity.class, 10.0F));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, PlayerEntity.class, true));
+		this.tasks.addTask(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
+		this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetTasks.addTask(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, true));
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 		this.setHealth(50);
 	}
@@ -643,7 +640,7 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 		}
 	}
 
-	static class AIEvilAttack extends EntityAIAttackMelee
+	static class AIEvilAttack extends AttackMeleeGoal
 	{
 		public AIEvilAttack(EntityAnimaniaRabbit rabbit)
 		{
@@ -678,7 +675,7 @@ public class EntityAnimaniaRabbit extends RabbitEntity implements IAnimaniaAnima
 		}
 	}
 
-	static class AIRaidFarm extends EntityAIMoveToBlock
+	static class AIRaidFarm extends MoveToBlockGoal
 	{
 		private final EntityAnimaniaRabbit rabbit;
 		private boolean wantsToRaid;

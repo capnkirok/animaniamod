@@ -15,7 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAIFerretFindNests extends Goal
+public class FerretFindNestsGoal extends Goal
 {
 	private final CreatureEntity temptedEntity;
 	private final double speed;
@@ -28,7 +28,7 @@ public class EntityAIFerretFindNests extends Goal
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIFerretFindNests(CreatureEntity temptedEntityIn, double speedIn)
+	public FerretFindNestsGoal(CreatureEntity temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;

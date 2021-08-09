@@ -137,7 +137,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 		}
 
 		// EMPTY SOLIDS
-		else if (playerIn.getHeldItemOffhand().isEmpty() && playerIn.getHeldItemMainhand().isEmpty() && !te.itemHandler.getStackInSlot(0).isEmpty())
+		else if (playerIn.getHeldItemOffhand().isEmpty() && playerIn.getMainHandItem().isEmpty() && !te.itemHandler.getStackInSlot(0).isEmpty())
 		{
 			ItemStack extract = te.itemHandler.extractItem(0, 1, false);
 			playerIn.inventory.addItemStackToInventory(extract);

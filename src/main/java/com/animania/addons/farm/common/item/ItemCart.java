@@ -8,7 +8,7 @@ import com.animania.common.helper.AnimaniaHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -48,7 +48,7 @@ public class ItemCart extends Item
 	 * worldIn.rayTraceBlocks(vec3d, vec3d1, true);
 	 * 
 	 * if (raytraceresult == null) { return new
-	 * ActionResult(EnumActionResult.PASS, itemstack); } else { Vec3d vec3d2 =
+	 * ActionResult(ActionResultType.PASS, itemstack); } else { Vec3d vec3d2 =
 	 * playerIn.getLook(1.0F); boolean flag = false; List<Entity> list =
 	 * worldIn.getEntitiesWithinAABBExcludingEntity(playerIn,
 	 * playerIn.getEntityBoundingBox().grow(vec3d2.x * 5.0D, vec3d2.y * 5.0D,
@@ -63,10 +63,10 @@ public class ItemCart extends Item
 	 * 
 	 * if (axisalignedbb.contains(vec3d)) { flag = true; } } }
 	 * 
-	 * if (flag) { return new ActionResult(EnumActionResult.PASS, itemstack);
+	 * if (flag) { return new ActionResult(ActionResultType.PASS, itemstack);
 	 * 
 	 * } else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK) {
-	 * return new ActionResult(EnumActionResult.PASS, itemstack); } else { Block
+	 * return new ActionResult(ActionResultType.PASS, itemstack); } else { Block
 	 * block = worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
 	 * boolean flag1 = false; EntityCart EntityCart = new EntityCart(worldIn);
 	 * EntityCart.rotationYaw = playerIn.rotationYaw;
@@ -79,18 +79,18 @@ public class ItemCart extends Item
 	 * if (!playerIn.capabilities.isCreativeMode) { itemstack.shrink(1); }
 	 * 
 	 * playerIn.addStat(StatList.getObjectUseStats(this)); return new
-	 * ActionResult(EnumActionResult.SUCCESS, itemstack); } } }
+	 * ActionResult(ActionResultType.SUCCESS, itemstack); } } }
 	 */
 
 	@Override
-	public EnumActionResult onItemUse(PlayerEntity playerIn, World world, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public ActionResultType onItemUse(PlayerEntity playerIn, World world, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(facing);
 
 		ItemStack stack = playerIn.getHeldItem(hand);
 
 		if (world.isRemote)
-			return EnumActionResult.SUCCESS;
+			return ActionResultType.SUCCESS;
 
 		EntityCart entity = new EntityCart(world);
 
@@ -106,7 +106,7 @@ public class ItemCart extends Item
 		entity.rotationYaw = entity.rotationYaw;
 		entity.deltaRotation = entity.rotationYaw;
 		AnimaniaHelper.spawnEntity(world, entity);
-		return EnumActionResult.SUCCESS;
+		return ActionResultType.SUCCESS;
 
 	}
 

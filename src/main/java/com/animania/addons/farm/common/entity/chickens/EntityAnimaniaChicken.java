@@ -6,7 +6,6 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
-import com.animania.addons.farm.common.entity.chickens.ai.EntityAIWatchClosestFromSide;
 import com.animania.addons.farm.common.handler.FarmAddonSoundHandler;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.api.data.AnimalContainer;
@@ -35,7 +34,7 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -96,13 +95,13 @@ public class EntityAnimaniaChicken extends ChickenEntity implements IAnimaniaAni
 
 		this.tasks.addTask(4, new GenericAITempt<EntityAnimaniaChicken>(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(7, new EntityAIWatchClosestFromSide(this, PlayerEntity.class, 6.0F));
+		this.tasks.addTask(7, new WatchClosestFromSideGoal(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaChicken>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(8, new GenericAISleep<EntityAnimaniaChicken>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.chickenBed), AnimaniaHelper.getBlock(FarmConfig.settings.chickenBed2), EntityAnimaniaChicken.class));
 		}
-		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
@@ -210,7 +209,7 @@ public class EntityAnimaniaChicken extends ChickenEntity implements IAnimaniaAni
 
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
-		this.destPos = (float) (this.destPos + ((this.onGround || this.isRiding()) ? -1 : 4) * 0.3D);
+		this.destPos = (float) (this.destPos + ((this.onGround || this.isPassenger()) ? -1 : 4) * 0.3D);
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
 		this.fallDistance = 0;
@@ -222,12 +221,12 @@ public class EntityAnimaniaChicken extends ChickenEntity implements IAnimaniaAni
 			this.featherTimer = AnimaniaConfig.careAndFeeding.featherTimer + rand.nextInt(1000);
 		}
 
-		if (!this.onGround && !this.isRiding() && this.wingRotDelta < 1.0F)
+		if (!this.onGround && !this.isPassenger() && this.wingRotDelta < 1.0F)
 			this.wingRotDelta = 1.0F;
 
 		this.wingRotDelta = (float) (this.wingRotDelta * 0.9D);
 
-		if (!this.onGround && !this.isRiding() && this.motionY < 0.0D)
+		if (!this.onGround && !this.isPassenger() && this.motionY < 0.0D)
 			this.motionY *= 0.6D;
 
 		this.wingRotation += this.wingRotDelta * 2.0F;

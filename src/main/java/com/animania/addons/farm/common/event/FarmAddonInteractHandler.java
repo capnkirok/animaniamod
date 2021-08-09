@@ -33,7 +33,7 @@ public class FarmAddonInteractHandler
 		PlayerEntity player = event.getPlayer();
 		World world = event.getWorld();
 
-		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && player.isRiding())
+		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && player.isPassenger())
 		{
 			if (player.getRidingEntity() instanceof EntitySowBase)
 			{
@@ -54,7 +54,7 @@ public class FarmAddonInteractHandler
 			}
 		}
 
-		if (stack != null && stack.getItem() == FarmAddonItemHandler.ridingCrop && player.isRiding())
+		if (stack != null && stack.getItem() == FarmAddonItemHandler.ridingCrop && player.isPassenger())
 		{
 			if (player.getRidingEntity() instanceof EntityStallionDraftHorse)
 			{
@@ -67,7 +67,7 @@ public class FarmAddonInteractHandler
 			}
 		}
 
-		if (stack != null && stack.getItem() == FarmAddonItemHandler.ridingCrop && player.isRiding())
+		if (stack != null && stack.getItem() == FarmAddonItemHandler.ridingCrop && player.isPassenger())
 		{
 			if (player.getRidingEntity() instanceof EntityMareDraftHorse)
 			{
@@ -85,7 +85,7 @@ public class FarmAddonInteractHandler
 	public static void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event)
 	{
 		PlayerEntity player = event.getPlayer();
-		ItemStack stack = player.getHeldItemMainhand();
+		ItemStack stack = player.getMainHandItem();
 		Entity target = event.getTarget();
 
 		if (stack.getItem() instanceof ItemDye && target instanceof EntityAnimaniaSheep)

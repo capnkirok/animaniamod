@@ -41,7 +41,7 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 	{
 		GL11.glScalef(this.scale * .8F, this.scale * .8F, this.scale * .8F);
 
-		if (LivingEntity.isRiding())
+		if (LivingEntity.isPassenger())
 		{
 			if (LivingEntity.getRidingEntity() instanceof PlayerEntitySP)
 			{

@@ -7,14 +7,14 @@ import com.animania.addons.extra.common.entity.rodents.EntityHedgehogBase;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 
-public class EntityAILookIdleRodent extends Goal
+public class LookIdleRodentGoal extends Goal
 {
 	private final AnimalEntity idleEntity;
 	private double             lookX;
 	private double             lookZ;
 	private int                idleTime;
 
-	public EntityAILookIdleRodent(AnimalEntity LivingEntityIn) {
+	public LookIdleRodentGoal(AnimalEntity LivingEntityIn) {
 		this.idleEntity = LivingEntityIn;
 		this.setMutexBits(3);
 	}
@@ -43,7 +43,7 @@ public class EntityAILookIdleRodent extends Goal
 			}
 		}
 		
-		return this.idleEntity.getRandom().nextFloat() < 0.02F && !this.idleEntity.isRiding();
+		return this.idleEntity.getRandom().nextFloat() < 0.02F && !this.idleEntity.isPassenger();
 	}
 
 	@Override

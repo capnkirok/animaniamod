@@ -57,7 +57,7 @@ public class  PacketCloseManual implements IMessage, IMessageHandler<PacketClose
 			@Override
 			public void run()
 			{
-				ItemStack main = player.getHeldItemMainhand();
+				ItemStack main = player.getMainHandItem();
 				ItemStack off = player.getHeldItemOffhand();
 				ItemStack stack = ItemStack.EMPTY;
 				

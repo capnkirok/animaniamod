@@ -9,11 +9,11 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.google.common.collect.Sets;
 
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.item.ItemStack;
 
-public class GenericAITempt<T extends CreatureEntity & ISleeping & IFoodEating> extends EntityAITempt
+public class GenericAITempt<T extends CreatureEntity & ISleeping & IFoodEating> extends TemptGoal
 {
 	/** The entity using this AI that is tempted by the player. */
 	private final T temptedEntity;

@@ -6,7 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
-import com.animania.addons.farm.common.entity.cows.ai.EntityAIAttackMeleeBulls;
+import com.animania.addons.farm.common.entity.cows.ai.AttackMeleeBullsGoal;
 import com.animania.addons.farm.common.handler.FarmAddonSoundHandler;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
@@ -59,9 +59,9 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
 		{
-			this.tasks.addTask(0, new EntityAIAttackMeleeBulls(this, 1.8D, false));
+			this.tasks.addTask(0, new AttackMeleeBullsGoal(this, 1.8D, false));
 		}
-		// this.tasks.addTask(1, new EntityAIFollowMateCows(this, 1.1D));
+		// this.tasks.addTask(1, new FollowMateCowsGoal(this, 1.1D));
 		if (!getSterilized())
 			this.tasks.addTask(3, new GenericAIMate<EntityBullBase, CowEntityBase>(this, 1.0D, CowEntityBase.class, EntityCalfBase.class, EntityAnimaniaCow.class));
 	}
@@ -236,7 +236,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 		{
 			EntityAITaskEntry entry = it.next();
 			Goal ai = entry.action;
-			if (ai instanceof GenericAIMate || ai instanceof EntityAIAttackMeleeBulls)
+			if (ai instanceof GenericAIMate || ai instanceof AttackMeleeBullsGoal)
 			{
 				entry.using = false;
 				ai.resetTask();

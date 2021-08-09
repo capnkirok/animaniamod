@@ -46,7 +46,7 @@ public class RabbitEntityBuckBase extends EntityAnimaniaRabbit implements TOPInf
 
 		if (!getSterilized())
 			this.tasks.addTask(6, new GenericAIMate<RabbitEntityBuckBase, RabbitEntityDoeBase>(this, 1.0D, RabbitEntityDoeBase.class, RabbitEntityKitBase.class, EntityAnimaniaRabbit.class));
-		// this.tasks.addTask(3, new EntityAIFollowMateRabbits(this, 1.1D));
+		// this.tasks.addTask(3, new FollowMateRabbitsGoal(this, 1.1D));
 	}
 
 	@Override

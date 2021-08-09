@@ -7,7 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class EntityAIWatchClosestFromSide extends Goal
+public class WatchClosestFromSideGoal extends Goal
 {
     protected LivingEntity            theWatcher;
     protected Entity                  closestEntity;
@@ -16,7 +16,7 @@ public class EntityAIWatchClosestFromSide extends Goal
     private final float               chance;
     protected Class<? extends Entity> watchedClass;
 
-    public EntityAIWatchClosestFromSide(LivingEntity LivingEntityIn, Class<? extends Entity> watchTargetClass, float maxDistance) {
+    public WatchClosestFromSideGoal(LivingEntity LivingEntityIn, Class<? extends Entity> watchTargetClass, float maxDistance) {
         this.theWatcher = LivingEntityIn;
         this.watchedClass = watchTargetClass;
         this.maxDistanceForPlayer = maxDistance;
@@ -24,7 +24,7 @@ public class EntityAIWatchClosestFromSide extends Goal
         this.setMutexBits(2);
     }
 
-    public EntityAIWatchClosestFromSide(LivingEntity LivingEntityIn, Class<? extends Entity> watchTargetClass, float maxDistance, float chanceIn) {
+    public WatchClosestFromSideGoal(LivingEntity LivingEntityIn, Class<? extends Entity> watchTargetClass, float maxDistance, float chanceIn) {
         this.theWatcher = LivingEntityIn;
         this.watchedClass = watchTargetClass;
         this.maxDistanceForPlayer = maxDistance;

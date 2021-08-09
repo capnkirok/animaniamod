@@ -6,9 +6,9 @@ import com.google.common.base.Predicates;
 
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 
-public class GenericAIAvoidEntity<T extends Entity> extends EntityAIAvoidEntity<T>
+public class GenericAIAvoidEntity<T extends Entity> extends AvoidEntityGoal<T>
 {
     public GenericAIAvoidEntity(CreatureEntity entityIn, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
     {

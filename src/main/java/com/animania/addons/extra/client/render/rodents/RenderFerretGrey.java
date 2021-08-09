@@ -33,7 +33,7 @@ public class RenderFerretGrey<T extends EntityFerretGrey> extends RenderLiving<T
 
 	protected void preRenderScale(T entity, float f)
 	{
-		if (entity.isRiding())
+		if (entity.isPassenger())
 		{
 
 			if (entity.getRidingEntity() instanceof PlayerEntitySP)

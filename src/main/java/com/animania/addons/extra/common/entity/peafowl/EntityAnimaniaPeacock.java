@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import com.animania.Animania;
 import com.animania.addons.extra.common.entity.amphibians.EntityAmphibian;
-import com.animania.addons.extra.common.entity.peafowl.ai.EntityAIWatchClosestFromSide;
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
 import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.addons.extra.config.ExtraConfig;
@@ -34,10 +33,8 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -89,7 +86,7 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 	{
 		super(worldIn);
 
-		this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(0, new SwimmingGoal(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaPeacock>(this, 1.0D, null, EntityAnimaniaPeacock.class, true));
@@ -98,7 +95,7 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 		this.tasks.addTask(2, new GenericAIPanic<EntityAnimaniaPeacock>(this, 1.4D));
 		this.tasks.addTask(3, new GenericAITempt<EntityAnimaniaPeacock>(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
 		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new EntityAIWatchClosestFromSide(this, PlayerEntity.class, 6.0F));
+		this.tasks.addTask(5, new WatchClosestFromSideGoal(this, PlayerEntity.class, 6.0F));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(6, new GenericAISleep<EntityAnimaniaPeacock>(this, 0.8, AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed), AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed2), EntityAnimaniaPeacock.class));
@@ -106,10 +103,10 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaPeacock>(this));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
-			this.tasks.addTask(8, new EntityAILeapAtTarget(this, 0.2F));
-			this.tasks.addTask(9, new EntityAIAttackMelee(this, 1.0D, true));
+			this.tasks.addTask(8, new LeapAtTargetGoal(this, 0.2F));
+			this.tasks.addTask(9, new AttackMeleeGoal(this, 1.0D, true));
 		}
-		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer * 2 + this.rand.nextInt(100);
 		this.blinkTimer = 80 + this.rand.nextInt(80);
@@ -264,15 +261,15 @@ public class EntityAnimaniaPeacock extends AnimalEntity implements TOPInfoProvid
 
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
-		this.destPos = (float) (this.destPos + ((this.onGround || this.isRiding()) ? -1 : 4) * 0.3D);
+		this.destPos = (float) (this.destPos + ((this.onGround || this.isPassenger()) ? -1 : 4) * 0.3D);
 		this.destPos = MathHelper.clamp(this.destPos, 0.0F, 1.0F);
 
-		if (!this.onGround && !this.isRiding() && this.wingRotDelta < 1.0F)
+		if (!this.onGround && !this.isPassenger() && this.wingRotDelta < 1.0F)
 			this.wingRotDelta = 1.0F;
 
 		this.wingRotDelta = (float) (this.wingRotDelta * 0.9D);
 
-		if (!this.onGround && !this.isRiding() && this.motionY < 0.0D)
+		if (!this.onGround && !this.isPassenger() && this.motionY < 0.0D)
 			this.motionY *= 0.6D;
 
 		this.wingRotation += this.wingRotDelta * 2.0F;

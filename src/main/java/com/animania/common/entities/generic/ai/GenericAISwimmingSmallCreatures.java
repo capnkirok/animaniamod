@@ -4,10 +4,9 @@ import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.util.math.BlockPos;
 
-public class GenericAISwimmingSmallCreatures extends EntityAISwimming
+public class GenericAISwimmingSmallCreatures extends SwimmingGoal
 {
     private final LivingEntity theEntity;
 

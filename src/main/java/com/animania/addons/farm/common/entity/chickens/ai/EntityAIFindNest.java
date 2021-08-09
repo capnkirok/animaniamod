@@ -25,7 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAIFindNest extends Goal
+public class FindNestGoal extends Goal
 {
 	private final EntityAnimaniaChicken temptedEntity;
 	private final double speed;
@@ -38,7 +38,7 @@ public class EntityAIFindNest extends Goal
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIFindNest(EntityAnimaniaChicken temptedEntityIn, double speedIn)
+	public FindNestGoal(EntityAnimaniaChicken temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;

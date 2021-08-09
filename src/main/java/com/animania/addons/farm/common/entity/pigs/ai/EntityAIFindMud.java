@@ -18,7 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public class EntityAIFindMud extends Goal
+public class FindMudGoal extends Goal
 {
 	private final EntityAnimaniaPig entityIn;
 	private final double         speed;
@@ -31,7 +31,7 @@ public class EntityAIFindMud extends Goal
 	private int                  delayTemptCounter;
 	private boolean              isRunning;
 
-	public EntityAIFindMud(EntityAnimaniaPig temptedEntityIn, double speedIn) {
+	public FindMudGoal(EntityAnimaniaPig temptedEntityIn, double speedIn) {
 		this.entityIn = temptedEntityIn;
 		this.speed = speedIn;
 		this.setMutexBits(3);

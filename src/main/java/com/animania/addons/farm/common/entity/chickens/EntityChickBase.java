@@ -8,7 +8,7 @@ import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.google.common.base.Optional;
 
-import net.minecraft.entity.ai.EntityAIFollowParent;
+import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -28,7 +28,7 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	{
 		super(worldIn);
 		this.setSize(1.1F, 1.5F); 
-		this.tasks.addTask(5, new EntityAIFollowParent(this, 1.1D));
+		this.tasks.addTask(5, new FollowParentGoal(this, 1.1D));
 		this.ageTimer = 0;
 		this.type = ChickenType.LEGHORN;
 		this.gender = EntityGender.CHILD;

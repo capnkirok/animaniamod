@@ -87,7 +87,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 		else
 		{
 			PlayerEntity PlayerEntity = (PlayerEntity) entity;
-			ItemStack itemstack = PlayerEntity.getHeldItemMainhand();
+			ItemStack itemstack = PlayerEntity.getMainHandItem();
 
 			if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.CARROT_ON_A_STICK)
 				return true;

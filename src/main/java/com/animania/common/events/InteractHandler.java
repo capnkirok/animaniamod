@@ -15,7 +15,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -67,14 +67,14 @@ public class InteractHandler
 							world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
 						else if (item == Items.BEETROOT_SEEDS)
 							world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
-						player.swingArm(event.getHand());
+						player.swing(event.getHand());
 						if (!player.isCreative())
 							stack.shrink(1);
 
 						event.getWorld().playSound(null, event.getPlayer().getX(), event.getPlayer().getY(), event.getPlayer().getZ(), SoundEvents.BLOCK_GRASS_FALL, SoundCategory.PLAYERS, 0.2F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 
 						event.setCanceled(true);
-						event.setCancellationResult(EnumActionResult.SUCCESS);
+						event.setCancellationResult(ActionResultType.SUCCESS);
 					}
 				}
 			}
@@ -87,7 +87,7 @@ public class InteractHandler
 	public static void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event)
 	{
 		PlayerEntity player = event.getPlayer();
-		ItemStack stack = player.getHeldItemMainhand();
+		ItemStack stack = player.getMainHandItem();
 		Entity target = event.getTarget();
 		ResourceLocation loc = EntityList.getKey(target);
 		EntityEntry entry = ForgeRegistries.ENTITIES.getValue(loc);

@@ -37,8 +37,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAITasks;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.util.EnumParticleTypes;
@@ -149,7 +149,7 @@ public class FarmAddonInjectionHandler
 		AddonInjectionHandler.addInjection(ID, "avoidChicken", args -> {
 			EntityAITasks tasks = (EntityAITasks) args[0];
 			CreatureEntity entity = (CreatureEntity) args[1];
-			tasks.addTask(6, new EntityAIAvoidEntity<EntityAnimaniaChicken>(entity, EntityAnimaniaChicken.class, 10.0F, 3.0D, 3.5D));
+			tasks.addTask(6, new AvoidEntityGoal<EntityAnimaniaChicken>(entity, EntityAnimaniaChicken.class, 10.0F, 3.0D, 3.5D));
 			return null;
 		});
 
@@ -157,7 +157,7 @@ public class FarmAddonInjectionHandler
 		AddonInjectionHandler.addInjection(ID, "avoidRooster", args -> {
 			EntityAITasks tasks = (EntityAITasks) args[0];
 			CreatureEntity entity = (CreatureEntity) args[1];
-			tasks.addTask(6, new EntityAIAvoidEntity<EntityRoosterBase>(entity, EntityRoosterBase.class, 10.0F, 3.0D, 3.5D));
+			tasks.addTask(6, new AvoidEntityGoal<EntityRoosterBase>(entity, EntityRoosterBase.class, 10.0F, 3.0D, 3.5D));
 			return null;
 		});
 

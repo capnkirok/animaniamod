@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
@@ -56,7 +56,7 @@ public class ItemRidingCrop extends Item
 
 		ItemStack itemStackIn = playerIn.getHeldItem(hand);
 
-		if (playerIn.isRiding() && playerIn.getRidingEntity() instanceof EntityAnimaniaHorse)
+		if (playerIn.isPassenger() && playerIn.getRidingEntity() instanceof EntityAnimaniaHorse)
 		{
 			EntityAnimaniaHorse HorseEntity = (EntityAnimaniaHorse) playerIn.getRidingEntity();
 
@@ -69,13 +69,13 @@ public class ItemRidingCrop extends Item
 					itemStackIn.shrink(1);
 				}
 
-				return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+				return new ActionResult(ActionResultType.SUCCESS, itemStackIn);
 			}
 
 		}
 
 		playerIn.addStat(StatList.getObjectUseStats(this));
-		return new ActionResult(EnumActionResult.PASS, itemStackIn);
+		return new ActionResult(ActionResultType.PASS, itemStackIn);
 
 	}
 

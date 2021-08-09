@@ -1,6 +1,6 @@
 package com.animania.addons.extra.common.entity.peafowl;
 
-import com.animania.addons.extra.common.entity.peafowl.ai.EntityAIFindPeacockNest;
+import com.animania.addons.extra.common.entity.peafowl.ai.FindPeacockNestGoal;
 import com.animania.api.data.EntityGender;
 import com.animania.common.handler.CompatHandler;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
@@ -32,7 +32,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 		this.setSize(0.6F, 1.2F); 
 		this.width = 0.6F;
 		this.height = 1.2F;
-		this.tasks.addTask(1, new EntityAIFindPeacockNest(this, 1.0D));
+		this.tasks.addTask(1, new FindPeacockNestGoal(this, 1.0D));
 		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100);
 		this.gender = EntityGender.FEMALE;
 	}

@@ -5,9 +5,8 @@ import com.animania.common.handler.AddonInjectionHandler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
 
-public class GenericAIWatchClosest extends EntityAIWatchClosest
+public class GenericAIWatchClosest extends WatchClosestGoal
 {
 	public GenericAIWatchClosest(LivingEntity entityIn, Class<? extends Entity> watchTargetClass, float maxDistance)
 	{

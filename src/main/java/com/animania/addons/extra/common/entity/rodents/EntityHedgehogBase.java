@@ -11,7 +11,7 @@ import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 import com.animania.addons.extra.common.entity.amphibians.EntityAmphibian;
 import com.animania.addons.extra.common.entity.amphibians.EntityFrogs;
 import com.animania.addons.extra.common.entity.amphibians.EntityToad;
-import com.animania.addons.extra.common.entity.rodents.ai.EntityAIHedgehogFindNests;
+import com.animania.addons.extra.common.entity.rodents.ai.HedgehogFindNestsGoal;
 import com.animania.addons.extra.common.handler.ExtraAddonSoundHandler;
 import com.animania.addons.extra.compat.top.TOPInfoProviderRodent;
 import com.animania.addons.extra.config.ExtraConfig;
@@ -43,6 +43,10 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.FleeSunGoal;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -116,18 +120,18 @@ public class EntityHedgehogBase extends TameableEntity implements TOPInfoProvide
 
 	protected void initAI()
 	{
-		this.aiSit = new EntityAISit(this);
+		this.aiSit = new SitGoal(this);
 		this.tasks.addTask(1, new GenericAISwimmingSmallCreatures(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(2, new GenericAIFindWater<EntityHedgehogBase>(this, 1.0D, entityAIEatGrass, EntityHedgehogBase.class, true));
-			this.tasks.addTask(3, new EntityAIHedgehogFindNests(this, 1.0D));
+			this.tasks.addTask(3, new HedgehogFindNestsGoal(this, 1.0D));
 			this.tasks.addTask(4, new GenericAIFindFood<EntityHedgehogBase>(this, 1.0D, entityAIEatGrass, false));
 		}
 		this.tasks.addTask(5, this.aiSit);
-		this.tasks.addTask(6, new EntityAIFleeSun(this, 1.0D));
-		this.tasks.addTask(7, new EntityAILeapAtTarget(this, 0.2F));
-		this.tasks.addTask(8, new EntityAIAttackMelee(this, 1.0D, true));
+		this.tasks.addTask(6, new FleeSunGoal(this, 1.0D));
+		this.tasks.addTask(7, new LeapAtTargetGoal(this, 0.2F));
+		this.tasks.addTask(8, new AttackMeleeGoal(this, 1.0D, true));
 		this.tasks.addTask(9, new GenericAITempt<EntityHedgehogBase>(this, 1.2D, false, EntityHedgehogBase.TEMPTATION_ITEMS));
 		this.tasks.addTask(10, new GenericAIPanic<EntityHedgehogBase>(this, 1.5D));
 		this.tasks.addTask(11, new GenericAIFollowOwner<EntityHedgehogBase>(this, 1.0D, 10.0F, 2.0F));
@@ -154,7 +158,7 @@ public class EntityHedgehogBase extends TameableEntity implements TOPInfoProvide
 
 			AddonInjectionHandler.runInjection("farm", "avoidRooster", Void.class, this.tasks, this);
 		}
-		this.targetTasks.addTask(13, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(13, new HurtByTargetGoal(this, false, new Class[0]));
 	}
 
 	@Override
@@ -360,7 +364,7 @@ public class EntityHedgehogBase extends TameableEntity implements TOPInfoProvide
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.isSitting() || this.isSitting() || this.isRiding())
+		if (this.isSitting() || this.isSitting() || this.isPassenger())
 		{
 			if (this.getRidingEntity() != null)
 				this.rotationYaw = this.getRidingEntity().rotationYaw;

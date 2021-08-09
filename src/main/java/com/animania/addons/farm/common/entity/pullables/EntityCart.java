@@ -222,7 +222,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.PLAYERS, 0.7F, 1.0F);
 				}
 				return true;
-			} else if (player.isRiding() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this && !isPulling)
+			} else if (player.isPassenger() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this && !isPulling)
 			{
 
 				this.pulled = true;
@@ -240,7 +240,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 
 				return true;
-			} else if (player.isRiding() && this.puller == player.getRidingEntity() && player.getRidingEntity() != this)
+			} else if (player.isPassenger() && this.puller == player.getRidingEntity() && player.getRidingEntity() != this)
 			{
 				this.pulled = false;
 				this.puller = null;
@@ -281,7 +281,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isRiding() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote && !isPulling)
+			} else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote && !isPulling)
 			{
 
 				double diffx = Math.abs(this.getX() - player.getX());
@@ -300,7 +300,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					}
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isRiding() && this.puller == player && this.getControllingPassenger() != player && !world.isRemote)
+			} else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !world.isRemote)
 			{
 				this.pulled = false;
 				this.puller = null;
@@ -684,7 +684,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			}
 		}
 
-		if (this.pulled && this.puller != null && this.puller.isRiding())
+		if (this.pulled && this.puller != null && this.puller.isPassenger())
 		{
 			this.puller = this.puller.getRidingEntity();
 			if (this.puller instanceof HorseEntity)
@@ -733,7 +733,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					AnimalEntity AnimalEntity = (AnimalEntity) entity;
 					if (!entity.isPassenger(this))
 					{
-						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof PlayerEntity && !entity.isRiding() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof PlayerEntity))
+						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof PlayerEntity && !entity.isPassenger() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof PlayerEntity))
 						{
 							entity.startRiding(this);
 						} else

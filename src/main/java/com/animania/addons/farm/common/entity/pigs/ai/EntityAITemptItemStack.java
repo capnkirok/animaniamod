@@ -8,7 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
 
-public class EntityAITemptItemStack extends Goal
+public class TemptItemStackGoal extends Goal
 {
 	private final EntityAnimaniaPig temptedEntity;
 	private final double speed;
@@ -22,7 +22,7 @@ public class EntityAITemptItemStack extends Goal
 	private boolean isRunning;
 	private final ItemStack temptItem;
 
-	public EntityAITemptItemStack(EntityAnimaniaPig temptedEntityIn, double speedIn, ItemStack temptItemIn)
+	public TemptItemStackGoal(EntityAnimaniaPig temptedEntityIn, double speedIn, ItemStack temptItemIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;
@@ -50,7 +50,7 @@ public class EntityAITemptItemStack extends Goal
 		{
 
 			this.temptingPlayer = this.temptedentity.level.getClosestPlayerToEntity(this.temptedEntity, 10.0D);
-			return this.temptingPlayer == null ? false : this.isTempting(this.temptingPlayer.getHeldItemMainhand()) || this.isTempting(this.temptingPlayer.getHeldItemOffhand());
+			return this.temptingPlayer == null ? false : this.isTempting(this.temptingPlayer.getMainHandItem()) || this.isTempting(this.temptingPlayer.getHeldItemOffhand());
 		}
 	}
 

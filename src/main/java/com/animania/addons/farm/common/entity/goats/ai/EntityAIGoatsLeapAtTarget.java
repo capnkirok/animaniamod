@@ -9,13 +9,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.MathHelper;
 
-public class EntityAIGoatsLeapAtTarget extends Goal
+public class GoatsLeapAtTargetGoal extends Goal
 {
 	LivingEntity leaper;
 	LivingEntity leapTarget;
 	float leapMotionY;
 
-	public EntityAIGoatsLeapAtTarget(LivingEntity leapingEntity, float leapMotionYIn)
+	public GoatsLeapAtTargetGoal(LivingEntity leapingEntity, float leapMotionYIn)
 	{
 		this.leaper = (LivingEntity) leapingEntity;
 		this.leapMotionY = leapMotionYIn;

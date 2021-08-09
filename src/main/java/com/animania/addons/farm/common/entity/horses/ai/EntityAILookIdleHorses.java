@@ -9,7 +9,7 @@ import com.animania.common.helper.AnimaniaHelper;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.goal.Goal;
 
-public class EntityAILookIdleHorses extends Goal
+public class LookIdleHorsesGoal extends Goal
 {
 	/** The entity that is looking idle. */
 	private final CreatureEntity idleEntity;
@@ -24,7 +24,7 @@ public class EntityAILookIdleHorses extends Goal
 	private int idleTime;
 	private int delayCounter;
 
-	public EntityAILookIdleHorses(CreatureEntity LivingEntityIn)
+	public LookIdleHorsesGoal(CreatureEntity LivingEntityIn)
 	{
 		this.idleEntity = LivingEntityIn;
 		this.setMutexBits(3);

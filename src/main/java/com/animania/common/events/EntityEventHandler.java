@@ -55,7 +55,6 @@ public class EntityEventHandler
 	@SubscribeEvent
 	public static void onEntityHit(LivingAttackEvent event)
 	{
-		float amount = event.getAmount();
 		LivingEntity entity = event.getEntityLiving();
 		DamageSource source = event.getSource();
 
@@ -63,7 +62,7 @@ public class EntityEventHandler
 		{
 			LivingEntity animal = entity;
 
-			if (animal.isRiding())
+			if (animal.isPassenger())
 				event.setCanceled(true);
 		}
 
@@ -83,8 +82,8 @@ public class EntityEventHandler
 
 		if (entity instanceof TameableEntity)
 		{
-			if (((TameableEntity) entity).isSit())
-				((TameableEntity) entity).setSitting(false);
+			if (((TameableEntity) entity).isInSittingPose())
+				((TameableEntity) entity).setInSittingPose(false);;
 		}
 
 	}

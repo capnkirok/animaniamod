@@ -49,10 +49,9 @@ import com.google.common.collect.Sets;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IShearable;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -119,7 +118,7 @@ public class EntityAnimaniaSheep extends SheepEntity implements IShearable, IAni
 			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaSheep>(this, 1.0D, entityAIEatGrass, true));
 		}
 		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new EntityAISwimming(this));
+		this.tasks.addTask(5, new SwimmingGoal(this));
 		this.tasks.addTask(6, new GenericAIPanic<EntityAnimaniaSheep>(this, 2.2D));
 		this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, new ItemStack(Blocks.YELLOW_FLOWER), false));
@@ -137,8 +136,8 @@ public class EntityAnimaniaSheep extends SheepEntity implements IShearable, IAni
 		{
 			AddonInjectionHandler.runInjection("catsdogs", "addHerdingBehavior", null, this, 1);
 		}
-		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, PlayerEntity.class));
+		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
+		this.targetTasks.addTask(1, new HurtByTargetGoal(this, true, PlayerEntity.class));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;

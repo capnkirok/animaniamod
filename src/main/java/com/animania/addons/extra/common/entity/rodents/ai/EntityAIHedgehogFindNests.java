@@ -13,7 +13,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
-public class EntityAIHedgehogFindNests extends Goal
+public class HedgehogFindNestsGoal extends Goal
 {
 	private final CreatureEntity temptedEntity;
 	private final double speed;
@@ -26,7 +26,7 @@ public class EntityAIHedgehogFindNests extends Goal
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public EntityAIHedgehogFindNests(CreatureEntity temptedEntityIn, double speedIn)
+	public HedgehogFindNestsGoal(CreatureEntity temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;

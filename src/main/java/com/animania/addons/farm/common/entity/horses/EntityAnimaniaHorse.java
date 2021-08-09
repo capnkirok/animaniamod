@@ -6,10 +6,10 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import com.animania.Animania;
-import com.animania.addons.farm.common.entity.horses.ai.EntityAIFollowMateHorses;
-import com.animania.addons.farm.common.entity.horses.ai.EntityAILookIdleHorses;
-import com.animania.addons.farm.common.entity.horses.ai.EntityAIWanderHorses;
+import com.animania.addons.farm.common.entity.horses.ai.FollowMateHorsesGoal;
 import com.animania.addons.farm.common.entity.horses.ai.HorseEntityEatGrass;
+import com.animania.addons.farm.common.entity.horses.ai.LookIdleHorsesGoal;
+import com.animania.addons.farm.common.entity.horses.ai.WanderHorsesGoal;
 import com.animania.addons.farm.common.entity.pullables.EntityWagon;
 import com.animania.addons.farm.common.handler.FarmAddonSoundHandler;
 import com.animania.addons.farm.common.inventory.ContainerHorseCart;
@@ -36,8 +36,7 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.MobEffects;
@@ -105,19 +104,19 @@ public class EntityAnimaniaHorse extends HorseEntity implements IAnimaniaAnimalB
 			this.tasks.addTask(1, new GenericAIFindFood<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, true));
 		}
 		this.tasks.addTask(0, new GenericAIPanic<EntityAnimaniaHorse>(this, 2.0D));
-		this.tasks.addTask(2, new EntityAIFollowMateHorses(this, 1.1D));
-		this.tasks.addTask(3, new EntityAIWanderHorses(this, 1.0D));
-		this.tasks.addTask(4, new EntityAISwimming(this));
+		this.tasks.addTask(2, new FollowMateHorsesGoal(this, 1.1D));
+		this.tasks.addTask(3, new WanderHorsesGoal(this, 1.0D));
+		this.tasks.addTask(4, new SwimmingGoal(this));
 		this.tasks.addTask(5, new GenericAITempt<EntityAnimaniaHorse>(this, 1.25D, false, TEMPTATION_ITEMS));
 		this.tasks.addTask(6, this.entityAIEatGrass);
 		this.tasks.addTask(7, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(8, new EntityAILookIdleHorses(this));
+		this.tasks.addTask(8, new LookIdleHorsesGoal(this));
 		this.tasks.addTask(9, new GenericAIFindSaltLick<EntityAnimaniaHorse>(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
 			this.tasks.addTask(10, new GenericAISleep<EntityAnimaniaHorse>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.horseBed), AnimaniaHelper.getBlock(FarmConfig.settings.horseBed2), EntityAnimaniaHorse.class));
 		}
-		this.tasks.addTask(11, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.tasks.addTask(11, new HurtByTargetGoal(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		this.happyTimer = 60;

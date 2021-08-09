@@ -4,7 +4,7 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import com.animania.addons.catsdogs.common.entity.felids.ai.EntityAICatAttack;
+import com.animania.addons.catsdogs.common.entity.felids.ai.CatAttackGoal;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
@@ -35,10 +35,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAIOcelotSit;
-import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.OcelotEntity;
@@ -107,15 +105,15 @@ public class EntityAnimaniaCat extends OcelotEntity implements IAnimaniaAnimalBa
 	protected void initAI()
 	{
 		this.aiSit = new GenericAISit(this);
-		this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(0, new SwimmingGoal(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaCat>(this, 1.0D, entityAIEatGrass, EntityAnimaniaCat.class, true));
 			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaCat>(this, 1.0D, entityAIEatGrass, false));
 		}
 		this.tasks.addTask(4, this.aiSit);
-		this.tasks.addTask(5, new EntityAILeapAtTarget(this, 0.4F));
-		this.tasks.addTask(6, new EntityAICatAttack(this));
+		this.tasks.addTask(5, new LeapAtTargetGoal(this, 0.4F));
+		this.tasks.addTask(6, new CatAttackGoal(this));
 		this.tasks.addTask(7, new GenericAIFollowOwner<EntityAnimaniaCat>(this, 1.5D, 5.0F, 30.0F));
 		this.tasks.addTask(8, new GenericAIPanic<EntityAnimaniaCat>(this, 1.5D));
 		this.tasks.addTask(3, new GenericAITempt<EntityAnimaniaCat>(this, 0.6D, true, TEMPTATION_ITEMS));
@@ -136,7 +134,7 @@ public class EntityAnimaniaCat extends OcelotEntity implements IAnimaniaAnimalBa
 
 			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof SilverfishEntity));
 		}
-		this.tasks.taskEntries.removeIf(task -> task.action instanceof EntityAIOcelotSit);
+		this.tasks.taskEntries.removeIf(task -> task.action instanceof OcelotSitGoal);
 	}
 
 	@Override
@@ -282,7 +280,7 @@ public class EntityAnimaniaCat extends OcelotEntity implements IAnimaniaAnimalBa
 	@Override
 	public void onLivingUpdate()
 	{
-		if (this.isSitting() || this.isRiding())
+		if (this.isSitting() || this.isPassenger())
 		{
 			if (this.getRidingEntity() != null)
 				this.rotationYaw = this.getRidingEntity().rotationYaw;

@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.addons.farm.common.entity.sheep.ai.EntityAIButtHeadsSheep;
+import com.animania.addons.farm.common.entity.sheep.ai.ButtHeadsSheepGoal;
 import com.animania.addons.farm.common.handler.FarmAddonSoundHandler;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
@@ -54,13 +54,13 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.gender = EntityGender.MALE;
 		this.headbutting = true;
 		this.mateable = true;
-		// this.tasks.addTask(3, new EntityAIFollowMateSheep(this, 1.1D));
+		// this.tasks.addTask(3, new FollowMateSheepGoal(this, 1.1D));
 		if (!getSterilized())
 			this.tasks.addTask(5, new GenericAIMate<EntityRamBase, EntityEweBase>(this, 1.0D, EntityEweBase.class, EntityLambBase.class, EntityAnimaniaSheep.class));
 
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
 		{
-			this.tasks.addTask(3, new EntityAIButtHeadsSheep(this, 1.3D));
+			this.tasks.addTask(3, new ButtHeadsSheepGoal(this, 1.3D));
 		}
 	}
 
@@ -196,7 +196,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		{
 			EntityAITaskEntry entry = it.next();
 			Goal ai = entry.action;
-			if (ai instanceof GenericAIMate || ai instanceof EntityAIButtHeadsSheep)
+			if (ai instanceof GenericAIMate || ai instanceof ButtHeadsSheepGoal)
 			{
 				entry.using = false;
 				ai.resetTask();

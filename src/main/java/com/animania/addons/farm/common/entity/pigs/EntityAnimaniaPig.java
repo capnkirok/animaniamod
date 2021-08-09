@@ -3,9 +3,9 @@ package com.animania.addons.farm.common.entity.pigs;
 import java.util.Set;
 
 import com.animania.Animania;
-import com.animania.addons.farm.common.entity.pigs.ai.EntityAIFindMud;
-import com.animania.addons.farm.common.entity.pigs.ai.EntityAIPigSnuffle;
-import com.animania.addons.farm.common.entity.pigs.ai.EntityAITemptItemStack;
+import com.animania.addons.farm.common.entity.pigs.ai.FindMudGoal;
+import com.animania.addons.farm.common.entity.pigs.ai.PigSnuffleGoal;
+import com.animania.addons.farm.common.entity.pigs.ai.TemptItemStackGoal;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
@@ -32,8 +32,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.PigZombieEntity;
 import net.minecraft.entity.passive.PigEntity;
@@ -82,7 +81,7 @@ public class EntityAnimaniaPig extends PigEntity implements IAnimaniaAnimalBase,
 	protected int boostTime;
 	protected int totalBoostTime;
 	public int eatTimer;
-	public EntityAIPigSnuffle entityAIEatGrass;
+	public PigSnuffleGoal entityAIEatGrass;
 	protected int fedTimer;
 	protected int wateredTimer;
 	protected int playedTimer;
@@ -103,7 +102,7 @@ public class EntityAnimaniaPig extends PigEntity implements IAnimaniaAnimalBase,
 		this.blinkTimer = 80 + this.rand.nextInt(80);
 		this.enablePersistence();
 		this.slop = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
-		this.entityAIEatGrass = new EntityAIPigSnuffle(this);
+		this.entityAIEatGrass = new PigSnuffleGoal(this);
 		this.tasks.addTask(11, this.entityAIEatGrass);
 
 		this.initAI();
@@ -111,8 +110,8 @@ public class EntityAnimaniaPig extends PigEntity implements IAnimaniaAnimalBase,
 
 	protected void initAI()
 	{
-		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIFindMud(this, 1.2D));
+		this.tasks.addTask(0, new SwimmingGoal(this));
+		this.tasks.addTask(1, new FindMudGoal(this, 1.2D));
 		this.tasks.addTask(2, new GenericAIWanderAvoidWater(this, 1.0D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
@@ -126,11 +125,11 @@ public class EntityAnimaniaPig extends PigEntity implements IAnimaniaAnimalBase,
 		}
 		this.tasks.addTask(9, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, new ItemStack(Items.CARROT_ON_A_STICK), false));
 		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
-		this.tasks.addTask(10, new EntityAITemptItemStack(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
+		this.tasks.addTask(10, new TemptItemStackGoal(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
 		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaPig>(this, 1.0, entityAIEatGrass));
 		this.tasks.addTask(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(15, new GenericAILookIdle<EntityAnimaniaPig>(this));
-		this.targetTasks.addTask(16, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(16, new HurtByTargetGoal(this, false, new Class[0]));
 	}
 
 	@Override

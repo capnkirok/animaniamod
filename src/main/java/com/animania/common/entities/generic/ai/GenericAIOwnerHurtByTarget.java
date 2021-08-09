@@ -2,10 +2,10 @@ package com.animania.common.entities.generic.ai;
 
 import com.animania.api.interfaces.ISleeping;
 
-import net.minecraft.entity.ai.EntityAIOwnerHurtByTarget;
+import net.minecraft.entity.ai.goal.OwnerHurtByTargetGoal;
 import net.minecraft.entity.passive.TameableEntity;
 
-public class GenericAIOwnerHurtByTarget extends EntityAIOwnerHurtByTarget
+public class GenericAIOwnerHurtByTarget extends OwnerHurtByTargetGoal
 {
 	private TameableEntity entity;
 

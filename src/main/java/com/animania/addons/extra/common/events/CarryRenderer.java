@@ -49,7 +49,7 @@ public class CarryRenderer
 		World world = Minecraft.getMinecraft().level;
 		PlayerEntity player = Minecraft.getMinecraft().player;
 		AbstractClientPlayer aplayer = (AbstractClientPlayer) player;
-		ItemStack stack = player.getHeldItemMainhand();
+		ItemStack stack = player.getMainHandItem();
 		int perspective = Minecraft.getMinecraft().gameSettings.thirdPersonView;
 		float partialticks = event.getPartialTicks();
 		ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
@@ -118,7 +118,7 @@ public class CarryRenderer
 		PlayerEntity player = event.getPlayer();
 		ModelPlayer modelPlayer = event.getRenderer().getMainModel();
 		PlayerEntitySP clientPlayer = Minecraft.getMinecraft().player;
-		ItemStack stack = player.getHeldItemMainhand();
+		ItemStack stack = player.getMainHandItem();
 		float partialticks = event.getPartialRenderTick();
 		ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 

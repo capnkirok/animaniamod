@@ -5,10 +5,10 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import com.animania.addons.farm.common.entity.cows.ai.EntityAIAttackMeleeBulls;
+import com.animania.addons.farm.common.entity.cows.ai.AttackMeleeBullsGoal;
 import com.animania.addons.farm.common.entity.goats.GoatAngora.EntityBuckAngora;
-import com.animania.addons.farm.common.entity.goats.ai.EntityAIButtHeadsGoats;
-import com.animania.addons.farm.common.entity.goats.ai.EntityAIGoatsLeapAtTarget;
+import com.animania.addons.farm.common.entity.goats.ai.ButtHeadsGoatsGoal;
+import com.animania.addons.farm.common.entity.goats.ai.GoatsLeapAtTargetGoal;
 import com.animania.addons.farm.common.handler.FarmAddonSoundHandler;
 import com.animania.api.data.EntityGender;
 import com.animania.api.interfaces.IMateable;
@@ -60,13 +60,13 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.gender = EntityGender.MALE;
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
 		{
-			this.tasks.addTask(3, new EntityAIButtHeadsGoats(this, 1.3D));
-			this.tasks.addTask(3, new EntityAIGoatsLeapAtTarget(this, 0.25F));
+			this.tasks.addTask(3, new ButtHeadsGoatsGoal(this, 1.3D));
+			this.tasks.addTask(3, new GoatsLeapAtTargetGoal(this, 0.25F));
 		}
 
 		if (!getSterilized())
 			this.tasks.addTask(5, new GenericAIMate<EntityBuckBase, EntityDoeBase>(this, 1.0D, EntityDoeBase.class, EntityKidBase.class, EntityAnimaniaGoat.class));
-		// this.tasks.addTask(5, new EntityAIFollowMateGoats(this, 1.0D));
+		// this.tasks.addTask(5, new FollowMateGoatsGoal(this, 1.0D));
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		{
 			EntityAITaskEntry entry = it.next();
 			Goal ai = entry.action;
-			if (ai instanceof GenericAIMate || ai instanceof EntityAIAttackMeleeBulls || ai instanceof EntityAIGoatsLeapAtTarget)
+			if (ai instanceof GenericAIMate || ai instanceof AttackMeleeBullsGoal || ai instanceof GoatsLeapAtTargetGoal)
 			{
 				entry.using = false;
 				ai.resetTask();

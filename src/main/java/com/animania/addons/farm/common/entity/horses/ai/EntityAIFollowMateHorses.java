@@ -12,14 +12,14 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.util.math.MathHelper;
 
-public class EntityAIFollowMateHorses extends Goal
+public class FollowMateHorsesGoal extends Goal
 {
 	EntityAnimaniaHorse thisAnimal;
 	AnimalEntity mateAnimal;
 	double moveSpeed;
 	private int delayCounter;
 
-	public EntityAIFollowMateHorses(EntityAnimaniaHorse animal, double speed)
+	public FollowMateHorsesGoal(EntityAnimaniaHorse animal, double speed)
 	{
 		this.thisAnimal = animal;
 		this.moveSpeed = speed;

@@ -5,6 +5,7 @@ import com.animania.common.handler.ItemHandler;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 public final class TabAnimaniaEntities extends CreativeTabs
 {

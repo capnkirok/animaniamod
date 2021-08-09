@@ -4,9 +4,8 @@ package com.animania.common.entities.generic.ai;
 import com.animania.api.interfaces.ISleeping;
 
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 
-public class GenericAIWanderAvoidWater extends EntityAIWanderAvoidWater
+public class GenericAIWanderAvoidWater extends WanderAvoidWaterGoal
 {
 	public GenericAIWanderAvoidWater(CreatureEntity p_i47301_1_, double p_i47301_2_)
 	{
