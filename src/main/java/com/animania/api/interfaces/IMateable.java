@@ -1,12 +1,11 @@
 package com.animania.api.interfaces;
 
-import java.util.UUID;
-
 import com.google.common.base.Optional;
-
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
+
+import java.util.UUID;
 
 public interface IMateable extends IAnimaniaAnimal
 {
@@ -29,7 +28,7 @@ public interface IMateable extends IAnimaniaAnimal
 	}
 
 	
-	default void setInLove(EntityPlayer player)
+	default void setInLove(PlayerEntity player)
 	{
 		
 	}

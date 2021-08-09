@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.extra.client.model.rabbits.ModelNewZealand;
 import com.animania.addons.extra.common.entity.rodents.rabbits.EntityAnimaniaRabbit;
-import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.EntityRabbitBuckNewZealand;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitNewZealand.RabbitEntityBuckNewZealand;
 import com.animania.client.render.layer.LayerBlinking;
 
 import net.minecraft.block.Block;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderBuckNewZealand<T extends EntityRabbitBuckNewZealand> extends RenderLiving<T>
+public class RenderBuckNewZealand<T extends RabbitEntityBuckNewZealand> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation rabbitTextures = new ResourceLocation("animania:textures/entity/rabbits/rabbit_new_zealand.png");
@@ -32,7 +32,7 @@ public class RenderBuckNewZealand<T extends EntityRabbitBuckNewZealand> extends 
 		this.addLayer(new LayerBlinking(this, rabbitTexturesBlink, 0xF4F2F2));
 	}
 
-	protected void preRenderScale(EntityRabbitBuckNewZealand entity, float f)
+	protected void preRenderScale(RabbitEntityBuckNewZealand entity, float f)
 	{
 
 		if (entity.getCustomNameTag().equals("Killer")) {
@@ -42,11 +42,11 @@ public class RenderBuckNewZealand<T extends EntityRabbitBuckNewZealand> extends 
 		}
 		
 		GL11.glTranslatef(0f, 0f, -0.5f);
-		double x = entity.posX;
-		double y = entity.posY;
-		double z = entity.posZ;
+		double x = entity.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
 		BlockPos pos = new BlockPos(x, y, z);
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
+		Block blockchk = entity.level.getBlockState(pos).getBlock();
 		EntityAnimaniaRabbit entityChk = (EntityAnimaniaRabbit) entity;
 		if (entityChk.getSleeping())
 		{
@@ -76,7 +76,7 @@ public class RenderBuckNewZealand<T extends EntityRabbitBuckNewZealand> extends 
 		}
 	}
 
-	static class Factory<T extends EntityRabbitBuckNewZealand> implements IRenderFactory<T>
+	static class Factory<T extends RabbitEntityBuckNewZealand> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

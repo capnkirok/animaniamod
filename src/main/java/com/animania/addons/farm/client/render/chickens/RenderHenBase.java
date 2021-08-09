@@ -53,13 +53,13 @@ public class RenderHenBase<T extends EntityHenBase> extends RenderLiving<T>
 	{
 		GL11.glScalef(0.9F, 0.9F, 0.9F);
 
-		double x = LivingEntity.posX;
-		double y = LivingEntity.posY;
-		double z = LivingEntity.posZ;
+		double x = LivingEntity.getX();
+		double y = LivingEntity.getY();
+		double z = LivingEntity.getZ();
 
 		BlockPos pos = new BlockPos(x, y, z);
 
-		Block blockchk = LivingEntity.world.getBlockState(pos).getBlock();
+		Block blockchk = Livingentity.level.getBlockState(pos).getBlock();
 
 		EntityAnimaniaChicken entityChk = (EntityAnimaniaChicken) LivingEntity;
 		if (blockchk == BlockHandler.blockNest || entityChk.getSleeping())

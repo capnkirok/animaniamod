@@ -6,12 +6,12 @@ import com.animania.addons.extra.client.model.rodents.ModelHamster;
 import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.client.render.layer.LayerBlinking;
 
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.PlayerEntitySP;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
@@ -43,10 +43,10 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 
 		if (LivingEntity.isRiding())
 		{
-			if (LivingEntity.getRidingEntity() instanceof EntityPlayerSP)
+			if (LivingEntity.getRidingEntity() instanceof PlayerEntitySP)
 			{
 
-				EntityPlayer player = (EntityPlayer) LivingEntity.getRidingEntity();
+				PlayerEntity player = (PlayerEntity) LivingEntity.getRidingEntity();
 				LivingEntity.rotationYaw = player.rotationYaw;
 
 				if (player.isSneaking())
@@ -77,7 +77,7 @@ public class RenderHamster<T extends EntityHamster> extends RenderLiving<T>
 	@Override
 	protected ResourceLocation getEntityTexture(T entity)
 	{
-		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+		if (entity.getX() == -1 && entity.getY() == -1 && entity.getZ() == -1)
 		{
 			return HAMSTER_TEXTURES[0];
 		}

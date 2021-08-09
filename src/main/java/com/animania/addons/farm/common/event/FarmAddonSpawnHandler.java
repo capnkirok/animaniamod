@@ -15,19 +15,19 @@ import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityHe
 import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityRoosterWyandotte;
 import com.animania.addons.farm.common.entity.chickens.EntityAnimaniaChicken;
 import com.animania.addons.farm.common.entity.cows.CowAngus.EntityBullAngus;
-import com.animania.addons.farm.common.entity.cows.CowAngus.EntityCowAngus;
+import com.animania.addons.farm.common.entity.cows.CowAngus.CowEntityAngus;
 import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityBullFriesian;
-import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCowFriesian;
+import com.animania.addons.farm.common.entity.cows.CowFriesian.CowEntityFriesian;
 import com.animania.addons.farm.common.entity.cows.CowHereford.EntityBullHereford;
-import com.animania.addons.farm.common.entity.cows.CowHereford.EntityCowHereford;
+import com.animania.addons.farm.common.entity.cows.CowHereford.CowEntityHereford;
 import com.animania.addons.farm.common.entity.cows.CowHighland.EntityBullHighland;
-import com.animania.addons.farm.common.entity.cows.CowHighland.EntityCowHighland;
+import com.animania.addons.farm.common.entity.cows.CowHighland.CowEntityHighland;
 import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityBullHolstein;
-import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCowHolstein;
+import com.animania.addons.farm.common.entity.cows.CowHolstein.CowEntityHolstein;
 import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityBullLonghorn;
-import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityCowLonghorn;
+import com.animania.addons.farm.common.entity.cows.CowLonghorn.CowEntityLonghorn;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshroom;
-import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCowMooshroom;
+import com.animania.addons.farm.common.entity.cows.CowMooshroom.CowEntityMooshroom;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.addons.farm.common.entity.goats.EntityAnimaniaGoat;
 import com.animania.addons.farm.common.entity.horses.EntityAnimaniaHorse;
@@ -58,12 +58,12 @@ import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.passive.EntityMooshroom;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.passive.PigEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -84,7 +84,7 @@ public class FarmAddonSpawnHandler
 
 		LivingEntity replacementEntity = null;
 
-		if (FarmConfig.settings.spawning_and_breeding.replaceVanillaCows && (event.getEntity().getClass().equals(EntityCow.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !worldIn.isRemote)
+		if (FarmConfig.settings.spawning_and_breeding.replaceVanillaCows && (event.getEntity().getClass().equals(CowEntity.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !worldIn.isRemote)
 		{
 			if (!event.getEntity().hasCustomName())
 			{
@@ -100,7 +100,7 @@ public class FarmAddonSpawnHandler
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityCowHolstein(worldIn);
+						replacementEntity = new CowEntityHolstein(worldIn);
 					} else if (chooser == 2)
 					{
 						replacementEntity = new EntityBullHolstein(worldIn);
@@ -110,7 +110,7 @@ public class FarmAddonSpawnHandler
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityCowLonghorn(worldIn);
+						replacementEntity = new CowEntityLonghorn(worldIn);
 					} else if (chooser == 2)
 					{
 						replacementEntity = new EntityBullLonghorn(worldIn);
@@ -120,7 +120,7 @@ public class FarmAddonSpawnHandler
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityCowHereford(worldIn);
+						replacementEntity = new CowEntityHereford(worldIn);
 					} else if (chooser == 2)
 					{
 						replacementEntity = new EntityBullHereford(worldIn);
@@ -130,7 +130,7 @@ public class FarmAddonSpawnHandler
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityCowHighland(worldIn);
+						replacementEntity = new CowEntityHighland(worldIn);
 					} else if (chooser == 2)
 					{
 						replacementEntity = new EntityBullHighland(worldIn);
@@ -140,7 +140,7 @@ public class FarmAddonSpawnHandler
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityCowAngus(worldIn);
+						replacementEntity = new CowEntityAngus(worldIn);
 					} else if (chooser == 2)
 					{
 						replacementEntity = new EntityBullAngus(worldIn);
@@ -151,7 +151,7 @@ public class FarmAddonSpawnHandler
 
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityCowMooshroom(worldIn);
+						replacementEntity = new CowEntityMooshroom(worldIn);
 					} else if (chooser == 2)
 					{
 						replacementEntity = new EntityBullMooshroom(worldIn);
@@ -159,7 +159,7 @@ public class FarmAddonSpawnHandler
 
 				} else if (chooser == 1)
 				{
-					replacementEntity = new EntityCowFriesian(worldIn);
+					replacementEntity = new CowEntityFriesian(worldIn);
 
 				} else if (chooser == 2)
 				{
@@ -168,7 +168,7 @@ public class FarmAddonSpawnHandler
 				}
 			}
 
-		} else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaPigs && event.getEntity().getClass().equals(EntityPig.class) && !worldIn.isRemote)
+		} else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaPigs && event.getEntity().getClass().equals(PigEntity.class) && !worldIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -238,7 +238,7 @@ public class FarmAddonSpawnHandler
 
 		}
 
-		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaChickens && event.getEntity().getClass().equals(EntityChicken.class) && !worldIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaChickens && event.getEntity().getClass().equals(ChickenEntity.class) && !worldIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -306,7 +306,7 @@ public class FarmAddonSpawnHandler
 
 		}
 
-		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaSheep && event.getEntity().getClass().equals(EntitySheep.class) && !worldIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaSheep && event.getEntity().getClass().equals(SheepEntity.class) && !worldIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -387,7 +387,7 @@ public class FarmAddonSpawnHandler
 				}
 			}
 
-		} else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaHorses && event.getEntity().getClass().equals(EntityHorse.class) && !worldIn.isRemote)
+		} else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaHorses && event.getEntity().getClass().equals(HorseEntity.class) && !worldIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -395,7 +395,7 @@ public class FarmAddonSpawnHandler
 				event.setResult(Result.DENY);
 			}
 
-		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && event.getEntity().getClass().equals(EntityHorse.class) && !worldIn.isRemote)
+		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && event.getEntity().getClass().equals(HorseEntity.class) && !worldIn.isRemote)
 		{
 
 			boolean toggler = Animania.RANDOM.nextBoolean();

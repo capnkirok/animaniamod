@@ -21,7 +21,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -96,7 +96,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);
@@ -165,7 +165,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public void openGUI(EntityPlayer playerEntity)
+	public void openGUI(PlayerEntity playerEntity)
 	{
 		if (!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)))
 		{
@@ -192,7 +192,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	{
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof EntityPlayer))
+		if (!(entity instanceof PlayerEntity))
 		{
 			return false;
 		} else if (this.isHorseSaddled())
@@ -205,7 +205,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		this.world.setEntityState(this, (byte) 18);
 	}
@@ -260,7 +260,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{

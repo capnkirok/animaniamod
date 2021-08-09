@@ -15,7 +15,7 @@ import com.animania.addons.farm.common.entity.chickens.EntityRoosterBase;
 import com.animania.addons.farm.common.entity.cows.CowType;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.addons.farm.common.entity.cows.EntityBullBase;
-import com.animania.addons.farm.common.entity.cows.EntityCowBase;
+import com.animania.addons.farm.common.entity.cows.CowEntityBase;
 import com.animania.addons.farm.common.entity.pigs.EntityAnimaniaPig;
 import com.animania.addons.farm.common.entity.sheep.EntityAnimaniaSheep;
 import com.animania.addons.farm.common.entity.sheep.SheepJacob.EntityEweJacob;
@@ -71,9 +71,9 @@ public class FarmAddonInjectionHandler
 
 				if (isMuddy && splashTimer > 0.0)
 				{
-					double xt = pig.posX;
-					double yt = pig.posY;
-					double zt = pig.posZ;
+					double xt = pig.getX();
+					double yt = pig.getY();
+					double zt = pig.getZ();
 					int x1 = pos.getX();
 					int y1 = pos.getY();
 					int z1 = pos.getZ();
@@ -83,7 +83,7 @@ public class FarmAddonInjectionHandler
 
 					if (MathHelper.abs((int) x2) < 1 && MathHelper.abs((int) z2) < 1 && MathHelper.abs((int) y2) < 1)
 						for (int kk = 0; kk < 8; kk++)
-							worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pig.posX + (rand.nextFloat() - 0.5D) * pig.width, pig.getEntityBoundingBox().minY + 0.5D, pig.posZ + (rand.nextFloat() - 0.5D) * pig.width, 4.0D * (rand.nextFloat() - 0.5D), 0.5D, (rand.nextFloat() - 0.5D) * 4.0D, new int[] { Block.getStateId(stateIn) });
+							worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pig.getX() + (rand.nextFloat() - 0.5D) * pig.width, pig.getEntityBoundingBox().minY + 0.5D, pig.getZ() + (rand.nextFloat() - 0.5D) * pig.width, 4.0D * (rand.nextFloat() - 0.5D), 0.5D, (rand.nextFloat() - 0.5D) * 4.0D, new int[] { Block.getStateId(stateIn) });
 				}
 
 			}
@@ -130,13 +130,13 @@ public class FarmAddonInjectionHandler
 		// Pig mud test
 		AddonInjectionHandler.addInjection(ID, "pigMudTest", args -> {
 			LivingEntity entity = (LivingEntity) args[0];
-			return Boolean.valueOf((entity instanceof EntityAnimaniaPig && entity.world.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud));
+			return Boolean.valueOf((entity instanceof EntityAnimaniaPig && entity.level.getBlockState(entity.getPosition().down()).getBlock() == BlockHandler.blockMud));
 		});
 
 		// Is cow
 		AddonInjectionHandler.addInjection(ID, "isCow", args -> {
 			LivingEntity creature = (LivingEntity) args[0];
-			return Boolean.valueOf(creature instanceof EntityCowBase || creature instanceof EntityBullBase);
+			return Boolean.valueOf(creature instanceof CowEntityBase || creature instanceof EntityBullBase);
 		});
 
 		// Is mooshroom

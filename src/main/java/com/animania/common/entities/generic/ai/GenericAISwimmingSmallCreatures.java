@@ -19,10 +19,10 @@ public class GenericAISwimmingSmallCreatures extends EntityAISwimming
     @Override
     public boolean shouldExecute() {
 
-    	BlockPos poschk = new BlockPos(this.theEntity.posX + this.theEntity.motionX / 1.5, this.theEntity.posY + .1F,
-                this.theEntity.posZ + this.theEntity.motionZ / 1.5);
+    	BlockPos poschk = new BlockPos(this.theEntity.getX() + this.theEntity.motionX / 1.5, this.theEntity.getY() + .1F,
+                this.theEntity.getZ() + this.theEntity.motionZ / 1.5);
 
-        Block blockchk = this.theEntity.world.getBlockState(poschk).getBlock();
+        Block blockchk = this.theentity.level.getBlockState(poschk).getBlock();
 
         return blockchk == BlockHandler.blockMud || super.shouldExecute();
 

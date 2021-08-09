@@ -28,10 +28,10 @@ public class PigYorkshire
 	
 	}
 
-	public static class EntityPigletYorkshire extends EntityPigletBase
+	public static class PigEntityletYorkshire extends PigEntityletBase
 	{
 	
-		public EntityPigletYorkshire(World world)
+		public PigEntityletYorkshire(World world)
 		{
 			super(world);
 			this.pigType = PigType.YORKSHIRE;

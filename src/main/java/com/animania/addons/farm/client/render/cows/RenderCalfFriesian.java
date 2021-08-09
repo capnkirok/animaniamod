@@ -34,10 +34,10 @@ public class RenderCalfFriesian<T extends EntityCalfFriesian> extends RenderLivi
 		addLayer(blinkingLayer = new LayerBlinking(this, cowTexturesBlink, 0x463930, 0xDEDEDE));
 	}
 
-	protected ResourceLocation getCowTextures(T par1EntityCow)
+	protected ResourceLocation getCowTextures(T par1CowEntity)
 	{
 
-		if (par1EntityCow.getCustomNameTag().equalsIgnoreCase("purp"))
+		if (par1CowEntity.getCustomNameTag().equalsIgnoreCase("purp"))
 		{
 			this.blinkingLayer.setColors(0x4F0AA3, 0x4F0AA3);
 			return RenderCalfFriesian.purpTextures;
@@ -48,9 +48,9 @@ public class RenderCalfFriesian<T extends EntityCalfFriesian> extends RenderLivi
 		}
 	}
 
-	protected ResourceLocation getCowTexturesBlink(T par1EntityCow)
+	protected ResourceLocation getCowTexturesBlink(T par1CowEntity)
 	{
-		if (par1EntityCow.getCustomNameTag().equalsIgnoreCase("purp"))
+		if (par1CowEntity.getCustomNameTag().equalsIgnoreCase("purp"))
 		{
 			return RenderCalfFriesian.purpTexturesBlink;
 		} else
@@ -70,10 +70,10 @@ public class RenderCalfFriesian<T extends EntityCalfFriesian> extends RenderLivi
 		float age = entity.getEntityAge();
 		GL11.glScalef(1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()), 1.0F + (age / entity.getSizeDividend()));
 
-		EntityAnimaniaCow entityCow = entity;
-		if (entityCow.getSleeping())
+		EntityAnimaniaCow CowEntity = entity;
+		if (CowEntity.getSleeping())
 		{
-			float sleepTimer = entityCow.getSleepTimer();
+			float sleepTimer = CowEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -84,8 +84,8 @@ public class RenderCalfFriesian<T extends EntityCalfFriesian> extends RenderLivi
 			GlStateManager.rotate(6.0F, 0.0F, 0.0F, 1.0F);
 		} else
 		{
-			entityCow.setSleeping(false);
-			entityCow.setSleepTimer(0F);
+			CowEntity.setSleeping(false);
+			CowEntity.setSleepTimer(0F);
 		}
 	}
 

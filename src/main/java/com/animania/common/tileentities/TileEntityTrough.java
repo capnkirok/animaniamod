@@ -132,8 +132,8 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 		CompoundNBT items = this.itemHandler.serializeNBT();
 		CompoundNBT fluid = new CompoundNBT();
 		fluid = this.fluidHandler.writeToNBT(fluid);
-		tag.setTag("items", items);
-		tag.setTag("fluid", fluid);
+		tag.putTag("items", items);
+		tag.putTag("fluid", fluid);
 		tag.setByte("Rot", (byte) (this.troughRotation & 255));
 
 		return tag;

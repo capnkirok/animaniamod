@@ -10,7 +10,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.block.Block;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 
@@ -23,7 +23,7 @@ public class EntityAIHedgehogFindNests extends EntityAIBase
 	private double targetZ;
 	private double pitch;
 	private double yaw;
-	private EntityPlayer temptingPlayer;
+	private PlayerEntity temptingPlayer;
 	private boolean isRunning;
 	private int delayTemptCounter;
 
@@ -64,12 +64,12 @@ public class EntityAIHedgehogFindNests extends EntityAIBase
 			
 			
 
-			BlockPos currentpos = new BlockPos(this.temptedEntity.posX, this.temptedEntity.posY, this.temptedEntity.posZ);
-			Block poschk = this.temptedEntity.world.getBlockState(currentpos).getBlock();
+			BlockPos currentpos = new BlockPos(this.temptedEntity.getX(), this.temptedEntity.getY(), this.temptedEntity.getZ());
+			Block poschk = this.temptedentity.level.getBlockState(currentpos).getBlock();
 
 			if (poschk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(currentpos);
+				TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(currentpos);
 
 				if (te == null ? true : te.getNestContent() == NestContent.EMPTY) {
 					this.delayTemptCounter = 0;
@@ -104,15 +104,15 @@ public class EntityAIHedgehogFindNests extends EntityAIBase
 				}
 
 				if (AnimaniaConfig.gameRules.plantsRemovedAfterEating) {
-					temptedEntity.world.destroyBlock(currentpos, false);
+					temptedentity.level.destroyBlock(currentpos, false);
 				}
 				this.delayTemptCounter = 0;
 				return false;
 			}
 
-			double x = this.temptedEntity.posX;
-			double y = this.temptedEntity.posY;
-			double z = this.temptedEntity.posZ;
+			double x = this.temptedEntity.getX();
+			double y = this.temptedEntity.getY();
+			double z = this.temptedEntity.getZ();
 
 			boolean foodFound = false;
 
@@ -125,11 +125,11 @@ public class EntityAIHedgehogFindNests extends EntityAIBase
 
 						pos = new BlockPos(x + i, y + j, z + k);
 
-						Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+						Block blockchk = this.temptedentity.level.getBlockState(pos).getBlock();
 
 						if (blockchk == BlockHandler.blockNest)
 						{
-							TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(pos);
+							TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(pos);
 
 							if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 							{
@@ -196,9 +196,9 @@ public class EntityAIHedgehogFindNests extends EntityAIBase
 	public void startExecuting()
 	{
 
-		double x = this.temptedEntity.posX;
-		double y = this.temptedEntity.posY;
-		double z = this.temptedEntity.posZ;
+		double x = this.temptedEntity.getX();
+		double y = this.temptedEntity.getY();
+		double z = this.temptedEntity.getZ();
 
 		boolean foodFound = false;
 		int loc = 24;
@@ -212,12 +212,12 @@ public class EntityAIHedgehogFindNests extends EntityAIBase
 				{
 
 					pos = new BlockPos(x + i, y + j, z + k);
-					Block blockchk = this.temptedEntity.world.getBlockState(pos).getBlock();
+					Block blockchk = this.temptedentity.level.getBlockState(pos).getBlock();
 
 					if (blockchk == BlockHandler.blockNest)
 					{
 
-						TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(pos);
+						TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(pos);
 
 						if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 						{
@@ -230,17 +230,17 @@ public class EntityAIHedgehogFindNests extends EntityAIBase
 
 								loc = newloc;
 
-								if (this.temptedEntity.posX < foodPos.getX())
+								if (this.temptedEntity.getX() < foodPos.getX())
 								{
 									BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
-									Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPoschk).getBlock();
+									Block foodBlockchk = this.temptedentity.level.getBlockState(foodPoschk).getBlock();
 									i = i + 1;
 								}
 
-								if (this.temptedEntity.posZ < foodPos.getZ())
+								if (this.temptedEntity.getZ() < foodPos.getZ())
 								{
 									BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
-									Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPoschk).getBlock();
+									Block foodBlockchk = this.temptedentity.level.getBlockState(foodPoschk).getBlock();
 									k = k + 1;
 								}
 
@@ -259,18 +259,18 @@ public class EntityAIHedgehogFindNests extends EntityAIBase
 
 							loc = newloc;
 
-							if (this.temptedEntity.posX < foodPos.getX())
+							if (this.temptedEntity.getX() < foodPos.getX())
 							{
 								BlockPos foodPoschk = new BlockPos(x + i + 1, y + j, z + k);
-								Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPoschk).getBlock();
+								Block foodBlockchk = this.temptedentity.level.getBlockState(foodPoschk).getBlock();
 								if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
 									i = i + 1;
 							}
 
-							if (this.temptedEntity.posZ < foodPos.getZ())
+							if (this.temptedEntity.getZ() < foodPos.getZ())
 							{
 								BlockPos foodPoschk = new BlockPos(x + i, y + j, z + k + 1);
-								Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPoschk).getBlock();
+								Block foodBlockchk = this.temptedentity.level.getBlockState(foodPoschk).getBlock();
 								if (foodBlockchk == Blocks.CARROTS || foodBlockchk == Blocks.BEETROOTS || foodBlockchk == Blocks.POTATOES)
 									k = k + 1;
 							}
@@ -284,11 +284,11 @@ public class EntityAIHedgehogFindNests extends EntityAIBase
 		if (foodFound)
 		{
 
-			Block foodBlockchk = this.temptedEntity.world.getBlockState(foodPos).getBlock();
+			Block foodBlockchk = this.temptedentity.level.getBlockState(foodPos).getBlock();
 
 			if (foodBlockchk == BlockHandler.blockNest)
 			{
-				TileEntityNest te = (TileEntityNest) this.temptedEntity.world.getTileEntity(foodPos);
+				TileEntityNest te = (TileEntityNest) this.temptedentity.level.getTileEntity(foodPos);
 
 				if (te != null && (te.getNestContent() == NestContent.CHICKEN_BROWN || te.getNestContent() == NestContent.CHICKEN_WHITE) )
 					if (this.temptedEntity.getNavigator().tryMoveToXYZ(foodPos.getX() + .7, foodPos.getY(), foodPos.getZ(), this.speed) == false)

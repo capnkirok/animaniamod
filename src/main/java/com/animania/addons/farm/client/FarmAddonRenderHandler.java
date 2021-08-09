@@ -109,28 +109,28 @@ import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityHe
 import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityRoosterWyandotte;
 import com.animania.addons.farm.common.entity.cows.CowAngus.EntityBullAngus;
 import com.animania.addons.farm.common.entity.cows.CowAngus.EntityCalfAngus;
-import com.animania.addons.farm.common.entity.cows.CowAngus.EntityCowAngus;
+import com.animania.addons.farm.common.entity.cows.CowAngus.CowEntityAngus;
 import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityBullFriesian;
 import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCalfFriesian;
-import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCowFriesian;
+import com.animania.addons.farm.common.entity.cows.CowFriesian.CowEntityFriesian;
 import com.animania.addons.farm.common.entity.cows.CowHereford.EntityBullHereford;
 import com.animania.addons.farm.common.entity.cows.CowHereford.EntityCalfHereford;
-import com.animania.addons.farm.common.entity.cows.CowHereford.EntityCowHereford;
+import com.animania.addons.farm.common.entity.cows.CowHereford.CowEntityHereford;
 import com.animania.addons.farm.common.entity.cows.CowHighland.EntityBullHighland;
 import com.animania.addons.farm.common.entity.cows.CowHighland.EntityCalfHighland;
-import com.animania.addons.farm.common.entity.cows.CowHighland.EntityCowHighland;
+import com.animania.addons.farm.common.entity.cows.CowHighland.CowEntityHighland;
 import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityBullHolstein;
 import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCalfHolstein;
-import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCowHolstein;
+import com.animania.addons.farm.common.entity.cows.CowHolstein.CowEntityHolstein;
 import com.animania.addons.farm.common.entity.cows.CowJersey.EntityBullJersey;
 import com.animania.addons.farm.common.entity.cows.CowJersey.EntityCalfJersey;
-import com.animania.addons.farm.common.entity.cows.CowJersey.EntityCowJersey;
+import com.animania.addons.farm.common.entity.cows.CowJersey.CowEntityJersey;
 import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityBullLonghorn;
 import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityCalfLonghorn;
-import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityCowLonghorn;
+import com.animania.addons.farm.common.entity.cows.CowLonghorn.CowEntityLonghorn;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshroom;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCalfMooshroom;
-import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCowMooshroom;
+import com.animania.addons.farm.common.entity.cows.CowMooshroom.CowEntityMooshroom;
 import com.animania.addons.farm.common.entity.goats.GoatAlpine.EntityBuckAlpine;
 import com.animania.addons.farm.common.entity.goats.GoatAlpine.EntityDoeAlpine;
 import com.animania.addons.farm.common.entity.goats.GoatAlpine.EntityKidAlpine;
@@ -156,22 +156,22 @@ import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityFoalDraftH
 import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityMareDraftHorse;
 import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityStallionDraftHorse;
 import com.animania.addons.farm.common.entity.pigs.PigDuroc.EntityHogDuroc;
-import com.animania.addons.farm.common.entity.pigs.PigDuroc.EntityPigletDuroc;
+import com.animania.addons.farm.common.entity.pigs.PigDuroc.PigEntityletDuroc;
 import com.animania.addons.farm.common.entity.pigs.PigDuroc.EntitySowDuroc;
 import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntityHogHampshire;
-import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntityPigletHampshire;
+import com.animania.addons.farm.common.entity.pigs.PigHampshire.PigEntityletHampshire;
 import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntitySowHampshire;
 import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.EntityHogLargeBlack;
-import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.EntityPigletLargeBlack;
+import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.PigEntityletLargeBlack;
 import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.EntitySowLargeBlack;
 import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntityHogLargeWhite;
-import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntityPigletLargeWhite;
+import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.PigEntityletLargeWhite;
 import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntitySowLargeWhite;
 import com.animania.addons.farm.common.entity.pigs.PigOldSpot.EntityHogOldSpot;
-import com.animania.addons.farm.common.entity.pigs.PigOldSpot.EntityPigletOldSpot;
+import com.animania.addons.farm.common.entity.pigs.PigOldSpot.PigEntityletOldSpot;
 import com.animania.addons.farm.common.entity.pigs.PigOldSpot.EntitySowOldSpot;
 import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntityHogYorkshire;
-import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntityPigletYorkshire;
+import com.animania.addons.farm.common.entity.pigs.PigYorkshire.PigEntityletYorkshire;
 import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntitySowYorkshire;
 import com.animania.addons.farm.common.entity.pullables.EntityCart;
 import com.animania.addons.farm.common.entity.pullables.EntityTiller;
@@ -312,62 +312,62 @@ public class FarmAddonRenderHandler
 		RenderingRegistry.registerEntityRenderingHandler(EntityChickRhodeIslandRed.class, RenderChickBase.FACTORY);
 
 		// Cows
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowHolstein.class, RenderCowHolstein.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(CowEntityHolstein.class, RenderCowHolstein.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBullHolstein.class, RenderBullHolstein.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCalfHolstein.class, RenderCalfHolstein.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowFriesian.class, RenderCowFriesian.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(CowEntityFriesian.class, RenderCowFriesian.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBullFriesian.class, RenderBullFriesian.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCalfFriesian.class, RenderCalfFriesian.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowAngus.class, RenderCowAngus.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(CowEntityAngus.class, RenderCowAngus.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBullAngus.class, RenderBullAngus.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCalfAngus.class, RenderCalfAngus.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowLonghorn.class, RenderCowLonghorn.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(CowEntityLonghorn.class, RenderCowLonghorn.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBullLonghorn.class, RenderBullLonghorn.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCalfLonghorn.class, RenderCalfLonghorn.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowHereford.class, RenderCowHereford.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(CowEntityHereford.class, RenderCowHereford.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBullHereford.class, RenderBullHereford.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCalfHereford.class, RenderCalfHereford.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowHighland.class, RenderCowHighland.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(CowEntityHighland.class, RenderCowHighland.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBullHighland.class, RenderBullHighland.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCalfHighland.class, RenderCalfHighland.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowJersey.class, RenderCowJersey.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(CowEntityJersey.class, RenderCowJersey.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBullJersey.class, RenderBullJersey.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCalfJersey.class, RenderCalfJersey.FACTORY);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityCowMooshroom.class, RenderCowMooshroom.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(CowEntityMooshroom.class, RenderCowMooshroom.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBullMooshroom.class, RenderBullMooshroom.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityCalfMooshroom.class, RenderCalfMooshroom.FACTORY);
 
 		// Pigs
 		RenderingRegistry.registerEntityRenderingHandler(EntitySowYorkshire.class, RenderSowYorkshire.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHogYorkshire.class, RenderHogYorkshire.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletYorkshire.class, RenderPigletYorkshire.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(PigEntityletYorkshire.class, RenderPigletYorkshire.FACTORY);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntitySowOldSpot.class, RenderSowOldSpot.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHogOldSpot.class, RenderHogOldSpot.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletOldSpot.class, RenderPigletOldSpot.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(PigEntityletOldSpot.class, RenderPigletOldSpot.FACTORY);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntitySowLargeBlack.class, RenderSowLargeBlack.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHogLargeBlack.class, RenderHogLargeBlack.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletLargeBlack.class, RenderPigletLargeBlack.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(PigEntityletLargeBlack.class, RenderPigletLargeBlack.FACTORY);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntitySowLargeWhite.class, RenderSowLargeWhite.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHogLargeWhite.class, RenderHogLargeWhite.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletLargeWhite.class, RenderPigletLargeWhite.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(PigEntityletLargeWhite.class, RenderPigletLargeWhite.FACTORY);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntitySowDuroc.class, RenderSowDuroc.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHogDuroc.class, RenderHogDuroc.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletDuroc.class, RenderPigletDuroc.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(PigEntityletDuroc.class, RenderPigletDuroc.FACTORY);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntitySowHampshire.class, RenderSowHampshire.FACTORY);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHogHampshire.class, RenderHogHampshire.FACTORY);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPigletHampshire.class, RenderPigletHampshire.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(PigEntityletHampshire.class, RenderPigletHampshire.FACTORY);
 
 		// Horses
 		RenderingRegistry.registerEntityRenderingHandler(EntityStallionDraftHorse.class, RenderStallionDraftHorse.FACTORY);

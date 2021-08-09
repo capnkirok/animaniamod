@@ -101,7 +101,7 @@ public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleepi
 					{
 						trough.consumeLiquid(halfAmount ? 50 : 100);
 
-						entity.world.updateComparatorOutputLevel(seekingBlockPos, block);
+						entity.level.updateComparatorOutputLevel(seekingBlockPos, block);
 
 						if (eatAI != null)
 							eatAI.startExecuting();
@@ -122,7 +122,7 @@ public class GenericAIFindWater<T extends CreatureEntity & IFoodEating & ISleepi
 				if (AnimaniaConfig.gameRules.waterRemovedAfterDrinking)
 				{
 					if (!halfAmount)
-						this.entity.world.setBlockToAir(seekingBlockPos);
+						this.entity.level.setBlockToAir(seekingBlockPos);
 				}
 
 				this.waterFindTimer = 0;

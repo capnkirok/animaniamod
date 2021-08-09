@@ -1,9 +1,5 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.api.data.AnimalContainer;
 import com.animania.api.data.EntityGender;
@@ -12,29 +8,14 @@ import com.animania.api.interfaces.IAnimaniaAnimalBase;
 import com.animania.api.interfaces.IConvertable;
 import com.animania.api.interfaces.IVariant;
 import com.animania.common.entities.generic.GenericBehavior;
-import com.animania.common.entities.generic.ai.GenericAIEatGrass;
-import com.animania.common.entities.generic.ai.GenericAIFindFood;
-import com.animania.common.entities.generic.ai.GenericAIFindWater;
-import com.animania.common.entities.generic.ai.GenericAIFollowOwner;
-import com.animania.common.entities.generic.ai.GenericAILookIdle;
-import com.animania.common.entities.generic.ai.GenericAINearestAttackableTarget;
-import com.animania.common.entities.generic.ai.GenericAIOwnerHurtByTarget;
-import com.animania.common.entities.generic.ai.GenericAIOwnerHurtTarget;
-import com.animania.common.entities.generic.ai.GenericAIPanic;
-import com.animania.common.entities.generic.ai.GenericAISit;
-import com.animania.common.entities.generic.ai.GenericAISleep;
-import com.animania.common.entities.generic.ai.GenericAITargetNonTamed;
-import com.animania.common.entities.generic.ai.GenericAITempt;
-import com.animania.common.entities.generic.ai.GenericAIWanderAvoidWater;
-import com.animania.common.entities.generic.ai.GenericAIWatchClosest;
+import com.animania.common.entities.generic.ai.*;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.collect.Sets;
-
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -42,10 +23,10 @@ import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.EntityRabbit;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -60,10 +41,13 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase, IVariant, IConvertable
+import javax.annotation.Nullable;
+import java.util.Set;
+
+public class EntityAnimaniaDog extends WolfEntity implements IAnimaniaAnimalBase, IVariant, IConvertable
 {
 
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaDog.class, DataSerializers.BOOLEAN);
@@ -124,7 +108,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 		this.tasks.addTask(8, new GenericAIPanic<EntityAnimaniaDog>(this, 1.5D));
 		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaDog>(this, 1.2D, false, TEMPTATION_ITEMS)); // TODO
 		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
-		this.tasks.addTask(13, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(14, new GenericAILookIdle<EntityAnimaniaDog>(this));
 		this.targetTasks.addTask(1, new GenericAIOwnerHurtByTarget(this));
 		this.targetTasks.addTask(2, new GenericAIOwnerHurtTarget(this));
@@ -136,7 +120,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 		{
-			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof EntitySheep || entity instanceof EntityRabbit));
+			this.targetTasks.addTask(4, new GenericAITargetNonTamed(this, AnimalEntity.class, false, (entity) -> entity instanceof SheepEntity || entity instanceof RabbitEntity));
 		}
 	}
 
@@ -178,9 +162,9 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setBoolean("IsTamed", this.isTamed());
-		compound.setBoolean("IsSitting", this.isSitting());
-		compound.setInteger("Variant", this.getVariant());
+		compound.putBoolean("IsTamed", this.isTamed());
+		compound.putBoolean("IsSitting", this.isSitting());
+		compound.putInteger("Variant", this.getVariant());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 	}
@@ -215,7 +199,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		this.world.setEntityState(this, (byte) 18);
 	}
@@ -258,7 +242,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		return GenericBehavior.interactCommon(this, player, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
@@ -344,7 +328,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public boolean canBeLeashedTo(EntityPlayer player)
+	public boolean canBeLeashedTo(PlayerEntity player)
 	{
 		return true;
 	}
@@ -356,7 +340,7 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public EntityWolf createChild(AgeableEntity ageable)
+	public WolfEntity createChild(AgeableEntity ageable)
 	{
 		return null;
 	}
@@ -498,8 +482,8 @@ public class EntityAnimaniaDog extends EntityWolf implements IAnimaniaAnimalBase
 	@Override
 	public Entity convertToVanilla()
 	{
-		EntityWolf entity = new EntityWolf(this.world);
-		entity.setPosition(this.posX, this.posY, this.posZ);
+		WolfEntity entity = new WolfEntity(this.world);
+		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());
 		return entity;

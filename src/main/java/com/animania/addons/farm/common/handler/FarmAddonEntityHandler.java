@@ -23,28 +23,28 @@ import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityHe
 import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityRoosterWyandotte;
 import com.animania.addons.farm.common.entity.cows.CowAngus.EntityBullAngus;
 import com.animania.addons.farm.common.entity.cows.CowAngus.EntityCalfAngus;
-import com.animania.addons.farm.common.entity.cows.CowAngus.EntityCowAngus;
+import com.animania.addons.farm.common.entity.cows.CowAngus.CowEntityAngus;
 import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityBullFriesian;
 import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCalfFriesian;
-import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCowFriesian;
+import com.animania.addons.farm.common.entity.cows.CowFriesian.CowEntityFriesian;
 import com.animania.addons.farm.common.entity.cows.CowHereford.EntityBullHereford;
 import com.animania.addons.farm.common.entity.cows.CowHereford.EntityCalfHereford;
-import com.animania.addons.farm.common.entity.cows.CowHereford.EntityCowHereford;
+import com.animania.addons.farm.common.entity.cows.CowHereford.CowEntityHereford;
 import com.animania.addons.farm.common.entity.cows.CowHighland.EntityBullHighland;
 import com.animania.addons.farm.common.entity.cows.CowHighland.EntityCalfHighland;
-import com.animania.addons.farm.common.entity.cows.CowHighland.EntityCowHighland;
+import com.animania.addons.farm.common.entity.cows.CowHighland.CowEntityHighland;
 import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityBullHolstein;
 import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCalfHolstein;
-import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCowHolstein;
+import com.animania.addons.farm.common.entity.cows.CowHolstein.CowEntityHolstein;
 import com.animania.addons.farm.common.entity.cows.CowJersey.EntityBullJersey;
 import com.animania.addons.farm.common.entity.cows.CowJersey.EntityCalfJersey;
-import com.animania.addons.farm.common.entity.cows.CowJersey.EntityCowJersey;
+import com.animania.addons.farm.common.entity.cows.CowJersey.CowEntityJersey;
 import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityBullLonghorn;
 import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityCalfLonghorn;
-import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityCowLonghorn;
+import com.animania.addons.farm.common.entity.cows.CowLonghorn.CowEntityLonghorn;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshroom;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCalfMooshroom;
-import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCowMooshroom;
+import com.animania.addons.farm.common.entity.cows.CowMooshroom.CowEntityMooshroom;
 import com.animania.addons.farm.common.entity.cows.CowType;
 import com.animania.addons.farm.common.entity.goats.GoatAlpine.EntityBuckAlpine;
 import com.animania.addons.farm.common.entity.goats.GoatAlpine.EntityDoeAlpine;
@@ -73,23 +73,23 @@ import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityMareDraftH
 import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityStallionDraftHorse;
 import com.animania.addons.farm.common.entity.horses.HorseType;
 import com.animania.addons.farm.common.entity.pigs.PigDuroc.EntityHogDuroc;
-import com.animania.addons.farm.common.entity.pigs.PigDuroc.EntityPigletDuroc;
+import com.animania.addons.farm.common.entity.pigs.PigDuroc.PigEntityletDuroc;
 import com.animania.addons.farm.common.entity.pigs.PigDuroc.EntitySowDuroc;
 import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntityHogHampshire;
-import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntityPigletHampshire;
+import com.animania.addons.farm.common.entity.pigs.PigHampshire.PigEntityletHampshire;
 import com.animania.addons.farm.common.entity.pigs.PigHampshire.EntitySowHampshire;
 import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.EntityHogLargeBlack;
-import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.EntityPigletLargeBlack;
+import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.PigEntityletLargeBlack;
 import com.animania.addons.farm.common.entity.pigs.PigLargeBlack.EntitySowLargeBlack;
 import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntityHogLargeWhite;
-import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntityPigletLargeWhite;
+import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.PigEntityletLargeWhite;
 import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntitySowLargeWhite;
 import com.animania.addons.farm.common.entity.pigs.PigOldSpot.EntityHogOldSpot;
-import com.animania.addons.farm.common.entity.pigs.PigOldSpot.EntityPigletOldSpot;
+import com.animania.addons.farm.common.entity.pigs.PigOldSpot.PigEntityletOldSpot;
 import com.animania.addons.farm.common.entity.pigs.PigOldSpot.EntitySowOldSpot;
 import com.animania.addons.farm.common.entity.pigs.PigType;
 import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntityHogYorkshire;
-import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntityPigletYorkshire;
+import com.animania.addons.farm.common.entity.pigs.PigYorkshire.PigEntityletYorkshire;
 import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntitySowYorkshire;
 import com.animania.addons.farm.common.entity.pullables.EntityCart;
 import com.animania.addons.farm.common.entity.pullables.EntityTiller;
@@ -123,7 +123,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.registries.EntityRegistry;
 
 public class FarmAddonEntityHandler
 {
@@ -153,27 +153,27 @@ public class FarmAddonEntityHandler
 		}
 
 		// PIGS
-		RegistryHelper.Entities.registerAnimal(EntityPigletYorkshire.class, "piglet_yorkshire", entityID++, PigType.YORKSHIRE, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(PigEntityletYorkshire.class, "piglet_yorkshire", entityID++, PigType.YORKSHIRE, EntityGender.CHILD);
 		RegistryHelper.Entities.registerAnimal(EntitySowYorkshire.class, "sow_yorkshire", entityID++, PigType.YORKSHIRE, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityHogYorkshire.class, "hog_yorkshire", entityID++, PigType.YORKSHIRE, EntityGender.MALE);
 
-		RegistryHelper.Entities.registerAnimal(EntityPigletOldSpot.class, "piglet_old_spot", entityID++, PigType.OLD_SPOT, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(PigEntityletOldSpot.class, "piglet_old_spot", entityID++, PigType.OLD_SPOT, EntityGender.CHILD);
 		RegistryHelper.Entities.registerAnimal(EntitySowOldSpot.class, "sow_old_spot", entityID++, PigType.OLD_SPOT, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityHogOldSpot.class, "hog_old_spot", entityID++, PigType.OLD_SPOT, EntityGender.MALE);
 
-		RegistryHelper.Entities.registerAnimal(EntityPigletLargeBlack.class, "piglet_large_black", entityID++, PigType.LARGE_BLACK, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(PigEntityletLargeBlack.class, "piglet_large_black", entityID++, PigType.LARGE_BLACK, EntityGender.CHILD);
 		RegistryHelper.Entities.registerAnimal(EntitySowLargeBlack.class, "sow_large_black", entityID++, PigType.LARGE_BLACK, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityHogLargeBlack.class, "hog_large_black", entityID++, PigType.LARGE_BLACK, EntityGender.MALE);
 
-		RegistryHelper.Entities.registerAnimal(EntityPigletLargeWhite.class, "piglet_large_white", entityID++, PigType.LARGE_WHITE, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(PigEntityletLargeWhite.class, "piglet_large_white", entityID++, PigType.LARGE_WHITE, EntityGender.CHILD);
 		RegistryHelper.Entities.registerAnimal(EntitySowLargeWhite.class, "sow_large_white", entityID++, PigType.LARGE_WHITE, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityHogLargeWhite.class, "hog_large_white", entityID++, PigType.LARGE_WHITE, EntityGender.MALE);
 
-		RegistryHelper.Entities.registerAnimal(EntityPigletHampshire.class, "piglet_hampshire", entityID++, PigType.HAMPSHIRE, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(PigEntityletHampshire.class, "piglet_hampshire", entityID++, PigType.HAMPSHIRE, EntityGender.CHILD);
 		RegistryHelper.Entities.registerAnimal(EntitySowHampshire.class, "sow_hampshire", entityID++, PigType.HAMPSHIRE, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityHogHampshire.class, "hog_hampshire", entityID++, PigType.HAMPSHIRE, EntityGender.MALE);
 
-		RegistryHelper.Entities.registerAnimal(EntityPigletDuroc.class, "piglet_duroc", entityID++, PigType.DUROC, EntityGender.CHILD);
+		RegistryHelper.Entities.registerAnimal(PigEntityletDuroc.class, "piglet_duroc", entityID++, PigType.DUROC, EntityGender.CHILD);
 		RegistryHelper.Entities.registerAnimal(EntitySowDuroc.class, "sow_duroc", entityID++, PigType.DUROC, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityHogDuroc.class, "hog_duroc", entityID++, PigType.DUROC, EntityGender.MALE);
 
@@ -269,35 +269,35 @@ public class FarmAddonEntityHandler
 
 		// COWS
 		RegistryHelper.Entities.registerAnimal(EntityCalfAngus.class, "calf_angus", entityID++, CowType.ANGUS, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityCowAngus.class, "cow_angus", entityID++, CowType.ANGUS, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(CowEntityAngus.class, "cow_angus", entityID++, CowType.ANGUS, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityBullAngus.class, "bull_angus", entityID++, CowType.ANGUS, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityCalfFriesian.class, "calf_friesian", entityID++, CowType.FRIESIAN, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityCowFriesian.class, "cow_friesian", entityID++, CowType.FRIESIAN, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(CowEntityFriesian.class, "cow_friesian", entityID++, CowType.FRIESIAN, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityBullFriesian.class, "bull_friesian", entityID++, CowType.FRIESIAN, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityCalfHereford.class, "calf_hereford", entityID++, CowType.HEREFORD, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityCowHereford.class, "cow_hereford", entityID++, CowType.HEREFORD, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(CowEntityHereford.class, "cow_hereford", entityID++, CowType.HEREFORD, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityBullHereford.class, "bull_hereford", entityID++, CowType.HEREFORD, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityCalfHolstein.class, "calf_holstein", entityID++, CowType.HOLSTEIN, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityCowHolstein.class, "cow_holstein", entityID++, CowType.HOLSTEIN, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(CowEntityHolstein.class, "cow_holstein", entityID++, CowType.HOLSTEIN, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityBullHolstein.class, "bull_holstein", entityID++, CowType.HOLSTEIN, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityCalfLonghorn.class, "calf_longhorn", entityID++, CowType.LONGHORN, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityCowLonghorn.class, "cow_longhorn", entityID++, CowType.LONGHORN, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(CowEntityLonghorn.class, "cow_longhorn", entityID++, CowType.LONGHORN, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityBullLonghorn.class, "bull_longhorn", entityID++, CowType.LONGHORN, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityCalfHighland.class, "calf_highland", entityID++, CowType.HIGHLAND, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityCowHighland.class, "cow_highland", entityID++, CowType.HIGHLAND, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(CowEntityHighland.class, "cow_highland", entityID++, CowType.HIGHLAND, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityBullHighland.class, "bull_highland", entityID++, CowType.HIGHLAND, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityCalfJersey.class, "calf_jersey", entityID++, CowType.JERSEY, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityCowJersey.class, "cow_jersey", entityID++, CowType.JERSEY, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(CowEntityJersey.class, "cow_jersey", entityID++, CowType.JERSEY, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityBullJersey.class, "bull_jersey", entityID++, CowType.JERSEY, EntityGender.MALE);
 
 		RegistryHelper.Entities.registerAnimal(EntityCalfMooshroom.class, "calf_mooshroom", entityID++, CowType.MOOSHROOM, EntityGender.CHILD);
-		RegistryHelper.Entities.registerAnimal(EntityCowMooshroom.class, "cow_mooshroom", entityID++, CowType.MOOSHROOM, EntityGender.FEMALE);
+		RegistryHelper.Entities.registerAnimal(CowEntityMooshroom.class, "cow_mooshroom", entityID++, CowType.MOOSHROOM, EntityGender.FEMALE);
 		RegistryHelper.Entities.registerAnimal(EntityBullMooshroom.class, "bull_mooshroom", entityID++, CowType.MOOSHROOM, EntityGender.MALE);
 
 		maxFam = FarmConfig.settings.spawning_and_breeding.numberCowFamilies;
@@ -310,35 +310,35 @@ public class FarmAddonEntityHandler
 		{
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowHolsteinBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityCowHolstein.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(CowEntityHolstein.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowFriesianBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityCowFriesian.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(CowEntityFriesian.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowAngusBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityCowAngus.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(CowEntityAngus.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowHerefordBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityCowHereford.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(CowEntityHereford.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowHighlandBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityCowHighland.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(CowEntityHighland.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowJerseyBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityCowJersey.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(CowEntityJersey.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowLonghornBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityCowLonghorn.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(CowEntityLonghorn.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowMooshroomBiomeTypes))
 			{
-				RegistryHelper.Entities.addSpawn(EntityCowMooshroom.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
+				RegistryHelper.Entities.addSpawn(CowEntityMooshroom.class, FarmConfig.settings.spawning_and_breeding.spawnProbabilityCows, 2, maxFam, EnumCreatureType.CREATURE, getBiomes(t));
 			}
 		}
 

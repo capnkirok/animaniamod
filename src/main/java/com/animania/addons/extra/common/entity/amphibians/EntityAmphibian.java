@@ -19,7 +19,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -93,10 +93,10 @@ public abstract class EntityAmphibian extends AnimalEntity implements ISpawnable
 		this.tasks.addTask(1, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
 		if (!this.getCustomNameTag().equals("Pepe")) {
-			this.tasks.addTask(2, new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 6.0F, 1.5D, 1.5D));
+			this.tasks.addTask(2, new EntityAIAvoidEntity<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
 		}
 		this.tasks.addTask(3, new EntityAIWanderAvoidWater(this, 0.6D));
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, PlayerEntity.class, 10.0F));
 		this.tasks.addTask(5, new EntityAIAvoidEntity<EntityAnimaniaPeacock>(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
 		
 		AddonInjectionHandler.runInjection("farm", "avoidChicken", Void.class, this.tasks, this);
@@ -104,13 +104,13 @@ public abstract class EntityAmphibian extends AnimalEntity implements ISpawnable
 
 	@Override
 	protected float getJumpUpwardsMotion() {
-		if (!this.collidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.posY + 0.5D)) {
+		if (!this.collidedHorizontally && (!this.moveHelper.isUpdating() || this.moveHelper.getY() <= this.getY() + 0.5D)) {
 			Path path = this.navigator.getPath();
 
 			if (path != null && path.getCurrentPathIndex() < path.getCurrentPathLength()) {
 				Vec3d vec3d = path.getPosition(this);
 
-				if (vec3d.x > this.posY + 0.5D)
+				if (vec3d.x > this.getY() + 0.5D)
 					return 0.5F;
 			}
 
@@ -205,7 +205,7 @@ public abstract class EntityAmphibian extends AnimalEntity implements ISpawnable
 	}
 
 	private void calculateRotationYaw(double x, double z) {
-		this.rotationYaw = (float) (MathHelper.atan2(z - this.posZ, x - this.posX) * (180D / Math.PI)) - 90.0F;
+		this.rotationYaw = (float) (MathHelper.atan2(z - this.getZ(), x - this.getX()) * (180D / Math.PI)) - 90.0F;
 	}
 
 	private void enableJumpControl() {
@@ -321,7 +321,7 @@ public abstract class EntityAmphibian extends AnimalEntity implements ISpawnable
 	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setInteger("Age", this.getAge());
+		compound.putInteger("Age", this.getAge());
 
 	}
 

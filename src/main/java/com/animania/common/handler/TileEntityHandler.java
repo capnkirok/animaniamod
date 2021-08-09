@@ -5,7 +5,7 @@ import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntitySaltLick;
 import com.animania.common.tileentities.TileEntityTrough;
 
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.GameRegistry;
 
 public class TileEntityHandler
 {

@@ -27,7 +27,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -47,7 +47,7 @@ public class GenericBehavior
 
 	public static <T extends AnimalEntity & IFoodEating & ISleeping & IAgeable & IBlinking> void livingUpdateCommon(T entity)
 	{
-		if (entity.world.isRemote)
+		if (entity.level.isRemote)
 			entity.setEatTimer(Math.max(0, entity.getEatTimer() - 1));
 
 		if (entity.getLeashed() && entity.getSleeping())
@@ -132,7 +132,7 @@ public class GenericBehavior
 					double d = rand.nextGaussian() * 0.001D;
 					double d1 = rand.nextGaussian() * 0.001D;
 					double d2 = rand.nextGaussian() * 0.001D;
-					entity.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, entity.posX + rand.nextFloat() * entity.width - entity.width, entity.posY + 1.5D + rand.nextFloat() * entity.height, entity.posZ + rand.nextFloat() * entity.width - entity.width, d, d1, d2);
+					entity.level.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, entity.getX() + rand.nextFloat() * entity.width - entity.width, entity.getY() + 1.5D + rand.nextFloat() * entity.height, entity.getZ() + rand.nextFloat() * entity.width - entity.width, d, d1, d2);
 				}
 			}
 		}
@@ -153,7 +153,7 @@ public class GenericBehavior
 
 	public static <T extends AgeableEntity & IFoodEating & ISleeping & IChild> void livingUpdateChild(T entity, Class<? extends LivingEntity> motherClass)
 	{
-		World world = entity.world;
+		World world = entity.level;
 
 		entity.setGrowingAge((int) -((0.85 - entity.getEntityAge()) * 100 * AnimaniaConfig.careAndFeeding.childGrowthTick));
 
@@ -173,7 +173,7 @@ public class GenericBehavior
 				age = age + .01F;
 				entity.setEntityAge(age);
 
-				if (age >= 0.85 && !entity.world.isRemote)
+				if (age >= 0.85 && !entity.level.isRemote)
 				{
 					entity.setDead();
 
@@ -207,7 +207,7 @@ public class GenericBehavior
 							((IVariant) grownUp).setVariant(((IVariant) entity).getVariant());
 						}
 
-						grownUp.setPosition(entity.posX, entity.posY + .5, entity.posZ);
+						grownUp.setPosition(entity.getX(), entity.getY() + .5, entity.getZ());
 						String name = entity.getCustomNameTag();
 						if (name != "")
 							grownUp.setCustomNameTag(name);
@@ -229,7 +229,7 @@ public class GenericBehavior
 	public static <T extends AnimalEntity & IFoodEating & ISleeping & IMateable> void livingUpdateMateable(T entity, Class<? extends LivingEntity> partnerClass)
 	{
 
-		World world = entity.world;
+		World world = entity.level;
 
 		if (rand.nextInt(200) == 0)
 		{
@@ -264,7 +264,7 @@ public class GenericBehavior
 	{
 		livingUpdateMateable(entity, partnerClass);
 
-		World world = entity.world;
+		World world = entity.level;
 
 		int dryTimer = entity.getDryTimer();
 
@@ -324,8 +324,8 @@ public class GenericBehavior
 					AnimaniaType maleType = male == null ? entity.getAnimalType() : ((IAnimaniaAnimal) male).getAnimalType();
 					AnimaniaType babyType = maleType.breed(entity.getAnimalType());
 
-					AgeableEntity entityKid = (AgeableEntity) babyType.getChild(entity.world);
-					entityKid.setPosition(entity.posX, entity.posY + .2, entity.posZ);
+					AgeableEntity entityKid = (AgeableEntity) babyType.getChild(entity.level);
+					entityKid.setPosition(entity.getX(), entity.getY() + .2, entity.getZ());
 
 					((IChild) entityKid).setParentUniqueId(entity.getPersistentID());
 					entityKid.playLivingSound();
@@ -353,7 +353,7 @@ public class GenericBehavior
 		}
 	}
 
-	public static <T extends AnimalEntity & IFoodEating & ISleeping> boolean interactCommon(T entity, EntityPlayer player, EnumHand hand, @Nullable GenericAIEatGrass<T> eatAI)
+	public static <T extends AnimalEntity & IFoodEating & ISleeping> boolean interactCommon(T entity, PlayerEntity player, EnumHand hand, @Nullable GenericAIEatGrass<T> eatAI)
 	{
 		if (!entity.getInteracted())
 			entity.setInteracted(true);
@@ -426,12 +426,12 @@ public class GenericBehavior
 
 	public static <T extends AnimalEntity & IFoodEating & ISleeping & IImpregnable & IAnimaniaAnimal> void initialSpawnFemale(T entity, Class<? extends LivingEntity> baseClass)
 	{
-		if (entity.world.isRemote)
+		if (entity.level.isRemote)
 			return;
 
 		int chooser = rand.nextInt(3);
 
-		List<LivingEntity> others = AnimaniaHelper.getEntitiesInRange(baseClass, 64, entity.world, entity.getPosition());
+		List<LivingEntity> others = AnimaniaHelper.getEntitiesInRange(baseClass, 64, entity.level, entity.getPosition());
 
 		if ((others.size() <= 8))
 		{
@@ -439,41 +439,41 @@ public class GenericBehavior
 
 			if (chooser == 0)
 			{
-				animal = entity.getAnimalType().getMale(entity.world);
+				animal = entity.getAnimalType().getMale(entity.level);
 				IMateable mateable = (IMateable) animal;
 				mateable.setMateUniqueId(entity.getUniqueID());
 			} else if (chooser == 1)
 			{
-				animal = entity.getAnimalType().getChild(entity.world);
+				animal = entity.getAnimalType().getChild(entity.level);
 				((IChild) animal).setParentUniqueId(entity.getUniqueID());
 				entity.setHasKids(true);
 			}
 
 			if (animal != null)
 			{
-				animal.setPosition(entity.posX, entity.posY, entity.posZ);
-				AnimaniaHelper.spawnEntity(entity.world, animal);
+				animal.setPosition(entity.getX(), entity.getY(), entity.getZ());
+				AnimaniaHelper.spawnEntity(entity.level, animal);
 			}
 		}
 	}
 
 	public static <T extends AnimalEntity & IFoodEating & ISleeping & IAgeable> void writeCommonNBT(CompoundNBT tag, T entity)
 	{
-		tag.setBoolean("Fed", entity.getFed());
-		tag.setBoolean("Interacted", entity.getInteracted());
-		tag.setBoolean("Handfed", entity.getHandFed());
-		tag.setBoolean("Watered", entity.getWatered());
-		tag.setInteger("Age", entity.getAge());
-		tag.setBoolean("Sleep", entity.getSleeping());
+		tag.putBoolean("Fed", entity.getFed());
+		tag.putBoolean("Interacted", entity.getInteracted());
+		tag.putBoolean("Handfed", entity.getHandFed());
+		tag.putBoolean("Watered", entity.getWatered());
+		tag.putInteger("Age", entity.getAge());
+		tag.putBoolean("Sleep", entity.getSleeping());
 		tag.setFloat("SleepTimer", entity.getSleepTimer());
 
 		if (entity instanceof IImpregnable)
 		{
 			IImpregnable preg = (IImpregnable) entity;
-			tag.setBoolean("Pregnant", preg.getPregnant());
-			tag.setBoolean("HasKids", preg.getHasKids());
-			tag.setBoolean("Fertile", preg.getFertile());
-			tag.setInteger("Gestation", preg.getGestation());
+			tag.putBoolean("Pregnant", preg.getPregnant());
+			tag.putBoolean("HasKids", preg.getHasKids());
+			tag.putBoolean("Fertile", preg.getFertile());
+			tag.putInteger("Gestation", preg.getGestation());
 		}
 
 		if (entity instanceof IMateable)
@@ -486,7 +486,7 @@ public class GenericBehavior
 
 		if (entity instanceof ISterilizable)
 		{
-			tag.setBoolean("Sterilized", ((ISterilizable) entity).getSterilized());
+			tag.putBoolean("Sterilized", ((ISterilizable) entity).getSterilized());
 		}
 
 		if (entity instanceof IChild)

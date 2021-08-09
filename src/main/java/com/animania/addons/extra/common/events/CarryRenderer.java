@@ -12,7 +12,7 @@ import com.animania.manual.resources.ManualResourceLoader;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.PlayerEntitySP;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -47,7 +47,7 @@ public class CarryRenderer
 	{
 
 		World world = Minecraft.getMinecraft().world;
-		EntityPlayer player = Minecraft.getMinecraft().player;
+		PlayerEntity player = Minecraft.getMinecraft().player;
 		AbstractClientPlayer aplayer = (AbstractClientPlayer) player;
 		ItemStack stack = player.getHeldItemMainhand();
 		int perspective = Minecraft.getMinecraft().gameSettings.thirdPersonView;
@@ -61,9 +61,9 @@ public class CarryRenderer
 			entity.readFromNBT(props.getAnimal());
 			if (entity != null)
 			{
-				double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialticks;
-				double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialticks;
-				double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialticks;
+				double d0 = player.lastTickgetX() + (player.getX() - player.lastTickgetX()) * partialticks;
+				double d1 = player.lastTickgetY() + (player.getY() - player.lastTickgetY()) * partialticks;
+				double d2 = player.lastTickgetZ() + (player.getZ() - player.lastTickgetZ()) * partialticks;
 
 				entity.setPosition(d0, d1, d2);
 				entity.rotationYaw = 0.0f;
@@ -115,9 +115,9 @@ public class CarryRenderer
 	public static void onPlayerRenderPost(RenderPlayerEvent.Post event)
 	{
 		World world = Minecraft.getMinecraft().world;
-		EntityPlayer player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayer();
 		ModelPlayer modelPlayer = event.getRenderer().getMainModel();
-		EntityPlayerSP clientPlayer = Minecraft.getMinecraft().player;
+		PlayerEntitySP clientPlayer = Minecraft.getMinecraft().player;
 		ItemStack stack = player.getHeldItemMainhand();
 		float partialticks = event.getPartialRenderTick();
 		ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
@@ -133,13 +133,13 @@ public class CarryRenderer
 			{
 				if (entity instanceof EntityHamster)
 					((EntityHamster) entity).setSitting(true);
-				double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialticks;
-				double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialticks;
-				double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialticks;
+				double d0 = player.lastTickgetX() + (player.getX() - player.lastTickgetX()) * partialticks;
+				double d1 = player.lastTickgetY() + (player.getY() - player.lastTickgetY()) * partialticks;
+				double d2 = player.lastTickgetZ() + (player.getZ() - player.lastTickgetZ()) * partialticks;
 
-				double c0 = clientPlayer.lastTickPosX + (clientPlayer.posX - clientPlayer.lastTickPosX) * partialticks;
-				double c1 = clientPlayer.lastTickPosY + (clientPlayer.posY - clientPlayer.lastTickPosY) * partialticks;
-				double c2 = clientPlayer.lastTickPosZ + (clientPlayer.posZ - clientPlayer.lastTickPosZ) * partialticks;
+				double c0 = clientPlayer.lastTickgetX() + (clientPlayer.getX() - clientPlayer.lastTickgetX()) * partialticks;
+				double c1 = clientPlayer.lastTickgetY() + (clientPlayer.getY() - clientPlayer.lastTickgetY()) * partialticks;
+				double c2 = clientPlayer.lastTickgetZ() + (clientPlayer.getZ() - clientPlayer.lastTickgetZ()) * partialticks;
 
 				double xOffset = d0 - c0;
 				double yOffset = d1 - c1;

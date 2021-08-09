@@ -29,12 +29,12 @@ public class RenderBuckNigerianDwarf<T extends EntityBuckNigerianDwarf> extends 
 		this.addLayer(new LayerBlinking(this, goatTexturesBlink, 0x404040));
 	}
 
-	protected ResourceLocation getGoatTextures(T par1EntityCow)
+	protected ResourceLocation getGoatTextures(T par1CowEntity)
 	{
 		return RenderBuckNigerianDwarf.goatTextures;
 	}
 
-	protected ResourceLocation getGoatTexturesBlink(T par1EntityCow)
+	protected ResourceLocation getGoatTexturesBlink(T par1CowEntity)
 	{
 		return RenderBuckNigerianDwarf.goatTexturesBlink;
 	}

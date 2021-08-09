@@ -1,15 +1,14 @@
 package com.animania.addons.farm.client.model.cow;
 
-import com.animania.addons.farm.common.entity.cows.CowHighland.EntityCowHighland;
-import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityCowLonghorn;
+import com.animania.addons.farm.common.entity.cows.CowHighland.CowEntityHighland;
+import com.animania.addons.farm.common.entity.cows.CowLonghorn.CowEntityLonghorn;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
@@ -256,14 +255,14 @@ public class ModelCowLonghorn extends ModelBase
 
 		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		if (LivingEntityIn instanceof EntityCowLonghorn) {
-			EntityCowLonghorn entityCowLonghorn = (EntityCowLonghorn) LivingEntityIn;
-			this.head.rotationPointY = 6.0F + entityCowLonghorn.getHeadAnchorPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityCowLonghorn.getHeadAngleX(partialTickTime);
-		} else  if (LivingEntityIn instanceof EntityCowHighland) {
-			EntityCowHighland entityCowHighland = (EntityCowHighland) LivingEntityIn;
-			this.head.rotationPointY = 6.0F + entityCowHighland.getHeadAnchorPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityCowHighland.getHeadAngleX(partialTickTime);
+		if (LivingEntityIn instanceof CowEntityLonghorn) {
+			CowEntityLonghorn CowEntityLonghorn = (CowEntityLonghorn) LivingEntityIn;
+			this.head.rotationPointY = 6.0F + CowEntityLonghorn.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = CowEntityLonghorn.getHeadAngleX(partialTickTime);
+		} else  if (LivingEntityIn instanceof CowEntityHighland) {
+			CowEntityHighland CowEntityHighland = (CowEntityHighland) LivingEntityIn;
+			this.head.rotationPointY = 6.0F + CowEntityHighland.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = CowEntityHighland.getHeadAngleX(partialTickTime);
 		}
 	}
 

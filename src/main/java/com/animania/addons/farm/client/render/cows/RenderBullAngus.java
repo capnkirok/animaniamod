@@ -29,12 +29,12 @@ public class RenderBullAngus<T extends EntityBullAngus> extends RenderLiving<T>
 		addLayer(new LayerBlinking(this, cowTexturesBlink, 0x333333));
 	}
 
-	protected ResourceLocation getCowTextures(T par1EntityCow)
+	protected ResourceLocation getCowTextures(T par1CowEntity)
 	{
 		return RenderBullAngus.cowTextures;
 	}
 
-	protected ResourceLocation getCowTexturesBlink(T par1EntityCow)
+	protected ResourceLocation getCowTexturesBlink(T par1CowEntity)
 	{
 		return RenderBullAngus.cowTexturesBlink;
 	}
@@ -42,10 +42,10 @@ public class RenderBullAngus<T extends EntityBullAngus> extends RenderLiving<T>
 	protected void preRenderScale(EntityBullAngus entity, float f)
 	{
 		GL11.glScalef(1.4F, 1.4F, 1.4F);
-		EntityAnimaniaCow entityCow = (EntityAnimaniaCow) entity;
-		if (entityCow.getSleeping())
+		EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) entity;
+		if (CowEntity.getSleeping())
 		{
-			float sleepTimer = entityCow.getSleepTimer();
+			float sleepTimer = CowEntity.getSleepTimer();
 			if (sleepTimer > -0.55F)
 			{
 				sleepTimer = sleepTimer - 0.01F;
@@ -57,8 +57,8 @@ public class RenderBullAngus<T extends EntityBullAngus> extends RenderLiving<T>
 		}
 		else
 		{
-			entityCow.setSleeping(false);
-			entityCow.setSleepTimer(0F);
+			CowEntity.setSleeping(false);
+			CowEntity.setSleepTimer(0F);
 		}
 
 	}

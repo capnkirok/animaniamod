@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -53,7 +53,7 @@ public class ItemHelper
 		AnimaniaHelper.spawnEntity(world, item);
 	}
 	
-	public static int getSlotForItem(Item item, EntityPlayer player)
+	public static int getSlotForItem(Item item, PlayerEntity player)
 	{
 
 		final List<NonNullList<ItemStack>> allInventories = Arrays.<NonNullList<ItemStack>>asList(new NonNullList[] { player.inventory.mainInventory, player.inventory.armorInventory, player.inventory.offHandInventory});

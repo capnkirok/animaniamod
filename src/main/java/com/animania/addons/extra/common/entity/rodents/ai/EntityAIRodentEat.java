@@ -67,7 +67,7 @@ public class EntityAIRodentEat extends EntityAIBase
 		if (this.grassEaterEntity.getRNG().nextInt(this.grassEaterEntity.isChild() ? 50 : 150) != 0)
 			return false;
 		else {
-			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
+			BlockPos blockpos = new BlockPos(this.grassEaterEntity.getX(), this.grassEaterEntity.getY(), this.grassEaterEntity.getZ());
 			return EntityAIRodentEat.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true
 					: this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS
 					|| this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.DIRT;
@@ -100,7 +100,7 @@ public class EntityAIRodentEat extends EntityAIBase
 		this.eatingGrassTimer = Math.max(0, this.eatingGrassTimer - 1);
 
 		if (this.eatingGrassTimer == 4) {
-			BlockPos blockpos = new BlockPos(this.grassEaterEntity.posX, this.grassEaterEntity.posY, this.grassEaterEntity.posZ);
+			BlockPos blockpos = new BlockPos(this.grassEaterEntity.getX(), this.grassEaterEntity.getY(), this.grassEaterEntity.getZ());
 
 			if (EntityAIRodentEat.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos))) {
 

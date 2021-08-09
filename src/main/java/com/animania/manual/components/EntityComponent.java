@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -215,14 +215,14 @@ public class EntityComponent implements IManualComponent
 	}
 
 	@SideOnly(Dist.CLIENT)
-	private int getBrightnessForRender(Entity entity, EntityPlayer player)
+	private int getBrightnessForRender(Entity entity, PlayerEntity player)
 	{
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(player.posX), 0, MathHelper.floor(player.posZ));
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(player.getX()), 0, MathHelper.floor(player.getZ()));
 
-		if (entity.world.isBlockLoaded(blockpos$mutableblockpos))
+		if (entity.level.isBlockLoaded(blockpos$mutableblockpos))
 		{
-			blockpos$mutableblockpos.setY(MathHelper.floor(player.posY + entity.getEyeHeight()));
-			return entity.world.getCombinedLight(blockpos$mutableblockpos, 0);
+			blockpos$mutableblockpos.setY(MathHelper.floor(player.getY() + entity.getEyeHeight()));
+			return entity.level.getCombinedLight(blockpos$mutableblockpos, 0);
 		}
 		else
 		{

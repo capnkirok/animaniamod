@@ -4,13 +4,13 @@ import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class BlockWildHive extends BlockHive
 {
@@ -18,7 +18,7 @@ public class BlockWildHive extends BlockHive
 
 	public BlockWildHive()
 	{
-		super(Material.SPONGE, MapColor.YELLOW);
+		super(Material.SPONGE, MaterialColor.YELLOW);
 		this.setSoundType(SoundType.PLANT);
 		this.setRegistryName(new ResourceLocation(Animania.MODID, this.name));
 		this.setUnlocalizedName(Animania.MODID + "_" + this.name);
@@ -27,7 +27,7 @@ public class BlockWildHive extends BlockHive
 		this.setHardness(1.3f);
 		this.setResistance(0.3f);
 		BlockHandler.blocks.add(this);
-		Item item = new ItemBlock(this);
+		Item item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, "wild_hive"));
 		ForgeRegistries.ITEMS.register(item);
 	}

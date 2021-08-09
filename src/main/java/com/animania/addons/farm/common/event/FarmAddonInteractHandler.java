@@ -9,7 +9,7 @@ import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
 import com.animania.api.interfaces.ISterilizable;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -22,7 +22,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class FarmAddonInteractHandler
 {
@@ -31,7 +31,7 @@ public class FarmAddonInteractHandler
 	public static void notify(PlayerInteractEvent.RightClickItem event)
 	{
 		ItemStack stack = event.getItemStack();
-		EntityPlayer player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayer();
 		World world = event.getWorld();
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && player.isRiding())
@@ -85,7 +85,7 @@ public class FarmAddonInteractHandler
 	@SubscribeEvent
 	public static void onPlayerRightClickEntity(PlayerInteractEvent.EntityInteract event)
 	{
-		EntityPlayer player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayer();
 		ItemStack stack = player.getHeldItemMainhand();
 		Entity target = event.getTarget();
 
@@ -98,7 +98,7 @@ public class FarmAddonInteractHandler
 		if (stack.getItem() == FarmAddonItemHandler.carvingKnife && target instanceof ISterilizable && !((ISterilizable) target).getSterilized())
 		{
 			if (!target.world.isRemote)
-				((net.minecraft.world.WorldServer) target.world).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, false, target.posX, target.posY + target.height / 2.0F, target.posZ, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+				((net.minecraft.world.WorldServer) target.world).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, false, target.getX(), target.getY() + target.height / 2.0F, target.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 			target.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			stack.damageItem(1, player);
 			((ISterilizable) target).sterilize();

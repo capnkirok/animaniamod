@@ -15,7 +15,7 @@ public class TileEntityWaterBottle extends TileEntity
 
     /*
      * @Override public void writeToNBT(CompoundNBT compound) {
-     * super.writeToNBT(compound); compound.setInteger("BlockRotation",
+     * super.writeToNBT(compound); compound.putInteger("BlockRotation",
      * rotation); }
      *
      * @Override public Packet getDescriptionPacket() { CompoundNBT

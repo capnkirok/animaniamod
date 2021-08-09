@@ -22,7 +22,7 @@ public class EntityAIWanderHorses extends EntityAIWander
 	{
 
 		boolean pullingFlag = false;
-		List entities = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, entity.world, entity);
+		List entities = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, entity.level, entity);
 		if (!entities.isEmpty())
 		{
 			EntityCart checkCart = (EntityCart) entities.get(0);
@@ -47,7 +47,7 @@ public class EntityAIWanderHorses extends EntityAIWander
 			}
 		}
 
-		if (!this.entity.world.isDaytime() || isSleeping)
+		if (!this.entity.level.isDaytime() || isSleeping)
 		{
 			return false;
 		}

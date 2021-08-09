@@ -28,10 +28,10 @@ public class PigLargeWhite
 	
 	}
 
-	public static class EntityPigletLargeWhite extends EntityPigletBase
+	public static class PigEntityletLargeWhite extends PigEntityletBase
 	{
 	
-		public EntityPigletLargeWhite(World world)
+		public PigEntityletLargeWhite(World world)
 		{
 			super(world);
 			this.pigType = PigType.LARGE_WHITE;

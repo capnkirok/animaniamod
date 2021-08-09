@@ -40,9 +40,9 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -64,7 +64,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBase
+public class EntityAnimaniaGoat extends SheepEntity implements IAnimaniaAnimalBase
 {
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.goatFood));
@@ -109,8 +109,8 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 		this.tasks.addTask(5, new EntityAISwimming(this));
 		this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaGoat>(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
 		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new GenericAIAvoidEntity<EntityWolf>(this, EntityWolf.class, 20.0F, 2.2D, 2.2D));
-		this.tasks.addTask(10, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 20.0F, 2.2D, 2.2D));
+		this.tasks.addTask(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaGoat>(this));
 		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaGoat>(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
@@ -144,9 +144,9 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	@Override
 	public void setPosition(double x, double y, double z) // TODO Try
 	{
-		this.posX = x;
-		this.posY = y;
-		this.posZ = z;
+		this.getX() = x;
+		this.getY() = y;
+		this.getZ() = z;
 		float f = this.width / 2.0F;
 		float f1 = this.height;
 		this.setEntityBoundingBox(new AxisAlignedBB(x - f, y, z - f, x + f, y + f1, z + f));
@@ -332,10 +332,10 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
+		PlayerEntity PlayerEntity = player;
 
 		if (stack.getItem() instanceof ItemShears && !this.getSheared() && !this.isChild() && (this instanceof EntityBuckAngora || this instanceof EntityDoeAngora)) // Forge:
 																																										// //
@@ -371,7 +371,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 			return true;
 		}
 
-		return GenericBehavior.interactCommon(this, entityplayer, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
+		return GenericBehavior.interactCommon(this, PlayerEntity, hand, this.entityAIEatGrass) ? true : super.processInteract(player, hand);
 	}
 
 	@Override
@@ -381,7 +381,7 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 
 		if (!this.getSleeping())
@@ -402,8 +402,8 @@ public class EntityAnimaniaGoat extends EntitySheep implements IAnimaniaAnimalBa
 	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setBoolean("Sheared", this.getSheared());
-		compound.setBoolean("Spooked", this.getSpooked());
+		compound.putBoolean("Sheared", this.getSheared());
+		compound.putBoolean("Spooked", this.getSpooked());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 	}

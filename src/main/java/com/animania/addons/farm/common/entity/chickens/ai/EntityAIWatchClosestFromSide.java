@@ -5,7 +5,7 @@ import com.animania.addons.farm.common.entity.chickens.EntityAnimaniaChicken;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 public class EntityAIWatchClosestFromSide extends EntityAIBase
 {
@@ -43,7 +43,7 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
             if (this.theWatcher.getAttackTarget() != null)
                 this.closestEntity = this.theWatcher.getAttackTarget();
 
-            if (this.watchedClass == EntityPlayer.class)
+            if (this.watchedClass == PlayerEntity.class)
                 this.closestEntity = this.theWatcher.world.getClosestPlayerToEntity(this.theWatcher, this.maxDistanceForPlayer);
             else
                 this.closestEntity = this.theWatcher.world.findNearestEntityWithinAABB(this.watchedClass,
@@ -73,8 +73,8 @@ public class EntityAIWatchClosestFromSide extends EntityAIBase
     @Override
     public void updateTask() {
 
-        this.theWatcher.getLookHelper().setLookPosition(this.closestEntity.posX, this.closestEntity.posY + this.closestEntity.getEyeHeight() + 5F,
-                this.closestEntity.posZ, this.theWatcher.getHorizontalFaceSpeed(), this.theWatcher.getVerticalFaceSpeed());
+        this.theWatcher.getLookHelper().setLookPosition(this.closestEntity.getX(), this.closestEntity.getY() + this.closestEntity.getEyeHeight() + 5F,
+                this.closestEntity.getZ(), this.theWatcher.getHorizontalFaceSpeed(), this.theWatcher.getVerticalFaceSpeed());
         --this.lookTime;
     }
 }

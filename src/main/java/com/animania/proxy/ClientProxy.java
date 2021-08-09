@@ -1,8 +1,5 @@
 package com.animania.proxy;
 
-import java.io.File;
-import java.util.List;
-
 import com.animania.Animania;
 import com.animania.addons.AddonResourcePack;
 import com.animania.api.addons.AnimaniaAddon;
@@ -12,13 +9,13 @@ import com.animania.common.handler.AddonHandler;
 import com.animania.common.items.ItemEntityEgg;
 import com.animania.manual.gui.GuiManual;
 import com.animania.manual.resources.ManualResourceLoader;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiErrorScreen;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.ErrorScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -26,7 +23,7 @@ import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
@@ -38,7 +35,10 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.io.File;
+import java.util.List;
 
 public class ClientProxy extends CommonProxy
 {
@@ -128,17 +128,17 @@ public class ClientProxy extends CommonProxy
 
 	// Sleep
 	@Override
-	public void Sleep(EntityPlayer entityplayer)
+	public void Sleep(PlayerEntity PlayerEntity)
 	{
 
 		long currentTime = 0;
 		int factorTime = 0;
 
-		for (int j = 0; j < entityplayer.world.getMinecraftServer().getServer().worlds.length; ++j)
+		for (int j = 0; j < Playerentity.level.getMinecraftServer().getServer().worlds.length; ++j)
 		{
-			currentTime = entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() % 24000;
+			currentTime = Playerentity.level.getMinecraftServer().getServer().worlds[j].getWorldTime() % 24000;
 			factorTime = 24000 - (int) currentTime;
-			entityplayer.world.getMinecraftServer().getServer().worlds[j].setWorldTime(entityplayer.world.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime);
+			Playerentity.level.getMinecraftServer().getServer().worlds[j].setWorldTime(Playerentity.level.getMinecraftServer().getServer().worlds[j].getWorldTime() + factorTime);
 		}
 
 	}

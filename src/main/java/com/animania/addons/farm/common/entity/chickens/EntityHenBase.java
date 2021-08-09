@@ -23,7 +23,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -73,14 +73,14 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 			if (chooser == 0)
 			{
-				EntityRoosterBase entityChicken = this.type.getMale(world);
-				entityChicken.setPosition(this.posX, this.posY, this.posZ);
-				AnimaniaHelper.spawnEntity(this.world, entityChicken);
+				EntityRoosterBase ChickenEntity = this.type.getMale(world);
+				ChickenEntity.setPosition(this.getX(), this.getY(), this.getZ());
+				AnimaniaHelper.spawnEntity(this.world, ChickenEntity);
 			} else if (chooser == 1)
 			{
-				EntityChickBase entityChicken = this.type.getChild(world);
-				entityChicken.setPosition(this.posX, this.posY, this.posZ);
-				AnimaniaHelper.spawnEntity(this.world, entityChicken);
+				EntityChickBase ChickenEntity = this.type.getChild(world);
+				ChickenEntity.setPosition(this.getX(), this.getY(), this.getZ());
+				AnimaniaHelper.spawnEntity(this.world, ChickenEntity);
 			}
 
 		}
@@ -114,9 +114,9 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 		AddonInjectionHandler.runInjection("extra", "eatFrogs", null, entityIn, this);
 
 		// Custom Knockback
-		if (entityIn instanceof EntityPlayer)
+		if (entityIn instanceof PlayerEntity)
 		{
-			((LivingEntity) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((LivingEntity) entityIn).knockBack(this, 1, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 		}
 
 		return flag;
@@ -143,9 +143,9 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
 		super.writeEntityToNBT(CompoundNBT);
-		CompoundNBT.setBoolean("Laid", this.getLaid());
-		CompoundNBT.setInteger("EggLayTime", timeUntilNextEgg);
-		CompoundNBT.setInteger("LaidTimer", this.getLaidTimer());
+		CompoundNBT.putBoolean("Laid", this.getLaid());
+		CompoundNBT.putInteger("EggLayTime", timeUntilNextEgg);
+		CompoundNBT.putInteger("LaidTimer", this.getLaidTimer());
 	}
 
 	@Override
@@ -216,7 +216,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{

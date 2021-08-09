@@ -54,10 +54,10 @@ public class CowFriesian
 
 	}
 	
-	public static class EntityCowFriesian extends EntityCowBase
+	public static class CowEntityFriesian extends CowEntityBase
 	{
 
-		public EntityCowFriesian(World world)
+		public CowEntityFriesian(World world)
 		{
 			super(world);
 			this.cowType = CowType.FRIESIAN;

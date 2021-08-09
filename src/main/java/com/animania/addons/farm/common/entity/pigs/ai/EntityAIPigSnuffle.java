@@ -12,7 +12,7 @@ import com.animania.common.helper.ItemHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -32,7 +32,7 @@ public class EntityAIPigSnuffle extends GenericAIEatGrass<EntityAnimaniaPig>
 	public boolean shouldExecute()
 	{
 
-		Block poschk = this.grassEaterEntity.world.getBlockState(this.grassEaterEntity.getPosition().down()).getBlock();
+		Block poschk = this.grassEaterentity.level.getBlockState(this.grassEaterEntity.getPosition().down()).getBlock();
 		if (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud") || this.grassEaterEntity.getSleeping() || this.grassEaterEntity.getFed())
 		{
 			return false;
@@ -77,7 +77,7 @@ public class EntityAIPigSnuffle extends GenericAIEatGrass<EntityAnimaniaPig>
 
 		if (this.shouldMoveTo(world, blockpos1))
 		{
-			if (this.eatingGrassTimer > 80 && BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() && this.grassEaterEntity.getLeashHolder() instanceof EntityPlayer)
+			if (this.eatingGrassTimer > 80 && BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() && this.grassEaterEntity.getLeashHolder() instanceof PlayerEntity)
 			{
 				this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
 				if (!hasSpawned)

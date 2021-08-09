@@ -5,15 +5,18 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 
-public class TileEntitySyncPacketHandler implements IMessageHandler<TileEntitySyncPacket, IMessage> {
+public class TileEntitySyncPacketHandler {
 
 
 	@Override
-	public IMessage onMessage(TileEntitySyncPacket message, MessageContext ctx) {
+	public IMessage handle(TileEntitySyncPacket message, MessageContext ctx) {
 		IThreadListener mainThread = Minecraft.getMinecraft();
 
 		mainThread.addScheduledTask(new Runnable() {

@@ -9,7 +9,7 @@ import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -17,7 +17,7 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -174,7 +174,7 @@ public class BlockSeeds extends Block
 	}
 
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player)
 	{
 		switch(state.getValue(VARIANT))
 		{
@@ -216,9 +216,9 @@ public class BlockSeeds extends Block
 	}
 	
 	@Override
-	public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+	public MaterialColor getMaterialColor(IBlockState state, IBlockAccess worldIn, BlockPos pos)
 	{
-		return ((BlockSeeds.EnumType)state.getValue(VARIANT)).getMapColor();
+		return ((BlockSeeds.EnumType)state.getValue(VARIANT)).getMaterialColor();
 	}
 
 	
@@ -233,10 +233,10 @@ public class BlockSeeds extends Block
 	
 	public static enum EnumType implements IStringSerializable
 	{
-		WHEAT(0, MapColor.GREEN, "wheat"),
-		PUMPKIN(1, MapColor.YELLOW, "pumpkin"),
-		MELON(2, MapColor.BROWN, "melon"),
-		BEETROOT(3, MapColor.BROWN, "beetroot");
+		WHEAT(0, MaterialColor.GREEN, "wheat"),
+		PUMPKIN(1, MaterialColor.YELLOW, "pumpkin"),
+		MELON(2, MaterialColor.BROWN, "melon"),
+		BEETROOT(3, MaterialColor.BROWN, "beetroot");
 
 		/** Array of the Block's BlockStates */
 		private static final BlockSeeds.EnumType[] META = new BlockSeeds.EnumType[values().length];
@@ -245,19 +245,19 @@ public class BlockSeeds extends Block
 		/** The EnumType's name. */
 		private final String name;
 		private final String unlocalizedName;
-		private final MapColor mapColor;
+		private final MaterialColor MaterialColor;
 
-		private EnumType(int i, MapColor color, String name)
+		private EnumType(int i, MaterialColor color, String name)
 		{
 			this(i, color, name, name);
 		}
 
-		private EnumType(int meta, MapColor color, String name, String name2)
+		private EnumType(int meta, MaterialColor color, String name, String name2)
 		{
 			this.meta = meta;
 			this.name = name;
 			this.unlocalizedName = name2;
-			this.mapColor = color;
+			this.MaterialColor = color;
 		}
 
 		/**
@@ -268,9 +268,9 @@ public class BlockSeeds extends Block
 			return this.meta;
 		}
 
-		public MapColor getMapColor()
+		public MaterialColor getMaterialColor()
 		{
-			return this.mapColor;
+			return this.MaterialColor;
 		}
 
 		public String toString()

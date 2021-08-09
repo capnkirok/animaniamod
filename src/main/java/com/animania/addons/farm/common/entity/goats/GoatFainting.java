@@ -1,7 +1,7 @@
 package com.animania.addons.farm.common.entity.goats;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 public class GoatFainting
@@ -37,9 +37,9 @@ public class GoatFainting
 		protected void collideWithEntity(Entity entityIn)
 		{
 
-			if (entityIn instanceof EntityPlayer)
+			if (entityIn instanceof PlayerEntity)
 			{
-				EntityPlayer player = (EntityPlayer) entityIn;
+				PlayerEntity player = (PlayerEntity) entityIn;
 				if (player.isSprinting())
 				{
 					this.setSpooked(true);
@@ -77,9 +77,9 @@ public class GoatFainting
 		protected void collideWithEntity(Entity entityIn)
 		{
 
-			if (entityIn instanceof EntityPlayer)
+			if (entityIn instanceof PlayerEntity)
 			{
-				EntityPlayer player = (EntityPlayer) entityIn;
+				PlayerEntity player = (PlayerEntity) entityIn;
 				if (player.isSprinting())
 				{
 					this.setSpooked(true);
@@ -121,9 +121,9 @@ public class GoatFainting
 		protected void collideWithEntity(Entity entityIn)
 		{
 
-			if (entityIn instanceof EntityPlayer)
+			if (entityIn instanceof PlayerEntity)
 			{
-				EntityPlayer player = (EntityPlayer) entityIn;
+				PlayerEntity player = (PlayerEntity) entityIn;
 				if (player.isSprinting())
 				{
 					this.setSpooked(true);

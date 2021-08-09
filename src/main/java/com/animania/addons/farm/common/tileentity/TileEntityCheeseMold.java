@@ -230,9 +230,9 @@ public class TileEntityCheeseMold extends TileEntity implements ITickable
 		CompoundNBT items = new CompoundNBT();
 		fluid = this.fluidHandler.writeToNBT(fluid);
 		items = this.itemHandler.serializeNBT();
-		tag.setTag("fluid", fluid);
-		tag.setTag("items", items);
-		tag.setInteger("progress", progress);
+		tag.putTag("fluid", fluid);
+		tag.putTag("items", items);
+		tag.putInteger("progress", progress);
 
 		return tag;
 

@@ -45,7 +45,7 @@ import net.minecraft.entity.ai.EntityAIFleeSun;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -105,7 +105,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 	private float field_25048_b;
 	private float field_25054_c;
 	private static List hamsterColorList;
-	private EntityPlayer givemeEntity;
+	private PlayerEntity givemeEntity;
 	private int breeding;
 	private boolean mountFlag;
 	private double yOffset;
@@ -152,7 +152,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 		this.tasks.addTask(5, new GenericAIWanderAvoidWater(this, 1.1D));
 		this.tasks.addTask(6, new GenericAITempt<EntityHamster>(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
 		this.tasks.addTask(7, new GenericAIFollowOwner<EntityHamster>(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(8, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(8, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(9, new EntityAILookIdleRodent(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
@@ -183,7 +183,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		this.world.setEntityState(this, (byte) 18);
 	}
@@ -236,13 +236,13 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
 		super.writeEntityToNBT(CompoundNBT);
-		CompoundNBT.setBoolean("IsSitting", this.isSitting());
-		CompoundNBT.setBoolean("InBall", this.isInBall());
-		CompoundNBT.setInteger("ColorNumber", this.getColorNumber());
-		CompoundNBT.setInteger("foodStackCount", this.getFoodStackCount());
-		CompoundNBT.setInteger("BallColor", this.getBallColor());
-		CompoundNBT.setBoolean("IsTamed", this.isTamed());
-		CompoundNBT.setBoolean("IsRiding", this.getIsRiding());
+		CompoundNBT.putBoolean("IsSitting", this.isSitting());
+		CompoundNBT.putBoolean("InBall", this.isInBall());
+		CompoundNBT.putInteger("ColorNumber", this.getColorNumber());
+		CompoundNBT.putInteger("foodStackCount", this.getFoodStackCount());
+		CompoundNBT.putInteger("BallColor", this.getBallColor());
+		CompoundNBT.putBoolean("IsTamed", this.isTamed());
+		CompoundNBT.putBoolean("IsRiding", this.getIsRiding());
 
 		GenericBehavior.writeCommonNBT(CompoundNBT, this);
 
@@ -300,7 +300,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack itemstack = player.getHeldItem(hand);
 
@@ -323,8 +323,8 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 				props.setType("hamster");
 				this.setDead();
 				player.swingArm(EnumHand.MAIN_HAND);
-				if(!player.world.isRemote)
-					Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.world.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
+				if(!player.level.isRemote)
+					Animania.network.sendToAllAround(new CapSyncPacket(props, player.getEntityId()), new NetworkRegistry.TargetPoint(player.level.provider.getDimension(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 64));
 				return true;
 			}
 
@@ -402,9 +402,9 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 	public boolean canBeCollidedWith()
 	{
 
-		if (this.getRidingEntity() != null && this.getRidingEntity() instanceof EntityPlayer)
+		if (this.getRidingEntity() != null && this.getRidingEntity() instanceof PlayerEntity)
 		{
-			EntityPlayer player = (EntityPlayer) this.getRidingEntity();
+			PlayerEntity player = (PlayerEntity) this.getRidingEntity();
 			ItemStack itemstack = player.inventory.getCurrentItem();
 			if (itemstack != null)
 				return false;
@@ -474,10 +474,10 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 		if (!this.hasPath())
 		{
 			Entity entity = this.getAttackTarget();
-			if (entity instanceof EntityPlayer)
+			if (entity instanceof PlayerEntity)
 			{
-				EntityPlayer entityplayer = (EntityPlayer) entity;
-				ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+				PlayerEntity PlayerEntity = (PlayerEntity) entity;
+				ItemStack itemstack = PlayerEntity.inventory.getCurrentItem();
 				if (itemstack != ItemStack.EMPTY && itemstack.getItem() == Items.WHEAT_SEEDS)
 					this.looksWithInterest = true;
 			}
@@ -499,9 +499,9 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 					double d1 = this.rand.nextGaussian() * 0.02D;
 					double d2 = this.rand.nextGaussian() * 0.02D;
 					// this.world.spawnParticle(EnumParticleTypes.HEART,
-					// this.posX + this.rand.nextFloat() * this.width -
-					// this.width, this.posY + 1D + this.rand.nextFloat() *
-					// this.height, this.posZ + this.rand.nextFloat() *
+					// this.getX() + this.rand.nextFloat() * this.width -
+					// this.width, this.getY() + 1D + this.rand.nextFloat() *
+					// this.height, this.getZ() + this.rand.nextFloat() *
 					// this.width - this.width, d, d1, d2);
 				}
 			}
@@ -532,7 +532,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 			this.ticksExisted++;
 
 		// Animania.mDebug("worldObj.isRemote="+worldObj.isRemote+"
-		// posX="+posX+" posY="+posY+" poxZ="+posZ);
+		// getX()="+getX()+" getY()="+getY()+" poxZ="+getZ());
 	}
 
 	public float getInterestedAngle(float f)
@@ -598,9 +598,9 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 			double d2 = this.rand.nextGaussian() * 0.02D;
 
 			if (this.rand.nextInt(2) > 0)
-				this.world.playSound(null, this.posX, this.posY + 1, this.posZ, ExtraAddonSoundHandler.hamsterEat1, SoundCategory.PLAYERS, 0.6F, 0.8F);
+				this.world.playSound(null, this.getX(), this.getY() + 1, this.getZ(), ExtraAddonSoundHandler.hamsterEat1, SoundCategory.PLAYERS, 0.6F, 0.8F);
 			else
-				this.world.playSound(null, this.posX, this.posY + 1, this.posZ, ExtraAddonSoundHandler.hamsterEat2, SoundCategory.PLAYERS, 0.6F, 0.8F);
+				this.world.playSound(null, this.getX(), this.getY() + 1, this.getZ(), ExtraAddonSoundHandler.hamsterEat2, SoundCategory.PLAYERS, 0.6F, 0.8F);
 		}
 
 	}
@@ -762,7 +762,7 @@ public class EntityHamster extends TameableEntity implements TOPInfoProviderRode
 		this.playSound(SoundEvents.ENTITY_WOLF_STEP, 0.02F, 1.8F);
 	}
 
-	private void doPatreonCheck(EntityPlayer player)
+	private void doPatreonCheck(PlayerEntity player)
 	{
 		if (player.isSneaking())
 		{

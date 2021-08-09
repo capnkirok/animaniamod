@@ -42,8 +42,8 @@ public class RenderWagon extends Render<EntityWagon>
 	public void setupRotation(EntityWagon wagon, float yaw, float partialticks)
 	{
 		GlStateManager.rotate(180.0F - yaw, 0.0F, 0.5F, 0.0F);
-		double yPulling = wagon.puller == null ? wagon.posY : wagon.puller.posY;
-		double yCart = wagon.posY;
+		double yPulling = wagon.puller == null ? wagon.getY() : wagon.puller.getY();
+		double yCart = wagon.getY();
 
 		float difference = (float) (yPulling-yCart);
 		GlStateManager.rotate(15 * difference, 1.0f, 0, 0);
@@ -60,7 +60,7 @@ public class RenderWagon extends Render<EntityWagon>
 	protected ResourceLocation getEntityTexture(EntityWagon entity) {
 		int blinkTimer = entity.blinkTimer;
 		
-		if (entity.world.getWorldTime() % 24000 < 13000) {
+		if (entity.level.getWorldTime() % 24000 < 13000) {
 			lastTexture = 1;
 			return this.getWagonTextures1(entity);
 		} else if (blinkTimer == 15) {

@@ -37,7 +37,7 @@ import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.advancements.AdvancementList;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementTreeNode;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
@@ -57,7 +57,7 @@ import net.minecraftforge.fml.common.MultipleModsErrored;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
 import net.minecraftforge.fml.common.discovery.ASMDataTable.ASMData;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.fml.common.versioning.ArtifactVersion;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import net.minecraftforge.fml.common.versioning.DependencyParser;
@@ -178,7 +178,7 @@ public class AddonHandler
 		guiHandlerCounter += 1000;
 	}
 
-	public static Object openAddonGui(EntityPlayer player, int guiId, World world, int x, int y, int z, Side side)
+	public static Object openAddonGui(PlayerEntity player, int guiId, World world, int x, int y, int z, Side side)
 	{
 		Object returnObject = null;
 

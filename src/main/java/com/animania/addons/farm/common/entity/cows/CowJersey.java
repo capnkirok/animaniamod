@@ -33,10 +33,10 @@ public class CowJersey
 
 	}
 
-	public static class EntityCowJersey extends EntityCowBase
+	public static class CowEntityJersey extends CowEntityBase
 	{
 
-		public EntityCowJersey(World world)
+		public CowEntityJersey(World world)
 		{
 			super(world);
 			this.cowType = CowType.JERSEY;

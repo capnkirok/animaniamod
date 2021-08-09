@@ -53,13 +53,13 @@ public class RenderPeachickBase<T extends EntityPeachickBase> extends RenderLivi
 		float age = entity.getEntityAge();
 		GL11.glScalef(0.3F + (age / entity.getSizeDividend()), 0.3F + (age / entity.getSizeDividend()), 0.3F + (age / entity.getSizeDividend()));
 
-		double x = entity.posX;
-		double y = entity.posY;
-		double z = entity.posZ;
+		double x = entity.getX();
+		double y = entity.getY();
+		double z = entity.getZ();
 
 		BlockPos pos = new BlockPos(x, y, z);
 
-		Block blockchk = entity.world.getBlockState(pos).getBlock();
+		Block blockchk = entity.level.getBlockState(pos).getBlock();
 		EntityAnimaniaPeacock entityChk = (EntityAnimaniaPeacock) entity;
 		if (blockchk == BlockHandler.blockNest || entityChk.getSleeping())
 		{

@@ -102,7 +102,7 @@ public class StringParser
 		ItemStack stack = new ItemStack(item, 1, getMeta(string));
 		CompoundNBT tag = getTagCompound(string);
 		if (tag != null)
-			stack.setTagCompound(tag);
+			stack.putTagCompound(tag);
 
 		return stack;
 	}

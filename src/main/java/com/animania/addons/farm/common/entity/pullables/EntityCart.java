@@ -20,8 +20,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.passive.HorseEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -131,11 +131,11 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	}
 
 	@Override
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInitialInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		boolean isPulling = false;
-		List horses = AnimaniaHelper.getEntitiesInRange(EntityHorse.class, 3, world, player);
+		List horses = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, world, player);
 		List pigs = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 3, world, player);
 		List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, world, this);
 		List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
@@ -177,11 +177,11 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			}
 		}
 
-		EntityHorse horse = null;
+		HorseEntity horse = null;
 		EntityAnimaniaPig pig = null;
 		if (!horses.isEmpty())
 		{
-			horse = (EntityHorse) horses.get(0);
+			horse = (HorseEntity) horses.get(0);
 		}
 		if (!pigs.isEmpty())
 		{
@@ -193,8 +193,8 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			if (!this.world.isRemote && this.getHasChest())
 			{
 				this.cartChest.setCustomName(this.getName());
-				player.openGui(Animania.instance, GUI_ID, player.world, this.getEntityId(), 0, 0);
-				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
+				player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
 			} else if (!this.getHasChest() && stack.getItem() != Item.getItemFromBlock(Blocks.CHEST) && player.getRidingEntity() != this)
 			{
 				player.startRiding(this);
@@ -223,7 +223,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.PLAYERS, 0.7F, 1.0F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.PLAYERS, 0.7F, 1.0F);
 				}
 				return true;
 			} else if (player.isRiding() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this && !isPulling)
@@ -231,7 +231,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 				this.pulled = true;
 				this.puller = player.getRidingEntity();
-				if (this.puller instanceof EntityHorse)
+				if (this.puller instanceof HorseEntity)
 				{
 					this.setPullerType(1);
 				} else if (this.puller instanceof EntityAnimaniaPig)
@@ -240,7 +240,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 
 				return true;
@@ -251,7 +251,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				this.setPullerType(0);
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopCart();
 				return true;
@@ -267,7 +267,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
 			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && pig != null && pig.getLeashHolder() == player && !isPulling)
@@ -282,15 +282,15 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
 			} else if (stack.isEmpty() && !player.isRiding() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote && !isPulling)
 			{
 
-				double diffx = Math.abs(this.posX - player.posX);
-				double diffy = Math.abs(this.posY - player.posY);
-				double diffz = Math.abs(this.posZ - player.posZ);
+				double diffx = Math.abs(this.getX() - player.getX());
+				double diffy = Math.abs(this.getY() - player.getY());
+				double diffz = Math.abs(this.getZ() - player.getZ());
 
 				if (diffx > 0 && diffy < 2 && diffz > 0)
 				{
@@ -299,7 +299,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					this.setPullerType(2);
 					if (!world.isRemote)
 					{
-						world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+						world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 
 					}
 				}
@@ -311,7 +311,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				this.setPullerType(0);
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopCart();
 				return true;
@@ -322,7 +322,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				this.setPullerType(0);
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopCart();
 				return true;
@@ -392,9 +392,9 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	{
 
 		// Dismount if sneak pressed and riding this
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityPlayer && this.rideCooldown == 0)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown == 0)
 		{
-			EntityPlayer player = (EntityPlayer) this.getControllingPassenger();
+			PlayerEntity player = (PlayerEntity) this.getControllingPassenger();
 			if (player.isSneaking())
 			{
 				player.applyEntityCollision(this);
@@ -410,7 +410,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		{
 
 			AnimalEntity AnimalEntity = (AnimalEntity) this.getControllingPassenger();
-			if (AnimalEntity.isBeingRidden() && AnimalEntity.getControllingPassenger() instanceof EntityPlayer)
+			if (AnimalEntity.isBeingRidden() && AnimalEntity.getControllingPassenger() instanceof PlayerEntity)
 			{
 				AnimalEntity.applyEntityCollision(this);
 				AnimalEntity.dismountRidingEntity();
@@ -423,9 +423,9 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		}
 
 		// Dismount text
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityPlayer && this.rideCooldown > 10 && world.isRemote)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown > 10 && world.isRemote)
 		{
-			EntityPlayer player = (EntityPlayer) this.getControllingPassenger();
+			PlayerEntity player = (PlayerEntity) this.getControllingPassenger();
 			player.sendStatusMessage(new TextComponentString(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
 		}
 
@@ -433,8 +433,8 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		if (this.pulled && this.puller != null && world.isRemote)
 		{
 
-			double movX = Math.abs(this.posX - this.prevPosX);
-			double movZ = Math.abs(this.posZ - this.prevPosZ);
+			double movX = Math.abs(this.getX() - this.prevgetX());
+			double movZ = Math.abs(this.getZ() - this.prevgetZ());
 
 			double moveThresh = .005D;
 
@@ -524,11 +524,11 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		}
 
 		// Add slowness if multiple carts being pulled
-		if (this.pulled && this.puller instanceof EntityPlayer)
+		if (this.pulled && this.puller instanceof PlayerEntity)
 		{
 			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, world, this);
 
-			EntityPlayer player = (EntityPlayer) this.puller;
+			PlayerEntity player = (PlayerEntity) this.puller;
 			int totPulling = 0;
 			if (!carts.isEmpty())
 			{
@@ -621,11 +621,11 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 		if (this.world.isRemote && this.pulled)
 		{
-			double diffX = (this.posX - this.prevPosX);
-			double diffZ = (this.posZ - this.prevPosZ);
+			double diffX = (this.getX() - this.prevgetX());
+			double diffZ = (this.getZ() - this.prevgetZ());
 
-			double movX = Math.abs(this.posX - this.prevPosX);
-			double movZ = Math.abs(this.posZ - this.prevPosZ);
+			double movX = Math.abs(this.getX() - this.prevgetX());
+			double movZ = Math.abs(this.getZ() - this.prevgetZ());
 
 			double moveThresh = .008D;
 
@@ -655,7 +655,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 			if (this.getPullerType() == 1)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityHorse.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, this.world, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -664,7 +664,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				}
 			} else if (this.getPullerType() == 2)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityPlayer.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.world, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -691,7 +691,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		if (this.pulled && this.puller != null && this.puller.isRiding())
 		{
 			this.puller = this.puller.getRidingEntity();
-			if (this.puller instanceof EntityHorse)
+			if (this.puller instanceof HorseEntity)
 			{
 				this.setPullerType(1);
 			} else if (this.puller instanceof EntityAnimaniaPig)
@@ -700,20 +700,20 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			}
 		}
 
-		if (this.puller != null && (Math.abs(this.puller.posX - this.posX) > 5 || Math.abs(this.puller.posZ - this.posZ) > 5))
+		if (this.puller != null && (Math.abs(this.puller.getX() - this.getX()) > 5 || Math.abs(this.puller.getZ() - this.getZ()) > 5))
 		{
 			this.pulled = false;
 			this.puller = null;
 			this.setPullerType(0);
-			world.playSound(null, this.posX, this.posY, this.posZ, FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+			world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 			stopCart();
 		}
 
 		if (this.pulled)
 		{
-			double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
+			double deltaAngle = -Math.atan2(this.puller.getX() - this.getX(), this.puller.getZ() - this.getZ());
 
-			Vec3d vec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -2.5D).rotateYaw((float) -deltaAngle));
+			Vec3d vec = new Vec3d(this.puller.getX(), this.puller.getY(), this.puller.getZ()).subtract(new Vec3d(this.getX(), this.getY(), this.getZ())).add(new Vec3d(0.0D, 0.0D, -2.5D).rotateYaw((float) -deltaAngle));
 			this.motionX = vec.x;
 			this.motionY = vec.y;
 			this.motionZ = vec.z;
@@ -737,7 +737,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 					AnimalEntity AnimalEntity = (AnimalEntity) entity;
 					if (!entity.isPassenger(this))
 					{
-						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof EntityPlayer && !entity.isRiding() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof EntityPlayer))
+						if (flag && this.getPassengers().size() < 2 && this.puller != entity && AnimalEntity.getLeashed() && AnimalEntity.getLeashHolder() instanceof PlayerEntity && !entity.isRiding() && entity.width < this.width && entity instanceof LivingEntity && !(entity instanceof PlayerEntity))
 						{
 							entity.startRiding(this);
 						} else
@@ -778,13 +778,13 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		if (this.lerpSteps > 0 && !this.canPassengerSteer())
 		{
 
-			double d0 = this.posX + (this.cartPitch - this.posX) / (double) this.lerpSteps;
-			double d1 = this.posY + (this.lerpY - this.posY) / (double) this.lerpSteps;
-			double d2 = this.posZ + (this.lerpZ - this.posZ) / (double) this.lerpSteps;
+			double d0 = this.getX() + (this.cartPitch - this.getX()) / (double) this.lerpSteps;
+			double d1 = this.getY() + (this.lerpY - this.getY()) / (double) this.lerpSteps;
+			double d2 = this.getZ() + (this.lerpZ - this.getZ()) / (double) this.lerpSteps;
 			double d3 = MathHelper.wrapDegrees(this.cartYaw - (double) this.rotationYaw);
 			if (this.puller != null)
 			{
-				double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
+				double deltaAngle = -Math.atan2(this.puller.getX() - this.getX(), this.puller.getZ() - this.getZ());
 				this.rotationYaw = (float) Math.toDegrees(deltaAngle);
 			}
 			this.rotationPitch = (float) ((double) this.rotationPitch + (this.lerpXRot - (double) this.rotationPitch) / (double) this.lerpSteps);
@@ -831,7 +831,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 			}
 
 			Vec3d vec3d = (new Vec3d((double) f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
-			passenger.setPosition(this.posX + vec3d.x, this.posY + (double) f1, this.posZ + vec3d.z);
+			passenger.setPosition(this.getX() + vec3d.x, this.getY() + (double) f1, this.getZ() + vec3d.z);
 			passenger.rotationYaw += this.deltaRotation;
 			passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
 			this.applyYawToEntity(passenger);
@@ -851,7 +851,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 		entityToUpdate.setRenderYawOffset(this.rotationYaw);
 		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
 		float f1 = MathHelper.clamp(f, 0.0F, 0.0F);
-		if (entityToUpdate instanceof EntityPlayer)
+		if (entityToUpdate instanceof PlayerEntity)
 		{
 			f1 = MathHelper.clamp(f, -105.0F, 105.0F);
 		}
@@ -883,7 +883,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				this.setTimeSinceHit(10);
 				this.setDamageTaken(this.getDamageTaken() + amount * 10.0F);
 				this.markVelocityChanged();
-				boolean flag = source.getTrueSource() instanceof EntityPlayer && ((EntityPlayer) source.getTrueSource()).capabilities.isCreativeMode;
+				boolean flag = source.getTrueSource() instanceof PlayerEntity && ((PlayerEntity) source.getTrueSource()).capabilities.isCreativeMode;
 
 				if (flag || this.getDamageTaken() > 40.0F)
 				{
@@ -913,8 +913,8 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	public AxisAlignedBB getCollisionBox(Entity entityIn)
 	{
 
-		double movX = Math.abs(this.posX - this.prevPosX);
-		double movZ = Math.abs(this.posZ - this.prevPosZ);
+		double movX = Math.abs(this.getX() - this.prevgetX());
+		double movZ = Math.abs(this.getZ() - this.prevgetZ());
 
 		if (entityIn == this.puller)
 		{
@@ -967,7 +967,7 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 
 	public void writeEntityToNBT(CompoundNBT compound)
 	{
-		compound.setInteger("PullerType", this.getPullerType());
+		compound.putInteger("PullerType", this.getPullerType());
 
 		NBTTagList nbttaglist = new NBTTagList();
 
@@ -983,9 +983,9 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 				nbttaglist.appendTag(CompoundNBT);
 			}
 		}
-		compound.setBoolean("HasChest", this.getHasChest());
+		compound.putBoolean("HasChest", this.getHasChest());
 
-		compound.setTag("Items", nbttaglist);
+		compound.putTag("Items", nbttaglist);
 	}
 
 	public void readEntityFromNBT(CompoundNBT compound)
@@ -1011,10 +1011,10 @@ public class EntityCart extends AnimatedEntityBase implements IInventoryChangedL
 	public int determinePullerType(Entity entity)
 	{
 		int pullerType = 0;
-		if (entity instanceof EntityHorse)
+		if (entity instanceof HorseEntity)
 		{
 			pullerType = 1;
-		} else if (entity instanceof EntityPlayer)
+		} else if (entity instanceof PlayerEntity)
 		{
 			pullerType = 2;
 		} else if (entity instanceof EntityAnimaniaPig)

@@ -45,7 +45,7 @@ public class GenericAIPlay<T extends CreatureEntity & ISleeping & IPlaying, U ex
 		if (entity.getSleeping())
 			return false;
 
-		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(playmateClass, 5, entity.world, entity, e -> !e.getSleeping() && !e.getPlayAI().isRunning);
+		List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(playmateClass, 5, entity.level, entity, e -> !e.getSleeping() && !e.getPlayAI().isRunning);
 		if (list.isEmpty())
 			return false;
 
@@ -81,7 +81,7 @@ public class GenericAIPlay<T extends CreatureEntity & ISleeping & IPlaying, U ex
 	{
 		if (!isRunning)
 		{
-			List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(playmateClass, 5, entity.world, entity, e -> !e.getSleeping() && !e.getPlayAI().isRunning);
+			List<U> list = AnimaniaHelper.getEntitiesInRangeWithPredicate(playmateClass, 5, entity.level, entity, e -> !e.getSleeping() && !e.getPlayAI().isRunning);
 			if (!list.isEmpty())
 			{
 				this.playmate = list.get(0);
@@ -119,7 +119,7 @@ public class GenericAIPlay<T extends CreatureEntity & ISleeping & IPlaying, U ex
 			{
 				if (path == null || navigator.noPath())
 				{
-					Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.entity, 16, 7, new Vec3d(playmate.posX, playmate.posY, playmate.posZ));
+					Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.entity, 16, 7, new Vec3d(playmate.getX(), playmate.getY(), playmate.getZ()));
 					if (vec3d != null)
 					{
 						path = navigator.getPathToXYZ(vec3d.x, vec3d.y, vec3d.z);

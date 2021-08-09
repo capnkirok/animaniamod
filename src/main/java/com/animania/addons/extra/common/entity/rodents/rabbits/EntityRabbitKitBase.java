@@ -17,14 +17,14 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfoProviderChild, IChild
+public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfoProviderChild, IChild
 {
 
-	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityRabbitKitBase.class, DataSerializers.OPTIONAL_UUID);
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(EntityRabbitKitBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(RabbitEntityKitBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(RabbitEntityKitBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
-	public EntityRabbitKitBase(World worldIn)
+	public RabbitEntityKitBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(0.8F, 0.8F);
@@ -33,7 +33,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
-		this.tasks.addTask(1, new GenericAIFollowParents<EntityRabbitKitBase, EntityRabbitDoeBase>(this, 1.1, EntityRabbitDoeBase.class));
+		this.tasks.addTask(1, new GenericAIFollowParents<RabbitEntityKitBase, RabbitEntityDoeBase>(this, 1.1, RabbitEntityDoeBase.class));
 	}
 
 	@Override
@@ -55,8 +55,8 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityRabbitKitBase.AGE, Float.valueOf(0));
-		this.dataManager.register(EntityRabbitKitBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
+		this.dataManager.register(RabbitEntityKitBase.AGE, Float.valueOf(0));
+		this.dataManager.register(RabbitEntityKitBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 
@@ -85,7 +85,7 @@ public class EntityRabbitKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	public void onLivingUpdate()
 	{
 
-		GenericBehavior.livingUpdateChild(this, EntityRabbitDoeBase.class);
+		GenericBehavior.livingUpdateChild(this, RabbitEntityDoeBase.class);
 		this.setSize((0.2f + this.getEntityAge()) * 2, (0.2f + this.getEntityAge()) * 2);
 
 		super.onLivingUpdate();

@@ -29,7 +29,7 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -83,7 +83,7 @@ public class EntityFrogs extends EntityAmphibian
 	public void writeEntityToNBT(CompoundNBT compound)
 	{
 		super.writeEntityToNBT(compound);
-		compound.setInteger("FrogsType", this.getFrogsType());
+		compound.putInteger("FrogsType", this.getFrogsType());
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class EntityFrogs extends EntityAmphibian
 		if (!this.getCustomNameTag().equals("Pepe"))
 		{
 			this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
-			this.tasks.addTask(2, new EntityAIAvoidEntity<EntityPlayer>(this, EntityPlayer.class, 6.0F, 1.5D, 1.5D));
+			this.tasks.addTask(2, new EntityAIAvoidEntity<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
 		} else if (this.getCustomNameTag().equals("Pepe"))
 		{
 			this.tasks.taskEntries.clear();
@@ -132,13 +132,13 @@ public class EntityFrogs extends EntityAmphibian
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20);
 		}
-		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, PlayerEntity.class, 10.0F));
 		this.tasks.addTask(5, new EntityAIWander(this, 0.6D));
 
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);
@@ -209,9 +209,9 @@ public class EntityFrogs extends EntityAmphibian
 		}
 
 		// Custom Knockback
-		if (entityIn instanceof EntityPlayer)
+		if (entityIn instanceof PlayerEntity)
 		{
-			((LivingEntity) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+			((LivingEntity) entityIn).knockBack(this, 1, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 		}
 
 		return flag;
@@ -243,8 +243,8 @@ public class EntityFrogs extends EntityAmphibian
 	{
 		// if (this.getCustomNameTag().equals("Pepe"))
 		// if (cause.getEntity() != null && cause.getEntity() instanceof
-		// EntityPlayer) {
-		// ((EntityPlayer)
+		// PlayerEntity) {
+		// ((PlayerEntity)
 		// cause.getEntity()).addStat(AnimaniaAchievements.FeelsBadMan, 1);
 		// AchievementPage.getAchievementPage("Animania").getAchievements().add(AnimaniaAchievements.FeelsBadMan);
 		// }

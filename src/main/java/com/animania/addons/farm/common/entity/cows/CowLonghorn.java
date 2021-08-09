@@ -28,10 +28,10 @@ public class CowLonghorn
 
 	}
 
-	public static class EntityCowLonghorn extends EntityCowBase
+	public static class CowEntityLonghorn extends CowEntityBase
 	{
 
-		public EntityCowLonghorn(World world)
+		public CowEntityLonghorn(World world)
 		{
 			super(world);
 			this.cowType = CowType.LONGHORN;

@@ -5,7 +5,7 @@ import java.util.List;
 import com.animania.Animania;
 
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemCarvingKnife extends ItemSword
 {
@@ -62,7 +62,7 @@ public class ItemCarvingKnife extends ItemSword
 		return new ItemStack(stack.getItem(), n, stack.getItemDamage());
 	}
 
-	public void removeItem(EntityPlayer ep, ItemStack removeitem)
+	public void removeItem(PlayerEntity ep, ItemStack removeitem)
 	{
 		IInventory inv = ep.inventory;
 		for (int i = 0; i < inv.getSizeInventory(); i++)

@@ -20,12 +20,12 @@ import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.EntityEntry;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.Instance>
 {
@@ -156,7 +156,7 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 
 	}
 
-	public void trigger(EntityPlayerMP player, ItemStack item, EntityEntry entry, Entity entity)
+	public void trigger(ServerPlayerEntity player, ItemStack item, EntityEntry entry, Entity entity)
 	{
 		FeedAnimalTrigger.Listeners enterblocktrigger$listeners = this.listeners.get(player.getAdvancements());
 

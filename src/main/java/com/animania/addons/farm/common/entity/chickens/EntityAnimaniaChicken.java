@@ -36,8 +36,8 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -55,7 +55,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAnimalBase, IConvertable
+public class EntityAnimaniaChicken extends ChickenEntity implements IAnimaniaAnimalBase, IConvertable
 {
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.chickenFood));
 	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
@@ -97,7 +97,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 
 		this.tasks.addTask(4, new GenericAITempt<EntityAnimaniaChicken>(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
 		this.tasks.addTask(6, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(7, new EntityAIWatchClosestFromSide(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(7, new EntityAIWatchClosestFromSide(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaChicken>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
@@ -124,7 +124,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		this.world.setEntityState(this, (byte) 18);
 	}
@@ -135,7 +135,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		return GenericBehavior.interactCommon(this, player, hand, null) ? true : super.processInteract(player, hand);
 	}
@@ -180,7 +180,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
 		super.writeEntityToNBT(CompoundNBT);
-		CompoundNBT.setBoolean("IsChickenJockey", this.chickenJockey);
+		CompoundNBT.putBoolean("IsChickenJockey", this.chickenJockey);
 
 		GenericBehavior.writeCommonNBT(CompoundNBT, this);
 	}
@@ -291,7 +291,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	{
 		if (!this.isSilent() && !this.getSleeping())
 		{
-			this.world.playSound((EntityPlayer) null, this.posX, this.posY, this.posZ, soundIn, this.getSoundCategory(), volume, pitch);
+			this.world.playSound((PlayerEntity) null, this.getX(), this.getY(), this.getZ(), soundIn, this.getSoundCategory(), volume, pitch);
 		}
 	}
 
@@ -305,7 +305,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	 * Get the experience points the entity currently has.
 	 */
 	@Override
-	protected int getExperiencePoints(EntityPlayer player)
+	protected int getExperiencePoints(PlayerEntity player)
 	{
 		return this.isChickenJockey() ? 10 : super.getExperiencePoints(player);
 	}
@@ -324,7 +324,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 		float f1 = MathHelper.cos(this.renderYawOffset * 0.017453292F);
 		float f2 = 0.1F;
 		float f3 = 0.0F;
-		passenger.setPosition(this.posX + 0.1F * f, this.posY + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.posZ - 0.1F * f1);
+		passenger.setPosition(this.getX() + 0.1F * f, this.getY() + this.height * 0.5F + passenger.getYOffset() + 0.0D, this.getZ() - 0.1F * f1);
 
 		if (passenger instanceof LivingEntity)
 			((LivingEntity) passenger).renderYawOffset = this.renderYawOffset;
@@ -343,7 +343,7 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	}
 
 	@Override
-	public EntityChicken createChild(AgeableEntity ageable)
+	public ChickenEntity createChild(AgeableEntity ageable)
 	{
 		return null;
 	}
@@ -508,8 +508,8 @@ public class EntityAnimaniaChicken extends EntityChicken implements IAnimaniaAni
 	@Override
 	public Entity convertToVanilla()
 	{
-		EntityChicken entity = new EntityChicken(this.world);
-		entity.setPosition(this.posX, this.posY, this.posZ);
+		ChickenEntity entity = new ChickenEntity(this.world);
+		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());
 		return entity;

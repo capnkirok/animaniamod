@@ -17,16 +17,16 @@ import com.animania.common.blocks.fluids.FluidBase;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import Fluid;
-import ItemBlock;
+import BlockItem;
 
 @EventBusSubscriber(modid = Animania.MODID)
 public class BlockHandler
@@ -49,12 +49,12 @@ public class BlockHandler
 	// TODO Add own buckets
 
 	// Item Blocks
-	public static ItemBlock itemBlockMud;
-	public static ItemBlock itemBlockSeeds;
-	public static ItemBlock itemBlockTrough;
-	public static ItemBlock itemBlockNest;
-	public static ItemBlock itemBlockStraw;
-	public static ItemBlock itemInvisiblock;
+	public static BlockItem BlockItemMud;
+	public static BlockItem BlockItemSeeds;
+	public static BlockItem BlockItemTrough;
+	public static BlockItem BlockItemNest;
+	public static BlockItem BlockItemStraw;
+	public static BlockItem itemInvisiblock;
 
 	public static List<Block> blocks = new ArrayList<Block>();
 
@@ -75,18 +75,18 @@ public class BlockHandler
 		BlockHandler.blockStraw = new BlockStraw();
 		BlockHandler.blockSaltLick = new BlockSaltLick();
 
-		// Itemblocks
-		BlockHandler.itemBlockMud = new ItemBlock(BlockHandler.blockMud);
-		BlockHandler.itemBlockMud.setRegistryName(BlockHandler.blockMud.getRegistryName());
-		ForgeRegistries.ITEMS.register(itemBlockMud);
+		// BlockItems
+		BlockHandler.BlockItemMud = new BlockItem(BlockHandler.blockMud);
+		BlockHandler.BlockItemMud.setRegistryName(BlockHandler.blockMud.getRegistryName());
+		ForgeRegistries.ITEMS.register(BlockItemMud);
 
-		BlockHandler.itemBlockTrough = new ItemBlock(BlockHandler.blockTrough);
-		BlockHandler.itemBlockTrough.setRegistryName(BlockHandler.blockTrough.getRegistryName());
-		ForgeRegistries.ITEMS.register(BlockHandler.itemBlockTrough);
+		BlockHandler.BlockItemTrough = new BlockItem(BlockHandler.blockTrough);
+		BlockHandler.BlockItemTrough.setRegistryName(BlockHandler.blockTrough.getRegistryName());
+		ForgeRegistries.ITEMS.register(BlockHandler.BlockItemTrough);
 
-		BlockHandler.itemBlockNest = new ItemBlock(BlockHandler.blockNest);
-		BlockHandler.itemBlockNest.setRegistryName(BlockHandler.blockNest.getRegistryName());
-		ForgeRegistries.ITEMS.register(BlockHandler.itemBlockNest);
+		BlockHandler.BlockItemNest = new BlockItem(BlockHandler.blockNest);
+		BlockHandler.BlockItemNest.setRegistryName(BlockHandler.blockNest.getRegistryName());
+		ForgeRegistries.ITEMS.register(BlockHandler.BlockItemNest);
 	}
 
 	@SubscribeEvent

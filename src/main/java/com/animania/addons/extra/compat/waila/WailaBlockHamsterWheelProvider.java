@@ -8,7 +8,7 @@ import com.animania.addons.extra.config.ExtraConfig;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -52,7 +52,7 @@ public class WailaBlockHamsterWheelProvider implements IWailaDataProvider
 	}
 
 	@Override
-	public CompoundNBT getNBTData(EntityPlayerMP player, TileEntity te, CompoundNBT tag, World world, BlockPos pos)
+	public CompoundNBT getNBTData(ServerPlayerEntity player, TileEntity te, CompoundNBT tag, World world, BlockPos pos)
 	{
 		TileEntityHamsterWheel tile = (TileEntityHamsterWheel) te;
 
@@ -62,7 +62,7 @@ public class WailaBlockHamsterWheelProvider implements IWailaDataProvider
 		if (!stack.isEmpty())
 			tag.setString("stack", stack.getCount() + " " + stack.getDisplayName());
 
-		tag.setInteger("energy", energy);
+		tag.putInteger("energy", energy);
 		return tag;
 	}
 

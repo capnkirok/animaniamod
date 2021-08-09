@@ -3,8 +3,8 @@ package com.animania.common.items;
 import com.animania.Animania;
 import com.animania.manual.resources.ManualResourceLoader;
 
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.entity.PlayerEntitySP;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -23,12 +23,12 @@ public class ItemManual extends AnimaniaItem
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		if (world.isRemote)
 		{
-			if (player instanceof EntityPlayerSP)
+			if (player instanceof PlayerEntitySP)
 			{
 				if (!ManualResourceLoader.errored)
 				{

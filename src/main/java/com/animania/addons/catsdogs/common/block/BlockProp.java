@@ -7,7 +7,7 @@ import com.animania.common.blocks.AnimaniaRotateable;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -23,9 +23,9 @@ public class BlockProp extends AnimaniaRotateable implements ITileEntityProvider
 {
 	private AxisAlignedBB AABB = Block.FULL_BLOCK_AABB;
 
-	public BlockProp(String name, Material blockMaterialIn, MapColor blockMapColorIn, SoundType sound)
+	public BlockProp(String name, Material blockMaterialIn, MaterialColor blockMaterialColorIn, SoundType sound)
 	{
-		super(name, blockMaterialIn, blockMapColorIn);
+		super(name, blockMaterialIn, blockMaterialColorIn);
 		this.hasTileEntity = true;
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		this.setSoundType(sound);

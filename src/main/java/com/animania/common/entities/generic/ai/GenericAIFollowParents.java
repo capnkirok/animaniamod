@@ -59,12 +59,12 @@ public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleepin
 					if (mother != null && mother.getPersistentID().equals(this.childAnimal.getParentUniqueId()))
 					{
 
-						double xt = mother.posX;
-						double yt = mother.posY;
-						double zt = mother.posZ;
-						int x1 = MathHelper.floor(this.childAnimal.posX);
-						int y1 = MathHelper.floor(this.childAnimal.posY);
-						int z1 = MathHelper.floor(this.childAnimal.posZ);
+						double xt = mother.getX();
+						double yt = mother.getY();
+						double zt = mother.getZ();
+						int x1 = MathHelper.floor(this.childAnimal.getX());
+						int y1 = MathHelper.floor(this.childAnimal.getY());
+						int z1 = MathHelper.floor(this.childAnimal.getZ());
 						double x2 = Math.abs(xt - x1);
 						double y2 = Math.abs(yt - y1);
 						double z2 = Math.abs(zt - z1);

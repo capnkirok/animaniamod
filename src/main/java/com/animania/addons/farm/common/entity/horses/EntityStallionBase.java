@@ -19,7 +19,7 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -83,7 +83,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	}
 
 	@Override
-	public void openGUI(EntityPlayer playerEntity)
+	public void openGUI(PlayerEntity playerEntity)
 	{
 		if (!this.world.isRemote && (!this.isBeingRidden() || this.isPassenger(playerEntity)))
 		{
@@ -110,7 +110,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	{
 		Entity entity = this.getControllingPassenger();
 
-		if (!(entity instanceof EntityPlayer))
+		if (!(entity instanceof PlayerEntity))
 		{
 			return false;
 		} else if (this.isHorseSaddled())
@@ -123,7 +123,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	}
 
 	@Override
-	public void setInLove(EntityPlayer player)
+	public void setInLove(PlayerEntity player)
 	{
 		this.world.setEntityState(this, (byte) 18);
 	}
@@ -192,7 +192,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);

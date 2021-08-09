@@ -2,7 +2,7 @@ package com.animania.addons.extra.compat.waila;
 
 import java.util.List;
 
-import com.animania.addons.extra.common.entity.rodents.rabbits.EntityRabbitDoeBase;
+import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitEntityDoeBase;
 import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -10,7 +10,7 @@ import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.text.translation.I18n;
 
-public class WailaEntityRabbitDoeProvider extends WailaAnimalEntityProviderMateable
+public class WailaRabbitEntityDoeProvider extends WailaAnimalEntityProviderMateable
 {
 
 	@Override
@@ -20,7 +20,7 @@ public class WailaEntityRabbitDoeProvider extends WailaAnimalEntityProviderMatea
 		if (accessor.getPlayer().isSneaking())
 		{
 
-			EntityRabbitDoeBase thisEntity = (EntityRabbitDoeBase)entity;
+			RabbitEntityDoeBase thisEntity = (RabbitEntityDoeBase)entity;
 			
 			if (thisEntity.getFertile() && !thisEntity.getPregnant())
 			{

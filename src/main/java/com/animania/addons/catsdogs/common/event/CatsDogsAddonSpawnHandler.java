@@ -8,12 +8,13 @@ import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.passive.OcelotEntity;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -29,10 +30,10 @@ public class CatsDogsAddonSpawnHandler
 
 		LivingEntity replacementEntity = null;
 
-		if (CatsDogsConfig.catsdogs.replaceVanillaWolves && (event.getEntity().getClass().equals(EntityWolf.class)) && !worldIn.isRemote)
+		if (CatsDogsConfig.catsdogs.replaceVanillaWolves && (event.getEntity().getClass().equals(WolfEntity.class)) && !worldIn.isRemote)
 		{
 			event.setResult(Result.DENY);
-		} else if (CatsDogsConfig.catsdogs.replaceVanillaOcelots && event.getEntity().getClass().equals(EntityOcelot.class) && !worldIn.isRemote)
+		} else if (CatsDogsConfig.catsdogs.replaceVanillaOcelots && event.getEntity().getClass().equals(OcelotEntity.class) && !worldIn.isRemote)
 		{
 			event.setResult(Result.DENY);
 		}

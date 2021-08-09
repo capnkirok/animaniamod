@@ -5,7 +5,7 @@ import java.util.List;
 import com.animania.Animania;
 import com.animania.addons.farm.common.entity.pigs.EntityAnimaniaPig;
 import com.animania.addons.farm.common.entity.pigs.EntityHogBase;
-import com.animania.addons.farm.common.entity.pigs.EntityPigletBase;
+import com.animania.addons.farm.common.entity.pigs.PigEntityletBase;
 import com.animania.addons.farm.common.entity.pigs.EntitySowBase;
 import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
@@ -14,7 +14,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.block.Block;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -27,7 +27,7 @@ public class EntityAIFindMud extends EntityAIBase
 	private double               targetZ;
 	private double               pitch;
 	private double               yaw;
-	private EntityPlayer         temptingPlayer;
+	private PlayerEntity         temptingPlayer;
 	private int                  delayTemptCounter;
 	private boolean              isRunning;
 
@@ -67,7 +67,7 @@ public class EntityAIFindMud extends EntityAIBase
 				return false;
 			}
 
-			BlockPos currentpos = new BlockPos(this.entityIn.posX, this.entityIn.posY, this.entityIn.posZ);
+			BlockPos currentpos = new BlockPos(this.entityIn.getX(), this.entityIn.getY(), this.entityIn.getZ());
 			Block poschk = this.entityIn.world.getBlockState(currentpos).getBlock();
 			if (poschk == BlockHandler.blockMud || poschk.getUnlocalizedName().equals("tile.mud")) {
 				EntityAnimaniaPig pig = (EntityAnimaniaPig) entityIn;
@@ -76,9 +76,9 @@ public class EntityAIFindMud extends EntityAIBase
 				return false;
 			}
 
-			double x = this.entityIn.posX;
-			double y = this.entityIn.posY;
-			double z = this.entityIn.posZ;
+			double x = this.entityIn.getX();
+			double y = this.entityIn.getY();
+			double z = this.entityIn.getZ();
 
 			boolean mudFound = false;
 
@@ -135,9 +135,9 @@ public class EntityAIFindMud extends EntityAIBase
 	@Override
 	public void startExecuting() {
 
-		double x = this.entityIn.posX;
-		double y = this.entityIn.posY;
-		double z = this.entityIn.posZ;
+		double x = this.entityIn.getX();
+		double y = this.entityIn.getY();
+		double z = this.entityIn.getZ();
 
 		BlockPos currentpos = new BlockPos(x, y, z);
 		Block poschk = this.entityIn.world.getBlockState(currentpos).getBlock();
@@ -164,7 +164,7 @@ public class EntityAIFindMud extends EntityAIBase
 
 								loc = newloc;
 
-								if (this.entityIn.posX > mudPos.getX()) {
+								if (this.entityIn.getX() > mudPos.getX()) {
 									BlockPos mudPoschk = new BlockPos(x + i + 1, y + j, z + k);
 									Block mudBlockchk = this.entityIn.world.getBlockState(mudPoschk).getBlock();
 									if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) {
@@ -173,7 +173,7 @@ public class EntityAIFindMud extends EntityAIBase
 									}
 								}
 
-								if (this.entityIn.posZ > mudPos.getZ()) {
+								if (this.entityIn.getZ() > mudPos.getZ()) {
 									BlockPos mudPoschk = new BlockPos(x + i, y + j, z + k + 1);
 									Block mudBlockchk = this.entityIn.world.getBlockState(mudPoschk).getBlock();
 									if (mudBlockchk == BlockHandler.blockMud || mudBlockchk.getUnlocalizedName().equals("tile.mud")) {
@@ -204,7 +204,7 @@ public class EntityAIFindMud extends EntityAIBase
 						EntitySowBase te = (EntitySowBase) this.entityIn;
 
 						if (te.getMuddy() == false) {
-							if (te.posX - mudPos.getX() < 0 && te.posZ - mudPos.getZ() < 0)
+							if (te.getX() - mudPos.getX() < 0 && te.getZ() - mudPos.getZ() < 0)
 								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() + 2, mudPos.getY(), mudPos.getZ() + 2, this.speed);
 							else
 								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);
@@ -213,10 +213,10 @@ public class EntityAIFindMud extends EntityAIBase
 
 						}
 					}
-					else if (this.entityIn instanceof EntityPigletBase) {
-						EntityPigletBase te = (EntityPigletBase) this.entityIn;
+					else if (this.entityIn instanceof PigEntityletBase) {
+						PigEntityletBase te = (PigEntityletBase) this.entityIn;
 						if (te.getMuddy() == false)
-							if (te.posX - mudPos.getX() < 0 && te.posZ - mudPos.getZ() < 0)
+							if (te.getX() - mudPos.getX() < 0 && te.getZ() - mudPos.getZ() < 0)
 								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() + 2, mudPos.getY(), mudPos.getZ() + 2, this.speed);
 							else
 								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
@@ -224,9 +224,9 @@ public class EntityAIFindMud extends EntityAIBase
 					else if (this.entityIn instanceof EntityHogBase) {
 						EntityHogBase te = (EntityHogBase) this.entityIn;
 						if (te.getMuddy() == false)
-							if (te.posX - mudPos.getX() < 0 && te.posZ - mudPos.getZ() < 0)
+							if (te.getX() - mudPos.getX() < 0 && te.getZ() - mudPos.getZ() < 0)
 								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() + 3, mudPos.getY(), mudPos.getZ() + 3, this.speed);
-							else if (te.posX - mudPos.getX() > 0 && te.posZ - mudPos.getZ() > 0)
+							else if (te.getX() - mudPos.getX() > 0 && te.getZ() - mudPos.getZ() > 0)
 								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX() - 1, mudPos.getY(), mudPos.getZ() - 1, this.speed);
 							else
 								this.entityIn.getNavigator().tryMoveToXYZ(mudPos.getX(), mudPos.getY(), mudPos.getZ(), this.speed);

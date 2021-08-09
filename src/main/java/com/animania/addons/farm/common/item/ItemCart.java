@@ -5,7 +5,7 @@ import com.animania.addons.farm.common.entity.pullables.EntityCart;
 import com.animania.common.ModSoundEvents;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -15,7 +15,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemCart extends Item
 {
@@ -30,15 +30,15 @@ public class ItemCart extends Item
 
 	/*
 	 * public ActionResult<ItemStack> onItemRightClick(World worldIn,
-	 * EntityPlayer playerIn, EnumHand handIn) { ItemStack itemstack =
+	 * PlayerEntity playerIn, EnumHand handIn) { ItemStack itemstack =
 	 * playerIn.getHeldItem(handIn); float f = 1.0F; float f1 =
 	 * playerIn.prevRotationPitch + (playerIn.rotationPitch -
 	 * playerIn.prevRotationPitch) * 1.0F; float f2 = playerIn.prevRotationYaw +
 	 * (playerIn.rotationYaw - playerIn.prevRotationYaw) * 1.0F; double d0 =
-	 * playerIn.prevPosX + (playerIn.posX - playerIn.prevPosX) * 1.0D; double d1
-	 * = playerIn.prevPosY + (playerIn.posY - playerIn.prevPosY) * 1.0D +
-	 * (double) playerIn.getEyeHeight(); double d2 = playerIn.prevPosZ +
-	 * (playerIn.posZ - playerIn.prevPosZ) * 1.0D; Vec3d vec3d = new Vec3d(d0,
+	 * playerIn.prevgetX() + (playerIn.getX() - playerIn.prevgetX()) * 1.0D; double d1
+	 * = playerIn.prevgetY() + (playerIn.getY() - playerIn.prevgetY()) * 1.0D +
+	 * (double) playerIn.getEyeHeight(); double d2 = playerIn.prevgetZ() +
+	 * (playerIn.getZ() - playerIn.prevgetZ()) * 1.0D; Vec3d vec3d = new Vec3d(d0,
 	 * d1, d2); float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
 	 * float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI); float f5
 	 * = -MathHelper.cos(-f1 * 0.017453292F); float f6 = MathHelper.sin(-f1 *
@@ -83,7 +83,7 @@ public class ItemCart extends Item
 	 */
 
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public EnumActionResult onItemUse(PlayerEntity playerIn, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(facing);
 
@@ -102,7 +102,7 @@ public class ItemCart extends Item
 		if (!playerIn.isCreative())
 			stack.shrink(1);
 
-		world.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+		world.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 		entity.rotationYaw = entity.rotationYaw;
 		entity.deltaRotation = entity.rotationYaw;
 		AnimaniaHelper.spawnEntity(world, entity);

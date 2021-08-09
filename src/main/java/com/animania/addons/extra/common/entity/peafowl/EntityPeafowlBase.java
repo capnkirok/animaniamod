@@ -10,7 +10,7 @@ import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -49,8 +49,8 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
 		super.writeEntityToNBT(CompoundNBT);
-		CompoundNBT.setBoolean("Laid", this.getLaid());
-		CompoundNBT.setInteger("LaidTimer", this.getLaidTimer());
+		CompoundNBT.putBoolean("Laid", this.getLaid());
+		CompoundNBT.putInteger("LaidTimer", this.getLaidTimer());
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{

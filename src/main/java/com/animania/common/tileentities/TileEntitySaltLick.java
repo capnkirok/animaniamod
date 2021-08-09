@@ -56,7 +56,7 @@ public class TileEntitySaltLick extends TileEntity
 	public CompoundNBT writeToNBT(CompoundNBT compound)
 	{
 		CompoundNBT tag = super.writeToNBT(compound);
-		tag.setInteger("usesLeft", usesLeft);
+		tag.putInteger("usesLeft", usesLeft);
 
 		return tag;
 

@@ -49,7 +49,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 	{
 		super.writeToNBT(compound);
 		CompoundNBT items = this.itemHandler.serializeNBT();
-		compound.setTag("items", items);
+		compound.putTag("items", items);
 		if (birdType != null)
 			compound.setString("birdType", birdType.toString());
 		return compound;

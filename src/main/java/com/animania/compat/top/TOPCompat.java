@@ -16,7 +16,7 @@ import mcjty.theoneprobe.api.ITheOneProbe;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 public class TOPCompat implements Function<ITheOneProbe, Void>
@@ -38,7 +38,7 @@ public class TOPCompat implements Function<ITheOneProbe, Void>
 			}
 
 			@Override
-			public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
+			public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, IBlockState blockState, IProbeHitData data)
 			{
 				if (blockState.getBlock() instanceof TOPInfoProvider)
 				{
@@ -61,7 +61,7 @@ public class TOPCompat implements Function<ITheOneProbe, Void>
 					}
 
 					@Override
-					public void addProbeEntityInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+					public void addProbeEntityInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
 					{
 
 						if (entity instanceof TOPInfoEntityProvider)

@@ -1,11 +1,8 @@
 package com.animania.api.interfaces;
 
 import com.animania.Animania;
-
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
-
-import LivingEntity;
 
 public interface AnimaniaType
 {

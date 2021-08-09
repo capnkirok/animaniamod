@@ -9,7 +9,7 @@ import com.animania.Animania;
 import com.animania.addons.farm.common.entity.horses.ai.EntityAIFollowMateHorses;
 import com.animania.addons.farm.common.entity.horses.ai.EntityAILookIdleHorses;
 import com.animania.addons.farm.common.entity.horses.ai.EntityAIWanderHorses;
-import com.animania.addons.farm.common.entity.horses.ai.EntityHorseEatGrass;
+import com.animania.addons.farm.common.entity.horses.ai.HorseEntityEatGrass;
 import com.animania.addons.farm.common.entity.pullables.EntityWagon;
 import com.animania.addons.farm.common.handler.FarmAddonSoundHandler;
 import com.animania.addons.farm.common.inventory.ContainerHorseCart;
@@ -38,8 +38,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.passive.HorseEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -63,7 +63,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalBase, IConvertable
+public class EntityAnimaniaHorse extends HorseEntity implements IAnimaniaAnimalBase, IConvertable
 {
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.horseFood));
 	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean> createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
@@ -81,7 +81,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	protected int fedTimer;
 	protected int wateredTimer;
 	protected int damageTimer;
-	public EntityHorseEatGrass entityAIEatGrass;
+	public HorseEntityEatGrass entityAIEatGrass;
 	public HorseType horseType;
 	protected boolean mateable = false;
 	private ResourceLocation resourceLocation;
@@ -99,7 +99,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 		super(worldIn);
 		this.stepHeight = 1.2F;
 		this.tasks.taskEntries.clear();
-		this.entityAIEatGrass = new EntityHorseEatGrass(this);
+		this.entityAIEatGrass = new HorseEntityEatGrass(this);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
 			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, EntityAnimaniaHorse.class));
@@ -111,7 +111,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 		this.tasks.addTask(4, new EntityAISwimming(this));
 		this.tasks.addTask(5, new GenericAITempt<EntityAnimaniaHorse>(this, 1.25D, false, TEMPTATION_ITEMS));
 		this.tasks.addTask(6, this.entityAIEatGrass);
-		this.tasks.addTask(7, new GenericAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(7, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
 		this.tasks.addTask(8, new EntityAILookIdleHorses(this));
 		this.tasks.addTask(9, new GenericAIFindSaltLick<EntityAnimaniaHorse>(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
@@ -195,15 +195,15 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 
 			float f = 0.0F;
 			float f1 = (float) ((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
-			if (passenger instanceof EntityPlayer)
+			if (passenger instanceof PlayerEntity)
 			{
 				f1 = (float) ((this.isDead ? 0.009999999776482582D : 1.6D) + passenger.getYOffset());
 			}
 
-			if (passenger instanceof EntityPlayer)
+			if (passenger instanceof PlayerEntity)
 			{
 
-				EntityPlayer player = (EntityPlayer) passenger;
+				PlayerEntity player = (PlayerEntity) passenger;
 				List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
 
 				if (!wagons.isEmpty())
@@ -219,11 +219,11 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 								f = (float) (f + 1.82D);
 
 								Vec3d vec3d = (new Vec3d(f, 0.0D, 0.0D)).rotateYaw(-tempWagon.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
-								passenger.setPosition(tempWagon.posX + vec3d.x, tempWagon.posY + f1, tempWagon.posZ + vec3d.z);
+								passenger.setPosition(tempWagon.getX() + vec3d.x, tempWagon.getY() + f1, tempWagon.getZ() + vec3d.z);
 
 							} else
 							{
-								passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
+								passenger.setPosition(this.getX(), this.getY() + this.getMountedYOffset() + passenger.getYOffset(), this.getZ());
 							}
 						}
 					}
@@ -232,14 +232,14 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 					f = (float) (f - 0.42D);
 
 					Vec3d vec3d = (new Vec3d(f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
-					// passenger.setPosition(this.posX + vec3d.x, this.posY +
-					// (double) f1, this.posZ + vec3d.z);
+					// passenger.setPosition(this.getX() + vec3d.x, this.getY() +
+					// (double) f1, this.getZ() + vec3d.z);
 
-					passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
+					passenger.setPosition(this.getX(), this.getY() + this.getMountedYOffset() + passenger.getYOffset(), this.getZ());
 				}
 			} else
 			{
-				passenger.setPosition(this.posX, this.posY + this.getMountedYOffset() + passenger.getYOffset(), this.posZ);
+				passenger.setPosition(this.getX(), this.getY() + this.getMountedYOffset() + passenger.getYOffset(), this.getZ());
 			}
 
 		}
@@ -448,7 +448,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 			{
 				this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 				super.travel(strafe, vertical / 8, forward);
-			} else if (LivingEntity instanceof EntityPlayer)
+			} else if (LivingEntity instanceof PlayerEntity)
 			{
 				this.motionX = 0.0D;
 				this.motionY = 0.0D;
@@ -462,8 +462,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 			}
 
 			this.prevLimbSwingAmount = this.limbSwingAmount;
-			double d1 = this.posX - this.prevPosX;
-			double d0 = this.posZ - this.prevPosZ;
+			double d1 = this.getX() - this.prevgetX();
+			double d0 = this.getZ() - this.prevgetZ();
 			float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
 
 			if (f2 > 1.0F)
@@ -486,7 +486,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
 
@@ -519,7 +519,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 			super.handleStatusUpdate(id);
 	}
 
-	public void removeItem(EntityPlayer ep, ItemStack removeitem)
+	public void removeItem(PlayerEntity ep, ItemStack removeitem)
 	{
 		IInventory inv = ep.inventory;
 		for (int i = 0; i < inv.getSizeInventory(); i++)
@@ -552,7 +552,7 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	{
 		super.writeEntityToNBT(compound);
 
-		compound.setInteger("ColorNumber", getColorNumber());
+		compound.putInteger("ColorNumber", getColorNumber());
 
 		GenericBehavior.writeCommonNBT(compound, this);
 
@@ -713,8 +713,8 @@ public class EntityAnimaniaHorse extends EntityHorse implements IAnimaniaAnimalB
 	@Override
 	public Entity convertToVanilla()
 	{
-		EntityHorse entity = new EntityHorse(this.world);
-		entity.setPosition(this.posX, this.posY, this.posZ);
+		HorseEntity entity = new HorseEntity(this.world);
+		entity.setPosition(this.getX(), this.getY(), this.getZ());
 		if (entity.hasCustomName())
 			entity.setCustomNameTag(this.getCustomNameTag());
 		return entity;

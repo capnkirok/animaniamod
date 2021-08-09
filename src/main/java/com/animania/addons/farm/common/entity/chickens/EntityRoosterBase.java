@@ -20,7 +20,7 @@ import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAIMate;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -69,8 +69,8 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 		AddonInjectionHandler.runInjection("extra", "eatFrogs", null, entityIn, this);
 
 		// Custom Knockback
-		if (entityIn instanceof EntityPlayer)
-			((LivingEntity) entityIn).knockBack(this, 1, this.posX - entityIn.posX, this.posZ - entityIn.posZ);
+		if (entityIn instanceof PlayerEntity)
+			((LivingEntity) entityIn).knockBack(this, 1, this.getX() - entityIn.getX(), this.getZ() - entityIn.getZ());
 
 		int i = 0b0011;
 		int j = 30;
@@ -104,8 +104,8 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	public void writeEntityToNBT(CompoundNBT CompoundNBT)
 	{
 		super.writeEntityToNBT(CompoundNBT);
-		CompoundNBT.setInteger("CrowTime", this.getTimeUntilNextCrow());
-		CompoundNBT.setInteger("CrowDuration", this.getCrowDuration());
+		CompoundNBT.putInteger("CrowTime", this.getTimeUntilNextCrow());
+		CompoundNBT.putInteger("CrowDuration", this.getCrowDuration());
 	}
 
 	@Override
@@ -140,11 +140,11 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 
 			int crowChooser = this.rand.nextInt(3);
 			if (crowChooser == 0)
-				this.world.playSound(null, this.posX, this.posY, this.posZ, FarmAddonSoundHandler.chickenCrow1, SoundCategory.PLAYERS, 0.7F, 0.95F + modular);
+				this.world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow1, SoundCategory.PLAYERS, 0.7F, 0.95F + modular);
 			else if (crowChooser == 1)
-				this.world.playSound(null, this.posX, this.posY, this.posZ, FarmAddonSoundHandler.chickenCrow2, SoundCategory.PLAYERS, 0.65F, 0.9F + modular);
+				this.world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow2, SoundCategory.PLAYERS, 0.65F, 0.9F + modular);
 			else if (crowChooser == 2)
-				this.world.playSound(null, this.posX, this.posY, this.posZ, FarmAddonSoundHandler.chickenCrow3, SoundCategory.PLAYERS, 0.6F, 1.05F + modular);
+				this.world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow3, SoundCategory.PLAYERS, 0.6F, 1.05F + modular);
 			this.setTimeUntilNextCrow(this.rand.nextInt(200) + 200);
 
 			List list = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 30, world, this.getPosition());
@@ -153,11 +153,11 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 			{
 				if (list.get(i) instanceof EntityAnimaniaCow)
 				{
-					EntityAnimaniaCow entityCow = (EntityAnimaniaCow) list.get(i);
-					if (entityCow.getSleeping() && currentTime > 24000)
+					EntityAnimaniaCow CowEntity = (EntityAnimaniaCow) list.get(i);
+					if (CowEntity.getSleeping() && currentTime > 24000)
 					{
-						entityCow.setSleeping(false);
-						entityCow.setSleepTimer(0F);
+						CowEntity.setSleeping(false);
+						CowEntity.setSleepTimer(0F);
 					}
 				}
 			}

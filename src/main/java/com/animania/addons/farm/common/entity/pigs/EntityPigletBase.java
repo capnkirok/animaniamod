@@ -20,7 +20,7 @@ import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -32,14 +32,14 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProviderChild, IChild
+public class PigEntityletBase extends EntityAnimaniaPig implements TOPInfoProviderChild, IChild
 {
 
-	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityPigletBase.class, DataSerializers.OPTIONAL_UUID);
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(EntityPigletBase.class, DataSerializers.FLOAT);
+	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(PigEntityletBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(PigEntityletBase.class, DataSerializers.FLOAT);
 	protected int ageTimer;
 
-	public EntityPigletBase(World worldIn)
+	public PigEntityletBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(1.1F, 1.1F);
@@ -49,7 +49,7 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 		this.ageTimer = 0;
 		this.pigType = PigType.YORKSHIRE;
 		this.gender = EntityGender.CHILD;
-		this.tasks.addTask(1, new GenericAIFollowParents<EntityPigletBase, EntitySowBase>(this, 1.1, EntitySowBase.class));
+		this.tasks.addTask(1, new GenericAIFollowParents<PigEntityletBase, EntitySowBase>(this, 1.1, EntitySowBase.class));
 	}
 
 	@Override
@@ -71,8 +71,8 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityPigletBase.AGE, Float.valueOf(0));
-		this.dataManager.register(EntityPigletBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
+		this.dataManager.register(PigEntityletBase.AGE, Float.valueOf(0));
+		this.dataManager.register(PigEntityletBase.PARENT_UNIQUE_ID, Optional.<UUID> absent());
 
 	}
 
@@ -126,7 +126,7 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 	}
 
 	@Override
-	public EntityPigletBase createChild(AgeableEntity ageable)
+	public PigEntityletBase createChild(AgeableEntity ageable)
 	{
 		return null;
 	}
@@ -155,7 +155,7 @@ public class EntityPigletBase extends EntityAnimaniaPig implements TOPInfoProvid
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (this.getPlayed())
 			probeInfo.text(TextFormatting.GREEN + I18n.translateToLocal("text.waila.played"));

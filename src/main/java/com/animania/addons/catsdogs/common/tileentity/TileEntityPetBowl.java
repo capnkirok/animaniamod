@@ -121,8 +121,8 @@ public class TileEntityPetBowl extends TileEntity implements ITickable, IFoodPro
 		CompoundNBT items = this.itemHandler.serializeNBT();
 		CompoundNBT fluid = new CompoundNBT();
 		fluid = this.fluidHandler.writeToNBT(fluid);
-		tag.setTag("items", items);
-		tag.setTag("fluid", fluid);
+		tag.putTag("items", items);
+		tag.putTag("fluid", fluid);
 
 		return tag;
 

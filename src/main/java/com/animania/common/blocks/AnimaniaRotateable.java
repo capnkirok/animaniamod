@@ -1,7 +1,7 @@
 package com.animania.common.blocks;
 
 import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -22,16 +22,16 @@ public abstract class AnimaniaRotateable extends AnimaniaBlock
 
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
-	public AnimaniaRotateable(String name, Material blockMaterialIn, MapColor blockMapColorIn, boolean itemblock)
+	public AnimaniaRotateable(String name, Material blockMaterialIn, MaterialColor blockMaterialColorIn, boolean BlockItem)
 	{
-		super(name, blockMaterialIn, blockMapColorIn, itemblock);
+		super(name, blockMaterialIn, blockMaterialColorIn, BlockItem);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 
 	}
 
-	public AnimaniaRotateable(String name, Material blockMaterialIn, MapColor blockMapColorIn)
+	public AnimaniaRotateable(String name, Material blockMaterialIn, MaterialColor blockMaterialColorIn)
 	{
-		this(name, blockMaterialIn, blockMapColorIn, true);
+		this(name, blockMaterialIn, blockMaterialColorIn, true);
 	}
 
 	@Override

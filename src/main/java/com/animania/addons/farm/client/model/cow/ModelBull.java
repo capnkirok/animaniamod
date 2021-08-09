@@ -6,7 +6,6 @@ import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityBullHolstei
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshroom;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.config.AnimaniaConfig;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

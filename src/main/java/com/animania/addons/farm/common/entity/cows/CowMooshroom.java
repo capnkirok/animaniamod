@@ -3,7 +3,7 @@ package com.animania.addons.farm.common.entity.cows;
 import com.animania.Animania;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
@@ -42,17 +42,17 @@ public class CowMooshroom
 
 	}
 
-	public static class EntityCowMooshroom extends EntityCowBase
+	public static class CowEntityMooshroom extends CowEntityBase
 	{
 
-		public EntityCowMooshroom(World world)
+		public CowEntityMooshroom(World world)
 		{
 			super(world);
 			this.cowType = CowType.MOOSHROOM;
 		}
 
 		@Override
-		public boolean processInteract(EntityPlayer player, EnumHand hand)
+		public boolean processInteract(PlayerEntity player, EnumHand hand)
 		{
 			ItemStack stack = player.getHeldItem(hand);
 

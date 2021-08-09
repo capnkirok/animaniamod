@@ -20,7 +20,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -34,17 +34,17 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable, IImpregnable
+public class RabbitEntityDoeBase extends EntityAnimaniaRabbit implements TOPInfoProviderMateable, IMateable, IImpregnable
 {
 
 	public int dryTimerDoe;
-	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> defineId(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> defineId(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> defineId(EntityRabbitDoeBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> defineId(EntityRabbitDoeBase.class, DataSerializers.INT);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityRabbitDoeBase.class, DataSerializers.OPTIONAL_UUID);
+	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> defineId(RabbitEntityDoeBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> defineId(RabbitEntityDoeBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> defineId(RabbitEntityDoeBase.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> defineId(RabbitEntityDoeBase.class, DataSerializers.INT);
+	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(RabbitEntityDoeBase.class, DataSerializers.OPTIONAL_UUID);
 
-	public EntityRabbitDoeBase(World worldIn)
+	public RabbitEntityDoeBase(World worldIn)
 	{
 		super(worldIn);
 		this.setSize(0.7F, 0.6F);
@@ -59,11 +59,11 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityRabbitDoeBase.PREGNANT, false);
-		this.dataManager.register(EntityRabbitDoeBase.HAS_KIDS, false);
-		this.dataManager.register(EntityRabbitDoeBase.FERTILE, true);
+		this.dataManager.register(RabbitEntityDoeBase.PREGNANT, false);
+		this.dataManager.register(RabbitEntityDoeBase.HAS_KIDS, false);
+		this.dataManager.register(RabbitEntityDoeBase.FERTILE, true);
 		this.dataManager.register(MATE_UNIQUE_ID, Optional.<UUID> absent());
-		this.dataManager.register(EntityRabbitDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
+		this.dataManager.register(RabbitEntityDoeBase.GESTATION_TIMER, Integer.valueOf(AnimaniaConfig.careAndFeeding.gestationTimer + this.rand.nextInt(200)));
 	}
 
 	@Override
@@ -119,16 +119,16 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 	@Override
 	public void onLivingUpdate()
 	{
-		GenericBehavior.livingUpdateFemale(this, EntityRabbitBuckBase.class);
+		GenericBehavior.livingUpdateFemale(this, RabbitEntityBuckBase.class);
 
 		super.onLivingUpdate();
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		EntityPlayer entityplayer = player;
+		PlayerEntity PlayerEntity = player;
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.WATER_BUCKET)
 		{
@@ -148,7 +148,7 @@ public class EntityRabbitDoeBase extends EntityAnimaniaRabbit implements TOPInfo
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{

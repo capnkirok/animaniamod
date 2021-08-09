@@ -1,15 +1,14 @@
 package com.animania.addons.farm.client.model.cow;
 
-import com.animania.addons.farm.common.entity.cows.CowHereford.EntityCowHereford;
-import com.animania.addons.farm.common.entity.cows.CowJersey.EntityCowJersey;
+import com.animania.addons.farm.common.entity.cows.CowHereford.CowEntityHereford;
+import com.animania.addons.farm.common.entity.cows.CowJersey.CowEntityJersey;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
@@ -221,14 +220,14 @@ public class ModelCowHereford extends ModelBase
 
 		super.setLivingAnimations(LivingEntityIn, p_78086_2_, p_78086_3_, partialTickTime);
 
-		if (LivingEntityIn instanceof EntityCowHereford) {
-			EntityCowHereford entityCowHereford = (EntityCowHereford) LivingEntityIn;
-			this.head.rotationPointY = 6.0F + entityCowHereford.getHeadAnchorPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityCowHereford.getHeadAngleX(partialTickTime);
-		} else if (LivingEntityIn instanceof EntityCowJersey) {
-			EntityCowJersey entityCowJersey = (EntityCowJersey) LivingEntityIn;
-			this.head.rotationPointY = 6.0F + entityCowJersey.getHeadAnchorPointY(partialTickTime) * 9.0F;
-			this.headRotationAngleX = entityCowJersey.getHeadAngleX(partialTickTime);
+		if (LivingEntityIn instanceof CowEntityHereford) {
+			CowEntityHereford CowEntityHereford = (CowEntityHereford) LivingEntityIn;
+			this.head.rotationPointY = 6.0F + CowEntityHereford.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = CowEntityHereford.getHeadAngleX(partialTickTime);
+		} else if (LivingEntityIn instanceof CowEntityJersey) {
+			CowEntityJersey CowEntityJersey = (CowEntityJersey) LivingEntityIn;
+			this.head.rotationPointY = 6.0F + CowEntityJersey.getHeadAnchorPointY(partialTickTime) * 9.0F;
+			this.headRotationAngleX = CowEntityJersey.getHeadAngleX(partialTickTime);
 		}
 	}
 

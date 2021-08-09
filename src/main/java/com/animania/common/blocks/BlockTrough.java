@@ -17,7 +17,7 @@ import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -29,7 +29,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryHelper;
@@ -58,7 +58,7 @@ import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoodProviderBlock
+public class BlockTrough extends ContainerBlock implements TOPInfoProvider, IFoodProviderBlock
 {
 	private String name = "block_trough";
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
@@ -223,7 +223,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 	}
 
 	/**
-	 * Called by ItemBlocks just before a block is actually set in the world, to
+	 * Called by BlockItems just before a block is actually set in the world, to
 	 * allow for adjustments to the IBlockstate
 	 */
 
@@ -278,12 +278,12 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
 	{
-		EntityPlayer entityplayer = worldIn.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false);
+		PlayerEntity PlayerEntity = worldIn.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false);
 
 		String dir = "";
 
-		if (entityplayer != null)
-			dir = entityplayer.getHorizontalFacing().toString().trim();
+		if (PlayerEntity != null)
+			dir = PlayerEntity.getHorizontalFacing().toString().trim();
 
 		BlockPos blockpos = pos.west();
 		BlockPos blockpos1 = pos.east();
@@ -382,7 +382,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, PlayerEntity playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = playerIn.getHeldItem(hand);
@@ -595,7 +595,7 @@ public class BlockTrough extends BlockContainer implements TOPInfoProvider, IFoo
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, IBlockState blockState, IProbeHitData data)
 	{
 		TileEntity te = world.getTileEntity(data.getPos());
 		if (te instanceof TileEntityTrough)

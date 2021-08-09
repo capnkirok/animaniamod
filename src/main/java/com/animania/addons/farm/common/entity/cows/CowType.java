@@ -6,42 +6,42 @@ import java.lang.reflect.InvocationTargetException;
 import com.animania.Animania;
 import com.animania.addons.farm.common.entity.cows.CowAngus.EntityBullAngus;
 import com.animania.addons.farm.common.entity.cows.CowAngus.EntityCalfAngus;
-import com.animania.addons.farm.common.entity.cows.CowAngus.EntityCowAngus;
+import com.animania.addons.farm.common.entity.cows.CowAngus.CowEntityAngus;
 import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityBullFriesian;
 import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCalfFriesian;
-import com.animania.addons.farm.common.entity.cows.CowFriesian.EntityCowFriesian;
+import com.animania.addons.farm.common.entity.cows.CowFriesian.CowEntityFriesian;
 import com.animania.addons.farm.common.entity.cows.CowHereford.EntityBullHereford;
 import com.animania.addons.farm.common.entity.cows.CowHereford.EntityCalfHereford;
-import com.animania.addons.farm.common.entity.cows.CowHereford.EntityCowHereford;
+import com.animania.addons.farm.common.entity.cows.CowHereford.CowEntityHereford;
 import com.animania.addons.farm.common.entity.cows.CowHighland.EntityBullHighland;
 import com.animania.addons.farm.common.entity.cows.CowHighland.EntityCalfHighland;
-import com.animania.addons.farm.common.entity.cows.CowHighland.EntityCowHighland;
+import com.animania.addons.farm.common.entity.cows.CowHighland.CowEntityHighland;
 import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityBullHolstein;
 import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCalfHolstein;
-import com.animania.addons.farm.common.entity.cows.CowHolstein.EntityCowHolstein;
+import com.animania.addons.farm.common.entity.cows.CowHolstein.CowEntityHolstein;
 import com.animania.addons.farm.common.entity.cows.CowJersey.EntityBullJersey;
 import com.animania.addons.farm.common.entity.cows.CowJersey.EntityCalfJersey;
-import com.animania.addons.farm.common.entity.cows.CowJersey.EntityCowJersey;
+import com.animania.addons.farm.common.entity.cows.CowJersey.CowEntityJersey;
 import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityBullLonghorn;
 import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityCalfLonghorn;
-import com.animania.addons.farm.common.entity.cows.CowLonghorn.EntityCowLonghorn;
+import com.animania.addons.farm.common.entity.cows.CowLonghorn.CowEntityLonghorn;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshroom;
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCalfMooshroom;
-import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCowMooshroom;
+import com.animania.addons.farm.common.entity.cows.CowMooshroom.CowEntityMooshroom;
 import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.world.World;
 
 public enum CowType implements AnimaniaType
 {
-	ANGUS(EntityBullAngus.class, EntityCowAngus.class, EntityCalfAngus.class, true),
-	FRIESIAN(EntityBullFriesian.class, EntityCowFriesian.class, EntityCalfFriesian.class, false),
-	HEREFORD(EntityBullHereford.class, EntityCowHereford.class, EntityCalfHereford.class, true),
-	HOLSTEIN(EntityBullHolstein.class, EntityCowHolstein.class, EntityCalfHolstein.class, false),
-	LONGHORN(EntityBullLonghorn.class, EntityCowLonghorn.class, EntityCalfLonghorn.class, true),
-	HIGHLAND(EntityBullHighland.class, EntityCowHighland.class, EntityCalfHighland.class, true),
-	JERSEY(EntityBullJersey.class, EntityCowJersey.class, EntityCalfJersey.class, true),
-	MOOSHROOM(EntityBullMooshroom.class, EntityCowMooshroom.class, EntityCalfMooshroom.class, false);
+	ANGUS(EntityBullAngus.class, CowEntityAngus.class, EntityCalfAngus.class, true),
+	FRIESIAN(EntityBullFriesian.class, CowEntityFriesian.class, EntityCalfFriesian.class, false),
+	HEREFORD(EntityBullHereford.class, CowEntityHereford.class, EntityCalfHereford.class, true),
+	HOLSTEIN(EntityBullHolstein.class, CowEntityHolstein.class, EntityCalfHolstein.class, false),
+	LONGHORN(EntityBullLonghorn.class, CowEntityLonghorn.class, EntityCalfLonghorn.class, true),
+	HIGHLAND(EntityBullHighland.class, CowEntityHighland.class, EntityCalfHighland.class, true),
+	JERSEY(EntityBullJersey.class, CowEntityJersey.class, EntityCalfJersey.class, true),
+	MOOSHROOM(EntityBullMooshroom.class, CowEntityMooshroom.class, EntityCalfMooshroom.class, false);
 
 	private Class bull;
 	private Class cow;
@@ -81,7 +81,7 @@ public enum CowType implements AnimaniaType
 	}
 
 	@Override
-	public EntityCowBase getFemale(World world)
+	public CowEntityBase getFemale(World world)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -92,10 +92,10 @@ public enum CowType implements AnimaniaType
 		{
 			e.printStackTrace();
 		}
-		EntityCowBase cow = null;
+		CowEntityBase cow = null;
 		try
 		{
-			cow = (EntityCowBase) constructor.newInstance(world);
+			cow = (CowEntityBase) constructor.newInstance(world);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

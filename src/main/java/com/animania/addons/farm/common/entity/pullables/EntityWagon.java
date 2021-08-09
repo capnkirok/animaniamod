@@ -22,8 +22,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.passive.HorseEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -141,25 +141,25 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 	}
 
 	@Override
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand)
+	public boolean processInitialInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		List horses = AnimaniaHelper.getEntitiesInRange(EntityHorse.class, 3, world, player);
+		List horses = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, world, player);
 		List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
 
-		EntityHorse horse = null;
+		HorseEntity horse = null;
 		if (!horses.isEmpty())
 		{
-			horse = (EntityHorse) horses.get(0);
+			horse = (HorseEntity) horses.get(0);
 		}
 
-		double diffx = this.posX - player.posX;
-		double diffy = this.posY - player.posY;
-		double diffz = this.posZ - player.posZ;
+		double diffx = this.getX() - player.getX();
+		double diffy = this.getY() - player.getY();
+		double diffz = this.getZ() - player.getZ();
 
-		double mdiffx = Math.abs(this.posX - player.posX);
-		double mdiffy = Math.abs(this.posY - player.posY);
-		double mdiffz = Math.abs(this.posZ - player.posZ);
+		double mdiffx = Math.abs(this.getX() - player.getX());
+		double mdiffy = Math.abs(this.getY() - player.getY());
+		double mdiffz = Math.abs(this.getZ() - player.getZ());
 
 		if (player.isSneaking())
 		{
@@ -171,8 +171,8 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				this.wagonChest.setCustomName(this.getName());
 				if (!this.world.isRemote)
 				{
-					player.openGui(Animania.instance, GUI_ID, player.world, this.getEntityId(), 0, 0);
-					world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
+					player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
 				}
 				return true;
 
@@ -203,11 +203,11 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				{
 					sleepFlag = false;
 					allSleeping = true;
-					EntityPlayer player1 = null;
+					PlayerEntity player1 = null;
 					Iterator iterator = world.playerEntities.iterator();
 					while (iterator.hasNext())
 					{
-						EntityPlayer player2 = (EntityPlayer) iterator.next();
+						PlayerEntity player2 = (PlayerEntity) iterator.next();
 
 						if (player2 != player)
 						{
@@ -218,9 +218,9 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 						}
 					}
 
-					EntityPlayer.SleepResult player$sleepresult = trySleep(new BlockPos(player.posX, player.posY, player.posZ), player);
+					PlayerEntity.SleepResult player$sleepresult = trySleep(new BlockPos(player.getX(), player.getY(), player.getZ()), player);
 
-					if (player$sleepresult == EntityPlayer.SleepResult.OK && allSleeping == true)
+					if (player$sleepresult == PlayerEntity.SleepResult.OK && allSleeping == true)
 					{
 
 						sleepFlag = true;
@@ -228,16 +228,16 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 					} else
 					{
-						if (player$sleepresult == EntityPlayer.SleepResult.NOT_POSSIBLE_NOW)
+						if (player$sleepresult == PlayerEntity.SleepResult.NOT_POSSIBLE_NOW)
 						{
 							sleepFlag = false;
 							player.sendStatusMessage(new TextComponentTranslation("tile.bed.noSleep", new Object[0]), true);
-						} else if (player$sleepresult == EntityPlayer.SleepResult.NOT_SAFE)
+						} else if (player$sleepresult == PlayerEntity.SleepResult.NOT_SAFE)
 						{
 							sleepFlag = false;
 							player.sendStatusMessage(new TextComponentTranslation("tile.bed.notSafe", new Object[0]), true);
 
-						} else if (player$sleepresult == EntityPlayer.SleepResult.NOT_POSSIBLE_HERE)
+						} else if (player$sleepresult == PlayerEntity.SleepResult.NOT_POSSIBLE_HERE)
 						{
 							sleepFlag = false;
 							player.sendStatusMessage(new TextComponentTranslation("tile.bed.notHere", new Object[0]), true);
@@ -246,7 +246,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 					}
 
-					if (player$sleepresult == EntityPlayer.SleepResult.OK)
+					if (player$sleepresult == PlayerEntity.SleepResult.OK)
 					{
 
 						sleepFlag = true;
@@ -272,13 +272,13 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 				this.pulled = true;
 				this.puller = player.getRidingEntity();
-				if (this.puller instanceof EntityHorse)
+				if (this.puller instanceof HorseEntity)
 				{
 					this.setPullerType(1);
 				}
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 
 				return true;
@@ -289,7 +289,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				this.setPullerType(0);
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopwagon();
 				return true;
@@ -305,7 +305,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				}
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
 			} else if (stack.isEmpty() && !player.isRiding() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote)
@@ -318,7 +318,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 					this.setPullerType(2);
 					if (!world.isRemote)
 					{
-						world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+						world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 
 					}
 				}
@@ -330,7 +330,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				this.setPullerType(0);
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopwagon();
 				return true;
@@ -341,7 +341,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				this.setPullerType(0);
 				if (!world.isRemote)
 				{
-					world.playSound(null, player.posX, player.posY, player.posZ, FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopwagon();
 				return true;
@@ -421,9 +421,9 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		}
 
 		// Dismount if sneak pressed and riding this
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityPlayer && this.rideCooldown == 0)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown == 0)
 		{
-			EntityPlayer player = (EntityPlayer) this.getControllingPassenger();
+			PlayerEntity player = (PlayerEntity) this.getControllingPassenger();
 			if (player.isSneaking())
 			{
 				player.applyEntityCollision(this);
@@ -439,7 +439,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		{
 
 			AnimalEntity AnimalEntity = (AnimalEntity) this.getControllingPassenger();
-			if (AnimalEntity.isBeingRidden() && AnimalEntity.getControllingPassenger() instanceof EntityPlayer)
+			if (AnimalEntity.isBeingRidden() && AnimalEntity.getControllingPassenger() instanceof PlayerEntity)
 			{
 				AnimalEntity.applyEntityCollision(this);
 				AnimalEntity.dismountRidingEntity();
@@ -457,9 +457,9 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		}
 
 		// Dismount text
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof EntityPlayer && this.rideCooldown > 10 && world.isRemote)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown > 10 && world.isRemote)
 		{
-			EntityPlayer player = (EntityPlayer) this.getControllingPassenger();
+			PlayerEntity player = (PlayerEntity) this.getControllingPassenger();
 			player.sendStatusMessage(new TextComponentString(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
 		}
 
@@ -467,8 +467,8 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		if (this.pulled && this.puller != null && world.isRemote)
 		{
 
-			double movX = Math.abs(this.puller.posX - this.puller.prevPosX);
-			double movZ = Math.abs(this.puller.posZ - this.puller.prevPosZ);
+			double movX = Math.abs(this.puller.getX() - this.puller.prevgetX());
+			double movZ = Math.abs(this.puller.getZ() - this.puller.prevgetZ());
 
 			// double moveThresh = .005D;
 			double moveThresh = (movX + movZ - 1); // TODO Testing
@@ -559,10 +559,10 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		}
 
 		// Add slowness if multiple wagons being pulled or if player
-		if (this.pulled && this.puller instanceof EntityPlayer)
+		if (this.pulled && this.puller instanceof PlayerEntity)
 		{
 			List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
-			EntityPlayer player = (EntityPlayer) this.puller;
+			PlayerEntity player = (PlayerEntity) this.puller;
 			int totPulling = 0;
 			if (!wagons.isEmpty())
 			{
@@ -613,11 +613,11 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 		if (this.world.isRemote && this.pulled)
 		{
-			double diffX = (this.posX - this.prevPosX);
-			double diffZ = (this.posZ - this.prevPosZ);
+			double diffX = (this.getX() - this.prevgetX());
+			double diffZ = (this.getZ() - this.prevgetZ());
 
-			double movX = Math.abs(this.posX - this.prevPosX);
-			double movZ = Math.abs(this.posZ - this.prevPosZ);
+			double movX = Math.abs(this.getX() - this.prevgetX());
+			double movZ = Math.abs(this.getZ() - this.prevgetZ());
 
 			double moveThresh = .008D;
 
@@ -647,7 +647,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 			if (this.getPullerType() == 1)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityHorse.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, this.world, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -656,7 +656,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				}
 			} else if (this.getPullerType() == 2)
 			{
-				List entities = AnimaniaHelper.getEntitiesInRange(EntityPlayer.class, 3, this.world, this);
+				List entities = AnimaniaHelper.getEntitiesInRange(PlayerEntity.class, 3, this.world, this);
 				if (!entities.isEmpty())
 				{
 					this.puller = (Entity) entities.get(0);
@@ -673,26 +673,26 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		if (this.pulled && this.puller != null && this.puller.isRiding())
 		{
 			this.puller = this.puller.getRidingEntity();
-			if (this.puller instanceof EntityHorse)
+			if (this.puller instanceof HorseEntity)
 			{
 				this.setPullerType(1);
 			}
 		}
 
-		if (this.puller != null && (Math.abs(this.puller.posX - this.posX) > 7 || Math.abs(this.puller.posZ - this.posZ) > 7))
+		if (this.puller != null && (Math.abs(this.puller.getX() - this.getX()) > 7 || Math.abs(this.puller.getZ() - this.getZ()) > 7))
 		{
 			this.pulled = false;
 			this.puller = null;
 			this.setPullerType(0);
-			world.playSound(null, this.posX, this.posY, this.posZ, FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+			world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 			stopwagon();
 		}
 
 		if (this.pulled)
 		{
-			double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
+			double deltaAngle = -Math.atan2(this.puller.getX() - this.getX(), this.puller.getZ() - this.getZ());
 
-			Vec3d vec = new Vec3d(this.puller.posX, this.puller.posY, this.puller.posZ).subtract(new Vec3d(this.posX, this.posY, this.posZ)).add(new Vec3d(0.0D, 0.0D, -3.2D).rotateYaw((float) -deltaAngle));
+			Vec3d vec = new Vec3d(this.puller.getX(), this.puller.getY(), this.puller.getZ()).subtract(new Vec3d(this.getX(), this.getY(), this.getZ())).add(new Vec3d(0.0D, 0.0D, -3.2D).rotateYaw((float) -deltaAngle));
 			this.motionX = vec.x / 1;
 			this.motionY = vec.y;
 			this.motionZ = vec.z / 1;
@@ -727,13 +727,13 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 	{
 		if (this.lerpSteps > 0 && !this.canPassengerSteer())
 		{
-			double d0 = this.posX + (this.wagonPitch - this.posX) / this.lerpSteps;
-			double d1 = this.posY + (this.lerpY - this.posY) / this.lerpSteps;
-			double d2 = this.posZ + (this.lerpZ - this.posZ) / this.lerpSteps;
+			double d0 = this.getX() + (this.wagonPitch - this.getX()) / this.lerpSteps;
+			double d1 = this.getY() + (this.lerpY - this.getY()) / this.lerpSteps;
+			double d2 = this.getZ() + (this.lerpZ - this.getZ()) / this.lerpSteps;
 			double d3 = MathHelper.wrapDegrees(this.wagonYaw - this.rotationYaw);
 			if (this.puller != null)
 			{
-				double deltaAngle = -Math.atan2(this.puller.posX - this.posX, this.puller.posZ - this.posZ);
+				double deltaAngle = -Math.atan2(this.puller.getX() - this.getX(), this.puller.getZ() - this.getZ());
 				this.rotationYaw = (float) Math.toDegrees(deltaAngle);
 			}
 			this.rotationPitch = (float) (this.rotationPitch + (this.lerpXRot - this.rotationPitch) / this.lerpSteps);
@@ -762,7 +762,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		{
 			float f = 0.0F;
 			float f1 = (float) ((this.isDead ? 0.009999999776482582D : this.getMountedYOffset()) + passenger.getYOffset());
-			if (passenger instanceof EntityPlayer)
+			if (passenger instanceof PlayerEntity)
 			{
 				f1 = (float) ((this.isDead ? 0.009999999776482582D : 1.55D) + passenger.getYOffset());
 			}
@@ -786,13 +786,13 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 			}
 
-			if (passenger instanceof EntityPlayer)
+			if (passenger instanceof PlayerEntity)
 			{
 				f = (float) (f + 1.8D);
 			}
 
 			Vec3d vec3d = (new Vec3d(f, 0.0D, 0.0D)).rotateYaw(-this.rotationYaw * 0.017453292F - ((float) Math.PI / 2F));
-			passenger.setPosition(this.posX + vec3d.x, this.posY + f1, this.posZ + vec3d.z);
+			passenger.setPosition(this.getX() + vec3d.x, this.getY() + f1, this.getZ() + vec3d.z);
 			passenger.rotationYaw += this.deltaRotation;
 			passenger.setRotationYawHead(passenger.getRotationYawHead() + this.deltaRotation);
 			this.applyYawToEntity(passenger);
@@ -812,7 +812,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		entityToUpdate.setRenderYawOffset(this.rotationYaw);
 		float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
 		float f1 = MathHelper.clamp(f, 0.0F, 0.0F);
-		if (entityToUpdate instanceof EntityPlayer)
+		if (entityToUpdate instanceof PlayerEntity)
 		{
 			f1 = MathHelper.clamp(f, -105.0F, 105.0F);
 		}
@@ -845,7 +845,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				this.setTimeSinceHit(10);
 				this.setDamageTaken(this.getDamageTaken() + amount * 10.0F);
 				this.markVelocityChanged();
-				boolean flag = source.getTrueSource() instanceof EntityPlayer && ((EntityPlayer) source.getTrueSource()).capabilities.isCreativeMode;
+				boolean flag = source.getTrueSource() instanceof PlayerEntity && ((PlayerEntity) source.getTrueSource()).capabilities.isCreativeMode;
 
 				if (flag || this.getDamageTaken() > 40.0F)
 				{
@@ -877,8 +877,8 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 	public AxisAlignedBB getCollisionBox(Entity entityIn)
 	{
 
-		double movX = Math.abs(this.posX - this.prevPosX);
-		double movZ = Math.abs(this.posZ - this.prevPosZ);
+		double movX = Math.abs(this.getX() - this.prevgetX());
+		double movZ = Math.abs(this.getZ() - this.prevgetZ());
 
 		if (entityIn == this.puller)
 		{
@@ -936,7 +936,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 	@Override
 	public void writeEntityToNBT(CompoundNBT compound)
 	{
-		compound.setInteger("PullerType", this.getPullerType());
+		compound.putInteger("PullerType", this.getPullerType());
 
 		NBTTagList nbttaglist = new NBTTagList();
 
@@ -952,9 +952,9 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 				nbttaglist.appendTag(CompoundNBT);
 			}
 		}
-		compound.setBoolean("HasChest", this.getHasChest());
+		compound.putBoolean("HasChest", this.getHasChest());
 
-		compound.setTag("Items", nbttaglist);
+		compound.putTag("Items", nbttaglist);
 	}
 
 	@Override
@@ -981,10 +981,10 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 	public int determinePullerType(Entity entity)
 	{
 		int pullerType = 0;
-		if (entity instanceof EntityHorse)
+		if (entity instanceof HorseEntity)
 		{
 			pullerType = 1;
-		} else if (entity instanceof EntityPlayer)
+		} else if (entity instanceof PlayerEntity)
 		{
 			pullerType = 2;
 		}
@@ -1037,28 +1037,28 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		return list.isEmpty() ? null : (Entity) list.get(0);
 	}
 
-	public EntityPlayer.SleepResult trySleep(BlockPos bedLocation, EntityPlayer entityplayer)
+	public PlayerEntity.SleepResult trySleep(BlockPos bedLocation, PlayerEntity PlayerEntity)
 	{
 
-		World world = entityplayer.world;
+		World world = Playerentity.level;
 
 		EnumFacing enumfacing = EnumFacing.NORTH;
 
 		if (!world.isRemote)
 		{
-			if (entityplayer.isPlayerSleeping() || !entityplayer.isEntityAlive())
+			if (PlayerEntity.isPlayerSleeping() || !PlayerEntity.isEntityAlive())
 			{
-				return EntityPlayer.SleepResult.OTHER_PROBLEM;
+				return PlayerEntity.SleepResult.OTHER_PROBLEM;
 			}
 
 			/*
 			 * if (!world.provider.isSurfaceWorld()) { return
-			 * EntityPlayer.SleepResult.NOT_POSSIBLE_HERE; }
+			 * PlayerEntity.SleepResult.NOT_POSSIBLE_HERE; }
 			 */
 
 			if (world.isDaytime())
 			{
-				return EntityPlayer.SleepResult.NOT_POSSIBLE_NOW;
+				return PlayerEntity.SleepResult.NOT_POSSIBLE_NOW;
 			}
 
 			double d0 = 8.0D;
@@ -1067,7 +1067,7 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 
 			if (!list.isEmpty())
 			{
-				return EntityPlayer.SleepResult.NOT_SAFE;
+				return PlayerEntity.SleepResult.NOT_SAFE;
 			}
 		}
 
@@ -1078,23 +1078,23 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 		{
 			float f1 = 0.5F + enumfacing.getFrontOffsetX() * 0.4F;
 			float f = 0.5F + enumfacing.getFrontOffsetZ() * 0.4F;
-			entityplayer.setPosition(bedLocation.getX() + f1, bedLocation.getY() + 0.6875F, bedLocation.getZ() + f);
+			PlayerEntity.setPosition(bedLocation.getX() + f1, bedLocation.getY() + 0.6875F, bedLocation.getZ() + f);
 		} else
 		{
-			entityplayer.setPosition(bedLocation.getX() + 0.5F, bedLocation.getY() + 0.6875F, bedLocation.getZ() + 0.5F);
+			PlayerEntity.setPosition(bedLocation.getX() + 0.5F, bedLocation.getY() + 0.6875F, bedLocation.getZ() + 0.5F);
 		}
 
-		entityplayer.bedLocation = bedLocation;
-		entityplayer.motionX = 0.0D;
-		entityplayer.motionY = 0.0D;
-		entityplayer.motionZ = 0.0D;
+		PlayerEntity.bedLocation = bedLocation;
+		PlayerEntity.motionX = 0.0D;
+		PlayerEntity.motionY = 0.0D;
+		PlayerEntity.motionZ = 0.0D;
 
 		if (!world.isRemote)
 		{
 			world.updateAllPlayersSleepingFlag();
 		}
 
-		return EntityPlayer.SleepResult.OK;
+		return PlayerEntity.SleepResult.OK;
 	}
 
 	@Override
@@ -1107,13 +1107,13 @@ public class EntityWagon extends AnimatedEntityBase implements IInventoryChanged
 	@SideOnly(Dist.CLIENT)
 	public int getBrightnessForRender()
 	{
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(this.posX), 0, MathHelper.floor(this.posZ));
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(this.getX()), 0, MathHelper.floor(this.getZ()));
 
 		long time = this.getEntityWorld().getWorldTime() % 24000;
 
 		if (this.world.isBlockLoaded(blockpos$mutableblockpos))
 		{
-			blockpos$mutableblockpos.setY(MathHelper.floor(this.posY + this.getEyeHeight()));
+			blockpos$mutableblockpos.setY(MathHelper.floor(this.getY() + this.getEyeHeight()));
 
 			if (Animania.RANDOM.nextInt(32) == 0 && time > 13000 && sleepTimer == 0)
 			{

@@ -6,7 +6,7 @@ import com.animania.Animania;
 import com.animania.addons.farm.client.model.pig.ModelPiglet;
 import com.animania.addons.farm.client.render.pigs.layers.LayerMudPigletLargeWhite;
 import com.animania.addons.farm.common.entity.pigs.EntityAnimaniaPig;
-import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.EntityPigletLargeWhite;
+import com.animania.addons.farm.common.entity.pigs.PigLargeWhite.PigEntityletLargeWhite;
 import com.animania.client.render.layer.LayerBlinking;
 import com.animania.common.handler.BlockHandler;
 
@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class RenderPigletLargeWhite<T extends EntityPigletLargeWhite> extends RenderLiving<T>
+public class RenderPigletLargeWhite<T extends PigEntityletLargeWhite> extends RenderLiving<T>
 {
 	public static final Factory FACTORY = new Factory();
 
@@ -62,14 +62,14 @@ public class RenderPigletLargeWhite<T extends EntityPigletLargeWhite> extends Re
 			entityChk.setSleeping(false);
 			entityChk.setSleepTimer(0F);
 
-			double x = entity.posX;
-			double y = entity.posY;
-			double z = entity.posZ;
+			double x = entity.getX();
+			double y = entity.getY();
+			double z = entity.getZ();
 
 			BlockPos pos = new BlockPos(x, y, z);
 
-			Block blockchk = entity.world.getBlockState(pos).getBlock();
-			Block blockchk2 = entity.world.getBlockState(pos).getBlock();
+			Block blockchk = entity.level.getBlockState(pos).getBlock();
+			Block blockchk2 = entity.level.getBlockState(pos).getBlock();
 			boolean mudBlock = false;
 			if (blockchk == BlockHandler.blockMud || blockchk.getUnlocalizedName().contains("tile.mud") || blockchk2.getUnlocalizedName().contains("tile.mud"))
 			{
@@ -132,7 +132,7 @@ public class RenderPigletLargeWhite<T extends EntityPigletLargeWhite> extends Re
 		return this.PIG_TEXTURES;
 	}
 
-	static class Factory<T extends EntityPigletLargeWhite> implements IRenderFactory<T>
+	static class Factory<T extends PigEntityletLargeWhite> implements IRenderFactory<T>
 	{
 		@Override
 		public Render<? super T> createRenderFor(RenderManager manager)

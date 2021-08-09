@@ -60,7 +60,7 @@ public class RenderFrogs<T extends EntityFrogs> extends RenderLiving<T>
 	protected ResourceLocation getEntityTexture(T entity)
 	{
 
-		if (entity.posX == -1 && entity.posY == -1 && entity.posZ == -1)
+		if (entity.getX() == -1 && entity.getY() == -1 && entity.getZ() == -1)
 		{
 			return FROGS_TEXTURES[0];
 		}

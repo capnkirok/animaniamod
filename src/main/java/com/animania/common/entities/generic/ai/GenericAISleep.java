@@ -59,7 +59,7 @@ public class GenericAISleep<T extends CreatureEntity & ISleeping> extends Generi
 		}
 		if (entity.getSleeping())
 		{
-			if (!this.shouldSleep.apply(world.getWorldTime() % 24000) || entity.isBurning() || (entity.world.isRainingAt(entity.getPosition()) && entity.world.canSeeSky(entity.getPosition())))
+			if (!this.shouldSleep.apply(world.getWorldTime() % 24000) || entity.isBurning() || (entity.level.isRainingAt(entity.getPosition()) && entity.level.canSeeSky(entity.getPosition())))
 			{
 				entity.setSleeping(false);
 				entity.setSleepingPos(NO_POS);
@@ -68,7 +68,7 @@ public class GenericAISleep<T extends CreatureEntity & ISleeping> extends Generi
 			return false;
 		}
 
-		return shouldSleep.apply(world.getWorldTime() % 24000) && !entity.world.isRainingAt(entity.getPosition()) && this.entity.getRNG().nextInt(3) == 0 ? super.shouldExecute() : false;
+		return shouldSleep.apply(world.getWorldTime() % 24000) && !entity.level.isRainingAt(entity.getPosition()) && this.entity.getRNG().nextInt(3) == 0 ? super.shouldExecute() : false;
 	}
 
 	@Override

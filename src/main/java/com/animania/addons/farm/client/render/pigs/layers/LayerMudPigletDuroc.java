@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.animania.addons.farm.client.model.pig.ModelPiglet;
 import com.animania.addons.farm.client.render.pigs.RenderPigletDuroc;
-import com.animania.addons.farm.common.entity.pigs.PigDuroc.EntityPigletDuroc;
+import com.animania.addons.farm.common.entity.pigs.PigDuroc.PigEntityletDuroc;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class LayerMudPigletDuroc implements LayerRenderer<EntityPigletDuroc>
+public class LayerMudPigletDuroc implements LayerRenderer<PigEntityletDuroc>
 {
     private static final ResourceLocation TEXTURE  = new ResourceLocation("animania:textures/entity/pigs/piglet_muddy.png");
     private final RenderPigletDuroc       pigRenderer;
@@ -24,7 +24,7 @@ public class LayerMudPigletDuroc implements LayerRenderer<EntityPigletDuroc>
     }
 
     @Override
-    public void doRenderLayer(EntityPigletDuroc LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
+    public void doRenderLayer(PigEntityletDuroc LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
             float netHeadYaw, float headPitch, float scale) {
 
         if (LivingEntityIn.getMuddy()) {

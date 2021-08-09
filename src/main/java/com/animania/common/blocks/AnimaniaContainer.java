@@ -3,39 +3,41 @@ package com.animania.common.blocks;
 import com.animania.Animania;
 import com.animania.common.handler.BlockHandler;
 
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.material.MapColor;
+import net.minecraft.block.ContainerBlock;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.item.ItemGroup;
 
-public abstract class AnimaniaContainer extends BlockContainer
+
+public abstract class AnimaniaContainer extends ContainerBlock
 {
-	public AnimaniaContainer(String name, Material blockMaterialIn, MapColor blockMapColorIn)
+	public AnimaniaContainer(String name, Material blockMaterialIn, MaterialColor blockMaterialColorIn)
 	{
-		super(blockMaterialIn, blockMapColorIn);
+		super(blockMaterialIn, blockMaterialColorIn);
 		this.setRegistryName(Animania.MODID + ":" + name);
 		this.setUnlocalizedName(Animania.MODID + "_" + name);
 		this.setCreativeTab(Animania.TabAnimaniaResources);
 		
 		BlockHandler.blocks.add(this);
-		Item item = new ItemBlock(this);
+		Item item = new BlockItem(this);
 		item.setRegistryName(new ResourceLocation(Animania.MODID, name));
 		ForgeRegistries.ITEMS.register(item);
 	}
 
-	public AnimaniaContainer(String name, Material blockMaterialIn, MapColor blockMapColorIn, boolean itemblock)
+	public AnimaniaContainer(String name, Material blockMaterialIn, MaterialColor blockMaterialColorIn, boolean BlockItem)
 	{
-		super(blockMaterialIn, blockMapColorIn);
+		super(blockMaterialIn, blockMaterialColorIn);
 		this.setRegistryName(Animania.MODID + ":" + name);
 		this.setUnlocalizedName(Animania.MODID + "_" + name);
 
 		BlockHandler.blocks.add(this);
-		if (itemblock)
+		if (BlockItem)
 		{
-			Item item = new ItemBlock(this);
+			Item item = new BlockItem(this);
 			item.setRegistryName(new ResourceLocation(Animania.MODID, name));
 			ForgeRegistries.ITEMS.register(item);
 		}

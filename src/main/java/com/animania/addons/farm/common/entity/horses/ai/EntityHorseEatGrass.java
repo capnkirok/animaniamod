@@ -8,9 +8,9 @@ import com.animania.addons.farm.common.entity.pullables.EntityWagon;
 import com.animania.common.entities.generic.ai.GenericAIEatGrass;
 import com.animania.common.helper.AnimaniaHelper;
 
-public class EntityHorseEatGrass extends GenericAIEatGrass<EntityAnimaniaHorse>
+public class HorseEntityEatGrass extends GenericAIEatGrass<EntityAnimaniaHorse>
 {
-	public EntityHorseEatGrass(EntityAnimaniaHorse grassEaterEntityIn)
+	public HorseEntityEatGrass(EntityAnimaniaHorse grassEaterEntityIn)
 	{
 		super(grassEaterEntityIn);
 	}

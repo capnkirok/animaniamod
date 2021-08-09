@@ -7,8 +7,8 @@ import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 import com.animania.addons.extra.network.CapSyncPacket;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -20,7 +20,7 @@ public class CapabilityLoadHandler
 	@SubscribeEvent
 	public static void onEntityConstructing(AttachCapabilitiesEvent<Entity> event)
 	{
-		if (event.getObject() instanceof EntityPlayer)
+		if (event.getObject() instanceof PlayerEntity)
 		{
 			event.addCapability(CapabilityRefs.toResource("AnimaniaPlayerCaps"), new CapabilityPlayerProvider());
 		}
@@ -35,7 +35,7 @@ public class CapabilityLoadHandler
 			return;
 		}
 
-		final ICapabilityPlayer propsNew = CapabilityRefs.getPlayerCaps(event.getEntityPlayer());
+		final ICapabilityPlayer propsNew = CapabilityRefs.getPlayerCaps(event.getPlayer());
 		propsNew.read(event.getOriginal());
 
 	}
@@ -44,12 +44,12 @@ public class CapabilityLoadHandler
 	public static void startTracking(StartTracking event)
 	{
 		Entity target = event.getTarget();
-		EntityPlayer viewer = event.getEntityPlayer();
-		if (target instanceof EntityPlayerMP)
+		PlayerEntity viewer = event.getPlayer();
+		if (target instanceof ServerPlayerEntity)
 		{
-			ICapabilityPlayer caps = CapabilityRefs.getPlayerCaps((EntityPlayer) target);
+			ICapabilityPlayer caps = CapabilityRefs.getPlayerCaps((PlayerEntity) target);
 			if (caps != null)
-				Animania.network.sendTo(new CapSyncPacket(caps, target.getEntityId()), (EntityPlayerMP) viewer);
+				Animania.network.sendTo(new CapSyncPacket(caps, target.getEntityId()), (ServerPlayerEntity) viewer);
 		}
 	}
 
@@ -57,9 +57,9 @@ public class CapabilityLoadHandler
 	public static void entityJoinWorld(EntityJoinWorldEvent event)
 	{
 		Entity e = event.getEntity();
-		if (e instanceof EntityPlayerMP)
+		if (e instanceof ServerPlayerEntity)
 		{
-			EntityPlayerMP player = (EntityPlayerMP) e;
+			ServerPlayerEntity player = (ServerPlayerEntity) e;
 			ICapabilityPlayer caps = CapabilityRefs.getPlayerCaps(player);
 			if (caps != null)
 				Animania.network.sendTo(new CapSyncPacket(caps, player.getEntityId()), player);

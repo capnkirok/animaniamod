@@ -487,8 +487,8 @@ public class ModelDraftHorseFoal extends ModelBase
 		this.HeadNode.rotateAngleY = par4 / (180F / (float)Math.PI);
 		this.HeadNode.rotateAngleX = this.headRotationAngleX;
 		
-		EntityFoalDraftHorse entityHorse = (EntityFoalDraftHorse) scale;
-		if (entityHorse.eatTimer > 4 && entityHorse.eatTimer < 160) {
+		EntityFoalDraftHorse HorseEntity = (EntityFoalDraftHorse) scale;
+		if (HorseEntity.eatTimer > 4 && HorseEntity.eatTimer < 160) {
 			this.HeadNode.rotateAngleX = .687F + this.headRotationAngleX;
 		} else {
 			this.HeadNode.rotateAngleX = this.headRotationAngleX;

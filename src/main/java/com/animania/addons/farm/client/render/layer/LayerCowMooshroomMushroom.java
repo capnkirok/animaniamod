@@ -1,7 +1,7 @@
 package com.animania.addons.farm.client.render.layer;
 
 import com.animania.addons.farm.client.render.cows.RenderCowMooshroom;
-import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCowMooshroom;
+import com.animania.addons.farm.common.entity.cows.CowMooshroom.CowEntityMooshroom;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Dist.CLIENT)
-public class LayerCowMooshroomMushroom implements LayerRenderer<EntityCowMooshroom>
+public class LayerCowMooshroomMushroom implements LayerRenderer<CowEntityMooshroom>
 {
     private final RenderCowMooshroom mooshroomRenderer;
 
@@ -22,7 +22,7 @@ public class LayerCowMooshroomMushroom implements LayerRenderer<EntityCowMooshro
         this.mooshroomRenderer = mooshroomRendererIn;
     }
 
-    public void doRenderLayer(EntityCowMooshroom LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
+    public void doRenderLayer(CowEntityMooshroom LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
         if (!LivingEntityIn.isChild() && !LivingEntityIn.isInvisible())
         {
