@@ -39,15 +39,14 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -60,20 +59,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVariant, IConvertable
 {
 
-	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaDog.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean> createKey(EntityAnimaniaDog.class, DataSerializers.BOOLEAN);
-	// protected static final DataParameter<Boolean> TAMED =
-	// EntityDataManager.<Boolean>createKey(EntityAnimaniaDog.class,
-	// DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaDog.class, DataSerializers.BOOLEAN);
-	// protected static final DataParameter<Boolean> SITTING =
-	// EntityDataManager.<Boolean>createKey(EntityAnimaniaDog.class,
-	// DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaDog.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityAnimaniaDog.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaDog.class, DataSerializers.FLOAT);
-	private static final DataParameter<Integer> VARIANT = EntityDataManager.<Integer> createKey(EntityAnimaniaDog.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaDog.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaDog.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.BOOLEAN);
+	// protected static final EntityDataAccessor<Boolean> TAMED =
+	// SynchedEntityData.defineId(EntityAnimaniaDog.class,
+	// EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> HANDFED = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.BOOLEAN);
+	// protected static final EntityDataAccessor<Boolean> SITTING =
+	// SynchedEntityData.defineId(EntityAnimaniaDog.class,
+	// EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaDog.class, EntityDataSerializers.BOOLEAN);
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(CatsDogsConfig.catsdogs.dogFood));
 
@@ -88,16 +87,16 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	protected DogType type;
 	protected EntityGender gender;
 
-	public EntityAnimaniaDog(World worldIn)
+	public EntityAnimaniaDog(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.happyTimer = 60;
 		this.blinkTimer = 80 + this.rand.nextInt(80);
 		this.enablePersistence();
 		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaDog>(this, false);
-		this.tasks.addTask(11, this.entityAIEatGrass);
+		this.goalSelector.addGoal(11, this.entityAIEatGrass);
 
 		this.initAI();
 	}
@@ -105,28 +104,28 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	protected void initAI()
 	{
 		this.aiSit = new GenericAISit(this);
-		this.tasks.addTask(0, new SwimmingGoal(this));
+		this.goalSelector.addGoal(0, new SwimmingGoal(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaDog>(this, 1.0D, entityAIEatGrass, EntityAnimaniaDog.class, true));
-			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaDog>(this, 1.0D, entityAIEatGrass, false));
+			this.goalSelector.addGoal(1, new GenericAIFindWater<EntityAnimaniaDog>(this, 1.0D, entityAIEatGrass, EntityAnimaniaDog.class, true));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaDog>(this, 1.0D, entityAIEatGrass, false));
 		}
-		this.tasks.addTask(4, this.aiSit);
-		this.tasks.addTask(5, new LeapAtTargetGoal(this, 0.4F));
-		this.tasks.addTask(6, new AttackMeleeGoal(this, 1.0D, true));
-		this.tasks.addTask(7, new GenericAIFollowOwner<EntityAnimaniaDog>(this, 1.5D, 5.0F, 30.0F));
-		this.tasks.addTask(8, new GenericAIPanic<EntityAnimaniaDog>(this, 1.5D));
-		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaDog>(this, 1.2D, false, TEMPTATION_ITEMS)); // TODO
-		this.tasks.addTask(12, new GenericAIWanderAvoidWater(this, 1.2D));
-		this.tasks.addTask(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(14, new GenericAILookIdle<EntityAnimaniaDog>(this));
+		this.goalSelector.addGoal(4, this.aiSit);
+		this.goalSelector.addGoal(5, new LeapAtTargetGoal(this, 0.4F));
+		this.goalSelector.addGoal(6, new AttackMeleeGoal(this, 1.0D, true));
+		this.goalSelector.addGoal(7, new GenericAIFollowOwner<EntityAnimaniaDog>(this, 1.5D, 5.0F, 30.0F));
+		this.goalSelector.addGoal(8, new GenericAIPanic<EntityAnimaniaDog>(this, 1.5D));
+		this.goalSelector.addGoal(10, new GenericAITempt<EntityAnimaniaDog>(this, 1.2D, false, TEMPTATION_ITEMS)); // TODO
+		this.goalSelector.addGoal(12, new GenericAIWanderAvoidWater(this, 1.2D));
+		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(14, new GenericAILookIdle<EntityAnimaniaDog>(this));
 		this.targetTasks.addTask(1, new GenericAIOwnerHurtByTarget(this));
 		this.targetTasks.addTask(2, new GenericAIOwnerHurtTarget(this));
 		this.targetTasks.addTask(3, new HurtByTargetGoal(this, true, new Class[0]));
 		this.targetTasks.addTask(5, new GenericAINearestAttackableTarget(this, AbstractSkeleton.class, false));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(14, new GenericAISleep<EntityAnimaniaDog>(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.dogBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.dogBed2), EntityAnimaniaDog.class));
+			this.goalSelector.addGoal(14, new GenericAISleep<EntityAnimaniaDog>(this, 0.8, AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.dogBed), AnimaniaHelper.getBlock(CatsDogsConfig.catsdogs.dogBed2), EntityAnimaniaDog.class));
 		}
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !this.isTamed())
 		{
@@ -169,7 +168,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.putBoolean("IsTamed", this.isTamed());
@@ -180,7 +179,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 		this.setTamed(compound.getBoolean("IsTamed"));
@@ -228,25 +227,25 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return HANDFED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
 	}
@@ -270,19 +269,19 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
 
 	@Override
-	public DataParameter<Integer> getVariantParam()
+	public EntityDataAccessor<Integer> getVariantParam()
 	{
 		return VARIANT;
 	}
@@ -436,7 +435,7 @@ public class EntityAnimaniaDog extends Wolf implements IAnimaniaAnimalBase, IVar
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}

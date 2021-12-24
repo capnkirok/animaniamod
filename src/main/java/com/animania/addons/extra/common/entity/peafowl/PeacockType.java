@@ -27,8 +27,6 @@ import com.animania.addons.extra.common.entity.peafowl.PeafowlWhite.EntityPeacoc
 import com.animania.addons.extra.common.entity.peafowl.PeafowlWhite.EntityPeafowlWhite;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.level.Level;
-
 public enum PeacockType implements AnimaniaType
 {
 	BLUE(EntityPeacockBlue.class, EntityPeafowlBlue.class, EntityPeachickBlue.class),
@@ -51,7 +49,7 @@ public enum PeacockType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityPeacockBase getMale(Level world)
+	public EntityPeacockBase getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -65,7 +63,7 @@ public enum PeacockType implements AnimaniaType
 		EntityPeacockBase male = null;
 		try
 		{
-			male = (EntityPeacockBase) constructor.newInstance(world);
+			male = (EntityPeacockBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -75,7 +73,7 @@ public enum PeacockType implements AnimaniaType
 	}
 
 	@Override
-	public EntityPeafowlBase getFemale(Level world)
+	public EntityPeafowlBase getFemale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -89,7 +87,7 @@ public enum PeacockType implements AnimaniaType
 		EntityPeafowlBase female = null;
 		try
 		{
-			female = (EntityPeafowlBase) constructor.newInstance(world);
+			female = (EntityPeafowlBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -99,7 +97,7 @@ public enum PeacockType implements AnimaniaType
 	}
 
 	@Override
-	public EntityPeachickBase getChild(Level world)
+	public EntityPeachickBase getChild(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -113,7 +111,7 @@ public enum PeacockType implements AnimaniaType
 		EntityPeachickBase child = null;
 		try
 		{
-			child = (EntityPeachickBase) constructor.newInstance(world);
+			child = (EntityPeachickBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

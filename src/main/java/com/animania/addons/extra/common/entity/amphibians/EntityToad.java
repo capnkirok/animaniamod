@@ -13,14 +13,13 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class EntityToad extends EntityAmphibian
 {
 
-	public EntityToad(Level worldIn)
+	public EntityToad(Level levelIn)
 	{
-		super(worldIn, true);
+		super(levelIn, true);
 	}
 
 	@Override

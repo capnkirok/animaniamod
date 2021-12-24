@@ -4,15 +4,13 @@ import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
 public class BlockFluidHoney extends BlockFluidBase
@@ -26,22 +24,22 @@ public class BlockFluidHoney extends BlockFluidBase
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, BlockState state, Entity entity)
+	public void onEntityCollidedWithBlock(Level level, BlockPos pos, BlockState state, Entity entity)
 	{
-		Vec3d vec = this.getFlowVector(world, pos);
+		Vec3d vec = this.getFlowVector(level, pos);
 		entity.addVelocity(vec.x / 2000, vec.y / 2000, vec.z / 2000);
 		if (entity instanceof LivingEntity)
 			((LivingEntity) entity).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 1, 0, false, false));
 	}
 
 	@Override
-	public MaterialColor getMaterialColor(BlockState state, IBlockAccess worldIn, BlockPos pos)
+	public MaterialColor getMaterialColor(BlockState state, IBlockAccess levelIn, BlockPos pos)
 	{
 		return MaterialColor.YELLOW;
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(BlockState state, IBlockAccess world, BlockPos pos, Direction side)
+	public boolean shouldSideBeRendered(BlockState state, IBlockAccess level, BlockPos pos, Direction side)
 	{
 		return true;
 	}

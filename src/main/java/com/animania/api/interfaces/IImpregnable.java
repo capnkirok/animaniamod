@@ -4,7 +4,6 @@ import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.world.entity.Entity;
 
 public interface IImpregnable extends IAnimaniaAnimal
 {	
@@ -55,14 +54,14 @@ public interface IImpregnable extends IAnimaniaAnimal
 	
 	default void setHasKids(boolean hasKids)
 	{
-		DataParameter<Boolean> param = getHasKidsParam();
+		EntityDataAccessor<Boolean> param = getHasKidsParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, hasKids);
 	}
 	
 	default boolean getHasKids()
 	{
-		DataParameter<Boolean> param = getHasKidsParam();
+		EntityDataAccessor<Boolean> param = getHasKidsParam();
 		if (param != null)
 			return this.getBoolFromDataManager(param);
 		return false;
@@ -71,14 +70,14 @@ public interface IImpregnable extends IAnimaniaAnimal
 	
 	default void setGestation(int gestation)
 	{
-		DataParameter<Integer> param = getGestationParam();
+		EntityDataAccessor<Integer> param = getGestationParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, gestation);
 	}
 	
 	default int getGestation()
 	{
-		DataParameter<Integer> param = getGestationParam();
+		EntityDataAccessor<Integer> param = getGestationParam();
 		if (param != null)
 			return this.getIntFromDataManager(param);
 		return 0;

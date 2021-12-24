@@ -14,10 +14,8 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
-import net.minecraft.world.entity.Entity;
 
 public class WailaEntityRamProvider extends WailaAnimalEntityProviderBase
 {
@@ -36,10 +34,10 @@ public class WailaEntityRamProvider extends WailaAnimalEntityProviderBase
     		}
 			
 			String mate = accessor.getNBTData().getString("MateUUID");
-			World world = entity.level;
+			Level level = entity.level;
 
 			if (!mate.equals("")) {
-				for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 20, world, entity)) {
+				for (Entity e : AnimaniaHelper.getEntitiesInRange(EntityBuckBase.class, 20, level, entity)) {
 					UUID id = e.getUUID();
 					if (id.toString().equals(mate)) {
 						String name = e.getCustomNameTag();
@@ -76,14 +74,14 @@ public class WailaEntityRamProvider extends WailaAnimalEntityProviderBase
 	}
 
 	@Override
-	public CompoundNBT getNBTData(ServerPlayerEntity player, Entity ent, CompoundNBT tag, World world) {
-		CompoundNBT comp = ent.getEntityData();
+	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level) {
+		CompoundTag comp = ent.getEntityData();
 
 		String mate = comp.getString("MateUUID");
 		if (!mate.equals(""))
 			tag.setString("MateUUID", mate);
 
-		return super.getNBTData(player, ent, tag, world);
+		return super.getNBTData(player, ent, tag, level);
 	}
 
 }

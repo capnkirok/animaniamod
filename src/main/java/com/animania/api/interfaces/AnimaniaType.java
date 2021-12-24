@@ -8,11 +8,11 @@ import net.minecraft.world.level.Level;
 public interface AnimaniaType
 {
 
-	public LivingEntity getMale(Level world);
+	public LivingEntity getMale(Level level);
 	
-	public LivingEntity getFemale(Level world);
+	public LivingEntity getFemale(Level level);
 	
-	public LivingEntity getChild(Level world);
+	public LivingEntity getChild(Level level);
 	
 	public static AnimaniaType valueOf(String type)
 	{

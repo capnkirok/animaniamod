@@ -3,7 +3,6 @@ package com.animania.addons.farm.common.entity.chickens.ai;
 import com.animania.addons.farm.common.entity.chickens.EntityAnimaniaChicken;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 

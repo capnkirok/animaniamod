@@ -2,7 +2,6 @@ package com.animania.addons.farm.common.entity.cows;
 
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
-import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
@@ -12,9 +11,9 @@ public class CowHolstein
 	public static class EntityBullHolstein extends EntityBullBase
 	{
 
-		public EntityBullHolstein(Level world)
+		public EntityBullHolstein(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.HOLSTEIN;
 		}
 
@@ -35,9 +34,9 @@ public class CowHolstein
 	public static class EntityCalfHolstein extends EntityCalfBase
 	{
 
-		public EntityCalfHolstein(Level world)
+		public EntityCalfHolstein(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.HOLSTEIN;
 		}
 
@@ -58,9 +57,9 @@ public class CowHolstein
 	public static class CowEntityHolstein extends CowEntityBase
 	{
 
-		public CowEntityHolstein(Level world)
+		public CowEntityHolstein(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.HOLSTEIN;
 			this.milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, FarmAddonBlockHandler.fluidMilkHolstein);
 		}

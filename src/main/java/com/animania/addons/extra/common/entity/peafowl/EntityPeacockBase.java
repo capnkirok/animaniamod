@@ -2,16 +2,14 @@ package com.animania.addons.extra.common.entity.peafowl;
 
 import com.animania.api.data.EntityGender;
 
-import net.minecraft.world.level.Level;
-
 public class EntityPeacockBase extends EntityAnimaniaPeacock
 {
 
 	
 	
-	public EntityPeacockBase(Level worldIn)
+	public EntityPeacockBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(0.8F, 1.6F); 
 		this.width = 0.8F;
 		this.height = 1.6F;

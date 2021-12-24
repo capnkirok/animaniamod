@@ -45,7 +45,7 @@ public class TileEntityNest extends BlockEntity implements Tickable
 	public CompoundTag writeToNBT(CompoundTag compound)
 	{
 		super.writeToNBT(compound);
-		CompoundNBT items = this.itemHandler.serializeNBT();
+		CompoundTag items = this.itemHandler.serializeNBT();
 		compound.putTag("items", items);
 		if (birdType != null)
 			compound.setString("birdType", birdType.toString());
@@ -53,7 +53,7 @@ public class TileEntityNest extends BlockEntity implements Tickable
 	}
 
 	@Override
-	public void readFromNBT(CompoundNBT compound)
+	public void readFromNBT(CompoundTag compound)
 	{
 		super.readFromNBT(compound);
 		this.itemHandler = new ItemHandlerNest(this);
@@ -87,15 +87,15 @@ public class TileEntityNest extends BlockEntity implements Tickable
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		CompoundNBT tagCompound = new CompoundNBT();
+		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public CompoundNBT getUpdateTag()
+	public CompoundTag getUpdateTag()
 	{
-		return this.writeToNBT(new CompoundNBT());
+		return this.writeToNBT(new CompoundTag());
 	}
 
 	@Override

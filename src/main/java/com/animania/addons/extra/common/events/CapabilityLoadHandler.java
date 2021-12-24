@@ -7,10 +7,9 @@ import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 import com.animania.addons.extra.network.CapSyncPacket;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.StartTracking;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -54,7 +53,7 @@ public class CapabilityLoadHandler
 	}
 
 	@SubscribeEvent
-	public static void entityJoinWorld(EntityJoinWorldEvent event)
+	public static void entityJoinLevel(EntityJoinLevelEvent event)
 	{
 		Entity e = event.getEntity();
 		if (e instanceof ServerPlayerEntity)

@@ -25,7 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagList;
@@ -37,9 +37,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
@@ -132,17 +130,17 @@ public class AnimaniaHelper
 
 	public static void sendTileEntityUpdate(TileEntity tile)
 	{
-		if (tile != null && tile.getWorld() != null && !tile.getWorld().isRemote)
+		if (tile != null && tile.getLevel() != null && !tile.getLevel().isRemote)
 		{
-			CompoundNBT compound = new CompoundNBT();
+			CompoundTag compound = new CompoundTag();
 			compound = tile.writeToNBT(compound);
 
-			CompoundNBT data = new CompoundNBT();
+			CompoundTag data = new CompoundTag();
 			data.putTag("data", compound);
 			data.putInteger("x", tile.getPos().getX());
 			data.putInteger("y", tile.getPos().getY());
 			data.putInteger("z", tile.getPos().getZ());
-			Animania.network.sendToAllAround(new TileEntitySyncPacket(data), new NetworkRegistry.TargetPoint(tile.getWorld().provider.getDimension(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), 64));
+			Animania.network.sendToAllAround(new TileEntitySyncPacket(data), new NetworkRegistry.TargetPoint(tile.getLevel().provider.getDimension(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), 64));
 		}
 
 	}
@@ -165,13 +163,13 @@ public class AnimaniaHelper
 			try
 			{
 				JsonElement element = json.get("nbt");
-				CompoundNBT nbt;
+				CompoundTag nbt;
 				if (element.isJsonObject())
 					nbt = JsonToNBT.getTagFromJson(GSON.toJson(element));
 				else
 					nbt = JsonToNBT.getTagFromJson(element.getAsString());
 
-				CompoundNBT tmp = new CompoundNBT();
+				CompoundTag tmp = new CompoundTag();
 				if (nbt.hasKey("ForgeCaps"))
 				{
 					tmp.putTag("ForgeCaps", nbt.getTag("ForgeCaps"));
@@ -199,29 +197,29 @@ public class AnimaniaHelper
 			player.dropItem(stack, false);
 	}
 
-	public static <T extends LivingEntity> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
+	public static <T extends LivingEntity> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, Level level, Entity theEntity)
 	{
-		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
+		List<T> list = level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
 		list.removeIf(e -> e == theEntity);
 		return list;
 	}
 
-	public static <T extends LivingEntity> List<T> getEntitiesInRangeWithPredicate(Class<? extends T> filterEntity, double range, World world, Entity theEntity, Predicate<T> predicate)
+	public static <T extends LivingEntity> List<T> getEntitiesInRangeWithPredicate(Class<? extends T> filterEntity, double range, Level level, Entity theEntity, Predicate<T> predicate)
 	{
-		List<T> list = getEntitiesInRange(filterEntity, range, world, theEntity);
+		List<T> list = getEntitiesInRange(filterEntity, range, level, theEntity);
 		list.removeIf(predicate.negate());
 		return list;
 	}
 
-	public static <T extends LivingEntity> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, World world, BlockPos pos)
+	public static <T extends LivingEntity> List<T> getEntitiesInRange(Class<? extends T> filterEntity, double range, Level level, BlockPos pos)
 	{
-		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range));
+		List<T> list = level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(pos.getX() - range, pos.getY() - range, pos.getZ() - range, pos.getX() + range, pos.getY() + range, pos.getZ() + range));
 		return list;
 	}
 
-	public static <T extends Entity> List<T> getEntitiesInRangeGeneric(Class<? extends T> filterEntity, double range, World world, Entity theEntity)
+	public static <T extends Entity> List<T> getEntitiesInRangeGeneric(Class<? extends T> filterEntity, double range, Level level, Entity theEntity)
 	{
-		List<T> list = world.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
+		List<T> list = level.<T> getEntitiesWithinAABB(filterEntity, new AxisAlignedBB(theEntity.getX() - range, theEntity.getY() - range, theEntity.getZ() - range, theEntity.getX() + range, theEntity.getY() + range, theEntity.getZ() + range));
 		return list;
 	}
 
@@ -480,8 +478,8 @@ public class AnimaniaHelper
 
 	public static ItemStack addTooltipToStack(ItemStack stack, String tooltip)
 	{
-		CompoundNBT tag = stack.hasTagCompound() ? stack.getTagCompound() : new CompoundNBT();
-		CompoundNBT display = new CompoundNBT();
+		CompoundTag tag = stack.hasTagCompound() ? stack.getTagCompound() : new CompoundTag();
+		CompoundTag display = new CompoundTag();
 		NBTTagList lore = new NBTTagList();
 		lore.appendTag(new NBTTagString(TextFormatting.GRAY + tooltip));
 		display.putTag("Lore", lore);
@@ -514,19 +512,19 @@ public class AnimaniaHelper
 
 	/*
 	 * Spawns entity and ensures the unique UUID. Does not re-roll the UUID on
-	 * remote worlds.
+	 * remote levels.
 	 */
-	public static boolean spawnEntity(World world, Entity entity)
+	public static boolean spawnEntity(Level level, Entity entity)
 	{
-		if (!world.isRemote)
+		if (!level.isRemote)
 		{
-			WorldServer ws = (WorldServer) world;
+			LevelServer ws = (LevelServer) level;
 			while (ws.getEntityFromUuid(entity.getUniqueID()) != null)
 			{
 				entity.setUniqueId(MathHelper.getRandomUUID(Animania.RANDOM));
 			}
 		}
 
-		return world.spawnEntity(entity);
+		return level.spawnEntity(entity);
 	}
 }

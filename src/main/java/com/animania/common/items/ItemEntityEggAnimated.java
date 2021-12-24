@@ -6,9 +6,7 @@ import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.entity.EntityList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class ItemEntityEggAnimated extends ItemEntityEgg
 {
@@ -18,10 +16,10 @@ public class ItemEntityEggAnimated extends ItemEntityEgg
 		super(atype, animal, gender);
 	}
 
-	public static Entity getEntity(Level world, ItemStack stack)
+	public static Entity getEntity(Level level, ItemStack stack)
 	{
 		String entityName = Animania.MODID + ":" + ((ItemEntityEggAnimated) stack.getItem()).getName().replace("entity_egg_", "");
-		Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(entityName), world);
+		Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(entityName), level);
 
 		return entity;
 	}

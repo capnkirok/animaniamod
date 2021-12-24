@@ -8,9 +8,7 @@ import com.animania.addons.farm.common.inventory.ContainerHorseCart;
 import com.animania.api.addons.IAddonGuiHandler;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 public class FarmAddonGUIHandler implements IAddonGuiHandler
 {
@@ -18,7 +16,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 	private int idOffset = 0;
 
 	@Override
-	public Object getServerGuiElement(int id, Player player, Level world, int x, int y, int z)
+	public Object getServerGuiElement(int id, Player player, Level level, int x, int y, int z)
 	{
 		int esize;
 		Entity entity;
@@ -27,12 +25,12 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 		switch (id)
 		{
 		case 0:
-			esize = world.loadedEntityList.size();
+			esize = level.loadedEntityList.size();
 			entityID = 0;
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = world.loadedEntityList.get(k);
+				entity = level.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -44,12 +42,12 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 			break;
 
 		case 1:
-			esize = world.loadedEntityList.size();
+			esize = level.loadedEntityList.size();
 			entityID = 0;
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = world.loadedEntityList.get(k);
+				entity = level.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -61,12 +59,12 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 			break;
 
 		case 2:
-			esize = world.loadedEntityList.size();
+			esize = level.loadedEntityList.size();
 			entityID = 0;
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = world.loadedEntityList.get(k);
+				entity = level.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -81,7 +79,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 	}
 
 	@Override
-	public Object getClientGuiElement(int id, PlayerEntity player, World world, int x, int y, int z)
+	public Object getClientGuiElement(int id, PlayerEntity player, Level level, int x, int y, int z)
 	{
 		int esize;
 		Entity entity;
@@ -90,12 +88,12 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 		switch (id)
 		{
 		case 0:
-			esize = world.loadedEntityList.size();
+			esize = level.loadedEntityList.size();
 			entityID = 0;
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = world.loadedEntityList.get(k);
+				entity = level.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -108,12 +106,12 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 			break;
 
 		case 1:
-			esize = world.loadedEntityList.size();
+			esize = level.loadedEntityList.size();
 			entityID = 0;
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = world.loadedEntityList.get(k);
+				entity = level.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{
@@ -126,12 +124,12 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 			break;
 
 		case 2:
-			esize = world.loadedEntityList.size();
+			esize = level.loadedEntityList.size();
 			entityID = 0;
 			for (int k = 0; k <= esize - 1; k++)
 			{
 
-				entity = world.loadedEntityList.get(k);
+				entity = level.loadedEntityList.get(k);
 				entityID = entity.getEntityId();
 				if (entityID == x)
 				{

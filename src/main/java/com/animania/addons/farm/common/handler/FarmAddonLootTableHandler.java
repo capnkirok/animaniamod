@@ -2,8 +2,8 @@ package com.animania.addons.farm.common.handler;
 
 import com.animania.Animania;
 
+import net.minecraft.level.storage.loot.LootTableList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.storage.loot.LootTableList;
 
 public class FarmAddonLootTableHandler
 {

@@ -7,7 +7,6 @@ import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
 
 public enum HamsterType implements AnimaniaType
 {
@@ -20,7 +19,7 @@ public enum HamsterType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityHamster getMale(Level world)
+	public EntityHamster getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -34,7 +33,7 @@ public enum HamsterType implements AnimaniaType
 		EntityHamster hamster = null;
 		try
 		{
-			hamster = (EntityHamster) constructor.newInstance(world);
+			hamster = (EntityHamster) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -44,13 +43,13 @@ public enum HamsterType implements AnimaniaType
 	}
 
 	@Override
-	public LivingEntity getFemale(Level world)
+	public LivingEntity getFemale(Level level)
 	{
 		return null;
 	}
 
 	@Override
-	public LivingEntity getChild(Level world)
+	public LivingEntity getChild(Level level)
 	{
 		return null;
 	}

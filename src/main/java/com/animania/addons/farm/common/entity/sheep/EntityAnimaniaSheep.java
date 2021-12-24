@@ -54,16 +54,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemShears;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.level.IBlockAccess;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -77,18 +76,18 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 {
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.sheepFood));
-	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Optional<UUID>> RIVAL_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityAnimaniaSheep.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean> createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> SHEARED_TIMER = EntityDataManager.<Integer> createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer> createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaSheep.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Integer> DYE_COLOR = EntityDataManager.<Integer> createKey(EntityAnimaniaSheep.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaSheep.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaSheep.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> RIVAL_UNIQUE_ID = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final EntityDataAccessor<Boolean> SHEARED = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> SHEARED_TIMER = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> HANDFED = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Integer> DYE_COLOR = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaSheep.class, EntityDataSerializers.BOOLEAN);
 
 	private static final String[] SHEEP_TEXTURES = new String[] { "black", "white", "brown" };
 
@@ -106,30 +105,30 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	protected EnumDyeColor color;
 	protected boolean hasRemovedBOP = false;
 
-	public EntityAnimaniaSheep(World worldIn)
+	public EntityAnimaniaSheep(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaSheep>(this);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaSheep>(this, 1.0D, entityAIEatGrass, EntityAnimaniaSheep.class));
-			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaSheep>(this, 1.0D, entityAIEatGrass, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaSheep>(this, 1.0D, entityAIEatGrass, EntityAnimaniaSheep.class));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaSheep>(this, 1.0D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new SwimmingGoal(this));
-		this.tasks.addTask(6, new GenericAIPanic<EntityAnimaniaSheep>(this, 2.2D));
-		this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
-		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, new ItemStack(Blocks.YELLOW_FLOWER), false));
-		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, new ItemStack(Blocks.RED_FLOWER), false));
-		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 2.0D, 2.2D));
-		this.tasks.addTask(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaSheep>(this));
-		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaSheep>(this, 1.0, entityAIEatGrass));
+		this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.0D));
+		this.goalSelector.addGoal(5, new SwimmingGoal(this));
+		this.goalSelector.addGoal(6, new GenericAIPanic<EntityAnimaniaSheep>(this, 2.2D));
+		this.goalSelector.addGoal(7, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, false, EntityAnimaniaSheep.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, new ItemStack(Blocks.YELLOW_FLOWER), false));
+		this.goalSelector.addGoal(6, new GenericAITempt<EntityAnimaniaSheep>(this, 1.25D, new ItemStack(Blocks.RED_FLOWER), false));
+		this.goalSelector.addGoal(8, this.entityAIEatGrass);
+		this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 2.0D, 2.2D));
+		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaSheep>(this));
+		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaSheep>(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(11, new GenericAISleep<EntityAnimaniaSheep>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.sheepBed), AnimaniaHelper.getBlock(FarmConfig.settings.sheepBed2), EntityAnimaniaSheep.class));
+			this.goalSelector.addGoal(11, new GenericAISleep<EntityAnimaniaSheep>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.sheepBed), AnimaniaHelper.getBlock(FarmConfig.settings.sheepBed2), EntityAnimaniaSheep.class));
 		}
 		if (AddonHandler.isAddonLoaded("catsdogs"))
 		{
@@ -228,31 +227,31 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return HANDFED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
@@ -433,7 +432,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 
@@ -446,7 +445,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 
@@ -458,7 +457,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
@@ -498,7 +497,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)
+	public boolean isShearable(ItemStack item, IBlockAccess level, BlockPos pos)
 	{
 		if (!this.getSheared() && !this.isChild())
 		{
@@ -510,7 +509,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune)
 	{
 		return null;
 	}
@@ -578,7 +577,7 @@ public class EntityAnimaniaSheep extends Sheep implements Shearable, IAnimaniaAn
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}

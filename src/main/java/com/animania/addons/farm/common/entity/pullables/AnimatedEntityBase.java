@@ -5,9 +5,6 @@ import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.IAnimated;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedEntity;
 
-import net.minecraft.world.World;
-import net.minecraft.world.entity.Entity;
-
 public abstract class AnimatedEntityBase extends Entity implements IAnimated
 {
 	/** The animation handler of this type of entity. */
@@ -22,8 +19,8 @@ public abstract class AnimatedEntityBase extends Entity implements IAnimated
 	}
 
 	/** The constructor of the entity. */
-	public AnimatedEntityBase(World worldIn) {
-		super(worldIn);
+	public AnimatedEntityBase(Level levelIn) {
+		super(levelIn);
 	}
 
 	// You must call super.onLivingUpdate(), in your entity, or call the
@@ -61,7 +58,7 @@ public abstract class AnimatedEntityBase extends Entity implements IAnimated
 	}
 
 	@Override
-	public boolean isWorldRemote() {
+	public boolean isLevelRemote() {
 		return this.level.isRemote;
 	}
 }

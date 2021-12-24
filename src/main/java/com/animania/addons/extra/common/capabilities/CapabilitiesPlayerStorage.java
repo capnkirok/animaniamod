@@ -4,7 +4,7 @@ import java.util.concurrent.Callable;
 
 import NBTBase;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTBase;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
@@ -18,12 +18,12 @@ public class CapabilitiesPlayerStorage implements IStorage<ICapabilityPlayer> {
 
 	  @Override
 	  public void readNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side, NBTBase nbt) {
-	    CapabilityPlayerHandler.readNBT(capability, instance, (CompoundNBT) nbt);
+	    CapabilityPlayerHandler.readNBT(capability, instance, (CompoundTag) nbt);
 	  }
 	  
 	  
 	  public ICapabilityPlayer readNBT2(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, Direction side, NBTBase nbt) {
-	    CapabilityPlayerHandler.readNBT(capability, instance, (CompoundNBT) nbt);
+	    CapabilityPlayerHandler.readNBT(capability, instance, (CompoundTag) nbt);
 	    
 	    return instance;
 	  }

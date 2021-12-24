@@ -21,7 +21,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.EnumAction;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.StatList;
@@ -30,7 +30,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -49,7 +48,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 	}
 
 	@Override
-	public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, CompoundNBT nbt)
+	public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, CompoundTag nbt)
 	{
 		return new FluidHandlerHoneyBottle(stack);
 	}
@@ -83,7 +82,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, EnumHand handIn)
+	public ActionResult<ItemStack> onItemRightClick(Level levelIn, PlayerEntity playerIn, EnumHand handIn)
 	{
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 
@@ -98,7 +97,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 	}
 
 	@Override
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity LivingEntity)
+	public ItemStack onItemUseFinish(ItemStack stack, Level levelIn, LivingEntity LivingEntity)
 	{
 		if (LivingEntity instanceof PlayerEntity)
 		{
@@ -109,7 +108,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 				PlayerEntity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 1));
 
 			PlayerEntity.addStat(StatList.getObjectUseStats(this));
-			worldIn.playSound((PlayerEntity) null, PlayerEntity.getX(), PlayerEntity.getY(), PlayerEntity.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+			levelIn.playSound((PlayerEntity) null, PlayerEntity.getX(), PlayerEntity.getY(), PlayerEntity.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, levelIn.rand.nextFloat() * 0.1F + 0.9F);
 
 			if (PlayerEntity instanceof ServerPlayerEntity)
 			{
@@ -123,7 +122,7 @@ public class ItemHoneyBottle extends AnimaniaItem
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+	public void addInformation(ItemStack stack, Level levelIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
 		if (AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 		{

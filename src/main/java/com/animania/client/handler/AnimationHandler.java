@@ -9,8 +9,8 @@ import com.animania.api.data.Pose;
 import com.animania.api.rendering.ModelPose;
 import com.google.common.base.Supplier;
 
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,7 +22,7 @@ public class AnimationHandler
 	private static final Map<Pair, ModelPose> handlers = new HashMap<>();
 
 	@SubscribeEvent
-	public static void onWorldLeave(WorldEvent.Unload event)
+	public static void onLevelLeave(LevelEvent.Unload event)
 	{
 		handlers.clear();
 	}

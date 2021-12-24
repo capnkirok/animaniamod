@@ -1,16 +1,14 @@
 package com.animania.addons.farm.common.entity.cows;
 
-import net.minecraft.world.level.Level;
-
 public class CowLonghorn
 {
 
 	public static class EntityBullLonghorn extends EntityBullBase
 	{
 
-		public EntityBullLonghorn(Level world)
+		public EntityBullLonghorn(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.LONGHORN;
 		}
 
@@ -31,9 +29,9 @@ public class CowLonghorn
 	public static class CowEntityLonghorn extends CowEntityBase
 	{
 
-		public CowEntityLonghorn(Level world)
+		public CowEntityLonghorn(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.LONGHORN;
 		}
 
@@ -54,9 +52,9 @@ public class CowLonghorn
 	public static class EntityCalfLonghorn extends EntityCalfBase
 	{
 
-		public EntityCalfLonghorn(Level world)
+		public EntityCalfLonghorn(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.LONGHORN;
 		}
 

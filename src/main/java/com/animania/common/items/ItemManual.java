@@ -10,7 +10,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemManual extends AnimaniaItem
@@ -23,10 +22,10 @@ public class ItemManual extends AnimaniaItem
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, EnumHand hand)
+	public ActionResult<ItemStack> onItemRightClick(Level level, PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		if (world.isRemote)
+		if (level.isRemote)
 		{
 			if (player instanceof PlayerEntitySP)
 			{

@@ -23,13 +23,11 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
@@ -42,15 +40,15 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 {
 	protected ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, FarmAddonBlockHandler.fluidMilkSheep);
 	public int dryTimer;
-	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> createKey(EntityEweBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> createKey(EntityEweBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> createKey(EntityEweBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> createKey(EntityEweBase.class, DataSerializers.VARINT);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityEweBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(EntityEweBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> HAS_KIDS = SynchedEntityData.defineId(EntityEweBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FERTILE = SynchedEntityData.defineId(EntityEweBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> GESTATION_TIMER = SynchedEntityData.defineId(EntityEweBase.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.defineId(EntityEweBase.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
 
-	public EntityEweBase(World worldIn)
+	public EntityEweBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.0F, 1.0F);
 		this.width = 1.0F;
 		this.height = 1.0F;
@@ -88,19 +86,19 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	}
 
 	@Override
-	public DataParameter<Integer> getGestationParam()
+	public EntityDataAccessor<Integer> getGestationParam()
 	{
 		return GESTATION_TIMER;
 	}
 
 	@Override
-	public DataParameter<Boolean> getFertileParam()
+	public EntityDataAccessor<Boolean> getFertileParam()
 	{
 		return FERTILE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHasKidsParam()
+	public EntityDataAccessor<Boolean> getHasKidsParam()
 	{
 		return HAS_KIDS;
 	}
@@ -149,7 +147,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack) && this.getHasKids())
 		{
-			if (!world.isRemote)
+			if (!level.isRemote)
 			{
 				player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 
@@ -188,7 +186,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
@@ -230,11 +228,11 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 		}
 
-		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
 	@Override
-	public DataParameter<Boolean> getPregnantParam()
+	public EntityDataAccessor<Boolean> getPregnantParam()
 	{
 		return PREGNANT;
 	}
@@ -252,7 +250,7 @@ public class EntityEweBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}

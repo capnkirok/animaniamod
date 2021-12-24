@@ -1,16 +1,14 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
-import net.minecraft.world.level.Level;
-
 public class DogCorgi
 {
 
 	public static class EntityFemaleCorgi extends EntityFemaleDogBase
 	{
 	
-		public EntityFemaleCorgi(Level world)
+		public EntityFemaleCorgi(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.CORGI;
 		}
 		
@@ -30,9 +28,9 @@ public class DogCorgi
 	public static class EntityMaleCorgi extends EntityMaleDogBase
 	{
 	
-		public EntityMaleCorgi(Level world)
+		public EntityMaleCorgi(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.CORGI;
 		}
 		
@@ -52,9 +50,9 @@ public class DogCorgi
 	public static class EntityPuppyCorgi extends EntityPuppyBase
 	{
 	
-		public EntityPuppyCorgi(Level world)
+		public EntityPuppyCorgi(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.CORGI;
 		}
 		

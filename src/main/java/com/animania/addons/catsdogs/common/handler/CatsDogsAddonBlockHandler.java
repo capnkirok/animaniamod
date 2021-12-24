@@ -5,8 +5,6 @@ import com.animania.addons.catsdogs.common.block.BlockProp;
 import com.animania.addons.catsdogs.common.tileentity.TileEntityPetBowl;
 import com.animania.addons.catsdogs.common.tileentity.TileEntityProp;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

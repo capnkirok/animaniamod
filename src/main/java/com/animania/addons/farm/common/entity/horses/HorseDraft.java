@@ -1,16 +1,14 @@
 package com.animania.addons.farm.common.entity.horses;
 
-import net.minecraft.world.level.Level;
-
 public class HorseDraft
 {
 
 	public static class EntityFoalDraftHorse extends EntityFoalBase
 	{
 
-		public EntityFoalDraftHorse(Level world)
+		public EntityFoalDraftHorse(Level level)
 		{
-			super(world);
+			super(level);
 			this.horseType = HorseType.DRAFT;
 		}
 
@@ -31,9 +29,9 @@ public class HorseDraft
 	public static class EntityStallionDraftHorse extends EntityStallionBase
 	{
 
-		public EntityStallionDraftHorse(Level world)
+		public EntityStallionDraftHorse(Level level)
 		{
-			super(world);
+			super(level);
 			this.horseType = horseType.DRAFT;
 		}
 
@@ -54,9 +52,9 @@ public class HorseDraft
 	public static class EntityMareDraftHorse extends EntityMareBase
 	{
 
-		public EntityMareDraftHorse(Level world)
+		public EntityMareDraftHorse(Level level)
 		{
-			super(world);
+			super(level);
 			this.horseType = HorseType.DRAFT;
 		}
 

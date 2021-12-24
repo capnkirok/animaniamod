@@ -1,15 +1,13 @@
 package com.animania.addons.catsdogs.common.entity.felids;
 
-import net.minecraft.world.level.Level;
-
 public class CatOcelot
 {
 
 	public static class EntityTomOcelot extends EntityTomBase
 	{
-		public EntityTomOcelot(Level worldIn)
+		public EntityTomOcelot(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = CatType.OCELOT;
 		}
 	
@@ -27,9 +25,9 @@ public class CatOcelot
 	}
 
 	public static class EntityQueenOcelot extends EntityQueenBase {
-		public EntityQueenOcelot(Level worldIn)
+		public EntityQueenOcelot(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = CatType.OCELOT;
 		}
 		
@@ -47,9 +45,9 @@ public class CatOcelot
 	}
 
 	public static class EntityKittenOcelot extends EntityKittenBase {
-		public EntityKittenOcelot(Level worldIn)
+		public EntityKittenOcelot(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = CatType.OCELOT;
 		}
 		

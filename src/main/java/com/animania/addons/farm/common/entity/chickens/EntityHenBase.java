@@ -20,32 +20,31 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
-import net.minecraft.world.level.Level;
 
 public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
 
-	protected static final EntityDataAccessor<Boolean> LAID = SynchedEntityData.<Boolean> defineId(EntityHenBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Integer> LAID_TIMER = SynchedEntityData.<Integer> defineId(EntityHenBase.class, EntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Boolean> LAID = SynchedEntityData.<Boolean> defineId(EntityHenBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> LAID_TIMER = SynchedEntityData.<Integer> defineId(EntityHenBase.class, EntityEntityDataSerializers.INT);
 
-	public EntityHenBase(Level worldIn)
+	public EntityHenBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(0.5F, 0.7F);
 		this.width = 0.5F;
 		this.height = 0.7F;
-		this.tasks.addTask(6, new FindNestGoal(this, 1.0D));
-		this.tasks.addTask(9, new LeapAtTargetGoal(this, 0.2F));
-		this.tasks.addTask(10, new AttackMeleeGoal(this, 1.0D, true));
+		this.goalSelector.addGoal(6, new FindNestGoal(this, 1.0D));
+		this.goalSelector.addGoal(9, new LeapAtTargetGoal(this, 0.2F));
+		this.goalSelector.addGoal(10, new AttackMeleeGoal(this, 1.0D, true));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
 			AddonInjectionHandler.runInjection("extra", "attackFrogs", null, this);
@@ -70,12 +69,12 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 			if (chooser == 0)
 			{
-				EntityRoosterBase ChickenEntity = this.type.getMale(world);
+				EntityRoosterBase ChickenEntity = this.type.getMale(level);
 				ChickenEntity.setPosition(this.getX(), this.getY(), this.getZ());
 				AnimaniaHelper.spawnEntity(this.level, ChickenEntity);
 			} else if (chooser == 1)
 			{
-				EntityChickBase ChickenEntity = this.type.getChild(world);
+				EntityChickBase ChickenEntity = this.type.getChild(level);
 				ChickenEntity.setPosition(this.getX(), this.getY(), this.getZ());
 				AnimaniaHelper.spawnEntity(this.level, ChickenEntity);
 			}
@@ -137,21 +136,21 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT CompoundNBT)
+	public void writeEntityToNBT(CompoundTag CompoundTag)
 	{
-		super.writeEntityToNBT(CompoundNBT);
-		CompoundNBT.putBoolean("Laid", this.getLaid());
-		CompoundNBT.putInteger("EggLayTime", timeUntilNextEgg);
-		CompoundNBT.putInteger("LaidTimer", this.getLaidTimer());
+		super.writeEntityToNBT(CompoundTag);
+		CompoundTag.putBoolean("Laid", this.getLaid());
+		CompoundTag.putInteger("EggLayTime", timeUntilNextEgg);
+		CompoundTag.putInteger("LaidTimer", this.getLaidTimer());
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT CompoundNBT)
+	public void readEntityFromNBT(CompoundTag CompoundTag)
 	{
-		super.readEntityFromNBT(CompoundNBT);
-		this.timeUntilNextEgg = CompoundNBT.getInteger("EggLayTime");
-		this.setLaid(CompoundNBT.getBoolean("Laid"));
-		this.setLaidTimer(CompoundNBT.getInteger("LaidTimer"));
+		super.readEntityFromNBT(CompoundTag);
+		this.timeUntilNextEgg = CompoundTag.getInteger("EggLayTime");
+		this.setLaid(CompoundTag.getBoolean("Laid"));
+		this.setLaidTimer(CompoundTag.getInteger("LaidTimer"));
 	}
 
 	public int getLaidTimer()
@@ -213,7 +212,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
@@ -228,7 +227,7 @@ public class EntityHenBase extends EntityAnimaniaChicken implements TOPInfoProvi
 				probeInfo.text(I18n.translateToLocal("text.waila.egglay2"));
 			}
 		}
-		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
 }

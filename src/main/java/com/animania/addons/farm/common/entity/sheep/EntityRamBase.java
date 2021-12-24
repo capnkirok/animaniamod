@@ -27,23 +27,22 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final EntityDataAccessor<Boolean> FIGHTING = SynchedEntityData.<Boolean> defineId(EntityRamBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityRamBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityRamBase.class, EntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Boolean> FIGHTING = SynchedEntityData.<Boolean> defineId(EntityRamBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityRamBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityRamBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
 
-	public EntityRamBase(Level worldIn)
+	public EntityRamBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.2F, 1.0F);
 		this.width = 1.2F;
 		this.height = 1.0F;
@@ -51,13 +50,13 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 		this.gender = EntityGender.MALE;
 		this.headbutting = true;
 		this.mateable = true;
-		// this.tasks.addTask(3, new FollowMateSheepGoal(this, 1.1D));
+		// this.goalSelector.addGoal(3, new FollowMateSheepGoal(this, 1.1D));
 		if (!getSterilized())
-			this.tasks.addTask(5, new GenericAIMate<EntityRamBase, EntityEweBase>(this, 1.0D, EntityEweBase.class, EntityLambBase.class, EntityAnimaniaSheep.class));
+			this.goalSelector.addGoal(5, new GenericAIMate<EntityRamBase, EntityEweBase>(this, 1.0D, EntityEweBase.class, EntityLambBase.class, EntityAnimaniaSheep.class));
 
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
 		{
-			this.tasks.addTask(3, new ButtHeadsSheepGoal(this, 1.3D));
+			this.goalSelector.addGoal(3, new ButtHeadsSheepGoal(this, 1.3D));
 		}
 	}
 
@@ -158,7 +157,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
@@ -176,11 +175,11 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 
 		}
 
-		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
 	@Override
-	public DataParameter<Boolean> getSterilizedParam()
+	public EntityDataAccessor<Boolean> getSterilizedParam()
 	{
 		return STERILIZED;
 	}
@@ -204,7 +203,7 @@ public class EntityRamBase extends EntityAnimaniaSheep implements TOPInfoProvide
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}

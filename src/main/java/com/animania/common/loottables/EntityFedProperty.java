@@ -9,8 +9,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 
+import net.minecraft.level.storage.loot.properties.EntityProperty;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.storage.loot.properties.EntityProperty;
 
 public class EntityFedProperty implements EntityProperty	
 {

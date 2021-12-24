@@ -16,13 +16,12 @@ import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileE
 import cofh.redstoneflux.api.IEnergyReceiver;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.world.World;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -44,7 +43,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 	private boolean isRunning;
 	private EntityHamster hamster;
-	private CompoundNBT hamsterNBT;
+	private CompoundTag hamsterNBT;
 	private ItemHandlerHamsterWheel itemHandler;
 	private int timer;
 	private EnergyStorage power;
@@ -61,7 +60,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	{
 		if (hamster == null && hamsterNBT != null)
 		{
-			hamster = new EntityHamster(world);
+			hamster = new EntityHamster(level);
 			hamster.readFromNBT(hamsterNBT);
 		}
 
@@ -163,11 +162,11 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 	public void ejectHamster()
 	{
-		if (hamster != null && !world.isRemote)
+		if (hamster != null && !level.isRemote)
 		{
 			if (findPositionForHamster())
 			{
-			AnimaniaHelper.spawnEntity(	world, hamster);
+			AnimaniaHelper.spawnEntity(	level, hamster);
 				hamster.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
 				// this.hamster.setWatered(false);
 				this.hamster.setFed(false);
@@ -175,7 +174,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 				this.hamsterNBT = null;
 			} else
 			{
-				world.playSound(pos.getX(), pos.getY(), pos.getZ(), ExtraAddonSoundHandler.hamsterDeath, SoundCategory.AMBIENT, 1.0F, 1.0F, false);
+				level.playSound(pos.getX(), pos.getY(), pos.getZ(), ExtraAddonSoundHandler.hamsterDeath, SoundCategory.AMBIENT, 1.0F, 1.0F, false);
 				this.hamster = null;
 				this.hamsterNBT = null;
 			}
@@ -193,7 +192,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 		{
 			BlockPos pos = this.pos;
 			pos = pos.offset(e);
-			BlockState state = world.getBlockState(pos);
+			BlockState state = level.getBlockState(pos);
 
 			if (!state.isOpaqueCube() && !state.isFullCube() && state.getBlock() != ExtraAddonBlockHandler.blockHamsterWheel)
 			{
@@ -205,14 +204,14 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	}
 
 	@Override
-	public CompoundNBT writeToNBT(CompoundNBT compound)
+	public CompoundTag writeToNBT(CompoundTag compound)
 	{
-		CompoundNBT tag = super.writeToNBT(compound);
+		CompoundTag tag = super.writeToNBT(compound);
 		tag.putInteger("energy", power.getEnergyStored());
 		tag.putBoolean("running", isRunning);
 		tag.putInteger("timer", this.timer);
-		CompoundNBT hamster = new CompoundNBT();
-		CompoundNBT items = this.itemHandler.serializeNBT();
+		CompoundTag hamster = new CompoundTag();
+		CompoundTag items = this.itemHandler.serializeNBT();
 		tag.putTag("hamster", ((this.hamster == null) ? hamster : this.hamster.writeToNBT(hamster)));
 		tag.putTag("items", items);
 		return tag;
@@ -220,13 +219,13 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	}
 
 	@Override
-	public void readFromNBT(CompoundNBT compound)
+	public void readFromNBT(CompoundTag compound)
 	{
 		super.readFromNBT(compound);
 		this.power = new EnergyStorage(ExtraConfig.settings.hamsterWheelCapacity);
 		this.power.receiveEnergy(compound.getInteger("energy"), false);
-		CompoundNBT hamster = compound.getCompoundTag("hamster");
-		if (!hamster.equals(new CompoundNBT()))
+		CompoundTag hamster = compound.getCompoundTag("hamster");
+		if (!hamster.equals(new CompoundTag()))
 			this.hamsterNBT = hamster;
 		else
 		{
@@ -241,7 +240,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	}
 
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newState)
+	public boolean shouldRefresh(Level level, BlockPos pos, BlockState oldState, BlockState newState)
 	{
 
 		return (oldState.getBlock() != newState.getBlock());
@@ -261,21 +260,21 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		CompoundNBT tagCompound = new CompoundNBT();
+		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public CompoundNBT getUpdateTag()
+	public CompoundTag getUpdateTag()
 	{
-		return this.writeToNBT(new CompoundNBT());
+		return this.writeToNBT(new CompoundTag());
 	}
 
 	private TileEntity getSurroundingTE(Direction facing)
 	{
 		BlockPos pos = this.pos.offset(facing);
-		return world.getTileEntity(pos);
+		return level.getTileEntity(pos);
 	}
 
 	public ItemHandlerHamsterWheel getItemHandler()
@@ -332,7 +331,7 @@ public class TileEntityHamsterWheel extends AnimatedTileEntity implements ITicka
 
 	private void updateAnims()
 	{
-		if (this.isWorldRemote())
+		if (this.isLevelRemote())
 		{
 			if (this.isRunning && !this.getAnimationHandler().isAnimationActive(Animania.MODID, "anim_hamster_wheel", this))
 			{

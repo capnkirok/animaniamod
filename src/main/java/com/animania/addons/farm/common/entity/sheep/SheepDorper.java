@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class SheepDorper
 {
@@ -14,9 +13,9 @@ public class SheepDorper
 	public static class EntityRamDorper extends EntityRamBase
 	{
 	
-		public EntityRamDorper(Level worldIn)
+		public EntityRamDorper(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.DORPER;
 		}
 	
@@ -33,7 +32,7 @@ public class SheepDorper
 		}
 		
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune) {
 			
 			this.setSheared(true);
 			int i = 1 + this.rand.nextInt(2);
@@ -55,9 +54,9 @@ public class SheepDorper
 	public static class EntityLambDorper extends EntityLambBase
 	{
 	
-		public EntityLambDorper(World worldIn)
+		public EntityLambDorper(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.DORPER;
 		}
 		
@@ -77,9 +76,9 @@ public class SheepDorper
 	public static class EntityEweDorper extends EntityEweBase
 	{
 	
-		public EntityEweDorper(World worldIn)
+		public EntityEweDorper(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.DORPER;
 		}
 		
@@ -96,7 +95,7 @@ public class SheepDorper
 		}
 	
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune) {
 			
 			this.setSheared(true);
 			int i = 1 + this.rand.nextInt(2);

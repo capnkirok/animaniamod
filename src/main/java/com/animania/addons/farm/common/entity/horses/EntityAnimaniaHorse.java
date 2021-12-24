@@ -37,9 +37,9 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
@@ -48,7 +48,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -61,14 +60,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, IConvertable
 {
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.horseFood));
-	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer> createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaHorse.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaHorse.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaHorse.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaHorse.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.defineId(EntityAnimaniaHorse.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.defineId(EntityAnimaniaHorse.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaHorse.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> HANDFED = SynchedEntityData.defineId(EntityAnimaniaHorse.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaHorse.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaHorse.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaHorse.class, EntityDataSerializers.BOOLEAN);
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -89,31 +88,31 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	protected int boostTime;
 	protected int totalBoostTime;
 
-	public EntityAnimaniaHorse(World worldIn)
+	public EntityAnimaniaHorse(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.stepHeight = 1.2F;
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new HorseEntityEatGrass(this);
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, EntityAnimaniaHorse.class));
-			this.tasks.addTask(1, new GenericAIFindFood<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, true));
+			this.goalSelector.addGoal(1, new GenericAIFindWater<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, EntityAnimaniaHorse.class));
+			this.goalSelector.addGoal(1, new GenericAIFindFood<EntityAnimaniaHorse>(this, 1.0D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(0, new GenericAIPanic<EntityAnimaniaHorse>(this, 2.0D));
-		this.tasks.addTask(2, new FollowMateHorsesGoal(this, 1.1D));
-		this.tasks.addTask(3, new WanderHorsesGoal(this, 1.0D));
-		this.tasks.addTask(4, new SwimmingGoal(this));
-		this.tasks.addTask(5, new GenericAITempt<EntityAnimaniaHorse>(this, 1.25D, false, TEMPTATION_ITEMS));
-		this.tasks.addTask(6, this.entityAIEatGrass);
-		this.tasks.addTask(7, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(8, new LookIdleHorsesGoal(this));
-		this.tasks.addTask(9, new GenericAIFindSaltLick<EntityAnimaniaHorse>(this, 1.0, entityAIEatGrass));
+		this.goalSelector.addGoal(0, new GenericAIPanic<EntityAnimaniaHorse>(this, 2.0D));
+		this.goalSelector.addGoal(2, new FollowMateHorsesGoal(this, 1.1D));
+		this.goalSelector.addGoal(3, new WanderHorsesGoal(this, 1.0D));
+		this.goalSelector.addGoal(4, new SwimmingGoal(this));
+		this.goalSelector.addGoal(5, new GenericAITempt<EntityAnimaniaHorse>(this, 1.25D, false, TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(6, this.entityAIEatGrass);
+		this.goalSelector.addGoal(7, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(8, new LookIdleHorsesGoal(this));
+		this.goalSelector.addGoal(9, new GenericAIFindSaltLick<EntityAnimaniaHorse>(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(10, new GenericAISleep<EntityAnimaniaHorse>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.horseBed), AnimaniaHelper.getBlock(FarmConfig.settings.horseBed2), EntityAnimaniaHorse.class));
+			this.goalSelector.addGoal(10, new GenericAISleep<EntityAnimaniaHorse>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.horseBed), AnimaniaHelper.getBlock(FarmConfig.settings.horseBed2), EntityAnimaniaHorse.class));
 		}
-		this.tasks.addTask(11, new HurtByTargetGoal(this, false, new Class[0]));
+		this.goalSelector.addGoal(11, new HurtByTargetGoal(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + rand.nextInt(100);
 		this.happyTimer = 60;
@@ -199,7 +198,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 			{
 
 				PlayerEntity player = (PlayerEntity) passenger;
-				List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
+				List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, level, this);
 
 				if (!wagons.isEmpty())
 				{
@@ -308,37 +307,37 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return HANDFED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
@@ -543,7 +542,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 
@@ -554,7 +553,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 
@@ -658,7 +657,7 @@ public class EntityAnimaniaHorse extends Horse implements IAnimaniaAnimalBase, I
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}

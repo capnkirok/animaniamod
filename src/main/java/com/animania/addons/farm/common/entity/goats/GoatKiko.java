@@ -1,16 +1,14 @@
 package com.animania.addons.farm.common.entity.goats;
 
-import net.minecraft.world.level.Level;
-
 public class GoatKiko
 {
 
 	public static class EntityBuckKiko extends EntityBuckBase
 	{
 
-		public EntityBuckKiko(Level worldIn)
+		public EntityBuckKiko(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.KIKO;
 			this.setSize(1.2F, 1.0F);
 			this.width = 1.2F;
@@ -35,9 +33,9 @@ public class GoatKiko
 	public static class EntityKidKiko extends EntityKidBase
 	{
 
-		public EntityKidKiko(World worldIn)
+		public EntityKidKiko(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.KIKO;
 		}
 
@@ -58,9 +56,9 @@ public class GoatKiko
 	public static class EntityDoeKiko extends EntityDoeBase
 	{
 
-		public EntityDoeKiko(World worldIn)
+		public EntityDoeKiko(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.KIKO;
 			this.setSize(1.3F, 1.0F);
 			this.width = 1.3F;

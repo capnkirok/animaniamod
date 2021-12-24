@@ -23,14 +23,13 @@ import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable, IMateable, IImpregnable
 {
@@ -39,15 +38,15 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	private ResourceLocation resourceLocationBlink;
 	private static final String[] HORSE_TEXTURES = new String[] { "black", "bw1", "bw2", "grey", "red", "white" };
 	public int dryTimerMare;
-	protected static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.<Boolean> defineId(EntityMareBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> HAS_KIDS = SynchedEntityData.<Boolean> defineId(EntityMareBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> FERTILE = SynchedEntityData.<Boolean> defineId(EntityMareBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Integer> GESTATION_TIMER = SynchedEntityData.<Integer> defineId(EntityMareBase.class, EntityDataSerializers.INT);
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityMareBase.class, EntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.<Boolean> defineId(EntityMareBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> HAS_KIDS = SynchedEntityData.<Boolean> defineId(EntityMareBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FERTILE = SynchedEntityData.<Boolean> defineId(EntityMareBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> GESTATION_TIMER = SynchedEntityData.<Integer> defineId(EntityMareBase.class, EntityEntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityMareBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
 
-	public EntityMareBase(Level worldIn)
+	public EntityMareBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.8F, 2.2F);
 		this.width = 1.8F;
 		this.height = 2.2F;
@@ -144,13 +143,13 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public DataParameter<Boolean> getFertileParam()
+	public EntityDataAccessor<Boolean> getFertileParam()
 	{
 		return FERTILE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHasKidsParam()
+	public EntityDataAccessor<Boolean> getHasKidsParam()
 	{
 		return HAS_KIDS;
 	}
@@ -257,7 +256,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
@@ -282,17 +281,17 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 				}
 			}
 		}
-		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
 	@Override
-	public DataParameter<Integer> getGestationParam()
+	public EntityDataAccessor<Integer> getGestationParam()
 	{
 		return GESTATION_TIMER;
 	}
 
 	@Override
-	public DataParameter<Boolean> getPregnantParam()
+	public EntityDataAccessor<Boolean> getPregnantParam()
 	{
 		return PREGNANT;
 	}
@@ -310,7 +309,7 @@ public class EntityMareBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}

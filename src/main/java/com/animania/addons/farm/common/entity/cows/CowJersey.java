@@ -2,7 +2,6 @@ package com.animania.addons.farm.common.entity.cows;
 
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
-import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
@@ -12,9 +11,9 @@ public class CowJersey
 	public static class EntityBullJersey extends EntityBullBase
 	{
 
-		public EntityBullJersey(Level world)
+		public EntityBullJersey(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.JERSEY;
 
 		}
@@ -36,9 +35,9 @@ public class CowJersey
 	public static class CowEntityJersey extends CowEntityBase
 	{
 
-		public CowEntityJersey(Level world)
+		public CowEntityJersey(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.JERSEY;
 			this.milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, FarmAddonBlockHandler.fluidMilkJersey);
 
@@ -60,9 +59,9 @@ public class CowJersey
 	public static class EntityCalfJersey extends EntityCalfBase
 	{
 
-		public EntityCalfJersey(World world)
+		public EntityCalfJersey(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.JERSEY;
 		}
 

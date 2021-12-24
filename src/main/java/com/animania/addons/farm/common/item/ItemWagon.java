@@ -15,8 +15,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -32,7 +30,7 @@ public class ItemWagon extends Item
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, EnumHand handIn)
+	public ActionResult<ItemStack> onItemRightClick(Level levelIn, PlayerEntity playerIn, EnumHand handIn)
 	{
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		float f = 1.0F;
@@ -50,7 +48,7 @@ public class ItemWagon extends Item
 		float f8 = f3 * f5;
 		double d3 = 5.0D;
 		Vec3d vec3d1 = vec3d.addVector(f7 * 5.0D, f6 * 5.0D, f8 * 5.0D);
-		RayTraceResult raytraceresult = worldIn.rayTraceBlocks(vec3d, vec3d1, true);
+		RayTraceResult raytraceresult = levelIn.rayTraceBlocks(vec3d, vec3d1, true);
 
 		if (raytraceresult == null)
 		{
@@ -59,7 +57,7 @@ public class ItemWagon extends Item
 		{
 			Vec3d vec3d2 = playerIn.getLook(1.0F);
 			boolean flag = false;
-			List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(playerIn, playerIn.getEntityBoundingBox().grow(vec3d2.x * 5.0D, vec3d2.y * 5.0D, vec3d2.z * 5.0D).grow(1.0D));
+			List<Entity> list = levelIn.getEntitiesWithinAABBExcludingEntity(playerIn, playerIn.getEntityBoundingBox().grow(vec3d2.x * 5.0D, vec3d2.y * 5.0D, vec3d2.z * 5.0D).grow(1.0D));
 
 			for (int i = 0; i < list.size(); ++i)
 			{
@@ -85,15 +83,15 @@ public class ItemWagon extends Item
 				return new ActionResult(ActionResultType.PASS, itemstack);
 			} else
 			{
-				Block block = worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
+				Block block = levelIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
 				boolean flag1 = false;
-				EntityWagon EntityWagon = new EntityWagon(worldIn);
+				EntityWagon EntityWagon = new EntityWagon(levelIn);
 				EntityWagon.rotationYaw = playerIn.rotationYaw;
-				EntityWagon.setLocationAndAngles(d0, d1, d2, MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
+				EntityWagon.setLocationAndAngles(d0, d1, d2, MathHelper.wrapDegrees(levelIn.rand.nextFloat() * 360.0F), 0.0F);
 
-				if (!worldIn.isRemote)
+				if (!levelIn.isRemote)
 				{
-					AnimaniaHelper.spawnEntity(worldIn, EntityWagon);
+					AnimaniaHelper.spawnEntity(levelIn, EntityWagon);
 				}
 
 				if (!playerIn.capabilities.isCreativeMode)

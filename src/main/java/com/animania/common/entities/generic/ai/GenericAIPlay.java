@@ -13,7 +13,6 @@ import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.pathfinder.Path;
 
 public class GenericAIPlay<T extends PathfinderMob & ISleeping & IPlaying, U extends PathfinderMob & ISleeping & IPlaying> extends Goal
 {

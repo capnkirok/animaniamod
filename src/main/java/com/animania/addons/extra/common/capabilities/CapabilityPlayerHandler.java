@@ -17,7 +17,7 @@ public class CapabilityPlayerHandler {
 		return tags;
 	}
 
-	public static void readNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, CompoundNBT nbt) {
+	public static void readNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance, CompoundTag nbt) {
 
 		if (nbt.hasKey("animal")) {
 			instance.setAnimal(nbt.getCompoundTag("animal"));
@@ -41,7 +41,7 @@ public class CapabilityPlayerHandler {
 
 	}
 
-	public static void processNBTData(PlayerEntity player, CompoundNBT nbt) {
+	public static void processNBTData(PlayerEntity player, CompoundTag nbt) {
 		ICapabilityPlayer instance = CapabilityRefs.getPlayerCaps(player);
 		if (instance == null)
 			return;

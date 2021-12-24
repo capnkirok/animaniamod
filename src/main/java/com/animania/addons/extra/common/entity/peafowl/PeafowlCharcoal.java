@@ -1,7 +1,6 @@
 package com.animania.addons.extra.common.entity.peafowl;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 public class PeafowlCharcoal
 {
@@ -9,9 +8,9 @@ public class PeafowlCharcoal
 	public static class EntityPeachickCharcoal extends EntityPeachickBase
 	{
 
-		public EntityPeachickCharcoal(Level worldIn)
+		public EntityPeachickCharcoal(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.CHARCOAL;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peachick_charcoal.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png");
@@ -34,9 +33,9 @@ public class PeafowlCharcoal
 	public static class EntityPeafowlCharcoal extends EntityPeafowlBase
 	{
 
-		public EntityPeafowlCharcoal(Level worldIn)
+		public EntityPeafowlCharcoal(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.CHARCOAL;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peafowl_charcoal.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_charcoal_blink.png");
@@ -59,9 +58,9 @@ public class PeafowlCharcoal
 	public static class EntityPeacockCharcoal extends EntityPeacockBase
 	{
 
-		public EntityPeacockCharcoal(Level worldIn)
+		public EntityPeacockCharcoal(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.CHARCOAL;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_charcoal.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_charcoal_blink.png");

@@ -14,12 +14,11 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.Level;
 
 public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & ISleeping, O extends PathfinderMob & IMateable & IFoodEating & ISleeping & IImpregnable> extends Goal
 {
 	private final T entity;
-	Level theWorld;
+	Level theLevel;
 	private O targetMate;
 	int courtshipTimer;
 	double moveSpeed;
@@ -32,7 +31,7 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 	public GenericAIMate(T animal, double speedIn, Class other, Class child, Class base)
 	{
 		this.entity = animal;
-		this.theWorld = animal.level;
+		this.theLevel = animal.level;
 		this.moveSpeed = speedIn;
 		this.setMutexBits(3);
 		this.courtshipTimer = 20;
@@ -73,7 +72,7 @@ public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & I
 				return false;
 			}
 
-			List similarAnimalsInRange = AnimaniaHelper.getEntitiesInRange(base, AnimaniaConfig.gameRules.animalCapSearchRange, theWorld, entity);
+			List similarAnimalsInRange = AnimaniaHelper.getEntitiesInRange(base, AnimaniaConfig.gameRules.animalCapSearchRange, theLevel, entity);
 			if (similarAnimalsInRange.size() + 1 >= AnimaniaConfig.careAndFeeding.entityBreedingLimit)
 			{
 				//+ 1 for the child that will be born

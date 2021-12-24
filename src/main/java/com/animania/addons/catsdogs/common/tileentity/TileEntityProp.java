@@ -1,6 +1,5 @@
 package com.animania.addons.catsdogs.common.tileentity;
 
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class TileEntityProp extends BlockEntity

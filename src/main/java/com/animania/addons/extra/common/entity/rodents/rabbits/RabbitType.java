@@ -32,7 +32,6 @@ import com.animania.api.interfaces.AnimaniaType;
 
 import StatBase;
 import net.minecraft.stats.StatBase;
-import net.minecraft.world.World;
 
 public enum RabbitType implements AnimaniaType
 {
@@ -63,12 +62,12 @@ public enum RabbitType implements AnimaniaType
 	}
 	
 	@Override
-	public RabbitEntityBuckBase getMale(World world)
+	public RabbitEntityBuckBase getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.male.getConstructor(World.class);
+			constructor = this.male.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -77,7 +76,7 @@ public enum RabbitType implements AnimaniaType
 		RabbitEntityBuckBase male = null;
 		try
 		{
-			male = (RabbitEntityBuckBase) constructor.newInstance(world);
+			male = (RabbitEntityBuckBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -87,12 +86,12 @@ public enum RabbitType implements AnimaniaType
 	}
 
 	@Override
-	public RabbitEntityDoeBase getFemale(World world)
+	public RabbitEntityDoeBase getFemale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.female.getConstructor(World.class);
+			constructor = this.female.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -101,7 +100,7 @@ public enum RabbitType implements AnimaniaType
 		RabbitEntityDoeBase female = null;
 		try
 		{
-			female = (RabbitEntityDoeBase) constructor.newInstance(world);
+			female = (RabbitEntityDoeBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -111,12 +110,12 @@ public enum RabbitType implements AnimaniaType
 	}
 
 	@Override
-	public RabbitEntityKitBase getChild(World world)
+	public RabbitEntityKitBase getChild(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.child.getConstructor(World.class);
+			constructor = this.child.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -125,7 +124,7 @@ public enum RabbitType implements AnimaniaType
 		RabbitEntityKitBase child = null;
 		try
 		{
-			child = (RabbitEntityKitBase) constructor.newInstance(world);
+			child = (RabbitEntityKitBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

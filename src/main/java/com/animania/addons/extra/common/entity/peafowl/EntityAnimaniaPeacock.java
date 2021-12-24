@@ -33,16 +33,15 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
@@ -52,14 +51,14 @@ import net.minecraft.world.item.ItemStack;
 
 public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase, IAnimaniaAnimalBase
 {
-	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaPeacock.class, DataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaPeacock.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> HANDFED = SynchedEntityData.defineId(EntityAnimaniaPeacock.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.defineId(EntityAnimaniaPeacock.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaPeacock.class, EntityDataSerializers.VARINT);
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(ExtraConfig.settings.peacockFood));
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaPeacock.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPeacock.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaPeacock.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaPeacock.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaPeacock.class, EntityDataSerializers.BOOLEAN);
 
 	protected ResourceLocation resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue.png");
 	protected ResourceLocation resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_blue_blink.png");
@@ -78,29 +77,29 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	protected EntityGender gender;
 	public int lidCol;
 
-	public EntityAnimaniaPeacock(World worldIn)
+	public EntityAnimaniaPeacock(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 
-		this.tasks.addTask(0, new SwimmingGoal(this));
+		this.goalSelector.addGoal(0, new SwimmingGoal(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(1, new GenericAIFindWater<EntityAnimaniaPeacock>(this, 1.0D, null, EntityAnimaniaPeacock.class, true));
-			this.tasks.addTask(1, new GenericAIFindFood<EntityAnimaniaPeacock>(this, 1.0D, null, true));
+			this.goalSelector.addGoal(1, new GenericAIFindWater<EntityAnimaniaPeacock>(this, 1.0D, null, EntityAnimaniaPeacock.class, true));
+			this.goalSelector.addGoal(1, new GenericAIFindFood<EntityAnimaniaPeacock>(this, 1.0D, null, true));
 		}
-		this.tasks.addTask(2, new GenericAIPanic<EntityAnimaniaPeacock>(this, 1.4D));
-		this.tasks.addTask(3, new GenericAITempt<EntityAnimaniaPeacock>(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
-		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new WatchClosestFromSideGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(2, new GenericAIPanic<EntityAnimaniaPeacock>(this, 1.4D));
+		this.goalSelector.addGoal(3, new GenericAITempt<EntityAnimaniaPeacock>(this, 1.2D, false, EntityAnimaniaPeacock.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.0D));
+		this.goalSelector.addGoal(5, new WatchClosestFromSideGoal(this, PlayerEntity.class, 6.0F));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(6, new GenericAISleep<EntityAnimaniaPeacock>(this, 0.8, AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed), AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed2), EntityAnimaniaPeacock.class));
+			this.goalSelector.addGoal(6, new GenericAISleep<EntityAnimaniaPeacock>(this, 0.8, AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed), AnimaniaHelper.getBlock(ExtraConfig.settings.peacockBed2), EntityAnimaniaPeacock.class));
 		}
-		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaPeacock>(this));
+		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaPeacock>(this));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
-			this.tasks.addTask(8, new LeapAtTargetGoal(this, 0.2F));
-			this.tasks.addTask(9, new AttackMeleeGoal(this, 1.0D, true));
+			this.goalSelector.addGoal(8, new LeapAtTargetGoal(this, 0.2F));
+			this.goalSelector.addGoal(9, new AttackMeleeGoal(this, 1.0D, true));
 		}
 		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer * 2 + this.rand.nextInt(100);
@@ -209,34 +208,34 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT CompoundNBT)
+	public void writeEntityToNBT(CompoundTag CompoundTag)
 	{
-		super.writeEntityToNBT(CompoundNBT);
-		GenericBehavior.writeCommonNBT(CompoundNBT, this);
+		super.writeEntityToNBT(CompoundTag);
+		GenericBehavior.writeCommonNBT(CompoundTag, this);
 
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT CompoundNBT)
+	public void readEntityFromNBT(CompoundTag CompoundTag)
 	{
-		super.readEntityFromNBT(CompoundNBT);
-		GenericBehavior.readCommonNBT(CompoundNBT, this);
+		super.readEntityFromNBT(CompoundTag);
+		GenericBehavior.readCommonNBT(CompoundTag, this);
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return HANDFED;
 	}
@@ -303,11 +302,11 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 					break;
 				}
 
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
 					ItemStack item = new ItemStack(feather, 1);
-					EntityItem entityitem = new EntityItem(world, this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, item);
-				AnimaniaHelper.spawnEntity(	world, entityitem);
+					EntityItem entityitem = new EntityItem(level, this.getX() + 0.5D, this.getY() + 0.5D, this.getZ() + 0.5D, item);
+				AnimaniaHelper.spawnEntity(	level, entityitem);
 				}
 			}
 
@@ -315,13 +314,13 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
@@ -476,7 +475,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}
@@ -524,7 +523,7 @@ public class EntityAnimaniaPeacock extends Animal implements TOPInfoProviderBase
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
 	}

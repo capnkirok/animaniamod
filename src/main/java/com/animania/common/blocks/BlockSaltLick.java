@@ -12,16 +12,14 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -45,9 +43,9 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 		ForgeRegistries.ITEMS.register(item);
 	}
 	
-	public void useSaltLick(World world, BlockPos pos, @Nullable LivingEntity entity)
+	public void useSaltLick(Level level, BlockPos pos, @Nullable LivingEntity entity)
 	{
-		TileEntity te = world.getTileEntity(pos);
+		TileEntity te = level.getTileEntity(pos);
 		if(te != null && te instanceof TileEntitySaltLick)
 		{
 			((TileEntitySaltLick) te).useSaltLick();
@@ -67,14 +65,14 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	}
 	
 	@Override
-	public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack)
+	public void harvestBlock(Level levelIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack)
 	{
 		if(te != null && te instanceof TileEntitySaltLick)
 		{
 			int left = ((TileEntitySaltLick)te).usesLeft;
 			int damage = AnimaniaConfig.careAndFeeding.saltLickMaxUses - left;
 			
-			Block.spawnAsEntity(worldIn, pos, new ItemStack(this, 1, damage));
+			Block.spawnAsEntity(levelIn, pos, new ItemStack(this, 1, damage));
 		}
 	}
 	
@@ -85,11 +83,11 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
+	public void onBlockPlacedBy(Level levelIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
 		int left = AnimaniaConfig.careAndFeeding.saltLickMaxUses - stack.getItemDamage();
 		
-		TileEntity te = worldIn.getTileEntity(pos);
+		TileEntity te = levelIn.getTileEntity(pos);
 		if(te != null && te instanceof TileEntitySaltLick)
 		{
 			((TileEntitySaltLick)te).usesLeft = left;
@@ -97,11 +95,11 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	}
 	
 	@Override
-	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess level, BlockPos pos)
 	{
-		if(world != null)
+		if(level != null)
 		{
-			TileEntity te = world.getTileEntity(pos);
+			TileEntity te = level.getTileEntity(pos);
 			if(te != null && te instanceof TileEntitySaltLick)
 			{
 				double usesLeft = (double)((TileEntitySaltLick)te).usesLeft / (double)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
@@ -112,11 +110,11 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess world, BlockPos pos)
+	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess level, BlockPos pos)
 	{
-		if(world != null)
+		if(level != null)
 		{
-			TileEntity te = world.getTileEntity(pos);
+			TileEntity te = level.getTileEntity(pos);
 			if(te != null && te instanceof TileEntitySaltLick)
 			{
 				double usesLeft = (double)((TileEntitySaltLick)te).usesLeft / (double)AnimaniaConfig.careAndFeeding.saltLickMaxUses;
@@ -157,7 +155,7 @@ public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
+	public TileEntity createNewTileEntity(Level levelIn, int meta)
 	{
 		return new TileEntitySaltLick();
 	}

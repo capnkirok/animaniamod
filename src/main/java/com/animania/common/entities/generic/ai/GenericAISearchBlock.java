@@ -16,7 +16,6 @@ import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathFinder;
 
 public abstract class GenericAISearchBlock extends Goal
@@ -28,7 +27,7 @@ public abstract class GenericAISearchBlock extends Goal
 	protected BlockPos destinationBlock = NO_POS;
 	private boolean isAtDestination;
 	protected final int searchRange;
-	protected Level world;
+	protected Level level;
 	protected List<Direction> destinationOffset;
 	protected BlockPos seekingBlockPos = NO_POS;
 
@@ -86,7 +85,7 @@ public abstract class GenericAISearchBlock extends Goal
 	@Override
 	public boolean shouldContinueExecuting()
 	{
-		return destinationBlock != NO_POS && seekingBlockPos != NO_POS && !isDone && (this.shouldMoveTo(this.creature.level, this.seekingBlockPos) || (this.hasSecondary ? this.shouldMoveToSecondary(world, seekingBlockPos) : false));
+		return destinationBlock != NO_POS && seekingBlockPos != NO_POS && !isDone && (this.shouldMoveTo(this.creature.level, this.seekingBlockPos) || (this.hasSecondary ? this.shouldMoveToSecondary(level, seekingBlockPos) : false));
 	}
 
 	/**
@@ -176,8 +175,8 @@ public abstract class GenericAISearchBlock extends Goal
 	/**
 	 * Searches and sets new destination block and returns true if a suitable
 	 * block (specified in
-	 * {@link net.minecraft.entity.ai.EntityAIMoveToBlock#shouldMoveTo(World, BlockPos)
-	 * MoveToBlockGoal#shouldMoveTo(World, BlockPos)}) can be found.
+	 * {@link net.minecraft.entity.ai.EntityAIMoveToBlock#shouldMoveTo(Level, BlockPos)
+	 * MoveToBlockGoal#shouldMoveTo(Level, BlockPos)}) can be found.
 	 */
 	protected boolean searchForDestination()
 	{
@@ -228,7 +227,7 @@ public abstract class GenericAISearchBlock extends Goal
 
 									for (Direction facing : destinationOffset)
 									{
-										AxisAlignedBB aabb = world.getBlockState(blockpos1).getCollisionBoundingBox(world, blockpos1);
+										AxisAlignedBB aabb = level.getBlockState(blockpos1).getCollisionBoundingBox(level, blockpos1);
 
 										BlockPos offsetPos = aabb == Block.NULL_AABB ? blockpos1 : blockpos1.offset(facing);
 
@@ -287,9 +286,9 @@ public abstract class GenericAISearchBlock extends Goal
 	/**
 	 * Return true to set given position as destination
 	 */
-	protected abstract boolean shouldMoveTo(World worldIn, BlockPos pos);
+	protected abstract boolean shouldMoveTo(Level levelIn, BlockPos pos);
 
-	protected boolean shouldMoveToSecondary(World worldIn, BlockPos pos)
+	protected boolean shouldMoveToSecondary(Level levelIn, BlockPos pos)
 	{
 		return false;
 	}

@@ -5,8 +5,6 @@ import com.animania.addons.catsdogs.common.entity.felids.CatType;
 import com.animania.api.data.EntityGender;
 import com.animania.common.items.ItemEntityEgg;
 
-import net.minecraft.world.item.Item;
-
 public class CatsDogsAddonItemHandler
 {
 

@@ -24,13 +24,11 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeModContainer;
@@ -43,15 +41,15 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 {
 	protected ItemStack milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, FarmAddonBlockHandler.fluidMilkGoat);
 	public int dryTimerDoe;
-	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> createKey(EntityDoeBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> createKey(EntityDoeBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> createKey(EntityDoeBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> createKey(EntityDoeBase.class, DataSerializers.VARINT);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityDoeBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(EntityDoeBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> HAS_KIDS = SynchedEntityData.defineId(EntityDoeBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FERTILE = SynchedEntityData.defineId(EntityDoeBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> GESTATION_TIMER = SynchedEntityData.defineId(EntityDoeBase.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.defineId(EntityDoeBase.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
 
-	public EntityDoeBase(World worldIn)
+	public EntityDoeBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.0F, 1.0F);
 		this.width = 1.0F;
 		this.height = 1.0F;
@@ -90,13 +88,13 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	}
 
 	@Override
-	public DataParameter<Integer> getGestationParam()
+	public EntityDataAccessor<Integer> getGestationParam()
 	{
 		return GESTATION_TIMER;
 	}
 
 	@Override
-	public DataParameter<Boolean> getPregnantParam()
+	public EntityDataAccessor<Boolean> getPregnantParam()
 	{
 		return PREGNANT;
 	}
@@ -114,13 +112,13 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 	}
 
 	@Override
-	public DataParameter<Boolean> getFertileParam()
+	public EntityDataAccessor<Boolean> getFertileParam()
 	{
 		return FERTILE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHasKidsParam()
+	public EntityDataAccessor<Boolean> getHasKidsParam()
 	{
 		return HAS_KIDS;
 	}
@@ -168,7 +166,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 		if (this.getFed() && this.getWatered() && stack != ItemStack.EMPTY && AnimaniaHelper.isEmptyFluidContainer(stack) && this.getHasKids())
 		{
-			if (!world.isRemote)
+			if (!level.isRemote)
 			{
 				player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 
@@ -207,7 +205,7 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
@@ -247,11 +245,11 @@ public class EntityDoeBase extends EntityAnimaniaGoat implements TOPInfoProvider
 				probeInfo.text(I18n.translateToLocal("text.waila.wool3"));
 			}
 		}
-		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}

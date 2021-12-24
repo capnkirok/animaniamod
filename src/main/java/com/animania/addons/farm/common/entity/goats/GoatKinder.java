@@ -1,16 +1,14 @@
 package com.animania.addons.farm.common.entity.goats;
 
-import net.minecraft.world.level.Level;
-
 public class GoatKinder
 {
 
 	public static class EntityBuckKinder extends EntityBuckBase
 	{
 
-		public EntityBuckKinder(Level worldIn)
+		public EntityBuckKinder(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.KINDER;
 			this.setSize(1.3F, 1.2F);
 			this.width = 1.3F;
@@ -36,9 +34,9 @@ public class GoatKinder
 	public static class EntityDoeKinder extends EntityDoeBase
 	{
 
-		public EntityDoeKinder(World worldIn)
+		public EntityDoeKinder(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.setSize(1.4F, 1.2F);
 			this.width = 1.4F;
 			this.height = 1.2F;
@@ -63,9 +61,9 @@ public class GoatKinder
 	public static class EntityKidKinder extends EntityKidBase
 	{
 
-		public EntityKidKinder(World worldIn)
+		public EntityKidKinder(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.KINDER;
 		}
 

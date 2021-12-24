@@ -26,9 +26,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -63,13 +61,13 @@ public class ItemEntityEgg extends Item
 	}
 
 	@Override
-	public ActionResultType onItemUse(PlayerEntity playerIn, World world, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public ActionResultType onItemUse(PlayerEntity playerIn, Level level, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(facing);
 
 		ItemStack stack = playerIn.getHeldItem(hand);
 
-		if (world.isRemote)
+		if (level.isRemote)
 			return ActionResultType.SUCCESS;
 
 		LivingEntity entity = null;
@@ -80,18 +78,18 @@ public class ItemEntityEgg extends Item
 			AnimaniaType[] types = clazz.getEnumConstants();
 
 			if (type instanceof RandomAnimalType)
-				entity = EntityGender.getEntity(type, gender, world);
+				entity = EntityGender.getEntity(type, gender, level);
 			else
-				entity = EntityGender.getEntity(types[Animania.RANDOM.nextInt(types.length)], gender, world);
+				entity = EntityGender.getEntity(types[Animania.RANDOM.nextInt(types.length)], gender, level);
 		}
 		else
 		{
-			entity = EntityGender.getEntity(type, gender, world);
+			entity = EntityGender.getEntity(type, gender, level);
 		}
 		if (entity != null)
 		{
 
-			entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
+			entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(level.rand.nextFloat() * 360.0F), 0.0F);
 
 			if (stack.hasDisplayName())
 				((LivingEntity) entity).setCustomNameTag(stack.getDisplayName());
@@ -99,7 +97,7 @@ public class ItemEntityEgg extends Item
 			if (!playerIn.isCreative())
 				stack.shrink(1);
 
-			world.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+			level.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 			entity.rotationYawHead = entity.rotationYaw;
 			entity.renderYawOffset = entity.rotationYaw;
 			
@@ -109,7 +107,7 @@ public class ItemEntityEgg extends Item
 				foodEating.setInteracted(true);
 			}
 			
-			AnimaniaHelper.spawnEntity(world, entity);
+			AnimaniaHelper.spawnEntity(level, entity);
 			return ActionResultType.SUCCESS;
 
 		}
@@ -134,7 +132,7 @@ public class ItemEntityEgg extends Item
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+	public void addInformation(ItemStack stack, Level levelIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
 		tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("item.animania_entity_egg.desc1") + " " + TextFormatting.DARK_GRAY + I18n.translateToLocal("item.animania_entity_egg.desc2"));
 	}
@@ -145,7 +143,7 @@ public class ItemEntityEgg extends Item
 		@Override
 		public int colorMultiplier(ItemStack stack, int tintIndex)
 		{
-			World world = Minecraft.getMinecraft().level;
+			Level level = Minecraft.getMinecraft().level;
 			if (!stack.isEmpty() && stack.getItem() != ItemHandler.entityeggrandomanimal)
 			{
 				AnimalContainer animal = ((ItemEntityEgg) stack.getItem()).getAnimal();

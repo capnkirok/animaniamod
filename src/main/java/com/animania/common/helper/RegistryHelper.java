@@ -35,7 +35,7 @@ public class RegistryHelper
 		 *
 		 * @param item
 		 */
-		public static void register(net.minecraft.world.item.Item item)
+		public static void register(net.minecraft.level.item.Item item)
 		{
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(Animania.MODID + ":" + item.getUnlocalizedName(), "inventory"));
 		}

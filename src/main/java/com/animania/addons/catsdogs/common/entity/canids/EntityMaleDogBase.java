@@ -14,19 +14,18 @@ import com.google.common.base.Optional;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.Level;
 
 public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityMaleDogBase.class, EntityDataSerializers.OPTIONAL_UUID);
-	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityMaleDogBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityMaleDogBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityMaleDogBase.class, EntityEntityDataSerializers.BOOLEAN);
 
-	public EntityMaleDogBase(Level worldIn)
+	public EntityMaleDogBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.0F, 1.0F);
 		this.width = 1.0F;
 		this.height = 1.0F;
@@ -34,7 +33,7 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 		this.gender = EntityGender.MALE;
 
 		if (!getSterilized())
-			this.tasks.addTask(8, new GenericAIMate<EntityMaleDogBase, EntityFemaleDogBase>(this, 1.0D, EntityFemaleDogBase.class, EntityPuppyBase.class, EntityAnimaniaDog.class));
+			this.goalSelector.addGoal(8, new GenericAIMate<EntityMaleDogBase, EntityFemaleDogBase>(this, 1.0D, EntityFemaleDogBase.class, EntityPuppyBase.class, EntityAnimaniaDog.class));
 	}
 
 	@Override
@@ -54,7 +53,7 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}
@@ -68,7 +67,7 @@ public class EntityMaleDogBase extends EntityAnimaniaDog implements TOPInfoProvi
 	}
 
 	@Override
-	public DataParameter<Boolean> getSterilizedParam()
+	public EntityDataAccessor<Boolean> getSterilizedParam()
 	{
 		return STERILIZED;
 	}

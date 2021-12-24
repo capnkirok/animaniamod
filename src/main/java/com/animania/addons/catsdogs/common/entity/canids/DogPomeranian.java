@@ -1,16 +1,14 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
-import net.minecraft.world.level.Level;
-
 public class DogPomeranian
 {
 
 	public static class EntityFemalePomeranian extends EntityFemaleDogBase
 	{
 	
-		public EntityFemalePomeranian(Level world)
+		public EntityFemalePomeranian(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.POMERANIAN;
 		}
 		
@@ -30,9 +28,9 @@ public class DogPomeranian
 	public static class EntityMalePomeranian extends EntityMaleDogBase
 	{
 	
-		public EntityMalePomeranian(Level world)
+		public EntityMalePomeranian(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.POMERANIAN;
 		}
 		
@@ -52,9 +50,9 @@ public class DogPomeranian
 	public static class EntityPuppyPomeranian extends EntityPuppyBase
 	{
 	
-		public EntityPuppyPomeranian(Level world)
+		public EntityPuppyPomeranian(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.POMERANIAN;
 		}
 		

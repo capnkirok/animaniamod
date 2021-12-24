@@ -15,7 +15,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.world.World;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +30,7 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 
 	@Override
 	@Nullable
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity LivingEntity)
+	public ItemStack onItemUseFinish(ItemStack stack, Level levelIn, LivingEntity LivingEntity)
 	{
 
 		if (LivingEntity instanceof PlayerEntity)
@@ -44,8 +43,8 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 			{
 				PlayerEntity.getFoodStats().addStats(this, stack);
 			}
-			worldIn.playSound((PlayerEntity) null, PlayerEntity.getX(), PlayerEntity.getY(), PlayerEntity.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-			this.onFoodEaten(stack, worldIn, PlayerEntity);
+			levelIn.playSound((PlayerEntity) null, PlayerEntity.getX(), PlayerEntity.getY(), PlayerEntity.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, levelIn.rand.nextFloat() * 0.1F + 0.9F);
+			this.onFoodEaten(stack, levelIn, PlayerEntity);
 			PlayerEntity.addStat(StatList.getObjectUseStats(this));
 
 			if (PlayerEntity instanceof ServerPlayerEntity)
@@ -63,12 +62,12 @@ public class ItemTruffleSoup extends ItemAnimaniaFood
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack itemstack, World worldObj, PlayerEntity PlayerEntity)
+	protected void onFoodEaten(ItemStack itemstack, Level levelObj, PlayerEntity PlayerEntity)
 	{
 
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, PlayerEntity playerIn, EnumHand hand)
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, Level levelIn, PlayerEntity playerIn, EnumHand hand)
 	{
 		playerIn.setActiveHand(hand);
 		return new ActionResult(ActionResultType.SUCCESS, itemStackIn);

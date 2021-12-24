@@ -1,16 +1,14 @@
 package com.animania.addons.farm.common.entity.goats;
 
-import net.minecraft.world.level.Level;
-
 public class GoatNigerianDwarf
 {
 
 	public static class EntityBuckNigerianDwarf extends EntityBuckBase
 	{
 
-		public EntityBuckNigerianDwarf(Level worldIn)
+		public EntityBuckNigerianDwarf(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.NIGERIAN_DWARF;
 			this.setSize(1.2F, 1.2F);
 			this.width = 1.2F;
@@ -36,9 +34,9 @@ public class GoatNigerianDwarf
 	public  static class EntityDoeNigerianDwarf extends EntityDoeBase
 	{
 
-		public EntityDoeNigerianDwarf(World worldIn)
+		public EntityDoeNigerianDwarf(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.NIGERIAN_DWARF;
 			this.setSize(1.1F, 1.2F);
 			this.width = 1.1F;
@@ -63,9 +61,9 @@ public class GoatNigerianDwarf
 	public static class EntityKidNigerianDwarf extends EntityKidBase
 	{
 
-		public EntityKidNigerianDwarf(World worldIn)
+		public EntityKidNigerianDwarf(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.NIGERIAN_DWARF;
 		}
 

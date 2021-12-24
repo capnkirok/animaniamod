@@ -28,7 +28,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 
@@ -41,15 +40,15 @@ public class ExtraAddonInjectionHandler
 		AddonInjectionHandler.addInjection(ID, "nestHatchPeafowl", args -> {
 
 			TileEntityNest te = (TileEntityNest) args[0];
-			Level worldIn = (Level) args[1];
+			Level levelIn = (Level) args[1];
 			BlockPos pos = (BlockPos) args[2];
 			BlockState state = (BlockState) args[3];
 			Random rand = (Random) args[4];
 
 			if (te.getBirdType() instanceof PeacockType)
 			{
-				List<EntityPeacockBase> peacocks = AnimaniaHelper.getEntitiesInRange(EntityPeacockBase.class, 3, worldIn, pos);
-				List<EntityAnimaniaPeacock> nearbyPeacocks = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPeacock.class, 15, worldIn, pos);
+				List<EntityPeacockBase> peacocks = AnimaniaHelper.getEntitiesInRange(EntityPeacockBase.class, 3, levelIn, pos);
+				List<EntityAnimaniaPeacock> nearbyPeacocks = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPeacock.class, 15, levelIn, pos);
 				if (nearbyPeacocks.size() < AnimaniaConfig.careAndFeeding.entityBreedingLimit)
 				{
 					PeacockType birdType = (PeacockType) te.getBirdType();
@@ -58,9 +57,9 @@ public class ExtraAddonInjectionHandler
 						if (rand.nextInt(AnimaniaConfig.careAndFeeding.eggHatchChance) < 1)
 						{
 							PeacockType chickType = PeacockType.breed(peacock.type, birdType);
-							EntityPeachickBase chick = chickType.getChild(worldIn);
+							EntityPeachickBase chick = chickType.getChild(levelIn);
 							chick.setPosition(pos.getX() + .5, pos.getY() + .2, pos.getZ() + .5);
-							AnimaniaHelper.spawnEntity(worldIn, chick);
+							AnimaniaHelper.spawnEntity(levelIn, chick);
 							chick.playSound(ExtraAddonSoundHandler.peacock1, 0.50F, 1.4F);
 							te.removeItem();
 							te.markDirty();

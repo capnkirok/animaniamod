@@ -8,9 +8,7 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class GenericAISleep<T extends PathfinderMob & ISleeping> extends GenericAISearchBlock
@@ -26,8 +24,8 @@ public class GenericAISleep<T extends PathfinderMob & ISleeping> extends Generic
 
 	public GenericAISleep(T entity, double speedIn, Block bed1, Block bed2, Class parentClass)
 	{
-		this(entity, speedIn, bed1, bed2, parentClass, (worldtime) -> {
-			return worldtime >= 13000;
+		this(entity, speedIn, bed1, bed2, parentClass, (leveltime) -> {
+			return leveltime >= 13000;
 		});
 	}
 
@@ -57,7 +55,7 @@ public class GenericAISleep<T extends PathfinderMob & ISleeping> extends Generic
 		}
 		if (entity.getSleeping())
 		{
-			if (!this.shouldSleep.apply(world.getWorldTime() % 24000) || entity.isBurning() || (entity.level.isRainingAt(entity.getPosition()) && entity.level.canSeeSky(entity.getPosition())))
+			if (!this.shouldSleep.apply(level.getLevelTime() % 24000) || entity.isBurning() || (entity.level.isRainingAt(entity.getPosition()) && entity.level.canSeeSky(entity.getPosition())))
 			{
 				entity.setSleeping(false);
 				entity.setSleepingPos(NO_POS);
@@ -66,7 +64,7 @@ public class GenericAISleep<T extends PathfinderMob & ISleeping> extends Generic
 			return false;
 		}
 
-		return shouldSleep.apply(world.getWorldTime() % 24000) && !entity.level.isRainingAt(entity.getPosition()) && this.entity.getRandom().nextInt(3) == 0 ? super.shouldExecute() : false;
+		return shouldSleep.apply(level.getLevelTime() % 24000) && !entity.level.isRainingAt(entity.getPosition()) && this.entity.getRandom().nextInt(3) == 0 ? super.shouldExecute() : false;
 	}
 
 	@Override
@@ -96,9 +94,9 @@ public class GenericAISleep<T extends PathfinderMob & ISleeping> extends Generic
 	}
 
 	@Override
-	protected boolean shouldMoveTo(World worldIn, BlockPos pos)
+	protected boolean shouldMoveTo(Level levelIn, BlockPos pos)
 	{
-		BlockState state = world.getBlockState(pos);
+		BlockState state = level.getBlockState(pos);
 		Block block = state.getBlock();
 
 		if (block == this.bedBlock)
@@ -108,9 +106,9 @@ public class GenericAISleep<T extends PathfinderMob & ISleeping> extends Generic
 	}
 
 	@Override
-	protected boolean shouldMoveToSecondary(World world, BlockPos pos)
+	protected boolean shouldMoveToSecondary(Level level, BlockPos pos)
 	{
-		BlockState state = world.getBlockState(pos);
+		BlockState state = level.getBlockState(pos);
 		Block block = state.getBlock();
 
 		if (block == this.bedBlock2)

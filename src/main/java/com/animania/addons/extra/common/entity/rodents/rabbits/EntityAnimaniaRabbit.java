@@ -46,16 +46,15 @@ import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -73,14 +72,14 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 {
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(ExtraConfig.settings.rabbitFood));
-	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer> createKey(EntityAnimaniaRabbit.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaRabbit.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaRabbit.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaRabbit.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> HANDFED = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaRabbit.class, EntityDataSerializers.BOOLEAN);
 
 	private static final String[] RABBIT_TEXTURES = new String[] { "black", "brown", "golden", "olive", "patch_black", "patch_brown", "patch_grey" };
 
@@ -105,37 +104,37 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	private boolean mateUuidCached = false;
 	private UUID mateUUID = null;
 
-	public EntityAnimaniaRabbit(World worldIn)
+	public EntityAnimaniaRabbit(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaRabbit>(this, false);
 
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaRabbit>(this, 1.4D, entityAIEatGrass, EntityAnimaniaRabbit.class, true));
-			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaRabbit>(this, 1.4D, entityAIEatGrass, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaRabbit>(this, 1.4D, entityAIEatGrass, EntityAnimaniaRabbit.class, true));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaRabbit>(this, 1.4D, entityAIEatGrass, true));
 		}
 
 		if (!this.getCustomNameTag().equals("Killer"))
 		{
-			this.tasks.addTask(3, new GenericAIPanic<EntityAnimaniaRabbit>(this, 2.5D));
-			this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.8D));
-			this.tasks.addTask(5, new SwimmingGoal(this));
-			this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaRabbit>(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
-			this.tasks.addTask(8, this.entityAIEatGrass);
-			this.tasks.addTask(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 3.0D, 3.5D));
-			this.tasks.addTask(9, new GenericAIAvoidEntity<EntityMob>(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
-			this.tasks.addTask(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-			this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaRabbit>(this));
+			this.goalSelector.addGoal(3, new GenericAIPanic<EntityAnimaniaRabbit>(this, 2.5D));
+			this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.8D));
+			this.goalSelector.addGoal(5, new SwimmingGoal(this));
+			this.goalSelector.addGoal(7, new GenericAITempt<EntityAnimaniaRabbit>(this, 1.25D, false, EntityAnimaniaRabbit.TEMPTATION_ITEMS));
+			this.goalSelector.addGoal(8, this.entityAIEatGrass);
+			this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 24.0F, 3.0D, 3.5D));
+			this.goalSelector.addGoal(9, new GenericAIAvoidEntity<EntityMob>(this, EntityMob.class, 16.0F, 2.2D, 2.2D));
+			this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+			this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaRabbit>(this));
 			if (AnimaniaConfig.gameRules.animalsSleep)
 			{
-				this.tasks.addTask(12, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.rabbitBed), Block.getBlockFromName(ExtraConfig.settings.rabbitBed2), EntityAnimaniaRabbit.class, new Function<Long, Boolean>() {
+				this.goalSelector.addGoal(12, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.rabbitBed), Block.getBlockFromName(ExtraConfig.settings.rabbitBed2), EntityAnimaniaRabbit.class, new Function<Long, Boolean>() {
 
 					@Override
-					public Boolean apply(Long worldtime)
+					public Boolean apply(Long leveltime)
 					{		
-						return (worldtime > 20000 && worldtime < 24000) || (worldtime > 10000 && worldtime < 15000);
+						return (leveltime > 20000 && leveltime < 24000) || (leveltime > 10000 && leveltime < 15000);
 					}
 					
 				}));
@@ -144,10 +143,10 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 		}else
 
 	{
-		this.tasks.addTask(1, new LeapAtTargetGoal(this, 0.7F));
-		this.tasks.addTask(2, new AttackMeleeGoal(this, 2.0D, true));
-		this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
-		this.tasks.addTask(4, new WatchClosestGoal(this, PlayerEntity.class, 20.0F));
+		this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.7F));
+		this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
+		this.goalSelector.addGoal(3, new GenericAIWanderAvoidWater(this, 1.8D));
+		this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 20.0F));
 		this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
 		this.targetTasks.addTask(2, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, true));
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
@@ -163,10 +162,10 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	{
 
 		this.tasks.taskEntries.clear();
-		this.tasks.addTask(1, new LeapAtTargetGoal(this, 0.7F));
-		this.tasks.addTask(2, new AttackMeleeGoal(this, 2.0D, true));
-		this.tasks.addTask(3, new GenericAIWanderAvoidWater(this, 1.8D));
-		this.tasks.addTask(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
+		this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.7F));
+		this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
+		this.goalSelector.addGoal(3, new GenericAIWanderAvoidWater(this, 1.8D));
+		this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
 		this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
 		this.targetTasks.addTask(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, true));
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
@@ -423,37 +422,37 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return HANDFED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
@@ -592,7 +591,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 
@@ -603,7 +602,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 
@@ -721,9 +720,9 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 
 			if (this.getIsAboveDestination())
 			{
-				World world = this.rabbit.level;
+				Level level = this.rabbit.level;
 				BlockPos blockpos = this.destinationBlock.up();
-				BlockState BlockState = world.getBlockState(blockpos);
+				BlockState BlockState = level.getBlockState(blockpos);
 				Block block = BlockState.getBlock();
 
 				if (this.canRaid && block instanceof BlockCarrot)
@@ -732,12 +731,12 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 
 					if (integer.intValue() == 0)
 					{
-						world.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 2);
-						world.destroyBlock(blockpos, true);
+						level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 2);
+						level.destroyBlock(blockpos, true);
 					} else
 					{
-						world.setBlock(blockpos, BlockState.withProperty(BlockCarrot.AGE, Integer.valueOf(integer.intValue() - 1)), 2);
-						world.playEvent(2001, blockpos, Block.getStateId(BlockState));
+						level.setBlock(blockpos, BlockState.withProperty(BlockCarrot.AGE, Integer.valueOf(integer.intValue() - 1)), 2);
+						level.playEvent(2001, blockpos, Block.getStateId(BlockState));
 					}
 
 					// this.rabbit.createEatingParticles();
@@ -752,14 +751,14 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 		 * Return true to set given position as destination
 		 */
 		@Override
-		protected boolean shouldMoveTo(World worldIn, BlockPos pos)
+		protected boolean shouldMoveTo(Level levelIn, BlockPos pos)
 		{
-			Block block = worldIn.getBlockState(pos).getBlock();
+			Block block = levelIn.getBlockState(pos).getBlock();
 
 			if (block == Blocks.FARMLAND && this.wantsToRaid && !this.canRaid)
 			{
 				pos = pos.up();
-				BlockState BlockState = worldIn.getBlockState(pos);
+				BlockState BlockState = levelIn.getBlockState(pos);
 				block = BlockState.getBlock();
 
 				if (block instanceof BlockCarrot && ((BlockCarrot) block).isMaxAge(BlockState))
@@ -963,7 +962,7 @@ public class EntityAnimaniaRabbit extends Rabbit implements IAnimaniaAnimalBase,
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}

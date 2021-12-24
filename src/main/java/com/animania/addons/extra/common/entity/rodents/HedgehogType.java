@@ -22,7 +22,7 @@ public enum HedgehogType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityHedgehogBase getMale(Level world)
+	public EntityHedgehogBase getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -36,7 +36,7 @@ public enum HedgehogType implements AnimaniaType
 		EntityHedgehogBase hedgehog = null;
 		try
 		{
-			hedgehog = (EntityHedgehogBase) constructor.newInstance(world);
+			hedgehog = (EntityHedgehogBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -46,14 +46,14 @@ public enum HedgehogType implements AnimaniaType
 	}
 
 	@Override
-	public LivingEntity getFemale(Level world)
+	public LivingEntity getFemale(Level level)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public LivingEntity getChild(Level world)
+	public LivingEntity getChild(Level level)
 	{
 		// TODO Auto-generated method stub
 		return null;

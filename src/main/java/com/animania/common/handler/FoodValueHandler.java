@@ -8,8 +8,6 @@ import com.animania.common.helper.StringParser;
 import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.world.item.Item;
-
 public class FoodValueHandler
 {
 	private static Map<ItemAnimaniaFood, String> food_values = new HashMap<ItemAnimaniaFood, String>();

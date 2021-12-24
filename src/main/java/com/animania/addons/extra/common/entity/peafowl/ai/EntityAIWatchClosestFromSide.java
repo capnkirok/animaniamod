@@ -3,7 +3,6 @@ package com.animania.addons.extra.common.entity.peafowl.ai;
 import com.animania.addons.extra.common.entity.peafowl.EntityAnimaniaPeacock;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 

@@ -14,15 +14,14 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityJumpHelper;
 import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
@@ -33,7 +32,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class EntityAmphibian extends Animal implements ISpawnable, IAnimaniaAnimal, IGendered
 {
-	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.<Integer>createKey(EntityAmphibian.class, DataSerializers.VARINT);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.<Integer>createKey(EntityAmphibian.class, EntityDataSerializers.VARINT);
 	private int     jumpTicks;
 	private int     jumpDuration;
 	private boolean wasOnGround, canEntityJump;
@@ -45,15 +44,15 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	/**
 	 * Default constructor
 	 */
-	public EntityAmphibian(World worldIn) {
-		super(worldIn);
+	public EntityAmphibian(Level levelIn) {
+		super(levelIn);
 	}
 
 	/**
 	 * Constructor just for jumping amphibians, frogs and toads
 	 */
-	public EntityAmphibian(World worldIn, boolean canEntityJumpIn) {
-		this(worldIn);
+	public EntityAmphibian(Level levelIn, boolean canEntityJumpIn) {
+		this(levelIn);
 		this.setSize(0.3F, 0.3F); 
 		this.width = 0.3F;
 		this.height = 0.3F;
@@ -84,14 +83,14 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 
 	@Override
 	protected void initEntityAI() {
-		this.tasks.addTask(1, new SwimmingGoal(this));
-		this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
+		this.goalSelector.addGoal(1, new SwimmingGoal(this));
+		this.goalSelector.addGoal(1, new EntityAmphibian.AIPanic(this, 2.2D));
 		if (!this.getCustomNameTag().equals("Pepe")) {
-			this.tasks.addTask(2, new AvoidEntityGoal<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
+			this.goalSelector.addGoal(2, new AvoidEntityGoal<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
 		}
-		this.tasks.addTask(3, new WanderAvoidWaterGoal(this, 0.6D));
-		this.tasks.addTask(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
-		this.tasks.addTask(5, new AvoidEntityGoal<EntityAnimaniaPeacock>(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
+		this.goalSelector.addGoal(3, new WanderAvoidWaterGoal(this, 0.6D));
+		this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
+		this.goalSelector.addGoal(5, new AvoidEntityGoal<EntityAnimaniaPeacock>(this, EntityAnimaniaPeacock.class, 10.0F, 3.0D, 3.5D));
 		
 		AddonInjectionHandler.runInjection("farm", "avoidChicken", Void.class, this.tasks, this);
 	}
@@ -312,7 +311,7 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.putInteger("Age", this.getAge());
@@ -320,7 +319,7 @@ public abstract class EntityAmphibian extends Animal implements ISpawnable, IAni
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 		this.setAge(compound.getInteger("Age"));

@@ -18,27 +18,26 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProviderChild, IChild
 {
-	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityCalfBase.class, EntityDataSerializers.OPTIONAL_UUID);
-	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(EntityCalfBase.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityCalfBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(EntityCalfBase.class, EntityEntityDataSerializers.FLOAT);
 	protected int ageTimer;
 
-	public EntityCalfBase(Level worldIn)
+	public EntityCalfBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.6F, 3.6F);
 		this.width = 1.6F;
 		this.height = 3.6F;
 		this.stepHeight = 1.1F;
-		this.tasks.addTask(1, new GenericAIFollowParents<EntityCalfBase, CowEntityBase>(this, 1.1, CowEntityBase.class));
+		this.goalSelector.addGoal(1, new GenericAIFollowParents<EntityCalfBase, CowEntityBase>(this, 1.1, CowEntityBase.class));
 		this.ageTimer = 0;
 		this.cowType = CowType.FRIESIAN;
 		this.gender = EntityGender.CHILD;
@@ -160,13 +159,13 @@ public class EntityCalfBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getParentUniqueIdParam()
 	{
 		return PARENT_UNIQUE_ID;
 	}
 
 	@Override
-	public DataParameter<Float> getEntityAgeParam()
+	public EntityDataAccessor<Float> getEntityAgeParam()
 	{
 		return AGE;
 	}

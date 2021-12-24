@@ -6,8 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.level.Level;
-
 public enum AmphibianType implements AnimaniaType
 {
 	FROG(EntityFrogs.class),
@@ -23,7 +21,7 @@ public enum AmphibianType implements AnimaniaType
 	
 
 	@Override
-	public EntityAmphibian getMale(Level world)
+	public EntityAmphibian getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -37,7 +35,7 @@ public enum AmphibianType implements AnimaniaType
 		EntityAmphibian frog = null;
 		try
 		{
-			frog = (EntityAmphibian) constructor.newInstance(world);
+			frog = (EntityAmphibian) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -47,14 +45,14 @@ public enum AmphibianType implements AnimaniaType
 	}
 
 	@Override
-	public EntityAmphibian getFemale(Level world)
+	public EntityAmphibian getFemale(Level level)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public EntityAmphibian getChild(Level world)
+	public EntityAmphibian getChild(Level level)
 	{
 		// TODO Auto-generated method stub
 		return null;

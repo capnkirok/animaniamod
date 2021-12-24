@@ -9,11 +9,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
 import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.level.storage.loot.conditions.LootCondition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
-import net.minecraft.world.storage.loot.conditions.LootCondition;
 
 public class WoolColorFunction extends LootItemConditionalFunction
 {

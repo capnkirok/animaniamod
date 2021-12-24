@@ -19,9 +19,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
@@ -36,16 +36,15 @@ import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class EntityFrogs extends EntityAmphibian
 {
 
-	private static final EntityDataAccessor<Integer> FROGS_TYPE = SynchedEntityData.<Integer> defineId(EntityFrogs.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> FROGS_TYPE = SynchedEntityData.<Integer> defineId(EntityFrogs.class, EntityEntityDataSerializers.INT);
 
-	public EntityFrogs(Level worldIn)
+	public EntityFrogs(Level levelIn)
 	{
-		super(worldIn, true);
+		super(levelIn, true);
 	}
 
 	@Override
@@ -70,7 +69,7 @@ public class EntityFrogs extends EntityAmphibian
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.putInteger("FrogsType", this.getFrogsType());
@@ -80,7 +79,7 @@ public class EntityFrogs extends EntityAmphibian
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 		this.setFrogsType(compound.getInteger("FrogsType"));
@@ -105,16 +104,16 @@ public class EntityFrogs extends EntityAmphibian
 	@Override
 	protected void initEntityAI()
 	{
-		this.tasks.addTask(1, new SwimmingGoal(this));
+		this.goalSelector.addGoal(1, new SwimmingGoal(this));
 		if (!this.getCustomNameTag().equals("Pepe"))
 		{
-			this.tasks.addTask(1, new EntityAmphibian.AIPanic(this, 2.2D));
-			this.tasks.addTask(2, new AvoidEntityGoal<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
+			this.goalSelector.addGoal(1, new EntityAmphibian.AIPanic(this, 2.2D));
+			this.goalSelector.addGoal(2, new AvoidEntityGoal<PlayerEntity>(this, PlayerEntity.class, 6.0F, 1.5D, 1.5D));
 		} else if (this.getCustomNameTag().equals("Pepe"))
 		{
 			this.tasks.taskEntries.clear();
-			this.tasks.addTask(1, new LeapAtTargetGoal(this, 0.5F));
-			this.tasks.addTask(2, new AttackMeleeGoal(this, 2.0D, true));
+			this.goalSelector.addGoal(1, new LeapAtTargetGoal(this, 0.5F));
+			this.goalSelector.addGoal(2, new AttackMeleeGoal(this, 2.0D, true));
 			this.targetTasks.addTask(1, new HurtByTargetGoal(this, false, new Class[0]));
 			this.targetTasks.addTask(2, new NearestAttackableTargetGoal<EntityFerretBase>(this, EntityFerretBase.class, true));
 			this.targetTasks.addTask(3, new NearestAttackableTargetGoal<EntityHedgehog>(this, EntityHedgehog.class, true));
@@ -122,8 +121,8 @@ public class EntityFrogs extends EntityAmphibian
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 			this.setHealth(20);
 		}
-		this.tasks.addTask(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
-		this.tasks.addTask(5, new WanderGoal(this, 0.6D));
+		this.goalSelector.addGoal(4, new WatchClosestGoal(this, PlayerEntity.class, 10.0F));
+		this.goalSelector.addGoal(5, new WanderGoal(this, 0.6D));
 
 	}
 

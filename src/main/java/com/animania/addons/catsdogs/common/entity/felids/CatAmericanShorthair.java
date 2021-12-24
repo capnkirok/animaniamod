@@ -1,15 +1,13 @@
 package com.animania.addons.catsdogs.common.entity.felids;
 
-import net.minecraft.world.level.Level;
-
 public class CatAmericanShorthair
 {
 
 	public static class EntityKittenAmericanShorthair extends EntityKittenBase
 	{
-		public EntityKittenAmericanShorthair(Level worldIn)
+		public EntityKittenAmericanShorthair(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = CatType.AMERICAN_SHORTHAIR;
 		}
 	
@@ -27,9 +25,9 @@ public class CatAmericanShorthair
 	}
 
 	public static class EntityQueenAmericanShorthair extends EntityQueenBase {
-		public EntityQueenAmericanShorthair(Level worldIn)
+		public EntityQueenAmericanShorthair(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = CatType.AMERICAN_SHORTHAIR;
 		}
 		
@@ -48,9 +46,9 @@ public class CatAmericanShorthair
 
 	public static class EntityTomAmericanShorthair extends EntityTomBase
 	{
-		public EntityTomAmericanShorthair(Level worldIn)
+		public EntityTomAmericanShorthair(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = CatType.AMERICAN_SHORTHAIR;
 		}
 	

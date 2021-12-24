@@ -33,16 +33,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -52,13 +51,13 @@ import net.minecraft.world.item.ItemStack;
 public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBase, IConvertable
 {
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.chickenFood));
-	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean> createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityAnimaniaChicken.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaChicken.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaChicken.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaChicken.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.defineId(EntityAnimaniaChicken.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.defineId(EntityAnimaniaChicken.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaChicken.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaChicken.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> HANDFED = SynchedEntityData.defineId(EntityAnimaniaChicken.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaChicken.class, EntityDataSerializers.BOOLEAN);
 
 	public boolean chickenJockey;
 	protected ResourceLocation resourceLocation;
@@ -77,25 +76,25 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	public EntityGender gender;
 	public int lidCol;
 
-	public EntityAnimaniaChicken(World worldIn)
+	public EntityAnimaniaChicken(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.tasks.taskEntries.clear();
-		this.tasks.addTask(0, new GenericAISwimmingSmallCreatures(this));
-		this.tasks.addTask(1, new GenericAIPanic<EntityAnimaniaChicken>(this, 1.4D));
+		this.goalSelector.addGoal(0, new GenericAISwimmingSmallCreatures(this));
+		this.goalSelector.addGoal(1, new GenericAIPanic<EntityAnimaniaChicken>(this, 1.4D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaChicken>(this, 1.0D, null, EntityAnimaniaChicken.class, true));
-			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaChicken>(this, 1.0D, null, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaChicken>(this, 1.0D, null, EntityAnimaniaChicken.class, true));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaChicken>(this, 1.0D, null, true));
 		}
 
-		this.tasks.addTask(4, new GenericAITempt<EntityAnimaniaChicken>(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
-		this.tasks.addTask(6, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(7, new WatchClosestFromSideGoal(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaChicken>(this));
+		this.goalSelector.addGoal(4, new GenericAITempt<EntityAnimaniaChicken>(this, 1.2D, false, EntityAnimaniaChicken.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(6, new GenericAIWanderAvoidWater(this, 1.0D));
+		this.goalSelector.addGoal(7, new WatchClosestFromSideGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaChicken>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(8, new GenericAISleep<EntityAnimaniaChicken>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.chickenBed), AnimaniaHelper.getBlock(FarmConfig.settings.chickenBed2), EntityAnimaniaChicken.class));
+			this.goalSelector.addGoal(8, new GenericAISleep<EntityAnimaniaChicken>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.chickenBed), AnimaniaHelper.getBlock(FarmConfig.settings.chickenBed2), EntityAnimaniaChicken.class));
 		}
 		this.targetTasks.addTask(0, new HurtByTargetGoal(this, false, new Class[0]));
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
@@ -171,26 +170,26 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT CompoundNBT)
+	public void writeEntityToNBT(CompoundTag CompoundTag)
 	{
-		super.writeEntityToNBT(CompoundNBT);
-		CompoundNBT.putBoolean("IsChickenJockey", this.chickenJockey);
+		super.writeEntityToNBT(CompoundTag);
+		CompoundTag.putBoolean("IsChickenJockey", this.chickenJockey);
 
-		GenericBehavior.writeCommonNBT(CompoundNBT, this);
+		GenericBehavior.writeCommonNBT(CompoundTag, this);
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT CompoundNBT)
+	public void readEntityFromNBT(CompoundTag CompoundTag)
 	{
-		super.readEntityFromNBT(CompoundNBT);
+		super.readEntityFromNBT(CompoundTag);
 
-		this.chickenJockey = CompoundNBT.getBoolean("IsChickenJockey");
+		this.chickenJockey = CompoundTag.getBoolean("IsChickenJockey");
 
-		GenericBehavior.readCommonNBT(CompoundNBT, this);
+		GenericBehavior.readCommonNBT(CompoundTag, this);
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
@@ -229,25 +228,25 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return HANDFED;
 	}
@@ -446,7 +445,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}
@@ -494,7 +493,7 @@ public class EntityAnimaniaChicken extends Chicken implements IAnimaniaAnimalBas
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return null;
 	}

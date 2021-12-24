@@ -80,15 +80,15 @@ public class ExtraConfig
 		@Comment("Number of potential Rabbit families per chunk")
 		public int numberRabbitFamilies = 2;
 
-		@Comment("Spawn Animania Rodents in world")
+		@Comment("Spawn Animania Rodents in level")
 		public boolean spawnAnimaniaRodents = true;
-		@Comment("Spawn Animania Peacocks in world")
+		@Comment("Spawn Animania Peacocks in level")
 		public boolean spawnAnimaniaPeacocks = true;
 
-		@Comment("Spawn Animania Amphibians in world")
+		@Comment("Spawn Animania Amphibians in level")
 		public boolean spawnAnimaniaAmphibians = true;
 
-		@Comment("Spawn Animania Rabbits in world")
+		@Comment("Spawn Animania Rabbits in level")
 		public boolean spawnAnimaniaRabbits = true;
 
 		@Comment("Spawn probability Hedgehogs in loaded chunks")

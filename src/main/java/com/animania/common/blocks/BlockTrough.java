@@ -28,6 +28,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.level.EnumDifficulty;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
@@ -35,9 +37,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -73,20 +72,20 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	}
 
 	@Override
-	public int tickRate(World worldIn)
+	public int tickRate(Level levelIn)
 	{
 		return 6;
 	}
 
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, BlockState state, Random rand)
+	public void updateTick(Level levelIn, BlockPos pos, BlockState state, Random rand)
 	{
 
-		float f = worldIn.getBiome(pos).getTemperature(pos);
+		float f = levelIn.getBiome(pos).getTemperature(pos);
 
-		if (worldIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F && worldIn.isRaining() && worldIn.getTopSolidOrLiquidBlock(pos).getY() == pos.getY() + 1)
+		if (levelIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F && levelIn.isRaining() && levelIn.getTopSolidOrLiquidBlock(pos).getY() == pos.getY() + 1)
 		{
-			TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
 
 			if (te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
@@ -142,16 +141,16 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, BlockState state, Entity entityIn)
+	public void onEntityCollidedWithBlock(Level levelIn, BlockPos pos, BlockState state, Entity entityIn)
 	{
 
-		TileEntity tile = worldIn.getTileEntity(pos);
+		TileEntity tile = levelIn.getTileEntity(pos);
 		if (!(tile instanceof TileEntityTrough))
 			return;
 
 		TileEntityTrough te = (TileEntityTrough) tile;
 
-		if (entityIn != null && entityIn instanceof EntityItem && !worldIn.isRemote)
+		if (entityIn != null && entityIn instanceof EntityItem && !levelIn.isRemote)
 		{
 
 			EntityItem entityitem = (EntityItem) entityIn;
@@ -174,7 +173,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 			else if (AnimaniaHelper.hasFluid(stack, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
 				te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.6F, 0.8F);
+				levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.6F, 0.8F);
 				IFluidHandlerItem handler = FluidUtil.getFluidHandler(stack);
 				handler.drain(1000, true);
 				ItemStack newStack = handler.getContainer();
@@ -183,7 +182,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 			} else if (AnimaniaHelper.hasFluid(stack, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
 				te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
-				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.BLOCKS, 0.6F, 0.8F);
+				levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.BLOCKS, 0.6F, 0.8F);
 
 				IFluidHandlerItem handler = FluidUtil.getFluidHandler(stack);
 				handler.drain(1000, true);
@@ -192,8 +191,8 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 
 			}
 
-			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
-			worldIn.updateComparatorOutputLevel(pos, this);
+			levelIn.updateComparatorOutputLevel(findInvisiblock(levelIn, pos), BlockHandler.blockInvisiblock);
+			levelIn.updateComparatorOutputLevel(pos, this);
 		}
 	}
 
@@ -216,15 +215,15 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	}
 
 	/**
-	 * Called by BlockItems just before a block is actually set in the world, to
+	 * Called by BlockItems just before a block is actually set in the level, to
 	 * allow for adjustments to the BlockState
 	 */
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
+	public void onBlockPlacedBy(Level levelIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
 
-		TileEntityTrough teChk = (TileEntityTrough) worldIn.getTileEntity(pos);
+		TileEntityTrough teChk = (TileEntityTrough) levelIn.getTileEntity(pos);
 
 		if (teChk == null || true)
 		{
@@ -232,36 +231,36 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 			Direction enumfacing = Direction.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3).getOpposite();
 			state = state.withProperty(BlockTrough.FACING, enumfacing);
 			BlockPos blockpos = pos.north();
-			boolean flag = this.blockState == worldIn.getBlockState(blockpos);
+			boolean flag = this.blockState == levelIn.getBlockState(blockpos);
 
 			if (!flag)
-				worldIn.setBlock(pos, state, 3);
+				levelIn.setBlock(pos, state, 3);
 
 			// System.out.println(placer.getHorizontalFacing().toString());
 
 			if (placer.getHorizontalFacing().toString() == "south")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
-				worldIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
-				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+				levelIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
+				TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
 				te.setTroughRotation(0);
 			} else if (placer.getHorizontalFacing().toString() == "north")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
-				worldIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
-				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+				levelIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
+				TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
 				te.setTroughRotation(1);
 			} else if (placer.getHorizontalFacing().toString() == "east")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
-				worldIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
-				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+				levelIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
+				TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
 				te.setTroughRotation(2);
 			} else if (placer.getHorizontalFacing().toString() == "west")
 			{
 				BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
-				worldIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
-				TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+				levelIn.setBlock(invisipos, BlockHandler.blockInvisiblock.defaultBlockState());
+				TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
 				te.setTroughRotation(3);
 			}
 		}
@@ -269,9 +268,9 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+	public boolean canPlaceBlockAt(Level levelIn, BlockPos pos)
 	{
-		PlayerEntity PlayerEntity = worldIn.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false);
+		PlayerEntity PlayerEntity = levelIn.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 5, false);
 
 		String dir = "";
 
@@ -283,16 +282,16 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 		BlockPos blockpos2 = pos.north();
 		BlockPos blockpos3 = pos.south();
 
-		if (dir.equals("north") && !worldIn.getBlockState(blockpos).getBlock().isReplaceable(worldIn, blockpos))
+		if (dir.equals("north") && !levelIn.getBlockState(blockpos).getBlock().isReplaceable(levelIn, blockpos))
 			return false;
 
-		if (dir.equals("east") && !worldIn.getBlockState(blockpos2).getBlock().isReplaceable(worldIn, blockpos2))
+		if (dir.equals("east") && !levelIn.getBlockState(blockpos2).getBlock().isReplaceable(levelIn, blockpos2))
 			return false;
 
-		if (dir.equals("south") && !worldIn.getBlockState(blockpos1).getBlock().isReplaceable(worldIn, blockpos1))
+		if (dir.equals("south") && !levelIn.getBlockState(blockpos1).getBlock().isReplaceable(levelIn, blockpos1))
 			return false;
 
-		if (dir.equals("west") && !worldIn.getBlockState(blockpos3).getBlock().isReplaceable(worldIn, blockpos3))
+		if (dir.equals("west") && !levelIn.getBlockState(blockpos3).getBlock().isReplaceable(levelIn, blockpos3))
 			return false;
 
 		return true;
@@ -304,19 +303,19 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	 * the block.
 	 */
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
+	public TileEntity createNewTileEntity(Level levelIn, int meta)
 	{
 		return new TileEntityTrough();
 	}
 
 	@Override
-	public ItemStack getItem(World worldIn, BlockPos pos, BlockState state)
+	public ItemStack getItem(Level levelIn, BlockPos pos, BlockState state)
 	{
 		return new ItemStack(BlockHandler.blockTrough, 1);
 	}
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, BlockState state)
+	public void breakBlock(Level levelIn, BlockPos pos, BlockState state)
 	{
 
 		String dir = state.getValue(BlockTrough.FACING).toString();
@@ -324,28 +323,28 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 		if (dir == "south")
 		{
 			BlockPos invisipos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
-			worldIn.setBlockToAir(invisipos);
+			levelIn.setBlockToAir(invisipos);
 		} else if (dir == "north")
 		{
 			BlockPos invisipos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
-			worldIn.setBlockToAir(invisipos);
+			levelIn.setBlockToAir(invisipos);
 		} else if (dir == "east")
 		{
 			BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
-			worldIn.setBlockToAir(invisipos);
+			levelIn.setBlockToAir(invisipos);
 		} else if (dir == "west")
 		{
 			BlockPos invisipos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
-			worldIn.setBlockToAir(invisipos);
+			levelIn.setBlockToAir(invisipos);
 		}
 
-		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+		TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
 		if (te != null)
 		{
-			InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
+			InventoryHelper.spawnItemStack(levelIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
 		}
 
-		super.breakBlock(worldIn, pos, state);
+		super.breakBlock(levelIn, pos, state);
 	}
 
 	@Override
@@ -355,9 +354,9 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 		return Item.getItemFromBlock(BlockHandler.blockTrough);
 	}
 
-	public boolean canDispenserPlace(World worldIn, BlockPos pos, ItemStack stack)
+	public boolean canDispenserPlace(Level levelIn, BlockPos pos, ItemStack stack)
 	{
-		return stack.getMetadata() == 1 && pos.getY() >= 2 && worldIn.getDifficulty() != EnumDifficulty.PEACEFUL;
+		return stack.getMetadata() == 1 && pos.getY() >= 2 && levelIn.getDifficulty() != EnumDifficulty.PEACEFUL;
 	}
 
 	@Override
@@ -375,11 +374,11 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = playerIn.getHeldItem(hand);
-		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+		TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
 
 		// SOLIDS
 		if (!heldItem.isEmpty() && heldItem.getItem() == Items.WHEAT || isModdedFoodItem(heldItem))
@@ -391,8 +390,8 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 				if (!playerIn.isCreative() && !ItemStack.areItemStacksEqual(remaining, held))
 					heldItem.shrink(1);
 
-				worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
-				worldIn.updateComparatorOutputLevel(pos, this);
+				levelIn.updateComparatorOutputLevel(findInvisiblock(levelIn, pos), BlockHandler.blockInvisiblock);
+				levelIn.updateComparatorOutputLevel(pos, this);
 				return true;
 			}
 
@@ -401,7 +400,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 		else if (AnimaniaHelper.hasFluid(heldItem, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 		{
 			te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
 			if (!playerIn.isCreative())
 			{
 				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
@@ -409,14 +408,14 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 				ItemStack newStack = handler.getContainer();
 				playerIn.setHeldItem(hand, newStack);
 			}
-			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
-			worldIn.updateComparatorOutputLevel(pos, this);
+			levelIn.updateComparatorOutputLevel(findInvisiblock(levelIn, pos), BlockHandler.blockInvisiblock);
+			levelIn.updateComparatorOutputLevel(pos, this);
 			return true;
 
 		} else if (AnimaniaHelper.hasFluid(heldItem, FluidRegistry.WATER) && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000)
 		{
 			te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
 			if (!playerIn.isCreative())
 			{
 				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
@@ -424,14 +423,14 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 				ItemStack newStack = handler.getContainer();
 				playerIn.setHeldItem(hand, newStack);
 			}
-			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
-			worldIn.updateComparatorOutputLevel(pos, this);
+			levelIn.updateComparatorOutputLevel(findInvisiblock(levelIn, pos), BlockHandler.blockInvisiblock);
+			levelIn.updateComparatorOutputLevel(pos, this);
 			return true;
 
 		} else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 		{
 			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
-			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
 			if (!playerIn.isCreative())
 			{
 				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
@@ -439,14 +438,14 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 				ItemStack newStack = handler.getContainer();
 				playerIn.setHeldItem(hand, newStack);
 			}
-			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
-			worldIn.updateComparatorOutputLevel(pos, this);
+			levelIn.updateComparatorOutputLevel(findInvisiblock(levelIn, pos), BlockHandler.blockInvisiblock);
+			levelIn.updateComparatorOutputLevel(pos, this);
 			return true;
 
 		} else if (AnimaniaHelper.hasFluid(heldItem, BlockHandler.fluidSlop) && te.fluidHandler.getFluid() != null && te.fluidHandler.getFluid().getFluid() == BlockHandler.fluidSlop && te.fluidHandler.getFluid().amount < 1000)
 		{
 			te.fluidHandler.fill(new FluidStack(BlockHandler.fluidSlop, 1000), true);
-			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_SLIME_PLACE, SoundCategory.PLAYERS, 0.6F, 0.8F);
 			if (!playerIn.isCreative())
 			{
 				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
@@ -454,8 +453,8 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 				ItemStack newStack = handler.getContainer();
 				playerIn.setHeldItem(hand, newStack);
 			}
-			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
-			worldIn.updateComparatorOutputLevel(pos, this);
+			levelIn.updateComparatorOutputLevel(findInvisiblock(levelIn, pos), BlockHandler.blockInvisiblock);
+			levelIn.updateComparatorOutputLevel(pos, this);
 			return true;
 
 		}
@@ -464,7 +463,7 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 		{
 			ItemStack extract = te.itemHandler.extractItem(0, 1, false);
 			playerIn.inventory.addItemStackToInventory(extract);
-			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
+			levelIn.updateComparatorOutputLevel(findInvisiblock(levelIn, pos), BlockHandler.blockInvisiblock);
 			return true;
 		}
 		// EMPTY LIQUIDS
@@ -495,9 +494,9 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 
 			}
 
-			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
-			worldIn.updateComparatorOutputLevel(findInvisiblock(worldIn, pos), BlockHandler.blockInvisiblock);
-			worldIn.updateComparatorOutputLevel(pos, this);
+			levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			levelIn.updateComparatorOutputLevel(findInvisiblock(levelIn, pos), BlockHandler.blockInvisiblock);
+			levelIn.updateComparatorOutputLevel(pos, this);
 
 			return true;
 
@@ -530,10 +529,10 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
+	public int getComparatorInputOverride(BlockState blockState, Level levelIn, BlockPos pos)
 	{
 
-		TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos);
+		TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos);
 		if (!te.itemHandler.getStackInSlot(0).isEmpty())
 			return ItemHandlerHelper.calcRedstoneFromInventory(te.itemHandler);
 
@@ -551,9 +550,9 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 		return this.name;
 	}
 
-	public BlockPos findInvisiblock(World world, BlockPos pos)
+	public BlockPos findInvisiblock(Level level, BlockPos pos)
 	{
-		Direction facing = world.getBlockState(pos).getValue(FACING);
+		Direction facing = level.getBlockState(pos).getValue(FACING);
 		facing = facing.rotateAround(Axis.Y);
 
 		return pos.offset(facing);
@@ -578,19 +577,19 @@ public class BlockTrough extends BaseEntityBlock implements TOPInfoProvider, IFo
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+	public void neighborChanged(BlockState state, Level levelIn, BlockPos pos, Block blockIn, BlockPos fromPos)
 	{
-		BlockPos invisi = findInvisiblock(worldIn, pos);
-		worldIn.updateComparatorOutputLevel(invisi, BlockHandler.blockInvisiblock);
+		BlockPos invisi = findInvisiblock(levelIn, pos);
+		levelIn.updateComparatorOutputLevel(invisi, BlockHandler.blockInvisiblock);
 
-		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+		super.neighborChanged(state, levelIn, pos, blockIn, fromPos);
 	}
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
 	{
-		TileEntity te = world.getTileEntity(data.getPos());
+		TileEntity te = level.getTileEntity(data.getPos());
 		if (te instanceof TileEntityTrough)
 		{
 			TileEntityTrough trough = (TileEntityTrough) te;

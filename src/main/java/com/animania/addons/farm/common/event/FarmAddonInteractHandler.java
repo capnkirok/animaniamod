@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -29,7 +28,7 @@ public class FarmAddonInteractHandler
 	{
 		ItemStack stack = event.getItemStack();
 		Player player = event.getPlayer();
-		Level world = event.getWorld();
+		Level level = event.getLevel();
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && player.isPassenger())
 		{
@@ -95,7 +94,7 @@ public class FarmAddonInteractHandler
 		if (stack.getItem() == FarmAddonItemHandler.carvingKnife && target instanceof ISterilizable && !((ISterilizable) target).getSterilized())
 		{
 			if (!target.level.isRemote)
-				((net.minecraft.world.WorldServer) target.level).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, false, target.getX(), target.getY() + target.height / 2.0F, target.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+				((net.minecraft.level.LevelServer) target.level).spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, false, target.getX(), target.getY() + target.height / 2.0F, target.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 			target.playSound(SoundEvents.ENTITY_MOOSHROOM_SHEAR, 1.0F, 1.0F);
 			stack.damageItem(1, player);
 			((ISterilizable) target).sterilize();

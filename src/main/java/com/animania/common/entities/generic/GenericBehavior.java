@@ -26,11 +26,10 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -151,7 +150,7 @@ public class GenericBehavior
 
 	public static <T extends AgeableEntity & IFoodEating & ISleeping & IChild> void livingUpdateChild(T entity, Class<? extends LivingEntity> motherClass)
 	{
-		World world = entity.level;
+		Level level = entity.level;
 
 		entity.setGrowingAge((int) -((0.85 - entity.getEntityAge()) * 100 * AnimaniaConfig.careAndFeeding.childGrowthTick));
 
@@ -179,15 +178,15 @@ public class GenericBehavior
 
 					if (rand.nextInt(2) == 0)
 					{
-						grownUp = (LivingEntity) entity.getAnimalType().getFemale(world);
+						grownUp = (LivingEntity) entity.getAnimalType().getFemale(level);
 					} else
 					{
-						grownUp = (LivingEntity) entity.getAnimalType().getMale(world);
+						grownUp = (LivingEntity) entity.getAnimalType().getMale(level);
 					}
 
 					if (IImpregnable.class.isAssignableFrom(motherClass))
 					{
-						List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(motherClass, 15, world, entity);
+						List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(motherClass, 15, level, entity);
 						for (LivingEntity potentialMother : entities)
 						{
 							if (potentialMother.getUUID().equals(entity.getParentUniqueId()))
@@ -216,7 +215,7 @@ public class GenericBehavior
 						if (grownUp instanceof IFoodEating)
 							((IFoodEating) grownUp).setInteracted(entity.getInteracted());
 
-						AnimaniaHelper.spawnEntity(world, grownUp);
+						AnimaniaHelper.spawnEntity(level, grownUp);
 						grownUp.playLivingSound();
 					}
 
@@ -227,7 +226,7 @@ public class GenericBehavior
 	public static <T extends AnimalEntity & IFoodEating & ISleeping & IMateable> void livingUpdateMateable(T entity, Class<? extends LivingEntity> partnerClass)
 	{
 
-		World world = entity.level;
+		Level level = entity.level;
 
 		if (rand.nextInt(200) == 0)
 		{
@@ -237,7 +236,7 @@ public class GenericBehavior
 				UUID mateUUID = entity.getMateUniqueId();
 				boolean mateReset = true;
 
-				List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(partnerClass, 30, world, entity);
+				List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(partnerClass, 30, level, entity);
 				for (int k = 0; k <= entities.size() - 1; k++)
 				{
 					Entity mate = entities.get(k);
@@ -262,7 +261,7 @@ public class GenericBehavior
 	{
 		livingUpdateMateable(entity, partnerClass);
 
-		World world = entity.level;
+		Level level = entity.level;
 
 		int dryTimer = entity.getDryTimer();
 
@@ -290,7 +289,7 @@ public class GenericBehavior
 			if (gestationTimer == 0)
 			{
 				UUID MateID = entity.getMateUniqueId();
-				List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(partnerClass, 30, world, entity);
+				List<LivingEntity> entities = AnimaniaHelper.getEntitiesInRange(partnerClass, 30, level, entity);
 				LivingEntity male = null;
 				for (LivingEntity potentialMate : entities)
 				{
@@ -331,9 +330,9 @@ public class GenericBehavior
 					if (entityKid instanceof IFoodEating)
 						((IFoodEating) entityKid).setInteracted(entity.getInteracted());
 
-					if (!world.isRemote)
+					if (!level.isRemote)
 					{
-						AnimaniaHelper.spawnEntity(world, entityKid);
+						AnimaniaHelper.spawnEntity(level, entityKid);
 					}
 
 					entity.setPregnant(false);
@@ -455,7 +454,7 @@ public class GenericBehavior
 		}
 	}
 
-	public static <T extends AnimalEntity & IFoodEating & ISleeping & IAgeable> void writeCommonNBT(CompoundNBT tag, T entity)
+	public static <T extends AnimalEntity & IFoodEating & ISleeping & IAgeable> void writeCommonNBT(CompoundTag tag, T entity)
 	{
 		tag.putBoolean("Fed", entity.getFed());
 		tag.putBoolean("Interacted", entity.getInteracted());
@@ -497,7 +496,7 @@ public class GenericBehavior
 		}
 	}
 
-	public static <T extends AnimalEntity & IFoodEating & ISleeping & IAgeable> void readCommonNBT(CompoundNBT tag, T entity)
+	public static <T extends AnimalEntity & IFoodEating & ISleeping & IAgeable> void readCommonNBT(CompoundTag tag, T entity)
 	{
 		entity.setFed(tag.getBoolean("Fed"));
 		entity.setInteracted(tag.getBoolean("Interacted"));

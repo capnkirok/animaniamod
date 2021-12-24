@@ -1,16 +1,14 @@
 package com.animania.addons.extra.common.entity.rodents.rabbits;
 
-import net.minecraft.world.level.Level;
-
 public class RabbitChinchilla
 {
 
 	public static class RabbitEntityKitChinchilla extends RabbitEntityKitBase
 	{
 	
-		public RabbitEntityKitChinchilla(Level worldIn)
+		public RabbitEntityKitChinchilla(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.rabbitType = RabbitType.CHINCHILLA;
 		}
 		
@@ -31,9 +29,9 @@ public class RabbitChinchilla
 	public static class RabbitEntityDoeChinchilla extends RabbitEntityDoeBase
 	{
 	
-		public RabbitEntityDoeChinchilla(Level worldIn)
+		public RabbitEntityDoeChinchilla(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.rabbitType = RabbitType.CHINCHILLA;
 	
 		}
@@ -55,9 +53,9 @@ public class RabbitChinchilla
 	public static class RabbitEntityBuckChinchilla extends RabbitEntityBuckBase
 	{
 	
-		public RabbitEntityBuckChinchilla(Level worldIn)
+		public RabbitEntityBuckChinchilla(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.rabbitType = RabbitType.CHINCHILLA;
 		}
 		

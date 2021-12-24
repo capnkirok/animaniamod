@@ -1,16 +1,14 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
-import net.minecraft.world.level.Level;
-
 public class DogPoodle
 {
 
 	public static class EntityFemalePoodle extends EntityFemaleDogBase
 	{
 	
-		public EntityFemalePoodle(Level world)
+		public EntityFemalePoodle(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.POODLE;
 		}
 		
@@ -50,9 +48,9 @@ public class DogPoodle
 	public static class EntityMalePoodle extends EntityMaleDogBase
 	{
 	
-		public EntityMalePoodle(Level world)
+		public EntityMalePoodle(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.POODLE;
 		}
 		
@@ -92,9 +90,9 @@ public class DogPoodle
 	public static class EntityPuppyPoodle extends EntityPuppyBase
 	{
 	
-		public EntityPuppyPoodle(Level world)
+		public EntityPuppyPoodle(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.POODLE;
 		}
 		

@@ -14,8 +14,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,7 +49,7 @@ public class ItemRidingCrop extends Item
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, EnumHand hand)
+	public ActionResult<ItemStack> onItemRightClick(Level levelIn, PlayerEntity playerIn, EnumHand hand)
 	{
 
 		ItemStack itemStackIn = playerIn.getHeldItem(hand);
@@ -85,7 +83,7 @@ public class ItemRidingCrop extends Item
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<String> list, ITooltipFlag flagIn)
+	public void addInformation(ItemStack stack, Level levelIn, List<String> list, ITooltipFlag flagIn)
 	{
 		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.ridingcrop1"));
 		list.add(TextFormatting.GREEN + I18n.translateToLocal("tooltip.an.ridingcrop2"));

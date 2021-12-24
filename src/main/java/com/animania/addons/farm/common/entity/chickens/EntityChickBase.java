@@ -8,25 +8,24 @@ import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.google.common.base.Optional;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
-import net.minecraft.world.level.Level;
 
 public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoProviderBase, IChild
 {
 
-	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float>defineId(EntityChickBase.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float>defineId(EntityChickBase.class, EntityEntityDataSerializers.FLOAT);
 	protected int ageTimer;
 	
-	public EntityChickBase(Level worldIn)
+	public EntityChickBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.1F, 1.5F); 
-		this.tasks.addTask(5, new FollowParentGoal(this, 1.1D));
+		this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
 		this.ageTimer = 0;
 		this.type = ChickenType.LEGHORN;
 		this.gender = EntityGender.CHILD;
@@ -53,17 +52,17 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT CompoundNBT)
+	public void writeEntityToNBT(CompoundTag CompoundTag)
 	{
-		super.writeEntityToNBT(CompoundNBT);
+		super.writeEntityToNBT(CompoundTag);
 
 
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT CompoundNBT)
+	public void readEntityFromNBT(CompoundTag CompoundTag)
 	{
-		super.readEntityFromNBT(CompoundNBT);
+		super.readEntityFromNBT(CompoundTag);
 		
 
 	}
@@ -114,13 +113,13 @@ public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoPro
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getParentUniqueIdParam()
 	{
 		return null;
 	}
 
 	@Override
-	public DataParameter<Float> getEntityAgeParam()
+	public EntityDataAccessor<Float> getEntityAgeParam()
 	{
 		return AGE;
 	}

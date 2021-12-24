@@ -1,7 +1,6 @@
 package com.animania.addons.farm.common.entity.chickens;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 public class ChickenOrpington
 {
@@ -9,9 +8,9 @@ public class ChickenOrpington
 	public static class EntityChickOrpington extends EntityChickBase
 	{
 
-		public EntityChickOrpington(Level worldIn)
+		public EntityChickOrpington(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = ChickenType.ORPINGTON;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_golden.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_blink.png");
@@ -34,9 +33,9 @@ public class ChickenOrpington
 	public static class EntityRoosterOrpington extends EntityRoosterBase
 	{
 
-		public EntityRoosterOrpington(Level worldIn)
+		public EntityRoosterOrpington(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = ChickenType.ORPINGTON;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/rooster_golden.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png");
@@ -59,9 +58,9 @@ public class ChickenOrpington
 	public static class EntityHenOrpington extends EntityHenBase
 	{
 
-		public EntityHenOrpington(Level worldIn)
+		public EntityHenOrpington(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = ChickenType.ORPINGTON;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/hen_golden.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png");

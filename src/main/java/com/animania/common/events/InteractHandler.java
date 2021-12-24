@@ -18,8 +18,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,7 +34,7 @@ public class InteractHandler
 
 		ItemStack stack = event.getItemStack();
 		Player player = event.getPlayer();
-		Level world = event.getWorld();
+		Level level = event.getLevel();
 
 		if (stack != ItemStack.EMPTY && (stack.getItem() == Items.WHEAT_SEEDS || stack.getItem() == Items.PUMPKIN_SEEDS || stack.getItem() == Items.MELON_SEEDS || stack.getItem() == Items.BEETROOT_SEEDS) && (AnimaniaConfig.gameRules.shiftSeedPlacement ? player.isSneaking() : true))
 		{
@@ -48,27 +46,27 @@ public class InteractHandler
 				Direction facing = ray.sideHit;
 				BlockPos pos = ray.getBlockPosition();
 
-				if (!world.getBlockState(pos).getBlock().canBeReplaced(world, pos))
+				if (!level.getBlockState(pos).getBlock().canBeReplaced(level, pos))
 					pos = pos.offset(facing);
 				BlockPos below = pos.down();
 
-				if (world.getBlockState(below).isFullBlock() && world.getBlockState(below).isOpaqueCube() && !(world.getBlockState(below).getBlock() instanceof BlockFarmland) && !(world.getBlockState(below).getBlock() instanceof IPlantable))
+				if (level.getBlockState(below).isFullBlock() && level.getBlockState(below).isOpaqueCube() && !(level.getBlockState(below).getBlock() instanceof BlockFarmland) && !(level.getBlockState(below).getBlock() instanceof IPlantable))
 				{
-					if (world.getBlockState(pos).getBlock().canBeReplaced(world, pos))
+					if (level.getBlockState(pos).getBlock().canBeReplaced(level, pos))
 					{
 						if (item == Items.WHEAT_SEEDS)
-							world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState());
+							level.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState());
 						else if (item == Items.PUMPKIN_SEEDS)
-							world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.PUMPKIN));
+							level.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.PUMPKIN));
 						else if (item == Items.MELON_SEEDS)
-							world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
+							level.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.MELON));
 						else if (item == Items.BEETROOT_SEEDS)
-							world.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
+							level.setBlock(pos, BlockHandler.blockSeeds.defaultBlockState().withProperty(BlockSeeds.VARIANT, BlockSeeds.EnumType.BEETROOT));
 						player.swing(event.getHand());
 						if (!player.isCreative())
 							stack.shrink(1);
 
-						event.getWorld().playSound(null, event.getPlayer().getX(), event.getPlayer().getY(), event.getPlayer().getZ(), SoundEvents.BLOCK_GRASS_FALL, SoundCategory.PLAYERS, 0.2F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+						event.getLevel().playSound(null, event.getPlayer().getX(), event.getPlayer().getY(), event.getPlayer().getZ(), SoundEvents.BLOCK_GRASS_FALL, SoundCategory.PLAYERS, 0.2F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 
 						event.setCanceled(true);
 						event.setCancellationResult(ActionResultType.SUCCESS);

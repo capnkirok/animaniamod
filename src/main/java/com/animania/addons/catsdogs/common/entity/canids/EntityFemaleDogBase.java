@@ -20,24 +20,23 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.level.Level;
 
 public class EntityFemaleDogBase extends EntityAnimaniaDog implements TOPInfoProviderMateable, IMateable, IImpregnable
 {
 
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityFemaleDogBase.class, EntityDataSerializers.OPTIONAL_UUID);
-	protected static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.<Boolean> defineId(EntityFemaleDogBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> HAS_KIDS = SynchedEntityData.<Boolean> defineId(EntityFemaleDogBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> FERTILE = SynchedEntityData.<Boolean> defineId(EntityFemaleDogBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Integer> GESTATION_TIMER = SynchedEntityData.<Integer> defineId(EntityFemaleDogBase.class, EntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityFemaleDogBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.<Boolean> defineId(EntityFemaleDogBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> HAS_KIDS = SynchedEntityData.<Boolean> defineId(EntityFemaleDogBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FERTILE = SynchedEntityData.<Boolean> defineId(EntityFemaleDogBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> GESTATION_TIMER = SynchedEntityData.<Integer> defineId(EntityFemaleDogBase.class, EntityEntityDataSerializers.INT);
 	public int dryTimer;
 
-	public EntityFemaleDogBase(Level worldIn)
+	public EntityFemaleDogBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(0.8F, 0.8F);
 		this.width = 0.8F;
 		this.height = 0.8F;
@@ -66,13 +65,13 @@ public class EntityFemaleDogBase extends EntityAnimaniaDog implements TOPInfoPro
 	}
 
 	@Override
-	public DataParameter<Integer> getGestationParam()
+	public EntityDataAccessor<Integer> getGestationParam()
 	{
 		return GESTATION_TIMER;
 	}
 
 	@Override
-	public DataParameter<Boolean> getPregnantParam()
+	public EntityDataAccessor<Boolean> getPregnantParam()
 	{
 		return PREGNANT;
 	}
@@ -90,19 +89,19 @@ public class EntityFemaleDogBase extends EntityAnimaniaDog implements TOPInfoPro
 	}
 
 	@Override
-	public DataParameter<Boolean> getFertileParam()
+	public EntityDataAccessor<Boolean> getFertileParam()
 	{
 		return FERTILE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHasKidsParam()
+	public EntityDataAccessor<Boolean> getHasKidsParam()
 	{
 		return HAS_KIDS;
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}
@@ -117,7 +116,7 @@ public class EntityFemaleDogBase extends EntityAnimaniaDog implements TOPInfoPro
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 
 		if (player.isSneaking())
@@ -143,7 +142,7 @@ public class EntityFemaleDogBase extends EntityAnimaniaDog implements TOPInfoPro
 				}
 			}
 		}
-		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
 }

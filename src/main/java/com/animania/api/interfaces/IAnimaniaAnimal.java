@@ -6,7 +6,6 @@ import com.google.common.base.Optional;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 
 public interface IAnimaniaAnimal

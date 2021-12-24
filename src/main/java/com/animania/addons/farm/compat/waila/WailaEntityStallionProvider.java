@@ -6,7 +6,6 @@ import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
-import net.minecraft.world.entity.Entity;
 
 public class WailaEntityStallionProvider extends WailaAnimalEntityProviderMateable
 {

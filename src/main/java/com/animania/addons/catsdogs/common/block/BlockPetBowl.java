@@ -16,15 +16,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.ForgeModContainer;
@@ -54,18 +52,18 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
+	public TileEntity createNewTileEntity(Level levelIn, int meta)
 	{
 		return new TileEntityPetBowl();
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, BlockState state, Entity entityIn)
+	public void onEntityCollidedWithBlock(Level levelIn, BlockPos pos, BlockState state, Entity entityIn)
 	{
 
-		TileEntityPetBowl te = (TileEntityPetBowl) worldIn.getTileEntity(pos);
+		TileEntityPetBowl te = (TileEntityPetBowl) levelIn.getTileEntity(pos);
 
-		if (entityIn != null && entityIn instanceof EntityItem && !worldIn.isRemote)
+		if (entityIn != null && entityIn instanceof EntityItem && !levelIn.isRemote)
 		{
 
 			EntityItem entityitem = (EntityItem) entityIn;
@@ -88,7 +86,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 			else if (AnimaniaHelper.hasFluid(stack, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && te.fluidHandler.getFluid() == null)
 			{
 				te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-				worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.6F, 0.8F);
+				levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 0.6F, 0.8F);
 				IFluidHandlerItem handler = FluidUtil.getFluidHandler(stack);
 				handler.drain(1000, true);
 				ItemStack newStack = handler.getContainer();
@@ -99,11 +97,11 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = playerIn.getHeldItem(hand);
-		TileEntityPetBowl te = (TileEntityPetBowl) worldIn.getTileEntity(pos);
+		TileEntityPetBowl te = (TileEntityPetBowl) levelIn.getTileEntity(pos);
 
 		// SOLIDS
 		if (!heldItem.isEmpty() && isFoodItem(heldItem))
@@ -123,7 +121,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 		else if (AnimaniaHelper.hasFluid(heldItem, FluidRegistry.WATER) && te.itemHandler.getStackInSlot(0).isEmpty() && (te.fluidHandler.getFluid() == null || (te.fluidHandler.getFluid().getFluid() == FluidRegistry.WATER && te.fluidHandler.getFluid().amount < 1000)))
 		{
 			te.fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS, 0.6F, 0.8F);
 			if (!playerIn.isCreative())
 			{
 				IFluidHandlerItem handler = FluidUtil.getFluidHandler(heldItem);
@@ -170,7 +168,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 
 			}
 
-			worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
+			levelIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
 
 			return true;
 
@@ -179,15 +177,15 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 	}
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, BlockState state)
+	public void breakBlock(Level levelIn, BlockPos pos, BlockState state)
 	{
-		TileEntityPetBowl te = (TileEntityPetBowl) worldIn.getTileEntity(pos);
+		TileEntityPetBowl te = (TileEntityPetBowl) levelIn.getTileEntity(pos);
 		if (te != null)
 		{
-			InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
+			InventoryHelper.spawnItemStack(levelIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
 		}
 
-		super.breakBlock(worldIn, pos, state);
+		super.breakBlock(levelIn, pos, state);
 	}
 	
 	@Override
@@ -197,7 +195,7 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos)
+	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return AABB;
 	}
@@ -209,10 +207,10 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
+	public int getComparatorInputOverride(BlockState blockState, Level levelIn, BlockPos pos)
 	{
 
-		TileEntityPetBowl te = (TileEntityPetBowl) worldIn.getTileEntity(pos);
+		TileEntityPetBowl te = (TileEntityPetBowl) levelIn.getTileEntity(pos);
 		if (!te.itemHandler.getStackInSlot(0).isEmpty())
 			return ItemHandlerHelper.calcRedstoneFromInventory(te.itemHandler);
 
@@ -262,9 +260,9 @@ public class BlockPetBowl extends AnimaniaContainer implements IFoodProviderBloc
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
 	{
-		TileEntity te = world.getTileEntity(data.getPos());
+		TileEntity te = level.getTileEntity(data.getPos());
 		if (te instanceof TileEntityPetBowl)
 		{
 			TileEntityPetBowl bowl = (TileEntityPetBowl) te;

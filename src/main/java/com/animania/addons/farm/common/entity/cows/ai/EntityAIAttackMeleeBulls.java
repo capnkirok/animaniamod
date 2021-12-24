@@ -10,12 +10,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.pathfinder.Path;
 
 public class AttackMeleeBullsGoal extends Goal
 {
-	Level                    worldObj;
+	Level                    levelObj;
 	protected PathfinderMob attacker;
 	protected int            attackTick;
 	double                   speedTowardsTarget;

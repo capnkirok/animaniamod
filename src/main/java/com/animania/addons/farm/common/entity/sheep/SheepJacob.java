@@ -6,9 +6,8 @@ import java.util.List;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class SheepJacob
 {
@@ -16,9 +15,9 @@ public class SheepJacob
 	public static class EntityRamJacob extends EntityRamBase
 	{
 	
-		public EntityRamJacob(Level worldIn)
+		public EntityRamJacob(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.JACOB;
 		}
 		
@@ -35,7 +34,7 @@ public class SheepJacob
 		}
 		
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune) {
 			
 			this.setSheared(true);
 			int i = 1 + this.rand.nextInt(2);
@@ -51,9 +50,9 @@ public class SheepJacob
 	public static class EntityLambJacob extends EntityLambBase
 	{
 	
-		public EntityLambJacob(World worldIn)
+		public EntityLambJacob(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.JACOB;
 		}
 		
@@ -74,9 +73,9 @@ public class SheepJacob
 	public static class EntityEweJacob extends EntityEweBase
 	{
 	
-		public EntityEweJacob(World worldIn)
+		public EntityEweJacob(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.JACOB;
 		}
 		
@@ -93,7 +92,7 @@ public class SheepJacob
 		}
 	
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune) {
 			
 			this.setSheared(true);
 			int i = 1 + this.rand.nextInt(2);

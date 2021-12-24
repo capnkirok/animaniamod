@@ -21,11 +21,10 @@ import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -37,8 +36,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.ContainerListener;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -60,10 +57,10 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 	private double lerpZ;
 	public double cartYaw;
 	private double lerpXRot;
-	protected static final DataParameter<Integer> PULLER_TYPE = EntityDataManager.<Integer> createKey(EntityCart.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer> createKey(EntityCart.class, DataSerializers.VARINT);
-	private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.<Float> createKey(EntityCart.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> HAS_CHEST = EntityDataManager.<Boolean> createKey(EntityCart.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> PULLER_TYPE = SynchedEntityData.defineId(EntityCart.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Integer> TIME_SINCE_HIT = SynchedEntityData.defineId(EntityCart.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Float> DAMAGE_TAKEN = SynchedEntityData.defineId(EntityCart.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> HAS_CHEST = SynchedEntityData.defineId(EntityCart.class, EntityDataSerializers.BOOLEAN);
 
 	// Gui Id Offset required when multiple addons are installed
 	private static final int GUI_ID = 0 + FarmAddon.guiHandler.getGuiIdOffset();
@@ -76,9 +73,9 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		EntityCart.animHandler.addAnim(Animania.MODID, "anim_cart_chest_back", "anim_cart_chest");
 	}
 
-	public EntityCart(World par1World)
+	public EntityCart(Level par1Level)
 	{
-		super(par1World);
+		super(par1Level);
 		this.preventEntitySpawning = true;
 		this.setSize(2.0F, 1.2F);
 		this.width = 2.0F;
@@ -90,9 +87,9 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 
 	}
 
-	public EntityCart(World worldIn, double x, double y, double z)
+	public EntityCart(Level levelIn, double x, double y, double z)
 	{
-		this(worldIn);
+		this(levelIn);
 		setPosition(x, y, z);
 	}
 
@@ -129,11 +126,11 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		boolean isPulling = false;
-		List horses = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, world, player);
-		List pigs = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 3, world, player);
-		List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, world, this);
-		List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
-		List tillers = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, world, this);
+		List horses = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, level, player);
+		List pigs = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 3, level, player);
+		List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, level, this);
+		List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, level, this);
+		List tillers = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, level, this);
 
 		if (!carts.isEmpty())
 		{
@@ -188,7 +185,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 			{
 				this.cartChest.setCustomName(this.getName());
 				player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
+				level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
 			} else if (!this.getHasChest() && stack.getItem() != Item.getItemFromBlock(Blocks.CHEST) && player.getRidingEntity() != this)
 			{
 				player.startRiding(this);
@@ -215,9 +212,9 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 					stack.shrink(1);
 				}
 
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.PLAYERS, 0.7F, 1.0F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_LOCKED, SoundCategory.PLAYERS, 0.7F, 1.0F);
 				}
 				return true;
 			} else if (player.isPassenger() && this.puller != player && this.puller != player.getRidingEntity() && player.getRidingEntity() != this && !isPulling)
@@ -232,9 +229,9 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				{
 					this.setPullerType(3);
 				}
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 
 				return true;
@@ -243,9 +240,9 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopCart();
 				return true;
@@ -259,9 +256,9 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				{
 					player.inventory.addItemStackToInventory(new ItemStack(Items.LEAD, 1));
 				}
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
 			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && pig != null && pig.getLeashHolder() == player && !isPulling)
@@ -274,12 +271,12 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				{
 					player.inventory.addItemStackToInventory(new ItemStack(Items.LEAD, 1));
 				}
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote && !isPulling)
+			} else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !level.isRemote && !isPulling)
 			{
 
 				double diffx = Math.abs(this.getX() - player.getX());
@@ -291,21 +288,21 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 					this.pulled = true;
 					this.puller = player;
 					this.setPullerType(2);
-					if (!world.isRemote)
+					if (!level.isRemote)
 					{
-						world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+						level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 
 					}
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !world.isRemote)
+			} else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !level.isRemote)
 			{
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopCart();
 				return true;
@@ -314,9 +311,9 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopCart();
 				return true;
@@ -417,14 +414,14 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		}
 
 		// Dismount text
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown > 10 && world.isRemote)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown > 10 && level.isRemote)
 		{
 			PlayerEntity player = (PlayerEntity) this.getControllingPassenger();
 			player.sendStatusMessage(new TextComponentString(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
 		}
 
 		// Determine animation direction based on previous pos
-		if (this.pulled && this.puller != null && world.isRemote)
+		if (this.pulled && this.puller != null && level.isRemote)
 		{
 
 			double movX = Math.abs(this.getX() - this.prevgetX());
@@ -520,7 +517,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		// Add slowness if multiple carts being pulled
 		if (this.pulled && this.puller instanceof PlayerEntity)
 		{
-			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, world, this);
+			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, level, this);
 
 			PlayerEntity player = (PlayerEntity) this.puller;
 			int totPulling = 0;
@@ -548,9 +545,9 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 
 		if (this.pulled && this.puller instanceof AnimalEntity)
 		{
-			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, world, this);
-			List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
-			List tillers = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, world, this);
+			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, level, this);
+			List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, level, this);
+			List tillers = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, level, this);
 
 			AnimalEntity animal = (AnimalEntity) this.puller;
 
@@ -699,7 +696,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 			this.pulled = false;
 			this.puller = null;
 			this.setPullerType(0);
-			world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+			level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 			stopCart();
 		}
 
@@ -887,7 +884,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 
 						if (this.getHasChest())
 						{
-							InventoryHelper.dropInventoryItems(world, this.getPosition(), cartChest);
+							InventoryHelper.dropInventoryItems(level, this.getPosition(), cartChest);
 							this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST), 1, 0.0F);
 						}
 					}
@@ -959,7 +956,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		this.dataManager.set(EntityCart.PULLER_TYPE, Integer.valueOf(pullerType));
 	}
 
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		compound.putInteger("PullerType", this.getPullerType());
 
@@ -971,10 +968,10 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 
 			if (!itemstack.isEmpty())
 			{
-				CompoundNBT CompoundNBT = new CompoundNBT();
-				CompoundNBT.setByte("Slot", (byte) i);
-				itemstack.writeToNBT(CompoundNBT);
-				nbttaglist.appendTag(CompoundNBT);
+				CompoundTag CompoundTag = new CompoundTag();
+				CompoundTag.setByte("Slot", (byte) i);
+				itemstack.writeToNBT(CompoundTag);
+				nbttaglist.appendTag(CompoundTag);
 			}
 		}
 		compound.putBoolean("HasChest", this.getHasChest());
@@ -982,7 +979,7 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 		compound.putTag("Items", nbttaglist);
 	}
 
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		this.setPullerType(compound.getInteger("PullerType"));
 
@@ -991,12 +988,12 @@ public class EntityCart extends AnimatedEntityBase implements ContainerListener
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
-			CompoundNBT CompoundNBT = nbttaglist.getCompoundTagAt(i);
-			int j = CompoundNBT.getByte("Slot") & 255;
+			CompoundTag CompoundTag = nbttaglist.getCompoundTagAt(i);
+			int j = CompoundTag.getByte("Slot") & 255;
 
 			if (j >= 0 && j < this.cartChest.getSizeInventory())
 			{
-				this.cartChest.setInventorySlotContents(j, new ItemStack(CompoundNBT));
+				this.cartChest.setInventorySlotContents(j, new ItemStack(CompoundTag));
 			}
 		}
 		this.setHasChest(compound.getBoolean("HasChest"));

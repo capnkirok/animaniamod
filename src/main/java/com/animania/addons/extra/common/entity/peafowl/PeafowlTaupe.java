@@ -1,7 +1,6 @@
 package com.animania.addons.extra.common.entity.peafowl;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 public class PeafowlTaupe
 {
@@ -9,9 +8,9 @@ public class PeafowlTaupe
 	public static class EntityPeafowlTaupe extends EntityPeafowlBase
 	{
 	
-		public EntityPeafowlTaupe(Level worldIn)
+		public EntityPeafowlTaupe(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.TAUPE;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peafowl_taupe.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_taupe_blink.png");
@@ -34,9 +33,9 @@ public class PeafowlTaupe
 	public static class EntityPeacockTaupe extends EntityPeacockBase
 	{
 	
-		public EntityPeacockTaupe(Level worldIn)
+		public EntityPeacockTaupe(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.TAUPE;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_taupe.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_taupe_blink.png");
@@ -60,9 +59,9 @@ public class PeafowlTaupe
 	public static class EntityPeachickTaupe extends EntityPeachickBase
 	{
 	
-		public EntityPeachickTaupe(Level worldIn)
+		public EntityPeachickTaupe(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.TAUPE;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peachick_taupe.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png");

@@ -24,26 +24,25 @@ import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderPig, IMateable, IImpregnable
 {
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntitySowBase.class, EntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntitySowBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
 	public int dryTimerSow;
-	protected static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.<Boolean> defineId(EntitySowBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> HAS_KIDS = SynchedEntityData.<Boolean> defineId(EntitySowBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> FERTILE = SynchedEntityData.<Boolean> defineId(EntitySowBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Integer> GESTATION_TIMER = SynchedEntityData.<Integer> defineId(EntitySowBase.class, EntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.<Boolean> defineId(EntitySowBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> HAS_KIDS = SynchedEntityData.<Boolean> defineId(EntitySowBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FERTILE = SynchedEntityData.<Boolean> defineId(EntitySowBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> GESTATION_TIMER = SynchedEntityData.<Integer> defineId(EntitySowBase.class, EntityEntityDataSerializers.INT);
 
-	public EntitySowBase(Level worldIn)
+	public EntitySowBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.1F, 1.0F);
 		this.width = 1.1F;
 		this.height = 1.0F;
@@ -110,13 +109,13 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public DataParameter<Integer> getGestationParam()
+	public EntityDataAccessor<Integer> getGestationParam()
 	{
 		return GESTATION_TIMER;
 	}
 
 	@Override
-	public DataParameter<Boolean> getPregnantParam()
+	public EntityDataAccessor<Boolean> getPregnantParam()
 	{
 		return PREGNANT;
 	}
@@ -134,19 +133,19 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 	}
 
 	@Override
-	public DataParameter<Boolean> getFertileParam()
+	public EntityDataAccessor<Boolean> getFertileParam()
 	{
 		return FERTILE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHasKidsParam()
+	public EntityDataAccessor<Boolean> getHasKidsParam()
 	{
 		return HAS_KIDS;
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return EntitySowBase.MATE_UNIQUE_ID;
 	}
@@ -209,7 +208,7 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 
 		if (player.isSneaking())
@@ -235,6 +234,6 @@ public class EntitySowBase extends EntityAnimaniaPig implements TOPInfoProviderP
 				}
 			}
 		}
-		TOPInfoProviderPig.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderPig.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 }

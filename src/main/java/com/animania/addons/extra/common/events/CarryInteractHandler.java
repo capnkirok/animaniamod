@@ -8,12 +8,11 @@ import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -28,16 +27,16 @@ public class CarryInteractHandler
 	{
 		Player player = event.getPlayer();
 		ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
-		Level world = event.getWorld();
+		Level level = event.getLevel();
 
 		if (props.isCarrying() && player.isSneaking())
 		{
 			player.swingArm(EnumHand.MAIN_HAND);
 			player.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1.0F, (Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F);
 
-			if (!world.isRemote)
+			if (!level.isRemote)
 			{
-				Entity e = EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, props.getType()), world);
+				Entity e = EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, props.getType()), level);
 
 				if (e != null)
 				{
@@ -46,10 +45,10 @@ public class CarryInteractHandler
 					BlockPos pos = event.getPos();
 					e.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 
-					AnimaniaHelper.spawnEntity(world, e);
+					AnimaniaHelper.spawnEntity(level, e);
 				}
 
-				props.setAnimal(new CompoundNBT());
+				props.setAnimal(new CompoundTag());
 				props.setCarrying(false);
 				props.setType("");
 

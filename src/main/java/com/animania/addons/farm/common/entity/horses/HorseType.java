@@ -9,8 +9,6 @@ import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityMareDraftH
 import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityStallionDraftHorse;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.level.Level;
-
 public enum HorseType implements AnimaniaType
 {
 	DRAFT(EntityStallionDraftHorse.class, EntityMareDraftHorse.class, EntityFoalDraftHorse.class);
@@ -27,7 +25,7 @@ public enum HorseType implements AnimaniaType
 	}
 
 	@Override
-	public EntityStallionBase getMale(Level world)
+	public EntityStallionBase getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -41,7 +39,7 @@ public enum HorseType implements AnimaniaType
 		EntityStallionBase stallion = null;
 		try
 		{
-			stallion = (EntityStallionBase) constructor.newInstance(world);
+			stallion = (EntityStallionBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -51,7 +49,7 @@ public enum HorseType implements AnimaniaType
 	}
 
 	@Override
-	public EntityMareBase getFemale(Level world)
+	public EntityMareBase getFemale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -65,7 +63,7 @@ public enum HorseType implements AnimaniaType
 		EntityMareBase mare = null;
 		try
 		{
-			mare = (EntityMareBase) constructor.newInstance(world);
+			mare = (EntityMareBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -75,7 +73,7 @@ public enum HorseType implements AnimaniaType
 	}
 
 	@Override
-	public EntityFoalBase getChild(Level world)
+	public EntityFoalBase getChild(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -89,7 +87,7 @@ public enum HorseType implements AnimaniaType
 		EntityFoalBase foal = null;
 		try
 		{
-			foal = (EntityFoalBase) constructor.newInstance(world);
+			foal = (EntityFoalBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

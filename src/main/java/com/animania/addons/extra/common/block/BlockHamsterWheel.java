@@ -23,13 +23,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.level.IBlockAccess;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -58,7 +57,7 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
+	public TileEntity createNewTileEntity(Level levelIn, int meta)
 	{
 		return new TileEntityHamsterWheel();
 	}
@@ -82,9 +81,9 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level level, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
-		TileEntityHamsterWheel te = (TileEntityHamsterWheel) world.getTileEntity(pos);
+		TileEntityHamsterWheel te = (TileEntityHamsterWheel) level.getTileEntity(pos);
 
 		if (!te.isRunning())
 		{
@@ -93,18 +92,18 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 			{
 				ICapabilityPlayer cap = player.getCapability(CapabilityRefs.CAPS, null);
 
-				CompoundNBT hamsternbt = cap.getAnimal();
+				CompoundTag hamsternbt = cap.getAnimal();
 
 				if (!hamsternbt.hasNoTags() && cap.isCarrying() && cap.getType().equals("hamster"))
 
 				{
-					EntityHamster hamster = (EntityHamster) EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, "hamster"), world);
+					EntityHamster hamster = (EntityHamster) EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, "hamster"), level);
 					hamster.readFromNBT(hamsternbt);
 					if (hamster.getFed() && !hamster.isInBall())
 					{
 						te.setHamster(hamster);
 						te.markDirty();
-						cap.setAnimal(new CompoundNBT());
+						cap.setAnimal(new CompoundTag());
 						cap.setCarrying(false);
 						cap.setType("");
 						player.swingArm(EnumHand.MAIN_HAND);
@@ -128,7 +127,7 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 			return true;
 		}
 
-		if (!world.isRemote && player.isSneaking() && hand == EnumHand.MAIN_HAND)
+		if (!level.isRemote && player.isSneaking() && hand == EnumHand.MAIN_HAND)
 		{
 			ItemStack food = te.getItemHandler().getStackInSlot(0);
 			if (food.isEmpty())
@@ -142,23 +141,23 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 	}
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, BlockState state)
+	public void breakBlock(Level levelIn, BlockPos pos, BlockState state)
 	{
-		TileEntityHamsterWheel te = (TileEntityHamsterWheel) worldIn.getTileEntity(pos);
+		TileEntityHamsterWheel te = (TileEntityHamsterWheel) levelIn.getTileEntity(pos);
 		if (te != null)
 		{
 			te.ejectHamster();
-			InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
+			InventoryHelper.spawnItemStack(levelIn, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
 		}
-		super.breakBlock(worldIn, pos, state);
+		super.breakBlock(levelIn, pos, state);
 	}
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
 	{
 
-		TileEntity te = world.getTileEntity(data.getPos());
+		TileEntity te = level.getTileEntity(data.getPos());
 		if (te instanceof TileEntityHamsterWheel)
 		{
 			if (mode == ProbeMode.NORMAL)
@@ -173,15 +172,15 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 	}
 
 	@Override
-	public BlockState getStateForPlacement(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
+	public BlockState getStateForPlacement(Level levelIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
 	{
 		return this.defaultBlockState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
+	public void onBlockPlacedBy(Level levelIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
-		worldIn.setBlock(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+		levelIn.setBlock(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 	}
 
 	@Override
@@ -239,10 +238,10 @@ public class BlockHamsterWheel extends BaseEntityBlock implements TOPInfoProvide
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
+	public int getComparatorInputOverride(BlockState blockState, Level levelIn, BlockPos pos)
 	{
 
-		TileEntityHamsterWheel te = (TileEntityHamsterWheel) worldIn.getTileEntity(pos);
+		TileEntityHamsterWheel te = (TileEntityHamsterWheel) levelIn.getTileEntity(pos);
 		if (te.getHamster() != null)
 			return 15;
 		else

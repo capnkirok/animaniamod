@@ -21,16 +21,14 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.AABB;
 
 public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
@@ -51,7 +49,7 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public int tickRate(World worldIn)
+	public int tickRate(Level levelIn)
 	{
 		return 5;
 	}
@@ -92,47 +90,47 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, BlockState state, Random rand)
+	public void updateTick(Level levelIn, BlockPos pos, BlockState state, Random rand)
 	{
-		TileEntityNest te = (TileEntityNest) worldIn.getTileEntity(pos);
+		TileEntityNest te = (TileEntityNest) levelIn.getTileEntity(pos);
 		if (te != null && te.getNestContent() != NestContent.EMPTY)
 		{
 
-			AddonInjectionHandler.runInjection("farm", "nestHatchChickens", Void.class, te, worldIn, pos, state, rand);
+			AddonInjectionHandler.runInjection("farm", "nestHatchChickens", Void.class, te, levelIn, pos, state, rand);
 
-			AddonInjectionHandler.runInjection("extra", "nestHatchPeafowl", Void.class, te, worldIn, pos, state, rand);
+			AddonInjectionHandler.runInjection("extra", "nestHatchPeafowl", Void.class, te, levelIn, pos, state, rand);
 		}
 
 	}
 
-	public BlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
+	public BlockState onBlockPlaced(Level levelIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
 	{
 
 		return this.defaultBlockState();
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
+	public TileEntity createNewTileEntity(Level levelIn, int meta)
 	{
 		return new TileEntityNest();
 	}
 
 	@Override
-	public ItemStack getItem(World worldIn, BlockPos pos, BlockState state)
+	public ItemStack getItem(Level levelIn, BlockPos pos, BlockState state)
 	{
 		return new ItemStack(BlockHandler.blockNest, 1);
 	}
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, BlockState state)
+	public void breakBlock(Level levelIn, BlockPos pos, BlockState state)
 	{
 
-		TileEntityNest te = (TileEntityNest) worldIn.getTileEntity(pos);
+		TileEntityNest te = (TileEntityNest) levelIn.getTileEntity(pos);
 
 		if (te != null)
-			InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
+			InventoryHelper.spawnItemStack(levelIn, pos.getX(), pos.getY(), pos.getZ(), te.itemHandler.getStackInSlot(0));
 
-		super.breakBlock(worldIn, pos, state);
+		super.breakBlock(levelIn, pos, state);
 	}
 
 	@Override
@@ -143,11 +141,11 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = playerIn.getHeldItem(hand);
-		TileEntityNest te = (TileEntityNest) worldIn.getTileEntity(pos);
+		TileEntityNest te = (TileEntityNest) levelIn.getTileEntity(pos);
 
 		if (te != null && heldItem.isEmpty() && !playerIn.isSneaking())
 		{
@@ -167,9 +165,9 @@ public class BlockNest extends BaseEntityBlock implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
 	{
-		TileEntity te = world.getTileEntity(data.getPos());
+		TileEntity te = level.getTileEntity(data.getPos());
 		if (te instanceof TileEntityNest)
 		{
 			TileEntityNest nest = (TileEntityNest) te;

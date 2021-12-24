@@ -44,13 +44,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.CraftingHelper.FactoryLoader;
 import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.event.RegistryEvent.Register;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.common.FMLLog;
@@ -92,7 +91,7 @@ public class AddonHandler
 			loadConstants = ReflectionUtil.findMethod(JsonContext.class, "loadConstants", null, JsonObject[].class);
 			loadConstants.setAccessible(true);
 
-			advancementManager = ReflectionUtil.findField(World.class, "field_191951_C", "advancementManager");
+			advancementManager = ReflectionUtil.findField(Level.class, "field_191951_C", "advancementManager");
 			advancementManager.setAccessible(true);
 
 			hasErrored = ReflectionUtil.findField(AdvancementManager.class, "field_193768_e", "hasErrored");
@@ -177,16 +176,16 @@ public class AddonHandler
 		guiHandlerCounter += 1000;
 	}
 
-	public static Object openAddonGui(PlayerEntity player, int guiId, World world, int x, int y, int z, Side side)
+	public static Object openAddonGui(PlayerEntity player, int guiId, Level level, int x, int y, int z, Side side)
 	{
 		Object returnObject = null;
 
 		for (IAddonGuiHandler handler : addonGuiHandlers.values())
 		{
 			if (side == Dist.CLIENT)
-				returnObject = handler.getClientGuiElement(guiId - handler.getGuiIdOffset(), player, world, x, y, z);
+				returnObject = handler.getClientGuiElement(guiId - handler.getGuiIdOffset(), player, level, x, y, z);
 			else
-				returnObject = handler.getServerGuiElement(guiId - handler.getGuiIdOffset(), player, world, x, y, z);
+				returnObject = handler.getServerGuiElement(guiId - handler.getGuiIdOffset(), player, level, x, y, z);
 
 			if (returnObject != null)
 				return returnObject;
@@ -501,14 +500,14 @@ public class AddonHandler
 	}
 
 	@SubscribeEvent
-	public static void onWorldLoad(WorldEvent.Load event)
+	public static void onLevelLoad(LevelEvent.Load event)
 	{
-		World world = event.getWorld();
-		if (!world.isRemote)
+		Level level = event.getLevel();
+		if (!level.isRemote)
 		{
 			try
 			{
-				AdvancementManager manager = (AdvancementManager) advancementManager.get(world);
+				AdvancementManager manager = (AdvancementManager) advancementManager.get(level);
 				AdvancementList list = (AdvancementList) ADVANCEMENT_LIST.get(manager);
 
 				hasErrored.set(manager, false);

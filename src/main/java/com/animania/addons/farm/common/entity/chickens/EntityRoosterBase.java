@@ -15,33 +15,32 @@ import com.google.common.base.Predicate;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.level.Level;
 
 public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
 
-	protected static final EntityDataAccessor<Integer> CROWTIMER = SynchedEntityData.<Integer> defineId(EntityRoosterBase.class, EntityDataSerializers.INT);
-	protected static final EntityDataAccessor<Integer> CROWDURATION = SynchedEntityData.<Integer> defineId(EntityRoosterBase.class, EntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Integer> CROWTIMER = SynchedEntityData.<Integer> defineId(EntityRoosterBase.class, EntityEntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Integer> CROWDURATION = SynchedEntityData.<Integer> defineId(EntityRoosterBase.class, EntityEntityDataSerializers.INT);
 
-	public EntityRoosterBase(Level worldIn)
+	public EntityRoosterBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(0.6F, 0.8F);
 		this.width = 0.6F;
 		this.height = 0.8F;
 		this.setTimeUntilNextCrow(this.rand.nextInt(200) + 200);
-		this.tasks.addTask(3, new LeapAtTargetGoal(this, 0.2F));
-		this.tasks.addTask(3, new AttackMeleeGoal(this, 1.0D, true));
-		this.tasks.addTask(6, new MateGoal(this, 1.0D));
+		this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.2F));
+		this.goalSelector.addGoal(3, new AttackMeleeGoal(this, 1.0D, true));
+		this.goalSelector.addGoal(6, new MateGoal(this, 1.0D));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
 			// AddonInjectionHandler.runInjection("extra", "attackRodents",
@@ -97,26 +96,26 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT CompoundNBT)
+	public void writeEntityToNBT(CompoundTag CompoundTag)
 	{
-		super.writeEntityToNBT(CompoundNBT);
-		CompoundNBT.putInteger("CrowTime", this.getTimeUntilNextCrow());
-		CompoundNBT.putInteger("CrowDuration", this.getCrowDuration());
+		super.writeEntityToNBT(CompoundTag);
+		CompoundTag.putInteger("CrowTime", this.getTimeUntilNextCrow());
+		CompoundTag.putInteger("CrowDuration", this.getCrowDuration());
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT CompoundNBT)
+	public void readEntityFromNBT(CompoundTag CompoundTag)
 	{
-		super.readEntityFromNBT(CompoundNBT);
-		this.setTimeUntilNextCrow(CompoundNBT.getInteger("CrowTime"));
-		this.setCrowDuration(CompoundNBT.getInteger("CrowDuration"));
+		super.readEntityFromNBT(CompoundTag);
+		this.setTimeUntilNextCrow(CompoundTag.getInteger("CrowTime"));
+		this.setCrowDuration(CompoundTag.getInteger("CrowDuration"));
 	}
 
 	@Override
 	public void onLivingUpdate()
 	{
 		this.timeUntilNextEgg = 1000;
-		long currentTime = this.level.getWorldTime() % 23999;
+		long currentTime = this.level.getLevelTime() % 23999;
 
 		if (this.getTimeUntilNextCrow() > 0)
 			this.setTimeUntilNextCrow(this.getTimeUntilNextCrow() - 1);
@@ -143,7 +142,7 @@ public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoP
 				this.level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.chickenCrow3, SoundCategory.PLAYERS, 0.6F, 1.05F + modular);
 			this.setTimeUntilNextCrow(this.rand.nextInt(200) + 200);
 
-			List list = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 30, world, this.getPosition());
+			List list = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 30, level, this.getPosition());
 
 			for (int i = 0; i < list.size(); i++)
 			{

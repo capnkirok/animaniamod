@@ -1,12 +1,12 @@
 package com.animania;
 
 import java.io.File;
+import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.item.ItemGroup;
-import net.minecraft.world.gen.feature.Features.Configs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -41,6 +41,8 @@ public class Animania
 	public static SimpleChannel network;
 	public static IModInfo info;
 
+	public static final Random RANDOM = new Random();
+	
 	public Animania()
 	{
 		// Register the setup method for modloading

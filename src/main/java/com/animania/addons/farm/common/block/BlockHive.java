@@ -13,14 +13,13 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -77,11 +76,11 @@ public class BlockHive extends BaseEntityBlock
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level level, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack heldItem = player.getHeldItem(hand);
-		TileEntityHive hive = (TileEntityHive) world.getTileEntity(pos);
+		TileEntityHive hive = (TileEntityHive) level.getTileEntity(pos);
 
 		if (hive != null)
 		{
@@ -113,7 +112,7 @@ public class BlockHive extends BaseEntityBlock
 
 				}
 
-				world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
+				level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
 				return true;
 
 			} else if (!heldItem.isEmpty() && heldItem.getItem() == Items.GLASS_BOTTLE && hive.fluidHandler.getFluid() != null && hive.fluidHandler.getFluid().amount >= 1000)
@@ -145,11 +144,11 @@ public class BlockHive extends BaseEntityBlock
 
 				}
 
-				world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
+				level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BUCKET_FILL, SoundCategory.PLAYERS, 0.6F, 0.8F);
 				return true;
 			}
 
-			if (!world.isRemote && player.isSneaking() && hand == EnumHand.MAIN_HAND)
+			if (!level.isRemote && player.isSneaking() && hand == EnumHand.MAIN_HAND)
 			{
 				int honey = hive.fluidHandler.getFluidAmount();
 
@@ -179,7 +178,7 @@ public class BlockHive extends BaseEntityBlock
 	}
 
 	@Override
-	public BlockState getStateForPlacement(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
+	public BlockState getStateForPlacement(Level levelIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
 	{
 		return this.defaultBlockState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
@@ -191,7 +190,7 @@ public class BlockHive extends BaseEntityBlock
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
+	public TileEntity createNewTileEntity(Level levelIn, int meta)
 	{
 		return new TileEntityHive();
 	}

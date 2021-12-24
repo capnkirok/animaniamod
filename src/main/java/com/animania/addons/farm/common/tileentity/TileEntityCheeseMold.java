@@ -12,10 +12,9 @@ import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.world.World;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,7 +40,7 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 	@Override
 	public void update()
 	{
-		if (world.getBlockState(pos).getBlock() == FarmAddonBlockHandler.blockCheeseMold)
+		if (level.getBlockState(pos).getBlock() == FarmAddonBlockHandler.blockCheeseMold)
 		{
 
 			if (this.fluidHandler.getFluid() != null && this.fluidHandler.getFluid().amount >= 1000 && progress < FarmConfig.settings.cheeseMaturityTime && this.itemHandler.getStackInSlot(0).isEmpty())
@@ -56,32 +55,32 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 				FluidStack fluid = fluidHandler.getFluid();
 				if (fluid != null)
 				{
-					BlockState state = world.getBlockState(pos);
+					BlockState state = level.getBlockState(pos);
 					fluidHandler.drain(1000, true);
 					if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkFriesian)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.cheeseWheelFriesian));
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
 					} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkHolstein)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.cheeseWheelHolstein));
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_CHEESE));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_CHEESE));
 					} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkGoat)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.cheeseWheelGoat));
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_CHEESE));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_CHEESE));
 					} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkSheep)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.cheeseWheelSheep));
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_CHEESE));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_CHEESE));
 					} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkJersey)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.cheeseWheelJersey));
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_CHEESE));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_CHEESE));
 					} else if (fluid.getFluid() == FluidRegistry.WATER)
 					{
 						this.itemHandler.setStackInSlot(0, new ItemStack(FarmAddonItemHandler.salt, FarmConfig.settings.saltCreationAmount));
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
 					}
 
 					progress = 0;
@@ -91,25 +90,25 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 
 			}
 
-			BlockState state2 = world.getBlockState(pos);
+			BlockState state2 = level.getBlockState(pos);
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelFriesian && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.FRIESIAN_CHEESE)
-				world.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
+				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_CHEESE));
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelHolstein && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.HOLSTEIN_CHEESE)
-				world.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_CHEESE));
+				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_CHEESE));
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelJersey && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.JERSEY_CHEESE)
-				world.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_CHEESE));
+				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_CHEESE));
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelGoat && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.GOAT_CHEESE)
-				world.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_CHEESE));
+				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_CHEESE));
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.cheeseWheelSheep && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.SHEEP_CHEESE)
-				world.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_CHEESE));
+				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_CHEESE));
 
 			if (this.itemHandler.getStackInSlot(0).getItem() == FarmAddonItemHandler.salt && state2.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.SALT)
-				world.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
+				level.setBlock(pos, state2.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SALT));
 
 			if (this.fluidHandler.getFluid() != null)
 			{
@@ -117,39 +116,39 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 				FluidStack fluid = fluidHandler.getFluid();
 				if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkFriesian)
 				{
-					BlockState state = world.getBlockState(pos);
+					BlockState state = level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.FRIESIAN_MILK)
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_MILK));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.FRIESIAN_MILK));
 				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkHolstein)
 				{
-					BlockState state = world.getBlockState(pos);
+					BlockState state = level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.HOLSTEIN_MILK)
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_MILK));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.HOLSTEIN_MILK));
 				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkJersey)
 				{
-					BlockState state = world.getBlockState(pos);
+					BlockState state = level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.JERSEY_MILK)
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_MILK));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.JERSEY_MILK));
 				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkGoat)
 				{
-					BlockState state = world.getBlockState(pos);
+					BlockState state = level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.GOAT_MILK)
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_MILK));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.GOAT_MILK));
 				} else if (fluid.getFluid() == FarmAddonBlockHandler.fluidMilkSheep)
 				{
-					BlockState state = world.getBlockState(pos);
+					BlockState state = level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.SHEEP_MILK)
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_MILK));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.SHEEP_MILK));
 				} else if (fluid.getFluid() == FluidRegistry.WATER)
 				{
-					BlockState state = world.getBlockState(pos);
+					BlockState state = level.getBlockState(pos);
 					if (state.getValue(BlockCheeseMold.VARIANT) != BlockCheeseMold.EnumType.WATER)
-						world.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.WATER));
+						level.setBlock(pos, state.withProperty(BlockCheeseMold.VARIANT, BlockCheeseMold.EnumType.WATER));
 				}
 			}
 
-			if (itemHandler.getStackInSlot(0).isEmpty() && this.fluidHandler.getFluid() == null && world.getBlockState(pos) != world.getBlockState(pos).getBlock().defaultBlockState())
-				world.setBlock(pos, world.getBlockState(pos).getBlock().defaultBlockState());
+			if (itemHandler.getStackInSlot(0).isEmpty() && this.fluidHandler.getFluid() == null && level.getBlockState(pos) != level.getBlockState(pos).getBlock().defaultBlockState())
+				level.setBlock(pos, level.getBlockState(pos).getBlock().defaultBlockState());
 
 		}
 	}
@@ -190,15 +189,15 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		CompoundNBT tagCompound = new CompoundNBT();
+		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public CompoundNBT getUpdateTag()
+	public CompoundTag getUpdateTag()
 	{
-		return this.writeToNBT(new CompoundNBT());
+		return this.writeToNBT(new CompoundTag());
 	}
 
 	public FluidHandlerCheeseMold getFluidHandler()
@@ -222,11 +221,11 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 	}
 
 	@Override
-	public CompoundNBT writeToNBT(CompoundNBT compound)
+	public CompoundTag writeToNBT(CompoundTag compound)
 	{
-		CompoundNBT tag = super.writeToNBT(compound);
-		CompoundNBT fluid = new CompoundNBT();
-		CompoundNBT items = new CompoundNBT();
+		CompoundTag tag = super.writeToNBT(compound);
+		CompoundTag fluid = new CompoundTag();
+		CompoundTag items = new CompoundTag();
 		fluid = this.fluidHandler.writeToNBT(fluid);
 		items = this.itemHandler.serializeNBT();
 		tag.putTag("fluid", fluid);
@@ -238,7 +237,7 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 	}
 
 	@Override
-	public void readFromNBT(CompoundNBT compound)
+	public void readFromNBT(CompoundTag compound)
 	{
 		super.readFromNBT(compound);
 		this.fluidHandler = new FluidHandlerCheeseMold();
@@ -257,7 +256,7 @@ public class TileEntityCheeseMold extends BlockEntity implements Tickable
 	}
 
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newSate)
+	public boolean shouldRefresh(Level level, BlockPos pos, BlockState oldState, BlockState newSate)
 	{
 		return oldState.getBlock() != newSate.getBlock();
 	}

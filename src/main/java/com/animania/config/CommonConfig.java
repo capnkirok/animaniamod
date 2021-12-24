@@ -82,7 +82,7 @@ public class CommonConfig
 		@Comment("Range that the animal cap applies for around each animal")
 		public int animalCapSearchRange = 80;
 
-		@Comment("Animals that are spawned in the world and have never been interacted with (put on a leash, fed by hand, trough, lured with food) will not eat or breed.")
+		@Comment("Animals that are spawned in the level and have never been interacted with (put on a leash, fed by hand, trough, lured with food) will not eat or breed.")
 		public boolean requireAnimalInteractionForAI = true;
 
 		@Comment("Allow Squids to Spawn in Fresh Water")

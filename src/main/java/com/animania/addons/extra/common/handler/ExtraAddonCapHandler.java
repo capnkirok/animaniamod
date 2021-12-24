@@ -5,7 +5,6 @@ import com.animania.addons.extra.common.capabilities.CapabilityPlayer;
 import com.animania.addons.extra.common.capabilities.CapabilityRefs;
 import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 
-import net.minecraft.world.entity.Entity;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 
 public class ExtraAddonCapHandler

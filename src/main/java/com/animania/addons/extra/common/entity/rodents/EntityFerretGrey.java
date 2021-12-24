@@ -1,13 +1,11 @@
 package com.animania.addons.extra.common.entity.rodents;
 
-import net.minecraft.world.level.Level;
-
 public class EntityFerretGrey extends EntityFerretBase
 {
 
-	public EntityFerretGrey(Level worldIn)
+	public EntityFerretGrey(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.type = FerretType.GREY;
 	}
 	

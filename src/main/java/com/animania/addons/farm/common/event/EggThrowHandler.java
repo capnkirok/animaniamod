@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -22,17 +21,17 @@ public class EggThrowHandler
 		ItemStack stack = event.getItemStack();
 		Player player = event.getPlayer();
 		BlockPos pos = event.getPos();
-		Level world = event.getWorld();
+		Level level = event.getLevel();
 
 		if (stack != ItemStack.EMPTY && (stack.getItem() == Items.EGG || stack.getItem() == FarmAddonItemHandler.brownEgg))
 		{
 
 			if (FarmConfig.settings.allowEggThrowing)
 			{
-				int esize = world.loadedEntityList.size();
+				int esize = level.loadedEntityList.size();
 				for (int k = 0; k <= esize - 1; k++)
 				{
-					Entity entity = world.loadedEntityList.get(k);
+					Entity entity = level.loadedEntityList.get(k);
 
 					double xt = entity.getX();
 					double yt = entity.getY();

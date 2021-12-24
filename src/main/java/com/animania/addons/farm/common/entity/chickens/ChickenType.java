@@ -21,8 +21,6 @@ import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityHe
 import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityRoosterWyandotte;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.level.Level;
-
 public enum ChickenType implements AnimaniaType
 {
 	
@@ -46,7 +44,7 @@ public enum ChickenType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityRoosterBase getMale(Level world)
+	public EntityRoosterBase getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -60,7 +58,7 @@ public enum ChickenType implements AnimaniaType
 		EntityRoosterBase male = null;
 		try
 		{
-			male = (EntityRoosterBase) constructor.newInstance(world);
+			male = (EntityRoosterBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -70,7 +68,7 @@ public enum ChickenType implements AnimaniaType
 	}
 
 	@Override
-	public EntityHenBase getFemale(Level world)
+	public EntityHenBase getFemale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -84,7 +82,7 @@ public enum ChickenType implements AnimaniaType
 		EntityHenBase female = null;
 		try
 		{
-			female = (EntityHenBase) constructor.newInstance(world);
+			female = (EntityHenBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -94,7 +92,7 @@ public enum ChickenType implements AnimaniaType
 	}
 
 	@Override
-	public EntityChickBase getChild(Level world)
+	public EntityChickBase getChild(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -108,7 +106,7 @@ public enum ChickenType implements AnimaniaType
 		EntityChickBase child = null;
 		try
 		{
-			child = (EntityChickBase) constructor.newInstance(world);
+			child = (EntityChickBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

@@ -12,7 +12,6 @@ import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.Item;
 
 public class ExtraAddonItemHandler
 {

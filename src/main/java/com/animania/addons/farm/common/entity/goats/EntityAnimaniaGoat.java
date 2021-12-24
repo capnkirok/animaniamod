@@ -40,7 +40,7 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.level.entity.animal.Sheep;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Blocks;
@@ -49,17 +49,17 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemShears;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.level.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.level.Level;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -68,18 +68,18 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 {
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.goatFood));
-	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Optional<UUID>> RIVAL_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(EntityAnimaniaGoat.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Boolean> SHEARED = EntityDataManager.<Boolean> createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> SHEARED_TIMER = EntityDataManager.<Integer> createKey(EntityAnimaniaGoat.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> SPOOKED = EntityDataManager.<Boolean> createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SPOOKED_TIMER = EntityDataManager.<Float> createKey(EntityAnimaniaGoat.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaGoat.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaGoat.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaGoat.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaGoat.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> RIVAL_UNIQUE_ID = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final EntityDataAccessor<Boolean> SHEARED = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> SHEARED_TIMER = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> SPOOKED = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SPOOKED_TIMER = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> HANDFED = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaGoat.class, EntityDataSerializers.BOOLEAN);
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -94,28 +94,28 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	protected EntityGender gender;
 	private boolean hasRemovedBOP;
 
-	public EntityAnimaniaGoat(World worldIn)
+	public EntityAnimaniaGoat(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaGoat>(this);
-		this.tasks.addTask(0, new GenericAIPanic<EntityAnimaniaGoat>(this, 1.4D));
+		this.goalSelector.addGoal(0, new GenericAIPanic<EntityAnimaniaGoat>(this, 1.4D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaGoat>(this, 1.0D, entityAIEatGrass, EntityAnimaniaGoat.class));
-			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaGoat>(this, 1.0D, entityAIEatGrass, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaGoat>(this, 1.0D, entityAIEatGrass, EntityAnimaniaGoat.class));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaGoat>(this, 1.0D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new SwimmingGoal(this));
-		this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaGoat>(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
-		this.tasks.addTask(8, this.entityAIEatGrass);
-		this.tasks.addTask(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 20.0F, 2.2D, 2.2D));
-		this.tasks.addTask(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaGoat>(this));
-		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaGoat>(this, 1.0, entityAIEatGrass));
+		this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.0D));
+		this.goalSelector.addGoal(5, new SwimmingGoal(this));
+		this.goalSelector.addGoal(7, new GenericAITempt<EntityAnimaniaGoat>(this, 1.25D, false, EntityAnimaniaGoat.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(8, this.entityAIEatGrass);
+		this.goalSelector.addGoal(9, new GenericAIAvoidEntity<WolfEntity>(this, WolfEntity.class, 20.0F, 2.2D, 2.2D));
+		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaGoat>(this));
+		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaGoat>(this, 1.0, entityAIEatGrass));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(10, new GenericAISleep<EntityAnimaniaGoat>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.goatBed), AnimaniaHelper.getBlock(FarmConfig.settings.goatBed2), EntityAnimaniaGoat.class));
+			this.goalSelector.addGoal(10, new GenericAISleep<EntityAnimaniaGoat>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.goatBed), AnimaniaHelper.getBlock(FarmConfig.settings.goatBed2), EntityAnimaniaGoat.class));
 		}
 		if (AddonHandler.isAddonLoaded("catsdogs"))
 		{
@@ -203,7 +203,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
@@ -214,25 +214,25 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return HANDFED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}
@@ -399,7 +399,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.putBoolean("Sheared", this.getSheared());
@@ -436,7 +436,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 
@@ -540,7 +540,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}
@@ -588,7 +588,7 @@ public class EntityAnimaniaGoat extends Sheep implements IAnimaniaAnimalBase
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}

@@ -1,7 +1,6 @@
 package com.animania.addons.extra.common.entity.peafowl;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 public class PeafowlWhite
 {
@@ -9,9 +8,9 @@ public class PeafowlWhite
 	public static class EntityPeachickWhite extends EntityPeachickBase
 	{
 	
-		public EntityPeachickWhite(Level worldIn)
+		public EntityPeachickWhite(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.WHITE;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peachick_white.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png");
@@ -34,9 +33,9 @@ public class PeafowlWhite
 	public static class EntityPeacockWhite extends EntityPeacockBase
 	{
 	
-		public EntityPeacockWhite(Level worldIn)
+		public EntityPeacockWhite(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.WHITE;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_white.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_white_blink.png");
@@ -59,9 +58,9 @@ public class PeafowlWhite
 	public static class EntityPeafowlWhite extends EntityPeafowlBase
 	{
 	
-		public EntityPeafowlWhite(Level worldIn)
+		public EntityPeafowlWhite(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.WHITE;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peafowl_white.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_white_blink.png");

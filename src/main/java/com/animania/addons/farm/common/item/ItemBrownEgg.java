@@ -12,8 +12,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.world.World;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -37,23 +35,23 @@ public class ItemBrownEgg extends Item
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, EnumHand handIn)
+	public ActionResult<ItemStack> onItemRightClick(Level levelIn, PlayerEntity playerIn, EnumHand handIn)
 	{
 
-		World worldObj = worldIn;
+		Level levelObj = levelIn;
 		PlayerEntity PlayerEntity = playerIn;
 		ItemStack itemStackIn = playerIn.getHeldItem(handIn);
 
 		if (!playerIn.capabilities.isCreativeMode)
 			itemStackIn.setCount(itemStackIn.getCount() - 1);
 
-		worldIn.playSound((PlayerEntity) null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ENTITY_EGG_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (Item.itemRand.nextFloat() * 0.4F + 0.8F));
+		levelIn.playSound((PlayerEntity) null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ENTITY_EGG_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (Item.itemRand.nextFloat() * 0.4F + 0.8F));
 
-		if (!worldIn.isRemote)
+		if (!levelIn.isRemote)
 		{
-			EntityEgg entityegg = new EntityEgg(worldIn, playerIn);
+			EntityEgg entityegg = new EntityEgg(levelIn, playerIn);
 			entityegg.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-			AnimaniaHelper.spawnEntity(worldIn, entityegg);
+			AnimaniaHelper.spawnEntity(levelIn, entityegg);
 		}
 
 		playerIn.addStat(StatList.getObjectUseStats(this));

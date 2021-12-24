@@ -40,7 +40,7 @@ public class FarmConfig
 		@Comment("If chickens need to lay eggs in a nest or not")
 		public boolean chickensDropEggs = false;
 
-		@Comment("Allow Beehives during world gen")
+		@Comment("Allow Beehives during level gen")
 		public boolean hiveSpawning = true;
 
 		@Comment("Frequency of Beehives (1-10)")
@@ -131,22 +131,22 @@ public class FarmConfig
 		@Comment("Remove vanilla Horses")
 		public boolean replaceVanillaHorses = false;
 
-		@Comment("Spawn Animania Chickens in world")
+		@Comment("Spawn Animania Chickens in level")
 		public boolean spawnAnimaniaChickens = true;
 
-		@Comment("Spawn Animania Cows in world")
+		@Comment("Spawn Animania Cows in level")
 		public boolean spawnAnimaniaCows = true;
 
-		@Comment("Spawn Animania Pigs in world")
+		@Comment("Spawn Animania Pigs in level")
 		public boolean spawnAnimaniaPigs = true;
 
-		@Comment("Spawn Animania Horses in world")
+		@Comment("Spawn Animania Horses in level")
 		public boolean spawnAnimaniaHorses = true;
 
-		@Comment("Spawn Animania Goats in world")
+		@Comment("Spawn Animania Goats in level")
 		public boolean spawnAnimaniaGoats = true;
 
-		@Comment("Spawn Animania Sheep in world")
+		@Comment("Spawn Animania Sheep in level")
 		public boolean spawnAnimaniaSheep = true;
 
 		@Comment("Spawn probability Cows in loaded chunks")

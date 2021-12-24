@@ -22,6 +22,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -30,8 +31,6 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -76,13 +75,13 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
+	public TileEntity createNewTileEntity(Level levelIn, int meta)
 	{
 		return new TileEntityCheeseMold();
 	}
 
 	@Override
-	public ItemStack getPickBlock(BlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player)
+	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, PlayerEntity player)
 	{
 		return new ItemStack(FarmAddonItemHandler.cheeseMold);
 	}
@@ -139,18 +138,18 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos)
+	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return AABB;
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level level, BlockPos pos, BlockState state, PlayerEntity player, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		ItemStack stack = player.getHeldItem(hand);
-		TileEntityCheeseMold te = (TileEntityCheeseMold) world.getTileEntity(pos);
-		if (!world.isRemote)
+		TileEntityCheeseMold te = (TileEntityCheeseMold) level.getTileEntity(pos);
+		if (!level.isRemote)
 		{
 			if (!stack.isEmpty() && te != null)
 			{
@@ -202,12 +201,12 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, BlockState state)
+	public void breakBlock(Level levelIn, BlockPos pos, BlockState state)
 	{
-		TileEntityCheeseMold te = (TileEntityCheeseMold) worldIn.getTileEntity(pos);
+		TileEntityCheeseMold te = (TileEntityCheeseMold) levelIn.getTileEntity(pos);
 		if (te != null)
-			InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
-		super.breakBlock(worldIn, pos, state);
+			InventoryHelper.spawnItemStack(levelIn, pos.getX(), pos.getY(), pos.getZ(), te.getItemHandler().getStackInSlot(0));
+		super.breakBlock(levelIn, pos, state);
 	}
 
 	public static enum EnumType implements IStringSerializable
@@ -270,9 +269,9 @@ public class BlockCheeseMold extends BaseEntityBlock implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
 	{
-		TileEntity te = world.getTileEntity(data.getPos());
+		TileEntity te = level.getTileEntity(data.getPos());
 		if (te instanceof TileEntityCheeseMold)
 		{
 			TileEntityCheeseMold mold = (TileEntityCheeseMold) te;

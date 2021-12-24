@@ -72,7 +72,7 @@ public class LayerBlinking<E extends LivingEntity> implements RenderLayer
 
 		if (entity instanceof ISleeping)
 		{
-			long currentTime = entity.level.getWorldTime() % 23999;
+			long currentTime = entity.level.getLevelTime() % 23999;
 			ISleeping isleeping = (ISleeping) entity;
 			boolean isSleeping = isleeping.getSleeping();
 			float sleepTimer = isleeping.getSleepTimer();

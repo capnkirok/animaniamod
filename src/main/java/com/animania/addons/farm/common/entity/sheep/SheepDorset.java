@@ -6,9 +6,8 @@ import java.util.List;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class SheepDorset
 {
@@ -16,9 +15,9 @@ public class SheepDorset
 	public static class EntityRamDorset extends EntityRamBase
 	{
 	
-		public EntityRamDorset(Level worldIn)
+		public EntityRamDorset(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.DORSET;
 		}
 	
@@ -35,7 +34,7 @@ public class SheepDorset
 		}
 		
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune) {
 	
 			int i = 1 + this.rand.nextInt(2);
 	
@@ -73,9 +72,9 @@ public class SheepDorset
 	public static class EntityLambDorset extends EntityLambBase
 	{
 	
-		public EntityLambDorset(World worldIn)
+		public EntityLambDorset(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.DORSET;
 		}
 	
@@ -95,9 +94,9 @@ public class SheepDorset
 	public static class EntityEweDorset extends EntityEweBase
 	{
 	
-		public EntityEweDorset(World worldIn)
+		public EntityEweDorset(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.DORSET;
 		}
 		
@@ -114,7 +113,7 @@ public class SheepDorset
 		}
 		
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune) {
 	
 			int i = 1 + this.rand.nextInt(2);
 	

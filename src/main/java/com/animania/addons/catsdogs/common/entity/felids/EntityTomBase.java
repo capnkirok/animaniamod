@@ -14,19 +14,18 @@ import com.google.common.base.Optional;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.Level;
 
 public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityTomBase.class, EntityDataSerializers.OPTIONAL_UUID);
-	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityTomBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityTomBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityTomBase.class, EntityEntityDataSerializers.BOOLEAN);
 
-	public EntityTomBase(Level worldIn)
+	public EntityTomBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.0F, 1.0F);
 		this.width = 1.0F;
 		this.height = 1.0F;
@@ -34,7 +33,7 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 		this.gender = EntityGender.MALE;
 
 		if (!getSterilized())
-			this.tasks.addTask(8, new GenericAIMate<EntityTomBase, EntityQueenBase>(this, 1.0D, EntityQueenBase.class, EntityKittenBase.class, EntityAnimaniaCat.class));
+			this.goalSelector.addGoal(8, new GenericAIMate<EntityTomBase, EntityQueenBase>(this, 1.0D, EntityQueenBase.class, EntityKittenBase.class, EntityAnimaniaCat.class));
 	}
 
 	@Override
@@ -54,7 +53,7 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}
@@ -68,7 +67,7 @@ public class EntityTomBase extends EntityAnimaniaCat implements TOPInfoProviderM
 	}
 
 	@Override
-	public DataParameter<Boolean> getSterilizedParam()
+	public EntityDataAccessor<Boolean> getSterilizedParam()
 	{
 		return STERILIZED;
 	}

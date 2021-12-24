@@ -6,7 +6,7 @@ import com.animania.common.handler.ItemHandler;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.IThreadListener;
 import net.minecraft.world.item.ItemStack;
@@ -48,7 +48,7 @@ public class  PacketCloseManual implements IMessage, IMessageHandler<PacketClose
 	@Override
 	public IMessage onMessage(PacketCloseManual message, MessageContext ctx)
 	{
-		IThreadListener mainThread = (WorldServer) ctx.getServerHandler().player.level;
+		IThreadListener mainThread = (LevelServer) ctx.getServerHandler().player.level;
 
 		mainThread.addScheduledTask(new Runnable()
 		{
@@ -66,7 +66,7 @@ public class  PacketCloseManual implements IMessage, IMessageHandler<PacketClose
 				else if (main.getItem() == ItemHandler.animaniaManual)
 					stack = off;
 				
-				CompoundNBT tag = stack.hasTagCompound() ? stack.getTagCompound() : new CompoundNBT();
+				CompoundTag tag = stack.hasTagCompound() ? stack.getTagCompound() : new CompoundTag();
 				tag.setString("currentTopic", message.currentTopic);
 				tag.setString("lastTopic", message.lastTopic);
 

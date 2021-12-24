@@ -17,31 +17,30 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.World;
-import net.minecraft.world.item.Item;
 
 public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProviderBase, IChild
 {
-	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.<Integer>defineId(EntityFoalBase.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.<Integer>defineId(EntityFoalBase.class, EntityEntityDataSerializers.INT);
 	private static final Set<Item> TEMPTATION_ITEMS = Sets.newHashSet(new Item[] { Items.WHEAT, Items.APPLE, Items.CARROT });
-	private static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityFoalBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	private static final DataParameter<Float> AGE = EntityDataManager.<Float>createKey(EntityFoalBase.class, DataSerializers.FLOAT);
+	private static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.defineId(EntityFoalBase.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
+	private static final EntityDataAccessor<Float> AGE = SynchedEntityData.defineId(EntityFoalBase.class, EntityDataSerializers.FLOAT);
 	protected int ageTimer;
 	private ResourceLocation resourceLocation;
 	private ResourceLocation resourceLocationBlink;
 	private static final String[] HORSE_TEXTURES = new String[] { "black", "bw1", "bw2", "grey", "red", "white" };
 
-	public EntityFoalBase(World worldIn)
+	public EntityFoalBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(2.2F, 3.0F);
 		this.width = 2.2F;
 		this.height = 3.0F;
 		this.stepHeight = 1.1F;
-		this.tasks.addTask(1, new GenericAIFollowParents<EntityFoalBase, EntityMareBase>(this, 1.1, EntityMareBase.class));
+		this.goalSelector.addGoal(1, new GenericAIFollowParents<EntityFoalBase, EntityMareBase>(this, 1.1, EntityMareBase.class));
 		this.ageTimer = 0;
 		this.horseType = HorseType.DRAFT;
 		this.gender = EntityGender.CHILD;
@@ -88,7 +87,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getParentUniqueIdParam()
 	{
 		return EntityFoalBase.PARENT_UNIQUE_ID;
 	}
@@ -136,7 +135,7 @@ public class EntityFoalBase extends EntityAnimaniaHorse implements TOPInfoProvid
 	}
 
 	@Override
-	public DataParameter<Float> getEntityAgeParam()
+	public EntityDataAccessor<Float> getEntityAgeParam()
 	{
 		return AGE;
 	}

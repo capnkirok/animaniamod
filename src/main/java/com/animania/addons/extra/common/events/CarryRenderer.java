@@ -22,7 +22,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -44,7 +43,7 @@ public class CarryRenderer
 	public static void renderHand(RenderHandEvent event)
 	{
 
-		World world = Minecraft.getMinecraft().level;
+		Level level = Minecraft.getMinecraft().level;
 		PlayerEntity player = Minecraft.getMinecraft().player;
 		AbstractClientPlayer aplayer = (AbstractClientPlayer) player;
 		ItemStack stack = player.getMainHandItem();
@@ -55,7 +54,7 @@ public class CarryRenderer
 		if (props != null && props.isCarrying())
 		{
 			BlockPos pos = player.getPosition();
-			Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, props.getType()), world);
+			Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, props.getType()), level);
 			entity.readFromNBT(props.getAnimal());
 			if (entity != null)
 			{
@@ -112,7 +111,7 @@ public class CarryRenderer
 	@SubscribeEvent
 	public static void onPlayerRenderPost(RenderPlayerEvent.Post event)
 	{
-		World world = Minecraft.getMinecraft().level;
+		Level level = Minecraft.getMinecraft().level;
 		PlayerEntity player = event.getPlayer();
 		ModelPlayer modelPlayer = event.getRenderer().getMainModel();
 		PlayerEntitySP clientPlayer = Minecraft.getMinecraft().player;
@@ -122,7 +121,7 @@ public class CarryRenderer
 
 		if (props != null && props.isCarrying())
 		{
-			Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, props.getType()), world);
+			Entity entity = EntityList.createEntityByIDFromName(new ResourceLocation(Animania.MODID, props.getType()), level);
 			entity.readFromNBT(props.getAnimal());
 			float rotation = -(player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialticks);
 			int perspective = Minecraft.getMinecraft().gameSettings.thirdPersonView;

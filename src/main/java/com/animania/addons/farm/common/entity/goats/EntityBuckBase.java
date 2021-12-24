@@ -30,24 +30,23 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
 
-	protected static final EntityDataAccessor<Boolean> FIGHTING = SynchedEntityData.<Boolean> defineId(EntityBuckBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityBuckBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityBuckBase.class, EntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Boolean> FIGHTING = SynchedEntityData.<Boolean> defineId(EntityBuckBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityBuckBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityBuckBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
 
-	public EntityBuckBase(Level worldIn)
+	public EntityBuckBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.0F, 1.0F);
 		this.width = 1.0F;
 		this.height = 1.0F;
@@ -57,13 +56,13 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 		this.gender = EntityGender.MALE;
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
 		{
-			this.tasks.addTask(3, new ButtHeadsGoatsGoal(this, 1.3D));
-			this.tasks.addTask(3, new GoatsLeapAtTargetGoal(this, 0.25F));
+			this.goalSelector.addGoal(3, new ButtHeadsGoatsGoal(this, 1.3D));
+			this.goalSelector.addGoal(3, new GoatsLeapAtTargetGoal(this, 0.25F));
 		}
 
 		if (!getSterilized())
-			this.tasks.addTask(5, new GenericAIMate<EntityBuckBase, EntityDoeBase>(this, 1.0D, EntityDoeBase.class, EntityKidBase.class, EntityAnimaniaGoat.class));
-		// this.tasks.addTask(5, new FollowMateGoatsGoal(this, 1.0D));
+			this.goalSelector.addGoal(5, new GenericAIMate<EntityBuckBase, EntityDoeBase>(this, 1.0D, EntityDoeBase.class, EntityKidBase.class, EntityAnimaniaGoat.class));
+		// this.goalSelector.addGoal(5, new FollowMateGoatsGoal(this, 1.0D));
 	}
 
 	@Override
@@ -175,7 +174,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
@@ -193,11 +192,11 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 			}
 
 		}
-		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
 	@Override
-	public DataParameter<Boolean> getSterilizedParam()
+	public EntityDataAccessor<Boolean> getSterilizedParam()
 	{
 		return STERILIZED;
 	}
@@ -221,7 +220,7 @@ public class EntityBuckBase extends EntityAnimaniaGoat implements TOPInfoProvide
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}

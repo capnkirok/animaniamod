@@ -7,7 +7,6 @@ import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
 
 public class RandomAnimalType implements AnimaniaType
 {
@@ -20,7 +19,7 @@ public class RandomAnimalType implements AnimaniaType
 	}
 
 	@Override
-	public LivingEntity getMale(Level world)
+	public LivingEntity getMale(Level level)
 	{
 		if (types.size() == 0)
 			return null;
@@ -31,7 +30,7 @@ public class RandomAnimalType implements AnimaniaType
 		LivingEntity entity = null;
 		while (entity == null)
 		{
-			entity = breeds[Animania.RANDOM.nextInt(breeds.length)].getMale(world);
+			entity = breeds[Animania.RANDOM.nextInt(breeds.length)].getMale(level);
 			if (entity == null)
 			{
 				type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
@@ -44,7 +43,7 @@ public class RandomAnimalType implements AnimaniaType
 	}
 
 	@Override
-	public LivingEntity getFemale(World world)
+	public LivingEntity getFemale(Level level)
 	{
 		if (types.size() == 0)
 			return null;
@@ -55,7 +54,7 @@ public class RandomAnimalType implements AnimaniaType
 		LivingEntity entity = null;
 		while (entity == null)
 		{
-			entity = breeds[Animania.RANDOM.nextInt(breeds.length)].getFemale(world);
+			entity = breeds[Animania.RANDOM.nextInt(breeds.length)].getFemale(level);
 			if (entity == null)
 			{
 				type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];
@@ -67,7 +66,7 @@ public class RandomAnimalType implements AnimaniaType
 	}
 
 	@Override
-	public LivingEntity getChild(World world)
+	public LivingEntity getChild(Level level)
 	{
 		if (types.size() == 0)
 			return null;
@@ -78,7 +77,7 @@ public class RandomAnimalType implements AnimaniaType
 		LivingEntity entity = null;
 		while (entity == null)
 		{
-			entity = breeds[Animania.RANDOM.nextInt(breeds.length)].getChild(world);
+			entity = breeds[Animania.RANDOM.nextInt(breeds.length)].getChild(level);
 			if (entity == null)
 			{
 				type = types.toArray(new Class[types.size()])[Animania.RANDOM.nextInt(types.size())];

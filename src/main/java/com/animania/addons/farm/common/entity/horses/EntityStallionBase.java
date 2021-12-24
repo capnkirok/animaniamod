@@ -19,7 +19,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -27,32 +27,31 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
 
-	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityStallionBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityStallionBase.class, EntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean> defineId(EntityStallionBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityStallionBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
 
 	private ResourceLocation resourceLocation;
 	private ResourceLocation resourceLocationBlink;
 	private static final String[] HORSE_TEXTURES = new String[] { "black", "bw1", "bw2", "grey", "red", "white" };
 
-	public EntityStallionBase(Level worldIn)
+	public EntityStallionBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.8F, 2.2F);
 		this.width = 1.8F;
 		this.height = 2.2F;
 		this.stepHeight = 1.2F;
 		this.mateable = true;
 		this.gender = EntityGender.MALE;
-		// this.tasks.addTask(1, new FollowMateHorsesGoal(this, 1.1D));
+		// this.goalSelector.addGoal(1, new FollowMateHorsesGoal(this, 1.1D));
 		if (!getSterilized())
-			this.tasks.addTask(3, new GenericAIMate<EntityStallionBase, EntityMareBase>(this, 1.0D, EntityMareBase.class, EntityFoalBase.class, EntityAnimaniaHorse.class));
+			this.goalSelector.addGoal(3, new GenericAIMate<EntityStallionBase, EntityMareBase>(this, 1.0D, EntityMareBase.class, EntityFoalBase.class, EntityAnimaniaHorse.class));
 	}
 
 	@Override
@@ -224,7 +223,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	}
 
 	@Override
-	public DataParameter<Boolean> getSterilizedParam()
+	public EntityDataAccessor<Boolean> getSterilizedParam()
 	{
 		return STERILIZED;
 	}
@@ -248,7 +247,7 @@ public class EntityStallionBase extends EntityAnimaniaHorse implements TOPInfoPr
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}

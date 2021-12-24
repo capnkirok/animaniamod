@@ -6,9 +6,8 @@ import java.util.List;
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class SheepFriesian
 {
@@ -16,9 +15,9 @@ public class SheepFriesian
 	public static class EntityRamFriesian extends EntityRamBase
 	{
 	
-		public EntityRamFriesian(Level worldIn)
+		public EntityRamFriesian(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.FRIESIAN;
 		}
 	
@@ -36,7 +35,7 @@ public class SheepFriesian
 	
 	
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune) {
 	
 			int i = 1 + this.rand.nextInt(2);
 	
@@ -77,9 +76,9 @@ public class SheepFriesian
 	public static class EntityLambFriesian extends EntityLambBase
 	{
 	
-		public EntityLambFriesian(World worldIn)
+		public EntityLambFriesian(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.FRIESIAN;
 		}
 	
@@ -100,9 +99,9 @@ public class SheepFriesian
 	public static class EntityEweFriesian extends EntityEweBase
 	{
 	
-		public EntityEweFriesian(World worldIn)
+		public EntityEweFriesian(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.FRIESIAN;
 		}
 	
@@ -119,7 +118,7 @@ public class SheepFriesian
 		}
 	
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune)
 		{
 	
 			int i = 1 + this.rand.nextInt(2);

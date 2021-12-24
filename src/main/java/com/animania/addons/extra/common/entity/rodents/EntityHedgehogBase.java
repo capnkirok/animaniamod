@@ -44,16 +44,16 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.monster.SilverfishEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -69,13 +69,13 @@ import net.minecraftforge.network.NetworkRegistry;
 public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProviderRodent, IAnimaniaAnimalBase
 {
 
-	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.<Boolean> createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean> createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean> createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityHedgehogBase.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityHedgehogBase.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityHedgehogBase.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.defineId(EntityHedgehogBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.defineId(EntityHedgehogBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> RIDING = SynchedEntityData.defineId(EntityHedgehogBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityHedgehogBase.class, EntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityHedgehogBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityHedgehogBase.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityHedgehogBase.class, EntityDataSerializers.BOOLEAN);
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(ExtraConfig.settings.hedgehogFood));
 
@@ -89,9 +89,9 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	protected int damageTimer;
 	protected HedgehogType type;
 
-	public EntityHedgehogBase(World worldIn)
+	public EntityHedgehogBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(0.5F, 0.5F);
 		this.width = 0.5F;
 		this.height = 0.5F;
@@ -103,7 +103,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 		this.blinkTimer = 80 + this.rand.nextInt(80);
 		this.enablePersistence();
 		this.entityAIEatGrass = new GenericAIEatGrass(this, false);
-		this.tasks.addTask(12, this.entityAIEatGrass);
+		this.goalSelector.addGoal(12, this.entityAIEatGrass);
 
 		this.initAI();
 	}
@@ -117,31 +117,31 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	protected void initAI()
 	{
 		this.aiSit = new SitGoal(this);
-		this.tasks.addTask(1, new GenericAISwimmingSmallCreatures(this));
+		this.goalSelector.addGoal(1, new GenericAISwimmingSmallCreatures(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new GenericAIFindWater<EntityHedgehogBase>(this, 1.0D, entityAIEatGrass, EntityHedgehogBase.class, true));
-			this.tasks.addTask(3, new HedgehogFindNestsGoal(this, 1.0D));
-			this.tasks.addTask(4, new GenericAIFindFood<EntityHedgehogBase>(this, 1.0D, entityAIEatGrass, false));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityHedgehogBase>(this, 1.0D, entityAIEatGrass, EntityHedgehogBase.class, true));
+			this.goalSelector.addGoal(3, new HedgehogFindNestsGoal(this, 1.0D));
+			this.goalSelector.addGoal(4, new GenericAIFindFood<EntityHedgehogBase>(this, 1.0D, entityAIEatGrass, false));
 		}
-		this.tasks.addTask(5, this.aiSit);
-		this.tasks.addTask(6, new FleeSunGoal(this, 1.0D));
-		this.tasks.addTask(7, new LeapAtTargetGoal(this, 0.2F));
-		this.tasks.addTask(8, new AttackMeleeGoal(this, 1.0D, true));
-		this.tasks.addTask(9, new GenericAITempt<EntityHedgehogBase>(this, 1.2D, false, EntityHedgehogBase.TEMPTATION_ITEMS));
-		this.tasks.addTask(10, new GenericAIPanic<EntityHedgehogBase>(this, 1.5D));
-		this.tasks.addTask(11, new GenericAIFollowOwner<EntityHedgehogBase>(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(13, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(14, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(15, new GenericAILookIdle<EntityHedgehogBase>(this));
+		this.goalSelector.addGoal(5, this.aiSit);
+		this.goalSelector.addGoal(6, new FleeSunGoal(this, 1.0D));
+		this.goalSelector.addGoal(7, new LeapAtTargetGoal(this, 0.2F));
+		this.goalSelector.addGoal(8, new AttackMeleeGoal(this, 1.0D, true));
+		this.goalSelector.addGoal(9, new GenericAITempt<EntityHedgehogBase>(this, 1.2D, false, EntityHedgehogBase.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(10, new GenericAIPanic<EntityHedgehogBase>(this, 1.5D));
+		this.goalSelector.addGoal(11, new GenericAIFollowOwner<EntityHedgehogBase>(this, 1.0D, 10.0F, 2.0F));
+		this.goalSelector.addGoal(13, new GenericAIWanderAvoidWater(this, 1.0D));
+		this.goalSelector.addGoal(14, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(15, new GenericAILookIdle<EntityHedgehogBase>(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(16, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hedgehogBed), Block.getBlockFromName(ExtraConfig.settings.hedgehogBed2), EntityHedgehogBase.class, new Function<Long, Boolean>() {
+			this.goalSelector.addGoal(16, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hedgehogBed), Block.getBlockFromName(ExtraConfig.settings.hedgehogBed2), EntityHedgehogBase.class, new Function<Long, Boolean>() {
 
 					@Override
-					public Boolean apply(Long worldtime)
+					public Boolean apply(Long leveltime)
 					{		
-						return (worldtime < 13000);
+						return (leveltime < 13000);
 					}
 					
 				}));
@@ -201,20 +201,20 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataManager.register(EntityHedgehogBase.FED, true);
-		this.dataManager.register(EntityHedgehogBase.WATERED, true);
+		this.entityData.register(EntityHedgehogBase.FED, true);
+		this.entityData.register(EntityHedgehogBase.WATERED, true);
 		// this.dataManager.register(EntityHedgehogBase.TAMED, false);
 		// this.dataManager.register(EntityHedgehogBase.SITTING, false);
-		this.dataManager.register(EntityHedgehogBase.RIDING, false);
-		this.dataManager.register(EntityHedgehogBase.AGE, Integer.valueOf(0));
-		this.dataManager.register(EntityHedgehogBase.SLEEPING, false);
-		this.dataManager.register(EntityHedgehogBase.SLEEPTIMER, Float.valueOf(0.0F));
-		this.dataManager.register(INTERACTED, false);
+		this.entityData.register(EntityHedgehogBase.RIDING, false);
+		this.entityData.register(EntityHedgehogBase.AGE, Integer.valueOf(0));
+		this.entityData.register(EntityHedgehogBase.SLEEPING, false);
+		this.entityData.register(EntityHedgehogBase.SLEEPTIMER, Float.valueOf(0.0F));
+		this.entityData.register(INTERACTED, false);
 
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.putBoolean("IsTamed", this.isTamed());
@@ -226,7 +226,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 		this.setTamed(compound.getBoolean("IsTamed"));
@@ -237,19 +237,19 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
 	}
@@ -323,7 +323,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 			if (!props.isCarrying())
 			{
-				props.setAnimal(this.writeToNBT(new CompoundNBT()));
+				props.setAnimal(this.writeToNBT(new CompoundTag()));
 				props.setCarrying(true);
 				props.setType(EntityList.getKey(this).getResourcePath());
 				this.setDead();
@@ -428,19 +428,19 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	public void setHedgehogRiding(boolean flag)
 	{
 		if (flag)
-			this.dataManager.set(EntityHedgehogBase.RIDING, true);
+			this.entityData.set(EntityHedgehogBase.RIDING, true);
 		else
 			this.dataManager.set(EntityHedgehogBase.RIDING, false);
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
@@ -544,7 +544,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}
@@ -592,7 +592,7 @@ public class EntityHedgehogBase extends TamableAnimal implements TOPInfoProvider
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return null;
 	}

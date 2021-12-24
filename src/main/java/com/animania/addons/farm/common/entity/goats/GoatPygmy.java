@@ -1,16 +1,14 @@
 package com.animania.addons.farm.common.entity.goats;
 
-import net.minecraft.world.level.Level;
-
 public class GoatPygmy
 {
 
 	public static class EntityBuckPygmy extends EntityBuckBase
 	{
 
-		public EntityBuckPygmy(Level worldIn)
+		public EntityBuckPygmy(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.PYGMY;
 
 		}
@@ -31,9 +29,9 @@ public class GoatPygmy
 	public static class EntityDoePygmy extends EntityDoeBase
 	{
 
-		public EntityDoePygmy(Level worldIn)
+		public EntityDoePygmy(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.PYGMY;
 
 		}
@@ -54,9 +52,9 @@ public class GoatPygmy
 	public static class EntityKidPygmy extends EntityKidBase
 	{
 
-		public EntityKidPygmy(Level worldIn)
+		public EntityKidPygmy(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.PYGMY;
 		}
 

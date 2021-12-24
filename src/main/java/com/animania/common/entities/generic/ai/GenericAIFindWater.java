@@ -11,7 +11,6 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.biome.Biome;
@@ -83,12 +82,12 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 		{
 			this.creature.getLookHelper().setLookPosition((double) this.seekingBlockPos.getX() + 0.5D, (double) (this.seekingBlockPos.getY()), (double) this.seekingBlockPos.getZ() + 0.5D, 10.0F, (float) this.creature.getVerticalFaceSpeed());
 
-			BlockState state = world.getBlockState(seekingBlockPos);
+			BlockState state = level.getBlockState(seekingBlockPos);
 			Block block = state.getBlock();
 
 			if (block instanceof IFoodProviderBlock)
 			{
-				TileEntity te = world.getTileEntity(seekingBlockPos);
+				TileEntity te = level.getTileEntity(seekingBlockPos);
 				if (te != null && te instanceof IFoodProviderTE)
 				{
 					IFoodProviderTE trough = (IFoodProviderTE) te;
@@ -128,14 +127,14 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 
 	
 	@Override
-	protected boolean shouldMoveTo(World world, BlockPos pos)
+	protected boolean shouldMoveTo(Level level, BlockPos pos)
 	{
-		BlockState state = world.getBlockState(pos);
+		BlockState state = level.getBlockState(pos);
 		Block block = state.getBlock();
 
 		if (block instanceof IFoodProviderBlock)
 		{
-			TileEntity te = world.getTileEntity(pos);
+			TileEntity te = level.getTileEntity(pos);
 			if (te != null && te instanceof IFoodProviderTE)
 			{
 				if (((IFoodProviderTE)te).canConsume(new FluidStack(FluidRegistry.WATER, this.halfAmount ? 50 : 100), null))
@@ -147,11 +146,11 @@ public class GenericAIFindWater<T extends PathfinderMob & IFoodEating & ISleepin
 	}
 
 	@Override
-	protected boolean shouldMoveToSecondary(World worldIn, BlockPos pos)
+	protected boolean shouldMoveToSecondary(Level levelIn, BlockPos pos)
 	{
-		BlockState state = world.getBlockState(pos);
+		BlockState state = level.getBlockState(pos);
 		Block block = state.getBlock();
-		Biome biome = world.getBiome(pos);
+		Biome biome = level.getBiome(pos);
 
 		if (block == Blocks.WATER && !BiomeDictionary.hasType(biome, Type.OCEAN) && !BiomeDictionary.hasType(biome, Type.BEACH))
 		{

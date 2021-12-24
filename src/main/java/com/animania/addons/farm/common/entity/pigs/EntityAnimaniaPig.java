@@ -35,16 +35,15 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.PigZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -58,18 +57,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConvertable
 {
 
-	protected static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> MUDDY = EntityDataManager.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SPLASHTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaPig.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Float> MUDTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaPig.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> PLAYED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityAnimaniaPig.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaPig.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaPig.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> SADDLED = SynchedEntityData.<Boolean> createKey(EntityAnimaniaPig.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> MUDDY = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SPLASHTIMER = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Float> MUDTIMER = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> PLAYED = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> HANDFED = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaPig.class, EntityDataSerializers.BOOLEAN);
 
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.pigFood));
 
@@ -88,9 +87,9 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	protected PigType pigType;
 	protected EntityGender gender;
 
-	public EntityAnimaniaPig(World worldIn)
+	public EntityAnimaniaPig(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.fedTimer = AnimaniaConfig.careAndFeeding.feedTimer + this.rand.nextInt(100);
 		this.wateredTimer = AnimaniaConfig.careAndFeeding.waterTimer + this.rand.nextInt(100);
 		this.playedTimer = AnimaniaConfig.careAndFeeding.playTimer + this.rand.nextInt(100);
@@ -99,32 +98,32 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 		this.enablePersistence();
 		this.slop = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop);
 		this.entityAIEatGrass = new PigSnuffleGoal(this);
-		this.tasks.addTask(11, this.entityAIEatGrass);
+		this.goalSelector.addGoal(11, this.entityAIEatGrass);
 
 		this.initAI();
 	}
 
 	protected void initAI()
 	{
-		this.tasks.addTask(0, new SwimmingGoal(this));
-		this.tasks.addTask(1, new FindMudGoal(this, 1.2D));
-		this.tasks.addTask(2, new GenericAIWanderAvoidWater(this, 1.0D));
+		this.goalSelector.addGoal(0, new SwimmingGoal(this));
+		this.goalSelector.addGoal(1, new FindMudGoal(this, 1.2D));
+		this.goalSelector.addGoal(2, new GenericAIWanderAvoidWater(this, 1.0D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(3, new GenericAIFindWater<EntityAnimaniaPig>(this, 1.0D, entityAIEatGrass, EntityAnimaniaPig.class));
-			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaPig>(this, 1.0D, entityAIEatGrass, true));
+			this.goalSelector.addGoal(3, new GenericAIFindWater<EntityAnimaniaPig>(this, 1.0D, entityAIEatGrass, EntityAnimaniaPig.class));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaPig>(this, 1.0D, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(4, new GenericAIPanic<EntityAnimaniaPig>(this, 1.5D));
+		this.goalSelector.addGoal(4, new GenericAIPanic<EntityAnimaniaPig>(this, 1.5D));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(8, new GenericAISleep<EntityAnimaniaPig>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.pigBed), AnimaniaHelper.getBlock(FarmConfig.settings.pigBed2), EntityAnimaniaPig.class));
+			this.goalSelector.addGoal(8, new GenericAISleep<EntityAnimaniaPig>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.pigBed), AnimaniaHelper.getBlock(FarmConfig.settings.pigBed2), EntityAnimaniaPig.class));
 		}
-		this.tasks.addTask(9, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, new ItemStack(Items.CARROT_ON_A_STICK), false));
-		this.tasks.addTask(10, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
-		this.tasks.addTask(10, new TemptItemStackGoal(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
-		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaPig>(this, 1.0, entityAIEatGrass));
-		this.tasks.addTask(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(15, new GenericAILookIdle<EntityAnimaniaPig>(this));
+		this.goalSelector.addGoal(9, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, new ItemStack(Items.CARROT_ON_A_STICK), false));
+		this.goalSelector.addGoal(10, new GenericAITempt<EntityAnimaniaPig>(this, 1.2D, false, EntityAnimaniaPig.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(10, new TemptItemStackGoal(this, 1.2d, UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, BlockHandler.fluidSlop)));
+		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaPig>(this, 1.0, entityAIEatGrass));
+		this.goalSelector.addGoal(13, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(15, new GenericAILookIdle<EntityAnimaniaPig>(this));
 		this.targetTasks.addTask(16, new HurtByTargetGoal(this, false, new Class[0]));
 	}
 
@@ -237,7 +236,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 		GenericBehavior.writeCommonNBT(compound, this);
@@ -249,7 +248,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 		GenericBehavior.readCommonNBT(compound, this);
@@ -261,25 +260,25 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return HANDFED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
 	}
@@ -355,7 +354,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}
@@ -386,7 +385,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
@@ -601,7 +600,7 @@ public class EntityAnimaniaPig extends Pig implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}

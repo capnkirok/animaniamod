@@ -20,10 +20,8 @@ import com.animania.addons.extra.config.ExtraConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Rabbit;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,13 +33,13 @@ public class ExtraAddonSpawnHandler
 	public static void removeSpawns(CheckSpawn event)
 	{
 		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
-		Level worldIn = event.getWorld();
-		Biome biome = event.getWorld().getBiome(pos);
+		Level levelIn = event.getLevel();
+		Biome biome = event.getLevel().getBiome(pos);
 		int chooser = 0;
 
 		Entity replacementEntity = null;
 
-		if (ExtraConfig.settings.replaceVanillaRabbits && event.getEntity().getClass().equals(Rabbit.class) && !worldIn.isRemote)
+		if (ExtraConfig.settings.replaceVanillaRabbits && event.getEntity().getClass().equals(Rabbit.class) && !levelIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -60,49 +58,49 @@ public class ExtraAddonSpawnHandler
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new RabbitEntityBuckCottontail(worldIn);
+						replacementEntity = new RabbitEntityBuckCottontail(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new RabbitEntityDoeCottontail(worldIn);
+						replacementEntity = new RabbitEntityDoeCottontail(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitJackBiomeTypes)) || AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitJackBiomeTypes)[1]))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new RabbitEntityBuckJack(worldIn);
+						replacementEntity = new RabbitEntityBuckJack(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new RabbitEntityDoeJack(worldIn);
+						replacementEntity = new RabbitEntityDoeJack(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitHavanaBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new RabbitEntityBuckHavana(worldIn);
+						replacementEntity = new RabbitEntityBuckHavana(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new RabbitEntityDoeHavana(worldIn);
+						replacementEntity = new RabbitEntityDoeHavana(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(ExtraConfig.settings.spawning_and_breeding.rabbitChinchillaBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new RabbitEntityDoeChinchilla(worldIn);
+						replacementEntity = new RabbitEntityDoeChinchilla(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new RabbitEntityBuckChinchilla(worldIn);
+						replacementEntity = new RabbitEntityBuckChinchilla(levelIn);
 					}
 
 				} else if (chooser == 1)
 				{
-					replacementEntity = new RabbitEntityBuckCottontail(worldIn);
+					replacementEntity = new RabbitEntityBuckCottontail(levelIn);
 
 				} else if (chooser == 2)
 				{
-					replacementEntity = new RabbitEntityDoeCottontail(worldIn);
+					replacementEntity = new RabbitEntityDoeCottontail(levelIn);
 				}
 			}
 
@@ -111,7 +109,7 @@ public class ExtraAddonSpawnHandler
 		if (replacementEntity != null)
 		{
 			replacementEntity.setPosition(event.getX(), event.getY(), event.getZ());
-			AnimaniaHelper.spawnEntity(event.getWorld(), replacementEntity);
+			AnimaniaHelper.spawnEntity(event.getLevel(), replacementEntity);
 		}
 	}
 
@@ -119,10 +117,10 @@ public class ExtraAddonSpawnHandler
 	public static void limitAnimaniaSpawns(CheckSpawn event)
 	{
 		BlockPos pos = new BlockPos(event.getX(), event.getY() + 1, event.getZ());
-		World worldIn = event.getWorld();
-		Biome biome = event.getWorld().getBiome(pos);
+		Level levelIn = event.getLevel();
+		Biome biome = event.getLevel().getBiome(pos);
 
-		if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRabbits && (event.getEntity() instanceof EntityAnimaniaRabbit && !worldIn.isRemote))
+		if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRabbits && (event.getEntity() instanceof EntityAnimaniaRabbit && !levelIn.isRemote))
 		{
 			List<EntityAnimaniaRabbit> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaRabbit.class, 100, event.getEntity().level, pos);
 			if (others.size() > ExtraConfig.settings.spawning_and_breeding.spawnLimitRabbits)
@@ -130,7 +128,7 @@ public class ExtraAddonSpawnHandler
 				event.setResult(Result.DENY);
 				// System.out.println("Rabbit Denied Existence!");
 			}
-		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaAmphibians && (event.getEntity() instanceof EntityAmphibian && !worldIn.isRemote))
+		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaAmphibians && (event.getEntity() instanceof EntityAmphibian && !levelIn.isRemote))
 		{
 			List<EntityAmphibian> others = AnimaniaHelper.getEntitiesInRange(EntityAmphibian.class, 100, event.getEntity().level, pos);
 			if (others.size() > ExtraConfig.settings.spawning_and_breeding.spawnLimitAmphibians)
@@ -138,7 +136,7 @@ public class ExtraAddonSpawnHandler
 				event.setResult(Result.DENY);
 				// System.out.println("Amphibian Denied Existence!");
 			}
-		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHamster && !worldIn.isRemote))
+		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHamster && !levelIn.isRemote))
 		{
 			List<EntityHamster> others = AnimaniaHelper.getEntitiesInRange(EntityHamster.class, 100, event.getEntity().level, pos);
 			if (others.size() > ExtraConfig.settings.spawning_and_breeding.spawnLimitHamsters)
@@ -146,7 +144,7 @@ public class ExtraAddonSpawnHandler
 				event.setResult(Result.DENY);
 				// System.out.println("Hamster Denied Existence!");
 			}
-		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRodents && (event.getEntity() instanceof EntityFerretBase && !worldIn.isRemote))
+		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRodents && (event.getEntity() instanceof EntityFerretBase && !levelIn.isRemote))
 		{
 			List<EntityFerretBase> others = AnimaniaHelper.getEntitiesInRange(EntityFerretBase.class, 100, event.getEntity().level, pos);
 			if (others.size() > ExtraConfig.settings.spawning_and_breeding.spawnLimitFerrets)
@@ -154,7 +152,7 @@ public class ExtraAddonSpawnHandler
 				event.setResult(Result.DENY);
 				// System.out.println("Ferret Denied Existence!");
 			}
-		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHedgehogBase && !worldIn.isRemote))
+		} else if (ExtraConfig.settings.spawning_and_breeding.spawnAnimaniaRodents && (event.getEntity() instanceof EntityHedgehogBase && !levelIn.isRemote))
 		{
 			List<EntityHedgehogBase> others = AnimaniaHelper.getEntitiesInRange(EntityHedgehogBase.class, 100, event.getEntity().level, pos);
 			if (others.size() > ExtraConfig.settings.spawning_and_breeding.spawnLimitFerrets)

@@ -39,9 +39,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemShears;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
@@ -49,7 +49,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Cow;
@@ -60,13 +59,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConvertable
 {
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(FarmConfig.settings.cowFood));
-	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.<Integer> createKey(EntityAnimaniaCow.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean> createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HANDFED = EntityDataManager.<Boolean> createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityAnimaniaCow.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityAnimaniaCow.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.<Integer> createKey(EntityAnimaniaCow.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.defineId(EntityAnimaniaCow.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FED = SynchedEntityData.defineId(EntityAnimaniaCow.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> HANDFED = SynchedEntityData.defineId(EntityAnimaniaCow.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityAnimaniaCow.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityAnimaniaCow.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityAnimaniaCow.class, EntityDataSerializers.BOOLEAN);
 
 	protected int happyTimer;
 	public int blinkTimer;
@@ -79,30 +78,30 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	protected boolean mateable = false;
 	protected EntityGender gender;
 
-	public EntityAnimaniaCow(World worldIn)
+	public EntityAnimaniaCow(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.tasks.taskEntries.clear();
 		this.entityAIEatGrass = new GenericAIEatGrass<EntityAnimaniaCow>(this);
-		this.tasks.addTask(1, new GenericAIPanic<EntityAnimaniaCow>(this, 2.0D));
+		this.goalSelector.addGoal(1, new GenericAIPanic<EntityAnimaniaCow>(this, 2.0D));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(2, new GenericAIFindWater<EntityAnimaniaCow>(this, 1.0D, entityAIEatGrass, EntityAnimaniaCow.class));
-			this.tasks.addTask(3, new GenericAIFindFood<EntityAnimaniaCow>(this, 1.0, entityAIEatGrass, true));
+			this.goalSelector.addGoal(2, new GenericAIFindWater<EntityAnimaniaCow>(this, 1.0D, entityAIEatGrass, EntityAnimaniaCow.class));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityAnimaniaCow>(this, 1.0, entityAIEatGrass, true));
 		}
-		this.tasks.addTask(4, new GenericAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new SwimmingGoal(this));
-		this.tasks.addTask(7, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, false, EntityAnimaniaCow.TEMPTATION_ITEMS));
-		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, new ItemStack(Blocks.YELLOW_FLOWER), false));
-		this.tasks.addTask(6, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, new ItemStack(Blocks.RED_FLOWER), false));
-		this.tasks.addTask(8, this.entityAIEatGrass);
+		this.goalSelector.addGoal(4, new GenericAIWanderAvoidWater(this, 1.0D));
+		this.goalSelector.addGoal(5, new SwimmingGoal(this));
+		this.goalSelector.addGoal(7, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, false, EntityAnimaniaCow.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(6, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, new ItemStack(Blocks.YELLOW_FLOWER), false));
+		this.goalSelector.addGoal(6, new GenericAITempt<EntityAnimaniaCow>(this, 1.25D, new ItemStack(Blocks.RED_FLOWER), false));
+		this.goalSelector.addGoal(8, this.entityAIEatGrass);
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(9, new GenericAISleep<EntityAnimaniaCow>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.cowBed), AnimaniaHelper.getBlock(FarmConfig.settings.cowBed2), EntityAnimaniaCow.class));
+			this.goalSelector.addGoal(9, new GenericAISleep<EntityAnimaniaCow>(this, 0.8, AnimaniaHelper.getBlock(FarmConfig.settings.cowBed), AnimaniaHelper.getBlock(FarmConfig.settings.cowBed2), EntityAnimaniaCow.class));
 		}
-		this.tasks.addTask(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(11, new GenericAILookIdle<EntityAnimaniaCow>(this));
-		this.tasks.addTask(12, new GenericAIFindSaltLick<EntityAnimaniaCow>(this, 1.0, entityAIEatGrass));
+		this.goalSelector.addGoal(10, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(11, new GenericAILookIdle<EntityAnimaniaCow>(this));
+		this.goalSelector.addGoal(12, new GenericAIFindSaltLick<EntityAnimaniaCow>(this, 1.0, entityAIEatGrass));
 		this.targetTasks.addTask(14, new HurtByTargetGoal(this, false, new Class[0]));
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers)
 		{
@@ -230,7 +229,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 
 				for (int i = 0; i < 5; ++i)
 				{
-					AnimaniaHelper.spawnEntity(world, new EntityItem(this.level, this.getX(), this.getY() + this.height, this.getZ(), new ItemStack(Blocks.RED_MUSHROOM)));
+					AnimaniaHelper.spawnEntity(level, new EntityItem(this.level, this.getX(), this.getY() + this.height, this.getZ(), new ItemStack(Blocks.RED_MUSHROOM)));
 				}
 
 				stack.damageItem(1, player);
@@ -264,7 +263,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 
@@ -272,7 +271,7 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 
@@ -406,43 +405,43 @@ public class EntityAnimaniaCow extends Cow implements IAnimaniaAnimalBase, IConv
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return HANDFED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
 	}

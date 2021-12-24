@@ -30,11 +30,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemSeedFood;
 import net.minecraft.item.ItemSeeds;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -46,8 +45,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.ContainerListener;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -73,10 +70,10 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 	private MutableBlockPos lastPosMid = new MutableBlockPos(0, 0, 0);
 	private MutableBlockPos lastPosRight = new MutableBlockPos(0, 0, 0);
 	private MutableBlockPos lastPosLeft = new MutableBlockPos(0, 0, 0);
-	protected static final DataParameter<Integer> PULLER_TYPE = EntityDataManager.<Integer> createKey(EntityTiller.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer> createKey(EntityTiller.class, DataSerializers.VARINT);
-	private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.<Float> createKey(EntityTiller.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> HAS_CHEST = EntityDataManager.<Boolean> createKey(EntityTiller.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> PULLER_TYPE = SynchedEntityData.defineId(EntityTiller.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Integer> TIME_SINCE_HIT = SynchedEntityData.defineId(EntityTiller.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Float> DAMAGE_TAKEN = SynchedEntityData.defineId(EntityTiller.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> HAS_CHEST = SynchedEntityData.defineId(EntityTiller.class, EntityDataSerializers.BOOLEAN);
 
 	// Gui Id Offset required when multiple addons are installed
 	private static final int GUI_ID = 2 + FarmAddon.guiHandler.getGuiIdOffset();
@@ -87,9 +84,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 		EntityTiller.animHandler.addAnim(Animania.MODID, "anim_tiller_back", "anim_tiller");
 	}
 
-	public EntityTiller(World par1World)
+	public EntityTiller(Level par1Level)
 	{
-		super(par1World);
+		super(par1Level);
 		this.preventEntitySpawning = true;
 		this.setSize(2.0F, 1.2F);
 		this.width = 2.0F;
@@ -101,9 +98,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 	}
 
-	public EntityTiller(World worldIn, double x, double y, double z)
+	public EntityTiller(Level levelIn, double x, double y, double z)
 	{
-		this(worldIn);
+		this(levelIn);
 		setPosition(x, y, z);
 	}
 
@@ -141,9 +138,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 	public boolean processInitialInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		List horses = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, world, player);
-		List cows = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 3, world, player);
-		List tillers = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, world, this);
+		List horses = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, level, player);
+		List cows = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 3, level, player);
+		List tillers = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, level, this);
 
 		HorseEntity horse = null;
 		EntityAnimaniaCow cow = null;
@@ -162,7 +159,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 			{
 				this.cartChest.setCustomName(this.getName());
 				player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
+				level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
 			}
 
 			/*
@@ -191,9 +188,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					this.setPullerType(3);
 				}
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 
 				return true;
@@ -202,9 +199,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopCart();
 				return true;
@@ -218,9 +215,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					player.inventory.addItemStackToInventory(new ItemStack(Items.LEAD, 1));
 				}
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
 			} else if ((stack.getItem() == Items.AIR || stack.getItem() == Items.LEAD) && cow != null && cow.getLeashHolder() == player)
@@ -233,12 +230,12 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				{
 					player.inventory.addItemStackToInventory(new ItemStack(Items.LEAD, 1));
 				}
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote)
+			} else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !level.isRemote)
 			{
 
 				double diffx = Math.abs(this.getX() - player.getX());
@@ -250,21 +247,21 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 					this.pulled = true;
 					this.puller = player;
 					this.setPullerType(2);
-					if (!world.isRemote)
+					if (!level.isRemote)
 					{
-						world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+						level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 
 					}
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !world.isRemote)
+			} else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !level.isRemote)
 			{
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopCart();
 				return true;
@@ -273,9 +270,9 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopCart();
 				return true;
@@ -355,11 +352,11 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 						if (seeds.getItem() instanceof ItemSeeds)
 						{
 							ItemSeeds seedy = (ItemSeeds) seeds.getItem();
-							this.level.setBlock(pos.up(), seedy.getPlant(world, pos.up()));
+							this.level.setBlock(pos.up(), seedy.getPlant(level, pos.up()));
 						} else
 						{
 							ItemSeedFood seedy = (ItemSeedFood) seeds.getItem();
-							this.level.setBlock(pos.up(), seedy.getPlant(world, pos.up()));
+							this.level.setBlock(pos.up(), seedy.getPlant(level, pos.up()));
 						}
 
 						if (player != null && !player.isCreative())
@@ -378,7 +375,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 	{
 		if (!this.level.isRemote && this.pulled && this.puller != null && (this.puller instanceof EntityAnimaniaHorse || this.puller instanceof EntityAnimaniaCow))
 		{
-			PlayerEntity player = world.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 20, false);
+			PlayerEntity player = level.getClosestPlayer(this.getX(), this.getY(), this.getZ(), 20, false);
 
 			Vec3d up = new Vec3d(0, 1, 0);
 			Vec3d forward = new Vec3d(1, 0, 0).rotateYaw(this.rotationYaw).normalize();
@@ -429,14 +426,14 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 		}
 
 		// Dismount text
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown > 10 && world.isRemote)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown > 10 && level.isRemote)
 		{
 			PlayerEntity player = (PlayerEntity) this.getControllingPassenger();
 			player.sendStatusMessage(new TextComponentString(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
 		}
 
 		// Determine animation direction based on previous pos
-		if (this.pulled && this.puller != null && world.isRemote)
+		if (this.pulled && this.puller != null && level.isRemote)
 		{
 
 			double movX = Math.abs(this.getX() - this.prevgetX());
@@ -532,7 +529,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 		// Add slowness if multiple carts being pulled
 		if (this.pulled && this.puller instanceof PlayerEntity)
 		{
-			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, world, this);
+			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, level, this);
 			PlayerEntity player = (PlayerEntity) this.puller;
 			int totPulling = 0;
 			if (!carts.isEmpty())
@@ -557,7 +554,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 		if (this.pulled && this.puller instanceof AnimalEntity)
 		{
-			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, world, this);
+			List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityTiller.class, 3, level, this);
 			AnimalEntity animal = (AnimalEntity) this.puller;
 			int totPulling = 0;
 			if (!carts.isEmpty())
@@ -668,7 +665,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 			this.pulled = false;
 			this.puller = null;
 			this.setPullerType(0);
-			world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+			level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 			stopCart();
 		}
 
@@ -926,7 +923,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		compound.putInteger("PullerType", this.getPullerType());
 
@@ -938,10 +935,10 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 			if (!itemstack.isEmpty())
 			{
-				CompoundNBT CompoundNBT = new CompoundNBT();
-				CompoundNBT.setByte("Slot", (byte) i);
-				itemstack.writeToNBT(CompoundNBT);
-				nbttaglist.appendTag(CompoundNBT);
+				CompoundTag CompoundTag = new CompoundTag();
+				CompoundTag.setByte("Slot", (byte) i);
+				itemstack.writeToNBT(CompoundTag);
+				nbttaglist.appendTag(CompoundTag);
 			}
 		}
 		compound.putBoolean("HasChest", this.getHasChest());
@@ -950,7 +947,7 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		this.setPullerType(compound.getInteger("PullerType"));
 
@@ -959,12 +956,12 @@ public class EntityTiller extends AnimatedEntityBase implements ContainerListene
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
-			CompoundNBT CompoundNBT = nbttaglist.getCompoundTagAt(i);
-			int j = CompoundNBT.getByte("Slot") & 255;
+			CompoundTag CompoundTag = nbttaglist.getCompoundTagAt(i);
+			int j = CompoundTag.getByte("Slot") & 255;
 
 			if (j >= 0 && j < this.cartChest.getSizeInventory())
 			{
-				this.cartChest.setInventorySlotContents(j, new ItemStack(CompoundNBT));
+				this.cartChest.setInventorySlotContents(j, new ItemStack(CompoundTag));
 			}
 		}
 		this.setHasChest(compound.getBoolean("HasChest"));

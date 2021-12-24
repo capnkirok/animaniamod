@@ -14,18 +14,16 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.api.distmarker.Dist;
@@ -75,7 +73,7 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public ItemStack getPickBlock(BlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player)
+	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, PlayerEntity player)
 	{
 		return new ItemStack(this);
 	}
@@ -99,26 +97,26 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
-		if (!worldIn.isRemote)
+		if (!levelIn.isRemote)
 		{
-			return this.eatCheese(worldIn, pos, state, playerIn);
+			return this.eatCheese(levelIn, pos, state, playerIn);
 		} else
 		{
 			ItemStack itemstack = playerIn.getHeldItem(hand);
-			return this.eatCheese(worldIn, pos, state, playerIn) || itemstack.isEmpty();
+			return this.eatCheese(levelIn, pos, state, playerIn) || itemstack.isEmpty();
 		}
 	}
 
-	private boolean eatCheese(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
+	private boolean eatCheese(Level levelIn, BlockPos pos, BlockState state, PlayerEntity player)
 	{
 		if (!player.canEat(false))
 		{
 			return false;
 		} else
 		{
-			if (!worldIn.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
+			if (!levelIn.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects)
 			{
 				if (this == FarmAddonBlockHandler.blockCheeseFriesian)
 					player.addPotionEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 6, 2, false, false));
@@ -135,10 +133,10 @@ public class BlockCheese extends Block
 
 			if (i < 3)
 			{
-				worldIn.setBlock(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
+				levelIn.setBlock(pos, state.withProperty(BITES, Integer.valueOf(i + 1)), 3);
 			} else
 			{
-				worldIn.setBlockToAir(pos);
+				levelIn.setBlockToAir(pos);
 			}
 
 			return true;
@@ -158,7 +156,7 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
+	public int getComparatorInputOverride(BlockState blockState, Level levelIn, BlockPos pos)
 	{
 		return 4 - ((Integer) blockState.getValue(BITES)).intValue();
 	}
@@ -170,23 +168,23 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+	public boolean canPlaceBlockAt(Level levelIn, BlockPos pos)
 	{
-		return super.canPlaceBlockAt(worldIn, pos) ? this.canBlockStay(worldIn, pos) : false;
+		return super.canPlaceBlockAt(levelIn, pos) ? this.canBlockStay(levelIn, pos) : false;
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+	public void neighborChanged(BlockState state, Level levelIn, BlockPos pos, Block blockIn, BlockPos fromPos)
 	{
-		if (!this.canBlockStay(worldIn, pos))
+		if (!this.canBlockStay(levelIn, pos))
 		{
-			worldIn.setBlockToAir(pos);
+			levelIn.setBlockToAir(pos);
 		}
 	}
 
-	private boolean canBlockStay(World worldIn, BlockPos pos)
+	private boolean canBlockStay(Level levelIn, BlockPos pos)
 	{
-		return worldIn.getBlockState(pos.down()).getMaterial().isSolid();
+		return levelIn.getBlockState(pos.down()).getMaterial().isSolid();
 	}
 
 	@Override
@@ -196,7 +194,7 @@ public class BlockCheese extends Block
 	}
 
 	@Override
-	public ItemStack getItem(World worldIn, BlockPos pos, BlockState state)
+	public ItemStack getItem(Level levelIn, BlockPos pos, BlockState state)
 	{
 		return new ItemStack(this);
 	}

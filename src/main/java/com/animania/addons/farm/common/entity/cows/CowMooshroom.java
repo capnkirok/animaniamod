@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class CowMooshroom
 {
@@ -15,9 +14,9 @@ public class CowMooshroom
 	public static class EntityBullMooshroom extends EntityBullBase
 	{
 
-		public EntityBullMooshroom(Level world)
+		public EntityBullMooshroom(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.MOOSHROOM;
 		}
 
@@ -44,9 +43,9 @@ public class CowMooshroom
 	public static class CowEntityMooshroom extends CowEntityBase
 	{
 
-		public CowEntityMooshroom(Level world)
+		public CowEntityMooshroom(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.MOOSHROOM;
 		}
 
@@ -97,9 +96,9 @@ public class CowMooshroom
 	public static class EntityCalfMooshroom extends EntityCalfBase
 	{
 
-		public EntityCalfMooshroom(World world)
+		public EntityCalfMooshroom(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.MOOSHROOM;
 		}
 

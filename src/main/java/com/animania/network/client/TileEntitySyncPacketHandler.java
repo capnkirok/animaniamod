@@ -5,7 +5,7 @@ import javax.xml.ws.handler.MessageContext;
 import IMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -22,9 +22,9 @@ public class TileEntitySyncPacketHandler {
 			@Override
 			public void run() {
 
-				CompoundNBT data = message.data;
+				CompoundTag data = message.data;
 				BlockPos pos = new BlockPos(data.getInteger("x"), data.getInteger("y"), data.getInteger("z"));
-				CompoundNBT tileData = data.getCompoundTag("data");
+				CompoundTag tileData = data.getCompoundTag("data");
 				
 				TileEntity tile = Minecraft.getMinecraft().level.getTileEntity(pos);
 

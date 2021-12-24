@@ -12,12 +12,11 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.level.Level;
 
 public class ButtHeadsGoatsGoal extends Goal
 {
 	private final EntityAnimaniaGoat theAnimal;
-	Level theWorld;
+	Level theLevel;
 	private Animal targetMate;
 	int fightTimer;
 	double moveSpeed;
@@ -27,7 +26,7 @@ public class ButtHeadsGoatsGoal extends Goal
 	public ButtHeadsGoatsGoal(EntityAnimaniaGoat animal, double speedIn)
 	{
 		this.theAnimal = animal;
-		this.theWorld = animal.level;
+		this.theLevel = animal.level;
 		this.moveSpeed = speedIn;
 		this.setMutexBits(3);
 		this.fightTimer = 100 + Animania.RANDOM.nextInt(50);

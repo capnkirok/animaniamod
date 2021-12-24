@@ -9,7 +9,6 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.block.state.BlockState;
@@ -58,7 +57,7 @@ public class GenericAIFindSaltLick<T extends PathfinderMob & ISleeping> extends 
 
 		if (this.isAtDestination())
 		{
-			BlockState state = world.getBlockState(seekingBlockPos);
+			BlockState state = level.getBlockState(seekingBlockPos);
 			Block block = state.getBlock();
 
 			if (block == BlockHandler.blockSaltLick)
@@ -68,7 +67,7 @@ public class GenericAIFindSaltLick<T extends PathfinderMob & ISleeping> extends 
 					eatAI.startExecuting();
 				}
 				BlockSaltLick salt = (BlockSaltLick) block;
-				salt.useSaltLick(world, seekingBlockPos, this.entity);
+				salt.useSaltLick(level, seekingBlockPos, this.entity);
 
 				this.delay = 0;
 			}
@@ -82,9 +81,9 @@ public class GenericAIFindSaltLick<T extends PathfinderMob & ISleeping> extends 
 	}
 
 	@Override
-	protected boolean shouldMoveTo(World worldIn, BlockPos pos)
+	protected boolean shouldMoveTo(Level levelIn, BlockPos pos)
 	{
-		Block block = worldIn.getBlockState(pos).getBlock();
+		Block block = levelIn.getBlockState(pos).getBlock();
 
 		return block == BlockHandler.blockSaltLick;
 	}

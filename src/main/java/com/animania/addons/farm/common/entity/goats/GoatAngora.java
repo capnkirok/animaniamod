@@ -3,10 +3,9 @@ package com.animania.addons.farm.common.entity.goats;
 import java.util.List;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class GoatAngora
 {
@@ -14,9 +13,9 @@ public class GoatAngora
 	public static class EntityBuckAngora extends EntityBuckBase implements Shearable
 	{
 
-		public EntityBuckAngora(Level worldIn)
+		public EntityBuckAngora(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.ANGORA;
 			this.setSize(1.6F, 1.4F);
 			this.width = 1.6F;
@@ -38,13 +37,13 @@ public class GoatAngora
 		}
 
 		@Override
-		public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)
+		public boolean isShearable(ItemStack item, IBlockAccess level, BlockPos pos)
 		{
 			return false;
 		}
 
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune)
 		{
 			return null;
 		}
@@ -54,9 +53,9 @@ public class GoatAngora
 	public static class EntityKidAngora extends EntityKidBase
 	{
 
-		public EntityKidAngora(World worldIn)
+		public EntityKidAngora(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.ANGORA;
 		}
 
@@ -77,9 +76,9 @@ public class GoatAngora
 	public static class EntityDoeAngora extends EntityDoeBase implements IShearable
 	{
 
-		public EntityDoeAngora(World worldIn)
+		public EntityDoeAngora(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.goatType = GoatType.ANGORA;
 			this.setSize(1.6F, 1.4F);
 			this.width = 1.6F;
@@ -100,13 +99,13 @@ public class GoatAngora
 		}
 
 		@Override
-		public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos)
+		public boolean isShearable(ItemStack item, IBlockAccess level, BlockPos pos)
 		{
 			return false;
 		}
 
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune)
 		{
 			return null;
 		}

@@ -9,12 +9,9 @@ import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,7 +37,7 @@ public class BlockMud extends Block
 	}
 
 	@Override
-	public int tickRate(World worldIn)
+	public int tickRate(Level levelIn)
 	{
 		return 20;
 	}
@@ -58,7 +55,7 @@ public class BlockMud extends Block
 
 	@Override
 	@Nullable
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos)
+	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return BlockMud.MUD_AABB;
 	}
@@ -75,14 +72,14 @@ public class BlockMud extends Block
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, BlockState state, Entity entityIn)
+	public void onEntityCollidedWithBlock(Level levelIn, BlockPos pos, BlockState state, Entity entityIn)
 	{
 		entityIn.motionX *= 0.2;
 		entityIn.motionZ *= 0.2;
 	}
 
 	@Override
-	public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn)
+	public void onEntityWalk(Level levelIn, BlockPos pos, Entity entityIn)
 	{
 		entityIn.motionX *= 0.2D;
 		entityIn.motionZ *= 0.2D;
@@ -90,9 +87,9 @@ public class BlockMud extends Block
 
 	@Override
 	@SideOnly(Dist.CLIENT)
-	public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand)
+	public void randomDisplayTick(BlockState stateIn, Level levelIn, BlockPos pos, Random rand)
 	{
-		AddonInjectionHandler.runInjection("farm", "mudParticleDisplay", Void.class, stateIn, worldIn, pos, rand);
+		AddonInjectionHandler.runInjection("farm", "mudParticleDisplay", Void.class, stateIn, levelIn, pos, rand);
 	}
 
 }

@@ -2,7 +2,6 @@ package com.animania.addons.farm.common.entity.cows;
 
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
-import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
@@ -11,9 +10,9 @@ public class CowFriesian
 	public static class EntityBullFriesian extends EntityBullBase
 	{
 
-		public EntityBullFriesian(Level world)
+		public EntityBullFriesian(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.FRIESIAN;
 		}
 
@@ -34,9 +33,9 @@ public class CowFriesian
 	public static class EntityCalfFriesian extends EntityCalfBase
 	{
 
-		public EntityCalfFriesian(Level world)
+		public EntityCalfFriesian(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.FRIESIAN;
 		}
 		
@@ -57,9 +56,9 @@ public class CowFriesian
 	public static class CowEntityFriesian extends CowEntityBase
 	{
 
-		public CowEntityFriesian(Level world)
+		public CowEntityFriesian(Level level)
 		{
-			super(world);
+			super(level);
 			this.cowType = CowType.FRIESIAN;
 			this.milk = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, FarmAddonBlockHandler.fluidMilkFriesian);
 		}

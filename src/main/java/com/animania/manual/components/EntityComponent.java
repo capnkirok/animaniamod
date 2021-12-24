@@ -15,8 +15,6 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -69,8 +67,8 @@ public class EntityComponent implements IManualComponent
 		{
 			try
 			{
-				Level world = mc.level;
-				Entity e = EntityList.createEntityByIDFromName(entityLoc[i], world);
+				Level level = mc.level;
+				Entity e = EntityList.createEntityByIDFromName(entityLoc[i], level);
 				if (e != null)
 				{
 					float height = e.height;

@@ -27,7 +27,7 @@ package com.animania.client.render;
  * net.minecraft.client.renderer.texture.TextureAtlasSprite; import
  * net.minecraft.entity.LivingEntity; import net.minecraft.init.Blocks;
  * import net.minecraft.item.ItemStack; import net.minecraft.util.Direction;
- * import net.minecraft.world.World; import
+ * import net.minecraft.level.Level; import
  * net.minecraftforge.client.model.IPerspectiveAwareModel; import
  * net.minecraftforge.common.model.TRSRTransformation;
  *
@@ -37,7 +37,7 @@ package com.animania.client.render;
  * new ItemOverrideList(Lists.<ItemOverride>newArrayList()) {
  *
  * @Override public IBakedModel handleItemState(IBakedModel originalModel,
- * ItemStack stack, World world, LivingEntity entity) {
+ * ItemStack stack, Level level, LivingEntity entity) {
  * ((RenderPropInv)originalModel).modelID = stack.getItemDamage(); return
  * originalModel; } }; protected int modelID = 0; protected boolean
  * disableRender = false;

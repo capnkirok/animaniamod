@@ -14,14 +14,14 @@ public class TileEntityWaterBottle extends BlockEntity
     }
 
     /*
-     * @Override public void writeToNBT(CompoundNBT compound) {
+     * @Override public void writeToNBT(CompoundTag compound) {
      * super.writeToNBT(compound); compound.putInteger("BlockRotation",
      * rotation); }
      *
-     * @Override public Packet getDescriptionPacket() { CompoundNBT
-     * CompoundNBT = new CompoundNBT(); this.writeToNBT(CompoundNBT);
+     * @Override public Packet getDescriptionPacket() { CompoundTag
+     * CompoundTag = new CompoundTag(); this.writeToNBT(CompoundTag);
      * return new S35PacketUpdateTileEntity(this.x, this.y,
-     * this.z, -1, CompoundNBT); }
+     * this.z, -1, CompoundTag); }
      *
      * @Override public void onDataPacket(NetworkManager net,
      * S35PacketUpdateTileEntity pkt) { readFromNBT(pkt.getTag()); }

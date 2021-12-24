@@ -33,13 +33,13 @@ public interface IFoodEating extends IAnimaniaAnimal
 			{
 				this.setFedTimer(AnimaniaConfig.careAndFeeding.feedTimer + Animania.RANDOM.nextInt(100));
 			}
-			e.getDataManager().set(param, fed);
+			e.getEntityData().set(param, fed);
 		}
 	}
 
 	default boolean getFed()
 	{
-		DataParameter<Boolean> param = getFedParam();
+		EntityDataAccessor<Boolean> param = getFedParam();
 		if (param != null)
 			return this.getBoolFromDataManager(param);
 		return false;
@@ -47,7 +47,7 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default void setWatered(boolean watered)
 	{
-		DataParameter<Boolean> param = getWateredParam();
+		EntityDataAccessor<Boolean> param = getWateredParam();
 		if (param != null)
 		{
 			LivingEntity e = (LivingEntity) this;
@@ -55,13 +55,13 @@ public interface IFoodEating extends IAnimaniaAnimal
 			{
 				this.setWaterTimer(AnimaniaConfig.careAndFeeding.waterTimer + Animania.RANDOM.nextInt(100));
 			}
-			e.getDataManager().set(param, watered);
+			e.getEntityData().set(param, watered);
 		}
 	}
 
 	default boolean getWatered()
 	{
-		DataParameter<Boolean> param = getWateredParam();
+		EntityDataAccessor<Boolean> param = getWateredParam();
 		if (param != null)
 			return this.getBoolFromDataManager(param);
 		return false;
@@ -69,14 +69,14 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default void setHandFed(boolean handfed)
 	{
-		DataParameter<Boolean> param = getHandFedParam();
+		EntityDataAccessor<Boolean> param = getHandFedParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(param, handfed);
+			((Entity) this).getEntityData().set(param, handfed);
 	}
 
 	default boolean getHandFed()
 	{
-		DataParameter<Boolean> param = getHandFedParam();
+		EntityDataAccessor<Boolean> param = getHandFedParam();
 		if (param != null)
 			return this.getBoolFromDataManager(param);
 		return false;
@@ -84,14 +84,14 @@ public interface IFoodEating extends IAnimaniaAnimal
 
 	default void setInteracted(boolean interacted)
 	{
-		DataParameter<Boolean> param = getInteractedParam();
+		EntityDataAccessor<Boolean> param = getInteractedParam();
 		if (param != null)
-			((Entity) this).getDataManager().set(getInteractedParam(), interacted);
+			((Entity) this).getEntityData().set(getInteractedParam(), interacted);
 	}
 
 	default boolean getInteracted()
 	{
-		DataParameter<Boolean> param = getInteractedParam();
+		EntityDataAccessor<Boolean> param = getInteractedParam();
 		if (param != null)
 			return this.getBoolFromDataManager(getInteractedParam());
 		return false;

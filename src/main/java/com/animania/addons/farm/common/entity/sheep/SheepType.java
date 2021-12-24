@@ -26,7 +26,6 @@ import com.animania.api.interfaces.AnimaniaType;
 
 import StatBase;
 import net.minecraft.stats.StatBase;
-import net.minecraft.world.World;
 
 public enum SheepType implements AnimaniaType
 {
@@ -53,12 +52,12 @@ public enum SheepType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityRamBase getMale(World world)
+	public EntityRamBase getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.male.getConstructor(World.class);
+			constructor = this.male.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -67,7 +66,7 @@ public enum SheepType implements AnimaniaType
 		EntityRamBase male = null;
 		try
 		{
-			male = (EntityRamBase) constructor.newInstance(world);
+			male = (EntityRamBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -77,12 +76,12 @@ public enum SheepType implements AnimaniaType
 	}
 
 	@Override
-	public EntityEweBase getFemale(World world)
+	public EntityEweBase getFemale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.female.getConstructor(World.class);
+			constructor = this.female.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -91,7 +90,7 @@ public enum SheepType implements AnimaniaType
 		EntityEweBase female = null;
 		try
 		{
-			female = (EntityEweBase) constructor.newInstance(world);
+			female = (EntityEweBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -101,12 +100,12 @@ public enum SheepType implements AnimaniaType
 	}
 
 	@Override
-	public EntityLambBase getChild(World world)
+	public EntityLambBase getChild(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.child.getConstructor(World.class);
+			constructor = this.child.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -115,7 +114,7 @@ public enum SheepType implements AnimaniaType
 		EntityLambBase child = null;
 		try
 		{
-			child = (EntityLambBase) constructor.newInstance(world);
+			child = (EntityLambBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

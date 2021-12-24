@@ -7,9 +7,8 @@ import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public class SheepMerino
 {
@@ -17,9 +16,9 @@ public class SheepMerino
 	public static class EntityEweMerino extends EntityEweBase
 	{
 	
-		public EntityEweMerino(Level worldIn)
+		public EntityEweMerino(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.MERINO;
 		}
 	
@@ -36,7 +35,7 @@ public class SheepMerino
 		}
 	
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune)
 		{
 	
 			int i = 1 + this.rand.nextInt(2);
@@ -77,9 +76,9 @@ public class SheepMerino
 	public static class EntityRamMerino extends EntityRamBase
 	{
 	
-		public EntityRamMerino(World worldIn)
+		public EntityRamMerino(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.MERINO;
 		}
 	
@@ -96,7 +95,7 @@ public class SheepMerino
 		}
 		
 		@Override
-		public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+		public List<ItemStack> onSheared(ItemStack item, IBlockAccess level, BlockPos pos, int fortune)
 		{
 	
 			int i = 1 + this.rand.nextInt(2);
@@ -137,9 +136,9 @@ public class SheepMerino
 	public static class EntityLambMerino extends EntityLambBase
 	{
 	
-		public EntityLambMerino(World worldIn)
+		public EntityLambMerino(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.sheepType = SheepType.MERINO;
 		}
 	

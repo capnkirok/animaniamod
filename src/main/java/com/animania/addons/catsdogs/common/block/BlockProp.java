@@ -6,10 +6,9 @@ import com.animania.common.blocks.AnimaniaRotateable;
 
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
@@ -34,7 +33,7 @@ public class BlockProp extends AnimaniaRotateable implements EntityBlock
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
+	public TileEntity createNewTileEntity(Level levelIn, int meta)
 	{
 		return new TileEntityProp();
 	}
@@ -70,7 +69,7 @@ public class BlockProp extends AnimaniaRotateable implements EntityBlock
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos)
+	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return AABB;
 	}

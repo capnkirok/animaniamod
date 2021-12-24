@@ -64,7 +64,6 @@ import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
@@ -76,13 +75,13 @@ public class FarmAddonSpawnHandler
 	public static void removeSpawns(CheckSpawn event)
 	{
 		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
-		Level worldIn = event.getWorld();
-		Biome biome = event.getWorld().getBiome(pos);
+		Level levelIn = event.getLevel();
+		Biome biome = event.getLevel().getBiome(pos);
 		int chooser = 0;
 
 		LivingEntity replacementEntity = null;
 
-		if (FarmConfig.settings.spawning_and_breeding.replaceVanillaCows && (event.getEntity().getClass().equals(Cow.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !worldIn.isRemote)
+		if (FarmConfig.settings.spawning_and_breeding.replaceVanillaCows && (event.getEntity().getClass().equals(Cow.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !levelIn.isRemote)
 		{
 			if (!event.getEntity().hasCustomName())
 			{
@@ -98,50 +97,50 @@ public class FarmAddonSpawnHandler
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new CowEntityHolstein(worldIn);
+						replacementEntity = new CowEntityHolstein(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityBullHolstein(worldIn);
+						replacementEntity = new EntityBullHolstein(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowLonghornBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new CowEntityLonghorn(worldIn);
+						replacementEntity = new CowEntityLonghorn(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityBullLonghorn(worldIn);
+						replacementEntity = new EntityBullLonghorn(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowHerefordBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new CowEntityHereford(worldIn);
+						replacementEntity = new CowEntityHereford(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityBullHereford(worldIn);
+						replacementEntity = new EntityBullHereford(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowHighlandBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new CowEntityHighland(worldIn);
+						replacementEntity = new CowEntityHighland(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityBullHighland(worldIn);
+						replacementEntity = new EntityBullHighland(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowAngusBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new CowEntityAngus(worldIn);
+						replacementEntity = new CowEntityAngus(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityBullAngus(worldIn);
+						replacementEntity = new EntityBullAngus(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.cowMooshroomBiomeTypes)))
@@ -149,24 +148,24 @@ public class FarmAddonSpawnHandler
 
 					if (chooser == 1)
 					{
-						replacementEntity = new CowEntityMooshroom(worldIn);
+						replacementEntity = new CowEntityMooshroom(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityBullMooshroom(worldIn);
+						replacementEntity = new EntityBullMooshroom(levelIn);
 					}
 
 				} else if (chooser == 1)
 				{
-					replacementEntity = new CowEntityFriesian(worldIn);
+					replacementEntity = new CowEntityFriesian(levelIn);
 
 				} else if (chooser == 2)
 				{
-					replacementEntity = new EntityBullFriesian(worldIn);
+					replacementEntity = new EntityBullFriesian(levelIn);
 
 				}
 			}
 
-		} else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaPigs && event.getEntity().getClass().equals(PigEntity.class) && !worldIn.isRemote)
+		} else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaPigs && event.getEntity().getClass().equals(PigEntity.class) && !levelIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -188,55 +187,55 @@ public class FarmAddonSpawnHandler
 						if (chooser == 1)
 						{
 
-							replacementEntity = new EntitySowOldSpot(worldIn);
+							replacementEntity = new EntitySowOldSpot(levelIn);
 						} else if (chooser == 2)
 						{
-							replacementEntity = new EntityHogOldSpot(worldIn);
+							replacementEntity = new EntityHogOldSpot(levelIn);
 						}
 					} else
 					{
 
 						if (chooser == 1)
 						{
-							replacementEntity = new EntitySowHampshire(worldIn);
+							replacementEntity = new EntitySowHampshire(levelIn);
 						} else if (chooser == 2)
 						{
-							replacementEntity = new EntityHogHampshire(worldIn);
+							replacementEntity = new EntityHogHampshire(levelIn);
 						}
 					}
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.pigDurocBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntitySowDuroc(worldIn);
+						replacementEntity = new EntitySowDuroc(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityHogDuroc(worldIn);
+						replacementEntity = new EntityHogDuroc(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.pigLargeBlackBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntitySowLargeBlack(worldIn);
+						replacementEntity = new EntitySowLargeBlack(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityHogLargeBlack(worldIn);
+						replacementEntity = new EntityHogLargeBlack(levelIn);
 					}
 				} else if (chooser == 1)
 				{
-					replacementEntity = new EntitySowYorkshire(worldIn);
+					replacementEntity = new EntitySowYorkshire(levelIn);
 
 				} else if (chooser == 2)
 				{
-					replacementEntity = new EntityHogYorkshire(worldIn);
+					replacementEntity = new EntityHogYorkshire(levelIn);
 
 				}
 			}
 
 		}
 
-		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaChickens && event.getEntity().getClass().equals(ChickenEntity.class) && !worldIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaChickens && event.getEntity().getClass().equals(ChickenEntity.class) && !levelIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -255,56 +254,56 @@ public class FarmAddonSpawnHandler
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityHenOrpington(worldIn);
+						replacementEntity = new EntityHenOrpington(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRoosterOrpington(worldIn);
+						replacementEntity = new EntityRoosterOrpington(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.chickenPlymouthRockBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityHenPlymouthRock(worldIn);
+						replacementEntity = new EntityHenPlymouthRock(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRoosterPlymouthRock(worldIn);
+						replacementEntity = new EntityRoosterPlymouthRock(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.chickenRhodeIslandRedBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityHenRhodeIslandRed(worldIn);
+						replacementEntity = new EntityHenRhodeIslandRed(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRoosterRhodeIslandRed(worldIn);
+						replacementEntity = new EntityRoosterRhodeIslandRed(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.chickenWyandotteBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityHenWyandotte(worldIn);
+						replacementEntity = new EntityHenWyandotte(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRoosterWyandotte(worldIn);
+						replacementEntity = new EntityRoosterWyandotte(levelIn);
 					}
 
 				} else if (chooser == 1)
 				{
-					replacementEntity = new EntityHenLeghorn(worldIn);
+					replacementEntity = new EntityHenLeghorn(levelIn);
 
 				} else if (chooser == 2)
 				{
-					replacementEntity = new EntityRoosterLeghorn(worldIn);
+					replacementEntity = new EntityRoosterLeghorn(levelIn);
 
 				}
 			}
 
 		}
 
-		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaSheep && event.getEntity().getClass().equals(SheepEntity.class) && !worldIn.isRemote)
+		else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaSheep && event.getEntity().getClass().equals(SheepEntity.class) && !levelIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -326,20 +325,20 @@ public class FarmAddonSpawnHandler
 					{
 						if (chooser == 1)
 						{
-							replacementEntity = new EntityEweDorset(worldIn);
+							replacementEntity = new EntityEweDorset(levelIn);
 						} else if (chooser == 2)
 						{
-							replacementEntity = new EntityRamDorset(worldIn);
+							replacementEntity = new EntityRamDorset(levelIn);
 						}
 					} else
 					{
 
 						if (chooser == 1)
 						{
-							replacementEntity = new EntityEweFriesian(worldIn);
+							replacementEntity = new EntityEweFriesian(levelIn);
 						} else if (chooser == 2)
 						{
-							replacementEntity = new EntityRamFriesian(worldIn);
+							replacementEntity = new EntityRamFriesian(levelIn);
 						}
 					}
 				}
@@ -348,44 +347,44 @@ public class FarmAddonSpawnHandler
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityEweSuffolk(worldIn);
+						replacementEntity = new EntityEweSuffolk(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRamSuffolk(worldIn);
+						replacementEntity = new EntityRamSuffolk(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.sheepDorsetBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityEweDorset(worldIn);
+						replacementEntity = new EntityEweDorset(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRamDorset(worldIn);
+						replacementEntity = new EntityRamDorset(levelIn);
 					}
 
 				} else if (AnimaniaHelper.hasBiomeType(biome, AnimaniaHelper.getBiomeTypes(FarmConfig.settings.spawning_and_breeding.sheepMerinoBiomeTypes)))
 				{
 					if (chooser == 1)
 					{
-						replacementEntity = new EntityEweMerino(worldIn);
+						replacementEntity = new EntityEweMerino(levelIn);
 					} else if (chooser == 2)
 					{
-						replacementEntity = new EntityRamMerino(worldIn);
+						replacementEntity = new EntityRamMerino(levelIn);
 					}
 
 				} else if (chooser == 1)
 				{
-					replacementEntity = new EntityEweFriesian(worldIn);
+					replacementEntity = new EntityEweFriesian(levelIn);
 
 				} else if (chooser == 2)
 				{
-					replacementEntity = new EntityRamFriesian(worldIn);
+					replacementEntity = new EntityRamFriesian(levelIn);
 
 				}
 			}
 
-		} else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaHorses && event.getEntity().getClass().equals(HorseEntity.class) && !worldIn.isRemote)
+		} else if (FarmConfig.settings.spawning_and_breeding.replaceVanillaHorses && event.getEntity().getClass().equals(HorseEntity.class) && !levelIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())
@@ -393,7 +392,7 @@ public class FarmAddonSpawnHandler
 				event.setResult(Result.DENY);
 			}
 
-		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && event.getEntity().getClass().equals(HorseEntity.class) && !worldIn.isRemote)
+		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && event.getEntity().getClass().equals(HorseEntity.class) && !levelIn.isRemote)
 		{
 
 			boolean toggler = Animania.RANDOM.nextBoolean();
@@ -401,9 +400,9 @@ public class FarmAddonSpawnHandler
 			{
 				event.setResult(Result.DENY);
 				if (Animania.RANDOM.nextBoolean())
-					replacementEntity = new EntityMareDraftHorse(worldIn);
+					replacementEntity = new EntityMareDraftHorse(levelIn);
 				else
-					replacementEntity = new EntityStallionDraftHorse(worldIn);
+					replacementEntity = new EntityStallionDraftHorse(levelIn);
 			}
 
 		}
@@ -412,13 +411,13 @@ public class FarmAddonSpawnHandler
 		{
 			replacementEntity.setPosition(event.getX(), event.getY(), event.getZ());
 
-			Result result = ForgeEventFactory.canEntitySpawn(replacementEntity, event.getWorld(), event.getX(), event.getY(), event.getZ(), event.getSpawner());
+			Result result = ForgeEventFactory.canEntitySpawn(replacementEntity, event.getLevel(), event.getX(), event.getY(), event.getZ(), event.getSpawner());
 
 			if (result == Result.ALLOW || (result == Result.DEFAULT && (replacementEntity.getCanSpawnHere() && replacementEntity.isNotColliding())))
 			{
 				if (replacementEntity.isNotColliding())
 				{
-					AnimaniaHelper.spawnEntity(event.getWorld(), replacementEntity);
+					AnimaniaHelper.spawnEntity(event.getLevel(), replacementEntity);
 				} else
 				{
 					replacementEntity.setDead();
@@ -431,10 +430,10 @@ public class FarmAddonSpawnHandler
 	public static void limitAnimaniaSpawns(CheckSpawn event)
 	{
 		BlockPos pos = new BlockPos(event.getX(), event.getY() + 1, event.getZ());
-		World worldIn = event.getWorld();
-		Biome biome = event.getWorld().getBiome(pos);
+		Level levelIn = event.getLevel();
+		Biome biome = event.getLevel().getBiome(pos);
 
-		if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaCows && (event.getEntity() instanceof EntityAnimaniaCow && !worldIn.isRemote))
+		if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaCows && (event.getEntity() instanceof EntityAnimaniaCow && !levelIn.isRemote))
 		{
 			List<EntityAnimaniaCow> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaCow.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitCows)
@@ -442,7 +441,7 @@ public class FarmAddonSpawnHandler
 				event.setResult(Result.DENY);
 				// System.out.println("Cow Denied Existence!");
 			}
-		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaPigs && (event.getEntity() instanceof EntityAnimaniaPig && !worldIn.isRemote))
+		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaPigs && (event.getEntity() instanceof EntityAnimaniaPig && !levelIn.isRemote))
 		{
 			List<EntityAnimaniaPig> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaPig.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitPigs)
@@ -450,7 +449,7 @@ public class FarmAddonSpawnHandler
 				event.setResult(Result.DENY);
 				// System.out.println("Pig Denied Existence!");
 			}
-		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaChickens && (event.getEntity() instanceof EntityAnimaniaChicken && !worldIn.isRemote))
+		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaChickens && (event.getEntity() instanceof EntityAnimaniaChicken && !levelIn.isRemote))
 		{
 			List<EntityAnimaniaChicken> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaChicken.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitChickens)
@@ -458,7 +457,7 @@ public class FarmAddonSpawnHandler
 				event.setResult(Result.DENY);
 				// System.out.println("Chicken Denied Existence!");
 			}
-		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaSheep && (event.getEntity() instanceof EntityAnimaniaSheep && !worldIn.isRemote))
+		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaSheep && (event.getEntity() instanceof EntityAnimaniaSheep && !levelIn.isRemote))
 		{
 			List<EntityAnimaniaSheep> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaSheep.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitSheep)
@@ -466,7 +465,7 @@ public class FarmAddonSpawnHandler
 				event.setResult(Result.DENY);
 				// System.out.println("Sheep Denied Existence!");
 			}
-		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaGoats && (event.getEntity() instanceof EntityAnimaniaGoat && !worldIn.isRemote))
+		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaGoats && (event.getEntity() instanceof EntityAnimaniaGoat && !levelIn.isRemote))
 		{
 			List<EntityAnimaniaGoat> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaGoat.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitGoats)
@@ -474,7 +473,7 @@ public class FarmAddonSpawnHandler
 				event.setResult(Result.DENY);
 				// System.out.println("Goats Denied Existence!");
 			}
-		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && (event.getEntity() instanceof EntityAnimaniaHorse && !worldIn.isRemote))
+		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && (event.getEntity() instanceof EntityAnimaniaHorse && !levelIn.isRemote))
 		{
 			List<EntityAnimaniaHorse> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitHorses)
@@ -482,7 +481,7 @@ public class FarmAddonSpawnHandler
 				event.setResult(Result.DENY);
 				// System.out.println("Horse Denied Existence!");
 			}
-		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && (event.getEntity() instanceof EntityAnimaniaHorse && !worldIn.isRemote))
+		} else if (FarmConfig.settings.spawning_and_breeding.spawnAnimaniaHorses && (event.getEntity() instanceof EntityAnimaniaHorse && !levelIn.isRemote))
 		{
 			List<EntityAnimaniaHorse> others = AnimaniaHelper.getEntitiesInRange(EntityAnimaniaHorse.class, 100, event.getEntity().level, pos);
 			if (others.size() > FarmConfig.settings.spawning_and_breeding.spawnLimitHorses)

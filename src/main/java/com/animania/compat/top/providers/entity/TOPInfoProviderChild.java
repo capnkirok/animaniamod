@@ -10,8 +10,7 @@ import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 
 public interface TOPInfoProviderChild extends TOPInfoProviderBase
@@ -19,21 +18,21 @@ public interface TOPInfoProviderChild extends TOPInfoProviderBase
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
-	default void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	default void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
-		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 
 		if (mode == ProbeMode.EXTENDED)
 
 		{
-			CompoundNBT tag = new CompoundNBT();
+			CompoundTag tag = new CompoundTag();
 			entity.writeToNBT(tag);
 
 			String parent = tag.getString("ParentUUID");
 
 			if (!parent.equals(""))
 			{
-				for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, world, entity))
+				for (Entity e : AnimaniaHelper.getEntitiesInRange(LivingEntity.class, 20, level, entity))
 				{
 					UUID id = e.getUUID();
 					if (id.toString().equals(parent))

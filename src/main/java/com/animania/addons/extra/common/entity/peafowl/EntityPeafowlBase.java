@@ -11,26 +11,25 @@ import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.level.Level;
 
 public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoProviderBase
 {
 
-	private static final EntityDataAccessor<Boolean> LAID = SynchedEntityData.<Boolean>defineId(EntityPeafowlBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Integer> LAID_TIMER = SynchedEntityData.<Integer>defineId(EntityPeafowlBase.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Boolean> LAID = SynchedEntityData.<Boolean>defineId(EntityPeafowlBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> LAID_TIMER = SynchedEntityData.<Integer>defineId(EntityPeafowlBase.class, EntityEntityDataSerializers.INT);
 	protected int laidTimer;
 	
-	public EntityPeafowlBase(Level worldIn)
+	public EntityPeafowlBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(0.6F, 1.2F); 
 		this.width = 0.6F;
 		this.height = 1.2F;
-		this.tasks.addTask(1, new FindPeacockNestGoal(this, 1.0D));
+		this.goalSelector.addGoal(1, new FindPeacockNestGoal(this, 1.0D));
 		this.laidTimer = AnimaniaConfig.careAndFeeding.laidTimer / 2 + 0 + this.rand.nextInt(100);
 		this.gender = EntityGender.FEMALE;
 	}
@@ -44,19 +43,19 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	}
 	
 	@Override
-	public void writeEntityToNBT(CompoundNBT CompoundNBT)
+	public void writeEntityToNBT(CompoundTag CompoundTag)
 	{
-		super.writeEntityToNBT(CompoundNBT);
-		CompoundNBT.putBoolean("Laid", this.getLaid());
-		CompoundNBT.putInteger("LaidTimer", this.getLaidTimer());
+		super.writeEntityToNBT(CompoundTag);
+		CompoundTag.putBoolean("Laid", this.getLaid());
+		CompoundTag.putInteger("LaidTimer", this.getLaidTimer());
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT CompoundNBT)
+	public void readEntityFromNBT(CompoundTag CompoundTag)
 	{
-		super.readEntityFromNBT(CompoundNBT);
-		this.setLaid(CompoundNBT.getBoolean("Laid"));
-		this.setLaidTimer(CompoundNBT.getInteger("LaidTimer"));
+		super.readEntityFromNBT(CompoundTag);
+		this.setLaid(CompoundTag.getBoolean("Laid"));
+		this.setLaidTimer(CompoundTag.getInteger("LaidTimer"));
 	}
 
 	public int getLaidTimer()
@@ -112,7 +111,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 	
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
@@ -125,7 +124,7 @@ public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoP
 				probeInfo.text(I18n.translateToLocal("text.waila.egglay2"));
 			}
 		}
-		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderBase.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
 }

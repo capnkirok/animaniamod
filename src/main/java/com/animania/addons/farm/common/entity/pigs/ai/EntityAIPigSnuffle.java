@@ -14,7 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
@@ -71,25 +70,25 @@ public class PigSnuffleGoal extends GenericAIEatGrass<EntityAnimaniaPig>
 		super.updateTask();
 
 		BlockPos blockpos1 = this.grassEaterEntity.getPosition().down();
-		Block chkblock = this.entityWorld.getBlockState(blockpos1).getBlock();
+		Block chkblock = this.entityLevel.getBlockState(blockpos1).getBlock();
 
-		Biome biomegenbase = this.entityWorld.getBiome(blockpos1);
+		Biome biomegenbase = this.entityLevel.getBiome(blockpos1);
 
-		if (this.shouldMoveTo(world, blockpos1))
+		if (this.shouldMoveTo(level, blockpos1))
 		{
 			if (this.eatingGrassTimer > 80 && BiomeDictionary.hasType(biomegenbase, Type.FOREST) && !this.grassEaterEntity.isChild() && this.grassEaterEntity.getLeashed() && this.grassEaterEntity.getLeashHolder() instanceof PlayerEntity)
 			{
-				this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
+				this.entityLevel.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
 				if (!hasSpawned)
 				{
-					ItemHelper.spawnItem(entityWorld, blockpos1.up(), FarmAddonItemHandler.truffle, Animania.RANDOM.nextInt(2) + 1);
+					ItemHelper.spawnItem(entityLevel, blockpos1.up(), FarmAddonItemHandler.truffle, Animania.RANDOM.nextInt(2) + 1);
 					hasSpawned = true;
 				}
 			}
 
 			if (this.eatingGrassTimer < 100 && !hasEaten)
 			{
-				List<EntityItem> items = AnimaniaHelper.getEntitiesInRangeGeneric(EntityItem.class, 3, world, this.grassEaterEntity);
+				List<EntityItem> items = AnimaniaHelper.getEntitiesInRangeGeneric(EntityItem.class, 3, level, this.grassEaterEntity);
 				for (EntityItem ei : items)
 				{
 					if (ei.getItem().getItem() == FarmAddonItemHandler.truffle)

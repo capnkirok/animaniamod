@@ -14,17 +14,15 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.AABB;
@@ -60,7 +58,7 @@ public class BlockStraw extends Block
 		
 	}
 	
-	 public boolean isFlammable(IBlockAccess world, BlockPos pos, Direction face)
+	 public boolean isFlammable(IBlockAccess level, BlockPos pos, Direction face)
 	    {
 	        return true;
 	    }
@@ -90,7 +88,7 @@ public class BlockStraw extends Block
 		return BlockRenderLayer.CUTOUT;
 	}
 
-	public BlockState onBlockPlaced(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
+	public BlockState onBlockPlaced(Level levelIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
 	{
 
 		for (int i = 0; i < 10; i++)
@@ -100,7 +98,7 @@ public class BlockStraw extends Block
 			double d2 = pos.getZ() + 0.25D;
 			double d3 = 0.52D;
 			double d4 = Animania.RANDOM.nextDouble() * 0.6D - 0.3D;
-			worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, d0, d1 + .75D, d2 + d4, 0.0D, 0.0D, 0.0D, new int[] { Block.getStateId(BlockHandler.blockSeeds.defaultBlockState()) });
+			levelIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, d0, d1 + .75D, d2 + d4, 0.0D, 0.0D, 0.0D, new int[] { Block.getStateId(BlockHandler.blockSeeds.defaultBlockState()) });
 
 		}
 
@@ -115,7 +113,7 @@ public class BlockStraw extends Block
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos)
+	public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess levelIn, BlockPos pos)
 	{
 		return Block.NULL_AABB;
 	}
@@ -133,11 +131,11 @@ public class BlockStraw extends Block
 	}
 	
 	@Override
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
+	public boolean canPlaceBlockAt(Level levelIn, BlockPos pos)
 	{
 		BlockPos blockposlower = pos.down();
 		
-		if (worldIn.getBlockState(blockposlower).getBlock() == BlockHandler.blockStraw || !worldIn.getBlockState(blockposlower).getBlock().isFullBlock(worldIn.getBlockState(blockposlower)) || !worldIn.getBlockState(blockposlower).getBlock().isOpaqueCube(worldIn.getBlockState(blockposlower))) {
+		if (levelIn.getBlockState(blockposlower).getBlock() == BlockHandler.blockStraw || !levelIn.getBlockState(blockposlower).getBlock().isFullBlock(levelIn.getBlockState(blockposlower)) || !levelIn.getBlockState(blockposlower).getBlock().isOpaqueCube(levelIn.getBlockState(blockposlower))) {
 			return false;
 		}
 
@@ -151,31 +149,31 @@ public class BlockStraw extends Block
 	}
 
 	@Override
-	public void observedNeighborChange(BlockState observerState, World world, BlockPos observerPos, Block changedBlock, BlockPos changedBlockPos)
+	public void observedNeighborChange(BlockState observerState, Level level, BlockPos observerPos, Block changedBlock, BlockPos changedBlockPos)
 	{
-		this.checkForDrop(world, observerPos, observerState);
+		this.checkForDrop(level, observerPos, observerState);
 
 	}
 
-	private boolean checkForDrop(World worldIn, BlockPos pos, BlockState state)
+	private boolean checkForDrop(Level levelIn, BlockPos pos, BlockState state)
 	{
-		if (!this.canBlockStay(worldIn, pos))
+		if (!this.canBlockStay(levelIn, pos))
 		{
-			this.dropBlockAsItem(worldIn, pos, state, 0);
-			worldIn.setBlockToAir(pos);
+			this.dropBlockAsItem(levelIn, pos, state, 0);
+			levelIn.setBlockToAir(pos);
 			return false;
 		}
 		else
 			return true;
 	}
 
-	private boolean canBlockStay(World worldIn, BlockPos pos)
+	private boolean canBlockStay(Level levelIn, BlockPos pos)
 	{
-		return !worldIn.isAirBlock(pos.down());
+		return !levelIn.isAirBlock(pos.down());
 	}
 
 	@Override
-	public ItemStack getPickBlock(BlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player)
+	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, PlayerEntity player)
 	{
 		switch(state.getValue(VARIANT))
 		{
@@ -211,7 +209,7 @@ public class BlockStraw extends Block
 	}
 	
 	@Override
-	public MaterialColor getMaterialColor(BlockState state, IBlockAccess worldIn, BlockPos pos)
+	public MaterialColor getMaterialColor(BlockState state, IBlockAccess levelIn, BlockPos pos)
 	{
 		return ((BlockStraw.EnumType)state.getValue(VARIANT)).getMaterialColor();
 	}

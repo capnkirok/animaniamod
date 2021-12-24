@@ -14,10 +14,9 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -89,11 +88,11 @@ public class EntityEventHandler
 	}
 
 	@SubscribeEvent
-	public static void onEntityJoinWorld(EntityJoinWorldEvent event)
+	public static void onEntityJoinLevel(EntityJoinLevelEvent event)
 	{
 		if (event.getEntity() instanceof Player)
 		{
-			ItemHandler.regItemEggColors(event.getWorld());
+			ItemHandler.regItemEggColors(event.getLevel());
 		}
 	}
 
@@ -114,10 +113,10 @@ public class EntityEventHandler
 	public static void removeSquidSpawns(CheckSpawn event)
 	{
 		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
-		Level worldIn = (Level) event.getWorld();
-		Biome biome = event.getWorld().getBiome(pos);
+		Level levelIn = (Level) event.getLevel();
+		Biome biome = event.getLevel().getBiome(pos);
 
-		if (!AnimaniaConfig.gameRules.spawnFreshWaterSquids && event.getEntity().getClass().equals(Squid.class) && !worldIn.isClientSide)
+		if (!AnimaniaConfig.gameRules.spawnFreshWaterSquids && event.getEntity().getClass().equals(Squid.class) && !levelIn.isClientSide)
 		{
 
 			if (!AnimaniaHelper.hasBiomeType(biome, Type.OCEAN))

@@ -8,18 +8,17 @@ import com.animania.common.entities.generic.GenericBehavior;
 import com.google.common.base.Optional;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.level.Level;
 
 public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 {
-	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float>defineId(EntityPeachickBase.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float>defineId(EntityPeachickBase.class, EntityEntityDataSerializers.FLOAT);
 	protected int ageTimer;
 
-	public EntityPeachickBase(Level worldIn)
+	public EntityPeachickBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.4F, 1.6F); 
 		this.ageTimer = 0;
 		this.type = PeacockType.BLUE;
@@ -98,13 +97,13 @@ public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getParentUniqueIdParam()
 	{
 		return null;
 	}
 
 	@Override
-	public DataParameter<Float> getEntityAgeParam()
+	public EntityDataAccessor<Float> getEntityAgeParam()
 	{
 		return AGE;
 	}

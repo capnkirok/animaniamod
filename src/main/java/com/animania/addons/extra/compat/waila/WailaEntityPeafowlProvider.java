@@ -9,9 +9,7 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.World;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.nbt.CompoundTag;
 
 public class WailaEntityPeafowlProvider extends WailaAnimalEntityProviderBase
 {
@@ -34,11 +32,11 @@ public class WailaEntityPeafowlProvider extends WailaAnimalEntityProviderBase
 	}
 
 	@Override
-	public CompoundNBT getNBTData(ServerPlayerEntity player, Entity ent, CompoundNBT tag, World world) {
+	public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level) {
 		int laytime = ent.getEntityData().getInteger("EggLayTime");
 		tag.putInteger("EggLayTime", laytime);
 
-		return super.getNBTData(player, ent, tag, world);
+		return super.getNBTData(player, ent, tag, level);
 	}
 
 }

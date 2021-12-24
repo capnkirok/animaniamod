@@ -23,7 +23,7 @@ public class HorseEntityEatGrass extends GenericAIEatGrass<EntityAnimaniaHorse>
 			return false;
 		}
 
-		List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, entityWorld, this.grassEaterEntity);
+		List carts = AnimaniaHelper.getEntitiesInRangeGeneric(EntityCart.class, 3, entityLevel, this.grassEaterEntity);
 		if (!carts.isEmpty())
 		{
 			EntityCart cart = (EntityCart) carts.get(0);
@@ -33,7 +33,7 @@ public class HorseEntityEatGrass extends GenericAIEatGrass<EntityAnimaniaHorse>
 			}
 		}
 
-		List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, entityWorld, this.grassEaterEntity);
+		List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, entityLevel, this.grassEaterEntity);
 		if (!wagons.isEmpty())
 		{
 			EntityWagon wagon = (EntityWagon) wagons.get(0);

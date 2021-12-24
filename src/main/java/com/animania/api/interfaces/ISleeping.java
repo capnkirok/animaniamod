@@ -2,7 +2,6 @@ package com.animania.api.interfaces;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.world.entity.Entity;
 
 public interface ISleeping extends IAnimaniaAnimal
 {

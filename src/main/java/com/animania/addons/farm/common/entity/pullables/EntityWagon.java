@@ -24,11 +24,10 @@ import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -40,8 +39,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.world.ContainerListener;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.MoverType;
@@ -70,10 +67,10 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	private int sleepTimer = 0;
 	public int blinkTimer;
 
-	protected static final DataParameter<Integer> PULLER_TYPE = EntityDataManager.<Integer> createKey(EntityWagon.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.<Integer> createKey(EntityWagon.class, DataSerializers.VARINT);
-	private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.<Float> createKey(EntityWagon.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> HAS_CHEST = EntityDataManager.<Boolean> createKey(EntityWagon.class, DataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> PULLER_TYPE = SynchedEntityData.defineId(EntityWagon.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Integer> TIME_SINCE_HIT = SynchedEntityData.defineId(EntityWagon.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Float> DAMAGE_TAKEN = SynchedEntityData.defineId(EntityWagon.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> HAS_CHEST = SynchedEntityData.defineId(EntityWagon.class, EntityDataSerializers.BOOLEAN);
 
 	// Gui Id Offset required when multiple addons are installed
 	private static final int GUI_ID = 1 + FarmAddon.guiHandler.getGuiIdOffset();
@@ -84,9 +81,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 		EntityWagon.animHandler.addAnim(Animania.MODID, "anim_wagon_back", "anim_wagon");
 	}
 
-	public EntityWagon(World par1World)
+	public EntityWagon(Level par1Level)
 	{
-		super(par1World);
+		super(par1Level);
 		this.preventEntitySpawning = true;
 		this.setSize(2.5F, 1.2F);
 		this.width = 2.5F;
@@ -99,9 +96,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 	}
 
-	public EntityWagon(World worldIn, double x, double y, double z)
+	public EntityWagon(Level levelIn, double x, double y, double z)
 	{
-		this(worldIn);
+		this(levelIn);
 		setPosition(x, y, z);
 	}
 
@@ -139,8 +136,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	public boolean processInitialInteract(PlayerEntity player, EnumHand hand)
 	{
 		ItemStack stack = player.getHeldItem(hand);
-		List horses = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, world, player);
-		List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
+		List horses = AnimaniaHelper.getEntitiesInRange(HorseEntity.class, 3, level, player);
+		List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, level, this);
 
 		HorseEntity horse = null;
 		if (!horses.isEmpty())
@@ -167,7 +164,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				if (!this.level.isRemote)
 				{
 					player.openGui(Animania.instance, GUI_ID, player.level, this.getEntityId(), 0, 0);
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.PLAYERS, 0.7F, 1.0F);
 				}
 				return true;
 
@@ -193,13 +190,13 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 			if (mdiffx > 0 && mdiffx < 1 && mdiffy > 1.15 && mdiffy < 1.25 && mdiffz > 0 && mdiffz < 1.6)
 			{
 
-				if (world.provider.canRespawnHere())
+				if (level.provider.canRespawnHere())
 
 				{
 					sleepFlag = false;
 					allSleeping = true;
 					PlayerEntity player1 = null;
-					Iterator iterator = world.playerEntities.iterator();
+					Iterator iterator = level.playerEntities.iterator();
 					while (iterator.hasNext())
 					{
 						PlayerEntity player2 = (PlayerEntity) iterator.next();
@@ -245,10 +242,10 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 					{
 
 						sleepFlag = true;
-						if (!world.isRemote)
+						if (!level.isRemote)
 						{
 							player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 30, 1, false, false));
-							world.updateAllPlayersSleepingFlag();
+							level.updateAllPlayersSleepingFlag();
 							Animania.proxy.Sleep(player);
 							player.setSpawnPoint(getPosition(), true);
 
@@ -271,9 +268,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					this.setPullerType(1);
 				}
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 
 				return true;
@@ -282,9 +279,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopwagon();
 				return true;
@@ -298,12 +295,12 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				{
 					player.inventory.addItemStackToInventory(new ItemStack(Items.LEAD, 1));
 				}
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !world.isRemote)
+			} else if (stack.isEmpty() && !player.isPassenger() && this.puller != player && this.getControllingPassenger() != player && !level.isRemote)
 			{
 
 				if (mdiffx > 0 && mdiffy < 2 && mdiffz > 0)
@@ -311,21 +308,21 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 					this.pulled = true;
 					this.puller = player;
 					this.setPullerType(2);
-					if (!world.isRemote)
+					if (!level.isRemote)
 					{
-						world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+						level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.hitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 
 					}
 				}
 				return true;
-			} else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !world.isRemote)
+			} else if (stack.isEmpty() && !player.isPassenger() && this.puller == player && this.getControllingPassenger() != player && !level.isRemote)
 			{
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopwagon();
 				return true;
@@ -334,9 +331,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 				this.pulled = false;
 				this.puller = null;
 				this.setPullerType(0);
-				if (!world.isRemote)
+				if (!level.isRemote)
 				{
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+					level.playSound(null, player.getX(), player.getY(), player.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 				}
 				stopwagon();
 				return true;
@@ -452,14 +449,14 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 		}
 
 		// Dismount text
-		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown > 10 && world.isRemote)
+		if (this.isBeingRidden() && this.getControllingPassenger() instanceof PlayerEntity && this.rideCooldown > 10 && level.isRemote)
 		{
 			PlayerEntity player = (PlayerEntity) this.getControllingPassenger();
 			player.sendStatusMessage(new TextComponentString(I18n.format("mount.onboard", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName())), true);
 		}
 
 		// Determine animation direction based on previous pos
-		if (this.pulled && this.puller != null && world.isRemote)
+		if (this.pulled && this.puller != null && level.isRemote)
 		{
 
 			double movX = Math.abs(this.puller.getX() - this.puller.prevgetX());
@@ -556,7 +553,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 		// Add slowness if multiple wagons being pulled or if player
 		if (this.pulled && this.puller instanceof PlayerEntity)
 		{
-			List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
+			List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, level, this);
 			PlayerEntity player = (PlayerEntity) this.puller;
 			int totPulling = 0;
 			if (!wagons.isEmpty())
@@ -581,7 +578,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 		if (this.pulled && this.puller instanceof AnimalEntity)
 		{
-			List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, world, this);
+			List wagons = AnimaniaHelper.getEntitiesInRangeGeneric(EntityWagon.class, 3, level, this);
 			AnimalEntity animal = (AnimalEntity) this.puller;
 			int totPulling = 0;
 			if (!wagons.isEmpty())
@@ -679,7 +676,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 			this.pulled = false;
 			this.puller = null;
 			this.setPullerType(0);
-			world.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
+			level.playSound(null, this.getX(), this.getY(), this.getZ(), FarmAddonSoundHandler.unhitch, SoundCategory.PLAYERS, 0.7F, 1.5F);
 			stopwagon();
 		}
 
@@ -850,7 +847,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 						if (this.getHasChest())
 						{
-							InventoryHelper.dropInventoryItems(world, this.getPosition(), wagonChest);
+							InventoryHelper.dropInventoryItems(level, this.getPosition(), wagonChest);
 							// this.dropItemWithOffset(Item.getItemFromBlock(Blocks.CHEST),
 							// 1, 0.0F);
 						}
@@ -929,7 +926,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		compound.putInteger("PullerType", this.getPullerType());
 
@@ -941,10 +938,10 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 			if (!itemstack.isEmpty())
 			{
-				CompoundNBT CompoundNBT = new CompoundNBT();
-				CompoundNBT.setByte("Slot", (byte) i);
-				itemstack.writeToNBT(CompoundNBT);
-				nbttaglist.appendTag(CompoundNBT);
+				CompoundTag CompoundTag = new CompoundTag();
+				CompoundTag.setByte("Slot", (byte) i);
+				itemstack.writeToNBT(CompoundTag);
+				nbttaglist.appendTag(CompoundTag);
 			}
 		}
 		compound.putBoolean("HasChest", this.getHasChest());
@@ -953,7 +950,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		this.setPullerType(compound.getInteger("PullerType"));
 
@@ -962,12 +959,12 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 
 		for (int i = 0; i < nbttaglist.tagCount(); ++i)
 		{
-			CompoundNBT CompoundNBT = nbttaglist.getCompoundTagAt(i);
-			int j = CompoundNBT.getByte("Slot") & 255;
+			CompoundTag CompoundTag = nbttaglist.getCompoundTagAt(i);
+			int j = CompoundTag.getByte("Slot") & 255;
 
 			if (j >= 0 && j < this.wagonChest.getSizeInventory())
 			{
-				this.wagonChest.setInventorySlotContents(j, new ItemStack(CompoundNBT));
+				this.wagonChest.setInventorySlotContents(j, new ItemStack(CompoundTag));
 			}
 		}
 		this.setHasChest(compound.getBoolean("HasChest"));
@@ -1035,11 +1032,11 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	public PlayerEntity.SleepResult trySleep(BlockPos bedLocation, PlayerEntity PlayerEntity)
 	{
 
-		World world = Playerentity.level;
+		Level level = Playerentity.level;
 
 		Direction enumfacing = Direction.NORTH;
 
-		if (!world.isRemote)
+		if (!level.isRemote)
 		{
 			if (PlayerEntity.isPlayerSleeping() || !PlayerEntity.isAlive())
 			{
@@ -1047,18 +1044,18 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 			}
 
 			/*
-			 * if (!world.provider.isSurfaceWorld()) { return
+			 * if (!level.provider.isSurfaceLevel()) { return
 			 * PlayerEntity.SleepResult.NOT_POSSIBLE_HERE; }
 			 */
 
-			if (world.isDay())
+			if (level.isDay())
 			{
 				return PlayerEntity.SleepResult.NOT_POSSIBLE_NOW;
 			}
 
 			double d0 = 8.0D;
 			double d1 = 5.0D;
-			List<EntityMob> list = world.<EntityMob> getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(bedLocation.getX() - 8.0D, bedLocation.getY() - 5.0D, bedLocation.getZ() - 8.0D, bedLocation.getX() + 8.0D, bedLocation.getY() + 5.0D, bedLocation.getZ() + 8.0D));
+			List<EntityMob> list = level.<EntityMob> getEntitiesWithinAABB(EntityMob.class, new AxisAlignedBB(bedLocation.getX() - 8.0D, bedLocation.getY() - 5.0D, bedLocation.getZ() - 8.0D, bedLocation.getX() + 8.0D, bedLocation.getY() + 5.0D, bedLocation.getZ() + 8.0D));
 
 			if (!list.isEmpty())
 			{
@@ -1067,8 +1064,8 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 		}
 
 		BlockState state = null;
-		if (world.isBlockLoaded(bedLocation))
-			state = world.getBlockState(bedLocation);
+		if (level.isBlockLoaded(bedLocation))
+			state = level.getBlockState(bedLocation);
 		if (state != null)
 		{
 			float f1 = 0.5F + enumfacing.getFrontOffsetX() * 0.4F;
@@ -1084,9 +1081,9 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 		PlayerEntity.motionY = 0.0D;
 		PlayerEntity.motionZ = 0.0D;
 
-		if (!world.isRemote)
+		if (!level.isRemote)
 		{
-			world.updateAllPlayersSleepingFlag();
+			level.updateAllPlayersSleepingFlag();
 		}
 
 		return PlayerEntity.SleepResult.OK;
@@ -1104,7 +1101,7 @@ public class EntityWagon extends AnimatedEntityBase implements ContainerListener
 	{
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(MathHelper.floor(this.getX()), 0, MathHelper.floor(this.getZ()));
 
-		long time = this.getEntityWorld().getWorldTime() % 24000;
+		long time = this.getEntityLevel().getLevelTime() % 24000;
 
 		if (this.level.isBlockLoaded(blockpos$mutableblockpos))
 		{

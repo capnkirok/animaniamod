@@ -24,8 +24,6 @@ import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntitySowYorkshi
 import com.animania.addons.farm.common.entity.pigs.PigYorkshire.PigEntityletYorkshire;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.level.Level;
-
 public enum PigType implements AnimaniaType
 {
 	DUROC(EntityHogDuroc.class, EntitySowDuroc.class, PigEntityletDuroc.class, true),
@@ -50,7 +48,7 @@ public enum PigType implements AnimaniaType
 	}
 
 	@Override
-	public EntityHogBase getMale(Level world)
+	public EntityHogBase getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -64,7 +62,7 @@ public enum PigType implements AnimaniaType
 		EntityHogBase bull = null;
 		try
 		{
-			bull = (EntityHogBase) constructor.newInstance(world);
+			bull = (EntityHogBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -74,7 +72,7 @@ public enum PigType implements AnimaniaType
 	}
 
 	@Override
-	public EntitySowBase getFemale(Level world)
+	public EntitySowBase getFemale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -88,7 +86,7 @@ public enum PigType implements AnimaniaType
 		EntitySowBase cow = null;
 		try
 		{
-			cow = (EntitySowBase) constructor.newInstance(world);
+			cow = (EntitySowBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -98,7 +96,7 @@ public enum PigType implements AnimaniaType
 	}
 
 	@Override
-	public PigEntityletBase getChild(Level world)
+	public PigEntityletBase getChild(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -112,7 +110,7 @@ public enum PigType implements AnimaniaType
 		PigEntityletBase calf = null;
 		try
 		{
-			calf = (PigEntityletBase) constructor.newInstance(world);
+			calf = (PigEntityletBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

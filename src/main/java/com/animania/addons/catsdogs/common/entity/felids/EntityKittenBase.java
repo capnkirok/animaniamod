@@ -13,30 +13,29 @@ import com.google.common.base.Optional;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.level.Level;
 
 public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProviderChild, IChild, IPlaying
 {
 
-	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityKittenBase.class, EntityDataSerializers.OPTIONAL_UUID);
-	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(EntityKittenBase.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityKittenBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(EntityKittenBase.class, EntityEntityDataSerializers.FLOAT);
 	protected int ageTimer;
 
 	protected GenericAIPlay playAI;
 
-	public EntityKittenBase(Level worldIn)
+	public EntityKittenBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1f, 1f);
 		this.width = 1f;
 		this.height = 1f;
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
-		this.tasks.addTask(1, new GenericAIFollowParents<EntityKittenBase, EntityQueenBase>(this, 1.1D, EntityQueenBase.class));
-		this.tasks.addTask(8, playAI = new GenericAIPlay(this, EntityKittenBase.class));
+		this.goalSelector.addGoal(1, new GenericAIFollowParents<EntityKittenBase, EntityQueenBase>(this, 1.1D, EntityQueenBase.class));
+		this.goalSelector.addGoal(8, playAI = new GenericAIPlay(this, EntityKittenBase.class));
 	}
 
 	@Override
@@ -83,13 +82,13 @@ public class EntityKittenBase extends EntityAnimaniaCat implements TOPInfoProvid
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getParentUniqueIdParam()
 	{
 		return PARENT_UNIQUE_ID;
 	}
 
 	@Override
-	public DataParameter<Float> getEntityAgeParam()
+	public EntityDataAccessor<Float> getEntityAgeParam()
 	{
 		return AGE;
 	}

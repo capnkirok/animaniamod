@@ -24,7 +24,7 @@ public class EventBeehiveDecorator
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public static void onWorldDecoration(DecorateBiomeEvent.Decorate event)
+	public static void onLevelDecoration(DecorateBiomeEvent.Decorate event)
 	{
 
 		if (FarmConfig.settings.hiveSpawning)
@@ -38,7 +38,7 @@ public class EventBeehiveDecorator
 				frequencyBeehives = 10;
 			}
 
-			Biome b = event.getWorld().getBiome(event.getPos());
+			Biome b = event.getLevel().getBiome(event.getPos());
 			boolean isCorrectBiome = false;
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.hiveValidBiomeTypes))
 			{
@@ -53,7 +53,7 @@ public class EventBeehiveDecorator
 
 				int x = event.getPos().getX() + 8;
 				int z = event.getPos().getZ() + 8;
-				int y = event.getWorld().getTopSolidOrLiquidBlock(event.getPos()).getY() + 2;
+				int y = event.getLevel().getTopSolidOrLiquidBlock(event.getPos()).getY() + 2;
 
 				BlockPos pos = new BlockPos(x, y, z);
 				BlockPos pos2 = new BlockPos(x, y, z);
@@ -64,7 +64,7 @@ public class EventBeehiveDecorator
 						for (int k = -7; k < 7; k++)
 						{
 							pos = new BlockPos(x + i, y + j, z + k);
-							Block blockchk = event.getWorld().getBlockState(pos).getBlock();
+							Block blockchk = event.getLevel().getBlockState(pos).getBlock();
 
 							if (blockchk instanceof BlockLog)
 							{
@@ -75,7 +75,7 @@ public class EventBeehiveDecorator
 										for (int k2 = -3; k2 < 3; k2++)
 										{
 											pos2 = new BlockPos(pos.getX() + i2, pos.getY() + j2, pos.getZ() + k2);
-											Block blockchk2 = event.getWorld().getBlockState(pos2).getBlock();
+											Block blockchk2 = event.getLevel().getBlockState(pos2).getBlock();
 											if (blockchk2 instanceof BlockHive || blockchk2 instanceof BlockWildHive)
 											{
 												i2 = 7;
@@ -94,28 +94,28 @@ public class EventBeehiveDecorator
 
 								if (side == 0)
 								{
-									event.getWorld().setBlock(pos.east(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.EAST));
+									event.getLevel().setBlock(pos.east(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.EAST));
 									i = 7;
 									j = 3;
 									k = 7;
 									break;
 								} else if (side == 1)
 								{
-									event.getWorld().setBlock(pos.west(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.WEST));
+									event.getLevel().setBlock(pos.west(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.WEST));
 									i = 7;
 									j = 3;
 									k = 7;
 									break;
 								} else if (side == 2)
 								{
-									event.getWorld().setBlock(pos.north(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.NORTH));
+									event.getLevel().setBlock(pos.north(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.NORTH));
 									i = 7;
 									j = 3;
 									k = 7;
 									break;
 								} else if (side == 3)
 								{
-									event.getWorld().setBlock(pos.south(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.SOUTH));
+									event.getLevel().setBlock(pos.south(), FarmAddonBlockHandler.blockWildHive.defaultBlockState().withProperty(FACING, Direction.SOUTH));
 									i = 7;
 									j = 3;
 									k = 7;

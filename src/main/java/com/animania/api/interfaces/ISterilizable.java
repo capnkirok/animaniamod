@@ -1,7 +1,6 @@
 package com.animania.api.interfaces;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.world.entity.Entity;
 
 public interface ISterilizable extends IAnimaniaAnimal
 {

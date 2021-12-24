@@ -50,8 +50,6 @@ import com.animania.addons.catsdogs.common.entity.canids.DogWolf.EntityMaleWolf;
 import com.animania.addons.catsdogs.common.entity.canids.DogWolf.EntityPuppyWolf;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.level.Level;
-
 public enum DogType implements AnimaniaType
 {
 	BLOOD_HOUND(EntityMaleBloodHound.class, EntityFemaleBloodHound.class, EntityPuppyBloodHound.class),
@@ -82,12 +80,12 @@ public enum DogType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityMaleDogBase getMale(Level world)
+	public EntityMaleDogBase getMale(Level level)
 	{
 		try
 		{
 			Constructor<?> constructor = this.male.getConstructor(Level.class);
-			EntityMaleDogBase male = (EntityMaleDogBase) constructor.newInstance(world);
+			EntityMaleDogBase male = (EntityMaleDogBase) constructor.newInstance(level);
 			return male;
 		}
 		catch (Exception e)
@@ -98,12 +96,12 @@ public enum DogType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityFemaleDogBase getFemale(Level world)
+	public EntityFemaleDogBase getFemale(Level level)
 	{
 		try
 		{
 			Constructor<?> constructor = this.female.getConstructor(Level.class);
-			EntityFemaleDogBase female = (EntityFemaleDogBase) constructor.newInstance(world);
+			EntityFemaleDogBase female = (EntityFemaleDogBase) constructor.newInstance(level);
 			return female;
 		}
 		catch (Exception e)
@@ -114,12 +112,12 @@ public enum DogType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityPuppyBase getChild(Level world)
+	public EntityPuppyBase getChild(Level level)
 	{
 		try
 		{
 			Constructor<?> constructor = this.child.getConstructor(Level.class);
-			EntityPuppyBase child = (EntityPuppyBase) constructor.newInstance(world);
+			EntityPuppyBase child = (EntityPuppyBase) constructor.newInstance(level);
 			return child;
 		}
 		catch (Exception e)

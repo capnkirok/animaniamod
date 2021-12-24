@@ -11,7 +11,7 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.client.renderer.texture.Tickable;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.world.item.ItemStack;
@@ -51,15 +51,15 @@ public class TileEntityPetBowl extends BlockEntity implements Tickable, IFoodPro
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		CompoundNBT tagCompound = new CompoundNBT();
+		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public CompoundNBT getUpdateTag()
+	public CompoundTag getUpdateTag()
 	{
-		return this.writeToNBT(new CompoundNBT());
+		return this.writeToNBT(new CompoundTag());
 	}
 
 	@Override
@@ -113,11 +113,11 @@ public class TileEntityPetBowl extends BlockEntity implements Tickable, IFoodPro
 	}
 
 	@Override
-	public CompoundNBT writeToNBT(CompoundNBT compound)
+	public CompoundTag writeToNBT(CompoundTag compound)
 	{
-		CompoundNBT tag = super.writeToNBT(compound);
-		CompoundNBT items = this.itemHandler.serializeNBT();
-		CompoundNBT fluid = new CompoundNBT();
+		CompoundTag tag = super.writeToNBT(compound);
+		CompoundTag items = this.itemHandler.serializeNBT();
+		CompoundTag fluid = new CompoundTag();
 		fluid = this.fluidHandler.writeToNBT(fluid);
 		tag.putTag("items", items);
 		tag.putTag("fluid", fluid);
@@ -127,7 +127,7 @@ public class TileEntityPetBowl extends BlockEntity implements Tickable, IFoodPro
 	}
 
 	@Override
-	public void readFromNBT(CompoundNBT compound)
+	public void readFromNBT(CompoundTag compound)
 	{
 		super.readFromNBT(compound);
 		this.itemHandler = new ItemHandlerPetBowl();

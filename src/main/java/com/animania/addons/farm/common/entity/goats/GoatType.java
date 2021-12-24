@@ -29,7 +29,6 @@ import com.animania.api.interfaces.AnimaniaType;
 
 import StatBase;
 import net.minecraft.stats.StatBase;
-import net.minecraft.world.World;
 
 public enum GoatType implements AnimaniaType
 {
@@ -58,12 +57,12 @@ public enum GoatType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityBuckBase getMale(World world)
+	public EntityBuckBase getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.male.getConstructor(World.class);
+			constructor = this.male.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -72,7 +71,7 @@ public enum GoatType implements AnimaniaType
 		EntityBuckBase male = null;
 		try
 		{
-			male = (EntityBuckBase) constructor.newInstance(world);
+			male = (EntityBuckBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -82,12 +81,12 @@ public enum GoatType implements AnimaniaType
 	}
 
 	@Override
-	public EntityDoeBase getFemale(World world)
+	public EntityDoeBase getFemale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.female.getConstructor(World.class);
+			constructor = this.female.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -96,7 +95,7 @@ public enum GoatType implements AnimaniaType
 		EntityDoeBase female = null;
 		try
 		{
-			female = (EntityDoeBase) constructor.newInstance(world);
+			female = (EntityDoeBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -106,12 +105,12 @@ public enum GoatType implements AnimaniaType
 	}
 
 	@Override
-	public EntityKidBase getChild(World world)
+	public EntityKidBase getChild(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.child.getConstructor(World.class);
+			constructor = this.child.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -120,7 +119,7 @@ public enum GoatType implements AnimaniaType
 		EntityKidBase child = null;
 		try
 		{
-			child = (EntityKidBase) constructor.newInstance(world);
+			child = (EntityKidBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

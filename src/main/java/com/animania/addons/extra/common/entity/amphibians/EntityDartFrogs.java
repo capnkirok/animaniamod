@@ -13,9 +13,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.PotionTypes;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
@@ -26,20 +26,19 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.level.Level;
 
 public class EntityDartFrogs extends EntityAmphibian
 {
 
-	private static final EntityDataAccessor<Integer> FROGS_TYPE = SynchedEntityData.<Integer> defineId(EntityDartFrogs.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> FROGS_TYPE = SynchedEntityData.<Integer> defineId(EntityDartFrogs.class, EntityEntityDataSerializers.INT);
 	public int poisonTimer;
 	private int jumpTicks;
 	private int jumpDuration;
 	private boolean canEntityJump;
 
-	public EntityDartFrogs(Level worldIn)
+	public EntityDartFrogs(Level levelIn)
 	{
-		super(worldIn, true);
+		super(levelIn, true);
 		this.poisonTimer = 2;
 	}
 
@@ -54,7 +53,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	 * (abstract) Protected helper method to write subclass entity data to NBT.
 	 */
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 		compound.putInteger("FrogsType", this.getFrogsType());
@@ -64,7 +63,7 @@ public class EntityDartFrogs extends EntityAmphibian
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 		this.setFrogsType(compound.getInteger("FrogsType"));

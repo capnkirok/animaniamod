@@ -11,8 +11,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -28,7 +26,7 @@ public class ItemCart extends Item
 	}
 
 	/*
-	 * public ActionResult<ItemStack> onItemRightClick(World worldIn,
+	 * public ActionResult<ItemStack> onItemRightClick(Level levelIn,
 	 * PlayerEntity playerIn, EnumHand handIn) { ItemStack itemstack =
 	 * playerIn.getHeldItem(handIn); float f = 1.0F; float f1 =
 	 * playerIn.prevRotationPitch + (playerIn.rotationPitch -
@@ -44,12 +42,12 @@ public class ItemCart extends Item
 	 * 0.017453292F); float f7 = f4 * f5; float f8 = f3 * f5; double d3 = 5.0D;
 	 * Vec3d vec3d1 = vec3d.addVector((double) f7 * 5.0D, (double) f6 * 5.0D,
 	 * (double) f8 * 5.0D); RayTraceResult raytraceresult =
-	 * worldIn.rayTraceBlocks(vec3d, vec3d1, true);
+	 * levelIn.rayTraceBlocks(vec3d, vec3d1, true);
 	 * 
 	 * if (raytraceresult == null) { return new
 	 * ActionResult(ActionResultType.PASS, itemstack); } else { Vec3d vec3d2 =
 	 * playerIn.getLook(1.0F); boolean flag = false; List<Entity> list =
-	 * worldIn.getEntitiesWithinAABBExcludingEntity(playerIn,
+	 * levelIn.getEntitiesWithinAABBExcludingEntity(playerIn,
 	 * playerIn.getEntityBoundingBox().grow(vec3d2.x * 5.0D, vec3d2.y * 5.0D,
 	 * vec3d2.z * 5.0D).grow(1.0D));
 	 * 
@@ -66,13 +64,13 @@ public class ItemCart extends Item
 	 * 
 	 * } else if (raytraceresult.typeOfHit != RayTraceResult.Type.BLOCK) {
 	 * return new ActionResult(ActionResultType.PASS, itemstack); } else { Block
-	 * block = worldIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
-	 * boolean flag1 = false; EntityCart EntityCart = new EntityCart(worldIn);
+	 * block = levelIn.getBlockState(raytraceresult.getBlockPos()).getBlock();
+	 * boolean flag1 = false; EntityCart EntityCart = new EntityCart(levelIn);
 	 * EntityCart.rotationYaw = playerIn.rotationYaw;
 	 * EntityCart.setLocationAndAngles(d0, d1, d2,
-	 * MathHelper.wrapDegrees(worldIn.rand.nextFloat() * 360.0F), 0.0F);
+	 * MathHelper.wrapDegrees(levelIn.rand.nextFloat() * 360.0F), 0.0F);
 	 * 
-	 * if (!worldIn.isRemote) {AnimaniaHelper.spawnEntity( worldIn, EntityCart);
+	 * if (!levelIn.isRemote) {AnimaniaHelper.spawnEntity( levelIn, EntityCart);
 	 * }
 	 * 
 	 * if (!playerIn.capabilities.isCreativeMode) { itemstack.shrink(1); }
@@ -82,18 +80,18 @@ public class ItemCart extends Item
 	 */
 
 	@Override
-	public ActionResultType onItemUse(PlayerEntity playerIn, World world, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public ActionResultType onItemUse(PlayerEntity playerIn, Level level, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(facing);
 
 		ItemStack stack = playerIn.getHeldItem(hand);
 
-		if (world.isRemote)
+		if (level.isRemote)
 			return ActionResultType.SUCCESS;
 
-		EntityCart entity = new EntityCart(world);
+		EntityCart entity = new EntityCart(level);
 
-		entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
+		entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(level.rand.nextFloat() * 360.0F), 0.0F);
 
 		if (stack.hasDisplayName())
 			entity.setCustomNameTag(stack.getDisplayName());
@@ -101,10 +99,10 @@ public class ItemCart extends Item
 		if (!playerIn.isCreative())
 			stack.shrink(1);
 
-		world.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+		level.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 		entity.rotationYaw = entity.rotationYaw;
 		entity.deltaRotation = entity.rotationYaw;
-		AnimaniaHelper.spawnEntity(world, entity);
+		AnimaniaHelper.spawnEntity(level, entity);
 		return ActionResultType.SUCCESS;
 
 	}

@@ -1,7 +1,6 @@
 package com.animania.addons.extra.common.entity.peafowl;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 public class PeafowlOpal
 {
@@ -9,9 +8,9 @@ public class PeafowlOpal
 	public static class EntityPeachickOpal extends EntityPeachickBase
 	{
 
-		public EntityPeachickOpal(Level worldIn)
+		public EntityPeachickOpal(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.OPAL;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peachick_opal.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peachick_blink.png");
@@ -34,9 +33,9 @@ public class PeafowlOpal
 	public static class EntityPeafowlOpal extends EntityPeafowlBase
 	{
 
-		public EntityPeafowlOpal(Level worldIn)
+		public EntityPeafowlOpal(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.OPAL;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peafowl_opal.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peafowl_opal_blink.png");
@@ -59,9 +58,9 @@ public class PeafowlOpal
 	public static class EntityPeacockOpal extends EntityPeacockBase
 	{
 
-		public EntityPeacockOpal(Level worldIn)
+		public EntityPeacockOpal(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = PeacockType.OPAL;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/peacocks/peacock_opal.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/peacocks/peacock_opal_blink.png");

@@ -211,7 +211,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;

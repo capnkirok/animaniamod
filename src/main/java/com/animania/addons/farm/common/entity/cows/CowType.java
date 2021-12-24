@@ -30,8 +30,6 @@ import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshr
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCalfMooshroom;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.level.Level;
-
 public enum CowType implements AnimaniaType
 {
 	ANGUS(EntityBullAngus.class, CowEntityAngus.class, EntityCalfAngus.class, true),
@@ -57,7 +55,7 @@ public enum CowType implements AnimaniaType
 	}
 
 	@Override
-	public EntityBullBase getMale(Level world)
+	public EntityBullBase getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -71,7 +69,7 @@ public enum CowType implements AnimaniaType
 		EntityBullBase bull = null;
 		try
 		{
-			bull = (EntityBullBase) constructor.newInstance(world);
+			bull = (EntityBullBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -81,7 +79,7 @@ public enum CowType implements AnimaniaType
 	}
 
 	@Override
-	public CowEntityBase getFemale(Level world)
+	public CowEntityBase getFemale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -95,7 +93,7 @@ public enum CowType implements AnimaniaType
 		CowEntityBase cow = null;
 		try
 		{
-			cow = (CowEntityBase) constructor.newInstance(world);
+			cow = (CowEntityBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -105,7 +103,7 @@ public enum CowType implements AnimaniaType
 	}
 
 	@Override
-	public EntityCalfBase getChild(Level world)
+	public EntityCalfBase getChild(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -119,7 +117,7 @@ public enum CowType implements AnimaniaType
 		EntityCalfBase calf = null;
 		try
 		{
-			calf = (EntityCalfBase) constructor.newInstance(world);
+			calf = (EntityCalfBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

@@ -11,8 +11,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -28,18 +26,18 @@ public class ItemTiller extends Item
 	}
 
 	@Override
-	public ActionResultType onItemUse(PlayerEntity playerIn, World world, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public ActionResultType onItemUse(PlayerEntity playerIn, Level level, BlockPos pos, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 		pos = pos.offset(facing);
 
 		ItemStack stack = playerIn.getHeldItem(hand);
 
-		if (world.isRemote)
+		if (level.isRemote)
 			return ActionResultType.SUCCESS;
 
-		EntityTiller entity = new EntityTiller(world);
+		EntityTiller entity = new EntityTiller(level);
 
-		entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(world.rand.nextFloat() * 360.0F), 0.0F);
+		entity.setLocationAndAngles(pos.getX() + .5, pos.getY(), pos.getZ() + .5, MathHelper.wrapDegrees(level.rand.nextFloat() * 360.0F), 0.0F);
 
 		if (stack.hasDisplayName())
 			entity.setCustomNameTag(stack.getDisplayName());
@@ -47,10 +45,10 @@ public class ItemTiller extends Item
 		if (!playerIn.isCreative())
 			stack.shrink(1);
 
-		world.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+		level.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), ModSoundEvents.combo, SoundCategory.PLAYERS, 0.8F, ((Animania.RANDOM.nextFloat() - Animania.RANDOM.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 		entity.rotationYaw = entity.rotationYaw;
 		entity.deltaRotation = entity.rotationYaw;
-		AnimaniaHelper.spawnEntity(world, entity);
+		AnimaniaHelper.spawnEntity(level, entity);
 		return ActionResultType.SUCCESS;
 
 	}

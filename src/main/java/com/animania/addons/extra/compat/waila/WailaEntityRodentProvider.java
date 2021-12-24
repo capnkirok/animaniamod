@@ -9,9 +9,7 @@ import mcp.mobius.waila.api.IWailaEntityAccessor;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.World;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 
 public class WailaEntityRodentProvider extends WailaAnimalEntityProviderBase
@@ -49,14 +47,14 @@ public class WailaEntityRodentProvider extends WailaAnimalEntityProviderBase
     }
 
     @Override
-    public CompoundNBT getNBTData(ServerPlayerEntity player, Entity ent, CompoundNBT tag, World world) {
-        CompoundNBT comp = ent.getEntityData();
+    public CompoundTag getNBTData(ServerPlayerEntity player, Entity ent, CompoundTag tag, Level level) {
+        CompoundTag comp = ent.getEntityData();
 
         tag.putBoolean("IsSitting", comp.getBoolean("IsSitting"));
         tag.putBoolean("IsTamed", comp.getBoolean("IsTamed"));
         tag.putBoolean("Sleep", comp.getBoolean("Sleep"));
 
-        return super.getNBTData(player, ent, tag, world);
+        return super.getNBTData(player, ent, tag, level);
     }
 
 }

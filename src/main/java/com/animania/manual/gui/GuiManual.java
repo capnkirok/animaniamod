@@ -22,7 +22,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -79,7 +79,7 @@ public class GuiManual extends GuiScreen
 	{
 		if (book.hasTagCompound())
 		{
-			CompoundNBT tag = book.getTagCompound();
+			CompoundTag tag = book.getTagCompound();
 			if (tag.hasKey("currentTopic") && tag.hasKey("lastTopic"))
 			{
 				INSTANCE.currentTopic = INSTANCE.manualContent.get(new ResourceLocation(tag.getString("currentTopic")));

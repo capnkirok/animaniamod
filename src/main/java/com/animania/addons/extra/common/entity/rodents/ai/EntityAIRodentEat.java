@@ -9,7 +9,6 @@ import com.google.common.base.Predicates;
 
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.biome.Biome;
@@ -20,12 +19,12 @@ public class RodentEatGoal extends Goal
 {
 	private static final Predicate<BlockState> IS_TALL_GRASS = BlockStatePredicate.forBlock(Blocks.TALLGRASS).where(BlockTallGrass.TYPE, Predicates.equalTo(BlockTallGrass.EnumType.GRASS));
 	private final LivingEntity                  grassEaterEntity;
-	private final World                         entityWorld;
+	private final Level                         entityLevel;
 	int                                         eatingGrassTimer;
 
 	public RodentEatGoal(LivingEntity grassEaterEntityIn) {
 		this.grassEaterEntity = grassEaterEntityIn;
-		this.entityWorld = grassEaterEntityIn.level;
+		this.entityLevel = grassEaterEntityIn.level;
 		this.setMutexBits(7);
 	}
 
@@ -66,16 +65,16 @@ public class RodentEatGoal extends Goal
 			return false;
 		else {
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.getX(), this.grassEaterEntity.getY(), this.grassEaterEntity.getZ());
-			return RodentEatGoal.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos)) ? true
-					: this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS
-					|| this.entityWorld.getBlockState(blockpos.down()).getBlock() == Blocks.DIRT;
+			return RodentEatGoal.IS_TALL_GRASS.apply(this.entityLevel.getBlockState(blockpos)) ? true
+					: this.entityLevel.getBlockState(blockpos.down()).getBlock() == Blocks.GRASS
+					|| this.entityLevel.getBlockState(blockpos.down()).getBlock() == Blocks.DIRT;
 		}
 	}
 
 	@Override
 	public void startExecuting() {
 		this.eatingGrassTimer = 80;
-		this.entityWorld.broadcastEntityEvent(this.grassEaterEntity, (byte) 10);
+		this.entityLevel.broadcastEntityEvent(this.grassEaterEntity, (byte) 10);
 		this.grassEaterEntity.getNavigation().stop();
 	}
 
@@ -100,22 +99,22 @@ public class RodentEatGoal extends Goal
 		if (this.eatingGrassTimer == 4) {
 			BlockPos blockpos = new BlockPos(this.grassEaterEntity.getX(), this.grassEaterEntity.getY(), this.grassEaterEntity.getZ());
 
-			if (EntityAIRodentEat.IS_TALL_GRASS.apply(this.entityWorld.getBlockState(blockpos))) {
+			if (EntityAIRodentEat.IS_TALL_GRASS.apply(this.entityLevel.getBlockState(blockpos))) {
 
-				this.entityWorld.destroyBlock(blockpos, false);
+				this.entityLevel.destroyBlock(blockpos, false);
 
 				this.grassEaterEntity.eatGrassBonus();
 			}
 			else {
 				BlockPos blockpos1 = blockpos.down();
-				Block chkblock = this.entityWorld.getBlockState(blockpos1).getBlock();
+				Block chkblock = this.entityLevel.getBlockState(blockpos1).getBlock();
 
-				Biome biomegenbase = this.entityWorld.getBiome(blockpos1);
+				Biome biomegenbase = this.entityLevel.getBiome(blockpos1);
 
 				if (chkblock == Blocks.GRASS || chkblock == Blocks.DIRT || chkblock == BlockHandler.blockMud || chkblock == Blocks.MYCELIUM || chkblock == Blocks.SAND)
 					if (chkblock == Blocks.WATER) {
-						this.entityWorld.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
-						this.entityWorld.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 2);
+						this.entityLevel.playEvent(2001, blockpos1, Block.getIdFromBlock(chkblock));
+						this.entityLevel.setBlock(blockpos1, Blocks.AIR.defaultBlockState(), 2);
 
 					}
 

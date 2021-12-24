@@ -60,7 +60,7 @@ public class RenderWagon extends Render<EntityWagon>
 	protected ResourceLocation getEntityTexture(EntityWagon entity) {
 		int blinkTimer = entity.blinkTimer;
 		
-		if (entity.level.getWorldTime() % 24000 < 13000) {
+		if (entity.level.getLevelTime() % 24000 < 13000) {
 			lastTexture = 1;
 			return this.getWagonTextures1(entity);
 		} else if (blinkTimer == 15) {

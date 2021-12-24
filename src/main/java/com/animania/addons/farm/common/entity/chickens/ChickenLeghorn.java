@@ -1,16 +1,15 @@
 package com.animania.addons.farm.common.entity.chickens;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 public class ChickenLeghorn
 {
 	public static class EntityChickLeghorn extends EntityChickBase
 	{
 
-		public EntityChickLeghorn(Level worldIn)
+		public EntityChickLeghorn(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = ChickenType.LEGHORN;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_white.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_blink.png");
@@ -33,9 +32,9 @@ public class ChickenLeghorn
 	public static class EntityRoosterLeghorn extends EntityRoosterBase
 	{
 
-		public EntityRoosterLeghorn(Level worldIn)
+		public EntityRoosterLeghorn(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = ChickenType.LEGHORN;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/rooster_white.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png");
@@ -58,9 +57,9 @@ public class ChickenLeghorn
 	public static class EntityHenLeghorn extends EntityHenBase
 	{
 
-		public EntityHenLeghorn(Level worldIn)
+		public EntityHenLeghorn(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = ChickenType.LEGHORN;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/hen_white.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png");

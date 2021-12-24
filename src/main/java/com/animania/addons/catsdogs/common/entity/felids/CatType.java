@@ -30,8 +30,6 @@ import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityQueenTab
 import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityTomTabby;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.level.Level;
-
 public enum CatType implements AnimaniaType
 {
 	AMERICAN_SHORTHAIR(EntityTomAmericanShorthair.class, EntityQueenAmericanShorthair.class, EntityKittenAmericanShorthair.class),
@@ -57,7 +55,7 @@ public enum CatType implements AnimaniaType
 	}
 
 	@Override
-	public EntityTomBase getMale(Level world)
+	public EntityTomBase getMale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -71,7 +69,7 @@ public enum CatType implements AnimaniaType
 		EntityTomBase bull = null;
 		try
 		{
-			bull = (EntityTomBase) constructor.newInstance(world);
+			bull = (EntityTomBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -81,7 +79,7 @@ public enum CatType implements AnimaniaType
 	}
 
 	@Override
-	public EntityQueenBase getFemale(Level world)
+	public EntityQueenBase getFemale(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -95,7 +93,7 @@ public enum CatType implements AnimaniaType
 		EntityQueenBase cow = null;
 		try
 		{
-			cow = (EntityQueenBase) constructor.newInstance(world);
+			cow = (EntityQueenBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{
@@ -105,7 +103,7 @@ public enum CatType implements AnimaniaType
 	}
 
 	@Override
-	public EntityKittenBase getChild(Level world)
+	public EntityKittenBase getChild(Level level)
 	{
 		Constructor<?> constructor = null;
 		try
@@ -119,7 +117,7 @@ public enum CatType implements AnimaniaType
 		EntityKittenBase calf = null;
 		try
 		{
-			calf = (EntityKittenBase) constructor.newInstance(world);
+			calf = (EntityKittenBase) constructor.newInstance(level);
 		}
 		catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

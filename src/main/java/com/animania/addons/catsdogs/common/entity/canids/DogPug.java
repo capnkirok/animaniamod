@@ -1,16 +1,14 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
-import net.minecraft.world.level.Level;
-
 public class DogPug
 {
 
 	public static class EntityPuppyPug extends EntityPuppyBase
 	{
 	
-		public EntityPuppyPug(Level world)
+		public EntityPuppyPug(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.PUG;
 		}
 		
@@ -30,9 +28,9 @@ public class DogPug
 	public static class EntityMalePug extends EntityMaleDogBase
 	{
 	
-		public EntityMalePug(Level world)
+		public EntityMalePug(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.PUG;
 		}
 		
@@ -52,9 +50,9 @@ public class DogPug
 	public static class EntityFemalePug extends EntityFemaleDogBase
 	{
 	
-		public EntityFemalePug(Level world)
+		public EntityFemalePug(Level level)
 		{
-			super(world);
+			super(level);
 			this.type = DogType.PUG;
 		}
 		

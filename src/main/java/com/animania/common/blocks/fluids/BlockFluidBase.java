@@ -3,9 +3,8 @@ package com.animania.common.blocks.fluids;
 import com.animania.Animania;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,26 +25,26 @@ public class BlockFluidBase extends BlockFluidClassic
     
 
 	@Override
-	public boolean canDisplace(IBlockAccess world, BlockPos pos) {
+	public boolean canDisplace(IBlockAccess level, BlockPos pos) {
 
-		if (world.getBlockState(pos).getMaterial().isLiquid()) {
+		if (level.getBlockState(pos).getMaterial().isLiquid()) {
 			return false;
 		}
-		return super.canDisplace(world, pos);
+		return super.canDisplace(level, pos);
 	}
 	
 	@Override
-	public boolean displaceIfPossible(World world, BlockPos pos) {
+	public boolean displaceIfPossible(Level level, BlockPos pos) {
 
-		if (world.getBlockState(pos).getMaterial().isLiquid()) {
+		if (level.getBlockState(pos).getMaterial().isLiquid()) {
 			return false;
 		}
-		return super.displaceIfPossible(world, pos);
+		return super.displaceIfPossible(level, pos);
 	}
 
 	  @Override
-	    public boolean shouldSideBeRendered(BlockState state, IBlockAccess world, BlockPos pos, Direction side) {
-	    	BlockState st = world.getBlockState(pos.offset(side));
+	    public boolean shouldSideBeRendered(BlockState state, IBlockAccess level, BlockPos pos, Direction side) {
+	    	BlockState st = level.getBlockState(pos.offset(side));
 	    	if(st.getBlock() == this)
 	    		return false;
 	    	return true;

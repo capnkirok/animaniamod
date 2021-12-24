@@ -42,44 +42,49 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.network.NetworkRegistry;
 
 public class EntityHamster extends TamableAnimal implements TOPInfoProviderRodent, IAnimaniaAnimalBase
 {
-	private static final EntityDataAccessor<Boolean> IN_BALL = SynchedEntityData.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
-	// private static final DataParameter<Boolean> SITTING =
-	// EntityDataManager.<Boolean>createKey(EntityHamster.class,
-	// DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> RIDING = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
-	// private static final DataParameter<Boolean> TAMED =
-	// EntityDataManager.<Boolean>createKey(EntityHamster.class,
-	// DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> COLOR_NUM = EntityDataManager.<Integer> createKey(EntityHamster.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> FOOD_STACK_COUNT = EntityDataManager.<Integer> createKey(EntityHamster.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> IN_LOVE = EntityDataManager.<Integer> createKey(EntityHamster.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> BALL_COLOR = EntityDataManager.<Integer> createKey(EntityHamster.class, DataSerializers.VARINT);
+	private static final EntityDataAccessor<Boolean> IN_BALL = SynchedEntityData.<Boolean> createKey(EntityHamster.class, EntityDataSerializers.BOOLEAN);
+	// private static final EntityDataAccessor<Boolean> SITTING =
+	// SynchedEntityData.defineId(EntityHamster.class,
+	// EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> RIDING = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.BOOLEAN);
+	// private static final EntityDataAccessor<Boolean> TAMED =
+	// SynchedEntityData.defineId(EntityHamster.class,
+	// EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> COLOR_NUM = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Integer> FOOD_STACK_COUNT = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Integer> IN_LOVE = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.VARINT);
+	private static final EntityDataAccessor<Integer> BALL_COLOR = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.VARINT);
 	public static final Set<ItemStack> TEMPTATION_ITEMS = Sets.newHashSet(AnimaniaHelper.getItemStackArray(ExtraConfig.settings.hamsterFood));
-	private static final DataParameter<Boolean> FED = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> WATERED = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> AGE = EntityDataManager.<Integer> createKey(EntityHamster.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Float> SLEEPTIMER = EntityDataManager.<Float> createKey(EntityHamster.class, DataSerializers.FLOAT);
-	protected static final DataParameter<Boolean> INTERACTED = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> FED = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> WATERED = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> AGE = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Float> SLEEPTIMER = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Boolean> INTERACTED = SynchedEntityData.defineId(EntityHamster.class, EntityDataSerializers.BOOLEAN);
 
 	private static final String[] HAMSTER_TEXTURES = new String[] { "black", "brown", "darkbrown", "darkgray", "gray", "plum", "tarou", "white", "gold" };
 
@@ -108,9 +113,9 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	private ResourceLocation resourceLocationBlink;
 	private int damageTimer;
 
-	public EntityHamster(World world)
+	public EntityHamster(Level level)
 	{
-		super(world);
+		super(level);
 		this.setHealth(6);
 		this.yOffset = 0.1F;
 		this.setSize(0.5F, 0.3F);
@@ -136,27 +141,27 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	protected void initAI()
 	{
 
-		this.tasks.addTask(1, new GenericAIPanic<EntityHamster>(this, 1.4D));
-		this.tasks.addTask(2, new GenericAISwimmingSmallCreatures(this));
+		this.goalSelector.addGoal(1, new GenericAIPanic<EntityHamster>(this, 1.4D));
+		this.goalSelector.addGoal(2, new GenericAISwimmingSmallCreatures(this));
 		if (!AnimaniaConfig.gameRules.ambianceMode)
 		{
-			this.tasks.addTask(3, new GenericAIFindWater<EntityHamster>(this, 1.0D, null, EntityHamster.class, true));
-			this.tasks.addTask(3, new GenericAIFindFood<EntityHamster>(this, 1.0D, null, false));
+			this.goalSelector.addGoal(3, new GenericAIFindWater<EntityHamster>(this, 1.0D, null, EntityHamster.class, true));
+			this.goalSelector.addGoal(3, new GenericAIFindFood<EntityHamster>(this, 1.0D, null, false));
 		}
-		this.tasks.addTask(4, new FleeSunGoal(this, 1.0D));
-		this.tasks.addTask(5, new GenericAIWanderAvoidWater(this, 1.1D));
-		this.tasks.addTask(6, new GenericAITempt<EntityHamster>(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
-		this.tasks.addTask(7, new GenericAIFollowOwner<EntityHamster>(this, 1.0D, 10.0F, 2.0F));
-		this.tasks.addTask(8, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
-		this.tasks.addTask(9, new LookIdleRodentGoal(this));
+		this.goalSelector.addGoal(4, new FleeSunGoal(this, 1.0D));
+		this.goalSelector.addGoal(5, new GenericAIWanderAvoidWater(this, 1.1D));
+		this.goalSelector.addGoal(6, new GenericAITempt<EntityHamster>(this, 1.2D, false, EntityHamster.TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(7, new GenericAIFollowOwner<EntityHamster>(this, 1.0D, 10.0F, 2.0F));
+		this.goalSelector.addGoal(8, new GenericAIWatchClosest(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(9, new LookIdleRodentGoal(this));
 		if (AnimaniaConfig.gameRules.animalsSleep)
 		{
-			this.tasks.addTask(10, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hamsterBed), Block.getBlockFromName(ExtraConfig.settings.hamsterBed2), EntityHamster.class, new Function<Long, Boolean>() {
+			this.goalSelector.addGoal(10, new GenericAISleep(this, 0.8, Block.getBlockFromName(ExtraConfig.settings.hamsterBed), Block.getBlockFromName(ExtraConfig.settings.hamsterBed2), EntityHamster.class, new Function<Long, Boolean>() {
 
 				@Override
-				public Boolean apply(Long worldtime)
+				public Boolean apply(Long leveltime)
 				{		
-					return (worldtime < 13000);
+					return (leveltime < 13000);
 				}
 				
 			}));
@@ -228,50 +233,50 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT CompoundNBT)
+	public void writeEntityToNBT(CompoundTag CompoundTag)
 	{
-		super.writeEntityToNBT(CompoundNBT);
-		CompoundNBT.putBoolean("IsSitting", this.isSitting());
-		CompoundNBT.putBoolean("InBall", this.isInBall());
-		CompoundNBT.putInteger("ColorNumber", this.getColorNumber());
-		CompoundNBT.putInteger("foodStackCount", this.getFoodStackCount());
-		CompoundNBT.putInteger("BallColor", this.getBallColor());
-		CompoundNBT.putBoolean("IsTamed", this.isTamed());
-		CompoundNBT.putBoolean("IsRiding", this.getIsRiding());
+		super.writeEntityToNBT(CompoundTag);
+		CompoundTag.putBoolean("IsSitting", this.isSitting());
+		CompoundTag.putBoolean("InBall", this.isInBall());
+		CompoundTag.putInteger("ColorNumber", this.getColorNumber());
+		CompoundTag.putInteger("foodStackCount", this.getFoodStackCount());
+		CompoundTag.putInteger("BallColor", this.getBallColor());
+		CompoundTag.putBoolean("IsTamed", this.isTamed());
+		CompoundTag.putBoolean("IsRiding", this.getIsRiding());
 
-		GenericBehavior.writeCommonNBT(CompoundNBT, this);
+		GenericBehavior.writeCommonNBT(CompoundTag, this);
 
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT CompoundNBT)
+	public void readEntityFromNBT(CompoundTag CompoundTag)
 	{
-		super.readEntityFromNBT(CompoundNBT);
-		this.setSitting(CompoundNBT.getBoolean("IsSitting"));
-		this.setInBall(CompoundNBT.getBoolean("InBall"));
-		this.setColorNumber(CompoundNBT.getInteger("ColorNumber"));
-		this.setFoodStackCount(CompoundNBT.getInteger("foodStackCount"));
-		this.setBallColor(CompoundNBT.getInteger("BallColor"));
-		this.setTamed(CompoundNBT.getBoolean("IsTamed"));
-		this.setIsRiding(CompoundNBT.getBoolean("IsRiding"));
+		super.readEntityFromNBT(CompoundTag);
+		this.setSitting(CompoundTag.getBoolean("IsSitting"));
+		this.setInBall(CompoundTag.getBoolean("InBall"));
+		this.setColorNumber(CompoundTag.getInteger("ColorNumber"));
+		this.setFoodStackCount(CompoundTag.getInteger("foodStackCount"));
+		this.setBallColor(CompoundTag.getInteger("BallColor"));
+		this.setTamed(CompoundTag.getBoolean("IsTamed"));
+		this.setIsRiding(CompoundTag.getBoolean("IsRiding"));
 
-		GenericBehavior.readCommonNBT(CompoundNBT, this);
+		GenericBehavior.readCommonNBT(CompoundTag, this);
 	}
 
 	@Override
-	public DataParameter<Integer> getAgeParam()
+	public EntityDataAccessor<Integer> getAgeParam()
 	{
 		return AGE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getSleepingParam()
+	public EntityDataAccessor<Boolean> getSleepingParam()
 	{
 		return SLEEPING;
 	}
 
 	@Override
-	public DataParameter<Float> getSleepTimerParam()
+	public EntityDataAccessor<Float> getSleepTimerParam()
 	{
 		return SLEEPTIMER;
 	}
@@ -313,7 +318,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 			ICapabilityPlayer props = CapabilityRefs.getPlayerCaps(player);
 			if (!props.isCarrying())
 			{
-				props.setAnimal(this.writeToNBT(new CompoundNBT()));
+				props.setAnimal(this.writeToNBT(new CompoundTag()));
 				props.setCarrying(true);
 				props.setType("hamster");
 				this.setDead();
@@ -505,7 +510,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	}
 
 	@Override
-	public DataParameter<Boolean> getWateredParam()
+	public EntityDataAccessor<Boolean> getWateredParam()
 	{
 		return WATERED;
 	}
@@ -526,7 +531,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 		if (this.rand.nextInt(10) == 5)
 			this.ticksExisted++;
 
-		// Animania.mDebug("worldObj.isRemote="+worldObj.isRemote+"
+		// Animania.mDebug("levelObj.isRemote="+levelObj.isRemote+"
 		// getX()="+getX()+" getY()="+getY()+" poxZ="+getZ());
 	}
 
@@ -873,7 +878,7 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	}
 
 	@Override
-	public DataParameter<Boolean> getInteractedParam()
+	public EntityDataAccessor<Boolean> getInteractedParam()
 	{
 		return INTERACTED;
 	}
@@ -921,13 +926,13 @@ public class EntityHamster extends TamableAnimal implements TOPInfoProviderRoden
 	}
 
 	@Override
-	public DataParameter<Boolean> getHandFedParam()
+	public EntityDataAccessor<Boolean> getHandFedParam()
 	{
 		return null;
 	}
 
 	@Override
-	public DataParameter<Boolean> getFedParam()
+	public EntityDataAccessor<Boolean> getFedParam()
 	{
 		return FED;
 	}

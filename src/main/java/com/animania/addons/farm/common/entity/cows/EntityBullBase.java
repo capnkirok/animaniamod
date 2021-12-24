@@ -26,28 +26,27 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProviderMateable, IMateable, ISterilizable
 {
 
-	protected static final EntityDataAccessor<Boolean> FIGHTING = SynchedEntityData.<Boolean>defineId(EntityBullBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean>defineId(EntityBullBase.class, EntityDataSerializers.BOOLEAN);
-	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>>defineId(EntityBullBase.class, EntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Boolean> FIGHTING = SynchedEntityData.<Boolean>defineId(EntityBullBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> STERILIZED = SynchedEntityData.<Boolean>defineId(EntityBullBase.class, EntityEntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.<Optional<UUID>>defineId(EntityBullBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
 
-	public EntityBullBase(Level worldIn)
+	public EntityBullBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.6F, 1.8F);
 		this.width = 1.6F;
 		this.height = 1.8F;
@@ -57,11 +56,11 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 		if (AnimaniaConfig.gameRules.animalsCanAttackOthers && !getSterilized())
 		{
-			this.tasks.addTask(0, new AttackMeleeBullsGoal(this, 1.8D, false));
+			this.goalSelector.addGoal(0, new AttackMeleeBullsGoal(this, 1.8D, false));
 		}
-		// this.tasks.addTask(1, new FollowMateCowsGoal(this, 1.1D));
+		// this.goalSelector.addGoal(1, new FollowMateCowsGoal(this, 1.1D));
 		if (!getSterilized())
-			this.tasks.addTask(3, new GenericAIMate<EntityBullBase, CowEntityBase>(this, 1.0D, CowEntityBase.class, EntityCalfBase.class, EntityAnimaniaCow.class));
+			this.goalSelector.addGoal(3, new GenericAIMate<EntityBullBase, CowEntityBase>(this, 1.0D, CowEntityBase.class, EntityCalfBase.class, EntityAnimaniaCow.class));
 	}
 
 	@Override
@@ -192,7 +191,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public void writeEntityToNBT(CompoundNBT compound)
+	public void writeEntityToNBT(CompoundTag compound)
 	{
 		super.writeEntityToNBT(compound);
 
@@ -200,7 +199,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public void readEntityFromNBT(CompoundNBT compound)
+	public void readEntityFromNBT(CompoundTag compound)
 	{
 		super.readEntityFromNBT(compound);
 
@@ -209,7 +208,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
@@ -217,11 +216,11 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 			if (this.getMateUniqueId() != null)
 				probeInfo.text(I18n.translateToLocal("text.waila.mated"));
 		}
-		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
 	@Override
-	public DataParameter<Boolean> getSterilizedParam()
+	public EntityDataAccessor<Boolean> getSterilizedParam()
 	{
 		return STERILIZED;
 	}
@@ -245,7 +244,7 @@ public class EntityBullBase extends EntityAnimaniaCow implements TOPInfoProvider
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}

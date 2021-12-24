@@ -131,9 +131,9 @@ public class ClientProxy extends CommonProxy
 
 		for (int j = 0; j < Playerentity.level.getMinecraftServer().getServer().levels.length; ++j)
 		{
-			currentTime = Playerentity.level.getMinecraftServer().getServer().levels[j].getWorldTime() % 24000;
+			currentTime = Playerentity.level.getMinecraftServer().getServer().levels[j].getLevelTime() % 24000;
 			factorTime = 24000 - (int) currentTime;
-			Playerentity.level.getMinecraftServer().getServer().levels[j].setWorldTime(Playerentity.level.getMinecraftServer().getServer().levels[j].getWorldTime() + factorTime);
+			Playerentity.level.getMinecraftServer().getServer().levels[j].setLevelTime(Playerentity.level.getMinecraftServer().getServer().levels[j].getLevelTime() + factorTime);
 		}
 
 	}
@@ -170,7 +170,7 @@ public class ClientProxy extends CommonProxy
 			public void initGui(GuiErrorScreen errorScreen, FontRenderer fontRenderer)
 			{
 				screen = errors.createGui();
-				screen.setWorldAndResolution(Minecraft.getMinecraft(), errorScreen.width, errorScreen.height);
+				screen.setLevelAndResolution(Minecraft.getMinecraft(), errorScreen.width, errorScreen.height);
 			}
 
 			@Override

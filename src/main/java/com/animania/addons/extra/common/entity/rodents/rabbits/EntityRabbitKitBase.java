@@ -11,27 +11,26 @@ import com.google.common.base.Optional;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.EntityEntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.level.Level;
 
 public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfoProviderChild, IChild
 {
 
-	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(RabbitEntityKitBase.class, EntityDataSerializers.OPTIONAL_UUID);
-	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(RabbitEntityKitBase.class, EntityDataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(RabbitEntityKitBase.class, EntityEntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(RabbitEntityKitBase.class, EntityEntityDataSerializers.FLOAT);
 	protected int ageTimer;
 
-	public RabbitEntityKitBase(Level worldIn)
+	public RabbitEntityKitBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(0.8F, 0.8F);
 		this.width = 0.8F;
 		this.height = 0.8F;
 		this.stepHeight = 1.1F;
 		this.ageTimer = 0;
 		this.gender = EntityGender.CHILD;
-		this.tasks.addTask(1, new GenericAIFollowParents<RabbitEntityKitBase, RabbitEntityDoeBase>(this, 1.1, RabbitEntityDoeBase.class));
+		this.goalSelector.addGoal(1, new GenericAIFollowParents<RabbitEntityKitBase, RabbitEntityDoeBase>(this, 1.1, RabbitEntityDoeBase.class));
 	}
 
 	@Override
@@ -102,13 +101,13 @@ public class RabbitEntityKitBase extends EntityAnimaniaRabbit implements TOPInfo
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getParentUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getParentUniqueIdParam()
 	{
 		return PARENT_UNIQUE_ID;
 	}
 
 	@Override
-	public DataParameter<Float> getEntityAgeParam()
+	public EntityDataAccessor<Float> getEntityAgeParam()
 	{
 		return AGE;
 	}

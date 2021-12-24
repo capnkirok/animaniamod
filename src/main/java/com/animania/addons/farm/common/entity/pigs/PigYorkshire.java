@@ -1,16 +1,14 @@
 package com.animania.addons.farm.common.entity.pigs;
 
-import net.minecraft.world.level.Level;
-
 public class PigYorkshire
 {
 
 	public static class EntityHogYorkshire extends EntityHogBase
 	{
 	
-		public EntityHogYorkshire(Level world)
+		public EntityHogYorkshire(Level level)
 		{
-			super(world);
+			super(level);
 			this.pigType = PigType.YORKSHIRE;
 		}
 		
@@ -31,9 +29,9 @@ public class PigYorkshire
 	public static class PigEntityletYorkshire extends PigEntityletBase
 	{
 	
-		public PigEntityletYorkshire(Level world)
+		public PigEntityletYorkshire(Level level)
 		{
-			super(world);
+			super(level);
 			this.pigType = PigType.YORKSHIRE;
 		}
 	
@@ -53,9 +51,9 @@ public class PigYorkshire
 	public static class EntitySowYorkshire extends EntitySowBase
 	{
 	
-		public EntitySowYorkshire(Level world)
+		public EntitySowYorkshire(Level level)
 		{
-			super(world);
+			super(level);
 			this.pigType = PigType.YORKSHIRE;
 		}
 	

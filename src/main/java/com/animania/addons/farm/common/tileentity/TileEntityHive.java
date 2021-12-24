@@ -17,10 +17,9 @@ import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedTileE
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.world.World;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.BiomeDictionary;
@@ -57,7 +56,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 		nextHoney--;
 		if (nextHoney < 1)
 		{
-			Biome b = world.getBiome(pos);
+			Biome b = level.getBiome(pos);
 			boolean isCorrectBiome = false;
 			for (Type t : AnimaniaHelper.getBiomeTypes(FarmConfig.settings.hiveValidBiomeTypes))
 				if (BiomeDictionary.hasType(b, t))
@@ -106,22 +105,22 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket()
 	{
-		CompoundNBT tagCompound = new CompoundNBT();
+		CompoundTag tagCompound = new CompoundTag();
 		this.writeToNBT(tagCompound);
 		return new SPacketUpdateTileEntity(this.pos, 1, this.getUpdateTag());
 	}
 
 	@Override
-	public CompoundNBT getUpdateTag()
+	public CompoundTag getUpdateTag()
 	{
-		return this.writeToNBT(new CompoundNBT());
+		return this.writeToNBT(new CompoundTag());
 	}
 
 	@Override
-	public CompoundNBT writeToNBT(CompoundNBT compound)
+	public CompoundTag writeToNBT(CompoundTag compound)
 	{
-		CompoundNBT tag = super.writeToNBT(compound);
-		CompoundNBT fluid = new CompoundNBT();
+		CompoundTag tag = super.writeToNBT(compound);
+		CompoundTag fluid = new CompoundTag();
 		fluid = this.fluidHandler.writeToNBT(fluid);
 		tag.putInteger("nextHoney", nextHoney);
 		tag.putTag("fluid", fluid);
@@ -130,7 +129,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	}
 
 	@Override
-	public void readFromNBT(CompoundNBT compound)
+	public void readFromNBT(CompoundTag compound)
 	{
 		super.readFromNBT(compound);
 		this.fluidHandler = new FluidHandlerBeehive(5000);
@@ -148,7 +147,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	}
 
 	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newState)
+	public boolean shouldRefresh(Level level, BlockPos pos, BlockState oldState, BlockState newState)
 	{
 		return (oldState.getBlock() != newState.getBlock());
 	}
@@ -200,7 +199,7 @@ public class TileEntityHive extends AnimatedTileEntity implements ITickable
 	private void updateAnims()
 	{
 
-		if (this.isWorldRemote())
+		if (this.isLevelRemote())
 		{
 
 			if (this.level.getBlockState(pos).getBlock() == FarmAddonBlockHandler.blockWildHive)

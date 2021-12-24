@@ -26,13 +26,11 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.World;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,20 +45,20 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	public int dryTimer;
 	protected ItemStack milk = new ItemStack(Items.MILK_BUCKET);
-	protected static final DataParameter<Boolean> PREGNANT = EntityDataManager.<Boolean> createKey(CowEntityBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> HAS_KIDS = EntityDataManager.<Boolean> createKey(CowEntityBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> FERTILE = EntityDataManager.<Boolean> createKey(CowEntityBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> GESTATION_TIMER = EntityDataManager.<Integer> createKey(CowEntityBase.class, DataSerializers.VARINT);
-	protected static final DataParameter<Optional<UUID>> MATE_UNIQUE_ID = EntityDataManager.<Optional<UUID>> createKey(CowEntityBase.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final EntityDataAccessor<Boolean> PREGNANT = SynchedEntityData.defineId(CowEntityBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> HAS_KIDS = SynchedEntityData.defineId(CowEntityBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> FERTILE = SynchedEntityData.defineId(CowEntityBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> GESTATION_TIMER = SynchedEntityData.defineId(CowEntityBase.class, EntityDataSerializers.VARINT);
+	protected static final EntityDataAccessor<Optional<UUID>> MATE_UNIQUE_ID = SynchedEntityData.defineId(CowEntityBase.class, EntityDataSerializers.OPTIONAL_UNIQUE_ID);
 
-	public CowEntityBase(World worldIn)
+	public CowEntityBase(Level levelIn)
 	{
-		super(worldIn);
+		super(levelIn);
 		this.setSize(1.4F, 1.8F);
 		this.width = 1.4F;
 		this.height = 1.8F;
 		this.stepHeight = 1.1F;
-		this.tasks.addTask(4, new AttackMeleeGoal(this, 1.2D, false));
+		this.goalSelector.addGoal(4, new AttackMeleeGoal(this, 1.2D, false));
 		this.targetTasks.addTask(1, new HurtByTargetGoal(this, true, new Class[0]));
 		this.mateable = true;
 		this.gender = EntityGender.FEMALE;
@@ -137,13 +135,13 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	}
 
 	@Override
-	public DataParameter<Boolean> getFertileParam()
+	public EntityDataAccessor<Boolean> getFertileParam()
 	{
 		return FERTILE;
 	}
 
 	@Override
-	public DataParameter<Boolean> getHasKidsParam()
+	public EntityDataAccessor<Boolean> getHasKidsParam()
 	{
 		return HAS_KIDS;
 	}
@@ -230,7 +228,7 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid = CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, Entity entity, IProbeHitEntityData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, Entity entity, IProbeHitEntityData data)
 	{
 		if (player.isSneaking())
 		{
@@ -258,17 +256,17 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 				}
 			}
 		}
-		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, world, entity, data);
+		TOPInfoProviderMateable.super.addProbeInfo(mode, probeInfo, player, level, entity, data);
 	}
 
 	@Override
-	public DataParameter<Integer> getGestationParam()
+	public EntityDataAccessor<Integer> getGestationParam()
 	{
 		return GESTATION_TIMER;
 	}
 
 	@Override
-	public DataParameter<Boolean> getPregnantParam()
+	public EntityDataAccessor<Boolean> getPregnantParam()
 	{
 		return PREGNANT;
 	}
@@ -286,7 +284,7 @@ public class CowEntityBase extends EntityAnimaniaCow implements TOPInfoProviderM
 	}
 
 	@Override
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam()
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam()
 	{
 		return MATE_UNIQUE_ID;
 	}

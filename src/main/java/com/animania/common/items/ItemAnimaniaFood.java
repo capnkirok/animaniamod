@@ -16,7 +16,6 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -93,9 +92,9 @@ public class ItemAnimaniaFood extends ItemFood
 	}
 
 	@Override
-	protected void onFoodEaten(ItemStack itemstack, World worldObj, PlayerEntity PlayerEntity)
+	protected void onFoodEaten(ItemStack itemstack, Level levelObj, PlayerEntity PlayerEntity)
 	{
-		if (!worldObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects && this.effects != null)
+		if (!levelObj.isRemote && AnimaniaConfig.gameRules.foodsGiveBonusEffects && this.effects != null)
 			for (PotionEffect effect : this.effects.clone())
 			{
 				Potion pot = effect.getPotion();
@@ -107,7 +106,7 @@ public class ItemAnimaniaFood extends ItemFood
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+	public void addInformation(ItemStack stack, Level levelIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
 		if (AnimaniaConfig.gameRules.foodsGiveBonusEffects && this.effects != null)
 			for (PotionEffect effect : this.effects.clone())

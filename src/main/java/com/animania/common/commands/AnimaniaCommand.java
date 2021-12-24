@@ -16,7 +16,6 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.World;
 
 public class AnimaniaCommand extends CommandBase
 {
@@ -55,11 +54,11 @@ public class AnimaniaCommand extends CommandBase
 						long curr = System.currentTimeMillis();
 						if (time >= curr)
 						{
-							for (World world : server.levels)
+							for (Level level : server.levels)
 							{
 								List<Entity> convertedEntities = new ArrayList<Entity>();
 
-								for (Entity entity : world.loadedEntityList)
+								for (Entity entity : level.loadedEntityList)
 								{
 									if (entity instanceof IConvertable)
 									{
@@ -70,7 +69,7 @@ public class AnimaniaCommand extends CommandBase
 									}
 								}
 
-								convertedEntities.forEach(conv -> world.spawnEntity(conv));
+								convertedEntities.forEach(conv -> level.spawnEntity(conv));
 							}
 
 							servers.remove(server);

@@ -1,7 +1,6 @@
 package com.animania.addons.farm.common.entity.chickens;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 
 public class ChickenPlymouthRock
 {
@@ -9,9 +8,9 @@ public class ChickenPlymouthRock
 	public static class EntityChickPlymouthRock extends EntityChickBase
 	{
 
-		public EntityChickPlymouthRock(Level worldIn)
+		public EntityChickPlymouthRock(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = ChickenType.PLYMOUTH_ROCK;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/chick_specked.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chick_blink.png");
@@ -35,9 +34,9 @@ public class ChickenPlymouthRock
 	public static class EntityRoosterPlymouthRock extends EntityRoosterBase
 	{
 
-		public EntityRoosterPlymouthRock(Level worldIn)
+		public EntityRoosterPlymouthRock(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = ChickenType.PLYMOUTH_ROCK;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/rooster_specked.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png");
@@ -60,9 +59,9 @@ public class ChickenPlymouthRock
 	public static class EntityHenPlymouthRock extends EntityHenBase
 	{
 
-		public EntityHenPlymouthRock(Level worldIn)
+		public EntityHenPlymouthRock(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = ChickenType.PLYMOUTH_ROCK;
 			this.resourceLocation = new ResourceLocation("animania:textures/entity/chickens/hen_specked.png");
 			this.resourceLocationBlink = new ResourceLocation("animania:textures/entity/chickens/chicken_blink.png");

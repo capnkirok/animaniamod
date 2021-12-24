@@ -19,17 +19,15 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeModContainer;
@@ -56,7 +54,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, BlockState state, Entity entityIn)
+	public void onEntityCollidedWithBlock(Level levelIn, BlockPos pos, BlockState state, Entity entityIn)
 	{
 		if (entityIn != null && entityIn instanceof EntityItem)
 		{
@@ -66,62 +64,62 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 			BlockPos pos3 = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
 			BlockPos pos4 = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
 
-			Block chk1 = worldIn.getBlockState(pos1).getBlock();
-			Block chk2 = worldIn.getBlockState(pos2).getBlock();
-			Block chk3 = worldIn.getBlockState(pos3).getBlock();
-			Block chk4 = worldIn.getBlockState(pos4).getBlock();
+			Block chk1 = levelIn.getBlockState(pos1).getBlock();
+			Block chk2 = levelIn.getBlockState(pos2).getBlock();
+			Block chk3 = levelIn.getBlockState(pos3).getBlock();
+			Block chk4 = levelIn.getBlockState(pos4).getBlock();
 
 			if (chk1 != null && chk1 == BlockHandler.blockTrough)
 			{
-				String state1 = worldIn.getBlockState(pos1).toString().substring(29);
+				String state1 = levelIn.getBlockState(pos1).toString().substring(29);
 				state1 = state1.substring(0, state1.length() - 1);
 				if (state1.contains("south"))
 				{
-					worldIn.updateComparatorOutputLevel(pos, chk1);
+					levelIn.updateComparatorOutputLevel(pos, chk1);
 					pos = pos1;
-					state = worldIn.getBlockState(pos1);
-					chk1.onEntityCollidedWithBlock(worldIn, pos1, state, entityIn);
+					state = levelIn.getBlockState(pos1);
+					chk1.onEntityCollidedWithBlock(levelIn, pos1, state, entityIn);
 				}
 			}
 
 			if (chk2 != null && chk2 == BlockHandler.blockTrough)
 			{
-				String state2 = worldIn.getBlockState(pos2).toString().substring(29);
+				String state2 = levelIn.getBlockState(pos2).toString().substring(29);
 				state2 = state2.substring(0, state2.length() - 1);
 				if (state2.contains("north"))
 				{
-					worldIn.updateComparatorOutputLevel(pos, chk2);
+					levelIn.updateComparatorOutputLevel(pos, chk2);
 					pos = pos2;
-					state = worldIn.getBlockState(pos2);
-					chk2.onEntityCollidedWithBlock(worldIn, pos2, state, entityIn);
+					state = levelIn.getBlockState(pos2);
+					chk2.onEntityCollidedWithBlock(levelIn, pos2, state, entityIn);
 
 				}
 			}
 
 			if (chk3 != null && chk3 == BlockHandler.blockTrough)
 			{
-				String state3 = worldIn.getBlockState(pos3).toString().substring(29);
+				String state3 = levelIn.getBlockState(pos3).toString().substring(29);
 				state3 = state3.substring(0, state3.length() - 1);
 				if (state3.contains("west"))
 				{
-					worldIn.updateComparatorOutputLevel(pos, chk3);
+					levelIn.updateComparatorOutputLevel(pos, chk3);
 					pos = pos3;
-					state = worldIn.getBlockState(pos3);
-					chk3.onEntityCollidedWithBlock(worldIn, pos3, state, entityIn);
+					state = levelIn.getBlockState(pos3);
+					chk3.onEntityCollidedWithBlock(levelIn, pos3, state, entityIn);
 
 				}
 			}
 
 			if (chk4 != null && chk4 == BlockHandler.blockTrough)
 			{
-				String state4 = worldIn.getBlockState(pos4).toString().substring(29);
+				String state4 = levelIn.getBlockState(pos4).toString().substring(29);
 				state4 = state4.substring(0, state4.length() - 1);
 				if (state4.contains("east"))
 				{
-					worldIn.updateComparatorOutputLevel(pos, chk4);
+					levelIn.updateComparatorOutputLevel(pos, chk4);
 					pos = pos4;
-					state = worldIn.getBlockState(pos4);
-					chk4.onEntityCollidedWithBlock(worldIn, pos4, state, entityIn);
+					state = levelIn.getBlockState(pos4);
+					chk4.onEntityCollidedWithBlock(levelIn, pos4, state, entityIn);
 				}
 			}
 
@@ -190,7 +188,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	
 
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, BlockState state)
+	public void breakBlock(Level levelIn, BlockPos pos, BlockState state)
 	{
 
 		BlockPos pos1 = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
@@ -198,54 +196,54 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 		BlockPos pos3 = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
 		BlockPos pos4 = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
 
-		Block block1 = worldIn.getBlockState(pos1).getBlock();
-		Block block2 = worldIn.getBlockState(pos2).getBlock();
-		Block block3 = worldIn.getBlockState(pos3).getBlock();
-		Block block4 = worldIn.getBlockState(pos4).getBlock();
+		Block block1 = levelIn.getBlockState(pos1).getBlock();
+		Block block2 = levelIn.getBlockState(pos2).getBlock();
+		Block block3 = levelIn.getBlockState(pos3).getBlock();
+		Block block4 = levelIn.getBlockState(pos4).getBlock();
 
 		if (block1 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos1);
-			if (te != null && te.getTroughRotation() == 1 && !worldIn.isRemote)
+			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos1);
+			if (te != null && te.getTroughRotation() == 1 && !levelIn.isRemote)
 			{
-				worldIn.setBlockToAir(pos1);
-				super.breakBlock(worldIn, pos1, state);
+				levelIn.setBlockToAir(pos1);
+				super.breakBlock(levelIn, pos1, state);
 			}
 		}
 
 		if (block2 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos2);
-			if (te != null && te.getTroughRotation() == 0 && !worldIn.isRemote)
+			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos2);
+			if (te != null && te.getTroughRotation() == 0 && !levelIn.isRemote)
 			{
-				worldIn.setBlockToAir(pos2);
-				super.breakBlock(worldIn, pos2, state);
+				levelIn.setBlockToAir(pos2);
+				super.breakBlock(levelIn, pos2, state);
 			}
 		}
 
 		if (block3 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos3);
-			if (te != null && te.getTroughRotation() == 2 && !worldIn.isRemote)
+			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos3);
+			if (te != null && te.getTroughRotation() == 2 && !levelIn.isRemote)
 			{
-				worldIn.setBlockToAir(pos3);
-				super.breakBlock(worldIn, pos3, state);
+				levelIn.setBlockToAir(pos3);
+				super.breakBlock(levelIn, pos3, state);
 			}
 
 		}
 
 		if (block4 == BlockHandler.blockTrough)
 		{
-			TileEntityTrough te = (TileEntityTrough) worldIn.getTileEntity(pos4);
-			if (te != null && te.getTroughRotation() == 3 && !worldIn.isRemote)
+			TileEntityTrough te = (TileEntityTrough) levelIn.getTileEntity(pos4);
+			if (te != null && te.getTroughRotation() == 3 && !levelIn.isRemote)
 			{
-				worldIn.setBlockToAir(pos4);
-				super.breakBlock(worldIn, pos4, state);
+				levelIn.setBlockToAir(pos4);
+				super.breakBlock(levelIn, pos4, state);
 			}
 
 		}
 
-		super.breakBlock(worldIn, pos, state);
+		super.breakBlock(levelIn, pos, state);
 	}
 
 	@Override
@@ -255,7 +253,7 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
+	public boolean onBlockActivated(Level levelIn, BlockPos pos, BlockState state, PlayerEntity playerIn, EnumHand hand, Direction facing, float hitX, float hitY, float hitZ)
 	{
 
 		BlockPos pos1 = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
@@ -263,63 +261,63 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 		BlockPos pos3 = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
 		BlockPos pos4 = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
 
-		Block chk1 = worldIn.getBlockState(pos1).getBlock();
-		Block chk2 = worldIn.getBlockState(pos2).getBlock();
-		Block chk3 = worldIn.getBlockState(pos3).getBlock();
-		Block chk4 = worldIn.getBlockState(pos4).getBlock();
+		Block chk1 = levelIn.getBlockState(pos1).getBlock();
+		Block chk2 = levelIn.getBlockState(pos2).getBlock();
+		Block chk3 = levelIn.getBlockState(pos3).getBlock();
+		Block chk4 = levelIn.getBlockState(pos4).getBlock();
 
 		if (chk1 != null && chk1 == BlockHandler.blockTrough)
 		{
-			String state1 = worldIn.getBlockState(pos1).toString().substring(29);
+			String state1 = levelIn.getBlockState(pos1).toString().substring(29);
 			state1 = state1.substring(0, state1.length() - 1);
 			if (state1.contains("south"))
 			{
-				worldIn.updateComparatorOutputLevel(pos, chk1);
+				levelIn.updateComparatorOutputLevel(pos, chk1);
 				pos = pos1;
-				state = worldIn.getBlockState(pos1);
-				return chk1.onBlockActivated(worldIn, pos1, state, playerIn, hand, facing, hitX, hitY, hitZ);
+				state = levelIn.getBlockState(pos1);
+				return chk1.onBlockActivated(levelIn, pos1, state, playerIn, hand, facing, hitX, hitY, hitZ);
 
 			}
 		}
 
 		if (chk2 != null && chk2 == BlockHandler.blockTrough)
 		{
-			String state2 = worldIn.getBlockState(pos2).toString().substring(29);
+			String state2 = levelIn.getBlockState(pos2).toString().substring(29);
 			state2 = state2.substring(0, state2.length() - 1);
 			if (state2.contains("north"))
 			{
-				worldIn.updateComparatorOutputLevel(pos, chk2);
+				levelIn.updateComparatorOutputLevel(pos, chk2);
 				pos = pos2;
-				state = worldIn.getBlockState(pos2);
-				return chk2.onBlockActivated(worldIn, pos2, state, playerIn, hand, facing, hitX, hitY, hitZ);
+				state = levelIn.getBlockState(pos2);
+				return chk2.onBlockActivated(levelIn, pos2, state, playerIn, hand, facing, hitX, hitY, hitZ);
 
 			}
 		}
 
 		if (chk3 != null && chk3 == BlockHandler.blockTrough)
 		{
-			String state3 = worldIn.getBlockState(pos3).toString().substring(29);
+			String state3 = levelIn.getBlockState(pos3).toString().substring(29);
 			state3 = state3.substring(0, state3.length() - 1);
 			if (state3.contains("west"))
 			{
-				worldIn.updateComparatorOutputLevel(pos, chk3);
+				levelIn.updateComparatorOutputLevel(pos, chk3);
 				pos = pos3;
-				state = worldIn.getBlockState(pos3);
-				return chk3.onBlockActivated(worldIn, pos3, state, playerIn, hand, facing, hitX, hitY, hitZ);
+				state = levelIn.getBlockState(pos3);
+				return chk3.onBlockActivated(levelIn, pos3, state, playerIn, hand, facing, hitX, hitY, hitZ);
 
 			}
 		}
 
 		if (chk4 != null && chk4 == BlockHandler.blockTrough)
 		{
-			String state4 = worldIn.getBlockState(pos4).toString().substring(29);
+			String state4 = levelIn.getBlockState(pos4).toString().substring(29);
 			state4 = state4.substring(0, state4.length() - 1);
 			if (state4.contains("east"))
 			{
-				worldIn.updateComparatorOutputLevel(pos, chk4);
+				levelIn.updateComparatorOutputLevel(pos, chk4);
 				pos = pos4;
-				state = worldIn.getBlockState(pos4);
-				return chk4.onBlockActivated(worldIn, pos4, state, playerIn, hand, facing, hitX, hitY, hitZ);
+				state = levelIn.getBlockState(pos4);
+				return chk4.onBlockActivated(levelIn, pos4, state, playerIn, hand, facing, hitX, hitY, hitZ);
 			}
 		}
 
@@ -340,22 +338,22 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 	}
 
 	@Override
-	public ItemStack getPickBlock(BlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player)
+	public ItemStack getPickBlock(BlockState state, RayTraceResult target, Level level, BlockPos pos, PlayerEntity player)
 	{
 		return new ItemStack(BlockHandler.blockTrough);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta)
+	public TileEntity createNewTileEntity(Level levelIn, int meta)
 	{
 		return new TileEntityInvisiblock();
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos)
+	public int getComparatorInputOverride(BlockState blockState, Level levelIn, BlockPos pos)
 	{
 
-		TileEntityInvisiblock te = (TileEntityInvisiblock) worldIn.getTileEntity(pos);
+		TileEntityInvisiblock te = (TileEntityInvisiblock) levelIn.getTileEntity(pos);
 		if (te.getTrough() != null)
 		{
 			if (!te.getTrough().itemHandler.getStackInSlot(0).isEmpty())
@@ -372,9 +370,9 @@ public class BlockInvisiblock extends BaseEntityBlock implements TOPInfoProvider
 
 	@Override
 	@net.minecraftforge.fml.common.Optional.Method(modid=CompatHandler.THEONEPROBE_ID)
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data)
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, Level level, BlockState blockState, IProbeHitData data)
 	{
-		TileEntity te = world.getTileEntity(data.getPos());
+		TileEntity te = level.getTileEntity(data.getPos());
 		if (te instanceof TileEntityInvisiblock)
 		{
 			TileEntityInvisiblock invis = (TileEntityInvisiblock) te;

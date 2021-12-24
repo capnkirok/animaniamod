@@ -14,9 +14,8 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemShears;
+import net.minecraft.level.IBlockAccess;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
@@ -54,19 +53,19 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	}
 
 	@Override
-	public float getPlayerRelativeBlockHardness(BlockState state, PlayerEntity player, World worldIn, BlockPos pos)
+	public float getPlayerRelativeBlockHardness(BlockState state, PlayerEntity player, Level levelIn, BlockPos pos)
 	{
 		ItemStack stack = player.getMainHandItem();
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemShears)
 			return 0.16f;
 		else
-			return super.getPlayerRelativeBlockHardness(state, player, worldIn, pos);
+			return super.getPlayerRelativeBlockHardness(state, player, levelIn, pos);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
+	public void onBlockPlacedBy(Level levelIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
 	{
-		worldIn.setBlock(pos, this.getStateFromMeta(stack.getMetadata()));
+		levelIn.setBlock(pos, this.getStateFromMeta(stack.getMetadata()));
 	}
 
 	@Override
@@ -97,7 +96,7 @@ public class BlockAnimaniaWool extends AnimaniaBlock implements IMetaBlockName
 	}
 
 	@Override
-	public MaterialColor getMaterialColor(BlockState state, IBlockAccess worldIn, BlockPos pos)
+	public MaterialColor getMaterialColor(BlockState state, IBlockAccess levelIn, BlockPos pos)
 	{
 		return ((BlockAnimaniaWool.EnumType) state.getValue(VARIANT)).getMaterialColor();
 	}

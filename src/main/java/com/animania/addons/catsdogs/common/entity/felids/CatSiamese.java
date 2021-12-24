@@ -1,15 +1,13 @@
 package com.animania.addons.catsdogs.common.entity.felids;
 
-import net.minecraft.world.level.Level;
-
 public class CatSiamese
 {
 
 	public static class EntityTomSiamese extends EntityTomBase
 	{
-		public EntityTomSiamese(Level worldIn)
+		public EntityTomSiamese(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = CatType.SIAMESE;
 		}
 	
@@ -27,9 +25,9 @@ public class CatSiamese
 	}
 
 	public static class EntityQueenSiamese extends EntityQueenBase {
-		public EntityQueenSiamese(Level worldIn)
+		public EntityQueenSiamese(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = CatType.SIAMESE;
 		}
 		
@@ -47,9 +45,9 @@ public class CatSiamese
 	}
 
 	public static class EntityKittenSiamese extends EntityKittenBase {
-		public EntityKittenSiamese(Level worldIn)
+		public EntityKittenSiamese(Level levelIn)
 		{
-			super(worldIn);
+			super(levelIn);
 			this.type = CatType.SIAMESE;
 		}
 		
