@@ -2,10 +2,10 @@ package com.animania.common.entities.generic.ai;
 
 import com.animania.api.interfaces.ISleeping;
 
-import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
 
-public class GenericAISit<T extends TameableEntity & ISleeping> extends SitGoal
+public class GenericAISit<T extends TamableAnimal & ISleeping> extends SitWhenOrderedToGoal
 {
 
 	T entity;

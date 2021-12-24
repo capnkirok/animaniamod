@@ -1,8 +1,7 @@
 package com.animania.addons.farm.common.entity.goats;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class GoatFainting
 {
@@ -10,7 +9,7 @@ public class GoatFainting
 	public static class EntityBuckFainting extends EntityBuckBase
 	{
 
-		public EntityBuckFainting(World worldIn)
+		public EntityBuckFainting(Level worldIn)
 		{
 			super(worldIn);
 			this.goatType = GoatType.FAINTING;

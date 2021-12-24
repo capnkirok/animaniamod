@@ -5,9 +5,8 @@ import java.util.Map;
 
 import com.animania.api.data.AnimalContainer;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.EntityEntry;
 import net.minecraftforge.registries.ForgeRegistries;
 

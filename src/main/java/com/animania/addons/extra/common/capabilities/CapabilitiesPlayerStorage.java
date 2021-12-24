@@ -3,9 +3,9 @@ package com.animania.addons.extra.common.capabilities;
 import java.util.concurrent.Callable;
 
 import NBTBase;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 

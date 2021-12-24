@@ -1,7 +1,6 @@
 package com.animania.addons.extra.client.model.rodents;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.entity.Entity;
 
 public class ModelBall extends ModelBase
 {

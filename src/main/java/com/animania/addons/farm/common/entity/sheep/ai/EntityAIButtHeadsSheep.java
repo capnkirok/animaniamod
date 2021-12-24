@@ -8,21 +8,21 @@ import com.animania.addons.farm.common.entity.sheep.EntityLambBase;
 import com.animania.addons.farm.common.entity.sheep.EntityRamBase;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.level.Level;
 
 public class ButtHeadsSheepGoal extends Goal
 {
-	private final AnimalEntity theAnimal;
-	World theWorld;
-	private AnimalEntity targetMate;
+	private final Animal theAnimal;
+	Level theWorld;
+	private Animal targetMate;
 	int fightTimer;
 	double moveSpeed;
 	private int delayCounter;
 
 
-	public ButtHeadsSheepGoal(AnimalEntity animal, double speedIn)
+	public ButtHeadsSheepGoal(Animal animal, double speedIn)
 	{
 		this.theAnimal = animal;
 		this.theWorld = animal.level;

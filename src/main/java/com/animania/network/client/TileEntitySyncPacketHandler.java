@@ -2,11 +2,12 @@ package com.animania.network.client;
 
 import javax.xml.ws.handler.MessageContext;
 
+import IMessage;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IThreadListener;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 public class TileEntitySyncPacketHandler {

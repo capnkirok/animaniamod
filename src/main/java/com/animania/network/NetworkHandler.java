@@ -6,7 +6,7 @@ import com.animania.network.client.TileEntitySyncPacketHandler;
 import com.animania.network.common.PacketCloseManual;
 
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.network.NetworkRegistry;
 
 public class NetworkHandler
 {

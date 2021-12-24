@@ -10,10 +10,6 @@ import com.animania.api.interfaces.ISleeping;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.TargetGoal;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
@@ -21,9 +17,12 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.target.TargetGoal;
+import net.minecraft.world.item.ItemStack;
 
 public class GenericAINearestAttackableTarget<T extends LivingEntity> extends TargetGoal
 {
@@ -34,17 +33,17 @@ public class GenericAINearestAttackableTarget<T extends LivingEntity> extends Ta
 	protected final Predicate<? super T> targetEntitySelector;
 	protected T targetEntity;
 
-	public GenericAINearestAttackableTarget(CreatureEntity creature, Class<T> classTarget, boolean checkSight)
+	public GenericAINearestAttackableTarget(PathfinderMob creature, Class<T> classTarget, boolean checkSight)
 	{
 		this(creature, classTarget, checkSight, false);
 	}
 
-	public GenericAINearestAttackableTarget(CreatureEntity creature, Class<T> classTarget, boolean checkSight, boolean onlyNearby)
+	public GenericAINearestAttackableTarget(PathfinderMob creature, Class<T> classTarget, boolean checkSight, boolean onlyNearby)
 	{
 		this(creature, classTarget, 10, checkSight, onlyNearby, (Predicate) null);
 	}
 
-	public GenericAINearestAttackableTarget(CreatureEntity creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, @Nullable final Predicate<? super T> targetSelector)
+	public GenericAINearestAttackableTarget(PathfinderMob creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, @Nullable final Predicate<? super T> targetSelector)
 	{
 		super(creature, checkSight, onlyNearby);
 		this.targetClass = classTarget;

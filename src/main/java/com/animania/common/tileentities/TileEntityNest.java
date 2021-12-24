@@ -9,18 +9,16 @@ import com.animania.common.handler.AnimalTypeHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.handler.ItemHandlerNest;
 
-import net.minecraft.client.renderer.texture.ITickable;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.client.renderer.texture.Tickable;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityNest extends TileEntity implements ITickable
+public class TileEntityNest extends BlockEntity implements Tickable
 {
 
 	private NestContent nestContent;
@@ -44,7 +42,7 @@ public class TileEntityNest extends TileEntity implements ITickable
 	}
 
 	@Override
-	public CompoundNBT writeToNBT(CompoundNBT compound)
+	public CompoundTag writeToNBT(CompoundTag compound)
 	{
 		super.writeToNBT(compound);
 		CompoundNBT items = this.itemHandler.serializeNBT();

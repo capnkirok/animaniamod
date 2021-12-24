@@ -6,9 +6,9 @@ import com.animania.addons.extra.common.capabilities.CapabilityRefs;
 import com.animania.addons.extra.common.capabilities.ICapabilityPlayer;
 import com.animania.addons.extra.network.CapSyncPacket;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -20,7 +20,7 @@ public class CapabilityLoadHandler
 	@SubscribeEvent
 	public static void onEntityConstructing(AttachCapabilitiesEvent<Entity> event)
 	{
-		if (event.getObject() instanceof PlayerEntity)
+		if (event.getObject() instanceof Player)
 		{
 			event.addCapability(CapabilityRefs.toResource("AnimaniaPlayerCaps"), new CapabilityPlayerProvider());
 		}
@@ -44,10 +44,10 @@ public class CapabilityLoadHandler
 	public static void startTracking(StartTracking event)
 	{
 		Entity target = event.getTarget();
-		PlayerEntity viewer = event.getPlayer();
-		if (target instanceof ServerPlayerEntity)
+		Player viewer = event.getPlayer();
+		if (target instanceof ServerPlayer)
 		{
-			ICapabilityPlayer caps = CapabilityRefs.getPlayerCaps((PlayerEntity) target);
+			ICapabilityPlayer caps = CapabilityRefs.getPlayerCaps((Player) target);
 			if (caps != null)
 				Animania.network.sendTo(new CapSyncPacket(caps, target.getEntityId()), (ServerPlayerEntity) viewer);
 		}

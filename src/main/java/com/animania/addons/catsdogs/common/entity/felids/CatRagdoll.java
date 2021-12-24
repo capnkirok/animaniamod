@@ -1,13 +1,13 @@
 package com.animania.addons.catsdogs.common.entity.felids;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class CatRagdoll
 {
 
 	public static class EntityTomRagdoll extends EntityTomBase
 	{
-		public EntityTomRagdoll(World worldIn)
+		public EntityTomRagdoll(Level worldIn)
 		{
 			super(worldIn);
 			this.type = CatType.RAGDOLL;
@@ -27,7 +27,7 @@ public class CatRagdoll
 	}
 
 	public static class EntityQueenRagdoll extends EntityQueenBase {
-		public EntityQueenRagdoll(World worldIn)
+		public EntityQueenRagdoll(Level worldIn)
 		{
 			super(worldIn);
 			this.type = CatType.RAGDOLL;
@@ -47,7 +47,7 @@ public class CatRagdoll
 	}
 
 	public static class EntityKittenRagdoll extends EntityKittenBase {
-		public EntityKittenRagdoll(World worldIn)
+		public EntityKittenRagdoll(Level worldIn)
 		{
 			super(worldIn);
 			this.type = CatType.RAGDOLL;

@@ -27,7 +27,7 @@ import com.animania.addons.extra.common.entity.peafowl.PeafowlWhite.EntityPeacoc
 import com.animania.addons.extra.common.entity.peafowl.PeafowlWhite.EntityPeafowlWhite;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public enum PeacockType implements AnimaniaType
 {
@@ -51,12 +51,12 @@ public enum PeacockType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityPeacockBase getMale(World world)
+	public EntityPeacockBase getMale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.male.getConstructor(World.class);
+			constructor = this.male.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -75,12 +75,12 @@ public enum PeacockType implements AnimaniaType
 	}
 
 	@Override
-	public EntityPeafowlBase getFemale(World world)
+	public EntityPeafowlBase getFemale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.female.getConstructor(World.class);
+			constructor = this.female.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -99,12 +99,12 @@ public enum PeacockType implements AnimaniaType
 	}
 
 	@Override
-	public EntityPeachickBase getChild(World world)
+	public EntityPeachickBase getChild(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.child.getConstructor(World.class);
+			constructor = this.child.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{

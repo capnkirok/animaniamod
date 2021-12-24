@@ -5,7 +5,7 @@ import com.animania.manual.gui.GuiManual;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class ItemComponent implements IManualComponent
 {

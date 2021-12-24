@@ -1,7 +1,7 @@
 package com.animania.addons.extra.common.entity.peafowl;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class PeafowlPurple
 {
@@ -9,7 +9,7 @@ public class PeafowlPurple
 	public static class EntityPeachickPurple extends EntityPeachickBase
 	{
 	
-		public EntityPeachickPurple(World worldIn)
+		public EntityPeachickPurple(Level worldIn)
 		{
 			super(worldIn);
 			this.type = PeacockType.PURPLE;
@@ -34,7 +34,7 @@ public class PeafowlPurple
 	public static class EntityPeacockPurple extends EntityPeacockBase
 	{
 	
-		public EntityPeacockPurple(World worldIn)
+		public EntityPeacockPurple(Level worldIn)
 		{
 			super(worldIn);
 			this.type = PeacockType.PURPLE;
@@ -59,7 +59,7 @@ public class PeafowlPurple
 	public static class EntityPeafowlPurple extends EntityPeafowlBase
 	{
 	
-		public EntityPeafowlPurple(World worldIn)
+		public EntityPeafowlPurple(Level worldIn)
 		{
 			super(worldIn);
 			this.type = PeacockType.PURPLE;

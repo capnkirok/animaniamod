@@ -2,15 +2,14 @@ package com.animania.addons.extra.common.entity.peafowl;
 
 import com.animania.api.data.EntityGender;
 
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class EntityPeacockBase extends EntityAnimaniaPeacock
 {
 
 	
 	
-	public EntityPeacockBase(World worldIn)
+	public EntityPeacockBase(Level worldIn)
 	{
 		super(worldIn);
 		this.setSize(0.8F, 1.6F); 

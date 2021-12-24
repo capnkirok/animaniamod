@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class SheepSuffolk
 {
@@ -16,7 +16,7 @@ public class SheepSuffolk
 	public static class EntityRamSuffolk extends EntityRamBase
 	{
 	
-		public EntityRamSuffolk(World worldIn)
+		public EntityRamSuffolk(Level worldIn)
 		{
 			super(worldIn);
 			this.sheepType = SheepType.SUFFOLK;

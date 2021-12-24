@@ -1,6 +1,6 @@
 package com.animania.addons.extra.common.entity.rodents.rabbits;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class RabbitCottonail
 {
@@ -8,7 +8,7 @@ public class RabbitCottonail
 	public static class RabbitEntityKitCottontail extends RabbitEntityKitBase
 	{
 	
-		public RabbitEntityKitCottontail(World worldIn)
+		public RabbitEntityKitCottontail(Level worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.COTTONTAIL;
@@ -31,7 +31,7 @@ public class RabbitCottonail
 	public static class RabbitEntityDoeCottontail extends RabbitEntityDoeBase
 	{
 	
-		public RabbitEntityDoeCottontail(World worldIn)
+		public RabbitEntityDoeCottontail(Level worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.COTTONTAIL;
@@ -55,7 +55,7 @@ public class RabbitCottonail
 	public static class RabbitEntityBuckCottontail extends RabbitEntityBuckBase
 	{
 	
-		public RabbitEntityBuckCottontail(World worldIn)
+		public RabbitEntityBuckCottontail(Level worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.COTTONTAIL;

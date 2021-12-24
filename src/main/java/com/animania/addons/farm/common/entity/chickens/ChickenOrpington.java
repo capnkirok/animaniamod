@@ -1,7 +1,7 @@
 package com.animania.addons.farm.common.entity.chickens;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class ChickenOrpington
 {
@@ -9,7 +9,7 @@ public class ChickenOrpington
 	public static class EntityChickOrpington extends EntityChickBase
 	{
 
-		public EntityChickOrpington(World worldIn)
+		public EntityChickOrpington(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.ORPINGTON;
@@ -34,7 +34,7 @@ public class ChickenOrpington
 	public static class EntityRoosterOrpington extends EntityRoosterBase
 	{
 
-		public EntityRoosterOrpington(World worldIn)
+		public EntityRoosterOrpington(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.ORPINGTON;
@@ -59,7 +59,7 @@ public class ChickenOrpington
 	public static class EntityHenOrpington extends EntityHenBase
 	{
 
-		public EntityHenOrpington(World worldIn)
+		public EntityHenOrpington(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.ORPINGTON;

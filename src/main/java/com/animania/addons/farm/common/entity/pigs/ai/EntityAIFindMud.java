@@ -11,12 +11,11 @@ import com.animania.common.handler.BlockHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.block.Block;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 
 public class FindMudGoal extends Goal
 {
@@ -27,7 +26,7 @@ public class FindMudGoal extends Goal
 	private double               targetZ;
 	private double               pitch;
 	private double               yaw;
-	private PlayerEntity         temptingPlayer;
+	private Player         temptingPlayer;
 	private int                  delayTemptCounter;
 	private boolean              isRunning;
 

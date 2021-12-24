@@ -4,7 +4,7 @@ package com.animania.common.entities.generic.ai;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.common.handler.AddonInjectionHandler;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 
 public class GenericAILookIdle<T extends LivingEntity & ISleeping> extends LookIdleGoal
 {

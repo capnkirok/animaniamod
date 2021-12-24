@@ -21,7 +21,7 @@ import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityHe
 import com.animania.addons.farm.common.entity.chickens.ChickenWyandotte.EntityRoosterWyandotte;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public enum ChickenType implements AnimaniaType
 {
@@ -46,12 +46,12 @@ public enum ChickenType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityRoosterBase getMale(World world)
+	public EntityRoosterBase getMale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.male.getConstructor(World.class);
+			constructor = this.male.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -70,12 +70,12 @@ public enum ChickenType implements AnimaniaType
 	}
 
 	@Override
-	public EntityHenBase getFemale(World world)
+	public EntityHenBase getFemale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.female.getConstructor(World.class);
+			constructor = this.female.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -94,12 +94,12 @@ public enum ChickenType implements AnimaniaType
 	}
 
 	@Override
-	public EntityChickBase getChild(World world)
+	public EntityChickBase getChild(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.child.getConstructor(World.class);
+			constructor = this.child.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{

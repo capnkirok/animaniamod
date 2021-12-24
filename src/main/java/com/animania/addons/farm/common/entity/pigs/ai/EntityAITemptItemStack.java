@@ -3,10 +3,10 @@ package com.animania.addons.farm.common.entity.pigs.ai;
 import com.animania.addons.farm.common.entity.pigs.EntityAnimaniaPig;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class TemptItemStackGoal extends Goal
 {
@@ -17,7 +17,7 @@ public class TemptItemStackGoal extends Goal
 	private double targetZ;
 	private double pitch;
 	private double yaw;
-	private PlayerEntity temptingPlayer;
+	private Player temptingPlayer;
 	private int delayTemptCounter;
 	private boolean isRunning;
 	private final ItemStack temptItem;

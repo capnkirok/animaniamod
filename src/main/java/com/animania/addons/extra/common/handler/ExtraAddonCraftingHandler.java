@@ -11,8 +11,7 @@ import static com.animania.addons.extra.common.handler.ExtraAddonItemHandler.raw
 import static com.animania.addons.extra.common.handler.ExtraAddonItemHandler.rawPrimePeacock;
 import static com.animania.addons.extra.common.handler.ExtraAddonItemHandler.rawPrimeRabbit;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ExtraAddonCraftingHandler

@@ -7,12 +7,12 @@ import com.animania.addons.catsdogs.common.entity.felids.EntityAnimaniaCat;
 import com.animania.addons.catsdogs.config.CatsDogsConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.passive.OcelotEntity;
-import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -22,13 +22,13 @@ public class CatsDogsAddonSpawnHandler
 	public static void removeSpawns(CheckSpawn event)
 	{
 		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
-		World worldIn = event.getWorld();
+		Level worldIn = event.getWorld();
 		Biome biome = event.getWorld().getBiome(pos);
 		int chooser = 0;
 
 		LivingEntity replacementEntity = null;
 
-		if (CatsDogsConfig.catsdogs.replaceVanillaWolves && (event.getEntity().getClass().equals(WolfEntity.class)) && !worldIn.isRemote)
+		if (CatsDogsConfig.catsdogs.replaceVanillaWolves && (event.getEntity().getClass().equals(Wolf.class)) && !worldIn.isRemote)
 		{
 			event.setResult(Result.DENY);
 		} else if (CatsDogsConfig.catsdogs.replaceVanillaOcelots && event.getEntity().getClass().equals(OcelotEntity.class) && !worldIn.isRemote)

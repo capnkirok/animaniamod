@@ -2,7 +2,7 @@ package com.animania.addons.farm.common.entity.cows;
 
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
@@ -12,7 +12,7 @@ public class CowJersey
 	public static class EntityBullJersey extends EntityBullBase
 	{
 
-		public EntityBullJersey(World world)
+		public EntityBullJersey(Level world)
 		{
 			super(world);
 			this.cowType = CowType.JERSEY;
@@ -36,7 +36,7 @@ public class CowJersey
 	public static class CowEntityJersey extends CowEntityBase
 	{
 
-		public CowEntityJersey(World world)
+		public CowEntityJersey(Level world)
 		{
 			super(world);
 			this.cowType = CowType.JERSEY;

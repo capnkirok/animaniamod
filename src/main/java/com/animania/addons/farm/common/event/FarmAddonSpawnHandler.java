@@ -56,16 +56,16 @@ import com.animania.addons.farm.common.entity.sheep.SheepSuffolk.EntityRamSuffol
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.passive.horse.HorseEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -76,13 +76,13 @@ public class FarmAddonSpawnHandler
 	public static void removeSpawns(CheckSpawn event)
 	{
 		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
-		World worldIn = event.getWorld();
+		Level worldIn = event.getWorld();
 		Biome biome = event.getWorld().getBiome(pos);
 		int chooser = 0;
 
 		LivingEntity replacementEntity = null;
 
-		if (FarmConfig.settings.spawning_and_breeding.replaceVanillaCows && (event.getEntity().getClass().equals(CowEntity.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !worldIn.isRemote)
+		if (FarmConfig.settings.spawning_and_breeding.replaceVanillaCows && (event.getEntity().getClass().equals(Cow.class) || event.getEntity().getClass().equals(EntityMooshroom.class)) && !worldIn.isRemote)
 		{
 			if (!event.getEntity().hasCustomName())
 			{

@@ -13,10 +13,10 @@ import com.animania.common.items.ItemManual;
 
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityList.EntityEggInfo;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class ItemHandler
 {
@@ -37,7 +37,7 @@ public class ItemHandler
 		ItemHandler.entityeggrandomanimal = new ItemEntityEgg("random", new RandomAnimalType(), EntityGender.RANDOM);
 	}
 
-	public static void regItemEggColors(World world)
+	public static void regItemEggColors(Level world)
 	{
 		if (!hasSetEggColors)
 		{

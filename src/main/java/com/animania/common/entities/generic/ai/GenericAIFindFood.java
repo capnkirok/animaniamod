@@ -9,17 +9,14 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.common.blocks.fluids.BlockFluidBase;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.fluid.Fluid;
+import net.minecraft.core.BlockPos;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class GenericAIFindFood<T extends CreatureEntity & IFoodEating & ISleeping> extends GenericAISearchBlock
+public class GenericAIFindFood<T extends PathfinderMob & IFoodEating & ISleeping> extends GenericAISearchBlock
 {
 
 	private final T entity;

@@ -12,21 +12,21 @@ import com.animania.compat.top.providers.entity.TOPInfoProviderChild;
 import com.google.common.base.Optional;
 
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.level.Level;
 
 public class EntityPuppyBase extends EntityAnimaniaDog implements TOPInfoProviderChild, IChild, IPlaying
 {
 
-	protected static final DataParameter<Optional<UUID>> PARENT_UNIQUE_ID = EntityDataManager.<Optional<UUID>> defineId(EntityPuppyBase.class, DataSerializers.OPTIONAL_UUID);
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float> defineId(EntityPuppyBase.class, DataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Optional<UUID>> PARENT_UNIQUE_ID = SynchedEntityData.<Optional<UUID>> defineId(EntityPuppyBase.class, EntityDataSerializers.OPTIONAL_UUID);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float> defineId(EntityPuppyBase.class, EntityDataSerializers.FLOAT);
 	protected int ageTimer;
 
 	protected GenericAIPlay playAI;
 
-	public EntityPuppyBase(World worldIn)
+	public EntityPuppyBase(Level worldIn)
 	{
 		super(worldIn);
 		this.setSize(1f, 1f);

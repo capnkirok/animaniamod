@@ -8,14 +8,14 @@ import com.animania.addons.farm.common.entity.horses.EntityStallionBase;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.animal.Animal;
 
 public class FollowMateHorsesGoal extends Goal
 {
 	EntityAnimaniaHorse thisAnimal;
-	AnimalEntity mateAnimal;
+	Animal mateAnimal;
 	double moveSpeed;
 	private int delayCounter;
 
@@ -51,15 +51,15 @@ public class FollowMateHorsesGoal extends Goal
 							double xt = entity.getX();
 							double yt = entity.getY();
 							double zt = entity.getZ();
-							int x1 = MathHelper.floor(this.thisAnimal.getX());
-							int y1 = MathHelper.floor(this.thisAnimal.getY());
-							int z1 = MathHelper.floor(this.thisAnimal.getZ());
+							int x1 = Mth.floor(this.thisAnimal.getX());
+							int y1 = Mth.floor(this.thisAnimal.getY());
+							int z1 = Mth.floor(this.thisAnimal.getZ());
 							double x2 = Math.abs(xt - x1);
 							double y2 = Math.abs(yt - y1);
 							double z2 = Math.abs(zt - z1);
 
 							if (x2 <= 20 && y2 <=8 && z2 <=20 && x2 >= 3 && z2 >= 3) {
-								this.mateAnimal = (AnimalEntity) entity;
+								this.mateAnimal = (Animal) entity;
 								return true;
 							} else {
 								return false;

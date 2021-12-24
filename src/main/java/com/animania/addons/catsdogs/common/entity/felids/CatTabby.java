@@ -1,13 +1,13 @@
 package com.animania.addons.catsdogs.common.entity.felids;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class CatTabby
 {
 
 	public static class EntityTomTabby extends EntityTomBase
 	{
-		public EntityTomTabby(World worldIn)
+		public EntityTomTabby(Level worldIn)
 		{
 			super(worldIn);
 			this.type = CatType.TABBY;
@@ -27,7 +27,7 @@ public class CatTabby
 	}
 
 	public static class EntityQueenTabby extends EntityQueenBase {
-		public EntityQueenTabby(World worldIn)
+		public EntityQueenTabby(Level worldIn)
 		{
 			super(worldIn);
 			this.type = CatType.TABBY;
@@ -47,7 +47,7 @@ public class CatTabby
 	}
 
 	public static class EntityKittenTabby extends EntityKittenBase {
-		public EntityKittenTabby(World worldIn)
+		public EntityKittenTabby(Level worldIn)
 		{
 			super(worldIn);
 			this.type = CatType.TABBY;

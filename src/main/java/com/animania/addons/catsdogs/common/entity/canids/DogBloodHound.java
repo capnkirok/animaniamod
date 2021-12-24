@@ -1,6 +1,6 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class DogBloodHound
 {
@@ -8,7 +8,7 @@ public class DogBloodHound
 	public static class EntityPuppyBloodHound extends EntityPuppyBase
 	{
 	
-		public EntityPuppyBloodHound(World world)
+		public EntityPuppyBloodHound(Level world)
 		{
 			super(world);
 			this.type = DogType.BLOOD_HOUND;
@@ -30,7 +30,7 @@ public class DogBloodHound
 	public static class EntityMaleBloodHound extends EntityMaleDogBase
 	{
 	
-		public EntityMaleBloodHound(World world)
+		public EntityMaleBloodHound(Level world)
 		{
 			super(world);
 			this.type = DogType.BLOOD_HOUND;
@@ -52,7 +52,7 @@ public class DogBloodHound
 	public static class EntityFemaleBloodHound extends EntityFemaleDogBase
 	{
 	
-		public EntityFemaleBloodHound(World world)
+		public EntityFemaleBloodHound(Level world)
 		{
 			super(world);
 			this.type = DogType.BLOOD_HOUND;

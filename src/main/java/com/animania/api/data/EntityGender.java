@@ -3,15 +3,15 @@ package com.animania.api.data;
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 public enum EntityGender
 {
 
 	MALE, FEMALE, CHILD, RANDOM, NONE;
 
-	public static LivingEntity getEntity(AnimaniaType type, EntityGender gender, World world)
+	public static LivingEntity getEntity(AnimaniaType type, EntityGender gender, Level world)
 	{
 		switch (gender)
 		{

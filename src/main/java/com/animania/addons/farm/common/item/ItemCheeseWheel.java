@@ -2,8 +2,8 @@ package com.animania.addons.farm.common.item;
 
 import com.animania.Animania;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.Block;
 
 public class ItemCheeseWheel extends BlockItem
 {

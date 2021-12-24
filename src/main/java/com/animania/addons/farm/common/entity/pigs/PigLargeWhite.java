@@ -1,6 +1,6 @@
 package com.animania.addons.farm.common.entity.pigs;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class PigLargeWhite
 {
@@ -8,7 +8,7 @@ public class PigLargeWhite
 	public static class EntityHogLargeWhite extends EntityHogBase
 	{
 	
-		public EntityHogLargeWhite(World world)
+		public EntityHogLargeWhite(Level world)
 		{
 			super(world);
 			this.pigType = PigType.LARGE_WHITE;
@@ -31,7 +31,7 @@ public class PigLargeWhite
 	public static class PigEntityletLargeWhite extends PigEntityletBase
 	{
 	
-		public PigEntityletLargeWhite(World world)
+		public PigEntityletLargeWhite(Level world)
 		{
 			super(world);
 			this.pigType = PigType.LARGE_WHITE;
@@ -54,7 +54,7 @@ public class PigLargeWhite
 	public static class EntitySowLargeWhite extends EntitySowBase
 	{
 	
-		public EntitySowLargeWhite(World world)
+		public EntitySowLargeWhite(Level world)
 		{
 			super(world);
 			this.pigType = PigType.LARGE_WHITE;

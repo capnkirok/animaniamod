@@ -1,8 +1,11 @@
 package com.animania.addons.farm.common.inventory;
 
+import java.awt.Container;
+
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 public class ContainerHorseCart extends Container
 {

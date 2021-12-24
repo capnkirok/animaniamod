@@ -28,7 +28,7 @@ import static com.animania.addons.farm.common.handler.FarmAddonItemHandler.rawPr
 import static com.animania.addons.farm.common.handler.FarmAddonItemHandler.rawPrimeSteak;
 import static com.animania.addons.farm.common.handler.FarmAddonItemHandler.salt;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class FarmAddonOredictHandler

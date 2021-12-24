@@ -7,16 +7,16 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootFunction;
-import net.minecraft.loot.RandomValueRange;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.RandomValueBounds;
+import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 
-public class AddMoreFunction extends LootFunction
+public class AddMoreFunction extends LootItemConditionalFunction
 {
-	private final RandomValueRange count;
+	private final RandomValueBounds count;
 
 	public AddMoreFunction(LootCondition[] conditions, RandomValueRange countIn)
 	{

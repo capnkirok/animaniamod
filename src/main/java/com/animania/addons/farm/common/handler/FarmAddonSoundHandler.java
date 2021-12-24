@@ -2,8 +2,8 @@ package com.animania.addons.farm.common.handler;
 
 import com.animania.Animania;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class FarmAddonSoundHandler

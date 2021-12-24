@@ -2,10 +2,9 @@ package com.animania.common.creativeTab;
 
 import com.animania.common.handler.ItemHandler;
 
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.ItemStack;
 
 public final class TabAnimaniaEntities extends CreativeTabs
 {

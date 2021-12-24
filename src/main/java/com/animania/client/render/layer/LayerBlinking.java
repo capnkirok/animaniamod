@@ -10,11 +10,11 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import RenderLiving;
 import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 
-public class LayerBlinking<E extends LivingEntity> implements LayerRenderer
+public class LayerBlinking<E extends LivingEntity> implements RenderLayer
 {
 
 	private RenderLiving render;

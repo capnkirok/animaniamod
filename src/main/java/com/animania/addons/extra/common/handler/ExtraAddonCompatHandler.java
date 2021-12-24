@@ -1,5 +1,6 @@
 package com.animania.addons.extra.common.handler;
 
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 public class ExtraAddonCompatHandler

@@ -3,10 +3,10 @@ package com.animania.addons.farm.common.entity.sheep;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class SheepDorper
 {
@@ -14,7 +14,7 @@ public class SheepDorper
 	public static class EntityRamDorper extends EntityRamBase
 	{
 	
-		public EntityRamDorper(World worldIn)
+		public EntityRamDorper(Level worldIn)
 		{
 			super(worldIn);
 			this.sheepType = SheepType.DORPER;

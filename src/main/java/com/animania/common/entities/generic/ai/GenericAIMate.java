@@ -12,14 +12,14 @@ import com.animania.api.interfaces.ISterilizable;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
 
-public class GenericAIMate<T extends CreatureEntity & IMateable & IFoodEating & ISleeping, O extends CreatureEntity & IMateable & IFoodEating & ISleeping & IImpregnable> extends Goal
+public class GenericAIMate<T extends PathfinderMob & IMateable & IFoodEating & ISleeping, O extends PathfinderMob & IMateable & IFoodEating & ISleeping & IImpregnable> extends Goal
 {
 	private final T entity;
-	World theWorld;
+	Level theWorld;
 	private O targetMate;
 	int courtshipTimer;
 	double moveSpeed;

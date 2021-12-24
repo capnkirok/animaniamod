@@ -8,9 +8,9 @@ import com.animania.config.AnimaniaConfig;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class TileEntitySaltLick extends TileEntity
+public class TileEntitySaltLick extends BlockEntity
 {
 
 	public int usesLeft = AnimaniaConfig.careAndFeeding.saltLickMaxUses;

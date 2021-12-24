@@ -1,7 +1,7 @@
 package com.animania.addons.farm.common.entity.chickens;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class ChickenPlymouthRock
 {
@@ -9,7 +9,7 @@ public class ChickenPlymouthRock
 	public static class EntityChickPlymouthRock extends EntityChickBase
 	{
 
-		public EntityChickPlymouthRock(World worldIn)
+		public EntityChickPlymouthRock(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.PLYMOUTH_ROCK;
@@ -35,7 +35,7 @@ public class ChickenPlymouthRock
 	public static class EntityRoosterPlymouthRock extends EntityRoosterBase
 	{
 
-		public EntityRoosterPlymouthRock(World worldIn)
+		public EntityRoosterPlymouthRock(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.PLYMOUTH_ROCK;
@@ -60,7 +60,7 @@ public class ChickenPlymouthRock
 	public static class EntityHenPlymouthRock extends EntityHenBase
 	{
 
-		public EntityHenPlymouthRock(World worldIn)
+		public EntityHenPlymouthRock(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.PLYMOUTH_ROCK;

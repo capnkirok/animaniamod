@@ -12,16 +12,16 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 
 public class CraftingComponent implements IManualComponent
 {
-	private List<IRecipe> recipes;
+	private List<Recipe> recipes;
 	private GuiManual manual;
 	private int x;
 	private int y;
@@ -37,14 +37,14 @@ public class CraftingComponent implements IManualComponent
 	private int recipeIndex = 0;
 	private ItemStack[][] items;
 	private int[] ingredientIndex = new int[9];
-	private IRecipe currentRecipe;
+	private Recipe currentRecipe;
 
 	private static final ResourceLocation MATRIX_TEXTURE = new ResourceLocation(Animania.MODID, "textures/gui/crafting_matrix.png");
 	private static final ResourceLocation BUTTONS = new ResourceLocation(Animania.MODID, "textures/gui/recipe_buttons.png");
 
 	public static int ITEM_TIMER = 0;
 
-	public CraftingComponent(int x, int y, List<IRecipe> recipes)
+	public CraftingComponent(int x, int y, List<Recipe> recipes)
 	{
 		this.manual = GuiManual.INSTANCE;
 		this.absoluteX = x + GuiManual.START_OFFSET_X;

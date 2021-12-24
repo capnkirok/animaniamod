@@ -3,29 +3,29 @@ package com.animania.network.client;
 import java.util.function.Supplier;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.network.NetworkEvent;
 
 public class TileEntitySyncPacket {
 
-	public CompoundNBT data;
+	public CompoundTag data;
 
 	public TileEntitySyncPacket() {
 	}
 
-	public TileEntitySyncPacket(PacketBuffer buf) {
+	public TileEntitySyncPacket(FriendlyByteBuf buf) {
 	}
 
-	public void toBytes(PacketBuffer buf) {
+	public void toBytes(FriendlyByteBuf buf) {
 	}
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		if (ctx.get().getDirection().getReceptionSide().isClient()) {
 			ctx.get().enqueueWork(() -> {
 
-				PlayerEntity player = Minecraft.getInstance().player;
+				Player player = Minecraft.getInstance().player;
 
 				if (player != null)
 					ScriptReader.reloadScripts();

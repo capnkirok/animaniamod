@@ -32,19 +32,18 @@ import com.animania.common.tileentities.TileEntityNest;
 import com.animania.config.AnimaniaConfig;
 import com.mojang.blaze3d.platform.GlStateManager;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.EntityAITasks;
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class FarmAddonInjectionHandler
 {
@@ -55,7 +54,7 @@ public class FarmAddonInjectionHandler
 		// Mud block particles
 		AddonInjectionHandler.addInjection(ID, "mudParticleDisplay", args -> {
 			BlockState stateIn = (BlockState) args[0];
-			World worldIn = (World) args[1];
+			Level worldIn = (Level) args[1];
 			BlockPos pos = (BlockPos) args[2];
 			Random rand = (Random) args[3];
 
@@ -80,7 +79,7 @@ public class FarmAddonInjectionHandler
 					double y2 = yt - y1;
 					double z2 = zt - z1;
 
-					if (MathHelper.abs((int) x2) < 1 && MathHelper.abs((int) z2) < 1 && MathHelper.abs((int) y2) < 1)
+					if (Mth.abs((int) x2) < 1 && Mth.abs((int) z2) < 1 && Mth.abs((int) y2) < 1)
 						for (int kk = 0; kk < 8; kk++)
 							worldIn.spawnParticle(EnumParticleTypes.BLOCK_CRACK, pig.getX() + (rand.nextFloat() - 0.5D) * pig.width, pig.getEntityBoundingBox().minY + 0.5D, pig.getZ() + (rand.nextFloat() - 0.5D) * pig.width, 4.0D * (rand.nextFloat() - 0.5D), 0.5D, (rand.nextFloat() - 0.5D) * 4.0D, new int[] { Block.getStateId(stateIn) });
 				}

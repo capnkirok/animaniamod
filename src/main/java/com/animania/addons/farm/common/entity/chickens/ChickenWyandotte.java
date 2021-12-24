@@ -1,7 +1,7 @@
 package com.animania.addons.farm.common.entity.chickens;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class ChickenWyandotte
 {
@@ -9,7 +9,7 @@ public class ChickenWyandotte
 	public static class EntityChickWyandotte extends EntityChickBase
 	{
 
-		public EntityChickWyandotte(World worldIn)
+		public EntityChickWyandotte(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.WYANDOTTE;
@@ -34,7 +34,7 @@ public class ChickenWyandotte
 	public static class EntityRoosterWyandotte extends EntityRoosterBase
 	{
 
-		public EntityRoosterWyandotte(World worldIn)
+		public EntityRoosterWyandotte(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.WYANDOTTE;
@@ -59,7 +59,7 @@ public class ChickenWyandotte
 	public static class EntityHenWyandotte extends EntityHenBase
 	{
 
-		public EntityHenWyandotte(World worldIn)
+		public EntityHenWyandotte(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.WYANDOTTE;

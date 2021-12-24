@@ -4,12 +4,11 @@ import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.handler.AddonInjectionHandler;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -21,9 +20,9 @@ public class EggThrowHandler
 	{
 
 		ItemStack stack = event.getItemStack();
-		PlayerEntity player = event.getPlayer();
+		Player player = event.getPlayer();
 		BlockPos pos = event.getPos();
-		World world = event.getWorld();
+		Level world = event.getWorld();
 
 		if (stack != ItemStack.EMPTY && (stack.getItem() == Items.EGG || stack.getItem() == FarmAddonItemHandler.brownEgg))
 		{

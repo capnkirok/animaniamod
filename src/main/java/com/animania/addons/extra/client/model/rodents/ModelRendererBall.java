@@ -4,30 +4,30 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.resources.ResourceLocation;
 
-public class ModelRendererBall extends ModelRenderer
+public class ModelRendererBall extends ModelPart
 {
 
     public static final ResourceLocation resource = new ResourceLocation("animania:textures/entity/rodents/hamster_ball.png");
 
-    ModelRenderer                        Shape1;
-    ModelRenderer                        Shape2;
-    ModelRenderer                        Shape3;
-    ModelRenderer                        Shape4;
-    ModelRenderer                        Shape5;
-    ModelRenderer                        Shape6;
-    ModelRenderer                        Shape7;
-    ModelRenderer                        Shape8;
-    ModelRenderer                        Shape9;
-    ModelRenderer                        Shape10;
-    ModelRenderer                        Shape11;
-    ModelRenderer                        Shape12;
-    ModelRenderer                        Shape13;
-    ModelRenderer                        Shape14;
-    ModelRenderer                        Shape15;
-    ModelRenderer                        Shape16;
+    ModelPart                        Shape1;
+    ModelPart                        Shape2;
+    ModelPart                        Shape3;
+    ModelPart                        Shape4;
+    ModelPart                        Shape5;
+    ModelPart                        Shape6;
+    ModelPart                        Shape7;
+    ModelPart                        Shape8;
+    ModelPart                        Shape9;
+    ModelPart                        Shape10;
+    ModelPart                        Shape11;
+    ModelPart                        Shape12;
+    ModelPart                        Shape13;
+    ModelPart                        Shape14;
+    ModelPart                        Shape15;
+    ModelPart                        Shape16;
 
     public int                           rotation = 0;
     public int                           color    = 0;

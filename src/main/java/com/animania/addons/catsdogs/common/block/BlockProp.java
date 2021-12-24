@@ -4,24 +4,20 @@ import com.animania.Animania;
 import com.animania.addons.catsdogs.common.tileentity.TileEntityProp;
 import com.animania.common.blocks.AnimaniaRotateable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.state.BlockFaceShape;
+import net.minecraft.core.BlockPos;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.phys.AABB;
 
-public class BlockProp extends AnimaniaRotateable implements ITileEntityProvider
+public class BlockProp extends AnimaniaRotateable implements EntityBlock
 {
-	private AxisAlignedBB AABB = Block.FULL_BLOCK_AABB;
+	private AABB AABB = Block.FULL_BLOCK_AABB;
 
 	public BlockProp(String name, Material blockMaterialIn, MaterialColor blockMaterialColorIn, SoundType sound)
 	{

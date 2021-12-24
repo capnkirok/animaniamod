@@ -5,8 +5,8 @@ import com.leviathanstudio.craftstudio.CraftStudioApi;
 import com.leviathanstudio.craftstudio.common.animation.IAnimated;
 import com.leviathanstudio.craftstudio.common.animation.simpleImpl.AnimatedEntity;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
 
 public abstract class AnimatedEntityBase extends Entity implements IAnimated
 {

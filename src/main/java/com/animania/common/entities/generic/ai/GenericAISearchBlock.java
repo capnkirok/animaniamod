@@ -9,28 +9,26 @@ import java.util.Set;
 
 import com.animania.common.helper.ReflectionUtil;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.pathfinding.Path;
-import net.minecraft.pathfinding.PathFinder;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathPoint;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.pathfinder.PathFinder;
 
 public abstract class GenericAISearchBlock extends Goal
 {
 	private static final boolean DEBUG_MODE = false;
 
-	protected final CreatureEntity creature;
+	protected final PathfinderMob creature;
 	protected final double movementSpeed;
 	protected BlockPos destinationBlock = NO_POS;
 	private boolean isAtDestination;
 	protected final int searchRange;
-	protected World world;
+	protected Level world;
 	protected List<Direction> destinationOffset;
 	protected BlockPos seekingBlockPos = NO_POS;
 
@@ -43,7 +41,7 @@ public abstract class GenericAISearchBlock extends Goal
 
 	public static final BlockPos NO_POS = new BlockPos(-1, -1, -1);
 
-	public GenericAISearchBlock(CreatureEntity creature, double speedIn, int range, boolean hasSecondary, Direction... destinationOffset)
+	public GenericAISearchBlock(PathfinderMob creature, double speedIn, int range, boolean hasSecondary, Direction... destinationOffset)
 	{
 		this.creature = creature;
 		this.movementSpeed = speedIn;

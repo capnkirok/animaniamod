@@ -1,6 +1,6 @@
 package com.animania.common.handler;
 
-import net.minecraft.util.DamageSource;
+import net.minecraft.world.damagesource.DamageSource;
 
 public class DamageSourceHandler
 {

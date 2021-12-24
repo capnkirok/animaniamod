@@ -9,30 +9,27 @@ import com.animania.common.items.ItemSaltLick;
 import com.animania.common.tileentities.TileEntitySaltLick;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class BlockSaltLick extends AnimaniaBlock implements ITileEntityProvider
+public class BlockSaltLick extends AnimaniaBlock implements EntityBlock
 {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.1875,0,0.1875,0.8125,0.25,0.8125);
+	private static final AABB AABB = new AABB(0.1875,0,0.1875,0.8125,0.25,0.8125);
 	
 	public BlockSaltLick()
 	{

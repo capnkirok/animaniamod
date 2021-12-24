@@ -3,23 +3,23 @@ package com.animania.api.interfaces;
 import com.animania.Animania;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
 
 public interface IImpregnable extends IAnimaniaAnimal
 {	
-	public DataParameter<Integer> getGestationParam();
+	public EntityDataAccessor<Integer> getGestationParam();
 
-	public DataParameter<Boolean> getPregnantParam();
+	public EntityDataAccessor<Boolean> getPregnantParam();
 
-	public DataParameter<Boolean> getFertileParam();
+	public EntityDataAccessor<Boolean> getFertileParam();
 
-	public DataParameter<Boolean> getHasKidsParam();
+	public EntityDataAccessor<Boolean> getHasKidsParam();
 	
 
 	default boolean getFertile()
 	{
-		DataParameter<Boolean> param = getFertileParam();
+		EntityDataAccessor<Boolean> param = getFertileParam();
 		if (param != null)
 			return this.getBoolFromDataManager(param);
 		return false;
@@ -27,14 +27,14 @@ public interface IImpregnable extends IAnimaniaAnimal
 
 	default void setFertile(boolean fertile)
 	{
-		DataParameter<Boolean> param = getFertileParam();
+		EntityDataAccessor<Boolean> param = getFertileParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, fertile);
 	}
 
 	default boolean getPregnant()
 	{
-		DataParameter<Boolean> param = getPregnantParam();
+		EntityDataAccessor<Boolean> param = getPregnantParam();
 		if (param != null)
 			return this.getBoolFromDataManager(param);
 		return false;
@@ -43,7 +43,7 @@ public interface IImpregnable extends IAnimaniaAnimal
 	
 	default void setPregnant(boolean pregnant)
 	{
-		DataParameter<Boolean> param = getPregnantParam();
+		EntityDataAccessor<Boolean> param = getPregnantParam();
 		if (param != null)
 		{
 			if(pregnant)

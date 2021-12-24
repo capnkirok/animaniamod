@@ -1,7 +1,7 @@
 package com.animania.addons.farm.common.entity.chickens;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class ChickenRhodeIslandRed
 {
@@ -9,7 +9,7 @@ public class ChickenRhodeIslandRed
 	public static class EntityChickRhodeIslandRed extends EntityChickBase
 	{
 
-		public EntityChickRhodeIslandRed(World worldIn)
+		public EntityChickRhodeIslandRed(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.RHODE_ISLAND_RED;
@@ -34,7 +34,7 @@ public class ChickenRhodeIslandRed
 	public static class EntityRoosterRhodeIslandRed extends EntityRoosterBase
 	{
 
-		public EntityRoosterRhodeIslandRed(World worldIn)
+		public EntityRoosterRhodeIslandRed(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.RHODE_ISLAND_RED;
@@ -59,7 +59,7 @@ public class ChickenRhodeIslandRed
 	public static class EntityHenRhodeIslandRed extends EntityHenBase
 	{
 
-		public EntityHenRhodeIslandRed(World worldIn)
+		public EntityHenRhodeIslandRed(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.RHODE_ISLAND_RED;

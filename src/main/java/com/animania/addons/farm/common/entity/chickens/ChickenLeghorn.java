@@ -1,14 +1,14 @@
 package com.animania.addons.farm.common.entity.chickens;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class ChickenLeghorn
 {
 	public static class EntityChickLeghorn extends EntityChickBase
 	{
 
-		public EntityChickLeghorn(World worldIn)
+		public EntityChickLeghorn(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.LEGHORN;
@@ -33,7 +33,7 @@ public class ChickenLeghorn
 	public static class EntityRoosterLeghorn extends EntityRoosterBase
 	{
 
-		public EntityRoosterLeghorn(World worldIn)
+		public EntityRoosterLeghorn(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.LEGHORN;
@@ -58,7 +58,7 @@ public class ChickenLeghorn
 	public static class EntityHenLeghorn extends EntityHenBase
 	{
 
-		public EntityHenLeghorn(World worldIn)
+		public EntityHenLeghorn(Level worldIn)
 		{
 			super(worldIn);
 			this.type = ChickenType.LEGHORN;

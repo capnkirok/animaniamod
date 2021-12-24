@@ -2,13 +2,14 @@ package com.animania.addons.extra.common.capabilities;
 
 import com.animania.Animania;
 
-import net.minecraft.entity.player.PlayerEntity;
+import NBTTagString;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
@@ -18,7 +19,7 @@ public class CapabilityRefs {
 	@CapabilityInject(ICapabilityPlayer.class)
 	public static final Capability<ICapabilityPlayer> CAPS = null;
 
-	public static ICapabilityPlayer getPlayerCaps(PlayerEntity player) {
+	public static ICapabilityPlayer getPlayerCaps(Player player) {
 		return player.getCapability(CapabilityRefs.CAPS, null);
 	}
 

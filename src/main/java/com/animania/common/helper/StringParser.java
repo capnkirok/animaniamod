@@ -2,13 +2,12 @@ package com.animania.common.helper;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 
 public class StringParser
@@ -17,7 +16,7 @@ public class StringParser
 	@Nullable
 	public static Block getBlock(String string)
 	{
-		CompoundNBT tag = getTagCompound(string);
+		CompoundTag tag = getTagCompound(string);
 		if (tag != null)
 			string = string.replace(tag.toString(), "");
 

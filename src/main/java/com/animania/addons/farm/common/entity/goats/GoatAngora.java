@@ -2,19 +2,19 @@ package com.animania.addons.farm.common.entity.goats;
 
 import java.util.List;
 
-import net.minecraft.entity.IShearable;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class GoatAngora
 {
 
-	public static class EntityBuckAngora extends EntityBuckBase implements IShearable
+	public static class EntityBuckAngora extends EntityBuckBase implements Shearable
 	{
 
-		public EntityBuckAngora(World worldIn)
+		public EntityBuckAngora(Level worldIn)
 		{
 			super(worldIn);
 			this.goatType = GoatType.ANGORA;

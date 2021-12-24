@@ -4,10 +4,12 @@ buildscript {
         // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
         maven { url = 'https://sizableshrimp.me/maven' }
         maven { url = 'https://maven.minecraftforge.net' }
+		maven { url = 'https://maven.parchmentmc.org' }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'me.sizableshrimp.parchmenttest', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.parchmentmc:librarian:1.+'
     }
 }
 
@@ -18,6 +20,8 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
 ext.mcversion = project.mcversion
 ext.animaniaversion = project.animaniaversion
@@ -40,7 +44,7 @@ if (System.getenv('BUILD_NUMBER') != null) {
 	animaniaversion += "." + System.getenv('BUILD_NUMBER')
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 //compileJava {
 //    sourceCompatibility = targetCompatibility = "1.8"
@@ -48,7 +52,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
     
-	mappings channel: 'parchment', version: '2021.08.08-1.16.5'
+	mappings channel: 'parchment', version: "${mapping_version}-${mcversion}"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 	

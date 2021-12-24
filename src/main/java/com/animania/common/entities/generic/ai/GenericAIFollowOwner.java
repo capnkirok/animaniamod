@@ -3,10 +3,10 @@ package com.animania.common.entities.generic.ai;
 import com.animania.api.interfaces.ISleeping;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 
-public class GenericAIFollowOwner<T extends TameableEntity & ISleeping> extends FollowOwnerGoal
+public class GenericAIFollowOwner<T extends TamableAnimal & ISleeping> extends FollowOwnerGoal
 {
 	private final T tameable;
 

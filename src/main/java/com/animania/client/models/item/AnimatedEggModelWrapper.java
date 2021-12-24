@@ -5,23 +5,23 @@ import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.animania.client.render.item.RenderAnimatedEgg;
+import com.mojang.math.Matrix4f;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.block.model.ItemTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class AnimatedEggModelWrapper implements IBakedModel
+public class AnimatedEggModelWrapper implements BakedModel
 {
 
-	private IBakedModel old;
+	private BakedModel old;
 	
 	
-	public AnimatedEggModelWrapper(IBakedModel old)
+	public AnimatedEggModelWrapper(BakedModel old)
 	{
 		this.old = old;
 	}
@@ -50,12 +50,12 @@ public class AnimatedEggModelWrapper implements IBakedModel
 		return true;
 	}
 
-	public IBakedModel getInternal()
+	public BakedModel getInternal()
 	{
 		return old;
 	}
 
-	public void setInternal(IBakedModel internal)
+	public void setInternal(BakedModel internal)
 	{
 		this.old = internal;
 	}
@@ -67,7 +67,7 @@ public class AnimatedEggModelWrapper implements IBakedModel
 	}
 
 	@Override
-	public ItemOverrideList getOverrides()
+	public ItemOverrides getOverrides()
 	{
 		return ItemOverrideList.NONE;
 	}

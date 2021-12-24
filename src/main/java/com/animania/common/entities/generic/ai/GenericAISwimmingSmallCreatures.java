@@ -2,9 +2,8 @@ package com.animania.common.entities.generic.ai;
 
 import com.animania.common.handler.BlockHandler;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
 
 public class GenericAISwimmingSmallCreatures extends SwimmingGoal
 {

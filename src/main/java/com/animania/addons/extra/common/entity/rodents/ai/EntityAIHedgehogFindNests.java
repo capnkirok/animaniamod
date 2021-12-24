@@ -7,26 +7,25 @@ import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityNest.NestContent;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 
 public class HedgehogFindNestsGoal extends Goal
 {
-	private final CreatureEntity temptedEntity;
+	private final PathfinderMob temptedEntity;
 	private final double speed;
 	private double targetX;
 	private double targetY;
 	private double targetZ;
 	private double pitch;
 	private double yaw;
-	private PlayerEntity temptingPlayer;
+	private Player temptingPlayer;
 	private boolean isRunning;
 	private int delayTemptCounter;
 
-	public HedgehogFindNestsGoal(CreatureEntity temptedEntityIn, double speedIn)
+	public HedgehogFindNestsGoal(PathfinderMob temptedEntityIn, double speedIn)
 	{
 		this.temptedEntity = temptedEntityIn;
 		this.speed = speedIn;

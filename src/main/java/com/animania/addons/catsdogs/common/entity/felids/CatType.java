@@ -30,7 +30,7 @@ import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityQueenTab
 import com.animania.addons.catsdogs.common.entity.felids.CatTabby.EntityTomTabby;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public enum CatType implements AnimaniaType
 {
@@ -57,12 +57,12 @@ public enum CatType implements AnimaniaType
 	}
 
 	@Override
-	public EntityTomBase getMale(World world)
+	public EntityTomBase getMale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.male.getConstructor(World.class);
+			constructor = this.male.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -81,12 +81,12 @@ public enum CatType implements AnimaniaType
 	}
 
 	@Override
-	public EntityQueenBase getFemale(World world)
+	public EntityQueenBase getFemale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.female.getConstructor(World.class);
+			constructor = this.female.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -105,12 +105,12 @@ public enum CatType implements AnimaniaType
 	}
 
 	@Override
-	public EntityKittenBase getChild(World world)
+	public EntityKittenBase getChild(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.child.getConstructor(World.class);
+			constructor = this.child.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{

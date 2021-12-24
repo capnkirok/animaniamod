@@ -1,6 +1,6 @@
 package com.animania.addons.extra.common.entity.rodents.rabbits;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class RabbitRex
 {
@@ -8,7 +8,7 @@ public class RabbitRex
 	public static class RabbitEntityBuckRex extends RabbitEntityBuckBase
 	{
 	
-		public RabbitEntityBuckRex(World worldIn)
+		public RabbitEntityBuckRex(Level worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.REX;
@@ -30,7 +30,7 @@ public class RabbitRex
 	public static class RabbitEntityKitRex extends RabbitEntityKitBase
 	{
 	
-		public RabbitEntityKitRex(World worldIn)
+		public RabbitEntityKitRex(Level worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.REX;
@@ -53,7 +53,7 @@ public class RabbitRex
 	public static class RabbitEntityDoeRex extends RabbitEntityDoeBase
 	{
 	
-		public RabbitEntityDoeRex(World worldIn)
+		public RabbitEntityDoeRex(Level worldIn)
 		{
 			super(worldIn);
 			this.rabbitType = RabbitType.REX;

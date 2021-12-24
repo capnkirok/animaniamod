@@ -1,15 +1,15 @@
 package com.animania.api.interfaces;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
 
 public interface IVariant extends IAnimaniaAnimal
 {
-	public DataParameter<Integer> getVariantParam();
+	public EntityDataAccessor<Integer> getVariantParam();
 	
 	default int getVariant()
 	{
-		DataParameter<Integer> param = getVariantParam();
+		EntityDataAccessor<Integer> param = getVariantParam();
 		if (param != null)
 			return this.getIntFromDataManager(param);
 		return 0;
@@ -17,7 +17,7 @@ public interface IVariant extends IAnimaniaAnimal
 
 	default void setVariant(int i)
 	{
-		DataParameter<Integer> param = getVariantParam();
+		EntityDataAccessor<Integer> param = getVariantParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, i);
 	}

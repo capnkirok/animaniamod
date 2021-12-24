@@ -3,14 +3,14 @@ package com.animania.common.entities.generic.ai;
 import com.animania.api.interfaces.ISleeping;
 import com.google.common.base.Predicate;
 
-import net.minecraft.entity.ai.goal.NonTamedTargetGoal;
-import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 
-public class GenericAITargetNonTamed extends NonTamedTargetGoal
+public class GenericAITargetNonTamed extends NonTameRandomTargetGoal
 {
-	TameableEntity entity;
+	TamableAnimal entity;
 
-	public GenericAITargetNonTamed(TameableEntity entityIn, Class classTarget, boolean checkSight, Predicate targetSelector)
+	public GenericAITargetNonTamed(TamableAnimal entityIn, Class classTarget, boolean checkSight, Predicate targetSelector)
 	{
 		super(entityIn, classTarget, checkSight, targetSelector);
 		this.entity = entityIn;

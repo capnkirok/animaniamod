@@ -8,7 +8,7 @@ import com.animania.common.helper.StringParser;
 import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class FoodValueHandler
 {

@@ -7,8 +7,8 @@ import com.animania.common.advancements.criterion.FeedAnimalTrigger;
 import com.animania.common.helper.ReflectionUtil;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.ICriterionTrigger;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.advancements.CriterionTriggerInstance;
 
 public class AdvancementHandler
 {
@@ -22,15 +22,15 @@ public class AdvancementHandler
 	}
 	
 
-	public static <T extends ICriterionInstance> ICriterionTrigger<T> registerTrigger(ICriterionTrigger<T> trigger)
+	public static <T extends CriterionTriggerInstance> CriterionTrigger<T> registerTrigger(CriterionTrigger<T> trigger)
 	{
 		Method method;
 
-		method = ReflectionUtil.findMethod(CriteriaTriggers.class, "register", "register", ICriterionTrigger.class);
+		method = ReflectionUtil.findMethod(CriteriaTriggers.class, "register", "register", CriterionTrigger.class);
 
 		try
 		{
-			trigger = (ICriterionTrigger<T>) method.invoke(null, trigger);
+			trigger = (CriterionTrigger<T>) method.invoke(null, trigger);
 		}
 		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 		{

@@ -5,13 +5,13 @@ import com.animania.manual.resources.ManualResourceLoader;
 
 import net.minecraft.client.entity.PlayerEntitySP;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
 
 public class ItemManual extends AnimaniaItem
 {

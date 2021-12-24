@@ -6,8 +6,8 @@ import java.util.Set;
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 public class RandomAnimalType implements AnimaniaType
 {
@@ -20,7 +20,7 @@ public class RandomAnimalType implements AnimaniaType
 	}
 
 	@Override
-	public LivingEntity getMale(World world)
+	public LivingEntity getMale(Level world)
 	{
 		if (types.size() == 0)
 			return null;

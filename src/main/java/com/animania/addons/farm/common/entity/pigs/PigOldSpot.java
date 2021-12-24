@@ -1,6 +1,6 @@
 package com.animania.addons.farm.common.entity.pigs;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class PigOldSpot
 {
@@ -8,7 +8,7 @@ public class PigOldSpot
 	public static class EntityHogOldSpot extends EntityHogBase
 	{
 	
-		public EntityHogOldSpot(World world)
+		public EntityHogOldSpot(Level world)
 		{
 			super(world);
 			this.pigType = PigType.OLD_SPOT;
@@ -32,7 +32,7 @@ public class PigOldSpot
 	public static class PigEntityletOldSpot extends PigEntityletBase
 	{
 	
-		public PigEntityletOldSpot(World world)
+		public PigEntityletOldSpot(Level world)
 		{
 			super(world);
 			this.pigType = PigType.OLD_SPOT;
@@ -55,7 +55,7 @@ public class PigOldSpot
 	public static class EntitySowOldSpot extends EntitySowBase
 	{
 	
-		public EntitySowOldSpot(World world)
+		public EntitySowOldSpot(Level world)
 		{
 			super(world);
 			this.pigType = PigType.OLD_SPOT;

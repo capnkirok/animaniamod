@@ -24,7 +24,7 @@ import com.animania.addons.farm.common.entity.pigs.PigYorkshire.EntitySowYorkshi
 import com.animania.addons.farm.common.entity.pigs.PigYorkshire.PigEntityletYorkshire;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public enum PigType implements AnimaniaType
 {
@@ -50,12 +50,12 @@ public enum PigType implements AnimaniaType
 	}
 
 	@Override
-	public EntityHogBase getMale(World world)
+	public EntityHogBase getMale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.hog.getConstructor(World.class);
+			constructor = this.hog.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -74,12 +74,12 @@ public enum PigType implements AnimaniaType
 	}
 
 	@Override
-	public EntitySowBase getFemale(World world)
+	public EntitySowBase getFemale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.sow.getConstructor(World.class);
+			constructor = this.sow.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -98,12 +98,12 @@ public enum PigType implements AnimaniaType
 	}
 
 	@Override
-	public PigEntityletBase getChild(World world)
+	public PigEntityletBase getChild(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.piglet.getConstructor(World.class);
+			constructor = this.piglet.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{

@@ -1,14 +1,14 @@
 package com.animania.common.tileentities;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class TileEntityWaterBottle extends TileEntity
+public class TileEntityWaterBottle extends BlockEntity
 {
     public int rotation;
 
     @Override
-    public void readFromNBT(CompoundNBT compound) {
+    public void readFromNBT(CompoundTag compound) {
         super.readFromNBT(compound);
         this.rotation = compound.getInteger("BlockRotation");
     }

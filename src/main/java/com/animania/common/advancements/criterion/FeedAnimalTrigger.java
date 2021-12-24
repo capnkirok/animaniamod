@@ -16,17 +16,16 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
-import net.minecraft.advancements.ICriterionTrigger;
-import net.minecraft.advancements.PlayerAdvancements;
+import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.PlayerAdvancements;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.EntityEntry;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.Instance>
+public class FeedAnimalTrigger implements CriterionTrigger<FeedAnimalTrigger.Instance>
 {
 	private static final ResourceLocation ID = new ResourceLocation("animania", "feed_animal");
 	private final Map<PlayerAdvancements, FeedAnimalTrigger.Listeners> listeners = Maps.<PlayerAdvancements, FeedAnimalTrigger.Listeners> newHashMap();
@@ -38,7 +37,7 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 	}
 
 	@Override
-	public void addPlayerListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
+	public void addPlayerListener(PlayerAdvancements playerAdvancementsIn, CriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
 	{
 		FeedAnimalTrigger.Listeners consumeitemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
 
@@ -52,7 +51,7 @@ public class FeedAnimalTrigger implements ICriterionTrigger<FeedAnimalTrigger.In
 	}
 
 	@Override
-	public void removePlayerListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
+	public void removePlayerListener(PlayerAdvancements playerAdvancementsIn, CriterionTrigger.Listener<FeedAnimalTrigger.Instance> listener)
 	{
 		FeedAnimalTrigger.Listeners consumeitemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
 

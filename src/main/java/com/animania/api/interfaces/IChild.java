@@ -4,17 +4,17 @@ import java.util.UUID;
 
 import com.google.common.base.Optional;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
 
 public interface IChild extends IAnimaniaAnimal
 {
-	public DataParameter<Optional<UUID>> getParentUniqueIdParam();
-	public DataParameter<Float> getEntityAgeParam();
+	public EntityDataAccessor<Optional<UUID>> getParentUniqueIdParam();
+	public EntityDataAccessor<Float> getEntityAgeParam();
 
 	default UUID getParentUniqueId()
 	{
-		DataParameter<Optional<UUID>> param = getParentUniqueIdParam();
+		EntityDataAccessor<Optional<UUID>> param = getParentUniqueIdParam();
 		if (param != null)
 			return this.getUUIDFromDataManager(param);
 		return null;
@@ -22,14 +22,14 @@ public interface IChild extends IAnimaniaAnimal
 	
 	default void setParentUniqueId(UUID id)
 	{
-		DataParameter<Optional<UUID>> param = getParentUniqueIdParam();
+		EntityDataAccessor<Optional<UUID>> param = getParentUniqueIdParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, Optional.fromNullable(id));
 	}
 	
 	default float getEntityAge()
 	{
-		DataParameter<Float> param = getEntityAgeParam();
+		EntityDataAccessor<Float> param = getEntityAgeParam();
 		if (param != null)
 			return this.getFloatFromDataManager(param);
 		return 0;
@@ -37,7 +37,7 @@ public interface IChild extends IAnimaniaAnimal
 
 	default void setEntityAge(float age)
 	{
-		DataParameter<Float> param = getEntityAgeParam();
+		EntityDataAccessor<Float> param = getEntityAgeParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, age);
 	}

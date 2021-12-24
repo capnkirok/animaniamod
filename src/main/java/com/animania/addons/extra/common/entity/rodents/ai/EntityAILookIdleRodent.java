@@ -4,17 +4,17 @@ import com.animania.addons.extra.common.entity.rodents.EntityFerretBase;
 import com.animania.addons.extra.common.entity.rodents.EntityHamster;
 import com.animania.addons.extra.common.entity.rodents.EntityHedgehogBase;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.animal.Animal;
 
 public class LookIdleRodentGoal extends Goal
 {
-	private final AnimalEntity idleEntity;
+	private final Animal idleEntity;
 	private double             lookX;
 	private double             lookZ;
 	private int                idleTime;
 
-	public LookIdleRodentGoal(AnimalEntity LivingEntityIn) {
+	public LookIdleRodentGoal(Animal LivingEntityIn) {
 		this.idleEntity = LivingEntityIn;
 		this.setMutexBits(3);
 	}

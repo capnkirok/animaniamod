@@ -9,7 +9,7 @@ import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityMareDraftH
 import com.animania.addons.farm.common.entity.horses.HorseDraft.EntityStallionDraftHorse;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public enum HorseType implements AnimaniaType
 {
@@ -27,12 +27,12 @@ public enum HorseType implements AnimaniaType
 	}
 
 	@Override
-	public EntityStallionBase getMale(World world)
+	public EntityStallionBase getMale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.stallion.getConstructor(World.class);
+			constructor = this.stallion.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -51,12 +51,12 @@ public enum HorseType implements AnimaniaType
 	}
 
 	@Override
-	public EntityMareBase getFemale(World world)
+	public EntityMareBase getFemale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.mare.getConstructor(World.class);
+			constructor = this.mare.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -75,12 +75,12 @@ public enum HorseType implements AnimaniaType
 	}
 
 	@Override
-	public EntityFoalBase getChild(World world)
+	public EntityFoalBase getChild(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.foal.getConstructor(World.class);
+			constructor = this.foal.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{

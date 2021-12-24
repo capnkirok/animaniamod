@@ -8,15 +8,13 @@ import com.animania.common.handler.AddonInjectionHandler;
 import com.animania.common.handler.BlockHandler;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class GenericAIFindSaltLick<T extends CreatureEntity & ISleeping> extends GenericAISearchBlock
+public class GenericAIFindSaltLick<T extends PathfinderMob & ISleeping> extends GenericAISearchBlock
 {
 
 	private final T entity;

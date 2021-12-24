@@ -19,12 +19,12 @@ import com.animania.addons.extra.common.entity.rodents.rabbits.RabbitJack.Rabbit
 import com.animania.addons.extra.config.ExtraConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.RabbitEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.CheckSpawn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -35,13 +35,13 @@ public class ExtraAddonSpawnHandler
 	public static void removeSpawns(CheckSpawn event)
 	{
 		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
-		World worldIn = event.getWorld();
+		Level worldIn = event.getWorld();
 		Biome biome = event.getWorld().getBiome(pos);
 		int chooser = 0;
 
 		Entity replacementEntity = null;
 
-		if (ExtraConfig.settings.replaceVanillaRabbits && event.getEntity().getClass().equals(RabbitEntity.class) && !worldIn.isRemote)
+		if (ExtraConfig.settings.replaceVanillaRabbits && event.getEntity().getClass().equals(Rabbit.class) && !worldIn.isRemote)
 		{
 
 			if (!event.getEntity().hasCustomName())

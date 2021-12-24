@@ -6,8 +6,8 @@ import com.animania.client.models.ModelWaterBottle;
 import com.animania.common.tileentities.TileEntityWaterBottle;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 
 public class RenderWaterBottle extends TileEntitySpecialRenderer
 {

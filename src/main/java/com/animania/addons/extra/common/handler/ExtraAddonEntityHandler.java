@@ -70,9 +70,9 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.helper.RegistryHelper;
 import com.google.common.collect.Lists;
 
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 

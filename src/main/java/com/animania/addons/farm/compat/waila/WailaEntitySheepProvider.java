@@ -6,8 +6,8 @@ import com.animania.compat.waila.provider.WailaAnimalEntityProviderMateable;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaEntityAccessor;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.world.entity.Entity;
 
 public class WailaSheepEntityProvider extends WailaAnimalEntityProviderMateable
 {

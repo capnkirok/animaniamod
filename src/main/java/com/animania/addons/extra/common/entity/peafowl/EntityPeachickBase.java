@@ -7,18 +7,17 @@ import com.animania.api.interfaces.IChild;
 import com.animania.common.entities.generic.GenericBehavior;
 import com.google.common.base.Optional;
 
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.level.Level;
 
 public class EntityPeachickBase extends EntityAnimaniaPeacock implements IChild
 {
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>defineId(EntityPeachickBase.class, DataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float>defineId(EntityPeachickBase.class, EntityDataSerializers.FLOAT);
 	protected int ageTimer;
 
-	public EntityPeachickBase(World worldIn)
+	public EntityPeachickBase(Level worldIn)
 	{
 		super(worldIn);
 		this.setSize(1.4F, 1.6F); 

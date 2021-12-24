@@ -8,23 +8,21 @@ import com.animania.common.entities.generic.GenericBehavior;
 import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.google.common.base.Optional;
 
-import net.minecraft.entity.ai.goal.FollowParentGoal;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.level.Level;
 
 public class EntityChickBase extends EntityAnimaniaChicken implements TOPInfoProviderBase, IChild
 {
 
-	protected static final DataParameter<Float> AGE = EntityDataManager.<Float>defineId(EntityChickBase.class, DataSerializers.FLOAT);
+	protected static final EntityDataAccessor<Float> AGE = SynchedEntityData.<Float>defineId(EntityChickBase.class, EntityDataSerializers.FLOAT);
 	protected int ageTimer;
 	
-	public EntityChickBase(World worldIn)
+	public EntityChickBase(Level worldIn)
 	{
 		super(worldIn);
 		this.setSize(1.1F, 1.5F); 

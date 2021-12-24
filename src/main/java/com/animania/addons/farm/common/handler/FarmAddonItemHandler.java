@@ -21,10 +21,10 @@ import com.animania.common.items.ItemAnimaniaFood;
 import com.animania.common.items.ItemAnimaniaFoodRaw;
 import com.animania.common.items.ItemEntityEgg;
 
-import net.minecraft.init.MobEffects;
-import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Item;
 
 public class FarmAddonItemHandler
 {

@@ -1,6 +1,6 @@
 package com.animania.addons.farm.common.entity.cows;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class CowHereford
 {
@@ -8,7 +8,7 @@ public class CowHereford
 	public static class EntityBullHereford extends EntityBullBase
 	{
 
-		public EntityBullHereford(World world)
+		public EntityBullHereford(Level world)
 		{
 			super(world);
 			this.cowType = CowType.HEREFORD;
@@ -32,7 +32,7 @@ public class CowHereford
 	public static class CowEntityHereford extends CowEntityBase
 	{
 
-		public CowEntityHereford(World world)
+		public CowEntityHereford(Level world)
 		{
 			super(world);
 			this.cowType = CowType.HEREFORD;
@@ -55,7 +55,7 @@ public class CowHereford
 	public static class EntityCalfHereford extends EntityCalfBase
 	{
 
-		public EntityCalfHereford(World world)
+		public EntityCalfHereford(Level world)
 		{
 			super(world);
 			this.cowType = CowType.HEREFORD;

@@ -3,11 +3,11 @@ package com.animania.addons.farm.common.entity.cows;
 import com.animania.Animania;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class CowMooshroom
 {
@@ -15,7 +15,7 @@ public class CowMooshroom
 	public static class EntityBullMooshroom extends EntityBullBase
 	{
 
-		public EntityBullMooshroom(World world)
+		public EntityBullMooshroom(Level world)
 		{
 			super(world);
 			this.cowType = CowType.MOOSHROOM;
@@ -44,14 +44,14 @@ public class CowMooshroom
 	public static class CowEntityMooshroom extends CowEntityBase
 	{
 
-		public CowEntityMooshroom(World world)
+		public CowEntityMooshroom(Level world)
 		{
 			super(world);
 			this.cowType = CowType.MOOSHROOM;
 		}
 
 		@Override
-		public boolean processInteract(PlayerEntity player, EnumHand hand)
+		public boolean processInteract(Player player, EnumHand hand)
 		{
 			ItemStack stack = player.getHeldItem(hand);
 

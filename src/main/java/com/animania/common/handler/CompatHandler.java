@@ -1,5 +1,6 @@
 package com.animania.common.handler;
 
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 public class CompatHandler

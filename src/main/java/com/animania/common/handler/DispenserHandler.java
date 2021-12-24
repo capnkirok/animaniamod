@@ -10,17 +10,16 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.BlockFarmland;
+import net.minecraft.core.BlockPos;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.fml.ModList;
 
 public class DispenserHandler
 {

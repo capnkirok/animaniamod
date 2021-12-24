@@ -6,7 +6,7 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class DogWolf
 {
@@ -14,7 +14,7 @@ public class DogWolf
 	public static class EntityPuppyWolf extends EntityPuppyBase
 	{
 
-		public EntityPuppyWolf(World world)
+		public EntityPuppyWolf(Level world)
 		{
 			super(world);
 			this.type = DogType.WOLF;

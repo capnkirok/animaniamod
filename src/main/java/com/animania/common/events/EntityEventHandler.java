@@ -7,15 +7,15 @@ import com.animania.common.handler.ItemHandler;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.SquidEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Squid;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -37,9 +37,9 @@ public class EntityEventHandler
 		LivingEntity entity = event.getEntityLiving();
 		DamageSource source = event.getSource();
 
-		if (entity instanceof AnimalEntity)
+		if (entity instanceof Animal)
 		{
-			AnimalEntity animal = (AnimalEntity) entity;
+			Animal animal = (Animal) entity;
 
 			if (source == DamageSource.FALL)
 				if (animal.isLeashed())
@@ -80,10 +80,10 @@ public class EntityEventHandler
 			}
 		}
 
-		if (entity instanceof TameableEntity)
+		if (entity instanceof TamableAnimal)
 		{
-			if (((TameableEntity) entity).isInSittingPose())
-				((TameableEntity) entity).setInSittingPose(false);;
+			if (((TamableAnimal) entity).isInSittingPose())
+				((TamableAnimal) entity).setInSittingPose(false);;
 		}
 
 	}
@@ -91,7 +91,7 @@ public class EntityEventHandler
 	@SubscribeEvent
 	public static void onEntityJoinWorld(EntityJoinWorldEvent event)
 	{
-		if (event.getEntity() instanceof PlayerEntity)
+		if (event.getEntity() instanceof Player)
 		{
 			ItemHandler.regItemEggColors(event.getWorld());
 		}
@@ -102,10 +102,10 @@ public class EntityEventHandler
 	{
 		LivingEntity entity = event.getEntityLiving();
 
-		if (entity instanceof ISleeping && entity instanceof AnimalEntity)
+		if (entity instanceof ISleeping && entity instanceof Animal)
 		{
 			ISleeping isleeping = (ISleeping) entity;
-			if (isleeping.getSleeping() && ((AnimalEntity) entity).isLeashed())
+			if (isleeping.getSleeping() && ((Animal) entity).isLeashed())
 				isleeping.setSleeping(false);
 		}
 	}
@@ -114,10 +114,10 @@ public class EntityEventHandler
 	public static void removeSquidSpawns(CheckSpawn event)
 	{
 		BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
-		World worldIn = (World) event.getWorld();
+		Level worldIn = (Level) event.getWorld();
 		Biome biome = event.getWorld().getBiome(pos);
 
-		if (!AnimaniaConfig.gameRules.spawnFreshWaterSquids && event.getEntity().getClass().equals(SquidEntity.class) && !worldIn.isClientSide)
+		if (!AnimaniaConfig.gameRules.spawnFreshWaterSquids && event.getEntity().getClass().equals(Squid.class) && !worldIn.isClientSide)
 		{
 
 			if (!AnimaniaHelper.hasBiomeType(biome, Type.OCEAN))

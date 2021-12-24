@@ -1,6 +1,6 @@
 package com.animania.addons.farm.common.entity.pigs;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class PigDuroc
 {
@@ -8,7 +8,7 @@ public class PigDuroc
 	public static class EntitySowDuroc extends EntitySowBase
 	{
 	
-		public EntitySowDuroc(World world)
+		public EntitySowDuroc(Level world)
 		{
 			super(world);
 			this.pigType = PigType.DUROC;
@@ -31,7 +31,7 @@ public class PigDuroc
 	public static class PigEntityletDuroc extends PigEntityletBase
 	{
 	
-		public PigEntityletDuroc(World world)
+		public PigEntityletDuroc(Level world)
 		{
 			super(world);
 			this.pigType = PigType.DUROC;
@@ -54,7 +54,7 @@ public class PigDuroc
 	public static class EntityHogDuroc extends EntityHogBase
 	{
 	
-		public EntityHogDuroc(World world)
+		public EntityHogDuroc(Level world)
 		{
 			super(world);
 			this.pigType = PigType.DUROC;

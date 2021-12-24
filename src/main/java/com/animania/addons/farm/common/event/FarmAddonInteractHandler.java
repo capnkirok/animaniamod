@@ -8,15 +8,13 @@ import com.animania.addons.farm.common.entity.sheep.EntityAnimaniaSheep;
 import com.animania.addons.farm.common.handler.FarmAddonItemHandler;
 import com.animania.api.interfaces.ISterilizable;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
-import net.minecraft.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -30,8 +28,8 @@ public class FarmAddonInteractHandler
 	public static void notify(PlayerInteractEvent.RightClickItem event)
 	{
 		ItemStack stack = event.getItemStack();
-		PlayerEntity player = event.getPlayer();
-		World world = event.getWorld();
+		Player player = event.getPlayer();
+		Level world = event.getWorld();
 
 		if (stack != ItemStack.EMPTY && stack.getItem() == Items.CARROT_ON_A_STICK && player.isPassenger())
 		{

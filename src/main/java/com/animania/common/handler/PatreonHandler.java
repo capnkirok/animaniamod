@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 
 public class PatreonHandler
 {
@@ -40,7 +40,7 @@ public class PatreonHandler
 
 	}
 
-	public static boolean isPlayerPatreon(PlayerEntity player)
+	public static boolean isPlayerPatreon(Player player)
 	{
 		UUID id = player.getUniqueID();
 		String uuid = id.toString();

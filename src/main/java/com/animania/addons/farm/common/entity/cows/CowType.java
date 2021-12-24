@@ -30,7 +30,7 @@ import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityBullMooshr
 import com.animania.addons.farm.common.entity.cows.CowMooshroom.EntityCalfMooshroom;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public enum CowType implements AnimaniaType
 {
@@ -57,12 +57,12 @@ public enum CowType implements AnimaniaType
 	}
 
 	@Override
-	public EntityBullBase getMale(World world)
+	public EntityBullBase getMale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.bull.getConstructor(World.class);
+			constructor = this.bull.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -81,12 +81,12 @@ public enum CowType implements AnimaniaType
 	}
 
 	@Override
-	public CowEntityBase getFemale(World world)
+	public CowEntityBase getFemale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.cow.getConstructor(World.class);
+			constructor = this.cow.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -105,12 +105,12 @@ public enum CowType implements AnimaniaType
 	}
 
 	@Override
-	public EntityCalfBase getChild(World world)
+	public EntityCalfBase getChild(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.calf.getConstructor(World.class);
+			constructor = this.calf.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{

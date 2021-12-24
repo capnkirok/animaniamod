@@ -6,13 +6,13 @@ import com.animania.addons.farm.common.entity.pullables.EntityCart;
 import com.animania.addons.farm.common.entity.pullables.EntityWagon;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 public class LookIdleHorsesGoal extends Goal
 {
 	/** The entity that is looking idle. */
-	private final CreatureEntity idleEntity;
+	private final PathfinderMob idleEntity;
 	/** X offset to look at */
 	private double lookX;
 	/** Z offset to look at */
@@ -24,7 +24,7 @@ public class LookIdleHorsesGoal extends Goal
 	private int idleTime;
 	private int delayCounter;
 
-	public LookIdleHorsesGoal(CreatureEntity LivingEntityIn)
+	public LookIdleHorsesGoal(PathfinderMob LivingEntityIn)
 	{
 		this.idleEntity = LivingEntityIn;
 		this.setMutexBits(3);

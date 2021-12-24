@@ -4,18 +4,18 @@ import java.util.UUID;
 
 import com.google.common.base.Optional;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 
 public interface IMateable extends IAnimaniaAnimal
 {
 	
-	public DataParameter<Optional<UUID>> getMateUniqueIdParam();
+	public EntityDataAccessor<Optional<UUID>> getMateUniqueIdParam();
 	
 	default UUID getMateUniqueId()
 	{
-		DataParameter<Optional<UUID>> param = getMateUniqueIdParam();
+		EntityDataAccessor<Optional<UUID>> param = getMateUniqueIdParam();
 		if (param != null)
 			return this.getUUIDFromDataManager(param);
 		return null;
@@ -23,13 +23,13 @@ public interface IMateable extends IAnimaniaAnimal
 
 	default void setMateUniqueId(UUID id)
 	{
-		DataParameter<Optional<UUID>> param = getMateUniqueIdParam();
+		EntityDataAccessor<Optional<UUID>> param = getMateUniqueIdParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, Optional.fromNullable(id));
 	}
 
 	
-	default void setInLove(PlayerEntity player)
+	default void setInLove(Player player)
 	{
 		
 	}

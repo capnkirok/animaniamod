@@ -7,27 +7,25 @@ import com.animania.config.AnimaniaConfig;
 
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockCrops;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.IPlantable;
 
 public interface IFoodEating extends IAnimaniaAnimal
 {
-	public DataParameter<Boolean> getHandFedParam();
+	public EntityDataAccessor<Boolean> getHandFedParam();
 
-	public DataParameter<Boolean> getFedParam();
+	public EntityDataAccessor<Boolean> getFedParam();
 
-	public DataParameter<Boolean> getWateredParam();
+	public EntityDataAccessor<Boolean> getWateredParam();
 
-	public DataParameter<Boolean> getInteractedParam();
+	public EntityDataAccessor<Boolean> getInteractedParam();
 
 	default void setFed(boolean fed)
 	{
-		DataParameter<Boolean> param = getFedParam();
+		EntityDataAccessor<Boolean> param = getFedParam();
 		if (param != null)
 		{
 			LivingEntity e = (LivingEntity) this;

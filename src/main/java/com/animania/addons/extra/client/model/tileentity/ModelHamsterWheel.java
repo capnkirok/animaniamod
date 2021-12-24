@@ -2,7 +2,6 @@ package com.animania.addons.extra.client.model.tileentity;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 
 public class ModelHamsterWheel extends ModelBase
 {

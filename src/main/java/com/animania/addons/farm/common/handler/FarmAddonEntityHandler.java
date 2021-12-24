@@ -120,7 +120,7 @@ import com.animania.common.helper.RegistryHelper;
 import com.google.common.collect.Lists;
 
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 

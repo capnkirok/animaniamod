@@ -4,9 +4,8 @@ import com.animania.addons.extra.common.entity.peafowl.EntityAnimaniaPeacock;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.entity.LivingEntity;
 
 public class ModelPeacock extends ModelBase
 {

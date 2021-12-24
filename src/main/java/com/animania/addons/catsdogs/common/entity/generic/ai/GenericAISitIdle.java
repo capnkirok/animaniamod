@@ -2,8 +2,8 @@ package com.animania.addons.catsdogs.common.entity.generic.ai;
 
 import com.animania.addons.catsdogs.common.entity.felids.EntityAnimaniaCat;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 public class GenericAISitIdle extends Goal
 {

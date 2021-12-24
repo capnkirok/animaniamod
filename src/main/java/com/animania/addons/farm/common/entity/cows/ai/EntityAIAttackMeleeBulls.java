@@ -3,20 +3,20 @@ package com.animania.addons.farm.common.entity.cows.ai;
 import com.animania.addons.farm.common.entity.cows.EntityAnimaniaCow;
 import com.animania.addons.farm.common.entity.cows.EntityBullBase;
 
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.pathfinding.Path;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.pathfinder.Path;
 
 public class AttackMeleeBullsGoal extends Goal
 {
-	World                    worldObj;
-	protected CreatureEntity attacker;
+	Level                    worldObj;
+	protected PathfinderMob attacker;
 	protected int            attackTick;
 	double                   speedTowardsTarget;
 	boolean                  longMemory;

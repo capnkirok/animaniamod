@@ -7,10 +7,10 @@ import com.animania.addons.farm.common.entity.pullables.EntityWagon;
 import com.animania.addons.farm.common.inventory.ContainerHorseCart;
 import com.animania.api.addons.IAddonGuiHandler;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public class FarmAddonGUIHandler implements IAddonGuiHandler
 {
@@ -18,7 +18,7 @@ public class FarmAddonGUIHandler implements IAddonGuiHandler
 	private int idOffset = 0;
 
 	@Override
-	public Object getServerGuiElement(int id, PlayerEntity player, World world, int x, int y, int z)
+	public Object getServerGuiElement(int id, Player player, Level world, int x, int y, int z)
 	{
 		int esize;
 		Entity entity;

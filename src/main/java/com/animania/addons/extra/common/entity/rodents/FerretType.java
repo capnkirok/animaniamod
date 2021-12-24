@@ -6,8 +6,8 @@ import java.lang.reflect.InvocationTargetException;
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 
 public enum FerretType implements AnimaniaType
 {
@@ -24,12 +24,12 @@ public enum FerretType implements AnimaniaType
 	}
 	
 	@Override
-	public EntityFerretBase getMale(World world)
+	public EntityFerretBase getMale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.male.getConstructor(World.class);
+			constructor = this.male.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -48,13 +48,13 @@ public enum FerretType implements AnimaniaType
 	}
 
 	@Override
-	public LivingEntity getFemale(World world)
+	public LivingEntity getFemale(Level world)
 	{
 		return null;
 	}
 
 	@Override
-	public LivingEntity getChild(World world)
+	public LivingEntity getChild(Level world)
 	{
 		return null;
 	}

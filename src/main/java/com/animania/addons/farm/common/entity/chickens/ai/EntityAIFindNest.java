@@ -16,14 +16,12 @@ import com.animania.common.tileentities.TileEntityNest;
 import com.animania.common.tileentities.TileEntityNest.NestContent;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public class FindNestGoal extends Goal
 {
@@ -34,7 +32,7 @@ public class FindNestGoal extends Goal
 	private double targetZ;
 	private double pitch;
 	private double yaw;
-	private PlayerEntity temptingPlayer;
+	private Player temptingPlayer;
 	private boolean isRunning;
 	private int delayTemptCounter;
 

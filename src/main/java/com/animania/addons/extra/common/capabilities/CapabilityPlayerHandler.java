@@ -1,15 +1,16 @@
 package com.animania.addons.extra.common.capabilities;
 
+import NBTBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTBase;
 import net.minecraftforge.common.capabilities.Capability;
 
 public class CapabilityPlayerHandler {
 
 	public static NBTBase writeNBT(Capability<ICapabilityPlayer> capability, ICapabilityPlayer instance) {
-		CompoundNBT tags = new CompoundNBT();
+		CompoundTag tags = new CompoundTag();
 		tags.putTag("animal", instance.getAnimal());
 		tags.putBoolean("carrying", instance.isCarrying());
 		tags.setString("type", instance.getType());

@@ -6,7 +6,8 @@ import java.util.List;
 import com.animania.Animania;
 import com.animania.common.handler.AddonHandler;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fml.ModList;
 
 public class ManualTopic
 {

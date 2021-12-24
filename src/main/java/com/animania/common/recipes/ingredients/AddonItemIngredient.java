@@ -3,7 +3,7 @@ package com.animania.common.recipes.ingredients;
 import com.animania.common.handler.AddonHandler;
 import com.google.gson.JsonObject;
 
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IIngredientFactory;
 import net.minecraftforge.common.crafting.JsonContext;

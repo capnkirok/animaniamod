@@ -24,13 +24,12 @@ import com.animania.common.helper.AnimaniaHelper;
 import com.animania.common.tileentities.TileEntityNest;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 
 public class ExtraAddonInjectionHandler
@@ -42,7 +41,7 @@ public class ExtraAddonInjectionHandler
 		AddonInjectionHandler.addInjection(ID, "nestHatchPeafowl", args -> {
 
 			TileEntityNest te = (TileEntityNest) args[0];
-			World worldIn = (World) args[1];
+			Level worldIn = (Level) args[1];
 			BlockPos pos = (BlockPos) args[2];
 			BlockState state = (BlockState) args[3];
 			Random rand = (Random) args[4];
@@ -76,8 +75,8 @@ public class ExtraAddonInjectionHandler
 
 		// Attack frogs
 		AddonInjectionHandler.addInjection(ID, "attackFrogs", args -> {
-			CreatureEntity entity = (CreatureEntity) args[0];
-			if (entity instanceof TameableEntity)
+			PathfinderMob entity = (PathfinderMob) args[0];
+			if (entity instanceof TamableAnimal)
 				entity.targetTasks.addTask(2, new GenericAITargetNonTamed((TameableEntity) entity, AnimalEntity.class, false, target -> target instanceof EntityFrogs || target instanceof EntityToad));
 			else
 				entity.targetTasks.addTask(2, new GenericAINearestAttackableTarget(entity, AnimalEntity.class, 80, false, false, target -> target instanceof EntityFrogs || target instanceof EntityToad));

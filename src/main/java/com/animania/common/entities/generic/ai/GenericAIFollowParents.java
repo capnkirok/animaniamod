@@ -8,11 +8,11 @@ import com.animania.api.interfaces.ISleeping;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
 
-public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleeping, O extends CreatureEntity & IMateable> extends Goal
+public class GenericAIFollowParents<T extends PathfinderMob & IChild & ISleeping, O extends PathfinderMob & IMateable> extends Goal
 {
 	T childAnimal;
 	O parentAnimal;
@@ -60,9 +60,9 @@ public class GenericAIFollowParents<T extends CreatureEntity & IChild & ISleepin
 						double xt = mother.getX();
 						double yt = mother.getY();
 						double zt = mother.getZ();
-						int x1 = MathHelper.floor(this.childAnimal.getX());
-						int y1 = MathHelper.floor(this.childAnimal.getY());
-						int z1 = MathHelper.floor(this.childAnimal.getZ());
+						int x1 = Mth.floor(this.childAnimal.getX());
+						int y1 = Mth.floor(this.childAnimal.getY());
+						int z1 = Mth.floor(this.childAnimal.getZ());
 						double x2 = Math.abs(xt - x1);
 						double y2 = Math.abs(yt - y1);
 						double z2 = Math.abs(zt - z1);

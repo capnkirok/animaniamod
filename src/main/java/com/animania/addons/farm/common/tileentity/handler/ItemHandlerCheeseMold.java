@@ -1,6 +1,6 @@
 package com.animania.addons.farm.common.tileentity.handler;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class ItemHandlerCheeseMold extends ItemStackHandler

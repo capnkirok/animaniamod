@@ -2,14 +2,11 @@ package com.animania.common.blocks.fluids;
 
 import com.animania.Animania;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.registries.ForgeRegistries;
 

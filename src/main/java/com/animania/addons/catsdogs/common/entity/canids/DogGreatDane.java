@@ -1,6 +1,6 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class DogGreatDane
 {
@@ -8,7 +8,7 @@ public class DogGreatDane
 	public static class EntityPuppyGreatDane extends EntityPuppyBase
 	{
 	
-		public EntityPuppyGreatDane(World world)
+		public EntityPuppyGreatDane(Level world)
 		{
 			super(world);
 			this.type = DogType.GREAT_DANE;
@@ -30,7 +30,7 @@ public class DogGreatDane
 	public static class EntityMaleGreatDane extends EntityMaleDogBase
 	{
 	
-		public EntityMaleGreatDane(World world)
+		public EntityMaleGreatDane(Level world)
 		{
 			super(world);
 			this.type = DogType.GREAT_DANE;
@@ -52,7 +52,7 @@ public class DogGreatDane
 	public static class EntityFemaleGreatDane extends EntityFemaleDogBase
 	{
 	
-		public EntityFemaleGreatDane(World world)
+		public EntityFemaleGreatDane(Level world)
 		{
 			super(world);
 			this.type = DogType.GREAT_DANE;

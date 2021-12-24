@@ -1,7 +1,7 @@
 package com.animania.addons.extra.common.entity.peafowl;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class PeafowlTaupe
 {
@@ -9,7 +9,7 @@ public class PeafowlTaupe
 	public static class EntityPeafowlTaupe extends EntityPeafowlBase
 	{
 	
-		public EntityPeafowlTaupe(World worldIn)
+		public EntityPeafowlTaupe(Level worldIn)
 		{
 			super(worldIn);
 			this.type = PeacockType.TAUPE;
@@ -34,7 +34,7 @@ public class PeafowlTaupe
 	public static class EntityPeacockTaupe extends EntityPeacockBase
 	{
 	
-		public EntityPeacockTaupe(World worldIn)
+		public EntityPeacockTaupe(Level worldIn)
 		{
 			super(worldIn);
 			this.type = PeacockType.TAUPE;
@@ -60,7 +60,7 @@ public class PeafowlTaupe
 	public static class EntityPeachickTaupe extends EntityPeachickBase
 	{
 	
-		public EntityPeachickTaupe(World worldIn)
+		public EntityPeachickTaupe(Level worldIn)
 		{
 			super(worldIn);
 			this.type = PeacockType.TAUPE;

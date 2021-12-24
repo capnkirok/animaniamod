@@ -1,6 +1,6 @@
 package com.animania.common.handler;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class DictionaryHandler

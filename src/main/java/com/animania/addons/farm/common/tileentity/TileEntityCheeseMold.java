@@ -10,23 +10,22 @@ import com.animania.addons.farm.common.tileentity.handler.ItemHandlerCheeseMold;
 import com.animania.addons.farm.config.FarmConfig;
 import com.animania.common.helper.AnimaniaHelper;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.texture.ITickable;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.renderer.texture.Tickable;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityCheeseMold extends TileEntity implements ITickable
+public class TileEntityCheeseMold extends BlockEntity implements Tickable
 {
 
 	private FluidHandlerCheeseMold fluidHandler;

@@ -1,7 +1,7 @@
 package com.animania.addons.extra.common.entity.peafowl;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class PeafowlOpal
 {
@@ -9,7 +9,7 @@ public class PeafowlOpal
 	public static class EntityPeachickOpal extends EntityPeachickBase
 	{
 
-		public EntityPeachickOpal(World worldIn)
+		public EntityPeachickOpal(Level worldIn)
 		{
 			super(worldIn);
 			this.type = PeacockType.OPAL;
@@ -34,7 +34,7 @@ public class PeafowlOpal
 	public static class EntityPeafowlOpal extends EntityPeafowlBase
 	{
 
-		public EntityPeafowlOpal(World worldIn)
+		public EntityPeafowlOpal(Level worldIn)
 		{
 			super(worldIn);
 			this.type = PeacockType.OPAL;
@@ -59,7 +59,7 @@ public class PeafowlOpal
 	public static class EntityPeacockOpal extends EntityPeacockBase
 	{
 
-		public EntityPeacockOpal(World worldIn)
+		public EntityPeacockOpal(Level worldIn)
 		{
 			super(worldIn);
 			this.type = PeacockType.OPAL;

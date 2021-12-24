@@ -1,24 +1,24 @@
 package com.animania.api.interfaces;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
 
 public interface ISleeping extends IAnimaniaAnimal
 {
-	public DataParameter<Boolean> getSleepingParam();
-	public DataParameter<Float> getSleepTimerParam();
+	public EntityDataAccessor<Boolean> getSleepingParam();
+	public EntityDataAccessor<Float> getSleepTimerParam();
 	
 	default void setSleeping(boolean sleeping)
 	{
-		DataParameter<Boolean> param = getSleepingParam();
+		EntityDataAccessor<Boolean> param = getSleepingParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, sleeping);
 	}
 	
 	default boolean getSleeping()
 	{
-		DataParameter<Boolean> param = getSleepingParam();
+		EntityDataAccessor<Boolean> param = getSleepingParam();
 		if (param != null)
 			return this.getBoolFromDataManager(param);
 		return false;
@@ -30,7 +30,7 @@ public interface ISleeping extends IAnimaniaAnimal
 	
 	default Float getSleepTimer()
 	{
-		DataParameter<Float> param = getSleepTimerParam();
+		EntityDataAccessor<Float> param = getSleepTimerParam();
 		if (param != null)
 			return this.getFloatFromDataManager(param);
 		return 0f;
@@ -38,7 +38,7 @@ public interface ISleeping extends IAnimaniaAnimal
 	
 	default void setSleepTimer(Float timer)
 	{
-		DataParameter<Float> param = getSleepTimerParam();
+		EntityDataAccessor<Float> param = getSleepTimerParam();
 		if (param != null)
 			((Entity) this).getEntityData().set(param, timer);
 	}

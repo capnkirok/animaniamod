@@ -5,9 +5,9 @@ import com.animania.addons.farm.common.entity.goats.EntityBuckBase;
 import com.animania.addons.farm.common.entity.goats.EntityDoeBase;
 import com.animania.addons.farm.common.entity.goats.EntityKidBase;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 public class GoatsLeapAtTargetGoal extends Goal
 {

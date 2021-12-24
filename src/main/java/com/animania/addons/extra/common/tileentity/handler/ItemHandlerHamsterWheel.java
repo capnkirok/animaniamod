@@ -2,7 +2,7 @@ package com.animania.addons.extra.common.tileentity.handler;
 
 import com.animania.addons.extra.common.handler.ExtraAddonItemHandler;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class ItemHandlerHamsterWheel extends ItemStackHandler

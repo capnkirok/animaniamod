@@ -37,35 +37,31 @@ import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
-import net.minecraft.block.Block;
+import net.minecraft.core.BlockPos;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.goal.FleeSunGoal;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.FleeSunGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.network.NetworkRegistry;
 
-public class EntityHamster extends TameableEntity implements TOPInfoProviderRodent, IAnimaniaAnimalBase
+public class EntityHamster extends TamableAnimal implements TOPInfoProviderRodent, IAnimaniaAnimalBase
 {
-	private static final DataParameter<Boolean> IN_BALL = EntityDataManager.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> IN_BALL = SynchedEntityData.<Boolean> createKey(EntityHamster.class, DataSerializers.BOOLEAN);
 	// private static final DataParameter<Boolean> SITTING =
 	// EntityDataManager.<Boolean>createKey(EntityHamster.class,
 	// DataSerializers.BOOLEAN);

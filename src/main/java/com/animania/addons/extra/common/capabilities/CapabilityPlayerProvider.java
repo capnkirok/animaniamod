@@ -1,11 +1,11 @@
 package com.animania.addons.extra.common.capabilities;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
-public class CapabilityPlayerProvider implements ICapabilitySerializable<CompoundNBT> {
+public class CapabilityPlayerProvider implements ICapabilitySerializable<CompoundTag> {
 	public ICapabilityPlayer instance = null;
 
 	public CapabilityPlayerProvider() {
@@ -25,12 +25,12 @@ public class CapabilityPlayerProvider implements ICapabilitySerializable<Compoun
 	}
 
 	@Override
-	public CompoundNBT serializeNBT() {
-		return (CompoundNBT) CapabilityRefs.CAPS.getStorage().writeNBT(CapabilityRefs.CAPS, instance, null);
+	public CompoundTag serializeNBT() {
+		return (CompoundTag) CapabilityRefs.CAPS.getStorage().writeNBT(CapabilityRefs.CAPS, instance, null);
 	}
 
 	@Override
-	public void deserializeNBT(CompoundNBT nbt) {
+	public void deserializeNBT(CompoundTag nbt) {
 		CapabilityRefs.CAPS.getStorage().readNBT(CapabilityRefs.CAPS, instance, null, nbt);
 	}
 

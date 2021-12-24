@@ -2,7 +2,7 @@ package com.animania.common.tileentities.handler;
 
 import com.animania.common.tileentities.TileEntityNest;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class ItemHandlerNest extends ItemStackHandler

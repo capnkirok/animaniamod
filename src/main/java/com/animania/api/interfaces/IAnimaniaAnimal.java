@@ -4,10 +4,10 @@ import java.util.UUID;
 
 import com.google.common.base.Optional;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
 
 public interface IAnimaniaAnimal
 {
@@ -19,7 +19,7 @@ public interface IAnimaniaAnimal
 	// ==================================================
 
 	
-	default boolean getBoolFromDataManager(DataParameter<Boolean> key)
+	default boolean getBoolFromDataManager(EntityDataAccessor<Boolean> key)
 	{
 		try
 		{
@@ -32,7 +32,7 @@ public interface IAnimaniaAnimal
 		}
 	}
 	
-	default byte getByteFromDataManager(DataParameter<Byte> key)
+	default byte getByteFromDataManager(EntityDataAccessor<Byte> key)
 	{
 		try
 		{
@@ -45,7 +45,7 @@ public interface IAnimaniaAnimal
 		}
 	}
 
-	default int getIntFromDataManager(DataParameter<Integer> key)
+	default int getIntFromDataManager(EntityDataAccessor<Integer> key)
 	{
 		try
 		{
@@ -58,7 +58,7 @@ public interface IAnimaniaAnimal
 		}
 	}
 
-	default float getFloatFromDataManager(DataParameter<Float> key)
+	default float getFloatFromDataManager(EntityDataAccessor<Float> key)
 	{
 		try
 		{
@@ -71,7 +71,7 @@ public interface IAnimaniaAnimal
 		}
 	}
 
-	default String getStringFromDataManager(DataParameter<String> key)
+	default String getStringFromDataManager(EntityDataAccessor<String> key)
 	{
 		try
 		{
@@ -84,7 +84,7 @@ public interface IAnimaniaAnimal
 		}
 	}
 
-	default UUID getUUIDFromDataManager(DataParameter<Optional<UUID>> key)
+	default UUID getUUIDFromDataManager(EntityDataAccessor<Optional<UUID>> key)
 	{
 		try
 		{
@@ -97,7 +97,7 @@ public interface IAnimaniaAnimal
 		}
 	}
 
-	default ItemStack getItemStackFromDataManager(DataParameter<ItemStack> key)
+	default ItemStack getItemStackFromDataManager(EntityDataAccessor<ItemStack> key)
 	{
 		try
 		{
@@ -110,7 +110,7 @@ public interface IAnimaniaAnimal
 		}
 	}
 
-	default BlockPos getBlockPosFromDataManager(DataParameter<Optional<BlockPos>> key)
+	default BlockPos getBlockPosFromDataManager(EntityDataAccessor<Optional<BlockPos>> key)
 	{
 		try
 		{

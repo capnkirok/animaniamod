@@ -9,24 +9,22 @@ import com.animania.config.AnimaniaConfig;
 import mcjty.theoneprobe.api.IProbeHitEntityData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.level.Level;
 
 public class EntityPeafowlBase extends EntityAnimaniaPeacock implements TOPInfoProviderBase
 {
 
-	private static final DataParameter<Boolean> LAID = EntityDataManager.<Boolean>defineId(EntityPeafowlBase.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> LAID_TIMER = EntityDataManager.<Integer>defineId(EntityPeafowlBase.class, DataSerializers.INT);
+	private static final EntityDataAccessor<Boolean> LAID = SynchedEntityData.<Boolean>defineId(EntityPeafowlBase.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Integer> LAID_TIMER = SynchedEntityData.<Integer>defineId(EntityPeafowlBase.class, EntityDataSerializers.INT);
 	protected int laidTimer;
 	
-	public EntityPeafowlBase(World worldIn)
+	public EntityPeafowlBase(Level worldIn)
 	{
 		super(worldIn);
 		this.setSize(0.6F, 1.2F); 

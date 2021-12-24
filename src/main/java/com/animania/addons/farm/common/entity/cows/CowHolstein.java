@@ -2,7 +2,7 @@ package com.animania.addons.farm.common.entity.cows;
 
 import com.animania.addons.farm.common.handler.FarmAddonBlockHandler;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.UniversalBucket;
 
@@ -12,7 +12,7 @@ public class CowHolstein
 	public static class EntityBullHolstein extends EntityBullBase
 	{
 
-		public EntityBullHolstein(World world)
+		public EntityBullHolstein(Level world)
 		{
 			super(world);
 			this.cowType = CowType.HOLSTEIN;
@@ -35,7 +35,7 @@ public class CowHolstein
 	public static class EntityCalfHolstein extends EntityCalfBase
 	{
 
-		public EntityCalfHolstein(World world)
+		public EntityCalfHolstein(Level world)
 		{
 			super(world);
 			this.cowType = CowType.HOLSTEIN;
@@ -58,7 +58,7 @@ public class CowHolstein
 	public static class CowEntityHolstein extends CowEntityBase
 	{
 
-		public CowEntityHolstein(World world)
+		public CowEntityHolstein(Level world)
 		{
 			super(world);
 			this.cowType = CowType.HOLSTEIN;

@@ -14,8 +14,7 @@ import com.animania.common.items.ItemEntityEgg;
 
 import net.minecraft.entity.merchant.villager.VillagerEntity.ListItemForEmeralds;
 import net.minecraft.entity.merchant.villager.VillagerEntity.PriceInfo;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.item.Item;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.VillagerRegistry.VillagerCareer;

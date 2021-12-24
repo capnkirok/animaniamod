@@ -1,11 +1,11 @@
 package com.animania.addons.extra.common.entity.rodents;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class EntityHedgehogAlbino extends EntityHedgehogBase
 {
 
-	public EntityHedgehogAlbino(World worldIn)
+	public EntityHedgehogAlbino(Level worldIn)
 	{
 		super(worldIn);
 		this.type = HedgehogType.ALBINO;

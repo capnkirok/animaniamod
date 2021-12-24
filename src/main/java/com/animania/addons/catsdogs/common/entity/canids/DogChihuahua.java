@@ -1,6 +1,6 @@
 package com.animania.addons.catsdogs.common.entity.canids;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public class DogChihuahua
 {
@@ -8,7 +8,7 @@ public class DogChihuahua
 	public static class EntityPuppyChihuahua extends EntityPuppyBase
 	{
 
-		public EntityPuppyChihuahua(World world)
+		public EntityPuppyChihuahua(Level world)
 		{
 			super(world);
 			this.type = DogType.CHIHUAHUA;

@@ -10,8 +10,8 @@ import com.animania.manual.gui.GuiManual;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.IResource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 
 public class ImageComponent implements IManualComponent
 {
@@ -49,7 +49,7 @@ public class ImageComponent implements IManualComponent
 
 		try
 		{
-			IResource resource = mc.getResourceManager().getResource(image);
+			Resource resource = mc.getResourceManager().getResource(image);
 			if (resource != null)
 			{
 				InputStream stream = resource.getInputStream();

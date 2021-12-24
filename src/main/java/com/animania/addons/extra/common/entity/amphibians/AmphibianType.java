@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import com.animania.Animania;
 import com.animania.api.interfaces.AnimaniaType;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 public enum AmphibianType implements AnimaniaType
 {
@@ -23,12 +23,12 @@ public enum AmphibianType implements AnimaniaType
 	
 
 	@Override
-	public EntityAmphibian getMale(World world)
+	public EntityAmphibian getMale(Level world)
 	{
 		Constructor<?> constructor = null;
 		try
 		{
-			constructor = this.male.getConstructor(World.class);
+			constructor = this.male.getConstructor(Level.class);
 		}
 		catch (NoSuchMethodException | SecurityException e)
 		{
@@ -47,14 +47,14 @@ public enum AmphibianType implements AnimaniaType
 	}
 
 	@Override
-	public EntityAmphibian getFemale(World world)
+	public EntityAmphibian getFemale(Level world)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public EntityAmphibian getChild(World world)
+	public EntityAmphibian getChild(Level world)
 	{
 		// TODO Auto-generated method stub
 		return null;

@@ -5,9 +5,8 @@ import com.animania.addons.farm.common.entity.goats.GoatKinder.EntityKidKinder;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.entity.LivingEntity;
 
 public class ModelKidKinder extends ModelBase
 {	

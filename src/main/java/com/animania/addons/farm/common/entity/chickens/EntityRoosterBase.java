@@ -13,28 +13,26 @@ import com.animania.compat.top.providers.entity.TOPInfoProviderBase;
 import com.animania.config.AnimaniaConfig;
 import com.google.common.base.Predicate;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.world.World;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.level.Level;
 
 public class EntityRoosterBase extends EntityAnimaniaChicken implements TOPInfoProviderBase
 {
 
-	protected static final DataParameter<Integer> CROWTIMER = EntityDataManager.<Integer> defineId(EntityRoosterBase.class, DataSerializers.INT);
-	protected static final DataParameter<Integer> CROWDURATION = EntityDataManager.<Integer> defineId(EntityRoosterBase.class, DataSerializers.INT);
+	protected static final EntityDataAccessor<Integer> CROWTIMER = SynchedEntityData.<Integer> defineId(EntityRoosterBase.class, EntityDataSerializers.INT);
+	protected static final EntityDataAccessor<Integer> CROWDURATION = SynchedEntityData.<Integer> defineId(EntityRoosterBase.class, EntityDataSerializers.INT);
 
-	public EntityRoosterBase(World worldIn)
+	public EntityRoosterBase(Level worldIn)
 	{
 		super(worldIn);
 		this.setSize(0.6F, 0.8F);

@@ -10,20 +10,18 @@ import com.animania.common.tileentities.handler.FluidHandlerTrough;
 import com.animania.common.tileentities.handler.ItemHandlerTrough;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.client.renderer.texture.ITickable;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Connection;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class TileEntityTrough extends TileEntity implements ITickable, IFoodProviderTE
+public class TileEntityTrough extends BlockEntity implements Tickable, IFoodProviderTE
 {
 	protected TroughContent troughType;
 	private int troughRotation;
@@ -42,7 +40,7 @@ public class TileEntityTrough extends TileEntity implements ITickable, IFoodProv
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt)
+	public void onDataPacket(Connection net, SPacketUpdateTileEntity pkt)
 	{
 		this.readFromNBT(pkt.getNbtCompound());
 		if (this.blockType != null && this.pos != null)

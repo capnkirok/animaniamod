@@ -2,7 +2,7 @@ package com.animania.addons.extra.common.handler;
 
 import com.animania.Animania;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 
 public class ExtraAddonLootTableHandler

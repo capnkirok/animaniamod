@@ -10,15 +10,15 @@ import com.animania.addons.farm.common.entity.goats.EntityKidBase;
 import com.animania.common.helper.AnimaniaHelper;
 import com.animania.config.AnimaniaConfig;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.level.Level;
 
 public class ButtHeadsGoatsGoal extends Goal
 {
 	private final EntityAnimaniaGoat theAnimal;
-	World theWorld;
-	private AnimalEntity targetMate;
+	Level theWorld;
+	private Animal targetMate;
 	int fightTimer;
 	double moveSpeed;
 	private int delayCounter;
